@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VYVRE Scan Engine — Test Page</title>
+  <style>
+    :root {
+      --bg: #0a0d12;
+      --panel: #11161e;
+      --border: #1f2731;
+      --text: #e6e8eb;
+      --text-dim: #8a93a1;
+      --accent: #00d4ff;
+      --accent-dim: #006e87;
+      --green: #4ade80;
+      --red: #f87171;
+      --yellow: #fbbf24;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'SF Mono', 'Monaco', 'Inconsolata', 'Courier New', monospace;
+      padding: 24px;
+      line-height: 1.5;
+    }
+    h1 {
+      font-size: 18px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+      color: var(--accent);
+    }
+    h2 {
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+      margin: 24px 0 12px;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+    }
+    .subtitle {
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-bottom: 24px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    @media (max-width: 760px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+    }
+    button {
+      background: var(--accent-dim);
+      color: var(--text);
+      border: 1px solid var(--accent);
+      padding: 10px 18px;
+      font-family: inherit;
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      cursor: pointer;
+      border-radius: 4px;
+      transition: all 0.2s;
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+    button:hover:not(:disabled) {
+      background: var(--accent);
+      color: var(--bg);
+    }
+    button:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+    }
+    video {
+      width: 100%;
+      max-width: 100%;
+      background: #000;
+      border-radius: 4px;
+      transform: scaleX(-1);  /* mirror selfie */
+    }
+    .bar-row {
+      display: grid;
+      grid-template-columns: 110px 1fr 50px;
+      gap: 12px;
+      align-items: center;
+      margin: 8px 0;
+      font-size: 11px;
+    }
+    .bar-label {
+      color: var(--text-dim);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .bar-bg {
+      height: 6px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-dim), var(--accent));
+      width: 0;
+      transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .bar-value {
+      text-align: right;
+      color: var(--accent);
+      font-weight: 600;
+    }
+    pre {
+      background: rgba(0, 0, 0, 0.4);
+      padding: 12px;
+      border-radius: 4px;
+      font-size: 10px;
+      overflow-x: auto;
+      color: var(--text-dim);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .status {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 3px;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .status.ready { background: var(--green); color: #000; }
+    .status.scanning { background: var(--yellow); color: #000; }
+    .status.error { background: var(--red); color: #fff; }
+    .status.idle { background: var(--border); color: var(--text-dim); }
+    .raw-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      font-size: 11px;
+    }
+    .raw-grid .key { color: var(--text-dim); }
+    .raw-grid .val { color: var(--accent); text-align: right; }
+    #log {
+      font-size: 10px;
+      max-height: 200px;
+      overflow-y: auto;
+    }
+    .log-line { margin: 2px 0; }
+    .log-line.error { color: var(--red); }
+    .log-line.warn { color: var(--yellow); }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>VYVRE Scan Engine — Test Page</h1>
+    <p class="subtitle">
+      Real-time skin biomarker analysis · CIE LAB pipeline · peer-reviewed formulas
+      <span id="engine-status" class="status idle">Loading…</span>
+    </p>
+
+    <div class="grid">
+      <!-- LEFT: Camera + controls -->
+      <div class="panel">
+        <h2>Camera</h2>
+        <video id="video" autoplay playsinline muted></video>
+        <div style="margin-top: 12px;">
+          <button id="btn-start">Start Camera</button>
+          <button id="btn-scan" disabled>Run Real Scan</button>
+          <button id="btn-stop" disabled>Stop Camera</button>
+        </div>
+        <div style="margin-top: 12px;">
+          <button id="btn-cielab-test">Run CIE LAB Self-Test</button>
+        </div>
+        <h2>Logs</h2>
+        <div id="log"></div>
+      </div>
+
+      <!-- RIGHT: Scores + raw values -->
+      <div class="panel">
+        <h2>8 Biomarker Scores (0-100)</h2>
+        <div id="scores">
+          <div class="bar-row">
+            <div class="bar-label">Hydration</div>
+            <div class="bar-bg"><div class="bar-fill" data-target="0" data-concern="hydration"></div></div>
+            <div class="bar-value" data-value="hydration">—</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">Wrinkles</div>
+            <div class="bar-bg"><div class="bar-fill" data-target="0" data-concern="wrinkles"></div></div>
+            <div class="bar-value" data-value="wrinkles">—</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">Pigmentation</div>
+            <div class="bar-bg"><div class="bar-fill" data-target="0" data-concern="pigmentation"></div></div>
+            <div class="bar-value" data-value="pigmentation">—</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">Pores</div>
+            <div class="bar-bg"><div class="bar-fill" data-target="0" data-concern="pores"></div></div>
+            <div class="bar-value" data-value="pores">—</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">Glow</div>
+            <div class="bar-bg"><div class="bar-fill" data-target="0" data-concern="glow"></div></div>
+            <div class="bar-value" data-value="glow">—</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">Firmness</div>
+            <div class="bar-bg"><div class="bar-fill" data-target="0" data-concern="firmness"></div></div>
+            <div class="bar-value" data-value="firmness">—</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">Redness</div>
+            <div class="bar-bg"><div class="bar-fill" data-target="0" data-concern="redness"></div></div>
+            <div class="bar-value" data-value="redness">—</div>
+          </div>
+          <div class="bar-row">
+            <div class="bar-label">Sebum</div>
+            <div class="bar-bg"><div class="bar-fill" data-target="0" data-concern="sebum"></div></div>
+            <div class="bar-value" data-value="sebum">—</div>
+          </div>
+        </div>
+
+        <h2>Raw CIE LAB + Indices</h2>
+        <div class="raw-grid" id="raw">
+          <div class="key">L* (lightness)</div>     <div class="val" data-raw="L">—</div>
+          <div class="key">a* (red/green)</div>     <div class="val" data-raw="a">—</div>
+          <div class="key">b* (yellow/blue)</div>   <div class="val" data-raw="b">—</div>
+          <div class="key">ITA° (Chardon)</div>     <div class="val" data-raw="ita">—</div>
+          <div class="key">Fitzpatrick</div>         <div class="val" data-raw="fitz">—</div>
+          <div class="key">MI (Takiwaki)</div>      <div class="val" data-raw="MI">—</div>
+          <div class="key">EI (Yamamoto)</div>      <div class="val" data-raw="EI">—</div>
+          <div class="key">Sebum (Mizukoshi)</div>  <div class="val" data-raw="sebum">—</div>
+          <div class="key">TEWL σL* (Stamatas)</div><div class="val" data-raw="tewl">—</div>
+        </div>
+
+        <h2>Diagnostics</h2>
+        <pre id="diag">Awaiting scan…</pre>
+      </div>
+    </div>
+  </div>
+
+  <!-- face-api.js (optional, for ROI detection — fallback à central region si absent) -->
+  <script src="https://cdn.jsdelivr.net/npm/@vladmandic/face-api/dist/face-api.min.js"></script>
+  <!-- VYVRE Scan Engine -->
+  <script src="./vyvre-scan-engine.js"></script>
+
+  <script>
+    // ====== UI logic ======
+    const $ = (sel) => document.querySelector(sel);
+    const video = $('#video');
+    const btnStart = $('#btn-start');
+    const btnScan = $('#btn-scan');
+    const btnStop = $('#btn-stop');
+    const btnTest = $('#btn-cielab-test');
+    const statusEl = $('#engine-status');
+    const logEl = $('#log');
+    const diag = $('#diag');
+
+    let stream = null;
+
+    function log(msg, level) {
+      const line = document.createElement('div');
+      line.className = 'log-line' + (level ? ' ' + level : '');
+      const ts = new Date().toLocaleTimeString();
+      line.textContent = `[${ts}] ${msg}`;
+      logEl.insertBefore(line, logEl.firstChild);
+    }
+
+    function setStatus(text, cls) {
+      statusEl.textContent = text;
+      statusEl.className = 'status ' + (cls || 'idle');
+    }
+
+    // Hook console messages
+    const origLog = console.log, origWarn = console.warn, origErr = console.error;
+    console.log = function () {
+      const m = Array.from(arguments).map(String).join(' ');
+      if (m.startsWith('[vyvre-scan]')) log(m);
+      origLog.apply(console, arguments);
+    };
+    console.warn = function () {
+      const m = Array.from(arguments).map(String).join(' ');
+      if (m.startsWith('[vyvre-scan]')) log(m, 'warn');
+      origWarn.apply(console, arguments);
+    };
+    console.error = function () {
+      const m = Array.from(arguments).map(String).join(' ');
+      if (m.startsWith('[vyvre-scan]')) log(m, 'error');
+      origErr.apply(console, arguments);
+    };
+
+    // Engine ready?
+    function checkEngine() {
+      if (window.VYVRE_SCAN_ENGINE) {
+        setStatus('Ready · v' + window.VYVRE_SCAN_ENGINE.version, 'ready');
+      } else {
+        setTimeout(checkEngine, 100);
+      }
+    }
+    checkEngine();
+
+    btnStart.addEventListener('click', async () => {
+      try {
+        setStatus('Starting camera…', 'scanning');
+        log('Requesting camera access…');
+        stream = await window.VYVRE_SCAN_ENGINE.startCamera();
+        video.srcObject = stream;
+        await video.play();
+        log('Camera started: ' + video.videoWidth + 'x' + video.videoHeight);
+        setStatus('Camera live', 'ready');
+        btnStart.disabled = true;
+        btnScan.disabled = false;
+        btnStop.disabled = false;
+      } catch (e) {
+        log('Camera error: ' + e.message, 'error');
+        setStatus('Camera denied', 'error');
+      }
+    });
+
+    btnStop.addEventListener('click', () => {
+      if (stream) {
+        stream.getTracks().forEach(t => t.stop());
+        stream = null;
+      }
+      video.srcObject = null;
+      btnStart.disabled = false;
+      btnScan.disabled = true;
+      btnStop.disabled = true;
+      setStatus('Idle', 'idle');
+      log('Camera stopped');
+    });
+
+    btnScan.addEventListener('click', async () => {
+      setStatus('Scanning… (~5s)', 'scanning');
+      btnScan.disabled = true;
+      log('Starting real scan multi-frame (8 frames over 5s)…');
+      diag.textContent = 'Capturing frames…';
+      try {
+        const result = await window.VYVRE_SCAN_ENGINE.runRealScan(video);
+        if (!result) {
+          throw new Error('runRealScan returned null');
+        }
+        renderResult(result);
+        setStatus('Scan complete · ' + result.framesAccepted + '/' + result.framesAttempted + ' frames', 'ready');
+        log('Scan SUCCESS: ' + result.framesAccepted + '/' + result.framesAttempted + ' frames accepted');
+      } catch (e) {
+        log('Scan FAILED: ' + e.message, 'error');
+        setStatus('Scan failed', 'error');
+        diag.textContent = 'Error: ' + e.message;
+      }
+      btnScan.disabled = false;
+    });
+
+    btnTest.addEventListener('click', () => {
+      log('Running CIE LAB self-test (check browser console for full output)…');
+      const result = window.VYVRE_SCAN_ENGINE_TEST();
+      const msg = `${result.pass}/${result.total} tests passed`;
+      log(msg, result.allPassed ? null : 'error');
+      const lines = result.results.map(r =>
+        (r.ok ? '[PASS]' : '[FAIL]') + ' ' + r.name +
+        ' → L=' + r.got.L.toFixed(2) + ' a=' + r.got.a.toFixed(2) + ' b=' + r.got.b.toFixed(2)
+      );
+      diag.textContent = 'CIE LAB Self-Test Results:\n' + lines.join('\n') + '\n\n' + msg;
+    });
+
+    function renderResult(result) {
+      const scores = result.scores;
+      const raw = result.raw;
+
+      // Animate bars
+      for (const concern of Object.keys(scores)) {
+        const bar = document.querySelector(`.bar-fill[data-concern="${concern}"]`);
+        const val = document.querySelector(`[data-value="${concern}"]`);
+        if (bar) {
+          bar.dataset.target = scores[concern];
+          bar.style.width = scores[concern] + '%';
+        }
+        if (val) val.textContent = scores[concern];
+      }
+
+      // Raw indices
+      const setRaw = (key, value, fixed) => {
+        const el = document.querySelector(`[data-raw="${key}"]`);
+        if (el) el.textContent = typeof value === 'number' ? value.toFixed(fixed || 2) : value;
+      };
+      setRaw('L', raw.L);
+      setRaw('a', raw.a);
+      setRaw('b', raw.b);
+      setRaw('ita', raw.ita, 1);
+      setRaw('fitz', 'I-VI: ' + raw.fitz);
+      setRaw('MI', raw.MI, 1);
+      setRaw('EI', raw.EI, 1);
+      setRaw('sebum', (raw.sebum * 100).toFixed(1) + ' %');
+      setRaw('tewl', raw.tewl, 2);
+
+      diag.textContent = JSON.stringify({
+        framesAccepted: result.framesAccepted,
+        framesAttempted: result.framesAttempted,
+        scores,
+        raw: {
+          L: +raw.L.toFixed(2), a: +raw.a.toFixed(2), b: +raw.b.toFixed(2),
+          ita: +raw.ita.toFixed(2), fitz: raw.fitz,
+          MI: +raw.MI.toFixed(2), EI: +raw.EI.toFixed(2),
+          sebum: +raw.sebum.toFixed(4), tewl: +raw.tewl.toFixed(2),
+          avgRed: +raw.avgRed.toFixed(3), avgGreen: +raw.avgGreen.toFixed(3),
+          avgLum: +raw.avgLum.toFixed(3)
+        }
+      }, null, 2);
+    }
+
+    // Listen for auto-scan events
+    window.addEventListener('vyvre:scan-complete', (ev) => {
+      log('Event vyvre:scan-complete received');
+      renderResult(ev.detail);
+    });
+
+    log('Page loaded. Click "Start Camera" then "Run Real Scan".');
+  </script>
+</body>
+</html>
