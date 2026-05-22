@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { -webkit-font-smoothing: antialiased; }
+  body { background: #0A0A0A; color: #F4F1EA; }
+  ::selection { background: #C8A96E; color: #0A0A0A; }
+}
+
+@layer components {
+  .glass {
+    background: rgba(244, 241, 234, 0.04);
+    border: 1px solid rgba(244, 241, 234, 0.08);
+    backdrop-filter: blur(20px);
+  }
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-7 py-3.5 bg-text text-bg text-[13px] font-medium tracking-[0.15em] uppercase no-underline transition-opacity duration-200 hover:opacity-90;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-7 py-3.5 border border-text/30 text-text text-[13px] font-medium tracking-[0.15em] uppercase no-underline transition-colors duration-200 hover:bg-text hover:text-bg;
+  }
+}
