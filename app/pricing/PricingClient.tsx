@@ -1,7 +1,8 @@
 'use client';
 
 /**
- * VYVRE Pricing — Client component (toggle monthly/annual + CTA clicks)
+ * VYVRE Pricing — Client component (style AURA·OS V6)
+ * Gradient radial gris ultra-marqué + label mono top-right + Inter weight 300
  */
 
 import { useState } from 'react';
@@ -23,6 +24,39 @@ function buildLink(baseUrl: string, brandSlug: string, tier: string): string {
   return `${baseUrl}${sep}client_reference_id=${encodeURIComponent(ref)}`;
 }
 
+// Style AURA·OS V6 partagé entre cards
+const CARD_STYLE: React.CSSProperties = {
+  position: 'relative',
+  background: `
+    radial-gradient(ellipse 140% 100% at 50% -15%, rgba(235,235,240,0.78) 0%, rgba(180,180,188,0.55) 15%, rgba(110,110,118,0.32) 35%, rgba(50,50,58,0.15) 55%, transparent 75%),
+    linear-gradient(180deg, rgba(255,255,255,0.06) 0%, transparent 40%),
+    #000
+  `,
+  border: '1px solid rgba(255,255,255,0.1)',
+  borderRadius: '28px',
+  padding: '32px 28px 40px',
+  overflow: 'hidden',
+  display: 'flex',
+  flexDirection: 'column',
+  minHeight: '440px',
+};
+
+const CARD_RECOMMENDED: React.CSSProperties = {
+  ...CARD_STYLE,
+  border: '1px solid rgba(255,255,255,0.18)',
+  boxShadow: '0 30px 80px rgba(255,255,255,0.05)',
+};
+
+const VIGNETTE: React.CSSProperties = {
+  content: '',
+  position: 'absolute',
+  inset: 0,
+  borderRadius: '28px',
+  background: 'radial-gradient(ellipse 100% 80% at 50% 110%, rgba(0,0,0,0.85) 0%, transparent 60%)',
+  pointerEvents: 'none',
+  zIndex: 1,
+};
+
 export default function PricingClient({ brandSlug }: { brandSlug: string }) {
   const [annual, setAnnual] = useState(false);
 
@@ -35,7 +69,7 @@ export default function PricingClient({ brandSlug }: { brandSlug: string }) {
     <section className="px-8 pb-12">
       <div className="max-w-7xl mx-auto">
 
-        {/* Toggle */}
+        {/* Toggle Mensuel / Annuel */}
         <div className="flex justify-center mb-10">
           <div className="inline-flex items-center gap-1 p-1 border border-line rounded-full text-xs font-mono tracking-[0.12em] uppercase backdrop-blur">
             <button
@@ -49,10 +83,9 @@ export default function PricingClient({ brandSlug }: { brandSlug: string }) {
           </div>
         </div>
 
-        {/* 4 cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+        {/* 4 cards style V6 */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
 
-          {/* ── PILOT ── */}
           <Card
             tier="Pilot"
             price="Gratuit"
@@ -61,70 +94,60 @@ export default function PricingClient({ brandSlug }: { brandSlug: string }) {
             features={[
               '1 000 scans / mois',
               'SDK Web',
-              'Branding VYVRE par défaut',
+              'Branding VYVRE',
               'Support email 48h',
-              'Infrastructure France 🇫🇷',
+              'Infrastructure France',
             ]}
             ctaLabel="Démarrer gratuitement"
             ctaUrl={pilotLink}
             recommended={false}
           />
 
-          {/* ── STARTER ── */}
           <Card
             tier="Starter"
             price={annual ? '249 €' : '299 €'}
-            priceSuffix={annual ? '/mois' : '/mois'}
-            subtitle={annual ? '2 990 € facturé annuellement · 2 mois offerts' : '5 000 scans / mois · sans engagement'}
+            priceSuffix="/mois"
+            subtitle={annual ? '2 990 € / an · 2 mois offerts' : '5 000 scans / mois'}
             features={[
-              '5 000 scans / mois inclus',
-              '0,02 € par scan supplémentaire',
+              '5 000 scans / mois',
+              '0,02 € par scan supp.',
               'SDK Web + iOS + Android',
               'White-label complet',
-              'Dashboard analytics premium',
               'SLA 99.9% · support prioritaire',
-              'Onboarding 48h',
             ]}
             ctaLabel="Démarrer l'essai gratuit"
             ctaUrl={starterLink}
             recommended={false}
           />
 
-          {/* ── GROWTH (recommended) ── */}
           <Card
             tier="Growth"
             price={annual ? '415 €' : '499 €'}
             priceSuffix="/mois"
-            subtitle={annual ? '4 990 € facturé annuellement · 2 mois offerts' : '15 000 scans / mois · sans engagement'}
+            subtitle={annual ? '4 990 € / an · 2 mois offerts' : '15 000 scans / mois'}
             features={[
-              '15 000 scans / mois inclus',
-              '0,015 € par scan supplémentaire',
+              '15 000 scans / mois',
+              '0,015 € par scan supp.',
               'Tout Starter +',
               'Multi-marques (jusqu\'à 5)',
-              'Dashboard avancé multi-stores',
               'Account Manager dédié',
-              'Onboarding équipe sur site',
             ]}
             ctaLabel="Choisir Growth"
             ctaUrl={growthLink}
             recommended={true}
           />
 
-          {/* ── ENTERPRISE ── */}
           <Card
             tier="Enterprise"
             price={annual ? '582 €' : '699 €'}
             priceSuffix="/mois"
-            subtitle={annual ? 'à partir de · contrat annuel custom' : 'à partir de · sans engagement'}
+            subtitle={annual ? 'à partir de · contrat custom' : 'à partir de · sans engagement'}
             features={[
-              '25 000 scans / mois inclus',
-              '0,01 € par scan supplémentaire',
-              'Réseau illimité de boutiques',
-              'App mobile native (App Store)',
-              'API brute + intégrations custom',
-              'R&D conjointe × VYVRE Labs',
-              'SLA 99.99% · Account Director 24/7',
-              'Rapport data insights trimestriel',
+              '25 000 scans / mois',
+              '0,01 € par scan supp.',
+              'Réseau illimité boutiques',
+              'App mobile native',
+              'SLA 99.99% · Director 24/7',
             ]}
             ctaLabel="Nous contacter"
             ctaUrl={enterpriseLink}
@@ -133,8 +156,8 @@ export default function PricingClient({ brandSlug }: { brandSlug: string }) {
 
         </div>
 
-        {/* Trust signals */}
-        <div className="mt-12 text-center text-xs text-text/45 font-mono tracking-[0.15em] uppercase">
+        {/* Trust line */}
+        <div className="mt-10 text-center text-xs text-text/45 font-mono tracking-[0.18em] uppercase">
           Tarification publique · TVA en supplément · Annulation à tout moment
         </div>
       </div>
@@ -155,56 +178,146 @@ function Card({
   recommended: boolean;
 }) {
   return (
-    <div
-      className={`relative p-7 flex flex-col gap-5 border rounded-3xl ${
-        recommended
-          ? 'border-accent bg-accent/5 shadow-[0_0_60px_-20px_rgba(200,169,110,0.4)]'
-          : 'border-line bg-glass'
-      }`}
-      style={{
-        background: recommended
-          ? 'radial-gradient(ellipse at 0% 0%, rgba(200,169,110,0.08) 0%, rgba(200,169,110,0.02) 35%, rgba(255,255,255,0.005) 100%)'
-          : 'radial-gradient(ellipse at 0% 0%, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 35%, rgba(255,255,255,0.005) 100%)',
-      }}
-    >
-      {recommended && (
-        <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-bg px-4 py-1.5 text-[9px] tracking-[0.25em] uppercase font-semibold font-mono rounded-full">
-          Recommandé
-        </span>
-      )}
+    <div style={recommended ? CARD_RECOMMENDED : CARD_STYLE}>
+      {/* Vignette bottom dark */}
+      <div style={VIGNETTE} />
 
-      <div className="flex items-center gap-2">
-        <span className={`w-1.5 h-1.5 rounded-full ${recommended ? 'bg-accent' : 'bg-text/35'}`}></span>
-        <span className={`text-[10px] tracking-[0.3em] uppercase font-mono ${recommended ? 'text-accent' : 'text-text/65'}`}>{tier}</span>
-      </div>
-
-      <div>
-        <div className="font-sans text-5xl font-extralight leading-none -tracking-[0.03em]">
-          {price}
-          {priceSuffix && <span className="text-base text-text/55 ml-1 font-light tracking-normal">{priceSuffix}</span>}
-        </div>
-        <div className="text-[11px] text-text/55 font-mono mt-2 tracking-[0.05em]">{subtitle}</div>
-      </div>
-
-      <ul className="flex flex-col gap-2 flex-1">
-        {features.map((f, i) => (
-          <li key={i} className="text-[13px] text-text/80 leading-relaxed pl-4 relative">
-            <span className={`absolute left-0 ${recommended ? 'text-accent' : 'text-accent/70'}`}>·</span>
-            {f}
-          </li>
-        ))}
-      </ul>
-
-      <a
-        href={ctaUrl}
-        className={`block text-center py-3.5 text-xs tracking-[0.15em] uppercase font-medium transition-opacity rounded-full ${
-          recommended
-            ? 'bg-accent text-bg hover:opacity-90'
-            : 'border border-text/40 text-text hover:bg-text hover:text-bg'
-        }`}
+      {/* Label mono top-right (style V6 "Cible : XXX") */}
+      <span
+        style={{
+          position: 'absolute',
+          top: '26px',
+          right: '28px',
+          fontFamily: '"JetBrains Mono", "SF Mono", monospace',
+          fontSize: '10px',
+          letterSpacing: '0.4em',
+          textTransform: 'uppercase',
+          color: 'rgba(255,255,255,0.6)',
+          fontWeight: 400,
+          zIndex: 3,
+        }}
       >
-        {ctaLabel} →
-      </a>
+        {recommended ? `Plan : ${tier} · Recommandé` : `Plan : ${tier}`}
+      </span>
+
+      {/* Titre principal centré (Inter weight 300, style V6) */}
+      <div
+        style={{
+          position: 'relative',
+          zIndex: 2,
+          marginTop: '60px',
+          textAlign: 'center',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          flex: 1,
+        }}
+      >
+        {/* Prix (gros chiffre comme le score V6) */}
+        <div
+          style={{
+            fontFamily: '"Inter", "SF Pro Display", -apple-system, sans-serif',
+            fontSize: 'clamp(36px, 3vw, 48px)',
+            fontWeight: 200,
+            letterSpacing: '-0.035em',
+            lineHeight: 1,
+            color: '#FFFFFF',
+          }}
+        >
+          {price}
+          {priceSuffix && (
+            <span style={{ fontSize: '14px', color: 'rgba(255,255,255,0.55)', marginLeft: '6px', fontWeight: 300, letterSpacing: '0' }}>
+              {priceSuffix}
+            </span>
+          )}
+        </div>
+
+        <div
+          style={{
+            fontFamily: '"JetBrains Mono", monospace',
+            fontSize: '11px',
+            letterSpacing: '0.15em',
+            color: 'rgba(255,255,255,0.55)',
+            marginTop: '12px',
+            textAlign: 'center',
+          }}
+        >
+          {subtitle}
+        </div>
+
+        {/* Features list */}
+        <ul
+          style={{
+            listStyle: 'none',
+            padding: 0,
+            margin: '32px 0 0',
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '10px',
+            width: '100%',
+            textAlign: 'left',
+          }}
+        >
+          {features.map((f, i) => (
+            <li
+              key={i}
+              style={{
+                fontSize: '13px',
+                color: 'rgba(255,255,255,0.75)',
+                lineHeight: 1.55,
+                paddingLeft: '18px',
+                position: 'relative',
+                fontWeight: 300,
+              }}
+            >
+              <span
+                style={{
+                  position: 'absolute',
+                  left: 0,
+                  color: 'rgba(255,255,255,0.5)',
+                }}
+              >·</span>
+              {f}
+            </li>
+          ))}
+        </ul>
+
+        {/* CTA bottom */}
+        <a
+          href={ctaUrl}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginTop: 'auto',
+            paddingTop: '32px',
+            width: '100%',
+          }}
+        >
+          <span
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '16px 24px',
+              width: '100%',
+              fontFamily: '"JetBrains Mono", monospace',
+              fontSize: '11px',
+              letterSpacing: '0.28em',
+              textTransform: 'uppercase',
+              fontWeight: 500,
+              borderRadius: '20px',
+              transition: 'all 0.3s ease',
+              ...(recommended
+                ? { background: '#FFFFFF', color: '#000', boxShadow: '0 14px 36px rgba(255,255,255,0.12)' }
+                : { background: 'transparent', border: '1px solid rgba(255,255,255,0.18)', color: '#FFFFFF' }
+              ),
+            }}
+          >
+            {ctaLabel} →
+          </span>
+        </a>
+      </div>
     </div>
   );
 }

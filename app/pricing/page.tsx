@@ -86,19 +86,18 @@ export default function PricingPage({ searchParams }: PricingPageProps) {
         </section>
       )}
 
-      {/* ===== Hero ===== */}
-      <section className="px-8 py-16 md:py-24 text-center">
-        <div className="max-w-3xl mx-auto flex flex-col items-center gap-6">
-          <span className="text-[10px] tracking-[0.32em] uppercase text-accent font-mono">
-            VYVRE Business · SDK Licensing
+      {/* ===== Hero (style V6 minimal) ===== */}
+      <section className="px-8 py-20 md:py-28 text-center">
+        <div className="max-w-3xl mx-auto flex flex-col items-center gap-8">
+          <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-text/55">
+            Tarification · VYVRE Business
           </span>
-          <h1 className="font-sans text-5xl md:text-6xl font-extralight leading-[1.05] -tracking-[0.025em]">
-            Le seul diagnostic peau<br/>
-            <span className="text-accent font-light">avec un prix public</span>.
+          <h1 className="font-sans text-4xl md:text-5xl font-light leading-[1.05] -tracking-[0.022em]">
+            Le seul standard premium<br/>
+            <span className="text-text/60">compatible avec votre DPO.</span>
           </h1>
-          <p className="text-base text-text/55 max-w-xl leading-relaxed font-light">
-            Infrastructure 100% France 🇫🇷 · RGPD natif · On-device · Zéro upload<br/>
-            Scaleway Paris · Activation 48h
+          <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-text/45 max-w-xl leading-relaxed">
+            Infrastructure France · RGPD natif · On-device · Activation 48h
           </p>
         </div>
       </section>
