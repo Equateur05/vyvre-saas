@@ -67,7 +67,7 @@ export default function PricingPage({ searchParams }: PricingPageProps) {
           <span className="text-sm font-medium tracking-[0.18em]">VYVRE</span>
         </Link>
         <nav className="hidden md:flex items-center gap-8 text-xs tracking-[0.18em] uppercase text-text/60">
-          <a href="https://vyvre-demos.web.app/" target="_blank" rel="noopener" className="hover:text-text">Démos</a>
+          <a href="https://vyvre-demos.web.app/SCAN_LIVE_DEMO_VYVRE.html" target="_blank" rel="noopener" className="hover:text-text">Démo</a>
           <Link href="/pricing" className="text-text">Pricing</Link>
           <Link href="/dashboard" className="hover:text-text">Dashboard</Link>
         </nav>
