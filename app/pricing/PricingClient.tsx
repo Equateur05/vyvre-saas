@@ -37,7 +37,7 @@ export default function PricingClient({ brandSlug }: { brandSlug: string }) {
 
         {/* Toggle */}
         <div className="flex justify-center mb-10">
-          <div className="inline-flex items-center gap-1 p-1 border border-line rounded-full text-xs font-mono tracking-[0.12em] uppercase">
+          <div className="inline-flex items-center gap-1 p-1 border border-line rounded-full text-xs font-mono tracking-[0.12em] uppercase backdrop-blur">
             <button
               onClick={() => setAnnual(false)}
               className={`px-5 py-2 rounded-full transition-colors ${!annual ? 'bg-text text-bg' : 'text-text/55 hover:text-text'}`}
@@ -156,14 +156,19 @@ function Card({
 }) {
   return (
     <div
-      className={`relative p-7 flex flex-col gap-5 border ${
+      className={`relative p-7 flex flex-col gap-5 border rounded-3xl ${
         recommended
           ? 'border-accent bg-accent/5 shadow-[0_0_60px_-20px_rgba(200,169,110,0.4)]'
           : 'border-line bg-glass'
       }`}
+      style={{
+        background: recommended
+          ? 'radial-gradient(ellipse at 0% 0%, rgba(200,169,110,0.08) 0%, rgba(200,169,110,0.02) 35%, rgba(255,255,255,0.005) 100%)'
+          : 'radial-gradient(ellipse at 0% 0%, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 35%, rgba(255,255,255,0.005) 100%)',
+      }}
     >
       {recommended && (
-        <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-bg px-3 py-1 text-[9px] tracking-[0.25em] uppercase font-semibold font-mono">
+        <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-accent text-bg px-4 py-1.5 text-[9px] tracking-[0.25em] uppercase font-semibold font-mono rounded-full">
           Recommandé
         </span>
       )}
@@ -192,7 +197,7 @@ function Card({
 
       <a
         href={ctaUrl}
-        className={`block text-center py-3.5 text-xs tracking-[0.15em] uppercase font-medium transition-opacity ${
+        className={`block text-center py-3.5 text-xs tracking-[0.15em] uppercase font-medium transition-opacity rounded-full ${
           recommended
             ? 'bg-accent text-bg hover:opacity-90'
             : 'border border-text/40 text-text hover:bg-text hover:text-bg'

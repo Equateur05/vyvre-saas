@@ -75,8 +75,8 @@ export default function PricingPage({ searchParams }: PricingPageProps) {
 
       {/* ===== Brand personalization banner (only if ?from=BRAND) ===== */}
       {brandName && (
-        <section className="px-8 py-6 border-b border-line bg-accent/5">
-          <div className="max-w-5xl mx-auto flex items-center gap-4 text-sm">
+        <section className="px-8 py-4">
+          <div className="max-w-5xl mx-auto flex items-center gap-4 text-sm px-6 py-4 rounded-full bg-accent/5 border border-accent/20 backdrop-blur">
             <span className="text-accent text-lg">✓</span>
             <div>
               <span className="text-text">Vous venez de tester la démo {brandName}</span>
