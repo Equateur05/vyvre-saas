@@ -16,7 +16,7 @@ import PricingClient from './PricingClient';
 
 export const metadata = {
   title: 'Pricing · VYVRE',
-  description: 'Le seul diagnostic peau avec un prix public. Pilot gratuit, Scale 299€/mo, Growth 499€/mo, Enterprise sur devis.',
+  description: 'Le seul standard premium compatible avec votre DPO. Infrastructure France, RGPD natif, on-device. Pilot gratuit, Starter 299€/mo, Growth 499€/mo, Enterprise sur devis.',
 };
 
 // ── Brand display name mapping ──
