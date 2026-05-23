@@ -174,9 +174,9 @@ function Card({
       </div>
 
       <div>
-        <div className="font-serif text-5xl font-light leading-none">
+        <div className="font-sans text-5xl font-extralight leading-none -tracking-[0.03em]">
           {price}
-          {priceSuffix && <span className="text-base text-text/55 ml-1">{priceSuffix}</span>}
+          {priceSuffix && <span className="text-base text-text/55 ml-1 font-light tracking-normal">{priceSuffix}</span>}
         </div>
         <div className="text-[11px] text-text/55 font-mono mt-2 tracking-[0.05em]">{subtitle}</div>
       </div>

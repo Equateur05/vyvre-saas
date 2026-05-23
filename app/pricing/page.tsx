@@ -92,11 +92,11 @@ export default function PricingPage({ searchParams }: PricingPageProps) {
           <span className="text-[10px] tracking-[0.32em] uppercase text-accent font-mono">
             VYVRE Business · SDK Licensing
           </span>
-          <h1 className="font-serif text-5xl md:text-6xl font-light leading-[1.05] -tracking-[0.02em]">
+          <h1 className="font-sans text-5xl md:text-6xl font-extralight leading-[1.05] -tracking-[0.025em]">
             Le seul diagnostic peau<br/>
-            <em className="text-accent italic">avec un prix public</em>.
+            <span className="text-accent font-light">avec un prix public</span>.
           </h1>
-          <p className="text-base text-text/55 max-w-xl leading-relaxed">
+          <p className="text-base text-text/55 max-w-xl leading-relaxed font-light">
             Infrastructure 100% France 🇫🇷 · RGPD natif · On-device · Zéro upload<br/>
             Scaleway Paris · Activation 48h
           </p>
@@ -110,10 +110,10 @@ export default function PricingPage({ searchParams }: PricingPageProps) {
       <section className="px-8 py-20 border-t border-line">
         <div className="max-w-3xl mx-auto text-center flex flex-col items-center gap-4">
           <span className="text-[10px] tracking-[0.3em] uppercase text-accent font-mono">Pas encore prêt ?</span>
-          <h2 className="font-serif text-3xl md:text-4xl font-light">
+          <h2 className="font-sans text-3xl md:text-4xl font-extralight -tracking-[0.02em]">
             Réservez une démo de 20 minutes
           </h2>
-          <p className="text-text/55 max-w-lg">
+          <p className="text-text/55 max-w-lg font-light">
             Charles, fondateur, vous montre le widget en visio + répond à toutes vos questions techniques et contractuelles.
           </p>
           <a

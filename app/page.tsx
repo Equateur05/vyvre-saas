@@ -31,11 +31,11 @@ export default function HomePage() {
           <div className="text-[10px] tracking-[0.3em] uppercase text-accent font-mono">
             VYVRE Business · SDK Licensing
           </div>
-          <h1 className="font-serif text-5xl md:text-7xl font-light leading-[1.05] -tracking-[0.02em]">
+          <h1 className="font-sans text-5xl md:text-7xl font-extralight leading-[1.05] -tracking-[0.025em]">
             Le diagnostic peau<br />
-            <em className="text-accent italic">de votre marque</em>.
+            <span className="text-accent font-light">de votre marque</span>.
           </h1>
-          <p className="text-base md:text-lg text-text/65 leading-relaxed max-w-xl">
+          <p className="text-base md:text-lg text-text/65 leading-relaxed max-w-xl font-light">
             En 90 secondes. Hébergé en France. 100% on-device.<br />
             Le seul diagnostic peau avec un prix public.
           </p>
