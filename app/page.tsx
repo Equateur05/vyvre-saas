@@ -42,7 +42,7 @@ export default function HomePage() {
 
           <div className="flex flex-wrap items-center justify-center gap-4 mt-4">
             <a
-              href="https://vyvre-demos.web.app/SCAN_LIVE_DEMO_VINOTHERAPIE.html"
+              href="https://vyvre-demos.web.app/SCAN_LIVE_DEMO_VYVRE.html"
               target="_blank"
               rel="noopener"
               className="btn-primary"
