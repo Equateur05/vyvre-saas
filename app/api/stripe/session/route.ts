@@ -56,6 +56,19 @@ export async function GET(req: NextRequest) {
     });
   } catch (err) {
     const msg = err instanceof Error ? err.message : 'unknown error';
+
+    // Stripe throws StripeInvalidRequestError for malformed or non-existent
+    // session IDs. Surface those as 404 (not found) rather than a generic 500,
+    // so the /success page can distinguish "bad link" from "server error".
+    const e = err as { type?: string; code?: string; statusCode?: number };
+    if (
+      e?.type === 'StripeInvalidRequestError' ||
+      e?.code === 'resource_missing' ||
+      e?.statusCode === 404
+    ) {
+      return Response.json({ error: 'Session not found' }, { status: 404 });
+    }
+
     console.error('[api/stripe/session] failed:', msg, err);
     return Response.json({ error: msg }, { status: 500 });
   }
