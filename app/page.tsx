@@ -50,7 +50,7 @@ export default function HomePage() {
               Voir la démo →
             </a>
             <a
-              href="https://buy.stripe.com/5kQfZh2Ns17Zgrh0tI1VK0G"
+              href="https://buy.stripe.com/5kQfZh2Ns17Zgrh0tI1VK0G?client_reference_id=homepage_pilot"
               className="btn-secondary"
             >
               Démarrer gratuitement

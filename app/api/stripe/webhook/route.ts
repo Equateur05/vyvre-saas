@@ -52,6 +52,9 @@ export async function POST(req: NextRequest) {
   try {
     switch (event.type) {
       case 'checkout.session.completed':
+      case 'checkout.session.async_payment_succeeded':
+        // async_payment_succeeded fires for delayed payment methods (SEPA, etc.)
+        // We treat both identically — the session payload is the same shape.
         await handleCheckoutCompleted(event.data.object as Stripe.Checkout.Session);
         break;
 

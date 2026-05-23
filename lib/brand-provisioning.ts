@@ -21,6 +21,30 @@ export interface ProvisionInput {
   brandName?: string | null;
 }
 
+/**
+ * Derive a URL-safe slug from a brand name (or fall back to the email's local
+ * part, or finally the stripe_customer_id suffix). The slug is used as a stable
+ * brand identifier for the products catalog lookup on /widget/embed.
+ *
+ * Note: we suffix with a short random hash so two brands named "Test" don't
+ * collide. The slug column has a UNIQUE constraint in 003_brand_slugs.sql.
+ */
+function deriveSlug(
+  brandName: string | null | undefined,
+  email: string,
+  stripeCustomerId: string
+): string {
+  const base = (brandName || email.split('@')[0] || stripeCustomerId.replace(/^cus_/, ''))
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[̀-ͯ]/g, '') // strip accents
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+    .slice(0, 50);
+  const suffix = stripeCustomerId.slice(-6).toLowerCase().replace(/[^a-z0-9]/g, '');
+  return base ? `${base}-${suffix}` : `brand-${suffix}`;
+}
+
 export interface ProvisionResult {
   brand: Brand;
   isNew: boolean;
@@ -52,8 +76,9 @@ export async function provisionBrand(input: ProvisionInput): Promise<ProvisionRe
     throw new Error(`Unknown price ID: ${input.priceId} — cannot resolve plan`);
   }
 
-  // 3. Generate API key
+  // 3. Generate API key + slug
   const apiKey = generateApiKey();
+  const slug = deriveSlug(input.brandName, input.email, input.stripeCustomerId);
 
   // 4. Insert brand (with ON CONFLICT handling — if another concurrent request
   //    just created it, we'll re-fetch instead of erroring out)
@@ -62,6 +87,7 @@ export async function provisionBrand(input: ProvisionInput): Promise<ProvisionRe
     .insert({
       email: input.email,
       name: input.brandName ?? null,
+      slug,
       api_key: apiKey,
       plan,
       stripe_customer_id: input.stripeCustomerId,
