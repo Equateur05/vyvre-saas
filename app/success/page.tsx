@@ -49,7 +49,7 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
     return (
       <main className="min-h-screen flex items-center justify-center px-8 py-20">
         <div className="max-w-md text-center flex flex-col items-center gap-6">
-          <h1 className="font-serif text-4xl font-light">Session introuvable</h1>
+          <h1 className="font-sans text-4xl font-extralight -tracking-[0.02em]">Session introuvable</h1>
           <p className="text-text/60">L'URL ne contient pas de <code className="font-mono text-accent">session_id</code>.</p>
           <Link href="/" className="btn-secondary">Retour à l'accueil</Link>
         </div>
@@ -63,7 +63,7 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
     return (
       <main className="min-h-screen flex items-center justify-center px-8 py-20">
         <div className="max-w-md text-center flex flex-col items-center gap-6">
-          <h1 className="font-serif text-4xl font-light">Erreur de provisioning</h1>
+          <h1 className="font-sans text-4xl font-extralight -tracking-[0.02em]">Erreur de provisioning</h1>
           <p className="text-text/60">Impossible de récupérer la session Stripe. Si vous avez bien payé, vous recevrez votre embed code par email sous quelques minutes.</p>
           <p className="text-xs text-text/40 font-mono">Besoin d'aide ? <a href="mailto:charles@vyvre.fr" className="text-accent">charles@vyvre.fr</a></p>
         </div>
@@ -77,7 +77,7 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
       <main className="min-h-screen flex items-center justify-center px-8 py-20">
         <div className="max-w-md text-center flex flex-col items-center gap-6">
           <div className="w-12 h-12 border-2 border-accent border-t-transparent rounded-full animate-spin" />
-          <h1 className="font-serif text-3xl font-light">Activation en cours…</h1>
+          <h1 className="font-sans text-3xl font-extralight -tracking-[0.02em]">Activation en cours…</h1>
           <p className="text-text/60">Votre clé API arrive dans quelques secondes. Cette page se rafraîchira automatiquement.</p>
           <meta httpEquiv="refresh" content="3" />
         </div>
@@ -99,8 +99,8 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
         <div className="flex flex-col items-center gap-6 text-center">
           <CheckIcon />
           <div>
-            <h1 className="font-serif text-4xl md:text-5xl font-light leading-tight">
-              Bienvenue chez VYVRE <span className="text-accent">🇫🇷</span>
+            <h1 className="font-sans text-4xl md:text-5xl font-extralight -tracking-[0.025em] leading-tight">
+              Bienvenue chez VYVRE <span className="text-accent font-light">🇫🇷</span>
             </h1>
             <p className="mt-3 text-text/60">Votre plan <span className="text-text">{planLabel}</span> est activé. Votre widget est prêt à déployer.</p>
           </div>
@@ -140,7 +140,7 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
 
         {/* ===== Footer note ===== */}
         <div className="mt-8 pt-8 border-t border-line text-center">
-          <p className="font-serif italic text-lg text-text/80">Charles Rocher</p>
+          <p className="font-sans font-light text-lg text-text/80">Charles Rocher</p>
           <p className="text-sm text-text/60">Fondateur, VYVRE</p>
           <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-text/40 mt-2">vyvre.fr · Paris · France</p>
         </div>
