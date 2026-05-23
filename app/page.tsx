@@ -21,7 +21,7 @@ export default function HomePage() {
         <nav className="hidden md:flex items-center gap-8 text-xs tracking-[0.18em] uppercase text-text/60">
           <a href="https://vyvre-demos.web.app/SCAN_LIVE_DEMO_VYVRE.html" target="_blank" rel="noopener" className="hover:text-text">Démo</a>
           <Link href="/pricing" className="hover:text-text">Pricing</Link>
-          <Link href="/dashboard" className="hover:text-text">Dashboard</Link>
+          <a href="mailto:charles@vyvre.fr" className="hover:text-text">Contact</a>
         </nav>
       </header>
 
@@ -49,12 +49,9 @@ export default function HomePage() {
             >
               Voir la démo →
             </a>
-            <a
-              href="https://buy.stripe.com/5kQfZh2Ns17Zgrh0tI1VK0G?client_reference_id=homepage_pilot"
-              className="btn-secondary"
-            >
+            <Link href="/pricing?from=homepage" className="btn-secondary">
               Démarrer gratuitement
-            </a>
+            </Link>
           </div>
 
           <div className="text-xs text-text/40 tracking-[0.15em] uppercase mt-12 font-mono">
