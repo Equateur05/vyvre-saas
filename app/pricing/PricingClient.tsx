@@ -38,7 +38,7 @@ const CARD_STYLE: React.CSSProperties = {
   overflow: 'hidden',
   display: 'flex',
   flexDirection: 'column',
-  minHeight: '440px',
+  minHeight: '380px',
 };
 
 const CARD_RECOMMENDED: React.CSSProperties = {

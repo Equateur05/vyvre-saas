@@ -86,13 +86,13 @@ export default function PricingPage({ searchParams }: PricingPageProps) {
         </section>
       )}
 
-      {/* ===== Hero (style V6 minimal) ===== */}
-      <section className="px-8 py-20 md:py-28 text-center">
-        <div className="max-w-3xl mx-auto flex flex-col items-center gap-8">
+      {/* ===== Hero (style V6 minimal, compact) ===== */}
+      <section className="px-8 py-8 md:py-12 text-center">
+        <div className="max-w-3xl mx-auto flex flex-col items-center gap-4">
           <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-text/55">
             Tarification · VYVRE Business
           </span>
-          <h1 className="font-sans text-4xl md:text-5xl font-light leading-[1.05] -tracking-[0.022em]">
+          <h1 className="font-sans text-3xl md:text-4xl font-light leading-[1.05] -tracking-[0.022em]">
             Le seul standard premium<br/>
             <span className="text-text/60">compatible avec votre DPO.</span>
           </h1>
@@ -106,7 +106,7 @@ export default function PricingPage({ searchParams }: PricingPageProps) {
       <PricingClient brandSlug={brandSlug} />
 
       {/* ===== FAQ + Calendly ===== */}
-      <section className="px-8 py-20 border-t border-line">
+      <section className="px-8 py-12 border-t border-line">
         <div className="max-w-3xl mx-auto text-center flex flex-col items-center gap-4">
           <span className="text-[10px] tracking-[0.3em] uppercase text-accent font-mono">Pas encore prêt ?</span>
           <h2 className="font-sans text-3xl md:text-4xl font-extralight -tracking-[0.02em]">
