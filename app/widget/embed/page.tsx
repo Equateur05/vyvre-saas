@@ -90,8 +90,8 @@ export default async function WidgetEmbedPage({ searchParams }: WidgetEmbedProps
             </h1>
             <p style={{ opacity: 0.6, fontSize: 14, lineHeight: 1.6 }}>
               {locale === 'fr'
-                ? 'Cette API key VYVRE n\'est pas reconnue ou l\'abonnement a expiré. Contactez charles@vyvre.fr pour assistance.'
-                : 'This VYVRE API key is invalid or the subscription has expired. Contact charles@vyvre.fr for help.'}
+                ? 'Cette API key VYVRE n\'est pas reconnue ou l\'abonnement a expiré. Contactez charles@symphonydrive.com pour assistance.'
+                : 'This VYVRE API key is invalid or the subscription has expired. Contact charles@symphonydrive.com for help.'}
             </p>
           </div>
         </body>

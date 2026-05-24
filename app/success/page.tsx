@@ -65,7 +65,7 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
         <div className="max-w-md text-center flex flex-col items-center gap-6">
           <h1 className="font-sans text-4xl font-extralight -tracking-[0.02em]">Erreur de provisioning</h1>
           <p className="text-text/60">Impossible de récupérer la session Stripe. Si vous avez bien payé, vous recevrez votre embed code par email sous quelques minutes.</p>
-          <p className="text-xs text-text/40 font-mono">Besoin d'aide ? <a href="mailto:charles@vyvre.fr" className="text-accent">charles@vyvre.fr</a></p>
+          <p className="text-xs text-text/40 font-mono">Besoin d'aide ? <a href="mailto:charles@symphonydrive.com" className="text-accent">charles@symphonydrive.com</a></p>
         </div>
       </main>
     );
@@ -135,7 +135,7 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
         {/* ===== CTA Dashboard + Support ===== */}
         <div className="flex flex-col sm:flex-row gap-3 items-center pt-4">
           <Link href="/dashboard" className="btn-primary w-full sm:w-auto">Accéder à mon dashboard →</Link>
-          <a href="mailto:charles@vyvre.fr" className="text-sm text-text/60 hover:text-text underline underline-offset-4 decoration-text/30">Une question ? charles@vyvre.fr</a>
+          <a href="mailto:charles@symphonydrive.com" className="text-sm text-text/60 hover:text-text underline underline-offset-4 decoration-text/30">Une question ? charles@symphonydrive.com</a>
         </div>
 
         {/* ===== Footer note ===== */}

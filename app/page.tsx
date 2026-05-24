@@ -21,7 +21,7 @@ export default function HomePage() {
         <nav className="hidden md:flex items-center gap-8 text-xs tracking-[0.18em] uppercase text-text/60">
           <a href="https://vyvre-demos.web.app/SCAN_LIVE_DEMO_VYVRE.html" target="_blank" rel="noopener" className="hover:text-text">Démo</a>
           <Link href="/pricing" className="hover:text-text">Pricing</Link>
-          <a href="mailto:charles@vyvre.fr" className="hover:text-text">Contact</a>
+          <a href="mailto:charles@symphonydrive.com" className="hover:text-text">Contact</a>
         </nav>
       </header>
 
@@ -66,7 +66,7 @@ export default function HomePage() {
           VYVRE · Paris, France
         </div>
         <div className="flex items-center gap-6 font-mono tracking-[0.15em] uppercase">
-          <a href="mailto:charles@vyvre.fr" className="hover:text-text">charles@vyvre.fr</a>
+          <a href="mailto:charles@symphonydrive.com" className="hover:text-text">charles@symphonydrive.com</a>
           <a href="https://calendly.com/charles-symphonydrive" target="_blank" rel="noopener" className="hover:text-text">Réserver 20 min →</a>
         </div>
       </footer>

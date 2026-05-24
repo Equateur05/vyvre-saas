@@ -2,14 +2,14 @@
  * VYVRE × Resend — Transactional emails
  *
  * All emails are sent from `hello@vyvre.fr` (domain must be verified in Resend).
- * Reply-to: charles@vyvre.fr
+ * Reply-to: charles@symphonydrive.com
  */
 
 import { Resend } from 'resend';
 
 const resendApiKey = process.env.RESEND_API_KEY!;
 const fromEmail = process.env.RESEND_FROM_EMAIL || 'VYVRE <hello@vyvre.fr>';
-const replyTo = process.env.RESEND_REPLY_TO || 'charles@vyvre.fr';
+const replyTo = process.env.RESEND_REPLY_TO || 'charles@symphonydrive.com';
 const cdnUrl = process.env.NEXT_PUBLIC_CDN_URL || 'https://vyvre.fr';
 const appUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://vyvre.fr';
 
@@ -158,7 +158,7 @@ function renderWelcomeHtml({ brandName, apiKey, planLabel, embedCode }: {
 
         <hr style="border:0;border-top:1px solid #F0EBE0;margin:40px 0">
         <p style="font-size:15px;margin:0 0 24px">Une question, un blocage technique, un besoin de personnalisation ?<br>
-        <a href="mailto:charles@vyvre.fr" style="color:#1A1A18;text-decoration:underline">charles@vyvre.fr</a> répond sous 24h ouvrées.</p>
+        <a href="mailto:charles@symphonydrive.com" style="color:#1A1A18;text-decoration:underline">charles@symphonydrive.com</a> répond sous 24h ouvrées.</p>
         <a href="${appUrl}/dashboard" style="display:inline-block;padding:14px 28px;background:#1A1A18;color:#F4F1EA;text-decoration:none;font-size:13px;letter-spacing:.15em;text-transform:uppercase">Ouvrir le dashboard →</a>
         <hr style="border:0;border-top:1px solid #F0EBE0;margin:40px 0">
         <p style="font-family:'Cormorant Garamond',Georgia,serif;font-size:18px;color:#1A1A18;margin:0 0 4px;font-style:italic">Charles Rocher</p>
@@ -203,7 +203,7 @@ ${apiKey}
 ✓ Infrastructure France · RGPD natif
 ✓ Dashboard analytics temps réel
 
-Une question ? charles@vyvre.fr répond sous 24h.
+Une question ? charles@symphonydrive.com répond sous 24h.
 
 Dashboard : ${appUrl}/dashboard
 

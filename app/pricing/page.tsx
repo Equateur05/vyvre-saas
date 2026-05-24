@@ -69,7 +69,7 @@ export default function PricingPage({ searchParams }: PricingPageProps) {
         <nav className="hidden md:flex items-center gap-8 text-xs tracking-[0.18em] uppercase text-text/60">
           <a href="https://vyvre-demos.web.app/SCAN_LIVE_DEMO_VYVRE.html" target="_blank" rel="noopener" className="hover:text-text">Démo</a>
           <Link href="/pricing" className="text-text">Pricing</Link>
-          <a href="mailto:charles@vyvre.fr" className="hover:text-text">Contact</a>
+          <a href="mailto:charles@symphonydrive.com" className="hover:text-text">Contact</a>
         </nav>
       </header>
 
@@ -130,7 +130,7 @@ export default function PricingPage({ searchParams }: PricingPageProps) {
       <footer className="px-8 py-12 border-t border-line text-xs text-text/45 flex flex-wrap items-center justify-between gap-4 font-mono tracking-[0.15em] uppercase">
         <div>VYVRE · Paris, France 🇫🇷</div>
         <div className="flex items-center gap-6">
-          <a href="mailto:charles@vyvre.fr" className="hover:text-text">charles@vyvre.fr</a>
+          <a href="mailto:charles@symphonydrive.com" className="hover:text-text">charles@symphonydrive.com</a>
           <Link href="/" className="hover:text-text">Accueil</Link>
         </div>
       </footer>
