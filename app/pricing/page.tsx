@@ -326,7 +326,54 @@ export default function PricingPage({ searchParams }: PricingPageProps) {
         </div>
       </section>
 
-      {/* ===== FAQ + Calendly ===== */}
+      {/* ===== FAQ — 8 questions concrètes ===== */}
+      <section className="px-8 py-16 border-t border-line">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-10">
+            <span className="text-[10px] tracking-[0.3em] uppercase text-accent font-mono">Questions fréquentes</span>
+            <h2 className="font-sans text-2xl md:text-3xl font-extralight -tracking-[0.015em] text-text/85 mt-3">
+              Tout ce que vous voulez <em className="not-italic font-light text-accent" style={{ fontStyle: 'italic' }}>savoir.</em>
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <FAQItem
+              question="Combien de temps pour démarrer ?"
+              answer="48 heures du paiement au widget live. Vous recevez votre embed code par email, vous le collez sur votre site, c'est en production."
+            />
+            <FAQItem
+              question="Comment annuler mon abonnement ?"
+              answer="En un clic depuis votre dashboard. Aucune pénalité, aucune justification demandée. Le service reste actif jusqu'à la fin du mois en cours."
+            />
+            <FAQItem
+              question="Que se passe-t-il si je dépasse mon quota de scans ?"
+              answer="Le service continue. Chaque scan supplémentaire est facturé entre 0,01 € et 0,02 € selon votre plan, sur la facture du mois suivant."
+            />
+            <FAQItem
+              question="Où sont stockées les données utilisateurs ?"
+              answer="Exclusivement en France, sur les datacenters OVH Roubaix et Clever Cloud. RGPD natif. Aucun transfert hors UE."
+            />
+            <FAQItem
+              question="Puis-je changer de plan en cours de route ?"
+              answer="Oui, à tout moment depuis votre dashboard. Upgrade prorata immédiat, downgrade au mois suivant."
+            />
+            <FAQItem
+              question="Le widget est-il vraiment 100 % white-label ?"
+              answer="À partir du plan Starter, oui. Logo, couleurs, nom interface, domaine personnalisé sur demande. Aucune mention VYVRE visible côté client."
+            />
+            <FAQItem
+              question="Quel niveau de support technique ?"
+              answer="Support email sous 48h sur tous les plans. Support prioritaire avec Account Manager dédié à partir de Growth."
+            />
+            <FAQItem
+              question="Les produits matchés sont-ils paramétrables ?"
+              answer="Oui. Votre catalogue Supabase est entièrement éditable. Vous ajoutez, retirez, modifiez les produits depuis le dashboard."
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* ===== CTA Calendly ===== */}
       <section className="px-8 py-12 border-t border-line">
         <div className="max-w-3xl mx-auto text-center flex flex-col items-center gap-4">
           <span className="text-[10px] tracking-[0.3em] uppercase text-accent font-mono">Pas encore prêt ?</span>
@@ -347,12 +394,23 @@ export default function PricingPage({ searchParams }: PricingPageProps) {
         </div>
       </section>
 
-      {/* ===== Footer ===== */}
-      <footer className="px-8 py-12 border-t border-line text-xs text-text/45 flex flex-wrap items-center justify-between gap-4 font-mono tracking-[0.15em] uppercase">
-        <div>VYVRE · Paris, France 🇫🇷</div>
-        <div className="flex items-center gap-6">
-          <a href="mailto:charles@symphonydrive.com" className="hover:text-text">charles@symphonydrive.com</a>
-          <Link href="/" className="hover:text-text">Accueil</Link>
+      {/* ===== Footer · Conditions ===== */}
+      <footer className="px-8 py-12 border-t border-line">
+        <div className="max-w-5xl mx-auto">
+          {/* Conditions links */}
+          <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[10px] tracking-[0.3em] uppercase text-text/45 font-mono mb-6">
+            <Link href="/cgv" className="hover:text-accent transition-colors">CGV</Link>
+            <Link href="/mentions-legales" className="hover:text-accent transition-colors">Mentions légales</Link>
+            <Link href="/confidentialite" className="hover:text-accent transition-colors">Confidentialité</Link>
+            <Link href="/dpa" className="hover:text-accent transition-colors">DPA</Link>
+            <a href="mailto:charles@symphonydrive.com" className="hover:text-accent transition-colors">Contact</a>
+            <Link href="/" className="hover:text-accent transition-colors">Accueil</Link>
+          </div>
+
+          {/* Copyright + mentions */}
+          <div className="text-center text-[9px] tracking-[0.35em] uppercase text-text/30 font-mono">
+            VYVRE © 2026 · SAS au capital de 1 000 € · Paris, France · SIREN en cours
+          </div>
         </div>
       </footer>
     </main>
@@ -395,6 +453,27 @@ function ArgumentCard({
       <p className="text-[13px] text-text/65 leading-relaxed mt-3 font-light">
         {body}
       </p>
+    </div>
+  );
+}
+
+// ── FAQ Item (Q/R sobre) ──
+function FAQItem({
+  question,
+  answer,
+}: {
+  question: string;
+  answer: string;
+}) {
+  return (
+    <div
+      className="rounded-2xl p-5 bg-accent/[0.02] border border-line transition-colors hover:border-accent/30"
+    >
+      <p className="text-[13px] text-text font-light leading-snug mb-2">
+        <span className="font-mono text-[9px] tracking-[0.3em] uppercase text-accent mr-2 font-medium">Q.</span>
+        {question}
+      </p>
+      <p className="text-[12px] text-text/55 leading-relaxed font-light">{answer}</p>
     </div>
   );
 }
