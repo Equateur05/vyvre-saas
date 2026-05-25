@@ -2,22 +2,131 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ============================================================================
+   VYVRE — DA tokens signature (alignés PROTOCOL_DIOR ref)
+   ============================================================================ */
+:root {
+  /* ── Palette ── */
+  --bg: #000000;
+  --ink: #F5F4F0;
+  --ink-95: rgba(245,244,240,0.95);
+  --ink-70: rgba(245,244,240,0.70);
+  --ink-55: rgba(245,244,240,0.55);
+  --ink-30: rgba(245,244,240,0.30);
+  --ink-15: rgba(245,244,240,0.15);
+  --ink-08: rgba(255,255,255,0.08);
+  --ink-06: rgba(255,255,255,0.06);
+  --green: #7FE0A7;
+  --green-glow: rgba(127,224,167,0.5);
+  --champagne: #F0E5C8;
+
+  /* ── V6 round container gradient (signature VYVRE) ── */
+  --v6-bg:
+    radial-gradient(ellipse 130% 95% at 50% -20%,
+      rgba(245,245,250,0.92) 0%,
+      rgba(200,200,210,0.70) 12%,
+      rgba(140,140,150,0.45) 28%,
+      rgba(70,70,80,0.22) 50%,
+      transparent 75%
+    ),
+    linear-gradient(180deg, rgba(255,255,255,0.06) 0%, transparent 40%),
+    #050505;
+  --v6-bg-soft:
+    radial-gradient(ellipse 140% 100% at 50% -15%,
+      rgba(240,240,245,0.45) 0%,
+      rgba(160,160,168,0.25) 25%,
+      rgba(80,80,88,0.10) 50%,
+      transparent 75%
+    ),
+    #000;
+  --v6-border: 1px solid rgba(255,255,255,0.14);
+  --v6-radius: 36px;
+
+  /* ── Easing ── */
+  --ease: cubic-bezier(0.2,0.7,0.1,1);
+}
+
 @layer base {
   html { -webkit-font-smoothing: antialiased; }
-  body { background: #0A0A0A; color: #F4F1EA; }
-  ::selection { background: #C8A96E; color: #0A0A0A; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, sans-serif;
+    font-weight: 200;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  /* Aurora subtile noire-blanche-grise + green hint (signature) */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    background:
+      radial-gradient(ellipse 70% 50% at 50% 0%, rgba(255,255,255,0.025) 0%, transparent 70%),
+      radial-gradient(ellipse 80% 40% at 50% 100%, rgba(127,224,167,0.018) 0%, transparent 70%);
+  }
+  ::selection { background: var(--green); color: var(--bg); }
 }
 
 @layer components {
+  /* ── Glass (legacy, gardé pour compat) ── */
   .glass {
-    background: rgba(244, 241, 234, 0.04);
-    border: 1px solid rgba(244, 241, 234, 0.08);
+    background: rgba(245,244,240,0.04);
+    border: 1px solid rgba(245,244,240,0.08);
     backdrop-filter: blur(20px);
   }
+
+  /* ── V6 container (signature VYVRE — gradient radial gris) ── */
+  .v6 {
+    background: var(--v6-bg);
+    border: var(--v6-border);
+    border-radius: var(--v6-radius);
+    position: relative;
+    overflow: hidden;
+  }
+  .v6::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--v6-radius);
+    background: radial-gradient(ellipse 100% 80% at 50% 110%, rgba(0,0,0,0.85) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 1;
+  }
+  .v6 > * { position: relative; z-index: 2; }
+
+  .v6-soft {
+    background: var(--v6-bg-soft);
+    border: var(--v6-border);
+    border-radius: var(--v6-radius);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ── Buttons ── */
   .btn-primary {
     @apply inline-flex items-center justify-center px-7 py-3.5 bg-text text-bg text-[13px] font-medium tracking-[0.15em] uppercase no-underline transition-opacity duration-200 hover:opacity-90;
   }
   .btn-secondary {
     @apply inline-flex items-center justify-center px-7 py-3.5 border border-text/30 text-text text-[13px] font-medium tracking-[0.15em] uppercase no-underline transition-colors duration-200 hover:bg-text hover:text-bg;
   }
+
+  /* ── Mini-lattice brand mark ── */
+  .brand-mark {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--ink);
+  }
+  .brand-mark canvas {
+    width: 36px;
+    height: 36px;
+    display: block;
+  }
 }
+
+/* Layer order — page content above aurora */
+main, header, footer, section { position: relative; z-index: 1; }
