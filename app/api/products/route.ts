@@ -99,7 +99,11 @@ function normalizeConcernScores(raw: unknown): Record<string, number> | null {
 export async function GET(req: NextRequest) {
   const slug = req.nextUrl.searchParams.get('brand');
 
-  if (!isValidSlug(slug)) {
+  // Special case : brand=all or brand=universal returns merged catalog across all brands.
+  // Used by the white-label demo page (VYVRE_UNIVERSAL.html on Firebase Hosting).
+  const isUniversal = slug === 'all' || slug === 'universal' || slug === 'vyvre-universal';
+
+  if (!isUniversal && !isValidSlug(slug)) {
     return jsonResponse(
       { error: 'Missing or invalid `brand` query parameter' },
       { status: 400 }
@@ -115,6 +119,43 @@ export async function GET(req: NextRequest) {
       { error: 'Backend not configured' },
       { status: 503, headers: { 'Cache-Control': 'no-store' } }
     );
+  }
+
+  // ─── Universal mode : pull all products from all brands ───
+  if (isUniversal) {
+    const { data: allProducts, error: allErr } = await supabase
+      .from('products')
+      .select('id, name, image_url, url, price_eur, currency, targets, concern_scores, position')
+      .order('position', { ascending: true })
+      .limit(1000);
+
+    if (allErr) {
+      console.error('[/api/products universal] fetch error:', allErr);
+      return jsonResponse(
+        { error: 'Database error' },
+        { status: 500, headers: { 'Cache-Control': 'no-store' } }
+      );
+    }
+
+    const normalizedAll: ProductResponse[] = (allProducts as ProductRow[] | null ?? []).map(
+      (p, idx) => ({
+        id: p.id,
+        name: p.name,
+        image_url: p.image_url,
+        url: p.url,
+        price_eur: p.price_eur,
+        currency: p.currency ?? 'EUR',
+        targets: normalizeTargets(p.targets),
+        concern_scores: normalizeConcernScores(p.concern_scores),
+        position: p.position ?? idx,
+      })
+    );
+
+    return jsonResponse({
+      brand: 'vyvre-universal',
+      brand_name: 'VYVRE Universal',
+      products: normalizedAll,
+    });
   }
 
   // 1. Look up the brand by slug

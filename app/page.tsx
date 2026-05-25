@@ -1,11 +1,17 @@
 /**
  * VYVRE — Landing page (vyvre.fr)
  *
- * Refonte DA alignée PROTOCOL_DIOR ref :
- * - Mini lattice 3D logo (Three.js script)
- * - V6 containers gradient radial
- * - Inter weight 200 + JetBrains Mono labels
- * - Sections riches : hero + stats + comment ça marche + démo embed + pricing teaser + FAQ + footer
+ * Sections (ordre Apple keynote):
+ * 1. Header (mini-lattice + nav)
+ * 2. Hero (titre + CTAs + 4 stats V6 dans le viewport)
+ * 3. Intro Apple style ("Une nouvelle norme")
+ * 4. Argument massue "Pixel par pixel" (iPhone 12M points)
+ * 5. Comment ça marche (3 étapes V6)
+ * 6. Souveraineté (V6 container central)
+ * 7. Pricing teaser
+ * 8. FAQ
+ * 9. CTA final
+ * 10. Footer (riche, avec liens conditions)
  */
 
 import Link from 'next/link';
@@ -20,25 +26,25 @@ export default function HomePage() {
         {/* ===== Header ===== */}
         <header className="px-8 py-6 flex items-center justify-between border-b border-line">
           <Link href="/" className="brand-mark">
-            <canvas data-mini-lattice width="72" height="72" aria-label="VYVRE logo" />
+            <canvas className="v-mini" width="72" height="72" aria-label="VYVRE" />
             <span className="text-sm font-light tracking-[0.22em]">VYVRE</span>
           </Link>
           <nav className="hidden md:flex items-center gap-8 text-[11px] tracking-[0.22em] uppercase text-text/55 font-mono">
+            <a href="#about" className="hover:text-text transition-colors">À propos</a>
             <a href="#how" className="hover:text-text transition-colors">Comment ça marche</a>
-            <a href="https://vyvre-demos.web.app/SCAN_LIVE_DEMO_VYVRE.html" target="_blank" rel="noopener" className="hover:text-text transition-colors">Démo</a>
+            <a href="https://vyvre-demos.web.app/VYVRE_UNIVERSAL.html" target="_blank" rel="noopener" className="hover:text-text transition-colors">Démo</a>
             <Link href="/pricing" className="hover:text-text transition-colors">Pricing</Link>
             <a href="#faq" className="hover:text-text transition-colors">FAQ</a>
-            <a href="mailto:charles@symphonydrive.com" className="hover:text-text transition-colors">Contact</a>
           </nav>
         </header>
 
-        {/* ===== Hero ===== */}
-        <section className="px-8 py-24 md:py-32">
-          <div className="max-w-5xl mx-auto text-center flex flex-col items-center gap-8">
+        {/* ===== Hero + 4 stats (visible above fold) ===== */}
+        <section className="px-8 pt-16 md:pt-20 pb-12">
+          <div className="max-w-5xl mx-auto text-center flex flex-col items-center gap-6">
             <div className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
               VYVRE Business · SDK Licensing
             </div>
-            <h1 className="font-sans text-5xl md:text-7xl lg:text-[88px] font-thin leading-[1.02] -tracking-[0.025em]">
+            <h1 className="font-sans text-5xl md:text-7xl lg:text-[80px] font-thin leading-[1.02] -tracking-[0.025em]">
               Le diagnostic peau<br />
               <em className="not-italic text-text/55 font-extralight">de votre marque.</em>
             </h1>
@@ -46,9 +52,9 @@ export default function HomePage() {
               Un scanner intégré à votre e-shop. 60 secondes de webcam. 6 paramètres dermatologiques peer-reviewed. Une routine personnalisée composée à partir de votre catalogue.
             </p>
 
-            <div className="flex flex-wrap items-center justify-center gap-4 mt-6">
+            <div className="flex flex-wrap items-center justify-center gap-4 mt-4">
               <a
-                href="https://vyvre-demos.web.app/SCAN_LIVE_DEMO_VYVRE.html"
+                href="https://vyvre-demos.web.app/VYVRE_UNIVERSAL.html"
                 target="_blank"
                 rel="noopener"
                 className="btn-primary"
@@ -60,15 +66,67 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
-        </section>
 
-        {/* ===== 4 stats V6 ===== */}
-        <section className="px-8 pb-24">
-          <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
+          {/* 4 stats V6 directly under hero (above fold) */}
+          <div className="max-w-6xl mx-auto mt-16 grid grid-cols-2 md:grid-cols-4 gap-4">
             <Stat value="60s" label="Scan webcam" />
             <Stat value="6" label="Paramètres dermato" />
             <Stat value="48h" label="Activation site" />
             <Stat value="100%" label="Données France" />
+          </div>
+        </section>
+
+        {/* ===== Intro Apple style "Une nouvelle norme" ===== */}
+        <section id="about" className="px-8 py-32 md:py-40 border-t border-line">
+          <div className="max-w-4xl mx-auto text-center flex flex-col items-center gap-12">
+            <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
+              VYVRE
+            </span>
+
+            <h2 className="font-sans text-5xl md:text-7xl lg:text-[88px] font-thin italic leading-[1.02] -tracking-[0.03em]">
+              Une nouvelle norme<br />
+              <span className="not-italic font-extralight text-text/55">pour le diagnostic peau.</span>
+            </h2>
+
+            <div className="flex flex-col gap-3 text-xl md:text-2xl font-extralight text-text/75 leading-[1.5] mt-8">
+              <p>Mesurée par l'IA.</p>
+              <p>Composée à partir de votre catalogue.</p>
+              <p>Activée sur votre site en 48 heures.</p>
+            </div>
+
+            <div className="flex flex-col gap-2 text-sm md:text-base font-mono tracking-[0.15em] uppercase text-text/45 mt-12">
+              <p>Conçue en France.</p>
+              <p>Pour les marques qui ne font pas semblant.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== Argument massue "Pixel par pixel" ===== */}
+        <section className="px-8 py-32 md:py-40 border-t border-line">
+          <div className="max-w-5xl mx-auto">
+            <div className="v6 px-8 md:px-20 py-20 md:py-28 text-center flex flex-col items-center gap-10">
+              <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
+                Précision clinique
+              </span>
+
+              <h2 className="font-sans text-5xl md:text-7xl font-thin italic leading-[1.02] -tracking-[0.03em]">
+                Pixel par pixel.
+              </h2>
+
+              <div className="flex flex-col gap-4 max-w-2xl text-lg md:text-xl font-extralight text-text/75 leading-[1.55]">
+                <p>
+                  Sur iPhone, notre moteur analyse <span className="text-text">12 millions de points</span> en 60 secondes.
+                </p>
+                <p>
+                  Là où les autres estiment avec des filtres IA, VYVRE mesure avec un modèle dermatologique peer-reviewed (Flament, Chardon, Bazin, Stamatas).
+                </p>
+              </div>
+
+              <p className="font-sans text-base md:text-lg italic text-text/55 font-extralight mt-4 max-w-xl">
+                La différence entre un selfie filtré<br />
+                et un diagnostic clinique.
+              </p>
+            </div>
           </div>
         </section>
 
@@ -89,7 +147,7 @@ export default function HomePage() {
               <Step
                 num="01"
                 title="Scan webcam 60s"
-                desc="La cliente lance un scan via sa webcam. L'IA analyse 6 paramètres dermatologiques (rides, fermeté, pigmentation, hydratation, éclat, pores) avec un modèle peer-reviewed (Flament, Chardon, Bazin, Stamatas)."
+                desc="La cliente lance un scan via sa webcam. L'IA analyse 6 paramètres dermatologiques (rides, fermeté, pigmentation, hydratation, éclat, pores) avec un modèle peer-reviewed."
               />
               <Step
                 num="02"
@@ -134,7 +192,7 @@ export default function HomePage() {
               <em className="not-italic text-text/55 font-extralight">Pas de devis bidon.</em>
             </h2>
             <p className="text-base text-text/65 max-w-xl leading-relaxed font-extralight">
-              Le seul diagnostic peau IA avec un prix affiché. Quatre plans : Pilot gratuit, Starter 299€/mo, Growth 499€/mo, Enterprise sur devis (au-delà de 50k scans/mois).
+              Le seul diagnostic peau IA avec un prix affiché. Quatre plans : Pilot gratuit, Starter 299€/mo, Growth 499€/mo, Enterprise sur devis.
             </p>
             <Link href="/pricing?from=homepage" className="btn-primary mt-4">
               Voir tous les plans →
@@ -165,7 +223,7 @@ export default function HomePage() {
               />
               <FaqItem
                 q="Combien de temps pour intégrer sur mon site ?"
-                a="48 heures. On vous livre un script <script> à coller dans votre site (1 ligne). Le scanner s'ouvre dans une modal au clic d'un bouton. Aucun développeur mobilisé chez vous."
+                a="48 heures. On vous livre un script à coller dans votre site (1 ligne). Le scanner s'ouvre dans une modal au clic d'un bouton. Aucun développeur mobilisé chez vous."
               />
               <FaqItem
                 q="L'IA pousse-t-elle uniquement mes produits ?"
@@ -173,7 +231,7 @@ export default function HomePage() {
               />
               <FaqItem
                 q="Le scan fonctionne en webcam standard ?"
-                a="Oui. Webcam HD (720p+) suffit. Aucun matériel spécifique. Fonctionne sur Chrome, Safari, Firefox, Edge. Mobile et desktop. Aucune app à installer."
+                a="Oui. Webcam HD (720p+) suffit. Sur iPhone, le moteur analyse jusqu'à 12 millions de points par image. Aucun matériel spécifique. Fonctionne sur Chrome, Safari, Firefox, Edge. Mobile et desktop."
               />
             </div>
           </div>
@@ -188,7 +246,7 @@ export default function HomePage() {
             </h2>
             <div className="flex flex-wrap items-center justify-center gap-4 mt-4">
               <a
-                href="https://vyvre-demos.web.app/SCAN_LIVE_DEMO_VYVRE.html"
+                href="https://vyvre-demos.web.app/VYVRE_UNIVERSAL.html"
                 target="_blank"
                 rel="noopener"
                 className="btn-primary"
@@ -210,7 +268,7 @@ export default function HomePage() {
           <div className="max-w-6xl mx-auto flex flex-col gap-8">
             <div className="flex flex-wrap items-center justify-between gap-6">
               <div className="flex items-center gap-3">
-                <canvas data-mini-lattice width="48" height="48" aria-label="VYVRE" style={{ width: 24, height: 24 }} />
+                <canvas className="v-mini" width="48" height="48" aria-label="VYVRE" style={{ width: 24, height: 24 }} />
                 <span className="font-mono tracking-[0.18em] uppercase">VYVRE · Paris, France</span>
               </div>
               <div className="flex flex-wrap items-center gap-6 font-mono tracking-[0.18em] uppercase">
