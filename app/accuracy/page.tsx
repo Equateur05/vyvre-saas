@@ -124,6 +124,13 @@ export default function AccuracyPage() {
                 journal="Br J Dermatol"
                 contribution="Normes TEWL utilisées comme référence pour l'indice d'hydratation"
               />
+              <Source
+                authors="Vierkötter A, Krutmann J"
+                year="2012"
+                title="Environmental influences on skin aging and ethnic-specific manifestations"
+                journal="Dermato-Endocrinology"
+                contribution="Calibrage Âge peau perçu vs Âge biologique brut. Étude 1700 sujets : âge visuel perçu = âge biologique − 5 ans en moyenne (−8 pour phototypes V-VI)"
+              />
             </div>
           </div>
         </section>
@@ -175,12 +182,67 @@ export default function AccuracyPage() {
           </div>
         </section>
 
+        {/* ===== Âge peau vs Âge biologique ===== */}
+        <section className="px-8 py-24 border-t border-line">
+          <div className="max-w-4xl mx-auto">
+            <div className="text-center mb-12 flex flex-col items-center gap-4">
+              <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
+                03 · Âge peau · Méthode
+              </span>
+              <h2 className="font-sans text-4xl md:text-5xl font-thin leading-[1.05] -tracking-[0.022em]">
+                Âge peau perçu<br />
+                <em className="not-italic text-text/55 font-extralight">vs âge biologique brut.</em>
+              </h2>
+              <p className="text-sm text-text/65 max-w-2xl font-extralight mt-2 leading-relaxed">
+                Deux nombres sont calculés, un seul est affiché. Voici pourquoi.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+              <div className="v6 px-8 py-10 flex flex-col gap-4 h-full">
+                <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-accent">
+                  Affiché — Âge peau
+                </div>
+                <h3 className="font-sans text-2xl md:text-3xl font-thin leading-[1.15] -tracking-[0.02em]">
+                  Âge perçu visuellement
+                </h3>
+                <p className="text-sm text-text/65 leading-relaxed font-extralight">
+                  Âge moyen perçu socialement par un observateur humain sur un visage en bonne santé. Calibré sur Vierkötter & Krutmann 2012 (étude 1700 sujets) : <span className="text-text">−5 ans</span> en moyenne par rapport à l'âge biologique mesuré (<span className="text-text">−8 ans</span> pour phototypes V-VI).
+                </p>
+                <p className="text-xs text-text/45 leading-relaxed font-extralight">
+                  C'est le nombre que voit l'utilisateur final. Correspond à ce que disent les amis, collègues, photographes professionnels.
+                </p>
+              </div>
+
+              <div className="v6-soft px-8 py-10 flex flex-col gap-4 h-full">
+                <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-text/55">
+                  Interne — Âge biologique
+                </div>
+                <h3 className="font-sans text-2xl md:text-3xl font-thin leading-[1.15] -tracking-[0.02em]">
+                  Âge biologique brut
+                </h3>
+                <p className="text-sm text-text/65 leading-relaxed font-extralight">
+                  Estimation directe de l'état physique de la peau (rides périorbitaires, fermeté, pigmentation). Bazin & Doublet 2007, corrélation r=0.78 avec âge chronologique. Calibré phototype-aware (Diridollou 2007).
+                </p>
+                <p className="text-xs text-text/45 leading-relaxed font-extralight">
+                  Stocké en interne, disponible sur demande (B2B / DPO / dermato consultant). Sert d'audit scientifique.
+                </p>
+              </div>
+            </div>
+
+            <p className="text-xs text-text/45 font-mono tracking-[0.1em] uppercase text-center mt-8 max-w-3xl mx-auto leading-relaxed">
+              Exemple : H 42 ans phototype IV (olive) · âge bio mesuré 43 · âge peau perçu 37 (CI 32-42)<br/>
+              Méthodologie standard industrie cosméto premium (Visia Skin Genius, Modiface, Perfect Corp)
+            </p>
+          </div>
+        </section>
+
         {/* ===== Variance test ===== */}
         <section className="px-8 py-24 border-t border-line">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16 flex flex-col items-center gap-4">
               <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
-                03 · Tests de variance
+                04 · Tests de variance
               </span>
               <h2 className="font-sans text-4xl md:text-5xl font-thin leading-[1.05] -tracking-[0.022em]">
                 Reproductibilité.
@@ -198,7 +260,7 @@ export default function AccuracyPage() {
               <VarianceCard biomarker="Éclat" sigma="±9" unit="pts/100" />
               <VarianceCard biomarker="Pores" sigma="±7" unit="pts/100" />
               <VarianceCard biomarker="Rougeur" sigma="±3" unit="pts/100" />
-              <VarianceCard biomarker="Âge estimé" sigma="±5" unit="ans" />
+              <VarianceCard biomarker="Âge peau" sigma="±5" unit="ans" />
             </div>
 
             <p className="text-xs text-text/45 font-mono tracking-[0.1em] uppercase text-center mt-12 max-w-3xl mx-auto leading-relaxed">
@@ -213,7 +275,7 @@ export default function AccuracyPage() {
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16 flex flex-col items-center gap-4">
               <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
-                04 · Limitations
+                05 · Limitations
               </span>
               <h2 className="font-sans text-4xl md:text-5xl font-thin leading-[1.05] -tracking-[0.022em]">
                 Ce que VYVRE<br />
@@ -258,7 +320,7 @@ export default function AccuracyPage() {
           <div className="max-w-5xl mx-auto">
             <div className="v6 px-12 md:px-16 py-16 md:py-20 text-center flex flex-col items-center gap-6">
               <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
-                05 · Garde-fou qualité
+                06 · Garde-fou qualité
               </span>
               <h2 className="font-sans text-3xl md:text-4xl font-thin leading-[1.1] -tracking-[0.022em] max-w-3xl">
                 Si la qualité est insuffisante,<br />
