@@ -38,17 +38,31 @@ export default function HomePage() {
           </nav>
         </header>
 
-        {/* ===== Hero + 4 stats (visible above fold) ===== */}
-        <section className="px-8 pt-16 md:pt-20 pb-12">
-          <div className="max-w-5xl mx-auto text-center flex flex-col items-center gap-6">
+        {/* ===== HERO FULLSCREEN — video Villeneuve background + overlay text ===== */}
+        <section className="relative h-screen min-h-[700px] flex items-center justify-center overflow-hidden">
+          {/* Video background — fills entire viewport */}
+          <video
+            src="/videos/hero-fullscreen.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover z-0"
+            aria-hidden="true"
+          />
+          {/* Dark gradient overlay for text legibility */}
+          <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/60 via-black/30 to-black/80" aria-hidden="true" />
+
+          {/* Hero text overlay */}
+          <div className="relative z-20 max-w-5xl mx-auto px-8 text-center flex flex-col items-center gap-6">
             <div className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
               VYVRE Business · SDK Licensing
             </div>
-            <h1 className="font-sans text-5xl md:text-7xl lg:text-[80px] font-thin leading-[1.02] -tracking-[0.025em]">
+            <h1 className="font-sans text-5xl md:text-7xl lg:text-[88px] font-thin leading-[1.02] -tracking-[0.025em] text-text drop-shadow-[0_4px_30px_rgba(0,0,0,0.8)]">
               Le diagnostic peau<br />
-              <em className="not-italic text-text/55 font-extralight">de votre marque.</em>
+              <em className="not-italic text-text/70 font-extralight">de votre marque.</em>
             </h1>
-            <p className="text-base md:text-lg text-text/65 leading-relaxed max-w-2xl font-extralight">
+            <p className="text-base md:text-lg text-text/80 leading-relaxed max-w-2xl font-extralight drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
               Un scanner intégré à votre e-shop. 60 secondes de webcam. 6 indicateurs peau mesurés par notre IA. Une routine personnalisée composée à partir de votre catalogue.
             </p>
 
@@ -67,8 +81,15 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* 4 stats V6 directly under hero (above fold) */}
-          <div className="max-w-6xl mx-auto mt-16 grid grid-cols-2 md:grid-cols-4 gap-4">
+          {/* Scroll indicator */}
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 font-mono text-[9px] tracking-[0.4em] uppercase text-text/45 animate-pulse">
+            ↓ Découvrir
+          </div>
+        </section>
+
+        {/* ===== 4 stats V6 ===== */}
+        <section className="px-8 py-16 md:py-20 border-t border-line">
+          <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
             <Stat value="60s" label="Scan webcam" />
             <Stat value="6" label="Indicateurs peau" />
             <Stat value="48h" label="Activation site" />
@@ -97,6 +118,32 @@ export default function HomePage() {
             <div className="flex flex-col gap-2 text-sm md:text-base font-mono tracking-[0.15em] uppercase text-text/45 mt-12">
               <p>Conçue en France.</p>
               <p>Pour les marques qui ne font pas semblant.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== Scan en action — 16:9 loop ===== */}
+        <section className="px-8 py-24 md:py-32 border-t border-line">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-12 flex flex-col items-center gap-4">
+              <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
+                Scan en action
+              </span>
+              <h2 className="font-sans text-4xl md:text-5xl font-thin leading-[1.05] -tracking-[0.022em]">
+                60 secondes.<br />
+                <em className="not-italic text-text/55 font-extralight">Une routine personnalisée.</em>
+              </h2>
+            </div>
+            <div className="v6 overflow-hidden" style={{ borderRadius: '36px' }}>
+              <video
+                src="/videos/hero-scan-green.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="w-full block"
+                style={{ aspectRatio: '16/9', objectFit: 'cover' }}
+              />
             </div>
           </div>
         </section>
