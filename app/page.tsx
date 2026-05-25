@@ -34,7 +34,7 @@ export default function HomePage() {
             <a href="#how" className="hover:text-text transition-colors">Comment ça marche</a>
             <a href="https://vyvre-demos.web.app/VYVRE_UNIVERSAL.html" target="_blank" rel="noopener" className="hover:text-text transition-colors">Démo</a>
             <Link href="/pricing" className="hover:text-text transition-colors">Pricing</Link>
-            <a href="#faq" className="hover:text-text transition-colors">FAQ</a>
+            <Link href="/accuracy" className="hover:text-text transition-colors">Méthodologie</Link>
           </nav>
         </header>
 
@@ -278,6 +278,7 @@ export default function HomePage() {
             </div>
 
             <div className="flex flex-wrap items-center gap-6 font-mono tracking-[0.18em] uppercase text-text/35 text-[10px] border-t border-line pt-8">
+              <Link href="/accuracy" className="hover:text-text transition-colors">Méthodologie</Link>
               <Link href="/cgv" className="hover:text-text transition-colors">CGV</Link>
               <Link href="/mentions-legales" className="hover:text-text transition-colors">Mentions légales</Link>
               <Link href="/confidentialite" className="hover:text-text transition-colors">Confidentialité · RGPD</Link>
