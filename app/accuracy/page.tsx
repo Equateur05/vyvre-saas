@@ -230,8 +230,8 @@ export default function AccuracyPage() {
                 body="Le moteur ne pose aucun diagnostic médical. Il ne détecte pas les pathologies dermatologiques (cancer cutané, mélanome, dermatite, psoriasis, etc.). Pour toute préoccupation médicale, consultez un dermatologue."
               />
               <Limitation
-                title="Webcam standard ≠ scanner clinique Visia/Antera"
-                body="Un scanner dermato pro utilise lumière polarisée, UV-fluorescence et capteur 3D. VYVRE s'appuie sur une webcam standard et une lumière non-contrôlée. Variance ±8% (vs ±2% en clinique pro)."
+                title="Webcam standard ≠ scanner pro Visia/Antera"
+                body="Un scanner dermato pro utilise lumière polarisée, UV-fluorescence et capteur 3D. VYVRE s'appuie sur une webcam standard et une lumière non-contrôlée. Variance ±8% (vs ±2% en cabinet dermato pro)."
               />
               <Limitation
                 title="Pas de détection 3D des rides"
