@@ -105,12 +105,52 @@
     overflow: hidden;
   }
 
-  /* ── Buttons ── */
+  /* ── Buttons : pills rondes alignées PROTOCOL_DIOR ref ── */
   .btn-primary {
-    @apply inline-flex items-center justify-center px-7 py-3.5 bg-text text-bg text-[13px] font-medium tracking-[0.15em] uppercase no-underline transition-opacity duration-200 hover:opacity-90;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 32px;
+    background: linear-gradient(180deg, #FFFFFF 0%, #E8E8EA 100%);
+    color: #000;
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    border-radius: 100px;
+    border: none;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.2, 0.7, 0.1, 1);
+    cursor: pointer;
   }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px rgba(255, 255, 255, 0.18);
+  }
+
   .btn-secondary {
-    @apply inline-flex items-center justify-center px-7 py-3.5 border border-text/30 text-text text-[13px] font-medium tracking-[0.15em] uppercase no-underline transition-colors duration-200 hover:bg-text hover:text-bg;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 13px 30px;
+    background: rgba(0, 0, 0, 0.4);
+    color: rgba(245, 244, 240, 0.70);
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    border-radius: 100px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.2, 0.7, 0.1, 1);
+    cursor: pointer;
+  }
+  .btn-secondary:hover {
+    border-color: rgba(255, 255, 255, 0.5);
+    color: #F5F4F0;
   }
 
   /* ── Mini-lattice brand mark ── */
