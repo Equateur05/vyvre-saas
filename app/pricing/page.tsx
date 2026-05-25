@@ -102,8 +102,229 @@ export default function PricingPage({ searchParams }: PricingPageProps) {
         </div>
       </section>
 
+      {/* ===== Section ARGUMENTS (au-dessus du tableau) ===== */}
+      <section className="px-8 py-16 md:py-20">
+        <div className="max-w-6xl mx-auto">
+          <div className="text-center mb-12 md:mb-16 flex flex-col items-center gap-4">
+            <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
+              Pourquoi nous choisir
+            </span>
+            <h2 className="font-sans text-4xl md:text-5xl font-extralight leading-[1.05] -tracking-[0.022em] max-w-3xl">
+              Pourquoi VYVRE
+              <br />
+              <span className="text-text/55">et pas les autres ?</span>
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <ArgumentCard
+              eyebrow="Made in France"
+              title="Le seul widget skin tech 100% français"
+              body={
+                <>
+                  Hébergement Clever Cloud + OVH, données stockées en France, équipe à Paris.
+                  <span className="block mt-2 text-text/45 text-[12px]">
+                    Modiface et Perfect Corp = cloud AWS US, hors RGPD natif.
+                  </span>
+                </>
+              }
+            />
+
+            <ArgumentCard
+              eyebrow="-90% sur la facture"
+              title={<>Jusqu&apos;à 10× moins cher<br />que la concurrence</>}
+              body={
+                <>
+                  VYVRE Growth = <span className="text-text">5 988 € / an</span>. SkinConsult AI démarre à ~50 000 € + 30 000 € de setup, Perfect Corp à ~30 000 €.
+                  <span className="block mt-2 text-text/45 text-[12px]">
+                    Tableau comparatif détaillé plus bas sur cette page.
+                  </span>
+                </>
+              }
+            />
+
+            <ArgumentCard
+              eyebrow="Activation 48h chrono"
+              title="Embed code reçu après paiement"
+              body={
+                <>
+                  Vous collez <span className="font-mono text-[12px] text-text">&lt;script src=&quot;vyvre.fr/widget.js&quot;&gt;</span> sur votre site, c&apos;est live.
+                  <span className="block mt-2 text-text/45 text-[12px]">
+                    Pas de meeting d&apos;onboarding, pas d&apos;intégrateur tiers facturé.
+                  </span>
+                </>
+              }
+            />
+
+            <ArgumentCard
+              eyebrow="Sans engagement"
+              title="Annulation en 1 clic"
+              body={
+                <>
+                  Downgrade, upgrade, ou résiliation depuis votre dashboard. Aucun lock-in contractuel, aucune pénalité.
+                  <span className="block mt-2 text-text/45 text-[12px]">
+                    Vous gardez l&apos;export de toutes vos données scans.
+                  </span>
+                </>
+              }
+            />
+
+            <ArgumentCard
+              eyebrow="White-label total"
+              title="Votre marque, pas la nôtre"
+              body={
+                <>
+                  Logo, couleurs, typographie, produits matchés — tout est paramétré à votre charte.
+                  <span className="block mt-2 text-text/45 text-[12px]">
+                    Aucun &laquo; Powered by VYVRE &raquo; imposé dès le plan Starter.
+                  </span>
+                </>
+              }
+            />
+
+            <ArgumentCard
+              eyebrow="Science peer-reviewed"
+              title="Vrai diagnostic, pas une simulation"
+              body={
+                <>
+                  Engine colorimétrique CIE LAB · 468 landmarks face-api · formule âge biologique dermato validée.
+                  <span className="block mt-2 text-text/45 text-[12px]">
+                    Bibliographie : Flament, Chardon, Stamatas, Takiwaki, Yamamoto.
+                  </span>
+                </>
+              }
+            />
+          </div>
+
+          {/* === Tableau comparatif concurrence === */}
+          <div className="mt-16 md:mt-20">
+            <div className="text-center mb-8">
+              <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-text/55">
+                Comparatif marché · prix publics constatés 2025
+              </span>
+            </div>
+
+            <div className="overflow-x-auto rounded-2xl border border-line">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b border-line bg-text/[0.02]">
+                    <th className="text-left font-mono text-[10px] tracking-[0.2em] uppercase text-text/45 px-5 py-4">
+                      Solution
+                    </th>
+                    <th className="text-left font-mono text-[10px] tracking-[0.2em] uppercase text-text/45 px-5 py-4">
+                      Tarif annuel (entry)
+                    </th>
+                    <th className="text-left font-mono text-[10px] tracking-[0.2em] uppercase text-text/45 px-5 py-4">
+                      Setup / intégration
+                    </th>
+                    <th className="text-left font-mono text-[10px] tracking-[0.2em] uppercase text-text/45 px-5 py-4">
+                      Hébergement
+                    </th>
+                    <th className="text-left font-mono text-[10px] tracking-[0.2em] uppercase text-text/45 px-5 py-4">
+                      Activation
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-b border-line bg-accent/[0.04]">
+                    <td className="px-5 py-4">
+                      <span className="font-medium text-text">VYVRE Growth</span>
+                      <span className="block text-[11px] text-accent mt-1">Recommandé</span>
+                    </td>
+                    <td className="px-5 py-4 text-text">5 988 €</td>
+                    <td className="px-5 py-4 text-text">0 €</td>
+                    <td className="px-5 py-4 text-text">France (Clever Cloud · OVH)</td>
+                    <td className="px-5 py-4 text-text">48h</td>
+                  </tr>
+                  <tr className="border-b border-line">
+                    <td className="px-5 py-4 text-text/75">SkinConsult AI <span className="text-text/40">(L&apos;Oréal)</span></td>
+                    <td className="px-5 py-4 text-text/75">à partir de ~50 000 €</td>
+                    <td className="px-5 py-4 text-text/75">~30 000 €</td>
+                    <td className="px-5 py-4 text-text/75">AWS US</td>
+                    <td className="px-5 py-4 text-text/75">8-12 sem.</td>
+                  </tr>
+                  <tr className="border-b border-line">
+                    <td className="px-5 py-4 text-text/75">Modiface <span className="text-text/40">(L&apos;Oréal)</span></td>
+                    <td className="px-5 py-4 text-text/75">à partir de ~80 000 €</td>
+                    <td className="px-5 py-4 text-text/75">sur devis</td>
+                    <td className="px-5 py-4 text-text/75">AWS US</td>
+                    <td className="px-5 py-4 text-text/75">12 sem. +</td>
+                  </tr>
+                  <tr>
+                    <td className="px-5 py-4 text-text/75">Perfect Corp <span className="text-text/40">(YouCam)</span></td>
+                    <td className="px-5 py-4 text-text/75">à partir de ~30 000 €</td>
+                    <td className="px-5 py-4 text-text/75">~10 000 €</td>
+                    <td className="px-5 py-4 text-text/75">AWS US</td>
+                    <td className="px-5 py-4 text-text/75">6-8 sem.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <p className="text-[11px] text-text/40 mt-4 text-center font-mono tracking-[0.1em]">
+              Tarifs concurrents : ordres de grandeur publics constatés (RFP marques cosmétiques 2024-2025).
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* ===== Pricing Cards (client component for toggle) ===== */}
       <PricingClient brandSlug={brandSlug} />
+
+      {/* ===== Section "Ce que vous obtenez" (sous le tableau) ===== */}
+      <section className="px-8 py-16 md:py-20 border-t border-line">
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-12 flex flex-col items-center gap-4">
+            <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
+              Onboarding · à la seconde du paiement
+            </span>
+            <h2 className="font-sans text-3xl md:text-4xl font-extralight leading-[1.05] -tracking-[0.022em] max-w-3xl">
+              Ce que vous obtenez,
+              <br />
+              <span className="text-text/55">dès la confirmation Stripe.</span>
+            </h2>
+          </div>
+
+          <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5 max-w-4xl mx-auto">
+            <DeliverableItem
+              title="Email de bienvenue"
+              body="Avec votre lien d'admin personnel + identifiants dashboard."
+            />
+            <DeliverableItem
+              title="Embed code prêt à coller"
+              body={
+                <span className="font-mono text-[12px]">
+                  &lt;script src=&quot;vyvre.fr/widget.js&quot; data-brand=&quot;vous&quot;&gt;&lt;/script&gt;
+                </span>
+              }
+            />
+            <DeliverableItem
+              title="Catalogue produits pré-rempli"
+              body="30 à 60 de vos produits scrapés depuis votre site, déjà mappés aux biomarqueurs."
+            />
+            <DeliverableItem
+              title="Branding personnalisé"
+              body="Logo + palette couleurs + nom de marque appliqués au widget et au dashboard."
+            />
+            <DeliverableItem
+              title="Dashboard analytics"
+              body="Scans/jour, taux de conversion, biomarqueurs moyens, top produits recommandés."
+            />
+            <DeliverableItem
+              title="Support email < 48h"
+              body="Pilot et Starter. Support prioritaire dès Growth, Account Manager dédié."
+            />
+            <DeliverableItem
+              title="Aucun frais caché"
+              body="Pas de setup, pas de minimum d'engagement. TVA indiquée à part au paiement."
+            />
+            <DeliverableItem
+              title="Export RGPD complet"
+              body="Vous gardez l'intégralité de vos données scans, exportables CSV à tout moment."
+            />
+          </ul>
+        </div>
+      </section>
 
       {/* ===== FAQ + Calendly ===== */}
       <section className="px-8 py-12 border-t border-line">
@@ -135,5 +356,70 @@ export default function PricingPage({ searchParams }: PricingPageProps) {
         </div>
       </footer>
     </main>
+  );
+}
+
+// ── Card argument (style V6 — gradient radial gris + label mono) ──
+function ArgumentCard({
+  eyebrow,
+  title,
+  body,
+}: {
+  eyebrow: string;
+  title: React.ReactNode;
+  body: React.ReactNode;
+}) {
+  return (
+    <div
+      style={{
+        position: 'relative',
+        background: `
+          radial-gradient(ellipse 140% 100% at 50% -15%, rgba(235,235,240,0.45) 0%, rgba(180,180,188,0.30) 18%, rgba(110,110,118,0.18) 38%, rgba(50,50,58,0.08) 58%, transparent 78%),
+          #000
+        `,
+        border: '1px solid rgba(255,255,255,0.08)',
+        borderRadius: '24px',
+        padding: '28px 26px 30px',
+        overflow: 'hidden',
+        minHeight: '220px',
+        display: 'flex',
+        flexDirection: 'column',
+      }}
+    >
+      <span className="font-mono text-[10px] tracking-[0.3em] uppercase text-accent">
+        {eyebrow}
+      </span>
+      <h3 className="font-sans text-xl md:text-[22px] font-light leading-[1.2] -tracking-[0.015em] mt-3 text-text">
+        {title}
+      </h3>
+      <p className="text-[13px] text-text/65 leading-relaxed mt-3 font-light">
+        {body}
+      </p>
+    </div>
+  );
+}
+
+// ── Item livrable (checklist verte) ──
+function DeliverableItem({
+  title,
+  body,
+}: {
+  title: string;
+  body: React.ReactNode;
+}) {
+  return (
+    <li className="flex items-start gap-3">
+      <span
+        className="flex-shrink-0 mt-[3px] text-accent"
+        style={{ fontSize: '14px', lineHeight: 1 }}
+        aria-hidden
+      >
+        ✓
+      </span>
+      <div>
+        <div className="text-text font-light text-[15px] leading-snug">{title}</div>
+        <div className="text-text/55 text-[13px] mt-1 leading-relaxed font-light">{body}</div>
+      </div>
+    </li>
   );
 }
