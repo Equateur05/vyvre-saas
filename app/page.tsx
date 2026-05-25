@@ -49,7 +49,7 @@ export default function HomePage() {
               <em className="not-italic text-text/55 font-extralight">de votre marque.</em>
             </h1>
             <p className="text-base md:text-lg text-text/65 leading-relaxed max-w-2xl font-extralight">
-              Un scanner intégré à votre e-shop. 60 secondes de webcam. 6 paramètres dermatologiques peer-reviewed. Une routine personnalisée composée à partir de votre catalogue.
+              Un scanner intégré à votre e-shop. 60 secondes de webcam. 6 indicateurs peau mesurés par notre IA. Une routine personnalisée composée à partir de votre catalogue.
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-4 mt-4">
@@ -70,7 +70,7 @@ export default function HomePage() {
           {/* 4 stats V6 directly under hero (above fold) */}
           <div className="max-w-6xl mx-auto mt-16 grid grid-cols-2 md:grid-cols-4 gap-4">
             <Stat value="60s" label="Scan webcam" />
-            <Stat value="6" label="Paramètres dermato" />
+            <Stat value="6" label="Indicateurs peau" />
             <Stat value="48h" label="Activation site" />
             <Stat value="100%" label="Données France" />
           </div>
@@ -106,7 +106,7 @@ export default function HomePage() {
           <div className="max-w-5xl mx-auto">
             <div className="v6 px-8 md:px-20 py-20 md:py-28 text-center flex flex-col items-center gap-10">
               <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
-                Précision clinique
+                Précision matérielle
               </span>
 
               <h2 className="font-sans text-5xl md:text-7xl font-thin italic leading-[1.02] -tracking-[0.03em]">
@@ -115,16 +115,16 @@ export default function HomePage() {
 
               <div className="flex flex-col gap-4 max-w-2xl text-lg md:text-xl font-extralight text-text/75 leading-[1.55]">
                 <p>
-                  Sur iPhone, notre moteur analyse <span className="text-text">12 millions de points</span> en 60 secondes.
+                  Sur iPhone, notre moteur lit <span className="text-text">12 millions de pixels</span> par image. À 60 secondes de scan, c'est plus de <span className="text-text">700 millions de mesures</span>.
                 </p>
                 <p>
-                  Là où les autres estiment avec des filtres IA, VYVRE mesure avec un modèle dermatologique peer-reviewed (Flament, Chardon, Bazin, Stamatas).
+                  Là où les autres estiment avec des filtres IA, VYVRE mesure. Couleur, texture, micro-relief — tout est lu directement depuis l'image, sans approximation.
                 </p>
               </div>
 
               <p className="font-sans text-base md:text-lg italic text-text/55 font-extralight mt-4 max-w-xl">
                 La différence entre un selfie filtré<br />
-                et un diagnostic clinique.
+                et une mesure réelle.
               </p>
             </div>
           </div>
@@ -147,7 +147,7 @@ export default function HomePage() {
               <Step
                 num="01"
                 title="Scan webcam 60s"
-                desc="La cliente lance un scan via sa webcam. L'IA analyse 6 paramètres dermatologiques (rides, fermeté, pigmentation, hydratation, éclat, pores) avec un modèle peer-reviewed."
+                desc="La cliente lance un scan via sa webcam. L'IA mesure 6 indicateurs peau (rides, fermeté, pigmentation, hydratation, éclat, pores) directement depuis l'image."
               />
               <Step
                 num="02"
@@ -219,7 +219,7 @@ export default function HomePage() {
               />
               <FaqItem
                 q="C'est compatible RGPD pour mes clientes européennes ?"
-                a="Oui. Données 100% hébergées en France (Vercel EU + Supabase Paris). Aucune donnée biométrique stockée — le scan est traité en mémoire puis effacé. Conforme RGPD article 9. DPA disponible."
+                a="Oui. Données 100% hébergées en France (Vercel EU + Supabase Paris). Aucune image stockée — le scan est traité en mémoire puis effacé. Conforme RGPD. DPA disponible."
               />
               <FaqItem
                 q="Combien de temps pour intégrer sur mon site ?"
@@ -231,7 +231,7 @@ export default function HomePage() {
               />
               <FaqItem
                 q="Le scan fonctionne en webcam standard ?"
-                a="Oui. Webcam HD (720p+) suffit. Sur iPhone, le moteur analyse jusqu'à 12 millions de points par image. Aucun matériel spécifique. Fonctionne sur Chrome, Safari, Firefox, Edge. Mobile et desktop."
+                a="Oui. Webcam HD (720p+) suffit. Sur iPhone, le moteur lit jusqu'à 12 millions de pixels par image. Aucun matériel spécifique. Fonctionne sur Chrome, Safari, Firefox, Edge. Mobile et desktop."
               />
             </div>
           </div>

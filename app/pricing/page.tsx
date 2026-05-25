@@ -187,7 +187,7 @@ export default function PricingPage({ searchParams }: PricingPageProps) {
               title="Vrai diagnostic, pas une simulation"
               body={
                 <>
-                  Engine colorimétrique CIE LAB · 468 landmarks face-api · formule âge biologique dermato validée.
+                  Engine colorimétrique CIE LAB · 468 landmarks face-api · formule âge biologique peer-reviewed.
                   <span className="block mt-2 text-text/45 text-[12px]">
                     Bibliographie : Flament, Chardon, Stamatas, Takiwaki, Yamamoto.
                   </span>
