@@ -101,32 +101,6 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* ===== Hero video showcase (scan en action) ===== */}
-        <section className="px-8 py-24 md:py-32 border-t border-line">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-12 flex flex-col items-center gap-4">
-              <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
-                Scan en action
-              </span>
-              <h2 className="font-sans text-4xl md:text-5xl font-thin leading-[1.05] -tracking-[0.022em]">
-                60 secondes.<br />
-                <em className="not-italic text-text/55 font-extralight">Une routine personnalisée.</em>
-              </h2>
-            </div>
-            <div className="v6 overflow-hidden" style={{ borderRadius: '36px' }}>
-              <video
-                src="/videos/hero-scan-green.mp4"
-                autoPlay
-                loop
-                muted
-                playsInline
-                className="w-full block"
-                style={{ aspectRatio: '16/9', objectFit: 'cover' }}
-              />
-            </div>
-          </div>
-        </section>
-
         {/* ===== Argument massue "Pixel par pixel" ===== */}
         <section className="px-8 py-32 md:py-40 border-t border-line">
           <div className="max-w-5xl mx-auto">
