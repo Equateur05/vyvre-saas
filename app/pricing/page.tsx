@@ -135,7 +135,7 @@ export default function PricingPage({ searchParams }: PricingPageProps) {
               title={<>Jusqu&apos;à 10× moins cher<br />que la concurrence</>}
               body={
                 <>
-                  VYVRE Growth = <span className="text-text">5 988 € / an</span>. SkinConsult AI démarre à ~50 000 € + 30 000 € de setup, Perfect Corp à ~30 000 €.
+                  VYVRE Starter = <span className="text-text">à partir de 299 € / mois</span> (3 588 € / an). SkinConsult AI démarre à ~50 000 € / an + 30 000 € de setup, Perfect Corp à ~30 000 € / an.
                   <span className="block mt-2 text-text/45 text-[12px]">
                     Tableau comparatif détaillé plus bas sur cette page.
                   </span>
@@ -228,10 +228,10 @@ export default function PricingPage({ searchParams }: PricingPageProps) {
                 <tbody>
                   <tr className="border-b border-line bg-accent/[0.04]">
                     <td className="px-5 py-4">
-                      <span className="font-medium text-text">VYVRE Growth</span>
-                      <span className="block text-[11px] text-accent mt-1">Recommandé</span>
+                      <span className="font-medium text-text">VYVRE Starter</span>
+                      <span className="block text-[11px] text-accent mt-1">À partir de</span>
                     </td>
-                    <td className="px-5 py-4 text-text">5 988 €</td>
+                    <td className="px-5 py-4 text-text">299 €/mois <span className="text-text/50 text-[11px]">(3 588 €/an)</span></td>
                     <td className="px-5 py-4 text-text">0 €</td>
                     <td className="px-5 py-4 text-text">France (Clever Cloud · OVH)</td>
                     <td className="px-5 py-4 text-text">48h</td>
