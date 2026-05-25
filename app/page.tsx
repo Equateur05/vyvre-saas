@@ -55,9 +55,6 @@ export default function HomePage() {
 
           {/* Hero text overlay */}
           <div className="relative z-20 max-w-5xl mx-auto px-8 text-center flex flex-col items-center gap-6">
-            <div className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
-              VYVRE Business · SDK Licensing
-            </div>
             <h1 className="font-sans text-5xl md:text-7xl lg:text-[88px] font-thin leading-[1.02] -tracking-[0.025em] text-text drop-shadow-[0_4px_30px_rgba(0,0,0,0.8)]">
               Le diagnostic peau<br />
               <em className="not-italic text-text/70 font-extralight">de votre marque.</em>
