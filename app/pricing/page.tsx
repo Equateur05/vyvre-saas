@@ -16,7 +16,7 @@ import PricingClient from './PricingClient';
 
 export const metadata = {
   title: 'Pricing · VYVRE',
-  description: 'Le seul standard premium compatible avec votre DPO. Infrastructure France, RGPD natif, on-device. Pilot gratuit, Starter 299€/mo, Growth 499€/mo, Enterprise sur devis.',
+  description: 'Le scan peau qui rassure votre juridique. Hébergé en France, RGPD natif, traitement local navigateur. Pilote gratuit, Starter 299€/mo, Growth 499€/mo, Enterprise sur devis.',
 };
 
 // ── Brand display name mapping ──
@@ -93,11 +93,11 @@ export default function PricingPage({ searchParams }: PricingPageProps) {
             Tarification · VYVRE Business
           </span>
           <h1 className="font-sans text-3xl md:text-4xl font-light leading-[1.05] -tracking-[0.022em]">
-            Le seul standard premium<br/>
-            <span className="text-text/60">compatible avec votre DPO.</span>
+            Le scan peau<br/>
+            <span className="text-text/60">qui rassure votre juridique.</span>
           </h1>
           <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-text/45 max-w-xl leading-relaxed">
-            Infrastructure France · RGPD natif · On-device · Activation 48h
+            Hébergé en France · RGPD natif · Aucune photo envoyée · Activation 48h
           </p>
         </div>
       </section>
