@@ -102,7 +102,10 @@ export default function PricingPage({ searchParams }: PricingPageProps) {
         </div>
       </section>
 
-      {/* ===== Section ARGUMENTS (au-dessus du tableau) ===== */}
+      {/* ===== Pricing Cards (remontées juste après hero pour conversion) ===== */}
+      <PricingClient brandSlug={brandSlug} />
+
+      {/* ===== Section ARGUMENTS (sous les cards) ===== */}
       <section className="px-8 py-16 md:py-20">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12 md:mb-16 flex flex-col items-center gap-4">
@@ -268,10 +271,7 @@ export default function PricingPage({ searchParams }: PricingPageProps) {
         </div>
       </section>
 
-      {/* ===== Pricing Cards (client component for toggle) ===== */}
-      <PricingClient brandSlug={brandSlug} />
-
-      {/* ===== Section "Ce que vous obtenez" (sous le tableau) ===== */}
+      {/* ===== Section "Ce que vous obtenez" (sous arguments) ===== */}
       <section className="px-8 py-16 md:py-20 border-t border-line">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12 flex flex-col items-center gap-4">

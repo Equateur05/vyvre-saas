@@ -152,7 +152,10 @@ export default function PricingEnPage({ searchParams }: PricingPageProps) {
         </div>
       </section>
 
-      {/* ===== Why VYVRE section ===== */}
+      {/* ===== Pricing Cards (moved right after hero for conversion) ===== */}
+      <PricingClientEn brandSlug={brandSlug} />
+
+      {/* ===== Why VYVRE section (now below cards) ===== */}
       <section className="px-8 py-16 md:py-20">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12 md:mb-16 flex flex-col items-center gap-4">
@@ -317,9 +320,6 @@ export default function PricingEnPage({ searchParams }: PricingPageProps) {
           </div>
         </div>
       </section>
-
-      {/* ===== Pricing Cards (client component for toggle) ===== */}
-      <PricingClientEn brandSlug={brandSlug} />
 
       {/* ===== "What you get" section ===== */}
       <section className="px-8 py-16 md:py-20 border-t border-line">
