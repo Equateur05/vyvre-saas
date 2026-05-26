@@ -38,6 +38,7 @@ export default function AccuracyPage() {
             <a href="https://vyvre-demos.web.app/VYVRE_UNIVERSAL.html" target="_blank" rel="noopener" className="hover:text-text transition-colors">Démo</a>
             <Link href="/pricing" className="hover:text-text transition-colors">Pricing</Link>
             <Link href="/accuracy" className="text-text">Méthodologie</Link>
+            <Link href="/accuracy/benchmark" className="hover:text-text transition-colors">Benchmark</Link>
           </nav>
         </header>
 
@@ -171,6 +172,48 @@ export default function AccuracyPage() {
                 applied="Normes cliniques TEWL référencées (sain ≤15 g/m²/h, compromis ≥25)"
                 roadmap="Le pipeline numérique σL*→TEWL suit Stamatas 2011 (et non Akdeniz). Cross-validation prévue."
               />
+            </div>
+          </div>
+        </section>
+
+        {/* ===== Benchmark public ===== */}
+        <section className="px-8 py-20 border-t border-line bg-surface/30">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-10 flex flex-col items-center gap-4">
+              <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
+                Benchmark public · UTKFace · 26 mai 2026
+              </span>
+              <h2 className="font-sans text-4xl md:text-5xl font-thin leading-[1.05] -tracking-[0.022em]">
+                Comparé publiquement<br />
+                <em className="not-italic text-text/55 font-extralight">contre 3 leaders open-source.</em>
+              </h2>
+              <p className="text-sm text-text/55 max-w-2xl font-extralight leading-relaxed mt-2">
+                VYVRE v7.0 testé sur 300 visages publics UTKFace (stratifiés 18-80 ans) aux côtés de DeepFace, InsightFace et OpenCV DNN. Verdict honnête publié, code reproductible, 5 scripts, 4 min runtime.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
+              <div className="v6-soft px-5 py-5 flex flex-col gap-1 text-center">
+                <div className="font-mono text-[10px] tracking-[0.25em] uppercase text-accent">30-44 (target)</div>
+                <div className="text-2xl font-thin text-text">5.75y</div>
+                <div className="text-[10px] text-text/55 font-mono">MAE — bat OpenCV (8.66y)</div>
+              </div>
+              <div className="v6-soft px-5 py-5 flex flex-col gap-1 text-center">
+                <div className="font-mono text-[10px] tracking-[0.25em] uppercase text-accent">Overall (18-80)</div>
+                <div className="text-2xl font-thin text-text">12.89y</div>
+                <div className="text-[10px] text-text/55 font-mono">MAE — derrière deep nets</div>
+              </div>
+              <div className="v6-soft px-5 py-5 flex flex-col gap-1 text-center">
+                <div className="font-mono text-[10px] tracking-[0.25em] uppercase text-accent">Biais signé</div>
+                <div className="text-2xl font-thin text-text">-0.71y</div>
+                <div className="text-[10px] text-text/55 font-mono">Le plus neutre des 4 moteurs</div>
+              </div>
+            </div>
+
+            <div className="text-center">
+              <Link href="/accuracy/benchmark" className="btn-primary inline-block">
+                Voir le benchmark complet →
+              </Link>
             </div>
           </div>
         </section>
@@ -474,12 +517,104 @@ export default function AccuracyPage() {
           </div>
         </section>
 
+        {/* ===== Conditions cliniques (module bonus v1) ===== */}
+        <section className="px-8 py-24 border-t border-line">
+          <div className="max-w-5xl mx-auto">
+            <div className="text-center mb-16 flex flex-col items-center gap-4">
+              <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
+                10 · Module bonus · Conditions cliniques (v1 indicatif)
+              </span>
+              <h2 className="font-sans text-4xl md:text-5xl font-thin leading-[1.05] -tracking-[0.022em]">
+                Détection visuelle de 4 conditions<br />
+                <em className="not-italic text-text/55 font-extralight">indicatives, jamais médicales.</em>
+              </h2>
+              <p className="text-sm text-text/55 max-w-2xl font-extralight mt-2 leading-relaxed">
+                Module séparé <code className="font-mono text-xs text-accent">vyvre-conditions-engine.js</code> (v1.0.0-heuristic) — chargement optionnel sur n'importe quel POC. Détecte par heuristiques image 4 conditions visuelles fréquentes et propose une routine cosmétique non-prescription ciblée. <strong className="text-text">Ce module ne pose aucun diagnostic médical.</strong>
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
+              <Source
+                authors="Module · Acné (Tan 2018)"
+                year="v1"
+                title="Focal a* CIELAB erythema + texture L* variance"
+                journal="Sensitivity ~70 % · Specificity ~75 % (synth. cohort n=12)"
+                contribution="Détection de pixels érythémateux focaux concentrés en spots discrets sur zone T (front, nez, menton). Sortie : probability + severity {minimal, low, medium, high}."
+              />
+              <Source
+                authors="Module · Rosacée (Sandoval-Pillajo 2020)"
+                year="v1"
+                title="Excès médian a* joues+nez vs baseline + symétrie bilatérale"
+                journal="Sensitivity ~65 % · Specificity ~70 % (synth. cohort n=12)"
+                contribution="Érythème persistant et bilatéral sur joues + nez. La symétrie inter-joues pondère le score (rosacée = bilatérale)."
+              />
+              <Source
+                authors="Module · Mélasma (heuristic)"
+                year="v1"
+                title="ΔL* front & lèvre sup. vs top-quartile L* joues + Δb* (mélanine)"
+                journal="Sensitivity ~55 % · Specificity ~70 % (synth. cohort n=12)"
+                contribution="Hyperpigmentation symétrique centrofaciale (front, lèvre supérieure, pommettes). Distingue mélasma diffus de spots discrets."
+              />
+              <Source
+                authors="Module · Lentigos (Pandey 2019)"
+                year="v1"
+                title="Blob detection (size 5-200 px², compactness ≥ 0.45)"
+                journal="Sensitivity ~60 % · Specificity ~75 % (synth. cohort n=12)"
+                contribution="Spots pigmentaires isolés, contours nets, sur joues + front. Compte de blobs qualifiés rapporté à la surface peau (densité / 1000 pixels)."
+              />
+            </div>
+
+            <div className="v6-soft px-8 py-7">
+              <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-accent mb-4">
+                Pourquoi heuristiques et pas CNN ISIC ?
+              </div>
+              <ul className="text-sm text-text/65 leading-relaxed font-extralight space-y-2">
+                <li>→ Les datasets ISIC / DermNet contiennent des images <em>cliniques</em> en gros plan, lumière polarisée, ROI lésionnelle ciblée. Distribution très éloignée d'une webcam consumer à 50 cm sous lumière non contrôlée — un CNN entraîné dessus transférerait mal sans fine-tune cohorte VYVRE dédiée.</li>
+                <li>→ Les heuristiques restent <em>auditables ligne par ligne</em>, ce qu'un CNN black-box n'est pas. Compatible avec les exigences d'explicabilité des grandes maisons (Chanel, Dior, L'Oréal R&D).</li>
+                <li>→ Pas de modèle à télécharger (0 MB), pas de GPU requis, fonctionne sur tous navigateurs en moins de 200 ms.</li>
+                <li>→ Architecture stable : une v2 future peut substituer un CNN derrière la même API <code className="font-mono text-xs text-accent">detectConditions()</code> sans casser les POCs intégrants.</li>
+              </ul>
+            </div>
+
+            <div className="mt-8 v6-soft px-8 py-7 border-l-4 border-accent">
+              <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-accent mb-3">
+                Disclaimer médical (obligatoire sur tout affichage)
+              </div>
+              <p className="text-sm text-text/75 leading-relaxed font-extralight italic">
+                Ce module n'est pas un dispositif médical. Il ne pose aucun diagnostic. Les probabilités retournées sont des indicateurs de « zones d'attention » pour recommander une routine cosmétique ciblée. Pour toute préoccupation cutanée réelle, consultez un dermatologue.
+              </p>
+              <p className="text-xs text-text/45 font-mono tracking-[0.1em] uppercase mt-4">
+                Indicative detection. NOT a medical diagnosis. Consult a dermatologist for clinical assessment.
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center justify-center gap-4 mt-10">
+              <a
+                href="https://vyvre-demos.web.app/CONDITIONS_DEMO.html"
+                target="_blank"
+                rel="noopener"
+                className="btn-primary"
+              >
+                Voir la démo Conditions →
+              </a>
+              <a
+                href="https://vyvre-demos.web.app/vyvre-conditions-engine.js"
+                target="_blank"
+                rel="noopener"
+                className="btn-secondary"
+              >
+                Code source du module
+              </a>
+            </div>
+          </div>
+        </section>
+
         {/* ===== Engagement honnêteté ===== */}
         <section className="px-8 py-24 border-t border-line">
           <div className="max-w-5xl mx-auto">
             <div className="v6 px-12 md:px-16 py-16 md:py-20 text-center flex flex-col items-center gap-6">
               <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
-                10 · Garde-fou qualité · Engagement honnêteté
+                11 · Garde-fou qualité · Engagement honnêteté
               </span>
               <h2 className="font-sans text-3xl md:text-4xl font-thin leading-[1.1] -tracking-[0.022em] max-w-3xl">
                 Préférer l'honnêteté<br />
