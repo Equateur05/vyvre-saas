@@ -35,7 +35,7 @@ async function resolveBrand(apiKey: string) {
     const supa = getSupabaseAdmin();
     const { data: brand } = await supa
       .from('brands')
-      .select('id, name, slug, plan, scan_count_month, primary_color, logo_url, auto_upgrade_disabled')
+      .select('id, name, slug, plan, scan_count_month, primary_color, logo_url, auto_upgrade_disabled, theme')
       .eq('api_key', apiKey)
       .neq('plan', 'cancelled')
       .maybeSingle();
@@ -72,9 +72,15 @@ async function getProducts(brandSlug: string | null | undefined) {
 export default async function WidgetEmbedPage({ searchParams }: WidgetEmbedProps) {
   const apiKey = searchParams.key || '';
   const locale = (searchParams.locale || 'fr').toLowerCase().startsWith('fr') ? 'fr' : 'en';
-  const theme = (searchParams.theme === 'light' ? 'light' : 'dark');
 
   const brand = await resolveBrand(apiKey);
+
+  // Thème : param explicite du snippet (light/dark) prioritaire ; sinon (absent ou
+  // "auto") on prend le thème choisi par la marque à l'achat (brand.theme).
+  const explicitTheme =
+    searchParams.theme === 'light' ? 'light' : searchParams.theme === 'dark' ? 'dark' : null;
+  const theme: 'light' | 'dark' =
+    explicitTheme ?? ((brand as { theme?: string } | null)?.theme === 'light' ? 'light' : 'dark');
 
   // Fallback : if API key invalid, show "Invalid key" error
   if (!brand) {

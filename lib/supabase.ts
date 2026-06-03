@@ -63,5 +63,6 @@ export interface Brand {
   overage_months: number;
   auto_upgraded_at: string | null;
   auto_upgrade_disabled: boolean;
+  theme?: 'dark' | 'light' | null;
   created_at: string;
 }

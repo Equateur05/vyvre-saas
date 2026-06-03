@@ -9,14 +9,20 @@
 import { useState } from 'react';
 
 export default function EmbedCard({
-  embedCode,
   apiKey,
+  cdnUrl,
+  initialTheme = 'dark',
 }: {
-  embedCode: string;
   apiKey: string;
+  cdnUrl: string;
+  initialTheme?: 'dark' | 'light';
 }) {
   const [copiedEmbed, setCopiedEmbed] = useState(false);
   const [copiedKey, setCopiedKey] = useState(false);
+  const [theme, setTheme] = useState<'dark' | 'light'>(initialTheme);
+
+  const embedCode = `<script src="${cdnUrl}/widget.js"></script>
+<div id="vyvre-widget" data-key="${apiKey}" data-theme="${theme}"></div>`;
 
   async function copy(text: string, setter: (v: boolean) => void) {
     try {
@@ -32,15 +38,34 @@ export default function EmbedCard({
     <div className="flex flex-col gap-4">
       {/* ===== Embed code box ===== */}
       <div>
-        <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center justify-between mb-3 gap-3 flex-wrap">
           <div className="text-[10px] tracking-[0.3em] uppercase text-accent font-mono">Votre embed code</div>
-          <button
-            type="button"
-            onClick={() => copy(embedCode, setCopiedEmbed)}
-            className="text-xs tracking-[0.15em] uppercase font-mono text-text/60 hover:text-accent transition-colors"
-          >
-            {copiedEmbed ? '✓ Copié' : 'Copier'}
-          </button>
+          <div className="flex items-center gap-3">
+            {/* Toggle thème du widget */}
+            <div className="inline-flex items-center gap-1 p-0.5 border border-line rounded-full text-[10px] font-mono tracking-[0.1em] uppercase">
+              <button
+                type="button"
+                onClick={() => setTheme('dark')}
+                className={`px-3 py-1 rounded-full transition-colors ${theme === 'dark' ? 'bg-text text-bg' : 'text-text/55 hover:text-text'}`}
+              >
+                Noir
+              </button>
+              <button
+                type="button"
+                onClick={() => setTheme('light')}
+                className={`px-3 py-1 rounded-full transition-colors ${theme === 'light' ? 'bg-text text-bg' : 'text-text/55 hover:text-text'}`}
+              >
+                Blanc
+              </button>
+            </div>
+            <button
+              type="button"
+              onClick={() => copy(embedCode, setCopiedEmbed)}
+              className="text-xs tracking-[0.15em] uppercase font-mono text-text/60 hover:text-accent transition-colors"
+            >
+              {copiedEmbed ? '✓ Copié' : 'Copier'}
+            </button>
+          </div>
         </div>
         <pre className="glass p-5 rounded-none border-l-2 border-accent font-mono text-[12px] md:text-[13px] leading-relaxed text-text/90 overflow-x-auto whitespace-pre-wrap break-all select-all">
 {embedCode}

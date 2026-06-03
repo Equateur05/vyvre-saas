@@ -51,6 +51,7 @@ export async function GET(req: NextRequest) {
       brand_name: brand.name,
       plan: brand.plan,
       api_key: brand.api_key,
+      theme: brand.theme ?? 'dark',
       is_new: isNew,
       welcome_email_sent: emailSent,
     });

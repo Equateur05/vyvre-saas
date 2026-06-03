@@ -33,6 +33,7 @@ async function fetchSession(sessionId: string) {
       brand_name: string | null;
       plan: string;
       api_key: string;
+      theme: 'dark' | 'light';
       is_new: boolean;
       welcome_email_sent: boolean;
     };
@@ -86,9 +87,6 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
   }
 
   const cdnUrl = process.env.NEXT_PUBLIC_CDN_URL || 'https://vyvre.fr';
-  const embedCode = `<script src="${cdnUrl}/widget.js"></script>
-<div id="vyvre-widget" data-key="${session.api_key}"></div>`;
-
   const planLabel = planDisplay(session.plan);
 
   return (
@@ -106,8 +104,8 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
           </div>
         </div>
 
-        {/* ===== Embed Code (client component for clipboard) ===== */}
-        <EmbedCard embedCode={embedCode} apiKey={session.api_key} />
+        {/* ===== Embed Code (client component for clipboard + thème) ===== */}
+        <EmbedCard apiKey={session.api_key} cdnUrl={cdnUrl} initialTheme={session.theme} />
 
         {/* ===== 3 Steps ===== */}
         <section>

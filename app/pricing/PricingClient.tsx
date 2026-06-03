@@ -18,8 +18,8 @@ const STRIPE_LINKS = {
   enterprise_annual:   'https://buy.stripe.com/aFa28r87M4kb1wnfoC1VK0M',
 };
 
-function buildLink(baseUrl: string, brandSlug: string, tier: string): string {
-  const ref = brandSlug ? `${brandSlug}_${tier}` : `direct_${tier}`;
+function buildLink(baseUrl: string, brandSlug: string, tier: string, theme: 'dark' | 'light'): string {
+  const ref = (brandSlug ? `${brandSlug}_${tier}` : `direct_${tier}`) + `-theme-${theme}`;
   const sep = baseUrl.includes('?') ? '&' : '?';
   return `${baseUrl}${sep}client_reference_id=${encodeURIComponent(ref)}`;
 }
@@ -59,11 +59,12 @@ const VIGNETTE: React.CSSProperties = {
 
 export default function PricingClient({ brandSlug }: { brandSlug: string }) {
   const [annual, setAnnual] = useState(false);
+  const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
-  const pilotLink      = buildLink(STRIPE_LINKS.pilot,      brandSlug, 'pilot');
-  const starterLink    = buildLink(annual ? STRIPE_LINKS.starter_annual    : STRIPE_LINKS.starter_monthly,    brandSlug, annual ? 'starter_annual' : 'starter_monthly');
-  const growthLink     = buildLink(annual ? STRIPE_LINKS.growth_annual     : STRIPE_LINKS.growth_monthly,     brandSlug, annual ? 'growth_annual'  : 'growth_monthly');
-  const enterpriseLink = buildLink(annual ? STRIPE_LINKS.enterprise_annual : STRIPE_LINKS.enterprise_monthly, brandSlug, annual ? 'enterprise_annual' : 'enterprise_monthly');
+  const pilotLink      = buildLink(STRIPE_LINKS.pilot,      brandSlug, 'pilot', theme);
+  const starterLink    = buildLink(annual ? STRIPE_LINKS.starter_annual    : STRIPE_LINKS.starter_monthly,    brandSlug, annual ? 'starter_annual' : 'starter_monthly', theme);
+  const growthLink     = buildLink(annual ? STRIPE_LINKS.growth_annual     : STRIPE_LINKS.growth_monthly,     brandSlug, annual ? 'growth_annual'  : 'growth_monthly', theme);
+  const enterpriseLink = buildLink(annual ? STRIPE_LINKS.enterprise_annual : STRIPE_LINKS.enterprise_monthly, brandSlug, annual ? 'enterprise_annual' : 'enterprise_monthly', theme);
 
   return (
     <section className="px-8 pb-12">
@@ -80,6 +81,30 @@ export default function PricingClient({ brandSlug }: { brandSlug: string }) {
               onClick={() => setAnnual(true)}
               className={`px-5 py-2 rounded-full transition-colors ${annual ? 'bg-text text-bg' : 'text-text/55 hover:text-text'}`}
             >Annuel <span className="text-accent">· -17%</span></button>
+          </div>
+        </div>
+
+        {/* Sélecteur thème du widget (choisi AVANT l'achat, persisté pour la marque) */}
+        <div className="flex flex-col items-center gap-2.5 mb-12">
+          <div className="text-[10px] tracking-[0.3em] uppercase text-text/45 font-mono">Thème de votre widget</div>
+          <div className="inline-flex items-center gap-1 p-1 border border-line rounded-full text-xs font-mono tracking-[0.12em] uppercase backdrop-blur">
+            <button
+              onClick={() => setTheme('dark')}
+              className={`px-5 py-2 rounded-full transition-colors flex items-center gap-2 ${theme === 'dark' ? 'bg-text text-bg' : 'text-text/55 hover:text-text'}`}
+            >
+              <span className="w-3 h-3 rounded-full" style={{ background: '#0A0A0A', border: '1px solid rgba(160,160,160,0.6)' }} />
+              Noir
+            </button>
+            <button
+              onClick={() => setTheme('light')}
+              className={`px-5 py-2 rounded-full transition-colors flex items-center gap-2 ${theme === 'light' ? 'bg-text text-bg' : 'text-text/55 hover:text-text'}`}
+            >
+              <span className="w-3 h-3 rounded-full" style={{ background: '#F4F1EA', border: '1px solid rgba(0,0,0,0.3)' }} />
+              Blanc
+            </button>
+          </div>
+          <div className="text-[10px] text-text/35 font-mono tracking-[0.05em]">
+            Votre diagnostic s&apos;affichera dans ce thème · modifiable ensuite
           </div>
         </div>
 

@@ -19,6 +19,7 @@ export interface ProvisionInput {
   email: string;
   priceId: string;
   brandName?: string | null;
+  theme?: 'dark' | 'light';
 }
 
 /**
@@ -96,6 +97,7 @@ export async function provisionBrand(input: ProvisionInput): Promise<ProvisionRe
       scan_count_prev_month: 0,
       overage_months: 0,
       auto_upgrade_disabled: false,
+      theme: input.theme ?? 'dark',
     })
     .select('*')
     .single();
@@ -169,11 +171,17 @@ export async function provisionFromSession(
   // Pull brand name from custom field if present
   const brandName = session.custom_fields?.find((f) => f.key === 'company')?.text?.value ?? null;
 
+  // Thème choisi par la marque sur /pricing, transporté dans client_reference_id
+  // (format: "<slug>_<tier>-theme-light" | "...-theme-dark").
+  const ref = session.client_reference_id || '';
+  const theme: 'dark' | 'light' = /-theme-light\b/.test(ref) ? 'light' : 'dark';
+
   return provisionBrand({
     stripeCustomerId: customerId,
     stripeSubscriptionId: subscriptionId,
     email,
     priceId,
     brandName,
+    theme,
   });
 }

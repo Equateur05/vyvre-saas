@@ -99,6 +99,28 @@ const BRAND_NAMES: Record<string, string> = {
   'sand-and-sky': 'Sand & Sky',
 };
 
+// ── Demo slug overrides ──
+// Default convention: brand demo file = VYVRE_<SLUG_UPPERCASE_UNDERSCORED>.html
+// on https://vyvre-demos.web.app . Only list slugs whose demo filename does
+// NOT follow that convention (e.g. aliases pointing to a shared file).
+const DEMO_SLUG_OVERRIDES: Record<string, string> = {
+  'barbara-sturm': 'STURM', // alias → VYVRE_STURM.html
+};
+
+const DEMO_BASE_URL = 'https://vyvre-demos.web.app';
+const GENERIC_DEMO_URL = `${DEMO_BASE_URL}/SCAN_LIVE_DEMO_VYVRE.html`;
+
+// Resolve the DEMO header link for the current brand.
+// Falls back to the generic VYVRE demo when no brand context is present.
+function getDemoUrl(brandSlug: string): string {
+  // Build VYVRE_<BRAND>.html for ANY valid brand slug (la convention couvre les
+  // ~115 marques). Générique uniquement si pas de marque / slug invalide.
+  if (!brandSlug || !/^[a-z0-9][a-z0-9-]{1,40}$/.test(brandSlug)) return GENERIC_DEMO_URL;
+  const token =
+    DEMO_SLUG_OVERRIDES[brandSlug] || brandSlug.toUpperCase().replace(/-/g, '_');
+  return `${DEMO_BASE_URL}/VYVRE_${token}.html`;
+}
+
 interface PricingPageProps {
   searchParams: { from?: string };
 }
@@ -106,6 +128,7 @@ interface PricingPageProps {
 export default function PricingEnPage({ searchParams }: PricingPageProps) {
   const brandSlug = (searchParams.from || '').toLowerCase().trim();
   const brandName = BRAND_NAMES[brandSlug] || null;
+  const demoUrl = getDemoUrl(brandSlug);
 
   return (
     <main className="min-h-screen">
@@ -116,7 +139,7 @@ export default function PricingEnPage({ searchParams }: PricingPageProps) {
           <span className="text-sm font-medium tracking-[0.18em]">VYVRE</span>
         </Link>
         <nav className="hidden md:flex items-center gap-8 text-xs tracking-[0.18em] uppercase text-text/60">
-          <a href="https://vyvre-demos.web.app/SCAN_LIVE_DEMO_VYVRE.html" target="_blank" rel="noopener" className="hover:text-text">Demo</a>
+          <a href={demoUrl} target="_blank" rel="noopener" className="hover:text-text">Demo</a>
           <Link href="/pricing/en" className="text-text">Pricing</Link>
           <a href="mailto:charles@symphonydrive.com" className="hover:text-text">Contact</a>
           <Link href="/pricing" className="hover:text-accent text-text/45">FR</Link>

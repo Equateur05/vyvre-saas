@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Votre Protocole · VYVRE × DIOR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+:root{
+  --bg:#000000;
+  --ink:#F5F4F0;
+  --ink-95:rgba(245,244,240,0.95);
+  --ink-70:rgba(245,244,240,0.70);
+  --ink-55:rgba(245,244,240,0.55);
+  --ink-30:rgba(245,244,240,0.30);
+  --ink-15:rgba(245,244,240,0.15);
+  --ink-08:rgba(255,255,255,0.08);
+  --ink-06:rgba(255,255,255,0.06);
+  --green:#7FE0A7;
+  --green-glow:rgba(127,224,167,0.5);
+  --champagne:#F0E5C8;
+  --champagne-soft:rgba(240,229,200,0.85);
+  --sans:'Inter','SF Pro Display',-apple-system,sans-serif;
+  --mono:'JetBrains Mono','SF Mono',monospace;
+  --ease:cubic-bezier(0.2,0.7,0.1,1);
+  /* ======= VYVRE SIGNATURE — V6 round container gradient (intensifié pour visibilité) ======= */
+  --v6-bg:
+    radial-gradient(ellipse 130% 95% at 50% -20%,
+      rgba(245,245,250,0.92) 0%,
+      rgba(200,200,210,0.70) 12%,
+      rgba(140,140,150,0.45) 28%,
+      rgba(70,70,80,0.22) 50%,
+      transparent 75%
+    ),
+    linear-gradient(180deg, rgba(255,255,255,0.06) 0%, transparent 40%),
+    #050505;
+  --v6-bg-soft:
+    radial-gradient(ellipse 140% 100% at 50% -15%,
+      rgba(240,240,245,0.45) 0%,
+      rgba(160,160,168,0.25) 25%,
+      rgba(80,80,88,0.10) 50%,
+      transparent 75%
+    ),
+    #000;
+  --v6-border:1px solid rgba(255,255,255,0.14);
+  --v6-radius:36px;
+}
+html,body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-weight:200;min-height:100vh;overflow-x:hidden}
+
+/* Aurora subtile noire-blanche-grise (pas d'or) */
+body::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:0;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 0%,rgba(255,255,255,0.025) 0%,transparent 70%),
+    radial-gradient(ellipse 80% 40% at 50% 100%,rgba(127,224,167,0.018) 0%,transparent 70%);
+}
+
+/* ============ HEADER FLOAT ============ */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:50;
+  padding:22px 36px;display:flex;align-items:center;justify-content:space-between;gap:24px;
+}
+.brand-mark{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--ink)}
+.brand-mark .v{
+  width:30px;height:30px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:9px;letter-spacing:0.1em;font-weight:300;
+  backdrop-filter:blur(20px);background:rgba(0,0,0,0.4);
+  overflow:hidden;
+}
+.brand-mark .v canvas.v-mini{width:100%;height:100%;display:block}
+.brand-mark .label{font-size:10px;letter-spacing:0.42em;font-weight:400;color:var(--ink-55)}
+.engine-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:7px 14px;border-radius:100px;
+  border:1px solid rgba(127,224,167,0.18);
+  background:rgba(127,224,167,0.04);backdrop-filter:blur(20px);
+  color:var(--green);font-size:9px;letter-spacing:0.38em;text-transform:uppercase;font-weight:500;
+}
+.engine-pill .dot{
+  width:5px;height:5px;border-radius:50%;background:var(--green);
+  box-shadow:0 0 8px var(--green-glow);animation:pulseDot 1.6s ease-in-out infinite;
+}
+@keyframes pulseDot{0%,100%{opacity:0.5;transform:scale(1)}50%{opacity:1;transform:scale(1.3)}}
+.header-recap{
+  display:flex;gap:20px;align-items:center;
+  font-size:10px;letter-spacing:0.22em;text-transform:uppercase;color:var(--ink-30);font-weight:500;
+}
+.header-recap b{color:var(--ink);font-weight:300;font-size:13px;margin-left:6px;letter-spacing:-0.005em}
+.back-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 16px;border-radius:100px;
+  background:rgba(0,0,0,0.4);backdrop-filter:blur(20px);
+  color:var(--ink-70);text-decoration:none;
+  font-size:10px;letter-spacing:0.28em;text-transform:uppercase;font-weight:500;
+  transition:all 0.4s var(--ease);
+}
+.back-btn:hover{border-color:var(--ink);color:var(--ink)}
+
+/* ============ STAGE — Hero + Quiz dans MÊME viewport ============ */
+.stage{
+  position:relative;z-index:1;
+  min-height:100vh;width:100%;
+  display:flex;align-items:center;justify-content:center;
+}
+.stage-layer{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:80px 40px;text-align:center;
+  transition:opacity 0.7s var(--ease), transform 0.7s var(--ease);
+}
+.stage-layer.exit{
+  opacity:0;transform:translateY(-24px);
+  pointer-events:none;
+}
+
+/* ============ HERO ============ */
+.hero{gap:36px}
+.hero-dot{
+  width:8px;height:8px;border-radius:50%;background:var(--green);
+  box-shadow:0 0 16px var(--green-glow);
+  opacity:0;
+  animation:fadeIn 1s var(--ease) 0.2s forwards, pulseDot 1.6s ease-in-out 1.2s infinite;
+}
+@keyframes fadeIn{to{opacity:1}}
+.hero h1{
+  font-size:clamp(34px,5vw,72px);
+  font-weight:100;letter-spacing:-0.035em;line-height:1.05;
+  color:var(--ink);
+}
+.hero h1 .word-line{
+  display:block;opacity:0;transform:translateY(28px);
+  animation:rise 1s var(--ease) forwards;
+}
+.hero h1 .word-line:nth-child(1){animation-delay:0.35s}
+.hero h1 .word-line:nth-child(2){animation-delay:0.9s}
+.hero h1 em{
+  font-style:normal;font-weight:200;color:#FFFFFF;
+  background:linear-gradient(180deg,#FFFFFF 0%,rgba(255,255,255,0.55) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+.hero-meta{
+  font-size:10px;letter-spacing:0.42em;text-transform:uppercase;color:var(--ink-30);font-weight:500;
+  display:flex;align-items:center;gap:14px;
+  opacity:0;animation:fadeIn 1.4s var(--ease) 2s forwards;
+}
+.hero-meta .scroll-arr{display:inline-block;animation:bobble 2s ease-in-out infinite}
+@keyframes bobble{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+
+/* ============ QUIZ (in stage, fade in après hero) ============ */
+.quiz-container{
+  opacity:0;pointer-events:none;
+  transition:opacity 0.7s var(--ease);
+  gap:48px;
+}
+.quiz-container.enter{opacity:1;pointer-events:auto}
+.quiz-step{
+  display:none;
+  flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;position:relative;gap:48px;
+  width:100%;
+}
+.quiz-step.active{display:flex;animation:fadeQuestion 0.6s var(--ease)}
+@keyframes fadeQuestion{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+
+.step-index{
+  display:flex;align-items:center;gap:14px;
+  font-family:var(--mono);font-size:10px;letter-spacing:0.4em;color:var(--ink-30);font-weight:400;
+  margin-bottom:-16px;
+}
+.step-index .progress-track{
+  width:140px;height:1px;background:var(--ink-15);position:relative;
+}
+.step-index .progress-fill{
+  position:absolute;top:0;left:0;bottom:0;
+  background:linear-gradient(90deg,rgba(255,255,255,0.7) 0%,#FFFFFF 100%);
+  box-shadow:0 0 8px rgba(255,255,255,0.4);
+  transition:width 0.6s var(--ease);
+}
+
+.quiz-question{
+  font-size:clamp(26px,3.6vw,52px);
+  font-weight:100;letter-spacing:-0.025em;line-height:1.05;
+  color:var(--ink);max-width:1100px;
+}
+.quiz-question em{
+  font-style:normal;font-weight:200;
+  background:linear-gradient(180deg,#FFFFFF 0%,rgba(255,255,255,0.45) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+
+/* ============ CONTAINERS RONDS V6 — DA SIGNATURE ============ */
+.quiz-options{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:18px;
+  max-width:1180px;width:100%;
+}
+@media(max-width:900px){.quiz-options{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.quiz-options{grid-template-columns:1fr}}
+.chip{
+  /* CONTAINER ROND DA SIGNATURE V6 */
+  background:var(--v6-bg);
+  border:var(--v6-border);
+  border-radius:var(--v6-radius);
+  padding:36px 24px;
+  cursor:pointer;
+  position:relative;overflow:hidden;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;
+  min-height:140px;
+  transition:all 0.45s var(--ease);
+  font-family:var(--sans);
+}
+.chip::after{
+  content:'';position:absolute;inset:0;border-radius:var(--v6-radius);
+  background:radial-gradient(ellipse 100% 80% at 50% 110%,rgba(0,0,0,0.85) 0%,transparent 60%);
+  pointer-events:none;z-index:1;
+}
+.chip > *{position:relative;z-index:2}
+.chip .chip-num{
+  font-family:var(--mono);font-size:9px;letter-spacing:0.42em;color:rgba(240,229,200,0.55);
+  font-weight:400;text-transform:uppercase;transition:color 0.4s var(--ease);
+}
+.chip .chip-label{
+  font-size:clamp(15px,1.4vw,19px);font-weight:200;letter-spacing:-0.012em;
+  color:rgba(255,255,255,0.92);transition:color 0.4s var(--ease);
+}
+.chip:hover{
+  transform:translateY(-4px);
+  border-color:rgba(255,255,255,0.22);
+  box-shadow:0 30px 70px rgba(255,255,255,0.08);
+}
+.chip.selected{
+  border-color:rgba(255,255,255,0.55);
+  box-shadow:0 30px 80px rgba(255,255,255,0.18),inset 0 1px 0 rgba(255,255,255,0.2);
+}
+.chip.selected .chip-num{color:#FFFFFF}
+.chip.selected .chip-label{color:#FFFFFF}
+.chip.fading{opacity:0.18;transition:opacity 0.4s var(--ease)}
+
+/* ============ AI THINKING OVERLAY — vert subtil ============ */
+.ai-thinking{
+  position:fixed;inset:0;z-index:100;
+  display:flex;align-items:center;justify-content:center;flex-direction:column;gap:36px;
+  background:rgba(0,0,0,0.78);backdrop-filter:blur(50px);
+  opacity:0;pointer-events:none;transition:opacity 0.4s var(--ease);
+}
+.ai-thinking.show{opacity:1;pointer-events:auto}
+.ai-thinking .neural-ring{
+  position:relative;width:120px;height:120px;
+  display:flex;align-items:center;justify-content:center;
+}
+.ai-thinking .neural-ring::before,
+.ai-thinking .neural-ring::after{
+  content:'';position:absolute;inset:0;border-radius:50%;
+  border:1px solid transparent;
+  border-top-color:var(--green);
+  animation:spin 1.4s linear infinite;
+}
+.ai-thinking .neural-ring::after{
+  inset:14px;border-top-color:rgba(127,224,167,0.4);
+  animation:spin 1s linear infinite reverse;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ai-thinking .neural-ring .core{
+  width:10px;height:10px;border-radius:50%;
+  background:var(--green);box-shadow:0 0 24px var(--green-glow);
+  animation:pulseDot 1.4s ease-in-out infinite;
+}
+.ai-thinking .dots{display:flex;gap:14px;align-items:center}
+.ai-thinking .dots span{
+  width:7px;height:7px;border-radius:50%;background:var(--green);
+  box-shadow:0 0 12px var(--green-glow);
+  animation:dotPulse 1.4s ease-in-out infinite;
+}
+.ai-thinking .dots span:nth-child(2){animation-delay:0.15s}
+.ai-thinking .dots span:nth-child(3){animation-delay:0.3s}
+.ai-thinking .dots span:nth-child(4){animation-delay:0.45s}
+.ai-thinking .dots span:nth-child(5){animation-delay:0.6s}
+@keyframes dotPulse{0%,100%{opacity:0.3;transform:scale(0.7)}50%{opacity:1;transform:scale(1.3)}}
+.ai-thinking .label{
+  font-family:var(--mono);font-size:10px;letter-spacing:0.42em;text-transform:uppercase;
+  color:var(--green);font-weight:400;
+}
+
+/* ============ RESULT STAGE — TOUT VISIBLE 1 VIEWPORT ============ */
+.result-stage{
+  display:none;flex-direction:column;
+  min-height:100vh;
+  padding:100px 28px 24px;
+  max-width:1480px;margin:0 auto;
+  position:relative;z-index:1;gap:18px;
+}
+.result-stage.show{display:flex;animation:fadeQuestion 0.8s var(--ease)}
+
+/* Analyse MINI bandeau en haut */
+#analyse-section{
+  display:flex;justify-content:center;align-items:center;flex-direction:column;
+  text-align:center;gap:14px;padding:0;
+}
+.analyse-card{
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  max-width:880px;width:100%;
+}
+.analyse-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--mono);font-size:10px;letter-spacing:0.42em;text-transform:uppercase;
+  color:var(--green);font-weight:400;
+}
+.analyse-eyebrow .dot{
+  width:5px;height:5px;border-radius:50%;background:var(--green);
+  box-shadow:0 0 8px var(--green-glow);animation:pulseDot 1.6s ease-in-out infinite;
+}
+.analyse-text{
+  font-size:clamp(16px,1.6vw,22px);
+  font-weight:200;letter-spacing:-0.015em;line-height:1.35;color:var(--ink);
+}
+.analyse-text em{
+  font-style:normal;font-weight:300;
+  color:#FFFFFF;
+}
+.analyse-meta{
+  display:inline-flex;gap:28px;
+  font-family:var(--mono);font-size:10px;letter-spacing:0.32em;text-transform:uppercase;
+  color:var(--ink-30);font-weight:400;
+  margin-top:6px;
+}
+.analyse-meta-item{display:inline-flex;align-items:center;gap:6px}
+.analyse-meta-item .lbl{color:var(--ink-30)}
+.analyse-meta-item .val{color:var(--ink);font-weight:500;letter-spacing:0.04em}
+
+/* ============ TITRE PROTOCOLE en haut (typo signature Inter weight 100) ============ */
+.protocol-title{
+  display:flex;justify-content:center;
+  padding:24px 0 36px;text-align:center;
+}
+.protocol-h2{
+  font-family:var(--sans);
+  font-size:clamp(28px,3.4vw,46px);
+  font-weight:100;letter-spacing:-0.032em;line-height:1.05;
+  color:var(--ink);
+}
+.protocol-h2 em{
+  font-style:normal;font-weight:200;
+  background:linear-gradient(180deg,#FFFFFF 0%,rgba(255,255,255,0.55) 100%);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+
+/* ============ ATLAS DU VISAGE — propal J promue ============ */
+.biomarkers{
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 50%,rgba(127,224,167,0.08) 0%,transparent 60%),
+    radial-gradient(ellipse 80% 60% at 30% 30%,rgba(160,140,255,0.06) 0%,transparent 65%),
+    radial-gradient(ellipse 80% 60% at 70% 70%,rgba(240,229,200,0.06) 0%,transparent 65%),
+    var(--v6-bg);
+  border:var(--v6-border);border-radius:var(--v6-radius);
+  padding:18px 22px;position:relative;overflow:hidden;
+  display:grid;grid-template-columns:230px 1fr 220px;gap:24px;align-items:center;
+  animation:auroraBreath 10s ease-in-out infinite;
+}
+
+/* ============ NARRATIVE GAUCHE — compte-rendu IA typewriter ============ */
+.atlas-narrative{position:relative;align-self:stretch;display:flex;flex-direction:column;gap:12px;padding:14px 6px 14px 10px;min-width:0}
+.atlas-narrative-label{font-family:var(--mono);font-size:9px;letter-spacing:0.4em;text-transform:uppercase;color:rgba(255,255,255,0.72);display:inline-flex;align-items:center;gap:8px;font-weight:500}
+.atlas-narrative-label::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green-glow);animation:pulseDot 1.8s ease-in-out infinite}
+.atlas-narrative-text{font-family:'Inter';font-weight:300;font-size:13px;line-height:1.68;color:rgba(255,255,255,0.88);font-style:italic;letter-spacing:0.005em;min-height:160px;position:relative;text-wrap:pretty}
+.atlas-narrative-text .cursor{display:inline-block;width:7px;height:14px;background:var(--green);margin-left:2px;vertical-align:-2px;animation:cursorBlink 0.9s steps(1) infinite;box-shadow:0 0 8px var(--green-glow)}
+.atlas-narrative-text em{color:#FFF;font-style:italic;font-weight:400;background:linear-gradient(90deg,rgba(127,224,167,0.22),rgba(127,224,167,0.04));padding:1px 5px;border-radius:3px}
+.atlas-narrative-text .num-hl{color:var(--green);font-weight:500;font-style:normal;font-variant-numeric:tabular-nums;text-shadow:0 0 6px rgba(127,224,167,0.4)}
+@keyframes cursorBlink{0%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes auroraBreath{
+  0%,100%{background-position:0% 0%, 0% 0%, 0% 0%, 0% 0%}
+  33%{background-position:5% -3%, -4% 5%, 6% -2%, 0% 0%}
+  66%{background-position:-4% 3%, 5% -4%, -3% 5%, 0% 0%}
+}
+.biomarkers::after{content:'';position:absolute;inset:0;border-radius:var(--v6-radius);background:radial-gradient(ellipse 100% 80% at 50% 110%,rgba(0,0,0,0.85) 0%,transparent 60%);pointer-events:none;z-index:1}
+.biomarkers > *{position:relative;z-index:2}
+
+/* Atlas */
+.atlas{position:relative;width:100%;max-width:480px;aspect-ratio:5/4;margin:0 auto;border-radius:16px;overflow:hidden;background:#000}
+/* Photo scan : HOLOGRAMME TECH v6 — background-size COVER (image native, pas de downscale flou) */
+/* La capture est déjà smart face-cropped (1.65× face), donc cover affiche le visage à pleine résolution */
+.atlas-photo{position:absolute;inset:0;background-size:cover;background-position:center center;z-index:0;
+  opacity:1;
+  -webkit-clip-path:ellipse(28% 45% at 50% 50%);
+          clip-path:ellipse(28% 45% at 50% 50%);
+  filter:saturate(0.85) hue-rotate(175deg) contrast(1.18) brightness(1.12);
+  image-rendering:auto;
+  transition:opacity 1.6s ease-out}
+/* Grain filmique TRÈS subtil — juste un voile texture, pas écraser la photo */
+.atlas::after{content:'';position:absolute;inset:0;z-index:3;pointer-events:none;
+  -webkit-clip-path:ellipse(28% 45% at 50% 50%);clip-path:ellipse(28% 45% at 50% 50%);
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/><feColorMatrix values='0 0 0 0 0.5  0 0 0 0 0.7  0 0 0 0 0.65  0 0 0 0.16 0'/></filter><rect width='200' height='200' filter='url(%23n)'/></svg>");
+  background-size:200px 200px;mix-blend-mode:overlay;opacity:0.18}
+.atlas[data-mode="wireframe"]::after{display:none}
+/* (Debug preview thumbnail retiré — capture validée en prod) */
+/* Tint Hologramme Tech : juste un voile cyan très léger, ne cache pas la photo */
+.atlas-tint{position:absolute;inset:0;z-index:1;-webkit-clip-path:ellipse(28% 45% at 50% 50%);clip-path:ellipse(28% 45% at 50% 50%);
+  background:
+    radial-gradient(ellipse 60% 70% at 50% 45%,rgba(100,180,255,0.05) 0%,transparent 65%),
+    linear-gradient(180deg,transparent 0%,rgba(0,0,0,0.12) 100%);
+  pointer-events:none}
+.atlas[data-mode="wireframe"] .atlas-photo{display:none}
+.atlas[data-mode="wireframe"] .atlas-tint{display:none}
+
+/* (Bouton recapture retiré — casse le style tech, on garde le flow scan DIORV3 principal) */
+
+/* Sweep scan line vert */
+.scan-sweep{position:absolute;left:0;right:0;height:70px;pointer-events:none;
+  background:linear-gradient(180deg,transparent 0%,rgba(127,224,167,0) 30%,rgba(127,224,167,0.18) 49%,rgba(127,224,167,0.55) 50%,rgba(127,224,167,0.18) 51%,rgba(127,224,167,0) 70%,transparent 100%);
+  top:-70px;animation:scanSweep 6s ease-in-out infinite}
+@keyframes scanSweep{0%{top:-70px;opacity:0}10%{opacity:1}90%{opacity:1}100%{top:100%;opacity:0}}
+
+/* Status bar */
+.atlas-status{position:absolute;top:12px;left:12px;right:12px;z-index:5;display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-size:8px;letter-spacing:0.36em;text-transform:uppercase;color:rgba(255,255,255,0.75);pointer-events:none}
+.atlas-status .pill{display:inline-flex;align-items:center;gap:6px;padding:5px 10px;border-radius:100px;background:rgba(0,0,0,0.65);backdrop-filter:blur(8px);border:1px solid rgba(127,224,167,0.18)}
+.atlas-status .dot{width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 6px var(--green-glow);animation:pulseDot 1.6s ease-in-out infinite}
+
+/* SVG overlay : wireframe + 8 points (z-index supérieur pour rester au-dessus de la photo semi-transparente) */
+.atlas-svg{position:absolute;inset:0;width:100%;height:100%;z-index:2}
+.face-stroke,.face-feature{fill:none;stroke:rgba(255,255,255,0.18);stroke-width:1.2;stroke-linejoin:round}
+.face-feature{stroke:rgba(255,255,255,0.12);stroke-width:1}
+.point-halo{fill:none;stroke:#FFF;stroke-width:1.2;opacity:0.5;animation:pointPulse 2.6s ease-in-out infinite}
+.point-halo.alert{stroke:var(--alert)}
+@keyframes pointPulse{0%,100%{r:6;opacity:0.55}50%{r:14;opacity:0.05}}
+.atlas-svg .point-halo:nth-of-type(2){animation-delay:0.3s}
+.atlas-svg .point-halo:nth-of-type(3){animation-delay:0.6s}
+.atlas-svg .point-halo:nth-of-type(4){animation-delay:0.9s}
+.atlas-svg .point-halo:nth-of-type(5){animation-delay:1.2s}
+.atlas-svg .point-halo:nth-of-type(6){animation-delay:1.5s}
+.atlas-svg .point-halo:nth-of-type(7){animation-delay:1.8s}
+.atlas-svg .point-halo:nth-of-type(8){animation-delay:2.1s}
+.point{fill:#FFF;filter:drop-shadow(0 0 6px rgba(255,255,255,0.85))}
+.point.alert{fill:var(--alert);filter:drop-shadow(0 0 6px rgba(255,217,179,0.85))}
+.point-label{font-family:var(--mono);font-size:7.5px;letter-spacing:0.32em;text-transform:uppercase;fill:rgba(255,255,255,0.85);font-weight:400}
+.point-value{font-family:'Inter';font-size:13px;font-weight:300;fill:#FFF;letter-spacing:-0.01em}
+.point-value.alert{fill:var(--alert)}
+.label-bg{fill:rgba(0,0,0,0.55);rx:3;ry:3}
+.conn-line{stroke:rgba(255,255,255,0.10);stroke-width:1;stroke-dasharray:2,3;fill:none}
+
+/* Legend side : 8 stats avec count-up + hover anim */
+.atlas-legend{display:flex;flex-direction:column;gap:3px;position:relative}
+.atlas-legend .row{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;padding:6px 6px 6px 4px;border-bottom:1px solid var(--ink-06);font-family:var(--mono);font-size:9px;letter-spacing:0.28em;text-transform:uppercase;color:var(--ink-55);position:relative;cursor:default;transition:transform 0.4s var(--ease), color 0.3s ease, padding-left 0.4s var(--ease)}
+.atlas-legend .row::after{content:'';position:absolute;bottom:-1px;left:0;height:1px;width:100%;background:linear-gradient(90deg,transparent 0%,rgba(127,224,167,0.5) 50%,transparent 100%);transform-origin:left;transform:scaleX(0);transition:transform 0.6s var(--ease)}
+.atlas-legend .row.scanned::after{transform:scaleX(1)}
+.atlas-legend .row:hover{padding-left:10px;color:var(--ink)}
+.atlas-legend .row:hover .num{color:var(--green)}
+.atlas-legend .row:hover b{text-shadow:0 0 12px rgba(127,224,167,0.5)}
+.atlas-legend .row b{font-family:'Inter';font-size:14px;font-weight:300;color:#FFF;letter-spacing:0;font-variant-numeric:tabular-nums;transition:text-shadow 0.4s ease, color 0.3s ease}
+.atlas-legend .row.alert b{color:var(--alert)}
+.atlas-legend .row.alert{animation:rowAlertBreath 3.4s ease-in-out infinite}
+@keyframes rowAlertBreath{0%,100%{background:transparent}50%{background:linear-gradient(90deg,rgba(255,217,179,0.04) 0%,transparent 100%)}}
+.atlas-legend .num{font-family:var(--mono);font-size:9px;color:var(--ink-30);width:18px;transition:color 0.3s ease}
+
+@media(max-width:900px){
+  .biomarkers{grid-template-columns:1fr;gap:18px}
+}
+
+/* Routines : 2 rangées (matin sur une rangée, soir sur une rangée) */
+.routines-wrap{
+  display:flex;flex-direction:column;gap:48px;
+  flex:1;
+}
+.routine-section{
+  display:flex;flex-direction:column;gap:18px;padding:0;
+}
+.routine-title{
+  font-family:var(--mono);font-size:11px;letter-spacing:0.42em;text-transform:uppercase;
+  color:var(--ink-55);font-weight:400;
+  display:flex;align-items:center;gap:10px;
+}
+.routine-title::before{
+  content:'';width:5px;height:5px;border-radius:50%;background:var(--green);
+  box-shadow:0 0 6px var(--green-glow);
+}
+.routine-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:16px;
+}
+@media(max-width:900px){.routine-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.routine-grid{grid-template-columns:1fr}}
+
+.routine-card{
+  /* CONTAINER ROND V6 SIGNATURE — COMPACT 2 ROWS */
+  position:relative;
+  background:var(--v6-bg);
+  border:var(--v6-border);
+  border-radius:18px;
+  padding:12px 12px 14px;
+  display:flex;flex-direction:column;gap:8px;
+  overflow:hidden;
+  transition:all 0.45s var(--ease);
+}
+.routine-card::after{
+  content:'';position:absolute;inset:0;border-radius:18px;
+  background:radial-gradient(ellipse 100% 80% at 50% 110%,rgba(0,0,0,0.88) 0%,transparent 60%);
+  pointer-events:none;z-index:1;
+}
+.routine-card > *{position:relative;z-index:2}
+.routine-card:hover{
+  transform:translateY(-4px);
+  border-color:rgba(255,255,255,0.22);
+}
+.routine-card .routine-step{
+  font-family:var(--mono);font-size:9px;letter-spacing:0.32em;text-transform:uppercase;
+  color:rgba(255,255,255,0.45);font-weight:400;
+}
+.routine-card .routine-step .step-num{color:#FFFFFF;font-weight:500}
+.routine-card .routine-img{
+  width:100%;aspect-ratio:5/4;
+  display:flex;align-items:center;justify-content:center;overflow:hidden;
+  border-radius:10px;
+  background:radial-gradient(ellipse at 50% 40%,rgba(255,255,255,0.04) 0%,transparent 60%);
+  position:relative;
+}
+.routine-card .r-img{
+  max-width:80%;max-height:80%;object-fit:contain;
+  filter:drop-shadow(0 16px 32px rgba(0,0,0,0.7));
+}
+.routine-card .r-name{
+  font-family:var(--sans);font-size:12px;font-weight:300;
+  letter-spacing:-0.008em;line-height:1.2;color:#FFFFFF;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+}
+.routine-card .r-cat{display:none}
+.routine-card .r-desc{display:none}
+.routine-card .r-price{
+  font-family:var(--mono);font-size:11px;letter-spacing:0.04em;
+  color:#FFFFFF;font-weight:400;
+}
+
+#protocol-trace{
+  font-family:var(--mono);font-size:9px;letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--ink-30);text-align:center;font-weight:400;
+  padding-top:12px;border-top:1px solid var(--ink-06);margin-top:6px;
+}
+
+/* ============ MINI BANDEAU RÉSUMÉ (entre routines et CTA) ============ */
+.summary-bandeau{
+  display:flex;flex-direction:column;gap:12px;
+  padding:14px 0;margin-top:4px;
+  border-top:1px solid var(--ink-06);
+}
+.summary-line{
+  display:flex;align-items:center;gap:10px;justify-content:center;
+  font-family:var(--sans);font-size:13px;font-weight:300;
+  color:var(--ink-70);letter-spacing:-0.005em;line-height:1.4;
+}
+.summary-line .dot{
+  width:5px;height:5px;border-radius:50%;background:var(--green);
+  box-shadow:0 0 6px var(--green-glow);
+  animation:pulseDot 1.6s ease-in-out infinite;
+  flex-shrink:0;
+}
+.summary-line em{
+  font-style:normal;font-weight:400;color:var(--ink);
+}
+.summary-kpis{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:8px;
+}
+@media(max-width:680px){.summary-kpis{grid-template-columns:repeat(2,1fr)}}
+.kpi{
+  background:rgba(255,255,255,0.025);
+  
+  border-radius:10px;
+  padding:9px 14px;
+  display:flex;flex-direction:column;gap:3px;align-items:flex-start;
+  transition:border-color 0.3s ease, background 0.3s ease;
+}
+.kpi:hover{border-color:var(--ink-15);background:rgba(255,255,255,0.04)}
+.kpi-lbl{
+  font-family:var(--mono);font-size:8px;letter-spacing:0.36em;text-transform:uppercase;
+  color:var(--ink-55);font-weight:400;
+}
+.kpi-val{
+  font-family:var(--sans);font-size:17px;font-weight:200;
+  letter-spacing:-0.018em;color:#FFFFFF;line-height:1;
+  display:flex;align-items:baseline;gap:4px;
+}
+.kpi-val .kpi-u{
+  font-family:var(--mono);font-size:9px;color:var(--ink-30);font-weight:400;letter-spacing:0.04em;text-transform:uppercase;
+}
+
+/* CTA mini en bas */
+#cta-final{
+  display:flex;justify-content:center;align-items:center;
+  padding:0;
+}
+.cta-card{
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:center;
+}
+.cta-card h2{display:none}
+.cta-card p{display:none}
+.cta-pills-row{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.cta-pill{
+  padding:12px 24px;
+  font-family:var(--sans);font-size:12px;font-weight:400;letter-spacing:0.02em;
+  border-radius:100px;text-decoration:none;
+  transition:all 0.3s var(--ease);
+  display:inline-flex;align-items:center;gap:8px;
+  border:1px solid rgba(255,255,255,0.15);backdrop-filter:blur(10px);
+}
+.cta-pill.primary{
+  background:linear-gradient(180deg,#FFFFFF 0%,#E8E8EA 100%);
+  color:#000 !important;border:none;font-weight:500;padding:12px 28px;
+}
+.cta-pill.primary:hover{transform:translateY(-2px);box-shadow:0 14px 30px rgba(255,255,255,0.18)}
+.cta-pill.secondary{background:rgba(0,0,0,0.4);color:rgba(255,255,255,0.70) !important}
+.cta-pill.secondary:hover{border-color:#FFFFFF;color:#FFFFFF !important}
+
+footer{
+  padding:50px 40px 30px;text-align:center;
+  font-family:var(--mono);font-size:9px;letter-spacing:0.42em;text-transform:uppercase;
+  color:var(--ink-30);font-weight:400;position:relative;z-index:1;
+}
+
+/* Engine hidden internals */
+.quiz-progress{display:none}
+.step-pill{display:none}
+.quiz-nav{display:none}
+
+/* Mobile */
+@media(max-width:760px){
+  header{padding:18px 22px}
+  .brand-mark .label{display:none}
+  .header-recap{display:none}
+  .step-index{top:90px}
+  .step-index .progress-track{width:80px}
+  .quiz-step{padding:140px 22px 60px;gap:48px}
+  .routine-section{padding:70px 22px}
+  .routine-title{margin-bottom:40px}
+  .analyse-card{padding:50px 32px}
+  .cta-card{padding:70px 32px 60px}
+  .analyse-meta{gap:32px}
+}
+.ci-range { color: rgba(245,244,240,0.45); font-family: var(--mono); font-size: 0.7em; margin-left: 4px; font-weight: 400; }
+</style>
+  <link rel="stylesheet" href="/vyvre-mobile.css">
+<style id="vyvre-blanc-theme">
+/* === VERSION BLANCHE (copie ; l'originale PROTOCOL_DIOR.html reste noire) === */
+:root{
+  --bg:#f7f7f5; --ink:#15140f;
+  --ink-95:rgba(21,20,15,.95); --ink-70:rgba(21,20,15,.62); --ink-55:rgba(21,20,15,.5);
+  --ink-30:rgba(21,20,15,.32); --ink-15:rgba(21,20,15,.16);
+  --ink-08:rgba(0,0,0,.07); --ink-06:rgba(0,0,0,.05);
+  --champagne:#8c6e26; --champagne-soft:rgba(140,110,38,.9);
+  --v6-border:1px solid rgba(0,0,0,.14);
+  --v6-bg:radial-gradient(ellipse 140% 100% at 50% -15%, rgba(0,0,0,.06) 0%, rgba(0,0,0,.02) 40%, transparent 75%), #ffffff;
+  --v6-bg-soft:#ffffff;
+}
+html,body{background:#f7f7f5 !important;color:#15140f !important}
+.chip.selected .chip-num,.chip.selected .chip-label,
+.atlas-narrative-text em,.atlas-legend .row b,
+.routine-card .routine-step .step-num{color:#15140f !important}
+.cta-pill.secondary:hover{border-color:#15140f !important;color:#15140f !important}
+.atlas{background:#ecebe9 !important}
+/* chips quiz lisibles sur blanc */
+.chip .chip-label{color:#15140f !important}
+.chip .chip-num{color:#8c6e26 !important}
+.chip::after{background:radial-gradient(ellipse 100% 80% at 50% 110%,rgba(0,0,0,0.06) 0%,transparent 60%) !important}
+.biomarkers::after{background:radial-gradient(ellipse 100% 80% at 50% 110%,rgba(0,0,0,0.05) 0%,transparent 60%) !important}
+.chip:hover{border-color:rgba(0,0,0,0.25) !important;box-shadow:0 24px 50px rgba(0,0,0,0.08) !important}
+.chip.selected{border-color:rgba(0,0,0,0.55) !important;box-shadow:0 24px 60px rgba(0,0,0,0.12) !important}
+</style>
+</head>
+<body>
+
+<header>
+  <a href="/VYVRE_DIORV3" class="brand-mark">
+    <div class="v"><canvas class="v-mini" width="72" height="72">V</canvas></div>
+    <span class="label">VYVRE × DIOR</span>
+  </a>
+  <div class="header-recap">
+    <div class="engine-pill"><span class="dot"></span>IA</div>
+    <span>Score<b id="recap-score">—</b><span class="ci-range">± 3</span></span>
+    <span>Âge peau<b id="recap-age">—</b><span class="ci-range">± 5</span></span>
+    <span>Hyd<b id="recap-hyd">—</b><span class="ci-range">± 3</span></span>
+  </div>
+  <a href="/VYVRE_DIORV3" class="back-btn">←</a>
+</header>
+
+<!-- ============ STAGE — Hero + Quiz dans même viewport ============ -->
+<section class="stage">
+
+  <!-- HERO (s'affiche en premier, fade out après 2.8s) -->
+  <div class="hero stage-layer" id="hero-layer">
+    <div class="hero-dot"></div>
+    <h1>
+      <span class="word-line">Votre routine.</span>
+      <span class="word-line">Par <em>IA</em>.</span>
+    </h1>
+    <div class="hero-meta"><span>4 questions</span> <span class="scroll-arr">·</span> <span>30 secondes</span></div>
+  </div>
+
+  <!-- QUIZ (fade in au même endroit après hero) -->
+  <div class="quiz-container stage-layer" id="quiz-container">
+
+  <div class="quiz-progress">
+    <div class="step-pill active" data-step="0"></div>
+    <div class="step-pill" data-step="1"></div>
+    <div class="step-pill" data-step="2"></div>
+    <div class="step-pill" data-step="3"></div>
+  </div>
+
+  <section class="quiz-step active" data-step="0">
+    <div class="step-index">
+      <span>01 / 04</span>
+      <div class="progress-track"><div class="progress-fill" style="width:25%"></div></div>
+    </div>
+    <h3 class="quiz-question">Votre <em>peau</em>.</h3>
+    <div class="quiz-options">
+      <button class="chip quiz-option" data-value="sèche"><span class="chip-num">01</span><span class="chip-label">Sèche</span></button>
+      <button class="chip quiz-option" data-value="normale"><span class="chip-num">02</span><span class="chip-label">Normale</span></button>
+      <button class="chip quiz-option" data-value="mixte"><span class="chip-num">03</span><span class="chip-label">Mixte</span></button>
+      <button class="chip quiz-option" data-value="grasse"><span class="chip-num">04</span><span class="chip-label">Grasse</span></button>
+    </div>
+  </section>
+
+  <section class="quiz-step" data-step="1">
+    <div class="step-index">
+      <span>02 / 04</span>
+      <div class="progress-track"><div class="progress-fill" style="width:50%"></div></div>
+    </div>
+    <h3 class="quiz-question">Votre <em>âge</em>.</h3>
+    <div class="quiz-options">
+      <button class="chip quiz-option" data-value="20-30"><span class="chip-num">A</span><span class="chip-label">20 – 30</span></button>
+      <button class="chip quiz-option" data-value="30-40"><span class="chip-num">B</span><span class="chip-label">30 – 40</span></button>
+      <button class="chip quiz-option" data-value="40-50"><span class="chip-num">C</span><span class="chip-label">40 – 50</span></button>
+      <button class="chip quiz-option" data-value="50+"><span class="chip-num">D</span><span class="chip-label">50 +</span></button>
+    </div>
+  </section>
+
+  <section class="quiz-step" data-step="2">
+    <div class="step-index">
+      <span>03 / 04</span>
+      <div class="progress-track"><div class="progress-fill" style="width:75%"></div></div>
+    </div>
+    <h3 class="quiz-question">Votre <em>priorité</em>.</h3>
+    <div class="quiz-options">
+      <button class="chip quiz-option" data-value="anti-age"><span class="chip-num">I</span><span class="chip-label">Anti-âge</span></button>
+      <button class="chip quiz-option" data-value="hydratation"><span class="chip-num">II</span><span class="chip-label">Hydratation</span></button>
+      <button class="chip quiz-option" data-value="eclat"><span class="chip-num">III</span><span class="chip-label">Éclat</span></button>
+      <button class="chip quiz-option" data-value="taches"><span class="chip-num">IV</span><span class="chip-label">Taches</span></button>
+    </div>
+  </section>
+
+  <section class="quiz-step" data-step="3">
+    <div class="step-index">
+      <span>04 / 04</span>
+      <div class="progress-track"><div class="progress-fill" style="width:100%"></div></div>
+    </div>
+    <h3 class="quiz-question">Votre <em>intention</em>.</h3>
+    <div class="quiz-options">
+      <button class="chip quiz-option" data-value="prevention"><span class="chip-num">α</span><span class="chip-label">Prévention</span></button>
+      <button class="chip quiz-option" data-value="reparation"><span class="chip-num">β</span><span class="chip-label">Réparation</span></button>
+      <button class="chip quiz-option" data-value="lifting"><span class="chip-num">γ</span><span class="chip-label">Lifting</span></button>
+      <button class="chip quiz-option" data-value="confort"><span class="chip-num">δ</span><span class="chip-label">Confort</span></button>
+    </div>
+  </section>
+
+  <div class="quiz-nav">
+    <button class="quiz-btn" id="quiz-prev" disabled>prev</button>
+    <button class="quiz-btn primary" id="quiz-next" disabled>next</button>
+  </div>
+  </div>
+</section>
+
+<!-- ============ AI THINKING OVERLAY ============ -->
+<div class="ai-thinking" id="ai-thinking">
+  <div class="neural-ring"><div class="core"></div></div>
+  <div class="dots"><span></span><span></span><span></span><span></span><span></span></div>
+  <div class="label">Calibration en cours</div>
+</div>
+
+<!-- ============ RESULT STAGE — TOUT VISIBLE 1 VIEWPORT ============ -->
+<section class="result-stage" id="result-stage">
+
+  <!-- Titre minimal en haut (1 seul titre Inter weight 100) -->
+  <div class="protocol-title">
+    <h2 class="protocol-h2">Protocole <em>personnel</em>.</h2>
+  </div>
+
+  <!-- Analyse-section (hidden mais nécessaire pour le JS engine) -->
+  <section id="analyse-section" style="display:none">
+    <p class="analyse-text" id="analyse-text"></p>
+    <span id="meta-score" style="display:none"></span>
+    <span id="meta-age" style="display:none"></span>
+    <span id="meta-goal" style="display:none"></span>
+  </section>
+
+  <!-- ATLAS DU VISAGE — propal J promue (8 biomarqueurs sur vraies zones + photo scan ou wireframe) -->
+  <div class="biomarkers" id="biomarkers">
+    <!-- Compte-rendu IA narratif (gauche) -->
+    <aside class="atlas-narrative">
+      <span class="atlas-narrative-label">● Compte-rendu IA</span>
+      <div class="atlas-narrative-text" id="atlas-narrative-text"><em>Analyse en cours</em> de votre diagnostic personnalisé<span class="cursor"></span></div>
+    </aside>
+    <div class="atlas" id="atlas" data-mode="wireframe">
+      <div class="atlas-photo" id="atlas-photo"></div>
+      <div class="atlas-tint"></div>
+      <div class="atlas-status">
+        <span class="pill"><span class="dot"></span>ANALYSE VYVRE · CARTOGRAPHIE</span>
+        <span class="pill">8 / 8 POINTS</span>
+      </div>
+      <div class="scan-sweep"></div>
+      <svg class="atlas-svg" viewBox="0 0 500 400" preserveAspectRatio="xMidYMid meet">
+        <g class="atlas-wireframe-svg">
+          <ellipse class="face-stroke" cx="250" cy="200" rx="100" ry="135"></ellipse>
+          <path class="face-stroke" d="M 165 225 Q 175 300 250 325 Q 325 300 335 225"></path>
+          <path class="face-feature" d="M 195 160 Q 215 152 235 158"></path>
+          <path class="face-feature" d="M 265 158 Q 285 152 305 160"></path>
+          <ellipse class="face-feature" cx="215" cy="185" rx="14" ry="6"></ellipse>
+          <ellipse class="face-feature" cx="285" cy="185" rx="14" ry="6"></ellipse>
+          <path class="face-feature" d="M 250 195 L 245 225 Q 250 235 255 225 Z"></path>
+          <path class="face-feature" d="M 225 265 Q 250 275 275 265"></path>
+        </g>
+        <polyline class="conn-line" points="250,118 188,170 175,225 250,310 325,225 312,170 250,118"></polyline>
+
+        <!-- 1. Front : ÉCLAT (glow) -->
+        <circle class="point-halo" cx="250" cy="118" r="6"></circle>
+        <circle class="point" cx="250" cy="118" r="3.5"></circle>
+        <rect class="label-bg" x="220" y="80" width="60" height="32" rx="4"></rect>
+        <text class="point-label" x="250" y="94" text-anchor="middle">ÉCLAT</text>
+        <text class="point-value" x="250" y="106" text-anchor="middle" data-bio-svg="glow">—</text>
+
+        <!-- 2. Contour œil G : LISSAGE -->
+        <circle class="point-halo" cx="188" cy="170" r="6"></circle>
+        <circle class="point" cx="188" cy="170" r="3.5"></circle>
+        <rect class="label-bg" x="106" y="158" width="60" height="32" rx="4"></rect>
+        <text class="point-label" x="136" y="172" text-anchor="middle">LISSAGE</text>
+        <text class="point-value" x="136" y="184" text-anchor="middle" data-bio-svg="wrinkles">—</text>
+
+        <!-- 3. Joue G : HYDRA -->
+        <circle class="point-halo" cx="175" cy="225" r="6"></circle>
+        <circle class="point" cx="175" cy="225" r="3.5"></circle>
+        <rect class="label-bg" x="80" y="218" width="60" height="32" rx="4"></rect>
+        <text class="point-label" x="110" y="232" text-anchor="middle">HYDRA</text>
+        <text class="point-value" x="110" y="244" text-anchor="middle" data-bio-svg="hydration">—</text>
+
+        <!-- 4. Joue D : GRAIN -->
+        <circle class="point-halo" cx="325" cy="225" r="6"></circle>
+        <circle class="point" cx="325" cy="225" r="3.5"></circle>
+        <rect class="label-bg" x="360" y="218" width="60" height="32" rx="4"></rect>
+        <text class="point-label" x="390" y="232" text-anchor="middle">GRAIN</text>
+        <text class="point-value" x="390" y="244" text-anchor="middle" data-bio-svg="pores">—</text>
+
+        <!-- 5. Pommette G : APAISEMENT -->
+        <circle class="point-halo" cx="220" cy="240" r="5"></circle>
+        <circle class="point" cx="220" cy="240" r="3"></circle>
+
+        <!-- 6. Pommette D : PIGMENTATION -->
+        <circle class="point-halo" cx="280" cy="240" r="5"></circle>
+        <circle class="point" cx="280" cy="240" r="3"></circle>
+
+        <!-- 7. Zone T : SÉBUM (alert) -->
+        <circle class="point-halo alert" cx="250" cy="220" r="6"></circle>
+        <circle class="point alert" cx="250" cy="220" r="3.5"></circle>
+        <rect class="label-bg" x="290" y="200" width="62" height="32" rx="4"></rect>
+        <text class="point-label" x="321" y="214" text-anchor="middle" fill="rgba(255,217,179,0.85)">SÉBUM</text>
+        <text class="point-value alert" x="321" y="226" text-anchor="middle" data-bio-svg="sebum">—</text>
+
+        <!-- 8. Ovale : FERMETÉ -->
+        <circle class="point-halo" cx="250" cy="310" r="6"></circle>
+        <circle class="point" cx="250" cy="310" r="3.5"></circle>
+        <rect class="label-bg" x="216" y="346" width="68" height="32" rx="4"></rect>
+        <text class="point-label" x="250" y="360" text-anchor="middle">FERMETÉ</text>
+        <text class="point-value" x="250" y="372" text-anchor="middle" data-bio-svg="firmness">—</text>
+      </svg>
+    </div>
+
+    <div class="atlas-legend" id="atlas-legend">
+      <div class="row" data-bio="glow"><span class="num">01</span><span>Front · Éclat</span><b>—</b></div>
+      <div class="row" data-bio="wrinkles"><span class="num">02</span><span>Contour œil · Rides</span><b>—</b></div>
+      <div class="row" data-bio="hydration"><span class="num">03</span><span>Joue G · Hydra</span><b>—</b></div>
+      <div class="row" data-bio="pores"><span class="num">04</span><span>Joue D · Pores</span><b>—</b></div>
+      <div class="row" data-bio="redness"><span class="num">05</span><span>Pommette G · Rougeur</span><b>—</b></div>
+      <div class="row" data-bio="pigmentation"><span class="num">06</span><span>Pommette D · Pigm.</span><b>—</b></div>
+      <div class="row alert" data-bio="sebum"><span class="num">07</span><span>Zone T · Sébum</span><b>—</b></div>
+      <div class="row" data-bio="firmness"><span class="num">08</span><span>Ovale · Fermeté</span><b>—</b></div>
+    </div>
+  </div>
+
+  <!-- Routines 2 rangées (matin / soir) -->
+  <div class="routines-wrap">
+    <section class="routine-section" id="routine-matin">
+      <h2 class="routine-title">Matin</h2>
+      <div class="routine-grid" id="grid-matin">
+        <div class="routine-card" data-protocol-slot="am-0"><div class="routine-step"><span class="step-num">01</span>·Nettoyer</div><div class="routine-img"><img class="r-img" src="" alt=""></div><h4 class="r-name">—</h4><div class="r-cat">—</div><p class="r-desc">—</p><div class="r-price">—</div></div>
+        <div class="routine-card" data-protocol-slot="am-1"><div class="routine-step"><span class="step-num">02</span>·Sérum</div><div class="routine-img"><img class="r-img" src="" alt=""></div><h4 class="r-name">—</h4><div class="r-cat">—</div><p class="r-desc">—</p><div class="r-price">—</div></div>
+        <div class="routine-card" data-protocol-slot="am-2"><div class="routine-step"><span class="step-num">03</span>·Crème jour</div><div class="routine-img"><img class="r-img" src="" alt=""></div><h4 class="r-name">—</h4><div class="r-cat">—</div><p class="r-desc">—</p><div class="r-price">—</div></div>
+        <div class="routine-card" data-protocol-slot="am-3"><div class="routine-step"><span class="step-num">04</span>·SPF</div><div class="routine-img"><img class="r-img" src="" alt=""></div><h4 class="r-name">—</h4><div class="r-cat">—</div><p class="r-desc">—</p><div class="r-price">—</div></div>
+      </div>
+    </section>
+
+    <section class="routine-section" id="routine-soir">
+      <h2 class="routine-title">Soir</h2>
+      <div class="routine-grid" id="grid-soir">
+        <div class="routine-card" data-protocol-slot="pm-0"><div class="routine-step"><span class="step-num">01</span>·Démaquillant</div><div class="routine-img"><img class="r-img" src="" alt=""></div><h4 class="r-name">—</h4><div class="r-cat">—</div><p class="r-desc">—</p><div class="r-price">—</div></div>
+        <div class="routine-card" data-protocol-slot="pm-1"><div class="routine-step"><span class="step-num">02</span>·Sérum nuit</div><div class="routine-img"><img class="r-img" src="" alt=""></div><h4 class="r-name">—</h4><div class="r-cat">—</div><p class="r-desc">—</p><div class="r-price">—</div></div>
+        <div class="routine-card" data-protocol-slot="pm-2"><div class="routine-step"><span class="step-num">03</span>·Crème nuit</div><div class="routine-img"><img class="r-img" src="" alt=""></div><h4 class="r-name">—</h4><div class="r-cat">—</div><p class="r-desc">—</p><div class="r-price">—</div></div>
+        <div class="routine-card" data-protocol-slot="pm-3"><div class="routine-step"><span class="step-num">04</span>·Yeux</div><div class="routine-img"><img class="r-img" src="" alt=""></div><h4 class="r-name">—</h4><div class="r-cat">—</div><p class="r-desc">—</p><div class="r-price">—</div></div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Mini résumé bandeau : phrase analyse IA + 4 KPI mini-cards -->
+  <section class="summary-bandeau" id="summary-bandeau">
+    <div class="summary-line">
+      <span class="dot"></span>
+      <span class="analyse-mini" id="analyse-mini">Matrice <em>équilibrée</em>. Protocole <em>préventif</em>, focus <em>éclat</em>.</span>
+    </div>
+    <div class="summary-kpis">
+      <div class="kpi"><span class="kpi-lbl">Produits</span><span class="kpi-val" id="kpi-products">8<span class="kpi-u">/59</span></span></div>
+      <div class="kpi"><span class="kpi-lbl">Routine</span><span class="kpi-val">4<span class="kpi-u">matin</span> · 4<span class="kpi-u">soir</span></span></div>
+      <div class="kpi"><span class="kpi-lbl">Pilote</span><span class="kpi-val">30<span class="kpi-u">jours</span></span></div>
+      <div class="kpi"><span class="kpi-lbl">Activation</span><span class="kpi-val">48<span class="kpi-u">h</span></span></div>
+    </div>
+  </section>
+
+  <!-- CTA mini en bas + trace -->
+  <section id="cta-final">
+    <div class="cta-card">
+      <div class="cta-pills-row">
+        <a href="https://vyvre.fr/pricing?from=dior" class="cta-pill primary">Activez le pilote →</a>
+        <a href="https://calendly.com/charles-symphonydrive" target="_blank" class="cta-pill secondary">Réserver 20 min</a>
+        <a href="/VYVRE_DIORV3" class="cta-pill secondary">← Scan</a>
+      </div>
+    </div>
+  </section>
+
+  <div id="protocol-trace"></div>
+
+</section>
+
+<div class="methodology-note" style="margin:60px auto 30px;max-width:600px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(245,244,240,0.30);line-height:1.8;">
+  ANALYSE BASÉE SUR 6 INDICATEURS PEER-REVIEWED · CHARDON 1991 · STAMATAS 2011 · BAZIN 2007<br>
+  INTERVALLES DE CONFIANCE ±5 ANS · NE REMPLACE PAS UN EXAMEN DERMATOLOGIQUE<br>
+  <a href="https://vyvre.fr/accuracy" style="color:rgba(127,224,167,0.55);text-decoration:none">VOIR MÉTHODOLOGIE COMPLÈTE →</a>
+</div>
+<footer>VYVRE × DIOR · Paris, France · charles@symphonydrive.com</footer>
+
+<!-- ============ AUTO-PROGRESS WRAPPER (runs BEFORE engine) ============ -->
+<script>
+(function(){
+  // PAS de MutationObserver — l'engine utilise maintenant .show class directement
+  const aiThinking = document.getElementById('ai-thinking');
+
+  // E v9 : transitions douces entre questions SANS overlay IA. Overlay IA UNIQUEMENT à la fin (Q4).
+  function attachAutoProgress(opt) {
+    opt.addEventListener('click', function() {
+      const stepEl = opt.closest('.quiz-step');
+      const stepKey = stepEl.dataset.step;
+      const isLast = stepKey === '3';
+      console.log('[E] chip click step=' + stepKey + ' value=' + opt.dataset.value);
+
+      // Disable further clicks pendant transition
+      const allChips = opt.parentElement.querySelectorAll('.chip');
+      allChips.forEach(c => { c.style.pointerEvents = 'none'; });
+      // Fade non-selected chips
+      setTimeout(() => {
+        allChips.forEach(c => {
+          if (!c.classList.contains('selected')) c.classList.add('fading');
+        });
+      }, 50);
+
+      if (!isLast) {
+        // Q1-Q3 : transition simple (pas d'overlay IA), juste delay pour voir la sélection
+        setTimeout(() => {
+          if (window._vyvreEngine) window._vyvreEngine.advance();
+        }, 550);  // assez long pour voir le selected + sentir le rythme
+      } else {
+        // Q4 (LAST) : overlay IA UNE seule fois → reveal compact
+        setTimeout(() => {
+          aiThinking.classList.add('show');
+          setTimeout(() => {
+            // Hide stage + reveal (le reveal compact se construit en arrière-plan)
+            const stage = document.querySelector('.stage');
+            if (stage) { stage.style.transition = 'opacity 0.5s ease'; stage.style.opacity = '0'; }
+            setTimeout(() => { if (stage) stage.style.display = 'none'; }, 500);
+            if (window._vyvreEngine) window._vyvreEngine.reveal();
+            // Fade overlay APRES que le reveal soit affiché en dessous
+            setTimeout(() => aiThinking.classList.remove('show'), 400);
+          }, 1700);  // 1.7s d'animation IA "Calibration en cours"
+        }, 400);
+      }
+    });
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.quiz-option').forEach(attachAutoProgress);
+
+    // Transition Hero → Quiz au MÊME endroit après animation titre
+    setTimeout(() => {
+      const heroLayer = document.getElementById('hero-layer');
+      const quizContainer = document.getElementById('quiz-container');
+      if (heroLayer && quizContainer) {
+        heroLayer.classList.add('exit');
+        setTimeout(() => quizContainer.classList.add('enter'), 350);
+      }
+    }, 2800);
+  });
+})();
+</script>
+
+<!-- ============ JS ENGINE (verbatim) ============ -->
+<script>
+/* VYVRE PROTOCOL ENGINE — DIOR */
+(function(){
+  const API_BASE = 'https://vyvre.fr/api/products';
+  const BRAND = 'dior';
+  const params = new URLSearchParams(location.search);
+  const scoreNum = parseInt(params.get('score') || localStorage.getItem('vyvre_score') || '0', 10);
+  const ageNum   = parseInt(params.get('age')   || localStorage.getItem('vyvre_age')   || '0', 10);
+  const hydNum   = parseInt(params.get('hyd')   || localStorage.getItem('vyvre_hyd')   || '0', 10);
+  let scanScores = null;
+  const encoded = params.get('scores');
+  if (encoded) { try { scanScores = JSON.parse(atob(encoded)); } catch(_) {} }
+  if (!scanScores) { try { scanScores = JSON.parse(localStorage.getItem('vyvre_scan_scores') || 'null'); } catch(_) {} }
+  document.getElementById('recap-score').textContent = scoreNum > 0 ? scoreNum : '—';
+  document.getElementById('recap-age').textContent   = ageNum   > 0 ? ageNum + ' ans' : '—';
+  document.getElementById('recap-hyd').textContent   = hydNum   > 0 ? hydNum + ' %' : '—';
+  document.getElementById('meta-score').textContent  = scoreNum > 0 ? scoreNum : '—';
+  document.getElementById('meta-age').textContent    = ageNum   > 0 ? (ageNum + ' ans') : '—';
+  console.log('[PROTOCOL] scan loaded:', { scoreNum, ageNum, hydNum, scanScores });
+
+  const answers = { 0:null, 1:null, 2:null, 3:null };
+  let currentStep = 0;
+  const STEPS = 4;
+  const prevBtn = document.getElementById('quiz-prev');
+  const nextBtn = document.getElementById('quiz-next');
+
+  function updateUI(){
+    document.querySelectorAll('.quiz-step').forEach((el,i)=>{
+      el.classList.toggle('active', i === currentStep);
+    });
+    document.querySelectorAll('.step-pill').forEach((el,i)=>{
+      el.classList.toggle('done',   i < currentStep);
+      el.classList.toggle('active', i === currentStep);
+    });
+    prevBtn.disabled = currentStep === 0;
+    nextBtn.disabled = answers[currentStep] === null;
+  }
+
+  document.querySelectorAll('.quiz-option').forEach(opt=>{
+    opt.addEventListener('click', function(){
+      const step = this.closest('.quiz-step').dataset.step;
+      this.parentElement.querySelectorAll('.quiz-option').forEach(o=>o.classList.remove('selected'));
+      this.classList.add('selected');
+      answers[step] = this.dataset.value;
+      updateUI();
+    });
+  });
+  prevBtn.addEventListener('click', ()=>{ if(currentStep > 0){ currentStep--; updateUI(); } });
+  nextBtn.addEventListener('click', ()=>{
+    if(currentStep < STEPS - 1){ currentStep++; updateUI(); }
+    else { revealProtocol(); }
+  });
+
+  // === Expose engine to wrapper (E v4 fix) ===
+  window._vyvreEngine = {
+    advance: () => { if(currentStep < STEPS - 1) { currentStep++; updateUI(); return true; } return false; },
+    reveal:  () => revealProtocol(),
+    state:   () => ({ currentStep, STEPS, answers: {...answers} })
+  };
+
+  function fixMojibake(s) {
+    return (s || '')
+      .replace(/Cr√®me/g, 'Crème').replace(/cr√®me/g, 'crème')
+      .replace(/S√©rum/g, 'Sérum').replace(/s√©rum/g, 'sérum')
+      .replace(/√âclat/g, 'Éclat').replace(/√©clat/g, 'éclat')
+      .replace(/√Çge/g, 'Âge').replace(/√¢ge/g, 'âge')
+      .replace(/√™me/g, 'ême').replace(/√®/g, 'è').replace(/√©/g, 'é').replace(/√¢/g, 'â').replace(/√´/g, 'ë').replace(/√Ä/g, 'À');
+  }
+  function isExcluded(name) {
+    const n = fixMojibake(name || '').toLowerCase();
+    return n.includes('mains') || n.includes(' main ') || n.includes('hand cream') || n.includes('hand balm') ||
+           n.includes('corps') || n.includes('body ') || n.includes(' body') || n.includes('body cream') ||
+           n.includes('eau de toilette') || n.includes('eau de cologne') || n.includes('eau de parfum') ||
+           n.includes('parfum') || n.includes('fragrance') ||
+           n.includes('cheveux') || n.includes('hair ') || n.includes('shampoo') ||
+           n.includes('lèvres') || n.includes('lip balm') || n.includes('lipstick') ||
+           n.includes('vernis') || n.includes('nail') ||
+           n.includes('bougie') || n.includes('candle');
+  }
+  function categorize(name) {
+    const n = fixMojibake(name || '').toLowerCase();
+    // Démaquillant / PM cleanser — FR + EN
+    if (n.includes('démaquill') || n.includes('lait dém') || n.includes('makeup remov') || n.includes('cleansing oil') || n.includes('cleansing balm') || n.includes('cleansing milk') || n.includes('balm cleanser') || n.includes('oil cleanser')) return 'cleanser-pm';
+    // Eye care — FR + EN
+    if (n.includes('yeux') || n.includes('regard') || n.includes('soin yeux') || n.includes('eye cream') || n.includes('eye serum') || n.includes('eye balm') || n.includes('eye treatment') || n.includes('eye gel') || n.includes('eye contour') || (n.includes('eye ') && !n.includes('eyebrow') && !n.includes('eyeshadow') && !n.includes('eyeliner'))) return 'eye';
+    // Sunscreen / SPF — FR + EN
+    if (n.includes('spf') || n.includes('solar') || n.includes('protect solaire') || n.includes('sun protect') || n.includes('sunscreen') || n.includes('sun cream') || n.includes('uv shield') || n.includes('skin glow veil')) return 'sunscreen';
+    // Mask
+    if (n.includes('masque') || n.includes(' mask') || n.includes('mask ')) return 'mask';
+    // Huile / Oil (non-spf, non-cleansing)
+    if ((n.includes('huile') || n.includes(' oil') || n.startsWith('oil ')) && !n.includes('démaquill') && !n.includes('cleansing oil') && !n.includes('balm cleanser')) return 'oil';
+    // Cleanser AM — FR + EN
+    if (n.includes('mousse') || n.includes('gel nettoy') || n.includes('purifi') || n.includes('lotion micellaire') || (n.includes('nettoy') && !n.includes('démaquill')) || n.includes('cleanser') || n.includes('face wash') || n.includes('foam wash') || n.includes('foaming') || n.includes('gel wash') || n.includes('purifying')) return 'cleanser-am';
+    // Sérum / Serum — FR + EN
+    if (n.includes('sérum') || n.includes('serum') || n.includes('concentré') || n.includes('concentrate') || n.includes('elixir') || n.includes('essence') || n.includes('booster') || n.includes('filler') || n.includes('soother') || n.includes('maximizer') || n.includes('cure') || n.includes('extrait') || n.includes('extract') || n.includes('nectar') || n.includes('ampoule') || n.includes('treatment') || n.includes('correcting')) return 'serum';
+    // Lotion / Toner
+    if (n.includes('lotion') || n.includes('toner') || n.includes('tonique') || n.includes(' mist')) return 'lotion';
+    // Crème / Cream — FR + EN
+    if (n.includes('crème') || n.includes('creme') || n.includes('balsam') || n.includes('baume') || n.includes(' balm') || n.includes('soin visage') || n.includes('perfecteur') || n.includes('dreamskin') || n.includes('cream') || n.includes('moisturizer') || n.includes('moisturiser') || n.includes('hydrator')) {
+      if (n.includes('nuit') || n.includes('riche') || n.includes('night') || n.includes('intense') || n.includes('overnight') || n.includes(' pm ')) return 'cream-pm';
+      return 'cream-am';
+    }
+    return 'other';
+  }
+
+  function computeSeverity(scores, quiz) {
+    const sev = {
+      wrinkles:     scores ? Math.max(0, 100 - scores.wrinkles)   : 50,
+      firmness:     scores ? Math.max(0, 100 - scores.firmness)   : 45,
+      glow:         scores ? Math.max(0, 100 - scores.glow)       : 40,
+      hydration:    scores ? Math.max(0, 100 - scores.hydration)  : 50,
+      redness:      scores ? Math.max(0, 100 - scores.redness)    : 25,
+      pores:        scores ? Math.max(0, 100 - scores.pores)      : 35,
+      sebum:        scores ? scores.sebum                          : 35,
+      pigmentation: scores ? scores.pigmentation                   : 25
+    };
+    if (quiz.concern === 'anti-age')    { sev.wrinkles += 25; sev.firmness += 20; }
+    if (quiz.concern === 'hydratation') { sev.hydration += 30; sev.pores += 10; }
+    if (quiz.concern === 'eclat')       { sev.glow += 28; sev.pigmentation += 8; }
+    if (quiz.concern === 'taches')      { sev.pigmentation += 30; sev.glow += 12; }
+    if (quiz.typePeau === 'sèche')      { sev.hydration += 18; }
+    if (quiz.typePeau === 'grasse')     { sev.sebum += 22; sev.pores += 16; }
+    if (quiz.typePeau === 'mixte')      { sev.sebum += 10; sev.hydration += 8; }
+    if (quiz.goal === 'lifting')        { sev.firmness += 18; sev.wrinkles += 12; }
+    if (quiz.goal === 'reparation')     { sev.redness += 14; sev.hydration += 14; }
+    if (quiz.goal === 'confort')        { sev.redness += 20; sev.hydration += 12; }
+    return sev;
+  }
+
+  function matchScore(product, sev) {
+    const cs = product.concern_scores || {};
+    let s = 0;
+    for (const k in sev) s += (sev[k] || 0) * (cs[k] || 0);
+    return s;
+  }
+
+  function buildRoutines(products, sev) {
+    products.forEach(p => {
+      p._cat = categorize(p.name);
+      p._display_name = fixMojibake(p.name);
+    });
+    products = products.filter(p => !isExcluded(p.name));
+    const used = [];
+    function pick(cat) {
+      const pool = products.filter(p => p._cat === cat && !used.includes(p.id));
+      pool.sort((a, b) => matchScore(b, sev) - matchScore(a, sev));
+      return pool[0] || null;
+    }
+    function take(cat, fbs=[]) {
+      let p = pick(cat);
+      for (const fb of fbs) { if (!p) p = pick(fb); }
+      // Fallback ultime: n'importe quel produit non utilisé (sort by matchScore)
+      if (!p) {
+        const pool = products.filter(pp => !used.includes(pp.id));
+        pool.sort((a, b) => matchScore(b, sev) - matchScore(a, sev));
+        p = pool[0] || null;
+      }
+      // Si vraiment rien dispo (moins de produits que slots), réutiliser le meilleur
+      if (!p && products.length > 0) {
+        const pool = [...products].sort((a, b) => matchScore(b, sev) - matchScore(a, sev));
+        p = pool[0];
+      }
+      if (p) used.push(p.id);
+      return p;
+    }
+    const morning = [
+      take('cleanser-am', ['cleanser-pm', 'lotion']),
+      take('serum',       ['lotion', 'oil']),
+      take('cream-am',    ['cream-pm']),
+      take('sunscreen',   ['cream-am'])
+    ];
+    const evening = [
+      take('cleanser-pm', ['oil', 'cleanser-am']),
+      take('serum',       ['mask', 'oil']),
+      take('cream-pm',    ['cream-am', 'mask']),
+      take('eye',         ['serum'])
+    ];
+    return { morning, evening };
+  }
+
+  let _productsCache = null;
+  async function fetchProducts() {
+    if (_productsCache) return _productsCache;
+    const res = await fetch(`${API_BASE}?brand=${BRAND}&_t=${Date.now()}`);
+    if (!res.ok) throw new Error('API products failed: ' + res.status);
+    const data = await res.json();
+    _productsCache = (data.products || []).filter(p => p && p.name);
+    return _productsCache;
+  }
+
+  function renderProduct(slotKey, product) {
+    const card = document.querySelector(`[data-protocol-slot="${slotKey}"]`);
+    if (!card) return;
+    if (!product) {
+      card.style.opacity = '0.35';
+      card.querySelector('.r-name').textContent = '—';
+      card.querySelector('.r-cat').textContent = '';
+      card.querySelector('.r-desc').textContent = '';
+      card.querySelector('.r-price').textContent = '';
+      const img = card.querySelector('.r-img'); img.style.display = 'none';
+      return;
+    }
+    card.querySelector('.r-name').textContent = product._display_name || product.name;
+    const catLabel = {
+      'cleanser-am': 'Nettoyant matin','cleanser-pm': 'Démaquillant',
+      'serum': 'Sérum','cream-am': 'Crème jour','cream-pm': 'Crème nuit',
+      'sunscreen': 'Protection solaire','eye': 'Soin yeux',
+      'mask': 'Masque','oil': 'Huile','lotion': 'Lotion'
+    }[product._cat] || 'Soin signature';
+    card.querySelector('.r-cat').textContent = catLabel;
+    card.querySelector('.r-price').textContent = product.price_eur ? `${product.price_eur.toLocaleString('fr-FR')},00 €` : '—';
+    const img = card.querySelector('.r-img');
+    img.src = product.image_url || '';
+    img.alt = product.name;
+    img.style.display = '';
+    card.style.opacity = '1';
+    // === [CLICK→URL marque] ===
+    if (product.url) {
+      card.style.cursor = "pointer";
+      card.title = "Voir sur le site officiel de la marque";
+      card.onclick = (e) => { e.preventDefault(); window.open(product.url, "_blank", "noopener,noreferrer"); };
+    }
+  }
+
+  function renderTrace(sev, morning, evening) {
+    const top3 = Object.entries(sev).sort((a, b) => b[1] - a[1]).slice(0, 3)
+      .map(([k]) => ({wrinkles:'rides',firmness:'fermeté',glow:'éclat',hydration:'hydratation',redness:'rougeurs',pores:'pores',sebum:'sébum',pigmentation:'taches'}[k] || k)).join(' · ');
+    const matched = [...morning, ...evening].filter(Boolean).length;
+    const trace = document.getElementById('protocol-trace');
+    if (trace) {
+      trace.textContent = `Concerns prioritaires : ${top3}  ·  ${matched}/8 produits sélectionnés sur 59 références Dior`;
+      trace.style.display = 'block';
+    }
+  }
+
+  async function revealProtocol(){
+    const quiz = {
+      typePeau: answers[0] || 'normale',
+      ageRange: answers[1] || '30-40',
+      concern:  answers[2] || 'anti-age',
+      goal:     answers[3] || 'prevention'
+    };
+    const concernShort = {'anti-age':'anti-âge','hydratation':'hydratation','eclat':'éclat','taches':'pigmentation'}[quiz.concern] || 'anti-âge';
+    const goalShort    = {'prevention':'Prévention','reparation':'Réparation','lifting':'Lifting','confort':'Confort'}[quiz.goal] || 'Prévention';
+    document.getElementById('meta-goal').textContent = goalShort;
+
+    const matriceState = quiz.typePeau === 'sèche' ? 'fragile' : quiz.typePeau === 'grasse' ? 'hyper-active' : 'équilibrée';
+    const analyse = `Matrice <em>${matriceState}</em>. Protocole <em>${goalShort.toLowerCase()}</em>, focus <em>${concernShort}</em>.`;
+    document.getElementById('analyse-text').innerHTML = analyse;
+    // Injecte aussi dans le mini-bandeau résumé en bas
+    const analyseMini = document.getElementById('analyse-mini');
+    if (analyseMini) analyseMini.innerHTML = analyse;
+
+    // Reveal compact : un seul container .result-stage qui contient tout
+    document.getElementById('result-stage').classList.add('show');
+    // PAS de scroll — tout est dans le viewport (1 seule page)
+
+    // === Cartographie du visage : photo détourée du scan + 8 points biomarqueurs ===
+    try {
+      // 1) Charge la photo détourée si dispo
+      const atlas = document.getElementById('atlas');
+      const photoEl = document.getElementById('atlas-photo');
+      const faceDataURL = localStorage.getItem('vyvre_scan_face');
+      if (faceDataURL && faceDataURL.startsWith('data:image/') && faceDataURL.length > 8000 && atlas && photoEl) {
+        photoEl.style.backgroundImage = `url("${faceDataURL}")`;
+        atlas.dataset.mode = 'photo';
+        console.log('[PROTOCOL] ✓ atlas photo chargée (' + Math.round(faceDataURL.length/1024) + 'KB)');
+      } else {
+        console.log('[PROTOCOL] atlas : pas de photo valide (' + (faceDataURL ? Math.round(faceDataURL.length/1024)+'KB' : 'null') + ') — retry 500ms');
+        // RETRY : recharge localStorage toutes les 500ms pendant 4s au cas où la capture finisse après
+        let retries = 0;
+        const retryInterval = setInterval(() => {
+          const newLs = localStorage.getItem('vyvre_scan_face');
+          if (newLs && newLs.length > 8000 && atlas.dataset.mode === 'wireframe') {
+            photoEl.style.backgroundImage = `url("${newLs}")`;
+            atlas.dataset.mode = 'photo';
+            console.log('[PROTOCOL] ✓ atlas photo retry success après ' + (retries*500) + 'ms');
+            clearInterval(retryInterval);
+          } else if (++retries > 8) {
+            clearInterval(retryInterval);
+            console.warn('[PROTOCOL] atlas retry timeout — wireframe seul');
+          }
+        }, 500);
+      }
+
+
+      // 2) Inject valeurs réelles scan dans SVG points + legend
+      if (scanScores && typeof scanScores.hydration === 'number') {
+        const isNegativeConcern = { sebum: true, pigmentation: true };
+        const fmt = (v) => Math.max(0, Math.min(99, Math.round(v)));
+        ['hydration','wrinkles','firmness','glow','redness','pores','sebum','pigmentation'].forEach((key, i) => {
+          const raw = scanScores[key];
+          if (typeof raw !== 'number') return;
+          const v = fmt(raw);
+          // SVG text (sur l'image)
+          const svgText = document.querySelector(`[data-bio-svg="${key}"]`);
+          if (svgText) svgText.textContent = v;
+          // Legend row + count-up animation
+          const legendRow = document.querySelector(`.atlas-legend .row[data-bio="${key}"]`);
+          if (legendRow) {
+            const bEl = legendRow.querySelector('b');
+            if (bEl) {
+              // Count-up animation
+              setTimeout(() => {
+                const duration = 1100, start = performance.now();
+                function tick(now) {
+                  const t = Math.min(1, (now - start) / duration);
+                  const eased = 1 - Math.pow(1 - t, 3);
+                  bEl.textContent = Math.round(v * eased);
+                  if (t < 1) requestAnimationFrame(tick);
+                  else bEl.textContent = v;
+                }
+                requestAnimationFrame(tick);
+              }, 400 + i * 80);
+              // Underline shimmer reveal stagger
+              setTimeout(() => legendRow.classList.add('scanned'), 500 + i * 80);
+            }
+            // Alert si mauvais score
+            const isAlert = isNegativeConcern[key] ? v > 50 : v < 50;
+            if (isAlert) legendRow.classList.add('alert');
+          }
+        });
+        console.log('[PROTOCOL] atlas : 8 points injectés depuis scan réel', scanScores);
+      } else {
+        console.warn('[PROTOCOL] atlas : pas de scan scores → valeurs "—" affichées');
+      }
+
+      // ────────────────────────────────────────────────────────────────────
+      // COMPTE-RENDU IA — narrative gauche (typewriter, ton "Vous luxe neutre")
+      // ────────────────────────────────────────────────────────────────────
+      console.log('[PROTOCOL] narrative init → scanScores valid:', !!scanScores, 'el found:', !!document.getElementById('atlas-narrative-text'));
+      const narrativeEl = document.getElementById('atlas-narrative-text');
+      if (narrativeEl && scanScores && typeof scanScores.hydration === 'number') {
+        const s = scanScores;
+        const neg = { sebum:1, pigmentation:1 };
+        // Score "santé" pour chaque biomarqueur (négatifs inversés : higher = better health)
+        const health = {};
+        ['hydration','wrinkles','firmness','glow','redness','pores','sebum','pigmentation'].forEach(k => {
+          health[k] = neg[k] ? (100 - s[k]) : s[k];
+        });
+        // ── Descripteurs MÉTIER (pas de chiffres bruts pour forces : éviterait "8/100 remarquable") ──
+        // Forces (score santé >70) → adjectif laudatif + raw score health (= score à montrer cohérent avec atlas)
+        const strengthDesc = {
+          hydration:    'une <em>hydratation excellente</em>',
+          wrinkles:     'des <em>rides peu visibles</em>',
+          firmness:     'une <em>fermeté tonique</em>',
+          glow:         'un <em>éclat lumineux</em>',
+          redness:      'une <em>rougeur parfaitement maîtrisée</em>',
+          pores:        'des <em>pores resserrés</em>',
+          sebum:        'un <em>sébum parfaitement équilibré</em>',
+          pigmentation: 'une <em>pigmentation impeccable</em>'
+        };
+        // Faiblesses → adjectif neutre + chiffre raw (cohérent atlas) + précision si négatif
+        const weaknessDesc = (k) => {
+          const raw = s[k];
+          const labels = {
+            hydration:    `une <em>hydratation à renforcer</em> (<span class="num-hl">${raw}/100</span>)`,
+            wrinkles:     `des <em>rides plus marquées</em> (<span class="num-hl">${raw}/100</span>)`,
+            firmness:     `une <em>fermeté à raffermir</em> (<span class="num-hl">${raw}/100</span>)`,
+            glow:         `un <em>éclat à raviver</em> (<span class="num-hl">${raw}/100</span>)`,
+            redness:      `des <em>rougeurs visibles</em> (<span class="num-hl">${raw}/100</span>)`,
+            pores:        `des <em>pores à resserrer</em> (<span class="num-hl">${raw}/100</span>)`,
+            sebum:        `un <em>sébum à équilibrer</em> (<span class="num-hl">${raw}/100 de brillance</span>)`,
+            pigmentation: `des <em>taches plus visibles</em> (<span class="num-hl">${raw}/100 de pigment</span>)`
+          };
+          return labels[k];
+        };
+        // Top 2 forces (santé max) et top 2 faiblesses (santé min)
+        const sorted = Object.entries(health).sort((a,b) => b[1] - a[1]);
+        const strengths = sorted.slice(0, 2).map(([k]) => k);
+        const weaknesses = sorted.slice(-2).reverse().map(([k]) => k);
+        // Phrase d'action selon faiblesse principale
+        const actionByWeakness = {
+          hydration:    'restaurer la barrière hydrique',
+          wrinkles:     'lisser les signes de l\'âge',
+          firmness:     'redensifier les tissus',
+          glow:         'raviver la luminosité',
+          redness:      'apaiser les rougeurs',
+          pores:        'affiner le grain de peau',
+          sebum:        'rééquilibrer la zone T',
+          pigmentation: 'unifier le teint'
+        };
+        const mainAction = actionByWeakness[weaknesses[0]] || 'renforcer votre routine';
+        const txt =
+          `Votre peau présente ${strengthDesc[strengths[0]]} et ${strengthDesc[strengths[1]].replace('une <em>', 'globalement <em>').replace('un <em>', 'globalement <em>').replace('des <em>', 'globalement <em>')}. ` +
+          `En revanche, ${weaknessDesc(weaknesses[0])} et ${weaknessDesc(weaknesses[1])} méritent une attention ciblée. ` +
+          `Notre IA a sélectionné une routine matin et soir pensée pour <em>${mainAction}</em> — sans surcharge, ni effet immédiat artificiel.`;
+
+        // Typewriter animation (préserve les balises HTML)
+        function typewriter(el, html, speed = 18) {
+          el.innerHTML = '';
+          const cursor = document.createElement('span');
+          cursor.className = 'cursor';
+          el.appendChild(cursor);
+          // Parse HTML en tokens : { text, tag, attrs } | { text: char }
+          const tokens = [];
+          let i = 0;
+          while (i < html.length) {
+            if (html[i] === '<') {
+              const end = html.indexOf('>', i);
+              if (end > -1) {
+                tokens.push({ html: html.slice(i, end + 1) });
+                i = end + 1;
+                continue;
+              }
+            }
+            tokens.push({ char: html[i] });
+            i++;
+          }
+          let acc = '';
+          let idx = 0;
+          function step() {
+            if (idx >= tokens.length) {
+              // Fini → retire le curseur après 1.2s
+              setTimeout(() => cursor.remove(), 1200);
+              return;
+            }
+            const t = tokens[idx++];
+            if (t.html) acc += t.html;
+            else acc += t.char;
+            el.innerHTML = acc;
+            el.appendChild(cursor);
+            const delay = (t.char === ' ') ? 8 : (t.char === '.' || t.char === ',') ? 80 : speed;
+            setTimeout(step, delay);
+          }
+          step();
+        }
+        // Trigger via IntersectionObserver (déclenche quand le bloc entre dans le viewport)
+        const biom = document.getElementById('biomarkers');
+        if (biom && 'IntersectionObserver' in window) {
+          const obs = new IntersectionObserver((entries) => {
+            entries.forEach(e => {
+              if (e.isIntersecting) {
+                setTimeout(() => typewriter(narrativeEl, txt, 16), 800);
+                obs.disconnect();
+              }
+            });
+          }, { threshold: 0.3 });
+          obs.observe(biom);
+        } else {
+          setTimeout(() => typewriter(narrativeEl, txt, 16), 800);
+        }
+      }
+    } catch(e) {
+      console.warn('[PROTOCOL] atlas init fail:', e);
+    }
+
+    try {
+      const [products] = await Promise.all([fetchProducts(), new Promise(r => setTimeout(r, 350))]);
+      const sev = computeSeverity(scanScores, quiz);
+      const { morning, evening } = buildRoutines(products, sev);
+      morning.forEach((p, i) => renderProduct(`am-${i}`, p));
+      evening.forEach((p, i) => renderProduct(`pm-${i}`, p));
+      renderTrace(sev, morning, evening);
+    } catch (e) { console.error('[PROTOCOL] compile failed:', e); }
+  }
+
+  updateUI();
+})();
+</script>
+<script src="vyvre-mini-lattice.js" defer></script>
+
+</body>
+</html>
