@@ -792,13 +792,16 @@ export default function DiorScanClient({ products, onBack }: Props) {
       root!.querySelectorAll('[data-vyvre-age]').forEach((el) => ((el as HTMLElement).dataset.target = String(cellAge)));
       root!.querySelectorAll('[data-vyvre-hydration]').forEach((el) => ((el as HTMLElement).dataset.target = String(hydration)));
 
-      // Note honnête sur la méthode + fourchette d'incertitude
+      // Note honnête : FOURCHETTE (pas un chiffre faussement précis) + méthode
       const ageNote = q('#vyvre-age-note');
       if (ageNote) {
+        const delta = ageMethod === 'CNN' ? 4 : 8;
+        const lo = Math.max(18, cellAge - delta);
+        const hi = Math.min(90, cellAge + delta);
         ageNote.textContent =
           ageMethod === 'CNN'
-            ? 'Âge cellulaire · réseau de neurones (CNN) — indicatif ±5 ans'
-            : 'Âge cellulaire · estimation colorimétrique — indicatif ±8 ans';
+            ? `Âge cellulaire ≈ ${lo}–${hi} ans · réseau de neurones (CNN)`
+            : `Âge cellulaire ≈ ${lo}–${hi} ans · estimation colorimétrique`;
       }
 
       // Lien protocole + localStorage

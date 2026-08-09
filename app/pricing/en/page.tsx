@@ -126,7 +126,8 @@ interface PricingPageProps {
 }
 
 export default function PricingEnPage({ searchParams }: PricingPageProps) {
-  const brandSlug = (searchParams.from || '').toLowerCase().trim();
+  const fromRaw = Array.isArray(searchParams.from) ? searchParams.from[0] : searchParams.from;
+  const brandSlug = (fromRaw || '').toLowerCase().trim();
   const brandName = BRAND_NAMES[brandSlug] || null;
   const demoUrl = getDemoUrl(brandSlug);
 

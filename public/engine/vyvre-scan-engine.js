@@ -2448,6 +2448,67 @@
   }
 
   // ────────────────────────────────────────────────────────────────────────
+  // v11 AGE RECALIBRATION — monotone, age-dependent de-compression (anchored)
+  // ────────────────────────────────────────────────────────────────────────
+  //
+  // PROBLÈME (ground truth) : le CNN vyvre_age_cnn_v11 (UTKFace) souffre d'un
+  // gros domain-gap sur les visages webcam réels. Il COMPRESSE la plage réelle
+  // 18-80 vers ~24-33 (regression-to-mean). Conséquence mesurée : un vrai 43 ans
+  // (webcam, bonne lumière) ressort CNN ~24 et FINISSAIT affiché à 32 (sous-
+  // estimation ~11y APRÈS toutes les corrections). À l'inverse, une sur-correction
+  // par offset plat (+12 historique) gonflait les jeunes (cas documenté 42→57).
+  //
+  // POURQUOI UNE SEULE COURBE MONOTONE (et pas un offset constant) : l'erreur
+  // n'est PAS un biais constant, c'est une COMPRESSION de plage. Un offset plat
+  // ajoute les mêmes années à un 25 ans et à un 55 ans → structurellement
+  // incapable d'être à la fois sûr-pour-les-jeunes ET assez fort en milieu/senior.
+  // Une fonction monotone, quasi-identité en bas et croissante avec l'âge, peut
+  // décompresser le milieu/senior SANS toucher les jeunes (contrainte dure).
+  //
+  // CALIBRATION (1 ancre solide) : le seul point sol vérifié est «vrai 43 → CNN 24».
+  // En ensemble bonne qualité (poids CNN 0.65, algo 0.35, l'algo v7.7 disant ~44),
+  // le finalBio pré-recal ≈ 0.65×24 + 0.35×44 ≈ 31. On veut afficher ~41-43, donc
+  // bioAge cible ≈ 45 (puis Vierkötter -4 → 41). D'où le nœud (31 → 45). Les nœuds
+  // bas (16→16, 24→24) gardent la pente ~1 sous 28 : les jeunes passent inchangés.
+  // Les nœuds hauts (55→64, 70→75, 85→85) sont à pente sous-unitaire : les seniors
+  // s'étalent sans saturer le clamp [16,85].
+  //
+  // HONNÊTETÉ (load-bearing) : UNE seule ancre ne justifie PAS une précision à
+  // l'année. Le même finalBio brut peut être un vrai 30 ans OU un vrai 43 compressé
+  // (ambiguïté irréductible). C'est pourquoi (a) l'UI doit afficher result.range
+  // (±4y CNN actif, élargi en basse qualité) avec un disclaimer «indicatif, non
+  // médical», et (b) la décompression n'est appliquée QUE quand le CNN a contribué
+  // (cnnApplied), jamais sur le chemin algo-seul déjà calibré. Refinable : chaque
+  // nouveau couple (rawObservé → vrai âge) déplace/insère le nœud le plus proche,
+  // arrays strictement croissants → monotonie garantie. À terme : fit isotone.
+  //
+  // OVERRIDE RUNTIME : si window.VYVRE_AGE_CALIBRATION est une fonction, elle est
+  // utilisée à la place (tuning live sans redéploiement). Elle reçoit (bio, ctx)
+  // où ctx = { cnnAge, algoBio, quality, cnnWeight } et doit retourner un nombre.
+  const VYVRE_AGE_RECAL_X = [16, 24, 28, 31, 35, 42, 55, 70, 85]; // finalBio brut (nœuds)
+  const VYVRE_AGE_RECAL_Y = [16, 24, 30, 45, 50, 55, 64, 75, 85]; // bioAge décompressé (nœuds)
+
+  function vyvreAgeRecalibrate(bio, ctx) {
+    // Override live (Charles peut ré-écrire la courbe en prod sans redeploy)
+    if (typeof window !== 'undefined' && typeof window.VYVRE_AGE_CALIBRATION === 'function') {
+      try {
+        const o = window.VYVRE_AGE_CALIBRATION(bio, ctx || {});
+        if (typeof o === 'number' && !isNaN(o)) return o;
+      } catch (e) { /* override défaillant → courbe par défaut */ }
+    }
+    if (bio == null || isNaN(bio)) return bio;
+    const X = VYVRE_AGE_RECAL_X, Y = VYVRE_AGE_RECAL_Y, n = X.length;
+    if (bio <= X[0]) return Y[0] + (bio - X[0]);          // identité pente-1 sous le plancher jeune
+    for (let i = 0; i < n - 1; i++) {
+      if (bio <= X[i + 1]) {
+        const t = (bio - X[i]) / (X[i + 1] - X[i]);
+        return Y[i] + t * (Y[i + 1] - Y[i]);              // interpolation linéaire dans le segment
+      }
+    }
+    return Y[n - 1] + (bio - X[n - 1]) * 0.3;             // pente douce 0.3 au-dessus du nœud haut
+  }
+
+  // ────────────────────────────────────────────────────────────────────────
   // AGE ESTIMATION v7.7 — BALANCED ANCHORLESS (refonte post-audit UTKFace stratifié)
   // ────────────────────────────────────────────────────────────────────────
   //
@@ -2963,12 +3024,14 @@
   const CNN_ENSEMBLE_WEIGHT = 0.15;   // CNN minoritaire 15% (UTKFace biais jeunes) — v10 fallback only
   const ALGO_ENSEMBLE_WEIGHT = 0.85;  // algo dermato Flament/Akdeniz/Chardon dominant — v10 fallback only
   // Correction post-hoc CNN : compense le biais résiduel du modèle (sous-estime les 40+).
-  // v10.5 HONEST-AGE : réduit 12 → 6. Le CNN v11 ré-entraîné a divisé par ~2 le biais
-  // d'origine (résidu mesuré ~-11y sur les seniors, bien moindre sur 30-50). Le +12 flat
-  // sur-corrigeait les visages jeunes/adultes (contribuait à la sur-estimation type 42→57).
-  // 6 reste tracé sur le résidu benchmark réel, pas un nombre magique. Appliqué uniquement
-  // via l'ensemble pondéré par qualité (computeCNNWeight), donc impact effectif ~1-4y.
-  const CNN_AGE_OFFSET = 6;           // v10.5 : années à ajouter au output CNN brut (était 12)
+  // v11 RECALIBRATION : RETIRÉ à 0. Un offset PLAT est structurellement incapable de
+  // corriger une COMPRESSION de plage (il ajoute les mêmes années aux jeunes et aux
+  // seniors → soit il sur-corrige les jeunes type 42→57, soit il sous-corrige les
+  // seniors qui ont besoin de ~+11). Toute la correction est désormais portée par
+  // vyvreAgeRecalibrate() — une courbe monotone, quasi-identité chez les jeunes et
+  // croissante avec l'âge, appliquée au finalBio dans estimateAgeEnsemble. Constante
+  // conservée à 0 (et non supprimée) pour ne pas casser le label de méthode qui la cite.
+  const CNN_AGE_OFFSET = 0;           // v11 : retiré (était 6/12) — remplacé par vyvreAgeRecalibrate
 
   /**
    * v10.0 — Quality-aware dynamic CNN weight.
@@ -3085,8 +3148,10 @@
     let finalBio;
     let cnnContribution;
     let method;
+    let cnnApplied = false;   // v11 : true uniquement si le CNN (compressé) a réellement contribué
     if (cnnAge !== null && dynCnnWeight > 0) {
-      // v9.1 : applique correction offset au CNN avant ensemble
+      // v11 : CNN_AGE_OFFSET retiré (=0). La décompression est portée par vyvreAgeRecalibrate ci-dessous.
+      cnnApplied = true;
       const cnnAgeCorrected = cnnAge + CNN_AGE_OFFSET;
       finalBio = dynCnnWeight * cnnAgeCorrected + dynAlgoWeight * algoOut.bioAge;
       cnnContribution = dynCnnWeight;
@@ -3112,6 +3177,18 @@
     const webcamDelta = webcamSmoothingCalibration(rawBio);
     finalBio = rawBio + webcamDelta;
     method = method.replace(/\)$/, `, +${webcamDelta.toFixed(1)}y webcam-calibration-sigmoid)`);
+
+    // v11 — RECALIBRATION monotone âge-dépendante (corrige la compression de plage du CNN).
+    // Appliquée UNIQUEMENT quand le CNN a contribué (cnnApplied) : c'est lui la source de la
+    // compression. Sur le chemin algo-seul (qualité <50 ou CNN indispo), l'algo v7.7 est déjà
+    // calibré et tracke le vrai âge → on ne le décompresse PAS (sinon double-correction des 30s).
+    if (cnnApplied) {
+      const recalIn = finalBio;
+      finalBio = vyvreAgeRecalibrate(recalIn, {
+        cnnAge, algoBio: algoOut.bioAge, quality, cnnWeight: dynCnnWeight
+      });
+      method = method.replace(/\)$/, `, recal ${recalIn.toFixed(1)}→${finalBio.toFixed(1)}y v11-decompress)`);
+    }
 
     const finalBioRounded = Math.round(clamp(AGE_DEMO_MIN_BIO, AGE_DEMO_MAX_BIO, finalBio));
 
