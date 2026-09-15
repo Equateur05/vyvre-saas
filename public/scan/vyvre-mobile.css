@@ -1,0 +1,423 @@
+/* ============================================================================
+   VYVRE — MOBILE RESPONSIVE LAYER (v1)
+   Activated automatically below 768px viewport width
+   ZERO impact on desktop (≥769px) — pure additive overrides
+   ============================================================================ */
+
+/* === TABLETS & MOBILE (≤ 768px) === */
+@media (max-width: 768px) {
+
+  /* --- ROOT: re-enable scrolling, kill horizontal overflow --- */
+  html, body {
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    height: auto !important;
+    min-height: 100vh;
+    width: 100%;
+  }
+  body.scrollable { overflow-y: auto !important; overflow-x: hidden !important; }
+
+  /* --- HEADER: compact --- */
+  header {
+    padding: 16px 20px !important;
+  }
+  .brand {
+    font-size: 11px !important;
+    gap: 8px !important;
+    letter-spacing: 0.08em !important;
+  }
+  .brand-logo {
+    width: 24px !important;
+    height: 24px !important;
+  }
+
+  /* --- VIEW STATES: stack vertically, no absolute positioning --- */
+  .view-state {
+    position: relative !important;
+    inset: auto !important;
+    height: auto !important;
+    min-height: 100vh;
+    padding: 80px 20px 40px !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: none !important;
+    filter: none !important;
+    transition: opacity 0.3s ease !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+  .view-state:not(.active) {
+    display: none !important;
+  }
+
+  /* --- HERO --- */
+  .hero-content {
+    padding: 0 !important;
+    max-width: 100% !important;
+  }
+  .hero-content p {
+    font-size: 15px !important;
+    margin-bottom: 32px !important;
+    line-height: 1.5 !important;
+    padding: 0 8px !important;
+  }
+  h1 {
+    letter-spacing: -0.02em !important;
+    margin-bottom: 16px !important;
+    line-height: 1.05 !important;
+  }
+  h2 {
+    line-height: 1.1 !important;
+  }
+
+  /* --- SCANNER MODULE --- */
+  .scanner-module {
+    max-width: 100% !important;
+    width: 100% !important;
+    aspect-ratio: 3/4;
+    padding: 6px !important;
+    border-radius: 24px !important;
+  }
+  .video-container {
+    border-radius: 18px !important;
+  }
+  .scan-hud {
+    padding: 8px 14px !important;
+    gap: 14px !important;
+    bottom: 14px !important;
+    border-radius: 12px !important;
+    max-width: calc(100% - 28px);
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .hud-item .val {
+    font-size: 12px !important;
+  }
+  .hud-item .label-sm {
+    font-size: 8px !important;
+    letter-spacing: 0.15em !important;
+  }
+  .depth-indicator {
+    top: 12px !important;
+    right: 12px !important;
+  }
+  .depth-layer {
+    font-size: 8px !important;
+  }
+
+  /* --- COMPUTATION / PROCESS --- */
+  .computation-layout {
+    height: auto !important;
+    min-height: 60vh;
+    padding: 40px 0 !important;
+  }
+  #epigenetic-canvas {
+    height: 240px !important;
+    max-width: 100% !important;
+    margin-bottom: 24px !important;
+  }
+  .process-steps {
+    gap: 10px !important;
+  }
+  .step-text {
+    font-size: 11px !important;
+    letter-spacing: 0.1em !important;
+  }
+
+  /* --- RESULTS DASHBOARD --- */
+  #view-results {
+    padding-top: 80px !important;
+    padding-bottom: 60px !important;
+  }
+  .dashboard {
+    max-width: 100% !important;
+  }
+  .top-metrics {
+    flex-direction: column !important;
+    gap: 24px;
+    align-items: flex-start !important;
+    margin-bottom: 60px !important;
+  }
+  .cards-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  .data-card {
+    padding: 28px !important;
+    gap: 12px !important;
+  }
+  .val-large {
+    font-size: 48px !important;
+  }
+  .metric-block .label-sm {
+    font-size: 9px !important;
+  }
+
+  /* --- THERAPEUTICS / PRODUCTS --- */
+  .therapeutics-section {
+    margin-top: 60px !important;
+    padding-top: 60px !important;
+  }
+  .products-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+    padding-bottom: 60px !important;
+    margin-top: 40px !important;
+  }
+  .product-card {
+    padding: 24px !important;
+    gap: 16px !important;
+    flex-direction: column !important;
+  }
+  .prod-img {
+    padding: 16px !important;
+    margin-bottom: 16px !important;
+  }
+  .prod-info h3 {
+    font-size: 22px !important;
+    margin-bottom: 8px !important;
+  }
+  .prod-info p {
+    font-size: 13px !important;
+    margin-bottom: 20px !important;
+    line-height: 1.5 !important;
+  }
+
+  /* --- BUTTONS --- */
+  .spatial-btn {
+    padding: 14px 24px !important;
+    font-size: 13px !important;
+    min-height: 48px;
+    border-radius: 32px !important;
+  }
+  .spatial-btn.secondary {
+    padding: 14px 24px !important;
+  }
+
+  /* ====================================================================== */
+  /* === V6 SECTION — single column stack on mobile === */
+  /* ====================================================================== */
+  .vyvre-v6 {
+    padding: 60px 16px !important;
+  }
+  .vyvre-v6 .v6grid {
+    gap: 24px !important;
+    max-width: 100% !important;
+  }
+  .vyvre-v6 .v6r3,
+  .vyvre-v6 .v6r2 {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  .vyvre-v6 .v6card {
+    min-height: 220px !important;
+    padding: 28px 22px 36px !important;
+    border-radius: 22px !important;
+  }
+  .vyvre-v6 .v6card h3 {
+    margin-top: 64px !important;
+    max-width: 100% !important;
+    font-size: clamp(22px, 7vw, 30px) !important;
+  }
+  .vyvre-v6 .v6card p {
+    font-size: 14px !important;
+    margin-top: 18px !important;
+    max-width: 100% !important;
+    line-height: 1.55 !important;
+  }
+  .vyvre-v6 .v6lbl {
+    top: 18px !important;
+    right: 20px !important;
+    font-size: 9px !important;
+    letter-spacing: 0.3em !important;
+  }
+  .vyvre-v6 .v6num {
+    font-size: clamp(48px, 14vw, 64px) !important;
+    padding-top: 28px !important;
+  }
+  .vyvre-v6 .v6num .v6unit {
+    font-size: 16px !important;
+  }
+  .vyvre-v6 .v6card.v6score {
+    padding: 40px 0 !important;
+  }
+  .vyvre-v6 .v6card.v6score .v6num {
+    font-size: clamp(80px, 22vw, 130px) !important;
+  }
+  .vyvre-v6 .v6card.v6prod {
+    padding-bottom: 130px !important;
+    min-height: 260px !important;
+  }
+  .vyvre-v6 .v6card.v6prod .v6photo {
+    width: 90px !important;
+    bottom: 38px !important;
+  }
+  .vyvre-v6 .v6card.v6prod .v6price {
+    bottom: 14px !important;
+    font-size: 12px !important;
+  }
+  .vyvre-v6 .v6cta {
+    min-height: 56px !important;
+    font-size: 11px !important;
+    letter-spacing: 0.2em !important;
+    padding: 0 16px !important;
+  }
+  .vyvre-v6 .v6price {
+    font-size: 12px !important;
+  }
+
+  /* ====================================================================== */
+  /* === PROTOCOL_BRAND PAGES — additional overrides === */
+  /* ====================================================================== */
+
+  /* Header */
+  .brand-mark .label { display: none !important; }
+  .header-recap { display: none !important; }
+
+  /* Hero */
+  .hero-section, .protocole-hero {
+    padding: 100px 18px 50px !important;
+  }
+
+  /* Quiz */
+  .quiz-step {
+    padding: 120px 18px 50px !important;
+    gap: 32px !important;
+  }
+  .quiz-options {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+  .quiz-option {
+    padding: 18px 20px !important;
+    font-size: 14px !important;
+    min-height: 64px !important;
+  }
+  .step-index {
+    top: 80px !important;
+  }
+  .step-index .progress-track {
+    width: 60px !important;
+  }
+
+  /* Quiz question text */
+  .quiz-question, .quiz-title {
+    font-size: 22px !important;
+    line-height: 1.25 !important;
+  }
+
+  /* Reveal / routine page */
+  .reveal-section {
+    padding: 100px 18px 50px !important;
+  }
+  .summary-bandeau {
+    flex-direction: column !important;
+    gap: 16px !important;
+    padding: 24px 20px !important;
+    text-align: center !important;
+  }
+  .summary-kpis {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+  .summary-kpi {
+    padding: 16px 12px !important;
+  }
+  .summary-kpi .label {
+    font-size: 9px !important;
+  }
+  .summary-kpi .value {
+    font-size: 22px !important;
+  }
+
+  /* Atlas (face image visualization) */
+  .atlas-section, .face-atlas {
+    flex-direction: column !important;
+    gap: 24px !important;
+    padding: 0 18px !important;
+  }
+  .atlas-canvas, .atlas-photo {
+    width: 100% !important;
+    max-width: 320px !important;
+    margin: 0 auto !important;
+  }
+  .atlas-legend, .narrative-area {
+    width: 100% !important;
+    max-width: 100% !important;
+    font-size: 13px !important;
+  }
+  .biomarkers {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  /* Routine grid */
+  .routine-section {
+    padding: 60px 18px !important;
+  }
+  .routine-title {
+    margin-bottom: 32px !important;
+    font-size: 20px !important;
+  }
+  .routine-grid {
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+  .routine-card {
+    padding: 20px 18px !important;
+  }
+  .routine-card img {
+    max-width: 100px !important;
+  }
+  .routine-card .name {
+    font-size: 14px !important;
+  }
+  .routine-card .price {
+    font-size: 12px !important;
+  }
+
+  /* Analyse + CTA cards */
+  .analyse-card {
+    padding: 36px 24px !important;
+  }
+  .analyse-meta {
+    gap: 20px !important;
+    flex-wrap: wrap !important;
+  }
+  .cta-card {
+    padding: 50px 24px 40px !important;
+  }
+  .cta-card h2 {
+    font-size: 26px !important;
+  }
+  .cta-card p {
+    font-size: 14px !important;
+  }
+}
+
+/* === SMALL PHONES (≤ 380px) — extra compression === */
+@media (max-width: 380px) {
+  .view-state { padding: 70px 14px 32px !important; }
+  .vyvre-v6 { padding: 40px 12px !important; }
+  .vyvre-v6 .v6card { padding: 24px 18px 32px !important; }
+  .vyvre-v6 .v6card h3 { font-size: clamp(20px, 6.5vw, 26px) !important; }
+  .hero-content p { font-size: 14px !important; }
+  h1 { line-height: 1.04 !important; }
+  .spatial-btn { padding: 12px 20px !important; font-size: 12px !important; }
+  .quiz-option { font-size: 13px !important; padding: 16px !important; }
+}
+
+/* === TOUCH-FRIENDLY tap targets (any touch device) === */
+@media (hover: none) and (pointer: coarse) {
+  .spatial-btn, .v6cta, .quiz-option, .routine-card, button {
+    min-height: 44px;
+    touch-action: manipulation;
+  }
+  /* Disable hover-only transforms that look broken on touch */
+  .spatial-btn:hover { transform: none !important; }
+  .v6cta:hover { transform: none !important; }
+  .product-card:hover { transform: none !important; }
+  .data-card:hover { transform: none !important; }
+}

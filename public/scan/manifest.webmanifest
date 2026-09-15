@@ -1,0 +1,20 @@
+{
+  "name": "VYVRE Skin Scanner",
+  "short_name": "VYVRE",
+  "description": "AI-powered skin diagnostic — peer-reviewed CIE LAB analysis, in-browser, privacy-first.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#000000",
+  "theme_color": "#C9A961",
+  "lang": "fr",
+  "categories": ["health", "lifestyle", "beauty"],
+  "icons": [
+    { "src": "/scan/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/scan/icons/icon-192-maskable.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/scan/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/scan/icons/icon-512-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "/scan/icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

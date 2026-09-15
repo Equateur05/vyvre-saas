@@ -6,8 +6,13 @@ const nextConfig = {
   experimental: { serverComponentsExternalPackages: ['stripe'] },
   async redirects() {
     return [
-      { source: '/scan', destination: 'https://vyvre-propals.web.app/VYVRE_SCAN', permanent: false },
-      { source: '/scan-universel', destination: 'https://vyvre-propals.web.app/VYVRE_SCAN', permanent: false },
+      { source: '/scan-universel', destination: '/scan', permanent: false },
+    ];
+  },
+  async rewrites() {
+    return [
+      { source: '/scan', destination: '/scan/index.html' },
+      { source: '/scan/protocol', destination: '/scan/PROTOCOL_UNIVERSAL.html' },
     ];
   },
 };

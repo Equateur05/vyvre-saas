@@ -9,3 +9,8 @@ out/
 .vercel
 *.tsbuildinfo
 next-env.d.ts
+
+# scan universel : images et modeles lourds, source dans vyvre-recovery et vyvre-propals-site
+public/scan/products/
+public/scan/models/
+public/scan/vendor/
