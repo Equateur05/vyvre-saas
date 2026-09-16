@@ -982,7 +982,7 @@ footer{
 /* VYVRE PROTOCOL ENGINE — UNIVERSAL SCAN */
 (function(){
   const API_BASE = 'https://vyvre.fr/api/products';
-  const BRAND = 'all';
+  const BRAND = (new URLSearchParams(location.search).get('b')||'all').toLowerCase().replace(/[^a-z0-9-]/g,'');
   const params = new URLSearchParams(location.search);
   const scoreNum = parseInt(params.get('score') || localStorage.getItem('vyvre_score') || '0', 10);
   const ageNum   = parseInt(params.get('age')   || localStorage.getItem('vyvre_age')   || '0', 10);
@@ -1163,8 +1163,8 @@ footer{
     if (_productsCache) return _productsCache;
     let data = null;
     try { const res = await fetch(`${API_BASE}?brand=${BRAND}&_t=${Date.now()}`); if (res.ok) data = await res.json(); } catch(e) {}
-    if (!data || !(data.products||[]).length) { const r2 = await fetch('/scan/catalogue/' + BRAND + '.json'); if (!r2.ok) throw new Error('catalogue indisponible'); data = await r2.json(); }
-    _productsCache = (data.products || []).filter(p => p && p.name);
+    if (!data || !(data.products||[]).length) { const r2 = await fetch('/scan/catalogue/all.json'); if (!r2.ok) throw new Error('catalogue indisponible'); data = await r2.json(); }
+    _productsCache = (data.products || []).filter(p => p && p.name); if (BRAND && BRAND !== 'all') { var f=_productsCache.filter(function(p){return p.brand===BRAND;}); if (f.length) _productsCache=f; }
     return _productsCache;
   }
 

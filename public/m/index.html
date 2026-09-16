@@ -1,0 +1,2342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>VYVRE — Universal Skin Scan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Police ultra-clean (Silicon Valley DeepTech style) -->
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&family=JetBrains+Mono:wght@100;300;400&display=swap" rel="stylesheet">
+<!-- Face API -->
+<script src="/scan/vendor/face-api-1.7.15.min.js"></script>
+<!-- VYVRE_V10_LOADER_BEGIN -->
+<script src="/scan/vyvre-loader.js?v=10.1" defer></script>
+<!-- VYVRE_V10_LOADER_END -->
+<style>
+/* ============================================================================
+   VYVRE SKIN AI — SILICON VALLEY BILLIONAIRE EDITION (LONGEVITY AI)
+   Aesthetic: Pristine Glassmorphism, Spatial Computing, Thermal Optics
+   Palette: Obsidian Black, Titanium White, Thermal FLIR (DeepTech)
+   Zero Audio - 100% Visual Impact
+   ============================================================================ */
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+
+  :root {
+    --bg-void:        #000000;
+    --glass-light:    rgba(255, 255, 255, 0.02);
+    --glass-medium:   rgba(255, 255, 255, 0.05);
+    --glass-heavy:    rgba(10, 10, 12, 0.6);
+    --glass-border:   rgba(255, 255, 255, 0.08);
+
+    --text-primary:   #FFFFFF;
+    --text-secondary: rgba(255, 255, 255, 0.4);
+    --text-tertiary:  rgba(255, 255, 255, 0.2);
+    --brand-accent:   #E0BBE4;
+
+    --font-main:      'Inter', sans-serif;
+    --font-data:      'JetBrains Mono', monospace;
+
+    --ease-apple:     cubic-bezier(0.25, 1, 0.3, 1);
+    --ease-spring:    cubic-bezier(0.175, 0.885, 0.32, 1.05);
+  }
+
+  html, body {
+    width: 100%; height: 100vh;
+    background: var(--bg-void); color: var(--text-primary);
+    font-family: var(--font-main); font-weight: 300;
+    overflow: hidden;
+  }
+  body.scrollable { overflow-y: auto; overflow-x: hidden; }
+
+  /* ============ SPATIAL AMBIENT LIGHT ============ */
+  #ambient-light {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none;
+    background: radial-gradient(ellipse at 50% -20%, rgba(255,255,255,0.08) 0%, transparent 70%);
+  }
+
+  /* ============ TYPOGRAPHY ============ */
+  h1 {
+    font-size: clamp(50px, 8vw, 110px); font-weight: 200;
+    letter-spacing: -0.04em; line-height: 1; margin-bottom: 24px;
+    background: linear-gradient(180deg, #FFF 20%, rgba(255,255,255,0.3) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  h2 { font-size: clamp(30px, 4vw, 50px); font-weight: 300; letter-spacing: -0.02em; }
+
+  .label-sm {
+    font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase;
+    color: var(--text-secondary); font-weight: 500; font-family: var(--font-data);
+  }
+  .value-lg {
+    font-size: clamp(60px, 8vw, 140px); font-weight: 100;
+    letter-spacing: -0.05em; line-height: 0.9;
+  }
+
+  /* ============ SPATIAL UI COMPONENTS ============ */
+  .spatial-panel {
+    background: var(--glass-light);
+    border: 1px solid var(--glass-border);
+    border-radius: 32px;
+    backdrop-filter: blur(60px); -webkit-backdrop-filter: blur(60px);
+    box-shadow: 0 40px 80px rgba(0,0,0,0.8), inset 0 1px 0 rgba(255,255,255,0.1);
+    position: relative; overflow: hidden;
+  }
+
+  .spatial-btn {
+    position: relative;
+    background: var(--glass-medium); color: var(--text-primary);
+    border: 1px solid var(--glass-border); border-radius: 40px;
+    padding: 20px 48px; font-family: var(--font-main); font-size: 14px; font-weight: 400;
+    cursor: pointer; transition: all 0.5s var(--ease-apple);
+    backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px);
+    display: inline-flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .spatial-btn::before {
+    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    background: var(--text-primary); transform: translateY(100%);
+    transition: transform 0.5s var(--ease-apple); z-index: -1;
+  }
+  .spatial-btn:hover {
+    color: var(--bg-void); transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(255,255,255,0.1);
+  }
+  .spatial-btn:hover::before { transform: translateY(0); }
+
+  .spatial-btn.secondary { background: transparent; border-color: rgba(255,255,255,0.15); }
+  .spatial-btn.secondary:hover { color: var(--bg-void); }
+
+  /* ============ VIEWS CONTROLLER ============ */
+  .view-state {
+    position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: center;
+    padding: 80px 5%; opacity: 0; pointer-events: none; visibility: hidden;
+    transform: scale(0.95) translateY(20px); filter: blur(15px);
+    transition: all 1.2s var(--ease-apple); z-index: 10;
+  }
+  .view-state.active { opacity: 1; pointer-events: auto; visibility: visible; transform: scale(1) translateY(0); filter: blur(0); }
+
+  /* ============ HEADER ============ */
+  header {
+    position: fixed; top: 0; left: 0; width: 100%; z-index: 100;
+    padding: 40px 5%; display: flex; justify-content: space-between; align-items: center;
+  }
+  .brand { font-size: 14px; font-weight: 500; letter-spacing: 0.1em; display: flex; align-items: center; gap: 15px; }
+  .brand-logo { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 10px; overflow: hidden; }
+  .brand-logo canvas.v-mini { width: 100%; height: 100%; display: block; }
+  .brand .brand-x { margin: 0 14px; color: rgba(201, 169, 97, 0.55); font-weight: 100; font-size: 0.85em; letter-spacing: 0; vertical-align: middle; }
+  .brand .brand-partner { font-weight: 100; letter-spacing: 0.6em; }
+  @media (max-width: 640px) {
+    .brand .brand-x { margin: 0 8px; }
+    .brand .brand-partner { letter-spacing: 0.4em; font-size: 0.85em; }
+  }
+
+  /* ============ 1. HERO ============ */
+  .hero-content { max-width: 900px; margin: 0 auto; text-align: center; }
+  .hero-content p { font-size: 22px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 60px; font-weight: 300; }
+
+  /* ============ 2. SCANNER (ARMY POLAR ANALYSIS) ============ */
+  .scanner-module {
+    width: 100%; max-width: 500px; margin: 0 auto; aspect-ratio: 3/4;
+    border-radius: 36px; padding: 10px;
+    transition: transform 1s var(--ease-apple), box-shadow 1s var(--ease-apple);
+  }
+
+  .video-container {
+    width: 100%; height: 100%; border-radius: 26px; overflow: hidden; position: relative;
+    background: #000;
+  }
+
+  /* FLIR Thermal Camera Effect Layers */
+  .thermal-base {
+    position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1);
+    filter: grayscale(100%) contrast(1.2) brightness(0.9);
+    transition: filter 1.5s var(--ease-apple);
+  }
+
+  .video-container.thermal-active .thermal-base {
+    filter: contrast(1.35) brightness(0.9) saturate(0.4) hue-rotate(180deg);
+  }
+
+  .thermal-color-map {
+    position: absolute; inset: 0; z-index: 2; pointer-events: none;
+    background: linear-gradient(135deg, rgba(27,79,114,0.65) 0%, rgba(93,173,226,0.45) 50%, rgba(168,216,234,0.35) 100%);
+    mix-blend-mode: screen; opacity: 0; transition: opacity 1.5s var(--ease-apple);
+  }
+  .video-container.thermal-active .thermal-color-map { opacity: 1; }
+
+  #liveOverlay { z-index: 3; position: absolute; inset: 0; width: 100%; height: 100%; transform: scaleX(-1); }
+
+  /* Indicateur de Profondeur (Military Optics) */
+  .depth-indicator {
+    position: absolute; top: 25px; right: 25px; z-index: 10;
+    display: flex; flex-direction: column; gap: 8px; opacity: 0; transition: opacity 0.5s;
+  }
+  .depth-indicator.show { opacity: 1; }
+  .depth-layer { font-family: var(--font-data); font-size: 9px; color: var(--text-secondary); text-align: right; letter-spacing: 0.15em; transition: color 0.3s; }
+  .depth-layer.active { color: var(--brand-accent); font-weight: bold; text-shadow: 0 0 15px var(--brand-accent); }
+
+  /* Scanner Sweep ultra-précis */
+  .lidar-sweep {
+    position: absolute; left: 0; width: 100%; height: 1px;
+    background: var(--brand-accent); box-shadow: 0 0 30px var(--brand-accent), 0 -30px 60px rgba(255,255,255,0.3);
+    z-index: 5; opacity: 0;
+  }
+  .lidar-sweep.scanning { animation: armySweep 2s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate; opacity: 1; }
+  @keyframes armySweep { 0% { top: 5%; } 100% { top: 95%; } }
+
+  .scan-hud {
+    position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); z-index: 10;
+    background: var(--glass-heavy); backdrop-filter: blur(30px); border-radius: 16px;
+    padding: 12px 24px; display: flex; gap: 24px; border: 1px solid var(--glass-border);
+  }
+  .hud-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+  .hud-item .val { font-size: 14px; font-weight: 500; font-family: var(--font-data); }
+
+  /* ============ 3. COMPUTATION (DATA POINT CLOUD) ============ */
+  .computation-layout { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 60vh; position: relative; }
+
+  /* Canvas pour le rendu 3D des particules (Réseau neuronal / Epigénétique) */
+  #epigenetic-canvas { width: 100%; max-width: 800px; height: 400px; margin-bottom: 40px; }
+
+  .process-steps { display: flex; flex-direction: column; gap: 15px; text-align: center; z-index: 2; }
+  .step-text { font-family: var(--font-data); font-size: 13px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-tertiary); transition: color 0.5s; font-weight: 400; }
+  .step-text.active { color: var(--brand-accent); text-shadow: 0 0 20px var(--brand-accent); }
+
+  /* ============ 4. RESULTS DASHBOARD ============ */
+  #view-results { padding-top: 15vh; padding-bottom: 120px; }
+  #view-results.active { position: relative; inset: auto; min-height: 100vh; height: auto; }
+  .dashboard { max-width: 1500px; margin: 0 auto; width: 100%; }
+
+  .top-metrics { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 100px; }
+  .metric-block { display: flex; flex-direction: column; gap: 12px; }
+
+  .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+
+  .data-card {
+    padding: 50px; display: flex; flex-direction: column; gap: 20px;
+    border-top: 1px solid rgba(255,255,255,0.1); border-radius: 0;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), transparent);
+    transition: transform 0.5s var(--ease-spring);
+  }
+  .data-card:hover { transform: translateY(-10px); background: linear-gradient(180deg, rgba(255,255,255,0.05), transparent); }
+
+  .val-large { font-family: var(--font-data); font-size: 70px; font-weight: 200; line-height: 1; }
+
+  .data-bar-bg { width: 100%; height: 2px; background: rgba(255,255,255,0.1); margin-top: 20px; position: relative; }
+  .data-bar-fill { position: absolute; top: -1px; left: 0; height: 4px; background: var(--brand-accent); width: 0%; transition: width 2.5s cubic-bezier(0.19, 1, 0.22, 1) 0.5s; box-shadow: 0 0 20px var(--brand-accent); }
+
+  /* ============ 5. THERAPEUTICS (PRODUCTS) ============ */
+  .therapeutics-section { margin-top: 100px; padding-top: 100px; border-top: 1px solid var(--glass-border); }
+  .products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 80px; padding-bottom: 120px; }
+  @media (max-width: 980px) { .products-grid { grid-template-columns: 1fr; gap: 24px; } }
+  /* Radial gradient subtil sur containers (light diffuse top-left) */
+  .product-card, .data-card {
+    background: radial-gradient(ellipse at 0% 0%, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.02) 35%, rgba(255,255,255,0.005) 100%) !important;
+    border: 1px solid rgba(255,255,255,0.07) !important;
+    box-shadow: 0 30px 60px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05) !important;
+  }
+  .product-card:hover, .data-card:hover {
+    background: radial-gradient(ellipse at 0% 0%, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.03) 35%, rgba(255,255,255,0.005) 100%) !important;
+    border-color: rgba(255,255,255,0.12) !important;
+  }
+
+  .product-card {
+    display: flex; gap: 50px; padding: 60px; align-items: center; border-radius: 32px;
+    background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.04);
+    transition: transform 0.6s var(--ease-apple), background 0.6s, border-color 0.6s;
+  }
+  .product-card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.03); border-color: rgba(255,255,255,0.15); box-shadow: 0 30px 60px rgba(0,0,0,0.4); }
+
+  .prod-img { width: 100%; aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; padding: 32px; background: radial-gradient(ellipse at 50% 30%, rgba(255,255,255,0.06) 0%, transparent 70%); border-radius: 20px; margin-bottom: 28px; }
+  .prod-img img { width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 40px 50px rgba(0,0,0,0.8)); transition: transform 0.6s; }
+  .product-card:hover .prod-img img { transform: scale(1.08); }
+  .product-card { padding: 32px !important; display: flex !important; flex-direction: column !important; }
+  .prod-info { display: flex; flex-direction: column; gap: 14px; }
+
+  .prod-info { flex: 1; }
+  .prod-info h3 { font-size: 36px; font-weight: 300; margin-bottom: 15px; letter-spacing: -0.03em; }
+  .prod-info p { font-size: 15px; color: var(--text-secondary); line-height: 1.7; margin-bottom: 40px; font-weight: 300; }
+
+
+/* VYVRE_PITCH_BTN_BEGIN */
+.vyvre-pitch-btn {
+  position: fixed;
+  top: 24px;
+  right: 24px;
+  z-index: 100;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  background: rgba(20, 20, 24, 0.7);
+  border: 1px solid rgba(201, 169, 97, 0.3);
+  border-radius: 100px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #F0EDE3;
+  text-decoration: none;
+  transition: all 0.3s cubic-bezier(0.2,0.7,0.1,1);
+  cursor: pointer;
+}
+.vyvre-pitch-btn:hover {
+  background: rgba(201, 169, 97, 0.12);
+  border-color: rgba(201, 169, 97, 0.6);
+  transform: translateY(-1px);
+}
+.vyvre-pitch-btn .pitch-arrow {
+  color: rgba(201, 169, 97, 0.9);
+  letter-spacing: 0;
+}
+@media (max-width: 768px) {
+  .vyvre-pitch-btn {
+    top: auto;
+    bottom: 24px;
+    right: 24px;
+    font-size: 9px;
+    padding: 9px 14px;
+  }
+}
+/* VYVRE_PITCH_BTN_END */
+</style>
+  <link rel="stylesheet" href="/scan/vyvre-mobile.css">
+<!-- VYVRE_V10_PWA_BEGIN -->
+<link rel="manifest" href="/scan/manifest.webmanifest">
+<meta name="theme-color" content="#C9A961">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="VYVRE">
+<link rel="apple-touch-icon" href="/scan/icons/apple-touch-icon.png">
+<link rel="icon" type="image/svg+xml" href="/scan/icons/icon.svg">
+<link rel="icon" type="image/png" sizes="192x192" href="/scan/icons/icon-192.png">
+<link rel="icon" type="image/png" sizes="512x512" href="/scan/icons/icon-512.png">
+<!-- VYVRE_V10_PWA_END -->
+</head>
+<body>
+<!-- VYVRE_PITCH_BTN_BEGIN -->
+<a class="vyvre-pitch-btn" href="https://vyvre.fr" id="vyvre-pitch-link" target="_blank" rel="noopener" aria-label="Voir la présentation VYVRE">
+  <span>DECK</span>
+  <span class="pitch-arrow">&rarr;</span>
+</a>
+<script>
+(function(){
+  try{
+    var p=new URLSearchParams(location.search).get('p');
+    if(p){
+      var l=document.getElementById('vyvre-pitch-link');
+      if(l){l.href=l.href+'&p='+encodeURIComponent(p);}
+    }
+  }catch(e){}
+})();
+</script>
+<!-- VYVRE_PITCH_BTN_END -->
+
+
+<div id="ambient-light"></div>
+
+<header>
+  <div class="brand">
+    <div class="brand-logo"><canvas class="v-mini" width="72" height="72">V</canvas></div>
+    <span class="brand-vyvre">VYVRE</span>
+    <span class="brand-x">×</span>
+    <span class="brand-partner">UNIVERSAL SCAN</span>
+  </div>
+  <div class="label-sm">Free skin reading · 114 brands</div>
+</header>
+
+<!-- 1. HERO -->
+<section id="view-hero" class="view-state active">
+  <div class="hero-content">
+    <div class="label-sm" style="margin-bottom: 30px;">Molecular Topology DeepTech</div>
+    <h1>Longevity.<br>Quantified.</h1>
+    <p>Your skin, measured in 60 seconds from your camera, pixel by pixel in the CIE Lab colour space. Then the three products that fit it best, chosen among 1,863 references from 114 brands.</p>
+
+    <div style="display: flex; gap: 24px; justify-content: center; margin-top: 60px;">
+      <button class="spatial-btn" id="btn-scan">Start scan</button>
+      <button class="spatial-btn secondary" id="btn-upload">Upload photo</button>
+      <input type="file" id="file-input" accept="image/*" style="display:none;">
+    </div>
+  </div>
+</section>
+
+<!-- 2. SCANNER (THERMAL / OPTICS) -->
+<section id="view-scanner" class="view-state">
+  <div style="text-align: center; margin-bottom: 50px;">
+    <div class="label-sm" style="margin-bottom: 15px;">Phase 01</div>
+    <h2>Face Analysis</h2>
+  </div>
+
+  <div class="spatial-panel scanner-module">
+    <div class="video-container" id="thermal-vid-container">
+      <video id="liveVideo" class="thermal-base" autoplay muted playsinline></video>
+      <img id="capturedImg" class="thermal-base">
+
+      <div class="thermal-color-map"></div>
+      <canvas id="liveOverlay"></canvas>
+
+      <!-- UI d'indication de profondeur (Effet militaire/optique) -->
+      <div class="depth-indicator" id="depth-ui">
+        <div class="depth-layer" id="lyr-1">L01: EPIDERMIS</div>
+        <div class="depth-layer" id="lyr-2">L02: DERMAL MATRIX</div>
+        <div class="depth-layer" id="lyr-3">L03: THERMO-NETWORK</div>
+      </div>
+
+      <div class="lidar-sweep" id="scan-laser"></div>
+
+      <div class="scan-hud">
+        <div class="hud-item"><span class="label-sm">Nodes</span><span class="val" id="hud-nodes">--</span></div>
+        <div style="width: 1px; background: rgba(255,255,255,0.2);"></div>
+        <div class="hud-item"><span class="label-sm">Optics</span><span class="val" id="hud-status">Searching</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. COMPUTATION (EPIGENETIC PARTICLE CLOUD) -->
+<section id="view-process" class="view-state">
+  <div class="computation-layout">
+    <div class="label-sm" style="margin-bottom: 40px; position:absolute; top:0;">Skin measurement in progress</div>
+
+    <!-- Visualisation des données brutes 3D -->
+    <canvas id="epigenetic-canvas"></canvas>
+
+    <div class="process-steps" style="position:absolute; bottom:0;">
+      <div class="step-text" id="step-1">Analyzing skin...</div>
+      <div class="step-text" id="step-2">Modeling the structural matrix...</div>
+      <div class="step-text" id="step-3">Building your routine...</div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. RESULTS DASHBOARD -->
+<section id="view-results" class="view-state">
+<!-- VYVRE_V6_BLOCK_BEGIN -->
+<style>
+.vyvre-v6{padding:80px 32px;background:#000;color:#FFF;font-family:'Inter','SF Pro Display',-apple-system,sans-serif;font-weight:300;border-top:1px solid rgba(255,255,255,0.05)}
+.vyvre-v6 .v6grid{max-width:1320px;margin:0 auto;width:100%;display:flex;flex-direction:column;gap:60px}
+.vyvre-v6 .v6r3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;align-items:stretch}
+.vyvre-v6 .v6r2{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;align-items:stretch}
+.vyvre-v6 .v6r1{display:grid;grid-template-columns:1fr;gap:16px}
+.vyvre-v6 .v6card{position:relative;background:radial-gradient(ellipse 140% 100% at 50% -15%,rgba(235,235,240,0.78) 0%,rgba(180,180,188,0.55) 15%,rgba(110,110,118,0.32) 35%,rgba(50,50,58,0.15) 55%,transparent 75%),linear-gradient(180deg,rgba(255,255,255,0.06) 0%,transparent 40%),#000;border:1px solid rgba(255,255,255,0.1);border-radius:28px;padding:32px 28px 40px;min-height:340px;overflow:hidden;display:flex;flex-direction:column;align-items:center;text-align:center;transition:border-color 0.4s}
+.vyvre-v6 .v6card:hover{border-color:rgba(255,255,255,0.2)}
+.vyvre-v6 .v6card::after{content:'';position:absolute;inset:0;border-radius:28px;background:radial-gradient(ellipse 100% 80% at 50% 110%,rgba(0,0,0,0.85) 0%,transparent 60%);pointer-events:none;z-index:1}
+.vyvre-v6 .v6card>*{position:relative;z-index:2}
+.vyvre-v6 .v6lbl{position:absolute;top:26px;right:28px;font-family:'JetBrains Mono','SF Mono',monospace;font-size:10px;letter-spacing:0.4em;text-transform:uppercase;color:rgba(255,255,255,0.6);font-weight:400;z-index:3}
+.vyvre-v6 .v6card h3{font-size:clamp(34px,3.2vw,48px);font-weight:300;letter-spacing:-0.022em;line-height:1.05;color:#FFF;margin-top:88px;max-width:88%}
+.vyvre-v6 .v6card p{font-size:16px;color:rgba(255,255,255,0.55);line-height:1.55;font-weight:300;margin-top:32px;max-width:78%}
+.vyvre-v6 .v6num{font-size:clamp(64px,6vw,88px);font-weight:100;letter-spacing:-0.045em;line-height:0.95;margin-top:auto;padding-top:40px;color:#FFF}
+.vyvre-v6 .v6num .v6unit{font-size:22px;color:rgba(255,255,255,0.55);margin-left:8px;font-weight:200;letter-spacing:0;line-height:1}
+.vyvre-v6 .v6price{font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:0.12em;color:#FFF;font-weight:500;margin-top:24px;padding-bottom:6px}
+.vyvre-v6 .v6photo{position:absolute;bottom:-30px;left:50%;transform:translateX(-50%);width:130px;height:auto;opacity:0.9;z-index:1;pointer-events:none}
+.vyvre-v6 .v6card.v6prod{padding-bottom:160px}
+.vyvre-v6 .v6card.v6prod .v6price{position:absolute;bottom:20px;left:50%;transform:translateX(-50%);margin-top:0;padding:0;z-index:3}
+.vyvre-v6 .v6card.v6prod .v6photo{bottom:50px;width:110px}
+.vyvre-v6 .v6card.v6score{background:none !important;border:none !important;box-shadow:none !important;min-height:auto;padding:60px 0}
+.vyvre-v6 .v6card.v6score::after{display:none}
+.vyvre-v6 .v6card.v6score .v6num{font-size:clamp(140px,14vw,220px);font-weight:100;letter-spacing:-0.06em;line-height:1;color:#FFF;padding:0;margin:0}
+.vyvre-v6 .v6card.v6fr-flag{background:radial-gradient(ellipse 70% 55% at 10% 5%,rgba(0,55,140,0.14) 0%,transparent 65%),radial-gradient(ellipse 70% 55% at 95% 100%,rgba(210,45,40,0.11) 0%,transparent 65%),radial-gradient(ellipse 140% 100% at 50% -15%,rgba(245,245,250,0.6) 0%,rgba(190,190,200,0.32) 20%,rgba(120,120,128,0.16) 40%,transparent 72%),#000 !important;border-color:rgba(255,255,255,0.12) !important}
+.vyvre-v6 .v6cta{min-height:72px;border-radius:28px;display:flex;align-items:center;justify-content:center;text-decoration:none !important;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:0.3em;text-transform:uppercase;font-weight:500;transition:all 0.4s;border:1px solid rgba(255,255,255,0.08);position:relative;overflow:hidden}
+.vyvre-v6 .v6cta.v6primary{background:linear-gradient(180deg,#FFF 0%,#E8E8EA 100%);color:#000 !important;border:none}
+.vyvre-v6 .v6cta.v6primary:hover{transform:translateY(-2px);box-shadow:0 20px 50px rgba(255,255,255,0.15)}
+.vyvre-v6 .v6cta.v6secondary{background:radial-gradient(ellipse 90% 60% at 50% -10%,rgba(140,140,148,0.3) 0%,transparent 65%),#000;color:#FFF !important}
+.vyvre-v6 .v6cta.v6secondary:hover{border-color:rgba(255,255,255,0.18)}
+/* Protocol Complet CTA — sobre, même DA que la page (noir/blanc/gris, V6 signature) */
+.vyvre-v6 .v6protocol-cta{display:flex;justify-content:center;padding:24px 0 14px;position:relative;z-index:5}
+.vyvre-v6 .v6protocol-btn{
+  display:inline-flex;align-items:center;gap:14px;padding:16px 30px;border-radius:14px;
+  background:radial-gradient(ellipse 140% 100% at 50% -20%,rgba(235,235,240,0.18) 0%,rgba(180,180,188,0.08) 30%,transparent 70%),rgba(20,20,24,0.6);
+  border:1px solid rgba(255,255,255,0.12);
+  text-decoration:none !important;color:#FFFFFF !important;
+  font-family:'Inter','SF Pro Display',-apple-system,sans-serif;
+  font-size:13px;font-weight:300;letter-spacing:0.02em;
+  backdrop-filter:blur(10px);
+  transition:all 0.35s cubic-bezier(0.2,0.7,0.1,1);
+  cursor:pointer;position:relative;overflow:hidden;
+}
+.vyvre-v6 .v6protocol-btn::before{
+  content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.08),transparent);
+  transition:left 0.7s ease;
+}
+.vyvre-v6 .v6protocol-btn:hover::before{left:100%}
+.vyvre-v6 .v6protocol-btn:hover{
+  border-color:rgba(255,255,255,0.30);
+  transform:translateY(-2px);
+  box-shadow:0 18px 40px rgba(0,0,0,0.4);
+}
+.vyvre-v6 .v6protocol-btn .v6protocol-main{font-weight:400;letter-spacing:0.18em;text-transform:uppercase;font-size:11px}
+.vyvre-v6 .v6protocol-btn .v6protocol-arrow{font-size:14px;color:rgba(255,255,255,0.85);letter-spacing:0;transition:transform 0.3s ease}
+.vyvre-v6 .v6protocol-btn:hover .v6protocol-arrow{transform:translate(3px,0)}
+</style>
+<section class="vyvre-v6">
+  <div class="v6grid">
+
+    <!-- ROW 1 : 3 chiffres biomarqueurs (data-vyvre-* hooks pour real scan) -->
+    <div class="v6r3">
+      <div class="v6card">
+        <span class="v6lbl">Target: Glow</span>
+        <h3>Radiance</h3>
+        <div class="v6num"><span data-vyvre-glow data-target="70">70</span><span class="v6unit">/100</span></div>
+      </div>
+      <div class="v6card">
+        <span class="v6lbl">Target: Redness</span>
+        <h3>Calm</h3>
+        <div class="v6num"><span data-vyvre-calm data-target="70">70</span><span class="v6unit">/100</span></div>
+      </div>
+      <div class="v6card">
+        <span class="v6lbl">Target: Hydration</span>
+        <h3>Hydration Barrier</h3>
+        <div class="v6num"><span data-vyvre-hydration data-target="88">88</span><span class="v6unit">%</span></div>
+      </div>
+    </div>
+
+    <!-- ROW 2 : Score brut géant centré (alimenté par CIE LAB) -->
+    <div class="v6r1">
+      <div class="v6card v6score"><div class="v6num"><span data-vyvre-score-large data-target="91">91</span></div></div>
+    </div>
+
+    <!-- ROW 3 : 3 produits Charlotte Tilbury dynamiques (matched depuis vyvre.fr/api/products?brand=charlotte-tilbury) -->
+    <div class="v6r3" id="vyvre-product-row">
+      <div class="v6card v6prod" data-vyvre-prod-slot="0">
+        <span class="v6lbl">Hydration</span>
+        <h3>Charlotte's Magic Cream Moisturiser</h3>
+        <p>Targeted action: Hydration · Radiance.</p>
+        <img class="v6photo" src="https://vyvre-demos.web.app/products/charlotte-tilbury/charlotte-s-magic-cream-moisturiser.jpg" alt="Charlotte's Magic Cream Moisturiser" onerror="this.style.display='none'">
+        <div class="v6price">85 €</div>
+      </div>
+      <div class="v6card v6prod" data-vyvre-prod-slot="1">
+        <span class="v6lbl">Anti-Wrinkle</span>
+        <h3>Magic Eye Rescue Cream with Retinol</h3>
+        <p>Targeted action: Anti-Wrinkle · Hydration.</p>
+        <img class="v6photo" src="https://vyvre-demos.web.app/products/charlotte-tilbury/magic-eye-rescue.jpg" alt="Magic Eye Rescue Cream with Retinol" onerror="this.style.display='none'">
+        <div class="v6price">55 €</div>
+      </div>
+      <div class="v6card v6prod" data-vyvre-prod-slot="2">
+        <span class="v6lbl">Radiance</span>
+        <h3>Charlotte's Magic Serum Crystal Elixir</h3>
+        <p>Targeted action: Radiance · Anti-Wrinkle.</p>
+        <img class="v6photo" src="https://vyvre-demos.web.app/products/charlotte-tilbury/magic-serum-crystal-elixir.jpg" alt="Charlotte's Magic Serum Crystal Elixir" onerror="this.style.display='none'">
+        <div class="v6price">75 €</div>
+      </div>
+    </div>
+
+    <!-- ROW 3.5 : Complete protocol button -->
+    <div class="v6protocol-cta">
+      <a id="vyvre-protocol-link" href="/scan/protocol" class="v6protocol-btn" target="_blank" rel="noopener">
+        <span class="v6protocol-main">Complete protocol</span>
+        <span class="v6protocol-arrow">→</span>
+      </a>
+    </div>
+
+    <!-- ROW 4 : 3 standards (avec drapeau France subtil sur celui du milieu) -->
+    <div class="v6r3">
+      <div class="v6card">
+        <span class="v6lbl">Standard: 01</span>
+        <h3>Local processing</h3>
+        <p>WebAssembly in-browser. No photo transmitted beyond the screen.</p>
+      </div>
+      <div class="v6card v6fr-flag">
+        <span class="v6lbl">Standard: 02</span>
+        <h3>Sovereign hosting</h3>
+        <p>Data center OVH Roubaix · SecNumCloud + ISO 27001.</p>
+      </div>
+      <div class="v6card">
+        <span class="v6lbl">Standard: 03</span>
+        <h3>GDPR-native</h3>
+        <p>No SCC. Pre-filled DPIA on request.</p>
+      </div>
+    </div>
+
+
+  </div>
+</section>
+<!-- VYVRE_V6_BLOCK_END -->
+<section class="sg-marque" id="sg-marque" aria-label="For brands">
+  <div class="sg-marque-in">
+    <div class="sg-mk">For beauty brands</div>
+    <h2 class="sg-mh">Your clients deserve<br><em>this reading.</em></h2>
+    <p class="sg-mp">What you just experienced can live on your e-shop and in your stores, on your own catalogue, in your own codes. Start with a pilot, or let us build it with you, made to measure.</p>
+    <div class="sg-mb">
+      <a class="sg-mbtn sg-mbtn-a v6cta" href="https://vyvre.fr/pricing/en?from=scan-universel&amp;plan=pilot">Start the pilot <span>→</span></a>
+      <a class="sg-mbtn sg-mbtn-b v6cta" href="mailto:contact@vyvre.fr?subject=Vyvre%20%E2%80%94%20bespoke%20skin%20scan">Build it bespoke</a>
+    </div>
+    <a class="sg-mprix" href="https://vyvre.fr/pricing/en?from=scan-universel">View pricing</a>
+  </div>
+</section>
+<style id="sg-marque-css">
+.sg-marque{position:relative;padding:14vh 24px 18vh;display:flex;justify-content:center;z-index:5}
+.sg-marque::before{content:"";position:absolute;left:10%;right:10%;top:0;height:1px;background:linear-gradient(90deg,transparent,rgba(236,233,226,.35),transparent)}
+.sg-marque-in{max-width:1080px;width:100%;text-align:center;padding:72px 56px 60px;border-radius:44px;border:1px solid rgba(255,255,255,.10);
+  background:radial-gradient(ellipse 80% 70% at 50% 0%,rgba(236,233,226,.10),transparent 70%),rgba(12,13,16,.55);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  box-shadow:0 60px 140px -40px rgba(0,0,0,.8)}
+.sg-mk{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.42em;text-transform:uppercase;color:rgba(236,233,226,.65)}
+.sg-mh{margin:26px 0 0;font-weight:300;font-size:clamp(40px,5.6vw,84px);line-height:1.02;letter-spacing:-.02em;color:#f4f2ee}
+.sg-mh em{font-style:italic;color:#e7dccb}
+.sg-mp{margin:28px auto 0;max-width:640px;font-size:clamp(17px,1.35vw,20px);line-height:1.65;color:rgba(244,242,238,.72)}
+.sg-mb{margin-top:46px;display:grid;grid-template-columns:1.25fr 1fr;gap:16px}
+.sg-mbtn{display:flex!important;align-items:center!important;justify-content:center!important;text-decoration:none!important;min-height:84px!important;border-radius:100px!important;font-size:14px!important;letter-spacing:.28em!important;text-transform:uppercase;font-family:'JetBrains Mono',monospace;padding:0 28px!important;transition:transform .35s ease,box-shadow .35s ease}
+.sg-mbtn-a{background:linear-gradient(180deg,#fff,#e4e0d6)!important;color:#000!important;border:0!important;box-shadow:0 0 0 1px rgba(255,255,255,.4),0 30px 70px -24px rgba(236,233,226,.6)}
+.sg-mbtn-a span{margin-left:12px}
+.sg-mbtn-b{background:rgba(255,255,255,.04)!important;color:#f4f2ee!important;border:1px solid rgba(255,255,255,.18)!important}
+.sg-mbtn:hover{transform:translateY(-2px)}
+.sg-mprix{display:inline-block;margin-top:26px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:rgba(236,233,226,.55);text-decoration:none;border-bottom:1px solid rgba(236,233,226,.2);padding-bottom:4px}
+.sg-mprix:hover{color:#fff}
+@media(max-width:760px){.sg-marque-in{padding:48px 22px 40px;border-radius:28px}.sg-mb{grid-template-columns:1fr}.sg-mbtn{min-height:64px!important;font-size:12px!important}}
+#view-results:not(.active) ~ .sg-marque, body:not(.sg-resultats) .sg-marque{display:none}
+</style>
+</section>
+
+<script>
+/* ============================================================================
+   LOGIQUE SILICON VALLEY : POLAR ANALYSIS & EPIGENETIC VISUALIZER (PURE DATA)
+   ============================================================================ */
+
+// 1. VIEW CONTROLLER
+function switchView(viewId) {
+    document.querySelectorAll('.view-state').forEach(el => el.classList.remove('active'));
+    document.getElementById(viewId).classList.add('active');
+
+    if(viewId === 'view-results') {
+        document.body.classList.add('scrollable');
+    }
+}
+
+// 2. IA FACE API (THERMAL / TOPOLOGICAL SURGERY)
+const STATE = { modelsLoaded: false, scanning: false, thermalMode: false, box: null, landmarks: null, stream: null };
+const video = document.getElementById('liveVideo');
+const overlay = document.getElementById('liveOverlay');
+const ctxO = overlay.getContext('2d');
+const videoContainer = document.getElementById('thermal-vid-container');
+const depthUI = document.getElementById('depth-ui');
+let calibFrames = 0;
+
+async function loadAI() {
+  if(STATE.modelsLoaded) return true;
+  document.getElementById('hud-status').innerText = "Booting...";
+  try {
+    const URL = '/scan/models/faceapi';
+    await faceapi.nets.tinyFaceDetector.loadFromUri(URL);
+    await faceapi.nets.faceLandmark68Net.loadFromUri(URL);
+    STATE.modelsLoaded = true;
+    document.getElementById('hud-status').innerText = "Optics Rdy";
+    return true;
+  } catch(e) {
+    document.getElementById('hud-status').innerText = "Sys Error";
+    return false;
+  }
+}
+
+document.getElementById('btn-scan').addEventListener('click', async () => {
+  switchView('view-scanner');
+  await loadAI();
+  try {
+    STATE.stream = await navigator.mediaDevices.getUserMedia({ video: true });
+    video.srcObject = STATE.stream;
+    video.onloadedmetadata = () => {
+      overlay.width = video.videoWidth; overlay.height = video.videoHeight;
+      document.getElementById('hud-status').innerText = "Tracking";
+      setInterval(detectAndDraw, 100);
+      renderThermalTopography();
+    };
+  } catch(e) { document.getElementById('hud-status').innerText = "Cam Offline"; }
+});
+
+document.getElementById('btn-upload').addEventListener('click', () => document.getElementById('file-input').click());
+document.getElementById('file-input').addEventListener('change', async (e) => {
+  if(!e.target.files[0]) return;
+  switchView('view-scanner');
+  await loadAI();
+
+  video.style.display = 'none';
+  const img = document.getElementById('capturedImg');
+  img.style.display = 'block';
+  img.src = URL.createObjectURL(e.target.files[0]);
+
+  img.onload = () => {
+    overlay.width = img.width || 480; overlay.height = img.height || 640;
+    generateMockData(overlay.width, overlay.height);
+    renderThermalTopography();
+    document.getElementById('hud-status').innerText = "Extracting";
+  };
+});
+
+function detectAndDraw() {
+  if(!STATE.modelsLoaded || video.paused) return;
+  faceapi.detectSingleFace(video, new faceapi.TinyFaceDetectorOptions()).withFaceLandmarks().then(res => {
+    if(res) {
+      STATE.box = res.detection.box;
+      STATE.landmarks = res.landmarks.positions;
+      STATE.detectionScore = res.detection.score || 0;
+      STATE.lastDetectionAt = performance.now();
+      document.getElementById('hud-nodes').innerText = STATE.landmarks.length;
+      handleCalibration();
+      hideNoFaceBanner();
+    } else {
+      // No face this frame
+      STATE.detectionScore = 0;
+      const stale = !STATE.lastDetectionAt || (performance.now() - STATE.lastDetectionAt) > 1500;
+      if (stale && !STATE.scanning) showNoFaceBanner();
+    }
+  }).catch(()=>{});
+}
+function showNoFaceBanner(mainMsg, subMsg){
+  let b = document.getElementById('no-face-banner');
+  if(!b){
+    // CSS keyframes injected once
+    if(!document.getElementById('vyvre-banner-style')){
+      const s = document.createElement('style');
+      s.id = 'vyvre-banner-style';
+      s.textContent = `
+        @keyframes vyvreBannerPulse { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.35; transform:scale(0.65); } }
+        #no-face-banner.show { opacity:1; transform:translateX(-50%) scale(1); }
+      `;
+      document.head.appendChild(s);
+    }
+    b = document.createElement('div');
+    b.id = 'no-face-banner';
+    b.style.cssText = [
+      'position:fixed',
+      'top:32px',
+      'left:50%',
+      'transform:translateX(-50%) scale(0.96)',
+      'z-index:200',
+      'padding:22px 36px 18px',
+      'background:radial-gradient(ellipse 140% 100% at 50% 0%, rgba(40,30,15,0.78) 0%, rgba(15,10,5,0.92) 70%)',
+      'border:1px solid rgba(217,186,114,0.30)',
+      'border-radius:28px',
+      'backdrop-filter:blur(40px) saturate(1.2)',
+      '-webkit-backdrop-filter:blur(40px) saturate(1.2)',
+      'box-shadow:0 30px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.08), 0 0 60px rgba(217,186,114,0.10)',
+      'opacity:0',
+      'transition:opacity 0.7s cubic-bezier(0.25,1,0.3,1), transform 0.7s cubic-bezier(0.25,1,0.3,1)',
+      'pointer-events:none',
+      'display:flex',
+      'flex-direction:column',
+      'align-items:center',
+      'gap:8px',
+      'min-width:340px',
+      'text-align:center'
+    ].join(';');
+    b.innerHTML = `
+      <div style="display:flex; align-items:center; gap:12px; font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.45em; text-transform:uppercase; color:rgba(217,186,114,0.75);">
+        <span style="width:5px; height:5px; border-radius:50%; background:#F0C780; box-shadow:0 0 10px #F0C780, 0 0 20px rgba(240,199,128,0.5); animation:vyvreBannerPulse 1.6s ease-in-out infinite;"></span>
+        <span class="banner-eyebrow">CALIBRATION</span>
+      </div>
+      <div class="banner-main" style="font-family:'Instrument Serif',serif; font-style:italic; font-size:24px; font-weight:400; color:#F5F0E5; letter-spacing:-0.01em; line-height:1.15; margin-top:2px;">No face <em style="color:#F0C780;">detected</em></div>
+      <div class="banner-sub" style="font-family:'Inter',sans-serif; font-weight:300; font-size:12px; color:rgba(245,240,229,0.55); letter-spacing:0.02em; line-height:1.5;">Reposition yourself facing the camera</div>
+    `;
+    document.body.appendChild(b);
+  }
+  if(mainMsg) b.querySelector('.banner-main').innerHTML = mainMsg;
+  if(subMsg) b.querySelector('.banner-sub').textContent = subMsg;
+  b.style.opacity = '1';
+  b.style.transform = 'translateX(-50%) scale(1)';
+}
+function hideNoFaceBanner(){
+  const b = document.getElementById('no-face-banner');
+  if(b){
+    b.style.opacity = '0';
+    b.style.transform = 'translateX(-50%) scale(0.96)';
+  }
+}
+
+
+function generateMockData(w, h) {
+  const cx = w/2, cy = h/2, fw = w*0.4, fh = h*0.5;
+  STATE.box = { x: cx-fw/2, y: cy-fh/2, width: fw, height: fh };
+  STATE.landmarks = [];
+  for (let i=0; i<68; i++) {
+    const a = (i/68) * Math.PI * 2;
+    STATE.landmarks.push({ x: cx + Math.cos(a)*(fw/2) + (Math.random()*6-3), y: cy + Math.sin(a)*(fh/2) + (Math.random()*6-3) });
+  }
+  document.getElementById('hud-nodes').innerText = '68';
+  document.getElementById('hud-status').innerText = "Locked";
+  setTimeout(() => {
+    if(!STATE.scanning) {
+      STATE.scanning = true;
+      startThermalScan();
+    }
+  }, 1200);
+}
+
+// Rendu Graphique (Topologie / Couches Thermiques)
+function renderThermalTopography() {
+  ctxO.clearRect(0, 0, overlay.width, overlay.height);
+
+  if (STATE.landmarks && STATE.box) {
+    if(STATE.thermalMode) {
+      const cx = STATE.box.x + STATE.box.width/2;
+      const cy = STATE.box.y + STATE.box.height/2;
+
+      // Lignes topographiques (Depth mapping)
+      for(let step = 1; step <= 3; step++) {
+          ctxO.strokeStyle = `rgba(255, 255, 255, ${0.5 - step*0.15})`;
+          ctxO.lineWidth = 1;
+          ctxO.beginPath();
+          STATE.landmarks.forEach((pt, i) => {
+              const dx = pt.x - cx; const dy = pt.y - cy;
+              const nx = cx + dx * (1 + step*0.06);
+              const ny = cy + dy * (1 + step*0.06);
+              if(i===0) ctxO.moveTo(nx, ny);
+              else ctxO.lineTo(nx, ny);
+          });
+          ctxO.closePath();
+          ctxO.stroke();
+      }
+    } else {
+      // Mesh standard
+      ctxO.strokeStyle = 'rgba(255, 255, 255, 0.2)';
+      ctxO.lineWidth = 0.5;
+      ctxO.beginPath();
+      for(let i=0; i<STATE.landmarks.length-1; i++) {
+         ctxO.moveTo(STATE.landmarks[i].x, STATE.landmarks[i].y);
+         ctxO.lineTo(STATE.landmarks[i+1].x, STATE.landmarks[i+1].y);
+      }
+      ctxO.stroke();
+    }
+
+    // Nœuds purs (sans couleur)
+    ctxO.fillStyle = STATE.thermalMode ? '#FFF' : 'rgba(255, 255, 255, 0.5)';
+    STATE.landmarks.forEach(pt => {
+      ctxO.beginPath(); ctxO.arc(pt.x, pt.y, STATE.thermalMode? 1.5 : 1, 0, Math.PI*2); ctxO.fill();
+    });
+  }
+
+  if(!STATE.scanning || STATE.thermalMode) requestAnimationFrame(renderThermalTopography);
+}
+
+function handleCalibration() {
+  if (STATE.scanning) return;
+  document.getElementById('hud-status').innerText = "Locked";
+
+  calibFrames++;
+  if(calibFrames > 15) {
+    STATE.scanning = true;
+    startThermalScan();
+  }
+}
+
+function startThermalScan() {
+  STATE.thermalMode = true;
+  videoContainer.classList.add('thermal-active');
+  document.getElementById('hud-status').innerText = "Thermal Active";
+
+  document.getElementById('scan-laser').classList.add('scanning');
+
+  depthUI.classList.add('show');
+  const layers = [document.getElementById('lyr-1'), document.getElementById('lyr-2'), document.getElementById('lyr-3')];
+
+  layers.forEach((lyr, idx) => {
+      setTimeout(() => {
+          layers.forEach(l => l.classList.remove('active'));
+          lyr.classList.add('active');
+
+          if(idx === layers.length - 1) {
+              setTimeout(executeCapture, 1500);
+          }
+      }, idx * 350);
+  });
+}
+
+function executeCapture() {
+  // PRE-CHECK: face confidence must be acceptable BEFORE launching compute
+  const score = STATE.detectionScore || 0;
+  const landmarksCount = (STATE.landmarks || []).length;
+  const boxSize = STATE.box ? (STATE.box.width * STATE.box.height) : 0;
+  const minBox = (video.videoWidth || 480) * (video.videoHeight || 640) * 0.04; // ≥4% du frame
+
+  if(landmarksCount < 60 || boxSize < minBox){ // score retiré: 68 landmarks = face détectée
+    // Visage absent ou mal détecté → alerte AVANT scan, pas après
+    console.warn('[CHARLOTTE_TILBURY] face check failed:', { score, landmarksCount, boxSize, minBox });
+    showNoFaceBanner('Face not detected — reposition facing the camera');
+    // Reset pour permettre une nouvelle calibration
+    STATE.scanning = false;
+    STATE.thermalMode = false;
+    videoContainer.classList.remove('thermal-active');
+    document.getElementById('scan-laser').classList.remove('scanning');
+    depthUI.classList.remove('show');
+    calibFrames = 0;
+    document.getElementById('hud-status').innerText = 'Tracking';
+    // Auto-hide banner after 4s
+    setTimeout(hideNoFaceBanner, 4000);
+    return;
+  }
+
+  // Face OK → on continue
+  hideNoFaceBanner();
+  // Flash de capture visuel pur
+  const flash = document.createElement('div');
+  flash.style.cssText = "position:absolute; inset:0; background:#FFF; z-index:100; opacity:1; transition:opacity 0.4s;";
+  videoContainer.appendChild(flash);
+
+  setTimeout(()=> {
+      flash.style.opacity = '0';
+      setTimeout(()=> flash.remove(), 400);
+      launchComputation();
+  }, 100);
+}
+
+// 3. COMPUTATION (GEMINI WEBGL SHADER · obsidian matter)
+// Remplace l'ancien nuage 300 particules par un shader GLSL :
+// Perlin + FBM + domain warping + fake 3D normals + specular + Fresnel.
+const epiCanvas = document.getElementById('epigenetic-canvas');
+const epiGL = epiCanvas.getContext('webgl', { alpha: false, antialias: true }) || epiCanvas.getContext('experimental-webgl');
+let computationActive = false;
+let epiStartTime = null;
+let epiShaderProgram = null;
+let epiResLoc = null, epiTimeLoc = null, epiProgressLoc = null;
+let epiParticles = []; // kept for compat (unused)
+
+const EPI_VS = `attribute vec2 position; void main(){ gl_Position = vec4(position, 0.0, 1.0); }`;
+const EPI_FS = `
+precision highp float;
+uniform vec2 u_resolution;
+uniform float u_time;
+uniform float u_progress;
+vec3 permute(vec3 x){ return mod(((x*34.0)+1.0)*x, 289.0); }
+float snoise(vec2 v){
+  const vec4 C = vec4(0.211324865405187, 0.366025403784439, -0.577350269189626, 0.024390243902439);
+  vec2 i  = floor(v + dot(v, C.yy));
+  vec2 x0 = v - i + dot(i, C.xx);
+  vec2 i1; i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+  vec4 x12 = x0.xyxy + C.xxzz; x12.xy -= i1;
+  i = mod(i, 289.0);
+  vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0)) + i.x + vec3(0.0, i1.x, 1.0));
+  vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);
+  m = m*m; m = m*m;
+  vec3 x = 2.0 * fract(p * C.www) - 1.0;
+  vec3 h = abs(x) - 0.5;
+  vec3 ox = floor(x + 0.5);
+  vec3 a0 = x - ox;
+  m *= 1.79284291400159 - 0.85373472095314 * (a0*a0 + h*h);
+  vec3 g;
+  g.x  = a0.x  * x0.x  + h.x  * x0.y;
+  g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+  return 130.0 * dot(m, g);
+}
+float fbm(vec2 uv){
+  float f = 0.0; float amp = 0.5;
+  mat2 rot = mat2(cos(0.5), sin(0.5), -sin(0.5), cos(0.5));
+  for(int i=0; i<6; ++i){
+    f += amp * snoise(uv);
+    uv = rot * uv * 2.0 + vec2(100.0);
+    amp *= 0.5;
+  }
+  return f;
+}
+void main(){
+  vec2 uv = gl_FragCoord.xy / u_resolution.xy;
+  vec2 p = uv * 2.0 - 1.0;
+  p.x *= u_resolution.x / u_resolution.y;
+  p *= 1.2; // matière 1.2x plus petite (présente sans envahir)
+
+  float t = u_time * 0.12;
+  vec2 q = vec2(fbm(p + t * 0.2), fbm(p + vec2(1.0)));
+  vec2 r = vec2(fbm(p + 1.5*q + vec2(1.7, 9.2) + t*0.3), fbm(p + 1.5*q + vec2(8.3, 2.8) + t*0.25));
+  float f = fbm(p + r);
+
+  float eps = 0.01;
+  float nx = fbm(p + r + vec2(eps, 0.0)) - f;
+  float ny = fbm(p + r + vec2(0.0, eps)) - f;
+  vec3 normal = normalize(vec3(nx, ny, 0.08));
+
+  vec3 ld1 = normalize(vec3(0.5, 0.8, 0.5));
+  vec3 vd = vec3(0.0, 0.0, 1.0);
+  float spec1 = pow(max(dot(normal, normalize(ld1 + vd)), 0.0), 35.0);
+  float fr = pow(1.0 - max(dot(normal, vd), 0.0), 4.0);
+
+  vec3 colBase = vec3(0.015, 0.015, 0.018);
+  vec3 colSpec = vec3(0.12, 0.13, 0.15) * spec1 * 1.5;
+  vec3 colRim  = vec3(0.20, 0.16, 0.12) * fr * 0.5;
+  vec3 color = colBase + colSpec + colRim;
+
+  float dist = length(p);
+  float organicRadius = 0.7 + f * 0.3 + sin(u_progress * 3.14) * 0.1;
+  float mask = smoothstep(organicRadius + 0.5, organicRadius - 0.2, dist);
+  color *= mask;
+  color = mix(vec3(0.0), color, mask);
+  color *= 0.8 + 0.2 * sin(t * 5.0);
+
+  gl_FragColor = vec4(color, 1.0);
+}`;
+
+function compileShaderEpi(type, src){
+  const sh = epiGL.createShader(type);
+  epiGL.shaderSource(sh, src);
+  epiGL.compileShader(sh);
+  if(!epiGL.getShaderParameter(sh, epiGL.COMPILE_STATUS)){
+    console.error('[GEMINI shader]', epiGL.getShaderInfoLog(sh));
+    return null;
+  }
+  return sh;
+}
+
+function initEpigeneticVisualizer(){
+  const dpr = Math.min(devicePixelRatio || 1, 2);
+  epiCanvas.width = epiCanvas.offsetWidth * dpr;
+  epiCanvas.height = epiCanvas.offsetHeight * dpr;
+
+  if(!epiShaderProgram){
+    const vs = compileShaderEpi(epiGL.VERTEX_SHADER, EPI_VS);
+    const fs = compileShaderEpi(epiGL.FRAGMENT_SHADER, EPI_FS);
+    epiShaderProgram = epiGL.createProgram();
+    epiGL.attachShader(epiShaderProgram, vs);
+    epiGL.attachShader(epiShaderProgram, fs);
+    epiGL.linkProgram(epiShaderProgram);
+    if(!epiGL.getProgramParameter(epiShaderProgram, epiGL.LINK_STATUS)){
+      console.error('[GEMINI shader] link:', epiGL.getProgramInfoLog(epiShaderProgram));
+      return;
+    }
+    const buf = epiGL.createBuffer();
+    epiGL.bindBuffer(epiGL.ARRAY_BUFFER, buf);
+    epiGL.bufferData(epiGL.ARRAY_BUFFER, new Float32Array([-1,1, 1,1, -1,-1, 1,-1]), epiGL.STATIC_DRAW);
+    const posLoc = epiGL.getAttribLocation(epiShaderProgram, 'position');
+    epiGL.vertexAttribPointer(posLoc, 2, epiGL.FLOAT, false, 0, 0);
+    epiGL.enableVertexAttribArray(posLoc);
+    epiGL.useProgram(epiShaderProgram);
+    epiResLoc = epiGL.getUniformLocation(epiShaderProgram, 'u_resolution');
+    epiTimeLoc = epiGL.getUniformLocation(epiShaderProgram, 'u_time');
+    epiProgressLoc = epiGL.getUniformLocation(epiShaderProgram, 'u_progress');
+  }
+  epiGL.viewport(0, 0, epiCanvas.width, epiCanvas.height);
+  epiGL.uniform2f(epiResLoc, epiCanvas.width, epiCanvas.height);
+  epiStartTime = null;
+}
+window.addEventListener('resize', () => { if(computationActive) initEpigeneticVisualizer(); });
+
+function drawEpigeneticMatrix(){
+  if(!computationActive) return;
+  const now = performance.now();
+  if(!epiStartTime) epiStartTime = now;
+  const elapsed = now - epiStartTime;
+  const progress = Math.min(elapsed / 14000, 1.0);
+  epiGL.uniform1f(epiTimeLoc, elapsed * 0.001);
+  epiGL.uniform1f(epiProgressLoc, progress);
+  epiGL.drawArrays(epiGL.TRIANGLE_STRIP, 0, 4);
+  requestAnimationFrame(drawEpigeneticMatrix);
+}
+
+window.vyvreLastScanResult = null;
+
+function launchComputation() {
+  switchView('view-process');
+  // NOTE: on garde STATE.stream actif pendant le real scan (besoin de capturer 8 frames)
+
+  // Lance le moteur 3D de particules
+  initEpigeneticVisualizer();
+  computationActive = true;
+  drawEpigeneticMatrix();
+
+  // === REAL SCAN : lance VYVRE_SCAN_ENGINE en parallèle de l'animation ===
+  const scanSource = (video && video.style.display !== 'none' && video.videoWidth)
+    ? video
+    : document.getElementById('capturedImg');
+
+  let realScanPromise = null;
+  if (window.VYVRE_SCAN_ENGINE && scanSource) {
+    console.log('[CHARLOTTE_TILBURY] lancement du real scan CIE LAB sur', scanSource.tagName);
+    // analyzeMultiFrame attend videoEl avec videoWidth — fallback img si besoin
+    if (scanSource.tagName === 'IMG') {
+      realScanPromise = scanFromImage(scanSource);
+    } else {
+      realScanPromise = window.VYVRE_SCAN_ENGINE.runRealScan(scanSource).catch(err => {
+        console.warn('[CHARLOTTE_TILBURY] real scan failed:', err);
+        return null;
+      });
+    }
+  } else {
+    console.warn('[CHARLOTTE_TILBURY] engine ou source absente, fallback');
+  }
+
+  // Animation des étapes texte (5.4s total)
+  const steps = [
+      document.getElementById('step-1'),
+      document.getElementById('step-2'),
+      document.getElementById('step-3')
+  ];
+
+  steps.forEach((step, idx) => {
+      setTimeout(() => {
+          steps.forEach(s => s.classList.remove('active'));
+          step.classList.add('active');
+
+          // Accélère la vitesse des particules pour montrer que le calcul s'intensifie
+          epiParticles.forEach(p => p.speed *= 1.5);
+
+          if(idx === steps.length - 1) {
+              setTimeout(async () => {
+                  // ATTENDRE que le real scan soit fini (au moins min(scan, 8s extra))
+                  if (realScanPromise) {
+                    try {
+                      const result = await Promise.race([
+                        realScanPromise,
+                        new Promise(r => setTimeout(() => r(null), 3500))
+                      ]);
+                      if (result) {
+                        window.vyvreLastScanResult = result;
+                        console.log('[CHARLOTTE_TILBURY] real scan complete:', result);
+                      } else {
+                        console.warn('[CHARLOTTE_TILBURY] real scan timeout — fallback dérivé pixels');
+                        window.vyvreLastScanResult = await deriveScoresFromPixels(scanSource);
+                      }
+                    } catch (e) {
+                      console.error('[CHARLOTTE_TILBURY] error awaiting scan:', e);
+                      window.vyvreLastScanResult = await deriveScoresFromPixels(scanSource);
+                    }
+                  } else {
+                    window.vyvreLastScanResult = await deriveScoresFromPixels(scanSource);
+                  }
+
+                  // Stop le stream APRES capture
+                  if (STATE.stream) STATE.stream.getTracks().forEach(t => t.stop());
+
+                  computationActive = false;
+                  showFinalDashboard();
+              }, 150);
+          }
+      }, idx * 1000);
+  });
+}
+
+/**
+ * Helper : scan depuis une <img> (upload mode) en synthétisant un faux videoEl.
+ */
+async function scanFromImage(imgEl) {
+  if (!imgEl || !imgEl.naturalWidth) return null;
+  // Crée un canvas temporaire qui se comporte comme un videoEl (videoWidth/videoHeight)
+  const fakeVideo = {
+    videoWidth: imgEl.naturalWidth,
+    videoHeight: imgEl.naturalHeight,
+    clientWidth: imgEl.naturalWidth,
+    clientHeight: imgEl.naturalHeight,
+    paused: false
+  };
+  // Patch captureFrame pour utiliser l'img : on construit l'imageData manuellement
+  // et on appelle directement analyzeMultiFrame ne marche pas car capture interne.
+  // On fait le pipeline manuel via les helpers exposés.
+  const eng = window.VYVRE_SCAN_ENGINE;
+  if (!eng) return null;
+
+  try {
+    const canvas = document.createElement('canvas');
+    canvas.width = imgEl.naturalWidth;
+    canvas.height = imgEl.naturalHeight;
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    ctx.drawImage(imgEl, 0, 0);
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const roi = await eng.detectFaceROI(imageData);
+
+    const cheekPixels = eng.samplePixelsInROI(imageData, roi, 'cheekL', 3)
+      .concat(eng.samplePixelsInROI(imageData, roi, 'cheekR', 3));
+    const tzonePixels = eng.samplePixelsInROI(imageData, roi, 'tzone', 3);
+    const foreheadPixels = eng.samplePixelsInROI(imageData, roi, 'forehead', 3);
+    const allPixels = cheekPixels.concat(tzonePixels, foreheadPixels);
+
+    const quality = eng.assessFrameQuality(allPixels);
+    if (!quality.ok) {
+      console.warn('[CHARLOTTE_TILBURY] image quality rejected:', quality.reason);
+    }
+
+    // Construit le raw manuellement
+    const labArr = cheekPixels.map(p => eng.rgbToLab(p.r, p.g, p.b));
+    let sumL=0, sumA=0, sumB=0, sumR=0, sumG=0;
+    for (const lab of labArr) { sumL += lab.L; sumA += lab.a; sumB += lab.b; }
+    for (const p of cheekPixels) { sumR += p.r/255; sumG += p.g/255; }
+    const n = labArr.length;
+    if (n === 0) return null;
+    const avgL = sumL/n, avgA = sumA/n, avgB = sumB/n;
+    const avgRed = sumR/cheekPixels.length, avgGreen = sumG/cheekPixels.length;
+    const avgLum = quality.avgLum || 0.5;
+    const itaAngle = eng.ita(avgL, avgB);
+    const fitz = eng.itaToFitzpatrick(itaAngle);
+    const MI = eng.melaninIndex(avgRed);
+    const EI = eng.erythemaIndex(avgRed, avgGreen);
+    const tZoneSebum = eng.sebumProxy(tzonePixels, avgLum, 0.05);
+    const tewlSigma = eng.tewlProxy(labArr);
+
+    const raw = { L: avgL, a: avgA, b: avgB, ita: itaAngle, fitz, MI, EI, sebum: tZoneSebum, tewl: tewlSigma, avgRed, avgGreen, avgLum };
+    const scores = eng.mapToScores(raw);
+    eng.updateBiomarkerBars(scores);
+    return { scores, raw, framesAccepted: 1, framesAttempted: 1, source: 'image' };
+  } catch(e) {
+    console.error('[CHARLOTTE_TILBURY] scanFromImage error:', e);
+    return null;
+  }
+}
+
+/**
+ * Fallback ultime : dérive un score crédible des pixels (pas Math.random).
+ */
+async function deriveScoresFromPixels(src) {
+  const eng = window.VYVRE_SCAN_ENGINE;
+  if (!eng || !src) return null;
+  try {
+    const canvas = document.createElement('canvas');
+    const w = src.videoWidth || src.naturalWidth || 480;
+    const h = src.videoHeight || src.naturalHeight || 640;
+    canvas.width = w; canvas.height = h;
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    ctx.drawImage(src, 0, 0, w, h);
+    const imageData = ctx.getImageData(0, 0, w, h);
+    const roi = await eng.detectFaceROI(imageData);
+    const cheekPixels = eng.samplePixelsInROI(imageData, roi, 'cheekL', 3)
+      .concat(eng.samplePixelsInROI(imageData, roi, 'cheekR', 3));
+    const tzonePixels = eng.samplePixelsInROI(imageData, roi, 'tzone', 3);
+    if (cheekPixels.length === 0) return null;
+    const labArr = cheekPixels.map(p => eng.rgbToLab(p.r, p.g, p.b));
+    let sumL=0, sumA=0, sumB=0, sumR=0, sumG=0;
+    for (const lab of labArr) { sumL+=lab.L; sumA+=lab.a; sumB+=lab.b; }
+    for (const p of cheekPixels) { sumR+=p.r/255; sumG+=p.g/255; }
+    const n = labArr.length;
+    const avgL = sumL/n, avgA = sumA/n, avgB = sumB/n;
+    const avgRed = sumR/cheekPixels.length, avgGreen = sumG/cheekPixels.length;
+    const itaAngle = eng.ita(avgL, avgB);
+    const fitz = eng.itaToFitzpatrick(itaAngle);
+    const raw = {
+      L: avgL, a: avgA, b: avgB, ita: itaAngle, fitz,
+      MI: eng.melaninIndex(avgRed), EI: eng.erythemaIndex(avgRed, avgGreen),
+      sebum: eng.sebumProxy(tzonePixels, 0.5, 0.05),
+      tewl: eng.tewlProxy(labArr),
+      avgRed, avgGreen, avgLum: 0.5
+    };
+    const scores = eng.mapToScores(raw);
+    return { scores, raw, framesAccepted: 1, framesAttempted: 1, source: 'fallback' };
+  } catch(e) {
+    console.error('[CHARLOTTE_TILBURY] deriveScoresFromPixels error:', e);
+    return null;
+  }
+}
+
+// 4. RÉSULTATS DATA
+let _dashboardShown = false;
+function showFinalDashboard() {
+  if (_dashboardShown) {
+    console.log('[CHARLOTTE_TILBURY] showFinalDashboard already called, ignoring duplicate');
+    return;
+  }
+  _dashboardShown = true;
+  switchView('view-results');
+  try{ document.body.classList.add('sg-resultats'); }catch(e){}
+
+  // === Calcule + injecte les vraies valeurs depuis le scan ===
+  const result = window.vyvreLastScanResult;
+  let globalScore = 91, cellAge = 29, hydration = 88;
+
+  if (result && result.scores) {
+    const s = result.scores;
+    // Score global = moyenne pondérée des 8 biomarqueurs (formule VYVRE)
+    // Inversion sebum (haut sebum = mauvais), pigmentation (haut pigment = concern)
+    const sebumScore = 100 - s.sebum;             // sebum 0..90 → 100..10
+    const pigmentScore = 100 - s.pigmentation;    // pigment 0..95 → 100..5
+    // Pondération : hydratation et fermeté pèsent plus pour score "longévité"
+    globalScore = Math.round(
+      (s.hydration * 0.18 +
+       s.wrinkles * 0.14 +
+       pigmentScore * 0.10 +
+       s.pores * 0.08 +
+       s.glow * 0.15 +
+       s.firmness * 0.17 +
+       s.redness * 0.10 +
+       sebumScore * 0.08)
+    );
+    globalScore = Math.max(55, Math.min(98, globalScore)); // clamp réaliste
+
+    // Âge biologique = 22 + (100 - score) * 0.45  (haute peau = jeune)
+    cellAge = Math.round(22 + (100 - globalScore) * 0.48);
+    cellAge = Math.max(22, Math.min(65, cellAge));
+
+    // Barrière hydrique = directement hydration score (déjà 0-100)
+    hydration = Math.round(s.hydration);
+    hydration = Math.max(40, Math.min(98, hydration));
+
+    console.log('[CHARLOTTE_TILBURY] computed: globalScore=' + globalScore + ' cellAge=' + cellAge + ' hydration=' + hydration);
+    console.log('[CHARLOTTE_TILBURY] vyvre-scan-engine: real CIE LAB analysis complete', { raw: result.raw, scores: s });
+  } else {
+    console.warn('[CHARLOTTE_TILBURY] no scan result available — using defaults (this should NOT happen in prod)');
+  }
+
+  // Met à jour les data-target pour l'animation
+  document.querySelectorAll('[data-vyvre-score]').forEach(el => el.dataset.target = globalScore);
+  document.querySelectorAll('[data-vyvre-score-large]').forEach(el => el.dataset.target = globalScore);
+  document.querySelectorAll('[data-vyvre-age]').forEach(el => el.dataset.target = cellAge);
+  (function(){ var sc=(window.vyvreLastScanResult&&window.vyvreLastScanResult.scores)||{}; function v(k,d){var n=Number(sc[k]);return isFinite(n)?Math.max(0,Math.min(100,Math.round(n))):d;}
+    document.querySelectorAll('[data-vyvre-glow]').forEach(function(el){el.dataset.target=v('glow',70);});
+    document.querySelectorAll('[data-vyvre-calm]').forEach(function(el){el.dataset.target=v('redness',70);}); })();
+  document.querySelectorAll('[data-vyvre-hydration]').forEach(el => el.dataset.target = hydration);
+
+  // Animation counter sur TOUS les span avec data-target dans le V6 block
+  // (requestAnimationFrame plutôt que setInterval pour résister au throttling background)
+  document.querySelectorAll('.vyvre-v6 [data-target]').forEach(el => {
+      const target = parseInt(el.getAttribute('data-target'));
+      if (isNaN(target)) return;
+      const duration = 1500;
+      const start = performance.now();
+      function tick(now) {
+        const elapsed = now - start;
+        const t = Math.min(1, elapsed / duration);
+        // ease-out cubic
+        const eased = 1 - Math.pow(1 - t, 3);
+        const current = Math.round(target * eased);
+        el.innerText = current;
+        if (t < 1) requestAnimationFrame(tick);
+        else el.innerText = target;
+      }
+      requestAnimationFrame(tick);
+  });
+
+  // === Matching produits Charlotte Tilbury depuis API ===
+  if (result && result.scores) {
+    matchAndRenderCharlotteTilburyProducts(result.scores);
+  } else {
+    console.warn('[CHARLOTTE_TILBURY] no scores for product matching');
+  }
+
+  // Animation des barres de données
+  setTimeout(() => {
+    document.querySelectorAll('.data-bar-fill').forEach(bar => {
+      bar.style.width = bar.style.getPropertyValue('--target');
+    });
+  }, 500);
+}
+
+/**
+ * Identifie les top 3 concerns du user (scores les plus faibles ou pigmentation/sebum
+ * élevés = concerns) et fetch + matche les meilleurs produits Charlotte Tilbury.
+ */
+async function matchAndRenderCharlotteTilburyProducts(scores) {
+  console.log('[CHARLOTTE_TILBURY] starting product matching with scores', scores);
+  // Concerns "négatifs" : pour wrinkles/firmness/glow/hydration/redness/pores → score BAS = concern
+  // Pour sebum/pigmentation → score HAUT = concern (sebum élevé = peau grasse)
+  const concernSeverity = {
+    wrinkles:    100 - scores.wrinkles,    // bas wrinkles = rides présentes
+    firmness:    100 - scores.firmness,
+    glow:        100 - scores.glow,
+    hydration:   100 - scores.hydration,
+    redness:     100 - scores.redness,
+    pores:       100 - scores.pores,
+    sebum:       scores.sebum,             // sebum élevé = peau grasse = concern
+    pigmentation: scores.pigmentation      // pigment élevé = taches = concern
+  };
+
+  // Top 3 concerns
+  const topConcerns = Object.entries(concernSeverity)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 3)
+    .map(([concern, severity]) => ({ concern, severity }));
+
+  console.log('[CHARLOTTE_TILBURY] top concerns:', topConcerns);
+
+  // Fetch produits
+  let products = [];
+  try {
+    const resp = await fetch('/scan/catalogue/all.json?_t=' + Date.now());
+    if (!resp.ok) throw new Error('HTTP ' + resp.status);
+    const data = await resp.json();
+    products = data.products || [];
+    if (window.VYVRE_MARQUE) { var f = products.filter(function(p){ return p.brand === window.VYVRE_MARQUE; });
+      if (f.length) { products = f; window.VYVRE_MARQUE_NOM = f[0].brand_name || window.VYVRE_MARQUE; window.sgTitreMarque && window.sgTitreMarque(); } }
+    console.log('[CHARLOTTE_TILBURY] fetched', products.length, 'products from vyvre.fr');
+  } catch(e) {
+    console.error('[CHARLOTTE_TILBURY] product fetch failed:', e.message);
+    try { const r2 = await fetch('/scan/catalogue/charlotte-tilbury.json'); if (r2.ok) products = (await r2.json()).products || []; } catch(_) {}
+    if (!products.length) return; // garde les produits hardcodés
+  }
+
+  if (products.length === 0) return;
+
+  // Score chaque produit selon les top concerns
+  // Score produit = somme pondérée (concern_scores[concern] * severity_user)
+  const scoredProducts = products.map(p => {
+    const cs = p.concern_scores || {};
+    let matchScore = 0;
+    for (const tc of topConcerns) {
+      // concern_scores ∈ [0..1] dans l'API ; severity_user ∈ [0..100]
+      const productEfficacy = cs[tc.concern] || 0;
+      // Si le produit cible explicitement ce concern (targets array), bonus
+      const isTarget = (p.targets || []).includes(tc.concern);
+      const targetBonus = isTarget ? 0.3 : 0;
+      matchScore += (productEfficacy + targetBonus) * tc.severity;
+    }
+    return { ...p, matchScore };
+  });
+
+  // Top 3 produits, en évitant les doublons de "famille" (préfère diversité)
+  scoredProducts.sort((a, b) => b.matchScore - a.matchScore);
+
+  // Diversifier : on prend top 1, puis on cherche un produit avec un primary target différent
+  const selected = [];
+  const usedTargets = new Set();
+  for (const p of scoredProducts) {
+    if (selected.length === 3) break;
+    const primaryTarget = (p.targets || [])[0];
+    // Évite 3 fois le même primary target si on a le choix
+    if (!window.VYVRE_MARQUE && selected.some(x => x.brand && x.brand === p.brand)) continue;
+    if (selected.length < 2 || !usedTargets.has(primaryTarget) || scoredProducts.length < 6) {
+      selected.push(p);
+      if (primaryTarget) usedTargets.add(primaryTarget);
+    }
+  }
+  // Si manque (peu probable), complète
+  while (selected.length < 3 && scoredProducts.length > selected.length) {
+    const next = scoredProducts.find(p => !selected.includes(p));
+    if (next) selected.push(next);
+    else break;
+  }
+
+  console.log('[CHARLOTTE_TILBURY] selected products:', selected.map(p => p.name + ' (match=' + p.matchScore.toFixed(1) + ')'));
+
+  // Re-render les 3 cards de Row 3
+  const concernLabels = {
+    wrinkles: 'Fine lines', firmness: 'Firmness', glow: 'Radiance',
+    hydration: 'Hydration', redness: 'Calming', pores: 'Pores',
+    sebum: 'Oil control', pigmentation: 'Even tone'
+  };
+
+  selected.forEach((p, idx) => {
+    const card = document.querySelector(`[data-vyvre-prod-slot="${idx}"]`);
+    if (!card) return;
+    const primaryTarget = (p.targets || [])[0] || 'wrinkles';
+    const lblEl = card.querySelector('.v6lbl');
+    const h3 = card.querySelector('h3');
+    const pEl = card.querySelector('p');
+    const img = card.querySelector('img');
+    const price = card.querySelector('.v6price');
+
+    if (lblEl) lblEl.textContent = concernLabels[primaryTarget] || 'Signature care';
+    if (h3) h3.textContent = p.name;
+    card.dataset.marque = p.brand_name || '';
+    if (pEl) {
+      const targetWords = (p.targets || []).map(t => concernLabels[t] || t).join(' · ');
+      pEl.textContent = `${p.brand_name ? p.brand_name + ' · ' : ''}Targeted action: ${targetWords}.`;
+    }
+    if (img && p.image_url) {
+      img.src = p.image_url;
+      img.alt = p.name;
+      img.style.display = '';
+    }
+    if (price && p.price_eur) {
+      price.textContent = p.price_eur.toFixed(2).replace('.', ',') + ' €';
+    }
+    // Marque pour debug
+    card.dataset.vyvreProductId = p.id;
+    // === [CLICK→URL marque] ===
+    if (p.url) {
+      card.style.cursor = "pointer";
+      card.title = "View on the official brand site";
+      card.onclick = (e) => { e.preventDefault(); window.open(p.url, "_blank", "noopener,noreferrer"); };
+    }
+    card.dataset.vyvreMatchScore = p.matchScore.toFixed(1);
+  });
+
+  console.log('[CHARLOTTE_TILBURY] product cards updated successfully');
+}
+
+</script>
+<!-- VYVRE_SCAN_ENGINE_BEGIN -->
+<script>
+  // Marque le video pour bypass auto-intercept (CHARLOTTE TILBURY contrôle son propre flow)
+  document.addEventListener('DOMContentLoaded', () => {
+    const v = document.getElementById('liveVideo');
+    if (v) v.dataset.vyvreHooked = 'manual';
+  });
+</script>
+<!-- VYVRE V10: TF.js removed from eager load — handled by /vyvre-loader.js -->
+<script src="/scan/vyvre-scan-engine.js?v=10.5" defer></script>
+<!-- VYVRE_V10_TRACKER_BEGIN -->
+<script src="/scan/vyvre-tracker.js?v=10.1" defer></script>
+<!-- VYVRE_V10_TRACKER_END -->
+<!-- VYVRE_SCAN_ENGINE_END -->
+<script src="/scan/vyvre-mini-lattice.js" defer></script>
+
+
+<!-- VYVRE_TRACKING (silent, only if ?p= in URL) -->
+<script>
+(function(){
+  try {
+    var params = new URLSearchParams(window.location.search);
+    var prospect = params.get('p');
+    if (!prospect) return;
+    var path = window.location.pathname;
+    var brandMatch = path.match(/VYVRE_([A-Z0-9_]+)\.?/i);
+    var brand = brandMatch ? brandMatch[1].toLowerCase() : 'unknown';
+    var SB_URL = 'https://kduxxlntvwincsnpfkyz.supabase.co/rest/v1/vyvre_tracking';
+    var SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImtkdXh4bG50dndpbmNzbnBma3l6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMzNDkxMDUsImV4cCI6MjA4ODkyNTEwNX0.qqW4VInQCozN4EW_NELOTwvoe_nKuy1RiC-Jbr-8-Hs';
+    var startTime = Date.now();
+    var maxScrollDepth = 0;
+    function track(event_type, metadata) {
+      try {
+        var body = JSON.stringify({
+          prospect_slug: prospect,
+          brand: brand,
+          event_type: event_type,
+          url_path: path,
+          user_agent: (navigator.userAgent || '').substring(0, 200),
+          referrer: (document.referrer || '').substring(0, 200),
+          metadata: metadata || {}
+        });
+        fetch(SB_URL, {
+          method: 'POST',
+          headers: {
+            'apikey': SB_KEY,
+            'Authorization': 'Bearer ' + SB_KEY,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=minimal'
+          },
+          body: body,
+          keepalive: true
+        }).catch(function(){});
+      } catch(e) {}
+    }
+    var viewport = window.innerWidth + 'x' + window.innerHeight;
+    track('page_view', { viewport: viewport });
+    var scanStartedFired = false;
+    function fireScanStarted() {
+      if (scanStartedFired) return;
+      scanStartedFired = true;
+      track('scan_started', {});
+    }
+    window.addEventListener('vyvre:scan_started', fireScanStarted);
+    try {
+      var moStart = new MutationObserver(function() {
+        if (document.querySelector('.thermal-active, .scan-active, [data-scanning="true"]')) {
+          fireScanStarted();
+        }
+      });
+      moStart.observe(document.body, { attributes: true, subtree: true, attributeFilter: ['class', 'data-scanning'] });
+    } catch(e) {}
+    var scanCompletedFired = false;
+    function fireScanCompleted(metadata) {
+      if (scanCompletedFired) return;
+      scanCompletedFired = true;
+      track('scan_completed', metadata || {});
+    }
+    window.addEventListener('vyvre:scan_completed', function(e) { fireScanCompleted((e && e.detail) || {}); });
+    try {
+      var moComp = new MutationObserver(function() {
+        var sr = document.getElementById('scan-result') || document.querySelector('.scan-result, .scan-done');
+        if (sr && sr.offsetParent !== null) {
+          var ageEl = document.querySelector('[data-vyvre-age]');
+          var scoreEl = document.querySelector('[data-vyvre-score]');
+          var meta = {};
+          if (ageEl) meta.age = parseInt(ageEl.textContent, 10) || null;
+          if (scoreEl) meta.score = parseInt(scoreEl.textContent, 10) || null;
+          fireScanCompleted(meta);
+        }
+      });
+      moComp.observe(document.body, { attributes: true, childList: true, subtree: true });
+    } catch(e) {}
+    document.addEventListener('click', function(e) {
+      try {
+        if (!e.target || !e.target.closest) return;
+        var protoBtn = e.target.closest('.v6protocol-btn') || e.target.closest('#vyvre-protocol-link');
+        if (protoBtn) {
+          track('protocol_clicked', { href: protoBtn.href || '' });
+          return;
+        }
+        var ctaBtn = e.target.closest('.v6cta');
+        if (ctaBtn) {
+          var isPrimary = ctaBtn.classList.contains('v6primary');
+          track('cta_clicked', {
+            type: isPrimary ? 'primary' : 'secondary',
+            text: (ctaBtn.textContent || '').trim().substring(0, 50),
+            href: ctaBtn.href || ''
+          });
+        }
+      } catch(_) {}
+    });
+    window.addEventListener('scroll', function() {
+      try {
+        var scrolled = window.scrollY + window.innerHeight;
+        var total = document.documentElement.scrollHeight;
+        var pct = total > 0 ? Math.min(100, Math.round(scrolled / total * 100)) : 0;
+        if (pct > maxScrollDepth) maxScrollDepth = pct;
+      } catch(_) {}
+    }, { passive: true });
+    var exitFired = false;
+    function fireExit() {
+      if (exitFired) return;
+      exitFired = true;
+      var seconds = Math.round((Date.now() - startTime) / 1000);
+      track('page_exit', { time_on_page_sec: seconds, scroll_depth_pct: maxScrollDepth });
+    }
+    window.addEventListener('beforeunload', fireExit);
+    document.addEventListener('visibilitychange', function() {
+      if (document.visibilityState === 'hidden') fireExit();
+    });
+  } catch(e) {}
+})();
+</script>
+<!-- VYVRE_TRACKING END -->
+
+
+<!-- ============================================================
+     PROPALE « VYVRE SIGNATURE SCAN » — Originale × Fable V2.
+     Calque total de direction artistique : shader liquide chromé,
+     verre, portail de scan, jauges. Le moteur (face-api, scan,
+     produits, tracking) est intact : rien d'origine n'est modifié.
+     ============================================================ -->
+<style id="sig-da">
+  :root{ --sg-plat:#ece9e2; --sg-champ:#d9c9a3; --sg-champ-vif:#fbf0d2; --sg-cyan:#9fd8e8; --sg-ink:#04050a;
+    --sg-glass:rgba(255,255,255,.045); --sg-glass2:rgba(255,255,255,.08); --sg-line:rgba(255,255,255,.14); }
+  html,body{cursor:none}
+  a,button{cursor:none}
+  #sig-gl{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.95}
+  #sig-grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.06;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/><feColorMatrix type='saturate' values='0'/></filter><rect width='180' height='180' filter='url(%23n)'/></svg>")}
+  #ambient-light{display:none}
+  .view-state,.vyvre-pitch-btn{z-index:10}
+  .view-state{transition:opacity 1.8s cubic-bezier(.22,1,.36,1),transform 1.8s cubic-bezier(.22,1,.36,1),filter 1.8s cubic-bezier(.22,1,.36,1),visibility 1.8s!important}
+  header{z-index:40!important}
+  /* — curseur de verre — */
+  #sig-cur{position:fixed;left:0;top:0;z-index:9999;pointer-events:none;width:36px;height:36px;margin:-18px 0 0 -18px;border-radius:50%;
+    border:1px solid rgba(255,255,255,.55);backdrop-filter:blur(4px) brightness(1.3);-webkit-backdrop-filter:blur(4px) brightness(1.3);
+    transition:transform .35s cubic-bezier(.22,1,.36,1),border-color .3s;mix-blend-mode:difference}
+  #sig-cur::after{content:'';position:absolute;left:50%;top:50%;width:4px;height:4px;margin:-2px;border-radius:50%;background:#fff}
+  body.sig-hover #sig-cur{transform:scale(2.2);border-color:rgba(255,255,255,.9)}
+  @media (pointer:coarse){ html,body,a,button{cursor:auto} #sig-cur{display:none} }
+  /* — en-tête de verre — */
+  header{padding:22px 4%;top:14px;left:2%;width:96%;border-radius:22px;background:rgba(10,11,16,.35);backdrop-filter:blur(24px) saturate(1.4);-webkit-backdrop-filter:blur(24px) saturate(1.4);
+    border:1px solid var(--sg-line);box-shadow:0 20px 60px -30px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.12)}
+  .brand{letter-spacing:.24em}
+  .brand .brand-x{color:rgba(217,201,163,.8)}
+  .vyvre-pitch-btn{top:30px;right:5%;background:rgba(255,255,255,.06);border-color:var(--sg-line)}
+  /* — héros — */
+  #view-hero .hero-content{position:relative;z-index:2;max-width:1100px}
+  #view-hero .label-sm{display:inline-flex;align-items:center;gap:14px;padding:10px 18px;border-radius:100px;background:var(--sg-glass);border:1px solid var(--sg-line);
+    backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);color:var(--sg-champ-vif);letter-spacing:.34em;font-size:10px;margin-bottom:38px;box-shadow:inset 0 1px 0 rgba(255,255,255,.14)}
+  #view-hero .label-sm::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--sg-champ-vif);box-shadow:0 0 12px 3px rgba(217,201,163,.6);animation:sgPulse 2.4s ease-in-out infinite}
+  @keyframes sgPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.6}}
+  #view-hero h1{font-weight:100;letter-spacing:-.05em;font-size:clamp(64px,10vw,150px);line-height:.94;background:none;-webkit-text-fill-color:#fff;color:#fff}
+  #view-hero h1 .sg-w{background:linear-gradient(100deg,#fff 0%,#fff 30%,rgba(255,255,255,.4) 48%,#fff 62%,#fff 100%),linear-gradient(180deg,#fff 10%,rgba(255,255,255,.28) 100%);
+    background-size:280% 100%,100% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:sgMot 1.4s cubic-bezier(.22,1,.36,1) forwards,sgPasse 8s ease-in-out 2s infinite}
+  @keyframes sgPasse{0%,55%{background-position:140% 0,0 0}80%,100%{background-position:-60% 0,0 0}}
+  #view-hero h1 .sg-w{display:inline-block;opacity:0}
+  @keyframes sgMot{to{opacity:1}}
+  #view-hero .hero-content p{font-size:clamp(17px,1.5vw,22px);color:rgba(255,255,255,.55);max-width:56ch;margin:0 auto 54px}
+  .spatial-btn{padding:22px 56px;font-size:14px;border-radius:100px;border:1px solid var(--sg-line);background:var(--sg-glass);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 20px 50px -24px rgba(0,0,0,.9);transition:transform .5s cubic-bezier(.22,1,.36,1),box-shadow .5s,background .5s}
+  .spatial-btn::before{display:none}
+  .spatial-btn:hover{color:#fff;transform:translateY(-3px) scale(1.02);background:var(--sg-glass2)}
+  .spatial-btn#btn-scan{background:linear-gradient(180deg,#fff,#e4e0d6);color:var(--sg-ink);border-color:transparent;box-shadow:0 0 0 1px rgba(255,255,255,.4),0 24px 60px -16px rgba(236,233,226,.55)}
+  .spatial-btn#btn-scan:hover{color:var(--sg-ink);box-shadow:0 0 0 1px #fff,0 30px 70px -14px rgba(217,201,163,.7)}
+  /* chips flottantes de verre autour du héros */
+  .sg-chip{position:absolute;z-index:1;padding:9px 12px;border-radius:12px;opacity:.72;transform-origin:center;background:var(--sg-glass);border:1px solid var(--sg-line);backdrop-filter:blur(20px) saturate(1.3);-webkit-backdrop-filter:blur(20px) saturate(1.3);
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.14),0 30px 60px -30px rgba(0,0,0,.9);font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.5);
+    pointer-events:none;animation:sgFlotte 9s ease-in-out infinite;will-change:transform}
+  .sg-chip b{display:block;font-family:'Inter',sans-serif;font-weight:100;font-size:22px;letter-spacing:-.04em;color:#fff;margin-top:6px;line-height:1}
+  .sg-chip b i{font-style:normal;font-size:10px;color:var(--sg-champ);margin-left:4px}
+  .sg-chip.c1{left:6%;top:24%;animation-delay:-2s}.sg-chip.c2{right:7%;top:30%;animation-delay:-5s}.sg-chip.c3{left:12%;bottom:16%;animation-delay:-7s}.sg-chip.c4{right:12%;bottom:20%;animation-delay:-3.5s}
+  @keyframes sgFlotte{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-16px) rotate(1deg)}}
+  @media (max-width:980px){.sg-chip{display:none}}
+  /* — SCANNER : LE PORTAIL — */
+  #view-scanner .label-sm{color:var(--sg-champ)}
+  .scanner-module{position:relative;max-width:520px;padding:0;border-radius:44px;background:transparent;isolation:isolate;overflow:visible}
+  .scanner-module .video-container{border-radius:40px;border:1px solid rgba(255,255,255,.18);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 60px 120px -40px rgba(0,0,0,1)}
+  .sg-anneau{position:absolute;left:50%;top:50%;border-radius:50%;pointer-events:none;z-index:0;transform:translate(-50%,-50%)}
+  .sg-anneau.a1{width:118%;aspect-ratio:1;border:1px solid rgba(255,255,255,.08);animation:sgTourne 40s linear infinite}
+  .sg-anneau.a2{width:132%;aspect-ratio:1;border:1px dashed rgba(217,201,163,.22);animation:sgTourne 70s linear infinite reverse}
+  .sg-anneau.a3{width:104%;aspect-ratio:1;border:2px solid transparent;border-top-color:var(--sg-champ-vif);border-right-color:rgba(217,201,163,.25);box-shadow:0 -6px 24px -8px rgba(251,240,210,.6);animation:sgTourne 4s linear infinite}
+  .sg-anneau.a1::after{content:'';position:absolute;top:-4px;left:50%;width:7px;height:7px;margin-left:-3.5px;border-radius:50%;background:#fff;box-shadow:0 0 14px 4px rgba(255,255,255,.6)}
+  @keyframes sgTourne{to{transform:translate(-50%,-50%) rotate(360deg)}}
+  .sg-coin{position:absolute;width:34px;height:34px;border:1px solid rgba(255,255,255,.7);z-index:6;pointer-events:none;animation:sgCoin 3s ease-in-out infinite}
+  .sg-coin.h{top:18px;left:18px;border-right:0;border-bottom:0;border-radius:14px 0 0 0}.sg-coin.i{top:18px;right:18px;border-left:0;border-bottom:0;border-radius:0 14px 0 0}
+  .sg-coin.j{bottom:18px;left:18px;border-right:0;border-top:0;border-radius:0 0 0 14px}.sg-coin.k{bottom:18px;right:18px;border-left:0;border-top:0;border-radius:0 0 14px 0}
+  @keyframes sgCoin{0%,100%{opacity:.5}50%{opacity:1}}
+  .lidar-sweep{height:2px;background:linear-gradient(90deg,transparent,var(--sg-cyan) 20%,#fff 50%,var(--sg-champ-vif) 80%,transparent);box-shadow:0 0 30px rgba(255,255,255,.7),0 -60px 90px rgba(159,216,232,.18),0 20px 60px rgba(217,201,163,.18)}
+  .lidar-sweep::before,.lidar-sweep::after{content:'';position:absolute;left:0;right:0;height:1px;opacity:.7}
+  .lidar-sweep::before{top:-3px;background:rgba(159,216,232,.8)}.lidar-sweep::after{top:3px;background:rgba(255,140,120,.6)}
+  .depth-indicator{top:auto;bottom:96px;right:18px;gap:6px}
+  .depth-layer{padding:7px 12px;border-radius:100px;background:rgba(6,7,10,.55);border:1px solid var(--sg-line);backdrop-filter:blur(12px);color:rgba(255,255,255,.5);font-size:9px}
+  .depth-layer.active{color:var(--sg-ink);background:var(--sg-champ-vif);border-color:transparent;text-shadow:none;font-weight:500}
+  .scan-hud{bottom:18px;border-radius:100px;padding:12px 26px;gap:30px;background:rgba(6,7,10,.55);border-color:rgba(255,255,255,.16);box-shadow:inset 0 1px 0 rgba(255,255,255,.14)}
+  .hud-item .val{color:#fff}
+  /* la signature : onde de lecture sous le portail */
+  #sig-onde{display:block;width:min(92vw,720px);height:64px;margin:34px auto 0;opacity:.9}
+  /* — CALCUL — */
+  #view-process .label-sm{color:var(--sg-champ)}
+  .computation-layout{border-radius:40px;background:var(--sg-glass);border:1px solid var(--sg-line);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);max-width:1000px;margin:0 auto;width:100%;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.12),0 60px 120px -50px rgba(0,0,0,1)}
+  .step-text{font-size:12.5px;letter-spacing:.3em;padding:10px 20px;border-radius:100px;border:1px solid transparent}
+  .step-text.active{color:#fff;text-shadow:none;border-color:var(--sg-line);background:var(--sg-glass)}
+  /* — RÉSULTATS : verre iridescent, jauge, révélation — */
+  #view-results{padding-top:16vh}
+  .vyvre-v6{background:transparent;border-top:0}
+  .vyvre-v6 .v6card{background:linear-gradient(160deg,rgba(255,255,255,.075),rgba(255,255,255,.025) 45%,rgba(255,255,255,.04));border:1px solid var(--sg-line);border-radius:30px;
+    backdrop-filter:blur(26px) saturate(1.3);-webkit-backdrop-filter:blur(26px) saturate(1.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 50px 100px -50px rgba(0,0,0,1);
+    transition:transform .7s cubic-bezier(.22,1,.36,1),box-shadow .7s,border-color .5s;opacity:0;transform:translateY(40px)}
+  .vyvre-v6 .v6card.sg-in{opacity:1;transform:none}
+  .vyvre-v6 .v6card::after{background:none}
+  .vyvre-v6 .v6card::before{content:'';position:absolute;inset:-1px;border-radius:31px;padding:1px;pointer-events:none;opacity:0;transition:opacity .6s;
+    background:conic-gradient(from var(--sg-ang,0deg),transparent 0 55%,rgba(159,216,232,.7) 68%,var(--sg-champ-vif) 78%,rgba(255,255,255,.9) 84%,transparent 96%);
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+  .vyvre-v6 .v6card:hover{transform:translateY(-8px) scale(1.01);box-shadow:inset 0 1px 0 rgba(255,255,255,.22),0 70px 120px -50px rgba(217,201,163,.35)}
+  .vyvre-v6 .v6card:hover::before{opacity:1;animation:sgAng 2.4s linear infinite}
+  @property --sg-ang{syntax:'<angle>';inherits:false;initial-value:0deg}
+  @keyframes sgAng{to{--sg-ang:360deg}}
+  .vyvre-v6 .v6lbl{color:var(--sg-champ);padding:6px 12px;border-radius:100px;border:1px solid var(--sg-line);background:rgba(0,0,0,.25)}
+  .vyvre-v6 .v6card h3{font-weight:200;margin-top:76px}
+  .vyvre-v6 .v6num{font-family:'Inter',sans-serif;font-weight:100;background:linear-gradient(180deg,#fff 30%,rgba(255,255,255,.4));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .vyvre-v6 .v6num .v6unit{color:var(--sg-champ);-webkit-text-fill-color:var(--sg-champ)}
+  .sg-barre{position:relative;height:2px;margin-top:22px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden}
+  .sg-barre i{position:absolute;left:0;top:0;bottom:0;width:0;background:linear-gradient(90deg,var(--sg-cyan),#fff,var(--sg-champ-vif));transition:width 2.2s cubic-bezier(.22,1,.36,1)}
+  .vyvre-v6 .v6card.v6score{background:none!important;border:none!important;backdrop-filter:none;-webkit-backdrop-filter:none;padding:40px 0}
+  .vyvre-v6 .v6card.v6score::before{display:none}
+  .vyvre-v6 .v6card.v6score .v6num{position:relative;z-index:2}
+  .sg-centre{position:relative;width:min(64vw,440px);aspect-ratio:1;margin:0 auto;display:grid;place-items:center}
+  .sg-centre>.sg-jauge{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none}
+  .sg-jauge circle{fill:none;stroke-width:1.2}
+  .sg-jauge .f{stroke:rgba(255,255,255,.1)}
+  .sg-jauge .v{stroke:url(#sgGrad);stroke-linecap:round;stroke-dasharray:1000;stroke-dashoffset:1000;transform:rotate(-90deg);transform-origin:50% 50%;transition:stroke-dashoffset 2.6s cubic-bezier(.22,1,.36,1);filter:drop-shadow(0 0 10px rgba(217,201,163,.7))}
+  .sg-jauge .h{position:absolute}
+  .sg-centre>.sg-halo{position:absolute;left:50%;top:50%;width:118%;aspect-ratio:1;transform:translate(-50%,-50%);border-radius:50%;z-index:0;pointer-events:none;
+    background:radial-gradient(circle,rgba(217,201,163,.18),rgba(159,216,232,.06) 45%,transparent 68%);filter:blur(22px);animation:sgHalo 6s ease-in-out infinite}
+  @keyframes sgHalo{0%,100%{opacity:.7;transform:translate(-50%,-50%) scale(.95)}50%{opacity:1;transform:translate(-50%,-50%) scale(1.05)}}
+  .vyvre-v6 .v6card.v6prod{padding-bottom:230px}
+  .vyvre-v6 .v6card.v6prod .v6photo{width:132px;bottom:64px;filter:drop-shadow(0 34px 36px rgba(0,0,0,.75)) drop-shadow(0 0 30px rgba(217,201,163,.2));transition:transform .7s cubic-bezier(.22,1,.36,1);animation:sgFlotte 8s ease-in-out infinite}
+  .vyvre-v6 .v6card.v6prod:hover .v6photo{transform:translateX(-50%) translateY(-12px) scale(1.08)}
+  .vyvre-v6 .v6price{color:var(--sg-champ-vif);padding:8px 16px;border-radius:100px;border:1px solid var(--sg-line);background:rgba(0,0,0,.3)}
+  .vyvre-v6 .v6cta{border-radius:100px;letter-spacing:.26em;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+  .vyvre-v6 .v6cta.v6primary{background:linear-gradient(180deg,#fff,#e4e0d6);box-shadow:0 0 0 1px rgba(255,255,255,.4),0 30px 70px -24px rgba(236,233,226,.6)}
+  .vyvre-v6 .v6cta.v6secondary{background:var(--sg-glass);border:1px solid var(--sg-line)}
+  .vyvre-v6 .v6protocol-btn{border-radius:100px;border-color:var(--sg-line);background:var(--sg-glass)}
+
+  /* ══ RÉSULTATS SUR UNE SEULE PAGE (≥1100 px) : le score au centre, les mesures et standards en petit sur les côtés, une seule vitrine produits ══ */
+  @media (min-width:1100px){
+    #view-results{padding-top:118px;padding-bottom:22px;min-height:100vh}
+    .vyvre-v6{padding:0 3vw}
+    .vyvre-v6 .v6grid{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:auto;gap:12px;max-width:1500px}
+    .vyvre-v6 .v6grid>*{display:contents}
+    .vyvre-v6 .v6card{border-radius:18px;padding:16px 18px 14px;min-height:0}
+    .vyvre-v6 .v6lbl{top:12px;right:14px;font-size:8px;letter-spacing:.26em;padding:4px 9px}
+    .vyvre-v6 .v6card.sg-metric{grid-column:1/4;display:flex;flex-direction:row;align-items:center;gap:12px;padding:22px 18px 18px;min-height:78px}
+    .vyvre-v6 .v6card.sg-metric h3{font-size:15px;margin:0;flex:1;line-height:1.15;padding-right:8px;text-align:left}
+    .vyvre-v6 .v6card.sg-metric .v6num{font-size:26px;padding:0;margin:0;flex:0 0 auto;white-space:nowrap;line-height:1}
+    .vyvre-v6 .v6card.sg-metric .v6num .v6unit{font-size:10px;margin-left:4px}
+    .vyvre-v6 .v6card.sg-metric .v6lbl{top:7px;bottom:auto;right:12px;font-size:6.5px;padding:3px 8px;opacity:.7;letter-spacing:.22em}
+    .vyvre-v6 .v6card.sg-metric .sg-barre{position:absolute;left:18px;right:18px;bottom:10px;margin:0}
+    .vyvre-v6 .v6card.sg-m1{grid-row:1}.vyvre-v6 .v6card.sg-m2{grid-row:2}.vyvre-v6 .v6card.sg-m3{grid-row:3}
+    .vyvre-v6 .v6card.v6score{grid-column:4/10;grid-row:1/4;padding:0;display:grid;place-items:center;background:none!important;border:none!important}
+    .sg-centre{width:min(30vh,270px)}
+    .vyvre-v6 .v6card.v6score .v6num{font-size:118px!important;padding:0}
+    .vyvre-v6 .v6card.sg-std{grid-column:10/13;padding:14px 18px 12px}
+    .vyvre-v6 .v6card.sg-std h3{font-size:15px;margin:0 0 4px;padding-right:70px}
+    .vyvre-v6 .v6card.sg-std p{font-size:11px;margin:0;line-height:1.4;color:rgba(255,255,255,.45)}
+    .vyvre-v6 .v6card.sg-s1{grid-row:1}.vyvre-v6 .v6card.sg-s2{grid-row:2}.vyvre-v6 .v6card.sg-s3{grid-row:3}
+    /* la vitrine : une seule pièce de verre, trois produits dedans, détourés */
+    .vyvre-v6 .v6grid>#vyvre-product-row{display:grid;grid-template-columns:repeat(3,1fr);grid-column:1/13;grid-row:4;gap:0;
+      background:linear-gradient(160deg,rgba(255,255,255,.075),rgba(255,255,255,.025) 45%,rgba(255,255,255,.04));border:1px solid var(--sg-line);border-radius:24px;
+      backdrop-filter:blur(26px) saturate(1.3);-webkit-backdrop-filter:blur(26px) saturate(1.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 50px 100px -50px rgba(0,0,0,1);overflow:hidden;position:relative}
+    .vyvre-v6 .v6grid>#vyvre-product-row::before{content:'YOUR RITUAL · 3 PRODUCTS';position:absolute;top:14px;left:20px;font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.3em;color:rgba(217,201,163,.8)}
+    .vyvre-v6 .v6card.v6prod{display:grid;grid-template-columns:120px 1fr;align-items:center;column-gap:16px;padding:40px 22px 18px;background:none;border:0;border-radius:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;opacity:1;transform:none}
+    .vyvre-v6 .v6card.v6prod+.v6card.v6prod{border-left:1px solid rgba(255,255,255,.08)}
+    .vyvre-v6 .v6card.v6prod::before{display:none}
+    .vyvre-v6 .v6card.v6prod:hover{transform:none;box-shadow:none}
+    .vyvre-v6 .v6card.v6prod .v6lbl{grid-column:1/-1;position:absolute;top:12px;right:14px}
+    .vyvre-v6 .v6card.v6prod .v6photo{position:relative;left:auto;bottom:auto;transform:none;width:120px;max-height:150px;object-fit:contain;grid-column:1;grid-row:1/4;align-self:center;justify-self:center;animation:none;filter:drop-shadow(0 22px 26px rgba(0,0,0,.75)) drop-shadow(0 0 24px rgba(217,201,163,.16))}
+    .vyvre-v6 .v6card.v6prod:hover .v6photo{transform:translateY(-4px) scale(1.04)}
+    .vyvre-v6 .v6card.v6prod h3{font-size:16px;margin:0;grid-column:2;line-height:1.2;max-width:100%}
+    .vyvre-v6 .v6card.v6prod p{font-size:11px;margin:6px 0 0;grid-column:2;max-width:100%;line-height:1.4;color:rgba(255,255,255,.45)}
+    .vyvre-v6 .v6card.v6prod .v6price{position:static;transform:none;margin-top:10px;justify-self:start;font-size:10.5px;padding:5px 11px;grid-column:2}
+    .vyvre-v6 .v6protocol-cta{display:contents}
+    .vyvre-v6 .v6protocol-btn{grid-column:1/5;grid-row:5;justify-content:center;min-height:52px;border-radius:16px}
+    .vyvre-v6 .v6cta{min-height:52px;border-radius:16px;font-size:11px;grid-row:5}
+    .vyvre-v6 .v6cta.v6primary{grid-column:5/10}
+    .vyvre-v6 .v6cta.v6secondary{grid-column:10/13}
+    /* colonne de droite = trois biomarqueurs du scan ; les standards descendent en bas, discrets */
+    .vyvre-v6 .v6card.sg-bio{grid-column:10/13;display:flex;flex-direction:row;align-items:center;gap:12px;padding:22px 18px 18px;min-height:78px}
+    .vyvre-v6 .v6card.sg-bio h3{font-size:15px;margin:0;flex:1;line-height:1.15;padding-right:8px;text-align:left}
+    .vyvre-v6 .v6card.sg-bio .v6num{font-size:26px;padding:0;margin:0;flex:0 0 auto;white-space:nowrap;line-height:1}
+    .vyvre-v6 .v6card.sg-bio .v6num .v6unit{font-size:10px;margin-left:4px}
+    .vyvre-v6 .v6card.sg-bio .v6lbl{top:7px;bottom:auto;right:12px;font-size:6.5px;padding:3px 8px;opacity:.7;letter-spacing:.22em}
+    .vyvre-v6 .v6card.sg-bio .sg-barre{position:absolute;left:18px;right:18px;bottom:10px;margin:0}
+    .vyvre-v6 .v6card.sg-b1{grid-row:1}.vyvre-v6 .v6card.sg-b2{grid-row:2}.vyvre-v6 .v6card.sg-b3{grid-row:3}
+    .vyvre-v6 .v6card.sg-std{grid-row:7;grid-column:auto/span 4;padding:10px 16px;display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.02);border-color:rgba(255,255,255,.08)}
+    .vyvre-v6 .v6card.sg-std h3{font-size:12px;margin:0;padding:0;flex:0 0 auto;color:rgba(255,255,255,.8)}
+    .vyvre-v6 .v6card.sg-std p{font-size:10px;margin:0;flex:1;text-align:left}
+    .vyvre-v6 .v6card.sg-std .v6lbl{display:none}
+    .vyvre-v6 .v6card.sg-std.v6fr-flag{background:rgba(255,255,255,.02)}
+    .vyvre-v6 .v6card.sg-s1,.vyvre-v6 .v6card.sg-s2,.vyvre-v6 .v6card.sg-s3{grid-row:7}
+    /* entrée des résultats plus douce : chaque pièce arrive en fondu et en montée, décalée */
+    .vyvre-v6 .v6card,.vyvre-v6 .v6grid>#vyvre-product-row,.vyvre-v6 .v6protocol-btn,.vyvre-v6 .v6cta,.vyvre-v6 .v6grid>[data-vyvre-tracker-slot]{transition:opacity 1.1s cubic-bezier(.22,1,.36,1),transform 1.1s cubic-bezier(.22,1,.36,1),border-color .5s,box-shadow .6s}
+    #view-results:not(.sg-vu) .v6grid>#vyvre-product-row,#view-results:not(.sg-vu) .v6protocol-btn,#view-results:not(.sg-vu) .v6cta,#view-results:not(.sg-vu) .v6grid>[data-vyvre-tracker-slot]{opacity:0;transform:translateY(26px)}
+    /* la lecture : ce qu'une esthéticienne dirait, sur toute la largeur */
+    .vyvre-v6 .v6grid>.sg-verdict{display:block;grid-column:1/13;grid-row:6;padding:14px 22px;border-radius:16px;background:rgba(255,255,255,.035);border:1px solid var(--sg-line);
+      backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;opacity:0;transform:translateY(20px);transition:opacity 1.1s cubic-bezier(.22,1,.36,1) .5s,transform 1.1s cubic-bezier(.22,1,.36,1) .5s}
+    #view-results.sg-vu .v6grid>.sg-verdict{opacity:1;transform:none}
+    .vyvre-v6 .v6grid>.sg-verdict b{font-family:'JetBrains Mono',monospace;font-weight:400;font-size:8.5px;letter-spacing:.3em;color:rgba(217,201,163,.85);white-space:nowrap}
+    .vyvre-v6 .v6grid>.sg-verdict p{margin:0;font-size:14px;line-height:1.5;font-weight:300;color:rgba(255,255,255,.85);max-width:none}
+    .vyvre-v6 .v6grid>.sg-verdict p em{font-style:normal;color:#fbf0d2}
+    .vyvre-v6 .v6grid>[data-vyvre-tracker-slot]{grid-row:7}
+    .vyvre-v6 .v6card.sg-std,.vyvre-v6 .v6card.sg-s1,.vyvre-v6 .v6card.sg-s2,.vyvre-v6 .v6card.sg-s3{grid-row:8}
+    /* révélation du score : sort du flou, s'élargit, anneau qui se dessine avec traînée, onde de choc, éclat */
+    .vyvre-v6 .v6card.v6score .v6num{opacity:0;filter:blur(14px);transform:scale(.72);transition:opacity 1.3s cubic-bezier(.22,1,.36,1) .35s,filter 1.3s cubic-bezier(.22,1,.36,1) .35s,transform 1.5s cubic-bezier(.31,1.4,.64,1) .35s}
+    #view-results.sg-vu .v6card.v6score .v6num{opacity:1;filter:blur(0);transform:scale(1)}
+    .sg-centre::before,.sg-centre::after{content:'';position:absolute;left:50%;top:50%;width:100%;aspect-ratio:1;border-radius:50%;transform:translate(-50%,-50%) scale(.6);opacity:0;pointer-events:none;border:1px solid rgba(251,240,210,.7)}
+    #view-results.sg-vu .sg-centre::before{animation:sgOndeScore 2.2s cubic-bezier(.22,1,.36,1) 1.2s forwards}
+    #view-results.sg-vu .sg-centre::after{animation:sgOndeScore 2.2s cubic-bezier(.22,1,.36,1) 1.6s forwards;border-color:rgba(159,216,232,.6)}
+    @keyframes sgOndeScore{0%{opacity:.9;transform:translate(-50%,-50%) scale(.6)}100%{opacity:0;transform:translate(-50%,-50%) scale(1.9)}}
+    .sg-jauge .v{transition:stroke-dashoffset 2.4s cubic-bezier(.22,1,.36,1) .6s!important;filter:drop-shadow(0 0 10px rgba(217,201,163,.7)) drop-shadow(0 0 22px rgba(159,216,232,.35))!important}
+    .sg-centre .sg-eclat{position:absolute;left:50%;top:50%;width:6px;height:6px;margin:-3px;border-radius:50%;background:#fff;box-shadow:0 0 30px 12px rgba(251,240,210,.9),0 0 80px 30px rgba(159,216,232,.5);opacity:0;pointer-events:none}
+    #view-results.sg-vu .sg-centre .sg-eclat{animation:sgEclat 1.4s ease-out 1s forwards}
+    @keyframes sgEclat{0%{opacity:0;transform:scale(.2)}30%{opacity:1;transform:scale(1)}100%{opacity:0;transform:scale(2.2)}}
+    /* la carte du tracker devient un bandeau fin sur toute la largeur, sous les boutons */
+    .vyvre-v6 .v6grid>[data-vyvre-tracker-slot]{display:block;grid-column:1/13;grid-row:7}
+    .vyvre-v6 .vyvre-tracker-empty,.vyvre-v6 .vyvre-tracker-card{display:flex!important;align-items:center;justify-content:center;gap:18px;padding:9px 18px!important;margin:0!important;border-radius:14px!important;
+      background:rgba(255,255,255,.03)!important;border:1px solid var(--sg-line)!important;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);text-align:left!important}
+    .vyvre-v6 .vyvre-tracker-empty>div,.vyvre-v6 .vyvre-tracker-card>div{margin:0!important;font-size:11px!important;line-height:1.3!important;max-width:none!important}
+    .vyvre-v6 .vyvre-tracker-empty>div:nth-child(1){color:rgba(217,201,163,.8)!important;font-size:8.5px!important;letter-spacing:.3em!important}
+    .vyvre-v6 .vyvre-tracker-empty>div:nth-child(2){font-size:12.5px!important;color:#fff!important}
+    .vyvre-v6 .vyvre-tracker-empty>div:nth-child(3){color:rgba(255,255,255,.45)!important}
+    .vyvre-v6 .vyvre-tracker-empty button,.vyvre-v6 .vyvre-tracker-card button{padding:6px 14px!important;font-size:9px!important;border-radius:100px!important;border-color:var(--sg-line)!important;margin:0!important}
+    .vyvre-v6 .v6card.v6fr-flag{background:linear-gradient(160deg,rgba(255,255,255,.075),rgba(255,255,255,.025) 45%,rgba(255,255,255,.04))}
+  }
+  /* ══ LE SCAN, REFAIT : couleur, aurore, constellation ══ */
+  .thermal-base,.video-container.thermal-active .thermal-base{filter:contrast(1.08) saturate(1.25) brightness(1.02)}
+  .thermal-color-map{background:none;mix-blend-mode:normal}
+  #sig-fx{position:absolute;inset:0;width:100%;height:100%;z-index:4;pointer-events:none;mix-blend-mode:screen}
+  #sig-veil{position:absolute;inset:0;z-index:3;pointer-events:none;mix-blend-mode:soft-light;opacity:.9;
+    background:conic-gradient(from var(--sg-ang2,0deg) at 50% 50%,#7ee8ff,#c8a1ff,#ffb1d6,#ffe1a8,#a8ffd8,#7ee8ff);animation:sgVeil 12s linear infinite}
+  @property --sg-ang2{syntax:'<angle>';inherits:false;initial-value:0deg}
+  @keyframes sgVeil{to{--sg-ang2:360deg}}
+  .lidar-sweep{background:linear-gradient(90deg,transparent,#7ee8ff 20%,#fff 50%,#ffb1d6 80%,transparent);box-shadow:0 0 30px rgba(255,255,255,.8),0 -70px 110px rgba(126,232,255,.22),0 30px 80px rgba(255,177,214,.22)}
+  .sg-anneau.a3{border-top-color:#fff;border-right-color:rgba(126,232,255,.5);box-shadow:0 -6px 30px -6px rgba(200,161,255,.8)}
+  .sg-anneau.a2{border-color:rgba(200,161,255,.35)}
+
+  /* ══ LE SCAN PLEIN ÉCRAN — la chambre de lumière ══ */
+  #view-scanner{padding:0}
+  #view-scanner .label-sm,#view-scanner h2{position:absolute;left:50%;transform:translateX(-50%);z-index:8;margin:0;text-align:center}
+  #view-scanner .label-sm{top:112px;color:rgba(251,240,210,.8)}
+  #view-scanner h2{top:132px;font-size:22px;font-weight:200;letter-spacing:.02em;color:rgba(255,255,255,.85)}
+  .scanner-module{max-width:none;width:100vw;height:100vh;aspect-ratio:auto;border-radius:0;margin:0;padding:0}
+  .scanner-module .video-container{border-radius:0;border:0;box-shadow:none}
+  .scanner-module .video-container::after{content:'';position:absolute;inset:0;z-index:2;pointer-events:none;
+    background:radial-gradient(ellipse 34% 46% at 50% 47%,transparent 55%,rgba(4,5,10,.55) 85%,rgba(4,5,10,.92) 100%)}
+  .thermal-base,.video-container.thermal-active .thermal-base{filter:contrast(1.06) saturate(.9) brightness(.95)}
+  #sig-veil{display:none}
+  #liveOverlay{display:none!important}
+.sg-anneau{display:none}
+  .sg-anneau.a1{width:min(96vh,96vw)}.sg-anneau.a2{width:min(112vh,112vw);border-color:rgba(217,201,163,.18)}
+  .sg-anneau.a3{width:min(88vh,88vw);border-top-color:#fff;border-right-color:rgba(217,201,163,.35);box-shadow:0 -6px 30px -6px rgba(251,240,210,.8)}
+  .sg-anneau.a1::after{background:var(--sg-champ-vif);box-shadow:0 0 14px 4px rgba(217,201,163,.7)}
+  .sg-coin{display:none;width:46px;height:46px;border-color:rgba(251,240,210,.75)}
+  .sg-coin.h,.sg-coin.i{top:calc(50% - min(44vh,44vw))}.sg-coin.j,.sg-coin.k{bottom:calc(50% - min(44vh,44vw))}
+  .sg-coin.h,.sg-coin.j{left:calc(50% - min(31vh,31vw))}.sg-coin.i,.sg-coin.k{right:calc(50% - min(31vh,31vw))}
+  .lidar-sweep{display:none}
+  .depth-indicator{display:none!important;bottom:auto;top:50%;right:calc(50% - min(31vh,31vw) - 190px);transform:translateY(-50%);gap:8px}
+  .depth-layer{font-size:9.5px;letter-spacing:.24em;padding:8px 14px}
+  .scan-hud{bottom:34px}
+  #sig-onde{display:none;position:absolute;left:50%;bottom:96px;transform:translateX(-50%);width:min(60vw,640px);height:54px;margin:0;z-index:7;opacity:.85;pointer-events:none}
+  @media (max-width:760px){.depth-indicator{right:14px;top:auto;bottom:110px;transform:none}}
+
+  /* ══ LE CALCUL : LE SOLEIL SE LÈVE ══ */
+  #view-process{padding:0}
+  #view-process .computation-layout{background:none;border:0;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none;max-width:none;height:100vh;position:absolute;inset:0}
+  #epigenetic-canvas{display:none!important}
+  #sig-soleil{position:absolute;inset:0;width:100%;height:100%}
+  #view-process .label-sm,#view-process h2{position:absolute;left:50%;transform:translateX(-50%);z-index:3;margin:0;text-align:center}
+  #view-process .label-sm{display:none}
+  #view-process h2{top:132px;font-size:22px;font-weight:200;color:rgba(255,255,255,.85)}
+  #view-process .process-steps{position:absolute;left:50%;top:auto;bottom:9vh;transform:translateX(-50%);gap:10px;z-index:3}
+  #view-process .step-text{font-size:11px;letter-spacing:.34em;color:rgba(251,240,210,.28);border:0;background:none;padding:2px 0;transition:color .8s,text-shadow .8s}
+  #view-process .step-text.active{color:#fff7e2;text-shadow:0 0 18px rgba(251,240,210,.7)}
+
+  /* ══ VERRE LIQUIDE sur l'accueil : transparence forte, reflet qui coule, bord de lumière qui tourne ══ */
+  @property --sg-liq{syntax:'<angle>';inherits:false;initial-value:0deg}
+  header,.spatial-btn,.sg-chip,#view-hero .label-sm{background:rgba(255,255,255,.035)!important;backdrop-filter:blur(34px) saturate(1.9) brightness(1.08)!important;-webkit-backdrop-filter:blur(34px) saturate(1.9) brightness(1.08)!important;
+    border:1px solid rgba(255,255,255,.10)!important;overflow:hidden;isolation:isolate;box-shadow:inset 0 1px 0 rgba(255,255,255,.28),inset 0 -1px 0 rgba(255,255,255,.05),0 30px 70px -40px rgba(0,0,0,.9)!important}
+  header::before,.spatial-btn::before,.sg-chip::before,#view-hero .label-sm::before{content:'';position:absolute;inset:-60%;z-index:-1;pointer-events:none;
+    background:radial-gradient(40% 30% at var(--lx,30%) var(--ly,20%),rgba(255,255,255,.22),transparent 60%),radial-gradient(30% 40% at calc(100% - var(--lx,30%)) calc(100% - var(--ly,20%)),rgba(217,201,163,.14),transparent 60%);
+    animation:sgLiq 9s ease-in-out infinite alternate;display:block;transform:none;filter:blur(6px)}
+  @keyframes sgLiq{0%{--lx:20%;--ly:15%;transform:translate(-3%,-2%) rotate(-2deg)}50%{--lx:70%;--ly:60%}100%{--lx:35%;--ly:85%;transform:translate(3%,2%) rotate(2deg)}}
+  header::after,.spatial-btn::after,.sg-chip::after{content:'';position:absolute;inset:-1px;border-radius:inherit;padding:1px;pointer-events:none;z-index:2;
+    background:conic-gradient(from var(--sg-liq),transparent 0 62%,rgba(255,255,255,.75) 72%,rgba(217,201,163,.9) 78%,rgba(255,255,255,.75) 84%,transparent 96%);
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:sgLiqTour 7s linear infinite;opacity:.8}
+  header::after{animation-duration:14s;opacity:.55}
+  @keyframes sgLiqTour{to{--sg-liq:360deg}}
+  .spatial-btn#btn-scan{background:linear-gradient(180deg,rgba(255,255,255,.82),rgba(236,233,226,.62))!important;color:var(--sg-ink);border-color:rgba(255,255,255,.7)!important;box-shadow:inset 0 1px 0 #fff,0 0 0 1px rgba(255,255,255,.35),0 24px 60px -16px rgba(236,233,226,.55)!important}
+  .spatial-btn#btn-scan:hover{color:var(--sg-ink)}
+  .sg-chip{opacity:.85;position:absolute}
+  .spatial-btn,#view-hero .label-sm{position:relative}
+  @media (prefers-reduced-motion:reduce){header::before,.spatial-btn::before,.sg-chip::before,header::after,.spatial-btn::after,.sg-chip::after{animation:none!important}}
+
+  /* ══ BOUTONS LIQUIDES : transparents, la lumière suit la souris, l'onde se déforme au survol ══ */
+  .spatial-btn{--mx:50%;--my:50%;background:rgba(255,255,255,.05)!important;color:#fff;border:1px solid rgba(255,255,255,.22)!important;
+    box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 -8px 18px -12px rgba(255,255,255,.25),inset 0 0 0 1px rgba(255,255,255,.04),0 30px 70px -40px rgba(0,0,0,.9)!important;
+    transition:transform .6s cubic-bezier(.22,1,.36,1),box-shadow .6s,background .6s!important}
+  .spatial-btn::before{background:radial-gradient(60% 90% at var(--mx) var(--my),rgba(255,255,255,.34),rgba(255,255,255,.08) 40%,transparent 70%),radial-gradient(40% 60% at calc(100% - var(--mx)) calc(100% - var(--my)),rgba(217,201,163,.18),transparent 60%)!important;
+    inset:-30%!important;filter:blur(8px)!important;animation:none!important;transition:opacity .4s;opacity:.6}
+  .spatial-btn:hover{transform:translateY(-2px) scale(1.035);background:rgba(255,255,255,.10)!important;color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.6),inset 0 -10px 22px -12px rgba(255,255,255,.45),0 0 0 1px rgba(255,255,255,.18),0 30px 80px -30px rgba(236,233,226,.35)!important}
+  .spatial-btn:hover::before{opacity:1}
+  .spatial-btn:hover::after{animation-duration:2.2s;opacity:1}
+  .spatial-btn .sg-onde{position:absolute;left:var(--mx);top:var(--my);width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;pointer-events:none;z-index:1;
+    border:1px solid rgba(255,255,255,.7);opacity:0;transform:scale(1)}
+  .spatial-btn:hover .sg-onde{animation:sgOnde 1.6s ease-out infinite}
+  @keyframes sgOnde{0%{opacity:.8;transform:scale(1)}100%{opacity:0;transform:scale(28)}}
+  .spatial-btn#btn-scan{background:rgba(255,255,255,.16)!important;color:#fff;border-color:rgba(255,255,255,.45)!important}
+  .spatial-btn#btn-scan:hover{background:rgba(255,255,255,.24)!important;color:#fff}
+  .spatial-btn span,.spatial-btn{text-shadow:0 1px 12px rgba(0,0,0,.35)}
+  #sg-liquid-svg{position:absolute;width:0;height:0}
+  .spatial-btn:hover::before{filter:blur(6px) url(#sg-liquid)!important}
+
+  /* épure de l'accueil : plus de pastilles flottantes, plus de kicker, en-tête réduit au lockup ; Start scan plus blanc */
+  .sg-chip{display:none!important}
+  #view-hero .label-sm{display:none!important}
+  header>*:not(.brand){display:none!important}
+  .spatial-btn#btn-scan{background:linear-gradient(180deg,rgba(255,255,255,.78),rgba(255,255,255,.52))!important;color:#04050a!important;text-shadow:none;border-color:rgba(255,255,255,.85)!important;
+    box-shadow:inset 0 1px 0 #fff,inset 0 -8px 18px -12px rgba(255,255,255,.8),0 0 0 1px rgba(255,255,255,.3),0 26px 60px -18px rgba(236,233,226,.6)!important}
+  .spatial-btn#btn-scan:hover{background:linear-gradient(180deg,rgba(255,255,255,.9),rgba(255,255,255,.66))!important;color:#04050a!important}
+  .spatial-btn#btn-scan::before{opacity:.35}
+  .spatial-btn#btn-scan .sg-onde{border-color:rgba(4,5,10,.35)}
+  @media (prefers-reduced-motion:reduce){ .sg-chip,.sg-anneau,.sg-coin,#view-hero h1,.sg-halo,.v6photo{animation:none!important} }
+</style>
+<script id="sig-da-js">
+(function(){
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  /* ---- fond : shader chrome liquide ---- */
+  var c=document.createElement('canvas'); c.id='sig-gl'; document.body.insertBefore(c,document.body.firstChild);
+  var g=document.createElement('div'); g.id='sig-grain'; document.body.insertBefore(g,c.nextSibling);
+  var gl=c.getContext('webgl',{alpha:false,antialias:false});
+  if(gl){
+    var vs='attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}';
+    var fs='precision highp float;uniform vec2 r;uniform float t;uniform vec2 m;'+
+    'float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}'+
+    'float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}'+
+    'float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<5;i++){v+=a*n(p);p=p*2.03+vec2(1.7,9.2);a*=.5;}return v;}'+
+    'uniform float v;void main(){vec2 uv=(gl_FragCoord.xy-.5*r)/r.y;float tt=t*.022;'+'vec2 dm=uv-m;float dl=length(dm);float inf=exp(-dl*dl*2.4);'+'float ang=inf*(.16+v*.25)*sin(t*.12+dl*3.);float ca=cos(ang),sa=sin(ang);'+'vec2 q=m+mat2(ca,-sa,sa,ca)*dm;q+=normalize(dm+1e-4)*inf*(.012+v*.03)*sin(dl*8.-t*.6);'+
+    'vec2 w=vec2(fbm(q*1.6+tt),fbm(q*1.6-tt*.7+3.1));vec2 w2=vec2(fbm(q*2.2+w*1.4+tt*.5),fbm(q*2.2+w*1.4-tt*.4));'+
+    'float f=fbm(q*1.2+w2*1.8);'+
+    'vec3 base=vec3(.016,.018,.024);vec3 plat=vec3(.93,.91,.87);vec3 champ=vec3(.85,.78,.62);vec3 cyan=vec3(.62,.84,.9);'+
+    'float band=smoothstep(.42,.62,f)*smoothstep(.85,.62,f);'+
+    'vec3 col=base+plat*band*.22+champ*smoothstep(.55,.8,f)*.18+cyan*smoothstep(.2,.35,f)*smoothstep(.45,.3,f)*.12;'+
+    'float spec=pow(max(0.,1.-abs(f-.58)*9.),6.);col+=vec3(1.)*spec*.22;'+
+    'col+=champ*.10*exp(-dl*dl*7.)+plat*.08*inf*smoothstep(.45,.6,f)*(.5+v);'+
+    'col*=1.-.55*length(uv*vec2(.7,1.));gl_FragColor=vec4(col,1.);}';
+    function sh(t,s){var o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);return o;}
+    var pr=gl.createProgram();gl.attachShader(pr,sh(gl.VERTEX_SHADER,vs));gl.attachShader(pr,sh(gl.FRAGMENT_SHADER,fs));gl.linkProgram(pr);gl.useProgram(pr);
+    var b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+    var lp=gl.getAttribLocation(pr,'p');gl.enableVertexAttribArray(lp);gl.vertexAttribPointer(lp,2,gl.FLOAT,false,0,0);
+    var ur=gl.getUniformLocation(pr,'r'),ut=gl.getUniformLocation(pr,'t'),um=gl.getUniformLocation(pr,'m'),uv2=gl.getUniformLocation(pr,'v');var vit=0,px=0,py=0;
+    var mx=0,my=0,tx=0,ty=0,dpr=Math.min(devicePixelRatio||1,1.25);
+    function size(){c.width=innerWidth*dpr*.6;c.height=innerHeight*dpr*.6;c.style.width=innerWidth+'px';c.style.height=innerHeight+'px';gl.viewport(0,0,c.width,c.height);}
+    size();addEventListener('resize',size);
+    var suivre=function(x,y){var nx=(x/innerWidth-.5)*innerWidth/innerHeight,ny=-(y/innerHeight-.5);vit=Math.min(1,vit+Math.hypot(nx-px,ny-py)*2.2);px=nx;py=ny;tx=nx;ty=ny;};addEventListener('pointermove',function(e){suivre(e.clientX,e.clientY);},{passive:true});addEventListener('pointerdown',function(e){suivre(e.clientX,e.clientY);vit=Math.min(1,vit+.2);},{passive:true});addEventListener('touchmove',function(e){var tp=e.touches&&e.touches[0];if(tp)suivre(tp.clientX,tp.clientY);},{passive:true});
+    var t0=performance.now();
+    (function frame(now){mx+=(tx-mx)*.018;my+=(ty-my)*.018;vit*=.975;gl.uniform2f(ur,c.width,c.height);gl.uniform1f(ut,reduce?0:(now-t0)/1000);gl.uniform2f(um,mx,my);gl.uniform1f(uv2,vit);gl.drawArrays(gl.TRIANGLE_STRIP,0,4);if(!reduce)requestAnimationFrame(frame);})(t0);
+  }
+
+  /* la lumière suit la souris sur les boutons ; filtre liquide (turbulence animée) */
+  (function(){var svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.id='sg-liquid-svg';svg.innerHTML='<filter id="sg-liquid" x="-20%" y="-20%" width="140%" height="140%"><feTurbulence type="fractalNoise" baseFrequency="0.012 0.02" numOctaves="2" seed="3" result="n"><animate attributeName="baseFrequency" dur="6s" values="0.012 0.02;0.02 0.012;0.012 0.02" repeatCount="indefinite"/></feTurbulence><feDisplacementMap in="SourceGraphic" in2="n" scale="18" xChannelSelector="R" yChannelSelector="G"/></filter>';document.body.appendChild(svg);
+    document.querySelectorAll('.spatial-btn').forEach(function(b){var o=document.createElement('i');o.className='sg-onde';b.appendChild(o);
+      b.addEventListener('pointermove',function(e){var r=b.getBoundingClientRect();b.style.setProperty('--mx',((e.clientX-r.left)/r.width*100)+'%');b.style.setProperty('--my',((e.clientY-r.top)/r.height*100)+'%');},{passive:true});});})();
+  /* ---- curseur de verre ---- */
+  var cur=document.createElement('div');cur.id='sig-cur';document.body.appendChild(cur);
+  addEventListener('pointermove',function(e){cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';
+    document.body.classList.toggle('sig-hover',!!(e.target.closest&&e.target.closest('a,button,.v6card')));},{passive:true});
+  /* ---- héros : mots qui montent + chips ---- */
+  var h1=document.querySelector('#view-hero h1');
+  if(h1){ var html=h1.innerHTML.split(/<br\s*\/?>/i).map(function(l,i){return l.trim().split(/\s+/).map(function(w,j){return '<span class="sg-w" style="animation-delay:'+(0.15+i*0.25+j*0.12)+'s">'+w+'</span>';}).join(' ');}).join('<br>'); h1.innerHTML=html; }
+  var hero=document.getElementById('view-hero');
+  if(hero){ [['c1','Radiance','91','<i>/100</i>'],['c2','Calm','84','<i>/100</i>'],['c3','Hydration','88','<i>%</i>'],['c4','Latency','0.4','<i>s</i>']].forEach(function(d){
+    var e=document.createElement('div');e.className='sg-chip '+d[0];e.innerHTML=d[1]+'<b><span data-sg-n="'+d[2]+'">0</span>'+d[3]+'</b>';hero.appendChild(e);});
+    setTimeout(function(){document.querySelectorAll('[data-sg-n]').forEach(function(s){var end=parseFloat(s.dataset.sgN),dec=(end%1)?1:0,t0=performance.now();(function k(now){var p=Math.min(1,(now-t0)/1800);p=1-Math.pow(1-p,3);s.textContent=(end*p).toFixed(dec);if(p<1)requestAnimationFrame(k);})(t0);});},900); }
+  /* ---- scanner : portail + onde signature ---- */
+  var mod=document.querySelector('.scanner-module');
+  if(mod){ ['a1','a2','a3'].forEach(function(k){var a=document.createElement('i');a.className='sg-anneau '+k;mod.appendChild(a);});
+    var vc=mod.querySelector('.video-container'); if(vc){['h','i','j','k'].forEach(function(k){var s=document.createElement('i');s.className='sg-coin '+k;vc.appendChild(s);});}
+    var onde=document.createElement('canvas');onde.id='sig-onde';mod.parentNode.insertBefore(onde,mod.nextSibling);
+    var oc=onde.getContext('2d');onde.width=1440;onde.height=128;
+    (function wave(now){var t=now/1000;oc.clearRect(0,0,1440,128);
+      for(var L=0;L<3;L++){oc.beginPath();for(var x=0;x<=1440;x+=6){var env=Math.exp(-Math.pow((x-720)/420,2));var y=64+Math.sin(x*.012+t*(1.6+L*.4))*env*(22-L*6)+Math.sin(x*.05-t*3)*env*4;if(x===0)oc.moveTo(x,y);else oc.lineTo(x,y);}
+        oc.strokeStyle=L===0?'rgba(251,240,210,.9)':(L===1?'rgba(159,216,232,.45)':'rgba(255,255,255,.18)');oc.lineWidth=L===0?1.6:1;oc.shadowBlur=L===0?12:0;oc.shadowColor='rgba(217,201,163,.8)';oc.stroke();}
+      if(!reduce)requestAnimationFrame(wave);})(0);
+  }
+
+  /* ---- tags pour la grille une page ---- */
+  (function(){var cs=document.querySelectorAll('.vyvre-v6 .v6card'),m=0,st=0;cs.forEach(function(c,i){ if(c.classList.contains('v6score')||c.classList.contains('v6prod'))return; if(i<3){c.classList.add('sg-metric','sg-m'+(++m));}else{c.classList.add('sg-std','sg-s'+(++st));} });
+    function detoure(){document.querySelectorAll('#vyvre-product-row .v6photo').forEach(function(img){var src=img.getAttribute('src')||'';if(/\/cutout\//.test(src))return;var mm=src.match(/\/products\/charlotte-tilbury\/([^\/?#]+)\.(jpg|jpeg|png)/i);if(!mm)return;var cut='/scan/products/charlotte-tilbury/cutout/'+mm[1]+'.png';var t=new Image();t.onload=function(){img.src=cut;};t.src=cut;});}
+    detoure();var row=document.getElementById('vyvre-product-row');if(row)new MutationObserver(detoure).observe(row,{childList:true,subtree:true,attributes:true,attributeFilter:['src']});})();
+  /* ---- LE SCAN : LES DEUX FILS, branché sur les vrais repères du moteur (STATE.landmarks) ---- */
+  var vcont=document.getElementById('thermal-vid-container');
+  if(vcont){ var fx=document.createElement('canvas');fx.id='sig-fx';vcont.appendChild(fx);var x=fx.getContext('2d');var W2=0,H2=0;
+    function rs(){W2=fx.width=innerWidth;H2=fx.height=innerHeight;}rs();addEventListener('resize',rs);
+    var OR='251,240,210',AM='217,201,163',AR='214,222,232',BL='255,255,255',CY='150,200,235';function rgba(k,a){return 'rgba('+k+','+a+')';}
+    function stroke(col,w,blur){x.strokeStyle=col;x.lineWidth=w||1;if(blur){x.shadowBlur=blur;x.shadowColor=col;}x.stroke();x.shadowBlur=0;}
+    function txt(t2,px,py,al,size,al2){x.font=(size||9)+'px JetBrains Mono';x.textAlign=al2||'left';x.fillStyle=rgba(AR,al);x.fillText(t2,px,py);x.textAlign='left';}
+    function ease(k){return k<.5?2*k*k:1-Math.pow(-2*k+2,2)/2;}
+    var seed=1;function rnd(){seed=(seed*16807)%2147483647;return seed/2147483647;}
+    function bounds(P){var mx=1e9,Mx=-1e9,my=1e9,My=-1e9;P.forEach(function(p){mx=Math.min(mx,p[0]);Mx=Math.max(Mx,p[0]);my=Math.min(my,p[1]);My=Math.max(My,p[1]);});return {x0:mx,x1:Mx,y0:my,y1:My,cx:(mx+Mx)/2,cy:(my+My)/2,w:Mx-mx,h:My-my};}
+    function contour(P){var out=[];for(var i=0;i<=16;i++)out.push(P[i]);var l=P[0],r=P[16],cx=(l[0]+r[0])/2,top=Math.min(P[19][1],P[24][1]);var cy=P[27][1],rx=(r[0]-l[0])/2,ry=Math.max((cy-top)*2.4,(P[8][1]-cy)*.78);for(var k=1;k<24;k++){var a=k/24*Math.PI;out.push([cx+Math.cos(a)*rx*1.02,cy-Math.sin(a)*ry]);}return out;}
+    function clipFace(P){var C=contour(P);x.beginPath();C.forEach(function(p,i){i?x.lineTo(p[0],p[1]):x.moveTo(p[0],p[1]);});x.closePath();x.clip();}
+    var vid=document.getElementById('liveVideo');
+    function mapPts(){var L=STATE.landmarks;if(!L||L.length<68)return null;var vw=vid.videoWidth||1280,vh=vid.videoHeight||720,sc=Math.max(W2/vw,H2/vh),ox=(W2-vw*sc)/2,oy=(H2-vh*sc)/2;return L.map(function(q){return [W2-(ox+q.x*sc),oy+q.y*sc];});}
+    var SM=null;function pts(){var P=mapPts();if(!P)return SM;if(!SM)SM=P.map(function(p){return p.slice();});else for(var i=0;i<68;i++){SM[i][0]+=(P[i][0]-SM[i][0])*.4;SM[i][1]+=(P[i][1]-SM[i][1])*.4;}return SM;}
+    var ZONES=function(P){var b=bounds(contour(P));return [{n:'FRONT',k:'hydration',c:[(P[19][0]+P[24][0])/2,P[19][1]-b.h*.16],r:b.w*.3,side:1},{n:'POMMETTE G',k:'radiance',c:[(P[2][0]*.55+P[31][0]*.45),(P[2][1]+P[31][1])/2-6],r:b.w*.14,side:-1},{n:'POMMETTE D',k:'radiance',c:[(P[14][0]*.55+P[35][0]*.45),(P[14][1]+P[35][1])/2-6],r:b.w*.14,side:1},{n:'CONTOUR ŒIL',k:'fine lines',c:[(P[42][0]+P[45][0])/2,P[46][1]+8],r:b.w*.11,side:1},{n:'NEZ',k:'pores',c:[P[30][0],P[30][1]],r:b.w*.1,side:-1},{n:'MENTON',k:'texture',c:[P[8][0],P[8][1]-b.h*.08],r:b.w*.14,side:-1}];};
+    var RELEVES=['L01 EPIDERMIS · MELANIN','L01 EPIDERMIS · ERYTHEMA','L02 DERMAL · COLLAGEN','L02 DERMAL · ELASTIN','L03 THERMO · PERFUSION','SEBUM · T-ZONE','HYDRATION · STRATUM','MICRO-TEXTURE · POR.','LAB · ΔE SKIN','UV · PHOTODAMAGE','FINE LINES · PERIOCULAR','RADIANCE · L* INDEX'];
+    function cadre(T,P,label){var b=bounds(contour(P)),m=18,lock=ease(Math.min(1,T/1.2)),pad=m+(1-lock)*90,bx0=b.x0-pad,bx1=b.x1+pad,by0=b.y0-pad*1.2,by1=b.y1+pad,L=22;
+      [[bx0,by0,1,1],[bx1,by0,-1,1],[bx0,by1,1,-1],[bx1,by1,-1,-1]].forEach(function(c2){x.beginPath();x.moveTo(c2[0],c2[1]+c2[3]*L);x.lineTo(c2[0],c2[1]);x.lineTo(c2[0]+c2[2]*L,c2[1]);stroke(rgba(BL,.25+.5*lock),1);});
+      txt(label,bx0,by0-10,.7,9);txt('68 PTS · LOCK',bx1,by0-10,.5,9,'right');return {x0:bx0,x1:bx1,y0:by0,y1:by1,b:b};}
+    function lueurZones(T,P,t0,dur,col){var Z=ZONES(P),s2=(T-t0)/dur;if(s2<0||s2>1)return;Z.forEach(function(z,i){var on=Math.max(0,Math.sin(Math.min(1,Math.max(0,s2*2.2-i*.22))*Math.PI));if(on<=0)return;var g=x.createRadialGradient(z.c[0],z.c[1],0,z.c[0],z.c[1],z.r);g.addColorStop(0,rgba(col||OR,.3*on));g.addColorStop(.6,rgba(AM,.08*on));g.addColorStop(1,'rgba(0,0,0,0)');x.save();clipFace(P);x.fillStyle=g;x.beginPath();x.arc(z.c[0],z.c[1],z.r,0,6.283);x.fill();x.restore();x.beginPath();x.arc(z.c[0],z.c[1],z.r*.8,0,6.283);stroke(rgba(BL,.25*on),.6);});}
+    var LIT=new Float32Array(68),T0=0,DUR=9.6;
+    function scene(t,P,T){var box=cadre(T,P,T<1.2?'VERROUILLAGE':(T<4.4?'AXE VERTICAL':(T<7.6?'AXE HORIZONTAL':'CROISÉE'))),b=box.b,cx=P[30][0],cy=P[30][1],sw=b.w,sh=b.h,prism=Math.max(4,sw*.022),tick=Math.max(6,sw*.03);
+      P.forEach(function(p,i){LIT[i]*=.997;var a=.10+LIT[i]*.45;x.beginPath();x.arc(p[0],p[1],.5+LIT[i]*.5,0,6.283);x.fillStyle=rgba(BL,a);x.fill();});
+      /* les relevés scientifiques s'écrivent dans le noir, à gauche et à droite */
+      var colL=Math.max(24,box.x0-260),colR=Math.min(W2-250,box.x1+80);RELEVES.forEach(function(r,i){var show=Math.max(0,Math.min(1,(T-.8-i*.55)/.5));if(show<=0)return;var left=i%2===0,px=left?colL:colR,py=H2*.28+Math.floor(i/2)*44;seed=i*17+3;var val=(.4+rnd()*.55).toFixed(2);
+        txt(r,px,py,.55*show,8);txt(val,px,py+13,.9*show,11);x.beginPath();x.moveTo(px,py+20);x.lineTo(px+150,py+20);stroke(rgba(AR,.12*show),1);x.beginPath();x.moveTo(px,py+20);x.lineTo(px+150*val*show,py+20);stroke(rgba(OR,.7*show),1,4);});
+      if(T>1.2&&T<4.4){var k=ease((T-1.2)/3.2),mx=b.x0-sw*.06+k*sw*1.12;x.save();x.globalAlpha=Math.max(0,Math.min(1,(T-1.2)/.35,(4.4-T)/.45));clipFace(P);
+        ['235,150,170','245,215,160','255,255,215','170,235,215','160,200,245'].forEach(function(c2,j){var off=(j-2)*prism;x.filter='blur('+Math.max(3,prism*.7)+'px)';x.beginPath();x.moveTo(mx+off*1.4,b.y0-sh*.1);x.lineTo(mx+off*.4,b.y1+sh*.1);stroke(rgba(c2,.18),prism*.8);x.filter='none';});
+        x.beginPath();x.moveTo(mx,b.y0-sh*.1);x.lineTo(mx,b.y1+sh*.1);stroke(rgba(BL,.95),1,Math.max(14,sw*.06));var tr=x.createLinearGradient(mx-sw*.18,0,mx,0);tr.addColorStop(0,'rgba(0,0,0,0)');tr.addColorStop(1,rgba(OR,.10));x.fillStyle=tr;x.fillRect(mx-sw*.18,b.y0-sh*.1,sw*.18,sh*1.2);x.restore();x.globalAlpha=Math.max(0,Math.min(1,(T-1.2)/.35,(4.4-T)/.45));
+        P.forEach(function(p,i){var n=Math.max(0,1-Math.abs(p[0]-mx)/(sw*.04));if(n>0){LIT[i]=Math.max(LIT[i],n);x.beginPath();x.arc(p[0],p[1],.7+n*1.3,0,6.283);x.fillStyle=rgba(BL,n);x.shadowBlur=10;x.shadowColor=rgba(OR,1);x.fill();x.shadowBlur=0;x.beginPath();x.moveTo(p[0]-tick*n,p[1]);x.lineTo(p[0]+tick*n,p[1]);stroke(rgba(OR,n*.8),.7);}});
+        txt('X '+String(Math.round(k*1000)).padStart(4,'0'),Math.min(box.x1,Math.max(box.x0,mx)),box.y1+16,.6,8,'center');x.globalAlpha=1;}
+      if(T>4.4&&T<7.6){var k2=ease((T-4.4)/3.2),my=b.y0-sh*.06+k2*sh*1.12;x.save();x.globalAlpha=Math.max(0,Math.min(1,(T-4.4)/.35,(7.6-T)/.45));clipFace(P);
+        ['160,200,245','200,225,255','255,255,255'].forEach(function(c2,j){var off=(j-1)*prism;x.filter='blur('+Math.max(3,prism*.7)+'px)';x.beginPath();x.moveTo(b.x0-sw*.1,my+off*1.4);x.lineTo(b.x1+sw*.1,my+off*.4);stroke(rgba(c2,.16),prism*.8);x.filter='none';});
+        x.beginPath();x.moveTo(b.x0-sw*.1,my);x.lineTo(b.x1+sw*.1,my);stroke(rgba(BL,.95),1,Math.max(14,sw*.06));var tr2=x.createLinearGradient(0,my-sh*.14,0,my);tr2.addColorStop(0,'rgba(0,0,0,0)');tr2.addColorStop(1,rgba(CY,.10));x.fillStyle=tr2;x.fillRect(b.x0-sw*.1,my-sh*.14,sw*1.2,sh*.14);x.restore();x.globalAlpha=Math.max(0,Math.min(1,(T-4.4)/.35,(7.6-T)/.45));
+        P.forEach(function(p,i){var n=Math.max(0,1-Math.abs(p[1]-my)/(sh*.03));if(n>0){LIT[i]=Math.max(LIT[i],n);x.beginPath();x.arc(p[0],p[1],.7+n*1.3,0,6.283);x.fillStyle=rgba(BL,n);x.shadowBlur=10;x.shadowColor=rgba(CY,1);x.fill();x.shadowBlur=0;x.beginPath();x.moveTo(p[0],p[1]-tick*n);x.lineTo(p[0],p[1]+tick*n);stroke(rgba(CY,n*.8),.7);}});
+        txt('Y '+String(Math.round(k2*1000)).padStart(4,'0'),box.x1+8,Math.min(box.y1,Math.max(box.y0,my))+3,.6,8);x.globalAlpha=1;}
+      var Z=ZONES(P);Z.forEach(function(z,i){var show=T>4.4?Math.max(0,Math.min(1,(T-4.4-((z.c[1]-b.y0)/sh)*3.2)/.5)):0;if(show<=0)return;var lx=z.side>0?box.x1+26:box.x0-26,ly=z.c[1];x.beginPath();x.moveTo(z.c[0],z.c[1]);x.lineTo(z.c[0]+z.side*z.r*.9,z.c[1]);x.lineTo(lx,ly);stroke(rgba(AR,.35*show),.6);x.beginPath();x.arc(z.c[0],z.c[1],2,0,6.283);x.fillStyle=rgba(OR,show);x.fill();
+        seed=i*31+7;var val=.62+rnd()*.33,shown=Math.min(val,show*val+(1-show)*rnd()*.5);txt(z.n,lx+z.side*4,ly-4,.6*show,8,z.side>0?'left':'right');txt(z.k.toUpperCase()+'  '+shown.toFixed(2),lx+z.side*4,ly+8,.9*show,9,z.side>0?'left':'right');});
+      if(T>7.6){var s2=ease(Math.min(1,(T-7.6)/1.1));x.globalAlpha=Math.min(1,(T-7.6)/.5);x.beginPath();x.moveTo(cx-sw*.62*s2,cy);x.lineTo(cx+sw*.62*s2,cy);x.moveTo(cx,cy-sh*.62*s2);x.lineTo(cx,cy+sh*.62*s2);stroke(rgba(OR,.5),.7,8);x.beginPath();x.arc(cx,cy,3+s2*6,0,6.283);stroke(rgba(BL,.9),1,12);x.beginPath();x.ellipse(cx,cy,sw*.5*s2,sh*.56*s2,0,0,6.283);stroke(rgba(AR,.3),.8,6);lueurZones(T,P,7.8,1.8,CY);txt('LOCK · '+Math.round(sw)+'×'+Math.round(sh),cx,box.y1+30,.6,8,'center');x.globalAlpha=1;}
+      /* tout devient noir : le voile se referme sur la fin de la croisée */
+      if(T>8.3){var v=ease(Math.min(1,(T-8.3)/1.3));x.save();x.globalCompositeOperation='source-over';x.fillStyle='rgba(4,5,10,'+v+')';x.fillRect(0,0,W2,H2);x.restore();}}
+    function attente(t,P){var b=bounds(P);P.forEach(function(p,i){x.beginPath();x.arc(p[0],p[1],.6,0,6.283);x.fillStyle=rgba(BL,.18+.12*Math.sin(t*2+i));x.fill();});var m=26,L=22;[[b.x0-m,b.y0-m*1.2,1,1],[b.x1+m,b.y0-m*1.2,-1,1],[b.x0-m,b.y1+m,1,-1],[b.x1+m,b.y1+m,-1,-1]].forEach(function(c2){x.beginPath();x.moveTo(c2[0],c2[1]+c2[3]*L);x.lineTo(c2[0],c2[1]);x.lineTo(c2[0]+c2[2]*L,c2[1]);stroke(rgba(BL,.35),1);});txt('CENTREZ VOTRE VISAGE',b.cx,b.y0-m*1.2-12,.6,9,'center');}
+    /* détection comme sur Sothys : sur un tampon de 256 px, une à la fois, jamais deux en même temps */
+    var dbuf=document.createElement('canvas'),dctx=dbuf.getContext('2d',{willReadFrequently:true}),dopts=null,dbusy=false;
+    detectAndDraw=function(){ if(!STATE.modelsLoaded||vid.paused||!vid.videoWidth||dbusy||!window.faceapi)return; dbusy=true;
+      try{ if(!dopts)dopts=new faceapi.TinyFaceDetectorOptions({inputSize:320,scoreThreshold:.3}); var bw=512,bh=Math.max(32,Math.round(bw*vid.videoHeight/vid.videoWidth)); if(dbuf.width!==bw||dbuf.height!==bh){dbuf.width=bw;dbuf.height=bh;} dctx.drawImage(vid,0,0,bw,bh);
+        faceapi.detectSingleFace(dbuf,dopts).withFaceLandmarks().then(function(r){dbusy=false; if(r&&r.landmarks&&r.landmarks.positions.length>=68){var kx=vid.videoWidth/bw,ky=vid.videoHeight/bh;STATE.landmarks=r.landmarks.positions.map(function(q){return {x:q.x*kx,y:q.y*ky};});var bx=r.detection.box;STATE.box={x:bx.x*kx,y:bx.y*ky,width:bx.width*kx,height:bx.height*ky};STATE.detectionScore=r.detection.score||0;STATE.lastDetectionAt=performance.now();var hn=document.getElementById('hud-nodes');if(hn)hn.innerText='68';}else{STATE.detectionScore=0;}}).catch(function(){dbusy=false;});
+      }catch(e){dbusy=false;} };
+    /* filet de sécurité : si la vidéo est en pause ou si le moteur ne remonte aucun repère, on relance et on détecte nous-mêmes */
+    var lastOwn=0,ownBusy=false,lockSince=0;
+    setInterval(function(){ if(!document.getElementById('view-scanner').classList.contains('active'))return; var st=document.getElementById('hud-status');
+      if(vid.srcObject&&vid.paused){vid.play().catch(function(){});}
+      var stale=!STATE.lastDetectionAt||(performance.now()-STATE.lastDetectionAt)>1200;
+      if(st&&!STATE.scanning){st.innerText=!STATE.modelsLoaded?'Loading':(vid.paused?'Video paused':(stale?'Searching':'Locked'));}
+      /* départ du scan : 1,2 s de verrouillage continu suffisent, sans dépendre du compteur du moteur */
+      if(!stale&&!STATE.scanning){if(!lockSince)lockSince=performance.now();if(performance.now()-lockSince>1200){STATE.scanning=true;startThermalScan();}}else if(stale)lockSince=0;
+      if(false){ownBusy=true;
+        faceapi.detectSingleFace(vid,new faceapi.TinyFaceDetectorOptions({inputSize:320,scoreThreshold:.35})).withFaceLandmarks().then(function(r){ownBusy=false;if(r){STATE.box=r.detection.box;STATE.landmarks=r.landmarks.positions;STATE.detectionScore=r.detection.score||0;STATE.lastDetectionAt=performance.now();var hn=document.getElementById('hud-nodes');if(hn)hn.innerText=STATE.landmarks.length;if(typeof handleCalibration==='function')handleCalibration();}}).catch(function(){ownBusy=false;});}
+    },250);
+    /* le scan du moteur : on remplace sa mise en scène thermique par la nôtre, puis on rend la main à executeCapture */
+    var _startThermal=startThermalScan;startThermalScan=function(){STATE.thermalMode=true;document.getElementById('hud-status').innerText='Reading';T0=performance.now();for(var i=0;i<68;i++)LIT[i]=0;setTimeout(function(){executeCapture();},DUR*1000);};
+    (function frame(now){var t=now/1000;x.clearRect(0,0,W2,H2);var P=pts();if(P&&document.getElementById('view-scanner').classList.contains('active')){if(T0){var T=(now-T0)/1000;if(T<DUR+.5)scene(t,P,T);}else attente(t,P);}if(!reduce)requestAnimationFrame(frame);})(0);
+  }
+  /* ---- LE CALCUL : LA GALAXIE — les points du visage montent en orbite, la spirale tourne, le cœur s'effondre en lumière ---- */
+  var proc=document.getElementById('view-process');
+  if(proc){ var lay=proc.querySelector('.computation-layout')||proc; var gc=document.createElement('canvas');gc.id='sig-soleil';lay.insertBefore(gc,lay.firstChild);var g2=gc.getContext('2d');
+    var SW=0,SH=0,T0g=0,lastP=null;function rz2(){SW=gc.width=innerWidth;SH=gc.height=innerHeight;}rz2();addEventListener('resize',rz2);
+    var IC='196,226,255',EL='120,170,255';var seedg=11;function rg(){seedg=(seedg*16807)%2147483647;return seedg/2147483647;}
+    var ST=[];for(var i=0;i<4200;i++)ST.push({a:rg()*6.283,r:.04+Math.pow(rg(),.65),z:rg(),h:rg(),d:rg()});var BG=[];for(i=0;i<420;i++)BG.push({x:rg(),y:rg(),z:rg(),h:rg()});
+    function eo(k){return 1-Math.pow(1-k,3);}function rgba2(k,a){return 'rgba('+k+','+a+')';}
+    function st2(col,w,blur){g2.strokeStyle=col;g2.lineWidth=w||1;if(blur){g2.shadowBlur=blur;g2.shadowColor=col;}g2.stroke();g2.shadowBlur=0;}
+    new MutationObserver(function(){ if(proc.classList.contains('active')&&!T0g){T0g=performance.now();lastP=(SM||[]).map(function(p){return p.slice();});} if(!proc.classList.contains('active'))T0g=0; }).observe(proc,{attributes:true,attributeFilter:['class']});
+    (function gal(now){ if(T0g){ var t=now/1000,T=(now-T0g)/1000; var cx=SW/2,cy=SH*.47,R=Math.min(SW,SH)*.46,k=Math.min(1,T/1.6),ek=eo(k),spin=t*.22,col=Math.max(0,Math.min(1,(T-2.2)/1.3)),Rk=R*(1-col*.93),tilt=.5+.06*Math.sin(t*.2);
+        g2.clearRect(0,0,SW,SH);g2.globalAlpha=Math.min(1,T/1.4);
+        BG.forEach(function(s,i){var tw=.5+.5*Math.sin(t*(.6+s.z)+i);g2.beginPath();g2.arc(s.x*SW,s.y*SH,.4+s.z*1.1,0,6.283);g2.fillStyle=rgba2(s.h<.2?IC:(s.h<.35?OR:BL),(.08+.32*s.z)*tw);g2.fill();});
+        var hy=SH*.62;g2.save();g2.beginPath();g2.rect(0,hy,SW,SH-hy);g2.clip();for(var q=-12;q<=12;q++){g2.beginPath();g2.moveTo(cx,hy);g2.lineTo(cx+q*SW*.14,SH);st2(rgba2(IC,.035),.6);}for(var r=0;r<9;r++){var kk=((r+(t*.15)%1)/9),yy=hy+kk*kk*(SH-hy);g2.beginPath();g2.moveTo(0,yy);g2.lineTo(SW,yy);st2(rgba2(IC,.05*(.3+kk)),.6);}g2.restore();
+        var ng=g2.createRadialGradient(cx,cy,0,cx,cy,Rk*1.1);ng.addColorStop(0,rgba2(EL,.10*ek));ng.addColorStop(.5,rgba2(IC,.04*ek));ng.addColorStop(1,'rgba(0,0,0,0)');g2.fillStyle=ng;g2.beginPath();g2.ellipse(cx,cy,Rk*1.1,Rk*1.1*tilt,0,0,6.283);g2.fill();
+        var zoom=1+Math.min(1,T/9)*.22;ST.forEach(function(s){var arm=Math.floor(s.h*3)/3*6.283;var ang=s.a*.28+arm+s.r*5.6+spin*(1.25-s.r*.7);var lane=Math.abs(((s.a*.28)%.6)-.3)<.06?.35:1;var rr=s.r*Rk*ek*zoom*(1+s.z*.06);var px=cx+Math.cos(ang)*rr,py=cy+Math.sin(ang)*rr*tilt;var al=(.18+.72*s.z)*ek*(1-col*.5)*lane*(1-s.r*.35);var colr=s.r<.3?IC:(s.r<.6?(s.d<.3?BL:IC):(s.d<.45?OR:AR));g2.beginPath();g2.arc(px,py,.35+s.z*1.3*(1-s.r*.4),0,6.283);g2.fillStyle=rgba2(colr,al);g2.fill();if(s.z>.985&&s.d>.5){var L=4+s.z*6;g2.beginPath();g2.moveTo(px-L,py);g2.lineTo(px+L,py);g2.moveTo(px,py-L);g2.lineTo(px,py+L);st2(rgba2(BL,al*.7),.6,6);}});
+        var cg=g2.createRadialGradient(cx,cy,0,cx,cy,Rk*.42+10);cg.addColorStop(0,rgba2(BL,.55+col*.45));cg.addColorStop(.25,rgba2(IC,.35));cg.addColorStop(.6,rgba2(OR,.08));cg.addColorStop(1,'rgba(0,0,0,0)');g2.fillStyle=cg;g2.beginPath();g2.ellipse(cx,cy,Rk*.42+10,(Rk*.42+10)*tilt,0,0,6.283);g2.fill();
+        var fw=Rk*1.6+40,fg=g2.createLinearGradient(cx-fw,0,cx+fw,0);fg.addColorStop(0,rgba2(IC,0));fg.addColorStop(.5,rgba2(IC,.35+col*.5));fg.addColorStop(1,rgba2(IC,0));g2.fillStyle=fg;g2.fillRect(cx-fw,cy-1,fw*2,2);
+        for(r=1;r<=2;r++){g2.beginPath();g2.ellipse(cx,cy,Rk*(.6+r*.3),Rk*(.6+r*.3)*tilt,0,0,6.283);st2(rgba2(IC,.07*ek*(1-col)),.6);}
+        if(lastP&&lastP.length===68){lastP.forEach(function(p,i){var dx=p[0]-cx,dy=p[1]-cy;var ang=Math.atan2(dy,dx)+spin*.6,rr=Math.hypot(dx,dy)*(1-ek)+ek*Rk*(.3+i%7*.09);var px=cx+Math.cos(ang)*rr,py=cy+Math.sin(ang)*rr*(1-ek*(1-tilt));g2.beginPath();g2.arc(px,py,1.5,0,6.283);g2.fillStyle=rgba2(BL,.9*(1-col));g2.shadowBlur=10;g2.shadowColor=rgba2(IC,.9);g2.fill();g2.shadowBlur=0;});}
+        var flA=col<1?Math.sin(col*Math.PI):Math.max(0,1-(T-3.5)/.45);if(flA>0){var fl=g2.createRadialGradient(cx,cy,0,cx,cy,SH*.28);fl.addColorStop(0,rgba2(BL,.38*flA));fl.addColorStop(.5,rgba2(IC,.12*flA));fl.addColorStop(1,'rgba(0,0,0,0)');g2.fillStyle=fl;g2.fillRect(0,0,SW,SH);}
+        if(col>=1){var pu=.6+.4*Math.sin(t*2.4),hb=g2.createRadialGradient(cx,cy,0,cx,cy,SH*.12*pu);hb.addColorStop(0,rgba2(BL,.9));hb.addColorStop(.3,rgba2(IC,.45));hb.addColorStop(1,'rgba(0,0,0,0)');g2.fillStyle=hb;g2.beginPath();g2.arc(cx,cy,SH*.12*pu,0,6.283);g2.fill();g2.beginPath();g2.arc(cx,cy,SH*.05+SH*.03*((t*.7)%1),0,6.283);st2(rgba2(IC,.5*(1-((t*.7)%1))),1,10);}
+      } requestAnimationFrame(gal); })(0);
+  }
+
+  /* ---- résultats : trois biomarqueurs du scan à droite, révélation orchestrée ---- */
+  (function(){var res=document.getElementById('view-results'),grid=document.querySelector('.vyvre-v6 .v6grid');if(!res||!grid)return;var fait=false;
+    function bio(){if(fait)return;fait=true;var r=window.vyvreLastScanResult,sc=r&&r.scores||{};function v(k,d){var n=Number(sc[k]);return isFinite(n)?Math.round(n):d;}
+      var raw=(r&&r.raw)||{}; var tw=Number(raw.tewl), ita=Number(raw.ita);
+      var texture=isFinite(tw)?Math.max(5,Math.min(98,Math.round(100-tw*2.2))):68, itaV=isFinite(ita)?Math.round(ita):38;
+      var L=[['Pores','Target: Pores',v('pores',70),'/100'],['Oil balance','Target: Sebum',100-v('sebum',30),'/100'],['Evenness','Target: Tone',100-v('pigmentation',30),'/100'],['Skin tone ITA°','Target: Phototype',itaV,'°']];
+      (function(){ var fr=grid.querySelector('.v6r3'); var c=document.createElement('div'); c.className='v6card sg-metric sg-m4'; c.innerHTML='<span class="v6lbl">Target: Micro-relief</span><h3>Texture</h3><div class="v6num"><span>0</span><span class="v6unit">/100</span></div><div class="sg-barre"><i></i></div>'; fr.appendChild(c);
+        var num=c.querySelector('.v6num span'),bar=c.querySelector('.sg-barre i'); setTimeout(function(){ c.classList.add('sg-in'); var t0=performance.now(); (function k(now){var p=Math.min(1,(now-t0)/1600);p=1-Math.pow(1-p,3);num.textContent=Math.round(texture*p);if(p<1)requestAnimationFrame(k);})(t0); bar.style.width=texture+'%'; },880); })();
+      var first=grid.querySelector('.v6r3');L.forEach(function(d,i){var c=document.createElement('div');c.className='v6card sg-bio sg-b'+(i+1);c.innerHTML='<span class="v6lbl">'+d[1]+'</span><h3>'+d[0]+'</h3><div class="v6num"><span>0</span><span class="v6unit">'+d[3]+'</span></div><div class="sg-barre"><i></i></div>';first.appendChild(c);
+        var num=c.querySelector('.v6num span'),bar=c.querySelector('.sg-barre i');setTimeout(function(){c.classList.add('sg-in');var t0=performance.now();(function k(now){var p=Math.min(1,(now-t0)/1600);p=1-Math.pow(1-p,3);num.textContent=Math.round(d[2]*p);if(p<1)requestAnimationFrame(k);})(t0);bar.style.width=(d[3]==='°'?Math.max(4,Math.min(100,(d[2]+30)/1)):d[2])+'%';},400+i*160);});
+      /* la lecture : une phrase comme une esthéticienne la dirait, à partir des vrais scores */
+      (function(){var r=window.vyvreLastScanResult,sc=r&&r.scores||{};function v(k,d){var n=Number(sc[k]);return isFinite(n)?Math.round(n):d;}var M={hydration:['hydration',v('hydration',44)],glow:['radiance',v('glow',52)],pores:['pore texture',v('pores',60)],redness:['calm',v('redness',70)],sebum:['oil balance',100-v('sebum',30)],pigmentation:['evenness',100-v('pigmentation',30)],texture:['texture',(function(){var t=Number(((r&&r.raw)||{}).tewl);return isFinite(t)?Math.max(5,Math.min(98,Math.round(100-t*2.2))):68;})()]};
+        var arr=Object.keys(M).map(function(k){return M[k];}).sort(function(a,b){return a[1]-b[1];});var low=arr[0],low2=arr[1],high=arr[arr.length-1],G=(function(){var el=document.querySelector('[data-vyvre-score-large]');var n=el?parseInt(el.dataset.target,10):NaN;return isFinite(n)?n:v('globalScore',61);})();
+        var etat=G>=80?'in excellent condition':(G>=65?'in good balance':(G>=50?'showing early signs of fatigue':'asking for attention'));
+        var txt2='Your skin is <em>'+etat+'</em> today, with a global index of <em>'+G+'</em>. The priority is <em>'+low[0]+'</em> ('+low[1]+'): this is where the routine should focus first, with '+low2[0]+' ('+low2[1]+') close behind. Your strength is <em>'+high[0]+'</em> ('+high[1]+'), a foundation to protect. Three gestures below, chosen for exactly this.';
+        var d=document.createElement('div');d.className='sg-verdict';d.innerHTML='<b>READING · YOUR SKIN TODAY</b><p>'+txt2+'</p>';grid.appendChild(d);
+        var ce=document.querySelector('.sg-centre');if(ce){var e=document.createElement('i');e.className='sg-eclat';ce.appendChild(e);}})();
+      /* les pièces suivantes entrent en cascade */
+      setTimeout(function(){res.classList.add('sg-vu');},700);}
+    new MutationObserver(function(){if(res.classList.contains('active'))setTimeout(bio,250);}).observe(res,{attributes:true,attributeFilter:['class']});
+  })();
+  /* ---- résultats : révélation, barres, jauge ---- */
+  var cards=document.querySelectorAll('.vyvre-v6 .v6card');
+  cards.forEach(function(cd,i){ var n=cd.querySelector('.v6num [data-target]'); if(n&&!cd.classList.contains('v6score')&&!cd.classList.contains('v6prod')){var bar=document.createElement('div');bar.className='sg-barre';bar.innerHTML='<i></i>';cd.appendChild(bar);}
+    cd.style.transitionDelay=(i%3)*0.12+'s'; });
+  var sc=document.querySelector('.vyvre-v6 .v6card.v6score');
+  if(sc){ var centre=document.createElement('div');centre.className='sg-centre';var num=sc.querySelector('.v6num');sc.insertBefore(centre,num);centre.appendChild(num);var halo=document.createElement('span');halo.className='sg-halo';centre.insertBefore(halo,centre.firstChild);
+    var svg=document.createElementNS('http://www.w3.org/2000/svg','svg');svg.setAttribute('class','sg-jauge');svg.setAttribute('viewBox','0 0 340 340');
+    svg.innerHTML='<defs><linearGradient id="sgGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#9fd8e8"/><stop offset=".5" stop-color="#ffffff"/><stop offset="1" stop-color="#fbf0d2"/></linearGradient></defs><circle class="f" cx="170" cy="170" r="159"/><circle class="v" cx="170" cy="170" r="159"/>';
+    centre.insertBefore(svg,centre.firstChild); }
+  if('IntersectionObserver' in window){ var io=new IntersectionObserver(function(es){es.forEach(function(e){ if(!e.isIntersecting)return; var cd=e.target; cd.classList.add('sg-in');
+      var n=cd.querySelector('.v6num [data-target]'),bar=cd.querySelector('.sg-barre i'); if(n&&bar){var v=parseFloat(n.dataset.target)||0;var max=n.hasAttribute('data-vyvre-age')?80:100;setTimeout(function(){bar.style.width=Math.min(100,v/max*100)+'%';},200);}
+      if(cd.classList.contains('v6score')){var big=cd.querySelector('[data-target]'),ring=cd.querySelector('.sg-jauge .v');if(big&&ring){var val=parseFloat(big.dataset.target)||0;setTimeout(function(){ring.style.strokeDashoffset=String(1000-1000*val/100*(2*Math.PI*159/1000));},300);}}
+      io.unobserve(cd);});},{threshold:.25}); cards.forEach(function(cd){io.observe(cd);}); }
+  else cards.forEach(function(cd){cd.classList.add('sg-in');});
+})();
+</script>
+
+<style id="sg-intro-css">
+#sg-intro{position:fixed;inset:0;z-index:9000;background:#030405;overflow:hidden;opacity:0;transition:opacity .6s ease;pointer-events:auto}
+#sg-intro.on{opacity:1}
+#sg-intro.out{opacity:0;transition:opacity 1s cubic-bezier(.7,0,.3,1)}
+#sg-intro canvas{position:absolute;inset:0;width:100%;height:100%}
+#sg-intro .si-voile{position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 45%,transparent 35%,rgba(0,0,0,.65) 100%);pointer-events:none}
+#sg-intro .si-k{position:absolute;left:50%;top:8vh;transform:translateX(-50%);font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.5em;text-transform:uppercase;color:rgba(214,228,236,.7);opacity:0;animation:siF 1s .2s both;white-space:nowrap}
+#sg-intro .si-t{position:absolute;left:50%;top:13vh;transform:translateX(-50%);width:min(94vw,1300px);text-align:center;color:#f2f4f5;font-weight:200;letter-spacing:-.02em;line-height:.98}
+#sg-intro .si-t .l1{font-size:clamp(48px,7.4vw,118px)}
+#sg-intro .si-t .l2{font-size:clamp(26px,3.4vw,54px);font-style:italic;font-weight:300;margin-top:.25em;
+  background:linear-gradient(100deg,#8fb3c4 0%,#e6f1f5 45%,#ffffff 50%,#e6f1f5 55%,#8fb3c4 100%);background-size:260% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:siFil 3.2s 1.2s ease-in-out both}
+#sg-intro .si-t span{display:inline-block;opacity:0;transform:translateY(.3em);filter:blur(6px);animation:siL .9s cubic-bezier(.2,.9,.2,1) both}
+@keyframes siL{to{opacity:1;transform:none;filter:blur(0)}}
+@keyframes siF{to{opacity:1}}
+@keyframes siFil{from{background-position:120% 0}to{background-position:-20% 0}}
+#sg-intro .si-p{position:absolute;left:0;right:0;bottom:17vh;display:flex;justify-content:center;align-items:flex-end;gap:clamp(40px,7vw,130px)}
+#sg-intro .si-pr{position:relative;display:flex;flex-direction:column;align-items:center;width:clamp(170px,17vw,260px)}
+#sg-intro .si-im{position:relative;height:clamp(170px,30vh,300px);display:flex;align-items:flex-end;justify-content:center}
+#sg-intro .si-im img{max-height:100%;max-width:100%;object-fit:contain;clip-path:inset(100% 0 0 0);animation:siFente 1.3s var(--d) cubic-bezier(.7,0,.2,1) both;filter:drop-shadow(0 26px 30px rgba(0,0,0,.7))}
+@keyframes siFente{to{clip-path:inset(0 0 0 0)}}
+#sg-intro .si-im::after{content:"";position:absolute;left:-30%;right:-30%;height:2px;bottom:0;border-radius:2px;background:linear-gradient(90deg,transparent,#cfe6ef 40%,#fff 50%,#cfe6ef 60%,transparent);
+  box-shadow:0 0 22px 6px rgba(160,210,230,.5),0 0 60px 16px rgba(160,210,230,.15);opacity:0;animation:siLigne 1.3s var(--d) cubic-bezier(.7,0,.2,1) both}
+@keyframes siLigne{0%{opacity:0;bottom:0}12%{opacity:1}82%{opacity:1}100%{opacity:0;bottom:100%}}
+#sg-intro .si-refl{position:relative;width:100%;height:clamp(46px,8vh,80px);overflow:hidden;margin-top:2px;border-top:1px solid rgba(200,225,235,.22);opacity:0;animation:siRefl 1.2s calc(var(--d) + .8s) both;
+  -webkit-mask-image:linear-gradient(to bottom,rgba(0,0,0,.5),transparent 80%);mask-image:linear-gradient(to bottom,rgba(0,0,0,.5),transparent 80%)}
+#sg-intro .si-refl img{display:block;margin:0 auto;max-height:clamp(170px,30vh,300px);max-width:100%;transform:scaleY(-1);filter:blur(1px) brightness(.7)}
+@keyframes siRefl{to{opacity:.55}}
+#sg-intro .si-n{margin-top:14px;text-align:center;opacity:0;animation:siF .9s calc(var(--d) + 1s) both}
+#sg-intro .si-n b{display:block;font-family:'JetBrains Mono',monospace;font-weight:500;font-size:12px;letter-spacing:.34em;text-transform:uppercase;color:#9fd8e8}
+#sg-intro .si-n i{display:block;font-style:normal;margin-top:10px;font-size:clamp(17px,1.4vw,22px);line-height:1.25;color:#f2f4f5;font-weight:400}
+#sg-intro .si-sol{position:absolute;left:8vw;right:8vw;bottom:17vh;height:1px;background:linear-gradient(90deg,transparent,rgba(200,225,235,.4),transparent);transform:scaleX(0);animation:siSol 1.6s .9s cubic-bezier(.2,.9,.2,1) both}
+@keyframes siSol{to{transform:scaleX(1)}}
+#sg-intro .si-skip{position:absolute;right:28px;top:26px;z-index:3;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.16);color:rgba(242,244,245,.75);border-radius:100px;padding:11px 18px;
+  font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.28em;text-transform:uppercase;cursor:pointer;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+#sg-intro .si-skip:hover{color:#fff;border-color:rgba(255,255,255,.35)}
+@media (max-width:760px){#sg-intro .si-p{gap:18px;bottom:20vh}#sg-intro .si-pr{width:30vw}#sg-intro .si-im{height:22vh}#sg-intro .si-n i{font-size:13px}}
+@media (prefers-reduced-motion:reduce){#sg-intro *{animation-duration:.01s!important;animation-delay:0s!important}}
+</style>
+<script id="sg-intro-js">
+(function(){
+  var fait=false;
+  function lancer(){
+    if(fait) return; fait=true;
+    var cards=[].slice.call(document.querySelectorAll('[data-vyvre-prod-slot]'));
+    var prods=cards.map(function(c){ var im=c.querySelector('img'); var src=im?(im.getAttribute('src')||''):'';
+      var m=src.match(/\/products\/charlotte-tilbury\/(?:cutout\/)?([^\/?#]+)\.(jpg|jpeg|png)/i); if(m) src='/scan/products/charlotte-tilbury/cutout/'+m[1]+'.png';
+      return {src:src, nom:((c.querySelector('h3')||{}).textContent||'').trim(), lbl:(c.dataset.marque||((c.querySelector('.v6lbl')||{}).textContent||'')).trim()}; }).filter(function(p){return p.src&&p.nom;});
+    if(!prods.length) return;
+    var el=document.createElement('div'); el.id='sg-intro';
+    var mots=function(t,d0){ return t.split('').map(function(ch,i){ return '<span style="animation-delay:'+(d0+i*.035).toFixed(3)+'s">'+(ch===' '?'&nbsp;':ch)+'</span>'; }).join(''); };
+    el.innerHTML='<canvas></canvas><div class="si-voile"></div><div class="si-k">Vyvre · Universal scan</div>'
+      +'<div class="si-t"><div class="l1">'+mots('Your ritual,',.35)+'</div><div class="l2">composed from your reading.</div></div>'
+      +'<div class="si-p">'+prods.map(function(p,i){ var d=(1.3+i*.38).toFixed(2)+'s';
+        return '<div class="si-pr" style="--d:'+d+'"><div class="si-im"><img src="'+p.src+'" alt=""></div><div class="si-refl"><img src="'+p.src+'" alt=""></div><div class="si-n"><b>'+String(i+1).padStart(2,'0')+' · '+p.lbl+'</b><i>'+p.nom+'</i></div></div>'; }).join('')+'</div>'
+      +'<button class="si-skip" type="button">Skip</button>';
+    document.body.appendChild(el); requestAnimationFrame(function(){ el.classList.add('on'); });
+    /* ORGANZA D'OBSIDIENNE : voiles sombres a contre-jour glace, bokeh platine */
+    var cv=el.querySelector('canvas'), gl=null, run=true; cv.style.display='none';
+    if(gl){
+      var sc=Math.min(.8,(devicePixelRatio||1)*.55);
+      var rs=function(){ cv.width=Math.round(innerWidth*sc); cv.height=Math.round(innerHeight*sc); gl.viewport(0,0,cv.width,cv.height); }; rs(); addEventListener('resize',rs);
+      var FS=['precision highp float;uniform vec2 R;uniform float T;',
+        'float hs(float n){return fract(sin(n)*43758.5453);}',
+        'float h2(vec2 p){return fract(sin(dot(p,vec2(12.9898,78.233)))*43758.5453);}',
+        'void main(){vec2 uv=gl_FragCoord.xy/R;vec2 p=(gl_FragCoord.xy-.5*R)/R.y;float t=T*.16;',
+        ' vec2 L=vec2(.3*sin(T*.05),.12+.08*cos(T*.037));vec2 bl=(p-L)*vec2(.75,1.);float back=exp(-dot(bl,bl)*2.2);',
+        ' vec3 col=mix(vec3(.012,.014,.018),vec3(.085,.10,.12),back);',
+        ' for(int i=0;i<5;i++){float k=float(i);float z=1.+k*.28;vec2 q=p*z+vec2(sin(t*.3+k)*.05,0.);',
+        '  float ph=q.y*(.9+.3*sin(k))+t*(.55+.12*k);float fx=2.3+k*.35;float x=q.x*fx+k*3.1;',
+        '  float a1=x+sin(ph)*1.3+sin(q.y*.7-t*.3+k)*.9;float a2=x*2.13+cos(ph*1.3+k)*1.1-t*.4;float a3=x*4.7+sin(q.y*1.9+t*.8+k)*.8;',
+        '  float hh=sin(a1)+sin(a2)*.38+sin(a3)*.12;float d=(cos(a1)+cos(a2)*.809+cos(a3)*.564)*fx;',
+        '  float n=clamp((d*.09)/sqrt(d*d*.0081+1.),-1.,1.);float th0=clamp(.5+.5*hh/1.5,.001,1.);float thin=th0*th0*sqrt(th0);',
+        '  float an=clamp(1.-abs(n),.001,1.);float s2=an*an;float s4=s2*s2;float s8=s4*s4;float s16=s8*s8;float sat=s16*s8*s2*.9+s4*s2*.18;',
+        '  float shade=.5-.5*n;float alpha=(.14+.06*k)*(.55+.45*(1.-thin));',
+        '  vec3 tissu=mix(vec3(.02,.024,.03),vec3(.16,.18,.21),shade);',
+        '  tissu+=vec3(.45,.68,.80)*back*thin*.45+vec3(.82,.90,.96)*sat*(.18+back*.5);',
+        '  col=mix(col,tissu,alpha);}',
+        ' for(int j=0;j<14;j++){float fj=float(j);vec2 c=vec2(hs(fj*3.1)-.5,hs(fj*7.7)-.5)*vec2(R.x/R.y,1.)*1.1;',
+        '  c+=vec2(sin(T*.05+fj)*.08,mod(T*.012*(.5+hs(fj))+hs(fj*1.3),1.2)-.6);float r=.03+.07*hs(fj*9.2);float dd=length(p-c);',
+        '  float disc=(1.-smoothstep(r*.82,r,dd))*(.6+.4*smoothstep(r*.82,r*.95,dd));col+=vec3(.70,.86,.95)*disc*(.025+.025*hs(fj*5.))*(.6+.4*sin(T*.3+fj));}',
+        ' float rr=(p.x*.8+p.y*.55)-.35*sin(T*.02);col+=vec3(.75,.88,1.)*exp(-rr*rr*9.)*.045;',
+        ' float vg=max(length(uv-.5)*1.25,.001);col*=1.-.45*vg*vg*sqrt(sqrt(vg));',
+        ' col+=(h2(gl_FragCoord.xy+fract(T)*97.)-.5)*.02;',
+        ' if(!(col.r>=0.&&col.g>=0.&&col.b>=0.)) col=vec3(.02);gl_FragColor=vec4(clamp(col,0.,1.),1.);}'].join('\n');
+      var sh=function(ty,src){ var o=gl.createShader(ty); gl.shaderSource(o,src); gl.compileShader(o); return o; };
+      var pg=gl.createProgram(); gl.attachShader(pg,sh(gl.VERTEX_SHADER,'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}')); gl.attachShader(pg,sh(gl.FRAGMENT_SHADER,FS)); gl.linkProgram(pg); gl.useProgram(pg);
+      var bf=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,bf); gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);
+      var lp=gl.getAttribLocation(pg,'p'); gl.enableVertexAttribArray(lp); gl.vertexAttribPointer(lp,2,gl.FLOAT,false,0,0);
+      var uR=gl.getUniformLocation(pg,'R'), uT=gl.getUniformLocation(pg,'T'), t0=performance.now();
+      (function tick(){ if(!run) return; gl.uniform2f(uR,cv.width,cv.height); gl.uniform1f(uT,(performance.now()-t0)/1000+12.); gl.drawArrays(gl.TRIANGLE_STRIP,0,4); requestAnimationFrame(tick); })();
+    }
+    var fin=function(){ if(el.classList.contains('out')) return; el.classList.add('out'); setTimeout(function(){ run=false; el.remove(); },1050); };
+    el.querySelector('.si-skip').addEventListener('click',fin);
+    var gel=(location.search.match(/[?&]introgel=1/)); if(!gel) setTimeout(fin, 5600);
+  }
+  var attendre=function(){ /* les produits sont re-rendus apres l'appel catalogue : on laisse 700 ms */ setTimeout(lancer,1300); };
+  if(typeof showFinalDashboard==='function'){ var _sfd=showFinalDashboard; showFinalDashboard=function(){ var r=_sfd.apply(this,arguments); attendre(); return r; }; }
+  window.vyvreIntroProduits=lancer;
+})();
+</script>
+<style id="scan-universel-photos">
+#sg-intro .si-t{top:9vh}
+#sg-intro .si-p{bottom:15vh;align-items:flex-start}
+#sg-intro .si-im{height:clamp(150px,26vh,240px);width:clamp(150px,15vw,230px);border-radius:26px;background:radial-gradient(circle at 50% 42%,#ffffff 0,#eef0f1 72%);
+  box-shadow:0 30px 60px -20px rgba(0,0,0,.8),0 0 0 1px rgba(255,255,255,.12);align-items:center;padding:14px;box-sizing:border-box;overflow:hidden}
+#sg-intro .si-im img{filter:none;mix-blend-mode:multiply}
+#sg-intro .si-refl{display:none}
+#sg-intro .si-n{margin-top:22px}
+#sg-intro .si-n i{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+</style>
+<style id="sg-fix-0915">
+html,body{background:#030405!important}
+.vyvre-v6 .v6r3:has(.v6fr-flag),.vyvre-v6 .v6card.sg-std{display:none!important}
+.vyvre-v6 .v6grid>#vyvre-product-row{background:linear-gradient(160deg,rgba(255,255,255,.06),rgba(255,255,255,.015) 50%,rgba(255,255,255,.035))!important;
+  backdrop-filter:blur(22px) saturate(1.2);-webkit-backdrop-filter:blur(22px) saturate(1.2);border:1px solid rgba(255,255,255,.10)!important}
+.vyvre-v6 .v6prod .v6photo{background:none!important;padding:0!important;filter:drop-shadow(0 18px 22px rgba(0,0,0,.55))}
+.vyvre-v6 .v6prod .v6photo.sg-plaque{background:radial-gradient(circle at 50% 45%,rgba(255,255,255,.92),rgba(236,238,240,.82) 70%)!important;border-radius:16px;padding:8px!important;box-sizing:border-box;filter:none}
+#sg-intro{background:rgba(3,4,5,.55)!important;backdrop-filter:blur(2px)}
+#sg-intro .si-im{background:linear-gradient(160deg,rgba(255,255,255,.10),rgba(255,255,255,.02))!important;border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+#sg-intro .si-im img{mix-blend-mode:normal!important;filter:drop-shadow(0 22px 26px rgba(0,0,0,.6))!important}
+#sg-intro .si-im.sg-plaque{background:radial-gradient(circle at 50% 42%,rgba(255,255,255,.95),rgba(236,238,240,.85) 72%)!important}
+#sg-intro .si-im.sg-plaque img{filter:none!important}
+</style>
+<script id="sg-fix-0915-js">
+(function(){
+  /* detourage : essaie la version detouree, sinon pose la photo sur une plaque claire */
+  function cutUrl(src){ if(!src||/\/cutout(-u)?\//.test(src)||/charlotte-tilbury/.test(src)) return null; var m=src.match(/(\/scan\/products\/[^?#]+)\/([^\/?#]+)\.(jpg|jpeg|png|webp)/i); return m? m[1]+'/cutout-u/'+m[2]+'.png' : null; }
+  window.sgDetoure=function(img, box){ var src=img.getAttribute('src')||''; var cu=cutUrl(src); if(!cu){ return; } var t=new Image(); t.onload=function(){ img.src=cu; (box||img).classList.remove('sg-plaque'); }; t.onerror=function(){ (box||img).classList.add('sg-plaque'); }; t.src=cu; };
+  function passe(){ document.querySelectorAll('#vyvre-product-row .v6photo').forEach(function(im){ if(im.dataset.sgd===im.getAttribute('src')) return; im.dataset.sgd=im.getAttribute('src'); window.sgDetoure(im); }); }
+  var row=document.getElementById('vyvre-product-row'); if(row){ new MutationObserver(passe).observe(row,{subtree:true,attributes:true,attributeFilter:['src']}); passe(); }
+  new MutationObserver(function(ms){ ms.forEach(function(m){ m.addedNodes.forEach(function(n){ if(n.id==='sg-intro'){ n.querySelectorAll('.si-im').forEach(function(b){ b.querySelectorAll('img').forEach(function(im){ window.sgDetoure(im,b); }); }); } }); }); }).observe(document.body,{childList:true});
+  /* si le navigateur retire le contexte WebGL du fond, on evite l'ecran blanc */
+  var g=document.getElementById('sig-gl'); if(g){ g.addEventListener('webglcontextlost',function(e){ e.preventDefault(); g.style.opacity='0'; }); g.addEventListener('webglcontextrestored',function(){ location.reload(); }); }
+})();
+</script>
+<style id="sg-verre-liquide">
+@property --sg-liq{syntax:'<angle>';inherits:false;initial-value:0deg}
+@keyframes sgLiqC{0%{transform:translate(-4%,-3%) rotate(-3deg)}50%{transform:translate(2%,3%) rotate(1deg)}100%{transform:translate(4%,-1%) rotate(3deg)}}
+@keyframes sgLiqTourC{to{--sg-liq:360deg}}
+.vyvre-v6 .v6card,.vyvre-v6 .v6grid>#vyvre-product-row,.vyvre-v6 .v6protocol-btn,.sg-marque-in,.vyvre-v6 [data-vyvre-tracker-slot]>*,#sg-intro .si-im{
+  background:rgba(255,255,255,.035)!important;backdrop-filter:blur(34px) saturate(1.9) brightness(1.08)!important;-webkit-backdrop-filter:blur(34px) saturate(1.9) brightness(1.08)!important;
+  border:1px solid rgba(255,255,255,.10)!important;isolation:isolate;overflow:hidden;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.26),inset 0 -1px 0 rgba(255,255,255,.05),0 30px 70px -40px rgba(0,0,0,.9)!important}
+.vyvre-v6 .v6card::before,.vyvre-v6 .v6protocol-btn::before,.sg-marque-in::before{content:''!important;position:absolute!important;inset:-60%!important;z-index:-1!important;pointer-events:none;opacity:1!important;padding:0!important;border-radius:0!important;
+  background:radial-gradient(40% 30% at 30% 20%,rgba(255,255,255,.16),transparent 60%),radial-gradient(30% 40% at 70% 80%,rgba(217,201,163,.10),transparent 60%)!important;
+  -webkit-mask:none!important;mask:none!important;filter:blur(8px);animation:sgLiqC 11s ease-in-out infinite alternate}
+.vyvre-v6 .v6card::after,.vyvre-v6 .v6grid>#vyvre-product-row::after,.sg-marque-in::after{content:'';position:absolute;inset:-1px;border-radius:inherit;padding:1px;pointer-events:none;z-index:3;
+  background:conic-gradient(from var(--sg-liq),transparent 0 64%,rgba(255,255,255,.6) 74%,rgba(217,201,163,.75) 80%,rgba(255,255,255,.6) 86%,transparent 96%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:sgLiqTourC 16s linear infinite;opacity:.45}
+.vyvre-v6 .v6card:nth-child(2n)::after{animation-duration:21s;animation-direction:reverse}
+.vyvre-v6 .v6card.v6prod{background:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important;box-shadow:none!important;border:0!important}
+.vyvre-v6 .v6card.v6prod::before,.vyvre-v6 .v6card.v6prod::after{display:none!important}
+.vyvre-v6 .v6card.v6prod+.v6card.v6prod{border-left:1px solid rgba(255,255,255,.08)!important}
+@media (prefers-reduced-motion:reduce){.vyvre-v6 .v6card::before,.vyvre-v6 .v6card::after,.sg-marque-in::before,.sg-marque-in::after,.vyvre-v6 .v6grid>#vyvre-product-row::after{animation:none!important}}
+</style>
+<style id="sg-micro">
+.sgm{--mx:50%;--my:50%;--rx:0deg;--ry:0deg;--ty:0px;--tx:0px;
+  transform:perspective(900px) translate3d(var(--tx),var(--ty),0) rotateX(var(--rx)) rotateY(var(--ry));
+  transition:transform .55s cubic-bezier(.2,.9,.2,1),box-shadow .55s ease!important;will-change:transform}
+.sgm.sgm-in{--ty:-6px}
+.sgm-b.sgm-in{--ty:0px}
+.sgm .sgm-lum{position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:4;opacity:0;transition:opacity .45s ease;
+  background:radial-gradient(340px circle at var(--mx) var(--my),rgba(255,255,255,.30),rgba(207,230,239,.12) 35%,transparent 65%);mix-blend-mode:screen}
+.sgm .sgm-bord{position:absolute;inset:-1px;border-radius:inherit;pointer-events:none;z-index:5;opacity:0;transition:opacity .45s ease;padding:1.5px;
+  background:radial-gradient(220px circle at var(--mx) var(--my),#fff,rgba(159,216,232,.8) 30%,rgba(217,201,163,.35) 55%,transparent 75%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.sgm .sgm-balai{position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:6;overflow:hidden}
+.sgm .sgm-balai::before{content:'';position:absolute;top:-20%;bottom:-20%;width:40%;left:-60%;transform:skewX(-18deg);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),rgba(207,230,239,.35),rgba(255,255,255,.22),transparent)}
+.sgm.sgm-in .sgm-balai::before{animation:sgmBalai 1.1s cubic-bezier(.3,.7,.2,1) forwards}
+@keyframes sgmBalai{to{left:130%}}
+.sgm.sgm-in{box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 50px 100px -40px rgba(0,0,0,1),0 0 60px -10px rgba(159,216,232,.25)!important}
+.sgm.sgm-in .sgm-lum,.sgm.sgm-in .sgm-bord{opacity:1}
+.sgm.sgm-down{transform:perspective(900px) translate3d(var(--tx),var(--ty),0) rotateX(var(--rx)) rotateY(var(--ry)) scale(.97)}
+.sgm .sgm-onde{position:absolute;border-radius:50%;pointer-events:none;z-index:7;width:14px;height:14px;margin:-7px 0 0 -7px;
+  background:radial-gradient(circle,rgba(255,255,255,.8),rgba(159,216,232,.35) 40%,transparent 70%);animation:sgmOnde .9s cubic-bezier(.2,.9,.2,1) forwards}
+@keyframes sgmOnde{to{transform:scale(40);opacity:0}}
+.sgm .v6photo,.sgm .v6num{transition:transform .6s cubic-bezier(.2,.9,.2,1)!important}
+.sgm.sgm-in .v6photo{transform:translateY(-8px) scale(1.06)}
+.sgm.sgm-in .v6num{transform:scale(1.06)}
+@media (hover:none),(prefers-reduced-motion:reduce){.sgm{transform:none!important}.sgm .sgm-lum,.sgm .sgm-bord,.sgm .sgm-balai{display:none}}
+</style>
+<script id="sg-micro-js">
+(function(){
+  var CARTES='.vyvre-v6 .v6card,.vyvre-v6 .v6protocol-btn,.sg-marque-in,.card,header.top,.chaine i,.labo,#sg-intro .si-im';
+  var BOUTONS='.b,.v6cta,.sg-mbtn,.spatial-btn,header a.cta,.sg-mprix';
+  var reduit=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function arme(el,bouton){
+    if(el.dataset.sgm) return; el.dataset.sgm='1'; el.classList.add('sgm'); if(bouton) el.classList.add('sgm-b');
+    if(getComputedStyle(el).position==='static') el.style.position='relative';
+    ['sgm-lum','sgm-bord','sgm-balai'].forEach(function(c){ var s=document.createElement('span'); s.className=c; el.appendChild(s); });
+    var force=bouton?0:(el.offsetWidth>700?2.5:6);
+    el.addEventListener('pointerenter',function(){ el.classList.remove('sgm-in'); void el.offsetWidth; el.classList.add('sgm-in'); });
+    el.addEventListener('pointermove',function(e){ var r=el.getBoundingClientRect(), x=(e.clientX-r.left)/r.width, y=(e.clientY-r.top)/r.height;
+      el.style.setProperty('--mx',(x*100)+'%'); el.style.setProperty('--my',(y*100)+'%');
+      if(reduit) return;
+      if(bouton){ el.style.setProperty('--tx',((x-.5)*14)+'px'); el.style.setProperty('--ty',((y-.5)*10)+'px'); }
+      else { el.style.setProperty('--ry',((x-.5)*force)+'deg'); el.style.setProperty('--rx',((.5-y)*force)+'deg'); } },{passive:true});
+    el.addEventListener('pointerleave',function(){ el.classList.remove('sgm-in','sgm-down'); ['--rx','--ry'].forEach(function(k){el.style.setProperty(k,'0deg');}); ['--tx','--ty'].forEach(function(k){el.style.setProperty(k,'0px');}); });
+    el.addEventListener('pointerdown',function(e){ el.classList.add('sgm-down'); var r=el.getBoundingClientRect(), o=document.createElement('span'); o.className='sgm-onde';
+      o.style.left=(e.clientX-r.left)+'px'; o.style.top=(e.clientY-r.top)+'px'; el.appendChild(o); setTimeout(function(){o.remove();},950); });
+    el.addEventListener('pointerup',function(){ el.classList.remove('sgm-down'); });
+  }
+  function scan(){ document.querySelectorAll(CARTES).forEach(function(e){arme(e,false);}); document.querySelectorAll(BOUTONS).forEach(function(e){arme(e,true);}); }
+  scan(); new MutationObserver(scan).observe(document.body,{childList:true,subtree:true});
+})();
+</script>
+<script id="sg-marque-param">
+(function(){ var q=new URLSearchParams(location.search); var b=(q.get('b')||'').toLowerCase().replace(/[^a-z0-9-]/g,'');
+  window.VYVRE_MARQUE=b||null; window.VYVRE_MARQUE_NOM=null; })();
+</script>
+<script id="sg-garde-reperes">
+(function arm(){ if(!window.faceapi||!faceapi.detectSingleFace){ return setTimeout(arm,300); }
+  if(faceapi.__garde) return; faceapi.__garde=true; var o=faceapi.detectSingleFace;
+  faceapi.detectSingleFace=function(){ var t=o.apply(this,arguments), w=t.withFaceLandmarks;
+    t.withFaceLandmarks=function(){ var n=faceapi.nets; if(!((n.faceLandmark68TinyNet&&n.faceLandmark68TinyNet.isLoaded)||(n.faceLandmark68Net&&n.faceLandmark68Net.isLoaded))) return Promise.resolve(null); return w.apply(t,arguments); };
+    return t; };
+})();
+</script>
+<style id="sg-huit">
+@media (min-width:1100px){
+ .vyvre-v6 .v6card.sg-m4{grid-row:4}.vyvre-v6 .v6card.sg-b4{grid-row:4}
+ .vyvre-v6 .v6card.v6score{grid-row:1/5!important}
+ .vyvre-v6 .v6grid>#vyvre-product-row{grid-row:5!important}
+ .vyvre-v6 .v6protocol-btn{grid-row:6!important}
+ .vyvre-v6 .v6grid>.sg-verdict{grid-row:7!important}
+ .vyvre-v6 .v6grid>[data-vyvre-tracker-slot]{grid-row:8!important}
+ .vyvre-v6 .v6card.sg-metric,.vyvre-v6 .v6card.sg-bio{min-height:66px;padding-top:18px;padding-bottom:14px}
+}
+</style>
+<script id="sg-textes-marque">
+(function(){
+  var b=window.VYVRE_MARQUE; if(!b) return;
+  var joli=b.split('-').map(function(w){return w.charAt(0).toUpperCase()+w.slice(1);}).join(' ');
+  function pose(nom){
+    nom=nom||joli; var NOM=nom.toUpperCase();
+    var el=document.querySelector('.brand-partner'); if(el) el.textContent=NOM;
+    var lb=document.querySelector('#view-hero .label-sm'); if(lb) lb.textContent='Skin reading · '+nom;
+    document.title='VYVRE × '+nom+' — Skin scan';
+    var p=document.querySelector('#view-hero p'); if(p) p.textContent='Your skin, measured in 60 seconds from your camera, pixel by pixel in the CIE Lab colour space. Then the three '+nom+' products that fit it best.';
+    var mk=document.querySelector('.sg-mk'); if(mk) mk.textContent='For '+nom;
+    var mp=document.querySelector('.sg-mp'); if(mp) mp.textContent='What you just experienced can live on '+nom+'\u2019s e-shop and in your stores, on your own catalogue, in your own codes. Start with a pilot, or let us build it with you, made to measure.';
+    var k=document.querySelector('#sg-intro .si-k'); if(k) k.textContent='Vyvre · '+nom;
+    document.querySelectorAll('a[href*="from=scan-universel"]').forEach(function(a){ a.href=a.href.replace('from=scan-universel','from='+b); });
+    var pr=document.getElementById('vyvre-protocol-link'); if(pr) pr.href='/m/'+b+'/protocol';
+    var ms=document.querySelector('.sg-mbtn-b'); if(ms) ms.href='mailto:contact@vyvre.fr?subject=Vyvre%20%C3%97%20'+encodeURIComponent(nom);
+  }
+  window.sgTitreMarque=function(){ pose(window.VYVRE_MARQUE_NOM); };
+  pose(null);
+})();
+</script>
+</body>
+</html>
