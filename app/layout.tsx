@@ -7,7 +7,7 @@ export const metadata: Metadata = {
     'Le seul diagnostic peau avec un prix public. Infrastructure 100% France 🇫🇷, RGPD natif, on-device, zéro upload photo.',
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://vyvre.fr'),
   openGraph: {
-    title: 'VYVRE — Diagnostic peau IA',
+    title: 'VYVRE — Le diagnostic de peau, mesuré',
     description: 'Widget white-label · Made in France 🇫🇷',
     url: '/',
     siteName: 'VYVRE',

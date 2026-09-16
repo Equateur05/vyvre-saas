@@ -121,7 +121,7 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
         <section>
           <div className="text-[10px] tracking-[0.3em] uppercase text-text/45 mb-4 font-mono">Ce que vous avez activé</div>
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-2.5 text-sm text-text/75">
-            <li className="flex items-start gap-2"><span className="text-accent">✓</span> Diagnostic peau 8 paramètres IA</li>
+            <li className="flex items-start gap-2"><span className="text-accent">✓</span> Diagnostic de peau, 8 mesures</li>
             <li className="flex items-start gap-2"><span className="text-accent">✓</span> Recommandations produits personnalisées</li>
             <li className="flex items-start gap-2"><span className="text-accent">✓</span> 100% on-device — aucune photo stockée</li>
             <li className="flex items-start gap-2"><span className="text-accent">✓</span> Infrastructure France 🇫🇷 — RGPD natif</li>
