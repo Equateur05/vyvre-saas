@@ -982,7 +982,7 @@ footer{
 /* VYVRE PROTOCOL ENGINE — UNIVERSAL SCAN */
 (function(){
   const API_BASE = 'https://vyvre.fr/api/products';
-  const BRAND = (new URLSearchParams(location.search).get('b')||'all').toLowerCase().replace(/[^a-z0-9-]/g,'');
+  const BRAND = (function(){ var q=new URLSearchParams(location.search).get('b'); if(!q){ var m=location.pathname.match(/\/m\/([a-z0-9-]+)\/protocol/i); q=m?m[1]:'all'; } return (q||'all').toLowerCase().replace(/[^a-z0-9-]/g,''); })();
   const params = new URLSearchParams(location.search);
   const scoreNum = parseInt(params.get('score') || localStorage.getItem('vyvre_score') || '0', 10);
   const ageNum   = parseInt(params.get('age')   || localStorage.getItem('vyvre_age')   || '0', 10);

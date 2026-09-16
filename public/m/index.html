@@ -2296,6 +2296,7 @@ html,body{background:#030405!important}
 </script>
 <script id="sg-marque-param">
 (function(){ var q=new URLSearchParams(location.search); var b=(q.get('b')||'').toLowerCase().replace(/[^a-z0-9-]/g,'');
+  if(!b){ var mm=location.pathname.match(/\/m\/([a-z0-9-]+)/i); if(mm) b=mm[1].toLowerCase(); }
   window.VYVRE_MARQUE=b||null; window.VYVRE_MARQUE_NOM=null; })();
 </script>
 <script id="sg-garde-reperes">
