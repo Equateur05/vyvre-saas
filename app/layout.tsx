@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 
 export const metadata: Metadata = {
-  title: 'VYVRE — Diagnostic peau IA pour marques cosmétiques',
+  title: 'VYVRE — Diagnostic de peau mesuré, pour les marques de soin',
   description:
     'Le seul diagnostic peau avec un prix public. Infrastructure 100% France 🇫🇷, RGPD natif, on-device, zéro upload photo.',
   metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://vyvre.fr'),

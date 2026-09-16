@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Vyvre — Manifeste</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#f2f4f5;--dim:rgba(242,244,245,.62);--line:rgba(255,255,255,.10);--glace:#9fd8e8;--champ:#e7dccb}
+*{box-sizing:border-box}html,body{margin:0;background:#030405;color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+#gl{position:fixed;inset:0;width:100%;height:100%;z-index:0}
+.grain{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 80% 70% at 50% 40%,transparent 40%,rgba(0,0,0,.6) 100%)}
+main{position:relative;z-index:2}
+.k{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.42em;text-transform:uppercase;color:var(--glace)}
+header.top{position:fixed;top:18px;left:18px;right:18px;z-index:5;display:flex;align-items:center;justify-content:space-between;padding:16px 28px;border-radius:26px;
+ border:1px solid var(--line);background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.02));backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
+header .logo{font-weight:500;letter-spacing:.42em}
+header a.cta{color:#000;background:linear-gradient(180deg,#fff,#e4e0d6);text-decoration:none;border-radius:100px;padding:11px 20px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;text-transform:uppercase}
+section{min-height:100svh;display:flex;flex-direction:column;justify-content:center;padding:18vh 8vw 10vh;max-width:1400px;margin:0 auto}
+h1{font-weight:200;font-size:clamp(40px,5.6vw,92px);max-width:16ch;line-height:.92;letter-spacing:-.035em;margin:26px 0 0}
+h1 em,h2 em{font-style:italic;font-weight:300;color:var(--champ)}
+h2{font-weight:200;font-size:clamp(32px,4vw,62px);line-height:1;letter-spacing:-.025em;margin:22px 0 0}
+p.lead{font-size:clamp(17px,1.35vw,21px);line-height:1.6;color:var(--dim);max-width:680px;margin:34px 0 0}
+.rv{opacity:0;transform:translateY(34px);filter:blur(6px);transition:opacity 1.1s cubic-bezier(.2,.9,.2,1),transform 1.1s cubic-bezier(.2,.9,.2,1),filter 1.1s}
+.rv.vu{opacity:1;transform:none;filter:none}
+.btns{display:flex;gap:14px;flex-wrap:wrap;margin-top:46px}
+.b{display:inline-flex;align-items:center;justify-content:center;min-height:68px;padding:0 34px;border-radius:100px;text-decoration:none;font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.26em;text-transform:uppercase}
+.b.a{background:linear-gradient(180deg,#fff,#e4e0d6);color:#000;box-shadow:0 30px 70px -24px rgba(236,233,226,.55)}
+.b.s{color:var(--ink);border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.04);backdrop-filter:blur(14px)}
+.manif{font-weight:200;font-size:clamp(26px,2.9vw,46px);line-height:1.18;letter-spacing:-.02em;max-width:1100px}
+.manif span{display:block;margin-top:.5em}
+.manif b{font-weight:400;color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px;margin-top:60px}
+.card{border:1px solid var(--line);border-radius:28px;padding:30px 28px 32px;background:linear-gradient(160deg,rgba(255,255,255,.07),rgba(255,255,255,.015) 55%);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+.card .n{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.3em;color:var(--glace)}
+.card h3{font-weight:300;font-size:26px;margin:18px 0 10px;letter-spacing:-.01em}
+.card p{margin:0;color:var(--dim);line-height:1.6;font-size:16px}
+.chaine{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-top:54px;font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.14em;text-transform:uppercase}
+.chaine i{font-style:normal;padding:14px 18px;border:1px solid var(--line);border-radius:100px;background:rgba(255,255,255,.035)}
+.chaine u{text-decoration:none;color:var(--glace)}
+.phone{margin-top:60px;display:flex;gap:6vw;align-items:center;flex-wrap:wrap}
+.tel{width:260px;height:530px;border-radius:46px;border:1px solid rgba(255,255,255,.18);background:linear-gradient(170deg,#12151a,#050607);position:relative;overflow:hidden;box-shadow:0 60px 120px -40px rgba(0,0,0,.9),inset 0 0 0 8px #0a0b0d}
+.tel .vis{position:absolute;left:50%;top:44%;width:150px;height:200px;transform:translate(-50%,-50%);border-radius:50%/42%;border:1px solid rgba(159,216,232,.45)}
+.tel .fil{position:absolute;left:50%;top:44%;width:190px;height:1px;transform:translate(-50%,-100px);background:linear-gradient(90deg,transparent,#cfe6ef,transparent);box-shadow:0 0 18px 4px rgba(160,210,230,.45);animation:bal 3.2s ease-in-out infinite}
+@keyframes bal{0%,100%{transform:translate(-50%,-100px)}50%{transform:translate(-50%,100px)}}
+.tel .sc{position:absolute;left:0;right:0;bottom:70px;text-align:center;font-weight:200;font-size:64px}
+.tel .sl{position:absolute;left:0;right:0;bottom:52px;text-align:center;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.3em;color:var(--glace)}
+.chiffres{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:30px;flex:1;min-width:300px}
+.chiffres div b{display:block;font-weight:200;font-size:clamp(44px,5vw,72px);letter-spacing:-.03em}
+.chiffres div span{color:var(--dim);font-size:15px;line-height:1.5}
+.honnete{margin-top:40px;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;line-height:1.9;color:rgba(242,244,245,.45);max-width:820px}
+footer{position:relative;z-index:2;text-align:center;padding:60px 20px 80px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.3em;color:rgba(242,244,245,.4);text-transform:uppercase}
+@media(max-width:700px){header.top{padding:12px 16px}header a.cta{padding:9px 14px;font-size:10px}section{padding:16vh 6vw 8vh}.b{width:100%}}
+@media(prefers-reduced-motion:reduce){.rv{opacity:1;transform:none;filter:none;transition:none}}
+</style><style id="verre-liquide-pres">
+@property --lq{syntax:'<angle>';inherits:false;initial-value:0deg}
+@keyframes lqM{0%{transform:translate(-4%,-3%) rotate(-3deg)}100%{transform:translate(4%,2%) rotate(3deg)}}
+@keyframes lqT{to{--lq:360deg}}
+header.top,.card,.chaine i,.b.s{position:relative;background:rgba(255,255,255,.035)!important;backdrop-filter:blur(34px) saturate(1.9) brightness(1.08);-webkit-backdrop-filter:blur(34px) saturate(1.9) brightness(1.08);
+  border:1px solid rgba(255,255,255,.10)!important;overflow:hidden;isolation:isolate;box-shadow:inset 0 1px 0 rgba(255,255,255,.26),inset 0 -1px 0 rgba(255,255,255,.05),0 30px 70px -40px rgba(0,0,0,.9)}
+header.top::before,.card::before{content:'';position:absolute;inset:-60%;z-index:-1;pointer-events:none;filter:blur(8px);animation:lqM 11s ease-in-out infinite alternate;
+  background:radial-gradient(40% 30% at 30% 20%,rgba(255,255,255,.18),transparent 60%),radial-gradient(30% 40% at 70% 80%,rgba(217,201,163,.12),transparent 60%)}
+header.top::after,.card::after{content:'';position:absolute;inset:-1px;border-radius:inherit;padding:1px;pointer-events:none;
+  background:conic-gradient(from var(--lq),transparent 0 64%,rgba(255,255,255,.6) 74%,rgba(217,201,163,.75) 80%,rgba(255,255,255,.6) 86%,transparent 96%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:lqT 16s linear infinite;opacity:.5}
+.card:nth-child(2n)::after{animation-duration:21s;animation-direction:reverse}
+@media (prefers-reduced-motion:reduce){header.top::before,.card::before,header.top::after,.card::after{animation:none}}
+</style>
+</head><body>
+<canvas id="gl"></canvas><div class="grain"></div>
+<header class="top"><span class="logo">VYVRE</span><a class="cta" href="/scan">Tester mon scan</a></header>
+<main>
+<section>
+  <div class="k rv">Manifeste · Vyvre</div>
+  <h1 class="rv">Une clinique de peau<br><em>dans chaque poche.</em></h1>
+  <p class="lead rv">Mesurer sa peau était réservé aux cabinets de dermatologie et aux comptoirs des grandes maisons. Vyvre le rend accessible à toute personne qui tient un iPhone. Soixante secondes, une caméra, une vraie lecture.</p>
+  <div class="btns rv"><a class="b a" href="/scan">Lire ma peau →</a><a class="b s" href="#marques">Équiper ma marque</a></div>
+</section>
+
+<section>
+  <div class="k rv">Ce que nous croyons</div>
+  <div class="manif rv">
+    <span>Votre peau n'est pas <b>un profil type</b>.</span>
+    <span>Un conseil sans mesure est <b>une opinion</b>.</span>
+    <span>La précision ne doit pas être <b>un privilège</b>.</span>
+    <span>Et vos images <b>n'ont pas à quitter votre téléphone</b>.</span>
+  </div>
+</section>
+
+<section class="tech">
+  <div class="k rv">La technologie, sans détour</div>
+  <h2 class="rv">On ne devine pas.<br><em>On mesure.</em></h2>
+  <div class="labo rv">
+    <canvas id="labo"></canvas>
+    <div class="hud hud-g" id="hud-g"></div>
+    <div class="hud hud-d" id="hud-d"></div>
+    <div class="etape" id="etape"><span class="n" id="etape-n">01</span><span class="t" id="etape-t">Détection du visage</span><span class="s" id="etape-s">68 repères anatomiques posés en temps réel.</span></div>
+    <div class="frise" id="frise"><i class="on"></i><i></i><i></i><i></i><i></i></div>
+  </div>
+  <div class="grid">
+    <div class="card rv"><div class="n">01 · ITA°</div><h3>Carnation</h3><p>L'angle typologique individuel situe le phototype, pour que chaque peau soit mesurée par rapport à sa propre référence, jamais à une norme unique.</p></div>
+    <div class="card rv"><div class="n">02 · Érythème</div><h3>Rougeurs</h3><p>L'indice d'érythème lit la composante rouge de la peau : sensibilité, inconfort, barrière fragilisée.</p></div>
+    <div class="card rv"><div class="n">03 · Luminance</div><h3>Éclat et uniformité</h3><p>La répartition de la clarté sur les pommettes et le front révèle le teint terne et les irrégularités.</p></div>
+    <div class="card rv"><div class="n">04 · Spéculaire</div><h3>Sébum et hydratation</h3><p>Les reflets et la micro-texture renseignent sur la brillance et sur l'état de la barrière hydrique.</p></div>
+  </div>
+</section>
+
+<style id="labo-css">
+.labo{position:relative;margin-top:56px;height:min(78vh,760px);border-radius:40px;overflow:hidden;border:1px solid rgba(255,255,255,.10);
+  background:radial-gradient(ellipse 60% 70% at 50% 45%,rgba(40,60,72,.35),rgba(3,4,5,.9) 75%);box-shadow:inset 0 1px 0 rgba(255,255,255,.2),0 60px 140px -50px #000}
+#labo{position:absolute;inset:0;width:100%;height:100%}
+.hud{position:absolute;top:8%;bottom:16%;width:23%;display:flex;flex-direction:column;gap:12px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.14em;color:rgba(214,228,236,.8);pointer-events:none}
+.hud-g{left:3.5%}.hud-d{right:3.5%;text-align:right}
+.hud .l{opacity:0;transform:translateY(8px);transition:opacity .5s,transform .5s;border-top:1px solid rgba(159,216,232,.18);padding-top:8px}
+.hud .l.on{opacity:1;transform:none}
+.hud .l b{display:block;font-weight:400;font-size:clamp(18px,1.6vw,26px);color:#f2f4f5;letter-spacing:.02em;margin-top:4px;font-variant-numeric:tabular-nums}
+.hud .l u{text-decoration:none;color:#9fd8e8}
+.etape{position:absolute;left:50%;bottom:6%;transform:translateX(-50%);text-align:center;width:min(90%,620px)}
+.etape .n{display:block;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.4em;color:#9fd8e8}
+.etape .t{display:block;font-weight:200;font-size:clamp(24px,2.6vw,40px);letter-spacing:-.01em;margin-top:6px}
+.etape .s{display:block;color:rgba(242,244,245,.6);font-size:15px;margin-top:6px}
+.frise{position:absolute;left:50%;top:4.5%;transform:translateX(-50%);display:flex;gap:8px}
+.frise i{width:34px;height:2px;border-radius:2px;background:rgba(255,255,255,.14);overflow:hidden;position:relative}
+.frise i.on::after{content:'';position:absolute;inset:0;background:#cfe6ef;transform-origin:left;animation:fr var(--d,2.6s) linear forwards}
+.frise i.fait{background:rgba(207,230,239,.7)}
+@keyframes fr{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media(max-width:760px){.hud{display:none}.labo{height:70vh;border-radius:26px}}
+</style>
+<script id="labo-js">
+(function(){
+  var cv=document.getElementById('labo'); if(!cv) return; var cx=cv.getContext('2d'), W=0,H=0, dpr=Math.min(devicePixelRatio||1,2);
+  function rs(){ var r=cv.getBoundingClientRect(); W=r.width; H=r.height; cv.width=W*dpr; cv.height=H*dpr; cx.setTransform(dpr,0,0,dpr,0,0); } rs(); addEventListener('resize',rs);
+  /* visage parametrique : 68 reperes (machoire, sourcils, nez, yeux, bouche) */
+  var P=[],i;
+  for(i=0;i<17;i++){var a=Math.PI*(1.02-i/16*1.04); P.push([Math.cos(a)*.62,Math.sin(a)*.78+.02]);}
+  for(i=0;i<5;i++)P.push([-.52+i*.1,-.38-Math.sin(i/4*Math.PI)*.08]);
+  for(i=0;i<5;i++)P.push([.12+i*.1,-.38-Math.sin(i/4*Math.PI)*.08]);
+  for(i=0;i<4;i++)P.push([0,-.26+i*.1]);
+  for(i=0;i<5;i++)P.push([-.12+i*.06,.14+Math.abs(i-2)*-.015]);
+  function oeil(cxo){var o=[];for(var k=0;k<6;k++){var t=k/6*Math.PI*2;o.push([cxo+Math.cos(t)*.11,-.24+Math.sin(t)*.045*(k<3?-1:1)*(k==0||k==3?0:1)]);}return o;}
+  P=P.concat(oeil(-.26),oeil(.26));
+  for(i=0;i<12;i++){var t=i/12*Math.PI*2;P.push([Math.cos(t)*.22,.4+Math.sin(t)*.08]);}
+  for(i=0;i<8;i++){var t2=i/8*Math.PI*2;P.push([Math.cos(t2)*.14,.4+Math.sin(t2)*.035]);}
+  /* nuage de peau autour des reperes */
+  var N=[]; for(i=0;i<900;i++){var r=Math.sqrt(Math.random()),t3=Math.random()*Math.PI*2,x=Math.cos(t3)*r*.6,y=Math.sin(t3)*r*.8; if(y<-.7) continue; N.push([x,y,Math.random()]);}
+  var E=[]; P.forEach(function(p,a){ var d=P.map(function(q,b){return [b,Math.hypot(p[0]-q[0],p[1]-q[1])];}).filter(function(z){return z[0]!==a;}).sort(function(u,v){return u[1]-v[1];}); for(var k=0;k<3;k++) if(d[k][0]>a) E.push([a,d[k][0]]); });
+  var ZONES=[{n:'Front',x:0,y:-.56,w:.42,h:.14},{n:'Pommette G',x:-.34,y:.02,w:.2,h:.16},{n:'Pommette D',x:.34,y:.02,w:.2,h:.16},{n:'Zone T',x:0,y:-.08,w:.12,h:.3},{n:'Menton',x:0,y:.64,w:.22,h:.1}];
+  var ETAPES=[
+    ['01','Détection du visage','68 repères anatomiques posés en temps réel.',3.2],
+    ['02','Balayage de la lumière','Chaque pixel est échantillonné sur les zones de lecture.',3.2],
+    ['03','Conversion CIE L*a*b*','Le rouge-vert-bleu de la caméra devient un espace perceptuel mesurable.',3.4],
+    ['04','Indices dermatologiques','ITA°, érythème, luminance, spéculaire : les chiffres de la peau.',3.4],
+    ['05','Lecture composée','Un indice global, et la routine qui lui répond.',3.6]];
+  var hg=document.getElementById('hud-g'), hd=document.getElementById('hud-d');
+  var LG=[['Repères','68 / 68'],['Luminance L*','—'],['Axe a*','—'],['Axe b*','—']], LD=[['ITA°','—'],['Érythème','—'],['Spéculaire','—'],['Indice global','—']];
+  function hud(el,arr){ el.innerHTML=arr.map(function(z){return '<div class="l"><u>'+z[0]+'</u><b>'+z[1]+'</b></div>';}).join(''); return [].slice.call(el.children); }
+  var lg=hud(hg,LG), ld=hud(hd,LD);
+  var fr=[].slice.call(document.querySelectorAll('#frise i'));
+  var st=0, t0=performance.now(), vue=false, dernier=-1;
+  new IntersectionObserver(function(es){ vue=es[0].isIntersecting; if(vue){ t0=performance.now(); st=0; dernier=-1; } },{threshold:.35}).observe(cv);
+  function texte(k){ document.getElementById('etape-n').textContent=ETAPES[k][0]; document.getElementById('etape-t').textContent=ETAPES[k][1]; document.getElementById('etape-s').textContent=ETAPES[k][2];
+    fr.forEach(function(f,j){ f.classList.remove('on'); f.classList.toggle('fait',j<k); if(j===k){ f.style.setProperty('--d',ETAPES[k][3]+'s'); void f.offsetWidth; f.classList.add('on'); } }); }
+  function val(el,v){ el.querySelector('b').textContent=v; el.classList.add('on'); }
+  function ease(x){return x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;}
+  (function f(now){
+    requestAnimationFrame(f); if(!vue||!W) return;
+    var t=(now-t0)/1000, tot=0; for(var k=0;k<ETAPES.length;k++) tot+=ETAPES[k][3];
+    var tl=t%(tot+1.2), acc=0, e=0; for(k=0;k<ETAPES.length;k++){ if(tl<acc+ETAPES[k][3]){e=k;break;} acc+=ETAPES[k][3]; e=ETAPES.length-1; }
+    var p=Math.min(1,(tl-acc)/ETAPES[e][3]);
+    if(e!==dernier){ texte(e); if(e===0){ lg.concat(ld).forEach(function(l){l.classList.remove('on');}); lg.forEach(function(l,j){ if(j>0) l.querySelector('b').textContent='—'; }); ld.forEach(function(l){ l.querySelector('b').textContent='—'; }); } dernier=e; }
+    cx.clearRect(0,0,W,H);
+    var S=Math.min(W,H)*.36, ox=W/2+Math.sin(t*.4)*4, oy=H*.47, ry=Math.sin(t*.35)*.18;
+    function pr(q){ var x=q[0]*Math.cos(ry), z=q[0]*Math.sin(ry); return [ox+x*S, oy+q[1]*S, z]; }
+    /* grille de profondeur */
+    cx.strokeStyle='rgba(159,216,232,.05)'; cx.lineWidth=1;
+    for(var g=-6;g<=6;g++){ cx.beginPath(); cx.moveTo(ox+g*S*.18,oy-S*1.1); cx.lineTo(ox+g*S*.18,oy+S*1.1); cx.stroke(); cx.beginPath(); cx.moveTo(ox-S*1.2,oy+g*S*.18); cx.lineTo(ox+S*1.2,oy+g*S*.18); cx.stroke(); }
+    /* nuage de peau */
+    var scanY = e===1 ? -.9+ease(p)*1.8 : (e>1?1.2:-2);
+    N.forEach(function(n){ var q=pr(n), lit = e>=1 && n[1] < scanY; var a=.10+(lit?.35:0)+(e>=2?.12:0);
+      cx.fillStyle= e>=2 ? 'rgba('+(180+n[2]*60|0)+','+(200+n[2]*40|0)+',235,'+a+')' : 'rgba(210,225,232,'+a+')';
+      cx.fillRect(q[0],q[1],1.1,1.1); });
+    /* maillage */
+    var vis = e===0 ? ease(p) : 1;
+    cx.lineWidth=.6; cx.strokeStyle='rgba(207,230,239,'+(.28*vis)+')';
+    E.forEach(function(ed,j){ if(j/E.length>vis) return; var a1=pr(P[ed[0]]),b1=pr(P[ed[1]]); cx.beginPath(); cx.moveTo(a1[0],a1[1]); cx.lineTo(b1[0],b1[1]); cx.stroke(); });
+    P.forEach(function(q,j){ if(j/P.length>vis) return; var r=pr(q); cx.fillStyle='rgba(255,255,255,.9)'; cx.beginPath(); cx.arc(r[0],r[1],1.4,0,7); cx.fill(); });
+    /* fil de balayage */
+    if(e===1){ var yy=oy+scanY*S; var gr=cx.createLinearGradient(ox-S,0,ox+S,0); gr.addColorStop(0,'rgba(159,216,232,0)'); gr.addColorStop(.5,'rgba(235,248,252,.95)'); gr.addColorStop(1,'rgba(159,216,232,0)');
+      cx.fillStyle=gr; cx.fillRect(ox-S*1.1,yy-1,S*2.2,2); cx.fillStyle='rgba(159,216,232,.10)'; cx.fillRect(ox-S*1.1,yy-40,S*2.2,40); }
+    /* zones de lecture */
+    if(e>=1){ ZONES.forEach(function(z,j){ var za=e===1?Math.max(0,Math.min(1,(p*1.6-j*.18))):1; if(za<=0) return; var c=pr([z.x,z.y]); var w=z.w*S, h=z.h*S;
+      cx.strokeStyle='rgba(159,216,232,'+(.7*za)+')'; cx.lineWidth=1; var L=10;
+      [[-1,-1],[1,-1],[-1,1],[1,1]].forEach(function(s){ cx.beginPath(); cx.moveTo(c[0]+s[0]*w/2,c[1]+s[1]*h/2-s[1]*L); cx.lineTo(c[0]+s[0]*w/2,c[1]+s[1]*h/2); cx.lineTo(c[0]+s[0]*w/2-s[0]*L,c[1]+s[1]*h/2); cx.stroke(); });
+      cx.font='10px JetBrains Mono, monospace'; cx.fillStyle='rgba(214,228,236,'+(.8*za)+')'; cx.fillText(z.n.toUpperCase(),c[0]-w/2,c[1]-h/2-6);
+      if(e>=2){ for(var u=0;u<4;u++)for(var v=0;v<3;v++){ var jit=Math.sin(t*3+u*1.7+v*2.3+j)*.5+.5; cx.fillStyle='rgba('+(200+jit*40|0)+','+(170+jit*30|0)+','+(150+jit*20|0)+',.55)'; cx.fillRect(c[0]-w/2+6+u*(w-12)/4,c[1]-h/2+6+v*(h-12)/3,(w-12)/4-3,(h-12)/3-3); } }
+    }); }
+    /* chiffres */
+    function n(v0,v1,d){ return (v0+(v1-v0)*ease(p)).toFixed(d); }
+    if(e===2){ val(lg[0],'68 / 68'); val(lg[1],n(40,62.4,1)); val(lg[2],n(0,11.8,1)); val(lg[3],n(0,17.3,1)); }
+    if(e>=3){ ['62.4','11.8','17.3'].forEach(function(v,j){ val(lg[j+1],v); }); val(lg[0],'68 / 68'); }
+    if(e===3){ val(ld[0],n(0,41.2,1)+'°'); val(ld[1],n(0,9.6,1)); val(ld[2],n(0,.31,2)); }
+    if(e===4){ val(ld[0],'41.2°'); val(ld[1],'9.6'); val(ld[2],'0.31'); val(ld[3],n(0,73,0)); }
+    if(e>=0) lg[0].classList.add('on');
+    /* anneau de score */
+    if(e===4){ var R=S*1.02; cx.strokeStyle='rgba(255,255,255,.12)'; cx.lineWidth=1; cx.beginPath(); cx.arc(ox,oy,R,0,7); cx.stroke();
+      cx.strokeStyle='rgba(235,248,252,.9)'; cx.lineWidth=2; cx.beginPath(); cx.arc(ox,oy,R,-Math.PI/2,-Math.PI/2+Math.PI*2*.73*ease(p)); cx.stroke(); }
+  })(performance.now());
+})();
+</script>
+
+<section>
+  <div class="k rv">Dans votre téléphone</div>
+  <h2 class="rv">Tout se calcule<br><em>sur l'appareil.</em></h2>
+  <div class="phone">
+    <div class="tel rv"><div class="vis"></div><div class="fil"></div><div class="sc">73</div><div class="sl">Lecture du jour</div></div>
+    <div class="chiffres">
+      <div class="rv"><b>60 s</b><span>de la caméra à la routine</span></div>
+      <div class="rv"><b>0</b><span>image envoyée sur un serveur</span></div>
+      <div class="rv"><b>114</b><span>marques de soin référencées</span></div>
+      <div class="rv"><b>1 863</b><span>produits parmi lesquels composer votre routine</span></div>
+    </div>
+  </div>
+  <p class="honnete rv">Ce que Vyvre n'est pas : un diagnostic médical. Le scan donne une lecture cosmétique, indicative, et ne remplace pas l'avis d'un dermatologue.</p>
+</section>
+
+<section id="marques">
+  <div class="k rv">Pour les marques</div>
+  <h2 class="rv">La technologie des grands groupes,<br><em>à la portée des maisons qui osent.</em></h2>
+  <p class="lead rv">Vyvre équipe les marques de soin d'un scan à leurs couleurs, branché sur leur propre catalogue, en ligne comme en institut. Un abonnement, pas un chantier de deux ans.</p>
+  <div class="grid">
+    <div class="card rv"><div class="n">E-shop</div><h3>Le scan sur votre site</h3><p>Vos clientes se mesurent chez elles et repartent avec une routine composée de vos produits.</p></div>
+    <div class="card rv"><div class="n">Institut</div><h3>Le scan en cabine</h3><p>L'esthéticienne lit, compose, ajuste, puis montre à la cliente. Le suivi se garde de visite en visite.</p></div>
+    <div class="card rv"><div class="n">Sur mesure</div><h3>Votre signature</h3><p>Direction artistique, parcours et protocoles dessinés pour votre maison.</p></div>
+  </div>
+  <div class="btns rv"><a class="b a" href="/pricing?from=manifeste">Démarrer un pilote →</a><a class="b s" href="mailto:contact@vyvre.fr?subject=Vyvre%20sur%20mesure">Construire sur mesure</a></div>
+</section>
+</main>
+<footer>Vyvre · Paris · La peau, mesurée</footer>
+<script>
+(function(){
+ var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('vu');io.unobserve(e.target);}});},{threshold:.18});
+ document.querySelectorAll('.rv').forEach(function(el,i){el.style.transitionDelay=(el.parentElement.querySelectorAll('.rv').length>1?Math.min(i%6,5)*90:0)+'ms';io.observe(el);});
+ var c=document.getElementById('gl'),gl=c.getContext('webgl',{alpha:false,antialias:false});if(!gl)return;
+ var fs='precision highp float;uniform vec2 r;uniform float t;uniform vec2 m;'+
+ 'float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}'+
+ 'float n(vec2 p){vec2 i=floor(p),f=fract(p);f=f*f*(3.-2.*f);return mix(mix(h(i),h(i+vec2(1,0)),f.x),mix(h(i+vec2(0,1)),h(i+vec2(1,1)),f.x),f.y);}'+
+ 'float fbm(vec2 p){float v=0.,a=.5;for(int i=0;i<5;i++){v+=a*n(p);p=p*2.03+vec2(1.7,9.2);a*=.5;}return v;}'+
+ 'void main(){vec2 uv=(gl_FragCoord.xy-.5*r)/r.y;float tt=t*.022;vec2 dm=uv-m;float dl=length(dm);float inf=exp(-dl*dl*2.4);'+
+ 'float ang=inf*.16*sin(t*.12+dl*3.);vec2 q=m+mat2(cos(ang),-sin(ang),sin(ang),cos(ang))*dm;'+
+ 'vec2 w=vec2(fbm(q*1.6+tt),fbm(q*1.6-tt*.7+3.1));vec2 w2=vec2(fbm(q*2.2+w*1.4+tt*.5),fbm(q*2.2+w*1.4-tt*.4));float f=fbm(q*1.2+w2*1.8);'+
+ 'vec3 col=vec3(.016,.018,.024)+vec3(.93,.91,.87)*smoothstep(.42,.62,f)*smoothstep(.85,.62,f)*.20+vec3(.85,.78,.62)*smoothstep(.55,.8,f)*.14+vec3(.62,.84,.9)*smoothstep(.2,.35,f)*smoothstep(.45,.3,f)*.10;'+
+ 'float sp=max(0.,1.-abs(f-.58)*9.);sp=sp*sp*sp;col+=vec3(1.)*sp*sp*.2;col*=1.-.55*length(uv*vec2(.7,1.));gl_FragColor=vec4(col,1.);}';
+ function sh(ty,s){var o=gl.createShader(ty);gl.shaderSource(o,s);gl.compileShader(o);return o;}
+ var p=gl.createProgram();gl.attachShader(p,sh(gl.VERTEX_SHADER,'attribute vec2 p;void main(){gl_Position=vec4(p,0.,1.);}'));gl.attachShader(p,sh(gl.FRAGMENT_SHADER,fs));gl.linkProgram(p);gl.useProgram(p);
+ var b=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,b);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,1,1]),gl.STATIC_DRAW);var l=gl.getAttribLocation(p,'p');gl.enableVertexAttribArray(l);gl.vertexAttribPointer(l,2,gl.FLOAT,false,0,0);
+ var ur=gl.getUniformLocation(p,'r'),ut=gl.getUniformLocation(p,'t'),um=gl.getUniformLocation(p,'m'),mx=0,my=0,tx=0,ty=0,d=Math.min(devicePixelRatio||1,1.25);
+ function sz(){c.width=innerWidth*d*.6;c.height=innerHeight*d*.6;gl.viewport(0,0,c.width,c.height);}sz();addEventListener('resize',sz);
+ addEventListener('pointermove',function(e){tx=(e.clientX/innerWidth-.5)*innerWidth/innerHeight;ty=-(e.clientY/innerHeight-.5);},{passive:true});
+ var red=matchMedia('(prefers-reduced-motion: reduce)').matches,t0=performance.now();
+ (function f(now){mx+=(tx-mx)*.018;my+=(ty-my)*.018;gl.uniform2f(ur,c.width,c.height);gl.uniform1f(ut,red?0:(now-t0)/1000);gl.uniform2f(um,mx,my);gl.drawArrays(gl.TRIANGLE_STRIP,0,4);if(!red)requestAnimationFrame(f);})(t0);
+})();
+</script><style id="sg-micro">
+.sgm{--mx:50%;--my:50%;--rx:0deg;--ry:0deg;--ty:0px;--tx:0px;
+  transform:perspective(900px) translate3d(var(--tx),var(--ty),0) rotateX(var(--rx)) rotateY(var(--ry));
+  transition:transform .55s cubic-bezier(.2,.9,.2,1),box-shadow .55s ease!important;will-change:transform}
+.sgm.sgm-in{--ty:-6px}
+.sgm-b.sgm-in{--ty:0px}
+.sgm .sgm-lum{position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:4;opacity:0;transition:opacity .45s ease;
+  background:radial-gradient(340px circle at var(--mx) var(--my),rgba(255,255,255,.30),rgba(207,230,239,.12) 35%,transparent 65%);mix-blend-mode:screen}
+.sgm .sgm-bord{position:absolute;inset:-1px;border-radius:inherit;pointer-events:none;z-index:5;opacity:0;transition:opacity .45s ease;padding:1.5px;
+  background:radial-gradient(220px circle at var(--mx) var(--my),#fff,rgba(159,216,232,.8) 30%,rgba(217,201,163,.35) 55%,transparent 75%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.sgm .sgm-balai{position:absolute;inset:0;border-radius:inherit;pointer-events:none;z-index:6;overflow:hidden}
+.sgm .sgm-balai::before{content:'';position:absolute;top:-20%;bottom:-20%;width:40%;left:-60%;transform:skewX(-18deg);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.22),rgba(207,230,239,.35),rgba(255,255,255,.22),transparent)}
+.sgm.sgm-in .sgm-balai::before{animation:sgmBalai 1.1s cubic-bezier(.3,.7,.2,1) forwards}
+@keyframes sgmBalai{to{left:130%}}
+.sgm.sgm-in{box-shadow:inset 0 1px 0 rgba(255,255,255,.4),0 50px 100px -40px rgba(0,0,0,1),0 0 60px -10px rgba(159,216,232,.25)!important}
+.sgm.sgm-in .sgm-lum,.sgm.sgm-in .sgm-bord{opacity:1}
+.sgm.sgm-down{transform:perspective(900px) translate3d(var(--tx),var(--ty),0) rotateX(var(--rx)) rotateY(var(--ry)) scale(.97)}
+.sgm .sgm-onde{position:absolute;border-radius:50%;pointer-events:none;z-index:7;width:14px;height:14px;margin:-7px 0 0 -7px;
+  background:radial-gradient(circle,rgba(255,255,255,.8),rgba(159,216,232,.35) 40%,transparent 70%);animation:sgmOnde .9s cubic-bezier(.2,.9,.2,1) forwards}
+@keyframes sgmOnde{to{transform:scale(40);opacity:0}}
+.sgm .v6photo,.sgm .v6num{transition:transform .6s cubic-bezier(.2,.9,.2,1)!important}
+.sgm.sgm-in .v6photo{transform:translateY(-8px) scale(1.06)}
+.sgm.sgm-in .v6num{transform:scale(1.06)}
+@media (hover:none),(prefers-reduced-motion:reduce){.sgm{transform:none!important}.sgm .sgm-lum,.sgm .sgm-bord,.sgm .sgm-balai{display:none}}
+</style>
+<script id="sg-micro-js">
+(function(){
+  var CARTES='.vyvre-v6 .v6card,.vyvre-v6 .v6protocol-btn,.sg-marque-in,.card,header.top,.chaine i,.labo,#sg-intro .si-im';
+  var BOUTONS='.b,.v6cta,.sg-mbtn,.spatial-btn,header a.cta,.sg-mprix';
+  var reduit=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function arme(el,bouton){
+    if(el.dataset.sgm) return; el.dataset.sgm='1'; el.classList.add('sgm'); if(bouton) el.classList.add('sgm-b');
+    if(getComputedStyle(el).position==='static') el.style.position='relative';
+    ['sgm-lum','sgm-bord','sgm-balai'].forEach(function(c){ var s=document.createElement('span'); s.className=c; el.appendChild(s); });
+    var force=bouton?0:(el.offsetWidth>700?2.5:6);
+    el.addEventListener('pointerenter',function(){ el.classList.remove('sgm-in'); void el.offsetWidth; el.classList.add('sgm-in'); });
+    el.addEventListener('pointermove',function(e){ var r=el.getBoundingClientRect(), x=(e.clientX-r.left)/r.width, y=(e.clientY-r.top)/r.height;
+      el.style.setProperty('--mx',(x*100)+'%'); el.style.setProperty('--my',(y*100)+'%');
+      if(reduit) return;
+      if(bouton){ el.style.setProperty('--tx',((x-.5)*14)+'px'); el.style.setProperty('--ty',((y-.5)*10)+'px'); }
+      else { el.style.setProperty('--ry',((x-.5)*force)+'deg'); el.style.setProperty('--rx',((.5-y)*force)+'deg'); } },{passive:true});
+    el.addEventListener('pointerleave',function(){ el.classList.remove('sgm-in','sgm-down'); ['--rx','--ry'].forEach(function(k){el.style.setProperty(k,'0deg');}); ['--tx','--ty'].forEach(function(k){el.style.setProperty(k,'0px');}); });
+    el.addEventListener('pointerdown',function(e){ el.classList.add('sgm-down'); var r=el.getBoundingClientRect(), o=document.createElement('span'); o.className='sgm-onde';
+      o.style.left=(e.clientX-r.left)+'px'; o.style.top=(e.clientY-r.top)+'px'; el.appendChild(o); setTimeout(function(){o.remove();},950); });
+    el.addEventListener('pointerup',function(){ el.classList.remove('sgm-down'); });
+  }
+  function scan(){ document.querySelectorAll(CARTES).forEach(function(e){arme(e,false);}); document.querySelectorAll(BOUTONS).forEach(function(e){arme(e,true);}); }
+  scan(); new MutationObserver(scan).observe(document.body,{childList:true,subtree:true});
+})();
+</script>
+</body></html>

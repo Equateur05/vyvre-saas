@@ -30,9 +30,9 @@ export default function HomePage() {
             <span className="text-sm font-light tracking-[0.22em]">VYVRE</span>
           </Link>
           <nav className="hidden md:flex items-center gap-8 text-[11px] tracking-[0.22em] uppercase text-text/55 font-mono">
-            <a href="#about" className="hover:text-text transition-colors">À propos</a>
+            <Link href="/manifeste" className="hover:text-text transition-colors">Manifeste</Link>
             <a href="#how" className="hover:text-text transition-colors">Comment ça marche</a>
-            <a href="https://vyvre-demos.web.app/VYVRE_UNIVERSAL.html" target="_blank" rel="noopener" className="hover:text-text transition-colors">Démo</a>
+            <a href="/scan" target="_blank" rel="noopener" className="hover:text-text transition-colors">Tester mon scan</a>
             <Link href="/pricing" className="hover:text-text transition-colors">Pricing</Link>
             <Link href="/accuracy" className="hover:text-text transition-colors">Méthodologie</Link>
           </nav>
@@ -60,20 +60,18 @@ export default function HomePage() {
               <em className="not-italic text-text/70 font-extralight">de votre marque.</em>
             </h1>
             <p className="text-base md:text-lg text-text/80 leading-relaxed max-w-2xl font-extralight drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
-              Un scanner intégré à votre e-shop. 60 secondes de webcam. 6 indicateurs peau mesurés par notre IA. Une routine personnalisée composée à partir de votre catalogue.
+              Un scanner intégré à votre e-shop. 60 secondes de webcam. 8 mesures de peau lues pixel par pixel dans l'espace colorimétrique CIE L*a*b*. Une routine composée à partir de votre catalogue.
             </p>
 
             <div className="flex flex-wrap items-center justify-center gap-4 mt-4">
               <a
-                href="https://vyvre-demos.web.app/VYVRE_UNIVERSAL.html"
-                target="_blank"
-                rel="noopener"
+                href="/scan"
                 className="btn-primary"
               >
-                Voir la démo →
+                Tester mon scan →
               </a>
               <Link href="/pricing?from=homepage" className="btn-secondary">
-                Voir les tarifs
+                Équiper ma marque
               </Link>
             </div>
           </div>
@@ -107,7 +105,7 @@ export default function HomePage() {
             </h2>
 
             <div className="flex flex-col gap-3 text-xl md:text-2xl font-extralight text-text/75 leading-[1.5] mt-8">
-              <p>Mesurée par l'IA.</p>
+              <p>Mesurée, pas devinée.</p>
               <p>Composée à partir de votre catalogue.</p>
               <p>Activée sur votre site en 48 heures.</p>
             </div>
@@ -159,10 +157,10 @@ export default function HomePage() {
 
               <div className="flex flex-col gap-4 max-w-2xl text-lg md:text-xl font-extralight text-text/75 leading-[1.55]">
                 <p>
-                  Sur iPhone, notre moteur lit <span className="text-text">12 millions de pixels</span> par image. À 60 secondes de scan, c'est plus de <span className="text-text">700 millions de mesures</span>.
+                  Sur iPhone, notre moteur échantillonne <span className="text-text">chaque zone du visage</span>, image après image, puis convertit la couleur en <span className="text-text">indices dermatologiques</span> mesurables.
                 </p>
                 <p>
-                  Là où les autres estiment avec des filtres IA, VYVRE mesure. Couleur, texture, micro-relief — tout est lu directement depuis l'image, sans approximation.
+                  Là où les autres estiment avec des filtres, VYVRE mesure. Couleur, texture, micro-relief — tout est lu directement depuis l'image, sans approximation.
                 </p>
               </div>
 
@@ -191,12 +189,12 @@ export default function HomePage() {
               <Step
                 num="01"
                 title="Scan webcam 60s"
-                desc="La cliente lance un scan via sa webcam. L'IA mesure 6 indicateurs peau (rides, fermeté, pigmentation, hydratation, éclat, pores) directement depuis l'image."
+                desc="La cliente lance un scan via sa webcam. Le moteur mesure 8 indices de peau (éclat, rougeurs, hydratation, texture, pores, sébum, uniformité, carnation) directement depuis l'image."
               />
               <Step
                 num="02"
                 title="Routine personnalisée"
-                desc="L'IA compose une routine matin/soir 100% issue de votre catalogue. Aucun produit générique, aucune redirection vers la concurrence. Vos flagships mis en avant selon le besoin."
+                desc="Le moteur compose une routine matin et soir, 100% issue de votre catalogue. Aucun produit générique, aucune redirection vers la concurrence. Vos flagships mis en avant selon le besoin."
               />
               <Step
                 num="03"
@@ -236,7 +234,7 @@ export default function HomePage() {
               <em className="not-italic text-text/55 font-extralight">Pas de devis bidon.</em>
             </h2>
             <p className="text-base text-text/65 max-w-xl leading-relaxed font-extralight">
-              Le seul diagnostic peau IA avec un prix affiché. Quatre plans : Pilot gratuit, Starter 299€/mo, Growth 499€/mo, Enterprise sur devis.
+              Le seul diagnostic de peau avec un prix affiché. Quatre plans : Pilot gratuit, Starter 299€/mo, Growth 499€/mo, Enterprise sur devis.
             </p>
             <Link href="/pricing?from=homepage" className="btn-primary mt-4">
               Voir tous les plans →
@@ -270,7 +268,7 @@ export default function HomePage() {
                 a="48 heures. On vous livre un script à coller dans votre site (1 ligne). Le scanner s'ouvre dans une modal au clic d'un bouton. Aucun développeur mobilisé chez vous."
               />
               <FaqItem
-                q="L'IA pousse-t-elle uniquement mes produits ?"
+                q="Le moteur pousse-t-il uniquement mes produits ?"
                 a="Oui. Aucune redirection vers la concurrence, aucun produit générique. La routine recommandée est composée à 100% à partir de votre catalogue. Vos flagships sont mis en avant intelligemment selon le diagnostic."
               />
               <FaqItem
@@ -290,7 +288,7 @@ export default function HomePage() {
             </h2>
             <div className="flex flex-wrap items-center justify-center gap-4 mt-4">
               <a
-                href="https://vyvre-demos.web.app/VYVRE_UNIVERSAL.html"
+                href="/scan"
                 target="_blank"
                 rel="noopener"
                 className="btn-primary"

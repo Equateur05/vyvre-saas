@@ -13,6 +13,7 @@ const nextConfig = {
     return [
       { source: '/scan', destination: '/scan/index.html' },
       { source: '/scan/protocol', destination: '/scan/PROTOCOL_UNIVERSAL.html' },
+      { source: '/manifeste', destination: '/manifeste/index.html' },
     ];
   },
 };
