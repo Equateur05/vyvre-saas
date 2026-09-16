@@ -2365,5 +2365,30 @@ html,body{background:#030405!important}
   -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:sgLiqTourC 9s linear infinite;opacity:.75}
 @media (prefers-reduced-motion:reduce){.vyvre-v6 .v6protocol-btn,.vyvre-v6 .v6protocol-btn .v6protocol-main,.vyvre-v6 .v6protocol-btn::after{animation:none!important}}
 </style>
+<style id="sg-fumee-containers">
+/* le fond devient noir profond : la fumee ne vit plus que dans le verre */
+#sg-voile-noir{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 70% 60% at 50% 45%,rgba(3,4,6,.88),rgba(2,2,3,.97) 70%)}
+.vyvre-v6 .v6card,.vyvre-v6 .v6grid>#vyvre-product-row,.vyvre-v6 .v6protocol-btn,.sg-marque-in,.vyvre-v6 .v6grid>.sg-verdict,.vyvre-v6 [data-vyvre-tracker-slot]>*{
+  backdrop-filter:brightness(3.6) saturate(1.25) blur(3px)!important;-webkit-backdrop-filter:brightness(3.6) saturate(1.25) blur(3px)!important;
+  background:linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.012))!important}
+.vyvre-v6 .v6card.v6prod{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;background:none!important}
+header{backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important;-webkit-backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important}
+
+/* survol des huit mesures : le titre, le chiffre et la barre reagissent */
+.vyvre-v6 .v6card.sg-metric h3,.vyvre-v6 .v6card.sg-bio h3{transition:letter-spacing .6s cubic-bezier(.2,.9,.2,1),color .5s,text-shadow .6s}
+.vyvre-v6 .v6card.sg-metric .v6num,.vyvre-v6 .v6card.sg-bio .v6num{transition:transform .6s cubic-bezier(.2,.9,.2,1),text-shadow .6s;transform-origin:right center}
+.vyvre-v6 .v6card.sg-metric .sg-barre,.vyvre-v6 .v6card.sg-bio .sg-barre{position:relative;overflow:hidden}
+.vyvre-v6 .v6card.sg-metric .sg-barre i,.vyvre-v6 .v6card.sg-bio .sg-barre i{transition:filter .6s ease,box-shadow .6s ease}
+.vyvre-v6 .v6card.sg-metric:hover h3,.vyvre-v6 .v6card.sg-bio:hover h3{letter-spacing:.06em;color:#fff;text-shadow:0 0 22px rgba(207,230,239,.45)}
+.vyvre-v6 .v6card.sg-metric:hover .v6num,.vyvre-v6 .v6card.sg-bio:hover .v6num{transform:scale(1.14);text-shadow:0 0 30px rgba(207,230,239,.55)}
+.vyvre-v6 .v6card.sg-metric:hover .sg-barre i,.vyvre-v6 .v6card.sg-bio:hover .sg-barre i{filter:brightness(1.7);box-shadow:0 0 18px rgba(207,230,239,.7)}
+.vyvre-v6 .v6card.sg-metric:hover .sg-barre::after,.vyvre-v6 .v6card.sg-bio:hover .sg-barre::after{content:'';position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.75),transparent);width:38%;animation:sgBarreOnde 1.1s cubic-bezier(.3,.7,.2,1)}
+@keyframes sgBarreOnde{from{transform:translateX(-140%)}to{transform:translateX(360%)}}
+.vyvre-v6 .v6card.sg-metric .v6lbl,.vyvre-v6 .v6card.sg-bio .v6lbl{transition:opacity .5s,color .5s}
+.vyvre-v6 .v6card.sg-metric:hover .v6lbl,.vyvre-v6 .v6card.sg-bio:hover .v6lbl{opacity:1;color:#cfe6ef}
+@media (prefers-reduced-motion:reduce){.vyvre-v6 .sg-barre::after{animation:none!important}}
+</style>
+<script id="sg-voile-noir-js">(function(){ if(document.getElementById('sg-voile-noir')) return; var d=document.createElement('div'); d.id='sg-voile-noir'; document.body.insertBefore(d, document.body.firstChild); })();</script>
 </body>
 </html>
