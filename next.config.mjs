@@ -9,6 +9,13 @@ const nextConfig = {
       { source: '/scan-universel', destination: '/scan', permanent: false },
     ];
   },
+  async headers() {
+    return [
+      { source: '/m/:path*', headers: [{ key: 'Cache-Control', value: 'no-cache, must-revalidate' }] },
+      { source: '/scan/:path*', headers: [{ key: 'Cache-Control', value: 'no-cache, must-revalidate' }] },
+      { source: '/manifeste/:path*', headers: [{ key: 'Cache-Control', value: 'no-cache, must-revalidate' }] },
+    ];
+  },
   async rewrites() {
     return [
       { source: '/scan', destination: '/scan/index.html' },
