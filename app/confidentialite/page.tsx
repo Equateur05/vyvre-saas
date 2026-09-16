@@ -4,6 +4,7 @@
  */
 
 import Link from 'next/link';
+import SiteHeader from '../SiteHeader';
 import Script from 'next/script';
 
 export const metadata = {
@@ -16,17 +17,7 @@ export default function ConfidentialitePage() {
     <>
       <Script src="/vyvre-mini-lattice.js" strategy="afterInteractive" />
       <main className="min-h-screen flex flex-col">
-        <header className="px-8 py-6 flex items-center justify-between border-b border-line">
-          <Link href="/" className="brand-mark">
-            <canvas className="v-mini" width="72" height="72" aria-label="VYVRE" />
-            <span className="text-sm font-light tracking-[0.22em]">VYVRE</span>
-          </Link>
-          <nav className="hidden md:flex items-center gap-8 text-[11px] tracking-[0.22em] uppercase text-text/55 font-mono">
-            <Link href="/" className="hover:text-text">← Accueil</Link>
-            <Link href="/pricing" className="hover:text-text">Pricing</Link>
-            <Link href="/accuracy" className="hover:text-text">Méthodologie</Link>
-          </nav>
-        </header>
+        <SiteHeader />
 
         <section className="px-8 py-24 md:py-32">
           <div className="max-w-3xl mx-auto">

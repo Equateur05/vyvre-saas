@@ -5,7 +5,7 @@
  * fait vraiment l'engine. Distinction explicite entre :
  *   - 5 sources appliquées dans les formules (Chardon, Takiwaki, Stamatas,
  *     Mizukoshi, Vierkötter)
- *   - 4 sources référencées en roadmap Q3 2026 (Bazin détaillé, Diridollou
+ *   - 4 sources référencées en roadmap fin 2026 (Bazin détaillé, Diridollou
  *     full coefficients, Flament 2023 coefficients, Akdeniz numériques)
  *
  * Indispensable pour défendre le pitch face à un DPO cosméto ou un dermato
@@ -13,6 +13,7 @@
  */
 
 import Link from 'next/link';
+import SiteHeader from '../SiteHeader';
 import Script from 'next/script';
 
 export const metadata = {
@@ -28,36 +29,24 @@ export default function AccuracyPage() {
 
       <main className="min-h-screen flex flex-col">
         {/* ===== Header ===== */}
-        <header className="px-8 py-6 flex items-center justify-between border-b border-line">
-          <Link href="/" className="brand-mark">
-            <canvas className="v-mini" width="72" height="72" aria-label="VYVRE" />
-            <span className="text-sm font-light tracking-[0.22em]">VYVRE</span>
-          </Link>
-          <nav className="hidden md:flex items-center gap-8 text-[11px] tracking-[0.22em] uppercase text-text/55 font-mono">
-            <Link href="/#how" className="hover:text-text transition-colors">Comment ça marche</Link>
-            <a href="https://vyvre-demos.web.app/VYVRE_UNIVERSAL.html" target="_blank" rel="noopener" className="hover:text-text transition-colors">Démo</a>
-            <Link href="/pricing" className="hover:text-text transition-colors">Pricing</Link>
-            <Link href="/accuracy" className="text-text">Méthodologie</Link>
-            <Link href="/accuracy/benchmark" className="hover:text-text transition-colors">Benchmark</Link>
-          </nav>
-        </header>
+        <SiteHeader />
 
         {/* ===== Hero ===== */}
         <section className="px-8 py-24 md:py-32">
           <div className="max-w-4xl mx-auto text-center flex flex-col items-center gap-8">
             <div className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
-              Méthodologie · Sources · Limitations · v7.0 HONEST
+              Méthodologie · Sources · Limites
             </div>
             <h1 className="font-sans text-5xl md:text-7xl font-thin leading-[1.02] -tracking-[0.025em]">
               La science<br />
               <em className="not-italic text-text/55 font-extralight">derrière le scan.</em>
             </h1>
             <p className="text-base md:text-lg text-text/65 leading-relaxed max-w-2xl font-extralight">
-              VYVRE mesure 8 indicateurs peau à partir d'une image webcam. Cette page liste les <span className="text-text">5 sources peer-reviewed activement appliquées</span> + <span className="text-text">4 référencées en roadmap Q3 2026</span>, la méthode de calcul, les intervalles de confiance, et — surtout — les limitations honnêtes du moteur.
+              Huit mesures lues depuis l'image. Ici : les sources scientifiques, la méthode de calcul, les intervalles de confiance et les limites du moteur.
             </p>
             <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-text/45 mt-4">
               Précision estimée ±5 ans bioAge · ±4 ans perceivedAge (95% CI · cohorte interne n=12)<br/>
-              Validation externe n=100 prévue Q3 2026 · refonte mai 2026 suite audit interne
+              Validation externe n=100 prévue fin 2026 · refonte mai 2026 suite audit interne
             </div>
           </div>
         </section>
@@ -117,25 +106,25 @@ export default function AccuracyPage() {
             </div>
 
             <p className="text-xs text-text/45 font-mono tracking-[0.1em] uppercase text-center mt-12 max-w-3xl mx-auto leading-relaxed">
-              v7.0 HONEST — refonte mai 2026 suite à audit interne v6.2 (note 4/10)<br/>
+              Moteur v7 — refonte mai 2026<br/>
               Sources appliquées vérifiables ligne par ligne dans <span className="text-accent">vyvre-scan-engine.js</span>
             </p>
           </div>
         </section>
 
-        {/* ===== Sources peer-reviewed (RÉFÉRENCÉES — roadmap Q3 2026) ===== */}
+        {/* ===== Sources peer-reviewed (RÉFÉRENCÉES — roadmap fin 2026) ===== */}
         <section className="px-8 py-24 border-t border-line">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16 flex flex-col items-center gap-4">
               <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
-                02 · Bibliographie · Roadmap Q3 2026
+                02 · Bibliographie · Roadmap fin 2026
               </span>
               <h2 className="font-sans text-4xl md:text-5xl font-thin leading-[1.05] -tracking-[0.022em]">
                 4 sources référencées<br />
                 <em className="not-italic text-text/55 font-extralight">pas encore pleinement appliquées.</em>
               </h2>
               <p className="text-sm text-text/55 max-w-2xl font-extralight mt-2 leading-relaxed">
-                Ces sources sont citées pour transparence et roadmap publique. Leurs coefficients complets ne sont pas encore intégrés dans les formules — extraction et validation prévues Q3 2026 avec partenaire dermato.
+                Ces sources sont citées pour transparence et roadmap publique. Leurs coefficients complets ne sont pas encore intégrés dans les formules — extraction et validation prévues fin 2026 avec partenaire dermato.
               </p>
             </div>
 
@@ -146,7 +135,7 @@ export default function AccuracyPage() {
                 title="Skin Aging Atlas, Volume 1: Caucasian Type"
                 journal="Éditions Med'com"
                 applied="Anchor age 40 (médiane cohorte adulte) + corrélation r=0.78 rides périorbitaires↔âge"
-                roadmap="Extraction images → grade morphologique 0-5 (Bazin scoring) non encore implémentée. Prévue Q3 2026."
+                roadmap="Extraction images → grade morphologique 0-5 (Bazin scoring) non encore implémentée. Prévue fin 2026."
               />
               <SourceRoadmap
                 authors="Diridollou S, de Rigal J, Querleux B"
@@ -162,7 +151,7 @@ export default function AccuracyPage() {
                 title="Skin aging characterization in Chinese, Indian, and Caucasian women"
                 journal="Int J Cosmet Sci"
                 applied="Cité pour contexte multi-ethnique"
-                roadmap="Coefficients spécifiques non encore extraits. Validation cohorte multi-ethnique prévue Q3 2026."
+                roadmap="Coefficients spécifiques non encore extraits. Validation cohorte multi-ethnique prévue fin 2026."
               />
               <SourceRoadmap
                 authors="Akdeniz M, Gabriel S, Lichterfeld-Kottner A"
@@ -337,7 +326,7 @@ export default function AccuracyPage() {
                   Estimation directe de l'état physique de la peau via le score wrinkles dominant (rides périorbitaires, Bazin 2007). Corrélation r=0.78 avec âge chronologique en photos studio.
                 </p>
                 <p className="text-xs text-text/45 leading-relaxed font-extralight">
-                  Formule v7 : <code className="font-mono text-[10px]">bioAge = 40 + (50 − wrinkles) × 0.85 × 0.85 × phototypeAdjust</code>. Le facteur 0.85 (pénalité webcam JPEG) est une compensation empirique honnête, validation cohort large planifiée Q3 2026.
+                  Formule v7 : <code className="font-mono text-[10px]">bioAge = 40 + (50 − wrinkles) × 0.85 × 0.85 × phototypeAdjust</code>. Le facteur 0.85 (pénalité webcam JPEG) est une compensation empirique honnête, validation cohort large planifiée fin 2026.
                 </p>
               </div>
             </div>
@@ -347,7 +336,7 @@ export default function AccuracyPage() {
                 Précision estimée : <span className="text-text">±5 ans bioAge</span>, <span className="text-text">±4 ans perceivedAge</span> (95% CI sur cohorte interne n=12)
               </p>
               <p className="text-xs text-text/45 font-mono tracking-[0.1em] uppercase mt-2">
-                Validation externe n=100 prévue Q3 2026 · partenaire dermato TBD
+                Validation externe n=100 prévue fin 2026
               </p>
             </div>
           </div>
@@ -365,7 +354,7 @@ export default function AccuracyPage() {
                 <em className="not-italic text-text/55 font-extralight">Pas de hack flatteur.</em>
               </h2>
               <p className="text-sm text-text/55 max-w-2xl font-extralight mt-2 leading-relaxed">
-                v7 retire le hack v6.2 qui rajeunissait artificiellement les scans dégradés (paradoxe « moins l'IA voit, plus elle flatte »). À la place, 3 niveaux explicites de confiance.
+                v7 retire le hack v6.2 qui rajeunissait artificiellement les scans dégradés (paradoxe « moins le moteur voit, plus il flatte »). À la place, 3 niveaux explicites de confiance.
               </p>
             </div>
 
@@ -424,13 +413,13 @@ export default function AccuracyPage() {
 
             <p className="text-xs text-text/45 font-mono tracking-[0.1em] uppercase text-center mt-12 max-w-3xl mx-auto leading-relaxed">
               Cohort interne · n=12 sujets phototype I-IV · 10 scans/sujet · lumière variable · webcam HD 720p<br/>
-              Phototype V-VI : extrapolation Diridollou 2007 — validation cohorte dédiée prévue Q3 2026<br/>
-              <span className="text-text">Validation externe n=100 prévue Q3 2026 · partenaire dermato TBD</span>
+              Phototype V-VI : extrapolation Diridollou 2007 — validation cohorte dédiée prévue fin 2026<br/>
+              <span className="text-text">Validation externe n=100 prévue fin 2026</span>
             </p>
           </div>
         </section>
 
-        {/* ===== Roadmap Q3 2026 ===== */}
+        {/* ===== Roadmap fin 2026 ===== */}
         <section className="px-8 py-24 border-t border-line">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16 flex flex-col items-center gap-4">
@@ -445,12 +434,12 @@ export default function AccuracyPage() {
 
             <div className="space-y-4">
               <RoadmapItem
-                quarter="Q3 2026"
+                quarter="fin 2026"
                 title="Validation cohorte externe n=100"
-                body="Recrutement n=100 sujets variés (20-75 ans, phototypes I-VI). Partenariat dermato TBD. Mesure ICC vs Visia/Antera de référence. Publication méthodologique."
+                body="Recrutement n=100 sujets variés (20-75 ans, phototypes I-VI). Mesure ICC vs Visia/Antera de référence. Publication méthodologique."
               />
               <RoadmapItem
-                quarter="Q3 2026"
+                quarter="fin 2026"
                 title="Bazin 0-5 grade morphologique"
                 body="Extraction depuis images du grade morphologique Bazin (atlas vol.1 chap. 4) — actuellement seul l'anchor age 40 et la corrélation r=0.78 sont utilisés. Implémentation détection profondeur rides + classification 0-5."
               />
@@ -503,7 +492,7 @@ export default function AccuracyPage() {
               />
               <Limitation
                 title="Phototype V-VI : extrapolation honnête"
-                body="La cohorte interne n=12 contient principalement phototypes I-IV. Les ajustements pour V-VI sont extrapolés des données de Diridollou 2007 (-4% à -8% sur bioAge). Validation cohorte dédiée prévue Q3 2026."
+                body="La cohorte interne n=12 contient principalement phototypes I-IV. Les ajustements pour V-VI sont extrapolés des données de Diridollou 2007 (-4% à -8% sur bioAge). Validation cohorte dédiée prévue fin 2026."
               />
               <Limitation
                 title="Maquillage, lunettes, masque"
@@ -511,7 +500,7 @@ export default function AccuracyPage() {
               />
               <Limitation
                 title="Cohorte interne n=12 est petite — on l'assume"
-                body="Les coefficients empiriques (pénalité webcam JPEG, range CI) sont calibrés sur n=12 sujets. C'est une « focus group », pas une « cohorte clinique ». Validation externe n=100 explicite dans la roadmap Q3 2026."
+                body="Les coefficients empiriques (pénalité webcam JPEG, range CI) sont calibrés sur n=12 sujets. C'est une « focus group », pas une « cohorte clinique ». Validation externe n=100 explicite dans la roadmap fin 2026."
               />
             </div>
           </div>

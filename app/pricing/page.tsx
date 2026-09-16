@@ -12,11 +12,13 @@
  */
 
 import Link from 'next/link';
+import Script from 'next/script';
+import SiteHeader from '../SiteHeader';
 import PricingClient from './PricingClient';
 
 export const metadata = {
   title: 'Pricing · VYVRE',
-  description: 'Le scan peau qui rassure votre juridique. Hébergé en France, RGPD natif, traitement local navigateur. Pilote gratuit, Starter 299€/mo, Growth 499€/mo, Enterprise sur devis.',
+  description: 'Diagnostic de peau mesuré, hébergé en France. Pilot gratuit, Starter 299 €/mois, Growth 499 €/mois, Enterprise à partir de 699 €/mois.',
 };
 
 // ── Brand display name mapping ──
@@ -83,18 +85,8 @@ export default function PricingPage({ searchParams }: PricingPageProps) {
 
   return (
     <main className="min-h-screen">
-      {/* ===== Header ===== */}
-      <header className="px-8 py-6 flex items-center justify-between border-b border-line">
-        <Link href="/" className="flex items-center gap-3 no-underline text-text">
-          <div className="w-8 h-8 border border-text/30 rounded-full flex items-center justify-center text-[10px]">V</div>
-          <span className="text-sm font-medium tracking-[0.18em]">VYVRE</span>
-        </Link>
-        <nav className="hidden md:flex items-center gap-8 text-xs tracking-[0.18em] uppercase text-text/60">
-          <a href={demoUrl} target="_blank" rel="noopener" className="hover:text-text">Démo</a>
-          <Link href="/pricing" className="text-text">Pricing</Link>
-          <a href="mailto:charles@symphonydrive.com" className="hover:text-text">Contact</a>
-        </nav>
-      </header>
+      <Script src="/vyvre-mini-lattice.js" strategy="afterInteractive" />
+      <SiteHeader demoUrl={demoUrl} />
 
       {/* ===== Brand personalization banner (only if ?from=BRAND) ===== */}
       {brandName && (
@@ -115,12 +107,12 @@ export default function PricingPage({ searchParams }: PricingPageProps) {
           <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-text/55">
             Tarification · VYVRE Business
           </span>
-          <h1 className="font-sans text-3xl md:text-4xl font-light leading-[1.05] -tracking-[0.022em]">
-            Le scan peau<br/>
-            <span className="text-text/60">qui rassure votre juridique.</span>
+          <h1 className="font-sans text-4xl md:text-6xl font-thin leading-[1.03] -tracking-[0.03em]">
+            Le prix est<br/>
+            <em className="not-italic text-text/55 font-extralight">sur la page.</em>
           </h1>
           <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-text/45 max-w-xl leading-relaxed">
-            Hébergé en France · RGPD natif · Aucune photo envoyée · Activation 48h
+            Hébergement France · RGPD natif · Aucune photo conservée
           </p>
         </div>
       </section>
@@ -148,9 +140,9 @@ export default function PricingPage({ searchParams }: PricingPageProps) {
               title="Le seul widget skin tech 100% français"
               body={
                 <>
-                  Hébergement Clever Cloud + OVH, données stockées en France, équipe à Paris.
+                  Infrastructure hébergée en France, équipe à Paris, DPA signé.
                   <span className="block mt-2 text-text/45 text-[12px]">
-                    Modiface et Perfect Corp = cloud AWS US, hors RGPD natif.
+                    Les solutions comparables sont hébergées hors UE.
                   </span>
                 </>
               }
@@ -210,10 +202,10 @@ export default function PricingPage({ searchParams }: PricingPageProps) {
 
             <ArgumentCard
               eyebrow="Science peer-reviewed"
-              title="Vrai diagnostic, pas une simulation"
+              title="Une mesure, pas une simulation"
               body={
                 <>
-                  Engine colorimétrique CIE LAB · 468 landmarks face-api · formule âge biologique peer-reviewed.
+                  Colorimétrie CIE L*a*b*, 68 repères de visage, indices dérivés de la littérature dermatologique.
                   <span className="block mt-2 text-text/45 text-[12px]">
                     Bibliographie : Flament, Chardon, Stamatas, Takiwaki, Yamamoto.
                   </span>
@@ -259,7 +251,7 @@ export default function PricingPage({ searchParams }: PricingPageProps) {
                     </td>
                     <td className="px-5 py-4 text-text">299 €/mois <span className="text-text/50 text-[11px]">(3 588 €/an)</span></td>
                     <td className="px-5 py-4 text-text">0 €</td>
-                    <td className="px-5 py-4 text-text">France (Clever Cloud · OVH)</td>
+                    <td className="px-5 py-4 text-text">France</td>
                     <td className="px-5 py-4 text-text">48h</td>
                   </tr>
                   <tr className="border-b border-line">
@@ -333,15 +325,7 @@ export default function PricingPage({ searchParams }: PricingPageProps) {
               title="Dashboard analytics"
               body="Scans/jour, taux de conversion, biomarqueurs moyens, top produits recommandés."
             />
-            <DeliverableItem
-              title="Support email < 48h"
-              body="Pilot et Starter. Support prioritaire dès Growth, Account Manager dédié."
-            />
-            <DeliverableItem
-              title="Aucun frais caché"
-              body="Pas de setup, pas de minimum d'engagement. TVA indiquée à part au paiement."
-            />
-            <DeliverableItem
+                                    <DeliverableItem
               title="Export RGPD complet"
               body="Vous gardez l'intégralité de vos données scans, exportables CSV à tout moment."
             />
@@ -360,31 +344,19 @@ export default function PricingPage({ searchParams }: PricingPageProps) {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <FAQItem
-              question="Combien de temps pour démarrer ?"
-              answer="48 heures du paiement au widget live. Vous recevez votre embed code par email, vous le collez sur votre site, c'est en production."
-            />
-            <FAQItem
-              question="Comment annuler mon abonnement ?"
-              answer="En un clic depuis votre dashboard. Aucune pénalité, aucune justification demandée. Le service reste actif jusqu'à la fin du mois en cours."
-            />
-            <FAQItem
+                                    <FAQItem
               question="Que se passe-t-il si je dépasse mon quota de scans ?"
               answer="Le service continue. Chaque scan supplémentaire est facturé entre 0,01 € et 0,02 € selon votre plan, sur la facture du mois suivant."
             />
             <FAQItem
               question="Où sont stockées les données utilisateurs ?"
-              answer="Exclusivement en France, sur les datacenters OVH Roubaix et Clever Cloud. RGPD natif. Aucun transfert hors UE."
+              answer="Exclusivement en France. Aucune photo conservée, aucun transfert hors UE, DPA signé."
             />
             <FAQItem
               question="Puis-je changer de plan en cours de route ?"
               answer="Oui, à tout moment depuis votre dashboard. Upgrade prorata immédiat, downgrade au mois suivant."
             />
-            <FAQItem
-              question="Le widget est-il vraiment 100 % white-label ?"
-              answer="À partir du plan Starter, oui. Logo, couleurs, nom interface, domaine personnalisé sur demande. Aucune mention VYVRE visible côté client."
-            />
-            <FAQItem
+                        <FAQItem
               question="Quel niveau de support technique ?"
               answer="Support email sous 48h sur tous les plans. Support prioritaire avec Account Manager dédié à partir de Growth."
             />

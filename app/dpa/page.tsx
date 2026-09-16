@@ -5,6 +5,7 @@
  */
 
 import Link from 'next/link';
+import SiteHeader from '../SiteHeader';
 import Script from 'next/script';
 
 export const metadata = {
@@ -17,17 +18,7 @@ export default function DPAPage() {
     <>
       <Script src="/vyvre-mini-lattice.js" strategy="afterInteractive" />
       <main className="min-h-screen flex flex-col">
-        <header className="px-8 py-6 flex items-center justify-between border-b border-line">
-          <Link href="/" className="brand-mark">
-            <canvas className="v-mini" width="72" height="72" aria-label="VYVRE" />
-            <span className="text-sm font-light tracking-[0.22em]">VYVRE</span>
-          </Link>
-          <nav className="hidden md:flex items-center gap-8 text-[11px] tracking-[0.22em] uppercase text-text/55 font-mono">
-            <Link href="/" className="hover:text-text">← Accueil</Link>
-            <Link href="/pricing" className="hover:text-text">Pricing</Link>
-            <Link href="/accuracy" className="hover:text-text">Méthodologie</Link>
-          </nav>
-        </header>
+        <SiteHeader />
 
         <section className="px-8 py-24 md:py-32">
           <div className="max-w-3xl mx-auto">
@@ -49,7 +40,7 @@ export default function DPAPage() {
             </Block>
 
             <Block title="2. Objet du traitement">
-              <p>Le sous-traitant fournit au responsable de traitement un service de diagnostic peau par IA, incluant :</p>
+              <p>Le sous-traitant fournit au responsable de traitement un service de diagnostic de peau par mesure optique, incluant :</p>
               <ul className="list-disc pl-5 mt-2 space-y-1">
                 <li>Analyse colorimétrique d'images webcam</li>
                 <li>Calcul de 6 indicateurs peau peer-reviewed</li>
