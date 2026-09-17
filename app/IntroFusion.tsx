@@ -27,10 +27,17 @@ export default function IntroFusion() {
       document.documentElement.classList.remove('vy-intro-on');
       setOn(false);
     };
-    const onMsg = (e: MessageEvent) => { if (e.data && e.data.vyvreIntro === 'fin') fin(); };
+    let demarre = false;
+    // si l'intro n'a rien dessiné en 3 s (navigateur sans WebGL2, onglet en arrière-plan, erreur), on rend le site
+    const pasDemarre = window.setTimeout(() => { if (!demarre) fin(); }, 3000);
+    const onMsg = (e: MessageEvent) => {
+      if (!e.data) return;
+      if (e.data.vyvreIntro === 'debut') demarre = true;
+      if (e.data.vyvreIntro === 'fin') fin();
+    };
     window.addEventListener('message', onMsg);
-    const secours = window.setTimeout(fin, 9000);
-    return () => { window.removeEventListener('message', onMsg); window.clearTimeout(secours); };
+    const secours = window.setTimeout(fin, 8000);
+    return () => { window.removeEventListener('message', onMsg); window.clearTimeout(secours); window.clearTimeout(pasDemarre); };
   }, []);
 
   if (!on) return null;
