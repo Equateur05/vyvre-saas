@@ -246,7 +246,7 @@ export default function AccuracyPage() {
               <MethodStep
                 num="01"
                 title="Capture image"
-                desc="Webcam standard (≥720p). 60 secondes de capture, ~120 frames analysées. Détection visage via face-api.js (468 landmarks). Crop zone faciale + correction lumière."
+                desc="Webcam standard (≥720p). Moins de 10 secondes de capture, 8 images retenues. Détection visage via face-api.js (68 repères). Crop zone faciale + correction lumière."
               />
               <MethodStep
                 num="02"

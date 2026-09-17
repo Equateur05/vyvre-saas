@@ -126,6 +126,8 @@
   .brand-logo canvas.v-mini { width: 100%; height: 100%; display: block; }
   .brand .brand-x { margin: 0 14px; color: rgba(201, 169, 97, 0.55); font-weight: 100; font-size: 0.85em; letter-spacing: 0; vertical-align: middle; }
   .brand .brand-partner { font-weight: 100; letter-spacing: 0.6em; }
+  .brand .vy-signature{display:block;margin-top:4px;font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:500;font-size:11px;letter-spacing:.01em;text-transform:none;color:rgba(255,255,255,.6)}
+
   @media (max-width: 640px) {
     .brand .brand-x { margin: 0 8px; }
     .brand .brand-partner { letter-spacing: 0.4em; font-size: 0.85em; }
@@ -317,6 +319,7 @@
 <link rel="icon" type="image/png" sizes="192x192" href="/scan/icons/icon-192.png">
 <link rel="icon" type="image/png" sizes="512x512" href="/scan/icons/icon-512.png">
 <!-- VYVRE_V10_PWA_END -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500&display=swap">
 </head>
 <body>
 <!-- VYVRE_PITCH_BTN_BEGIN -->
@@ -343,7 +346,7 @@
 <header>
   <div class="brand">
     <div class="brand-logo"><canvas class="v-mini" width="72" height="72">V</canvas></div>
-    <span class="brand-vyvre">VYVRE</span>
+    <span class="brand-vyvre" style="display:inline-flex;flex-direction:column;line-height:1">VYVRE<i class="vy-signature">skin intelligence</i></span>
     <span class="brand-x">×</span>
     <span class="brand-partner">UNIVERSAL SCAN</span>
   </div>
@@ -355,7 +358,7 @@
   <div class="hero-content">
     <div class="label-sm" style="margin-bottom: 30px;">Molecular Topology DeepTech</div>
     <h1>Longevity.<br>Quantified.</h1>
-    <p>Your skin, measured in 60 seconds from your camera, pixel by pixel in the CIE Lab colour space. Then the three products that fit it best, chosen among 1,863 references from 114 brands.</p>
+    <p>Your skin, measured in under 10 seconds from your camera, pixel by pixel in the CIE Lab colour space. Then the three products that fit it best, chosen among 1,863 references from 114 brands.</p>
 
     <div style="display: flex; gap: 24px; justify-content: center; margin-top: 60px;">
       <button class="spatial-btn" id="btn-scan">Start scan</button>
@@ -2327,7 +2330,7 @@ html,body{background:#030405!important}
     var el=document.querySelector('.brand-partner'); if(el) el.textContent=NOM;
     var lb=document.querySelector('#view-hero .label-sm'); if(lb) lb.textContent='Skin reading · '+nom;
     document.title='VYVRE × '+nom+' — Skin scan';
-    var p=document.querySelector('#view-hero p'); if(p) p.textContent='Your skin, measured in 60 seconds from your camera, pixel by pixel in the CIE Lab colour space. Then the three '+nom+' products that fit it best.';
+    var p=document.querySelector('#view-hero p'); if(p) p.textContent='Your skin, measured in under 10 seconds from your camera, pixel by pixel in the CIE Lab colour space. Then the three '+nom+' products that fit it best.';
     var mk=document.querySelector('.sg-mk'); if(mk) mk.textContent='For '+nom;
     var mp=document.querySelector('.sg-mp'); if(mp) mp.textContent='What you just experienced can live on '+nom+'\u2019s e-shop and in your stores, on your own catalogue, in your own codes. Start with a pilot, or let us build it with you, made to measure.';
     var k=document.querySelector('#sg-intro .si-k'); if(k) k.textContent='Vyvre · '+nom;
@@ -2368,6 +2371,7 @@ html,body{background:#030405!important}
 <style id="sg-fumee-containers">
 /* le fond devient noir profond : la fumee ne vit plus que dans le verre */
 #sg-voile-noir{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 70% 60% at 50% 45%,rgba(3,4,6,.88),rgba(2,2,3,.97) 70%)}
+body:not(.scrollable) #sg-voile-noir{display:none}
 .vyvre-v6 .v6card,.vyvre-v6 .v6grid>#vyvre-product-row,.vyvre-v6 .v6protocol-btn,.sg-marque-in,.vyvre-v6 .v6grid>.sg-verdict,.vyvre-v6 [data-vyvre-tracker-slot]>*{
   backdrop-filter:brightness(3.6) saturate(1.25) blur(3px)!important;-webkit-backdrop-filter:brightness(3.6) saturate(1.25) blur(3px)!important;
   background:linear-gradient(160deg,rgba(255,255,255,.05),rgba(255,255,255,.012))!important}

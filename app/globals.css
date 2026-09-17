@@ -208,3 +208,8 @@ main, header, footer, section { position: relative; z-index: 1; }
 .v6:hover, .v6-soft:hover { transform: translateY(-3px); border-color: rgba(255,255,255,.22) !important; box-shadow: inset 0 1px 0 rgba(255,255,255,.3), 0 40px 80px -40px rgba(0,0,0,.95); }
 .v6:hover::after, .v6-soft:hover::after { opacity: .85; animation-duration: 7s; }
 @media (prefers-reduced-motion: reduce) { .v-bar::before, .v6::before, .v6-soft::before, .v-bar::after, .v6::after, .v6-soft::after { animation: none } }
+
+/* Intro « La fusion » : le vrai logo du menu attend que celui de l'intro arrive à sa place */
+.vy-intro-on [data-vyvre-logo] { opacity: 0; }
+[data-vyvre-signature] { transition: opacity 1.2s ease .35s; }
+.vy-intro-on [data-vyvre-signature] { opacity: 0; transition: none; }

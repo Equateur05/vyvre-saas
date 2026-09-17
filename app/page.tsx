@@ -8,6 +8,7 @@ import Link from 'next/link';
 import Script from 'next/script';
 import HeroScan from './HeroScan';
 import SiteHeader from './SiteHeader';
+import IntroFusion from './IntroFusion';
 
 const MESURES = [
   ['Carnation', 'ITA° · CIE L*a*b*'],
@@ -26,6 +27,7 @@ export default function HomePage() {
       <Script src="/vyvre-mini-lattice.js" strategy="afterInteractive" />
 
       <main className="min-h-screen flex flex-col">
+        <IntroFusion />
         <SiteHeader />
 
         {/* ===== Hero ===== */}
@@ -40,7 +42,7 @@ export default function HomePage() {
                 <em className="not-italic text-text/55 font-extralight">de votre maison.</em>
               </h1>
               <p className="text-base md:text-lg text-text/70 leading-relaxed font-extralight">
-                Soixante secondes de caméra. Huit mesures lues pixel par pixel. Une routine composée dans votre seul catalogue.
+                Moins de dix secondes de caméra. Huit mesures lues pixel par pixel. Une routine composée dans votre seul catalogue.
               </p>
               <div className="flex flex-wrap items-center gap-4 mt-2">
                 <a href="/scan" className="btn-primary">Tester le scan</a>
@@ -54,7 +56,7 @@ export default function HomePage() {
         <section className="px-8 py-16 border-t border-line">
           <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
             <Stat value="8" label="Mesures de peau" />
-            <Stat value="60s" label="Durée du scan" />
+            <Stat value="<10s" label="Durée du scan" />
             <Stat value="48h" label="Mise en ligne" />
             <Stat value="0" label="Photo conservée" />
           </div>

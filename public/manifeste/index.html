@@ -64,14 +64,15 @@ header.top::after,.card::after{content:'';position:absolute;inset:-1px;border-ra
 header.top{position:fixed!important}
 @media (prefers-reduced-motion:reduce){header.top::before,.card::before,header.top::after,.card::after{animation:none}}
 </style>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500&display=swap">
 </head><body>
 <canvas id="gl"></canvas><div class="grain"></div>
-<header class="top"><span class="logo">VYVRE</span><a class="cta" href="/scan">Tester mon scan</a></header>
+<header class="top"><span class="logo" style="display:inline-flex;flex-direction:column;line-height:1">VYVRE<i style="display:block;margin-top:4px;font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:500;font-size:11px;letter-spacing:.01em;text-transform:none;opacity:.6">skin intelligence</i></span><a class="cta" href="/scan">Tester mon scan</a></header>
 <main>
 <section>
   <div class="k rv">Manifeste · Vyvre</div>
   <h1 class="rv">Une clinique de peau<br><em>dans chaque poche.</em></h1>
-  <p class="lead rv">Mesurer sa peau était réservé aux cabinets de dermatologie et aux comptoirs des grandes maisons. Vyvre le rend accessible à toute personne qui tient un iPhone. Soixante secondes, une caméra, une vraie lecture.</p>
+  <p class="lead rv">Mesurer sa peau était réservé aux cabinets de dermatologie et aux comptoirs des grandes maisons. Vyvre le rend accessible à toute personne qui tient un iPhone. Moins de dix secondes, une caméra, une vraie lecture.</p>
   <div class="btns rv"><a class="b a" href="/scan">Lire ma peau →</a><a class="b s" href="#marques">Équiper ma marque</a></div>
 </section>
 
@@ -212,7 +213,7 @@ header.top{position:fixed!important}
   <div class="phone">
     <div class="tel rv"><div class="vis"></div><div class="fil"></div><div class="sc">73</div><div class="sl">Lecture du jour</div></div>
     <div class="chiffres">
-      <div class="rv"><b>60 s</b><span>de la caméra à la routine</span></div>
+      <div class="rv"><b>&lt;10 s</b><span>de la caméra à la routine</span></div>
       <div class="rv"><b>0</b><span>image envoyée sur un serveur</span></div>
       <div class="rv"><b>114</b><span>marques de soin référencées</span></div>
       <div class="rv"><b>1 863</b><span>produits parmi lesquels composer votre routine</span></div>

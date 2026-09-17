@@ -1,0 +1,325 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Chargements</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#f2f4f5;--dim:rgba(242,244,245,.55);--line:rgba(255,255,255,.12)}
+*{box-sizing:border-box}html,body{margin:0;height:100%;background:#000;color:var(--ink);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow:hidden}
+canvas{position:fixed;inset:0;width:100vw;height:100vh;display:block}
+.haut{position:fixed;top:22px;left:26px;right:26px;display:flex;justify-content:space-between;align-items:baseline;z-index:3;pointer-events:none}
+.haut b{font-weight:400;letter-spacing:.42em;font-size:13px}
+.haut span{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--dim)}
+.titre{position:fixed;left:0;right:0;bottom:118px;text-align:center;z-index:3;pointer-events:none;transition:opacity .6s}
+.titre h1{margin:0;font-weight:200;font-size:clamp(26px,3.2vw,42px);letter-spacing:-.01em}
+.titre p{margin:8px auto 0;color:var(--dim);font-size:14px;max-width:46ch;line-height:1.5}
+.hud{position:fixed;left:50%;bottom:92px;transform:translateX(-50%);width:min(260px,60vw);z-index:3;pointer-events:none}
+.hud i{display:block;height:1px;background:rgba(255,255,255,.15);position:relative;overflow:hidden}
+.hud i::after{content:'';position:absolute;inset:0;background:#fff;transform-origin:left;transform:scaleX(var(--p,0))}
+.barre{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);z-index:4;display:flex;gap:6px;padding:6px;border-radius:100px;
+ background:rgba(255,255,255,.05);border:1px solid var(--line);backdrop-filter:blur(24px) saturate(1.6);-webkit-backdrop-filter:blur(24px) saturate(1.6);max-width:calc(100vw - 24px);overflow-x:auto}
+.barre button{all:unset;cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--dim);padding:11px 16px;border-radius:100px;white-space:nowrap;transition:background .3s,color .3s}
+.barre button:hover{color:#fff}
+.barre button[aria-pressed="true"]{background:linear-gradient(180deg,#fff,#e4e0d6);color:#000}
+.barre button:focus-visible{outline:1px solid #fff}
+</style></head><body>
+<canvas id="c"></canvas>
+<div class="haut"><b>VYVRE</b><span>Chargement · propales</span></div>
+<div class="titre" id="t"><h1></h1><p></p></div>
+<div class="hud"><i id="h"></i></div>
+<nav class="barre" id="b"></nav>
+<script>
+const COMMON=`
+precision highp float;
+uniform vec2 R; uniform float T; uniform float P;
+#define PI 3.14159265
+mat2 rot(float a){float c=cos(a),s=sin(a);return mat2(c,-s,s,c);}
+float hash(vec3 p){p=fract(p*.3183+.1);p*=17.;return fract(p.x*p.y*p.z*(p.x+p.y+p.z));}
+vec3 env(vec3 d){
+  float y=d.y;
+  vec3 c=vec3(.004,.005,.007);
+  c+=vec3(1.,.97,.92)*pow(max(0.,dot(d,normalize(vec3(-.6,.7,-.3)))),24.)*2.2;
+  c+=vec3(.75,.85,.95)*pow(max(0.,dot(d,normalize(vec3(.8,.3,.4)))),10.)*.55;
+  c+=vec3(.9,.82,.7)*smoothstep(.0,.9,y)*.06;
+  c+=vec3(1.)*smoothstep(.985,1.,abs(d.x))*.3;
+  return c;}
+vec3 aces(vec3 x){return clamp((x*(2.51*x+.03))/(x*(2.43*x+.59)+.14),0.,1.);}
+vec3 finir(vec3 col,vec2 uv){
+  float fl=smoothstep(.86,1.,P);
+  float r=length(uv);
+  col=mix(col,col*.15,fl*.9);
+  col+=vec3(1.,.98,.95)*(.012/(r+.012))*fl*1.4;
+  col*=1.-.35*dot(uv,uv);
+  col=aces(col);
+  col=pow(col,vec3(.4545));
+  col+=(hash(vec3(gl_FragCoord.xy,T*60.))-.5)*.018;
+  col*=smoothstep(0.,.06,P);
+  return col;}
+`;
+const S={};
+/* 1 PLANETAIRE — sphère armillaire en laiton */
+S.planetaire=`
+float sdT(vec3 p,float R0,float r){vec2 q=vec2(length(p.xz)-R0,p.y);return length(q)-r;}
+float align;
+vec3 ringP(vec3 p,int i){
+  float fi=float(i);
+  float a=T*(.35+fi*.17)*(1.-align)+fi*1.3*(1.-align);
+  p.yz*=rot(fi*.7*(1.-align)+.3);
+  p.xy*=rot(fi*1.1*(1.-align));
+  p.xz*=rot(a);
+  return p;}
+float M(vec3 p,out float mat){
+  float d=length(p)-.22; mat=2.;
+  for(int i=0;i<5;i++){
+    float fi=float(i),R0=.5+fi*.23;
+    vec3 q=ringP(p,i);
+    float dr=max(sdT(q,R0,.018), -(abs(q.y)-.012));
+    float band=sdT(q,R0,.012);
+    float tick=max(band-.006, abs(fract(atan(q.z,q.x)/PI*18.)-.5)-.12);
+    float dd=min(dr,tick);
+    vec3 pp=q-vec3(R0,0.,0.)*mat3(1.);
+    vec3 pl=q; pl.xz*=rot(T*(1.+fi*.3)); pl-=vec3(R0,0.,0.);
+    float sp=length(pl)-(.035+.012*fi);
+    if(dd<d){d=dd;mat=1.;}
+    if(sp<d){d=sp;mat=3.+fi;}
+  }
+  return d;}
+float Md(vec3 p){float m;return M(p,m);}
+vec3 N(vec3 p){vec2 e=vec2(.001,0);return normalize(vec3(Md(p+e.xyy)-Md(p-e.xyy),Md(p+e.yxy)-Md(p-e.yxy),Md(p+e.yyx)-Md(p-e.yyx)));}
+void main(){
+  vec2 uv=(gl_FragCoord.xy-.5*R)/R.y;
+  align=smoothstep(.62,.84,P);
+  float dist=mix(4.8,2.6,smoothstep(0.,.8,P));
+  vec3 ro=vec3(0.,.9-.6*P,-dist); ro.xz*=rot(T*.18+.4);
+  vec3 ta=vec3(0.),fw=normalize(ta-ro),ri=normalize(cross(vec3(0,1,0),fw)),up=cross(fw,ri);
+  vec3 rd=normalize(uv.x*ri+uv.y*up+1.7*fw);
+  float t=0.,m=0.;vec3 col=vec3(0.);float glow=0.;
+  for(int i=0;i<110;i++){vec3 p=ro+rd*t;float d=M(p,m);glow+=.004/(.02+abs(length(p)-.22));if(d<.0008||t>12.)break;t+=d*.8;}
+  vec3 bg=env(rd)*.04; bg+=vec3(1.)*step(.9975,hash(floor(rd*400.)))*.6;
+  col=bg;
+  if(t<12.){
+    vec3 p=ro+rd*t,n=N(p),r=reflect(rd,n);
+    float fr=pow(1.-max(0.,dot(-rd,n)),5.);
+    if(m<1.5){ vec3 alb=vec3(.95,.78,.52); col=env(r)*alb*1.6+alb*.02; }
+    else if(m<2.5){ col=vec3(1.,.93,.82)*2.5+env(r)*.4; }
+    else { vec3 alb=mix(vec3(.7,.85,.95),vec3(.95,.9,.85),fract(m*.37)); col=env(r)*alb*.9+fr*.4; }
+    col+=fr*env(r)*.5;
+  }
+  col+=vec3(1.,.85,.6)*glow*.012;
+  gl_FragColor=vec4(finir(col,uv),1.);}
+`;
+/* 2 HORLOGERIE — mouvement mécanique */
+S.horlogerie=`
+float gear(vec3 p,float Rg,float teeth,float th,float ang){
+  p.xy*=rot(ang);
+  float a=atan(p.y,p.x),r=length(p.xy);
+  float tooth=smoothstep(-.35,.35,sin(a*teeth))*Rg*.09;
+  float d=r-(Rg*.93+tooth);
+  d=max(d,-(r-Rg*.12));
+  float win=max(abs(r-Rg*.55)-Rg*.24, (cos(a*5.)-.55)*r*.35);
+  d=max(d,-win);
+  float hub=r-Rg*.2;
+  vec2 w=vec2(min(d,hub),abs(p.z)-th);
+  return min(max(w.x,w.y),0.)+length(max(w,0.));}
+float M(vec3 p,out float mat){
+  float t=T*.8,d=1e5;mat=1.;
+  float g1=gear(p-vec3(0.,0.,0.),.9,40.,.035,t*.25);
+  float g2=gear(p-vec3(1.36,.52,.09),.52,24.,.03,-t*.25*40./24.+.12);
+  float g3=gear(p-vec3(-1.05,.95,-.08),.44,20.,.03,-t*.25*2.+.2);
+  float g4=gear(p-vec3(1.1,-1.25,.05),.62,30.,.03,-t*.3+.3);
+  float g5=gear(p-vec3(-.9,-1.1,.16),.36,16.,.028,t*.9);
+  d=min(min(g1,g2),min(g3,min(g4,g5)));
+  vec3 q=p-vec3(-1.95,-.2,.22);
+  float bal=abs(length(q.xy)-.55)-.02; bal=max(bal,abs(q.z)-.02);
+  vec3 qs=q; qs.xy*=rot(sin(T*6.)*1.2);
+  float spoke=max(max(abs(qs.x)-.012,abs(qs.y)-.55),abs(qs.z)-.018);
+  float spi=abs(length(q.xy)-.22-.03*sin(atan(q.y,q.x)*1.+T*6.))-.004; spi=max(spi,abs(q.z)-.01);
+  float balance=min(bal,min(spoke,spi));
+  if(balance<d){d=balance;mat=2.;}
+  float plate=p.z-.09-.02; vec2 hp=mod(p.xy,.36)-.18; float perl=plate;
+  float pl=max(plate-.0, -(p.z-.4)); pl=p.z-.22;
+  float bridge=max(abs(p.z-.34)-.02, max(abs((p.xy*rot(.5)).y-.3)-.14, abs(p.x)-1.9));
+  bridge=max(bridge,-(length(p.xy-vec2(0.,0.))-.25));
+  if(bridge<d){d=bridge;mat=4.;}
+  vec3 jp=vec3(abs(p.x-.25)-0.,p.y-.64,p.z-.26);
+  float jew=length(p-vec3(0.,0.,-.05))-.07;
+  jew=min(jew,length(p-vec3(1.36,.52,-.04))-.05); jew=min(jew,length(p-vec3(-1.05,.95,-.04))-.05);
+  if(jew<d){d=jew;mat=3.;}
+  float back=abs(p.z-.48)-.01;
+  if(back<d){d=back;mat=5.;}
+  return d;}
+float Md(vec3 p){float m;return M(p,m);}
+vec3 N(vec3 p){vec2 e=vec2(.0015,0);return normalize(vec3(Md(p+e.xyy)-Md(p-e.xyy),Md(p+e.yxy)-Md(p-e.yxy),Md(p+e.yyx)-Md(p-e.yyx)));}
+void main(){
+  vec2 uv=(gl_FragCoord.xy-.5*R)/R.y;
+  float z=mix(-5.2,-2.4,smoothstep(0.,.85,P));
+  vec3 ro=vec3(.3*sin(T*.3),-.2+.3*P,z); ro.xz*=rot(.25*sin(T*.2)); 
+  vec3 ta=vec3(-.2*P,0.,0.),fw=normalize(ta-ro),ri=normalize(cross(vec3(0,1,0),fw)),up=cross(fw,ri);
+  vec3 rd=normalize(uv.x*ri+uv.y*up+1.8*fw);
+  float t=0.,m=0.;
+  for(int i=0;i<120;i++){float d=M(ro+rd*t,m);if(d<.001||t>14.)break;t+=d*.7;}
+  vec3 col=env(rd)*.1;
+  if(t<14.){
+    vec3 p=ro+rd*t,n=N(p),r=reflect(rd,n);float fr=pow(1.-max(0.,dot(-rd,n)),5.);
+    float ao=clamp(Md(p+n*.06)/.06,0.,1.);
+    if(m<1.5){vec3 a=vec3(.96,.8,.55);col=env(r)*a*1.5;}
+    else if(m<2.5){vec3 a=vec3(.9,.92,.95);col=env(r)*a*1.3;}
+    else if(m<3.5){col=vec3(.6,.02,.08)*(.3+env(r)*2.)+vec3(1.,.2,.3)*fr;}
+    else if(m<4.5){vec3 a=vec3(.5,.52,.55);float cot=.6+.4*sin(p.x*60.+p.y*6.);col=env(r)*a*cot*.8;}
+    else {vec2 c=mod(p.xy,.14)-.07;float perl=.5+.5*cos(length(c)*80.);col=env(r)*vec3(.35,.36,.38)*perl*.25;}
+    vec3 L=normalize(vec3(-.5,.6,-.7));float dif=max(0.,dot(n,L));float spe=pow(max(0.,dot(r,L)),40.);
+    vec3 alb=m<1.5?vec3(1.,.8,.5):m<2.5?vec3(.9,.92,.95):m<3.5?vec3(.8,.05,.1):vec3(.75,.76,.78);
+    float kd=m<2.5?.16:m<3.5?.3:.015; col+=alb*dif*kd+vec3(1.,.95,.9)*spe*(m<4.5?1.4:.2);
+    col=(col+fr*env(r)*.4)*(.35+.65*ao);
+  }
+  gl_FragColor=vec4(finir(col,uv),1.);}
+`;
+/* 3 HORIZON — trou noir et disque d'accrétion */
+S.horizon=`
+vec3 stars(vec3 d){vec3 c=vec3(0.);for(int i=0;i<2;i++){float s=float(i)*180.+220.;vec3 q=floor(d*s);float h=hash(q);c+=vec3(1.,.95,.9)*step(.9985-float(i)*.0005,h)*(.4+h*.6);}
+  c+=vec3(.25,.3,.45)*pow(max(0.,1.-abs(d.y*2.-d.x*.4)),6.)*.08;return c;}
+void main(){
+  vec2 uv=(gl_FragCoord.xy-.5*R)/R.y;
+  float dist=mix(22.,9.,smoothstep(0.,.85,P));
+  vec3 ro=vec3(0.,1.1+.5*sin(T*.2),-dist); ro.yz*=rot(-.06); 
+  ro.xz*=rot(T*.05);
+  vec3 fw=normalize(-ro),ri=normalize(cross(vec3(0,1,0),fw)),up=cross(fw,ri);
+  vec3 rd=normalize(uv.x*ri+uv.y*up+1.6*fw);
+  vec3 p=ro,v=rd;vec3 col=vec3(0.);float a=1.;float h=.12;
+  for(int i=0;i<220;i++){
+    float r=length(p);
+    if(r<1.){a=0.;break;}
+    vec3 acc=-p*1.5/(r*r*r);
+    vec3 np=p+v*h; v=normalize(v+acc*h); 
+    if(p.y*np.y<0.){
+      vec3 c=mix(p,np,p.y/(p.y-np.y));float rr=length(c.xz);
+      if(rr>2.3&&rr<9.){
+        float ang=atan(c.z,c.x);
+        float n=.5+.5*sin(ang*3.-T*1.6/sqrt(rr)*4.+rr*4.)*sin(rr*9.-T*.6);
+        float dop=1.+.65*dot(normalize(vec3(-c.z,0.,c.x)),-rd);
+        float I=smoothstep(9.,3.,rr)*smoothstep(2.3,2.9,rr)*(.35+.65*n);
+        vec3 dc=mix(vec3(1.,.55,.25),vec3(1.,.95,.85),smoothstep(6.,2.5,rr));
+        col+=a*dc*I*dop*dop*1.6;a*=1.-I*.7;
+      }
+    }
+    p=np; h=clamp(.06*r,.02,.5);
+    if(r>40.)break;
+  }
+  col+=a*stars(v)*.9;
+  col+=vec3(1.,.8,.55)*.02/max(.2,length(uv))*.0;
+  gl_FragColor=vec4(finir(col,uv),1.);}
+`;
+/* 4 CATHEDRALE — traversée d'un réseau cristallin lumineux */
+S.cathedrale=`
+float sdO(vec3 p,float s){p=abs(p);return (p.x+p.y+p.z-s)*.57735;}
+float beam;
+float M(vec3 p){
+  vec3 q=p; q.z=mod(q.z,2.)-1.; q.xy*=rot(floor(p.z*.5)*.6); q.xy=abs(q.xy); q.xy*=rot(.785);
+  float d=sdO(q-vec3(1.05,0.,0.),.26);
+  vec3 c=p; c.xy*=rot(p.z*.15); c=mod(c+1.,2.)-1.;
+  beam=min(length(c.xy),min(length(c.yz),length(c.xz)));
+  beam=max(beam,-(length(p.xy)-.5)+0.);
+  return d;}
+vec3 N(vec3 p){vec2 e=vec2(.002,0);return normalize(vec3(M(p+e.xyy)-M(p-e.xyy),M(p+e.yxy)-M(p-e.yxy),M(p+e.yyx)-M(p-e.yyx)));}
+void main(){
+  vec2 uv=(gl_FragCoord.xy-.5*R)/R.y;
+  float sp=T*1.4+smoothstep(.25,.85,P)*9.;
+  vec3 ro=vec3(.12*sin(T*.7),.08*cos(T*.5),sp);
+  vec3 rd=normalize(vec3(uv,1.1)); rd.xy*=rot(T*.1+P*1.4);
+  float t=0.;vec3 acc=vec3(0.);
+  for(int i=0;i<110;i++){vec3 p=ro+rd*t;float d=M(p);
+    float b=beam; float fog=exp(-t*.12);
+    vec3 bc=mix(vec3(.6,.85,1.),vec3(1.,.85,.6),.5+.5*sin(p.z*.3));
+    if(length(p.xy)>.5) acc+=bc*(.0009/(b*b+.0009))*.035*fog;
+    if(d<.001||t>30.)break;t+=min(d*.8,max(b*.7,.02));}
+  vec3 col=acc;
+  if(t<30.){vec3 p=ro+rd*t,n=N(p),r=reflect(rd,n);float fr=pow(1.-max(0.,dot(-rd,n)),3.);
+    vec3 a=mix(vec3(.8,.92,1.),vec3(1.,.9,.78),.5+.5*sin(p.z*.4));
+    col+=(env(r)*a*1.6+fr*a*.5)*exp(-t*.12);}
+  col+=vec3(1.,.97,.92)*.006/(length(uv)+.02)*(.3+smoothstep(.4,.85,P));
+  gl_FragColor=vec4(finir(col,uv),1.);}
+`;
+/* 5 OR LIQUIDE — gouttes de métal qui fusionnent */
+S.or=`
+float smin(float a,float b,float k){float h=clamp(.5+.5*(b-a)/k,0.,1.);return mix(b,a,h)-k*h*(1.-h);}
+float M(vec3 p){
+  float k=smoothstep(.15,.7,P);
+  float d=length(p)-(.35+.35*k);
+  for(int i=0;i<7;i++){float fi=float(i);
+    vec3 o=vec3(sin(T*.7+fi*1.9),cos(T*.6+fi*2.7)*.7,sin(T*.5+fi*4.1))*1.25*(1.-k);
+    d=smin(d,length(p-o)-(.24+.06*sin(fi)),.45);}
+  d+=.012*sin(p.x*9.+T*2.)*sin(p.y*9.)*sin(p.z*9.-T)*(1.-k*.7);
+  return d;}
+vec3 N(vec3 p){vec2 e=vec2(.001,0);return normalize(vec3(M(p+e.xyy)-M(p-e.xyy),M(p+e.yxy)-M(p-e.yxy),M(p+e.yyx)-M(p-e.yyx)));}
+void main(){
+  vec2 uv=(gl_FragCoord.xy-.5*R)/R.y;
+  vec3 ro=vec3(0.,.3,-4.2+1.*P); ro.xz*=rot(T*.25);
+  vec3 fw=normalize(-ro),ri=normalize(cross(vec3(0,1,0),fw)),up=cross(fw,ri);
+  vec3 rd=normalize(uv.x*ri+uv.y*up+1.8*fw);
+  float t=0.;for(int i=0;i<100;i++){float d=M(ro+rd*t);if(d<.001||t>10.)break;t+=d*.9;}
+  vec3 col=env(rd)*.12;
+  float fl=length(uv);col+=vec3(.9,.75,.5)*.03/(abs(uv.y+.42)+.03)*smoothstep(.8,0.,abs(uv.x))*.2;
+  if(t<10.){vec3 p=ro+rd*t,n=N(p),r=reflect(rd,n);float fr=pow(1.-max(0.,dot(-rd,n)),5.);
+    vec3 gold=vec3(1.,.76,.42);col=env(r)*gold*1.8+gold*fr*env(r)*1.5;}
+  gl_FragColor=vec4(finir(col,uv),1.);}
+`;
+/* 6 NOYAU — fractale vivante */
+S.noyau=`
+float trap;
+float M(vec3 p){
+  p.xz*=rot(T*.15);p.xy*=rot(.3);
+  vec3 z=p;float dr=1.,r=0.;float pw=7.+1.*sin(T*.25);trap=1e5;
+  for(int i=0;i<6;i++){r=length(z);if(r>2.)break;
+    float th=acos(clamp(z.y/r,-1.,1.))*pw,ph=atan(z.z,z.x)*pw;
+    dr=pow(r,pw-1.)*pw*dr+1.;float zr=pow(r,pw);
+    z=zr*vec3(sin(th)*cos(ph),cos(th),sin(th)*sin(ph))+p;trap=min(trap,length(z));}
+  return .5*log(max(r,1e-4))*r/dr;}
+vec3 N(vec3 p){vec2 e=vec2(.002,0);return normalize(vec3(M(p+e.xyy)-M(p-e.xyy),M(p+e.yxy)-M(p-e.yxy),M(p+e.yyx)-M(p-e.yyx)));}
+void main(){
+  vec2 uv=(gl_FragCoord.xy-.5*R)/R.y;
+  vec3 ro=vec3(0.,0.,-mix(3.4,2.15,smoothstep(0.,.85,P)));
+  vec3 rd=normalize(vec3(uv,1.6));
+  float t=0.,gl=0.;int hit=0;
+  for(int i=0;i<110;i++){float d=M(ro+rd*t);gl+=.012/(.05+d*d*40.);if(d<.0012){hit=1;break;}if(t>6.)break;t+=d*.9;}
+  vec3 col=vec3(0.);
+  if(hit==1){vec3 p=ro+rd*t,n=N(p),r=reflect(rd,n);float fr=pow(1.-max(0.,dot(-rd,n)),4.);
+    vec3 a=mix(vec3(.95,.9,.82),vec3(.55,.8,.95),clamp(trap*1.2-.4,0.,1.));
+    float ao=clamp(float(1)*(trap*.9),0.,1.);
+    col=(env(r)*1.4+vec3(.03))*a*(.25+.75*ao)+fr*a*.3;}
+  col+=vec3(.6,.8,1.)*gl*.006;
+  gl_FragColor=vec4(finir(col,uv),1.);}
+`;
+const LISTE=[
+ ['planetaire','Planétaire','Une sphère armillaire en laiton tourne, puis tous les anneaux s\'alignent.'],
+ ['horlogerie','Horlogerie','On plonge dans un mouvement mécanique : rouages, rubis, balancier.'],
+ ['horizon','Horizon','On s\'approche d\'un astre noir, la lumière se courbe autour.'],
+ ['cathedrale','Cathédrale','On traverse un réseau de cristal qui accélère vers la lumière.'],
+ ['or','Or liquide','Des gouttes d\'or se cherchent et deviennent une sphère parfaite.'],
+ ['noyau','Noyau','Une structure vivante se déplie, infiniment détaillée.']];
+const DUR=6.;
+const cv=document.getElementById('c'),gl=cv.getContext('webgl',{antialias:false,powerPreference:'high-performance'});
+const VS='attribute vec2 a;void main(){gl_Position=vec4(a,0.,1.);}';
+const buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,3,-1,-1,3]),gl.STATIC_DRAW);
+const progs={};
+function prog(k){if(progs[k])return progs[k];
+ const sh=(t,s)=>{const o=gl.createShader(t);gl.shaderSource(o,s);gl.compileShader(o);if(!gl.getShaderParameter(o,gl.COMPILE_STATUS))console.error(k,gl.getShaderInfoLog(o));return o;};
+ const p=gl.createProgram();gl.attachShader(p,sh(gl.VERTEX_SHADER,VS));gl.attachShader(p,sh(gl.FRAGMENT_SHADER,COMMON+S[k]));gl.linkProgram(p);
+ return progs[k]={p,R:gl.getUniformLocation(p,'R'),T:gl.getUniformLocation(p,'T'),P:gl.getUniformLocation(p,'P'),a:gl.getAttribLocation(p,'a')};}
+let scale=.55,cur=0,t0=performance.now();
+function taille(){const d=Math.min(1.5,devicePixelRatio||1)*scale;cv.width=innerWidth*d|0;cv.height=innerHeight*d|0;gl.viewport(0,0,cv.width,cv.height);}
+addEventListener('resize',taille);taille();
+const B=document.getElementById('b'),TT=document.getElementById('t'),H=document.getElementById('h');
+LISTE.forEach((l,i)=>{const b=document.createElement('button');b.textContent=String(i+1).padStart(2,'0')+' '+l[1];b.onclick=()=>choisir(i);B.appendChild(b);});
+function choisir(i){cur=i;t0=performance.now();[...B.children].forEach((b,j)=>b.setAttribute('aria-pressed',j===i));
+ TT.querySelector('h1').textContent=LISTE[i][1];TT.querySelector('p').textContent=LISTE[i][2];TT.style.opacity=1;
+ clearTimeout(choisir.to);choisir.to=setTimeout(()=>TT.style.opacity=0,2600);history.replaceState(null,'','#'+(i+1));}
+cv.addEventListener('click',()=>{t0=performance.now();});
+addEventListener('keydown',e=>{if(e.key==='ArrowRight')choisir((cur+1)%LISTE.length);if(e.key==='ArrowLeft')choisir((cur+LISTE.length-1)%LISTE.length);if(e.key===' ')t0=performance.now();});
+choisir(Math.max(0,Math.min(LISTE.length-1,(parseInt(location.hash.slice(1))||1)-1)));
+addEventListener('hashchange',()=>{const n=(parseInt(location.hash.slice(1))||1)-1;if(n!==cur)choisir(Math.max(0,Math.min(LISTE.length-1,n)));});
+let lent=0,last=performance.now();
+(function f(now){requestAnimationFrame(f);
+ const dt=now-last;last=now;if(dt>40){lent++;if(lent>30&&scale>.35){scale-=.08;taille();lent=0;}}else lent=Math.max(0,lent-1);
+ const pr=prog(LISTE[cur][0]);gl.useProgram(pr.p);gl.bindBuffer(gl.ARRAY_BUFFER,buf);gl.enableVertexAttribArray(pr.a);gl.vertexAttribPointer(pr.a,2,gl.FLOAT,false,0,0);
+ const t=(now-t0)/1000,cyc=t%(DUR+1.2),p=Math.min(1,cyc/DUR);
+ gl.uniform2f(pr.R,cv.width,cv.height);gl.uniform1f(pr.T,t);gl.uniform1f(pr.P,p);gl.drawArrays(gl.TRIANGLES,0,3);
+ H.style.setProperty('--p',p.toFixed(3));})(t0);
+</script></body></html>

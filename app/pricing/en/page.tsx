@@ -136,7 +136,7 @@ export default function PricingEnPage({ searchParams }: PricingPageProps) {
       <header className="px-8 py-6 flex items-center justify-between border-b border-line">
         <Link href="/" className="flex items-center gap-3 no-underline text-text">
           <div className="w-8 h-8 border border-text/30 rounded-full flex items-center justify-center text-[10px]">V</div>
-          <span className="text-sm font-medium tracking-[0.18em]">VYVRE</span>
+          <span className="flex flex-col leading-none"><span className="text-sm font-medium tracking-[0.18em]">VYVRE</span><span className="mt-1 font-['Playfair_Display',Georgia,serif] italic text-[11px] text-text/60">skin intelligence</span></span>
         </Link>
         <nav className="hidden md:flex items-center gap-8 text-xs tracking-[0.18em] uppercase text-text/60">
           <a href={demoUrl} target="_blank" rel="noopener" className="hover:text-text">Demo</a>
