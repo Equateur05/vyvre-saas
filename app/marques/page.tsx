@@ -6,9 +6,8 @@
 
 import Link from 'next/link';
 import Script from 'next/script';
-import HeroScan from './HeroScan';
-import SiteHeader from './SiteHeader';
-import IntroFusion from './IntroFusion';
+import HeroScan from '../HeroScan';
+import SiteHeader from '../SiteHeader';
 
 const MESURES = [
   ['Carnation', 'ITA° · CIE L*a*b*'],
@@ -27,7 +26,6 @@ export default function HomePage() {
       <Script src="/vyvre-mini-lattice.js" strategy="afterInteractive" />
 
       <main className="min-h-screen flex flex-col">
-        <IntroFusion />
         <SiteHeader />
 
         {/* ===== Hero ===== */}

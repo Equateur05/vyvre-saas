@@ -17,15 +17,20 @@ const nextConfig = {
     ];
   },
   async rewrites() {
-    return [
+    return {
+      beforeFiles: [
+        { source: '/', destination: '/scan/index.html' },
+      ],
+      afterFiles: [
       { source: '/scan', destination: '/scan/index.html' },
       { source: '/scan/protocol', destination: '/scan/PROTOCOL_UNIVERSAL.html' },
       { source: '/manifeste', destination: '/manifeste/index.html' },
       { source: '/chargements', destination: '/propals/chargement/index.html' },
       { source: '/m/:brand', destination: '/m/index.html?b=:brand' },
       { source: '/m/:brand/protocol', destination: '/scan/PROTOCOL_UNIVERSAL.html?b=:brand' },
-
-    ];
+      ],
+      fallback: [],
+    };
   },
 };
 

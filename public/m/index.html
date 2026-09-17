@@ -321,6 +321,36 @@
 <!-- VYVRE_V10_PWA_END -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500&display=swap">
 <style id="sans-prix">.v6price,.r-price{display:none!important}</style>
+<style id="sg-scan-verre">
+/* Charles 17/09 : plus de noir autour du visage. La fumee du fond continue autour du cercle,
+   et un anneau de verre avec un reflet entoure la lecture. */
+#view-scanner .video-container{background:transparent!important}
+#view-scanner .thermal-base{
+  -webkit-mask-image:radial-gradient(ellipse 34% 46% at 50% 47%,#000 58%,rgba(0,0,0,.65) 76%,transparent 94%);
+  mask-image:radial-gradient(ellipse 34% 46% at 50% 47%,#000 58%,rgba(0,0,0,.65) 76%,transparent 94%)}
+#view-scanner .video-container::after{
+  background:radial-gradient(ellipse 34% 46% at 50% 47%,transparent 60%,rgba(4,5,10,.30) 84%,rgba(4,5,10,.55) 100%)!important}
+/* anneau de verre + reflet qui tourne */
+#view-scanner .video-container::before{content:'';position:absolute;left:50%;top:47%;transform:translate(-50%,-50%);
+  width:70vmin;height:92vmin;max-width:82vw;border-radius:50%;z-index:3;pointer-events:none;
+  border:1px solid rgba(255,255,255,.16);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 -14px 40px -18px rgba(255,255,255,.22),0 40px 120px -60px rgba(236,233,226,.5);
+  background:conic-gradient(from var(--sg-liq,0deg),transparent 0 58%,rgba(255,255,255,.22) 72%,rgba(217,201,163,.28) 78%,rgba(255,255,255,.2) 86%,transparent 96%);
+  -webkit-mask:radial-gradient(closest-side,transparent 96%,#000 97%);mask:radial-gradient(closest-side,transparent 96%,#000 97%);
+  animation:sgVerreTour 18s linear infinite}
+@keyframes sgVerreTour{to{--sg-liq:360deg}}
+@media (prefers-reduced-motion:reduce){#view-scanner .video-container::before{animation:none}}
+</style>
+<style id="sg-score-cercle">
+/* Charles 17/09 : l'animation du score reste DANS le cercle, elle ne deborde plus dans le carre */
+.sg-centre{overflow:hidden;border-radius:50%}
+.sg-centre .sg-anneau.a1{width:94%!important}
+.sg-centre .sg-anneau.a2{width:84%!important}
+.sg-centre .sg-anneau.a3{width:99%!important}
+.sg-centre>.sg-halo{width:100%!important}
+.sg-centre::after{content:'';position:absolute;inset:0;border-radius:50%;pointer-events:none;
+  border:1px solid rgba(255,255,255,.10);box-shadow:inset 0 1px 0 rgba(255,255,255,.18)}
+</style>
 </head>
 <body>
 <!-- VYVRE_PITCH_BTN_BEGIN -->
@@ -351,7 +381,7 @@
     <span class="brand-x">×</span>
     <span class="brand-partner">UNIVERSAL SCAN</span>
   </div>
-  <div class="label-sm">Free skin reading · 114 brands</div>
+  <div class="label-sm">Free skin reading · 147 brands</div>
 </header>
 
 <!-- 1. HERO -->
@@ -359,7 +389,7 @@
   <div class="hero-content">
     <div class="label-sm" style="margin-bottom: 30px;">Molecular Topology DeepTech</div>
     <h1>Longevity.<br>Quantified.</h1>
-    <p>Your skin, measured in under 10 seconds from your camera, pixel by pixel in the CIE Lab colour space. Then the three products that fit it best, chosen among 1,863 references from 114 brands.</p>
+    <p>Your skin, measured in under 10 seconds from your camera, pixel by pixel in the CIE Lab colour space. Then the three products that fit it best, chosen among 5,883 references from 147 brands.</p>
 
     <div style="display: flex; gap: 24px; justify-content: center; margin-top: 60px;">
       <button class="spatial-btn" id="btn-scan">Start scan</button>
