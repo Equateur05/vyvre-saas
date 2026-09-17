@@ -1422,7 +1422,7 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
       pEl.textContent = `${p.brand_name ? p.brand_name + ' · ' : ''}Targeted action: ${targetWords}.`;
     }
     if (img && p.image_url) {
-      img.src = p.image_url;
+      img.src = p.cutout_url || p.image_url;
       img.alt = p.name;
       img.style.display = '';
     }

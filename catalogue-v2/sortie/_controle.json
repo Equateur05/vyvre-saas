@@ -1,0 +1,48 @@
+{
+ "log": {
+  "brut": 5944,
+  "rejet hors soin visage (appareil/maquillage)": 3,
+  "doublon url": 50,
+  "doublon nom": 8,
+  "apres dedoublonnage": 5883,
+  "recategorise autre-visage -> nettoyant": 1
+ },
+ "retirees": [
+  "blueprint",
+  "cult-beauty",
+  "diptyque",
+  "elysium",
+  "neko-health",
+  "oh-my-cream",
+  "roger-gallet",
+  "sephora",
+  "space-nk",
+  "tally-health",
+  "ulta"
+ ],
+ "rejets": [
+  [
+   "hors soin visage (appareil/maquillage)",
+   "111skin",
+   "Cryo Sculpting Globes"
+  ],
+  [
+   "hors soin visage (appareil/maquillage)",
+   "bobbi-brown",
+   "Vitamin Enriched Eye Base"
+  ],
+  [
+   "hors soin visage (appareil/maquillage)",
+   "bobbi-brown",
+   "Vitamin Enriched Face Base"
+  ]
+ ],
+ "dup_old": [
+  0.4138486312399356,
+  0.5764895330112721
+ ],
+ "dup_new": [
+  0.020227774944756076,
+  0.052354241033486314
+ ]
+}
