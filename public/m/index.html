@@ -320,6 +320,7 @@
 <link rel="icon" type="image/png" sizes="512x512" href="/scan/icons/icon-512.png">
 <!-- VYVRE_V10_PWA_END -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500&display=swap">
+<style id="sans-prix">.v6price,.r-price{display:none!important}</style>
 </head>
 <body>
 <!-- VYVRE_PITCH_BTN_BEGIN -->
@@ -1424,7 +1425,7 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
       img.style.display = '';
     }
     if (price && p.price_eur) {
-      price.textContent = p.price_eur.toFixed(2).replace('.', ',') + ' €';
+      price.textContent = ''; // jamais de prix : ce n'est pas notre rôle (Charles, 17/09)
     }
     // Marque pour debug
     card.dataset.vyvreProductId = p.id;

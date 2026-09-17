@@ -320,6 +320,7 @@
 <link rel="icon" type="image/png" sizes="512x512" href="/scan/icons/icon-512.png">
 <!-- VYVRE_V10_PWA_END -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500&display=swap">
+<style id="sans-prix">.v6price,.r-price{display:none!important}</style>
 </head>
 <body>
 <!-- VYVRE_PITCH_BTN_BEGIN -->
@@ -1426,7 +1427,7 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
       img.style.display = '';
     }
     if (price && p.price_eur) {
-      price.textContent = p.price_eur.toFixed(2).replace('.', ',') + ' €';
+      price.textContent = ''; // jamais de prix : ce n'est pas notre rôle (Charles, 17/09)
     }
     // Marque pour debug
     card.dataset.vyvreProductId = p.id;
@@ -2442,13 +2443,6 @@ header{backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important;-webki
         <button type="button" class="vyp-chip" data-v="petit-prix">Great value<small>The Ordinary, COSRX</small></button>
       </div></div>
 
-    <div class="vyp-sec"><div class="vyp-h"><span class="vyp-n">04</span><b>Budget per product</b></div>
-      <div class="vyp-budget"><div class="vyp-bval" id="vyp-bval"></div>
-        <div class="vyp-range"><div class="vyp-track"></div><div class="vyp-fill" id="vyp-fill"></div>
-          <input type="range" id="vyp-min" min="0" max="500" step="5" value="0" aria-label="Minimum budget">
-          <input type="range" id="vyp-max" min="0" max="500" step="5" value="500" aria-label="Maximum budget">
-        </div></div></div>
-
     <div class="vyp-sec"><div class="vyp-h"><span class="vyp-n">05</span><b>Where it comes from</b><i>several possible</i></div>
       <div class="vyp-chips" data-vyp-multi="origine">
         <button type="button" class="vyp-chip" data-v="FR">France</button><button type="button" class="vyp-chip" data-v="US">United States</button><button type="button" class="vyp-chip" data-v="EU">Rest of Europe</button><button type="button" class="vyp-chip" data-v="GB">United Kingdom</button><button type="button" class="vyp-chip" data-v="JP">Japan</button><button type="button" class="vyp-chip" data-v="KR">Korean skincare</button>
@@ -2487,7 +2481,7 @@ header{backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important;-webki
     if(P.marques.length && P.marques.indexOf(p.brand)<0) return false;
     if(!skip.univers && P.univers.length && P.univers.indexOf(b.univers)<0) return false;
     if(!skip.origine && P.origine.length && P.origine.indexOf(region(p.brand))<0) return false;
-    if(!skip.budget){var pr=p.price_eur||0; if(pr && (pr<P.min || (P.max<500 && pr>P.max))) return false;}
+    
     return true;
   }
   var LADDER=[{},{budget:1},{budget:1,origine:1},{budget:1,origine:1,univers:1}];
@@ -2512,7 +2506,6 @@ header{backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important;-webki
     if(P.univers.length) t.push(P.univers.map(function(u){return L[u];}).join(' + '));
     if(P.origine.length) t.push(P.origine.map(function(o){return O[o];}).join(' + '));
     if(P.marques.length) t.push(P.marques.map(function(m){return (BR[m]||{}).nom||m;}).slice(0,3).join(', ')+(P.marques.length>3?' +'+(P.marques.length-3):''));
-    if(P.min>0||P.max<500) t.push(P.min+' to '+(P.max<500?P.max+' €':'any price'));
     return t;
   }
   function afterRender(){
@@ -2530,9 +2523,6 @@ header{backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important;-webki
     root.querySelectorAll('[data-vyp-single]').forEach(function(g){var k=g.getAttribute('data-vyp-single'); g.querySelectorAll('.vyp-chip').forEach(function(c){c.setAttribute('aria-pressed',String(P[k]===c.dataset.v));});});
     root.querySelectorAll('[data-vyp-multi]').forEach(function(g){var k=g.getAttribute('data-vyp-multi'); g.querySelectorAll('.vyp-chip').forEach(function(c){c.setAttribute('aria-pressed',String(P[k].indexOf(c.dataset.v)>=0));});});
     $('vyp-brands').querySelectorAll('.vyp-chip').forEach(function(c){c.setAttribute('aria-pressed',String(P.marques.indexOf(c.dataset.v)>=0));});
-    $('vyp-min').value=P.min; $('vyp-max').value=P.max;
-    $('vyp-bval').textContent=(P.min===0&&P.max>=500)?'Any price':(P.min+' € to '+(P.max>=500?'500 € and more':P.max+' €'));
-    $('vyp-fill').style.left=(P.min/5)+'%'; $('vyp-fill').style.right=(100-P.max/5)+'%';
     $('vyp-bcount').textContent=P.marques.length?P.marques.length+' selected':'all brands';
     if(PRODUCTS){
       var strict=PRODUCTS.filter(function(p){return match(p,{});}), brands={};
@@ -2566,11 +2556,7 @@ header{backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important;-webki
     if(mode==='edit'){ if(window.__vyScores && typeof matchAndRenderCharlotteTilburyProducts==='function') matchAndRenderCharlotteTilburyProducts(window.__vyScores); }
     else if(pending){ done=true; var btn=pending; pending=null; btn.click(); }
   });
-  ['vyp-min','vyp-max'].forEach(function(id){ $(id).addEventListener('input',function(){
-    var a=+$('vyp-min').value, b=+$('vyp-max').value;
-    if(a>b-10){ if(id==='vyp-min') a=b-10; else b=a+10; }
-    P.min=Math.max(0,a); P.max=Math.min(500,b); save(); paint();
-  });});
+
   $('vyp-search').addEventListener('input',function(){
     var q=this.value.trim().toLowerCase();
     $('vyp-brands').querySelectorAll('.vyp-chip').forEach(function(c){c.style.display=!q||c.textContent.toLowerCase().indexOf(q)>=0?'':'none';});

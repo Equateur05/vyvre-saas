@@ -638,6 +638,7 @@ footer{
 </style>
   <link rel="stylesheet" href="/scan/vyvre-mobile.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500&display=swap">
+<style id="sans-prix">.v6price,.r-price{display:none!important}</style>
 </head>
 <body>
 
@@ -1189,7 +1190,7 @@ footer{
       'mask': 'Mask','oil': 'Oil','lotion': 'Toner'
     }[product._cat] || 'Signature care';
     card.querySelector('.r-cat').textContent = (product.brand_name ? product.brand_name + ' · ' : '') + catLabel;
-    card.querySelector('.r-price').textContent = product.price_eur ? `${product.price_eur.toLocaleString('en-US')} €` : '—';
+    card.querySelector('.r-price').textContent = ''; // jamais de prix
     const img = card.querySelector('.r-img');
     img.src = product.image_url || ''; if(window.sgDetoureProto) window.sgDetoureProto(img);
     img.alt = product.name;
