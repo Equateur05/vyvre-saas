@@ -1,7 +1,7 @@
 <!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>VYVRE</title>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500&text=skin%20intelg&display=block" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500&text=skin%20intelg&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
 <style>
 @font-face{font-family:VyvreInter;font-weight:300;src:url(data:font/woff2;base64,d09GMgABAAAAAALAAA8AAAAABPQAAAJnAAQAQgAAAAAAAAAAAAAAAAAAAAAAAAAAGhYbIBwqBmA/U1RBVFoATBEICoIUgXEBNgIkAxQLDAAEIAWBNAcgG8ADCK4GbGMS+jAeanvPYxGLFU/8VzSNHAsjqMbCevZ2Q8wKSCGgZ1AxNhVJoICFCz/4D+Ps/dlpB7rRaRDiVTerX4er6JQLD8apfm03qNdKTJaq8p8XQCcHfvz8dj5y4gEWW03d1G8sDmRt92lbOcOAStewSZ13LxQHCkFt0wcRmjLkiZvagkCgFiAJIQuBGlrRo7Hj+8fBk+F/AYEauijEYMUkG5ZG/dDhdZCLMnphUwbmR7gydemRjWnn75QKSDICAKZNHxjDpXFmql7+B6j2Np0DAXlReUY7IiFUU0EjTPTC2LwlkqZG2L3aGSVCrN1h8lInhioa0COkaCJBCKJ/9AIVSYouQIDEgzB0gWUYqKGaJBln1KSZ/4WD1I5sAYAQ/6suKKAGCsaDHQAyICQhaulyHVnN/fVJsvR0VFZ7LnHErlGLUtPG0f9xqbrumq666ZqpVz+zxseb2fuFybrsTdjA6tp8pzxfdfhTHz6v+HZYPPrbjVfc8NTHNjzc5hurR87sWBnonzeY+5dWJ0dHwZ7+om7tbtzFkg47n2+Tjo9bOunfte19eeIPbfzg8cUOg59bfiz77pSj1m/9mDJfvHh4j6VTF8onjPx273rDLEAgG33Gc1G+uG7r96nwAJ92nV6ea7f+5F82ul+tqEgg+H7WeAdifioPraqUzujONx6WhotbrqnMeIdQnEAtW3AFBb6tqnmYIvOR1MHZiFBLHbmKQAu5kU6u3IRnlNxJZOz1LgJTjLJxiPEyCZti4+LgFNVfW4YERblYmHhlGuOSZlOlFrA9oh782KgAHxM/JvDf2KgBAAA=) format('woff2')}
 html,body{margin:0;height:100%;overflow:hidden;background:transparent}
@@ -17,7 +17,7 @@ var raf=window.requestAnimationFrame.bind(window),n=0;
 window.requestAnimationFrame=function(cb){return raf(function(t){try{cb(t)}catch(e){fin();throw e}if(++n===2){try{parent.postMessage({vyvreIntro:'debut'},'*')}catch(e){}}})};
 })();</script>
 <script>
-(()=>{
+function vyvreLancer(){
 let fini=false;
 const fin=()=>{if(fini)return;fini=true;try{window.parent.postMessage({vyvreIntro:'fin'},'*');}catch(e){}};
 addEventListener('pointerdown',fin);addEventListener('keydown',fin);
@@ -222,7 +222,9 @@ const prog=(vs,fs)=>{const p=gl.createProgram();gl.attachShader(p,sh(gl.VERTEX_S
  const u={};const n=gl.getProgramParameter(p,gl.ACTIVE_UNIFORMS);for(let i=0;i<n;i++){const a=gl.getActiveUniform(p,i);u[a.name]=gl.getUniformLocation(p,a.name);}return{p,u};};
 let pP,pD,pU,pC,pF;
 try{pP=prog(VP,FP);pD=prog(VQ,DOWN);pU=prog(VQ,UP);pC=prog(VQ,COMP);pF=prog(VQ,FXF);}catch(e){cv.style.display='none';fin();return;}
-const hf=!!gl.getExtension('EXT_color_buffer_float');const IF=hf?gl.RGBA16F:gl.RGBA8,TY=hf?gl.HALF_FLOAT:gl.UNSIGNED_BYTE;
+let hf=!Q.has('rgba8')&&!!(gl.getExtension('EXT_color_buffer_float')||gl.getExtension('EXT_color_buffer_half_float'));
+if(hf){const t=gl.createTexture();gl.bindTexture(gl.TEXTURE_2D,t);gl.texImage2D(gl.TEXTURE_2D,0,gl.RGBA16F,4,4,0,gl.RGBA,gl.HALF_FLOAT,null);const fb=gl.createFramebuffer();gl.bindFramebuffer(gl.FRAMEBUFFER,fb);gl.framebufferTexture2D(gl.FRAMEBUFFER,gl.COLOR_ATTACHMENT0,gl.TEXTURE_2D,t,0);hf=gl.checkFramebufferStatus(gl.FRAMEBUFFER)===gl.FRAMEBUFFER_COMPLETE;gl.bindFramebuffer(gl.FRAMEBUFFER,null);gl.deleteFramebuffer(fb);gl.deleteTexture(t);gl.getError();}
+const IF=hf?gl.RGBA16F:gl.RGBA8,TY=hf?gl.HALF_FLOAT:gl.UNSIGNED_BYTE;
 const vaoQ=gl.createVertexArray(),vaoP=gl.createVertexArray(),bT=gl.createBuffer(),bS=gl.createBuffer();
 gl.bindVertexArray(vaoP);gl.bindBuffer(gl.ARRAY_BUFFER,bT);gl.enableVertexAttribArray(0);gl.vertexAttribPointer(0,2,gl.FLOAT,false,0,0);
 gl.bindBuffer(gl.ARRAY_BUFFER,bS);gl.enableVertexAttribArray(1);gl.vertexAttribPointer(1,3,gl.FLOAT,false,0,0);gl.bindVertexArray(null);
@@ -305,6 +307,8 @@ function frame(now){if(fini&&FIGE===null)return;requestAnimationFrame(frame);
   if(o>=TRAJ&&FIGE===null)fin();}
 }
 const go=()=>requestAnimationFrame(frame);
-(document.fonts?Promise.race([Promise.all([document.fonts.load('300 64px '+FONT),document.fonts.load('italic 500 20px "Playfair Display"')]),new Promise(r=>setTimeout(r,1500))]):Promise.resolve()).catch(()=>{}).then(go);
-})();
+(document.fonts?Promise.race([Promise.all([document.fonts.load('300 64px '+FONT),document.fonts.load('italic 500 20px "Playfair Display"')]),new Promise(r=>setTimeout(r,900))]):Promise.resolve()).catch(()=>{}).then(go);
+}
+/* premier dessin tout de suite (fond noir), le travail lourd juste apres */
+requestAnimationFrame(()=>requestAnimationFrame(()=>setTimeout(vyvreLancer,0)));
 </script></body></html>

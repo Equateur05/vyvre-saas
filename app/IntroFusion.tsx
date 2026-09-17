@@ -28,15 +28,15 @@ export default function IntroFusion() {
       setOn(false);
     };
     let demarre = false;
-    // si l'intro n'a rien dessiné en 3 s (navigateur sans WebGL2, onglet en arrière-plan, erreur), on rend le site
-    const pasDemarre = window.setTimeout(() => { if (!demarre) fin(); }, 3000);
+    // si l'intro n'a rien dessiné en 5 s (navigateur sans WebGL2, onglet en arrière-plan, erreur), on rend le site
+    const pasDemarre = window.setTimeout(() => { if (!demarre) fin(); }, 5000);
     const onMsg = (e: MessageEvent) => {
       if (!e.data) return;
       if (e.data.vyvreIntro === 'debut') demarre = true;
       if (e.data.vyvreIntro === 'fin') fin();
     };
     window.addEventListener('message', onMsg);
-    const secours = window.setTimeout(fin, 8000);
+    const secours = window.setTimeout(fin, 10000);
     return () => { window.removeEventListener('message', onMsg); window.clearTimeout(secours); window.clearTimeout(pasDemarre); };
   }, []);
 
