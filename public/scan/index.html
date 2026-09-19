@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>VYVRE — Universal Skin Scan</title>
+<meta name="vy-title-key" content="meta.t">
+<meta name="description" content="Votre peau, mesurée en moins de 10 secondes depuis votre caméra. Puis les trois soins qui lui correspondent, parmi 5 883 références de 147 marques.">
+<title>VYVRE — Scan de peau universel</title>
+<!-- VYVRE_I18N : moteur 12 langues, francais par defaut -->
+<script src="/scan/vy-i18n.js?v=1"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Police ultra-clean (Silicon Valley DeepTech style) -->
@@ -364,8 +368,8 @@ header .brand{display:flex;align-items:center;gap:15px}
 </head>
 <body>
 <!-- VYVRE_PITCH_BTN_BEGIN -->
-<a class="vyvre-pitch-btn" href="https://vyvre.fr" id="vyvre-pitch-link" target="_blank" rel="noopener" aria-label="Voir la présentation VYVRE">
-  <span>DECK</span>
+<a class="vyvre-pitch-btn" href="https://vyvre.fr" id="vyvre-pitch-link" target="_blank" rel="noopener" aria-label="Voir la présentation VYVRE" data-i18n-attr="aria-label:hd.deckAria">
+  <span data-i18n="hd.deck">DECK</span>
   <span class="pitch-arrow">&rarr;</span>
 </a>
 <script>
@@ -389,27 +393,27 @@ header .brand{display:flex;align-items:center;gap:15px}
     <div class="brand-logo"><canvas class="v-mini" width="72" height="72">V</canvas></div>
     <span class="brand-vyvre" style="display:inline-flex;flex-direction:column;line-height:1">VYVRE<i class="vy-signature">skin intelligence</i></span>
     <span class="brand-x">×</span>
-    <span class="brand-partner">UNIVERSAL SCAN</span>
+    <span class="brand-partner" data-i18n="hd.partner">SCAN UNIVERSEL</span>
     <nav class="vy-menu">
-      <a href="/cheveux">Scan cheveux</a>
-      <a href="/manifeste">Manifeste</a>
-      <a href="/accuracy">Méthode</a>
-      <a href="/marques">Pour les marques</a>
+      <a href="/cheveux" data-i18n="nav.hair">Scan cheveux</a>
+      <a href="/manifeste" data-i18n="nav.man">Manifeste</a>
+      <a href="/accuracy" data-i18n="nav.meth">Méthode</a>
+      <a href="/marques" data-i18n="nav.brands">Pour les marques</a>
     </nav>
   </div>
-  <div class="label-sm">Free skin reading · 147 brands</div>
+  <div class="label-sm" data-i18n="hd.free">Lecture de peau offerte · 147 marques</div>
 </header>
 
 <!-- 1. HERO -->
 <section id="view-hero" class="view-state active">
   <div class="hero-content">
-    <div class="label-sm" style="margin-bottom: 30px;">Molecular Topology DeepTech</div>
-    <h1>Longevity.<br>Quantified.</h1>
-    <p>Your skin, measured in under 10 seconds from your camera, pixel by pixel in the CIE Lab colour space. Then the three products that fit it best, chosen among 5,883 references from 147 brands.</p>
+    <div class="label-sm" style="margin-bottom: 30px;" data-i18n="h.kick">Topologie moléculaire</div>
+    <h1 data-i18n="h.title">Longévité.<br>Mesurée.</h1>
+    <p data-i18n="h.p">Votre peau, mesurée en moins de 10 secondes depuis votre caméra, pixel par pixel dans l’espace colorimétrique CIE Lab. Puis les trois soins qui lui correspondent le mieux, choisis parmi 5 883 références de 147 marques.</p>
 
     <div style="display: flex; gap: 24px; justify-content: center; margin-top: 60px;">
-      <button class="spatial-btn" id="btn-scan">Start scan</button>
-      <button class="spatial-btn secondary" id="btn-upload">Upload photo</button>
+      <button class="spatial-btn" id="btn-scan" data-i18n="h.scan">Lancer le scan</button>
+      <button class="spatial-btn secondary" id="btn-upload" data-i18n="h.upload">Envoyer une photo</button>
       <input type="file" id="file-input" accept="image/*" style="display:none;">
     </div>
   </div>
@@ -418,8 +422,8 @@ header .brand{display:flex;align-items:center;gap:15px}
 <!-- 2. SCANNER (THERMAL / OPTICS) -->
 <section id="view-scanner" class="view-state">
   <div style="text-align: center; margin-bottom: 50px;">
-    <div class="label-sm" style="margin-bottom: 15px;">Phase 01</div>
-    <h2>Face Analysis</h2>
+    <div class="label-sm" style="margin-bottom: 15px;" data-i18n="sc.phase">Phase 01</div>
+    <h2 data-i18n="sc.h2">Analyse du visage</h2>
   </div>
 
   <div class="spatial-panel scanner-module">
@@ -432,17 +436,17 @@ header .brand{display:flex;align-items:center;gap:15px}
 
       <!-- UI d'indication de profondeur (Effet militaire/optique) -->
       <div class="depth-indicator" id="depth-ui">
-        <div class="depth-layer" id="lyr-1">L01: EPIDERMIS</div>
-        <div class="depth-layer" id="lyr-2">L02: DERMAL MATRIX</div>
-        <div class="depth-layer" id="lyr-3">L03: THERMO-NETWORK</div>
+        <div class="depth-layer" id="lyr-1" data-i18n="sc.l1">C01 : ÉPIDERME</div>
+        <div class="depth-layer" id="lyr-2" data-i18n="sc.l2">C02 : MATRICE DERMIQUE</div>
+        <div class="depth-layer" id="lyr-3" data-i18n="sc.l3">C03 : RÉSEAU THERMIQUE</div>
       </div>
 
       <div class="lidar-sweep" id="scan-laser"></div>
 
       <div class="scan-hud">
-        <div class="hud-item"><span class="label-sm">Nodes</span><span class="val" id="hud-nodes">--</span></div>
+        <div class="hud-item"><span class="label-sm" data-i18n="sc.nodes">Points</span><span class="val" id="hud-nodes">--</span></div>
         <div style="width: 1px; background: rgba(255,255,255,0.2);"></div>
-        <div class="hud-item"><span class="label-sm">Optics</span><span class="val" id="hud-status">Searching</span></div>
+        <div class="hud-item"><span class="label-sm" data-i18n="sc.optics">Optique</span><span class="val" id="hud-status" data-i18n="hud.search">Recherche</span></div>
       </div>
     </div>
   </div>
@@ -451,15 +455,15 @@ header .brand{display:flex;align-items:center;gap:15px}
 <!-- 3. COMPUTATION (EPIGENETIC PARTICLE CLOUD) -->
 <section id="view-process" class="view-state">
   <div class="computation-layout">
-    <div class="label-sm" style="margin-bottom: 40px; position:absolute; top:0;">Skin measurement in progress</div>
+    <div class="label-sm" style="margin-bottom: 40px; position:absolute; top:0;" data-i18n="pr.t">Mesure de la peau en cours</div>
 
     <!-- Visualisation des données brutes 3D -->
     <canvas id="epigenetic-canvas"></canvas>
 
     <div class="process-steps" style="position:absolute; bottom:0;">
-      <div class="step-text" id="step-1">Analyzing skin...</div>
-      <div class="step-text" id="step-2">Modeling the structural matrix...</div>
-      <div class="step-text" id="step-3">Building your routine...</div>
+      <div class="step-text" id="step-1" data-i18n="pr.s1">Analyse de la peau…</div>
+      <div class="step-text" id="step-2" data-i18n="pr.s2">Modélisation de la matrice structurelle…</div>
+      <div class="step-text" id="step-3" data-i18n="pr.s3">Composition de votre routine…</div>
     </div>
   </div>
 </section>
@@ -530,18 +534,18 @@ header .brand{display:flex;align-items:center;gap:15px}
     <!-- ROW 1 : 3 chiffres biomarqueurs (data-vyvre-* hooks pour real scan) -->
     <div class="v6r3">
       <div class="v6card">
-        <span class="v6lbl">Target: Glow</span>
-        <h3>Radiance</h3>
+        <span class="v6lbl" data-i18n="r.tGlow">Cible : Éclat</span>
+        <h3 data-i18n="r.glow">Éclat</h3>
         <div class="v6num"><span data-vyvre-glow data-target="70">70</span><span class="v6unit">/100</span></div>
       </div>
       <div class="v6card">
-        <span class="v6lbl">Target: Redness</span>
-        <h3>Calm</h3>
+        <span class="v6lbl" data-i18n="r.tRed">Cible : Rougeurs</span>
+        <h3 data-i18n="r.calm">Apaisement</h3>
         <div class="v6num"><span data-vyvre-calm data-target="70">70</span><span class="v6unit">/100</span></div>
       </div>
       <div class="v6card">
-        <span class="v6lbl">Target: Hydration</span>
-        <h3>Hydration Barrier</h3>
+        <span class="v6lbl" data-i18n="r.tHydr">Cible : Hydratation</span>
+        <h3 data-i18n="r.hydr">Barrière d’hydratation</h3>
         <div class="v6num"><span data-vyvre-hydration data-target="88">88</span><span class="v6unit">%</span></div>
       </div>
     </div>
@@ -552,25 +556,25 @@ header .brand{display:flex;align-items:center;gap:15px}
     </div>
 
     <!-- ROW 3 : 3 produits Charlotte Tilbury dynamiques (matched depuis vyvre.fr/api/products?brand=charlotte-tilbury) -->
-    <div class="v6r3" id="vyvre-product-row">
+    <div class="v6r3" id="vyvre-product-row" data-ritual="VOTRE RITUEL · 3 SOINS" data-i18n-attr="data-ritual:ri.label">
       <div class="v6card v6prod" data-vyvre-prod-slot="0">
-        <span class="v6lbl">Hydration</span>
+        <span class="v6lbl" data-i18n="c.hydration">Hydratation</span>
         <h3>Charlotte's Magic Cream Moisturiser</h3>
-        <p>Targeted action: Hydration · Radiance.</p>
+        <p data-i18n="d.p0">Action ciblée : Hydratation · Éclat.</p>
         <img class="v6photo" src="https://vyvre-demos.web.app/products/charlotte-tilbury/charlotte-s-magic-cream-moisturiser.jpg" alt="Charlotte's Magic Cream Moisturiser" onerror="this.style.display='none'">
         <div class="v6price">85 €</div>
       </div>
       <div class="v6card v6prod" data-vyvre-prod-slot="1">
-        <span class="v6lbl">Anti-Wrinkle</span>
+        <span class="v6lbl" data-i18n="c.wrinkles">Ridules</span>
         <h3>Magic Eye Rescue Cream with Retinol</h3>
-        <p>Targeted action: Anti-Wrinkle · Hydration.</p>
+        <p data-i18n="d.p1">Action ciblée : Ridules · Hydratation.</p>
         <img class="v6photo" src="https://vyvre-demos.web.app/products/charlotte-tilbury/magic-eye-rescue.jpg" alt="Magic Eye Rescue Cream with Retinol" onerror="this.style.display='none'">
         <div class="v6price">55 €</div>
       </div>
       <div class="v6card v6prod" data-vyvre-prod-slot="2">
-        <span class="v6lbl">Radiance</span>
+        <span class="v6lbl" data-i18n="c.glow">Éclat</span>
         <h3>Charlotte's Magic Serum Crystal Elixir</h3>
-        <p>Targeted action: Radiance · Anti-Wrinkle.</p>
+        <p data-i18n="d.p2">Action ciblée : Éclat · Ridules.</p>
         <img class="v6photo" src="https://vyvre-demos.web.app/products/charlotte-tilbury/magic-serum-crystal-elixir.jpg" alt="Charlotte's Magic Serum Crystal Elixir" onerror="this.style.display='none'">
         <div class="v6price">75 €</div>
       </div>
@@ -579,7 +583,7 @@ header .brand{display:flex;align-items:center;gap:15px}
     <!-- ROW 3.5 : Complete protocol button -->
     <div class="v6protocol-cta">
       <a id="vyvre-protocol-link" href="/scan/protocol" class="v6protocol-btn" target="_blank" rel="noopener">
-        <span class="v6protocol-main">Complete protocol</span>
+        <span class="v6protocol-main" data-i18n="cta.proto">Protocole complet</span>
         <span class="v6protocol-arrow">→</span>
       </a>
     </div>
@@ -587,19 +591,19 @@ header .brand{display:flex;align-items:center;gap:15px}
     <!-- ROW 4 : 3 standards (avec drapeau France subtil sur celui du milieu) -->
     <div class="v6r3">
       <div class="v6card">
-        <span class="v6lbl">Standard: 01</span>
-        <h3>Local processing</h3>
-        <p>WebAssembly in-browser. No photo transmitted beyond the screen.</p>
+        <span class="v6lbl" data-i18n="st.1">Standard : 01</span>
+        <h3 data-i18n="s1.h">Traitement local</h3>
+        <p data-i18n="s1.p">WebAssembly dans le navigateur. Aucune photo ne quitte votre écran.</p>
       </div>
       <div class="v6card v6fr-flag">
-        <span class="v6lbl">Standard: 02</span>
-        <h3>Sovereign hosting</h3>
-        <p>Data center OVH Roubaix · SecNumCloud + ISO 27001.</p>
+        <span class="v6lbl" data-i18n="st.2">Standard : 02</span>
+        <h3 data-i18n="s2.h">Hébergement souverain</h3>
+        <p data-i18n="s2.p">Centre de données OVH Roubaix · SecNumCloud + ISO 27001.</p>
       </div>
       <div class="v6card">
-        <span class="v6lbl">Standard: 03</span>
-        <h3>GDPR-native</h3>
-        <p>No SCC. Pre-filled DPIA on request.</p>
+        <span class="v6lbl" data-i18n="st.3">Standard : 03</span>
+        <h3 data-i18n="s3.h">RGPD par conception</h3>
+        <p data-i18n="s3.p">Aucune clause contractuelle type. AIPD pré-remplie sur demande.</p>
       </div>
     </div>
 
@@ -607,16 +611,16 @@ header .brand{display:flex;align-items:center;gap:15px}
   </div>
 </section>
 <!-- VYVRE_V6_BLOCK_END -->
-<section class="sg-marque" id="sg-marque" aria-label="For brands">
+<section class="sg-marque" id="sg-marque" aria-label="Pour les marques" data-i18n-attr="aria-label:mk.aria">
   <div class="sg-marque-in">
-    <div class="sg-mk">For beauty brands</div>
-    <h2 class="sg-mh">Your clients deserve<br><em>this reading.</em></h2>
-    <p class="sg-mp">What you just experienced can live on your e-shop and in your stores, on your own catalogue, in your own codes. Start with a pilot, or let us build it with you, made to measure.</p>
+    <div class="sg-mk" data-i18n="mk.k">Pour les marques de beauté</div>
+    <h2 class="sg-mh" data-i18n="mk.h">Vos clientes méritent<br><em>cette lecture.</em></h2>
+    <p class="sg-mp" data-i18n="mk.p">Ce que vous venez de vivre peut exister sur votre e-shop et dans vos boutiques, sur votre propre catalogue, dans vos propres codes. Commencez par un pilote, ou construisons-le avec vous, sur mesure.</p>
     <div class="sg-mb">
-      <a class="sg-mbtn sg-mbtn-a v6cta" href="https://vyvre.fr/pricing/en?from=scan-universel&amp;plan=pilot">Start the pilot <span>→</span></a>
-      <a class="sg-mbtn sg-mbtn-b v6cta" href="mailto:contact@vyvre.fr?subject=Vyvre%20%E2%80%94%20bespoke%20skin%20scan">Build it bespoke</a>
+      <a class="sg-mbtn sg-mbtn-a v6cta" href="https://vyvre.fr/pricing/en?from=scan-universel&amp;plan=pilot"><span data-i18n="mk.a">Lancer le pilote</span> <span>→</span></a>
+      <a class="sg-mbtn sg-mbtn-b v6cta" href="mailto:contact@vyvre.fr?subject=Vyvre%20%E2%80%94%20bespoke%20skin%20scan" data-i18n="mk.b">Le construire sur mesure</a>
     </div>
-    <a class="sg-mprix" href="https://vyvre.fr/pricing/en?from=scan-universel">View pricing</a>
+    <a class="sg-mprix" href="https://vyvre.fr/pricing/en?from=scan-universel" data-i18n="mk.price">Voir les tarifs</a>
   </div>
 </section>
 <style id="sg-marque-css">
@@ -657,6 +661,9 @@ function switchView(viewId) {
     }
 }
 
+// Ecrit le HUD par le moteur de langue, jamais en dur.
+function vyHud(key){ var el=document.getElementById('hud-status'); if(!el) return; el.setAttribute('data-i18n', key); el.textContent = VY.t(key); }
+
 // 2. IA FACE API (THERMAL / TOPOLOGICAL SURGERY)
 const STATE = { modelsLoaded: false, scanning: false, thermalMode: false, box: null, landmarks: null, stream: null };
 const video = document.getElementById('liveVideo');
@@ -668,16 +675,16 @@ let calibFrames = 0;
 
 async function loadAI() {
   if(STATE.modelsLoaded) return true;
-  document.getElementById('hud-status').innerText = "Booting...";
+  vyHud('hud.boot');
   try {
     const URL = '/scan/models/faceapi';
     await faceapi.nets.tinyFaceDetector.loadFromUri(URL);
     await faceapi.nets.faceLandmark68Net.loadFromUri(URL);
     STATE.modelsLoaded = true;
-    document.getElementById('hud-status').innerText = "Optics Rdy";
+    vyHud('hud.ready');
     return true;
   } catch(e) {
-    document.getElementById('hud-status').innerText = "Sys Error";
+    vyHud('hud.err');
     return false;
   }
 }
@@ -690,23 +697,23 @@ document.getElementById('btn-scan').addEventListener('click', async () => {
     video.srcObject = STATE.stream;
     video.onloadedmetadata = () => {
       overlay.width = video.videoWidth; overlay.height = video.videoHeight;
-      document.getElementById('hud-status').innerText = "Tracking";
+      vyHud('hud.track');
       setInterval(detectAndDraw, 100);
       renderThermalTopography();
     };
   } catch(e) {
     // Camera refusee ou indisponible : on le dit et on propose la photo, jamais d'ecran noir muet.
-    document.getElementById('hud-status').innerText = "Cam Offline";
+    vyHud('hud.camoff');
     var vc = document.getElementById('thermal-vid-container');
     if (vc && !document.getElementById('vy-cam-ko')) {
       var d = document.createElement('div');
       d.id = 'vy-cam-ko';
       d.style.cssText = 'position:absolute;inset:0;z-index:9;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;text-align:center;padding:24px;background:rgba(4,5,10,.72);backdrop-filter:blur(8px)';
-      d.innerHTML = '<div class="label-sm">Camera</div>'
-        + '<h3 style="font-weight:200;font-size:22px;max-width:420px;line-height:1.35">We cannot open your camera. Check the permission in your browser, or read your skin from a photo.</h3>';
-      var b1 = document.createElement('button'); b1.className='spatial-btn'; b1.textContent='Upload photo';
+      d.innerHTML = '<div class="label-sm" data-i18n="cam.title">' + VY.t('cam.title') + '</div>'
+        + '<h3 data-i18n="cam.msg" style="font-weight:200;font-size:22px;max-width:420px;line-height:1.35">' + VY.t('cam.msg') + '</h3>';
+      var b1 = document.createElement('button'); b1.className='spatial-btn'; b1.setAttribute('data-i18n','h.upload'); b1.textContent=VY.t('h.upload');
       b1.onclick = function(){ document.getElementById('file-input').click(); };
-      var b2 = document.createElement('button'); b2.className='spatial-btn secondary'; b2.textContent='Try again';
+      var b2 = document.createElement('button'); b2.className='spatial-btn secondary'; b2.setAttribute('data-i18n','cam.retry'); b2.textContent=VY.t('cam.retry');
       b2.onclick = function(){ d.remove(); document.getElementById('btn-scan').click(); };
       var row = document.createElement('div'); row.style.cssText='display:flex;gap:14px;flex-wrap:wrap;justify-content:center';
       row.appendChild(b1); row.appendChild(b2); d.appendChild(row); vc.appendChild(d);
@@ -729,7 +736,7 @@ document.getElementById('file-input').addEventListener('change', async (e) => {
     overlay.width = img.width || 480; overlay.height = img.height || 640;
     generateMockData(overlay.width, overlay.height);
     renderThermalTopography();
-    document.getElementById('hud-status').innerText = "Extracting";
+    vyHud('hud.extract');
   };
 });
 
@@ -793,15 +800,15 @@ function showNoFaceBanner(mainMsg, subMsg){
     b.innerHTML = `
       <div style="display:flex; align-items:center; gap:12px; font-family:'JetBrains Mono',monospace; font-size:9px; letter-spacing:0.45em; text-transform:uppercase; color:rgba(217,186,114,0.75);">
         <span style="width:5px; height:5px; border-radius:50%; background:#F0C780; box-shadow:0 0 10px #F0C780, 0 0 20px rgba(240,199,128,0.5); animation:vyvreBannerPulse 1.6s ease-in-out infinite;"></span>
-        <span class="banner-eyebrow">CALIBRATION</span>
+        <span class="banner-eyebrow" data-i18n="ban.eye">${VY.t('ban.eye')}</span>
       </div>
-      <div class="banner-main" style="font-family:'Instrument Serif',serif; font-style:italic; font-size:24px; font-weight:400; color:#F5F0E5; letter-spacing:-0.01em; line-height:1.15; margin-top:2px;">No face <em style="color:#F0C780;">detected</em></div>
-      <div class="banner-sub" style="font-family:'Inter',sans-serif; font-weight:300; font-size:12px; color:rgba(245,240,229,0.55); letter-spacing:0.02em; line-height:1.5;">Reposition yourself facing the camera</div>
+      <div class="banner-main" style="font-family:'Instrument Serif',serif; font-style:italic; font-size:24px; font-weight:400; color:#F5F0E5; letter-spacing:-0.01em; line-height:1.15; margin-top:2px;" data-i18n="ban.main">${VY.t('ban.main')}</div>
+      <div class="banner-sub" style="font-family:'Inter',sans-serif; font-weight:300; font-size:12px; color:rgba(245,240,229,0.55); letter-spacing:0.02em; line-height:1.5;" data-i18n="ban.sub">${VY.t('ban.sub')}</div>
     `;
     document.body.appendChild(b);
   }
-  if(mainMsg) b.querySelector('.banner-main').innerHTML = mainMsg;
-  if(subMsg) b.querySelector('.banner-sub').textContent = subMsg;
+  if(mainMsg) { var bm=b.querySelector('.banner-main'); bm.removeAttribute('data-i18n'); bm.innerHTML = mainMsg; }
+  if(subMsg) { var bs=b.querySelector('.banner-sub'); bs.removeAttribute('data-i18n'); bs.textContent = subMsg; }
   b.style.opacity = '1';
   b.style.transform = 'translateX(-50%) scale(1)';
 }
@@ -880,7 +887,7 @@ function renderThermalTopography() {
 
 function handleCalibration() {
   if (STATE.scanning) return;
-  document.getElementById('hud-status').innerText = "Locked";
+  vyHud('hud.lock');
 
   calibFrames++;
   if(calibFrames > 15) {
@@ -892,7 +899,7 @@ function handleCalibration() {
 function startThermalScan() {
   STATE.thermalMode = true;
   videoContainer.classList.add('thermal-active');
-  document.getElementById('hud-status').innerText = "Thermal Active";
+  vyHud('hud.thermal');
 
   document.getElementById('scan-laser').classList.add('scanning');
 
@@ -921,7 +928,7 @@ function executeCapture() {
   if(landmarksCount < 60 || boxSize < minBox){ // score retiré: 68 landmarks = face détectée
     // Visage absent ou mal détecté → alerte AVANT scan, pas après
     console.warn('[CHARLOTTE_TILBURY] face check failed:', { score, landmarksCount, boxSize, minBox });
-    showNoFaceBanner('Face not detected — reposition facing the camera');
+    showNoFaceBanner(VY.t('ban.main2'));
     // Reset pour permettre une nouvelle calibration
     STATE.scanning = false;
     STATE.thermalMode = false;
@@ -929,7 +936,7 @@ function executeCapture() {
     document.getElementById('scan-laser').classList.remove('scanning');
     depthUI.classList.remove('show');
     calibFrames = 0;
-    document.getElementById('hud-status').innerText = 'Tracking';
+    vyHud('hud.track');
     // Auto-hide banner after 4s
     setTimeout(hideNoFaceBanner, 4000);
     return;
@@ -1461,11 +1468,12 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
   console.log('[CHARLOTTE_TILBURY] selected products:', selected.map(p => p.name + ' (match=' + p.matchScore.toFixed(1) + ')'));
 
   // Re-render les 3 cards de Row 3
-  const concernLabels = {
-    wrinkles: 'Fine lines', firmness: 'Firmness', glow: 'Radiance',
-    hydration: 'Hydration', redness: 'Calming', pores: 'Pores',
-    sebum: 'Oil control', pigmentation: 'Even tone'
+  const CONCERN_KEYS = {
+    wrinkles: 'c.wrinkles', firmness: 'c.firmness', glow: 'c.glow',
+    hydration: 'c.hydration', redness: 'c.redness', pores: 'c.pores',
+    sebum: 'c.sebum', pigmentation: 'c.pigmentation'
   };
+  const concernLabel = (k) => CONCERN_KEYS[k] ? VY.t(CONCERN_KEYS[k]) : k;
 
   selected.forEach((p, idx) => {
     const card = document.querySelector(`[data-vyvre-prod-slot="${idx}"]`);
@@ -1477,12 +1485,13 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     const img = card.querySelector('img');
     const price = card.querySelector('.v6price');
 
-    if (lblEl) lblEl.textContent = concernLabels[primaryTarget] || 'Signature care';
-    if (h3) h3.textContent = p.name;
+    if (lblEl) { lblEl.setAttribute('data-i18n', CONCERN_KEYS[primaryTarget] || 'c.default'); lblEl.textContent = CONCERN_KEYS[primaryTarget] ? concernLabel(primaryTarget) : VY.t('c.default'); }
+    if (h3) { h3.removeAttribute('data-i18n'); h3.textContent = p.name; }
     card.dataset.marque = p.brand_name || '';
     if (pEl) {
-      const targetWords = (p.targets || []).map(t => concernLabels[t] || t).join(' · ');
-      pEl.textContent = `${p.brand_name ? p.brand_name + ' · ' : ''}Targeted action: ${targetWords}.`;
+      const targetWords = (p.targets || []).map(t => concernLabel(t)).join(' · ');
+      pEl.removeAttribute('data-i18n');
+      pEl.textContent = `${p.brand_name ? p.brand_name + ' · ' : ''}` + VY.t('p.action', { t: targetWords });
     }
     if (img && p.image_url) {
       img.src = p.cutout_url || p.image_url;
@@ -1499,7 +1508,7 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     // === [CLICK→URL marque] ===
     if (p.url) {
       card.style.cursor = "pointer";
-      card.title = "View on the official brand site";
+      card.title = VY.t('p.open');
       card.onclick = (e) => { e.preventDefault(); window.open(p.url, "_blank", "noopener,noreferrer"); };
     }
     card.dataset.vyvreMatchScore = p.matchScore.toFixed(1);
@@ -1804,7 +1813,7 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     .vyvre-v6 .v6grid>#vyvre-product-row{display:grid;grid-template-columns:repeat(3,1fr);grid-column:1/13;grid-row:4;gap:0;
       background:linear-gradient(160deg,rgba(255,255,255,.075),rgba(255,255,255,.025) 45%,rgba(255,255,255,.04));border:1px solid var(--sg-line);border-radius:24px;
       backdrop-filter:blur(26px) saturate(1.3);-webkit-backdrop-filter:blur(26px) saturate(1.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 50px 100px -50px rgba(0,0,0,1);overflow:hidden;position:relative}
-    .vyvre-v6 .v6grid>#vyvre-product-row::before{content:'YOUR RITUAL · 3 PRODUCTS';position:absolute;top:14px;left:20px;font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.3em;color:rgba(217,201,163,.8)}
+    .vyvre-v6 .v6grid>#vyvre-product-row::before{content:attr(data-ritual);position:absolute;top:14px;left:20px;font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.3em;color:rgba(217,201,163,.8)}
     .vyvre-v6 .v6card.v6prod{display:grid;grid-template-columns:120px 1fr;align-items:center;column-gap:16px;padding:40px 22px 18px;background:none;border:0;border-radius:0;box-shadow:none;backdrop-filter:none;-webkit-backdrop-filter:none;opacity:1;transform:none}
     .vyvre-v6 .v6card.v6prod+.v6card.v6prod{border-left:1px solid rgba(255,255,255,.08)}
     .vyvre-v6 .v6card.v6prod::before{display:none}
@@ -2011,11 +2020,16 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
   addEventListener('pointermove',function(e){cur.style.left=e.clientX+'px';cur.style.top=e.clientY+'px';
     document.body.classList.toggle('sig-hover',!!(e.target.closest&&e.target.closest('a,button,.v6card')));},{passive:true});
   /* ---- héros : mots qui montent + chips ---- */
-  var h1=document.querySelector('#view-hero h1');
-  if(h1){ var html=h1.innerHTML.split(/<br\s*\/?>/i).map(function(l,i){return l.trim().split(/\s+/).map(function(w,j){return '<span class="sg-w" style="animation-delay:'+(0.15+i*0.25+j*0.12)+'s">'+w+'</span>';}).join(' ');}).join('<br>'); h1.innerHTML=html; }
+  window.sgTitreHero=function(){ var h1=document.querySelector('#view-hero h1'); if(!h1) return;
+    var src=(window.VY&&VY.t)?VY.t('h.title'):h1.innerHTML;
+    /* droite a gauche : pas de decoupe par mot, la ponctuation se detacherait */
+    if(document.documentElement.getAttribute('dir')==='rtl'){ h1.removeAttribute('data-i18n'); h1.innerHTML=src; return; }
+    var html=src.split(/<br\s*\/?>/i).map(function(l,i){return l.trim().split(/\s+/).map(function(w,j){return '<span class="sg-w" style="animation-delay:'+(0.15+i*0.25+j*0.12)+'s">'+w+'</span>';}).join(' ');}).join('<br>');
+    h1.removeAttribute('data-i18n'); h1.innerHTML=html; };
+  window.sgTitreHero();
   var hero=document.getElementById('view-hero');
-  if(hero){ [['c1','Radiance','91','<i>/100</i>'],['c2','Calm','84','<i>/100</i>'],['c3','Hydration','88','<i>%</i>'],['c4','Latency','0.4','<i>s</i>']].forEach(function(d){
-    var e=document.createElement('div');e.className='sg-chip '+d[0];e.innerHTML=d[1]+'<b><span data-sg-n="'+d[2]+'">0</span>'+d[3]+'</b>';hero.appendChild(e);});
+  if(hero){ [['c1','chip.glow','91','<i>/100</i>'],['c2','chip.calm','84','<i>/100</i>'],['c3','chip.hydr','88','<i>%</i>'],['c4','chip.lat','0.4','<i>s</i>']].forEach(function(d){
+    var e=document.createElement('div');e.className='sg-chip '+d[0];e.innerHTML='<span data-i18n="'+d[1]+'">'+VY.t(d[1])+'</span><b><span data-sg-n="'+d[2]+'">0</span>'+d[3]+'</b>';hero.appendChild(e);});
     setTimeout(function(){document.querySelectorAll('[data-sg-n]').forEach(function(s){var end=parseFloat(s.dataset.sgN),dec=(end%1)?1:0,t0=performance.now();(function k(now){var p=Math.min(1,(now-t0)/1800);p=1-Math.pow(1-p,3);s.textContent=(end*p).toFixed(dec);if(p<1)requestAnimationFrame(k);})(t0);});},900); }
   /* ---- scanner : portail + onde signature ---- */
   var mod=document.querySelector('.scanner-module');
@@ -2087,14 +2101,14 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     setInterval(function(){ if(!document.getElementById('view-scanner').classList.contains('active'))return; var st=document.getElementById('hud-status');
       if(vid.srcObject&&vid.paused){vid.play().catch(function(){});}
       var stale=!STATE.lastDetectionAt||(performance.now()-STATE.lastDetectionAt)>1200;
-      if(st&&!STATE.scanning){st.innerText=!STATE.modelsLoaded?'Loading':(vid.paused?'Video paused':(stale?'Searching':'Locked'));}
+      if(st&&!STATE.scanning){vyHud(!STATE.modelsLoaded?'hud.load':(vid.paused?'hud.pause':(stale?'hud.search':'hud.lock')));}
       /* départ du scan : 1,2 s de verrouillage continu suffisent, sans dépendre du compteur du moteur */
       if(!stale&&!STATE.scanning){if(!lockSince)lockSince=performance.now();if(performance.now()-lockSince>1200){STATE.scanning=true;startThermalScan();}}else if(stale)lockSince=0;
       if(false){ownBusy=true;
         faceapi.detectSingleFace(vid,new faceapi.TinyFaceDetectorOptions({inputSize:320,scoreThreshold:.35})).withFaceLandmarks().then(function(r){ownBusy=false;if(r){STATE.box=r.detection.box;STATE.landmarks=r.landmarks.positions;STATE.detectionScore=r.detection.score||0;STATE.lastDetectionAt=performance.now();var hn=document.getElementById('hud-nodes');if(hn)hn.innerText=STATE.landmarks.length;if(typeof handleCalibration==='function')handleCalibration();}}).catch(function(){ownBusy=false;});}
     },250);
     /* le scan du moteur : on remplace sa mise en scène thermique par la nôtre, puis on rend la main à executeCapture */
-    var _startThermal=startThermalScan;startThermalScan=function(){STATE.thermalMode=true;document.getElementById('hud-status').innerText='Reading';T0=performance.now();for(var i=0;i<68;i++)LIT[i]=0;setTimeout(function(){executeCapture();},DUR*1000);};
+    var _startThermal=startThermalScan;startThermalScan=function(){STATE.thermalMode=true;vyHud('hud.read');T0=performance.now();for(var i=0;i<68;i++)LIT[i]=0;setTimeout(function(){executeCapture();},DUR*1000);};
     (function frame(now){var t=now/1000;x.clearRect(0,0,W2,H2);var P=pts();if(P&&document.getElementById('view-scanner').classList.contains('active')){if(T0){var T=(now-T0)/1000;if(T<DUR+.5)scene(t,P,T);}else attente(t,P);}if(!reduce)requestAnimationFrame(frame);})(0);
   }
   /* ---- LE CALCUL : LA GALAXIE — les points du visage montent en orbite, la spirale tourne, le cœur s'effondre en lumière ---- */
@@ -2126,21 +2140,22 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     function bio(){if(fait)return;fait=true;var r=window.vyvreLastScanResult,sc=r&&r.scores||{};function v(k,d){var n=Number(sc[k]);return isFinite(n)?Math.round(n):d;}
       var raw=(r&&r.raw)||{}; var tw=Number(raw.tewl), ita=Number(raw.ita);
       var texture=isFinite(tw)?Math.max(5,Math.min(98,Math.round(100-tw*2.2))):68, itaV=isFinite(ita)?Math.round(ita):38;
-      var L=[['Pores','Target: Pores',v('pores',70),'/100'],['Oil balance','Target: Sebum',100-v('sebum',30),'/100'],['Evenness','Target: Tone',100-v('pigmentation',30),'/100'],['Skin tone ITA°','Target: Phototype',itaV,'°']];
-      (function(){ var fr=grid.querySelector('.v6r3'); var c=document.createElement('div'); c.className='v6card sg-metric sg-m4'; c.innerHTML='<span class="v6lbl">Target: Micro-relief</span><h3>Texture</h3><div class="v6num"><span>0</span><span class="v6unit">/100</span></div><div class="sg-barre"><i></i></div>'; fr.appendChild(c);
+      var L=[['r.pores','r.tPores',v('pores',70),'/100'],['r.oil','r.tSeb',100-v('sebum',30),'/100'],['r.even','r.tTone',100-v('pigmentation',30),'/100'],['r.ita','r.tPhoto',itaV,'°']];
+      (function(){ var fr=grid.querySelector('.v6r3'); var c=document.createElement('div'); c.className='v6card sg-metric sg-m4'; c.innerHTML='<span class="v6lbl" data-i18n="r.tMicro">'+VY.t('r.tMicro')+'</span><h3 data-i18n="r.texture">'+VY.t('r.texture')+'</h3><div class="v6num"><span>0</span><span class="v6unit">/100</span></div><div class="sg-barre"><i></i></div>'; fr.appendChild(c);
         var num=c.querySelector('.v6num span'),bar=c.querySelector('.sg-barre i'); setTimeout(function(){ c.classList.add('sg-in'); var t0=performance.now(); (function k(now){var p=Math.min(1,(now-t0)/1600);p=1-Math.pow(1-p,3);num.textContent=Math.round(texture*p);if(p<1)requestAnimationFrame(k);})(t0); bar.style.width=texture+'%'; },880); })();
-      var first=grid.querySelector('.v6r3');L.forEach(function(d,i){var c=document.createElement('div');c.className='v6card sg-bio sg-b'+(i+1);c.innerHTML='<span class="v6lbl">'+d[1]+'</span><h3>'+d[0]+'</h3><div class="v6num"><span>0</span><span class="v6unit">'+d[3]+'</span></div><div class="sg-barre"><i></i></div>';first.appendChild(c);
+      var first=grid.querySelector('.v6r3');L.forEach(function(d,i){var c=document.createElement('div');c.className='v6card sg-bio sg-b'+(i+1);c.innerHTML='<span class="v6lbl" data-i18n="'+d[1]+'">'+VY.t(d[1])+'</span><h3 data-i18n="'+d[0]+'">'+VY.t(d[0])+'</h3><div class="v6num"><span>0</span><span class="v6unit">'+d[3]+'</span></div><div class="sg-barre"><i></i></div>';first.appendChild(c);
         var num=c.querySelector('.v6num span'),bar=c.querySelector('.sg-barre i');setTimeout(function(){c.classList.add('sg-in');var t0=performance.now();(function k(now){var p=Math.min(1,(now-t0)/1600);p=1-Math.pow(1-p,3);num.textContent=Math.round(d[2]*p);if(p<1)requestAnimationFrame(k);})(t0);bar.style.width=(d[3]==='°'?Math.max(4,Math.min(100,(d[2]+30)/1)):d[2])+'%';},400+i*160);});
       /* la lecture : une phrase comme une esthéticienne la dirait, à partir des vrais scores */
-      (function(){var r=window.vyvreLastScanResult,sc=r&&r.scores||{};function v(k,d){var n=Number(sc[k]);return isFinite(n)?Math.round(n):d;}var M={hydration:['hydration',v('hydration',44)],glow:['radiance',v('glow',52)],pores:['pore texture',v('pores',60)],redness:['calm',v('redness',70)],sebum:['oil balance',100-v('sebum',30)],pigmentation:['evenness',100-v('pigmentation',30)],texture:['texture',(function(){var t=Number(((r&&r.raw)||{}).tewl);return isFinite(t)?Math.max(5,Math.min(98,Math.round(100-t*2.2))):68;})()]};
+      (function(){var r=window.vyvreLastScanResult,sc=r&&r.scores||{};function v(k,d){var n=Number(sc[k]);return isFinite(n)?Math.round(n):d;}var M={hydration:[VY.t('m.hydration'),v('hydration',44)],glow:[VY.t('m.glow'),v('glow',52)],pores:[VY.t('m.pores'),v('pores',60)],redness:[VY.t('m.redness'),v('redness',70)],sebum:[VY.t('m.sebum'),100-v('sebum',30)],pigmentation:[VY.t('m.pigmentation'),100-v('pigmentation',30)],texture:[VY.t('m.texture'),(function(){var t=Number(((r&&r.raw)||{}).tewl);return isFinite(t)?Math.max(5,Math.min(98,Math.round(100-t*2.2))):68;})()]};
         var arr=Object.keys(M).map(function(k){return M[k];}).sort(function(a,b){return a[1]-b[1];});var low=arr[0],low2=arr[1],high=arr[arr.length-1],G=(function(){var el=document.querySelector('[data-vyvre-score-large]');var n=el?parseInt(el.dataset.target,10):NaN;return isFinite(n)?n:v('globalScore',61);})();
-        var etat=G>=80?'in excellent condition':(G>=65?'in good balance':(G>=50?'showing early signs of fatigue':'asking for attention'));
-        var txt2='Your skin is <em>'+etat+'</em> today, with a global index of <em>'+G+'</em>. The priority is <em>'+low[0]+'</em> ('+low[1]+'): this is where the routine should focus first, with '+low2[0]+' ('+low2[1]+') close behind. Your strength is <em>'+high[0]+'</em> ('+high[1]+'), a foundation to protect. Three gestures below, chosen for exactly this.';
-        var d=document.createElement('div');d.className='sg-verdict';d.innerHTML='<b>READING · YOUR SKIN TODAY</b><p>'+txt2+'</p>';grid.appendChild(d);
+        var etat=VY.t(G>=80?'v.exc':(G>=65?'v.good':(G>=50?'v.tired':'v.need')));
+        var txt2=VY.t('v.txt',{e:etat,g:G,a:low[0],an:low[1],b:low2[0],bn:low2[1],c:high[0],cn:high[1]});
+        var d=document.createElement('div');d.className='sg-verdict';d.innerHTML='<b>'+VY.t('v.h')+'</b><p>'+txt2+'</p>';grid.appendChild(d);
         var ce=document.querySelector('.sg-centre');if(ce){var e=document.createElement('i');e.className='sg-eclat';ce.appendChild(e);}})();
       /* les pièces suivantes entrent en cascade */
       setTimeout(function(){res.classList.add('sg-vu');},700);}
     new MutationObserver(function(){if(res.classList.contains('active'))setTimeout(bio,250);}).observe(res,{attributes:true,attributeFilter:['class']});
+    window.sgBioRefaire=function(){ if(!fait) return; grid.querySelectorAll('.sg-bio,.sg-metric,.sg-verdict').forEach(function(el){el.remove();}); fait=false; bio(); };
   })();
   /* ---- résultats : révélation, barres, jauge ---- */
   var cards=document.querySelectorAll('.vyvre-v6 .v6card');
@@ -2209,11 +2224,11 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     if(!prods.length) return;
     var el=document.createElement('div'); el.id='sg-intro';
     var mots=function(t,d0){ return t.split('').map(function(ch,i){ return '<span style="animation-delay:'+(d0+i*.035).toFixed(3)+'s">'+(ch===' '?'&nbsp;':ch)+'</span>'; }).join(''); };
-    el.innerHTML='<canvas></canvas><div class="si-voile"></div><div class="si-k">Vyvre · Universal scan</div>'
-      +'<div class="si-t"><div class="l1">'+mots('Your ritual,',.35)+'</div><div class="l2">composed from your reading.</div></div>'
+    el.innerHTML='<canvas></canvas><div class="si-voile"></div><div class="si-k" data-i18n="si.k">'+VY.t('si.k')+'</div>'
+      +'<div class="si-t"><div class="l1">'+mots(VY.t('si.t1'),.35)+'</div><div class="l2" data-i18n="si.t2">'+VY.t('si.t2')+'</div></div>'
       +'<div class="si-p">'+prods.map(function(p,i){ var d=(1.3+i*.38).toFixed(2)+'s';
         return '<div class="si-pr" style="--d:'+d+'"><div class="si-im"><img src="'+p.src+'" alt=""></div><div class="si-refl"><img src="'+p.src+'" alt=""></div><div class="si-n"><b>'+String(i+1).padStart(2,'0')+' · '+p.lbl+'</b><i>'+p.nom+'</i></div></div>'; }).join('')+'</div>'
-      +'<button class="si-skip" type="button">Skip</button>';
+      +'<button class="si-skip" type="button" data-i18n="si.skip">'+VY.t('si.skip')+'</button>';
     document.body.appendChild(el); requestAnimationFrame(function(){ el.classList.add('on'); });
     /* ORGANZA D'OBSIDIENNE : voiles sombres a contre-jour glace, bokeh platine */
     var cv=el.querySelector('canvas'), gl=null, run=true; cv.style.display='none';
@@ -2484,43 +2499,43 @@ header{backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important;-webki
 @media (max-width:640px){.vyp-uni{grid-template-columns:1fr 1fr}.vyp-count{text-align:center;min-width:0;width:100%}.vyp-go{padding:16px 34px}}
 </style>
 <div id="vy-prefs" role="dialog" aria-modal="true" aria-labelledby="vyp-title">
-  <button class="vyp-close" type="button" aria-label="Close" data-vyp="close">&#215;</button>
+  <button class="vyp-close" type="button" aria-label="Fermer" data-i18n-attr="aria-label:vp.close" data-vyp="close">&#215;</button>
   <div class="vyp-wrap">
-    <div class="vyp-kick">Before your scan</div>
-    <h2 class="vyp-title" id="vyp-title">What do you want?</h2>
-    <p class="vyp-sub">Your skin picks the care. You pick the world it comes from. Everything is optional and can be changed after your results.</p>
+    <div class="vyp-kick" data-i18n="vp.kick">Avant votre scan</div>
+    <h2 class="vyp-title" id="vyp-title" data-i18n="vp.title">Que cherchez-vous ?</h2>
+    <p class="vyp-sub" data-i18n="vp.sub">Votre peau choisit le soin. Vous choisissez l’univers d’où il vient. Tout est facultatif et modifiable après vos résultats.</p>
 
-    <div class="vyp-sec"><div class="vyp-h"><span class="vyp-n">01</span><b>Your age</b></div>
+    <div class="vyp-sec"><div class="vyp-h"><span class="vyp-n">01</span><b data-i18n="vp.1">Votre âge</b></div>
       <div class="vyp-chips" data-vyp-single="age">
-        <button type="button" class="vyp-chip" data-v="u25">Under 25</button><button type="button" class="vyp-chip" data-v="25">25 to 34</button><button type="button" class="vyp-chip" data-v="35">35 to 44</button><button type="button" class="vyp-chip" data-v="45">45 to 54</button><button type="button" class="vyp-chip" data-v="55">55 and over</button>
+        <button type="button" class="vyp-chip" data-v="u25" data-i18n="ag.u25">Moins de 25 ans</button><button type="button" class="vyp-chip" data-v="25" data-i18n="ag.25">25 à 34 ans</button><button type="button" class="vyp-chip" data-v="35" data-i18n="ag.35">35 à 44 ans</button><button type="button" class="vyp-chip" data-v="45" data-i18n="ag.45">45 à 54 ans</button><button type="button" class="vyp-chip" data-v="55" data-i18n="ag.55">55 ans et plus</button>
       </div></div>
 
-    <div class="vyp-sec"><div class="vyp-h"><span class="vyp-n">02</span><b>What you are looking for</b><i>several possible</i></div>
+    <div class="vyp-sec"><div class="vyp-h"><span class="vyp-n">02</span><b data-i18n="vp.2">Ce que vous cherchez</b><i data-i18n="vp.multi">plusieurs possibles</i></div>
       <div class="vyp-chips" data-vyp-multi="goals">
-        <button type="button" class="vyp-chip" data-v="antiage">Anti-ageing</button><button type="button" class="vyp-chip" data-v="glow">Radiance</button><button type="button" class="vyp-chip" data-v="hydration">Hydration</button><button type="button" class="vyp-chip" data-v="redness">Redness, sensitivity</button><button type="button" class="vyp-chip" data-v="pores">Blemishes, pores</button><button type="button" class="vyp-chip" data-v="pigmentation">Dark spots</button><button type="button" class="vyp-chip" data-v="sebum">Oily skin</button>
+        <button type="button" class="vyp-chip" data-v="antiage" data-i18n="g.antiage">Anti-âge</button><button type="button" class="vyp-chip" data-v="glow" data-i18n="g.glow">Éclat</button><button type="button" class="vyp-chip" data-v="hydration" data-i18n="g.hydration">Hydratation</button><button type="button" class="vyp-chip" data-v="redness" data-i18n="g.redness">Rougeurs, sensibilité</button><button type="button" class="vyp-chip" data-v="pores" data-i18n="g.pores">Imperfections, pores</button><button type="button" class="vyp-chip" data-v="pigmentation" data-i18n="g.pigmentation">Taches</button><button type="button" class="vyp-chip" data-v="sebum" data-i18n="g.sebum">Peau grasse</button>
       </div></div>
 
-    <div class="vyp-sec"><div class="vyp-h"><span class="vyp-n">03</span><b>Your universe</b><i>several possible</i></div>
+    <div class="vyp-sec"><div class="vyp-h"><span class="vyp-n">03</span><b data-i18n="vp.3">Votre univers</b><i data-i18n="vp.multi">plusieurs possibles</i></div>
       <div class="vyp-uni" data-vyp-multi="univers">
-        <button type="button" class="vyp-chip" data-v="luxe">Luxury<small>Chanel, Dior, La Prairie</small></button>
-        <button type="button" class="vyp-chip" data-v="pharmacie">Pharmacy<small>Vichy, La Roche-Posay, Caudalie</small></button>
-        <button type="button" class="vyp-chip" data-v="normal">Everyday<small>Clarins, Kiehl's, Laneige</small></button>
-        <button type="button" class="vyp-chip" data-v="petit-prix">Great value<small>The Ordinary, COSRX</small></button>
+        <button type="button" class="vyp-chip" data-v="luxe"><span data-i18n="u.luxe">Luxe</span><small>Chanel, Dior, La Prairie</small></button>
+        <button type="button" class="vyp-chip" data-v="pharmacie"><span data-i18n="u.pharma">Pharmacie</span><small>Vichy, La Roche-Posay, Caudalie</small></button>
+        <button type="button" class="vyp-chip" data-v="normal"><span data-i18n="u.normal">Quotidien</span><small>Clarins, Kiehl's, Laneige</small></button>
+        <button type="button" class="vyp-chip" data-v="petit-prix"><span data-i18n="u.petit">Petit prix</span><small>The Ordinary, COSRX</small></button>
       </div></div>
 
-    <div class="vyp-sec"><div class="vyp-h"><span class="vyp-n">05</span><b>Where it comes from</b><i>several possible</i></div>
+    <div class="vyp-sec"><div class="vyp-h"><span class="vyp-n">05</span><b data-i18n="vp.5">D’où il vient</b><i data-i18n="vp.multi">plusieurs possibles</i></div>
       <div class="vyp-chips" data-vyp-multi="origine">
-        <button type="button" class="vyp-chip" data-v="FR">France</button><button type="button" class="vyp-chip" data-v="US">United States</button><button type="button" class="vyp-chip" data-v="EU">Rest of Europe</button><button type="button" class="vyp-chip" data-v="GB">United Kingdom</button><button type="button" class="vyp-chip" data-v="JP">Japan</button><button type="button" class="vyp-chip" data-v="KR">Korean skincare</button>
+        <button type="button" class="vyp-chip" data-v="FR" data-i18n="o.FR">France</button><button type="button" class="vyp-chip" data-v="US" data-i18n="o.US">États-Unis</button><button type="button" class="vyp-chip" data-v="EU" data-i18n="o.EUrest">Reste de l’Europe</button><button type="button" class="vyp-chip" data-v="GB" data-i18n="o.GB">Royaume-Uni</button><button type="button" class="vyp-chip" data-v="JP" data-i18n="o.JP">Japon</button><button type="button" class="vyp-chip" data-v="KR" data-i18n="o.KRsk">Soins coréens</button>
       </div></div>
 
-    <div class="vyp-sec"><div class="vyp-h"><span class="vyp-n">06</span><b>Only certain brands</b><i id="vyp-bcount">all brands</i></div>
-      <input class="vyp-search" id="vyp-search" type="search" placeholder="Search a brand" autocomplete="off">
+    <div class="vyp-sec"><div class="vyp-h"><span class="vyp-n">06</span><b data-i18n="vp.6">Certaines marques seulement</b><i id="vyp-bcount">toutes les marques</i></div>
+      <input class="vyp-search" id="vyp-search" type="search" placeholder="Rechercher une marque" data-i18n-attr="placeholder:vp.search" autocomplete="off">
       <div class="vyp-chips vyp-brands" id="vyp-brands"></div></div>
   </div>
   <div class="vyp-foot">
     <span class="vyp-count" id="vyp-count"></span>
-    <button type="button" class="vyp-go" data-vyp="go" id="vyp-go">Start my scan</button>
-    <button type="button" class="vyp-skip" data-vyp="skip" id="vyp-skip">Skip, show me everything</button>
+    <button type="button" class="vyp-go" data-vyp="go" id="vyp-go">Lancer mon scan</button>
+    <button type="button" class="vyp-skip" data-vyp="skip" id="vyp-skip" data-i18n="vp.skip">Passer, montrez-moi tout</button>
   </div>
 </div>
 <script id="vy-prefs-js">
@@ -2550,12 +2565,12 @@ header{backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important;-webki
     return true;
   }
   var LADDER=[{},{budget:1},{budget:1,origine:1},{budget:1,origine:1,univers:1}];
-  var LADDER_NOTE=['','Nothing in your budget, closest prices shown.','Widened beyond your origin and budget.','Widened to every universe.'];
+  var LADDER_NOTE=['','ld.1','ld.2','ld.3'];
   function filter(list){
     if(!/[?&]mondes\b/.test(location.search)) return list;
     for(var i=0;i<LADDER.length;i++){
       var out=list.filter(function(p){return match(p,LADDER[i]);});
-      if(out.length>=3){note=LADDER_NOTE[i]; return out;}
+      if(out.length>=3){note=LADDER_NOTE[i]?VY.t(LADDER_NOTE[i]):''; return out;}
     }
     note=''; return list;
   }
@@ -2567,7 +2582,7 @@ header{backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important;-webki
     if(P.age==='u25'){ sev.wrinkles=(sev.wrinkles||0)-20; sev.firmness=(sev.firmness||0)-20; }
   }
   function summary(){
-    var t=[], L={luxe:'Luxury',pharmacie:'Pharmacy',normal:'Everyday','petit-prix':'Great value'}, O={FR:'France',US:'United States',EU:'Europe',GB:'United Kingdom',JP:'Japan',KR:'Korea'};
+    var t=[], L={luxe:VY.t('u.luxe'),pharmacie:VY.t('u.pharma'),normal:VY.t('u.normal'),'petit-prix':VY.t('u.petit')}, O={FR:VY.t('o.FR'),US:VY.t('o.US'),EU:VY.t('O.EU'),GB:VY.t('o.GB'),JP:VY.t('o.JP'),KR:VY.t('O.KR')};
     if(P.univers.length) t.push(P.univers.map(function(u){return L[u];}).join(' + '));
     if(P.origine.length) t.push(P.origine.map(function(o){return O[o];}).join(' + '));
     if(P.marques.length) t.push(P.marques.map(function(m){return (BR[m]||{}).nom||m;}).slice(0,3).join(', ')+(P.marques.length>3?' +'+(P.marques.length-3):''));
@@ -2579,22 +2594,22 @@ header{backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important;-webki
     var bar=$('vy-prefs-bar');
     if(!bar){ bar=document.createElement('div'); bar.id='vy-prefs-bar'; row.parentNode.insertBefore(bar,row); }
     var t=summary();
-    bar.innerHTML='<span>'+(t.length?'Your selection: <b>'+t.join(' · ')+'</b>':'All 147 brands')+'</span>'+(note?'<em>'+note+'</em>':'')+'<button type="button">Change my choices</button>';
+    bar.innerHTML='<span>'+(t.length?VY.t('vp.your')+' <b>'+t.join(' · ')+'</b>':VY.t('vp.allBrands'))+'</span>'+(note?'<em>'+note+'</em>':'')+'<button type="button">'+VY.t('vp.change')+'</button>';
     bar.querySelector('button').onclick=function(){ open('edit'); };
   }
-  window.vyPrefs={filter:filter,boostConcerns:boostConcerns,afterRender:afterRender,get:function(){return P;}};
+  window.vyPrefs={filter:filter,boostConcerns:boostConcerns,afterRender:afterRender,get:function(){return P;},repeindre:function(){ if(root) paint(); }};
 
   function paint(){
     root.querySelectorAll('[data-vyp-single]').forEach(function(g){var k=g.getAttribute('data-vyp-single'); g.querySelectorAll('.vyp-chip').forEach(function(c){c.setAttribute('aria-pressed',String(P[k]===c.dataset.v));});});
     root.querySelectorAll('[data-vyp-multi]').forEach(function(g){var k=g.getAttribute('data-vyp-multi'); g.querySelectorAll('.vyp-chip').forEach(function(c){c.setAttribute('aria-pressed',String(P[k].indexOf(c.dataset.v)>=0));});});
     $('vyp-brands').querySelectorAll('.vyp-chip').forEach(function(c){c.setAttribute('aria-pressed',String(P.marques.indexOf(c.dataset.v)>=0));});
-    $('vyp-bcount').textContent=P.marques.length?P.marques.length+' selected':'all brands';
+    $('vyp-bcount').textContent=P.marques.length?VY.t('vp.sel',{n:P.marques.length}):VY.t('vp.all');
     if(PRODUCTS){
       var strict=PRODUCTS.filter(function(p){return match(p,{});}), brands={};
       strict.forEach(function(p){brands[p.brand]=1;});
-      $('vyp-count').textContent=strict.length+' products · '+Object.keys(brands).length+' brands';
+      $('vyp-count').textContent=VY.t('vp.count',{p:strict.length,b:Object.keys(brands).length});
     }
-    $('vyp-go').textContent=mode==='edit'?'Update my results':'Start my scan';
+    $('vyp-go').textContent=VY.t(mode==='edit'?'vp.update':'vp.go');
     $('vyp-skip').style.display=mode==='edit'?'none':'';
   }
   function buildBrands(){
@@ -2658,19 +2673,27 @@ header{backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important;-webki
 })();
 </script>
 <script id="vy-chiffres-reels">
-/* Les chiffres affiches viennent du catalogue reellement servi, jamais d'un nombre ecrit en dur. */
+/* Les chiffres affiches viennent du catalogue reellement servi, jamais d'un nombre ecrit en dur.
+   On les donne au moteur de langue : il les replace dans {n} / {b} des 12 langues,
+   formates selon la langue affichee. */
 (function(){
   fetch('/scan/catalogue/all.json?_t='+Date.now()).then(function(r){return r.json();}).then(function(j){
     var p=j.products||[]; if(!p.length) return;
     var n=p.length, m=new Set(p.map(function(x){return x.brand;})).size;
-    var fmt=function(v){return v.toLocaleString('en-US');};
-    document.querySelectorAll('#view-hero p, header .label-sm').forEach(function(el){
-      el.textContent = el.textContent
-        .replace(/[\d,\s]{3,9}references/i, fmt(n)+' references')
-        .replace(/\d+\s*brands/i, m+' brands');
-    });
+    if(window.VY && VY.chiffres) VY.chiffres(n, m);
   }).catch(function(){});
 })();
+</script>
+<!-- VYVRE_I18N_HOT : ce que le JavaScript a ecrit doit suivre le changement de langue -->
+<script id="vy-i18n-hot">
+document.addEventListener('vy:lang', function(){
+  try { if (window.sgTitreHero) window.sgTitreHero(); } catch(e){}
+  try { if (window.sgBioRefaire) window.sgBioRefaire(); } catch(e){}
+  try { if (window.__vyScores && typeof matchAndRenderCharlotteTilburyProducts === 'function') matchAndRenderCharlotteTilburyProducts(window.__vyScores); } catch(e){}
+  try { if (window.vyPrefs && window.vyPrefs.repeindre) window.vyPrefs.repeindre(); } catch(e){}
+  try { if (window.vyPrefs && window.vyPrefs.afterRender) window.vyPrefs.afterRender(); } catch(e){}
+  try { if (window.sgTitreMarque) window.sgTitreMarque(); } catch(e){}
+});
 </script>
 </body>
 </html>
