@@ -3,26 +3,6 @@
  "brand_name": "JVN Hair",
  "products": [
   {
-   "id": "jvn--love-your-hair-gift-1",
-   "name": "Love Your Hair Gift",
-   "brand": "jvn",
-   "brand_name": "JVN Hair",
-   "url": "https://jvnhair.com/products/love-your-hair-gift-1",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 84.64,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0573/9626/5149/files/6PCGWP-Anni.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/jvn/love-your-hair-gift-1.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Haircare for all! Powered by sustainable, science-backed formulas for silicone-free, salon level results that improve hair instantly and over time. From hairstylist Jonathan Van Ness.",
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
    "id": "jvn--nurture-hydrating-conditioner-jumbo",
    "name": "Nurture Hydrating Conditioner Jumbo",
    "brand": "jvn",
@@ -44,12 +24,14 @@
     "vitamine E"
    ],
    "ingredients": "Water/Aqua/Eau, Stearyl Alcohol, Cetyl Alcohol, Hydrogenated Farnesene*, Brassicamidopropyl Dimethylamine, Cinnamidopropyltrimonium Chloride, Squalane, Camellia Japonica Seed Oil, Glycerin, Cetearyl Olivate, Sodium PCA, Arginine, Glycine, Alanine, Serine, Proline, Valine, Threonine, Isoleucine, Histidine, Phenylalanine, PCA, Tocopherol, Citrus Reticulata (Tangerine) Peel Oil, Sodium Lactate, Sorbitan Olivate, Aspartic Acid, Sodium Gluconate, Ethylhexylglycerin, Benzyl Alcohol",
-   "description": "Instantly moisturizing &amp; deeply nourishing conditioner for dry hair, now in jumbo size",
+   "description": "Instantly moisturizing & deeply nourishing conditioner for dry hair, now in jumbo size",
    "claims": [
-    "hydratant",
-    "nourrissant"
+    "hydratation",
+    "nutrition"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/jvn/cutout/nurture-hydrating-conditioner-jumbo.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "jvn--nurture-hydrating-shampoo-jumbo",
@@ -74,12 +56,14 @@
     "acide citrique"
    ],
    "ingredients": "Water/Aqua/Eau, Aloe Barbadensis Leaf Juice, Sodium Methyl Cocoyl Taurate, Cocamidopropyl Hydroxysultaine, Lauryl Glucoside, Glyceryl Stearate SE, Coco-Glucoside, Hydrogenated Farnesene*, Squalane, Glycerin, Panthenol, Pyrus Malus (Apple) Fruit Extract, Glyceryl Oleate, Sorbitan Oleate Decylglucoside Crosspolymer, Guar Hydroxypropyltrimonium Chloride, Citrus Reticulata (Tangerine) Peel Oil, Sodium Gluconate, Sodium Levulinate, Sodium Chloride, Potassium Sorbate, Citric Acid",
-   "description": "Instantly moisturizing &amp; deeply nourishing shampoo for dry hair, now in jumbo size",
+   "description": "Instantly moisturizing & deeply nourishing shampoo for dry hair, now in jumbo size",
    "claims": [
-    "hydratant",
-    "nourrissant"
+    "hydratation",
+    "nutrition"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/jvn/cutout/nurture-hydrating-shampoo-jumbo.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "jvn--revive-repairing-conditioner-jumbo",
@@ -105,12 +89,14 @@
     "vitamine E"
    ],
    "ingredients": "Water/Aqua/Eau, Stearyl Alcohol, Cetyl Alcohol, Hydrogenated Farnesene*, Brassicamidopropyl Dimethylamine, Cinnamidopropyltrimonium Chloride, Brassica Glycerides, Jojoba Esters, Squalane, Hydrolyzed Quinoa, Glycerin, Ceramide NP, Panthenol, Cetearyl Olivate, Tocopherol, Citrus Reticulata (Tangerine) Peel Oil, Jasminum Officinale (Jasmine) Oil, Sorbitan Olivate, Aspartic Acid, Sodium Gluconate, Ethylhexylglycerin, Benzyl Alcohol, Fragrance/Parfum**",
-   "description": "Strengthening &amp; repairing conditioner for damaged hair, now in jumbo size",
+   "description": "Strengthening & repairing conditioner for damaged hair, now in jumbo size",
    "claims": [
-    "reparateur",
+    "reparation",
     "fortifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/jvn/cutout/revive-repairing-conditioner-jumbo.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "jvn--revive-repairing-shampoo-jumbo",
@@ -137,12 +123,14 @@
     "acide citrique"
    ],
    "ingredients": "Water/Aqua/Eau, Aloe Barbadensis Leaf Juice, Sodium Methyl Cocoyl Taurate, Sodium Lauroyl Methyl Isethionate, Cocamidopropyl Hydroxysultaine, Lauryl Glucoside, Hydrogenated Farnesene*, Hydrolyzed Jojoba Esters, Glycerin, Ceramide NP, Pyrus Malus (Apple) Fruit Extract, Sorbitan Oleate Decylglucoside Crosspolymer, Tristearyl Citrate, Guar Hydroxypropyltrimonium Chloride, Tocopherol, Citrus Reticulata (Tangerine) Peel Oil, Jasminum Officinale (Jasmine) Oil, Sodium Gluconate, Ethylhexylglycerin, Potassium Sorbate, Sodium Chloride, Benzyl Alcohol, Citric Acid, Fragrance/Parfum**",
-   "description": "Strengthening &amp; repairing shampoo for damaged hair, now in jumbo size",
+   "description": "Strengthening & repairing shampoo for damaged hair, now in jumbo size",
    "claims": [
-    "reparateur",
+    "reparation",
     "fortifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/jvn/cutout/revive-repairing-shampoo-jumbo.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "jvn--embody-volumizing-conditioner-jumbo-size",
@@ -171,7 +159,9 @@
    "claims": [
     "volume"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/jvn/cutout/embody-volumizing-conditioner-jumbo-size.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "jvn--embody-volumizing-shampoo-jumbo-size",
@@ -187,7 +177,8 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "fins"
+    "fins",
+    "chute"
    ],
    "actifs": [
     "panthénol",
@@ -202,7 +193,9 @@
     "volume",
     "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/jvn/cutout/embody-volumizing-shampoo-jumbo-size.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "jvn--complete-air-dry-wave-spray",
@@ -228,33 +221,14 @@
     "huile de lin"
    ],
    "ingredients": "Water/Aqua/Eau, Glycerin, Sucrose, Polyglyceryl-4 Caprate, Polyglyceryl-6 Caprylate, C13-15 Alkane*, Saccharomyces Cerevisiae Extract, Maltodextrin/VP Copolymer, Salvia Hispanica Seed Extract, Avena Sativa (Oat) Kernel Extract, Olea Europaea (Olive) Leaf Extract, Leuconostoc/Radish Root Ferment Filtrate, Cocos Nucifera (Coconut) Fruit Extract, Saccharum Officinarum (Sugarcane) Extract, Linum Usitatissimum (Linseed) Seed Extract, Sodium Gluconate, Sodium Levulinate, Lactobacillus Ferment, PVP, Fragrance/Parfum**, Citric Acid, Phenoxyethanol, Ethylhexylglycerin, Potassium Sorbate, Limonene, Methyl Ionones, Linalool, Hexyl Cinnamal, Cananga Odorata Flower Oil, Citrus Aurantium Peel Oil, Amyl Cinnamal, Beta-Caryophyllene, Geranyl Acetate, Citronellol, Terpineol, Linalyl Acetate, Tetramethyl Acetyloctahydronaphthalenes, Benzyl Salicylate, Eugenol, Coumarin",
-   "description": "A lightweight, salt-free spray for effortless volume &amp; touchable texture",
+   "description": "A lightweight, salt-free spray for effortless volume & touchable texture",
    "claims": [
-    "volume"
+    "volume",
+    "texturisant"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "jvn--air-dry-cream-tube-key",
-   "name": "Tube Key",
-   "brand": "jvn",
-   "brand_name": "JVN Hair",
-   "url": "https://jvnhair.com/products/air-dry-cream-tube-key",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 4.6,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0573/9626/5149/files/KeyShapeTubeKey.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/jvn/air-dry-cream-tube-key.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [
-    "epais"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Your key to enjoying every frizz-fighting drop",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/jvn/cutout/complete-air-dry-wave-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "jvn--complete-air-dry-cream-deluxe",
@@ -269,9 +243,7 @@
    "image_local": "public/scan/products-cheveux/jvn/complete-air-dry-cream-deluxe.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [
     "beurre de karité",
     "huile de jojoba",
@@ -281,8 +253,15 @@
    ],
    "ingredients": "Water/Aqua/Eau, Squalane, Glycerin, Cinnamidopropyltrimonium Chloride, Acrylates/C10-30 Alkyl Acrylate Crosspolymer, Hydrogenated Farnesene*, Salvia Hispanica Seed Extract, Linum Usitatissimum (Linseed) Seed Extract, Moringa Oleifera Seed Oil, Butyrospermum Parkii (Shea) Butter, Hydrolyzed Jojoba Esters, Sorbitan Oleate Decylglucoside Crosspolymer, Tocopherol, Maltodextrin/VP Copolymer, Potassium Sorbate, Ethylhexylglycerin, Benzyl Alcohol, Sodium Gluconate, Sodium Hydroxide, Fragrance/Parfum**",
    "description": "Frizz fighting texture enhancer for soft hold",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "nutrition",
+    "anti-frisottis",
+    "texturisant",
+    "fixation"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/jvn/cutout/complete-air-dry-cream-deluxe.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "jvn--perfect-flexhold-strengthening-hairspray",
@@ -305,9 +284,12 @@
    "ingredients": "Alcohol Denat., Hydrofluorocarbon 152a, Octylacrylamide/Acrylates/Butylaminoethyl Methacrylate Copolymer, C13-15 Alkane*, Rosmarinus Officinalis (Rosemary) Leaf Extract, Hedera Helix (Ivy) Extract, Lamium Album Extract, Calendula Officinalis Flower Extract, Pinus Sylvestris Bud Extract, Arctium Majus Root Extract, Citrus Limon (Lemon) Fruit Extract, Chamomilla Recutita (Matricaria) Flower Extract, Salvia Officinalis (Sage) Leaf Extract, Arnica Montana Flower Extract, Nasturtium Officinale Extract, Tropaeolum Majus Flower Extract, Water/Aqua/Eau, Va/Crotonates/Vinyl Neodecanoate Copolymer, Aminomethyl Propanol, Fragrance/Parfum**, Hydrolyzed Quinoa, Glycerin, Neopentyl Glycol Diheptanoate, Triethyl Citrate, Butylene Glycol, Isododecane, Caprylic/Capric Triglyceride, Phenoxyethanol, Potassium Sorbate, Ethylhexylglycerin, Sodium Benzoate, Limonene, Linalool",
    "description": "Flexible hold, long lasting, brushable hair spray",
    "claims": [
-    "fortifiant"
+    "fortifiant",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/jvn/cutout/perfect-flexhold-strengthening-hairspray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "jvn--perfect-stylefix-stick",
@@ -323,7 +305,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "secs"
    ],
    "actifs": [
     "huile de coco",
@@ -334,9 +316,14 @@
     "huile d'olive"
    ],
    "ingredients": "Ricinus Communis (Castor) Seed Oil, Stearyl Behenate, Candelilla Cera/Euphorbia Cerifera (Candelilla) Wax/Cire de candelilla, Butyrospermum Parkii (Shea) Butter, Glyceryl Rosinate, Brassica Campestris/Aleurites Fordi Oil Copolymer, Glyceryl Behenate, Hydrogenated Castor Oil, Olea Europaea (Olive) Oil Unsaponifiables, Theobroma Grandiflorum Seed Butter, Copernicia Cerifera Cera/Copernicia Cerifera (Carnauba) Wax/Cire de carnauba, Helianthus Annuus (Sunflower) Seed Oil, Cocos Nucifera (Coconut) Oil, C13-15 Alkane*, Apium Graveolens (Celery) Seed Extract, Ocimum Basilicum Hairy Root Culture Extract, Caprylic/Capric Triglyceride, Fragrance/Parfum, Lauroyl Lysine, Tocopherol, Amyl cinnamal, Benzyl Alcohol, Benzyl Benzoate, Benzyl Salicylate, Citronellol, Coumarin, Eugenol, Farnesol, Geraniol, Hexyl Cinnamal, Hydroxycitronellal, Limonene, Linalool, Methyl Ionones",
-   "description": "Multi-tasking styling &amp; frizz taming stick",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "description": "Multi-tasking styling & frizz taming stick",
+   "claims": [
+    "nutrition",
+    "anti-frisottis"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/jvn/cutout/perfect-stylefix-stick.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "jvn--perfect-the-essential-dry-shampoo",
@@ -349,9 +336,10 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0573/9626/5149/files/Perfect_DryShampoo_1.jpg?width=600",
    "image_local": "public/scan/products-cheveux/jvn/perfect-the-essential-dry-shampoo.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
+    "gras",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -368,7 +356,9 @@
    "ingredients": "Isobutane, Hydrofluorocarbon 152a, Alcohol Denat., Calcium Starch Octenylsuccinate, Dimethylimidazolidinone Rice Starch, C13-15 Alkane*, Biotin, Rosmarinus Officinalis (Rosemary) Leaf Oil, Hamamelis Virginiana (Witch Hazel) Water, Physalis Pubescens Fruit Juice, Helianthus Annuus (Sunflower) Seed Extract, Tetraselmis Suecica Extract, Apigenin, Oleanolic Acid, Biotinoyl Tripeptide-1, Bis-Octyldodecyl Dimer Dilinoleate/Propanediol Copolymer, Fragrance/Parfum**, Panthenol, AMP-Isostearoyl Hydrolyzed Wheat Protein, Butylene Glycol, Water/Aqua/Eau, Sorbitan Oleate Decylglucoside Crosspolymer, Caprylic/Capric Triglyceride, Glycerin, Sodium Chloride, Mannitol, PPG-26-Buteth-26, PEG-40 Hydrogenated Castor Oil, Sodium Benzoate, Tocopherol, Lactic Acid, Benzoic Acid, Potassium Sorbate, Benzyl Salicylate, Hexyl Cinnamal, Linalool, Tetramethyl Acetyloctahydronaphthalenes",
    "description": "Instant oil absorbing and scalp refreshing dry shampoo",
    "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/jvn/cutout/perfect-the-essential-dry-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "jvn--revive-rapid-repair-bond-gloss",
@@ -395,10 +385,12 @@
    "ingredients": "Water/Aqua/Eau, Glycerin, Heptyl Glucoside, Oryza Sativa Extract, Hydroxypropyltrimonium Hydrolyzed Rice Protein/Siloxysilicate, Leuconostoc/Radish Root Ferment Filtrate, Aspergillus Ferment, Arginine, C13-15 Alkane*, Salvia Hispanica Seed Extract, Glycine, Alanine, Serine, Valine, Isoleucine, Proline, Threonine, Histidine, Phenylalanine, Brassicamidopropyl Dimethylamine, Xylitylglucoside, Anhydroxylitol, Maltitol, Pelvetia Canaliculata Extract, Hydroxypropyl Methylcellulose, Guar Hydroxypropyltrimonium Chloride, Ethylhexylglycerin, Xylitol, Aspartic Acid, Sodium PCA, Sodium Lactate, PCA, Sodium Hydroxide, Tocopherol, Benzyl Alcohol, Sorbic Acid, Sodium Benzoate, Fragrance/Parfum, Phenoxyethanol, Limonene, Linalool. Fragrance/Parfum**",
    "description": "2-in-1 intense shine and bond repairing treatment",
    "claims": [
-    "reparateur",
+    "reparation",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/jvn/cutout/revive-rapid-repair-bond-gloss.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "jvn--complete-blowout-styling-milk",
@@ -413,9 +405,7 @@
    "image_local": "public/scan/products-cheveux/jvn/complete-blowout-styling-milk.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [
     "panthénol",
     "glycérine",
@@ -424,9 +414,11 @@
    "ingredients": "Water/Aqua/Eau, Glycerin, Cetearyl Alcohol, Hydrogenated Farnesene*, Cassia Hydroxypropyltrimonium Chloride, Saccharomyces Cerevisiae Extract, Brassicamidopropyl Dimethylamine, Squalane, Caprylic/Capric Triglyceride, Cymbidium Grandiflorum (Orchid) Flower Extract, Panthenol, Hydroxypropyltrimonium Lemon Protein, Cetearyl Olivate, Tocopherol, Sorbitan Olivate, Leuconostoc/Radish Root Ferment Filtrate, Ethylhexylglycerin, Aspartic Acid, Sodium Gluconate. Fragrance/Parfum**",
    "description": "Heat-activated, smoothing and style extending cream",
    "claims": [
-    "lissant"
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/jvn/cutout/complete-blowout-styling-milk.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "jvn--complete-instant-recovery-serum",
@@ -453,9 +445,13 @@
    "ingredients": "Water/Aqua/Eau, Hydrogenated Farnesene*, Glycerin, Sodium Acrylates Copolymer, Squalane, Hydroxypropyltrimonium Lemon Protein, Niacinamide, Lecithin, Tocopherol, Citrus Reticulata (Tangerine) Peel Oil, Jasminum Officinale (Jasmine) Oil, Leuconostoc/Radish Root Ferment Filtrate, Sodium Gluconate, Ethylhexylglycerin, Benzyl Alcohol, Citric Acid, Fragrance/Parfum**",
    "description": "Achieve silky-serene hair. This styling serum repairs the outer shaft, reinforces inner strength, and acts as a protectant against heat and UV rays.",
    "claims": [
-    "reparateur"
+    "reparation",
+    "fortifiant",
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/jvn/cutout/complete-instant-recovery-serum.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

@@ -16,8 +16,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "fins",
-    "epais"
+    "fins"
    ],
    "actifs": [
     "vitamine E",
@@ -27,9 +26,12 @@
    "ingredients": "AQUA/WATER/EAU, SODIUM LAUROYL SARCOSINATE, COCAMIDOPROPYL BETAINE, POLYGLYCERYL-4 CAPRATE, POLYGLYCERYL-6 CAPRYLATE, PARFUM (FRAGRANCE), XANTHAN GUM, 1,2-HEPTANEDIOL, LINALYL ACETATE, LINALOOL, CITRIC ACID, LIMONENE, POTASSIUM SORBATE, SODIUM DEHYDROACETATE, SODIUM PHYTATE, SPHINGOMONAS FERMENT EXTRACT, HYDROXYLATED HYDROLYZED GRAPE SEED OIL, GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, CITRUS AURANTIUM PEEL OIL, JUNIPERUS VIRGINIANA OIL, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, PINENE, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, TOCOPHEROL.(376/040)",
    "description": "Boostez la densité et le volume de vos cheveux dès la racine grâce à ce shampoing densité & volume qui épaissit la fibre capillaire.",
    "claims": [
-    "volume"
+    "volume",
+    "densifiant"
    ],
-   "source": "sitemap fr.caudalie.com + json-ld"
+   "source": "sitemap fr.caudalie.com + json-ld",
+   "cutout_url": "public/scan/products-cheveux/caudalie/cutout/shampoing-densite-et-volume.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "caudalie--serum-capillaire-anti-chute",
@@ -45,6 +47,7 @@
    "categorie": "traitement-chute",
    "etape": 4,
    "cheveux_cibles": [
+    "fins",
     "chute"
    ],
    "actifs": [
@@ -55,11 +58,15 @@
    "ingredients": "AQUA/WATER/EAU, ALCOHOL DENAT., POLYGLYCERYL-4 CAPRATE, POLYGLYCERYL-6 CAPRYLATE, GLYCERIN, SODIUM BENZOATE, HYDROXYLATED HYDROLYZED GRAPE SEED OIL, LINALOOL, LIMONENE, PISUM SATIVUM (PEA) EXTRACT, SALVIA HISPANICA SEED EXTRACT, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, TOCOPHEROL, PARFUM (FRAGRANCE), EUGENOL.(377/036)",
    "description": "Réduisez la chute de cheveux dès 3 mois avec notre sérum capillaire anti-chute qui stimule la croissance et renforce la densité.",
    "claims": [
+    "fortifiant",
     "volume",
+    "densifiant",
     "anti-chute",
-    "fortifiant"
+    "croissance"
    ],
-   "source": "sitemap fr.caudalie.com + json-ld"
+   "source": "sitemap fr.caudalie.com + json-ld",
+   "cutout_url": "public/scan/products-cheveux/caudalie/cutout/serum-capillaire-anti-chute.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

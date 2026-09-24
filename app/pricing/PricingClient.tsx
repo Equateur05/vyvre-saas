@@ -1,22 +1,41 @@
 'use client';
 
 /**
- * VYVRE Pricing — Client component (style AURA·OS V6)
- * Gradient radial gris ultra-marqué + label mono top-right + Inter weight 300
+ * VYVRE Pricing — composant client (style AURA·OS V6)
+ * Les textes arrivent déjà traduits depuis la page serveur : aucun
+ * dictionnaire n'est envoyé au navigateur.
  */
 
 import { useState } from 'react';
 
-// ── Stripe Payment Links (LIVE) ──
-const STRIPE_LINKS = {
-  pilot:               'https://buy.stripe.com/5kQfZh2Ns17Zgrh0tI1VK0G',
-  starter_monthly:     'https://buy.stripe.com/6oUfZh2NsbMD6QHgsG1VK0H',
-  starter_annual:      'https://buy.stripe.com/cNi28r3RwdULb6X6S61VK0I',
-  growth_monthly:      'https://buy.stripe.com/fZu7sLbjY17Za2T7Wa1VK0J',
-  growth_annual:       'https://buy.stripe.com/3cIaEXco28ArgrhfoC1VK0K',
-  enterprise_monthly:  'https://buy.stripe.com/28EaEX87MbMD1wnb8m1VK0L',
-  enterprise_annual:   'https://buy.stripe.com/aFa28r87M4kb1wnfoC1VK0M',
-};
+
+export interface PricingStrings {
+  monthly: string;
+  annual: string;
+  themeLabel: string;
+  themeDark: string;
+  themeLight: string;
+  themeNote: string;
+  plan: string;
+  recommended: string;
+  perMonth: string;
+  trust: string;
+  tiers: {
+    tier: string;
+    price: string;
+    priceAnnual: string;
+    suffix: string;
+    sub: string;
+    subAnnual: string;
+    features: string[];
+    cta: string;
+    recommended: boolean;
+    linkMonthly: string;
+    linkAnnual: string;
+    refMonthly: string;
+    refAnnual: string;
+  }[];
+}
 
 function buildLink(baseUrl: string, brandSlug: string, tier: string, theme: 'dark' | 'light'): string {
   const ref = (brandSlug ? `${brandSlug}_${tier}` : `direct_${tier}`) + `-theme-${theme}`;
@@ -57,133 +76,88 @@ const VIGNETTE: React.CSSProperties = {
   zIndex: 1,
 };
 
-export default function PricingClient({ brandSlug }: { brandSlug: string }) {
+export default function PricingClient({
+  brandSlug,
+  s,
+  rtl = false,
+}: {
+  brandSlug: string;
+  s: PricingStrings;
+  rtl?: boolean;
+}) {
   const [annual, setAnnual] = useState(false);
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
-
-  const pilotLink      = buildLink(STRIPE_LINKS.pilot,      brandSlug, 'pilot', theme);
-  const starterLink    = buildLink(annual ? STRIPE_LINKS.starter_annual    : STRIPE_LINKS.starter_monthly,    brandSlug, annual ? 'starter_annual' : 'starter_monthly', theme);
-  const growthLink     = buildLink(annual ? STRIPE_LINKS.growth_annual     : STRIPE_LINKS.growth_monthly,     brandSlug, annual ? 'growth_annual'  : 'growth_monthly', theme);
-  const enterpriseLink = buildLink(annual ? STRIPE_LINKS.enterprise_annual : STRIPE_LINKS.enterprise_monthly, brandSlug, annual ? 'enterprise_annual' : 'enterprise_monthly', theme);
 
   return (
     <section className="px-8 pb-12">
       <div className="max-w-7xl mx-auto">
 
-        {/* Toggle Mensuel / Annuel */}
+        {/* Mensuel / Annuel */}
         <div className="flex justify-center mb-10">
           <div className="inline-flex items-center gap-1 p-1 border border-line rounded-full text-xs font-mono tracking-[0.12em] uppercase backdrop-blur">
             <button
               onClick={() => setAnnual(false)}
               className={`px-5 py-2 rounded-full transition-colors ${!annual ? 'bg-text text-bg' : 'text-text/55 hover:text-text'}`}
-            >Mensuel</button>
+            >{s.monthly}</button>
             <button
               onClick={() => setAnnual(true)}
               className={`px-5 py-2 rounded-full transition-colors ${annual ? 'bg-text text-bg' : 'text-text/55 hover:text-text'}`}
-            >Annuel <span className="text-accent">· -17%</span></button>
+            >{s.annual} <span className="text-accent vy-ltr">· -17%</span></button>
           </div>
         </div>
 
-        {/* Sélecteur thème du widget (choisi AVANT l'achat, persisté pour la marque) */}
+        {/* Thème du widget, choisi avant l'achat */}
         <div className="flex flex-col items-center gap-2.5 mb-12">
-          <div className="text-[10px] tracking-[0.3em] uppercase text-text/45 font-mono">Thème de votre widget</div>
+          <div className="text-[10px] tracking-[0.3em] uppercase text-text/45 font-mono">{s.themeLabel}</div>
           <div className="inline-flex items-center gap-1 p-1 border border-line rounded-full text-xs font-mono tracking-[0.12em] uppercase backdrop-blur">
             <button
               onClick={() => setTheme('dark')}
               className={`px-5 py-2 rounded-full transition-colors flex items-center gap-2 ${theme === 'dark' ? 'bg-text text-bg' : 'text-text/55 hover:text-text'}`}
             >
               <span className="w-3 h-3 rounded-full" style={{ background: '#0A0A0A', border: '1px solid rgba(160,160,160,0.6)' }} />
-              Noir
+              {s.themeDark}
             </button>
             <button
               onClick={() => setTheme('light')}
               className={`px-5 py-2 rounded-full transition-colors flex items-center gap-2 ${theme === 'light' ? 'bg-text text-bg' : 'text-text/55 hover:text-text'}`}
             >
               <span className="w-3 h-3 rounded-full" style={{ background: '#F4F1EA', border: '1px solid rgba(0,0,0,0.3)' }} />
-              Blanc
+              {s.themeLight}
             </button>
           </div>
           <div className="text-[10px] text-text/35 font-mono tracking-[0.05em]">
-            Votre diagnostic s&apos;affichera dans ce thème · modifiable ensuite
+            {s.themeNote}
           </div>
         </div>
 
-        {/* 4 cards style V6 */}
+        {/* 4 plans */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-
-          <Card
-            tier="Pilot"
-            price="Gratuit"
-            priceSuffix=""
-            subtitle="30 jours · sans engagement"
-            features={[
-              '1 000 scans / mois',
-              'SDK Web',
-              'Branding VYVRE',
-              'Support email 48h',
-              'Infrastructure France',
-            ]}
-            ctaLabel="Démarrer gratuitement"
-            ctaUrl={pilotLink}
-            recommended={false}
-          />
-
-          <Card
-            tier="Starter"
-            price={annual ? '249 €' : '299 €'}
-            priceSuffix="/mois"
-            subtitle={annual ? '2 990 € / an · 2 mois offerts' : '5 000 scans / mois'}
-            features={[
-              '5 000 scans / mois',
-              '0,02 € par scan supp.',
-              'SDK Web + iOS + Android',
-              'White-label complet',
-              'SLA 99.9% · support prioritaire',
-            ]}
-            ctaLabel="Démarrer l'essai gratuit"
-            ctaUrl={starterLink}
-            recommended={false}
-          />
-
-          <Card
-            tier="Growth"
-            price={annual ? '415 €' : '499 €'}
-            priceSuffix="/mois"
-            subtitle={annual ? '4 990 € / an · 2 mois offerts' : '15 000 scans / mois'}
-            features={[
-              '15 000 scans / mois',
-              '0,015 € par scan supp.',
-              'Tout Starter +',
-              'Multi-marques (jusqu\'à 5)',
-              'Account Manager dédié',
-            ]}
-            ctaLabel="Choisir Growth"
-            ctaUrl={growthLink}
-            recommended={true}
-          />
-
-          <Card
-            tier="Enterprise"
-            price={annual ? '582 €' : '699 €'}
-            priceSuffix="/mois"
-            subtitle={annual ? 'à partir de · contrat custom' : 'à partir de · sans engagement'}
-            features={[
-              '25 000 scans / mois',
-              '0,01 € par scan supp.',
-              'Réseau illimité boutiques',
-              'App mobile native',
-              'SLA 99.99% · Director 24/7',
-            ]}
-            ctaLabel="Nous contacter"
-            ctaUrl={enterpriseLink}
-            recommended={false}
-          />
-
+          {s.tiers.map((c) => (
+            <Card
+              key={c.tier}
+              tier={c.tier}
+              planLabel={s.plan}
+              recommendedLabel={s.recommended}
+              price={annual ? c.priceAnnual : c.price}
+              priceSuffix={c.suffix}
+              subtitle={annual ? c.subAnnual : c.sub}
+              features={c.features}
+              ctaLabel={c.cta}
+              ctaUrl={buildLink(
+                annual ? c.linkAnnual : c.linkMonthly,
+                brandSlug,
+                annual ? c.refAnnual : c.refMonthly,
+                theme
+              )}
+              recommended={c.recommended}
+              rtl={rtl}
+            />
+          ))}
         </div>
 
-        {/* Trust line */}
+        {/* Ligne de confiance */}
         <div className="mt-10 text-center text-xs text-text/45 font-mono tracking-[0.18em] uppercase">
-          Tarification publique · TVA en supplément · Annulation à tout moment
+          {s.trust}
         </div>
       </div>
     </section>
@@ -191,9 +165,11 @@ export default function PricingClient({ brandSlug }: { brandSlug: string }) {
 }
 
 function Card({
-  tier, price, priceSuffix, subtitle, features, ctaLabel, ctaUrl, recommended,
+  tier, planLabel, recommendedLabel, price, priceSuffix, subtitle, features, ctaLabel, ctaUrl, recommended, rtl,
 }: {
   tier: string;
+  planLabel: string;
+  recommendedLabel: string;
   price: string;
   priceSuffix: string;
   subtitle: string;
@@ -201,14 +177,14 @@ function Card({
   ctaLabel: string;
   ctaUrl: string;
   recommended: boolean;
+  rtl: boolean;
 }) {
   return (
     <div style={recommended ? CARD_RECOMMENDED : CARD_STYLE}>
-      {/* Vignette bottom dark */}
       <div style={VIGNETTE} />
 
-      {/* Label mono top-right (style V6 "Cible : XXX") */}
       <span
+        className="vy-plan-label"
         style={{
           position: 'absolute',
           top: '26px',
@@ -222,10 +198,9 @@ function Card({
           zIndex: 3,
         }}
       >
-        {recommended ? `Plan : ${tier} · Recommandé` : `Plan : ${tier}`}
+        {recommended ? `${planLabel} : ${tier} · ${recommendedLabel}` : `${planLabel} : ${tier}`}
       </span>
 
-      {/* Titre principal centré (Inter weight 300, style V6) */}
       <div
         style={{
           position: 'relative',
@@ -238,7 +213,6 @@ function Card({
           flex: 1,
         }}
       >
-        {/* Prix (gros chiffre comme le score V6) */}
         <div
           style={{
             fontFamily: '"Inter", "SF Pro Display", -apple-system, sans-serif',
@@ -251,7 +225,7 @@ function Card({
         >
           {price}
           {priceSuffix && (
-            <span style={{ fontSize: '14px', color: 'rgba(255,255,255,0.55)', marginLeft: '6px', fontWeight: 300, letterSpacing: '0' }}>
+            <span style={{ fontSize: '14px', color: 'rgba(255,255,255,0.55)', marginInlineStart: '6px', fontWeight: 300, letterSpacing: '0' }}>
               {priceSuffix}
             </span>
           )}
@@ -270,7 +244,6 @@ function Card({
           {subtitle}
         </div>
 
-        {/* Features list */}
         <ul
           style={{
             listStyle: 'none',
@@ -280,7 +253,7 @@ function Card({
             flexDirection: 'column',
             gap: '10px',
             width: '100%',
-            textAlign: 'left',
+            textAlign: rtl ? 'right' : 'left',
           }}
         >
           {features.map((f, i) => (
@@ -290,7 +263,7 @@ function Card({
                 fontSize: '13px',
                 color: 'rgba(255,255,255,0.75)',
                 lineHeight: 1.55,
-                paddingLeft: '18px',
+                paddingInlineStart: '18px',
                 position: 'relative',
                 fontWeight: 300,
               }}
@@ -298,7 +271,7 @@ function Card({
               <span
                 style={{
                   position: 'absolute',
-                  left: 0,
+                  insetInlineStart: 0,
                   color: 'rgba(255,255,255,0.5)',
                 }}
               >·</span>
@@ -307,7 +280,6 @@ function Card({
           ))}
         </ul>
 
-        {/* CTA bottom */}
         <a
           href={ctaUrl}
           style={{
@@ -332,6 +304,8 @@ function Card({
               textTransform: 'uppercase',
               fontWeight: 500,
               borderRadius: '20px',
+              textAlign: 'center',
+              lineHeight: 1.35,
               transition: 'all 0.3s ease',
               ...(recommended
                 ? { background: '#FFFFFF', color: '#000', boxShadow: '0 14px 36px rgba(255,255,255,0.12)' }
@@ -339,7 +313,7 @@ function Card({
               ),
             }}
           >
-            {ctaLabel} →
+            {ctaLabel} {rtl ? '←' : '→'}
           </span>
         </a>
       </div>

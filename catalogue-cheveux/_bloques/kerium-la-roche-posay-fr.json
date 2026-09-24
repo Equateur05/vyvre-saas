@@ -1,0 +1,18 @@
+{
+ "brand": "kerium-la-roche-posay",
+ "brand_name": "Kerium (La Roche-Posay)",
+ "raison": "www.laroche-posay.fr repond 403 sur toutes les pages HTML (seul /robots.txt passe). Aucun contournement tente. La marque N'EST PAS bloquee dans le catalogue : la source retenue est www.laroche-posay.be/fr-be (site officiel La Roche-Posay Belgique, en francais), qui ne publie que 3 produits capillaires Kerium sur 4 pages de la gamme. Les references Kerium vendues uniquement en France restent donc absentes.",
+ "date": "2026-09-19",
+ "urls_testees": [
+  {"url": "https://www.laroche-posay.fr/", "http": 403},
+  {"url": "https://www.laroche-posay.fr/robots.txt", "http": 200},
+  {"url": "https://www.laroche-posay.fr/sitemap.xml", "http": 403},
+  {"url": "https://www.laroche-posay.fr/gamme-de-produits/kerium", "http": 403},
+  {"url": "https://www.laroche-posay.fr/kerium", "http": 403},
+  {"url": "https://www.laroche-posay.ca/fr", "http": 403},
+  {"url": "https://www.laroche-posay.lu/fr-lu", "http": 0, "note": "domaine inexistant"},
+  {"url": "https://www.laroche-posay.be/fr-be/kerium", "http": 200, "note": "SOURCE RETENUE - 4 fiches dont 3 capillaires"},
+  {"url": "https://www.laroche-posay.ch/fr-ch/kerium", "http": 200, "note": "2 fiches seulement, toutes deja couvertes par la Belgique"}
+ ],
+ "products": []
+}

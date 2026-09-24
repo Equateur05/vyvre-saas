@@ -1,0 +1,58 @@
+# ----------------------------------------------------------------------------
+# Ce que Vercel ne doit PAS recevoir.
+#
+# Le plan gratuit plafonne a 5 000 fichiers televerses par 24 h. Chaque fichier
+# d'outillage envoye est un fichier de catalogue qui ne part pas. Rien ici n'est
+# servi par le site : ce sont des scripts, des sorties intermediaires et des
+# journaux de fabrication. Le site ne sert que ce qui est sous public/ et ce que
+# Next compile depuis app/ et lib/.
+# ----------------------------------------------------------------------------
+
+# fabrication des catalogues (scrapers, fusions de scores, detourages, journaux)
+/catalogue-v2/
+/catalogue-cheveux/
+
+# scripts de maintenance et migrations : joues a la main, jamais par le site
+/scripts/
+/supabase/
+
+# rapports et notes
+*.md
+!README.md
+
+# systeme
+.DS_Store
+**/.DS_Store
+
+# ---- images qui ne sont servies par aucune page -----------------------------
+# 1 749 PNG sous products/ : aucun produit du catalogue ne les designe (verifie
+# le 19/09/2026 sur les 5 926 fiches). Les envoyer coute un tiers d'une journee
+# de quota pour rien.
+public/scan/products/**/*.png
+
+# Les fiches capillaires s'affichent avec leur detourage (.webp) : 4 439 sur
+# 4 446. Les 7 restantes n'ont aucune image, ni jpg ni webp — la carte le dit.
+# Les .jpg d'origine (4 533 fichiers) ne sont donc jamais demandes par le site.
+# A retirer d'ici le jour ou une page servira les packshots d'origine.
+public/scan/products-cheveux/**/*.jpg
+
+# ---- AUTO publie.py : marques pas encore publiees ----
+# 0 marques en attente, regenere a chaque publication.
+# ---- fin AUTO publie.py ----
+
+# ---- scan cheveux : pas encore lance -----------------------------------------
+# Les 4 512 detourages capillaires partiront le jour ou /cheveux sera publie.
+# En attendant ils comptent dans la limite des 15 000 fichiers par deploiement.
+public/scan/products-cheveux/
+
+# banc de test local du detourage : ne part jamais en ligne
+public/_test_masque/
+
+# visuels de campagne : pas des fichiers du site
+/marketing/
+
+# ---- etape 1 (22/09) : le scan cheveux et ses propales ne partent PAS encore --
+# /cheveux montrerait des produits sans images (products-cheveux ne part pas) et
+# les propales utilisent la camera et des portraits de test. A retirer a l'etape 3.
+public/cheveux/
+public/propals/cheveux/

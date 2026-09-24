@@ -3,90 +3,768 @@
  "brand_name": "EDEN BodyWorks",
  "products": [
   {
+   "id": "eden-bodyworks--hibiscus-honey-hydration-custard",
+   "name": "Hibiscus Honey Hydration Custard",
+   "brand": "eden-bodyworks",
+   "brand_name": "EDEN BodyWorks",
+   "url": "https://edenbodyworks.com/products/hibiscus-honey-hydration-custard",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 4.6,
+   "price_source": "converti USD x0.92 le 19/09",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0233/9417/products/hibiscus-honey-hydration-custard_8fb1490b-641d-4a61-a0ac-4642c9f1d90d.png?v=1608765264",
+   "image_local": "public/scan/products-cheveux/eden-bodyworks/hibiscus-honey-hydration-custard.jpg",
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "secs",
+    "fins",
+    "crepus",
+    "abimes"
+   ],
+   "actifs": [
+    "glycérine",
+    "panthénol",
+    "vitamine E",
+    "aloe vera",
+    "beurre de karité",
+    "acides aminés",
+    "huile d'avocat",
+    "kératine",
+    "protéines de riz",
+    "miel",
+    "hibiscus"
+   ],
+   "ingredients": "Water (Aqua), Cetyl Alcohol, Stearyl Alcohol, Vegetable Oil (Olus Oil), Cocos Nucifera (Coconut) Oil, Butyrospermum Parkii (Shea) Butter, Cetyl Esters, Glyceryl Dilaurate, Persea Gratissima (Avocado) Oil, Ceteareth-20, Fragrance (Parfum) , Hibiscus Sabdariffa Flower Extract, Honey, Acyl Coenzyme A Desaturase, Aloe Barbadensis (Aloe Vera) Leaf Juice, Glycerin, Keratin Amino Acids, Lactobacillus/Tomato Fruit Ferment Extract, Oryza Sativa (Rice) Extract, Panthenol, Sodium PCA, Tocopheryl Acetate, Cetrimonium Chloride, Coumarin, Limonene, Linalool, Benzyl Alcohol, Dehydroacetic Acid",
+   "description": "Hibiscus Honey Hydration Custard A thick styling cream designed to provide definition and replenish moisture to thicker textures. Hibiscus Flower and Honey are filled with antioxidants that give this product strong moisturizing abilities, plus it has a light hold to keep styles in place. It's ideal for achieving wash 'n go styles, defined twist outs, and other stretched styles.",
+   "claims": [
+    "hydratation",
+    "nutrition",
+    "definition-boucles",
+    "volume",
+    "texturisant",
+    "fixation"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/eden-bodyworks/cutout/hibiscus-honey-hydration-custard.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "eden-bodyworks--papaya-castor-nourishing-curl-jam",
+   "name": "Papaya Castor Nourishing Curl Jam",
+   "brand": "eden-bodyworks",
+   "brand_name": "EDEN BodyWorks",
+   "url": "https://edenbodyworks.com/products/papaya-castor-nourishing-curl-jam",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 4.6,
+   "price_source": "converti USD x0.92 le 19/09",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0233/9417/products/papaya-castor-nourishing-curl-jam.png?v=1747865072",
+   "image_local": "public/scan/products-cheveux/eden-bodyworks/papaya-castor-nourishing-curl-jam.jpg",
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "secs",
+    "boucles"
+   ],
+   "actifs": [
+    "glycérine",
+    "vitamine E",
+    "huile de ricin"
+   ],
+   "ingredients": "Water (Aqua), Ricinus Communis (Castor) Seed Oil, Glycerin, Cetyl Alcohol, Stearyl Alcohol, Polysorbate 20, VP/VA Copolymer, Polyquaternium-11, Carica Papaya (Papaya) Fruit Extract, Mangifera Indica (Mango) Seed Butter, Ascorbic Acid (Vitamin C), Cholecalciferol (Vitamin D), Retinyl Palmitate (Vitamin A), Tocopherol, Tocopheryl Acetate (Vitamin E), Carbomer, Propylene Glycol, Caprylyl Glycol, Phenoxyethanol, Ethylhexylglycerin, Aminomethyl Propanol, Fragrance (Parfum)",
+   "description": "Styling and conditioning moisturizing gelly for textured and/or curly hair.",
+   "claims": [
+    "hydratation",
+    "nutrition",
+    "definition-boucles",
+    "texturisant"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/eden-bodyworks/cutout/papaya-castor-nourishing-curl-jam.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "eden-bodyworks--hibiscus-honey-blow-dry-cream",
+   "name": "Hibiscus Honey Blow Dry Cream",
+   "brand": "eden-bodyworks",
+   "brand_name": "EDEN BodyWorks",
+   "url": "https://edenbodyworks.com/products/hibiscus-honey-blow-dry-cream",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 4.6,
+   "price_source": "converti USD x0.92 le 19/09",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0233/9417/products/Naturally-Curly-seal-hibiscus-honey-blow-dry-cream.jpg?v=1747865473",
+   "image_local": "public/scan/products-cheveux/eden-bodyworks/hibiscus-honey-blow-dry-cream.jpg",
+   "categorie": "protection-thermique",
+   "etape": 3,
+   "cheveux_cibles": [
+    "secs"
+   ],
+   "actifs": [
+    "panthénol",
+    "miel",
+    "hibiscus"
+   ],
+   "ingredients": "Water (Aqua), Maltodextrin/VP Copolymer, Cetearyl Alcohol, Cetyl Alcohol, Stearyl Alcohol, C32-36 Isoalkyl Stearate, Ceteareth-25, Hibiscus Sabdariffa Flower Extract, Honey, Hydrolyzed Quinoa, Hydroxyethylcellulose, Panthenol, Polyglyceryl-3 Stearate SE, Polyhydroxystearic Acid, Stearyl Behenate, Behentrimonium Methosulfate, Cetrimonium Methosulfate, Polysorbate 60, Quaternium-91, Coumarin, Limonene, Linalool, Benzyl Alcohol, Dehydroacetic Acid, Fragrance (Parfum) No harsh sulfates",
+   "description": "Provides heat protection and all day long frizz control for a sleek, smooth look.",
+   "claims": [
+    "anti-frisottis",
+    "protection-chaleur"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/eden-bodyworks/cutout/hibiscus-honey-blow-dry-cream.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "eden-bodyworks--almond-marshmallow-split-end-repair-masque",
+   "name": "Almond Marshmallow Split End Repair Masque",
+   "brand": "eden-bodyworks",
+   "brand_name": "EDEN BodyWorks",
+   "url": "https://edenbodyworks.com/products/almond-marshmallow-split-end-repair-masque",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 4.6,
+   "price_source": "converti USD x0.92 le 19/09",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0233/9417/products/almond-marshmallow-split-end-repair-masque.jpg?v=1747865662",
+   "image_local": "public/scan/products-cheveux/eden-bodyworks/almond-marshmallow-split-end-repair-masque.jpg",
+   "categorie": "masque",
+   "etape": 2,
+   "cheveux_cibles": [
+    "secs",
+    "abimes"
+   ],
+   "actifs": [
+    "glycérine",
+    "panthénol",
+    "aloe vera",
+    "huile de baobab",
+    "beurre de cacao"
+   ],
+   "ingredients": "Water (Aqua), Stearyl Alcohol, Cetyl Alcohol, Glycerin, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Fragrance (Parfum), Behentrimonium Methosulfate, Cetearyl Alcohol, Althaea Officinalis (Marshmallow) Root Extract, Cocos Nucifera (Coconut) Oil, Aloe Barbadensis (Aloe Vera) Leaf Juice, Hydrogenated Castor Oil/Sebacic Acid Copolymer, Hydrolyzed Adansonia Digitata Seed Extract, Maltodextrin/VP Copolymer, Panthenol, Polyquaternium-10, Theobroma Cacao (Cocoa) Seed Butter, Tribehenin, Stearalkonium Chloride, Benzyl Alcohol, Dehydroacetic Acid Maltol, Nerolidol, Limonene, Linalool",
+   "description": "Almond Marshmallow Split End Repair Masque A restorative deep conditioning treatment designed to protect hair against damage. Infused with Sweet Almond Oil and Marshmallow Root, it smooths out the hair shaft, sealing in moisture to treat existing breakage and protect against future damage. Vitamins A, B, and E work together to provide nourishing and strengthening benefits that reinforce elasticity. With a lighter, creamy consistency, this masque also provides high slip for easy detangling! This ",
+   "claims": [
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "demelant"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/eden-bodyworks/cutout/almond-marshmallow-split-end-repair-masque.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "eden-bodyworks--moisturizing-cowash",
+   "name": "Lavender Aloe Cowash Shampoo",
+   "brand": "eden-bodyworks",
+   "brand_name": "EDEN BodyWorks",
+   "url": "https://edenbodyworks.com/products/moisturizing-cowash",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 10.11,
+   "price_source": "converti USD x0.92 le 19/09",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0233/9417/products/EDENBodyWorks-LavenderAloe-MoisturizingCowash-front.png?v=1632163011",
+   "image_local": "public/scan/products-cheveux/eden-bodyworks/moisturizing-cowash.jpg",
+   "categorie": "shampooing",
+   "etape": 1,
+   "cheveux_cibles": [
+    "secs",
+    "abimes"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "aloe vera",
+    "beurre de karité",
+    "kératine"
+   ],
+   "ingredients": "Water (Aqua), Cetyl Alcohol, Stearyl Alcohol, Aloe Barbadensis (Aloe Vera) Leaf Juice, Propanediol, Behentrimonium Methosulfate, Benzyl Alcohol, Fragrance (Parfum), Propylene Glycol Dibenzoate, Butylene Glycol, Hydrogenated Cottonseed Oil, Hydrogenated Soybean Oil, Cetrimonium Chloride, Guar Hydroxypropyltrimonium Chloride, Butyrospermum Parkii (Shea) Butter, Lavandula Angustifolia (Lavender) Oil, Panthenyl Hydroxypropyl Steardimonium Chloride, Citric Acid, Dehydroacetic Acid, Hydrolyzed Keratin, Glycerin, Potassium Sorbate, Sodium Benzoate, Lavandula Angustifolia Flower Extract",
+   "description": "This gentle conditioning cleanser is sulfate-free and packed with super moisturizing ingredients like lavender essential oil, Aloe Vera, soybean oil (moisture retention), cottonseed oil, and Shea Butter. Perfect for removing residue and build up, without stripping the hair. Excellent for all textures and hair types.",
+   "claims": [
+    "hydratation",
+    "nutrition",
+    "texturisant",
+    "sans-sulfate"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/eden-bodyworks/cutout/moisturizing-cowash.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "eden-bodyworks--lavender-aloe-hydrating-refresher",
+   "name": "Lavender Aloe Anti Frizz Spray",
+   "brand": "eden-bodyworks",
+   "brand_name": "EDEN BodyWorks",
+   "url": "https://edenbodyworks.com/products/lavender-aloe-hydrating-refresher",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 9.19,
+   "price_source": "converti USD x0.92 le 19/09",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0233/9417/products/EDENBodyWorks-LavenderAloe-HydratingRefresher-Spray-front.png?v=1632162442",
+   "image_local": "public/scan/products-cheveux/eden-bodyworks/lavender-aloe-hydrating-refresher.jpg",
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "secs"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "aloe vera"
+   ],
+   "ingredients": "Water (Aqua), Glycerin, Polysorbate 20, Fragrance (Parfum), PEG-40 Hydrogenated Castor Oil, Polyimide-1, Benzyl Alcohol, Dehydroacetic Acid, Citric Acid, Aloe Barbadensis (Aloe Vera) Leaf Juice, Lavandula Angustifolia Flower Extract, Potassium Sorbate, Sodium Benzoate",
+   "description": "This lightweight, fizz fighting spray goes on smoothly and absorbs quickly into hair, leaving no sticky or tacky-like residue. Nourish strands and leave hair feeling fresh between washes.",
+   "claims": [
+    "nutrition",
+    "anti-frisottis"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/eden-bodyworks/cutout/lavender-aloe-hydrating-refresher.webp",
+   "ciblage_source": "deduit"
+  },
+  {
    "id": "eden-bodyworks--lavender-aloe-smoothing-gel",
-   "name": "Lavender Aloe Smoothing Gel",
+   "name": "Lavender Aloe Hair Smoothing Gel",
    "brand": "eden-bodyworks",
    "brand_name": "EDEN BodyWorks",
    "url": "https://edenbodyworks.com/products/lavender-aloe-smoothing-gel",
    "url_verifiee_le": "2026-09-19",
    "price_eur": 4.6,
    "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0233/9417/products/EDENBodyWorks-LavenderAloe-SmoothingGel-front.png?width=600",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0233/9417/products/EDENBodyWorks-LavenderAloe-SmoothingGel-front.png?v=1634225871",
    "image_local": "public/scan/products-cheveux/eden-bodyworks/lavender-aloe-smoothing-gel.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
-    "boucles"
+    "boucles",
+    "abimes"
    ],
    "actifs": [
-    "kératine",
-    "protéines de blé",
-    "aloe vera",
     "glycérine",
-    "acide citrique"
+    "acide citrique",
+    "aloe vera",
+    "kératine",
+    "protéines de blé"
    ],
    "ingredients": "Water (Aqua), Glycerin, Polysorbate 20, Carbomer, Phenoxyethanol, Aminomethyl Propanol, Fragrance (Parfum), Aloe Barbadensis (Aloe Vera) Leaf Juice, Hydrolyzed Keratin, Ethylhexylglycerin, Hydrolyzed Wheat Protein, Lavandula Angustifolia (Lavender) Oil, Citric Acid, Potassium Sorbate, Sodium Benzoate, Lavandula Angustifolia Flower Extract",
    "description": "Enriched with Lavender Oil and Aloe, this hair gel shapes and sculpts hair to a gorgeous finish. Enhances curly or natural hair looks. Scrunch hair after application for added definition. No residue left behind.",
    "claims": [
-    "lissant",
+    "anti-frisottis",
     "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/eden-bodyworks/cutout/lavender-aloe-smoothing-gel.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "eden-bodyworks--lavender-aloe-growth-oil",
+   "name": "Lavender Aloe Growth Oil",
+   "brand": "eden-bodyworks",
+   "brand_name": "EDEN BodyWorks",
+   "url": "https://edenbodyworks.com/products/lavender-aloe-growth-oil",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 10.11,
+   "price_source": "converti USD x0.92 le 19/09",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0233/9417/products/EDEN-BodyWorks-Lavender-Aloe-Growth-Oil-front-web.png?v=1647365624",
+   "image_local": "public/scan/products-cheveux/eden-bodyworks/lavender-aloe-growth-oil.jpg",
+   "categorie": "huile",
+   "etape": 3,
+   "cheveux_cibles": [
+    "abimes",
+    "chute"
+   ],
+   "actifs": [
+    "acide citrique"
+   ],
+   "ingredients": "Water (Aqua), Lavandula Angustifolia Flower Extract, Citric Acid, Potassium Sorbate, Sodium Benzoate",
+   "description": "Infused with Aloe’s healing properties to strengthen hair and make the scalp healthier. Using this hair oil regularly minimizes the look of frayed or frizzy hair and split ends. Great oil for hair growth during scalp massages (recommended application post bath or shower).",
+   "claims": [
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "croissance"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/eden-bodyworks/cutout/lavender-aloe-growth-oil.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "eden-bodyworks--lavender-aloe-moisturizing-leave-in",
+   "name": "Lavender Aloe Vera Leave In Conditioner",
+   "brand": "eden-bodyworks",
+   "brand_name": "EDEN BodyWorks",
+   "url": "https://edenbodyworks.com/products/lavender-aloe-moisturizing-leave-in",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 9.19,
+   "price_source": "converti USD x0.92 le 19/09",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0233/9417/products/EDENBodyWorks-LavenderAloe-MoisturizingLeaveIn-front.png?v=1632162778",
+   "image_local": "public/scan/products-cheveux/eden-bodyworks/lavender-aloe-moisturizing-leave-in.jpg",
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "secs",
+    "fins",
+    "abimes",
+    "cuir-chevelu-sensible"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "panthénol",
+    "vitamine E",
+    "aloe vera",
+    "kératine"
+   ],
+   "ingredients": "Water (Aqua), Cetyl Alcohol, Stearyl Alcohol, Aloe Barbadensis (Aloe Vera) Leaf Juice, Panthenyl Hydroxypropyl Steardimonium Chloride, Benzyl Alcohol, Cetrimonium Chloride, Fragrance (Parfum), Panthenol, Polyquaternium-39, Lavandula Angustifolia (Lavender) Oil, Polyquaternium-7, Hydrolyzed Keratin, Dehydroacetic Acid, Tocopheryl Acetate, Sodium Benzoate, Glycerin, Citric Acid, Potassium Sorbate, Lavandula Angustifolia Flower Extract",
+   "description": "Lightweight application leaves hair soft and silky, without weighing it down. Made with hair-loving ingredients: Lavender Oil has anti-septic properties as well as a calming scent and Aloe Vera gently nourishes hair to promote shine. Helps to reduce frizz and revitalize hair. acts as a barrier to improve hair’s overall look and health. Can be used daily to replenish moisture. Formulated for all hair types.",
+   "claims": [
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "apaisant-cuir-chevelu",
+    "brillance"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/eden-bodyworks/cutout/lavender-aloe-moisturizing-leave-in.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "eden-bodyworks--lavender-aloe-anti-breakage-deep-conditioner",
+   "name": "Lavender Aloe Anti-breakage Deep Conditioner",
+   "brand": "eden-bodyworks",
+   "brand_name": "EDEN BodyWorks",
+   "url": "https://edenbodyworks.com/products/lavender-aloe-anti-breakage-deep-conditioner",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 10.11,
+   "price_source": "converti USD x0.92 le 19/09",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0233/9417/products/EDENBodyWorks-LavenderAloe-Anti-BreakageDeepConditioner-front.png?v=1731084147",
+   "image_local": "public/scan/products-cheveux/eden-bodyworks/lavender-aloe-anti-breakage-deep-conditioner.jpg",
+   "categorie": "apres-shampooing",
+   "etape": 2,
+   "cheveux_cibles": [
+    "secs",
+    "fins",
+    "colores",
+    "abimes",
+    "chute"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "vitamine E",
+    "aloe vera"
+   ],
+   "ingredients": "Water (Aqua), Stearyl Alcohol, Cetyl Alcohol, Aloe Barbadensis (Aloe Vera) Leaf Juice, Cetearyl Alcohol, Fragrance (Parfum), Stearalkonium Chloride, Phenoxyethanol, Behentrimonium Methosulfate, Caprylyl Glycol, Cetrimonium Chloride, Hydroxypropyl Methylcellulose, Lavandula Angustifolia (Lavender) Oil, Sorbic Acid, Disodium EDTA, Tocopheryl Acetate, Glycerin, Citric Acid, Potassium Sorbate, Sodium Benzoate, Lavandula Angustifolia Flower Extract",
+   "description": "This natural deep conditioner is a thick, creamy protein-free hair mask designed to help strengthen weak strands susceptible to breakage. Lavender Oil helps to battle hair loss and protect against further damage. Enhances the hair's natural elasticity. Aloe helps to replenish and moisturize dry hair. Combats scalp issues. Safe for natural hair, color-treated hair, and chemically-processed hair.",
+   "claims": [
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "volume",
+    "anti-chute",
+    "protection-couleur"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/eden-bodyworks/cutout/lavender-aloe-anti-breakage-deep-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "eden-bodyworks--peppermint-tea-tree-hair-oil",
-   "name": "Peppermint Tea Tree Hair Oil",
+   "name": "Peppermint Tea Tree Oil For Hair",
    "brand": "eden-bodyworks",
    "brand_name": "EDEN BodyWorks",
    "url": "https://edenbodyworks.com/products/peppermint-tea-tree-hair-oil",
    "url_verifiee_le": "2026-09-19",
    "price_eur": 10.11,
    "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0233/9417/products/PPT-HairOil-Front.jpg?width=600",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0233/9417/products/PPT-HairOil-Front.jpg?v=1731083804",
    "image_local": "public/scan/products-cheveux/eden-bodyworks/peppermint-tea-tree-hair-oil.jpg",
    "categorie": "huile",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
+    "gras",
+    "crepus",
+    "abimes",
     "pellicules",
     "cuir-chevelu-sensible"
    ],
-   "actifs": [],
-   "ingredients": null,
+   "actifs": [
+    "romarin"
+   ],
+   "ingredients": "Cocos Nucifera (Coconut) Oil, Melaleuca Alternifolia (Tea Tree) Leaf Oil, Simondsia Chinensis (Jojoba) Seed Oil, Gardenia Tahitensis Flower Extract, Lavandula Angustifolia (Lavender) Oil, Rosmarinus Officinalis (Rosemary) Oil, Dipropylene Glycol, Eucalyptol, Camphor",
    "description": "Peppermint Tea Tree Hair Oil An exotic blend of nourishing ingredients that penetrate and stimulate the hair root without leaving behind greasy buildup. It provides a refreshing tingle to a dry and itching scalp and helps prevent dandruff. This oil strengthens the hair to reduce breakage and leaves tresses silky and shiny - a perfect choice for daily relief or a pre-poo hot oil treatment.",
    "claims": [
-    "nourrissant",
-    "anti-pellicules",
-    "fortifiant"
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "antipelliculaire",
+    "apaisant-cuir-chevelu",
+    "purifiant",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/eden-bodyworks/cutout/peppermint-tea-tree-hair-oil.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "eden-bodyworks--peppermint-tea-tree-hair-milk",
+   "name": "Peppermint Tea Tree Natural Hair Milk",
+   "brand": "eden-bodyworks",
+   "brand_name": "EDEN BodyWorks",
+   "url": "https://edenbodyworks.com/products/peppermint-tea-tree-hair-milk",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 9.19,
+   "price_source": "converti USD x0.92 le 19/09",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0233/9417/products/PPT-Milk-Front.jpg?v=1731083925",
+   "image_local": "public/scan/products-cheveux/eden-bodyworks/peppermint-tea-tree-hair-milk.jpg",
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "secs"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "vitamine E",
+    "aloe vera",
+    "miel"
+   ],
+   "ingredients": "Water (Aqua, Eau), Cocos Nucifera (Coconut) Oil, Stearic Acid, Glycerin, Beeswax, Cetearyl Alcohol, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Mentha Piperita (Peppermint) Oil, Melaleuca Alternifolia (Tea Tree) Leaf Oil, Aloe Barbadensis Leaf Juice, Hydroxypropyltrimonium Honey, Cannabis Sativa Seed Oil, Daucus Carota Sativa (Carrot) Seed Oil, Simondsia Chinensis (Jojoba) Seed Oil, Prunus Armeniaca (Apricot) Kernel Oil, Tocopheryl Acetate, Sorbic Acid, Dipropylene Glycol, Eucalyptol, Camphor, Maltodextrin, Disodium EDTA, Citric Acid, Phenoxyethanol Wondering if this prodct is right for you? Try our hair quiz and get a personalized recommendation. Peppermint Tea Tree Moisturizing Hair Milk",
+   "description": "Peppermint Tea Tree Hair Milk A creamy leave-in moisturizer formulated with a powerful, yet lightweight blend of Peppermint, Tea Tree, Jojoba, Coconut & Avocado Oils. This leave-in conditioner delivers a healthy dose of antioxidants to breathe new life into your glorious mane.",
+   "claims": [
+    "hydratation"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/eden-bodyworks/cutout/peppermint-tea-tree-hair-milk.webp",
+   "ciblage_source": "fiche"
+  },
+  {
+   "id": "eden-bodyworks--peppermint-tea-tree-shampoo",
+   "name": "Peppermint Tea Tree Shampoo",
+   "brand": "eden-bodyworks",
+   "brand_name": "EDEN BodyWorks",
+   "url": "https://edenbodyworks.com/products/peppermint-tea-tree-shampoo",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 9.19,
+   "price_source": "converti USD x0.92 le 19/09",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0233/9417/products/PPT-Shampoo-Front.jpg?v=1731083516",
+   "image_local": "public/scan/products-cheveux/eden-bodyworks/peppermint-tea-tree-shampoo.jpg",
+   "categorie": "shampooing",
+   "etape": 1,
+   "cheveux_cibles": [
+    "gras",
+    "colores",
+    "chute",
+    "pellicules",
+    "cuir-chevelu-sensible"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "panthénol",
+    "vitamine E",
+    "protéines de blé"
+   ],
+   "ingredients": "Water (Aqua, Eau), Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Betaine, Mentha Piperita (Peppermint) Oil, Hydrolyzed Wheat Protein, Panthenol, Tocopheryl Acetate, Glycerin, Melaleuca Alternifolia (Tea Tree) Leaf Oil, Polyquaternium-10, Disodium Laureth, Sulfosuccinate, Sodium Lauryl Sulfoacetate, Sodium Sulfate, Dipropylene Glycol, Eucalyptol, Camphor, PEG-150 Distearate, Sodium Chloride, Citric Acid, Polysorbate 20, Tetrasodium EDTA, Phenoxyethanol, Methylchloroisothiazolinone, Methylisothiazolinone",
+   "description": "Peppermint Tea Tree Shampoo A clarifying shampoo that's like a morning alarm to your senses and scalp! It removes product buildup, increases scalp circulation, and promotes a healthy hair growth environment. Made with Peppermint and Tea Tree Oils, this shampoo has therapeutic scalp tingling properties that assist in treating and preventing dandruff and itchiness. It will leave the scalp and hair feeling squeaky clean and invigorated. NOTE: this shampoo is not recommended for regular use on color",
+   "claims": [
+    "croissance",
+    "antipelliculaire",
+    "apaisant-cuir-chevelu",
+    "purifiant"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/eden-bodyworks/cutout/peppermint-tea-tree-shampoo.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "eden-bodyworks--peppermint-tea-tree-conditioner",
+   "name": "Peppermint Tea Tree Conditioner",
+   "brand": "eden-bodyworks",
+   "brand_name": "EDEN BodyWorks",
+   "url": "https://edenbodyworks.com/products/peppermint-tea-tree-conditioner",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 9.19,
+   "price_source": "converti USD x0.92 le 19/09",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0233/9417/products/PPT-Conditioner.jpg?v=1731083702",
+   "image_local": "public/scan/products-cheveux/eden-bodyworks/peppermint-tea-tree-conditioner.jpg",
+   "categorie": "apres-shampooing",
+   "etape": 2,
+   "cheveux_cibles": [
+    "secs",
+    "fins",
+    "abimes"
+   ],
+   "actifs": [
+    "acide citrique",
+    "panthénol",
+    "vitamine E",
+    "huile de ricin",
+    "aloe vera",
+    "acide lactique",
+    "miel"
+   ],
+   "ingredients": "Water (Aqua, Eau), Cetyl Alcohol, Stearalkonium Chloride, Ricinus Communis (Castor) Seed Oil, Cetearyl Alcohol, Mentha Piperita (Peppermint) Oil, Melaleuca Alternifolia (Tea Tree) Leaf Oil, Aloe Barbadensis Leaf Juice, Hydroxypropyltrimonium Honey, Daucus Carota Sativa (Carrot) Seed Oil, Simondsia Chinensis (Jojoba) Seed Oil, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Anthemis Nobilis Flower Oil, Tocopheryl Acetate, Panthenol, Lactic Acid, Polysorbate 60, Sorbic Acid, Dipropylene Glycol, Eucalyptol, Camphor, Maltodextrin, Disodium EDTA, Citric Acid, Phenoxyethanol, Titanium Dioxide",
+   "description": "Peppermint Tea Tree Detangling Conditioner is a super moisturizing natural conditioner that increases scalp circulation for a refreshed, renewed feeling. Leaves hair soft and full of body. Fortified with proteins to decrease split ends.",
+   "claims": [
+    "hydratation",
+    "reparation",
+    "fortifiant",
+    "volume",
+    "demelant"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/eden-bodyworks/cutout/peppermint-tea-tree-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "eden-bodyworks--coconut-shea-moisture-shampoo",
-   "name": "Coconut Shea Moisture Shampoo",
+   "name": "Coconut Shea Shampoo",
    "brand": "eden-bodyworks",
    "brand_name": "EDEN BodyWorks",
    "url": "https://edenbodyworks.com/products/coconut-shea-moisture-shampoo",
    "url_verifiee_le": "2026-09-19",
    "price_eur": 4.6,
    "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0233/9417/products/moisture-shampoo-front.jpg?width=600",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0233/9417/products/moisture-shampoo-front.jpg?v=1730823371",
    "image_local": "public/scan/products-cheveux/eden-bodyworks/coconut-shea-moisture-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
-   "actifs": [
-    "panthénol",
-    "beurre de karité",
-    "aloe vera",
-    "glycérine"
+   "cheveux_cibles": [
+    "secs"
    ],
-   "ingredients": "Water (Aqua), Cocamidopropyl Betaine, Sodium Lauryl Sulfoacetate, Disodium Laureth Sulfosuccinate, Cocamidopropyl Hydroxysultaine, Sodium Cocoyl Isethionate, Glycerin, Cetrimonium Chloride, Glycol Distearate, Aloe Barbadensis (Aloe Vera) Leaf Juice, Tocopheryl Acetate (Vitamin E), Panthenol, PEG-50 Shea Butter, Polyquaternium-72, Polyquaternium-11, Fragrance (Parfum), PEG-150 Pentaerythrityl Tetrastearate, PEG-6 Caprylic/Capric Glycerides, Dehydroacetic Acid, Benzyl Alcohol",
+   "actifs": [
+    "glycérine",
+    "panthénol",
+    "vitamine E",
+    "aloe vera"
+   ],
+   "ingredients": "Water (Aqua), Cocamidopropyl Betaine, Sodium Lauryl Sulfoacetate, Disodium Laureth Sulfosuccinate, Cocamidopropyl Hydroxysultaine, Sodium Cocoyl Isethionate, Glycerin, Cetrimonium Chloride, Glycol Distearate, Aloe Barbadensis (Aloe Vera) Leaf Juice, Tocopheryl Acetate (Vitamin E), Panthenol, PEG-50 Shea Butter, Polyquaternium-72, Polyquaternium-11, Fragrance (Parfum), PEG-150 Pentaerythrityl Tetrastearate, PEG-6 Caprylic/Capric Glycerides, Dehydroacetic Acid, Benzyl Alcohol No harsh sulfates",
    "description": "Sulfate free mild cleanser that restores moisture to hair. Perfect gentle cleanser for all hair types.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "reparation",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/eden-bodyworks/cutout/coconut-shea-moisture-shampoo.webp",
+   "ciblage_source": "fiche"
+  },
+  {
+   "id": "eden-bodyworks--coconut-shea-control-edge-glaze",
+   "name": "Coconut Shea Edge Gel for Hair",
+   "brand": "eden-bodyworks",
+   "brand_name": "EDEN BodyWorks",
+   "url": "https://edenbodyworks.com/products/coconut-shea-control-edge-glaze",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 9.19,
+   "price_source": "converti USD x0.92 le 19/09",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0233/9417/products/CS-Edge-Front.jpg?v=1730823227",
+   "image_local": "public/scan/products-cheveux/eden-bodyworks/coconut-shea-control-edge-glaze.jpg",
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [],
+   "actifs": [
+    "aloe vera"
+   ],
+   "ingredients": "Water (Aqua), Ceteareth-20, PEG-7 Glyceryl Cocoate, Aloe Barbadensis (Aloe Vera) Leaf Juice, PEG-50 Shea Butter, Propanediol, Cocos Nucifera (Coconut) Oil, Cocos Nucifera (Coconut) Milk, Fragrance (Parfum), Phenoxyethanol, Caprylyl Glycol, Sorbic Acid",
+   "description": "Provides a firm, manageable hold along the hairline and/or hair shaft to preserve desired styles. This lightweight formula will not create build up.",
+   "claims": [
+    "fixation"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/eden-bodyworks/cutout/coconut-shea-control-edge-glaze.webp",
+   "ciblage_source": "fiche"
+  },
+  {
+   "id": "eden-bodyworks--coconut-shea-pudding-souffle",
+   "name": "Coconut Shea Pudding Soufflé",
+   "brand": "eden-bodyworks",
+   "brand_name": "EDEN BodyWorks",
+   "url": "https://edenbodyworks.com/products/coconut-shea-pudding-souffle",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 10.11,
+   "price_source": "converti USD x0.92 le 19/09",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0233/9417/products/PuddingSouffle-Front.jpg?v=1730823432",
+   "image_local": "public/scan/products-cheveux/eden-bodyworks/coconut-shea-pudding-souffle.jpg",
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "secs",
+    "gras"
+   ],
+   "actifs": [
+    "glycérine",
+    "vitamine E",
+    "aloe vera",
+    "huile de jojoba",
+    "huile d'avocat"
+   ],
+   "ingredients": "Water (Aqua), Cetyl Alcohol, Stearyl Alcohol, PEG-50 Shea Butter, Ethylhexyl Palmitate, Caprylic/Capric Triglycerides, Polyquaternium-11, Cocos Nucifera (Coconut) Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Persea Gratissima (Avocado) Oil, Limnanthes Alba (Meadowfoam) Seed Oil, Tocopheryl Acetate (Vitamin E), Glycerin, Aloe Barbadensis (Aloe Vera) Leaf Juice, Carbomer, Triethanolamine, Fragrance (Parfum), Dehydroacetic Acid, Benzyl Alcohol",
+   "description": "Coconut Shea Pudding Soufflé A double-duty moisturizer providing soft hold for setting, twisting, and defining hair. It is the perfect lightweight styling cream to fight off frizz. Coconut Oil and Shea Butter provide nutrients that help strengthen strands and seal in hydration. It won't leave the hair feeling greasy, crunchy or flaky.",
+   "claims": [
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
+    "anti-gras",
+    "fixation"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/eden-bodyworks/cutout/coconut-shea-pudding-souffle.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "eden-bodyworks--coconut-shea-cleansing-cowash",
+   "name": "Coconut Shea Cleansing CoWash",
+   "brand": "eden-bodyworks",
+   "brand_name": "EDEN BodyWorks",
+   "url": "https://edenbodyworks.com/products/coconut-shea-cleansing-cowash",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 10.11,
+   "price_source": "converti USD x0.92 le 19/09",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0233/9417/products/CoWash-Front.jpg?v=1730822662",
+   "image_local": "public/scan/products-cheveux/eden-bodyworks/coconut-shea-cleansing-cowash.jpg",
+   "categorie": "shampooing",
+   "etape": 1,
+   "cheveux_cibles": [
+    "abimes",
+    "chute"
+   ],
+   "actifs": [
+    "acide citrique",
+    "aloe vera",
+    "kératine"
+   ],
+   "ingredients": "Water (Aqua), Aloe Barbadensis (Aloe Vera) Leaf Juice, Cetearyl Alcohol, Propanediol, Butryospermum Parkii (Shea) Butter, Cocos Nucifera (Coconut) Oil, Vegetable Oil, Hydrolyzed Keratin, Behentrimonium Methosulfate, Cetrimonium Chloride, Guar Hydroxypropyltrimonium Chloride, Butylene Glycol, Panthenyl Hydroxypropyl Steardimonium Chloride, Propylene Glycol Dibenzoate, Citric Acid, Fragrance (Parfum), Dehydroacetic Acid, Benzyl Alcohol No harsh sulfates",
+   "description": "Sulfate-free, no suds gentle cleansing conditioner cream for removing residue and build up between regular washings to promote a healthy hair environment for growth.",
+   "claims": [
+    "croissance",
+    "sans-sulfate"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/eden-bodyworks/cutout/coconut-shea-cleansing-cowash.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "eden-bodyworks--coconut-shea-curl-defining-creme",
+   "name": "Coconut Shea Curl Defining Creme",
+   "brand": "eden-bodyworks",
+   "brand_name": "EDEN BodyWorks",
+   "url": "https://edenbodyworks.com/products/coconut-shea-curl-defining-creme",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 11.03,
+   "price_source": "converti USD x0.92 le 19/09",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0233/9417/files/CS-curl-defining-creme-Best-Seller.png?v=1770316090",
+   "image_local": "public/scan/products-cheveux/eden-bodyworks/coconut-shea-curl-defining-creme.jpg",
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "secs",
+    "fins",
+    "boucles",
+    "abimes"
+   ],
+   "actifs": [
+    "glycérine",
+    "vitamine E",
+    "aloe vera",
+    "beurre de karité",
+    "huile de jojoba",
+    "acides aminés",
+    "huile d'avocat",
+    "kératine",
+    "protéines de riz",
+    "protéines de soie"
+   ],
+   "ingredients": "Water (Aqua), Cocos Nucifera (Coconut) Oil, Vegetable Oil, Aloe Barbadensis (Aloe Vera) Leaf Juice, Cetyl Alcohol, Stearyl Alcohol, Persea Gratissima (Avocado) Oil, Butyrospermum Parkii (Shea) Butter, Cetyl Esters, Glyceryl Dilaurate, Steareth-20, Polyquaternium-7, Cocos Nucifera (Coconut) Milk, Simmondsia Chinensis (Jojoba) Seed Oil, Limnanthes Alba (Meadowfoam) Seed Oil, Lactobacillus/Tomato Fruit Ferment Extract, Oryza Sativa (Rice) Extract, Keratin Amino Acids, Acyl Coenzyme A Desaturase, Cetrimonium Chloride, Glycerin, Simmondsia Chinensis (Jojoba) Seed Oil, Tocopheryl Acetate (Vitamin E), Hydrolyzed Silk, Panthenyl Hydroxypropyl Steardimonium Chloride, Fragrance (Parfum), Dehydroacetic Acid, Benzyl Alcohol",
+   "description": "Coconut Shea Curl Defining Creme Our most popular product for good reason! This medium-hold styler penetrates deep within the hair shaft to replenish vital moisture and protect against protein loss. It's a thick crème that offers humidity resistance and frizz control to help maintain curl and wave separation, plus gives definition. Coconut Oil and Shea Butter provide nutrients like Vitamin E, which help to strengthen the hair and seal in moisture. It leaves hair feeling soft and bouncy. No greas",
+   "claims": [
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
+    "volume",
+    "fixation"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/eden-bodyworks/cutout/coconut-shea-curl-defining-creme.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "eden-bodyworks--coconut-shea-hair-masque-1",
+   "name": "Coconut Shea Hair Masque Treatment",
+   "brand": "eden-bodyworks",
+   "brand_name": "EDEN BodyWorks",
+   "url": "https://edenbodyworks.com/products/coconut-shea-hair-masque-1",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 12.87,
+   "price_source": "converti USD x0.92 le 19/09",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0233/9417/products/Hair-Masque-Treatment-Front.jpg?v=1730823268",
+   "image_local": "public/scan/products-cheveux/eden-bodyworks/coconut-shea-hair-masque-1.jpg",
+   "categorie": "masque",
+   "etape": 2,
+   "cheveux_cibles": [
+    "secs",
+    "fins",
+    "crepus",
+    "lisses",
+    "abimes"
+   ],
+   "actifs": [
+    "acide citrique",
+    "aloe vera",
+    "beurre de karité",
+    "acides aminés",
+    "protéines de soja",
+    "protéines de soie"
+   ],
+   "ingredients": "Water (Aqua), Cocos Nucifera (Coconut) Oil, Cetyl Alcohol, Emulsifying Wax NF, Cetrimonium Chloride, Aloe Barbadensis (Aloe Vera) Leaf Juice, Steareth-20, Glycine Soja (Soybean) Oil, Butyrospermum Parkii (Shea Butter), Hydrolyzed Silk, Sodium PCA, Guar Hydroxypropyltrimonium Chloride, Citric Acid, Fragrance (Parfum), Dehydroacetic Acid, Benzyl Alcohol",
+   "description": "Coconut Shea Natural Hair Masque Treatment A thick and creamy deep conditioning treatment created to attack dry, brittle strands with a botanical blend of Coconut Oil and Shea Butter. The ingredients of this Masque penetrate the hair shaft, providing intense moisture to help soften and replenish thirsty strands and those that have been under high manipulation. It's great for all hair types - natural, chemically-treated, kinky, straight, and anything in between.",
+   "claims": [
+    "hydratation",
+    "nutrition",
+    "volume"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/eden-bodyworks/cutout/coconut-shea-hair-masque-1.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "eden-bodyworks--coconut-shea-leave-in-conditioner",
+   "name": "Coconut Shea Leave In Conditioner",
+   "brand": "eden-bodyworks",
+   "brand_name": "EDEN BodyWorks",
+   "url": "https://edenbodyworks.com/products/coconut-shea-leave-in-conditioner",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 9.19,
+   "price_source": "converti USD x0.92 le 19/09",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0233/9417/products/CS-LeaveIn-Back-Front.jpg?v=1730823306",
+   "image_local": "public/scan/products-cheveux/eden-bodyworks/coconut-shea-leave-in-conditioner.jpg",
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "secs",
+    "abimes"
+   ],
+   "actifs": [
+    "glycérine",
+    "vitamine E",
+    "aloe vera",
+    "huile de jojoba",
+    "huile d'avocat",
+    "kératine"
+   ],
+   "ingredients": "Water (Aqua), Aloe Barbadensis (Aloe Vera) Leaf Juice, Cocos Nucifera (Coconut) Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Carthamus Tinctorius (Safflower) Seed Oil, Persea Gratissima (Avocado) Oil, Polyquaternium-37, Tocopheryl Acetate (Vitamin E), Dicaprylate/Dicaprate, PEG-50 Shea Butter, Glycerin, Cetrimonium Chloride, Hydrolyzed Keratin, Panthenyl Hydroxypropyl Steardimonium Chloride, Sodium PCA, Polyquaternium-7, Fragrance (Parfum), PPG-1 Trideceth-6, Dehydroacetic Acid, Benzyl Alcohol",
+   "description": "Coconut Shea Leave In Conditioner A daily conditioning treatment that adds hydration and seals in moisture. Together, its main ingredients — Coconut Oil and Shea Butter — work hand-in-hand to penetrate the hair shaft while also protecting against protein loss and increasing shine. Nutrient-rich and lightweight, this Leave In has a creamy consistency that allows for easy application and distribution. It serves as an excellent style primer, especially when used as a base for a defined wash 'n go!",
+   "claims": [
+    "hydratation",
+    "nutrition",
+    "brillance"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/eden-bodyworks/cutout/coconut-shea-leave-in-conditioner.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

@@ -16,6 +16,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "gras",
     "boucles"
    ],
    "actifs": [
@@ -29,9 +30,13 @@
    "ingredients": "INGREDIENTS/INGRÉDIENTS: Aqua (Water/Eau), Isododecane , Propanediol, Mentha Piperita (Peppermint) Oil, Nephelium Lappaceum Seed Extract , Musa Sapientum (Banana) Fruit Extract, Selaginella Lepidophylla Extract, Helianthus Annuus (Sunflower) Seed Oil, PEG-40 Hydrogenated Castor Oil, Cetrimonium Chloride, Diatomaceous Earth, Menthyl Lactate, Glycolipids, Glycerin, Maltodextrin, Saccharide Isomerate, Sclerotium Gum, Phytic Acid, Sodium Gluconate, Ethylhexylglycerin, Butylene Glycol, Tocopherol, Sodium Hydroxide, Capryloyl Glycine, Xylitylglucoside, Citric Acid, Sodium Citrate, Sodium Benzoate, Potassium Sorbate, Phenoxyethanol, Parfum / Fragrance, Citronellol, Citrus Aurantium Peel Oil, Geraniol, Limonene, Linalool, Menthol, Alpha-Terpinene, Terpinolene, Pinene, Tetramethyl Acetyloctahydronaphthalenes",
    "description": "A curl-friendly alternative to dry shampoo, using micellar water technology to refresh and hydrate the hair and scalp, neutralizes odors, and reduces excess oil after workouts or active days.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "definition-boucles",
+    "anti-gras"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/curlsmith/cutout/curlfit-reviving-mist.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "curlsmith--bonding-oil",
@@ -47,8 +52,10 @@
    "categorie": "huile",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
-    "boucles"
+    "secs",
+    "fins",
+    "boucles",
+    "abimes"
    ],
    "actifs": [
     "beurre de karité",
@@ -57,11 +64,16 @@
    "ingredients": "INGREDIENTS /INGRÉDIENTS: Hydrogenated Ethylhexyl Olivate, Hydrogenated Olive Oil Unsaponifiables, Coco-Caprylate/Caprate, Shea Butter Ethyl Esters, Hydrogenated Castor Oil/Sebacic Acid Copolymer, Prunus Armeniaca (Apricot) Kernel Oil, Hippophae Rhamnoides Fruit Oil, Lens Esculenta (Lentil) Seed Extract, Hydrolyzed Cicer Seed Extract, Chenopodium Quinoa Seed Extract, Fragrance (Parfum), Linalool, Limonene, Geraniol, Benzyl Alcohol, Citronellol, Anethole, Dimethyl Phenethyl Acetate, Geranyl Acetate, Citrus Aurantium (Orange) Peel Oil, Pinene",
    "description": "A weightless bonding oil that targets hair bonds to strengthen and seal cuticles, add brilliant shine, and leave hair looking and feeling smoother. Our bonding oil for hair is perfect for reducing frizz and enhancing softness, while the bonding oil for curly hair delivers extra care for defined, healthy curls.",
    "claims": [
-    "brillance",
-    "lissant",
-    "fortifiant"
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/curlsmith/cutout/bonding-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "curlsmith--moisture-memory-release",
@@ -77,6 +89,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
+    "fins",
     "boucles"
    ],
    "actifs": [
@@ -93,10 +107,13 @@
    "ingredients": "INGREDIENTS/INGRÉDIENTS: Water (Aqua / Eau), Glycerin, Persea Gratissima (Avocado) Oil, Prunus Armeniaca (Apricot) Kernel Oil, Ceramide NG, Ceramide NP, Ceramide AP, Ceramide AS, Selaginella Lepidophylla Extract, Olea Europaea (Olive) Fruit Oil, Ceramide EOP, Macadamia Integrifolia Seed Oil, Cholesterol, Ricinus Communis (Castor) Seed Oil, Palmitic Acid, Helianthus Annuus (Sunflower) Seed Oil, Tocopherol, 2,3-Butanediol, Hydrogenated Lecithin, Glyceryl Stearate, Hydrolyzed Caesalpinia Spinosa Gum, Caesalpinia Spinosa Gum, Lauryl Glucoside, PEG-40 Hydrogenated Castor Oil, Cetrimonium Chloride, Sclerotium Gum, Sodium Gluconate, Ethylhexylglycerin, Citric Acid, Sodium Benzoate, Potassium Sorbate, Phenoxyethanol, Fragrance (Parfum), Citrus Limon Peel Oil, Limonene, Linalool, Pinene, Tetramethyl Acetyloctahydronaphthalenes",
    "description": "A weightless leave in spray with time-release moisture technology that provides long-lasting hydration for smooth, soft, and bouncy curls.",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/curlsmith/cutout/moisture-memory-release.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "curlsmith--awestruck-definition-cream",
@@ -111,7 +128,9 @@
    "image_local": "public/scan/products-cheveux/curlsmith/awestruck-definition-cream.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "boucles"
+   ],
    "actifs": [
     "panthénol",
     "acide hyaluronique",
@@ -126,7 +145,9 @@
    "claims": [
     "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/curlsmith/cutout/awestruck-definition-cream.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "curlsmith--oil-in-cream",
@@ -139,10 +160,13 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/1719/1281/files/CS_Curl_Conditioning-Oil-in-Cream_8floz_Front_8388_2000x2000_7d6fa7bd-a16f-4ebd-8692-bbc03a4635ea.jpg?width=600",
    "image_local": "public/scan/products-cheveux/curlsmith/oil-in-cream.jpg",
-   "categorie": "huile",
+   "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "boucles"
+    "secs",
+    "epais",
+    "boucles",
+    "crepus"
    ],
    "actifs": [
     "panthénol",
@@ -159,9 +183,13 @@
    "ingredients": "INGREDIENTS/INGRÉDIENTS: Water (aqua / eau), glycerin, butyrospermum parkii (shea) butter, glyceryl stearate, cetearyl alcohol, cocos nucifera (coconut) oil*, cetrimonium chloride, panthenol, sesamum indicum (sesame) seed oil, daucus carota sativa (carrot) root extract*, olea europaea (olive) fruit oil*, selaginella lepidophylla extract, salvia officinalis (sage) leaf extract, piper nigrum (black pepper) seed extract, helianthus annuus (sunflower) seed oil, carapa guaianensis (andiroba) seed oil, aloe barbadensis leaf juice, ocimum basilicum (basil) leaf extract, rosmarinus officinalis (rosemary) leaf extract, glyceryl caprylate, glyceryl undecylenate, lauryl alcohol, myristyl alcohol, cetyl alcohol, tocopherol, guar hydroxypropyltrimonium chloride, polyquaternium-10, dicaprylyl ether, sodium hydroxide, citric acid, sodium benzoate, potassium sorbate, parfum / fragrance, citrus limon (lemon) peel oil, limonene, linalool, pinene, tetramethyl acetyloctahydronaphthalenes.*organic ingredient",
    "description": "Rich leave-in conditioner perfect for protective styles or to add moisture to coarse, very thirsty hair.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/curlsmith/cutout/oil-in-cream.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "curlsmith--curlshield-cream",
@@ -184,34 +212,14 @@
    "ingredients": null,
    "description": "A nourishing cream that creates a protective barrier against heat damages while improving split ends instantly.",
    "claims": [
-    "nourrissant"
+    "nutrition",
+    "reparation",
+    "definition-boucles",
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "curlsmith--defrizzion-curl-reviving-wand",
-   "name": "Defrizzion® Curl Reviving Wand",
-   "brand": "curlsmith",
-   "brand_name": "Curlsmith",
-   "url": "https://curlsmith.com/products/defrizzion-curl-reviving-wand",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 173.88,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/1719/1281/files/ELLE_2000x2000_cc4a2616-e7be-42d6-a5d3-fc524b79b60e.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/curlsmith/defrizzion-curl-reviving-wand.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [
-    "gras",
-    "epais",
-    "boucles",
-    "crepus"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "A revolutionary wand, engineered for wavy, curly and coily hair, to refresh, enhance and define your natural curls.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/curlsmith/cutout/curlshield-cream.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "curlsmith--curl-reset-detox-shampoo",
@@ -227,6 +235,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "gras",
     "boucles"
    ],
    "actifs": [
@@ -239,9 +248,12 @@
    "ingredients": "INGREDIENTS/INGRÉDIENTS: WATER (AQUA/EAU), Sodium C14-16 Olefin Sulfonate, Cellulose, Cocamidopropyl Hydroxysultaine, Acrylates Copolymer, Sodium Cocoyl Isethionate, Malva Sylvestris (Mallow) Flower Extract, Zingiber Officinale (Ginger) Root Extract, Urtica Dioica (Nettle) Leaf Extract, Vinegar (Acetum / Vinaigre), Glycerine, Mentha Piperita (Peppermint) Oil, Polyquaternium-10, Sodium Gluconate, Phytic Acid, Propanediol, Helianthus Annuus (Sunflower) Seed Oil, Tocopherol, Sodium Chloride, Potassium Sorbate, Sodium Hydroxide, Phenoxyethanol, Sodium Benzoate, Fragrance (Parfum), Linalool, Limonene, Citrus Aurantium Peel Oil",
    "description": "A powerful clarifying detox shampoo that deeply cleanses to remove build-up, dirt, and hard water minerals, without leaving your hair feeling stripped or dry. Perfect for resetting and reviving your curls, our detox shampoo is your go-to solution for a fresh, healthy start.",
    "claims": [
+    "definition-boucles",
     "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/curlsmith/cutout/curl-reset-detox-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "curlsmith--bouncy-strength-volume-foam",
@@ -271,9 +283,14 @@
    "ingredients": "INGREDIENTS/INGRÉDIENTS: Water (Aqua / Eau), Glycerin, VP/VA Copolymer, Cocamidopropyl Betaine, Lentinus Edodes (Shiitake Mushroom) Extract*, Ribes Nigrum (Black Currant) Fruit Extract, Opuntia Tuna Fruit Extract, Psidium Guajava Fruit Extract, Brassica Oleracea Acephala Leaf Extract, Cucurbita Pepo (Pumpkin) Seed Extract*, Panthenol, Hydrolyzed Rice Protein, Hydrolyzed Hemp Seed Extract, Sodium Chloride, PEG-40 Hydrogenated Castor Oil, Sodium Hydroxide, Laurtrimonium Chloride, Sodium Bisulfite, Citric Acid, Sodium Benzoate, Potassium Sorbate, Phenoxyethanol, Ethylhexylglycerin, Tocopherol, Parfum / Fragrance, Limonene, Geraniol, Benzyl Alcohol, Geranyl Acetate, Dimethyl Phenethyl Acetate, Anethole, Linalool, Citrus Aurantium (Orange) Peel Oil.*Organic Ingredient",
    "description": "Lightweight protein-enriched styler that provides soft hold and volume while enhancing your natural hair texture.",
    "claims": [
-    "volume"
+    "fortifiant",
+    "volume",
+    "texturisant",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/curlsmith/cutout/bouncy-strength-volume-foam.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "curlsmith--shake-shine",
@@ -306,9 +323,12 @@
    "ingredients": "INGREDIENTS /INGRÉDIENTS: Water (Aqua/Eau), Caprylic/Capric Triglyceride, Propanediol, C13-15 Alkane, Squalane, Glycerin, Xylitylglucoside, Octyldodecanol, Vaccinium Macrocarpon (Cranberry) Seed Oil, Prunus Armeniaca (Apricot) Kernel Oil, Persea Gratissima (Avocado) Oil, Carapa Guaianensis Seed Oil, Hippophae Rhamnoides Fruit Oil, Diethylhexyl Syringylidenemalonate, Sodium Hyaluronate, Pisum Sativum (Pea) Seed Extract, Musa Sapientum (Banana) Fruit Extract, Aloe Barbadensis Leaf Juice, Pelvetia Canaliculata Extract, Olea Europaea (Olive) Fruit Oil , Salvia Officinalis (Sage) Leaf Extract, Rosmarinus Officinalis (Rosemary) Leaf Extract, Piper Nigrum (Pepper) Seed Extract, Ocimum Basilicum (Basil) Leaf Extract, Anhydroxylitol, Maltitol, Selaginella Lepidophylla Extract, Haematococcus Pluvialis Extract, Heptyl Glucoside, Panthenol, Hydrolyzed Quinoa, Tocopheryl Acetate, Lactic Acid, 1,2-Hexanediol, Benzyl Alcohol, Sodium Chloride, Xylitol, Tetrasodium Glutamate Diacetate, Citric Acid, Ethylhexylglycerin, Sorbic Acid, Tocopherol, Sodium Benzoate, Potassium Sorbate, Phenoxyethanol, Fragrance (Parfum), Limonene, Linalool, Citrus Limon (Lemon) Peel Oil, Pinene, Tetramethyl Acetyloctahydronaphthalenes",
    "description": "Introducing our revolutionary Bi-Phase Curl Refreshing Mist, an innovative solution crafted specifically for curly hair. Ideal to extend the result of a wash day.",
    "claims": [
+    "definition-boucles",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/curlsmith/cutout/shake-shine.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "curlsmith--invincible-volume-mousse",
@@ -339,10 +359,12 @@
    "ingredients": "INGREDIENTS /INGRÉDIENTS: Water (Aqua/Eau), Isobutane, Polyimide-1, Heptyl Glucoside, C14-22 Alcohols, Stearic Acid, Linum Usitatissimum (Linseed) Seed Extract, Salvia Hispanica Seed Extract, Olea Europaea (Olive) Leaf Extract, Tilia Tomentosa Bud Extract, Rosmarinus Officinalis (Rosemary) Leaf Extract, Chamomilla Recutita (Matricaria) Flower Extract, Arnica Montana Flower Extract, Lamium Album Extract, Salvia Officinalis (Sage) Leaf Extract, Pinus Sylvestris Bud Extract, Nasturtium Officinale Extract, Arctium Majus Root Extract, Citrus Limon (Lemon) Peel Extract, Hedera Helix (Ivy) Leaf Extract, Calendula Officinalis Flower Extract, Tropaeolum Majus Flower Extract, Cyclodextrin, Cyamopsis Tetragonoloba (Guar) Gum, Xanthan Gum, Tocopherol, Phytic Acid, C12-20 Alkyl Glucoside, Sodium C14-16 Olefin Sulfonate, Citric Acid, Benzyl Alcohol, Xylitol, Caprylic Acid, Glycerin, Castor Oil Propanediol Esters, Ricinus Communis (Castor) Seed Oil, Cocamidopropyl Betaine, Polyquaternium-28, Propanediol, Caprylyl Glycol, Ethylhexylglycerin, Pentylene Glycol, Sodium Hydroxide, Hydroxyethylcellulose, Disodium Phosphate, Sodium Phosphate, Polysorbate 60, Sodium Chloride, Hydrogen Peroxide, Hydroxypropyl Methylcellulose, Phenoxyethanol, Potassium Sorbate, Sodium Benzoate, Fragrance (Parfum), Citronellol, Hydroxycitronellal, Geranyl Acetate, Tetramethyl Acetyloctahydronaphthalenes, Rose Ketones, Vanillin",
    "description": "A lightweight gel-to-mousse formula that acts as the ultimate mousse volumizer, creating soft, long-lasting curls with incredible volume and definition. This volumizing mousse for curly hair delivers all-day lift and bounce, while our premium volumizing hair mousse ensures your style stays full and flawless.",
    "claims": [
-    "volume",
-    "definition-boucles"
+    "definition-boucles",
+    "volume"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/curlsmith/cutout/invincible-volume-mousse.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "curlsmith--root-boost-uplifting-spray",
@@ -372,9 +394,12 @@
    "ingredients": "INGREDIENTS /INGRÉDIENTS: Water (Aqua/Eau), Propanediol, Sodium Polyitaconate, Glycerin, PEG-40 Hydrogenated Castor Oil, Tilia Tomentosa Bud Extract, Rosmarinus Officinalis (Rosemary) Leaf Extract, Chamomilla Recutita (Matricaria) Flower Extract, Arnica Montana Flower Extract, Lamium Album Extract, Salvia Officinalis (Sage) Leaf Extract, Pinus Sylvestris Bud Extract, Nasturtium Officinale Extract, Arctium Majus Root Extract, Citrus Limon (Lemon) Peel Extract, Hedera Helix (Ivy) Leaf Extract, Olea Europaea (Olive) Leaf Extract, Calendula Officinalis Flower Extract, Tropaeolum Majus Flower Extract, Cyclodextrin, Cyamopsis Tetragonoloba (Guar) Gum, Maltrodextrin/VP Copolymer, Pentylene Glycol, PVP, Xanthan Gum, Tocopherol, Phytic Acid, Ethylhexylglycerin, Citric Acid, Sclerotium Gum, Sodium Gluconate, Potassium Sorbate, Sodium Benzoate, Phenoxyethanol, Fragrance (Parfum), Hydroxycitronellal, Citronellol, Geranyl Acetate, Tetramethyl Acetyloctahydronaphthalenes, Rose Ketones, Vanillin",
    "description": "A super lightweight root lifting spray designed to give flat hair instant lift and volume from the roots. This spray for hair roots works as a powerful root volume spray, while our root lifter for curly hair adds bounce and fullness without weighing curls down.",
    "claims": [
+    "definition-boucles",
     "volume"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/curlsmith/cutout/root-boost-uplifting-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "curlsmith--hydrate-plump-leave-in",
@@ -390,6 +415,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "fins",
     "boucles"
    ],
@@ -407,11 +433,14 @@
    "ingredients": "INGREDIENTS/INGRÉDIENTS: Water (Aqua / Eau), Dicaprylyl Carbonate, Cetearyl Alcohol, Coco-Caprylate/Caprate, Ricinus Communis (Castor) Seed Oil, Glycerin, Behentrimonium Chloride, Panthenol, Butyrospermum Parkii (Shea) Butter, Simmondsia Chinensis (Jojoba) Seed Oil, Rosmarinus Officinalis (Rosemary) Leaf Extract, Chamomilla Recutita (Matricaria) Flower Extract, Arnica Montana Flower Extract, Lamium Album Extract, Salvia Officinalis (Sage) Leaf Extract, Pinus Sylvestris Bud Extract, Nasturtium Officinale Extract, Arctium Majus Root Extract, Citrus Limon (Lemon) Peel Extract, Hedera Helix (Ivy) Leaf Extract, Calendula Officinalis Flower Extract, Tropaeolum Majus Flower Extract, Olea Europaea (Olive) Leaf Extract, Isopropyl Alcohol, Polyquaternium-10, Guar Hydroxypropyltrimonium Chloride, Tocopherol, Ethylhexylglycerin, Pentylene Glycol, Phytic Acid, Tilia Tomentosa Bud Extract, Maltodextrin/VP Copolymer, Cyclodextrin, Cyamopsis Tetragonoloba (Guar) Gum, PVP, Xanthan Gum, Citric Acid, Sodium Gluconate, Sodium Chloride, Maltodextrin, Sodium Benzoate, Potassium Sorbate, Phenoxyethanol, Fragrance (Parfum), Hydroxycitronellal, Citronellol, Geranyl Acetate, Tetramethyl Acetyloctahydronaphthalenes, Vanillin, Rose Ketone",
    "description": "A leave-in conditioner that nourishes the cortex to help plump hairand boost volume, for big bouncy, moisturized curls.",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
+    "definition-boucles",
     "volume"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/curlsmith/cutout/hydrate-plump-leave-in.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "curlsmith--frizz-rescue-finishing-serum",
@@ -427,17 +456,21 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
-    "boucles"
+    "fins",
+    "boucles",
+    "abimes"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "A unique oil-to-gel frizz control serum that works as the perfect finishing touch to tame flyaways, smooth frizz, and add brilliant shine. This serum for frizz control delivers long-lasting manageability and sleek, polished curls without weighing hair down.",
    "claims": [
-    "brillance",
-    "lissant"
+    "anti-frisottis",
+    "definition-boucles",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/curlsmith/cutout/frizz-rescue-finishing-serum.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "curlsmith--frizz-rescue-curl-retainer",
@@ -453,8 +486,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
-    "boucles"
+    "boucles",
+    "abimes"
    ],
    "actifs": [
     "panthénol",
@@ -469,9 +502,13 @@
    "ingredients": "INGREDIENTS/INGRÉDIENTS: Water (Aqua/Eau), Propanediol, Helianthus Annuus (Sunflower) Seed Extract, Hydrolyzed Corn Starch, Corn Starch Modified, Argania Spinosa (Argan) Kernel Oil, Citrullus Lanatus (Watermelon) Seed Oil, Ribes Nigrum (Black Currant) Seed Oil, Panthenol, Helianthus Annuus (Sunflower) Seed Oil, PVP, Cocos Nucifera (Coconut) Seed Butter, Niacinamide, Squalane, Glycerin, C9-12 Alkane, Coco-Caprylate/Caprate, Behentrimonium Chloride, Caesalpinia Spinosa Gum, Polyacrylate Crosspolymer-6, Tocopherol, Laureth-2, Pentylene Glycol, Sodium Gluconate, Sodium Hydroxide, Citric Acid, Ethylhexylglycerin, Phenoxyethanol, S odium Benzoate, Potassium Sorbate, Fragrance (Parfum), Limonene, Linalool, Citronellol, Alpha-Terpinene, Dimethyl Phenethyl Acetate, Tetramethyl Acetyloctahydronaphthalenes, Citrus Limon (Lemon) Peel Oil, Citrus Aurantium (Orange) Peel Oil, Pinene, Rose Ketones, Vanillin",
    "description": "Non-sticky jelly styler providing exceptional frizz reduction and curl definition with medium hold, without stiffness or crunch.",
    "claims": [
-    "definition-boucles"
+    "anti-frisottis",
+    "definition-boucles",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/curlsmith/cutout/frizz-rescue-curl-retainer.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "curlsmith--frizz-control-cleanser",
@@ -486,9 +523,7 @@
    "image_local": "public/scan/products-cheveux/curlsmith/frizz-control-cleanser.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [
     "panthénol",
     "huile d'argan",
@@ -502,34 +537,12 @@
    "ingredients": "INGREDIENTS/INGRÉDIENTS: Water (Aqua / Eau), Cocamidopropyl Betaine, Glycerin, Sodium Methyl Cocoyl Taurate, Coco-Glucoside, Sodium Chloride, Panthenol, Helianthus Annuus (Sunflower) Seed Extract, Squalane, Argania Spinosa Kernel Oil, Citrullus Lanatus (Watermelon) Seed Oil, Cocos Nucifera (Coconut) Seed Butter, Ribes Nigrum (Black Currant) Seed Oil, Niacinamide, Panthenol, Helianthus Annuus (Sunflower) Seed Oil, Tocopherol, Acrylates/C10-30 Alkyl Acrylate Crosspolymer, C9-12 Alkane, Coco-Caprylate/Caprate, Pentylene Glycol, Guar Hydroxypropyltrimonium Chloride, Polyquaternium-10, Citric Acid, Behentrimonium Chloride, Laureth-2, Sodium Gluconate, Sodium Benzoate, Potassium Sorbate, Phenoxyethanol, Fragrance (Parfum), Tetramethyl Acetyloctahydronaphthalenes, Citrus Limon (Lemon) Peel Oil, Limonene, Linalool, Citrus Aurantium (Orange) Peel Oil",
    "description": "Hydrating frizz-control shampoo that gently cleanses dirt and impurities helping prevent frizz, leaving your hair soft and manageable.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "curlsmith--continuous-spray-bottle",
-   "name": "Continuous Spray Bottle",
-   "brand": "curlsmith",
-   "brand_name": "Curlsmith",
-   "url": "https://curlsmith.com/products/continuous-spray-bottle",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 12.88,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/1719/1281/files/Spray-1200x1800-shadow.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/curlsmith/continuous-spray-bottle.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [
-    "epais",
-    "boucles"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Introducing our continuous spray bottle, the ultimate tool for refreshing and styling effortless, defined curls. This spray bottle for hair delivers a fine, even mist for perfect hydration, while our curly hair spray bottle doubles as a versatile mister for hair to keep your curls looking fresh and frizz-free.",
-   "claims": [
-    "hydratant"
-   ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/curlsmith/cutout/frizz-control-cleanser.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "curlsmith--flawless-finish-hairspray-strong-hold",
@@ -544,63 +557,19 @@
    "image_local": "public/scan/products-cheveux/curlsmith/flawless-finish-hairspray-strong-hold.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [
     "panthénol"
    ],
    "ingredients": "INGREDIENTS/INGRÉDIENTS: Water (aqua/eau), dimethyl ether, polyurethane-14, acrylates copolymer, amp-acrylates copolymer, aminomethyl propanol, polysorbate 20, ethylhexylglycerin, panthenol, tetrasodium glutamate diacetate, sodium laureth sulfate, phenoxyethanol, fragrance (parfum), limonene, geraniol, linalool, dimethyl phenethyl acetate, linalyl acetate, citrus aurantium (orange) peel oil, terpinolene",
    "description": "The perfect strong hold hairspray without the crunchiness for finishing styles, controlling frizz and ideal for up-dos.",
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "curlsmith--vegan-silk-hair-scarf",
-   "name": "Vegan Silk Scarf",
-   "brand": "curlsmith",
-   "brand_name": "Curlsmith",
-   "url": "https://curlsmith.com/products/vegan-silk-hair-scarf",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 18.39,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/1719/1281/files/pdp_1200x1600_1.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/curlsmith/vegan-silk-hair-scarf.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [
-    "epais"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Soft satin feel square head scarf that protects hair from frizz, durable enough for everyday (and night!) styling.",
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "curlsmith--bamboo-pick",
-   "name": "Bamboo Hair Pick",
-   "brand": "curlsmith",
-   "brand_name": "Curlsmith",
-   "url": "https://curlsmith.com/products/bamboo-pick",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 11.04,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/1719/1281/products/bamboo_1200x1600_noshadow_1.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/curlsmith/bamboo-pick.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
-   "cheveux_cibles": [
-    "fins",
-    "boucles"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "A bamboo pick is great for detangling, teasing, or adding volume to your curls, waves, or coils.",
    "claims": [
-    "volume"
+    "anti-frisottis",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/curlsmith/cutout/flawless-finish-hairspray-strong-hold.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "curlsmith--effortless-waves",
@@ -616,7 +585,6 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
     "boucles"
    ],
    "actifs": [
@@ -630,9 +598,13 @@
    "ingredients": "INGREDIENTS /INGRÉDIENTS: Water (Aqua/Eau), Propanediol, VP/VA Copolymer, Betaine, PEG-40 Hydrogenated Castor Oil, Linum Usitatissimum (Linseed) Seed Extract, Salvia Hispanica Seed Extract, Aloe Barbadensis Leaf Juice, Rosmarinus Officinalis (Rosemary) Leaf Extract, Salvia Officinalis (Sage) Leaf Extract, Selaginella Lepidophylla Extract, Ocimum Basilicum (Basil) Leaf Extract, Piper Nigrum (Black Pepper) Seed Extract, Sclerotium Gum, Sodium Benzoate, Potassium Sorbate, Sodium Gluconate, Citric Acid, Glycerin, Caprylic Acid, Xylitol, Laurtrimonium Chloride, Sodium Bisulfite, Benzyl Alcohol, Fragrance (Parfum), Limonene, Linalool, Citrus Limon (Lemon) Peel Oil, Tetramethyl Acetyloctahydronaphthalenes, Pinene",
    "description": "A lightweight styling spray providing hold and definition to wavy hair without the crunch, while helping to reduce frizz.",
    "claims": [
-    "definition-boucles"
+    "anti-frisottis",
+    "definition-boucles",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/curlsmith/cutout/effortless-waves.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "curlsmith--essential-moisture-cleanser",
@@ -648,6 +620,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
     "boucles",
     "lisses"
    ],
@@ -661,9 +634,12 @@
    "ingredients": "INGREDIENTS/INGRÉDIENTS: Water (Aqua/Eau), Sodium Methyl Cocoyl Taurate, Cocamidopropyl Betaine, Lauryl Glucoside, PEG-120 Methyl Glucose Trioleate, Betaine, Helianthus Annuus (Sunflower) Seed Oil, Aloe Barbadensis Leaf Juice, Selaginella Lepidophylla Extract, Ocimum Basilicum (Basil) Leaf Extract, Piper Nigrum (Black Pepper) Seed Extract, Rosmarinus Officinalis (Rosemary) Leaf Extract, Salvia Officinalis (Sage) Leaf Extract, Carapa Guaianensis Seed Oil, Propanediol, Glycerin, Guar Hydroxypropyltrimonium Chloride, Polyquaternium-10, Citric Acid, Phenoxyethanol, Sodium Chloride, Sodium Benzoate, Potassium Sorbate, Fragrance (Parfum), Limonene, Linalool, Citrus Limon (Lemon) Peel Oil, Tetramethyl Acetyloctahydronaphthalenes",
    "description": "Gentle moisturizing shampoo that gently cleanses hair, designed for all curl types, even straight hair.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/curlsmith/cutout/essential-moisture-cleanser.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "curlsmith--essential-moisture-conditioner",
@@ -678,7 +654,10 @@
    "image_local": "public/scan/products-cheveux/curlsmith/essential-moisture-conditioner.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "fins"
+   ],
    "actifs": [
     "panthénol",
     "huile de coco",
@@ -693,89 +672,12 @@
    "ingredients": "INGREDIENTS/INGRÉDIENTS: Water (Aqua/Eau), Cetearyl Alcohol, Hydroxypropyl Starch Phosphate, Betaine, Cetyl Palmitate, Behentrimonium Chloride, Butyrospermum Parkii (Shea) Butter, Cocos Nucifera (Coconut) Oil, Persea Gratissima (Avocado) Oil, Helianthus Annuus (Sunflower) Seed Oil, Aloe Barbadensis Leaf Juice, Selaginella Lepidophylla Extract, Ocimum Basilicum (Basil) Leaf Extract, Piper Nigrum (Black Pepper) Seed Extract, Rosmarinus Officinalis (Rosemary) Leaf Extract, Salvia Officinalis (Sage) Leaf Extract, Carapa Guaianensis (Andiroba) Seed Oil, Glycerin, Guar Hydroxypropyltrimonium Chloride, Panthenol, Glyceryl Undecylenate, Citric Acid, Sodium Hydroxide, Sodium Gluconate, Glyceryl Caprylate, Isopropyl Alcohol, Sodium Benzoate, Potassium Sorbate, Fragrance (Parfum), Limonene, Linalool, Citrus Limon (Lemon) Peel Oil, Tetramethyl Acetyloctahydronaphthalenes",
    "description": "Lightweight everyday rinse-out conditioner that delivers hydration and weightless moisture.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "curlsmith--hair-makeup-turquoise",
-   "name": "Hair Makeup - Turquoise",
-   "brand": "curlsmith",
-   "brand_name": "Curlsmith",
-   "url": "https://curlsmith.com/products/hair-makeup-turquoise",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 6.9,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/1719/1281/files/CS_HairMakeup_Turq_W137908_230502-shadow-1200x1600_d118a0bc-6fef-4243-8f8a-362fc8fdc5ef.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/curlsmith/hair-makeup-turquoise.jpg",
-   "categorie": "coloration-soin",
-   "etape": 2,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Temporary wash-off hair color that doesn’t dye but coats hair with a vibrant pop of pigment. Works on all hair colors &amp; types.",
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "curlsmith--hair-makeup-ruby",
-   "name": "Hair Makeup - Ruby",
-   "brand": "curlsmith",
-   "brand_name": "Curlsmith",
-   "url": "https://curlsmith.com/products/hair-makeup-ruby",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 13.8,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/1719/1281/files/Hair_Makeup-Ruby_3floz_Front_2000x2000_13e317b9-6a05-4a21-89d5-39bac09115b5.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/curlsmith/hair-makeup-ruby.jpg",
-   "categorie": "coloration-soin",
-   "etape": 2,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Temporary wash-off hair color that doesn’t dye but coats hair with a vibrant pop of pigment. Works on all hair colors &amp; types.",
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "curlsmith--hair-makeup-rose-gold",
-   "name": "Hair Makeup - Rose Gold",
-   "brand": "curlsmith",
-   "brand_name": "Curlsmith",
-   "url": "https://curlsmith.com/products/hair-makeup-rose-gold",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 13.8,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/1719/1281/files/Hair-Makeup-Rose-Gold_3floz_Front_3d152f11-6073-4344-91b9-f5baa96211f9.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/curlsmith/hair-makeup-rose-gold.jpg",
-   "categorie": "coloration-soin",
-   "etape": 2,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Temporary wash-off hair color that doesn’t dye but coats hair with a vibrant pop of pigment. Works on all hair colors &amp; types.",
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "curlsmith--hair-makeup-gold",
-   "name": "Hair Makeup - Gold",
-   "brand": "curlsmith",
-   "brand_name": "Curlsmith",
-   "url": "https://curlsmith.com/products/hair-makeup-gold",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 6.9,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/1719/1281/files/CS_HairMakeup_Gold_W137907_230502-shadow-1200x1600_8f1a689e-0471-40e1-8faa-d414819412b6.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/curlsmith/hair-makeup-gold.jpg",
-   "categorie": "coloration-soin",
-   "etape": 2,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Temporary wash-off hair color that doesn’t dye but coats hair with a vibrant pop of pigment. Works on all hair colors &amp; types.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/curlsmith/cutout/essential-moisture-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "curlsmith--miracle-shield",
@@ -790,7 +692,9 @@
    "image_local": "public/scan/products-cheveux/curlsmith/miracle-shield.jpg",
    "categorie": "proteine-reconstruction",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "abimes"
+   ],
    "actifs": [
     "glycérine",
     "huile de figue de barbarie",
@@ -799,8 +703,12 @@
    ],
    "ingredients": "INGREDIENTS/INGRÉDIENTS: Water (Aqua/Eau), Crambe Abyssinica Seed Oil Phytosterol Esters, Hydrogenated Ethylhexyl Olivate, Saccharomyces Cerevisiae Extract, Glycerin, Leuconostoc/Radish Root Ferment Filtrate, Opuntia Tuna Fruit Extract, Ribes Nigrum (Black Currant) Fruit Extract, Psidium Guajava Fruit Extract, Brassica Oleracea Acephala Leaf Extract, Lentinus Edodes (Shitake Mushroom) Extract*, Cucurbita Pepo (Pumpkin) Seed Extract*, Sorbitan Isostearate, Tocopherol, Squalane, Hydrogenated Olive Oil Unsaponifiables, Polyester-11, Polysorbate 60, Hydroxyethyl Acrylate/Sodium Acryloyldimethyl Taurate Copolymer, C20-22 Alkyl Phosphate, C20-22 Alcohols, Ethylhexylglycerin, Aminomethyl Propanol, Sodium Hydroxide, Sodium Benzoate, Citric Acid, Potassium Sorbate, Phenoxyethanol, Fragrance (Parfum), Geraniol, Limonene, Linalool, Dimethyl Phenethyl Acetate, Citrus Aurantium (Orange) Peel Oil. *Organic Ingredient",
    "description": "Protein-rich mist that offers protection against the hair’s harshest aggressors: heat, UV rays, sea water, chlorine, breakage and color fading.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "reparation"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/curlsmith/cutout/miracle-shield.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "curlsmith--weightless-air-dry-cream",
@@ -817,7 +725,8 @@
    "etape": 3,
    "cheveux_cibles": [
     "secs",
-    "epais",
+    "gras",
+    "fins",
     "boucles"
    ],
    "actifs": [
@@ -834,9 +743,15 @@
    "ingredients": "INGREDIENTS/INGRÉDIENTS: Water (Aqua / Eau), Ricinus Communis (Castor) Seed Oil, Cetearyl Alcohol, Dicaprylyl Carbonate, Orbignya Speciosa Kernel Oil, Behentrimonium Chloride, Hylocereus Undatus Fruit Extract, Paullinia Cupana Seed Extract, Urtica Dioica (Nettle) Leaf Extract*, Zingiber Officinale (Ginger) Root Extract*, Sodium Hyaluronate, Panthenol, Astrocaryum Murumuru Seed Butter, Simmondsia Chinensis (Jojoba) Seed Oil, Butyrospermum Parkii (Shea) Butter, Polyquaternium-10, Isopropyl Alcohol, Guar Hydroxypropyltrimonium Chloride, Ethylhexylglycerin, Tocopherol, Glycerin, Sodium Hydroxide, Citric Acid, Phenoxyethanol, Sodium Benzoate, Potassium Sorbate, Fragrance (Parfum), Limonene, Linalool, Tetramethyl Acetyloctahydronaphthalenes, Citronellol, Dimethyl Phenethyl Acetate, Citrus Aurantium Peel Oil. .*Organic Ingredient",
    "description": "A lightweight leave-in conditioner that hydrates without weighing hair down, while enhancing natural curl texture. Perfect as an air dry cream for effortless styling, this air dry hair cream doubles as an air dry curl cream to keep curls soft, defined, and frizz-free.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/curlsmith/cutout/weightless-air-dry-cream.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "curlsmith--shape-up-aqua-gel",
@@ -853,17 +768,19 @@
    "etape": 3,
    "cheveux_cibles": [
     "fins",
-    "epais",
     "boucles"
    ],
    "actifs": [],
    "ingredients": "Review topics: [\"results\",\"weight\",\"look\",\"feels\",\"texture\",\"size\",\"quality\",\"gel\",\"shape\",\"water\",\"softness\",\"hair\",\"light\",\"structure\",\"hold\",\"curls\",\"smells\",\"definition\",\"cast\",\"works\",\"waves\",\"protein\",\"shape up aqua gel\",\"styler\",\"buy\",\"volume\",\"residue\",\"curlsmith\",\"crunch\",\"frizz\"]",
    "description": "Light hold, protein-enriched incredibly lightweight styling gel that provides flexible definition and volume for all curls.",
    "claims": [
+    "definition-boucles",
     "volume",
-    "definition-boucles"
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/curlsmith/cutout/shape-up-aqua-gel.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "curlsmith--multitasking-conditioner",
@@ -878,7 +795,9 @@
    "image_local": "public/scan/products-cheveux/curlsmith/multitasking-conditioner.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "panthénol",
     "protéines de riz",
@@ -893,9 +812,12 @@
    "ingredients": "INGREDIENTS/INGRÉDIENTS: Water (Aqua / Eau), Ricinus Communis (Castor) Seed Oil, Cetearyl Alcohol, Dicaprylyl Carbonate, Behentrimonium Chloride, Orbignya Speciosa Kernel Oil, Panthenol, Simmondsia Chinensis (Jojoba) Seed Oil, Astrocaryum Murumuru Seed Butter, Butyrospermum Parkii (Shea) Butter, Glycerin, Hydroxypropylgluconamide, Hydroxypropylammonium Gluconate, Guar Hydroxypropyltrimonium Chloride, Polyquaternium-10, Hydrolyzed Rice Protein, Brassica Oleracea Acephala Leaf Extract, Cucurbita Pepo (Pumpkin) Seed Extract*, Lentinus Edodes (Shiitake Mushroom) Extract*, Opuntia Tuna Fruit Extract, Psidium Guajava Fruit Extract, Ribes Nigrum (Black Currant) Fruit Extract, Hydrolyzed Hemp Seed Extract, Isopropyl Alcohol, Tocopherol, Ethylhexylglycerin, Citric Acid, Sodium Hydroxide, Sodium Gluconate, Tartaric Acid, Phenoxyethanol, Sodium Benzoate, Potassium Sorbate, Benzyl Alcohol, Fragrance (Parfum), Linalool, Limonene, Geraniol, Dimethyl Phenethyl Acetate, Citrus Aurantium (Orange) Peel Oil.*Organic Ingredient\"",
    "description": "Protein-enriched multi-purpose cream that can be used as rinse-out, deep conditioner or leave-in hair moisturizer.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/curlsmith/cutout/multitasking-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "curlsmith--in-shower-style-gel",
@@ -925,10 +847,14 @@
    "ingredients": "INGREDIENTS/INGRÉDIENTS: Water (Aqua/Eau), Polyquaternium-69, Glycerin, PEG-40 Hydrogenated Castor Oil, Selaginella Lepidophylla Extract, Persea Gratissima (Avocado) Oil, Prunus Armeniaca (Apricot) Kernel Oil, Aloe Barbadensis Leaf Juice, Ocimum Basilicum (Basil) Leaf Extract, Rosmarinus Officinalis (Rosemary) Leaf Extract, Salvia Officinalis (Sage) Leaf Extract, Piper Nigrum (Black Pepper) Seed Extract, Helianthus Annuus (Sunflower) Seed Oil, Carapa Guaianensis (Andiroba) Seed Oil, Sodium Gluconate, Carbomer, Butylene Glycol, Aminomethyl Propanol, Tocopherol, Ethylhexylglycerin, Sodium Benzoate, Potassium Sorbate, Phenoxyethanol, Iodopropynyl Butylcarbamate, Fragrance (Parfum), Citrus Limon (Lemon) Peel Oil, Limonene, Linalool, Pinene, Tetramethyl Acetyloctahydronaphthalenes",
    "description": "Extreme strong hold styling gel that provides long-lasting definition, humidity protection and shine for all curls.",
    "claims": [
+    "anti-frisottis",
+    "definition-boucles",
     "brillance",
-    "definition-boucles"
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/curlsmith/cutout/in-shower-style-gel.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "curlsmith--hydro-style-flexi-jelly",
@@ -959,10 +885,14 @@
    "ingredients": "INGREDIENTS/INGRÉDIENTS: Water (Aqua /Eau), PVP, PEG-40 Hydrogenated Castor Oil,Panthenol, Camellia Sinensis Leaf Extract, Lavandula Angustifolia (Lavender) Flower Extract, Thymus Vulgaris (Thyme) Leaf Extract, Thuja Occidentalis Leaf Extract, Sodium Hyaluronate, Phyllanthus Emblica Fruit Extract, Glycerin, Ethylhexylglycerin, Tocopherol, Carbomer, Aminomethyl Propanol, Caprylyl Glycol, Sodium Benzoate, Potassium Sorbate, Sodium Gluconate, Phenoxyethanol, Parfum / Fragrance, Linalool, Citronellol, Limonene, Dimethyl Phenethyl Acetate, Tetramethyl Acetyloctahydronaphthalenes, Citrus Aurantium (Orange) Peel Oil",
    "description": "Medium hold styling gel that provides weightless definition and volume while minimizing scalp build-up for all curls.",
    "claims": [
+    "definition-boucles",
     "volume",
-    "definition-boucles"
+    "purifiant",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/curlsmith/cutout/hydro-style-flexi-jelly.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "curlsmith--hold-me-softly-balm",
@@ -994,9 +924,12 @@
    "ingredients": "INGREDIENTS/INGRÉDIENTS: Water (Aqua / Eau), Cetearyl Alcohol, Cocos Nucifera (Coconut) Oil, Glycerin, Hydroxypropyl Starch Phosphate, PPG-3 Benzyl Ether Myristate, Panthenol, Helianthus Annuus (Sunflower) Seed Oil, Carapa Guaianensis Seed Oil, Aloe Barbadensis Leaf Juice, Ocimum Basilicum (Basil) Leaf Extract, Olea Europaea (Olive) Fruit Oil*, Rosmarinus Officinalis (Rosemary) Leaf Extract, Salvia Officinalis (Sage) Leaf Extract, Piper Nigrum (Black Pepper) Seed Extract, Prunus Armeniaca (Apricot) Kernel Oil*, Persea Gratissima (Avocado) Oil*, Selaginella Lepidophylla Extract, Cetrimonium Chloride, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Tocopherol, Ceteareth-20, Ethylhexylglycerin, Sodium Benzoate, Potassium Sorbate, Phenoxyethanol, Fragrance (Parfum), Citrus Limon (Lemon) Peel Oil, Limonene, Linalool, Pinene, Tetramethyl Acetyloctahydronaphthalenes.*Organic Ingredient",
    "description": "Light-hold curl-enhancing styling cream that provides loose, soft definition without crunch for all curl types.",
    "claims": [
-    "definition-boucles"
+    "definition-boucles",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/curlsmith/cutout/hold-me-softly-balm.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "curlsmith--double-cream-deep-quencher",
@@ -1011,7 +944,9 @@
    "image_local": "public/scan/products-cheveux/curlsmith/double-cream-deep-quencher.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "panthénol",
     "beurre de karité",
@@ -1025,10 +960,12 @@
    "ingredients": "INGREDIENTS/INGRÉDIENTS: Water (Aqua / Eau), Cetearyl Alcohol, Behentrimonium Chloride, Propanediol, Hydroxypropyl Starch Phosphate, Stearamidopropyl Dimethylamine, Cetyl Palmitate, Butyrospermum Parkii (Shea) Butter, Prunus Armeniaca (Apricot) Kernel Oil, Persea Gratissima (Avocado) Oil, Aloe Barbadensis Leaf Juice, Ocimum Basilicum (Basil) Leaf Extract, Panthenol, Rosmarinus Officinalis (Rosemary) Leaf Extract, Salvia Officinalis (Sage) Leaf Extract, Piper Nigrum (Black Pepper) Seed Extract, Selaginella Lepidophylla Extract, Helianthus Annuus (Sunflower) Seed Oil, Carapa Guaianensis Seed Oil, Guar Hydroxypropyltrimonium Chloride, Glycerin, Ethylhexylglycerin, Isopropyl Alcohol, Sodium Chloride, Polyquaternium-10, Sodium Benzoate, Potassium Sorbate, Citric Acid, Sodium Gluconate, Sodium Hydroxide, Phenoxyethanol, Fragrance (Parfum), Limonene, Linalool, Citrus Limon (Lemon) Peel Oil, Tetramethyl Acetyloctahydronaphthalenes",
    "description": "Intense deep conditioning treatment that nourishes and moisturizes even the driest hair types.",
    "claims": [
-    "hydratant",
-    "nourrissant"
+    "hydratation",
+    "nutrition"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/curlsmith/cutout/double-cream-deep-quencher.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "curlsmith--co-wash",
@@ -1044,6 +981,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -1060,9 +998,13 @@
    "ingredients": "INGREDIENTS/INGRÉDIENTS: Water (Aqua / Eau), Cetearyl Alcohol, Hydroxypropyl Starch Phosphate, Cetyl Palmitate, Behentrimonium Chloride, Cocamidopropyl Betaine, Cocos Nucifera (Coconut) Oil*, Butyrospermum Parkii (Shea) Butter, Persea Gratissima (Avocado) Oil*, Helianthus Annuus (Sunflower) Seed Oil, Carapa Guaianensis (Andiroba) Seed Oil, Aloe Barbadensis Leaf Juice, Ocimum Basilicum (Basil) Leaf Extract, Rosmarinus Officinalis (Rosemary) Leaf Extract, Panthenol, Salvia Officinalis (Sage) Leaf Extract, Piper Nigrum (Black Pepper) Seed Extract, Glycerin, Citric Acid, Sodium Hydroxide, Sodium Chloride, Glyceryl Caprylate, Glyceryl Undecylenate, Selaginella Lepidophylla Extract, Isopropyl Alcohol, Guar Hydroxypropyltrimonium Chloride, Sodium Benzoate, Potassium Sorbate, Fragrance (Parfum), Limonene, Linalool, Citrus Aurantium Peel Oil, Citrus Limon (Lemon) Peel Oil, Tetramethyl Acetyloctahydronaphthalenes.*Organic Ingredient",
    "description": "A 2-in-1 co wash shampoo and conditioner that gently cleanses without stripping natural oils. This co wash conditioner is the perfect cleansing conditioner for curly hair, leaving curls soft, hydrated, and refreshed in one easy step",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/curlsmith/cutout/co-wash.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "curlsmith--curl-souffle",
@@ -1088,11 +1030,14 @@
    "ingredients": "INGREDIENTS/INGRÉDIENTS: Water (Aqua / Eau), Glycerin, Babassu Oil Polyglyceryl-4 Esters, Sorbitol, Chondrus Crispus (Carrageenan), PEG-40 Hydrogenated Castor Oil, Persea Gratissima (Avocado) Oil*",
    "description": "Buildable hold curl styling gel that provides moisture, shine and flexible definition for all curl types.",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "definition-boucles",
     "brillance",
-    "definition-boucles"
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/curlsmith/cutout/curl-souffle.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "curlsmith--bond-curl-rehab-salve",
@@ -1121,10 +1066,13 @@
    "ingredients": "INGREDIENTS/INGRÉDIENTS: Water (Aqua / Eau), Cetearyl Alcohol, Salvia Hispanica Seed Extract, Creatine, Polyquaternium-10, Stearamidopropyl Dimethylamine, Prunus Amygdalus (Sweet Almond) Oil, Psidium Guajava Fruit Extract, Brassica Oleracea Acephala Leaf Extract, Lentinus Edodes (Shiitake Mushroom) Extract*, Cucurbita Pepo (Pumpkin) Seed Extract*, Leuconostoc/Radish Root Ferment Filtrate, Glycerin, Opuntia Tuna Fruit Extract, Ribes Nigrum (Black Currant) Fruit Extract, Behentrimonium Chloride, Isopropyl Alcohol, Ethylhexylglycerin, Tocopherol, Polyquaternium-37, Hydroxypropylgluconamide, Hydroxypropylammonium Gluconate, Tartaric Acid, Citric Acid, Phenoxyethanol, Benzyl Alcohol, Sodium Benzoate, Potassium Sorbate, Fragrance (Parfum), Limonene, Linalool, Geraniol, Anethole, Dimethyl Phenethyl Acetate, Geranyl Acetate, Linalyl Acetate, Citrus Aurantium Peel Oil, Pinene.*Organic Ingredient",
    "description": "An intense pre-shampoo treatment, loaded with amino acids, that will help repair, hydrate and protect your hair against damages*.",
    "claims": [
-    "hydratant",
-    "reparateur"
+    "hydratation",
+    "reparation",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/curlsmith/cutout/bond-curl-rehab-salve.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "curlsmith--core-strength-shampoo",
@@ -1145,8 +1093,14 @@
    "actifs": [],
    "ingredients": null,
    "description": "A protein-enriched gentle cleanser that melts away dirt and build-up while helping hair feel stronger and more resilient. Our protein shampoo for curly hair is designed to fortify strands, while this strength shampoo delivers the perfect balance of cleansing and care. Discover the benefits of a protein shampoo for healthier, more defined curls.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "fortifiant",
+    "definition-boucles",
+    "purifiant"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/curlsmith/cutout/core-strength-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "curlsmith--feather-light-protein-cream",
@@ -1161,7 +1115,10 @@
    "image_local": "public/scan/products-cheveux/curlsmith/feather-light-protein-cream.jpg",
    "categorie": "proteine-reconstruction",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "abimes"
+   ],
    "actifs": [
     "protéines de riz",
     "beurre de karité",
@@ -1173,29 +1130,13 @@
    "ingredients": "INGREDIENTS/INGRÉDIENTS: Water (Aqua/Eau), Cetearyl Alcohol, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Propanediol, Polyglyceryl-3 Methylglucose Distearate , PVP, Ribes Nigrum (Black Currant) Fruit Extract, Psidium Guajava Fruit Extract, Brassica Oleracea Acephala Leaf Extract, Lentinus Edodes (Shiitake Mushroom) Extract*, Cucurbita Pepo (Pumpkin) Seed Extract, Hydrolyzed Rice Protein, Hydrolyzed Hemp Seed Extract, Opuntia Tuna Fruit Extract, Butyrospermum Parkii (Shea) Butter, Glycerin, Tocopherol, Caprylyl Glycol, Ethylhexylglycerin, Xanthan Gum, Sodium Hydroxide, Citric Acid, Sodium Benzoate, Potassium Sorbate, Phenoxyethanol, Fragrance (Parfum), Anethole, Benzyl Alcohol, Dimethyl Phenethyl Acetate, Geranyl Acetate, Geraniol, Limonene, Linalool, Citrus Aurantium (Orange) Peel Oil, Pinene",
    "description": "Protein-enriched styler that combines the moisture of a cream with the flexible hold technology of a gel.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "curlsmith--hair-makeup-copper",
-   "name": "Hair Makeup - Copper",
-   "brand": "curlsmith",
-   "brand_name": "Curlsmith",
-   "url": "https://curlsmith.com/products/hair-makeup-copper",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 13.8,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/1719/1281/files/Hair_Makeup-Copper_3floz_Front_2000x2000_7d91ada9-d50b-48b3-8664-13a85f320de0.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/curlsmith/hair-makeup-copper.jpg",
-   "categorie": "coloration-soin",
-   "etape": 2,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Temporary wash-off hair color that doesn’t dye but coats hair with a vibrant pop of pigment. Works on all hair colors &amp; types.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/curlsmith/cutout/feather-light-protein-cream.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "curlsmith--super-slip-pre-biotic-primer",
@@ -1210,14 +1151,19 @@
    "image_local": "public/scan/products-cheveux/curlsmith/super-slip-pre-biotic-primer.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "Pre-shampoo treatment that helps detangle and protects the hair’s natural moisture from being stripped out.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/curlsmith/cutout/super-slip-pre-biotic-primer.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

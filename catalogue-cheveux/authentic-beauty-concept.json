@@ -13,9 +13,11 @@
    "price_source": null,
    "image_source_url": "https://dm.henkel-dam.com/is/image/henkel/ABC_Sensorial_Cream_Scrub",
    "image_local": "public/scan/products-cheveux/authentic-beauty-concept/creme-gommage-douceur.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [],
+   "categorie": "serum-cuir-chevelu",
+   "etape": 4,
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "huile de coco",
     "beurre de karité",
@@ -26,9 +28,13 @@
    "ingredients": "Aqua (Water, Eau), Glycerin, Cetearyl Alcohol, Behenyl Alcohol, Cocos Nucifera (Coconut) Oil, Distarch Phosphate, Sodium Stearoyl Lactylate, Caprylic/Capric Triglyceride, Prunus Armeniaca (Apricot) Seed Powder, Juglans Regia (Walnut) Shell Powder, Salvia Hispanica Seed Powder, Butyrospermum Parkii (Shea) Butter, Saccharomyces/Xylinum/Black Tea Ferment, Panax Ginseng Root Extract, Zingiber Officinale (Ginger) Root Extract, Tocopherol, Chondrus Crispus Powder (Carrageenan), Silica, Propylene Glycol, Lactic Acid, Glycine Soja (Soybean) Oil, Parfum (Fragrance), Geraniol, Sodium Benzoate, Potassium Sorbate, Benzyl Alcohol",
    "description": "Sa formule riche avec des noyaux d’abricot, de coquille de noix et de chia, exfolie en douceur le cuir chevelu et la peau en les laissant nettoyés en profondeur. Il équilibre le niveau d’hydratation de la peau.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "purifiant"
    ],
-   "source": "sitemap authenticbeautyconcept.fr + fiche"
+   "source": "sitemap authenticbeautyconcept.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/authentic-beauty-concept/cutout/creme-gommage-douceur.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "authentic-beauty-concept--eau-de-soin-sublimatrice",
@@ -43,14 +49,19 @@
    "image_local": "public/scan/products-cheveux/authentic-beauty-concept/eau-de-soin-sublimatrice.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "L'Eau de Soin Sublimatrice Authentic Beauty Concept est une brume sans rinçage qui hydrate en profondeur la peau et les cheveux. Sans silicones, sans huile minérale ni parabènes.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "sans-silicone"
    ],
-   "source": "sitemap authenticbeautyconcept.fr + fiche"
+   "source": "sitemap authenticbeautyconcept.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/authentic-beauty-concept/cutout/eau-de-soin-sublimatrice.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "authentic-beauty-concept--creme-legere-mains-et-cheveux",
@@ -72,9 +83,13 @@
    "ingredients": null,
    "description": "La formule avec du Bakuchiol est légère avec une texture \"invisible\". Elle nourrit et protège la peau et les cheveux, pour de beaux résultats au toucher reconnus par les coiffeurs.",
    "claims": [
-    "nourrissant"
+    "nutrition",
+    "texturisant"
    ],
-   "source": "sitemap authenticbeautyconcept.fr + fiche"
+   "source": "sitemap authenticbeautyconcept.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/authentic-beauty-concept/cutout/creme-legere-mains-et-cheveux.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "authentic-beauty-concept--spray-texturisant-volume-aerien",
@@ -99,9 +114,12 @@
    "ingredients": null,
    "description": "La formule combine la Cellulose de Bambou, l’Amidon de Riz et l’Amidon de Tapioca issu du commerce équitable avec le copolymère VP/VA pour créer un effet texturisant extra sec.",
    "claims": [
-    "volume"
+    "volume",
+    "texturisant"
    ],
-   "source": "sitemap authenticbeautyconcept.fr + fiche"
+   "source": "sitemap authenticbeautyconcept.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/authentic-beauty-concept/cutout/spray-texturisant-volume-aerien.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "authentic-beauty-concept--mousse-volumisante",
@@ -125,10 +143,13 @@
    "ingredients": null,
    "description": "L’huile de noix de coco et l’huile de jojoba combinées à un polymère cationique renforcent la facilité de coiffage et l’effet durable du soin. De plus, la formule contient de l’amidon de pomme de terre modifié biodégradable.",
    "claims": [
+    "fortifiant",
     "volume",
-    "fortifiant"
+    "fixation"
    ],
-   "source": "sitemap authenticbeautyconcept.fr + fiche"
+   "source": "sitemap authenticbeautyconcept.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/authentic-beauty-concept/cutout/mousse-volumisante.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "authentic-beauty-concept--shampooing-sec",
@@ -141,16 +162,21 @@
    "price_source": null,
    "image_source_url": "https://dm.henkel-dam.com/is/image/henkel/42366614_1",
    "image_local": "public/scan/products-cheveux/authentic-beauty-concept/shampooing-sec.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
-    "secs"
+    "secs",
+    "gras"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "Spray aérosol en poudre qui donne du corps à la chevelure, formulé avec de l’amidon de riz naturel biodégradable pour créer une texture remodelable et rafraîchir la coiffure.",
-   "claims": [],
-   "source": "sitemap authenticbeautyconcept.fr + fiche"
+   "claims": [
+    "texturisant"
+   ],
+   "source": "sitemap authenticbeautyconcept.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/authentic-beauty-concept/cutout/shampooing-sec.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "authentic-beauty-concept--brume-perfectrice",
@@ -172,9 +198,12 @@
    "ingredients": null,
    "description": "L’huile de noix de coco et l’huile de jojoba combinées à un polymère cationique renforcent la facilité de coiffage et l’effet durable du soin.",
    "claims": [
-    "fortifiant"
+    "fortifiant",
+    "fixation"
    ],
-   "source": "sitemap authenticbeautyconcept.fr + fiche"
+   "source": "sitemap authenticbeautyconcept.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/authentic-beauty-concept/cutout/brume-perfectrice.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "authentic-beauty-concept--pate-cire-granuleuse",
@@ -196,7 +225,9 @@
    "ingredients": null,
    "description": "Créée à partir d'une combinaison de Cire de Tournesol, d'Huile d'Olive et d'extrait d'Arbre de Salpêtre, ainsi que d'Huile de Ricin, de Cire de Carnauba et d'un émollient ECOCERT®.",
    "claims": [],
-   "source": "sitemap authenticbeautyconcept.fr + fiche"
+   "source": "sitemap authenticbeautyconcept.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/authentic-beauty-concept/cutout/pate-cire-granuleuse.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "authentic-beauty-concept--spray-en-poudre-resultat-naturel",
@@ -220,7 +251,9 @@
    "claims": [
     "volume"
    ],
-   "source": "sitemap authenticbeautyconcept.fr + fiche"
+   "source": "sitemap authenticbeautyconcept.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/authentic-beauty-concept/cutout/spray-en-poudre-resultat-naturel.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "authentic-beauty-concept--spray-salin-texturisant",
@@ -241,8 +274,13 @@
    "actifs": [],
    "ingredients": null,
    "description": "Créée avec le juste équilibre de sel, notre formule permet d’obtenir une belle texture ébouriffée. Et des ondulations au résultat effet plage naturel.",
-   "claims": [],
-   "source": "sitemap authenticbeautyconcept.fr + fiche"
+   "claims": [
+    "definition-boucles",
+    "texturisant"
+   ],
+   "source": "sitemap authenticbeautyconcept.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/authentic-beauty-concept/cutout/spray-salin-texturisant.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "authentic-beauty-concept--pate-modelante",
@@ -255,14 +293,18 @@
    "price_source": null,
    "image_source_url": "https://dm.henkel-dam.com/is/image/henkel/ARKIV_ABC_Pliable_Paste_01",
    "image_local": "public/scan/products-cheveux/authentic-beauty-concept/pate-modelante.jpg",
-   "categorie": "autre-cheveux",
+   "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [],
    "actifs": [],
    "ingredients": null,
    "description": "Il s'agit d'une Pâte Modelante offrant une tenue flexible.",
-   "claims": [],
-   "source": "sitemap authenticbeautyconcept.fr + fiche"
+   "claims": [
+    "fixation"
+   ],
+   "source": "sitemap authenticbeautyconcept.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/authentic-beauty-concept/cutout/pate-modelante.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "authentic-beauty-concept--creme-sculptante",
@@ -283,8 +325,12 @@
    ],
    "ingredients": null,
    "description": "Créée avec de la cire naturelle du Japon, du Beurre de Karité et un émollient ECOCERT®.",
-   "claims": [],
-   "source": "sitemap authenticbeautyconcept.fr + fiche"
+   "claims": [
+    "nutrition"
+   ],
+   "source": "sitemap authenticbeautyconcept.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/authentic-beauty-concept/cutout/creme-sculptante.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "authentic-beauty-concept--pommade-compacte",
@@ -306,9 +352,12 @@
    "ingredients": null,
    "description": "Une combinaison spéciale d’agents émulsifiants et de glycérine pour une pommade de fixation moyenne au fini légèrement brillant.",
    "claims": [
-    "brillance"
+    "brillance",
+    "fixation"
    ],
-   "source": "sitemap authenticbeautyconcept.fr + fiche"
+   "source": "sitemap authenticbeautyconcept.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/authentic-beauty-concept/cutout/pommade-compacte.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "authentic-beauty-concept--spray-fixation-forte",
@@ -327,8 +376,12 @@
    "actifs": [],
    "ingredients": null,
    "description": "Les polymères filmogènes Octylacrylamide/Acrylates/Butylaminoethyl Methacrylate Copolymer combinés à un système de diffusion fine apportent une fixation longue tenue effet invisible.",
-   "claims": [],
-   "source": "sitemap authenticbeautyconcept.fr + fiche"
+   "claims": [
+    "fixation"
+   ],
+   "source": "sitemap authenticbeautyconcept.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/authentic-beauty-concept/cutout/spray-fixation-forte.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "authentic-beauty-concept--spray-flexible",
@@ -348,7 +401,9 @@
    "ingredients": null,
    "description": "Des agents filmogènes complémentaires combinés à l’émollient ECOCERT® Isopropyl Myristate donnent un contrôle naturel et malléable.",
    "claims": [],
-   "source": "sitemap authenticbeautyconcept.fr + fiche"
+   "source": "sitemap authenticbeautyconcept.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/authentic-beauty-concept/cutout/spray-flexible.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "authentic-beauty-concept--elixir-de-beaute",
@@ -363,14 +418,18 @@
    "image_local": "public/scan/products-cheveux/authentic-beauty-concept/elixir-de-beaute.jpg",
    "categorie": "huile",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "abimes"
+   ],
    "actifs": [
     "kératine"
    ],
    "ingredients": null,
    "description": "Il s'agit d'une formule transformative de sérum à crème à base d'une alternative végane à la kératine et d'huile de graines de chicorée extraite par enzyme, avec une application polyvalente.",
    "claims": [],
-   "source": "sitemap authenticbeautyconcept.fr + fiche"
+   "source": "sitemap authenticbeautyconcept.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/authentic-beauty-concept/cutout/elixir-de-beaute.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "authentic-beauty-concept--bain-doux-equilibrant",
@@ -392,9 +451,12 @@
    "ingredients": null,
    "description": "La formule à l'extrait de Spiruline favorise l'hydratation des cheveux et du cuir chevelu sensible. Certifié ECARF, il aide à minimiser les risques d'allergies.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "sitemap authenticbeautyconcept.fr + fiche"
+   "source": "sitemap authenticbeautyconcept.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/authentic-beauty-concept/cutout/bain-doux-equilibrant.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "authentic-beauty-concept--masque-gelee-hydratant",
@@ -416,10 +478,13 @@
    "ingredients": null,
    "description": "La formule avec du Bakuchiol est légère avec une texture \"invisible\". Elle nourrit et protège la peau et les cheveux, pour de beaux résultats au toucher reconnus par les coiffeurs.",
    "claims": [
-    "hydratant",
-    "nourrissant"
+    "hydratation",
+    "nutrition",
+    "texturisant"
    ],
-   "source": "sitemap authenticbeautyconcept.fr + fiche"
+   "source": "sitemap authenticbeautyconcept.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/authentic-beauty-concept/cutout/masque-gelee-hydratant.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "authentic-beauty-concept--bain-purifiant",
@@ -441,9 +506,13 @@
    "ingredients": null,
    "description": "Nous avons ajouté un agent surfactant sans sulfate spécialement sélectionné (C14-16 Olefin Sulfonate), un agent nettoyant bien connu aux propriétés moussantes et émulsifiantes. Cette formule se combine parfaitement à l’eau pour éliminer la saleté, le sébum et les polluants.",
    "claims": [
-    "purifiant"
+    "purifiant",
+    "anti-gras",
+    "sans-sulfate"
    ],
-   "source": "sitemap authenticbeautyconcept.fr + fiche"
+   "source": "sitemap authenticbeautyconcept.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/authentic-beauty-concept/cutout/bain-purifiant.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "authentic-beauty-concept--bain-brillance-neutralisant",
@@ -465,10 +534,12 @@
    "ingredients": null,
    "description": "L'extrait de patate douce est souvent utilisé comme agent apaisant et traitant. La patate douce violette est riche en anthocyanines, des antioxydants reconnus pour réduire les inflammations. Son extrait violet est souvent utilisé comme colorant alimentaire naturel.",
    "claims": [
-    "brillance",
-    "apaisant"
+    "apaisant-cuir-chevelu",
+    "brillance"
    ],
-   "source": "sitemap authenticbeautyconcept.fr + fiche"
+   "source": "sitemap authenticbeautyconcept.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/authentic-beauty-concept/cutout/bain-brillance-neutralisant.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "authentic-beauty-concept--bain-brillance",
@@ -488,9 +559,12 @@
    "ingredients": null,
    "description": "L’efficacité du Guar cationique permet de faciliter le coiffage et contribue à laisser la chevelure douce et brillante.",
    "claims": [
-    "brillance"
+    "brillance",
+    "fixation"
    ],
-   "source": "sitemap authenticbeautyconcept.fr + fiche"
+   "source": "sitemap authenticbeautyconcept.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/authentic-beauty-concept/cutout/bain-brillance.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "authentic-beauty-concept--baume-brillance",
@@ -512,7 +586,9 @@
    "claims": [
     "brillance"
    ],
-   "source": "sitemap authenticbeautyconcept.fr + fiche"
+   "source": "sitemap authenticbeautyconcept.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/authentic-beauty-concept/cutout/baume-brillance.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "authentic-beauty-concept--masque-brillance",
@@ -527,15 +603,19 @@
    "image_local": "public/scan/products-cheveux/authentic-beauty-concept/masque-brillance.jpg",
    "categorie": "masque",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "Un masque intense préservant la couleur qui hydrate les cheveux de la racine aux pointes, offrant une surface capillaire éclatante.",
    "claims": [
-    "hydratant",
+    "hydratation",
     "brillance"
    ],
-   "source": "sitemap authenticbeautyconcept.fr + fiche"
+   "source": "sitemap authenticbeautyconcept.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/authentic-beauty-concept/cutout/masque-brillance.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "authentic-beauty-concept--spray-serum-brillance",
@@ -555,10 +635,13 @@
    "ingredients": null,
    "description": "Grâce à une protection renforcée contre les UV, ce sérum protège les cheveux des dommages causés par l'exposition au soleil. Il est enrichi en ferment marin et en algue rubis, reconnus pour leur capacité à renforcer la fibre capillaire et à protéger les cheveux de la pollution.",
    "claims": [
+    "fortifiant",
     "brillance",
-    "fortifiant"
+    "anti-pollution"
    ],
-   "source": "sitemap authenticbeautyconcept.fr + fiche"
+   "source": "sitemap authenticbeautyconcept.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/authentic-beauty-concept/cutout/spray-serum-brillance.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "authentic-beauty-concept--gelee-perfectrice-de-boucles-une-gelee-coiffante-vegane-et-sans-silicones-pour-d",
@@ -581,9 +664,14 @@
    "ingredients": null,
    "description": "Sa formule nourrissante offre une tenue moyenne pour les ondulations, les boucles et cheveux frisés.",
    "claims": [
-    "nourrissant"
+    "nutrition",
+    "definition-boucles",
+    "fixation",
+    "sans-silicone"
    ],
-   "source": "sitemap authenticbeautyconcept.fr + fiche"
+   "source": "sitemap authenticbeautyconcept.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/authentic-beauty-concept/cutout/gelee-perfectrice-de-boucles-une-gelee-coiffante-vegane-et-sans-silicones-pour-d.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "authentic-beauty-concept--masque-hydratant-pour-cheveux-secs-et-boucles",
@@ -608,10 +696,14 @@
    "ingredients": null,
    "description": "Le Masque Hydratant est le soin profond hydratant végan d'Authentic Beauty Concept, sans silicones ni sulfates*. Ce masque intense mais léger hydrate les cheveux normaux à secs, bouclés ou texturés en profondeur sans les alourdir en leur redonnant élasticité, souplesse et brillance. Sa formule au Myristyl Lactate, un ester AHA, adoucit la couche externe du cheveu pour une sensation soyeuse.",
    "claims": [
-    "hydratant",
-    "brillance"
+    "hydratation",
+    "definition-boucles",
+    "brillance",
+    "sans-silicone"
    ],
-   "source": "sitemap authenticbeautyconcept.fr + fiche"
+   "source": "sitemap authenticbeautyconcept.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/authentic-beauty-concept/cutout/masque-hydratant-pour-cheveux-secs-et-boucles.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "authentic-beauty-concept--masque-hydratation-intense",
@@ -626,14 +718,18 @@
    "image_local": "public/scan/products-cheveux/authentic-beauty-concept/masque-hydratation-intense.jpg",
    "categorie": "masque",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "Sa formule riche hydrate en profondeur et améliore la souplesse, laissant les cheveux légers et soyeux.",
    "claims": [
-    "hydratant"
+    "hydratation"
    ],
-   "source": "sitemap authenticbeautyconcept.fr + fiche"
+   "source": "sitemap authenticbeautyconcept.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/authentic-beauty-concept/cutout/masque-hydratation-intense.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "authentic-beauty-concept--serum-sublimateur-de-boucles",
@@ -654,8 +750,13 @@
    "actifs": [],
    "ingredients": null,
    "description": "Sa formule à base d’eau améliore la texture naturelle des cheveux sans créer d’accumulation ou surcharger les cheveux.",
-   "claims": [],
-   "source": "sitemap authenticbeautyconcept.fr + fiche"
+   "claims": [
+    "definition-boucles",
+    "texturisant"
+   ],
+   "source": "sitemap authenticbeautyconcept.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/authentic-beauty-concept/cutout/serum-sublimateur-de-boucles.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "authentic-beauty-concept--spray-soin-reparateur",
@@ -678,10 +779,14 @@
    "ingredients": null,
    "description": "Un Spray-Soin léger sans rinçage à l'eau de riz pour sublimer la brillance, démêler et améliorer la structure des cheveux. Pour des cheveux lisses.",
    "claims": [
-    "reparateur",
-    "brillance"
+    "reparation",
+    "anti-frisottis",
+    "brillance",
+    "demelant"
    ],
-   "source": "sitemap authenticbeautyconcept.fr + fiche"
+   "source": "sitemap authenticbeautyconcept.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/authentic-beauty-concept/cutout/spray-soin-reparateur.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

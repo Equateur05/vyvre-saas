@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>vyvre — La plongée</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased}
+html,body{background:#000;color:#eaf6ff;font-family:Inter,sans-serif;font-weight:300;overflow:hidden;height:100%}
+canvas{display:block;position:fixed;inset:0}
+.hud{position:fixed;inset:0;pointer-events:none;z-index:2}
+.echelle{position:absolute;left:4vw;bottom:7vh;font-family:'IBM Plex Mono',monospace}
+.echelle b{display:block;font-weight:300;font-size:clamp(34px,4.6vw,66px);letter-spacing:-.03em;color:#eaf6ff;text-shadow:0 0 30px rgba(127,216,255,.5)}
+.echelle i{display:block;font-style:normal;font-size:11px;letter-spacing:.32em;color:rgba(127,216,255,.8);margin-top:10px;text-transform:uppercase}
+.regle{position:absolute;left:4vw;bottom:calc(7vh + 110px);width:140px;height:9px;border-left:1px solid #7fd8ff;border-right:1px solid #7fd8ff}
+.regle::after{content:'';position:absolute;left:0;right:0;top:50%;height:1px;background:#7fd8ff}
+.nom{position:absolute;top:4vh;left:4vw;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.34em;color:rgba(223,234,242,.55)}
+.rel{position:absolute;right:4vw;bottom:7vh;width:min(380px,40vw)}
+.rel div{display:flex;justify-content:space-between;align-items:baseline;padding:10px 0;border-bottom:1px solid rgba(223,234,242,.12);opacity:.18;transition:opacity .9s}
+.rel div.on{opacity:.55}.rel div.lu{opacity:1}
+.rel span{font-weight:200;font-size:16px}
+.rel b{font-family:'IBM Plex Mono',monospace;font-weight:300;font-size:14px;color:rgba(223,234,242,.3)}
+.rel div.lu b{color:#fff;text-shadow:0 0 16px rgba(127,216,255,.9)}
+.bar{position:absolute;left:4vw;right:4vw;bottom:4vh;height:1px;background:rgba(223,234,242,.12)}
+.bar i{position:absolute;inset:0;background:#7fd8ff;transform-origin:left;transform:scaleX(0);box-shadow:0 0 12px #7fd8ff}
+.legende{position:absolute;top:50%;left:4vw;transform:translateY(-50%);font-weight:200;font-size:clamp(22px,2.6vw,38px);letter-spacing:-.01em;max-width:16ch;opacity:0;transition:opacity .8s}
+.legende.on{opacity:.92}
+.legende small{display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.3em;color:#7fd8ff;margin-bottom:12px;text-transform:uppercase}
+@media(max-width:700px){.rel{left:4vw;right:4vw;width:auto;bottom:12vh}.echelle{bottom:auto;top:10vh}.regle{bottom:auto;top:calc(10vh - 20px)}.legende{top:30%}}
+</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+</head>
+<body>
+<div class="hud">
+  <div class="nom">VYVRE · LECTURE DE LA FIBRE</div>
+  <div class="legende" id="leg"></div>
+  <div class="regle"></div>
+  <div class="echelle"><b id="ech">10 cm</b><i id="niv">la chevelure</i></div>
+  <div class="rel" id="rel"></div>
+  <div class="bar"><i id="bar"></i></div>
+</div>
+<script type="module">
+import * as THREE from 'three';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+
+const GEL = new URLSearchParams(location.search).has("p") ? +new URLSearchParams(location.search).get("p") : null;
+const DUREE = 4200;                     /* la plongee, puis 2 s sur les valeurs */
+const MES = [['La boucle','62 / 100'],['La couleur','Foncé'],['La prise','78 / 100'],['La routine','4 gestes']];
+const NIV = [
+  [0.00,'10 cm','la chevelure','On part de la masse entière.'],
+  [0.14,'1 mm','une fibre','On entre dans la masse.'],
+  [0.30,'50 µm','la cuticule','Des écailles, posées comme des tuiles.'],
+  [0.52,'5 µm','le cortex','Des faisceaux de fibrilles.'],
+  [0.76,'0,5 µm','la macrofibrille','La lumière remonte la fibre.']
+];
+const clamp=(v,a,b)=>v<a?a:v>b?b:v, sm=t=>{t=clamp(t,0,1);return t*t*(3-2*t)}, seg=(p,a,b)=>clamp((p-a)/(b-a),0,1);
+const lerp=(a,b,t)=>a+(b-a)*t;
+
+const renderer = new THREE.WebGLRenderer({ antialias:true, powerPreference:'high-performance' });
+renderer.setPixelRatio(Math.min(devicePixelRatio,2));
+renderer.setSize(innerWidth, innerHeight);
+renderer.toneMapping = THREE.ACESFilmicToneMapping; renderer.toneMappingExposure = .9;
+document.body.prepend(renderer.domElement);
+const scene = new THREE.Scene();
+scene.fog = new THREE.FogExp2(0x000000, 0.03);
+const cam = new THREE.PerspectiveCamera(42, innerWidth/innerHeight, 0.01, 500);
+const composer = new EffectComposer(renderer);
+composer.addPass(new RenderPass(scene, cam));
+const bloom = new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), .7, .55, .22);
+composer.addPass(bloom); composer.addPass(new OutputPass());
+addEventListener('resize', ()=>{ renderer.setSize(innerWidth,innerHeight); composer.setSize(innerWidth,innerHeight); cam.aspect=innerWidth/innerHeight; cam.updateProjectionMatrix(); });
+function rnd(n){ const s=Math.sin(n*127.1)*43758.5453; return s-Math.floor(s); }
+const GLACE = new THREE.Color(0x7fd8ff), BLANC = new THREE.Color(0xeaf6ff);
+
+/* Chaque plan a SA place dans la scene, loin des autres : la camera va de
+   l'un a l'autre sans jamais traverser une paroi. */
+
+/* ---------- PLAN 1 · la chevelure, vue de face ---------- */
+let MAT1; const P1 = new THREE.Group(); scene.add(P1);
+{
+  /* une vraie chevelure : les fibres partent du sommet du crane, suivent la
+     courbe de la tete, puis tombent en ondulant jusqu'aux epaules */
+  const N=1800, SEG=40, pos=[], col=[], RC=2.3, CY=2.2;
+  for(let i=0;i<N;i++){
+    const az=(rnd(i)-.5)*Math.PI*1.9 + Math.PI/2*0,           /* autour de la tete */
+          el0=.15+rnd(i*3.1)*.35, ph=rnd(i*7.7)*6.28, cur=.08+rnd(i*5.3)*.22, lg=7+rnd(i*1.9)*3;
+    let prev=null;
+    for(let k=0;k<=SEG;k++){
+      const u=k/SEG; let x,y,z;
+      if(u<.35){ /* sur le crane : de la raie vers le cote */
+        const el=el0+(Math.PI/2-el0)*(u/.35);
+        x=Math.sin(az)*Math.sin(el)*RC; z=Math.cos(az)*Math.sin(el)*RC*.9; y=CY+Math.cos(el)*RC;
+      } else { /* la chute */
+        const v=(u-.35)/.65;
+        x=Math.sin(az)*RC*(1+v*.35)+Math.sin(v*7+ph)*cur*v*3; z=Math.cos(az)*RC*.9*(1+v*.2)+Math.cos(v*6+ph)*cur*v*2;
+        y=CY-v*lg;
+      }
+      if(prev){
+        pos.push(prev[0],prev[1],prev[2],x,y,z);
+        const br=(.05+.5*Math.pow(rnd(i*9.9),3))*(1-u*.5)*(z>0?1:.35);
+        const c=BLANC.clone().lerp(GLACE,.4+rnd(i*2.2)*.5).multiplyScalar(br);
+        col.push(c.r,c.g,c.b,c.r,c.g,c.b);
+      }
+      prev=[x,y,z];
+    }
+  }
+  const g=new THREE.BufferGeometry();
+  g.setAttribute('position',new THREE.Float32BufferAttribute(pos,3)); g.setAttribute('color',new THREE.Float32BufferAttribute(col,3));
+  P1.add(new THREE.LineSegments(g,MAT1=new THREE.LineBasicMaterial({vertexColors:true,transparent:true,opacity:.8,blending:THREE.AdditiveBlending,depthWrite:false})));
+}
+
+/* Un zoom infini, toujours VERTICAL : la camera avance tout droit vers le
+   centre de l'image. Chaque echelle est cachee au centre de la precedente ;
+   quand l'une remplit l'ecran elle s'efface et la suivante apparait. */
+
+/* ---------- PLAN 2 · une fibre, debout, et sa cuticule ---------- */
+const P2 = new THREE.Group(); scene.add(P2); P2.position.set(0,0,-40);
+const MATS2=[];
+{
+  const L=60;
+  const mc=new THREE.MeshStandardMaterial({color:0x0e2c48,emissive:0x061626,metalness:.35,roughness:.3,transparent:true});
+  P2.add(new THREE.Mesh(new THREE.CylinderGeometry(1,1,L,96,1,true),mc)); MATS2.push(mc);
+  /* les ecailles : des anneaux coupes qui se recouvrent, bord libre vers le bas */
+  const ec=new THREE.CylinderGeometry(1.02,1.12,.34,64,1,true,0,Math.PI*.72);
+  const me=new THREE.MeshStandardMaterial({color:0x8fcaf0,emissive:0x0c3050,metalness:.45,roughness:.35,side:THREE.DoubleSide,transparent:true});
+  MATS2.push(me);
+  const NI=Math.floor(L/.3), inst=new THREE.InstancedMesh(ec,me,NI*3);
+  const m=new THREE.Matrix4(), q=new THREE.Quaternion(), sc=new THREE.Vector3(1,1,1); let n=0;
+  for(let i=0;i<NI;i++) for(let j=0;j<3;j++){
+    q.setFromEuler(new THREE.Euler(.1*(rnd(i*2.2+j)-.5), j*2.094+(i%2)*1.05+rnd(i*4.4+j)*.25, .1*(rnd(i*6.6+j)-.5)));
+    m.compose(new THREE.Vector3(0,-L/2+i*.3,0),q,sc); inst.setMatrixAt(n++,m);
+  }
+  P2.add(inst);
+  const l1=new THREE.DirectionalLight(0xbfe6ff,1.4); l1.position.set(3,5,6); P2.add(l1); P2.add(l1.target);
+  const l2=new THREE.DirectionalLight(0x3a7fc0,.9); l2.position.set(-5,-2,2); P2.add(l2); P2.add(l2.target);
+}
+
+/* ---------- PLAN 3 · le cortex : une foret de fibrilles debout ---------- */
+const P3 = new THREE.Group(); scene.add(P3);
+const FIB=[];                            /* x, z de chaque fibrille, pour les impulsions */
+let MAT3;
+{
+  const geo=new THREE.CylinderGeometry(.025,.025,40,5,1,true);
+  MAT3=new THREE.MeshBasicMaterial({color:0x5fb4f0,transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false});
+  const N=1100, inst=new THREE.InstancedMesh(geo,MAT3,N), m=new THREE.Matrix4();
+  for(let i=0;i<N;i++){
+    /* en faisceaux, avec un couloir libre au centre pour la camera */
+    const fa=Math.floor(rnd(i*1.3)*60), fz=-44-rnd(fa*9.1)*66, fx=(rnd(fa*3.7)-.5)*9;
+    let x=fx+(rnd(i)-.5)*.7, z=fz+(rnd(i*3.3)-.5)*.7;
+    if(Math.abs(x)<.35) x+=Math.sign(x||1)*.35;
+    m.makeTranslation(x,(rnd(i*8.8)-.5)*4,z); inst.setMatrixAt(i,m); FIB.push([x,z]);
+  }
+  P3.add(inst);
+}
+/* la fin : une macrofibrille, face a nous, faite de fibrilles serrees */
+const P4 = new THREE.Group(); scene.add(P4); P4.position.set(0,0,-112);
+let MAT4;
+{
+  const geo=new THREE.CylinderGeometry(.045,.045,40,6,1,true);
+  MAT4=new THREE.MeshBasicMaterial({color:0x8fd4ff,transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false});
+  const N=90, inst=new THREE.InstancedMesh(geo,MAT4,N), m=new THREE.Matrix4();
+  for(let i=0;i<N;i++){
+    const a=rnd(i)*Math.PI*2, r=Math.sqrt(rnd(i*2.7))*1.1;
+    m.makeTranslation(Math.cos(a)*r,0,Math.sin(a)*r*.6); inst.setMatrixAt(i,m); FIB.push([Math.cos(a)*r,-112+Math.sin(a)*r*.6]);
+  }
+  P4.add(inst);
+}
+/* les impulsions : la lumiere qui remonte dans les fibrilles (la fibre de verre) */
+const NP=520, pp=new Float32Array(NP*3), vit=new Float32Array(NP);
+for(let i=0;i<NP;i++){ const f=FIB[Math.floor(rnd(i*5.1)*FIB.length)]; pp[i*3]=f[0]; pp[i*3+1]=(rnd(i*7.3)-.5)*14; pp[i*3+2]=f[1]; vit[i]=1.5+rnd(i*4.9)*3.5; }
+const gp=new THREE.BufferGeometry(); gp.setAttribute('position',new THREE.BufferAttribute(pp,3));
+const MATP=new THREE.PointsMaterial({color:0xeaf8ff,size:.07,transparent:true,opacity:0,blending:THREE.AdditiveBlending,depthWrite:false});
+scene.add(new THREE.Points(gp,MATP));
+scene.add(new THREE.AmbientLight(0x1a3654,.5));
+
+/* poussiere : la vitesse */
+{
+  const N=3000, p=new Float32Array(N*3);
+  for(let i=0;i<N;i++){ p[i*3]=(rnd(i)-.5)*20; p[i*3+1]=(rnd(i*2.1)-.5)*14; p[i*3+2]=8-rnd(i*3.7)*130; }
+  const g=new THREE.BufferGeometry(); g.setAttribute('position',new THREE.BufferAttribute(p,3));
+  scene.add(new THREE.Points(g,new THREE.PointsMaterial({color:0xa8dcff,size:.025,transparent:true,opacity:.45,blending:THREE.AdditiveBlending,depthWrite:false})));
+}
+
+/* ---------- la course : tout droit, de plus en plus profond ---------- */
+const ZC=[[0,17],[.14,3],[.22,-18],[.40,-34],[.50,-38.6],[.56,-41],[.76,-92],[.92,-103.5],[1,-104.5]];
+function camera(p){
+  let i=0; while(i<ZC.length-2 && p>ZC[i+1][0]) i++;
+  const a=ZC[i], b=ZC[i+1], k=(p-a[0])/(b[0]-a[0]);
+  const z=lerp(a[1],b[1],i===0||i>=ZC.length-3?sm(k):k);
+  const y=lerp(.5,0,seg(p,0,.2));
+  cam.position.set(0,y,z); cam.lookAt(0,y-lerp(1.3,0,seg(p,0,.2)),z-10);
+}
+
+const rel=document.getElementById('rel');
+rel.innerHTML=MES.map(m=>'<div><span>'+m[0]+'</span><b>—</b></div>').join('');
+let T0=performance.now(), dernierNiv=-1, tPrec=T0;
+function image(now){
+  requestAnimationFrame(image);
+  const dt=Math.min(.05,(now-tPrec)/1000); tPrec=now;
+  const e=(now-T0)%(DUREE+2400), p=GEL!==null?GEL:clamp(e/DUREE,0,1), t=now/1000;
+  camera(p);
+  P1.rotation.y=t*.05;
+  MAT1.opacity=.8*(1-seg(p,.13,.2));
+  const f2=seg(p,.16,.26)*(1-seg(p,.5,.56));
+  MATS2.forEach(m=>{ m.opacity=f2; });
+  P2.visible=f2>0.001; P1.visible=MAT1.opacity>0.001;
+  MAT3.opacity=.03*seg(p,.49,.58)*(1-.5*seg(p,.8,.95));
+  MAT4.opacity=.09*seg(p,.7,.86);
+  MATP.opacity=.9*seg(p,.56,.7);
+  for(let i=0;i<NP;i++){ let y=pp[i*3+1]+vit[i]*dt*(1+seg(p,.8,1)*1.5); if(y>7) y-=14; pp[i*3+1]=y; }
+  gp.attributes.position.needsUpdate=true;
+  bloom.strength=.55+.4*seg(p,.7,1);
+  let k=0; for(let i=0;i<NIV.length;i++) if(p>=NIV[i][0]) k=i;
+  if(k!==dernierNiv){
+    dernierNiv=k;
+    document.getElementById('ech').textContent=NIV[k][1];
+    document.getElementById('niv').textContent=NIV[k][2];
+    const L=document.getElementById('leg'); L.classList.remove('on');
+    setTimeout(()=>{ L.innerHTML='<small>'+NIV[k][2]+'</small>'+NIV[k][3]; L.classList.add('on'); },250);
+  }
+  document.getElementById('bar').style.transform='scaleX('+p.toFixed(3)+')';
+  [...rel.children].forEach((d,i)=>{ d.classList.toggle('on',p>.2+i*.18); const fin=p>=.985;
+    d.classList.toggle('lu',fin); d.querySelector('b').textContent=fin?MES[i][1]:'—'; });
+  composer.render();
+}
+requestAnimationFrame(image);
+</script>
+</body>
+</html>

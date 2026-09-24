@@ -1672,3 +1672,8 @@
   background: #fff;
   border-color: rgba(168, 129, 47, 0.5);
 }
+
+/* v11.1 — l'âge s'affiche en fourchette, jamais en chiffre unique.
+   Quand le moteur refuse de le lire, la carte le dit au lieu d'inventer. */
+[data-vyvre-age] { font-size: clamp(22px, 3.2vw, 40px); letter-spacing: -0.01em; white-space: nowrap; }
+[data-vyvre-age].vyvre-age-indetermine { font-size: clamp(15px, 1.7vw, 21px); opacity: .62; letter-spacing: .02em; }

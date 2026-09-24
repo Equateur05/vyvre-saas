@@ -12,20 +12,22 @@
    "price_eur": 33.12,
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0045/9790/7545/files/Verb_Ghost_Oil_4oz_13th_Anniversary_Packshot.jpg?width=600",
-   "image_local": null,
+   "image_local": "public/scan/products-cheveux/verb/ghosttm-oil-limited-edition.jpg",
    "categorie": "huile",
    "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "fins"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "A lightweight hair oil that smooths frizz, tames flyaways, and adds shine, without weighing-down your hair.",
    "claims": [
-    "brillance",
-    "lissant"
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/ghosttm-oil-limited-edition.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--travel-dry-shampoo-dark-gwp",
@@ -38,16 +40,19 @@
    "price_source": null,
    "image_source_url": "https://cdn.shopify.com/s/files/1/0045/9790/7545/files/Verb_Dry_Shampoo_Dark_1.7oz_Packshot_8068b06e-b91c-49ac-99dc-a8ceb8aa050d.jpg?width=600",
    "image_local": "public/scan/products-cheveux/verb/travel-dry-shampoo-dark-gwp.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
+    "gras",
     "colores"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "refreshes hair, absorbs oil and odor, extends style and boosts body.dark formula is earth-toned to disappear in brown, red and darker hair colors. no benzene detected*light formula is tinted purple to disappear in blonde and lighter hair colors. no benzene detected**independent third-party test results: no benzene detected in formula down to 0.02 parts per million (ppm)",
    "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/travel-dry-shampoo-dark-gwp.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--travel-dry-shampoo-light-gwp",
@@ -60,16 +65,19 @@
    "price_source": null,
    "image_source_url": "https://cdn.shopify.com/s/files/1/0045/9790/7545/files/Verb_Dry_Shampoo_Light_1.7oz_Packshot_f68e0e54-1286-4f2f-a1e5-448d8ac1825d.jpg?width=600",
    "image_local": "public/scan/products-cheveux/verb/travel-dry-shampoo-light-gwp.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
+    "gras",
     "colores"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "refreshes hair, absorbs oil and odor, extends style and boosts body.dark formula is earth-toned to disappear in brown, red and darker hair colors. no benzene detected*light formula is tinted purple to disappear in blonde and lighter hair colors. no benzene detected**independent third-party test results: no benzene detected in formula down to 0.02 parts per million (ppm)",
    "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/travel-dry-shampoo-light-gwp.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--repair-oil",
@@ -91,35 +99,14 @@
    "ingredients": null,
    "description": "A lightweight oil for damaged hair that helps strengthen strands, enhance shine and reduce breakage.",
    "claims": [
-    "reparateur",
-    "brillance",
-    "lissant",
-    "fortifiant"
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "verb--verb-black-currant-floral-hair-and-body-fragrance-mist",
-   "name": "Black Currant & Floral Hair and Body Fragrance Mist",
-   "brand": "verb",
-   "brand_name": "Verb",
-   "url": "https://www.verbproducts.com/products/verb%C2%AE-black-currant-floral-hair-and-body-fragrance-mist",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 20.24,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0045/9790/7545/files/Verb_Volume_Hair_Body_Mist_5oz_Packshot_WEB.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/verb/verb-black-currant-floral-hair-and-body-fragrance-mist.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [
-    "glycérine",
-    "vitamine E"
-   ],
-   "ingredients": "Aqua/Water/Eau, Parfum/Fragrance, Moringa Oleifera Seed Oil, Pyrus Malus (Apple) Fruit Extract, Tocopherol, Glycerin, PPG-3 Caprylyl Ether, Polyquaternium-73, Polysorbate 20, Sodium Benzoate",
-   "description": "A bright, sparkling and craveable scent with crisp notes of black currant, pineapple, sweet jasmine and rose.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/repair-oil.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "verb--dry-shampoo-powder-2026",
@@ -132,9 +119,11 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0045/9790/7545/files/Verb_DSP_2026_2oz_Packshot.jpg?width=600",
    "image_local": "public/scan/products-cheveux/verb/dry-shampoo-powder-2026.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [],
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "gras"
+   ],
    "actifs": [
     "acide citrique",
     "acide lactique"
@@ -142,7 +131,9 @@
    "ingredients": "Aqua/Water/Eau, Caprylyl Glycol, Lactic Acid, Parfum/Fragrance, Chlorphenesin, Potassium Sorbate, Sodium Benzoate, Ethylhexylglycerin, Phenoxyethanol, Citric Acid, Benzyl Salicylate, Limonene, Geranyl Acetate, Hydroxycitronellal, Vanillin. VDSH02-D24 ingredients listed may vary slightly from produ",
    "description": "Now with an improved formula and enhanced pump, Verb Dry Shampoo Powder refreshes hair, extends styles and boosts body by absorbing oils and odors for a waterless cleanse.",
    "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/dry-shampoo-powder-2026.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--curl-oil",
@@ -158,7 +149,6 @@
    "categorie": "huile",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
     "boucles"
    ],
    "actifs": [
@@ -168,10 +158,14 @@
    "ingredients": "Aqua/Water/Eau, Butylene Glycol, Propylene Glycol, Phenoxyethanol, Sodium Benzoate, Acetyl Cedrene, Alpha Isomethyl Ionone, Amyl Salicylate, Benzyl Cinnamate, Benzyl Salicylate, Citronellol, Limonene, Geraniol, Hexyl Cinnamal, Hydroxycitronellal, Linalool, Linalyl Acetate, Pinene, Terpineol. VCO01-J25 ingredients listed may vary slightly from p",
    "description": "a multi-use, silicone-free oil that helps enhance curl definition, adds shine and controls frizz. powered by a blend of sweet almond, argan and castor oils and our proprietary SunflowerCurl™ Complex, this oil leaves curls soft, bouncy and shiny.",
    "claims": [
+    "anti-frisottis",
+    "definition-boucles",
     "brillance",
-    "definition-boucles"
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/curl-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--ghost-heat-defense-spray",
@@ -196,32 +190,12 @@
    "ingredients": "Isobutane, Alcohol Denat., Camellia Sinensis (Green Tea) Leaf Extract, Moringa Oleifera Seed Oil, Glycerin, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Isopropyl Myristate, Tocopheryl Acetate, Silicone Quaternium-3, Trideceth-12, Propylene Glycol, Parfum/Fragrance, Aminopropyl Phenyl Trimethicone, Acetyl Cedrene, Alpha-Isomethyl Ionone, Amyl Salicylate, Benzyl Cinnamate, Benzyl Salicylate, Citronellol, Limonene, Geraniol, Hexyl Cinnamal, Hydroxycitronellal, Linalool, Linalyl Acetate, Terpineol. VGDO04-G26) ingredients listed may vary slightly from products received",
    "description": "A weightless heat protectant spray for fine hair that guards against heat damage without buildup or stiffness.",
    "claims": [
-    "protection-thermique"
+    "purifiant",
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "verb--amber-jasmine-hair-and-body-fragrance-mist",
-   "name": "Amber + Jasmine Hair and Body Fragrance Mist",
-   "brand": "verb",
-   "brand_name": "Verb",
-   "url": "https://www.verbproducts.com/products/amber-jasmine-hair-and-body-fragrance-mist",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 20.24,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0045/9790/7545/files/Verb_Hydrate_Hair_Body_Mist_5oz_Packshot.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/verb/amber-jasmine-hair-and-body-fragrance-mist.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [
-    "glycérine",
-    "vitamine E"
-   ],
-   "ingredients": "Aqua/Water/Eau, Parfum/Fragrance, Moringa Oleifera Seed Oil, Pyrus Malus (Apple) Fruit Extract, Tocopherol, Glycerin, PPG-3 Caprylyl Ether, Polyquaternium-73, Polysorbate 20, Sodium Benzoate",
-   "description": "Lively and vibrant, this fragrance dances on hair and skin, effortlessly carrying you from day to night with notes of: warm amber sweet jasmine zesty citrus peel calming sandalwood",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/ghost-heat-defense-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--density-peptide-hair-serum",
@@ -237,6 +211,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "fins",
     "chute"
    ],
    "actifs": [
@@ -250,9 +225,12 @@
    "ingredients": "Aqua/Water/Eau, Glycerin, 1,2-Hexanediol, Propanediol, Niacinamide, Biotinoyl Tripeptide-1, Glycine Soja (Soybean) Germ Extract, Scutellaria Baicalensis Root Extract, Triticum Vulgare (Wheat) Germ Extract, Panax Ginseng Root Extract, Arginine, Xanthan Gum, Sodium Phytate, Calcium Gluconate, Gluconolactone, Lactic Acid, Citric Acid, Polyacrylate Crosspolymer-6, Parfum/Fragrance, Polysorbate 20, Polyglyceryl-4 Caprate, Hydroxyacetophenone, Butylene Glycol, T-Butyl Alcohol, Sodium Benzoate, Camphor, Beta-Caryophyllene, Limonene, Geraniol, Geranyl Acetate, Hexyl Cinnamal, Linalool, Linalyl Acetate, Alpha-Pinene, Beta-Pinene, Gamma-Terpinene, Terpinolene. VDPHS01-L24 ingredients listed may vary slightly from p",
    "description": "a lightweight hair serum that visibly increases hair density and minimizes the appearance of thinning hair.",
    "claims": [
-    "volume"
+    "volume",
+    "densifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/density-peptide-hair-serum.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--density-peptide-shampoo",
@@ -267,7 +245,10 @@
    "image_local": "public/scan/products-cheveux/verb/density-peptide-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "fins",
+    "chute"
+   ],
    "actifs": [
     "huile d'argan",
     "biotine",
@@ -279,9 +260,13 @@
    "ingredients": "Aqua/Water/Eau, Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Hydroxysultaine, Sodium Lauroyl Methyl Isethionate, Cocamidopropyl Betaine, Propanediol, Argania Spinosa (Argan) Kernel Oil, Panax Ginseng Root Extract, Scutellaria Baicalensis Root Extract, Glycine Soja (Soybean) Germ Extract, Triticum Vulgare (Wheat) Germ Extract, Biotinoyl Tripeptide-1, Serenoa Serrulata Fruit Extract, Apple Cider Vinegar, Niacinamide, Arginine, Sodium Cocoyl Hydrolyzed Pea Protein, Glycerin, Ethylhexylglycerin, Polyquaternium-73, Hydroxypropyl Starch Phosphate, Acrylates/Beheneth-25 Methacrylate Copolymer, Lactic Acid, Trisodium Ethylenediamine Disuccinate, Guar Hydroxypropyltrimonium Chloride, Sodium Lauroyl Methyl Isethionate, Butylene Glycol, 1,2-Hexanediol, Calcium Gluconate, Gluconolactone, Sodium Hydroxide, Parfum/Fragrance, Hydroxyacetophenone, Sodium Benzoate, Phenoxyethanol, Potassium Sorbate, Limonene, Hexyl Cinnamal, Linalool, Linalyl Acetate. VDPS01-L24 ingredients listed may vary slightly fro",
    "description": "a density-boosting shampoo that gently cleanses and helps minimize the appearance of shedding for a less visible scalp and thicker, fuller-looking hair.",
    "claims": [
-    "volume"
+    "volume",
+    "densifiant",
+    "anti-chute"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/density-peptide-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--frizz-defense-smoothing-spray",
@@ -296,9 +281,7 @@
    "image_local": "public/scan/products-cheveux/verb/frizz-defense-smoothing-spray.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [
     "AHA",
     "acide lactique"
@@ -306,9 +289,13 @@
    "ingredients": "Aqua/Water/Eau, Dipropylene Glycol, Polysilicone-29, Silicone Quaternium-18, Chondrus Crispus Extract, Ascophyllum Nodosum Extract, Palmaria Palmata Extract, Laminaria Saccharina Extract, Undaria Pinnatifida Extract, Polysorbate 20, Trideceth-12, Trideceth-6, Caprylyl Glycol, Parfum/Fragrance, Ceteareth-25, Ceteareth-7, Hydroxypropyl Guar Hydroxypropyltrimonium Chloride, Hydroxypropylgluconamide, Hydroxypropylammonium Gluconate, Lactic Acid, Glycolic Acid, Caprylhydroxamic Acid, Bis-Cetearyl Amodimethicone, Dipeptide Diaminobutyroyl Benzylamide Diacetate, Phenoxyethanol, Butylene Glycol, Propylene Carbonate, Propanediol, O-Cymen-5-ol, Tartaric Acid, Benzyl Alcohol, Sodium Benzoate, Potassium Sorbate, Benzyl Salicylate, Limonene, Geranyl Acetate, Vanillin, Hexyl Cinnamal. VFDSS01-Y24 ingredients listed may vary slightly fro",
    "description": "a smoothing spray that provides an anti-frizz shield, protects hair from heat and leaves hair smoother and sleeker with a shiny finish for the ultimate blowout.",
    "claims": [
-    "lissant"
+    "anti-frisottis",
+    "brillance",
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/frizz-defense-smoothing-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--dandruff-shampoo",
@@ -337,10 +324,13 @@
    "ingredients": "Aqua/Water/Eau, Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Betaine, Sodium Methyl Cocoyl Taurate, Glycerin, Sodium Methyl Oleoyl Taurate, Parfum/Fragrance, Menthol, Polyquaternium-10, Citric Acid, Trisodium Ethylenediamine Disuccinate, Panthenol, Sodium Benzoate, Salvia Sclarea (Clary) Oil, Zinc PCA ingredients listed may vary slightly from products received",
    "description": "a gentle shampoo that reduces the recurrence of dandruff symptoms like flakes, itchiness and irritation, without stripping the hair of moisture.",
    "claims": [
-    "hydratant",
-    "anti-pellicules"
+    "hydratation",
+    "antipelliculaire",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/dandruff-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--hydrate-shampoo",
@@ -356,7 +346,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "epais"
+    "secs"
    ],
    "actifs": [
     "huile d'argan",
@@ -367,10 +357,13 @@
    "ingredients": "Aqua/Water/Eau, Sodium C14-16 Olefin Sulfonate, Cocamide MIPA, Cocamidopropyl Hydroxysultaine, Cocamidopropyl Betaine, Acrylates/Beheneth-25 Methacrylate Copolymer, Glycol Distearate, Pyrus Malus (Apple) Fruit Extract, Argania Spinosa (Argan) Kernel Oil, Orbignya Oleifera Seed Oil, Ceramide NP, Squalane, Lauryl/Myristyl Polyricinoleate, Ethylhexyl Olivate, Ethylhexylglycerin, Glycerin, Polyquaternium-7, Parfum/Fragrance, Sodium Lauroyl Sarcosinate, Guar Hydroxypropyltrimonium Chloride, Aminomethyl Propanol, Sodium Hydroxide, Trisodium Ethylenediamine Disuccinate, Citric Acid, Sodium Benzoate, Phenoxyethanol, Potassium Sorbate, Benzyl Salicylate, Hexamethylindanopyran. VHS04-J25 ingredients listed may vary sligh",
    "description": "a hydrating shampoo that hydrates and reduces frizz for smooth, shiny hair.",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/hydrate-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--hydrate-oil",
@@ -386,16 +379,19 @@
    "categorie": "huile",
    "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "secs"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "a rich oil that hydrates and reduces frizz for smooth, shiny, hair.",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/hydrate-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--hydrate-styling-cream",
@@ -411,7 +407,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "secs"
    ],
    "actifs": [
     "huile d'argan",
@@ -421,10 +417,13 @@
    "ingredients": "Aqua/Water/Eau, Trisiloxane, Coconut Alkanes, Cetyl Alcohol, Betaine, Polyurethane-48, Cetearyl Alcohol, Orbignya Oleifera Seed Oil, Argania Spinosa Kernel Oil, Ceramide 3, Ceramide 2, Xanthan Gum, Glucose, Ethylhexylglycerin, Ammonium Acryloyldimethyltaurate/VP Copolymer, Polyglyceryl-10 Pentastearate, Coco-Caprylate/Caprate, Cetearyl Glucoside, Dimethicone, Dimethiconol, Citric Acid, Behenyl Alcohol, Myristyl Alcohol, Stearyl Alcohol, Parfum/Fragrance, Sodium Stearoyl Lactylate, Methylpropanediol, Caprylyl Glycol, Phenylpropanol, Phenoxyethanol, Benzyl Salicylate, Hexamethylindanopyran, Limonene, Vanillin. VHSC03-J25 ingredients listed may vary slightly from pro",
    "description": "a hydration-boosting styling cream that hydrates, reduces frizz and adds light hold for smoother, healthier-looking hair.",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "anti-frisottis",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/hydrate-styling-cream.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--curl-shampoo",
@@ -440,7 +439,6 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "epais",
     "boucles"
    ],
    "actifs": [
@@ -454,10 +452,13 @@
    "ingredients": "Aqua/Water/Eau, Sodium Lauroyl Methyl Isethionate, Sorbitol, Lauryl Betaine, Glycol Distearate, Simmondsia Chinensis (Jojoba) Seed Oil, Ricinus Communis (Castor) Seed Oil, Hippophae Rhamnoides Fruit Oil, Helianthus Annuus (Sunflower) Oil, Helianthus Annuus Flower Extract, Helianthus Annuus (Sunflower) Seed Extract, Helianthus Annuus (Sunflower) Sprout Extract, Hydroxypropyltrimonium Hydrolyzed Corn Starch, Maltodextrin/VP Copolymer, Mannitol, PVP, Panthenol, PEG-150 Distearate, PEG-12 Dimethicone, Sorbeth-230 Tetraoleate, Silicone Quaternium-16/Glycidoxy Dimethicone Crosspolymer, Polyquaternium-7, Polyquaternium-10, Quaternium-80, Amodimethicone, Xanthan Gum, Glycerin, Ethylhexylglycerin, Parfum/Fragrance, Decyl Glucoside, Citric Acid, Isopropyl Alcohol, Stearamidopropyl Dimethylamine, Guar Hydroxypropyltrimonium Chloride, Cetrimonium Chloride, Trideceth-12, Undeceth-11, Undeceth-5, Sodium Chloride, Sorbitan Laurate, Sodium Citrate, Fumaric Acid, Propylene Glycol, Butylene Glycol, Sodium Acetate, Gluconolactone, Calcium Gluconate, Sodium Benzoate, Phenoxyethanol, Potassium Sorbate, Hydroxycitronellal, Limonene, Linalool, Linalyl Acetate. VCS02-J25 ingredients listed may vary slightly from",
    "description": "curl defining shampoo that gently cleanses, adds moisture and enhances definition; all while minimizing frizz.",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "anti-frisottis",
     "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/curl-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--curl-foaming-gel",
@@ -473,7 +474,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "fins",
     "boucles"
    ],
    "actifs": [
@@ -485,9 +486,13 @@
    "ingredients": "Aqua/Water/Eau, Hydroxypropyltrimonium Hydrolyzed Corn Starch, Polyquaternium-10, Simmondsia Chinensis (Jojoba) Seed Oil, Helianthus Annuus (Sunflower) Extract, Helianthus Annuus (Sunflower) Oil, Helianthus Annuus (Sunflower) Sprout Extract, Helianthus Annuus Flower Extract, Cocamidopropyl Betaine, Ethylhexylglycerin, Xanthan Gum, Hydroxypropyl Guar, PG-Hydroxyethylcellulose Cocodimonium Chloride, Tocopherol, Citric Acid, Sodium Chloride, Carnosine, Propylene Glycol, Butylene Glycol, Parfum/Fragrance, Sodium Citrate, Sodium Acetate, Isopropyl Alcohol, Sodium Benzoate, Phenoxyethanol, Acetyl Cedrene, Alpha-Isomethyl Ionone, Amyl Salicylate, Benzyl Cinnamate, Benzyl Salicylate, Citronellol, Limonene, Geraniol, Hexyl Cinnamal, Hydroxycitronellal, Linalool, Linalyl Acetate, Pinene, Terpineol. VCFG02-M26 ingredients listed may vary slightly from prod",
    "description": "curl defining foaming gel creates a crunch-free medium hold that reduces frizz without weighing down your hair.",
    "claims": [
-    "definition-boucles"
+    "anti-frisottis",
+    "definition-boucles",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/curl-foaming-gel.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--curl-cream",
@@ -503,7 +508,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -516,10 +521,14 @@
    "ingredients": "Aqua/Water/Eau, Cetyl Alcohol, Sorbitol, Butyrospermum Parkii (Shea) Butter, Behentrimonium Methosulfate, Cetearyl Alcohol, Ricinus Communis (Castor) Seed Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Hippophae Rhamnoides Fruit Oil, Helianthus Annuus (Sunflower) Oil, Helianthus Annuus (Sunflower) Seed Extract, Helianthus Annuus (Sunflower) Sprout Extract, Helianthus Annuus Flower Extract, Sunflower Seed Oil Glycerides, Tocopherol, Ethylhexylglycerin, Mannitol, Xanthan Gum, Maltodextrin/VP Copolymer, PVP, Glucose, Aminomethyl Propanol, Dioleoylamidoethyl Hydroxyethylmonium Methosulfate, Ammonium Acryloyldimethyltaurate/VP Copolymer, Cetearyl Glucoside, Butylene Glycol, Propylene Glycol, Myristyl Alcohol, Stearyl Alcohol, Parfum/Fragrance, Sodium Citrate, Sodium Benzoate, Phenoxyethanol, Acetyl Cedrene, Alpha Isomethyl Ionone, Amyl Salicylate, Benzyl Cinnamate, Benzyl Salicylate, Citronellol, Limonene, Geraniol, Hexyl Cinnamal, Hydroxycitronellal, Linalool, Linalyl Acetate, Alpha Pinene, Terpineol. VCCR04-J25 ingredients listed may vary slightly from prod",
    "description": "a luscious curl cream that provides lightweight moisture, definition and frizz control for waves, curls and coils.",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
     "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/curl-cream.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--curl-conditioner",
@@ -535,7 +544,6 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "epais",
     "boucles"
    ],
    "actifs": [
@@ -549,9 +557,14 @@
    "ingredients": "Aqua/Water/Eau, Stearyl Alcohol, Cetyl Alcohol, Behentrimonium Chloride, Behentrimonium Methosulfate, Cetearyl Alcohol, Isopropyl Palmitate, Ricinus Communis (Castor) Seed Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Helianthus Annuus (Sunflower) Seed Oil, Helianthus Annuus (Sunflower) Seed Extract, Helianthus Annuus (Sunflower) Flower Extract, Helianthus Annuus (Sunflower) Sprout Extract, Hydroxypropyltrimonium Hydrolyzed Corn Starch, Glycerin, Ethylhexylglycerin, Panthenol, Polyquaternium-37, Propylene Glycol Dicaprylate/Dicaprate, Polyquaternium-55, PPG-1 Trideceth-6, C11-13 Isoalkane, Parfum/Fragrance, Cetrimonium Chloride, Steartrimonium Chloride, Guar Hydroxypropyltrimonium Chloride, Trisodium Ethylenediamine Disuccinate, Butylene Glycol, Caprylyl Glycol, Isopropyl Alcohol, Myristyl Alcohol, Arachidyl Alcohol, Citric Acid, Phenoxyethanol, Sodium Benzoate, Alpha Isomethyl Ionone, Benzyl Salicylate, Limonene, Hexyl Cinnamal, Hydroxycitronellal, Linalool, Linalyl Acetate. VCC02-J25 ingredients listed may vary slightly from",
    "description": "curl-enhancing conditioner that detangles, hydrates, and defines curls while keeping hair lightweight, frizz-free, and full of bounce.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/curl-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--curl-defining-mask",
@@ -580,10 +593,13 @@
    "ingredients": "Aqua/Water/Eau, Glycerin, Hydrogenated Farnesene, Hydroxypropyl Starch Phosphate, Heptyl Glucoside, Panthenol, Helianthus Annuus (Sunflower) Flower Extract, Helianthus Annuus (Sunflower) Sprout Extract, Helianthus Annuus (Sunflower) Seed Oil, Ricinus Communis (Castor) Seed Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Hippophae Rhamnoides Oil, Hydrogenated Castor Oil/Sebacic Acid Copolymer, Guar Hydroxypropyltrimonium Chloride, Polyquaternium-37, Hydroxypropylgluconamide, Hydroxypropylammonium Gluconate, Parfum/Fragrance, Cetrimonium Chloride, Citric Acid, Tartaric Acid, Benzyl Alcohol, Sodium Benzoate, Potassium Sorbate, Phenoxyethanol, Hydroxycitronellal, Limonene, Linalool. VCDM01-J25 ingredients listed may vary slightly from produ",
    "description": "a defining mask that provides rich moisture, curl definition, and increased curl pattern memory for plump, bouncy curls.",
    "claims": [
-    "hydratant",
-    "definition-boucles"
+    "hydratation",
+    "definition-boucles",
+    "volume"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/curl-defining-mask.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--glossy-shine-spray-with-heat-protection",
@@ -598,7 +614,9 @@
    "image_local": "public/scan/products-cheveux/verb/glossy-shine-spray-with-heat-protection.jpg",
    "categorie": "protection-thermique",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "niacinamide",
     "acide hyaluronique",
@@ -610,11 +628,13 @@
    "ingredients": "Aqua/Water/Eau, Trisiloxane, Coconut Alkanes, C14-22 Alcohols, Phenyl Trimethicone, Prunus Persica (Peach) Kernel Oil, Rosa Canina (Rose Hip) Fruit Oil, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Bakuchiol, Hydrolyzed Hyaluronic Acid, Sodium Hyaluronate, Lactic Acid, Squalane, Glycerin, Niacinamide, Amodimethicone, Parfum/Fragrance, Polysorbate 20, Xanthan Gum, Coco-Caprylate/Caprate, C12-20 Alkyl Glucoside, Quaternium-91, Cetearyl Alcohol, Sodium Laneth-40 Maleate/Styrene Sulfonate Copolymer, Trideceth-12, Ethylhexylglycerin, Polyacrylate Crosspolymer-6, Cetrimonium Chloride, Citric Acid, Glucose, Tribehenin, Hydrogenated Castor Oil/Sebacic Acid Copolymer, T-Butyl Alcohol, Caprylyl 2-Glyceryl Ascorbate, Cetrimonium Methosulfate, Sodium Benzoate, Potassium Sorbate, Phenoxyethanol, Acetyl Cedrene, Alpha-Isomethyl Ionone, Pinene, Amyl Salicylate, Benzyl Cinnamate, Benzyl Salicylate, Citronellol, Limonene, Geraniol, Hexyl Cinnamal, Hydroxycitronellal, Linalool, Linalyl Acetate, Terpineol. VGLSP03-M26 ingredients listed may vary slightly from pro",
    "description": "an extra moisturizing, multi-tasking high shine spray with heat protection up to 450°F/232°C.",
    "claims": [
-    "hydratant",
+    "hydratation",
     "brillance",
-    "protection-thermique"
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/glossy-shine-spray-with-heat-protection.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "verb--glossy-shampoo",
@@ -640,9 +660,12 @@
    "ingredients": "Aqua/Water/Eau, Sodium Lauroyl Methyl Isethionate, Lauryl Betaine, Sorbitol, PEG-7 Glyceryl Cocoate, Sodium Methyl Isethionate, Rosa Canina Fruit Oil, Hydrogenated Castor Oil/Sebacic Acid Copolymer, Prunus Persica (Peach) Kernel Oil, Tocopheryl Acetate, Phytic Acid, Squalane, Lactic Acid, Lauric Acid, Mannitol, Cellulose, Trideceth-12, Sodium Chloride, Amodimethicone, PEG-12 Dimethicone, Panthenol, Sodium Laurate, Guar Hydroxypropyltrimonium Chloride, Polyquaternium-10, Hydroxyethylcellulose, Ethylhexylglycerin, Cetrimonium Chloride, Sodium Acetate, Calcium Gluconate, Parfum/Fragrance, Isopropyl Alcohol, Gluconolactone, Sodium Benzoate, Phenoxyethanol, Hydroxycitronellal, Limonene, Linalool. VGLS04-J25 ingredients listed may vary slightly from produ",
    "description": "a rich shampoo that provides glass-like shine and frizz control for thick to coarse hair.",
    "claims": [
+    "anti-frisottis",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/glossy-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--glossy-conditioner",
@@ -658,6 +681,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "epais"
    ],
    "actifs": [
@@ -669,9 +693,13 @@
    "ingredients": "Aqua/Water/Eau, Glycerin, Stearyl Alcohol, Dimethicone, Cetyl Alcohol, Butyrospermum Parkii (Shea) Butter, Behentrimonium Chloride, Sorbitol, Amodimethicone, Stearamidopropyl Dimethylamine, Phenyl Trimethicone, PEG-7 Glyceryl Cocoate, Hydrogenated Castor Oil/Sebacic Acid Copolymer, Prunus Persica (Peach) Kernel Oil, Rosa Canina (Rose Hip) Fruit Oil, Hydrogenated Palm Oil, Hydrogenated Rapeseed Oil, Squalane, Mannitol, Ethylhexylglycerin, Citric Acid, Cetrimonium Chloride, Trideceth-12, Quaternium-80, Isopropyl Alcohol, Parfum/Fragrance, Hydroxyethylcellulose, Polyquaternium-67, Polyquaternium-10, Myristyl Alcohol, Propylene Glycol, Sodium Acetate, Sodium Chloride, Cellulose, Phenoxyethanol, Hydroxycitronellal, Limonene, Linalool. VGLC03-J25 ingredients listed may vary slightly from produ",
    "description": "a rich conditioner that provides glass-like shine and frizz control for thick to coarse hair.",
    "claims": [
+    "nutrition",
+    "anti-frisottis",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/glossy-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--bonding-shampoo",
@@ -686,7 +714,9 @@
    "image_local": "public/scan/products-cheveux/verb/bonding-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "abimes"
+   ],
    "actifs": [
     "acide maléique",
     "panthénol",
@@ -697,30 +727,13 @@
    "ingredients": "Aqua/Water/Eau, Glycerin, Cocamidopropyl Betaine, Disodium Laureth Sulfosuccinate, Sodium Lauroyl Sarcosinate, Sodium C14-16 Olefin Sulfonate, Laureth-3, PEG-120 Methyl Glucose Trioleate, Panthenol, Cocamide MEA, Glycol Distearate, Chondrus Crispus (Carrageenan) Extract, Ascophyllum Nodosum Extract, Laminaria Saccharina (Sugar Kelp) Extract, Palmaria Palmata (Dulse) Extract, Undaria Pinnatifida (Wakame) Extract, Trichilia Emetica Seed Butter, Aspergillus Ferment, Arginine, Xylitylglucoside, Anhydroxylitol, Xylitol, Sodium Methyl 2-Sulfolaurate, Sodium Lauryl Sulfoacetate, Propanediol, Parfum/Fragrance, Polyquaternium-7, Dimethicone PG-Diethylmonium Chloride, Polyquaternium-10, Gluconolactone, Butylene Glycol, Sodium Chloride, Silicone Quaternium-20, Sodium Sulfate, Lauric Acid, Xanthan Gum, Amodimethicone, Hydroxypropyl Guar Hydroxypropyltrimonium Chloride, Bis-4-PCA Dimethicone, Cetrimonium Chloride, Quaternium-80, Sarcosine, Trideceth-12, Linoleamidopropyl PG-Dimonium Chloride Phosphate Dimethicone, Disodium 2-Sulfolaurate, Hydroxypropylammonium Gluconate, Hydroxypropylgluconamide, Hexylene Glycol, Disodium PEG-12 Dimethicone Sulfosuccinate, Propylene Glycol, Isopropyl Alcohol, Maleic Acid, Citric Acid, Aminomethyl Propanol, Sodium Acetate, Potassium Sorbate, Sodium Benzoate, Calcium Gluconate, Benzyl Alcohol, Tartaric Acid, Dehydroacetic Acid, Limonene, Hexyl Cinnamal, Hydroxycitronellal, Linalool. VBS03-A23 ingredients listed may vary slightly from produc",
    "description": "a shampoo that helps relink broken bonds while strengthening strands for smoother, shinier and visibly healthier hair.",
    "claims": [
-    "lissant",
-    "fortifiant"
+    "reparation",
+    "fortifiant",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "verb--bucket-hat",
-   "name": "Bucket Hat",
-   "brand": "verb",
-   "brand_name": "Verb",
-   "url": "https://www.verbproducts.com/products/bucket-hat",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 13.8,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0045/9790/7545/files/verb_purple_bucket_hat.png?width=600",
-   "image_local": "public/scan/products-cheveux/verb/bucket-hat.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "a bucket hat made with high-quality cotton materials for maximum comfort and protection for your hair.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/bonding-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--ghost-air-dry-whip",
@@ -752,9 +765,12 @@
    "ingredients": "Aqua/Water/Eau, Caprylic/Capric Triglyceride, Glyceryl Stearate, Palmitic Acid, Stearic Acid, Argania Spinosa Kernel Oil, Moringa Oleifera Seed Oil, Camellia Sinensis Extract, Helianthus Annuus (Sunflower) Extract, Rosmarinus Officinalis (Rosemary) Leaf Extract, Ganoderma Lucidum (Mushroom) Stem Extract, Oryza Sativa (Rice) Bran Extract, Hydrolyzed Corn Protein, Hydrolyzed Soy Protein, Hydrolyzed Wheat Protein, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Glycerin, Panthenol, Squalane, Polyquaternium-10, Tocopherol, Tocopheryl Acetate, Ethylhexylglycerin, Carbomer, Hexylene Glycol, Caprylyl Glycol, Myristic Acid, Aminomethyl Propanol, Tetrasodium Glutamate Diacetate, Parfum/Fragrance, Phenoxyethanol, Potassium Sorbate, Disodium EDTA, Alpha Isomethyl Ionone, Benzyl Cinnamate, Benzyl Salicylate, Citronellol, Limonene, Geraniol, Hexyl Cinnamal, Hydroxycitronellal, Linalool. VGADW02-D23 ingredients listed may vary slightly from prod",
    "description": "An air dry cream for fine hair that softens, smooths, and lets your natural texture do the work.",
    "claims": [
-    "lissant"
+    "anti-frisottis",
+    "texturisant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/ghost-air-dry-whip.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--dry-shampoo",
@@ -767,9 +783,10 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0045/9790/7545/files/Verb_Dry_Shampoo_Dark_5oz_Packshot.jpg?width=600",
    "image_local": "public/scan/products-cheveux/verb/dry-shampoo.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
+    "gras",
     "colores"
    ],
    "actifs": [
@@ -778,7 +795,9 @@
    "ingredients": "Aqua/Water/Eau, Glycerin, Methoxycinnamidopropyl Hydroxysultaine, Magnesium Stearate, Stearic Acid, EDTA, Parfum/Fragrance, Sodium Chloride, Benzoic Acid, Cetrimonium Chloride, Phenoxyethanol, Iron Oxide (CI 77491, CI 77492, CI 77499), Butylphenyl Methylpropional, Alpha-isomethyl Ionone, Benzyl Salicylate, Limonene, Geraniol, Hydroxycitronellal, Linalool. VDSD01-G20 Light: Hydrofluorocarbon 152A, Butane, SD Alcohol 40-B (Alcohol Denat.), Oryza Sativa (Rice) Starch, Disiloxane, Punica Granatum (Pomegranate) Fruit Extract, Vaccinium Myrtillus (Bilberry) Fruit Extract, Zeolite, Aluminum Starch Octenylsuccinate, Diisopropyl Adipate, PVP, Disteardimonium Hectorite, Aqua/Water/Eau, Glycerin, Methoxycinnamidopropyl Hydroxysultaine, Magnesium Stearate, Stearic Acid, EDTA, Parfum/Fragrance, Sodium Chloride, Benzoic Acid, Cetrimonium Chloride, Phenoxyethanol, Violet 2 (CI 60725), Red 33 (CI 17200), Butylphenyl Methylpropional, Alpha-isomethyl Ionone, Benzyl Salicylate, Limonene, Geraniol, Hydroxycitronellal, Linalool. VDSL01-G20 ingredients listed may vary slightly from produ",
    "description": "refreshes hair, absorbs oil and odor, extends style and boosts body.dark formula is earth-toned to disappear in brown, red and darker hair colors. no benzene detected*light formula is tinted purple to disappear in blonde and lighter hair colors. no benzene detected**independent third-party test results: no benzene detected in formula down to 0.02 parts per million (ppm)",
    "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/dry-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--strong-finishing-hairspray",
@@ -793,14 +812,20 @@
    "image_local": "public/scan/products-cheveux/verb/strong-finishing-hairspray.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "pellicules"
+   ],
    "actifs": [
     "glycérine"
    ],
    "ingredients": "Aqua/Water/Eau, Glycerin, VP/Vinyl Caprolactam/DMAPA Acrylates Copolymer, Aminomethyl Propanol, Parfum/Fragrance, Disodium EDTA, Phenoxyethanol, Potassium Sorbate, Benzyl Salicylate, Limonene, Geranyl Acetate, Hydroxycitronellal, Vanillin. VSHS03NA-M24 ingredients listed may vary slightly from pro",
    "description": "a strong hairspray with maximum hold for all-day styles. this flake-free formula dries quickly and brushes out easily for a touchable finish without leaving any sticky residue.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "fixation"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/strong-finishing-hairspray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--forming-fiber",
@@ -815,9 +840,7 @@
    "image_local": "public/scan/products-cheveux/verb/forming-fiber.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [
     "panthénol",
     "huile de ricin",
@@ -826,8 +849,13 @@
    ],
    "ingredients": "Aqua/Water/Eau, Lanolin Wax, PEG-8 Beeswax, Glycerin, Polyquaternium-69, PEG-40 Hydrogenated Castor Oil, Hydrogenated Castor Oil, Glyceryl Behenate, Alcohol Denat., PEG-40 Castor Oil, Panthenol, Ethylhexylglycerin, Butylene Glycol, Lanolin Alcohol, Sodium Polyacrylate, Hydrogenated Polydecene, PEG-45M, Trideceth-6, Citric Acid, BHT, Carbomer, Sodium Hydroxide, Parfum/Fragrance, Phenoxyethanol, Butylphenyl Methylpropional, Hydroxyisohexyl 3-Cyclohexene Carboxaldehyde, Benzyl Cinnamate, Benzyl Salicylate, Citronellol, Geraniol, Hexyl Cinnamal, Hydroxycitronellal, Limonene, Linalool, Alpha Isomethyl Ionone. VFF02-Y25 ingredients listed may vary slight",
    "description": "provide firm hold to updos, short styles and edges for a sleek and frizz-free finish.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "anti-frisottis",
+    "fixation"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/forming-fiber.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--sculpting-clay",
@@ -843,7 +871,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "abimes"
    ],
    "actifs": [
     "kératine",
@@ -857,9 +885,14 @@
    "ingredients": "Aqua/Water/Eau, Petrolatum, Polyquaternium-69, Copernicia Cerifera Wax, Paraffin, Lanolin Alcohol, PVP, Cetearyl Alcohol, Argania Spinosa (Argan) Kernel Oil, Persea Gratissima (Avocado) Oil, Helianthus Annuus (Sunflower) Seed Extract, Oleanolic Acid, Hydrolyzed Keratin, PEG-40 Hydrogenated Castor Oil, Biotinoyl Tripeptide-1, Glycerin, Phenyl Trimethicone, Sodium Polyacrylate, Hydrogenated Polydecene, Sodium Hydroxymethylglycinate, Polysilicone-15, Parfum/Fragrance, Apigenin, Trideceth-6, C12-15 Alkyl Benzoate, Ceteareth-20, PPG-26-buteth-26, PEG-75 lanolin, Quaternium-95, Disodium EDTA, VP/VA Copolymer, Butylene Glycol, Propanediol, Ethylhexylglycerin, Ethylhexyl Methoxycinnamate, Propylene Glycol Dibenzoate, Sorbic Acid, Phenoxyethanol, DMDM Hydantoin, BHT, Benzyl Cinnamate, Benzyl Salicylate, Citronellol, Geraniol, Hexyl Cinnamal, Hydroxycitronellal, Butylphenyl Methylpropional, Limonene, Linalool, Hydroxyisohexyl 3-cyclohexene Carboxaldehyde, Alpha-isomethyl Ionone ingredients listed may vary slightly from p",
    "description": "a pliable pomade that provides firm hold, frizz control, natural texture and pliability to re-shape hair throughout the day while maintaining moisture.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "anti-frisottis",
+    "texturisant",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/sculpting-clay.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--purple-mask",
@@ -884,8 +917,12 @@
    ],
    "ingredients": "Aqua/Water/Eau, Dimethicone, Stearyl Alcohol, Cetyl Alcohol, Glycerin, Cetyl Esters, Behentrimonium Chloride, Dimethyl Isosorbide, Quaternium-80, Stearamidopropyl Dimethylamine, Amodimethicone, Arachidyl Alcohol, Panthenol, Isopropyl Myristate, Euterpe Oleracea Fruit Extract, Pelvetia Canaliculata Extract, Hydrogenated Palm Oil, Hydrogenated Rapeseed Oil, Glucose, PEG-12 Dimethicone, PEG-12 Allyl Ether, Ethylhexylglycerin, Trideceth-12, Cetrimonium Chloride, Arachidyl Glucoside, Xylitylglucoside, Anhydroxylitol, Maltitol, Xylitol, Polyquaternium-10, Polyquaternium-67, Hydroxypropylammonium Gluconate, Hydroxypropylgluconamide, Behenyl Alcohol, Isopropyl Alcohol, Myristyl Alcohol, Citric Acid, Parfum/Fragrance, Carnosine, Propylene Glycol, Caprylyl Glycol, Maltodextrin, Sodium Chloride, Sodium Acetate, Sodium Benzoate, Tartaric Acid, Benzyl Alcohol, Potassium Sorbate, Chlorphenesin, Phenoxyethanol, CI 60730 (Ext. Violet 2), Hydroxycitronellal, Limonene. VPM02-N23 ingredients listed may vary slightly from produc",
    "description": "a pro-grade violet pigment infused mask that deeply conditions, neutralizes brassy hues and enhances cool tones for blonde, highlighted, grey and silver hair.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "anti-jaunissement"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/purple-mask.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--purple-shampoo",
@@ -910,8 +947,12 @@
    ],
    "ingredients": "Aqua/Water/Eau, Sodium Lauroyl Methyl Isethionate, Glycerin, Lauryl Betaine, Glycol Distearate, Euterpe Oleracea Fruit Extract, Panthenol, Xanthan Gum, Xylitylglucoside, Decyl Glucoside, Anhydroxylitol, Xylitol, Maltodextrin, Linoleamidopropyl PG-Dimonium Chloride Phosphate Dimethicone, Amodimethicone, PEG-150 Distearate, PEG-12 Dimethicone, Dimethyl Isosorbide, Sorbeth-230 Tetraoleate, Polyquaternium-7, Polyquaternium-10, Quaternium-80, Trideceth-12, Gluconolactone, Hydroxypropylammonium Gluconate, Hydroxypropylgluconamide, Hydroxypropyl Guar Hydroxypropyltrimonium Chloride, Cetrimonium Chloride, Carnosine, Sorbitan Laurate, Propylene Glycol, Calcium Gluconate, Isopropyl Alcohol, Citric Acid, Parfum/Fragrance, Sodium Acetate, Sodium Chloride, Potassium Sorbate, Sodium Benzoate, Benzyl Alcohol, Dehydroacetic Acid, Tartaric Acid, CI 60730 (Ext. Violet 2), Hydroxycitronellal, Limonene, Linalool, Linalyl Acetate. VPS03-J25 ingredients listed may vary slightly fr",
    "description": "a pro-grade violet pigment-infused shampoo that neutralizes brassy hues and enhances cool tones in blonde, grey and silver hair.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "anti-jaunissement"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/purple-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--ghost-exfoliating-scalp-nectar",
@@ -926,7 +967,10 @@
    "image_local": "public/scan/products-cheveux/verb/ghost-exfoliating-scalp-nectar.jpg",
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "fins",
+    "cuir-chevelu-sensible"
+   ],
    "actifs": [
     "AHA",
     "biotine",
@@ -937,8 +981,12 @@
    ],
    "ingredients": "Aqua/Water/Eau, Propanediol, Glycerin, Urea, Lactobionic Acid, Cetrimonium Chloride, Citrus Grandis (Grapefruit) Extract, Epilobium Angustifolium Flower/Leaf/Stem Extract, Moringa Oleifera Seed Oil, Nymphaea Alba Flower Extract, Sea Whip Extract, Syringa Vulgaris (Lilac) Extract, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Biotin, Bisabolol, Anhydroxylitol, Glucose Oxidase, Glucose Pentaacetate, Maltodextrin, Xylitol, Xylitylglucoside, Caprylic/Capric Triglyceride, Tocopherol, Polyquaternium-10, Amodimethicone, Trideceth-12, Glycolic Acid, Sodium Hydroxide, Dipropylene Glycol, Propylene Glycol, Sodium Palmitoyl Proline, Sodium Acetate, Sodium Chloride, Carnosine, Butylene Glycol, Palmitic Acid, Caprylyl 2-Glyceryl Ascorbate, Pentylene Glycol, Sodium Metabisulfite, Disodium EDTA, Potassium Sorbate, Potassium Thiocyanate, Lactoferrin, Lactoperoxidase, Isopropyl Alcohol, Disodium Phosphate, Potassium Phosphate, BHT, Parfum/Fragrance, Ethylhexylglycerin, Phenoxyethanol, Amyl Cinnamyl, Benzyl Cinnamate, Benzyl Salicylate, Citral, Citronellol, Geraniol, Hexyl Cinnamyl, Hydroxycitronellal, Butylphenyl Methylpropional, Limonene, Linalool, Alpha-Isomethyl Ionone. VGSN01-Y21 ingredients listed may vary sligh",
    "description": "A weightless scalp serum that exfoliates and clarifies the scalp for healthier-looking hair.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "purifiant"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/ghost-exfoliating-scalp-nectar.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--ghost-mask",
@@ -954,8 +1002,7 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
-    "fins",
-    "epais"
+    "fins"
    ],
    "actifs": [
     "glycérine",
@@ -965,10 +1012,12 @@
    "ingredients": "Aqua/Water/Eau, Dimethicone, Stearyl Alcohol, Cetyl Alcohol, Glycerin, Cetyl Esters, Behentrimonium Chloride, Quaternium-80, Stearamidopropyl Dimethylamine, Amodimethicone, Isopropyl Myristate, Moringa Oleifera Seed Oil, Camellia Sinensis Leaf Extract, Pelvetia Canaliculata Extract, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Ethylhexylglycerin, PEG-12 Dimethicone, Xylitylglucoside, Anhydroxylitol, Xylitol, Maltitol, Polyquaternium-10, Polyquaternium-67, Trideceth-12, Propylene Glycol, Caprylyl Glycol, Myristyl Alcohol, Isopropyl Alcohol, Cetrimonium Chloride, Parfum/Fragrance, Citric Acid, Sodium Acetate, Sodium Chloride, Phenoxyethanol, Chlorphenesin, Sodium Benzoate, Potassium Sorbate, Hydroxycitronellal, Limonene, Linalool, Linalyl Acetate. VGM02-J25 ingredients listed may vary slightly from",
    "description": "A lightweight hair mask for fine hair that deeply conditions, smooths frizz, and adds shine; without the weight.",
    "claims": [
-    "brillance",
-    "lissant"
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/ghost-mask.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--ghost-flexible-hairspray",
@@ -990,8 +1039,12 @@
    ],
    "ingredients": "Aqua/Water/Eau, Moringa Oleifera Leaf Extract, Camellia Sinensis Leaf Extract, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Glycerin, VP/Vinyl Caprolactam/DMAPA Acrylates Copolymer, Aminomethyl Propanol, Parfum/Fragrance, Disodium EDTA, Phenoxyethanol, Potassium Sorbate, Acetyl Cedrene, Alpha Isomethyl Ionone, Amyl Salicylate, Benzyl Cinnamate, Benzyl Salicylate, Citronellol, Limonene, Geraniol, Hexyl Cinnamal,Hydroxycitronellal, Linalool, Linalyl Acetate, Alpha Pinene, Terpineol. VGHS04NA-J25 ingredients listed may vary slightly from pr",
    "description": "A lightweight, medium-hold flexible hairspray that holds your style in place all day, without adding crunch.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "fixation"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/ghost-flexible-hairspray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--ghost-primer",
@@ -1007,7 +1060,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "fins"
    ],
    "actifs": [
     "panthénol",
@@ -1020,10 +1073,12 @@
    "ingredients": "Aqua/Water/Eau, Disiloxane, Cetearyl Alcohol, VP/DMAPA Acrylates Copolymer, Polyquaternium-37, Crambe Abyssinica Seed Oil, Orbignya Oleifera Seed Oil, Moringa Oleifera Seed Oil, Glycine Soja (Soybean) Oil, Hydrogenated Castor Oil/Sebacic Acid Copolymer, Camellia Sinensis Leaf Extract, Hydrolyzed Quinoa, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Ethylhexylglycerin, Glycerin, Tocopherol, Panthenol, Dimethicone, Hydroxyethyl Cellulose, Dicaprylyl Carbonate, Polyquaternium-11, Glycol Distearate, Glyceryl Stearate, PEG-100 Stearate, Ceteareth-20, Propylene Glycol Dibenzoate, Propylene Glycol Dicaprylate/Dicaprate, Caprylyl Methicone, Lauryl Glucoside, PPG-1 Trideceth-6, Phytantriol, Propanediol, C11-13 Isoalkane, Parfum/Fragrance, Sodium Acetate, Isopropanol, Benzalkonium Chloride, Citric Acid, Disodium EDTA, Phenoxyethanol, Potassium Sorbate, Benzyl Alcohol, Sodium Benzoate, Acetyl Cedrene, Alpha Pinene, Alpha Isomethyl Ionone, Amyl Salicylate, Benzyl Cinnamate, Benzyl Salicylate, Citronellol, Citrus Aurantium Peel Oil, Citrus Limon Peel Oil, Limonene, Geraniol, Hexyl Cinnamal, Hydroxycitronellal, Linalool, Linalyl Acetate, Terpineol, Mentha Viridis Leaf Oil. VGP03-J25 ingredients listed may vary sligh",
    "description": "A weightless hair primer that smooths frizz and preps fine to medium hair before styling, with heat protection built in.",
    "claims": [
-    "lissant",
-    "protection-thermique"
+    "anti-frisottis",
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/ghost-primer.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--ghost-oil",
@@ -1039,16 +1094,18 @@
    "categorie": "huile",
    "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "fins"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "A lightweight hair oil that smooths frizz, tames flyaways, and adds shine, without weighing-down your hair.",
    "claims": [
-    "brillance",
-    "lissant"
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/ghost-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--ghost-conditioner",
@@ -1063,9 +1120,7 @@
    "image_local": "public/scan/products-cheveux/verb/ghost-conditioner.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [
     "panthénol",
     "protéines de riz",
@@ -1080,10 +1135,12 @@
    "ingredients": "Aqua/Water/Eau, Cetearyl Alcohol, Behentrimonium Methosulfate, Cetyl Alcohol, Helianthus Annuus (Sunflower) Seed Extract, Aloe Barbadensis Leaf Juice, Simmondsia Chinensis (Jojoba) Seed Oil, Moringa Oleifera Seed Oil, Theobroma Cacao (Cocoa) Seed Butter, Citrus Aurantium Dulcis (Orange) Fruit Extract, Citrus Limon (Lemon) Fruit Extract, Pyrus Malus (Apple) Fruit Extract, Camellia Sinensis Leaf Extract, Saccharum Officinarum (Sugarcane) Extract, Hydrolyzed Quinoa, Hydrolyzed Soy Protein, Hydrolyzed Rice Protein, Hydrogenated Castor Oil/Sebacic Acid Copolymer, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Ethylhexylglycerin, Panthenol, Stearamidopropyl Dimethylamine, Polysorbate 60, Tetrasodium Glutamate Diacetate, Behentrimonium Chloride, Cetrimonium Chloride, Parfum/Fragrance, Benzyl Alcohol, Citric Acid, Potassium Sorbate, Sodium Benzoate, Phenoxyethanol, Disodium EDTA, Hydroxycitronellal, Limonene. VGC04-Y23 ingredients listed may vary slightly from produc",
    "description": "A lightweight conditioner that uses moringa oil and antioxidant-rich green tea extract to smooth frizz, enhance shine, and improve manageability.",
    "claims": [
-    "brillance",
-    "lissant"
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/ghost-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--sea-spray",
@@ -1098,7 +1155,9 @@
    "image_local": "public/scan/products-cheveux/verb/sea-spray.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "boucles"
+   ],
    "actifs": [
     "huile de ricin",
     "glycérine",
@@ -1108,8 +1167,13 @@
    ],
    "ingredients": "Aqua/Water/Eau, Magnesium Sulfate, Hydrolyzed Quinoa, Camellia Sinensis (Green Tea) Leaf Extract, Macrocystis Pyrifera (Kelp) Extract, Avena Sativa (Oat) Meal Extract, Calluna Vulgaris Extract, Hippophae Rhamnoides Extract, Palmaria Palmata Extract, Prunus Amygdalus Dulcis (Sweet Almond) Seed Extract, Helianthus Annuus (Sunflower) Seed Extract, Parfum/Fragrance, Maris Sal/Sea Salt/Sel Marin, Glycerin, Polysorbate 20, Diazolidinyl Urea, PEG-40 Hydrogenated Castor Oil, Phenethyl Alcohol, Benzyl Alcohol, Caprylyl Glycol, Ethylhexylglycerin, Potassium Sorbate, Sodium Benzoate, Iodopropynyl Butylcarbamate, Phenoxyethanol, Limonene, Linalool. ingredients listed may vary slightly from products receive",
    "description": "a lightweight texturizing spray that takes landlocked hair to the beach for tousled, effortless waves.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "definition-boucles",
+    "texturisant"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/sea-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--volume-dry-texture-spray",
@@ -1133,9 +1197,13 @@
    "ingredients": "Aqua/Water/Eau, Glycerin, Diphenylsiloxy Phenyl Trimethicone, C12-15 Alkyl Benzoate, PEG/PPG-17/18 Dimethicone, Methoxycinnamidopropyl Hydroxysultaine, Acetyl Triethyl Citrate, Propanediol, Parfum/Fragrance, Benzoic Acid, Sodium Benzoate, Phenoxyethanol, Limonene, Hydroxycitronellal, Linalool. VVDTS03NA-A24 ingredients listed may vary slightly from pr",
    "description": "an award-winning volumizing formula that provides lived-in texture, fullness, grit and hold.",
    "claims": [
-    "volume"
+    "volume",
+    "texturisant",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/volume-dry-texture-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--volume-spray",
@@ -1165,7 +1233,9 @@
    "claims": [
     "volume"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/volume-spray.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "verb--volume-conditioner",
@@ -1194,10 +1264,13 @@
    "ingredients": "Aqua/Water/Eau, Cetyl Alcohol, PPG-3 Caprylyl Ether, Behentrimonium Chloride, Stearamidopropyl Dimethylamine, Cocos Nucifera (Coconut) Oil, Glycerin, Amaranthus Caudatus Seed Extract, Hibiscus Sabdariffa Flower Extract, Biotin, Panthenol, Ethylhexylglycerin, Polyimide-1, C11-13 Isoalkane, Polyquaternium-37, Polyquaternium-47, Propylene Glycol Dicaprylate/Dicaprate, Guar Hydroxypropyl Trimonium Chloride, PPG-1 Trideceth-6, Citric Acid, Parfum/Fragrance, Isopropyl Alcohol, Myristyl Alcohol, Stearyl Alcohol, Sodium Benzoate, Phenoxyethanol, Limonene, Hydroxycitronellal, Linalool. VVC02-A24 ingredients listed may vary slightly from produc",
    "description": "a volume-enhancing conditioner that provides full body. formulated with amaranth extract, hibiscus extract and biotin to weightlessly moisturize and detangle hair.",
    "claims": [
-    "hydratant",
-    "volume"
+    "hydratation",
+    "volume",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/volume-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--volume-shampoo",
@@ -1225,10 +1298,12 @@
    "ingredients": "Aqua/Water/Eau, Sodium C14-16 Olefin Sulfonate, Sodium Lauroyl Methyl Isethionate, Glycerin, Cocamidopropyl Betaine, Sodium Cocoyl Isethionate, PEG-120 Methyl Glucose Trioleate, Panthenol, PEG-7 Glyceryl Cocoate, Amaranthus Caudatus Seed Extract, Tilia Tomentosa Extract, Hibiscus Sabdariffa Flower Extract, Biotin, Xylitylglucoside, Anhydroxylitol, Xylitol, Guar Hydroxypropyltrimonium Chloride, PEG-12 Allyl Ether, PEG-12 Dimethicone, Parfum/Fragrance, Sodium Methyl 2-Sulfolaurate, Disodium 2-Sulfolaurate, Sodium Methyl Isethionate, Sodium Isethionate, Lauroyl/Myristoyl Methyl Glucamide, Calcium Gluconate, Gluconolactone, Propylene Glycol, Polyquaternium-7, Polyquaternium-10, Sodium Acetate, Sodium Laurate, Propanediol, Isopropyl Alcohol, Lauric Acid, Citric Acid, Sorbic Acid, Potassium Sorbate, Sodium Benzoate, Limonene, Hydroxycitronellal, Linalool. VVS05-A24 ingredients listed may vary slightly from produc",
    "description": "a body-boosting shampoo designed to gently cleanse hair and provide weightless lift. formulated with amaranth extract, hibiscus extract and biotin, this formula leaves hair voluminous and smooth.",
    "claims": [
-    "volume",
-    "lissant"
+    "anti-frisottis",
+    "volume"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/volume-shampoo.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "verb--hydrate-leave-in-conditioner",
@@ -1241,10 +1316,10 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0045/9790/7545/files/Hydrate_Leave-In_Conditioner_6.5oz_Packshot.jpg?width=600",
    "image_local": "public/scan/products-cheveux/verb/hydrate-leave-in-conditioner.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "secs"
    ],
    "actifs": [
     "panthénol",
@@ -1258,10 +1333,13 @@
    "ingredients": "Aqua/Water/Eau, Cetearyl Alcohol, Citrus Aurantium Dulcis (Orange) Fruit Extract, Citrus Limon (Lemon) Fruit Extract, Pyrus Malus (Apple) Fruit Extract, Saccharum Officinarum (Sugar Cane) Extract, Bambusa Vulgaris Extract, Camellia Sinensis Leaf Extract, Argania Spinosa Kernel Oil, Orbignya Oleifera Seed Oil, Moringa Oleifera Seed Oil, Hydrolyzed Quinoa, Ceramide NG, Anhydroxylitol, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Glycerin, Ethylhexylglycerin, Citric Acid, Saccharide Isomerate, Polyglyceryl-10 Caprylate, Xylityl Sesquicaprylate, Sorbitan Oleate Decylglucoside Crosspolymer, Polyacrylate-1 Crosspolymer, Silicone Quaternium-16, Panthenol, Parfum/Fragrance, Quaternium-91, Cetrimonium Methosulfate, Phenyl Trimethicone, Butyloctanol, Undeceth-5, Undeceth-11, Benzalkonium Chloride, Sodium Chloride, Sodium Citrate, Disodium EDTA, Methyl Palmitate, Benzyl Alcohol, Potassium Sorbate, Phenoxyethanol, Sodium Benzoate, Benzyl Salicylate, Hexamethylindanopyran, Vanillin. VHLC02-J25 ingredients listed may vary slightly from pro",
    "description": "a hydrating leave-in conditioner that hydrates, reduces frizz and detangles for smooth, silky hair.",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "anti-frisottis",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/hydrate-leave-in-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--hydrate-mask",
@@ -1277,7 +1355,7 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
-    "epais"
+    "secs"
    ],
    "actifs": [
     "huile d'argan",
@@ -1289,10 +1367,12 @@
    "ingredients": "Aqua/Water/Eau, Glycerin, Cetyl Alcohol, Behentrimonium Methosulfate, Dimethicone, Dioctyldodecyl Dodecanedioate, Olea Europaea Fruit Oil, Stearyl Alcohol, Cetrimonium Chloride, Cetearyl Alcohol, Glycol Palmitate, Argania Spinosa Kernel Oil, Orbignya Oleifera Seed Oil, Cetearyl Olivate, Sorbitan Olivate, Ceramide 3, Ceramide 2, Ethylhexylglycerin, Glucose, Hydroxyethylcellulose, Cellulose, Quaternium-87, Betaine, Guar Hydroxypropyltrimonium Chloride, Anhydroxylitol, Xylitol, Xylitylglucoside, Arachidyl Glucoside, Polyglyceryl-10 Pentastearate, Sodium Stearoyl Lactylate, Parfum/Fragrance, Citric Acid, Behenyl Alcohol, Arachidyl Alcohol, Myristyl Alcohol, Sodium Acetate, Phenoxyethanol, Benzyl Salicylate, Hexamethylindanopyran. VHM04-J25 ingredients listed may vary sligh",
    "description": "an intensely hydrating hair mask that hydrates and reduces frizz for soft, smooth hair.",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/hydrate-mask.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--hydrate-conditioner",
@@ -1308,7 +1388,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "epais"
+    "secs"
    ],
    "actifs": [
     "panthénol",
@@ -1320,10 +1400,13 @@
    "ingredients": "Aqua/Water/Eau, Stearyl Alcohol, Cetyl Alcohol, Behentrimonium Chloride, Behentrimonium Methosulfate, Cetearyl Alcohol, Isopropyl Palmitate, Pyrus Malus (Apple) Fruit Extract, Argania Spinosa (Argan) Kernel Oil, Orbignya Oleifera Seed Oil, Ceramide NP, Squalane, Ethylhexyl Olivate, Panthenol, Ethylhexylglycerin, Glycerin, Lauryl/Myristyl Polyricinoleate, C11-13 Isoalkane, Polyquaternium-37, Propylene Glycol Dicaprylate/Dicaprate, Trisodium Ethylenediamine Disuccinate, Guar Hydroxypropyltrimonium Chloride, Cetrimonium Chloride, Steartrimonium Chloride, PPG-1 Trideceth-6, Citric Acid, Parfum/Fragrance, Isopropyl Alcohol, Myristyl Alcohol, Arachidyl Alcohol, Sodium Benzoate, Phenoxyethanol, Benzyl Salicylate, Hexamethylindanopyran. VHC02-J25 ingredients listed may vary slightl",
    "description": "a hydrating conditioner that hydrates and reduces frizz for smooth, shiny hair.",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/hydrate-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "verb--ghost-shampoo",
@@ -1339,7 +1422,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "epais"
+    "fins"
    ],
    "actifs": [
     "panthénol",
@@ -1355,10 +1438,12 @@
    "ingredients": "Aqua/Water/Eau, Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Betaine, Cocamidopropyl Hydroxysultaine, Glycol Distearate, Cocamidopropylamine Oxide, Disodium Laureth Sulfosuccinate, Simmondsia Chinensis (Jojoba) Seed Oil, Moringa Oleifera Seed Oil, Saccharum Officinarum (Sugarcane) Extract, Citrus Aurantium Dulcis (Orange) Fruit Extract, Citrus Limon (Lemon) Fruit Extract, Pyrus Malus (Apple) Fruit Extract, Chamomilla Recutita (Matricaria) Flower Extract, Helianthus Annuus (Sunflower) Seed Extract, Lavandula Angustifolia (Lavender) Flower/Leaf/Stem Extract, Rosa Centifolia Flower Extract, Camellia Sinensis Leaf Extract, Aloe Barbadensis Leaf Juice, Cocodimonium Hydroxypropyl Hydrolyzed Rice Protein, Hydrolyzed Quinoa, Hydrolyzed Soy Protein, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Panthenol, Ethylhexylglycerin, Glycerin, Citric Acid, Sodium Lauroyl Sarcosinate, Sodium Sarcosinate, PPG-2 Hydroxyethyl Coco/Isostearamide, Parfum/Fragrance, Sodium Lauryl Sulfoacetate, Glyceryl Oleate, Guar Hydroxypropyltrimonium Chloride, Laureth-4, Sodium Chloride, Sodium Sulfate, Coco-Glucoside, Silicone Quaternium-8, Polyquaternium-7, Laureth-3, Tetrasodium Glutamate Diacetate, Polyquaternium-44, Xylityl Sesquicaprylate, Sodium Laurate, Sodium Benzoate, Benzoic Acid, Anhydroxylitol, Disodium EDTA, Phenoxyethanol, EDTA, Benzyl Alcohol, Potassium Sorbate, Hydroxycitronellal, Limonene. VGS03-J25 ingredients listed may vary slightly from produc",
    "description": "A lightweight cleansing shampoo that smooths frizz and promotes shine, leaving fine to medium hair feeling soft.",
    "claims": [
-    "brillance",
-    "lissant"
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/verb/cutout/ghost-shampoo.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

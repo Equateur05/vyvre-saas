@@ -3,50 +3,20 @@
  "brand_name": "Percy & Reed",
  "products": [
   {
-   "id": "percy-and-reed--london-fashion-week-styling-essentials-save-50-off",
-   "name": "London Fashion Week Styling Essentials",
-   "brand": "percy-and-reed",
-   "brand_name": "Percy & Reed",
-   "url": "https://www.percyandreed.com/products/london-fashion-week-styling-essentials-save-50-off",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 7195.0,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0107/1779/0304/files/stylist-kitbag-essentials-packshot_2.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/percy-and-reed/london-fashion-week-styling-essentials-save-50-off.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [
-    "fins",
-    "epais"
-   ],
-   "actifs": [
-    "panthénol",
-    "acide hyaluronique",
-    "glycérine",
-    "huile de tournesol",
-    "acide citrique"
-   ],
-   "ingredients": "Aqua (Water), Butane, VP/VA copolymer, Propane, Isobutane, Polysorbate-20, Cocamidopropylamine oxide, Phenoxyethanol (and) Iodopropynyl Butylcarbamate, Polyquaternium-16, Parfum, Quaternium-52, Benzophenone-4, Linalool. Heat Protect Spray: Alcohol Denat., Aqua, Parfum, Panthenol, Fructose, Propylene Glycol, Butylene Glycol, Pentylene Glycol, Glycerin, Sodium Citrate, Camellia Senensis Leaf Extract, Caesalpinia Spinosa Fruit Pod Extract, Citric Acid, Phenoxyethanol, Sodium Hyaluronate, Helianthus Annuus (Sunflower) Sprout Extract, Polyporus Umbellatus (Mushroom) Extract, Sodium Benzoate, Carvone, Hexamethylindanopyran, Limonene, Linalool, Mentha Virdis Leaf Oil. Flexible Hold Hairspray: Alcohol Denat., Butane, Propane, Isobutane, Octylacrylamide/Acrylates/Butylaminoethyl Methacrylate Copolymer, Aqua (Water), Polyurethane-14, AMP-Acrylates Copolymer, Aminomethyl Propanol, Cetearyl Ethylhexanoate, Panthenol, Parfum, Linalool. Wonder Balm Hair Primer: Aqua (Water), Polyacrylate-13, Polyimide-1, Polysorbate 20, Phenoxyethanol, Polyisobutene, PPG-2 Myristyl Ether Propionate, Myristyl Alcohol, Panthenol, Parfum (Fragrance), PEG-8 Stearate, Potassium Sorbate, Tocopheryl Acetate, Sorbitan Isostearate, Citric Acid. Volumising No Oil Oil: This serum is infused with one",
-   "description": "This September, in celebration of London Fashion Week, we're offering Percy's kit bag favourites with a saving of 50%, worth £120, now £60. Featuring everything you need for salon-worthy style, this must-have collection for all hair types features x5 full-size stylers. Wonder Balm Hair Primer (75ml): Meet our global no.1 bestseller, this award-winning hair primer is the step you need in your regime for flawless results every time. Laboratory proven to protect from frizz and humidity for up to 72",
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
    "id": "percy-and-reed--volumising-no-oil-oil-120ml",
    "name": "Volumising No Oil Oil 120ml",
    "brand": "percy-and-reed",
    "brand_name": "Percy & Reed",
    "url": "https://www.percyandreed.com/products/percy-and-reed-smoothed-sensational-volumising-no-oil-oil-for-fine-hair",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 2700.0,
+   "price_eur": 27.0,
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0107/1779/0304/files/Percy_Reed_VolumisingNoOilOil120ml_Front_LidOn_JPEG_Hires.jpg?width=600",
    "image_local": "public/scan/products-cheveux/percy-and-reed/volumising-no-oil-oil-120ml.jpg",
    "categorie": "huile",
    "etape": 3,
    "cheveux_cibles": [
-    "fins",
-    "epais"
+    "fins"
    ],
    "actifs": [
     "panthénol",
@@ -57,11 +27,17 @@
    "ingredients": "Aqua (Water), Alcohol Denat., PEG-40 Hydrogenated Castor Oil, PEG-12 Dimethicone, Phenoxyethanol, Parfum (Fragrance), Acrylates/Beheneth-25 Methacrylate Copolymer, Polyquaternium-68, Hydroxyethylcellulose, Polyquaternium-4, Ethylhexylglycerin, Disodium EDTA, Panthenol, Hydrolyzed Wheat Protein PG-Propyl Silanetriol, Glycerin, Sodium Hydroxide, Viola Odorata (Violet) Leaf Extract, Potassium Sorbate, Sodium Benzoate",
    "description": "VOLUMISING: Pro vitamin B5, wheat protein and violet leaf extract help to build body at the roots and provide hold to give voluminous results. SMOOTHING: Improves hair texture and imparts gloss without residue or greasiness, whilst boosting the hair's resistance to frizz and humidity. PROTECTION: Helps to control static and protect the hair from heat damage when styling.",
    "claims": [
+    "fortifiant",
+    "anti-frisottis",
     "volume",
-    "lissant",
-    "fortifiant"
+    "texturisant",
+    "brillance",
+    "protection-chaleur",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/percy-and-reed/cutout/volumising-no-oil-oil-120ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "percy-and-reed--turn-up-the-volume-volumising-shampoo-250ml-1",
@@ -70,14 +46,15 @@
    "brand_name": "Percy & Reed",
    "url": "https://www.percyandreed.com/products/turn-up-the-volume-volumising-shampoo-250ml-1",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 3095.0,
+   "price_eur": 30.95,
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0107/1779/0304/files/Percy_Reed_TurnUpTheVolume_VolumisingShampoo250ml_FOP_1200px_6e8b03b6-0e4b-4e31-b2e7-784714ff3f82.png?width=600",
    "image_local": "public/scan/products-cheveux/percy-and-reed/turn-up-the-volume-volumising-shampoo-250ml-1.jpg",
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "fins"
+    "fins",
+    "abimes"
    ],
    "actifs": [
     "kératine",
@@ -91,10 +68,14 @@
    "ingredients": "Aqua (Water), Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Hydroxysultaine, Betaine, Glycerin, Sodium Methyl Oleoyl Taurate, Parfum (Fragrance), Sodium Chloride, Coco-Glucoside, Panthenol, Citric Acid, Sodium Benzoate, Guar Hydroxypropyltrimonium Chloride, Melissa Officinalis Leaf Extract, Keratin Amino Acids, Disodium EDTA, Polyquaternium-11, Tocopheryl Acetate, Polyquaternium-10, Sodium Hydroxide, Polyquaternium-7, PEG-150 Pentaerythrityl Tetrastearate, Persea Gratissima (Avocado) Oil, PEG-6 Caprylic/Capric Glycerides, Camellia Sinensis Leaf Extract, 1,2-Hexanediol, Potassium Sorbate, Biosaccharide Gum-4, Sodium Acetate, EDTA, Isopropyl Alcohol",
    "description": "VOLUMISING: The silicone-free shampoo creates the perfect foundation for fuller hair, cleansing weightlessly and without residue for long-lasting volume. THICKENING: A blend of amplifying ingredients leave locks light, lifted and full of volume. Pro vitamin B5 works to thicken the hair from within and improve condition for healthier looking hair. CARING: The expert formula features avocado oil, green tea extract and lemon balm to weightlessly nourish the hair, whilst protecting from heat, humidi",
    "claims": [
-    "nourrissant",
-    "volume"
+    "nutrition",
+    "volume",
+    "protection-chaleur",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/percy-and-reed/cutout/turn-up-the-volume-volumising-shampoo-250ml-1.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "percy-and-reed--give-me-strength-strengthening-conditioner-50ml",
@@ -103,13 +84,15 @@
    "brand_name": "Percy & Reed",
    "url": "https://www.percyandreed.com/products/give-me-strength-strengthening-conditioner-50ml",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 1195.0,
+   "price_eur": 11.95,
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0107/1779/0304/files/givemestrengthstrengtheningconditioner50ml1200px.jpg?width=600",
    "image_local": "public/scan/products-cheveux/percy-and-reed/give-me-strength-strengthening-conditioner-50ml.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "fins",
+    "abimes",
     "chute"
    ],
    "actifs": [
@@ -127,11 +110,15 @@
    "ingredients": "Aqua (Water), Cetearyl Alcohol, Betaine, C15-19 Alkane, Behentrimonium Chloride, Cetyl Esters, Glycerin, Vitis Vinifera (Grape) Seed Oil, Cocos Nucifera (Coconut) Oil, Aloe Barbadensis Leaf Juice, Glycolic Acid, Isopropyl Alcohol, Polyquaternium-37, Hydrolyzed Lupine Protein, Caffeine, Camellia Oleifera Seed Oil, Glycereth-26, Olea Europaea (Olive) Fruit Oil, Panthenol, Sodium Benzoate, Limonene, Guar Hydroxypropyltrimonium Chloride, Cetrimonium Chloride, Hydrolyzed Wheat Protein, Laurdimonium Hydroxypropyl Hydrolyzed Keratin, Tocopheryl Acetate, Citrus Aurantium Dulcis (Orange) Peel Oil, Citrus Paradisi (Grapefruit) Peel Oil, Sodium Hydroxide, Niacinamide, Zinc PCA, Pelargonium Graveolens Oil, Hydrolyzed Wheat Starch, Rosmarinus Officinalis (Rosemary) Leaf Oil, Phenoxyethanol, Citronellol, Geraniol, Potassium Sorbate, Citric Acid, Ethylhexylglycerin",
    "description": "Our dermatologically tested and laboratory proven treatment conditioner leaves hair 68% stronger after just one use, when paired with Give Me Strength Strengthening Shampoo and Scalp Concentrate. HAIR GROWTH: Active ingredients Sweet White Lupine and Rosemary Oil encourages cell metabolism and circulation at scalp level, boosting new hair growth, whilst blocking the hormone responsible for hair loss (androgenic alopecia). HAIR DENSITY: The keratin-rich formula harnesses wheat proteins and vitami",
    "claims": [
+    "fortifiant",
     "volume",
+    "densifiant",
     "anti-chute",
-    "fortifiant"
+    "croissance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/percy-and-reed/cutout/give-me-strength-strengthening-conditioner-50ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "percy-and-reed--wonder-oil-elixir-drops",
@@ -140,14 +127,14 @@
    "brand_name": "Percy & Reed",
    "url": "https://www.percyandreed.com/products/wonder-oil-elixir-drops",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 4095.0,
+   "price_eur": 40.95,
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0107/1779/0304/files/1200-wonder-elixir-front.jpg?width=600",
    "image_local": "public/scan/products-cheveux/percy-and-reed/wonder-oil-elixir-drops.jpg",
    "categorie": "huile",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "colores",
     "abimes"
    ],
@@ -160,12 +147,17 @@
    "ingredients": "INGREDIENTS: C13-15 Alkane, Dimethicone, Isododecane, Trisiloxane, Propylene Glycol Dibenzoate, Parfum (Fragrance), Camellia Oleifera Seed Oil, Macadamia Ternifolia Seed Oil, Phytantriol, Tocopherol, Tetramethyl Acetyloctahydronaphthalenes, Rosmarinus Officinalis (Rosemary) Leaf Oil, Helianthus Annuus (Sunflower) Seed Oil, Beta-Carotene, Daucus Carota Sativa (Carrot) Root Extract, Daucus Carota Sativa (Carrot) Seed Oil, Ascorbyl Palmitate",
    "description": "Frizz control, and Heat Protection Improvement: Thermal protection up to 450ºF / 232ºC, boosts shine and makes hair easier to comb and reduced fly-aways, Hair colour protection, Restores damaged hair, Able to penetrate hair to make it thicker/fuller. LexFeel® Shine imparts shine and gloss whilst Vitamin E is an anti-oxidant included to support the stability of the formulation. Moisturising & Hydrating: Deeply moisturising, helping to hydrate and nourish the hair. It forms a protective barrier, p",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "anti-frisottis",
+    "volume",
     "brillance",
-    "protection-thermique"
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/percy-and-reed/cutout/wonder-oil-elixir-drops.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "percy-and-reed--volumising-dry-shampoo-300ml",
@@ -174,13 +166,14 @@
    "brand_name": "Percy & Reed",
    "url": "https://www.percyandreed.com/products/volumising-dry-shampoo-300ml",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 4295.0,
+   "price_eur": 42.95,
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0107/1779/0304/files/Volumising_Dry_Shampoo_300ml_front_1200px.jpg?width=600",
    "image_local": "public/scan/products-cheveux/percy-and-reed/volumising-dry-shampoo-300ml.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
+    "gras",
     "fins",
     "colores"
    ],
@@ -188,9 +181,12 @@
    "ingredients": "Butane, Propane, Isobutane, Alcohol Denat., Aluminium Starch Octenyl Succinate, Parfum, Betaine, Linalool",
    "description": "CLEANSING: Suitable for all hair types and colours, the ultra-fine cornflour powder works to clean the hair and absorb oils, without leaving any white, chalky residue. VOLUMISING: Root boosting formula builds volume and adds texture to rejuvenate styles and leave hair looking cleansed and full. REFRESHING: Our bespoke fine fragrance leaves locks smelling beautifully fresh and odour-free.",
    "claims": [
-    "volume"
+    "volume",
+    "texturisant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/percy-and-reed/cutout/volumising-dry-shampoo-300ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "percy-and-reed--wonder-balm-hair-primer",
@@ -199,14 +195,14 @@
    "brand_name": "Percy & Reed",
    "url": "https://www.percyandreed.com/products/wonder-balm-hair-primer",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 2895.0,
+   "price_eur": 28.95,
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0107/1779/0304/files/ineedaherowonderbalmhairprimer75ml1200px.png?width=600",
    "image_local": "public/scan/products-cheveux/percy-and-reed/wonder-balm-hair-primer.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "fins"
    ],
    "actifs": [
     "panthénol",
@@ -214,8 +210,12 @@
    ],
    "ingredients": "Aqua (Water), Polyacrylate-13, Polyimide-1, Polysorbate 20, Phenoxyethanol, Polyisobutene, PPG-2 Myristyl Ether Propionate, Myristyl Alcohol, Panthenol, Parfum (Fragrance), PEG-8 Stearate, Potassium Sorbate, Tocopheryl Acetate, Sorbitan Isostearate, Citric Acid",
    "description": "HAIR PERFECTOR: Inspired by skincare, our innovative hair primer refines the surface of every hair strand, sealing the cuticle and concealing irregularities for healthy looking, well-behaved hair. 72 HOURS FRIZZ PROTECTION: Laboratory proven to give continuous protection from frizz and humidity for up to 72 hours. PRE-STYLER: Leave-in balm creates a weightless base for styling, elevating the performance of subsequent products for improved, longer-lasting results.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "anti-frisottis"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/percy-and-reed/cutout/wonder-balm-hair-primer.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "percy-and-reed--percy-reed-turn-up-the-volume-volumising-shampoo-50ml",
@@ -224,7 +224,7 @@
    "brand_name": "Percy & Reed",
    "url": "https://www.percyandreed.com/products/percy-reed-turn-up-the-volume-volumising-shampoo-50ml",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 1095.0,
+   "price_eur": 10.95,
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0107/1779/0304/files/turnupthevolumevolumisingshampoo50mlfront1200px.png?width=600",
    "image_local": "public/scan/products-cheveux/percy-and-reed/percy-reed-turn-up-the-volume-volumising-shampoo-50ml.jpg",
@@ -233,14 +233,20 @@
    "cheveux_cibles": [
     "fins"
    ],
-   "actifs": [],
+   "actifs": [
+    "avocat"
+   ],
    "ingredients": null,
    "description": "VOLUMISING: The silicone-free shampoo creates the perfect foundation for fuller hair, cleansing weightlessly and without residue for long-lasting volume. THICKENING: A blend of amplifying ingredients leave locks light, lifted and full of volume. Pro vitamin B5 works to thicken the hair from within and improve condition for healthier looking hair. CARING: The expert formula features avocado oil, green tea extract and lemon balm to weightlessly nourish the hair, whilst protecting from heat, humidi",
    "claims": [
-    "nourrissant",
-    "volume"
+    "nutrition",
+    "volume",
+    "protection-chaleur",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/percy-and-reed/cutout/percy-reed-turn-up-the-volume-volumising-shampoo-50ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "percy-and-reed--wonder-conditioner-50ml",
@@ -249,7 +255,7 @@
    "brand_name": "Percy & Reed",
    "url": "https://www.percyandreed.com/products/wonder-conditioner-50ml",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 1195.0,
+   "price_eur": 11.95,
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0107/1779/0304/files/ineedaherowonderconditioner50mlfront1200px.png?width=600",
    "image_local": "public/scan/products-cheveux/percy-and-reed/wonder-conditioner-50ml.jpg",
@@ -260,7 +266,9 @@
    "ingredients": null,
    "description": "Discover the effortless way to seriously good hair with cutting edge hair care & styling products from London’s A-list hairdressers.",
    "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/percy-and-reed/cutout/wonder-conditioner-50ml.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "percy-and-reed--wonder-shampoo-50ml",
@@ -269,7 +277,7 @@
    "brand_name": "Percy & Reed",
    "url": "https://www.percyandreed.com/products/wonder-shampoo-50ml",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 1195.0,
+   "price_eur": 11.95,
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0107/1779/0304/files/ineedaherowondershampoo50mlfront1200px.png?width=600",
    "image_local": "public/scan/products-cheveux/percy-and-reed/wonder-shampoo-50ml.jpg",
@@ -280,7 +288,9 @@
    "ingredients": null,
    "description": "Discover the effortless way to seriously good hair with cutting edge hair care & styling products from London’s A-list hairdressers.",
    "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/percy-and-reed/cutout/wonder-shampoo-50ml.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "percy-and-reed--turn-up-the-volume-volumising-conditioner-50ml",
@@ -289,7 +299,7 @@
    "brand_name": "Percy & Reed",
    "url": "https://www.percyandreed.com/products/turn-up-the-volume-volumising-conditioner-50ml",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 1095.0,
+   "price_eur": 10.95,
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0107/1779/0304/files/turnupthevolumevolumisingconditioner50mlfront1200px.jpg?width=600",
    "image_local": "public/scan/products-cheveux/percy-and-reed/turn-up-the-volume-volumising-conditioner-50ml.jpg",
@@ -311,10 +321,16 @@
    "ingredients": "Aqua (Water), Cetearyl Alcohol, Betaine, C15-19 Alkane, Behentrimonium Chloride, Cetyl Esters, Glycerin, Vitis Vinifera (Grape) Seed Oil, Parfum (Fragrance), Cocos Nucifera (Coconut) Oil, Isopropyl Alcohol, Butylene Glycol, Argania Spinosa Kernel Oil, Glycereth-26, Glyceryl Stearate SE, Panthenol, Polyquaternium-37, Propylene Glycol Dibenzoate, Sodium Benzoate, Guar Hydroxypropyltrimonium Chloride, Cetrimonium Chloride, Tocopheryl Acetate, Benzophenone-4, Phytantriol, Niacinamide, Citric Acid, Aloe Barbadensis Leaf Juice, Calcium Pantothenate, Maltodextrin, Sodium Starch Octenylsuccinate, Helianthus Annuus (Sunflower) Seed Extract, Sodium Ascorbyl Phosphate, Crambe Maritima Leaf Extract, Pyridoxine HCl, Silica",
    "description": "SALON QUALITY: The expert formula features avocado oil, green tea extract and lemon balm to weightless nourish the hair, whilst protecting from heat, humidity and pollution. VOLUMISING: The silicone-free conditioner creates the perfect foundation for fuller hair, weightlessly nourishes and without residue for long-lasting volume. THICKENING: Pro vitamin B5 works to thicken the hair from within and improve condition for healthier looking hair, building volume and boosting roots for a voluminous f",
    "claims": [
-    "nourrissant",
-    "volume"
+    "nutrition",
+    "anti-frisottis",
+    "volume",
+    "protection-chaleur",
+    "anti-pollution",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/percy-and-reed/cutout/turn-up-the-volume-volumising-conditioner-50ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "percy-and-reed--flexible-hold-hairspray-250ml",
@@ -323,7 +339,7 @@
    "brand_name": "Percy & Reed",
    "url": "https://www.percyandreed.com/products/flexible-hold-hairspray-250ml",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 2895.0,
+   "price_eur": 28.95,
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0107/1779/0304/files/sessionstyleflexholdhairspray250mlfronthiresv3.jpg?width=600",
    "image_local": "public/scan/products-cheveux/percy-and-reed/flexible-hold-hairspray-250ml.jpg",
@@ -333,8 +349,12 @@
    "actifs": [],
    "ingredients": null,
    "description": "Discover the effortless way to seriously good hair with cutting edge hair care & styling products from London’s A-list hairdressers.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "fixation"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/percy-and-reed/cutout/flexible-hold-hairspray-250ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "percy-and-reed--percy-and-reed-give-me-strength-strengthening-shampoo",
@@ -343,13 +363,14 @@
    "brand_name": "Percy & Reed",
    "url": "https://www.percyandreed.com/products/percy-and-reed-give-me-strength-strengthening-shampoo",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 3100.0,
+   "price_eur": 31.0,
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0107/1779/0304/files/1200_x_1200_Strengthening_Shampoo_-_Packshot.png?width=600",
    "image_local": "public/scan/products-cheveux/percy-and-reed/percy-and-reed-give-me-strength-strengthening-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "fins",
     "abimes",
     "chute"
    ],
@@ -366,13 +387,18 @@
     "romarin"
    ],
    "ingredients": "Aqua (Water), Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Hydroxysultaine, Betaine, Glycerin, Coco-Glucoside, Sodium Methyl Oleoyl Taurate, Sodium Chloride, Aloe Barbadensis Leaf Juice, Glycolic Acid, Hydrolyzed Lupine Protein, Sodium Benzoate, Caffeine, Panthenol, Limonene, Sodium Hydroxide, Citrus Aurantium Dulcis (Orange) Peel Oil, Citrus Paradisi (Grapefruit) Peel Oil, Hydrolyzed Wheat Protein, Guar Hydroxypropyltrimonium Chloride, Polyquaternium-10, Keratin Amino Acids, Disodium EDTA, Niacinamide, Pelargonium Graveolens Oil, Tocopheryl Acetate, Zinc PCA, Polyquaternium-7, Hydrolyzed Wheat Starch, PEG-150 Pentaerythrityl Tetrastearate, Rosmarinus Officinalis (Rosemary) Leaf Oil, Citronellol, PEG-6 Caprylic/Capric Glycerides, Phenoxyethanol, Geraniol, Linalool, Potassium Sorbate, Ethylhexylglycerin, Sodium Acetate, Citric Acid, EDTA, Isopropyl Alcohol",
-   "description": "Our dermatologically tested and laboratory proven treatment shampoo leaves hair 68% stronger after just one use, when paired with Give Me Strength Strengthening Conditioner and Scalp Concentrate. HAIR GROWTH: Active ingredients Sweet White Lupine and Rosemary Oil encourages cell metabolism and circulation at scalp level, boosting new hair growth, whilst blocking the hormone responsible for hair loss (androgenic alopecia). HAIR DENSITY: The keratin-rich formula harnesses wheat proteins and amino ",
+   "description": "Our dermatologically tested and laboratory proven treatment shampoo leaves hair 68% stronger after just one use, when paired with Give Me Strength Strengthening Conditioner and Scalp Concentrate. HAIR GROWTH: Active ingredients Sweet White Lupine and Rosemary Oil encourages cell metabolism and circulation at scalp level, boosting new hair growth, whilst blocking the hormone responsible for hair loss (androgenic alopecia). HAIR DENSITY: The keratin-rich formula harnesses wheat proteins and amino",
    "claims": [
+    "reparation",
+    "fortifiant",
     "volume",
+    "densifiant",
     "anti-chute",
-    "fortifiant"
+    "croissance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/percy-and-reed/cutout/percy-and-reed-give-me-strength-strengthening-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "percy-and-reed--smoothing-blow-dry-cream",
@@ -381,15 +407,13 @@
    "brand_name": "Percy & Reed",
    "url": "https://www.percyandreed.com/products/smoothing-blow-dry-cream",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 2700.0,
+   "price_eur": 27.0,
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0107/1779/0304/files/BDC_dc219e19-f0eb-4e47-8d55-0dfde0fdd3d3.jpg?width=600",
    "image_local": "public/scan/products-cheveux/percy-and-reed/smoothing-blow-dry-cream.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [
     "panthénol",
     "protéines de blé",
@@ -398,10 +422,12 @@
    "ingredients": "Aqua (Water), Camellia Oleifera Seed Oil, Glyceryl Stearate, PEG-100 Stearate, Polyacrylamide, VP/VA Copolymer, Amodimethicone, Phenoxyethanol, Coco-Glucoside, C13-14 Isoparaffin, Parfum (Fragrance), Coconut Alcohol, Sodium Hydroxide, Hydrolyzed Wheat Protein, Panthenol, Butylene Glycol, Laureth-7, Benzoic Acid, Polyquaternium-11, Cetrimonium Chloride, Trideceth-15, Trideceth-3, Dehydroacetic Acid, Helianthus Annuus (Sunflower) Seed Extract, Hydrolyzed Wheat Starch, Tetrasodium EDTA, Potassium Sorbate, Acetic Acid",
    "description": "SMOOTHING: Conditioning ingredients, including sunflower seed extract and camellia seed oil, tame unruly hair and conceal flaws for a beautiful, salon style blow dry. ANTI-FRIZZ: Laboratory proven to shield hair from frizz and humidity for up to 72 hours, this hair tamer keeps locks sleek, silky and well-behaved. PROTECTION: Expert ingredients give heat protection, as well as defending hair from UV damage.",
    "claims": [
-    "lissant",
-    "protection-thermique"
+    "anti-frisottis",
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/percy-and-reed/cutout/smoothing-blow-dry-cream.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "percy-and-reed--percy-reed-turn-up-the-volume-volumising-shampoo",
@@ -410,14 +436,15 @@
    "brand_name": "Percy & Reed",
    "url": "https://www.percyandreed.com/products/percy-reed-turn-up-the-volume-volumising-shampoo",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 3095.0,
+   "price_eur": 30.95,
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0107/1779/0304/files/Volumising_Shampoo_250ml_Front_1200px_PNG.png?width=600",
    "image_local": "public/scan/products-cheveux/percy-and-reed/percy-reed-turn-up-the-volume-volumising-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "fins"
+    "fins",
+    "abimes"
    ],
    "actifs": [
     "kératine",
@@ -431,10 +458,16 @@
    "ingredients": "Aqua (Water), Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Hydroxysultaine, Betaine, Glycerin, Sodium Methyl Oleoyl Taurate, Parfum (Fragrance), Sodium Chloride, Coco-Glucoside, Panthenol, Citric Acid, Sodium Benzoate, Guar Hydroxypropyltrimonium Chloride, Melissa Officinalis Leaf Extract, Keratin Amino Acids, Disodium EDTA, Polyquaternium-11, Tocopheryl Acetate, Polyquaternium-10, Sodium Hydroxide, Polyquaternium-7, PEG-150 Pentaerythrityl Tetrastearate, Persea Gratissima (Avocado) Oil, PEG-6 Caprylic/Capric Glycerides, Camellia Sinensis Leaf Extract, 1,2-Hexanediol, Potassium Sorbate, Biosaccharide Gum-4, Sodium Acetate, EDTA, Isopropyl Alcohol",
    "description": "SALON QUALITY: The expert formula features avocado oil, green tea extract and lemon balm to weightlessly nourish the hair, whilst protecting from heat, humidity and pollution. VOLUMISING: The silicone-free shampoo creates the perfect foundation for fuller hair, cleansing weightlessly and without residue for long-lasting volume. THICKENING: A blend of amplifying ingredients leave locks light, lifted and full of volume. Pro vitamin B5 works to thicken the hair from within and improve condition for",
    "claims": [
-    "nourrissant",
-    "volume"
+    "nutrition",
+    "anti-frisottis",
+    "volume",
+    "protection-chaleur",
+    "anti-pollution",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/percy-and-reed/cutout/percy-reed-turn-up-the-volume-volumising-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "percy-and-reed--percy-reed-turn-up-the-volume-volumising-conditioner",
@@ -443,7 +476,7 @@
    "brand_name": "Percy & Reed",
    "url": "https://www.percyandreed.com/products/percy-reed-turn-up-the-volume-volumising-conditioner",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 3095.0,
+   "price_eur": 30.95,
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0107/1779/0304/files/Volumising_Conditioner-Packshot.png?width=600",
    "image_local": "public/scan/products-cheveux/percy-and-reed/percy-reed-turn-up-the-volume-volumising-conditioner.jpg",
@@ -465,10 +498,16 @@
    "ingredients": "Aqua (Water), Cetearyl Alcohol, Betaine, C15-19 Alkane, Behentrimonium Chloride, Cetyl Esters, Glycerin, Vitis Vinifera (Grape) Seed Oil, Parfum (Fragrance), Cocos Nucifera (Coconut) Oil, Isopropyl Alcohol, Butylene Glycol, Argania Spinosa Kernel Oil, Glycereth-26, Glyceryl Stearate SE, Panthenol, Polyquaternium-37, Propylene Glycol Dibenzoate, Sodium Benzoate, Guar Hydroxypropyltrimonium Chloride, Cetrimonium Chloride, Tocopheryl Acetate, Benzophenone-4, Phytantriol, Niacinamide, Citric Acid, Aloe Barbadensis Leaf Juice, Calcium Pantothenate, Maltodextrin, Sodium Starch Octenylsuccinate, Helianthus Annuus (Sunflower) Seed Extract, Sodium Ascorbyl Phosphate, Crambe Maritima Leaf Extract, Pyridoxine HCl, Silica",
    "description": "SALON QUALITY: The expert formula features avocado oil, green tea extract and lemon balm to weightless nourish the hair, whilst protecting from heat, humidity and pollution. VOLUMISING: The silicone-free conditioner creates the perfect foundation for fuller hair, weightlessly nourishes and without residue for long-lasting volume. THICKENING: Pro vitamin B5 works to thicken the hair from within and improve condition for healthier looking hair, building volume and boosting roots for a voluminous f",
    "claims": [
-    "nourrissant",
-    "volume"
+    "nutrition",
+    "anti-frisottis",
+    "volume",
+    "protection-chaleur",
+    "anti-pollution",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/percy-and-reed/cutout/percy-reed-turn-up-the-volume-volumising-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "percy-and-reed--percy-reed-heat-protection-spray",
@@ -477,14 +516,13 @@
    "brand_name": "Percy & Reed",
    "url": "https://www.percyandreed.com/products/percy-reed-heat-protection-spray",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 2895.0,
+   "price_eur": 28.95,
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0107/1779/0304/files/Heat-Protect-Spray_Front.jpg?width=600",
    "image_local": "public/scan/products-cheveux/percy-and-reed/percy-reed-heat-protection-spray.jpg",
    "categorie": "protection-thermique",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
     "abimes"
    ],
    "actifs": [
@@ -495,13 +533,15 @@
     "acide citrique"
    ],
    "ingredients": "Aqua, Parfum, Panthenol, Fructose, Propylene Glycol, Butylene Glycol, Pentylene Glycol, Glycerin, Sodium Citrate, Camellia Senensis Leaf Extract, Caesalpinia Spinosa Fruit Pod Extract, Citric Acid, Phenoxyethanol, Sodium Hyaluronate, Helianthus Annuus (Sunflower) Sprout Extract, Polyporus Umbellatus (Mushroom) Extract, Sodium Benzoate, Carvone, Hexamethylindanopyran, Limonene, Linalool, Mentha Virdis Leaf Oil",
-   "description": "Revolutionary 3-in-1 Heat Protect Spray: The Ultimate Solution for Heat Damage, Frizz Control, and Hair Repair INNOVATIVE TRIPLE-ACTION FORMULA: PROTECTSGuards hair against heat damage up to 450°F / 230°C, making it ideal for use with hot tools. SHIELDSThis ultra-fine mist forms a lightweight barrier against humidity, smoothing the hair cuticle and reducing frizz. The result: sleeker, shinier hair - even in high-humidity conditions. PREVENTSPro-Vitamin B5 penetrates deeply into the hair cortex, ",
+   "description": "Revolutionary 3-in-1 Heat Protect Spray: The Ultimate Solution for Heat Damage, Frizz Control, and Hair Repair INNOVATIVE TRIPLE-ACTION FORMULA: PROTECTSGuards hair against heat damage up to 450°F / 230°C, making it ideal for use with hot tools. SHIELDSThis ultra-fine mist forms a lightweight barrier against humidity, smoothing the hair cuticle and reducing frizz. The result: sleeker, shinier hair - even in high-humidity conditions. PREVENTSPro-Vitamin B5 penetrates deeply into the hair cortex,",
    "claims": [
-    "reparateur",
-    "lissant",
-    "protection-thermique"
+    "reparation",
+    "anti-frisottis",
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/percy-and-reed/cutout/percy-reed-heat-protection-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "percy-and-reed--percy-and-reed-give-me-strength-strengthening-concentrate",
@@ -510,13 +550,16 @@
    "brand_name": "Percy & Reed",
    "url": "https://www.percyandreed.com/products/percy-and-reed-give-me-strength-strengthening-concentrate",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 3800.0,
+   "price_eur": 38.0,
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0107/1779/0304/files/givemestrength_strengthening_scalp_concentrate_50ml_1200px.jpg?width=600",
    "image_local": "public/scan/products-cheveux/percy-and-reed/percy-and-reed-give-me-strength-strengthening-concentrate.jpg",
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "fins",
+    "chute"
+   ],
    "actifs": [
     "panthénol",
     "aloe vera",
@@ -527,9 +570,13 @@
    "ingredients": "Aqua (Water), Betaine, Hydrolyzed Lupine Protein, Polysorbate 20, Aloe Barbadensis Leaf Juice, Glycerin, Xanthan Gum, Citric Acid, Panthenol, Sodium Benzoate, Limonene, Potassium Sorbate, Citrus Aurantium Dulcis (Orange) Peel Oil, Citrus Paradisi (Grapefruit) Peel Oil, Disodium EDTA, Tocopheryl Acetate, Pelargonium Graveolens Oil, Phenoxyethanol, Rosmarinus Officinalis (Rosemary) Leaf Oil, Citronellol, Geraniol, Ethylhexylglycerin, Linalool, Citral",
    "description": "Salon expertise meets science in our laboratory proven scalp serum, which helps to reduce hair fall whilst promoting new hair growth, for stronger, healthier hair. Ultimately, this clever scalp tonic creates optimum conditions for hair health and growth. STRENGTHENS:Leaves hair 3x stronger from the very first use. Powered by Sweet White Lupine protein, rich in peptides and vitamins, to help reinforce the hair fibre and improve resilience from root to tip. REDUCES HAIR FALL:68% less hair fall aft",
    "claims": [
-    "fortifiant"
+    "fortifiant",
+    "anti-chute",
+    "croissance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/percy-and-reed/cutout/percy-and-reed-give-me-strength-strengthening-concentrate.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "percy-and-reed--percy-reed-session-styling-blow-dry-spray",
@@ -538,7 +585,7 @@
    "brand_name": "Percy & Reed",
    "url": "https://www.percyandreed.com/products/percy-reed-session-styling-blow-dry-spray",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 2400.0,
+   "price_eur": 24.0,
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0107/1779/0304/files/Blow_Dry_Spray_150ml_Front_PNG.png?width=600",
    "image_local": "public/scan/products-cheveux/percy-and-reed/percy-reed-session-styling-blow-dry-spray.jpg",
@@ -553,12 +600,16 @@
     "huile de ricin"
    ],
    "ingredients": "Aqua (Water), Alcohol Denat., PEG-40 Hydrogenated Castor Oil, Parfum (Fragrance), Isoceteth-20, PPG-5-Ceteth-20, Sodium Polystyrene Sulfonate, Phenoxyethanol, Panthenol, Salix Alba (Willow) Bark Extract, Hydrolyzed Wheat Protein PG-Propyl Silanetriol",
-   "description": "Expert ingredients deliver body, shape and flexible hold for long-lasting, salon-worthy style. BLOW DRY PERFECTOR: A true multi-tasker this lightweight spray gives shape and body to styles whilst concealing split ends and taming flyaways for a shinier, smoother, sleeker finish. STYLING CONTROL: The heat-activated, anti-static mist delivers flexible hold without stiffness, resulting in an easy, speedy blow dry that lasts. HEAT PROTECTION: In-built heat protection defends strands from damage when ",
+   "description": "Expert ingredients deliver body, shape and flexible hold for long-lasting, salon-worthy style. BLOW DRY PERFECTOR: A true multi-tasker this lightweight spray gives shape and body to styles whilst concealing split ends and taming flyaways for a shinier, smoother, sleeker finish. STYLING CONTROL: The heat-activated, anti-static mist delivers flexible hold without stiffness, resulting in an easy, speedy blow dry that lasts. HEAT PROTECTION: In-built heat protection defends strands from damage when",
    "claims": [
-    "lissant",
-    "protection-thermique"
+    "reparation",
+    "anti-frisottis",
+    "protection-chaleur",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/percy-and-reed/cutout/percy-reed-session-styling-blow-dry-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "percy-and-reed--percy-reed-session-styling-dry-volumising-spray",
@@ -567,7 +618,7 @@
    "brand_name": "Percy & Reed",
    "url": "https://www.percyandreed.com/products/percy-reed-session-styling-dry-volumising-spray",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 2400.0,
+   "price_eur": 24.0,
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0107/1779/0304/files/dry-volumising-spray.jpg?width=600",
    "image_local": "public/scan/products-cheveux/percy-and-reed/percy-reed-session-styling-dry-volumising-spray.jpg",
@@ -582,9 +633,13 @@
    "ingredients": "N-Butane, Alcohol Denat., Propane, Iso-Butane, Polyvinylcaprolactam, Silica Silylate, Cyclopentasiloxane, Disteardimonium Hectorite, Propylene Carbonate, Parfum, Ethylhexyl Methoxycinnamate, AMP-Isostearoyl Hydrolyzed Wheat Protein, Linalool",
    "description": "BUILDABLE VOLUME: Fool-proof formula delivers instant root lift for lasting, flexible volume. LIGHTWEIGHT: Weightless, translucent mist gives lift and texture without sticky residue. ENVIRONMENTAL DEFENCE: Provides protection from humidity and damaging UV rays.",
    "claims": [
-    "volume"
+    "anti-frisottis",
+    "volume",
+    "texturisant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/percy-and-reed/cutout/percy-reed-session-styling-dry-volumising-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "percy-and-reed--percy-reed-session-styling-hair-wax",
@@ -593,13 +648,16 @@
    "brand_name": "Percy & Reed",
    "url": "https://www.percyandreed.com/products/percy-reed-session-styling-hair-wax",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 2695.0,
+   "price_eur": 26.95,
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0107/1779/0304/files/240206-PERCY-AND-REED-E39120153_1200x1200_ab2efdfb-a6f3-4426-872f-0e2d061bad00.jpg?width=600",
    "image_local": "public/scan/products-cheveux/percy-and-reed/percy-reed-session-styling-hair-wax.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "boucles",
+    "chute"
+   ],
    "actifs": [
     "caféine",
     "biotine",
@@ -608,9 +666,14 @@
    "ingredients": "Water (Aqua), Kaolin, Petrolatum, PVP, Propylene Glycol, Steareth-21, Tribehenin, VP/VA Copolymer, Cetyl Alcohol, Ozokerite, Steareth-2, Cocoglycerides, Fragrance (Parfum), Phenoxyethanol, Chlorphenesin, Caffeine, Hydrolyzed Wheat Protein, Disodium EDTA, Tocopheryl Acetate, Ethylhexylglycerin, Biotin, Sodium Benzoate",
    "description": "Style memory for long-lasting results: Our expert blend of styling agents ensure long-lasting hold and definition, with a subtle matte finish. Styles retain their shape throughout the day, with a fresh, controlled appearance. Flexible styling without stiffness: Kaolin clay, an ancient, lightweight all natural clay, relaxes hair texture, leaving locks soft, bouncy and held in place, without the typical stiff or overly shiny finish. Hair Protection: Benefit from the added protection of caffeine an",
    "claims": [
-    "definition-boucles"
+    "definition-boucles",
+    "texturisant",
+    "brillance",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/percy-and-reed/cutout/percy-reed-session-styling-hair-wax.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "percy-and-reed--percy-reed-i-need-a-hero-wonder-balm-hair-primer-supersize-1",
@@ -619,14 +682,14 @@
    "brand_name": "Percy & Reed",
    "url": "https://www.percyandreed.com/products/percy-reed-i-need-a-hero-wonder-balm-hair-primer-supersize-1",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 5795.0,
+   "price_eur": 57.95,
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0107/1779/0304/files/i_need_a_hero_wonder_balm_hair_primer_150ml_front_1200px.jpg?width=600",
    "image_local": "public/scan/products-cheveux/percy-and-reed/percy-reed-i-need-a-hero-wonder-balm-hair-primer-supersize-1.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "fins"
    ],
    "actifs": [
     "panthénol",
@@ -634,8 +697,12 @@
    ],
    "ingredients": "Aqua (Water), Polyacrylate-13, Polyimide-1, Polysorbate 20, Phenoxyethanol, Polyisobutene, PPG-2 Myristyl Ether Propionate, Myristyl Alcohol, Panthenol, Parfum (Fragrance), PEG-8 Stearate, Potassium Sorbate, Tocopheryl Acetate, Sorbitan Isostearate, Citric Acid",
    "description": "HAIR PERFECTOR: Inspired by skincare, our innovative hair primer refines the surface of every hair strand, sealing the cuticle and concealing irregularities for healthy looking, well-behaved hair. 72 HOURS FRIZZ PROTECTION: Laboratory proven to give continuous protection from frizz and humidity for up to 72 hours. PRE-STYLER: Leave-in balm creates a weightless base for styling, elevating the performance of subsequent products for improved, longer-lasting results.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "anti-frisottis"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/percy-and-reed/cutout/percy-reed-i-need-a-hero-wonder-balm-hair-primer-supersize-1.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "percy-and-reed--percy-reed-hold-it-right-there-define-hold-finishing-cream-1",
@@ -644,13 +711,16 @@
    "brand_name": "Percy & Reed",
    "url": "https://www.percyandreed.com/products/percy-reed-hold-it-right-there-define-hold-finishing-cream-1",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 2400.0,
+   "price_eur": 24.0,
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0107/1779/0304/files/define_hold_finishing_cream_100ml_front_1200px.jpg?width=600",
    "image_local": "public/scan/products-cheveux/percy-and-reed/percy-reed-hold-it-right-there-define-hold-finishing-cream-1.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "boucles",
+    "lisses"
+   ],
    "actifs": [
     "glycérine",
     "huile de tournesol"
@@ -658,10 +728,13 @@
    "ingredients": "Aqua (Water), Petrolatum, C12-15 Alkyl Benzoate, Butylene Glycol, Glyceryl Stearate, Helianthus Annuus (Sunflower) Seed Wax, PPG-5-Ceteth-20, Stearyl Alcohol, Tribehenin, VP/VA Copolymer, Parfum (Fragrance), Phenoxyethanol, Ethylhexyl Methoxycinnamate, Sorbitan Stearate, Potassium Sorbate, Carbomer, Acrylates/C10-30 Alkyl Acrylate Crosspolymer, Glycerin, Aesculus Hippocastanum (Horse Chestnut) Seed Extract, Sodium Hydroxide, Sodium Benzoate, BHT",
    "description": "DEFINITION & HOLD: Expert ingredients including horse chestnut extract and sunflower wax work to smooth imperfections, whilst defining layers with light hold. LIGHTWEIGHT: Non-greasy formula works without leaving residue or build up. ALL HAIR TYPES: The lightweight cream gives styling control and definition to all hair types, textures and lengths.",
    "claims": [
-    "lissant",
-    "definition-boucles"
+    "anti-frisottis",
+    "definition-boucles",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/percy-and-reed/cutout/percy-reed-hold-it-right-there-define-hold-finishing-cream-1.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "percy-and-reed--percy-reed-session-styling-volumising-mousse",
@@ -670,24 +743,25 @@
    "brand_name": "Percy & Reed",
    "url": "https://www.percyandreed.com/products/percy-reed-session-styling-volumising-mousse",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 2895.0,
+   "price_eur": 28.95,
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0107/1779/0304/files/session_styling_volumising_mousse_front_200ml.v1.png?width=600",
    "image_local": "public/scan/products-cheveux/percy-and-reed/percy-reed-session-styling-volumising-mousse.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "fins",
-    "epais"
+    "fins"
    ],
    "actifs": [],
    "ingredients": "Aqua (Water), Butane, VP/VA copolymer, Propane, Isobutane, Polysorbate-20, Cocamidopropylamine oxide, Phenoxyethanol (and) Iodopropynyl Butylcarbamate, Polyquaternium-16, Parfum, Quaternium-52, Benzophenone-4, Linalool",
    "description": "VOLUMISING: Styling polymers create flexible volume throughout the hair, boosting roots, adding body and smoothing strands for long-lasting style. FLEXIBLE: The weightless, creamy foam gives bouncy, natural-looking volume without residue. Hair is left light, lifted and full of natural movement. PROTECTION: Helps to control static and protect the hair against the elements and damaging UV rays.",
    "claims": [
-    "volume",
-    "lissant"
+    "anti-frisottis",
+    "volume"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/percy-and-reed/cutout/percy-reed-session-styling-volumising-mousse.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "percy-and-reed--percy-reed-session-styling-volumising-dry-shampoo",
@@ -696,13 +770,14 @@
    "brand_name": "Percy & Reed",
    "url": "https://www.percyandreed.com/products/percy-reed-session-styling-volumising-dry-shampoo",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 2400.0,
+   "price_eur": 24.0,
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0107/1779/0304/files/session_style_volume_dry_shampoo_200ml_front_1200px_v3.jpg?width=600",
    "image_local": "public/scan/products-cheveux/percy-and-reed/percy-reed-session-styling-volumising-dry-shampoo.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
+    "gras",
     "fins",
     "colores"
    ],
@@ -710,9 +785,12 @@
    "ingredients": "Butane, Propane, Isobutane, Alcohol Denat., Aluminium Starch Octenyl Succinate, Parfum, Betaine, Linalool",
    "description": "CLEANSING: Suitable for all hair types and colours, the ultra-fine cornflour powder works to clean the hair and absorb oils, without leaving any white, chalky residue. VOLUMISING: Root boosting formula builds volume and adds texture to rejuvenate styles and leave hair looking cleansed and full. REFRESHING: Our bespoke fine fragrance leaves locks smelling beautifully fresh and odour-free.",
    "claims": [
-    "volume"
+    "volume",
+    "texturisant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/percy-and-reed/cutout/percy-reed-session-styling-volumising-dry-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "percy-and-reed--percy-reed-im-no-flake-scalp-soothing-shampoo",
@@ -721,13 +799,15 @@
    "brand_name": "Percy & Reed",
    "url": "https://www.percyandreed.com/products/percy-reed-im-no-flake-scalp-soothing-shampoo",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 3100.0,
+   "price_eur": 31.0,
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0107/1779/0304/files/I_m_no_flake_scalp_soothing_shampoo_250ml_front_1200px.jpg?width=600",
    "image_local": "public/scan/products-cheveux/percy-and-reed/percy-reed-im-no-flake-scalp-soothing-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
+    "gras",
     "pellicules",
     "cuir-chevelu-sensible"
    ],
@@ -746,11 +826,13 @@
    "ingredients": "Aqua (Water), Sodium Lauroyl Methyl Isethionate, Betaine, Cocamidopropyl Betaine, Glycerin, Aloe Barbadensis Leaf Juice, Acrylates Copolymer, PEG-40 Hydrogenated Castor Oil, Coco-Glucoside, Piroctone Olamine, Glyceryl Oleate, Phenoxyethanol, Sodium Chloride, Glycol Distearate, Panthenol, Anthemis Nobilis Flower/Leaf/Stem Water, Propanediol, Guar Hydroxypropyltrimonium Chloride, Trisodium Ethylenediamine Disuccinate, Rosa Hybrid Flower Water, Potassium Sorbate, Urtica Dioica (Nettle) Leaf Extract, Citric Acid, Polyquaternium-10, Sodium Benzoate, Sodium Hydroxide, Citrus Aurantium Amara (Bitter Orange) Leaf/Twig Oil, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Pelargonium Graveolens Oil, Tocopheryl Acetate, Glyceryl Stearate, Zizyphus Joazeiro Bark Extract, Linalool, Limonene, Rosmarinus Officinalis (Rosemary) Leaf Extract, Citronellol, Lactic Acid, Geraniol, Benzoic Acid, Sodium Acetate, Isopropyl Alcohol, Hydrogenated Palm Glycerides Citrate, Tocopherol",
    "description": "Salon expertise meets science in this caring shampoo, which works to soothe away signs of scalp stress, relieving irritation and dryness. Expert ingredients help to purify the scalp, clearing and preventing dandruff, whilst balancing oil levels for fresh, clean, flake-free results. SOOTHING: A delicate blend of calming ingredients, including aloe vera and chamomile, soothe irritation and deliver vital moisture to dry, itchy scalps. PREVENTATIVE: Innovative ingredient, Dandrilys®, helps to elimin",
    "claims": [
-    "hydratant",
-    "apaisant",
-    "anti-pellicules"
+    "hydratation",
+    "antipelliculaire",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/percy-and-reed/cutout/percy-reed-im-no-flake-scalp-soothing-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "percy-and-reed--percy-and-reed-give-me-strength-strengthening-conditioner",
@@ -759,13 +841,14 @@
    "brand_name": "Percy & Reed",
    "url": "https://www.percyandreed.com/products/percy-and-reed-give-me-strength-strengthening-conditioner",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 3100.0,
+   "price_eur": 31.0,
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0107/1779/0304/files/1200_x_1200_Strengthening_Conditioner_-_Packshot_0a7b4b98-54cc-40a4-bdf5-5be1a918c31d.png?width=600",
    "image_local": "public/scan/products-cheveux/percy-and-reed/percy-and-reed-give-me-strength-strengthening-conditioner.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "fins",
     "abimes",
     "chute"
    ],
@@ -784,11 +867,16 @@
    "ingredients": "Aqua (Water), Cetearyl Alcohol, Betaine, C15-19 Alkane, Behentrimonium Chloride, Cetyl Esters, Glycerin, Vitis Vinifera (Grape) Seed Oil, Cocos Nucifera (Coconut) Oil, Aloe Barbadensis Leaf Juice, Glycolic Acid, Isopropyl Alcohol, Polyquaternium-37, Hydrolyzed Lupine Protein, Caffeine, Camellia Oleifera Seed Oil, Glycereth-26, Olea Europaea (Olive) Fruit Oil, Panthenol, Sodium Benzoate, Limonene, Guar Hydroxypropyltrimonium Chloride, Cetrimonium Chloride, Hydrolyzed Wheat Protein, Laurdimonium Hydroxypropyl Hydrolyzed Keratin, Tocopheryl Acetate, Citrus Aurantium Dulcis (Orange) Peel Oil, Citrus Paradisi (Grapefruit) Peel Oil, Sodium Hydroxide, Niacinamide, Zinc PCA, Pelargonium Graveolens Oil, Hydrolyzed Wheat Starch, Rosmarinus Officinalis (Rosemary) Leaf Oil, Phenoxyethanol, Citronellol, Geraniol, Potassium Sorbate, Citric Acid, Ethylhexylglycerin",
    "description": "Our dermatologically tested and laboratory proven treatment conditioner leaves hair 68% stronger after just one use, when paired with Give Me Strength Strengthening Shampoo and Scalp Concentrate. HAIR GROWTH: Active ingredients Sweet White Lupine and Rosemary Oil encourages cell metabolism and circulation at scalp level, boosting new hair growth, whilst blocking the hormone responsible for hair loss (androgenic alopecia). HAIR DENSITY: The keratin-rich formula harnesses wheat proteins and vitami",
    "claims": [
+    "reparation",
+    "fortifiant",
     "volume",
+    "densifiant",
     "anti-chute",
-    "fortifiant"
+    "croissance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/percy-and-reed/cutout/percy-and-reed-give-me-strength-strengthening-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "percy-and-reed--percy-reed-i-need-a-hero-wonder-treatment-oil",
@@ -797,14 +885,14 @@
    "brand_name": "Percy & Reed",
    "url": "https://www.percyandreed.com/products/percy-reed-i-need-a-hero-wonder-treatment-oil",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 3800.0,
+   "price_eur": 38.0,
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0107/1779/0304/files/i_need_a_hero_wonder_treatment_oil_box_front_1200.jpg?width=600",
    "image_local": "public/scan/products-cheveux/percy-and-reed/percy-reed-i-need-a-hero-wonder-treatment-oil.jpg",
    "categorie": "huile",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "fins",
     "abimes"
    ],
    "actifs": [
@@ -814,11 +902,15 @@
    "ingredients": "Cyclopentasiloxane, Dimethiconol, Camellia Oleifera Seed Oil, Dimethicone, Cyclohexasiloxane, Parfum (Fragrance), Propylene Glycol Dibenzoate, Macadamia Ternifolia Seed Oil, Helianthus Annuus (Sunflower) Seed Oil, Beta-Carotene, Daucus Carota Sativa (Carrot) Root Extract, Daucus Carota Sativa (Carrot) Seed Oil, Ascorbyl Palmitate",
    "description": "INNOVATION: Lightweight but deeply conditioning triple-seed oil complex penetrates the hair cuticle with ease, infusing moisture without being heavy or greasy. LEAVE-IN TREATMENT: The weightless oil boosts hair health by strengthening strands, increasing elasticity and reducing the appearance of split ends. ANTI-FRIZZ: Gives a silky, shiny gloss to the hair whilst taming frizz and flyaway.",
    "claims": [
-    "hydratant",
-    "lissant",
-    "fortifiant"
+    "hydratation",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/percy-and-reed/cutout/percy-reed-i-need-a-hero-wonder-treatment-oil.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

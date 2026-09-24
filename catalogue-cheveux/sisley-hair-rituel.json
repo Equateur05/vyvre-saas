@@ -3,27 +3,468 @@
  "brand_name": "Sisley Paris Hair Rituel",
  "products": [
   {
-   "id": "sisley-hair-rituel--l-huile-precieuse-cheveux",
-   "name": "L'Huile Précieuse Cheveux",
+   "id": "sisley-hair-rituel--soin-lavant-revitalisant-volumateur",
+   "name": "Soin Lavant Revitalisant Volumateur",
    "brand": "sisley-hair-rituel",
    "brand_name": "Sisley Paris Hair Rituel",
-   "url": "https://www.sisley-paris.com/fr-FR/l-huile-precieuse-cheveux-169260.html",
+   "url": "https://www.sisley-paris.com/fr-FR/soin-lavant-revitalisant-volumateur-100190.html",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": null,
-   "image_local": null,
-   "categorie": "huile",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [
-    "beurre de karité",
-    "vitamine E"
+   "price_eur": 79.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://www.sisley-paris.com/dw/image/v2/BCXZ_PRD/on/demandware.static/-/Sites-masterCatalog_Sisley/default/dw721396f2/images/large/169220_01.jpg?sw=1000&sh=1000&q=80",
+   "image_local": "public/scan/products-cheveux/sisley-hair-rituel/soin-lavant-revitalisant-volumateur.jpg",
+   "categorie": "shampooing",
+   "etape": 1,
+   "cheveux_cibles": [
+    "fins",
+    "cuir-chevelu-sensible"
    ],
-   "ingredients": "DIMETHICONE, C9-12 ALKANE, DIMETHICONOL, BUTYROSPERMUM PARKII (SHEA) OIL, PARFUM/FRAGRANCE, GOSSYPIUM HERBACEUM (COTTON) SEED OIL, MORINGA OLEIFERA SEED OIL, PASSIFLORA INCARNATA SEED OIL, GLYCINE SOJA (SOYBEAN) OIL, TOCOPHEROL, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, CITRUS LIMON (LEMON) PEEL OIL, LIMONENE, PINENE, ACETYL CEDRENE, CITRAL, TERPINEOL, GERANYL ACETATE, ROSE KETONES, LINALOOL, EUGENOL, LAVANDULA OIL/EXTRACT, BETA-CARYOPHYLLENE, LINALYL ACETATE. IL#10A",
-   "description": null,
-   "claims": [],
-   "source": "sitemap sisley-paris.com/fr-FR + fiche"
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "panthénol",
+    "vitamine E",
+    "beurre de karité",
+    "acides aminés",
+    "arginine",
+    "bisabolol"
+   ],
+   "ingredients": "AQUA/WATER/EAU, SODIUM LAUROYL SARCOSINATE, COCAMIDOPROPYL BETAINE, COCO-GLUCOSIDE, PEG-120 METHYL GLUCOSE TRIOLEATE, GLYCERIN, DISODIUM COCOYL GLUTAMATE, PENTYLENE GLYCOL, PANTHENOL, PARFUM/FRAGRANCE, ARGININE, BISABOLOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, CAMELLIA OLEIFERA SEED OIL, CORYLUS AVELLANA (HAZELNUT) SEED OIL, PYRIDOXINE HCL, TOCOPHERYL ACETATE, MAGNESIUM ASPARTATE, ZINC GLUCONATE, HYDROLYZED COTTONSEED PROTEIN, PALMITOYL MYRISTYL SERINATE, COPPER GLUCONATE, CITRIC ACID, GLYCOL CETEARATE, PROPANEDIOL, POLYQUATERNIUM-47, PEG-8, CELLULOSE, CELLULOSE GUM, PEG-8/SMDI COPOLYMER, TETRASODIUM EDTA, CARBOMER, SODIUM CITRATE, PHENOXYETHANOL, SODIUM BENZOATE, BENZOIC ACID, POTASSIUM SORBATE, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, CITRUS LIMON (LEMON) PEEL OIL, LIMONENE, PINENE, CITRAL, TERPINEOL, ACETYL CEDRENE. IL",
+   "description": "Action volumatrice : Nettoie en douceur et aide les cheveux à gagner en volume. Dès la première application, les cheveux sont sublimés : ils ont plus de volume, de corps et de matière pour 79% 1 du panel. Revitalisation et force : Grâce à un cocktail d'actifs riche en vitamines et minéraux, ce shampoing volume renforce la vitalité de la chevelure, des racines jusqu'aux pointes. Les cheveux semblent plus vigoureux et plein d'énergie pour 90% 2 du panel. Ils semblent fortifiés et protégés contre l",
+   "claims": [
+    "nutrition",
+    "fortifiant",
+    "volume"
+   ],
+   "source": "categories hair-rituel sisley-paris.com/fr-FR (site officiel FR) + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sisley-hair-rituel/cutout/soin-lavant-revitalisant-volumateur.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "sisley-hair-rituel--soin-lavant-revitalisant-disciplinant",
+   "name": "Soin Lavant Revitalisant Disciplinant",
+   "brand": "sisley-hair-rituel",
+   "brand_name": "Sisley Paris Hair Rituel",
+   "url": "https://www.sisley-paris.com/fr-FR/soin-lavant-revitalisant-disciplinant-100191.html",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 79.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://www.sisley-paris.com/dw/image/v2/BCXZ_PRD/on/demandware.static/-/Sites-masterCatalog_Sisley/default/dwe0dce40c/images/large/169230_01.jpg?sw=1000&sh=1000&q=80",
+   "image_local": "public/scan/products-cheveux/sisley-hair-rituel/soin-lavant-revitalisant-disciplinant.jpg",
+   "categorie": "shampooing",
+   "etape": 1,
+   "cheveux_cibles": [
+    "secs",
+    "fins",
+    "cuir-chevelu-sensible"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "panthénol",
+    "vitamine E",
+    "beurre de karité",
+    "acides aminés",
+    "huile de macadamia",
+    "arginine",
+    "huile de moringa",
+    "bisabolol"
+   ],
+   "ingredients": "AQUA/WATER/EAU, SODIUM LAUROYL SARCOSINATE, COCAMIDOPROPYL BETAINE, COCO-GLUCOSIDE, PEG-120 METHYL GLUCOSE TRIOLEATE, GLYCERIN, DISODIUM COCOYL GLUTAMATE, PENTYLENE GLYCOL, PANTHENOL, PARFUM/FRAGRANCE, ARGININE, BISABOLOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, MACADAMIA INTEGRIFOLIA SEED OIL, MORINGA OLEIFERA SEED OIL, PYRIDOXINE HCL, TOCOPHERYL ACETATE, MAGNESIUM ASPARTATE, ZINC GLUCONATE, HYDROLYZED COTTONSEED PROTEIN, PALMITOYL MYRISTYL SERINATE, COPPER GLUCONATE, CITRIC ACID, GLYCOL CETEARATE, PROPANEDIOL, POLYQUATERNIUM-22, PEG-8, POLYQUATERNIUM-47, CELLULOSE, CELLULOSE GUM, PEG-8/SMDI COPOLYMER, TETRASODIUM EDTA, CARBOMER, SODIUM CITRATE, PHENOXYETHANOL, SODIUM BENZOATE, BENZOIC ACID, POTASSIUM SORBATE, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, CITRUS LIMON (LEMON) PEEL OIL, LIMONENE, PINENE, CITRAL, TERPINEOL, ACETYL CEDRENE. IL",
+   "description": "Le Soin Lavant Disciplinant à l'huile de Macadamia nettoie en douceur tout en apportant les vitamines et les minéraux nécessaires à la vitalité du cuir chevelu et des longueurs. Sa formule bénéficie d’un cocktail d’actifs performants ciblant à la fois le bulbe capillaire et la fibre. Parfum frais conçu pour compléter l'efficacité des actifs. Texture fluide qui se transforme en une mousse fine et onctueuse au contact de l'eau. Sans tensioactifs sulfatés.",
+   "claims": [
+    "nutrition",
+    "texturisant"
+   ],
+   "source": "categories hair-rituel sisley-paris.com/fr-FR (site officiel FR) + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sisley-hair-rituel/cutout/soin-lavant-revitalisant-disciplinant.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "sisley-hair-rituel--soin-lavant-perfecteur-couleur",
+   "name": "Soin Lavant Perfecteur Couleur",
+   "brand": "sisley-hair-rituel",
+   "brand_name": "Sisley Paris Hair Rituel",
+   "url": "https://www.sisley-paris.com/fr-FR/soin-lavant-perfecteur-couleur-100192.html",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 79.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://www.sisley-paris.com/dw/image/v2/BCXZ_PRD/on/demandware.static/-/Sites-masterCatalog_Sisley/default/dw4cba8e04/images/large/169340_01.jpg?sw=1000&sh=1000&q=80",
+   "image_local": "public/scan/products-cheveux/sisley-hair-rituel/soin-lavant-perfecteur-couleur.jpg",
+   "categorie": "shampooing",
+   "etape": 1,
+   "cheveux_cibles": [
+    "fins",
+    "colores",
+    "cuir-chevelu-sensible"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "panthénol",
+    "vitamine E",
+    "huile de tournesol",
+    "beurre de karité",
+    "hibiscus",
+    "bisabolol"
+   ],
+   "ingredients": "AQUA/WATER/EAU, COCAMIDOPROPYL BETAINE, SODIUM METHYL COCOYL TAURATE, GLYCERIN, DISODIUM LAURETH SULFOSUCCINATE, PARFUM/FRAGRANCE, PEG-120 METHYL GLUCOSE TRIOLEATE, PANTHENOL, 1,2-HEXANEDIOL, PASSIFLORA EDULIS SEED OIL, HELIANTHUS ANNUUS (SUNFLOWER) SEED EXTRACT, BISABOLOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, TOCOPHERYL ACETATE, HIBISCUS SABDARIFFA FLOWER EXTRACT, HYDROLYZED COTTONSEED PROTEIN, PALMITOYL MYRISTYL SERINATE, BUTYLENE GLYCOL, CITRIC ACID, GLYCOL CETEARATE, POLYQUATERNIUM-22, POLYQUATERNIUM-47, PROPANEDIOL, CELLULOSE, CELLULOSE GUM, CETRIMONIUM CHLORIDE, PEG-8, PENTYLENE GLYCOL, SODIUM CITRATE, PEG-8/SMDI COPOLYMER, CARBOMER, POTASSIUM SORBATE, SODIUM BENZOATE, BENZOIC ACID, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, CITRUS LIMON (LEMON) PEEL OIL, LIMONENE, PINENE, CITRAL, TERPINEOL, ACETYL CEDRENE. IL",
+   "description": "Le Soin Lavant Perfecteur de Couleur à l'extrait de fleur d'Hibiscus nettoie en douceur et prend soin des cheveux colorés et méchés. La couleur est prolongée et ne s'affadit pas au fil des shampoings successifs. Les cheveux sont légers et éclatants de lumière. Parfum frais au coeur actif d'origine naturelle. Texture fluide nacrée qui se transforme en mousse fine et onctueuse au contact de l'eau. Sans tensio-actifs sulfatés.",
+   "claims": [
+    "nutrition",
+    "texturisant",
+    "brillance"
+   ],
+   "source": "categories hair-rituel sisley-paris.com/fr-FR (site officiel FR) + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sisley-hair-rituel/cutout/soin-lavant-perfecteur-couleur.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "sisley-hair-rituel--soin-lavant-doux-purete",
+   "name": "Soin Lavant Doux Pureté",
+   "brand": "sisley-hair-rituel",
+   "brand_name": "Sisley Paris Hair Rituel",
+   "url": "https://www.sisley-paris.com/fr-FR/soin-lavant-doux-purete-100193.html",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 79.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://www.sisley-paris.com/dw/image/v2/BCXZ_PRD/on/demandware.static/-/Sites-masterCatalog_Sisley/default/dw9da985df/images/large/169380_01.jpg?sw=1000&sh=1000&q=80",
+   "image_local": "public/scan/products-cheveux/sisley-hair-rituel/soin-lavant-doux-purete.jpg",
+   "categorie": "shampooing",
+   "etape": 1,
+   "cheveux_cibles": [
+    "gras",
+    "fins",
+    "cuir-chevelu-sensible"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "panthénol",
+    "vitamine E",
+    "romarin",
+    "bisabolol"
+   ],
+   "ingredients": "AQUA/WATER/EAU, SODIUM METHYL COCOYL TAURATE, GLYCERIN, COCAMIDOPROPYL BETAINE, SODIUM COCOYL ISETHIONATE, PENTYLENE GLYCOL, BETAINE, PARFUM/FRAGRANCE, PEG-18 GLYCERYL OLEATE/COCOATE, PANTHENOL, PEG-120 METHYL GLUCOSE TRIOLEATE, BISABOLOL, TOCOPHERYL ACETATE, MAGNESIUM ASPARTATE, ZINC GLUCONATE, HYDROLYZED COTTONSEED PROTEIN, COPPER GLUCONATE, ORTHOSIPHON STAMINEUS EXTRACT, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF OIL, LITSEA CUBEBA FRUIT OIL, SODIUM SURFACTIN, CETRIMONIUM CHLORIDE, CITRIC ACID, ETHYLHEXYLGLYCERIN, PROPANEDIOL, BUTYLENE GLYCOL, MALTODEXTRIN, XANTHAN GUM, PHENOXYETHANOL, POTASSIUM SORBATE, SODIUM BENZOATE, TOCOPHEROL, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, CITRUS LIMON (LEMON) PEEL OIL, LIMONENE, PINENE, CAMPHOR, CITRAL, TERPINEOL, BETA-CARYOPHYLLENE, ACETYL CEDRENE, LINALOOL. IL",
+   "description": "Formule douce et purifiante enrichie en extrait de Thé de Java. Nettoie en douceur et rafraîchit le cuir chevelu. Élimine instantanément les impuretés présentes à la surface du cheveu, le sébum et les résidus de produits coiffants, laissant un sillage frais et délicatement parfumé. Le cuir chevelu \"respire\". Les cheveux sont plus frais, légers, volumineux, éclatants de brillance et de vitalité. Éviter le contact avec les yeux. Sans tensio-actifs sulfatés.",
+   "claims": [
+    "volume",
+    "purifiant",
+    "anti-gras",
+    "brillance"
+   ],
+   "source": "categories hair-rituel sisley-paris.com/fr-FR (site officiel FR) + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sisley-hair-rituel/cutout/soin-lavant-doux-purete.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "sisley-hair-rituel--soin-lavant-apaisant-antipelliculaire",
+   "name": "Soin Lavant Apaisant Antipelliculaire",
+   "brand": "sisley-hair-rituel",
+   "brand_name": "Sisley Paris Hair Rituel",
+   "url": "https://www.sisley-paris.com/fr-FR/soin-lavant-apaisant-antipelliculaire-100195.html",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 79.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://www.sisley-paris.com/dw/image/v2/BCXZ_PRD/on/demandware.static/-/Sites-masterCatalog_Sisley/default/dw17a1e5da/images/large/169300_01.jpg?sw=1000&sh=1000&q=80",
+   "image_local": "public/scan/products-cheveux/sisley-hair-rituel/soin-lavant-apaisant-antipelliculaire.jpg",
+   "categorie": "anti-pellicules",
+   "etape": 4,
+   "cheveux_cibles": [
+    "pellicules",
+    "cuir-chevelu-sensible"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "panthénol",
+    "vitamine E",
+    "piroctone olamine",
+    "bisabolol"
+   ],
+   "ingredients": "AQUA/WATER/EAU, SODIUM METHYL COCOYL TAURATE, GLYCERIN, SODIUM COCOYL ISETHIONATE, COCAMIDOPROPYL BETAINE, PARFUM/FRAGRANCE, PANTHENOL, PEG-120 METHYL GLUCOSE TRIOLEATE, PENTYLENE GLYCOL, PIROCTONE OLAMINE, BISABOLOL, TOCOPHERYL ACETATE, SALVIA OFFICINALIS (SAGE) LEAF EXTRACT, HYDROLYZED COTTONSEED PROTEIN, APIUM GRAVEOLENS (CELERY) SEED EXTRACT, LITSEA CUBEBA FRUIT OIL, CITRIC ACID, POLYQUATERNIUM-22, PROPANEDIOL, CETRIMONIUM CHLORIDE, CAPRYLIC/CAPRIC TRIGLYCERIDE, POTASSIUM SORBATE, SODIUM BENZOATE, TOCOPHEROL, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, CITRUS LIMON (LEMON) PEEL OIL, LIMONENE, CITRAL, PINENE, TERPINEOL, ACETYL CEDRENE. IL",
+   "description": "Formule soin apaisante enrichie en extrait de Sauge. Nettoie en douceur, rééquilibre et purifie le cuir chevelu. Le Soin Lavant est la 1ère étape du rituel Apaisant Antipelliculaire. Son association avec la Cure Apaisante Antipelliculaire traite à la source les facteurs responsables des pellicules et démangeaisons, pour un effet antipelliculaire prolongé même après l’arrêt du traitement*. Son + : Une action soin de la fibre pour aider à fortifier les cheveux tout en leur apportant douceur et sou",
+   "claims": [
+    "fortifiant",
+    "antipelliculaire",
+    "apaisant-cuir-chevelu",
+    "purifiant"
+   ],
+   "source": "categories hair-rituel sisley-paris.com/fr-FR (site officiel FR) + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sisley-hair-rituel/cutout/soin-lavant-apaisant-antipelliculaire.webp",
+   "ciblage_source": "fiche"
+  },
+  {
+   "id": "sisley-hair-rituel--soin-lavant-revitalisant-nourrissant",
+   "name": "Soin Lavant Revitalisant Nourrissant",
+   "brand": "sisley-hair-rituel",
+   "brand_name": "Sisley Paris Hair Rituel",
+   "url": "https://www.sisley-paris.com/fr-FR/soin-lavant-revitalisant-nourrissant-100199.html",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 79.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://www.sisley-paris.com/dw/image/v2/BCXZ_PRD/on/demandware.static/-/Sites-masterCatalog_Sisley/default/dw0b3a31c8/images/large/169390_01.jpg?sw=1000&sh=1000&q=80",
+   "image_local": "public/scan/products-cheveux/sisley-hair-rituel/soin-lavant-revitalisant-nourrissant.jpg",
+   "categorie": "shampooing",
+   "etape": 1,
+   "cheveux_cibles": [
+    "secs",
+    "cuir-chevelu-sensible"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "panthénol",
+    "vitamine E",
+    "beurre de karité",
+    "huile de macadamia",
+    "huile de moringa",
+    "bisabolol"
+   ],
+   "ingredients": "AQUA/WATER/EAU, SODIUM LAUROYL SARCOSINATE, COCAMIDOPROPYL BETAINE, LAURYL GLUCOSIDE, GLYCERIN, PENTYLENE GLYCOL, PEG-120 METHYL GLUCOSE TRIOLEATE, BETAINE, DISODIUM COCOYL GLUTAMATE, PARFUM/FRAGRANCE, PROPANEDIOL, PANTHENOL, BISABOLOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, COCOS NUCIFERA (COCONUT) OIL, LIMNANTHES ALBA (MEADOWFOAM) SEED OIL, MACADAMIA INTEGRIFOLIA SEED OIL, MORINGA OLEIFERA SEED OIL, PYRIDOXINE HCL, SACCHARIDE ISOMERATE, TOCOPHERYL ACETATE, MAGNESIUM ASPARTATE, ZINC GLUCONATE, HYDROLYZED COTTONSEED PROTEIN, PALMITOYL MYRISTYL SERINATE, COPPER GLUCONATE, GLYCOL CETEARATE, CITRIC ACID, GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, PEG-8, POLYQUATERNIUM-10, POLYQUATERNIUM-47, CELLULOSE, CELLULOSE GUM, PEG-8/SMDI COPOLYMER, TETRASODIUM EDTA, CARBOMER, SODIUM CITRATE, SODIUM BENZOATE, BENZOIC ACID, POTASSIUM SORBATE, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, CITRUS LIMON (LEMON) PEEL OIL, LIMONENE, PINENE, CITRAL, TERPINEOL, ACETYL CEDRENE. IL",
+   "description": "LE CONCENTRÉ NUTRITIF INTENSE Efficacité réparatrice mesurée dès la première application* Formule soin nourrissante enrichie en huiles végétales. Nettoie en douceur, nourrit et aide à réparer la fibre capillaire tout en préservant le confort du cuir chevelu. Dès le rinçage, les cheveux sont enveloppés de douceur et le démêlage est facilité. Les cheveux retrouvent une belle matière souple et soyeuse. Le Soin Lavant Revitalisant Nourrissant Hair Rituel by Sisley s’adresse à tous les cheveux secs à",
+   "claims": [
+    "nutrition",
+    "reparation",
+    "demelant"
+   ],
+   "source": "categories hair-rituel sisley-paris.com/fr-FR (site officiel FR) + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sisley-hair-rituel/cutout/soin-lavant-revitalisant-nourrissant.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "sisley-hair-rituel--soin-lavant-revitalisant-lissant",
+   "name": "Soin Lavant Revitalisant Lissant",
+   "brand": "sisley-hair-rituel",
+   "brand_name": "Sisley Paris Hair Rituel",
+   "url": "https://www.sisley-paris.com/fr-FR/soin-lavant-revitalisant-lissant-100224.html",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 79.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://www.sisley-paris.com/dw/image/v2/BCXZ_PRD/on/demandware.static/-/Sites-masterCatalog_Sisley/default/dwba15526d/images/large/169320_01.jpg?sw=1000&sh=1000&q=80",
+   "image_local": "public/scan/products-cheveux/sisley-hair-rituel/soin-lavant-revitalisant-lissant.jpg",
+   "categorie": "shampooing",
+   "etape": 1,
+   "cheveux_cibles": [
+    "cuir-chevelu-sensible"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "panthénol",
+    "vitamine E",
+    "beurre de karité",
+    "huile de moringa",
+    "bisabolol"
+   ],
+   "ingredients": "AQUA/WATER/EAU, SODIUM METHYL COCOYL TAURATE, GLYCERIN, SODIUM COCOYL ISETHIONATE, COCAMIDOPROPYL BETAINE, PEG-40 HYDROGENATED CASTOR OIL, PENTYLENE GLYCOL, AMODIMETHICONE, PEG-120 METHYL GLUCOSE TRIOLEATE, PANTHENOL, PARFUM/FRAGRANCE, BISABOLOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, LIMNANTHES ALBA (MEADOWFOAM) SEED OIL, MORINGA OLEIFERA SEED OIL, PYRIDOXINE HCL, TOCOPHERYL ACETATE, MAGNESIUM ASPARTATE, ZINC GLUCONATE, HYDROLYZED COTTONSEED PROTEIN, COPPER GLUCONATE, PALMITOYL MYRISTYL SERINATE, ACRYLATES COPOLYMER, C13-15 ALKANE, CETYL ALCOHOL, POLYQUATERNIUM-22, CITRIC ACID, PROPANEDIOL, DISODIUM EDTA, SODIUM HYDROXIDE, PEG-8, PEG-8/SMDI COPOLYMER, CARBOMER, PHENOXYETHANOL, POTASSIUM SORBATE, SODIUM BENZOATE, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, CITRUS LIMON (LEMON) PEEL OIL, LIMONENE, PINENE, CITRAL, TERPINEOL, ACETYL CEDRENE. IL",
+   "description": "Le Soin Lavant Lissant à l'huile de Moringa nettoie en douceur tout en apportant les vitamines et les minéraux nécessaires à la vitalité du cuir chevelu et des longueurs. Sa formule bénéficie d’un cocktail d’actifs performants ciblant à la fois le bulbe capillaire et la fibre. Parfum frais conçu pour compléter l'efficacité des actifs. Texture fluide qui se transforme en une mousse fine et onctueuse au contact de l'eau.",
+   "claims": [
+    "nutrition",
+    "anti-frisottis",
+    "texturisant"
+   ],
+   "source": "categories hair-rituel sisley-paris.com/fr-FR (site officiel FR) + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sisley-hair-rituel/cutout/soin-lavant-revitalisant-lissant.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "sisley-hair-rituel--soin-lavant-fortifiant-densite",
+   "name": "Soin Lavant Fortifiant Densité",
+   "brand": "sisley-hair-rituel",
+   "brand_name": "Sisley Paris Hair Rituel",
+   "url": "https://www.sisley-paris.com/fr-FR/soin-lavant-fortifiant-densite-100201.html",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 79.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://www.sisley-paris.com/dw/image/v2/BCXZ_PRD/on/demandware.static/-/Sites-masterCatalog_Sisley/default/dweec753ea/images/large/169410_01.jpg?sw=1000&sh=1000&q=80",
+   "image_local": "public/scan/products-cheveux/sisley-hair-rituel/soin-lavant-fortifiant-densite.jpg",
+   "categorie": "shampooing",
+   "etape": 1,
+   "cheveux_cibles": [
+    "secs",
+    "fins",
+    "abimes",
+    "cuir-chevelu-sensible"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "panthénol",
+    "vitamine E",
+    "beurre de karité",
+    "acides aminés",
+    "huile de baobab",
+    "arginine",
+    "huile de moringa",
+    "bisabolol"
+   ],
+   "ingredients": "AQUA/WATER/EAU, COCAMIDOPROPYL BETAINE, SODIUM METHYL COCOYL TAURATE, GLYCERIN, LAURYL GLUCOSIDE, PEG-40 HYDROGENATED CASTOR OIL, DISODIUM LAURETH SULFOSUCCINATE, CETEARETH-60 MYRISTYL GLYCOL, 1,2-HEXANEDIOL, PARFUM/FRAGRANCE, PANTHENOL, ARGININE, BISABOLOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, CAMELLIA OLEIFERA SEED OIL, MORINGA OLEIFERA SEED OIL, PYRIDOXINE HCL, TOCOPHERYL ACETATE, HYDROLYZED ADANSONIA DIGITATA EXTRACT, MAGNESIUM ASPARTATE, ZINC GLUCONATE, COPPER GLUCONATE, PALMITOYL MYRISTYL SERINATE, HYDROLYZED VEGETABLE PROTEIN, THYMUS MASTICHINA FLOWER OIL, THYMUS VULGARIS (THYME) FLOWER/LEAF OIL, CITRIC ACID, POLYQUATERNIUM-22, POLYQUATERNIUM-47, BUTYLENE GLYCOL, CELLULOSE, CELLULOSE GUM, CETRIMONIUM CHLORIDE, PEG-8, PENTYLENE GLYCOL, SODIUM CITRATE, PROPANEDIOL, PEG-8/SMDI COPOLYMER, CARBOMER, SODIUM BENZOATE, POTASSIUM SORBATE, BENZOIC ACID, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, CITRUS LIMON (LEMON) PEEL OIL, LIMONENE, PINENE, CITRAL, TERPINEOL, ACETYL CEDRENE. IL",
+   "description": "Densité et vitalité : Dynamise le cuir chevelu et favorise la nutrition du bulbe à la racine grâce au Complexe Revitalisant Fortifiant et Stimulant. Apporte immédiatement du corps aux cheveux qui semblent plus épais. Au fil des applications, ils retrouvent une belle matière, éclatante de jeunesse et de vitalité. Le diamètre du cheveu est augmenté 4 . Restructuration de la fibre : Agit au niveau de la fibre capillaire pour révéler une matière de cheveu plus forte (-66% 3 de casse), grâce au Compl",
+   "claims": [
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "volume",
+    "densifiant",
+    "brillance"
+   ],
+   "source": "categories hair-rituel sisley-paris.com/fr-FR (site officiel FR) + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sisley-hair-rituel/cutout/soin-lavant-fortifiant-densite.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "sisley-hair-rituel--creme-demelante-restructurante",
+   "name": "Crème Démêlante Restructurante",
+   "brand": "sisley-hair-rituel",
+   "brand_name": "Sisley Paris Hair Rituel",
+   "url": "https://www.sisley-paris.com/fr-FR/creme-demelante-restructurante-100194.html",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 72.5,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://www.sisley-paris.com/dw/image/v2/BCXZ_PRD/on/demandware.static/-/Sites-masterCatalog_Sisley/default/dw8ecc55ca/images/large/169240_01.jpg?sw=1000&sh=1000&q=80",
+   "image_local": "public/scan/products-cheveux/sisley-hair-rituel/creme-demelante-restructurante.jpg",
+   "categorie": "apres-shampooing",
+   "etape": 2,
+   "cheveux_cibles": [
+    "abimes"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "panthénol",
+    "vitamine E",
+    "beurre de karité"
+   ],
+   "ingredients": "AQUA/WATER/EAU, HYDROXYPROPYL STARCH PHOSPHATE, BEHENTRIMONIUM CHLORIDE, GLYCERIN, PENTYLENE GLYCOL, C9-12 ALKANE, CETYL ALCOHOL, PARFUM/FRAGRANCE, PANTHENOL, AMODIMETHICONE, BUTYROSPERMUM PARKII (SHEA) BUTTER, CORYLUS AVELLANA (HAZELNUT) SEED OIL, HYDROLYZED COTTONSEED PROTEIN, TOCOPHERYL ACETATE, PALMITOYL MYRISTYL SERINATE, DIMETHICONE, POLYQUATERNIUM-22, ISOPROPYL ALCOHOL, POLYQUATERNIUM-47, HYDROXYETHYLCELLULOSE, PEG-8, DISODIUM EDTA, SODIUM HYDROXIDE, DIMETHICONOL, PROPANEDIOL, CITRIC ACID, PEG-8/SMDI COPOLYMER, CARBOMER, SORBIC ACID, SODIUM BENZOATE, POTASSIUM SORBATE, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, CITRUS LIMON (LEMON) PEEL OIL, LIMONENE, PINENE, ACETYL CEDRENE, CITRAL, TERPINEOL. IL",
+   "description": "La Crème Démêlante Restructurante est un soin après-shampoing conçu pour lisser les écailles, améliorer la brillance des cheveux et accroître leur résistance. Sa formule, élaborée à partir d’un concentré d’actifs relipidants et restructurants, offre une action rapide et efficace, idéale pour retrouver le plaisir du coiffage et embellir visiblement les longueurs : Immédiatement, les cheveux sont brillants et démêlés en douceur, avec -79% de résistance au coiffage 3 . Le duo d’huiles de Karité et ",
+   "claims": [
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "brillance",
+    "demelant",
+    "fixation"
+   ],
+   "source": "categories hair-rituel sisley-paris.com/fr-FR (site officiel FR) + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sisley-hair-rituel/cutout/creme-demelante-restructurante.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "sisley-hair-rituel--masque-soin-regenerant",
+   "name": "Masque Soin Régénérant",
+   "brand": "sisley-hair-rituel",
+   "brand_name": "Sisley Paris Hair Rituel",
+   "url": "https://www.sisley-paris.com/fr-FR/masque-soin-regenerant-200-ml-169250.html",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 97.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://www.sisley-paris.com/dw/image/v2/BCXZ_PRD/on/demandware.static/-/Sites-masterCatalog_Sisley/default/dwf6216249/images/large/169250_01.jpg?sw=1000&sh=1000&q=80",
+   "image_local": "public/scan/products-cheveux/sisley-hair-rituel/masque-soin-regenerant.jpg",
+   "categorie": "masque",
+   "etape": 2,
+   "cheveux_cibles": [
+    "secs",
+    "cuir-chevelu-sensible"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "panthénol",
+    "vitamine E",
+    "beurre de karité",
+    "acides aminés",
+    "protéines de riz",
+    "huile de macadamia",
+    "arginine",
+    "bisabolol"
+   ],
+   "ingredients": "AQUA/WATER/EAU, CETYL ALCOHOL, GLYCERIN, C9-12 ALKANE, HYDROXYPROPYL STARCH PHOSPHATE, BEHENTRIMONIUM CHLORIDE, PENTYLENE GLYCOL, PANTHENOL, PARFUM/FRAGRANCE, ARGININE, BISABOLOL, PYRIDOXINE HCL, HYDROLYZED COTTONSEED PROTEIN, HYDROLYZED RICE PROTEIN, BUTYROSPERMUM PARKII (SHEA) BUTTER, CAMELLIA OLEIFERA SEED OIL, CORYLUS AVELLANA (HAZELNUT) SEED OIL, MACADAMIA INTEGRIFOLIA SEED OIL, TOCOPHERYL ACETATE, MAGNESIUM ASPARTATE, ZINC GLUCONATE, COPPER GLUCONATE, PALMITOYL MYRISTYL SERINATE, HYDROLYZED VEGETABLE PROTEIN, HYDROLYZED LINSEED EXTRACT, AMODIMETHICONE, ISOPROPYL ALCOHOL, POLYQUATERNIUM-47, PEG-8, DISODIUM EDTA, CITRIC ACID, BUTYLENE GLYCOL, SODIUM HYDROXIDE, STEARAMIDOPROPYL DIMETHYLAMINE, PROPANEDIOL, PEG-8/SMDI COPOLYMER, CARBOMER, SORBIC ACID, SODIUM BENZOATE, POTASSIUM SORBATE, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, CITRUS LIMON (LEMON) PEEL OIL, LIMONENE, PINENE, ACETYL CEDRENE, CITRAL, TERPINEOL. IL",
+   "description": "Le Masque Soin Régénérant aux quatre huiles végétales permet une régénération globale du cuir chevelu et des longueurs. Sa formule est hautement concentrée en extraits d’origine végétale, protéines, vitamines et minéraux, qui dynamisent le bulbe capillaire pour renforcer dès la racine la vigueur des cheveux sensibilisés. Les huiles de Karité, Macadamia, Camélia et Noisette lissent et nourrissent intensément la fibre capillaire. Parfum frais conçu pour compléter l'efficacité des actifs. Texture l",
+   "claims": [
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
+    "texturisant"
+   ],
+   "source": "categories hair-rituel sisley-paris.com/fr-FR (site officiel FR) + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sisley-hair-rituel/cutout/masque-soin-regenerant.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "sisley-hair-rituel--masque-purifiant-avant-shampoing",
+   "name": "Masque Purifiant Avant-Shampoing",
+   "brand": "sisley-hair-rituel",
+   "brand_name": "Sisley Paris Hair Rituel",
+   "url": "https://www.sisley-paris.com/fr-FR/masque-purifiant-avant-shampoing-169310.html",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 97.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://www.sisley-paris.com/dw/image/v2/BCXZ_PRD/on/demandware.static/-/Sites-masterCatalog_Sisley/default/dwbf6bb3f5/images/large/169310_01.jpg?sw=1000&sh=1000&q=80",
+   "image_local": "public/scan/products-cheveux/sisley-hair-rituel/masque-purifiant-avant-shampoing.jpg",
+   "categorie": "masque",
+   "etape": 2,
+   "cheveux_cibles": [
+    "gras",
+    "cuir-chevelu-sensible"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "panthénol",
+    "vitamine E",
+    "huile de moringa",
+    "bisabolol"
+   ],
+   "ingredients": "AQUA/WATER/EAU, KAOLIN, CETYL ALCOHOL, GLYCERIN, C9-12 ALKANE, HYDROXYPROPYL STARCH PHOSPHATE, BEHENTRIMONIUM CHLORIDE, PEG-40 HYDROGENATED CASTOR OIL, PENTYLENE GLYCOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, PARFUM/FRAGRANCE, PANTHENOL, BISABOLOL, HYDROLYZED COTTONSEED PROTEIN, CYNARA SCOLYMUS (ARTICHOKE) LEAF EXTRACT, TOCOPHERYL ACETATE, MORINGA OLEIFERA SEED EXTRACT, ORTHOSIPHON STAMINEUS EXTRACT, APIUM GRAVEOLENS (CELERY) SEED EXTRACT, LITSEA CUBEBA FRUIT OIL, PROPANEDIOL, ISOPROPYL ALCOHOL, BUTYLENE GLYCOL, POLYQUATERNIUM-47, DISODIUM EDTA, SODIUM HYDROXIDE, GLUCONOLACTONE, CITRIC ACID, DISODIUM PHOSPHATE, MALTODEXTRIN, XANTHAN GUM, CALCIUM GLUCONATE, PHENOXYETHANOL, SODIUM BENZOATE, POTASSIUM SORBATE, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, CITRUS LIMON (LEMON) PEEL OIL, LIMONENE, CITRAL, PINENE, ACETYL CEDRENE, TERPINEOL. IL",
+   "description": "Le Masque Purifiant Avant-Shampoing offre un véritable \"reset*\" capillaire en absorbant et éliminant la pollution et les impuretés du cuir chevelu et des longueurs. Apaise les sensations d’inconfort. Parfum frais au cœur actif d’origine naturelle. Texture légère procurant une sensation de fraîcheur immédiate. Une texture douce et respectueuse des cuirs chevelus sensibles agissant comme un buvard contre les impuretés et les dépôts. * remise à zéro",
+   "claims": [
+    "texturisant",
+    "apaisant-cuir-chevelu",
+    "purifiant",
+    "anti-pollution"
+   ],
+   "source": "categories hair-rituel sisley-paris.com/fr-FR (site officiel FR) + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sisley-hair-rituel/cutout/masque-purifiant-avant-shampoing.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "sisley-hair-rituel--masque-soin-sublimateur-de-couleur",
+   "name": "Masque Soin Sublimateur de Couleur",
+   "brand": "sisley-hair-rituel",
+   "brand_name": "Sisley Paris Hair Rituel",
+   "url": "https://www.sisley-paris.com/fr-FR/masque-soin-sublimateur-de-couleur-169330.html",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 97.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://www.sisley-paris.com/dw/image/v2/BCXZ_PRD/on/demandware.static/-/Sites-masterCatalog_Sisley/default/dwc5dff3e1/images/large/169330_01.jpg?sw=1000&sh=1000&q=80",
+   "image_local": "public/scan/products-cheveux/sisley-hair-rituel/masque-soin-sublimateur-de-couleur.jpg",
+   "categorie": "coloration-soin",
+   "etape": 2,
+   "cheveux_cibles": [
+    "colores",
+    "cuir-chevelu-sensible"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "panthénol",
+    "vitamine E",
+    "huile de tournesol",
+    "beurre de karité",
+    "protéines de riz",
+    "bisabolol"
+   ],
+   "ingredients": "AQUA/WATER/EAU, HYDROXYPROPYL STARCH PHOSPHATE, BEHENTRIMONIUM CHLORIDE, PARFUM/FRAGRANCE, GLYCERIN, PENTYLENE GLYCOL, AMODIMETHICONE, OCTYLDODECANOL, PANTHENOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, CETRIMONIUM CHLORIDE, HELIANTHUS ANNUUS (SUNFLOWER) SEED EXTRACT, BISABOLOL, HYDROLYZED RICE PROTEIN, SACCHARIDE ISOMERATE, PASSIFLORA EDULIS SEED OIL, TOCOPHERYL ACETATE, PALMITOYL MYRISTYL SERINATE, ISOPROPYL ALCOHOL, BUTYLENE GLYCOL, POLYQUATERNIUM-22, POLYSILICONE-15, PEG-8, PROPANEDIOL, STEARAMIDOPROPYL DIMETHYLAMINE, CITRIC ACID, SODIUM HYDROXIDE, PEG-8/SMDI COPOLYMER, CARBOMER, SODIUM CITRATE, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, CITRUS LIMON (LEMON) PEEL OIL, LIMONENE, PINENE, ACETYL CEDRENE, CITRAL, TERPINEOL. IL",
+   "description": "3 MINUTES POUR UNE COULEUR QUI DURE 2 FOIS* PLUS LONGTEMPS Coloration, décoloration, mèches… Parce que les colorations modifient la structure du cheveu, les écailles se décollent et la barrière protectrice de la fibre se détériore. Le Masque Soin Sublimateur de Couleur protège alors les cheveux et le cuir chevelu des méfaits de l'environnement (UV, radicaux libres). Au fil des lavages, les pigments s’échappent : la couleur perd de sa brillance et de son intensité, et des reflets indésirables peu",
+   "claims": [
+    "nutrition",
+    "brillance"
+   ],
+   "source": "categories hair-rituel sisley-paris.com/fr-FR (site officiel FR) + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sisley-hair-rituel/cutout/masque-soin-sublimateur-de-couleur.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sisley-hair-rituel--masque-soin-sublimateur-cheveux-blonds-blancs-et-gris",
@@ -33,26 +474,470 @@
    "url": "https://www.sisley-paris.com/fr-FR/masque-soin-sublimateur-cheveux-blonds--blancs-et-gris-169470.html",
    "url_verifiee_le": "2026-09-19",
    "price_eur": 97.0,
-   "price_source": "site officiel EUR",
+   "price_source": "site officiel FR",
    "image_source_url": "https://www.sisley-paris.com/dw/image/v2/BCXZ_PRD/on/demandware.static/-/Sites-masterCatalog_Sisley/default/dwfe37549a/images/large/169470_01.jpg?sw=1000&sh=1000&q=80",
    "image_local": "public/scan/products-cheveux/sisley-hair-rituel/masque-soin-sublimateur-cheveux-blonds-blancs-et-gris.jpg",
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "colores"
    ],
    "actifs": [
+    "glycérine",
+    "acide citrique",
     "panthénol",
+    "vitamine E",
+    "beurre de karité",
+    "acides aminés",
+    "huile de baobab",
+    "protéines de soja"
+   ],
+   "ingredients": "AQUA/WATER/EAU, HYDROXYPROPYL STARCH PHOSPHATE, GLYCERIN, BEHENTRIMONIUM CHLORIDE, PARFUM/FRAGRANCE, PENTYLENE GLYCOL, PANTHENOL, C15-19 ALKANE, CETRIMONIUM CHLORIDE, LIMNANTHES ALBA (MEADOWFOAM) SEED OIL, SYNTHETIC FLUORPHLOGOPITE, BUTYROSPERMUM PARKII (SHEA) BUTTER, CYNARA SCOLYMUS (ARTICHOKE) LEAF EXTRACT, HYDROLYZED ADANSONIA DIGITATA EXTRACT, JUGLANS REGIA (WALNUT) SEEDCOAT EXTRACT, MYRTUS COMMUNIS LEAF EXTRACT, IMPATIENS BALSAMINA FLOWER/LEAF/STEM EXTRACT, PALMITOYL MYRISTYL SERINATE, BRASSICA CAMPESTRIS/ALEURITES FORDI OIL COPOLYMER, ISOPROPYL ALCOHOL, PROPANEDIOL, HYDROXYETHYLCELLULOSE, POLYQUATERNIUM-47, POLYQUATERNIUM-22, PEG-8, SODIUM HYDROXIDE, CITRIC ACID, GLUCONOLACTONE, PEG-8/SMDI COPOLYMER, CARBOMER, CALCIUM GLUCONATE, GLYCINE SOJA (SOYBEAN) OIL, SODIUM BENZOATE, TOCOPHEROL, E",
+   "description": "Ce masque est la solution pour sublimer la couleur et révéler la lumière des cheveux blonds décolorés, et des cheveux blancs et gris naturels. Son application est facile et rapide, et sa texture crémeuse ne tache pas les mains. Combinant neutralisation instantanée des reflets indésirables et soin à long-terme du cheveu, il embellit les cheveux blonds décolorés ou méchés ainsi que les cheveux gris ou blancs naturels. Son efficacité est prouvée et son action est multiple, il : - NEUTRALISE IMMEDIA",
+   "claims": [
+    "nutrition",
+    "texturisant"
+   ],
+   "source": "categories hair-rituel sisley-paris.com/fr-FR (site officiel FR) + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sisley-hair-rituel/cutout/masque-soin-sublimateur-cheveux-blonds-blancs-et-gris.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "sisley-hair-rituel--le-masque-soin-nutrition-intense",
+   "name": "Le Masque Soin Nutrition Intense",
+   "brand": "sisley-hair-rituel",
+   "brand_name": "Sisley Paris Hair Rituel",
+   "url": "https://www.sisley-paris.com/fr-FR/le-masque-soin-nutrition-intense-169430.html",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 116.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://www.sisley-paris.com/dw/image/v2/BCXZ_PRD/on/demandware.static/-/Sites-masterCatalog_Sisley/default/dwe116ebbe/images/large/169430_01.jpg?sw=1000&sh=1000&q=80",
+   "image_local": "public/scan/products-cheveux/sisley-hair-rituel/le-masque-soin-nutrition-intense.jpg",
+   "categorie": "masque",
+   "etape": 2,
+   "cheveux_cibles": [
+    "secs"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "beurre de karité",
+    "protéines de riz",
+    "huile de baobab",
+    "huile de macadamia",
+    "huile de moringa"
+   ],
+   "ingredients": "AQUA/WATER/EAU, CETYL ALCOHOL, HYDROXYPROPYL STARCH PHOSPHATE, GLYCERIN, PROPANEDIOL, STEARYL ALCOHOL, PENTYLENE GLYCOL, C15-19 ALKANE, GARCINIA INDICA SEED BUTTER, BRASSICAMIDOPROPYL DIMETHYLAMINE, PARFUM/FRAGRANCE, BEHENTRIMONIUM CHLORIDE, BUTYROSPERMUM PARKII (SHEA) BUTTER, COCOS NUCIFERA (COCONUT) OIL, LIMNANTHES ALBA (MEADOWFOAM) SEED OIL, MACADAMIA INTEGRIFOLIA SEED OIL, MORINGA OLEIFERA SEED OIL, CORYLUS AVELLANA (HAZELNUT) SEED OIL, HYDROLYZED RICE PROTEIN, HYDROLYZED ADANSONIA DIGITATA EXTRACT, STEARAMIDOPROPYL DIMETHYLAMINE, PALMITOYL MYRISTYL SERINATE, POLYQUATERNIUM-10, PEG-8, POLYQUATERNIUM-47, ISOPROPYL ALCOHOL, CITRIC ACID, PCA ETHYL COCOYL ARGINATE, PEG-8/SMDI COPOLYMER, CARBOMER, BENZOIC ACID, SODIUM BENZOATE, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, CITRUS LIMON (LEMON) PEEL OIL, LIMONENE, PINENE, ACETYL CEDRENE, CITRAL, TERPINEOL. IL",
+   "description": "5 minutes seulement pour visiblement transformer tous les cheveux secs à très secs. Hautement concentré en 5 huiles nutritives précieuses et en beurre de Kokum, ce masque soin offre une nutrition d’exception en apportant les lipides essentiels à la brillance, à la douceur et la force des cheveux. Une formule aux actifs complémentaires permettant une nutrition intense en seulement 5 minutes : Le complexe nutritif ultra-intense allie 5 huiles précieuses et un beurre de Kokum pour nourrir intenséme",
+   "claims": [
+    "nutrition",
+    "brillance"
+   ],
+   "source": "categories hair-rituel sisley-paris.com/fr-FR (site officiel FR) + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sisley-hair-rituel/cutout/le-masque-soin-nutrition-intense.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "sisley-hair-rituel--le-baume-restructurant-nourrissant",
+   "name": "Le Baume Restructurant Nourrissant",
+   "brand": "sisley-hair-rituel",
+   "brand_name": "Sisley Paris Hair Rituel",
+   "url": "https://www.sisley-paris.com/fr-FR/le-baume-restructurant-nourrissant-169270.html",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 116.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://www.sisley-paris.com/dw/image/v2/BCXZ_PRD/on/demandware.static/-/Sites-masterCatalog_Sisley/default/dwc8fbdcfb/images/large/169270_01.jpg?sw=1000&sh=1000&q=80",
+   "image_local": "public/scan/products-cheveux/sisley-hair-rituel/le-baume-restructurant-nourrissant.jpg",
+   "categorie": "masque",
+   "etape": 2,
+   "cheveux_cibles": [
+    "secs",
+    "abimes"
+   ],
+   "actifs": [
+    "glycérine",
+    "beurre de karité",
+    "protéines de riz",
+    "huile de macadamia",
+    "huile de moringa"
+   ],
+   "ingredients": "BUTYROSPERMUM PARKII (SHEA) BUTTER, ORBIGNYA OLEIFERA SEED OIL, PEG-20 GLYCERYL TRIISOSTEARATE, HYDROGENATED PALM OIL, HYDROGENATED RAPESEED OIL, GLYCERYL BEHENATE/EICOSADIOATE, PARFUM/FRAGRANCE, LIMNANTHES ALBA (MEADOWFOAM) SEED OIL, MACADAMIA INTEGRIFOLIA SEED OIL, MORINGA OLEIFERA SEED OIL, HYDROLYZED RICE PROTEIN, POLYGLYCERYL-4 ISOSTEARATE, CETYL PEG/PPG-10/1 DIMETHICONE, HEXYL LAURATE, AQUA/WATER/EAU, GLYCERIN, BEHENIC ACID, STEARIC ACID, STEARAMIDOPROPYL DIMETHYLAMINE, AMINOPROPANEDIOL, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, CITRUS LIMON (LEMON) PEEL OIL, LIMONENE, PINENE, ACETYL CEDRENE, CITRAL, TERPINEOL. IL",
+   "description": "Baume avant-shampoing nourrissant profond pour les cheveux abîmés, desséchés et cassants. Enrichi d’une association précieuse en huiles végétales, il agit sur la fibre capillaire pour nourrir intensément, réparer et restructurer. Texture “baume fondant” se transformant instantanément en huile sensorielle. La composition en huiles végétales peut faire varier l'aspect du Baume dans le temps sans altérer sa qualité. A conserver à température ambiante.",
+   "claims": [
+    "nutrition",
+    "reparation",
+    "texturisant"
+   ],
+   "source": "categories hair-rituel sisley-paris.com/fr-FR (site officiel FR) + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sisley-hair-rituel/cutout/le-baume-restructurant-nourrissant.webp",
+   "image_fond": true,
+   "ciblage_source": "fiche"
+  },
+  {
+   "id": "sisley-hair-rituel--l-huile-precieuse-cheveux",
+   "name": "L'Huile Précieuse Cheveux",
+   "brand": "sisley-hair-rituel",
+   "brand_name": "Sisley Paris Hair Rituel",
+   "url": "https://www.sisley-paris.com/fr-FR/l-huile-precieuse-cheveux-169260.html",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 104.5,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://www.sisley-paris.com/on/demandware.static/-/Library-Sites-Sisley/default/dw21f9ab27/PDP_enriched/169260/huile-precieuse-cheveux_pdp_desktop_asset1.jpg",
+   "image_local": "public/scan/products-cheveux/sisley-hair-rituel/l-huile-precieuse-cheveux.jpg",
+   "categorie": "huile",
+   "etape": 3,
+   "cheveux_cibles": [],
+   "actifs": [
+    "vitamine E",
+    "beurre de karité",
+    "acides aminés",
+    "protéines de soja",
+    "huile de moringa"
+   ],
+   "ingredients": "DIMETHICONE, C9-12 ALKANE, DIMETHICONOL, BUTYROSPERMUM PARKII (SHEA) OIL, PARFUM/FRAGRANCE, GOSSYPIUM HERBACEUM (COTTON) SEED OIL, MORINGA OLEIFERA SEED OIL, PASSIFLORA INCARNATA SEED OIL, GLYCINE SOJA (SOYBEAN) OIL, TOCOPHEROL, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, CITRUS LIMON (LEMON) PEEL OIL, LIMONENE, PINENE, ACETYL CEDRENE, CITRAL, TERPINEOL, GERANYL ACETATE, ROSE KETONES, LINALOOL, EUGENOL, LAVANDULA OIL/EXTRACT, BETA-CARYOPHYLLENE, LINALYL ACETATE. IL",
+   "description": null,
+   "claims": [
+    "nutrition"
+   ],
+   "source": "categories hair-rituel sisley-paris.com/fr-FR (site officiel FR) + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sisley-hair-rituel/cutout/l-huile-precieuse-cheveux.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "sisley-hair-rituel--le-serum-revitalisant-fortifiant",
+   "name": "Le Sérum Revitalisant Fortifiant",
+   "brand": "sisley-hair-rituel",
+   "brand_name": "Sisley Paris Hair Rituel",
+   "url": "https://www.sisley-paris.com/fr-FR/le-serum-revitalisant-fortifiant-169210.html",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 137.9,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://www.sisley-paris.com/dw/image/v2/BCXZ_PRD/on/demandware.static/-/Sites-masterCatalog_Sisley/default/dwbdc1cac2/images/large/169210_01.jpg?sw=1000&sh=1000&q=80",
+   "image_local": "public/scan/products-cheveux/sisley-hair-rituel/le-serum-revitalisant-fortifiant.jpg",
+   "categorie": "traitement-chute",
+   "etape": 4,
+   "cheveux_cibles": [
+    "fins",
+    "chute",
+    "cuir-chevelu-sensible"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "panthénol",
+    "vitamine E",
+    "acides aminés",
+    "protéines de riz",
+    "arginine",
+    "bisabolol"
+   ],
+   "ingredients": "AQUA/WATER/EAU, ALCOHOL DENAT., GLYCERIN, PEG-40 HYDROGENATED CASTOR OIL, PENTYLENE GLYCOL, PANTHENOL, ARGININE, BISABOLOL, PYRIDOXINE HCL, TOCOPHERYL ACETATE, MAGNESIUM ASPARTATE, ZINC GLUCONATE, SALVIA OFFICINALIS (SAGE) LEAF EXTRACT, COPPER GLUCONATE, HYDROLYZED RICE PROTEIN, HYDROLYZED VEGETABLE PROTEIN, HYDROLYZED LINSEED EXTRACT, BIOTINOYL TRIPEPTIDE-1, THYMUS MASTICHINA FLOWER OIL, THYMUS VULGARIS (THYME) FLOWER/LEAF OIL, PPG-26-BUTETH-26, CETRIMONIUM CHLORIDE, CITRIC ACID, BUTYLENE GLYCOL, HYDROXYETHYLCELLULOSE, DISODIUM EDTA, SODIUM HYDROXIDE, PARFUM/FRAGRANCE, SODIUM BENZOATE, POTASSIUM SORBATE, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, LINALOOL, TERPINEOL, LIMONENE, PINENE, CITRUS LIMON (LEMON) PEEL OIL, BETA-CARYOPHYLLENE, ACETYL CEDRENE, CAMPHOR, CITRAL, LINALYL ACETATE, ALPHA-TERPINENE. IL",
+   "description": "Véritable élixir de jeunesse des cheveux, ce traitement intensif testé cliniquement bénéficie de résultats spectaculaires sur la force et la densité du cheveu, test réalisé dans un centre spécialiste de la peau et du cuir chevelu. Le Sérum Revitalisant Fortifiant signe la promesse d’une nouvelle “jeunesse capillaire” grâce à sa formule puissante, hautement concentrée en extraits d’origine végétale, protéines, vitamines et minéraux. Dynamise le bulbe capillaire pour améliorer l’ancrage des cheveu",
+   "claims": [
+    "fortifiant",
+    "volume",
+    "densifiant"
+   ],
+   "source": "categories hair-rituel sisley-paris.com/fr-FR (site officiel FR) + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sisley-hair-rituel/cutout/le-serum-revitalisant-fortifiant.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "sisley-hair-rituel--le-super-serum-revitalisant-fortifiant-formule-avancee",
+   "name": "Le Super Sérum Revitalisant Fortifiant Formule Avancée",
+   "brand": "sisley-hair-rituel",
+   "brand_name": "Sisley Paris Hair Rituel",
+   "url": "https://www.sisley-paris.com/fr-FR/le--super-serum-revitalisant-fortifiant-formule-avancee-169215.html",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 210.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://www.sisley-paris.com/dw/image/v2/BCXZ_PRD/on/demandware.static/-/Sites-masterCatalog_Sisley/default/dw2bce1d26/images/large/169215_01.jpg?sw=1000&sh=1000&q=80",
+   "image_local": "public/scan/products-cheveux/sisley-hair-rituel/le-super-serum-revitalisant-fortifiant-formule-avancee.jpg",
+   "categorie": "traitement-chute",
+   "etape": 4,
+   "cheveux_cibles": [
+    "chute"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "panthénol",
+    "vitamine E",
+    "acides aminés",
+    "protéines de riz",
+    "arginine",
+    "huile d'amla"
+   ],
+   "ingredients": "AQUA/WATER/EAU, ALCOHOL DENAT., BUTYLENE GLYCOL, GLYCERIN, POLYGLYCERYL-10 STEARATE, PANTHENOL, ARGININE, PYRIDOXINE HCL, YEAST (FAEX) EXTRACT/EXTRAIT DE LEVURE, TOCOPHERYL ACETATE, MAGNESIUM ASPARTATE, ZINC GLUCONATE, PHYLLANTHUS EMBLICA FRUIT EXTRACT, COPPER GLUCONATE, ZINGIBER ZERUMBET EXTRACT, CYANOCOBALAMIN, HYDROLYZED LINSEED EXTRACT, HYDROLYZED RICE PROTEIN, HYDROLYZED VEGETABLE PROTEIN, PALMITOYL TETRAPEPTIDE-7, THYMUS MASTICHINA FLOWER OIL, THYMUS VULGARIS (THYME) FLOWER/LEAF OIL, POLYGLYCERYL-10 OLEATE, PROPANEDIOL, CITRIC ACID, MALTODEXTRIN, HYDROXYETHYLCELLULOSE, PENTYLENE GLYCOL, STEARETH-20, SODIUM HYDROXIDE, PARFUM/FRAGRANCE, SODIUM BENZOATE, CHLORHEXIDINE DIGLUCONATE, POTASSIUM SORBATE, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, LINALOOL, LIMONENE, CITRUS LIMON (LEMON) PEEL OIL, PINENE, ALPHA-TERPINENE, TERPINEOL, ACETYL CEDRENE, CITRAL, BETA-CARYOPHYLLENE, CAMPHOR, LINALYL ACETATE. IL",
+   "description": null,
+   "claims": [
+    "fortifiant"
+   ],
+   "source": "categories hair-rituel sisley-paris.com/fr-FR (site officiel FR) + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sisley-hair-rituel/cutout/le-super-serum-revitalisant-fortifiant-formule-avancee.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "sisley-hair-rituel--la-cure-apaisante-antipelliculaire",
+   "name": "La Cure Apaisante Antipelliculaire",
+   "brand": "sisley-hair-rituel",
+   "brand_name": "Sisley Paris Hair Rituel",
+   "url": "https://www.sisley-paris.com/fr-FR/la-cure-apaisante-antipelliculaire-169370.html",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 117.5,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://www.sisley-paris.com/dw/image/v2/BCXZ_PRD/on/demandware.static/-/Sites-masterCatalog_Sisley/default/dw38b2dbd5/images/large/169370_01.jpg?sw=1000&sh=1000&q=80",
+   "image_local": "public/scan/products-cheveux/sisley-hair-rituel/la-cure-apaisante-antipelliculaire.jpg",
+   "categorie": "anti-pellicules",
+   "etape": 4,
+   "cheveux_cibles": [
+    "pellicules",
+    "cuir-chevelu-sensible"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "panthénol",
+    "vitamine E",
+    "piroctone olamine",
+    "bisabolol"
+   ],
+   "ingredients": "AQUA/WATER/EAU, ALCOHOL DENAT., PEG-40 HYDROGENATED CASTOR OIL, 1,2-HEXANEDIOL, PENTYLENE GLYCOL, PANTHENOL, PIROCTONE OLAMINE, BISABOLOL, TOCOPHERYL ACETATE, SALVIA OFFICINALIS (SAGE) LEAF EXTRACT, APIUM GRAVEOLENS (CELERY) SEED EXTRACT, LITSEA CUBEBA FRUIT OIL, PPG-26-BUTETH-26, GLYCERIN, HYDROXYETHYLCELLULOSE, CITRIC ACID, CAPRYLIC/CAPRIC TRIGLYCERIDE, SODIUM CITRATE, PARFUM/FRAGRANCE, POTASSIUM SORBATE, SODIUM BENZOATE, TOCOPHEROL, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, CITRUS LIMON (LEMON) PEEL OIL, LIMONENE, CITRAL, PINENE, ACETYL CEDRENE, TERPINEOL, GERANYL ACETATE, LINALOOL. IL",
+   "description": "Traitement enrichi en actifs d’origine végétale. Rééquilibre, apaise et purifie le cuir chevelu. La Cure est la 2nd étape du rituel Apaisant Antipelliculaire. Son association avec le Soin Lavant Apaisant Antipelliculaire traite à la source les facteurs responsables des pellicules et démangeaisons, pour un effet antipelliculaire prolongé même après l’arrêt du traitement*. Son + : L’application sans rinçage donne au Complexe Rééquilibrant Intense encore plus de temps pour agir intensément. L’actio",
+   "claims": [
+    "antipelliculaire",
+    "apaisant-cuir-chevelu",
+    "purifiant"
+   ],
+   "source": "categories hair-rituel sisley-paris.com/fr-FR (site officiel FR) + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sisley-hair-rituel/cutout/la-cure-apaisante-antipelliculaire.webp",
+   "image_fond": true,
+   "ciblage_source": "fiche"
+  },
+  {
+   "id": "sisley-hair-rituel--la-brume-bouclier-protection",
+   "name": "La Brume Bouclier Protection",
+   "brand": "sisley-hair-rituel",
+   "brand_name": "Sisley Paris Hair Rituel",
+   "url": "https://www.sisley-paris.com/fr-FR/la-brume-bouclier-protection-169400.html",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 80.5,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://www.sisley-paris.com/dw/image/v2/BCXZ_PRD/on/demandware.static/-/Sites-masterCatalog_Sisley/default/dw339b4313/images/large/169400_01.jpg?sw=1000&sh=1000&q=80",
+   "image_local": "public/scan/products-cheveux/sisley-hair-rituel/la-brume-bouclier-protection.jpg",
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "secs",
+    "boucles"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "panthénol",
+    "vitamine E",
+    "huile de tournesol",
+    "beurre de karité",
+    "acides aminés",
+    "protéines de soja",
+    "huile de macadamia"
+   ],
+   "ingredients": "AQUA/WATER/EAU, ALCOHOL DENAT., PEG-40 HYDROGENATED CASTOR OIL, GLYCERIN, 1,2-HEXANEDIOL, PEG-20 GLYCERYL TRIISOSTEARATE, PARFUM/FRAGRANCE, PANTHENOL, GLYCINE SOJA (SOYBEAN) SEED EXTRACT, HELIANTHUS ANNUUS (SUNFLOWER) SEED EXTRACT, CYNARA SCOLYMUS (ARTICHOKE) LEAF EXTRACT, BUTYROSPERMUM PARKII (SHEA) BUTTER, CAMELLIA OLEIFERA SEED OIL, CORYLUS AVELLANA (HAZELNUT) SEED OIL, MACADAMIA INTEGRIFOLIA SEED OIL, BUTYLENE GLYCOL, PROPANEDIOL, PPG-26-BUTETH-26, POLYIMIDE-1, GLYCINE SOJA (SOYBEAN) OIL, GLUCONOLACTONE, TRIS(TETRAMETHYLHYDROXYPIPERIDINOL) CITRATE, CITRIC ACID, CALCIUM GLUCONATE, SODIUM BENZOATE, TOCOPHEROL, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, CITRUS LIMON (LEMON) PEEL OIL, LIMONENE, CITRAL, PINENE, TERPINEOL, LIPPIA CITRIODORA ABSOLUTE, GERANYL ACETATE, ROSE KETONES, EUGENOL, LINALOOL, LAVANDULA OIL/EXTRACT. IL",
+   "description": "Nouveau geste de soin essentiel, cette brume protectrice pour les cheveux est conçue pour agir comme un véritable bouclier global contre les agressions extérieures en ciblant, notamment, les agressions environnementales quotidiennes telles que les méfaits du soleil et de la pollution, l’humidité et les agressions occasionnelles comme celles de l’eau de mer et de piscine. Ces multiples agressions altèrent la qualité et la vitalité du cheveu et sont à l’origine de dommages irréversibles : Au nivea",
+   "claims": [
+    "nutrition",
+    "definition-boucles",
+    "anti-pollution"
+   ],
+   "source": "categories hair-rituel sisley-paris.com/fr-FR (site officiel FR) + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sisley-hair-rituel/cutout/la-brume-bouclier-protection.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "sisley-hair-rituel--la-creme-230",
+   "name": "La Crème 230",
+   "brand": "sisley-hair-rituel",
+   "brand_name": "Sisley Paris Hair Rituel",
+   "url": "https://www.sisley-paris.com/fr-FR/la-creme-230-169350.html",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 93.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://www.sisley-paris.com/dw/image/v2/BCXZ_PRD/on/demandware.static/-/Sites-masterCatalog_Sisley/default/dw965b94ce/images/large/169350_01.jpg?sw=1000&sh=1000&q=80",
+   "image_local": "public/scan/products-cheveux/sisley-hair-rituel/la-creme-230.jpg",
+   "categorie": "protection-thermique",
+   "etape": 3,
+   "cheveux_cibles": [
+    "secs",
+    "abimes"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "vitamine E",
+    "acides aminés",
+    "protéines de soja",
+    "huile de moringa"
+   ],
+   "ingredients": "AQUA/WATER/EAU, BUTYLENE GLYCOL, GLYCERIN, BRASSICAMIDOPROPYL DIMETHYLAMINE, C13-15 ALKANE, PARFUM/FRAGRANCE, CAPRYLYL METHICONE, HYDROXYETHYLCELLULOSE, PENTYLENE GLYCOL, STEARYL ALCOHOL, CAMELLIA OLEIFERA SEED OIL, MORINGA OLEIFERA SEED OIL, HYDROLYZED COTTONSEED PROTEIN, POLYQUATERNIUM-28, DIMETHICONE, CITRIC ACID, CETEARYL ALCOHOL, POLYQUATERNIUM-47, DISODIUM EDTA, CETEARETH-33, PVM/MA COPOLYMER, DIMETHICONOL, CAPRYLYL GLYCOL, SODIUM HYDROXIDE, GLYCINE SOJA (SOYBEAN) OIL, SORBIC ACID, PHENOXYETHANOL, SODIUM BENZOATE, POTASSIUM SORBATE, TOCOPHEROL, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, CITRUS LIMON (LEMON) PEEL OIL, LIMONENE, PINENE, ACETYL CEDRENE, CITRAL, TERPINEOL, GERANYL ACETATE, ROSE KETONES, LINALOOL, EUGENOL, LAVANDULA OIL/EXTRACT, BETA-CARYOPHYLLENE, LINALYL ACETATE. IL",
+   "description": "Réparation thermo-active : Sous l'effet de la chaleur, la formule se transforme en un micro-gel réparateur haute précision qui fusionne avec la fibre. Grâce au Complexe 230, il répare les cheveux abîmés en refermant les écailles et en comblant les fissures. Protection thermique : Habille la fibre d’une barrière protectrice imperceptible et ultra-légère pour préserver les cheveux des méfaits des appareils chauffants jusqu’à 230°C/450°F. Nutrition : Offre douceur et souplesse. Au fil des applicati",
+   "claims": [
+    "nutrition",
+    "reparation",
+    "protection-chaleur"
+   ],
+   "source": "categories hair-rituel sisley-paris.com/fr-FR (site officiel FR) + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sisley-hair-rituel/cutout/la-creme-230.webp",
+   "ciblage_source": "fiche"
+  },
+  {
+   "id": "sisley-hair-rituel--la-creme-soin-des-boucles",
+   "name": "La Crème Soin des Boucles",
+   "brand": "sisley-hair-rituel",
+   "brand_name": "Sisley Paris Hair Rituel",
+   "url": "https://www.sisley-paris.com/fr-FR/la-creme-soin-des-boucles-169440.html",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 92.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://www.sisley-paris.com/dw/image/v2/BCXZ_PRD/on/demandware.static/-/Sites-masterCatalog_Sisley/default/dw1ce9dc33/images/large/169440_01.jpg?sw=1000&sh=1000&q=80",
+   "image_local": "public/scan/products-cheveux/sisley-hair-rituel/la-creme-soin-des-boucles.jpg",
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "secs",
+    "boucles",
+    "lisses"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "vitamine E",
+    "huile de tournesol",
     "beurre de karité",
     "huile de baobab",
-    "glycérine",
-    "vitamine E",
-    "acide citrique"
+    "huile de moringa"
    ],
-   "ingredients": "AQUA/WATER/EAU, HYDROXYPROPYL STARCH PHOSPHATE, GLYCERIN, BEHENTRIMONIUM CHLORIDE, PARFUM/FRAGRANCE, PENTYLENE GLYCOL, PANTHENOL, C15-19 ALKANE, CETRIMONIUM CHLORIDE, LIMNANTHES ALBA (MEADOWFOAM) SEED OIL, SYNTHETIC FLUORPHLOGOPITE, BUTYROSPERMUM PARKII (SHEA) BUTTER, CYNARA SCOLYMUS (ARTICHOKE) LEAF EXTRACT, HYDROLYZED ADANSONIA DIGITATA EXTRACT, JUGLANS REGIA (WALNUT) SEEDCOAT EXTRACT, MYRTUS COMMUNIS LEAF EXTRACT, IMPATIENS BALSAMINA FLOWER/LEAF/STEM EXTRACT, PALMITOYL MYRISTYL SERINATE, BRASSICA CAMPESTRIS/ALEURITES FORDI OIL COPOLYMER, ISOPROPYL ALCOHOL, PROPANEDIOL, HYDROXYETHYLCELLULOSE, POLYQUATERNIUM-47, POLYQUATERNIUM-22, PEG-8, SODIUM HYDROXIDE, CITRIC ACID, GLUCONOLACTONE, PEG-8/SMDI COPOLYMER, CARBOMER, CALCIUM GLUCONATE, GLYCINE SOJA (SOYBEAN) OIL, SODIUM BENZOATE, TOCOPHEROL, Ext. Violet 2 (CI 60730), TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, CITRUS LIMON (LEMON) PEEL OIL, LIMONENE, PINENE, ACETYL CEDRENE, CITRAL, TERPINEOL. IL#10A",
-   "description": "Ce masque est la solution pour sublimer la couleur et révéler la lumière des cheveux blonds décolorés, et des cheveux blancs et gris naturels. Son application est facile et rapide, et sa texture crémeuse ne tache pas les mains. Combinant neutralisation instantanée des reflets indésirables et soin à long-terme du cheveu, il embellit les cheveux blonds décolorés ou méchés ainsi que les cheveux gris ou blancs naturels. Son efficacité est prouvée et son action est multiple, il : - NEUTRALISE IMMEDIA",
-   "claims": [],
-   "source": "sitemap sisley-paris.com/fr-FR + fiche"
+   "ingredients": "AQUA/WATER/EAU, GLYCERIN, BUTYLENE GLYCOL, CETYL ALCOHOL, HYDROXYPROPYL STARCH PHOSPHATE, BRASSICAMIDOPROPYL DIMETHYLAMINE, PENTYLENE GLYCOL, C15-19 ALKANE, STEARYL ALCOHOL, PARFUM/FRAGRANCE, JOJOBA ESTERS, HELIANTHUS ANNUUS (SUNFLOWER) SEED WAX, BUTYROSPERMUM PARKII (SHEA) BUTTER, COCOS NUCIFERA (COCONUT) OIL, MORINGA OLEIFERA SEED OIL, HYDROLYZED ADANSONIA DIGITATA EXTRACT, PALMITOYL MYRISTYL SERINATE, CETEARYL ALCOHOL, CITRIC ACID, POLYQUATERNIUM-10, GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, PEG-8, CETEARETH-33, PROPANEDIOL, POLYGLYCERIN-3, PEG-8/SMDI COPOLYMER, CARBOMER, SODIUM BENZOATE, TOCOPHEROL, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, CITRUS LIMON (LEMON) PEEL OIL, LIMONENE, CITRAL, PINENE, TERPINEOL, LIPPIA CITRIODORA ABSOLUTE, GERANYL ACETATE, ROSE KETONES, EUGENOL, LINALOOL, LAVANDULA OIL/EXTRACT, LINALYL ACETATE. IL",
+   "description": "Vos boucles dans leur meilleure définition ! Cette crème soin des boucles révèle la beauté des cheveux bouclés à frisés (type 3 : 3A à 3C) en apportant nutrition, définition et tenue longue durée en un seul geste. Une formule aux actifs complémentaires pour une boucle magnifiée et préservée durablement : Nutrition : une association de trois huiles nutritives d’origine végétale (huile de Coco, de Karité, de Moringa) pour nourrir et gainer les boucles tout en leur apportant souplesse, brillance et",
+   "claims": [
+    "nutrition",
+    "definition-boucles",
+    "brillance",
+    "fixation"
+   ],
+   "source": "categories hair-rituel sisley-paris.com/fr-FR (site officiel FR) + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sisley-hair-rituel/cutout/la-creme-soin-des-boucles.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "sisley-hair-rituel--la-gelee-soin-des-boucles",
+   "name": "La Gelée Soin des Boucles",
+   "brand": "sisley-hair-rituel",
+   "brand_name": "Sisley Paris Hair Rituel",
+   "url": "https://www.sisley-paris.com/fr-FR/la-gelee-soin-des-boucles-169450.html",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 92.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://www.sisley-paris.com/dw/image/v2/BCXZ_PRD/on/demandware.static/-/Sites-masterCatalog_Sisley/default/dw858a7729/images/large/169450_01.jpg?sw=1000&sh=1000&q=80",
+   "image_local": "public/scan/products-cheveux/sisley-hair-rituel/la-gelee-soin-des-boucles.jpg",
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "secs",
+    "boucles",
+    "lisses"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "vitamine E",
+    "huile de tournesol",
+    "beurre de karité",
+    "huile de baobab",
+    "huile de moringa"
+   ],
+   "ingredients": "AQUA/WATER/EAU, GLYCERIN, BUTYLENE GLYCOL, HYDROXYPROPYL STARCH PHOSPHATE, PENTYLENE GLYCOL, C15-19 ALKANE, PARFUM/FRAGRANCE, JOJOBA ESTERS, POLYACRYLATE CROSSPOLYMER-6, HELIANTHUS ANNUUS (SUNFLOWER) SEED WAX, BUTYROSPERMUM PARKII (SHEA) BUTTER, COCOS NUCIFERA (COCONUT) OIL, MORINGA OLEIFERA SEED OIL, HYDROLYZED ADANSONIA DIGITATA EXTRACT, PALMITOYL MYRISTYL SERINATE, POLYQUATERNIUM-10, GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, PEG-8, CITRIC ACID, PROPANEDIOL, POLYGLYCERIN-3, SODIUM HYDROXIDE, PEG-8/SMDI COPOLYMER, CARBOMER, SODIUM BENZOATE, TOCOPHEROL, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, CITRUS LIMON (LEMON) PEEL OIL, LIMONENE, CITRAL, PINENE, TERPINEOL, LIPPIA CITRIODORA ABSOLUTE, GERANYL ACETATE, ROSE KETONES, EUGENOL, LINALOOL, LAVANDULA OIL/EXTRACT, LINALYL ACETATE. IL",
+   "description": "Vos boucles dans leur meilleure définition ! Cette gelée soin des boucles révèle la beauté des cheveux ondulés (type 2 : 2A à 2C) en apportant nutrition, définition et tenue longue durée en un seul geste. Une formule aux actifs complémentaires pour une boucle magnifiée et préservée durablement : Nutrition : une association de trois huiles nutritives d’origine végétale (huile de Coco, de Karité, de Moringa) pour nourrir et gainer les boucles tout en leur apportant souplesse, brillance et douceur.",
+   "claims": [
+    "nutrition",
+    "definition-boucles",
+    "brillance",
+    "fixation"
+   ],
+   "source": "categories hair-rituel sisley-paris.com/fr-FR (site officiel FR) + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sisley-hair-rituel/cutout/la-gelee-soin-des-boucles.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "sisley-hair-rituel--le-spray-fixant-invisible",
+   "name": "Le Spray Fixant Invisible",
+   "brand": "sisley-hair-rituel",
+   "brand_name": "Sisley Paris Hair Rituel",
+   "url": "https://www.sisley-paris.com/fr-FR/le-spray-fixant-invisible-169420.html",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 91.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://www.sisley-paris.com/dw/image/v2/BCXZ_PRD/on/demandware.static/-/Sites-masterCatalog_Sisley/default/dwdf8e2db4/images/large/169420_01.jpg?sw=1000&sh=1000&q=80",
+   "image_local": "public/scan/products-cheveux/sisley-hair-rituel/le-spray-fixant-invisible.jpg",
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "fins"
+   ],
+   "actifs": [
+    "acide citrique",
+    "panthénol",
+    "vitamine E"
+   ],
+   "ingredients": "ALCOHOL DENAT., ACRYLATES COPOLYMER, PARFUM/FRAGRANCE, PANTHENOL, TOCOPHERYL ACETATE, AMINOMETHYL PROPANOL, AQUA/WATER/EAU, POLYSORBATE 80, CITRIC ACID, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, CITRUS LIMON (LEMON) PEEL OIL, LIMONENE, CITRAL, PINENE, TERPINEOL, LIPPIA CITRIODORA ABSOLUTE, GERANYL ACETATE, ROSE KETONES, EUGENOL, LINALOOL, LAVANDULA OIL/EXTRACT, LINALYL ACETATE. IL",
+   "description": "Plus que du styling*, un geste de soin ! Le parfait équilibre entre fixation souple, résultat naturel et soin pour sublimer tous les looks. Spray fixant invisible qui offre une tenue souple et naturelle à toutes les coiffures, sans les figer. Dès l’application, la structure et la définition de la coiffure sont préservées et son action texturisante révèle un effet créateur de volume et de matière immédiat. Une formule soin combinant Pro-vitamine B5 et Acétate de Vitamine E pour prendre soin de la",
+   "claims": [
+    "definition-boucles",
+    "volume",
+    "texturisant",
+    "fixation"
+   ],
+   "source": "categories hair-rituel sisley-paris.com/fr-FR (site officiel FR) + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sisley-hair-rituel/cutout/le-spray-fixant-invisible.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "sisley-hair-rituel--le-spray-volume",
+   "name": "Le Spray Volume",
+   "brand": "sisley-hair-rituel",
+   "brand_name": "Sisley Paris Hair Rituel",
+   "url": "https://www.sisley-paris.com/fr-FR/le-spray-volume-169290.html",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 91.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://www.sisley-paris.com/dw/image/v2/BCXZ_PRD/on/demandware.static/-/Sites-masterCatalog_Sisley/default/dw86dc1091/images/large/169290_01.jpg?sw=1000&sh=1000&q=80",
+   "image_local": "public/scan/products-cheveux/sisley-hair-rituel/le-spray-volume.jpg",
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "fins"
+   ],
+   "actifs": [
+    "acide citrique",
+    "panthénol",
+    "vitamine E",
+    "acides aminés",
+    "protéines de riz",
+    "protéines de soja"
+   ],
+   "ingredients": "AQUA/WATER/EAU, ALCOHOL DENAT., PEG-40 HYDROGENATED CASTOR OIL, POLYIMIDE-1, PANTHENOL, PEG-12 DIMETHICONE, HYDROLYZED RICE PROTEIN, BOSWELLIA SERRATA RESIN EXTRACT, PPG-26-BUTETH-26, CITRIC ACID, CETRIMONIUM CHLORIDE, BUTYLENE GLYCOL, DISODIUM EDTA, GLYCINE SOJA (SOYBEAN) OIL, SODIUM HYDROXIDE, PARFUM/FRAGRANCE, SODIUM BENZOATE, TOCOPHEROL, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, CITRUS LIMON (LEMON) PEEL OIL, LIMONENE, PINENE, CITRAL, TERPINEOL, ACETYL CEDRENE, GERANYL ACETATE, ROSE KETONES, EUGENOL, LINALOOL, BETA-CARYOPHYLLENE, LAVANDULA OIL/EXTRACT, LINALYL ACETATE. IL",
+   "description": "Le Spray Volume - Corps & Densité soutient instantanément le cheveu dès la racine et apporte corps et densité pour un résultat anti-plat longue tenue. Parfume délicieusement la chevelure. Texture légère qui ne laisse pas d'effet poisseux. Résiste à l’humidité.",
+   "claims": [
+    "volume",
+    "texturisant",
+    "densifiant",
+    "fixation"
+   ],
+   "source": "categories hair-rituel sisley-paris.com/fr-FR (site officiel FR) + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sisley-hair-rituel/cutout/le-spray-volume.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

@@ -13,9 +13,12 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0905/3204/files/s2634764-main_a55cac7a-e8a5-49b3-ab0a-0de4cfa8ed7a.jpg?v=1762448684",
    "image_local": "public/scan/products-cheveux/briogeo/be-gentle-be-kind-tm-aloe-oat-milk-ultra-soothing-3-in-1-cleansing-bar-for-hair-.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [],
+   "categorie": "shampooing",
+   "etape": 1,
+   "cheveux_cibles": [
+    "secs",
+    "cuir-chevelu-sensible"
+   ],
    "actifs": [
     "panthénol",
     "beurre de karité",
@@ -26,10 +29,12 @@
    "ingredients": "Sodium Cocoyl Isethionate*, Hydrogenated Vegetable Oil*, Polyglyceryl-4 Laurate*, Water/Aqua/Eau, Glycerin*, Avena Sativa (Oat) Kernel Flour*, Distarch Phosphate*, Butyrospermum Parkii (Shea) Butter*, Avena Sativa (Oat) Bran*, Panthenol, Aloe Barbadensis Leaf Juice*, Avena Sativa (Oat) Kernel Extract*, Camellia Sinensis Leaf Extract*, Limnanthes Alba (Meadowfoam) Seed Oil*, Tocopheryl Acetate, Tetrasodium Glutamate Diacetate*, Maltodextrin*, Quercetin*, Titanium Dioxide (CI 77891)",
    "description": "A dermatologist-approved, fragrance and essential oil-free, gentle shampoo with nourishing and soothing ingredients for healthy feeling hair and scalp.",
    "claims": [
-    "nourrissant",
-    "apaisant"
+    "nutrition",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/be-gentle-be-kind-tm-aloe-oat-milk-ultra-soothing-3-in-1-cleansing-bar-for-hair-.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "briogeo--be-gentle-be-kind-aloe-oat-milk-ultra-soothing-conditioner",
@@ -44,7 +49,10 @@
    "image_local": "public/scan/products-cheveux/briogeo/be-gentle-be-kind-aloe-oat-milk-ultra-soothing-conditioner.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "cuir-chevelu-sensible"
+   ],
    "actifs": [
     "panthénol",
     "huile de jojoba",
@@ -57,10 +65,13 @@
    "ingredients": "Water/Aqua/Eau, Glycerin*, Isopropyl Palmitate*, Behentrimonium Chloride*, Cetearyl Alcohol*, Brassica Alcohol*, Cetyl Esters*, Cetrimonium Chloride*, Aloe Barbadensis Leaf Juice*, Avena Sativa (Oat) Bran Extract*, Camellia Sinensis Leaf Extract*, Limnanthes Alba (Meadowfoam) Seed Oil*, Tocopheryl Acetate, Panthenol, Vitis Vinifera (Grape) Seed Oil*, Simmondsia Chinensis (Jojoba) Seed Oil*, Brassicyl Isoleucinate Esylate*, Behentrimonium Methosulfate*, Leuconostoc/Radish Root Ferment Filtrate*, Guar Hydroxypropyltrimonium Chloride*, Arginine*, Citric Acid*, Potassium Sorbate, Sodium Benzoate, Dehydroacetic Acid, Benzyl Alcohol",
    "description": "A dermatologist-approved, fragrance and essential oil-free, gentle conditioner with nourishing and soothing ingredients for healthy feeling hair and scalp.",
    "claims": [
-    "nourrissant",
-    "apaisant"
+    "nutrition",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/be-gentle-be-kind-aloe-oat-milk-ultra-soothing-conditioner.webp",
+   "image_fond": true,
+   "ciblage_source": "fiche"
   },
   {
    "id": "briogeo--be-gentle-be-kind-aloe-oat-milk-ultra-soothing-detangling-spray",
@@ -75,7 +86,9 @@
    "image_local": "public/scan/products-cheveux/briogeo/be-gentle-be-kind-aloe-oat-milk-ultra-soothing-detangling-spray.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "cuir-chevelu-sensible"
+   ],
    "actifs": [
     "panthénol",
     "huile de jojoba",
@@ -87,9 +100,13 @@
    "ingredients": "Water/Aqua/Eau, Polyglyceryl-6 Stearate*, Isopropyl Palmitate*, Vitis Vinifera (Grape) Seed Oil*, Glycerin*, Limnanthes Alba (Meadowfoam) Seed Oil*, Aloe Barbadensis Leaf Juice*, Avena Sativa (Oat) Bran Extract*, Camellia Sinensis Leaf Extract*, Simmondsia Chinensis (Jojoba) Seed Oil*, Cetrimonium Chloride*, Cetearyl Alcohol*, Panthenol, Leuconostoc/Radish Root Ferment Filtrate*, Glyceryl Stearate*, Polyglyceryl-6 Behenate*, Tocopheryl Acetate, Citric Acid*, Potassium Sorbate, Sodium Benzoate, Caprylhydroxamic Acid*, Benzyl Alcohol*",
    "description": "A dermatologist-approved, fragrance and essential oil-free leave-in detangler formulated with aloe vera + oat extract to leave hair shiny with a lightweight finish.",
    "claims": [
-    "apaisant"
+    "apaisant-cuir-chevelu",
+    "brillance",
+    "demelant"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/be-gentle-be-kind-aloe-oat-milk-ultra-soothing-detangling-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--be-gentle-be-kind-aloe-oat-milk-ultra-soothing-shampoo",
@@ -104,7 +121,10 @@
    "image_local": "public/scan/products-cheveux/briogeo/be-gentle-be-kind-aloe-oat-milk-ultra-soothing-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "cuir-chevelu-sensible"
+   ],
    "actifs": [
     "panthénol",
     "aloe vera",
@@ -115,10 +135,12 @@
    "ingredients": "Water/Aqua/Eau, Sodium Lauroyl Methyl Isethionate*, Cocamidopropyl Betaine*, Glycerin*, Aloe Barbadensis Leaf Juice*, Avena Sativa (Oat) Bran Extract*, Camellia Sinensis Leaf Extract*, Limnanthes Alba (Meadowfoam) Seed Oil*, Panthenol, Sodium Gluconate*, Citric Acid*, Leuconostoc/Radish Root Ferment Filtrate*, Panthenyl Hydroxypropyl Steardimonium Chloride*, Tocopheryl Acetate, Potassium Sorbate, Sodium Benzoate, Caprylhydroxamic Acid*, Benzyl Alcohol",
    "description": "A dermatologist-approved, fragrance and essential oil-free, gentle shampoo with nourishing and soothing ingredients for healthy feeling hair and scalp.",
    "claims": [
-    "nourrissant",
-    "apaisant"
+    "nutrition",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/be-gentle-be-kind-aloe-oat-milk-ultra-soothing-shampoo.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "briogeo--briogeo-superfoodstm-avocado-kiwi-mega-moisture-superfood-mask-2-oz",
@@ -133,7 +155,9 @@
    "image_local": "public/scan/products-cheveux/briogeo/briogeo-superfoodstm-avocado-kiwi-mega-moisture-superfood-mask-2-oz.jpg",
    "categorie": "masque",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "panthénol",
     "biotine",
@@ -147,10 +171,12 @@
    "ingredients": "Water/Aqua/Eau, Cetyl Alcohol*, Stearyl Alcohol*, Behentrimonium Chloride*, Brassica Alcohol*, Propanediol*, Cetyl Esters*, Persea Gratissima (Avocado) Oil*, Actinidia Chinensis (Kiwi) Fruit Extract*, Spirulina Maxima Extract*, Spinacia Oleracea (Spinach) Leaf Extract*, Aloe Barbadensis Leaf Juice*, Biotin, Theobroma Cacao (Cocoa) Seed Butter*, Salvia Hispanica Seed Oil*, Isododecane, Brassicyl Isoleucinate Esylate*, Coccinia Indica Fruit Extract*, Aloe Barbadensis Flower Extract*, Solanum Melongena (Eggplant) Fruit Extract*, Curcuma Longa (Turmeric) Root Extract*, Ocimum Basilicum (Basil) Flower/Leaf Extract*, Ocimum Sanctum Leaf Extract*, Isopropyl Myristate*, Melia Azadirachta Leaf Extract*, Melia Azadirachta Flower Extract*, Cetrimonium Chloride*, Cetearyl Alcohol*, Guar Hydroxypropyltrimonium Chloride*, Corallina Officinalis Extract*, Behentrimonium Methosulfate*, Panthenol, Volcanic Ash*, Arginine*, Glycerin*, Curcumin*, Helianthus Annuus (Sunflower) Seed Oil*, Palmaria Palmata Extract*, Mineral Salts*, Butylene Glycol, Hexylene Glycol, Rosmarinus Officinalis (Rosemary) Leaf Extract*, Potassium Sorbate, Sodium Benzoate, Fragrance (Parfum), Dehydroacetic Acid, Benzyl Alcohol",
    "description": "A protein-free, nourishing hair mask formulated with highly emollient ingredients to boost moisture for softer, more manageable hair.",
    "claims": [
-    "hydratant",
-    "nourrissant"
+    "hydratation",
+    "nutrition"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/briogeo-superfoodstm-avocado-kiwi-mega-moisture-superfood-mask-2-oz.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "briogeo--briogeo-superfoodstm-mango-cherry-balancing-conditioner",
@@ -177,9 +203,11 @@
    "ingredients": "Water/Aqua/Eau, Glycerin*, Isopropyl Palmitate*, Behentrimonium Chloride*, Cetearyl Alcohol*, Brassica Alcohol*, Cetyl Esters*, Brassica Oleracea Acephala Leaf Extract*, Pyrus Malus (Apple) Fruit Extract*, Spinacia Oleracea (Spinach) Leaf Extract*, Brassica Oleracea Italica (Broccoli) Extract*, Persea Gratissima (Avocado) Oil*, Cucumis Sativus (Cucumber) Fruit Extract*, Prunus Amygdalus Dulcis (Sweet Almond) Oil*, Citrus Limon (Lemon) Fruit Extract*, Citrus Grandis (Grapefruit) Fruit Extract*, Citrus Aurantium Dulcis (Orange) Fruit Extract*, Zingiber Officinale (Ginger) Root Extract*, Beta Vulgaris (Beet) Root Extract*, Panax Ginseng Root Extract*, Hippophae Rhamnoides Fruit Oil*, Chlorella Vulgaris Extract*, Brassicyl Isoleucinate Esylate*, Panthenol, Cetrimonium Chloride*, Behentrimonium Methosulfate*, Guar Hydroxypropyltrimonium Chloride*, Arginine*, Citric Acid*, Fragrance (Parfum), Dehydroacetic Acid, Benzyl Alcohol, Chlorophyllin-Copper Complex (CI 75810)*",
    "description": "Briogeo Superfoods™ Mango + Cherry Balancing Conditioner is a creamy, smoothie-textured conditioner for all hair types that harnesses the power of papaya enzymes to help balance oil production and antioxidant-rich fruits to support healthy looking hair and scalp.",
    "claims": [
-    "lissant"
+    "anti-frisottis"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/briogeo-superfoodstm-mango-cherry-balancing-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--briogeo-superfoodstm-mango-cherry-balancing-shampoo",
@@ -206,8 +234,12 @@
    ],
    "ingredients": "Water/Aqua/Eau, Cocamidopropyl Betaine*, Sodium Lauroyl Methyl Isethionate*, Glycerin*, Sodium C14-16 Olefin Sulfonate, Lauramidopropyl Betaine*, Mangifera Indica (Mango) Fruit Extract*, Prunus Cerasus (Bitter Cherry) Fruit Extract*, Papain*, Aloe Barbadensis Leaf Juice*, Daucus Carota Sativa (Carrot) Root Extract*, Daucus Carota Sativa (Carrot) Seed Oil*, Caprylyl/Capryl Glucoside*, Citric Acid*, Lycium Barbarum Fruit Extract*, Mangifera Indica (Mango) Juice*, Trisodium Ethylenediamine Disuccinate, Sodium Benzotriazolyl Butylphenol Sulfonate, Guar Hydroxypropyltrimonium Chloride*, Helianthus Annuus (Sunflower) Seed Oil/Helianthus Annuus Seed Oil*, Panthenol, Litchi Chinensis Pericarp Extract*, Sodium Benzoate, Punica Granatum Bark Extract*, Sodium Cocoyl Glutamate*, Tetrasodium Glutamate Diacetate, Averrhoa Carambola Fruit Extract*, Glyceryl Caprylate*, Polyglyceryl-6 Oleate*, Sodium Surfactin*, Ascorbyl Palmitate, Potassium Sorbate, Sodium Hydroxide, Fragrance (Parfum), Dehydroacetic Acid, Benzyl Alcohol, Beta-Carotene CI 40800*",
    "description": "Briogeo Superfoods™ Mango + Cherry Balancing Shampoo is a nutrient-rich, fruit-juice inspired shampoo for all hair types that harnesses the power of papaya enzymes to help balance oil production and antioxidant-rich fruits to support healthy looking hair and scalp.",
-   "claims": [],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "claims": [
+    "nutrition"
+   ],
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/briogeo-superfoodstm-mango-cherry-balancing-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--curl-charismatm-rice-amino-avocado-leave-in-defining-creme",
@@ -224,9 +256,9 @@
    "etape": 3,
    "cheveux_cibles": [
     "gras",
-    "epais",
     "boucles",
-    "crepus"
+    "crepus",
+    "abimes"
    ],
    "actifs": [
     "kératine",
@@ -241,11 +273,16 @@
    "ingredients": "Water/Aqua/Eau, Aloe Barbadensis Leaf Juice*, Glycerin*, Polyquaternium-37, Isopropyl Myristate*, Persea Gratissima (Avocado) Oil*, Glycine Soja (Soybean) Oil*, Oryza Sativa (Rice) Extract*, Hydrolyzed Quinoa*, Keratin Amino Acids*, Lactobacillus/Tomato Fruit Ferment Extract*, Tocopheryl Acetate, Panthenol, Sorbitol*, Citrus Aurantium Dulcis (Orange) Peel Oil*, Citrus Paradisi (Grapefruit) Peel Oil*, Acyl Coenzyme A Desaturase*, Cetrimonium Chloride*, Butyrospermum Parkii (Shea) Butter*, Polyquaternium-10, Rice Amino Acids*, Leuconostoc/Radish Root Ferment Filtrate*, Citric Acid*, Potassium Sorbate, Sodium Benzoate, Fragrance (Parfum), Dehydroacetic Acid, Benzyl Alcohol",
    "description": "WHO IT'S FOR: Those with wavy, curly, and coily hair textures. WHAT IT IS: A curl-defining cream that provides definition and control while maintaining movement and touchability for resilient, sleek, and long-lasting curls. WHAT IT DOES: Curl Charisma Rice Amino + Avocado Leave-In Defining Crème hydrates, defines, and weather-proofs curls while maintaining touchable movement and light, flexible hold. Rice amino acids smooth and seal the hair cuticle to lock out humidity that causes frizz. Ultra-",
    "claims": [
-    "hydratant",
-    "lissant",
-    "definition-boucles"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "anti-gras",
+    "fixation"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/curl-charismatm-rice-amino-avocado-leave-in-defining-creme.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--curl-charismatm-rice-amino-avocado-hydrating-shampoo",
@@ -261,9 +298,11 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
     "gras",
     "boucles",
-    "crepus"
+    "crepus",
+    "abimes"
    ],
    "actifs": [
     "kératine",
@@ -275,13 +314,20 @@
     "huile d'avocat"
    ],
    "ingredients": "Water/Aqua/Eau, Lauramidopropyl Betaine*, Sodium Cocoyl Isethionate*, Glycerin*, Glycol Distearate*, Cocamidopropyl Hydroxysultaine*, Disodium Laureth Sulfosuccinate, Butyrospermum Parkii (Shea) Butter*, Oryza Sativa (Rice) Extract*, Rice Amino Acids*, Lactobacillus/Tomato Fruit Ferment Extract*, Persea Gratissima (Avocado) Oil*, Rosa Canina Fruit Oil*, Acanthus Mollis Leaf Extract*, Tocopheryl Acetate, Aloe Barbadensis Leaf Juice*, Keratin Amino Acids*, Coconut Acid*, Hydrolyzed Quinoa*, Sodium Hyaluronate*, Acyl Coenzyme A Desaturase*, Citrus Aurantium Dulcis (Orange) Peel Oil*, Citrus Paradisi (Grapefruit) Peel Oil*, Polyquaternium-71, Sodium Lauryl Sulfoacetate, Leuconostoc/Radish Root Ferment Filtrate*, Sodium Lauroyl Sarcosinate, Sodium Isethionate, Polyquaternium-7, Anhydroxylitol*, Xylitylglucoside*, Xylitol*, Fragrance (Parfum), Dehydroacetic Acid, Benzyl Alcohol",
-   "description": "WHO IT'S FOR: Those with wavy and curly hair texture types (2A to 3C). Note: Kinky and Coily hair types (4A to 4C) - see ( here ) for our product recommendations! WHAT IT IS: A moisturizing, sulfate-free shampoo that nourishes and defines curly, coily, and wavy hair without stripping curls of much-needed natural oils. WHAT IT DOES: This shampoo is formulated with naturally derived cleansers that remove dirt and buildup without stripping curls of needed moisture. Fortified with rice amino acids, ",
+   "description": "WHO IT'S FOR: Those with wavy and curly hair texture types (2A to 3C). Note: Kinky and Coily hair types (4A to 4C) - see ( here ) for our product recommendations! WHAT IT IS: A moisturizing, sulfate-free shampoo that nourishes and defines curly, coily, and wavy hair without stripping curls of much-needed natural oils. WHAT IT DOES: This shampoo is formulated with naturally derived cleansers that remove dirt and buildup without stripping curls of needed moisture. Fortified with rice amino acids,",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "definition-boucles",
+    "texturisant",
+    "purifiant",
+    "anti-gras",
+    "sans-sulfate"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/curl-charismatm-rice-amino-avocado-hydrating-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--curl-charismatm-rice-amino-avocado-leave-in-defining-creme-2-oz",
@@ -297,8 +343,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
-    "boucles"
+    "boucles",
+    "abimes"
    ],
    "actifs": [
     "kératine",
@@ -310,10 +356,15 @@
    "ingredients": "Water/Aqua/Eau, VP/VA Copolymer, Carrageenan*, Glycerin*, Oryza Sativa (Rice) Extract*, Lactobacillus/Tomato Fruit Ferment Extract*, Rice Amino Acids*, Hydrolyzed Quinoa*, Keratin Amino Acids*, Butyrospermum Parkii (Shea) Butter*, Persea Gratissima (Avocado) Oil*, Tocopheryl Acetate, Citrus Aurantium Dulcis (Orange) Peel Oil*, Citrus Paradisi (Grapefruit) Peel Oil*, Polysorbate 80, Leuconostoc/Radish Root Ferment Filtrate*, Acyl Coenzyme A Desaturase*, Fragrance (Parfum), Dehydroacetic Acid, Benzyl Alcohol",
    "description": "Curl Charisma Rice Amino + Avocado Leave-In Defining Crème hydrates, defines, and weather-proofs curls while maintaining touchable movement and light, flexible hold. Rice amino acids smooth and seal the hair cuticle to lock out humidity that causes frizz. Ultra-hydrating avocado oil helps hair retain moisture and increases elasticity to protect against damage.",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "fixation"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/curl-charismatm-rice-amino-avocado-leave-in-defining-creme-2-oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--curl-charismatm-rice-amino-quinoa-frizz-control-gel",
@@ -330,9 +381,9 @@
    "etape": 3,
    "cheveux_cibles": [
     "gras",
-    "epais",
     "boucles",
-    "crepus"
+    "crepus",
+    "abimes"
    ],
    "actifs": [
     "kératine",
@@ -344,13 +395,18 @@
    "ingredients": "Water/Aqua/Eau, VP/VA Copolymer, Carrageenan*, Glycerin*, Oryza Sativa (Rice) Extract*, Lactobacillus/Tomato Fruit Ferment Extract*, Rice Amino Acids*, Hydrolyzed Quinoa*, Keratin Amino Acids*, Butyrospermum Parkii (Shea) Butter*, Persea Gratissima (Avocado) Oil*, Tocopheryl Acetate, Citrus Aurantium Dulcis (Orange) Peel Oil*, Citrus Paradisi (Grapefruit) Peel Oil*, Polysorbate 80, Leuconostoc/Radish Root Ferment Filtrate*, Acyl Coenzyme A Desaturase*, Fragrance (Parfum), Dehydroacetic Acid, Benzyl Alcohol",
    "description": "WHO IT'S FOR:Those with wavy, curly, and coily hair textures. WHAT IT IS:A light-to-medium hold, defining, frizz-control gel. WHAT IT DOES:Curl Charisma™ provides light to medium hold for long-lasting, natural-looking definition with superior movement, shine, and softness. Rice amino acids and tomato fruit ferment smooth and seal the hair cuticle to lock out frizz-causing environmental moisture and promote consistent curl formation. Quinoa extract and keratin amino acids strengthen strands and i",
    "claims": [
-    "hydratant",
-    "brillance",
-    "lissant",
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
     "definition-boucles",
-    "fortifiant"
+    "anti-gras",
+    "brillance",
+    "fixation"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/curl-charismatm-rice-amino-quinoa-frizz-control-gel.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--curl-charisma-rice-amino-shea-curl-defining-conditioner",
@@ -366,10 +422,11 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "gras",
-    "epais",
     "boucles",
-    "crepus"
+    "crepus",
+    "abimes"
    ],
    "actifs": [
     "kératine",
@@ -386,11 +443,16 @@
    "ingredients": "Water/Aqua/Eau, Cetyl Alcohol*, Stearyl Alcohol*, Brassica Alcohol*, Glycerin*, Cetyl Esters*, Behentrimonium Methosulfate*, Caprylic/Capric Triglyceride*, Isopropyl Palmitate*, Oryza Sativa (Rice) Extract*, Butyrospermum Parkii (Shea) Butter*, Persea Gratissima (Avocado) Oil*, Rice Amino Acids*, Helianthus Annuus (Sunflower) Seed Oil*, Lactobacillus/Tomato Fruit Ferment Extract*, Keratin Amino Acids*, Citrus Aurantium Dulcis (Orange) Fruit Extract*, Citrus Aurantium Dulcis (Orange) Peel Oil*, Citrus Paradisi (Grapefruit) Peel Oil*, Hydrolyzed Quinoa*, Rosa Canina Fruit Oil*, Tocopheryl Acetate, Panthenol, Aloe Barbadensis Leaf Juice*, Saccharina Longicruris Extract*, Acyl Coenzyme A Desaturase*, Ocimum Basilicum (Basil) Leaf Extract*, Prunus Amygdalus Dulcis (Sweet Almond) Oil*, Cetrimonium Chloride*, Arginine*, Isododecane*, Acanthus Mollis Leaf Extract*, Guar Hydroxypropyltrimonium Chloride*, Leuconostoc/Radish Root Ferment Filtrate*, Butylene Glycol, Citric Acid*, Bambusa Vulgaris Extract*, Brassicyl Isoleucinate Esylate*, Sodium Citrate*, Potassium Sorbate, Sodium Benzoate, Fragrance (Parfum), Dehydroacetic Acid, Benzyl Alcohol",
    "description": "WHO IT'S FOR: Those with wavy and curly hair texture types (2A to 3C). Note: Kinky and Coily hair types (4A to 4C) - see ( here ) for our product recommendations! WHAT IT IS: An ultra-hydrating conditioner to nourish, define, and defrizz dry, hard-to-tame textured hair. WHAT IT DOES: This ultra-hydrating conditioner specially formulated with rice amino acids to penetrate the hair shaft and effectively lock out frizz-causing environmental moisture. Tomato fruit ferment and mollis leaf extract sea",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "definition-boucles"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant",
+    "anti-gras"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/curl-charisma-rice-amino-shea-curl-defining-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--destined-for-densitytm-caffeine-biotin-peptide-density-conditioner-2-oz",
@@ -405,7 +467,10 @@
    "image_local": "public/scan/products-cheveux/briogeo/destined-for-densitytm-caffeine-biotin-peptide-density-conditioner-2-oz.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "fins",
+    "chute"
+   ],
    "actifs": [
     "caféine",
     "biotine",
@@ -417,9 +482,13 @@
    "ingredients": "Water/Aqua/Eau, Cetyl Alcohol*, Stearyl Alcohol*, Brassica Alcohol*, Propanediol*, Isopropyl Myristate*, Copper Tripeptide-34, Coffea Arabica (Coffee) Seed Oil*, Tocopheryl Acetate, Panax Ginseng Root Extract*, Caffeine, Biotin, Cetyl Esters*, Camellia Sinensis Leaf Extract*, Brassicyl Isoleucinate Esylate*, Cetrimonium Chloride*, Guar Hydroxypropyltrimonium Chloride*, Glycerin*, Lauryl Pyrrolidone, Aloe Barbadensis Leaf Juice*, Ubiquinone*, Lindera Strychnifolia Root Extract*, Leuconostoc/Radish Root Ferment Filtrate*, Glycine, Larix Europaea Wood Extract*, Sodium Metabisulfite, Zinc Chloride, Citric Acid*, Fragrance (Parfum), Caprylhydroxamic Acid*, Benzyl Alcohol",
    "description": "A lightweight, density-boosting conditioner that encourages nutrient-rich microcirculation to the scalp and roots for fuller, healthier-looking hair.",
    "claims": [
-    "volume"
+    "nutrition",
+    "volume",
+    "densifiant"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/destined-for-densitytm-caffeine-biotin-peptide-density-conditioner-2-oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--destined-for-densitytm-caffeine-biotin-peptide-density-shampoo-2-oz",
@@ -434,7 +503,10 @@
    "image_local": "public/scan/products-cheveux/briogeo/destined-for-densitytm-caffeine-biotin-peptide-density-shampoo-2-oz.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "fins",
+    "chute"
+   ],
    "actifs": [
     "caféine",
     "biotine",
@@ -446,9 +518,13 @@
    "ingredients": "Water/Aqua/Eau, Cetyl Alcohol*, Stearyl Alcohol*, Brassica Alcohol*, Propanediol*, Isopropyl Myristate*, Copper Tripeptide-34, Coffea Arabica (Coffee) Seed Oil*, Tocopheryl Acetate, Panax Ginseng Root Extract*, Caffeine, Biotin, Cetyl Esters*, Camellia Sinensis Leaf Extract*, Brassicyl Isoleucinate Esylate*, Cetrimonium Chloride*, Guar Hydroxypropyltrimonium Chloride*, Glycerin*, Lauryl Pyrrolidone, Aloe Barbadensis Leaf Juice*, Ubiquinone*, Lindera Strychnifolia Root Extract*, Leuconostoc/Radish Root Ferment Filtrate*, Glycine, Larix Europaea Wood Extract*, Sodium Metabisulfite, Zinc Chloride, Citric Acid*, Fragrance (Parfum), Caprylhydroxamic Acid*, Benzyl Alcohol",
    "description": "A lightweight, density-boosting shampoo that encourages nutrient-rich microcirculation to the scalp and roots for fuller, healthier-looking hair.",
    "claims": [
-    "volume"
+    "nutrition",
+    "volume",
+    "densifiant"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/destined-for-densitytm-caffeine-biotin-peptide-density-shampoo-2-oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--destined-for-densitytm-megastrength-caffeine-biotin-peptide-density-serum",
@@ -465,6 +541,8 @@
    "etape": 4,
    "cheveux_cibles": [
     "gras",
+    "fins",
+    "chute",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -482,9 +560,16 @@
    "ingredients": "Water/Aqua/Eau, Propanediol*, Glycerin*, Pentylene Glycol*, Betaine*, Coco-Caprylate/Caprate*, Caffeine, Copper Tripeptide-34, Niacinamide, Castor Oil/IPDI Copolymer*, Aloe Barbadensis Leaf Juice*, Coffea Arabica Seed Oil*, Panax Ginseng Root Extract*, Biotin, Caprylic/Capric Triglyceride*, Limnanthes Alba Seed Oil*, Carbomer, Lindera Strychnifolia Root Extract*, Hippophae Rhamnoides Oil*, Trisodium Ethylenediamine Disuccinate, Acacia Senegal Gum*, Xanthan Gum*, Phyllanthus Emblica Fruit Extract*, Tocopheryl Acetate, Helianthus Annuus Hybrid Oil*, Lamium Album Extract*, Plantago Psyllium Seed Extract*, Panthenol, C12-15 Alkyl Benzoate, Sodium Metabisulfite, Larix Europaea Wood Extract*, Glycine, Tocopherol, Ubiquinone, Zinc Chloride, Simmondsia Chinensis Seed Oil*, Lithospermum Erythrorhizon Root Extract*, Camellia Sinensis Leaf Extract*, Citric Acid, Potassium Sorbate, Sodium Benzoate, Sodium Hydroxide, Benzyl Alcohol, Caramel*",
    "description": "WHO IT'S FOR:For those with a dry, irritated, and flaky scalp. WHAT IT IS:This unique treatment infuses Binchotan charcoal to draw impurities from the scalp and hair follicle to remove buildup and provide the foundation for optimal scalp health. A cooling blend of peppermint and spearmint oils reduces scalp itchiness and tea tree oil has anti-septic and healing properties that reduce scalp irritation and inflammation. Witch Hazel water helps to normalize oil production to prevent an oily scalp w",
    "claims": [
-    "volume"
+    "fortifiant",
+    "volume",
+    "densifiant",
+    "apaisant-cuir-chevelu",
+    "purifiant",
+    "anti-gras"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/destined-for-densitytm-megastrength-caffeine-biotin-peptide-density-serum.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--don-t-despair-repair-tm-deep-conditioning-mask",
@@ -500,6 +585,7 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -516,10 +602,13 @@
    "ingredients": "Water/Aqua/Eau, Cetyl Alcohol*, Brassica Alcohol*, Propanediol*, Stearyl Alcohol*, Cetearyl Alcohol*, Persea Gratissima (Avocado) Oil*, Prunus Amygdalus Dulcis (Sweet Almond) Oil*, Rosa Canina Fruit Oil*, Argania Spinosa Kernel Oil*, Aloe Barbadensis Leaf Juice*, Panthenol, Leuconostoc/Radish Root Ferment Filtrate*, Biotin, Hydrolyzed Corn Protein*, Hydrolyzed Wheat Protein*, Hydrolyzed Soy Protein*, Panax Ginseng Root Extract*, Calendula Officinalis Flower Extract*, Laurus Nobilis Leaf Extract*, Palmaria Palmata Extract*, Santalum Album (Sandalwood) Oil*, Amyris Balsamifera Bark Oil*, Pogostemon Cablin Oil*, Elettaria Cardamomum Seed Oil*, Ferula Galbaniflua (Galbanum) Resin Oil*, Guar Hydroxypropyltrimonium Chloride*, Cetyl Esters*, Isododecane, Cetrimonium Chloride*, Behentrimonium Methosulfate*, Brassicyl Isoleucinate Esylate*, Citric Acid*, Isopropyl Myristate*, Butylene Glycol, Glycerin*, Fragrance (Parfum), Sodium Hydroxide, Dehydroacetic Acid, Benzyl Alcohol",
    "description": "WHO IT'S FOR: Those with dry, damaged, chemically-treated, and/or lifeless hair. WHAT IT IS: An intensive weekly treatment to restore essential hydration and enhance hair's resilience to protect against future damage. WHAT IT DOES: This Deep Conditioning Mask works in minutes to restore essential hydration and natural vibrancy to dry, brittle, over-processed, and otherwise lackluster hair. Formulated with Briogeo's unique NOVA Complex, this mask delivers an optimal blend of transformative nutrie",
    "claims": [
-    "hydratant",
-    "reparateur"
+    "hydratation",
+    "nutrition",
+    "reparation"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/don-t-despair-repair-tm-deep-conditioning-mask.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--don-t-despair-repair-megastrength-rice-water-protein-moisture-strengthening-trea",
@@ -535,6 +624,7 @@
    "categorie": "proteine-reconstruction",
    "etape": 4,
    "cheveux_cibles": [
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -547,11 +637,14 @@
    "ingredients": "Moisture Treatment: Water/Aqua/Eau, Brassica Alcohol*, Squalane*, Hydrogenated Castor Oil/Sebacic Acid Copolymer*, Cetearyl Alcohol*, Cetyl Alcohol*, Sodium PCA*, Sargassum Filipendula Extract*, Prunus Amygdalus Dulcis (Sweet Almond) Oil*, Capryloyl Glycerin/Sebacic Acid Copolymer*, Diheptyl Succinate*, Guar Hydroxypropyltrimonium Chloride*, Cetrimonium Chloride, Rosa Canina Fruit Oil*, Brassicyl Isoleucinate Esylate*, Biotin, Panthenol, Glycerin*, Behentrimonium Methosulfate*, Citric Acid*, Fragrance (Parfum), Dehydroacetic Acid, Benzyl Alcohol, Iron Oxides CI 77491",
    "description": "A concentrated water-activated treatment shampoo that gently cleanses severely damaged hair while replenishing it with vital nutrients.",
    "claims": [
-    "hydratant",
-    "reparateur",
+    "hydratation",
+    "nutrition",
+    "reparation",
     "fortifiant"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/don-t-despair-repair-megastrength-rice-water-protein-moisture-strengthening-trea.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--don-t-despair-repair-miracle-mist-bonding-leave-in-conditioner",
@@ -564,8 +657,8 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0905/3204/files/01_DDR_Mist_On_White_2000x2000_024ec85a-4728-4185-b33f-6bf539525913.jpg?v=1777924930",
    "image_local": "public/scan/products-cheveux/briogeo/don-t-despair-repair-miracle-mist-bonding-leave-in-conditioner.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
     "colores",
     "abimes"
@@ -584,9 +677,11 @@
    "ingredients": "Water/Aqua/Eau, Ethylhexyl Palmitate, Butylene Glycol, Propanediol, Caprylic/Capric Triglyceride,* Coco-Caprylate/Caprate,* Ethylhexyl Olivate,* Aspergillus Ferment,* 1,2-Hexanediol, Arginine,* Polyporus Umbellatus (Mushroom) Extract,* Moringa Oleifera (Moringa) Seed Oil,* Rosa Canina (Rosehip) Fruit Oil,* Squalane,* Sodium Hyaluronate,* Sodium PCA, Ceramide NP,* Ceramide EOP,* Ceramide AP,* Ceramide NS, Ceramide AS, Panthenol, Biotin, Prunus Amygdalus Dulcis (Sweet Almond) Oil,* Macadamia Ternifolia Seed Oil,* Sargassum Filipendula (Sargassum) Extract,* Tocopherol, Melia Azadirachta (Neem) Leaf Extract,* Eclipta Prostrata Extract,* Glycerin,* Cholesterol,* Santalum Album (Sandalwood) Oil,* Hydrogenated Ethylhexyl Olivate,* Hydrogenated Olive Oil Unsaponifiables,* Fructose,* Hydroxyacetophenone, Pentylene Glycol,* Sodium Chloride, Sodium Carbonate, Sodium Hydroxide, Ethylhexylglycerin, Hydrogenated Lecithin,* Glyceryl Stearate,* 2,3-Butanediol,* Fragrance (Parfum), Trimethylbenzenepropanol, Sodium Citrate,* Citric Acid.*",
    "description": "A 6-in-1 daily bond repair treatment that transforms weak bonds damaged by heat and bleach in one use. Crafted with a bi-phase, 6-free™ clean formula and 93% naturally derived ingredients. Formulated without harsh sulfates, silicones, parabens, phthalates, DEA + artificial dyes.",
    "claims": [
-    "reparateur"
+    "reparation"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/don-t-despair-repair-miracle-mist-bonding-leave-in-conditioner.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "briogeo--don-t-despair-repair-tm-moisture-damage-defense-leave-in-treatment",
@@ -602,6 +697,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -618,11 +714,14 @@
    "ingredients": "Water/Aqua/Eau, Glycerin*, Cetearyl Alcohol*, Hydrogenated Castor Oil/Sebacic Acid Copolymer*, Brassica Alcohol*, Argania Spinosa Kernel Oil*, Sargassum Filipendula Extract*, Rosa Canina Fruit Oil*, Caprylic/Capric Triglyceride*, Cocos Nucifera (Coconut) Oil*, Brassicyl Isoleucinate Esylate*, Xanthan Gum*, Hydrogenated Lecithin*, Butyrospermum Parkii (Shea) Butter*, Arginine*, Sclerotium Gum*, Panthenol, Tocopheryl Acetate, Ceramide NP*, Citric Acid*, Fragrance (Parfum), Caprylhydroxamic Acid*, Benzyl Alcohol",
    "description": "The Don’t Despair, Repair!™ Moisture + Damage Defense Leave-In Treatment visibly seals up to 100% of split ends after two uses. Infused with biomimetic lipids, this easy-to-use leave-in treatment strengthens and repairs dry, damaged hair with no downtime.",
    "claims": [
-    "hydratant",
-    "reparateur",
+    "hydratation",
+    "nutrition",
+    "reparation",
     "fortifiant"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/don-t-despair-repair-tm-moisture-damage-defense-leave-in-treatment.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--don-t-despair-repair-tm-rich-rice-water-shampoo-concentrate-with-key",
@@ -653,9 +752,12 @@
    "ingredients": "Glycerin*, Water/Aqua/Eau, Sodium Cocoyl Isethionate*, Sodium Cocoyl Methyl Isethionate*, Sodium Lauroyl Sarcosinate*, Saccharomyces/Rice Ferment Filtrate*, Citric Acid*, Capryloyl/Caproyl Methyl Glucamide*, Coconut Acid*, Lauroyl/Myristoyl Methyl Glucamide*, Hydrogenated Castor Oil/Sebacic Acid Copolymer*, Hydrolyzed Rice Protein*, Rice Bran Oil/Hydrogenated Rice Bran Oil Esters*, Selaginella Lepidophylla Extract*, Hydroxypropyl Guar Hydroxypropyltrimonium Chloride*, Lactobacillus Ferment*, Panthenol*, Argania Spinosa Kernel Oil*, Saccharina Longicruris Extract*, Ceramide NP*, Prunus Amygdalus Dulcis (Sweet Almond) Oil*, Rosa Canina Seed Oil*, Biotin, Oryza Sativa (Rice) Bran Water*, Pentylene Glycol*, Sodium Isethionate, Potassium Sorbate, Sodium Benzoate, Fragrance (Parfum), Caprylhydroxamic Acid*, Benzyl Alcohol * Coconut, vegetable, or plant derived",
    "description": "A concentrated water-activated treatment shampoo that gently cleanses severely damaged hair while replenishing it with vital nutrients.",
    "claims": [
-    "reparateur"
+    "nutrition",
+    "reparation"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/don-t-despair-repair-tm-rich-rice-water-shampoo-concentrate-with-key.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--don-t-despair-repair-strengthening-treatment-oil",
@@ -671,6 +773,7 @@
    "categorie": "huile",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -684,10 +787,13 @@
    "ingredients": "Caprylic/Capric Triglyceride*, Hydrogenated Castor Oil/Sebacic Acid Copolymer*, Ethyl Macadamiate*, Rose Flower Oil*, Ceramide NP, Squalane*, Rose Extract*, Fragaria Ananassa (Strawberry) Seed Oil*, Prunus Amygdalus Dulcis (Sweet Almond) Oil*, Undaria Pinnatifida Extract*, Santalum Album (Sandalwood) Oil*, Amyris Balsamifera Bark Oil*, Pogostemon Cablin Oil*, Elettaria Cardamomum Seed Oil*, Ferula Galbaniflua (Galbanum) Resin Oil*, Panthenol, Rosa Canina Fruit Oil*, Hydrolyzed Hyaluronic Acid, Prunus Domestica Seed Oil*, Tocopheryl Acetate, Dicaprylyl Ether*, 1,2-Hexanediol, Dicaprylyl Carbonate*, Malic Acid, Tocopherol, Fragrance (Parfum)",
    "description": "The Don’t Despair, Repair! Strengthening Treatment Oil is a silicone-free, lightweight oil densely packed with hair essential ingredients and a clinically-proven repair technology that works to repair damage, seal split ends and reinforce hair cuticles to protect against future breakage.",
    "claims": [
-    "reparateur",
-    "fortifiant"
+    "reparation",
+    "fortifiant",
+    "sans-silicone"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/don-t-despair-repair-strengthening-treatment-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--don-t-despair-repair-tm-super-moisture-conditioner-2-oz",
@@ -703,6 +809,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -719,11 +826,14 @@
    "ingredients": "Water/Aqua/Eau, Glycerin*, Ethylhexyl Palmitate, Behentrimonium Chloride*, Glycine Soja (Soybean) Oil*, Brassica Alcohol*, Cetyl Alcohol*, Stearyl Alcohol*, Sodium PCA*, Argania Spinosa Kernel Oil*, Laminaria Saccharina Extract*, Panthenol, Aloe Barbadensis Leaf Juice*, Brassicyl Isoleucinate Esylate*, Prunus Amygdalus Dulcis (Sweet Almond) Oil*, Chamomilla Recutita (Matricaria) Flower Extract*, Santalum Album (Sandalwood) Oil*, Amyris Balsamifera Bark Oil*, Pogostemon Cablin Oil*, Elettaria Cardamomum Seed Oil*, Ferula Galbaniflua (Galbanum) Resin Oil*, Guar Hydroxypropyltrimonium Chloride*, Cetrimonium Chloride*, Arginine*, Biotin, Cocos Nucifera (Coconut) Oil*, Butyrospermum Parkii (Shea) Butter*, Sorbitan Oleate Decylglucoside Crosspolymer*, Rosa Canina Fruit Oil*, Algin*, Caprylic/Capric Triglyceride*, Chitosan*, Citric Acid*, Potassium Sorbate, Sodium Benzoate, Fragrance (Parfum), Dehydroacetic Acid, Benzyl Alcohol",
    "description": "Don’t Despair, Repair! Super Moisture Conditioner helps repair damaged hair with algae extract, panthenol, and a unique argan oil microencapsulation technology that visibly repairs breakage and strengthens hair. Use this conditioner between your regular Deep Conditioning Mask routine for enhanced results. This conditioner is suitable for all hair types and is perfect for those with dry, damaged, and/or chemically treated hair.",
    "claims": [
-    "hydratant",
-    "reparateur",
+    "hydratation",
+    "nutrition",
+    "reparation",
     "fortifiant"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/don-t-despair-repair-tm-super-moisture-conditioner-2-oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--don-t-despair-repair-tm-super-moisture-shampoo-2-oz",
@@ -739,6 +849,8 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
+    "fins",
     "abimes"
    ],
    "actifs": [
@@ -752,11 +864,14 @@
    "ingredients": "Water/Aqua/Eau, Sodium Cocoyl Isethionate*, Lauramidopropyl Betaine*, Cocamidopropyl Hydroxysultaine*, Sodium C14-16 Olefin Sulfonate, Disodium Laureth Sulfosuccinate*, Glyceryl Stearate*, Glycol Distearate*, Butyrospermum Parkii (Shea) Butter*, Cocos Nucifera (Coconut) Oil*, Rosa Canina Fruit Oil*, Biotin, Panthenol, Glycerin*, Glycine Soja (Soybean) Oil*, Tilia Tomentosa Extract*, Sargassum Filipendula Extract*, Phospholipids*, Glycolipids*, Glycine Soja (Soybean) Sterols*, Santalum Album (Sandalwood) Oil*, Amyris Balsamifera Bark Oil*, Pogostemon Cablin Oil*, Elettaria Cardamomum Seed Oil*, Ferula Galbaniflua (Galbanum) Resin Oil*, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Sodium Lauroyl Sarcosinate, Tocopheryl Acetate, Tetrasodium Glutamate Diacetate*, Sodium Lauryl Sulfoacetate*, Guar Hydroxypropyltrimonium Chloride*, Citric Acid*, Fragrance (Parfum), Dehydroacetic Acid, Benzyl Alcohol",
    "description": "If a shampoo and a hair mask had a baby, this would be it. This innovative formula merges the intense cleansing action of a shampoo with the moisture of a deep conditioning mask without weighing the hair down or stripping color. This shampoo is fortified with the same conditioning and repairing ingredients that are featured in Briogeo's best-selling Don't Despair, Repair! Deep Conditioning Mask.",
    "claims": [
-    "hydratant",
-    "reparateur",
+    "hydratation",
+    "nutrition",
+    "reparation",
     "fortifiant"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/don-t-despair-repair-tm-super-moisture-shampoo-2-oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--don-t-despair-repair-tm-vanilla-birthday-cake-deep-conditioning-mask",
@@ -772,16 +887,20 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "abimes"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "WHO IT'S FOR: Those with dry, damaged, chemically-treated, and/or lifeless hair. WHAT IT IS:An intensive weekly treatment to restore essential hydration and enhance hair's resilience to protect against future damage. WHAT IT DOES:This Deep Conditioning Mask works in minutes to restore essential hydration and natural vibrancy to dry, brittle, over-processed, and otherwise lackluster hair. Formulated with Briogeo's unique NOVA Complex, this mask delivers an optimal blend of transformative nutrient",
    "claims": [
-    "hydratant",
-    "reparateur"
+    "hydratation",
+    "nutrition",
+    "reparation"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/don-t-despair-repair-tm-vanilla-birthday-cake-deep-conditioning-mask.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--don-t-despair-repair-vanilla-cake-conditioner-8-oz",
@@ -797,6 +916,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -810,13 +930,16 @@
    "ingredients": "Water/Aqua/Eau, Sodium Cocoyl Isethionate*, Lauramidopropyl Betaine*, Cocamidopropyl Hydroxysultaine*, Sodium C14-16 Olefin Sulfonate, Disodium Laureth Sulfosuccinate*, Glyceryl Stearate*, Glycol Distearate*, Butyrospermum Parkii (Shea) Butter*, Cocos Nucifera (Coconut) Oil*, Rosa Canina Fruit Oil*, Biotin, Panthenol, Glycerin*, Glycine Soja (Soybean) Oil*, Tilia Tomentosa Extract*, Sargassum Filipendula Extract*, Phospholipids*, Glycolipids*, Glycine Soja (Soybean) Sterols*, Santalum Album (Sandalwood) Oil*, Amyris Balsamifera Bark Oil*, Pogostemon Cablin Oil*, Elettaria Cardamomum Seed Oil*, Ferula Galbaniflua (Galbanum) Resin Oil*, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Sodium Lauroyl Sarcosinate, Tocopheryl Acetate, Tetrasodium Glutamate Diacetate*, Sodium Lauryl Sulfoacetate*, Guar Hydroxypropyltrimonium Chloride*, Citric Acid*, Fragrance (Parfum), Dehydroacetic Acid, Benzyl Alcohol",
    "description": "This silicone- and protein-free hydrator is crafted with 95% naturally derived ingredients that help repair dry, damaged hair while restoring softness, shine, and smoothness. Ideal as a daily repair conditioner, it provides essential moisture and helps strengthen brittle strands with every use. Our 6-free™ clean formula is crafted without harsh sulfates, silicones, parabens, phthalates, DEA + artificial dyes. Vegan + Cruelty free | Leaping Bunny Certified",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "brillance",
-    "lissant",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/don-t-despair-repair-vanilla-cake-conditioner-8-oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--don-t-despair-repair-tm-vanilla-cake-shampoo-8-oz",
@@ -832,6 +955,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -845,11 +969,15 @@
    "ingredients": "Water/Aqua/Eau, Sodium Cocoyl Isethionate*, Lauramidopropyl Betaine*, Cocamidopropyl Hydroxysultaine*, Sodium C14-16 Olefin Sulfonate, Disodium Laureth Sulfosuccinate*, Glyceryl Stearate*, Glycol Distearate*, Butyrospermum Parkii (Shea) Butter*, Cocos Nucifera (Coconut) Oil*, Rosa Canina Fruit Oil*, Biotin, Panthenol, Glycerin*, Glycine Soja (Soybean) Oil*, Tilia Tomentosa Extract*, Sargassum Filipendula Extract*, Phospholipids*, Glycolipids*, Glycine Soja (Soybean) Sterols*, Santalum Album (Sandalwood) Oil*, Amyris Balsamifera Bark Oil*, Pogostemon Cablin Oil*, Elettaria Cardamomum Seed Oil*, Ferula Galbaniflua (Galbanum) Resin Oil*, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Sodium Lauroyl Sarcosinate, Tocopheryl Acetate, Tetrasodium Glutamate Diacetate*, Sodium Lauryl Sulfoacetate*, Guar Hydroxypropyltrimonium Chloride*, Citric Acid*, Fragrance (Parfum), Dehydroacetic Acid, Benzyl Alcohol",
    "description": "This sulfate-free, protein-rich cleanser is crafted with 91% naturally derived ingredients + hydrating actives to restore essential moisture. Ideal as a daily repair shampoo, it helps strengthen and repair dry, damaged hair of all types + textures — and has a rich, creamy lather that leaves hair soft. Our 6-free™ clean formula is crafted without harsh sulfates, silicones, parabens, phthalates, DEA + artificial dyes. Vegan + Cruelty free | Leaping Bunny Certified",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "sans-sulfate"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/don-t-despair-repair-tm-vanilla-cake-shampoo-8-oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--farewell-frizz-blow-dry-perfection-et-heat-protectant-creme-2oz",
@@ -865,7 +993,7 @@
    "categorie": "protection-thermique",
    "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "abimes"
    ],
    "actifs": [
     "panthénol",
@@ -880,10 +1008,13 @@
    "ingredients": "Water/Aqua/Eau, Aloe Barbadensis Leaf Juice*, Polyquaternium-37, Rosa Canina Fruit Oil*, Argania Spinosa Kernel Oil*, Cocos Nucifera (Coconut) Oil*, Laminaria Saccharina Extract*, Bambusa Arundinacea Leaf Extract*, Panthenol, Trametes Versicolor Extract*, Tocopheryl Acetate, Glycine Soja (Soybean) Oil*, Propylene Glycol Dicaprylate/Dicaprate, Hydrolyzed Corn Protein*, Hydrolyzed Wheat Protein*, Hydrolyzed Soy Protein*, PPG-1 Trideceth-6, Sorbitol*, Glycerin*, Leuconostoc/Radish Root Ferment Filtrate*, Citrus Aurantium Dulcis (Orange) Peel Oil*, Citrus Paradisi (Grapefruit) Peel Oil*, Citrus Limon (Lemon) Peel Oil*, Citrus Tangerina (Tangerine) Peel Oil*, Abies Sibirica Oil*, Polyquaternium-10, Cetrimonium Chloride, Fragrance (Parfum), Dehydroacetic Acid, Benzyl Alcohol",
    "description": "Infused with Briogeo's signature blend of ultra-nourishing rosehip, argan, and coconut oils, this shampoo effectively tames frizz and restores silky sheen to dry, brittle and overall lackluster locks.",
    "claims": [
-    "nourrissant",
-    "protection-thermique"
+    "nutrition",
+    "anti-frisottis",
+    "protection-chaleur"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/farewell-frizz-blow-dry-perfection-et-heat-protectant-creme-2oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--farewell-frizz-rosarco-milk-leave-in-conditioning-spray-leave-in-conditioner",
@@ -899,7 +1030,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "secs"
    ],
    "actifs": [
     "huile d'argan",
@@ -912,10 +1043,13 @@
    "ingredients": "Water/Aqua/Eau, Polyglyceryl-6 Stearate*, Isopropyl Palmitate*, Glycerin*, Cocos Nucifera (Coconut) Oil*, Butyrospermum Parkii (Shea) Butter*, Argania Spinosa Kernel Oil*, Rosa Canina Fruit Oil*, Tocopheryl Acetate, Hibiscus Sabdariffa Flower Extract*, Cetrimonium Chloride, Citrus Paradisi (Grapefruit) Peel Oil*, Cetearyl Alcohol*, Santalum Album (Sandalwood) Oil*, Amyris Balsamifera Bark Oil*, Pogostemon Cablin Oil*, Elettaria Cardamomum Seed Oil*, Ferula Galbaniflua (Galbanum) Resin Oil*, Glyceryl Stearate*, Citric Acid*, Polyglyceryl-6 Behenate*, Caprylhydroxamic Acid*, Fragrance (Parfum), Benzyl Alcohol",
    "description": "An ultra lightweight leave in conditioner fortified with a unique blend of nourishing rosehip, argan and coconut oils to effectively tame frizz.",
    "claims": [
-    "nourrissant",
-    "fortifiant"
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/farewell-frizz-rosarco-milk-leave-in-conditioning-spray-leave-in-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--farewell-frizztm-rosarco-milk-leave-in-conditioning-spray-1-75-oz",
@@ -931,7 +1065,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "secs"
    ],
    "actifs": [
     "huile d'argan",
@@ -944,10 +1078,13 @@
    "ingredients": "Water/Aqua/Eau, Polyglyceryl-6 Stearate*, Isopropyl Palmitate*, Glycerin*, Cocos Nucifera (Coconut) Oil*, Butyrospermum Parkii (Shea) Butter*, Argania Spinosa Kernel Oil*, Rosa Canina Fruit Oil*, Tocopheryl Acetate, Hibiscus Sabdariffa Flower Extract*, Cetrimonium Chloride, Citrus Paradisi (Grapefruit) Peel Oil*, Cetearyl Alcohol*, Santalum Album (Sandalwood) Oil*, Amyris Balsamifera Bark Oil*, Pogostemon Cablin Oil*, Elettaria Cardamomum Seed Oil*, Ferula Galbaniflua (Galbanum) Resin Oil*, Glyceryl Stearate*, Citric Acid*, Polyglyceryl-6 Behenate*, Caprylhydroxamic Acid*, Fragrance (Parfum), Benzyl Alcohol",
    "description": "A travel-sized ultra lightweight leave-in conditioning spray fortified with a unique blend of nourishing rosehip, argan and coconut oils to effectively tame frizz.",
    "claims": [
-    "nourrissant",
-    "fortifiant"
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/farewell-frizztm-rosarco-milk-leave-in-conditioning-spray-1-75-oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--farewell-frizz-smoothing-conditioner",
@@ -963,7 +1100,8 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "epais"
+    "secs",
+    "abimes"
    ],
    "actifs": [
     "panthénol",
@@ -977,10 +1115,12 @@
    "ingredients": "Water/Aqua/Eau, Isopropyl Myristate*, Brassica Alcohol*, Propanediol*, Stearyl Alcohol*, Behentrimonium Chloride, Cetyl Alcohol*, Rosa Canina Fruit Oil*, Argania Spinosa Kernel Oil*, Cocos Nucifera (Coconut) Oil*, Panthenol, Tocopheryl Acetate, Aloe Barbadensis Leaf Juice*, Butyrospermum Parkii (Shea) Butter*, Hibiscus Sabdariffa Flower Extract*, Cetrimonium Chloride, Cetyl Esters*, Citrus Paradisi (Grapefruit) Peel Oil*, Glycerin*, Guar Hydroxypropyltrimonium Chloride, Santalum Album (Sandalwood) Oil*, Amyris Balsamifera Bark Oil*, Pogostemon Cablin Oil*, Elettaria Cardamomum Seed Oil*, Ferula Galbaniflua (Galbanum) Resin Oil*, Maltodextrin*, Brassicyl Isoleucinate Esylate*, Cetearyl Alcohol*, Behentrimonium Methosulfate, Sodium Hydroxide, Fragrance (Parfum), Dehydroacetic Acid, Benzyl Alcohol",
    "description": "Infused with Briogeo's signature blend of ultra-nourishing rosehip, argan, and coconut oils, this conditioner effectively tames frizz and restores silky sheen to dry, brittle and overall lackluster locks.",
    "claims": [
-    "nourrissant",
-    "lissant"
+    "nutrition",
+    "anti-frisottis"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/farewell-frizz-smoothing-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--farewell-frizz-smoothing-shampoo",
@@ -996,7 +1136,8 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "epais"
+    "secs",
+    "abimes"
    ],
    "actifs": [
     "panthénol",
@@ -1010,30 +1151,12 @@
    "ingredients": "Water/Aqua/Eau, Isopropyl Myristate*, Brassica Alcohol*, Propanediol*, Stearyl Alcohol*, Behentrimonium Chloride, Cetyl Alcohol*, Rosa Canina Fruit Oil*, Argania Spinosa Kernel Oil*, Cocos Nucifera (Coconut) Oil*, Panthenol, Tocopheryl Acetate, Aloe Barbadensis Leaf Juice*, Butyrospermum Parkii (Shea) Butter*, Hibiscus Sabdariffa Flower Extract*, Cetrimonium Chloride, Cetyl Esters*, Citrus Paradisi (Grapefruit) Peel Oil*, Glycerin*, Guar Hydroxypropyltrimonium Chloride, Santalum Album (Sandalwood) Oil*, Amyris Balsamifera Bark Oil*, Pogostemon Cablin Oil*, Elettaria Cardamomum Seed Oil*, Ferula Galbaniflua (Galbanum) Resin Oil*, Maltodextrin*, Brassicyl Isoleucinate Esylate*, Cetearyl Alcohol*, Behentrimonium Methosulfate, Sodium Hydroxide, Fragrance (Parfum), Dehydroacetic Acid, Benzyl Alcohol",
    "description": "Infused with Briogeo's signature blend of ultra-nourishing rosehip, argan, and coconut oils, this shampoo effectively tames frizz and restores silky sheen to dry, brittle and overall lackluster locks.",
    "claims": [
-    "nourrissant",
-    "lissant"
+    "nutrition",
+    "anti-frisottis"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
-  },
-  {
-   "id": "briogeo--free-gift-briogeo-tube-key",
-   "name": "FREE GIFT- Briogeo Tube Key",
-   "brand": "briogeo",
-   "brand_name": "Briogeo",
-   "url": "https://www.briogeohair.com/products/free-gift-briogeo-tube-key",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0905/3204/files/03_DDRRiceConcentrate_Clip_OnWhite_2000x2000_67545c36-1149-40dc-8074-fdf0addba8ad.jpg?v=1759254648",
-   "image_local": "public/scan/products-cheveux/briogeo/free-gift-briogeo-tube-key.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": null,
-   "claims": [],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/farewell-frizz-smoothing-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--hair-repair-reset-featuring-don-t-despair-repair-tm",
@@ -1049,6 +1172,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -1062,12 +1186,15 @@
    "ingredients": "Water/Aqua/Eau, Sodium Cocoyl Isethionate*, Lauramidopropyl Betaine*, Cocamidopropyl Hydroxysultaine*, Sodium C14-16 Olefin Sulfonate, Disodium Laureth Sulfosuccinate*, Glyceryl Stearate*, Glycol Distearate*, Butyrospermum Parkii (Shea) Butter*, Cocos Nucifera (Coconut) Oil*, Rosa Canina Fruit Oil*, Biotin, Panthenol, Glycerin*, Glycine Soja (Soybean) Oil*, Tilia Tomentosa Extract*, Sargassum Filipendula Extract*, Phospholipids*, Glycolipids*, Glycine Soja (Soybean) Sterols*, Santalum Album (Sandalwood) Oil*, Amyris Balsamifera Bark Oil*, Pogostemon Cablin Oil*, Elettaria Cardamomum Seed Oil*, Ferula Galbaniflua (Galbanum) Resin Oil*, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Sodium Lauroyl Sarcosinate, Tocopheryl Acetate, Tetrasodium Glutamate Diacetate*, Sodium Lauryl Sulfoacetate*, Guar Hydroxypropyltrimonium Chloride*, Citric Acid*, Fragrance (Parfum), Dehydroacetic Acid, Benzyl Alcohol",
    "description": "Super Moisture Shampoo and Super Moisture Conditioner help strengthen damaged hair and prevent future breakage, on a daily basis. Use our award-winning, scientifically-proven Deep Conditioning Mask once a week to decrease breakage, boost hair’s strength, shine, and silkiness, and promote long-term hair health. Add our new intensive Rice Water Protein + Moisture Strengthening Treatment to your weekly routine to double the strengthening benefits after 1 use. Complete your healthy hair routine with",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "brillance",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "brillance"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/hair-repair-reset-featuring-don-t-despair-repair-tm.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--scalp-revival-charcoal-biotin-dry-shampoo",
@@ -1080,8 +1207,8 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0905/3204/files/01_SR-Dry-Shampoo_On-Grey_2000x2000_Selling-Fast_V1.jpg?v=1762439557",
    "image_local": "public/scan/products-cheveux/briogeo/scalp-revival-charcoal-biotin-dry-shampoo.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
     "gras",
     "cuir-chevelu-sensible"
@@ -1095,9 +1222,13 @@
    "ingredients": "Oryza Sativa (Rice) Starch*, Zea Mays (Corn) Starch*, Kaolin*, Sodium Bicarbonate*, Tapioca Starch*, Sodium Hyaluronate*, Bambusa Arundinacea Stem Extract*, Biotin, Hamamelis Virginiana (Witch Hazel) Leaf Extract*, Charcoal Powder*, Maltodextrin*, Fragrance (Parfum), Water/Aqua/Eau",
    "description": "WHO IT'S FOR: Those with oily hair and hair buildup. WHAT IT IS: This unique, scalp-healthy dry shampoo infuses Binchotan charcoal to draw impurities from the scalp and detoxify the scalp and hair. A complex of clay and tapioca & rice starches absorb excess oil at the roots to refresh, clean, and extend the life of your blowout. Witch Hazel extract helps to normalize oil production to prevent an oily scalp, making this dry shampoo a solution oriented product as opposed to just a temporary fix. S",
    "claims": [
-    "purifiant"
+    "purifiant",
+    "anti-gras"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/scalp-revival-charcoal-biotin-dry-shampoo.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--scalp-revivaltm-charcoal-coconut-oil-micro-exfoliating-shampoo-scalp-scrub",
@@ -1112,7 +1243,11 @@
    "image_local": "public/scan/products-cheveux/briogeo/scalp-revivaltm-charcoal-coconut-oil-micro-exfoliating-shampoo-scalp-scrub.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "gras",
+    "cuir-chevelu-sensible"
+   ],
    "actifs": [
     "panthénol",
     "huile de coco",
@@ -1125,8 +1260,12 @@
    ],
    "ingredients": "Water/Aqua/Eau, Sodium Lauroyl Methyl Isethionate*, Cocos Nucifera (Coconut) Oil*, Glyceryl Stearate*, Glycerin*, Microcrystalline Cellulose*, Cocamidopropyl Betaine*, Sodium Methyl Oleoyl Taurate*, Sodium Cocoyl Isethionate*, Hydrogenated Castor Oil*, Lithium Magnesium Sodium Silicate, Panthenol, Xylitylglucoside*, Charcoal Powder*, Melaleuca Alternifolia (Tea Tree) Leaf Oil*, Mentha Piperita (Peppermint) Oil*, Zingiber Officinale (Ginger) Root Oil*, Mentha Viridis (Spearmint) Leaf Oil*, Anhydroxylitol*, Bisabolol, Menthyl Lactate*, Xylitol*, Polyquaternium-7, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Dehydroacetic Acid, Benzyl Alcohol, Fragrance (Parfum), Citric Acid*, Sodium Hydroxide",
    "description": "A weekly scalp scrub that is clinically shown to reduce up to 82% of dry scalp flaking after one use*.",
-   "claims": [],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "claims": [
+    "purifiant"
+   ],
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/scalp-revivaltm-charcoal-coconut-oil-micro-exfoliating-shampoo-scalp-scrub.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--scalp-revivaltm-charcoal-coconut-oil-micro-exfoliating-shampoo-2-oz",
@@ -1142,6 +1281,8 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
+    "gras",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -1156,8 +1297,13 @@
    ],
    "ingredients": "Water/Aqua/Eau, Sodium Lauroyl Methyl Isethionate*, Cocos Nucifera (Coconut) Oil*, Glyceryl Stearate*, Glycerin*, Microcrystalline Cellulose*, Cocamidopropyl Betaine*, Sodium Methyl Oleoyl Taurate*, Sodium Cocoyl Isethionate*, Hydrogenated Castor Oil*, Lithium Magnesium Sodium Silicate, Panthenol, Xylitylglucoside*, Charcoal Powder*, Melaleuca Alternifolia (Tea Tree) Leaf Oil*, Mentha Piperita (Peppermint) Oil*, Zingiber Officinale (Ginger) Root Oil*, Mentha Viridis (Spearmint) Leaf Oil*, Anhydroxylitol*, Bisabolol, Menthyl Lactate*, Xylitol*, Polyquaternium-7, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Dehydroacetic Acid, Benzyl Alcohol, Fragrance (Parfum), Citric Acid*, Sodium Hydroxide",
    "description": "This unique shampoo infuses Binchotan charcoal to draw impurities from the scalp and hair follicle to provide the foundation for optimal scalp health. Vegetable-derived micro-exfoliators remove dead skin cells and product build-up from the scalp to support a clean, balanced, and healthy scalp. A cooling blend of peppermint and spearmint oils reduces scalp itchiness and tea tree oil has anti-septic and healing properties that reduce scalp irritation and inflammation. Coconut Oil provides superior",
-   "claims": [],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "claims": [
+    "apaisant-cuir-chevelu",
+    "purifiant"
+   ],
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/scalp-revivaltm-charcoal-coconut-oil-micro-exfoliating-shampoo-2-oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--scalp-revival-charcoal-tea-tree-buildup-detox-spray",
@@ -1188,9 +1334,13 @@
    "ingredients": "Water/Aqua/Eau, Propanediol*, Arginine*, Betaine*, Salicylic Acid, Lactic Acid, Gluconolactone*, Melaleuca Alternifolia (Tea Tree) Leaf Oil*, Mentha Piperita (Peppermint) Oil*, Sodium PCA*, Panthenol, Hyaluronic Acid*, Charcoal Powder*, Polyglyceryl-4 Caprate*, Methyl Diisopropyl Propionamide, Zingiber Officinale (Ginger) Root Oil*, Benzyl Alcohol",
    "description": "WHO IT'S FOR: For those with a dry, irritated, and flaky scalp. WHAT IT IS: This unique treatment infuses Binchotan charcoal to draw impurities from the scalp and hair follicle to remove buildup and provide the foundation for optimal scalp health. A cooling blend of peppermint and spearmint oils reduces scalp itchiness and tea tree oil has anti-septic and healing properties that reduce scalp irritation and inflammation. Witch Hazel water helps to normalize oil production to prevent an oily scalp",
    "claims": [
-    "purifiant"
+    "apaisant-cuir-chevelu",
+    "purifiant",
+    "anti-gras"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/scalp-revival-charcoal-tea-tree-buildup-detox-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--scalp-revival-charcoal-tea-tree-cooling-hydration-scalp-mask",
@@ -1205,7 +1355,11 @@
    "image_local": "public/scan/products-cheveux/briogeo/scalp-revival-charcoal-tea-tree-cooling-hydration-scalp-mask.jpg",
    "categorie": "masque",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "gras",
+    "cuir-chevelu-sensible"
+   ],
    "actifs": [
     "panthénol",
     "biotine",
@@ -1221,12 +1375,14 @@
    "ingredients": "Water/Aqua/Eau, Caprylic/Capric Triglyceride*, Hydroxypropyl Starch Phosphate*, Cetearyl Alcohol*, Glyceryl Stearate*, Brassica Alcohol*, Propanediol*, Glycerin*, Cetyl Alcohol*, Cocos Nucifera (Coconut) Oil*, Charcoal Powder*, Aloe Barbadensis Leaf Juice*, Melaleuca Alternifolia (Tea Tree) Leaf Oil*, Biotin, Mentha Piperita (Peppermint) Oil*, Mentha Viridis (Spearmint) Leaf Oil*, Sodium Hyaluronate, Niacinamide, Brassicyl Valinate Esylate, Carrageenan*, Arginine*, Panthenol, Cetyl Hydroxyethylcellulose*, Citric Acid*, Sodium PCA*, Guar Hydroxypropyltrimonium Chloride*, Menthyl Lactate*, Plantago Lanceolata Leaf Extract*, Potassium Hydroxide, Calcium Gluconate*, Potassium Sorbate, Sodium Benzoate, Sodium Metabisulfite, Tetrasodium Glutamate Diacetate, Sodium Glycolate, Sodium Formate, Sodium Hydroxide, Chlorphenesin, Dehydroacetic Acid, Benzyl Alcohol, Limonene",
    "description": "Scalp Revival Charcoal + Tea Tree Cooling Hydration Scalp Mask is formulated with a refreshing blend of tea tree, peppermint, and spearmint oils to hydrate, nourish, soothe, and instantly cool your scalp. Detoxifying Binchotan charcoal draws out scalp impurities and oil, while aloe vera and hyaluronic acid balance hydration to prevent future dryness and flakiness.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "apaisant",
+    "hydratation",
+    "nutrition",
+    "apaisant-cuir-chevelu",
     "purifiant"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/scalp-revival-charcoal-tea-tree-cooling-hydration-scalp-mask.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "briogeo--scalp-revival-charcoal-tea-tree-scalp-treatment",
@@ -1259,8 +1415,14 @@
    ],
    "ingredients": "Water/Aqua/Eau, Hamamelis Virginiana (Witch Hazel) Water*, Aloe Barbadensis Leaf Juice*, Propanediol*, Glycerin*, Biotin, Panthenol, Melaleuca Alternifolia (Tea Tree) Leaf Oil*, Charcoal Powder*, Mentha Piperita (Peppermint) Oil*, Zingiber Officinale (Ginger) Root Oil*, Menthyl Lactate*, Saccharide Isomerate*, Sodium Hyaluronate, Tocopheryl Acetate, Citric Acid*, Helianthus Annuus (Sunflower) Extract*, Heptyl Glucoside*, Oryza Sativa (Rice) Bran Extract*, Potassium Sorbate, Rosmarinus Officinalis (Rosemary) Leaf Extract*, Sodium Hydroxide, Tocopherol, Xanthan Gum*, Benzoic Acid, Sodium Citrate, Dehydroacetic Acid, Benzyl Alcohol, Limonene",
    "description": "WHO IT'S FOR: For those with a dry, irritated, and flaky scalp. WHAT IT IS: This unique treatment infuses Binchotan charcoal to draw impurities from the scalp and hair follicle to remove buildup and provide the foundation for optimal scalp health. A cooling blend of peppermint and spearmint oils reduces scalp itchiness and tea tree oil has anti-septic and healing properties that reduce scalp irritation and inflammation. Witch Hazel water helps to normalize oil production to prevent an oily scalp",
-   "claims": [],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "claims": [
+    "apaisant-cuir-chevelu",
+    "purifiant",
+    "anti-gras"
+   ],
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/scalp-revival-charcoal-tea-tree-scalp-treatment.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--scalp-revivaltm-dandruff-relief-conditioner-with-charcoal-1-8-salicylic-acid",
@@ -1273,10 +1435,12 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0905/3204/files/02_OTC_Conditioner_V1_On_Grey_2000x2000_2e3728d7-f819-4ee5-9a9b-9cc8b7285732.jpg?v=1764866405",
    "image_local": "public/scan/products-cheveux/briogeo/scalp-revivaltm-dandruff-relief-conditioner-with-charcoal-1-8-salicylic-acid.jpg",
-   "categorie": "anti-pellicules",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
-    "pellicules"
+    "gras",
+    "pellicules",
+    "cuir-chevelu-sensible"
    ],
    "actifs": [
     "panthénol",
@@ -1293,9 +1457,12 @@
    "ingredients": "water, cetearyl alcohol*, glycerin*, isopropyl palmitate*, cetyl esters*, brassica alcohol*, behentrimonium chloride*, fragrance (parfum), brassicyl isoleucinate esylate*, benzyl alcohol, isopropyl alcohol*, cetrimonium chloride*, guar hydroxypropyltrimonium chloride*, menthyl lactate, behentrimonium methosulfate*, benzotriazolyl dodecyl p-cresol, cocos nucifera (coconut) oil*, simmondsia chinensis (jojoba) seed oil*, sodium hydroxide, kaolin*, charcoal powder*, bisabolol*, colloidal oatmeal*, panthenol, dehydroacetic acid, arginine*, citric acid*, avena sativa (oat) bran extract*, aloe barbadensis leaf juice*, fumaric acid, maltodextrin*, sodium benzoate*, beta-glucan*, leuconostoc/radish root ferment filtrate*, potassium sorbate*, levulinic acid, sodium levulinate",
    "description": "A 6-free™ clean, silicone-free anti-dandruff conditioner formulated without harsh sulfates, silicones, parabens, phthalates, DEA + artificial dyes.",
    "claims": [
-    "anti-pellicules"
+    "antipelliculaire",
+    "sans-silicone"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/scalp-revivaltm-dandruff-relief-conditioner-with-charcoal-1-8-salicylic-acid.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--scalp-revivaltm-dandruff-relief-shampoo-with-charcoal-3-salicylic-acid",
@@ -1311,6 +1478,7 @@
    "categorie": "anti-pellicules",
    "etape": 1,
    "cheveux_cibles": [
+    "gras",
     "pellicules",
     "cuir-chevelu-sensible"
    ],
@@ -1328,10 +1496,14 @@
    "ingredients": "water, sodium methyl cocoyl taurate*, cocamidopropyl betaine*, lauramidopropyl betaine, glycerin*, cocamidopropyl hydroxysultaine*, sodium chloride*, fragrance, glycol distearate*, sodium citrate*, sodium PCA*, lactic acid*, menthyl lactate*, sodium gluconate*, panthenol, mentha piperita (peppermint) oil*, sodium hydroxide*, caramel*, maltodextrin*, hydrolyzed gardenia florida extract*, charcoal powder*, cocos nucifera (coconut) oil*, biotin, leuconostoc/radish root ferment filtrate*, hyaluronic acid*",
    "description": "A maximum-strength, 6-free™ clean anti-dandruff shampoo that targets scalp flaking + irritation—without stripping hair of vital moisture.",
    "claims": [
-    "hydratant",
-    "anti-pellicules"
+    "hydratation",
+    "fortifiant",
+    "antipelliculaire",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/scalp-revivaltm-dandruff-relief-shampoo-with-charcoal-3-salicylic-acid.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--scalp-revivaltm-rosemary-pre-wash-oil-for-hair-and-scalp",
@@ -1347,6 +1519,7 @@
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
    "cheveux_cibles": [
+    "secs",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -1362,9 +1535,14 @@
     "huile d'avocat"
    ],
    "ingredients": "Caprylic/Capric Triglyceride*, Ricinus Communis (Castor) Seed Oil*, Vitis Vinifera (Grape) Seed Oil*, Polyglyceryl-3 Polyricinoleate*, Rosmarinus Officinalis (Rosemary) Leaf Oil*, Cocos Nucifera (Coconut) Oil*, Olea Europaea (Olive) Fruit Oil*, Persea Gratissima (Avocado) Oil*, Ceramide NG*, Biotin*, Adansonia Digitata Seed Oil*, Helianthus Annuus (Sunflower) Seed Oil*, Bisabolol*, Tocopherol, Melaleuca Alternifolia (Tea Tree) Leaf Oil*, Glycerin*, Lauric Acid*, Glyceryl Laurate*, Ethylhexylglycerin, Charcoal Powder*",
-   "description": "WHO IT'S FOR: For those with a dry, irritated, and flaky scalp. WHAT IT IS: This unique shampoo infuses Binchotan charcoal to draw impurities from the scalp and hair follicle to provide the foundation for optimal scalp health. Vegetable-derived micro-exfoliators remove dead skin cells and product build-up from the scalp to support a clean, balanced, and healthy scalp. A cooling blend of peppermint and spearmint oils reduces scalp itchiness and tea tree oil has anti-septic and healing properties ",
-   "claims": [],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "description": "WHO IT'S FOR: For those with a dry, irritated, and flaky scalp. WHAT IT IS: This unique shampoo infuses Binchotan charcoal to draw impurities from the scalp and hair follicle to provide the foundation for optimal scalp health. Vegetable-derived micro-exfoliators remove dead skin cells and product build-up from the scalp to support a clean, balanced, and healthy scalp. A cooling blend of peppermint and spearmint oils reduces scalp itchiness and tea tree oil has anti-septic and healing properties",
+   "claims": [
+    "apaisant-cuir-chevelu",
+    "purifiant"
+   ],
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/scalp-revivaltm-rosemary-pre-wash-oil-for-hair-and-scalp.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--scalp-revival-rosemary-pre-wash-oil-1oz",
@@ -1380,6 +1558,7 @@
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
    "cheveux_cibles": [
+    "secs",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -1395,33 +1574,14 @@
     "huile d'avocat"
    ],
    "ingredients": "Caprylic/Capric Triglyceride*, Ricinus Communis (Castor) Seed Oil*, Vitis Vinifera (Grape) Seed Oil*, Polyglyceryl-3 Polyricinoleate*, Rosmarinus Officinalis (Rosemary) Leaf Oil*, Cocos Nucifera (Coconut) Oil*, Olea Europaea (Olive) Fruit Oil*, Persea Gratissima (Avocado) Oil*, Ceramide NG*, Biotin*, Adansonia Digitata Seed Oil*, Helianthus Annuus (Sunflower) Seed Oil*, Bisabolol*, Tocopherol, Melaleuca Alternifolia (Tea Tree) Leaf Oil*, Glycerin*, Lauric Acid*, Glyceryl Laurate*, Ethylhexylglycerin, Charcoal Powder*",
-   "description": "WHO IT'S FOR: For those with a dry, irritated, and flaky scalp. WHAT IT IS: This unique shampoo infuses Binchotan charcoal to draw impurities from the scalp and hair follicle to provide the foundation for optimal scalp health. Vegetable-derived micro-exfoliators remove dead skin cells and product build-up from the scalp to support a clean, balanced, and healthy scalp. A cooling blend of peppermint and spearmint oils reduces scalp itchiness and tea tree oil has anti-septic and healing properties ",
-   "claims": [],
-   "source": "sitemap briogeohair.com products + json-ld"
-  },
-  {
-   "id": "briogeo--style-treattm-yuzu-plum-oil-hair-styling-sleek-stick-with-keychain",
-   "name": "Style + Treat™ Yuzu + Plum Oil Hair Styling Sleek Stick with keychain",
-   "brand": "briogeo",
-   "brand_name": "Briogeo",
-   "url": "https://www.briogeohair.com/products/style-sleek-stick-with-key-chain-bundle",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 23.92,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0905/3204/files/01_Sleek_Stick_On_Grey_1.jpg?v=1762452630",
-   "image_local": "public/scan/products-cheveux/briogeo/style-treattm-yuzu-plum-oil-hair-styling-sleek-stick-with-keychain.jpg",
-   "categorie": "huile",
-   "etape": 3,
-   "cheveux_cibles": [
-    "epais"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "A smooth, glidable styling stick that slicks back hair into the perfect ponytail or pulled-back style for a frizz-free finish.",
+   "description": "WHO IT'S FOR: For those with a dry, irritated, and flaky scalp. WHAT IT IS: This unique shampoo infuses Binchotan charcoal to draw impurities from the scalp and hair follicle to provide the foundation for optimal scalp health. Vegetable-derived micro-exfoliators remove dead skin cells and product build-up from the scalp to support a clean, balanced, and healthy scalp. A cooling blend of peppermint and spearmint oils reduces scalp itchiness and tea tree oil has anti-septic and healing properties",
    "claims": [
-    "lissant"
+    "apaisant-cuir-chevelu",
+    "purifiant"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/scalp-revival-rosemary-pre-wash-oil-1oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--style-treattm-dry-shampoo-puff-translucent",
@@ -1434,10 +1594,11 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0905/3204/files/01_S_T_Dry_Puff_Translusent_On_White.jpg?v=1778173981",
    "image_local": "public/scan/products-cheveux/briogeo/style-treattm-dry-shampoo-puff-translucent.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
-    "gras"
+    "gras",
+    "chute"
    ],
    "actifs": [
     "caféine",
@@ -1448,8 +1609,13 @@
    ],
    "ingredients": "Zea Mays (Corn) Starch*, Oryza Sativa (Rice) Starch*, Tapioca Starch*, Kaolin, Montmorillonite, Sodium Bicarbonate, Caffeine, Copper Tripeptide-34, Adenosine, Ubiquinone, Coffea Arabica (Coffee) Seed Oil*, Biotin, Camellia Sinensis Leaf Extract*, Glycerin*, Glycine Soja (Soybean) Oil*, Sodium Gluconate*, Glycine, Larix Europaea Wood Extract*, Tocopherol*, Sandalore, Hydroxyapatite, Sodium Metabisulfite, Water/Aqua/Eau, Zinc Chloride, Potassium Sorbate, Sodium Benzoate, Fragrance (Parfum)",
    "description": "WHO IT'S FOR: All hair types + textures WHAT IT IS: A lightweight, aerosol-free dry shampoo that helps refresh roots and hairstyles with a compact power puff for convenient, on-the-go touch-ups. WHAT IT DOES: This mattifying dry shampoo features a custom puff applicator for easy on-the-go touch-ups to refresh oily roots between washes. The soft compact puff delivers the talc- and benzene-free formula directly to the roots for mess-free application. 92% naturally derived, vegan & Leaping Bunny ce",
-   "claims": [],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "claims": [
+    "anti-gras"
+   ],
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/style-treattm-dry-shampoo-puff-translucent.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--style-treattm-dry-shampoo-puff-tinted",
@@ -1462,9 +1628,12 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0905/3204/files/01_S_T_DryPuff_OnGrey_2000x2000_TintedSwatch_greybg_40c7c47f-c1ae-4f1e-bc70-fa1f24e0fbf0.jpg?v=1762453820",
    "image_local": "public/scan/products-cheveux/briogeo/style-treattm-dry-shampoo-puff-tinted.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [],
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "gras",
+    "chute"
+   ],
    "actifs": [
     "caféine",
     "biotine",
@@ -1474,38 +1643,13 @@
    ],
    "ingredients": "Zea Mays (Corn) Starch*, Oryza Sativa (Rice) Starch*, Tapioca Starch*, Kaolin, Montmorillonite, Sodium Bicarbonate, Caffeine, Copper Tripeptide-34, Adenosine, Ubiquinone, Coffea Arabica (Coffee) Seed Oil*, Biotin, Camellia Sinensis Leaf Extract*, Glycerin*, Glycine Soja (Soybean) Oil*, Sodium Gluconate*, Glycine, Larix Europaea Wood Extract*, Tocopherol*, Sandalore, Hydroxyapatite, Sodium Metabisulfite, Water/Aqua/Eau, Zinc Chloride, Potassium Sorbate, Sodium Benzoate, Fragrance (Parfum), Iron Oxides (CI77499), Iron Oxides (CI77491)",
    "description": "A lightweight, aerosol-free powder that absorbs excess oil to refresh hairstyles. This talc-free dry shampoo uses a compact power puff for a convenient, on-the-go root refresh. A universal brown tint blends seamlessly for root touch-ups with no white cast.",
-   "claims": [],
-   "source": "sitemap briogeohair.com products + json-ld"
-  },
-  {
-   "id": "briogeo--style-treattm-sleek-stick-keychain",
-   "name": "Style + Treat™ Sleek Stick Keychain",
-   "brand": "briogeo",
-   "brand_name": "Briogeo",
-   "url": "https://www.briogeohair.com/products/style-treat-sleek-stick-keychain",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 11.04,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0905/3204/files/01_Sleek_Stick_On_Grey_1.jpg?v=1762452630",
-   "image_local": "public/scan/products-cheveux/briogeo/style-treattm-sleek-stick-keychain.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [
-    "epais"
-   ],
-   "actifs": [
-    "huile d'argan",
-    "huile de coco"
-   ],
-   "ingredients": null,
-   "description": "A lightweight blow-dry finishing and heat protectant crème fortified with rosehip, argan, and coconut oils to to smooth hair, enhance shine, tame frizz, and thermal protect up to 450°F.",
    "claims": [
-    "brillance",
-    "lissant",
-    "protection-thermique",
-    "fortifiant"
+    "anti-gras"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/style-treattm-dry-shampoo-puff-tinted.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--supreme-shine-strengthening-oil",
@@ -1521,6 +1665,7 @@
    "categorie": "huile",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "gras",
     "boucles",
     "crepus"
@@ -1538,11 +1683,15 @@
    "ingredients": "Ricinus Communis (Castor) Seed Oil*, Coco-Caprylate/Caprate*, Euphorbia Cerifera (Candelilla) Wax*, Vitis Vinifera (Grape) Seed Oil*, Hydrogenated Castor Oil*, Oleic/Linoleic/Linolenic Polyglycerides*, Stearyl Behenate*, Copernicia Cerifera (Carnauba) Wax*, Helianthus Annuus (Sunflower) Seed Wax*, Rosa Canina Fruit Oil*, Cocos Nucifera (Coconut) Oil*, Argania Spinosa Kernel Oil*, Glyceryl Stearate SE*, Prunus Domestica Seed Oil*, Citrus Junos Peel Extract*, Olea Europaea (Olive) Oil Unsaponifiables*, Shorea Robusta Resin*, Rhus Verniciflua Peel Wax*, Kaolin, Helianthus Annuus (Sunflower) Seed Oil*, Panthenol, Niacinamide, Biotin, Folic Acid, Sodium Starch Octenylsuccinate*, Maltodextrin*, Calcium Pantothenate, Sodium Ascorbyl Phosphate, Tocopheryl Acetate, Pyridoxine HCl, Silica, Fragrance (Parfum)",
    "description": "WHAT IT IS: A cushiony, pearlescent gloss-to-oil essential that delivers instant shine, lasting moisture + strengthens strands for glossy, healthy-looking hair. WHO IT'S FOR: Thick, curly + coily hair.",
    "claims": [
-    "hydratant",
-    "brillance",
-    "fortifiant"
+    "hydratation",
+    "fortifiant",
+    "definition-boucles",
+    "anti-gras",
+    "brillance"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/supreme-shine-strengthening-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--style-treattm-sweet-to-sleek-treat",
@@ -1557,16 +1706,16 @@
    "image_local": "public/scan/products-cheveux/briogeo/style-treattm-sweet-to-sleek-treat.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [],
    "ingredients": null,
    "description": "A smooth, glidable styling stick that slicks back hair into the perfect ponytail or pulled-back style for a frizz-free finish.",
    "claims": [
-    "lissant"
+    "anti-frisottis"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/style-treattm-sweet-to-sleek-treat.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--style-treattm-yuzu-plum-hair-styling-sculpting-creme",
@@ -1582,7 +1731,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "secs"
    ],
    "actifs": [
     "panthénol",
@@ -1599,12 +1748,15 @@
    "ingredients": "Water/Aqua/Eau, Euphorbia Cerifera (Candelilla) Wax*, Ricinus Communis (Castor) Seed Oil*, Glycerin*, Polyhydroxystearic Acid*, Cetearyl Alcohol*, Tribehenin*, Pullulan*, Lauryl Laurate*, Ceteareth-20*, Kaolin, Fragrance (Parfum), Prunus Domestica Seed Oil*, Helianthus Annuus (Sunflower) Seed Oil*, Butyrospermum Parkii (Shea) Butter*, Panthenol, Jojoba Esters*, Niacinamide, Folic Acid, Pyridoxine HCl, Rosa Canina Fruit Oil*, Biotin, Camellia Oleifera Seed Oil*, Sodium Carbonate, Stearic Acid*, Oryza Sativa (Rice) Bran Wax*, Carbomer, Hydroxystearic/Linolenic/Oleic Polyglycerides*, Citrus Junos Peel Extract*, Tocopherol, Sodium Hydroxide, Caprylhydroxamic Acid*, Benzyl Alcohol",
    "description": "A lightweight blow-dry finishing and heat protectant crème fortified with rosehip, argan, and coconut oils to to smooth hair, enhance shine, tame frizz, and thermal protect up to 450°F.",
    "claims": [
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
     "brillance",
-    "lissant",
-    "protection-thermique",
-    "fortifiant"
+    "protection-chaleur"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/style-treattm-yuzu-plum-hair-styling-sculpting-creme.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--4-in-1-weightless-hair-oil",
@@ -1619,7 +1771,10 @@
    "image_local": "public/scan/products-cheveux/briogeo/4-in-1-weightless-hair-oil.jpg",
    "categorie": "huile",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "fins"
+   ],
    "actifs": [
     "panthénol",
     "huile d'argan",
@@ -1633,11 +1788,14 @@
    "ingredients": "Ricinus Communis (Castor) Seed Oil*, Coco-Caprylate/Caprate*, Euphorbia Cerifera (Candelilla) Wax*, Vitis Vinifera (Grape) Seed Oil*, Hydrogenated Castor Oil*, Oleic/Linoleic/Linolenic Polyglycerides*, Stearyl Behenate*, Copernicia Cerifera (Carnauba) Wax*, Helianthus Annuus (Sunflower) Seed Wax*, Rosa Canina Fruit Oil*, Cocos Nucifera (Coconut) Oil*, Argania Spinosa Kernel Oil*, Glyceryl Stearate SE*, Prunus Domestica Seed Oil*, Citrus Junos Peel Extract*, Olea Europaea (Olive) Oil Unsaponifiables*, Shorea Robusta Resin*, Rhus Verniciflua Peel Wax*, Kaolin, Helianthus Annuus (Sunflower) Seed Oil*, Panthenol, Niacinamide, Biotin, Folic Acid, Sodium Starch Octenylsuccinate*, Maltodextrin*, Calcium Pantothenate, Sodium Ascorbyl Phosphate, Tocopheryl Acetate, Pyridoxine HCl, Silica, Fragrance (Parfum)",
    "description": "A silicone-free styling oil that protects, smooths, moisturizes, and adds subtle shine without weighing fine to medium strands down.",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "anti-frisottis",
     "brillance",
-    "lissant"
+    "sans-silicone"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/4-in-1-weightless-hair-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--style-treattm-yuzu-plum-oil-air-dry-hair-styling-cream",
@@ -1650,11 +1808,10 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0905/3204/files/00_AirDryCream_OnGrey_2000x2000_2ae2a2f0-a7f5-4962-a61b-caf9b716be48.jpg?v=1762452329",
    "image_local": "public/scan/products-cheveux/briogeo/style-treattm-yuzu-plum-oil-air-dry-hair-styling-cream.jpg",
-   "categorie": "huile",
+   "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "secs",
-    "epais"
+    "secs"
    ],
    "actifs": [
     "panthénol",
@@ -1671,12 +1828,15 @@
    "ingredients": "Water/Aqua/Eau, Glycerin*, Glyceryl Stearate SE*, Behentrimonium chloride*, Helianthus Annuus (Sunflower) Seed Oil*, Oryza Sativa (Rice) Bran Wax*, Euphorbia Cerifera (Candelilla) Wax*, Squalane*, Prunus Domestica Seed Oil*, Butyrospermum Parkii (Shea) Butter*, Orbignya Speciosa Kernel Oil*, Linum Usitatissimum (Linseed) Seed Extract*, Salvia Hispanica Seed Extract*, Astrocaryum Murumuru Seed Butter*, Guar Hydroxypropyltrimonium Chloride*, Cetrimonium Chloride *, Hydrolyzed Jojoba Esters*, Niacinamide, Pyridoxine HCL, Panthenol, Xylitol*, Biotin, Citrus Junos Peel Extract*, Tocopherol*, Folic Acid, Citric Acid*, Caprylic Acid*, Fragrance (Parfum), Caprylhydroxamic Acid*, Benzyl Alcohol",
    "description": "A lightweight blow-dry finishing and heat protectant crème fortified with rosehip, argan, and coconut oils to to smooth hair, enhance shine, tame frizz, and thermal protect up to 450°F.",
    "claims": [
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
     "brillance",
-    "lissant",
-    "protection-thermique",
-    "fortifiant"
+    "protection-chaleur"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/style-treattm-yuzu-plum-oil-air-dry-hair-styling-cream.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--style-treattm-yuzu-plum-oil-hair-styling-sleek-stick",
@@ -1692,7 +1852,7 @@
    "categorie": "huile",
    "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "secs"
    ],
    "actifs": [
     "panthénol",
@@ -1707,9 +1867,11 @@
    "ingredients": "Ricinus Communis (Castor) Seed Oil*, Coco-Caprylate/Caprate*, Euphorbia Cerifera (Candelilla) Wax*, Vitis Vinifera (Grape) Seed Oil*, Hydrogenated Castor Oil*, Oleic/Linoleic/Linolenic Polyglycerides*, Stearyl Behenate*, Copernicia Cerifera (Carnauba) Wax*, Helianthus Annuus (Sunflower) Seed Wax*, Rosa Canina Fruit Oil*, Cocos Nucifera (Coconut) Oil*, Argania Spinosa Kernel Oil*, Glyceryl Stearate SE*, Prunus Domestica Seed Oil*, Citrus Junos Peel Extract*, Olea Europaea (Olive) Oil Unsaponifiables*, Shorea Robusta Resin*, Rhus Verniciflua Peel Wax*, Kaolin, Helianthus Annuus (Sunflower) Seed Oil*, Panthenol, Niacinamide, Biotin, Folic Acid, Sodium Starch Octenylsuccinate*, Maltodextrin*, Calcium Pantothenate, Sodium Ascorbyl Phosphate, Tocopheryl Acetate, Pyridoxine HCl, Silica, Fragrance (Parfum)",
    "description": "A smooth, glidable styling stick that slicks back hair into the perfect ponytail or pulled-back style for a frizz-free finish",
    "claims": [
-    "lissant"
+    "anti-frisottis"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/style-treattm-yuzu-plum-oil-hair-styling-sleek-stick.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--style-treattm-yuzu-plum-oil-hair-styling-texture-foam",
@@ -1724,9 +1886,7 @@
    "image_local": "public/scan/products-cheveux/briogeo/style-treattm-yuzu-plum-oil-hair-styling-texture-foam.jpg",
    "categorie": "huile",
    "etape": 3,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [
     "panthénol",
     "huile d'argan",
@@ -1740,12 +1900,15 @@
    "ingredients": "Water/Aqua/Eau, Decyl Glucoside*, Glycerin*, VP/VA Copolymer, Pullulan*, Prunus Domestica Seed Oil*, Squalane*, Niacinamide, Biotin, Folic Acid, Polyglyceryl-3 Cocoate*, Polyglyceryl-4 Caprate*, Hydrogenated Lecithin*, Helianthus Annuus (Sunflower) Seed Oil*, Polyglyceryl-6 Caprylate*, Polyglyceryl-6 Ricinoleate*, Sodium Polyitaconate*, Sucrose*, Citric Acid*, Panthenol, Sodium Starch Octenylsuccinate*, Calcium Pantothenate, Maltodextrin, Sodium Ascorbyl Phosphate, Pyridoxine HCl, Tocopheryl Acetate, Citrus Junos Peel Extract*, Silica, Fragrance (Parfum), Dehydroacetic Acid, Benzyl Alcohol",
    "description": "A lightweight blow-dry finishing and heat protectant crème fortified with rosehip, argan, and coconut oils to to smooth hair, enhance shine, tame frizz, and thermal protect up to 450°F.",
    "claims": [
+    "fortifiant",
+    "anti-frisottis",
+    "texturisant",
     "brillance",
-    "lissant",
-    "protection-thermique",
-    "fortifiant"
+    "protection-chaleur"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/style-treattm-yuzu-plum-oil-hair-styling-texture-foam.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--superfoods-lightweight-hydration-hair-mask",
@@ -1761,7 +1924,9 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
-    "fins"
+    "secs",
+    "fins",
+    "chute"
    ],
    "actifs": [
     "panthénol",
@@ -1778,10 +1943,13 @@
    "ingredients": "Water/Aqua/Eau, Cetyl Alcohol*, Brassica Alcohol*, Propanediol*, Cetearyl Alcohol*, Stearyl Alcohol*, Euterpe Oleracea Fruit Extract*, Passiflora Edulis Fruit Extract*, Passiflora Edulis Seed Oil*, Vaccinium Angustifolium (Blueberry) Fruit Extract*, Rubus Villosus (Blackberry) Fruit Extract*, Sambucus Nigra Flower Extract*, Polyglutamic Acid*, Sodium PCA, Hyaluronic Acid*, Niacinamide, Panthenol, Caffeine, Ribes Nigrum (Black Currant) Seed Oil*, Aloe Barbadensis Leaf Juice*, Glycerin*, Cocos Nucifera (Coconut) Seed Butter*, Prunus Amygdalus Dulcis (Sweet Almond) Oil*, Helianthus Annuus (Sunflower) Seed Oil*, Tocopherol*, Brassicyl Isoleucinate Esylate*, Cetyl Esters*, Isododecane, Behentrimonium Methosulfate*, Isopropyl Myristate*, Cetrimonium Chloride*, Guar Hydroxypropyltrimonium Chloride*, Behentrimonium Chloride, Laureth-2, Pentylene Glycol*, Leuconostoc/Radish Root Ferment Filtrate*, Leuconostoc/Radish Root Ferment Lysate Filtrate*, Citric Acid*, Sodium Hydroxide, Potassium Sorbate, Sodium Benzoate, Fragrance (Parfum), Dehydroacetic Acid, Benzyl Alcohol, Iron Oxides (CI 77491), Iron Oxides (CI 77499)",
    "description": "A lightweight, nutrient-rich mask packed with vitamins + antioxidants to deeply hydrate fine strands without sacrificing volume or weighing hair down.",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "nutrition",
     "volume"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/superfoods-lightweight-hydration-hair-mask.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--superfoods-avocado-kiwi-mega-moisture-mask",
@@ -1796,7 +1964,9 @@
    "image_local": "public/scan/products-cheveux/briogeo/superfoods-avocado-kiwi-mega-moisture-mask.jpg",
    "categorie": "masque",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "panthénol",
     "biotine",
@@ -1810,10 +1980,12 @@
    "ingredients": "Water/Aqua/Eau, Cetyl Alcohol*, Stearyl Alcohol*, Behentrimonium Chloride*, Brassica Alcohol*, Propanediol*, Cetyl Esters*, Persea Gratissima (Avocado) Oil*, Actinidia Chinensis (Kiwi) Fruit Extract*, Spirulina Maxima Extract*, Spinacia Oleracea (Spinach) Leaf Extract*, Aloe Barbadensis Leaf Juice*, Biotin, Theobroma Cacao (Cocoa) Seed Butter*, Salvia Hispanica Seed Oil*, Isododecane, Brassicyl Isoleucinate Esylate*, Coccinia Indica Fruit Extract*, Aloe Barbadensis Flower Extract*, Solanum Melongena (Eggplant) Fruit Extract*, Curcuma Longa (Turmeric) Root Extract*, Ocimum Basilicum (Basil) Flower/Leaf Extract*, Ocimum Sanctum Leaf Extract*, Isopropyl Myristate*, Melia Azadirachta Leaf Extract*, Melia Azadirachta Flower Extract*, Cetrimonium Chloride*, Cetearyl Alcohol*, Guar Hydroxypropyltrimonium Chloride*, Corallina Officinalis Extract*, Behentrimonium Methosulfate*, Panthenol, Volcanic Ash*, Arginine*, Glycerin*, Curcumin*, Helianthus Annuus (Sunflower) Seed Oil*, Palmaria Palmata Extract*, Mineral Salts*, Butylene Glycol, Hexylene Glycol, Rosmarinus Officinalis (Rosemary) Leaf Extract*, Potassium Sorbate, Sodium Benzoate, Fragrance (Parfum), Dehydroacetic Acid, Benzyl Alcohol",
    "description": "A protein-free, nourishing hair mask formulated with highly emollient ingredients to boost moisture for softer, more manageable hair.",
    "claims": [
-    "hydratant",
-    "nourrissant"
+    "hydratation",
+    "nutrition"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/superfoods-avocado-kiwi-mega-moisture-mask.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "briogeo--superfoods-banana-coconut-nourishing-conditioner",
@@ -1828,7 +2000,9 @@
    "image_local": "public/scan/products-cheveux/briogeo/superfoods-banana-coconut-nourishing-conditioner.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "panthénol",
     "huile de coco",
@@ -1838,10 +2012,12 @@
    "ingredients": "Water/Aqua/Eau, Glycerin*, Isopropyl Palmitate*, Behentrimonium Chloride*, Cetearyl Alcohol*, Brassica Alcohol*, Cetyl Esters*, Musa Sapientum (Banana) Peel Extract*, Cocos Nucifera (Coconut) Fruit Extract*, Ananas Sativus (Pineapple) Fruit Extract*, Carica Papaya (Papaya) Fruit Extract*, Mangifera Indica (Mango) Juice*, Euterpe Oleracea Fruit Extract*, Curcuma Longa (Turmeric) Root Extract*, Ocimum Basilicum (Basil) Flower/Leaf Extract*, Corallina Officinalis Extract*, Lactobacillus, Persea Gratissima (Avocado) Oil*, Prunus Amygdalus Dulcis (Sweet Almond) Oil*, Melia Azadirachta Flower Extract*, Panthenol, Melia Azadirachta Leaf Extract*, Ocimum Sanctum Leaf Extract*, Brassicyl Isoleucinate Esylate*, Cetrimonium Chloride, Behentrimonium Methosulfate*, Guar Hydroxypropyltrimonium Chloride*, Sodium Benzotriazolyl Butylphenol Sulfonate, Sodium Hydroxide, Fragrance (Parfum), Dehydroacetic Acid, Benzyl Alcohol",
    "description": "Be Gentle, Be Kind Banana + Coconut Nourishing Superfood Conditioner is a creamy, smoothie textured conditioner for all hair types that harnesses the power of antioxidant-rich fruits to support healthy looking hair and scalp.",
    "claims": [
-    "nourrissant",
-    "lissant"
+    "nutrition",
+    "anti-frisottis"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/superfoods-banana-coconut-nourishing-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--superfoods-banana-coconut-nourishing-shampoo",
@@ -1856,7 +2032,9 @@
    "image_local": "public/scan/products-cheveux/briogeo/superfoods-banana-coconut-nourishing-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "panthénol",
     "huile de coco",
@@ -1867,10 +2045,12 @@
    "ingredients": "Water/Aqua/Eau, Cocamidopropyl Betaine*, Sodium Lauroyl Methyl Isethionate*, Glycerin*, Lauramidopropyl Betaine*, Sodium Methyl Isethionate*, Sodium C14-16 Olefin Sulfonate, Musa Sapientum (Banana) Peel Extract*, Cocos Nucifera (Coconut) Fruit Extract*, Euterpe Oleracea Fruit Extract*, Mangifera Indica (Mango) Juice*, Ananas Sativus (Pineapple) Fruit Extract*, Carica Papaya (Papaya) Fruit Extract*, Curcuma Longa (Turmeric) Root Extract*, Ocimum Basilicum (Basil) Flower/Leaf Extract*, Melia Azadirachta Flower Extract*, Melia Azadirachta Leaf Extract*, Ocimum Sanctum Leaf Extract*, Aloe Barbadensis Leaf Juice*, Corallina Officinalis Extract*, Panthenol, Lactobacillus, Citric Acid*, Sodium Gluconate*, Polyquaternium-7, Sodium Benzotriazolyl Butylphenol Sulfonate, Panthenyl Hydroxypropyl Steardimonium Chloride, Fragrance (Parfum), Caprylhydroxamic Acid*, Benzyl Alcohol",
    "description": "Be Gentle, Be Kind Banana + Coconut Nourishing Superfood Shampoo is a nutrient-rich, smoothie inspired shampoo for all hair types that harnesses the power of antioxidant-rich fruits to support healthy looking hair and scalp.",
    "claims": [
-    "nourrissant",
-    "lissant"
+    "nutrition",
+    "anti-frisottis"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/superfoods-banana-coconut-nourishing-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--superfoods-kale-apple-replenishing-superfood-conditioner",
@@ -1885,7 +2065,9 @@
    "image_local": "public/scan/products-cheveux/briogeo/superfoods-kale-apple-replenishing-superfood-conditioner.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "colores"
+   ],
    "actifs": [
     "panthénol",
     "glycérine",
@@ -1896,8 +2078,12 @@
    ],
    "ingredients": "Water/Aqua/Eau, Glycerin*, Isopropyl Palmitate*, Behentrimonium Chloride*, Cetearyl Alcohol*, Brassica Alcohol*, Cetyl Esters*, Brassica Oleracea Acephala Leaf Extract*, Pyrus Malus (Apple) Fruit Extract*, Spinacia Oleracea (Spinach) Leaf Extract*, Brassica Oleracea Italica (Broccoli) Extract*, Persea Gratissima (Avocado) Oil*, Cucumis Sativus (Cucumber) Fruit Extract*, Prunus Amygdalus Dulcis (Sweet Almond) Oil*, Citrus Limon (Lemon) Fruit Extract*, Citrus Grandis (Grapefruit) Fruit Extract*, Citrus Aurantium Dulcis (Orange) Fruit Extract*, Zingiber Officinale (Ginger) Root Extract*, Beta Vulgaris (Beet) Root Extract*, Panax Ginseng Root Extract*, Hippophae Rhamnoides Fruit Oil*, Chlorella Vulgaris Extract*, Brassicyl Isoleucinate Esylate*, Panthenol, Cetrimonium Chloride*, Behentrimonium Methosulfate*, Guar Hydroxypropyltrimonium Chloride*, Arginine*, Citric Acid*, Fragrance (Parfum), Dehydroacetic Acid, Benzyl Alcohol, Chlorophyllin-Copper Complex (CI 75810)*",
    "description": "nd safe for color or chemically treated hair.",
-   "claims": [],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "claims": [
+    "nutrition"
+   ],
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/superfoods-kale-apple-replenishing-superfood-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "briogeo--superfoods-matcha-apple-replenishing-superfood-shampoo",
@@ -1912,7 +2098,9 @@
    "image_local": "public/scan/products-cheveux/briogeo/superfoods-matcha-apple-replenishing-superfood-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "panthénol",
     "aloe vera",
@@ -1924,9 +2112,12 @@
    "ingredients": "Water/Aqua/Eau, Cocamidopropyl Betaine*, Sodium Lauroyl Methyl Isethionate*, Sodium C14-16 Olefin Sulfonate, Glycerin*, Aloe Barbadensis Leaf Juice*, Spinacia Oleracea (Spinach) Leaf Extract*, Brassica Oleracea Italica (Broccoli) Extract*, Pyrus Malus (Apple) Fruit Extract*, Cucumis Sativus (Cucumber) Fruit Extract*, Citrus Limon (Lemon) Fruit Extract*, Citrus Grandis (Grapefruit) Fruit Extract*, Citrus Aurantium Dulcis (Orange) Fruit Extract*, Beta Vulgaris (Beet) Root Extract*, Camellia Sinensis Leaf Extract*, Cymbopogon Schoenanthus Extract*, Chlorella Vulgaris Extract*, Panthenol, Sodium Gluconate*, Sodium Lauryl Sulfoacetate*, Polyquaternium-7, Caprylyl/Capryl Glucoside*, Sodium Hydroxide, Sodium Benzoate, Potassium Sorbate, Citric Acid*, Fragrance (Parfum), Caprylhydroxamic Acid*, Benzyl Alcohol, Chlorophyllin-Copper Complex (CI 75810)*",
    "description": "A nutrient-rich shampoo that acts like a green juice cleanse for hydrated, balanced hair",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition"
    ],
-   "source": "sitemap briogeohair.com products + json-ld"
+   "source": "sitemap briogeohair.com products + json-ld",
+   "cutout_url": "public/scan/products-cheveux/briogeo/cutout/superfoods-matcha-apple-replenishing-superfood-shampoo.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

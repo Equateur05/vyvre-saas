@@ -1,0 +1,193 @@
+{
+ "brand": "guerlain",
+ "brand_name": "Guerlain",
+ "date": "2026-09-19",
+ "raison": "Tout le domaine officiel www.guerlain.com (et ses variantes pays, son hote mobile m.guerlain.com et ses domaines de redirection guerlain.be/.nl/.co.kr/.eu) repond 403 Access Denied (Akamai) sur CHAQUE URL, y compris les sitemaps que le robots.txt du site declare lui-meme. Seul /robots.txt passe (200) et il ne contient aucune donnee produit. Le seul autre site officiel Guerlain joignable est le site chinois www.guerlain.com.cn : il repond 200 et son sitemap.xml liste 1478 fiches, mais c'est une application Nuxt 100 % cote client, le HTML des fiches ne contient ni nom, ni prix, ni description, ni image (verifie sur /p/super-aqua-lotion-g061495-.html : 0 donnee produit) ; l'exploiter demanderait un rendu JS, interdit par la regle 5. Les domaines guerlain.ru, guerlain.pl et guerlainparis.com sont des domaines parques / a vendre / renvoyant vers un compte Instagram : ce ne sont pas des sites Guerlain. Aucun revendeur n'a ete utilise, aucun contournement de l'anti-robot n'a ete tente (pas de proxy, pas de faux user-agent, pas de cache, pas de rendu JS). Consequence : 0 fiche verifiable, donc 0 produit ecrit. Le seul produit deja servi (Orchidee Imperiale Black Le Symbioserum) reste tel quel dans catalogue-v2/sortie/guerlain.json, il n'a pas ete revalide.",
+ "urls_testees": [
+  {
+   "url": "https://www.guerlain.com/fr/fr-fr/",
+   "statut": 403,
+   "note": "site officiel FR - Access Denied Akamai"
+  },
+  {
+   "url": "https://www.guerlain.com/robots.txt",
+   "statut": 200,
+   "note": "seule URL qui passe ; declare 24 sitemaps pays, aucun accessible"
+  },
+  {
+   "url": "https://www.guerlain.com/sitemap.xml",
+   "statut": 403,
+   "note": ""
+  },
+  {
+   "url": "https://www.guerlain.com/sitemap_index.xml",
+   "statut": 403,
+   "note": ""
+  },
+  {
+   "url": "https://www.guerlain.com/fr/fr-fr/sitemap_index.xml",
+   "statut": 403,
+   "note": "sitemap declare dans robots.txt"
+  },
+  {
+   "url": "https://www.guerlain.com/be/fr-be/sitemap_index.xml",
+   "statut": 403,
+   "note": "sitemap declare dans robots.txt"
+  },
+  {
+   "url": "https://www.guerlain.com/ca/en-ca/sitemap_index.xml",
+   "statut": 403,
+   "note": "sitemap declare dans robots.txt"
+  },
+  {
+   "url": "https://www.guerlain.com/us/en-us/sitemap_index.xml",
+   "statut": 403,
+   "note": "sitemap declare dans robots.txt"
+  },
+  {
+   "url": "https://www.guerlain.com/fr/fr-fr/soin/",
+   "statut": 403,
+   "note": "categorie soin"
+  },
+  {
+   "url": "https://www.guerlain.com/fr/fr-fr/p/orchidee-imperiale-black-le-symbioserum-P061597.html",
+   "statut": 403,
+   "note": "fiche produit deja au catalogue : plus verifiable"
+  },
+  {
+   "url": "https://www.guerlain.com/be/fr-be/",
+   "statut": 403,
+   "note": "autre pays francophone"
+  },
+  {
+   "url": "https://www.guerlain.com/ch/fr-ch/",
+   "statut": 403,
+   "note": "autre pays francophone"
+  },
+  {
+   "url": "https://www.guerlain.com/ca/fr-ca/",
+   "statut": 403,
+   "note": "autre pays francophone"
+  },
+  {
+   "url": "https://www.guerlain.com/uk/en-uk/",
+   "statut": 403,
+   "note": "autre pays"
+  },
+  {
+   "url": "https://www.guerlain.com/us/en-us/",
+   "statut": 403,
+   "note": "autre pays"
+  },
+  {
+   "url": "https://www.guerlain.com/de/de-de/",
+   "statut": 403,
+   "note": "autre pays"
+  },
+  {
+   "url": "https://www.guerlain.com/it/it-it/",
+   "statut": 403,
+   "note": "autre pays"
+  },
+  {
+   "url": "https://www.guerlain.com/s/GSA_FR/dw/shop/v21_3/site",
+   "statut": 403,
+   "note": "endpoint JSON public Salesforce Commerce (OCAPI) du site officiel"
+  },
+  {
+   "url": "https://m.guerlain.com/fr/fr-fr/",
+   "statut": 403,
+   "note": "sous-domaine mobile officiel"
+  },
+  {
+   "url": "https://www.guerlain.fr/",
+   "statut": 0,
+   "note": "connexion refusee (port 443 ferme)"
+  },
+  {
+   "url": "https://www.guerlain.be/",
+   "statut": 403,
+   "note": "domaine officiel de redirection -> meme blocage"
+  },
+  {
+   "url": "https://www.guerlain.nl/",
+   "statut": 403,
+   "note": "domaine officiel de redirection -> meme blocage"
+  },
+  {
+   "url": "https://www.guerlain.co.kr/",
+   "statut": 403,
+   "note": "domaine officiel de redirection -> meme blocage"
+  },
+  {
+   "url": "https://www.guerlain.eu/",
+   "statut": 403,
+   "note": "domaine officiel de redirection -> meme blocage"
+  },
+  {
+   "url": "https://www.guerlain.ca/",
+   "statut": 0,
+   "note": "connexion refusee"
+  },
+  {
+   "url": "https://www.guerlain.ch/",
+   "statut": 0,
+   "note": "domaine inexistant (NXDOMAIN)"
+  },
+  {
+   "url": "https://www.guerlain.cn/",
+   "statut": 0,
+   "note": "echec TLS (TLSV1_ALERT_PROTOCOL_VERSION)"
+  },
+  {
+   "url": "https://www.guerlain.ru/",
+   "statut": 200,
+   "note": "PAS Guerlain : page de vente de nom de domaine"
+  },
+  {
+   "url": "https://www.guerlain.pl/",
+   "statut": 200,
+   "note": "PAS Guerlain : page de parking home.pl"
+  },
+  {
+   "url": "https://www.guerlainparis.com/",
+   "statut": 200,
+   "note": "PAS Guerlain : redirige vers un compte Instagram prive"
+  },
+  {
+   "url": "https://www.guerlain.com.cn/",
+   "statut": 200,
+   "note": "site officiel Guerlain Chine : accessible mais SPA Nuxt, aucun contenu produit dans le HTML"
+  },
+  {
+   "url": "https://www.guerlain.com.cn/robots.txt",
+   "statut": 404,
+   "note": ""
+  },
+  {
+   "url": "https://www.guerlain.com.cn/sitemap.xml",
+   "statut": 200,
+   "note": "1478 URL /p/ listees"
+  },
+  {
+   "url": "https://www.guerlain.com.cn/p/super-aqua-lotion-g061495-.html",
+   "statut": 200,
+   "note": "HTML vide de donnees produit (titre generique, ni nom, ni prix, ni image) : inexploitable sans rendu JS"
+  },
+  {
+   "url": "https://www.guerlain.com.cn/_nuxt/9129846.js",
+   "statut": 200,
+   "note": "recherche d'un endpoint JSON public : aucun trouve"
+  },
+  {
+   "url": "shop.guerlain.com / store.guerlain.com / boutique.guerlain.com / api.guerlain.com / media.guerlain.com / images.guerlain.com / www2.guerlain.com / fr.guerlain.com / int.guerlain.com / maisonguerlain.com / guerlain-parfumeur.com",
+   "statut": "NXDOMAIN",
+   "note": "sous-domaines et domaines candidats inexistants (verification DNS, aucune requete HTTP)"
+  },
+  {
+   "url": "guerlain.de / .it / .es / .com.au / .jp / .com.br / .sg / .hk / .at / .pt",
+   "statut": "redirection",
+   "note": "pointent tous sur la ferme de redirection LVMH 185.16.44.x qui renvoie vers www.guerlain.com (verifie sur guerlain.be et guerlain.nl : 403)"
+  }
+ ]
+}

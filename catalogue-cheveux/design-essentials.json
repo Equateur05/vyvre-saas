@@ -15,7 +15,11 @@
    "image_local": "public/scan/products-cheveux/design-essentials/honey-creme-moisture-retention-masque-8oz.jpg",
    "categorie": "masque",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "epais",
+    "colores"
+   ],
    "actifs": [
     "glycérine",
     "miel",
@@ -24,11 +28,16 @@
    "ingredients": "Deionized Water, Propylene Glycol, Cetyl Alcohol, Cetearyl Alcohol, Glycerin, Isopropyl Myristate, Behentrimonium Chloride, Acetamide Monoethanolamine, Methyl Gluceth-10, Pentylene Glycol, Propanediol, Caprylyl Glycol, Ethylhexyglycerin, Chlorophensin, Cetrimonium Chloride, Polyquaternium-10, Fragrance, Hydroxypropyltrimonium Honey, Yellow #5, Orange #4, Helianthus Annuus (Sunflower) Seed Oil",
    "description": "Reveal Softness and Shine! Created for dry, coarse, and color-treated hair, this ultra-moisturizing crème masque is rich in honey and sunflower oil to replenish hydration, restore strength, and improve manageability. Free from harmful ingredients, the formula deeply nourishes while promoting effortless detangling. It leaves strands silky, radiant, and beautifully refreshed from the inside out. *Promotional item only. Not for individual sale.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "brillance"
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "brillance",
+    "protection-couleur",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/honey-creme-moisture-retention-masque-8oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--rosemary-mint-stimulating-super-moisturizing-shampoo",
@@ -44,6 +53,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -54,9 +64,13 @@
    "ingredients": "Deionized Water, Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Hydroxysultaine, Glycol Distearate, Polyquaternium-7, Menthol, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate, Fragrance, Polyquaternium-10, Cocamide MEA, Mentha Piperita (Peppermint) Oil, Helianthus Annuus (Sunflower) Seed Oil, Rosmarinus Officinalis (Rosemary) Leaf Extract",
    "description": "Revitalize and Refresh. Infused with rosemary and peppermint, this invigorating shampoo delivers an ultra-hydrating cleanse while stimulating and refreshing the scalp. It gently removes buildup, restores moisture balance, and leaves hair more manageable. Perfect for dry or damaged hair, its crisp peppermint scent energizes your senses, leaving your hair and scalp feeling refreshed and revitalized.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "reparation",
+    "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/rosemary-mint-stimulating-super-moisturizing-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--peppermint-aloe-soothing-scalp-care-conditioner",
@@ -87,11 +101,14 @@
    "ingredients": "Deionized Water, Paraffinum Liquidum, Polyquaternium-32, PPG-1 Trideceth-6, Glycerin, Propylene Glycol, Quaternium-80, Aloe Barbadensis (Aloe) Vera, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate, Dimethicone, Simmondsia Chinensis (Jojoba) Seed Oil, Menthol, Melaleuca Alternifolia (Tea Tree) Leaf Oil, Mentha Piperita (Peppermint) Oil, PEG-12 Dimethicone, Disodium EDTA, Silk Amino Acids, Panthenol, Hydrolyzed Wheat Protein, FD&C Blue No. 1, FD&C Yellow No. 5",
    "description": "Feeling weighed down or irritated? This conditioner steps in with a refreshing peppermint kick and calming aloe relief. It smooths tangles, soothes the scalp, and restores moisture without heaviness. Tea tree oil adds a cleansing touch to help maintain scalp health. The result? Soft, bouncy hair and a scalp that feels clean, balanced, and fully revived.",
    "claims": [
-    "hydratant",
-    "lissant",
-    "apaisant"
+    "hydratation",
+    "anti-frisottis",
+    "apaisant-cuir-chevelu",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/peppermint-aloe-soothing-scalp-care-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--almond-avocado-moisturizing-detangling-conditioner",
@@ -107,7 +124,8 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "epais"
+    "secs",
+    "abimes"
    ],
    "actifs": [
     "huile de coco",
@@ -119,10 +137,15 @@
    "ingredients": "Deionized Water, Cetyl Alcohol, Cetearyl Alcohol, Polysorbate-60, Cetrimonium Chloride, Acrylamidopropyltrimonium Chloride/Acrylamide Copolymer, Behentrimonium Methosulfate, Dimethicone, Laureth-4, Laureth-23, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate, Glycol Stearate, Disodium EDTA, Prunus Amygdalus Dulcis (Sweet Almond) Fruit Extract, Persea Gratissima (Avocado) Fruit Extract, Butyrospermum Parkii (Shea) Leaf Extract, Olea Europaea (Olive) Fruit Extract, Simmondsia Chinensis (Jojoba) Seed Extract, Theobroma Cacao (Cocoa) Extract, Cocos Nucifera (Coconut) Fruit Extract, Aleuriteus Moluccanus (Kukui) Seed Extract, Tocopheryl Acetate, Fragrance, Benzyl Benzoate, Citral, Geraniol, Linalool",
    "description": "Restore moisture and improve manageability with this deeply hydrating formula that softens, detangles, and smooths the hair cuticle. Enriched with almond, avocado, and shea leaf, this conditioner delivers exceptional slip, making detangling effortless while reducing breakage. A little goes a long way, leaving your hair silky, frizz-free, and beautifully moisturized. Plus, its luxurious scent adds a touch of indulgence to your routine, ensuring soft, hydrated, and manageable hair every time. Free",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "anti-frisottis",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/almond-avocado-moisturizing-detangling-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--almond-avocado-curl-enhancing-mousse",
@@ -138,7 +161,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -154,12 +177,16 @@
    "ingredients": "Deionized Water, Polyquaternium-11, Decyl Glucoside, Cetrimonium Chloride, PEG-12 Dimethicone, Methyl Gluceth-10, Polysorbate-20, Fragrance, PEG-75 Lanolin, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate, Prunus Amygdalus Dulcis (Sweet Almond) Fruit Extract, Persea Gratissima (Avocado) Fruit Extract, Butyrospermum Parkii (Shea) Leaf Extract, Olea Europaea (Olive) Fruit Extract, Simmondsia Chinensis (Jojoba) Seed Extract, Theobroma Cacao (Cocoa) Extract, Cocos Nucifera (Coconut) Fruit Extract, Aleuriteus Moluccanus (Kukui) Seed Extract, Hydrolyzed Wheat Protein, Citric Acid, Panthenol, FD&C Yellow No. 5, F&DC Blue No. 1, Benzyl Benzoate, Linalool",
    "description": "Bring your curls to life with this lightweight mousse designed to define, enhance, and protect. Thoughtfully enriched with sweet almond and avocado oils, this formula provides moisture, strengthens hair from root to tip, and reduces frizz for a smooth, polished look. Wheat protein takes center stage, strengthening the hair cuticle to boost elasticity and promote healthier, more resilient strands. Sweet almond extract delivers radiant shine, while avocado oil reinforces the hair shaft to reduce b",
    "claims": [
-    "hydratant",
-    "brillance",
-    "lissant",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/almond-avocado-curl-enhancing-mousse.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--daily-curl-revitalizer",
@@ -175,7 +202,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -189,9 +216,16 @@
    "ingredients": "Propanediol (and) Caprylyl Glycol (and) Ethylhexyglycerin (and) Chlorophensin, DL Panthenol, Prunus Amygdalus Dulcis (Sweet Almond) Fruit Extract, Persea Gratissima (Avocado) Fruit Extract, Butyrospermum Parkii (Shea) Leaf Extract, Olea Europaea (Olive) Fruit Extract, Simmondsia Chinensis (Jojoba) Seed Extract, Theobroma Cacao (Cocoa) Extract, Cocos Nucifera, FDC Yellow #5 Powder, FDC Blue #1 Powder, Fragrance, Benzyl Benzoate, Citral, Geraniol, Linalool, Limonene",
    "description": "Refresh and redefine second-day curls with this lightweight spray that rehydrates and revives natural texture. Sweet almond and avocado deliver lasting moisture, while jojoba seed extract adds a soft sheen and coconut water boosts hydration. It tames frizz, neutralizes odors, and provides light hold—perfect for wash-and-go styles. Free from parabens, phthalates, mineral oil, and gluten.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/daily-curl-revitalizer.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--wash-day-deep-moisture-masque",
@@ -207,19 +241,29 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
-    "gras",
+    "secs",
     "boucles",
-    "crepus"
+    "crepus",
+    "abimes"
    ],
-   "actifs": [],
+   "actifs": [
+    "avocat"
+   ],
    "ingredients": null,
    "description": "Give your hair the nourishment it craves with a deeply penetrating moisture treatment designed for dry, curly, and coily textures. Infused with almond and avocado oils, this masque restores strength, softness, and hydration to every strand. Helping to reduce breakage while easing detangling, its rich formula leaves hair smoother, more manageable, and full of life. Thoughtfully crafted without parabens, phthalates, silicones, or gluten, it offers a clean, effective care solution you can trust. Tr",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
+    "anti-gras",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/wash-day-deep-moisture-masque.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--loc-braid-styling-gel",
@@ -235,7 +279,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "secs",
+    "crepus"
    ],
    "actifs": [
     "huile de ricin"
@@ -243,11 +288,16 @@
    "ingredients": null,
    "description": "Craft flawless locs and braids using the Loc & Braid Styling Gel. This gel delivers a strong hold for starting and re-twisting locs, braids, twists, and ponytails while nourishing and controlling frizz. Infused with castor oil to support scalp health and strengthen hair, it locks in moisture and ensures healthy, shiny results without flaking or weighing down your style.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
+    "brillance",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/loc-braid-styling-gel.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--scalp-care-anti-itch-tension-relief-scalp-butter",
@@ -263,6 +313,9 @@
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
    "cheveux_cibles": [
+    "secs",
+    "fins",
+    "crepus",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -272,10 +325,13 @@
    "ingredients": null,
    "description": "Rooted in Relief. When your scalp calls for calm, this rich, Naturalceutical butter delivers. Powered by aloe vera for hydration, shea butter for deep moisture, and cooling botanicals to refresh, it soothes itch, eases tightness, and rejuvenates without weighing hair down. Perfect under protective styles or anytime your scalp needs extra care, the creamy formula melts on contact—no flakes, no grease, just clean, comfortable roots. And with no artificial fragrances, dyes, or mineral oil, it’s des",
    "claims": [
-    "hydratant",
-    "apaisant"
+    "hydratation",
+    "nutrition",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/scalp-care-anti-itch-tension-relief-scalp-butter.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--define-shine-2n1-dry-finishing-lotion",
@@ -292,19 +348,26 @@
    "etape": 3,
    "cheveux_cibles": [
     "secs",
-    "epais",
-    "boucles"
+    "fins",
+    "boucles",
+    "abimes"
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "Elevate every finish with Define & Shine 2N1 Dry Finishing Lotion, a weightless styling lotion designed to soften, smooth, and refresh curls and waves on contact. Ideal for use on wet or dry hair, this multi-benefit formula locks in moisture, detangles easily, and enhances shine while helping to minimize frizz and guard against humidity. Fortified to boost elasticity and reduce breakage, it strengthens strands and restores manageability without weighing hair down. It also provides light thermal ",
+   "description": "Elevate every finish with Define & Shine 2N1 Dry Finishing Lotion, a weightless styling lotion designed to soften, smooth, and refresh curls and waves on contact. Ideal for use on wet or dry hair, this multi-benefit formula locks in moisture, detangles easily, and enhances shine while helping to minimize frizz and guard against humidity. Fortified to boost elasticity and reduce breakage, it strengthens strands and restores manageability without weighing hair down. It also provides light thermal",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
     "brillance",
-    "lissant",
-    "fortifiant"
+    "protection-chaleur",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/define-shine-2n1-dry-finishing-lotion.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--coconut-water-curl-refresher",
@@ -320,7 +383,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "fins",
     "boucles"
    ],
    "actifs": [
@@ -332,9 +395,15 @@
    "ingredients": "Deionized Water, Glycerin, PEG-12 Dimethicone, Acetamide MEA, Polysorbate-20, Helianthus Annuus (Sunflower) Seed Oil, Cocos Nucifera (Coconut) Fruit Extract, Gardenia, Hydrolyzed Milk Protein, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate, Cetrimonium Chloride, Fragrance",
    "description": "Give your curls a pick-me-up with Coconut & Monoi Coconut Water Curl Refresher, the go-to styling spray for weightless moisture and daily revival. Designed to help extend natural styles, this fast-absorbing formula hydrates on contact to restore softness and control frizz without added buildup. The Coconut & Monoi Blend and milk protein help replenish moisture and support elasticity, leaving curls defined, refreshed, and ready to take on the day.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/coconut-water-curl-refresher.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--peppermint-aloe-therapeutics-anti-itch-hair-scalp-treatment",
@@ -350,9 +419,10 @@
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
    "cheveux_cibles": [
-    "gras",
+    "secs",
     "boucles",
-    "crepus"
+    "crepus",
+    "cuir-chevelu-sensible"
    ],
    "actifs": [
     "aloe vera"
@@ -360,12 +430,17 @@
    "ingredients": null,
    "description": "Soothe and refresh your scalp with the Peppermint & Aloe Soothing Scalp Care Treatment. This lightweight formula delivers long-lasting hydration while calming dryness and discomfort. Infused with aloe vera, peppermint oil, and Vitamin E, it nourishes the scalp, provides a cooling sensation, and promotes a healthy foundation for beautiful hair. Perfect for daily use, it revitalizes the scalp and adds natural shine to curly and coily textures.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "brillance",
-    "apaisant"
+    "hydratation",
+    "nutrition",
+    "definition-boucles",
+    "apaisant-cuir-chevelu",
+    "anti-gras",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/peppermint-aloe-therapeutics-anti-itch-hair-scalp-treatment.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--honey-shea-edge-tamer",
@@ -378,10 +453,10 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0697/7880/0869/files/AA-EDGECONTROL-3pt7oz-FRONTwCapOn-WO-0523_1500x1500_c45dee4d-cc44-4861-9ece-522c03c1cdc0.jpg?width=600",
    "image_local": "public/scan/products-cheveux/design-essentials/honey-shea-edge-tamer.jpg",
-   "categorie": "autre-cheveux",
+   "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "gras",
+    "secs",
     "boucles",
     "crepus"
    ],
@@ -393,11 +468,18 @@
    "ingredients": "Fragrance (Parfum), Hydroxypropyltrimonium Honey, Butyrospermum Parkii (Shea) Butter, Persea Gratissima (Avocado) Oil, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Palmitoyl Tripeptide-28",
    "description": "Tame and define your edges with the Almond & Avocado Honey & Shea Edge Tamer. This edge control provides a long-lasting, firm hold to keep your hairline smooth and flyaways in check without flaking or buildup. Infused with honey, it nourishes and moisturizes while delivering a sleek, polished finish. Specially crafted for curly to coily textures, this non-greasy formula ensures your edges stay in place all day. Free from parabens, paraffins, and mineral oil, it’s the perfect solution for creatin",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "purifiant",
+    "anti-gras",
+    "brillance",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/honey-shea-edge-tamer.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--herbal-complex-4-hair-scalp-treatment",
@@ -412,15 +494,22 @@
    "image_local": "public/scan/products-cheveux/design-essentials/herbal-complex-4-hair-scalp-treatment.jpg",
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "fins"
+   ],
    "actifs": [],
    "ingredients": null,
-   "description": "Herbal Complex 4 Hair & Scalp Treatment is a lightweight hair and scalp treatment designed to deeply moisturize and nourish without weighing hair down. The botanical blend of rosehip, horsetail, elderflower, and nettle extracts softens strands and conditions the scalp, making it easier to style intricate looks with flexibility and control. It helps protect the hair from heat during styling, making it easier to achieve sleek, polished looks without sacrificing softness. Ideal for daily use and a ",
+   "description": "Herbal Complex 4 Hair & Scalp Treatment is a lightweight hair and scalp treatment designed to deeply moisturize and nourish without weighing hair down. The botanical blend of rosehip, horsetail, elderflower, and nettle extracts softens strands and conditions the scalp, making it easier to style intricate looks with flexibility and control. It helps protect the hair from heat during styling, making it easier to achieve sleek, polished looks without sacrificing softness. Ideal for daily use and a",
    "claims": [
-    "hydratant",
-    "nourrissant"
+    "hydratation",
+    "nutrition",
+    "brillance",
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/herbal-complex-4-hair-scalp-treatment.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--peppermint-aloe-anti-itch-shampoo",
@@ -435,7 +524,10 @@
    "image_local": "public/scan/products-cheveux/design-essentials/peppermint-aloe-anti-itch-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "cuir-chevelu-sensible"
+   ],
    "actifs": [
     "panthénol",
     "biotine",
@@ -447,10 +539,13 @@
    "ingredients": "Cocamidopropyl Hydroxysultaine, Methyl Gluceth-10, Glycol Distearate, Polyquaternium-7, Acetamide Monoethanolamine, Menthol Crystals, Mentha Piperita (Peppermint) Oil, Melaleuca Alternifolia (Tea Tree) Leaf Oil, Aloe Barbadensis Leaf Juice, Glycerin, Panthenol, Rosmarinus Officinalis (Rosemary) Leaf Extract, Nasturtium Officinale Extract, Salvia Officinalis (Sage) Leaf Extract, Niacin, Biotin, Cocamidopropyl Betaine, Glyceryl Laurate, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate, Polyquaternium-10, Hydroxyethylcellulose, FD&C Blue",
    "description": "Revitalize your scalp with this innovative shampoo, thoughtfully formulated with advanced technology and naturally derived ingredients. Designed to cool and cleanse on contact, it delivers a refreshing peppermint-infused tingle while effectively removing buildup and impurities—without compromising your hair’s essential moisture. Enriched with soothing aloe vera, it hydrates and balances, leaving your hair and scalp feeling light, refreshed, and renewed. This powerful formula is best used as an o",
    "claims": [
-    "hydratant",
-    "apaisant"
+    "hydratation",
+    "apaisant-cuir-chevelu",
+    "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/peppermint-aloe-anti-itch-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--herbal-pre-wash-intense-repair-masque",
@@ -466,6 +561,8 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
+    "crepus",
     "abimes"
    ],
    "actifs": [
@@ -474,12 +571,15 @@
    "ingredients": null,
    "description": "Give your hair a head start on healing with our Herbal Pre-Wash Masque. Thoughtfully formulated to support length retention and fortify every strand, this nourishing treatment delivers essential nutrients to strengthen and protect your hair before cleansing even begins. Ideal for hair exposed to heat, color, or protective styles, this masque softens, hydrates, and enhances manageability—helping you achieve healthier, more resilient hair. With its rich, creamy texture, it preps your hair for a cl",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "reparateur",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "texturisant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/herbal-pre-wash-intense-repair-masque.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--bamboo-silk-hco-leave-in-conditioner",
@@ -492,8 +592,8 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0697/7880/0869/files/DEC-BambooSilkShamp-FRONT-8oz-WO-0523_1500x1500_7b17999f-4e80-4435-8ad2-00ac828bc4dc.jpg?width=600",
    "image_local": "public/scan/products-cheveux/design-essentials/bamboo-silk-hco-leave-in-conditioner.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
     "abimes"
    ],
@@ -507,12 +607,18 @@
    "ingredients": "Deionized Water, Polyquaternium-11, Polysorbate-20, Glycerin, Hydrolyzed Wheat Protein, Silk Amino Acids, Bambusa Vulgaris Extract, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate, PEG-12 Dimethicone, Fragrance, D&C Red #33 Powder, Hexyl Cinnamal, Benzyl Salicylate, Citronellol, Amyl Cinnamal, Eugenol, Hydroxycitronellal, Benzyl Alcohol, Geraniol",
    "description": "Strength meets purpose in every application. Bamboo and silk combine in this versatile leave-in conditioner to replenish moisture, preparing hair for blow-drying while offering lasting heat protection. Designed to support your hair’s natural texture and body, it ensures effortless hydration, smooth detangling, and long-term care. A daily essential for healthy, manageable hair that’s ready for life’s next styling moment.",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "lissant",
-    "protection-thermique"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "texturisant",
+    "protection-chaleur",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/bamboo-silk-hco-leave-in-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--rosemary-mint-stimulating-conditioner",
@@ -540,12 +646,14 @@
    "ingredients": "Deionized Water, Glycerin, Paraffinum Liquidum, Polyquaternium-32, PPG-1 Trideceth-6, Quaternium-80, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate, Menthol, Mentha Piperita (Peppermint) Oil, PEG-12 Dimethicone, Disodium EDTA, Hydrolyzed Wheat Protein, Helianthus Annuus (Sunflower) Seed Oil, Rosmarinus Officinalis (Rosemary) Leaf Extract, Fragrance",
    "description": "Rejuvenate your hair and scalp with the stimulating power of the Rosemary & Mint Super Moisturizing Conditioner. Designed to deeply nourish and hydrate, this conditioner penetrates the hair and scalp to restore moisture, soften strands, and smooth the cuticle. Perfect for dry hair, it delivers intense hydration and promotes healthier hair follicles. The invigorating blend of rosemary and peppermint energizes the senses, leaving hair refreshed, manageable, and full of shine.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "brillance",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/rosemary-mint-stimulating-conditioner.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "design-essentials--sleek-edge-control",
@@ -558,8 +666,8 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0697/7880/0869/files/DEC-Sleek-FRONT-3pt7oz-WO-0523_1500x1500_4e375627-5e59-4d89-9a27-193051e05f4b.jpg?width=600",
    "image_local": "public/scan/products-cheveux/design-essentials/sleek-edge-control.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
     "secs"
    ],
@@ -570,10 +678,16 @@
    "ingredients": "Deionized Water, Ceteareth-25, PEG-7 Glyceryl Cocoate, PEG-40 Hydrogenated Castor Oil, Glycerin, Fragrance, DMDM Hydantoin",
    "description": "Sleek styling starts at the edges. This moisturizing gel sculpts edges with lasting hold and high-shine control. Its firm, touchable finish enhances short styles and updos, keeping every strand in place without flaking or buildup. Castor oil helps condition the hairline, while the humidity-resistant formula holds up throughout the day on wet or dry hair.",
    "claims": [
-    "hydratant",
-    "brillance"
+    "hydratation",
+    "fortifiant",
+    "anti-frisottis",
+    "purifiant",
+    "brillance",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/sleek-edge-control.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--compositions-foaming-wrap-lotion",
@@ -596,9 +710,14 @@
    "ingredients": "Ethylhexylglycerin, Glycereth-2 Cocoate, Polysorbate-20, PEG-75 Lanolin, Hydrolyzed Wheat Protein, Panthenol, Fragrance, Coumarin, Hydroxycitronellal, Limonene",
    "description": "Designed for precision styling, Compositions helps create sculpted wraps, roller sets, and molds with medium to firm hold. The airy foam detangles with ease and dries quickly to reveal smooth, polished styles with a natural-looking finish. Infused with hydrolyzed wheat protein, it supports fragile strands during styling and leaves hair soft, shiny, and ready to move.",
    "claims": [
-    "lissant"
+    "anti-frisottis",
+    "brillance",
+    "demelant",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/compositions-foaming-wrap-lotion.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--oat-protein-henna-deep-cleansing-shampoo",
@@ -614,6 +733,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "gras",
     "fins"
    ],
    "actifs": [
@@ -622,13 +742,17 @@
    "ingredients": "Deionized Water, Sodium Lauryl Sulfate, Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Betaine, Lauramide MEA, Glycol Distearate, Hydrolyzed Oat Protein, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate, Glycerin, Calendula Officinalis Flower Extract, Hydrastis",
    "description": "When your hair needs a reset, this deep-cleansing shampoo delivers. Designed to thoroughly remove product buildup, excess oil, and impurities, it gently refreshes strands without stripping away essential moisture. Powered by oat protein to strengthen and smooth, and henna to boost volume and enhance shine, this formula leaves hair light, refreshed, and full of life. Perfect for fine or limp hair, it adds body and bounce while ensuring scalp and strands feel completely clean—ready for styling wit",
    "claims": [
-    "hydratant",
-    "brillance",
+    "hydratation",
+    "fortifiant",
+    "anti-frisottis",
     "volume",
-    "lissant",
-    "fortifiant"
+    "purifiant",
+    "anti-gras",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/oat-protein-henna-deep-cleansing-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--scalp-care-scalp-cleansing-serum",
@@ -644,6 +768,7 @@
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
    "cheveux_cibles": [
+    "crepus",
     "pellicules",
     "cuir-chevelu-sensible"
    ],
@@ -651,10 +776,13 @@
    "ingredients": null,
    "description": "No time for a full wash? No problem—experience effortless scalp care anytime, anywhere. This rinse-free serum removes dirt, sweat, and buildup while soothing and refreshing the scalp—no water needed. Formulated with lemon to balance pH and combat dandruff, eucalyptus to calm and cool, and witch hazel to gently cleanse and tone, it delivers a clean, comfortable feel without drying out your scalp. Perfect after workouts, during travel, or for maintaining protective styles, this lightweight formula",
    "claims": [
-    "apaisant",
-    "anti-pellicules"
+    "antipelliculaire",
+    "apaisant-cuir-chevelu",
+    "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/scalp-care-scalp-cleansing-serum.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--restore-vitamin-hair-treatment",
@@ -669,7 +797,10 @@
    "image_local": "public/scan/products-cheveux/design-essentials/restore-vitamin-hair-treatment.jpg",
    "categorie": "proteine-reconstruction",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "colores",
+    "abimes"
+   ],
    "actifs": [
     "panthénol",
     "biotine",
@@ -680,10 +811,14 @@
    "ingredients": "Deionized Water, Glycerin, Polyquaternium-7, Coco-Glucoside, Glyceryl Oleate, Cetrimonium Chloride, Bis-(Isostearoyl/Oleoyl Isopropyl) Dimonium Methosulfate, PEG-12 Dimethicone, Tocopheryl Acetate, Hydroxypropyltrimonium Honey, Biotin, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate, Hydroxyethylcellulose, Panthenol, Hydrolyzed Wheat Protein, Hydrolyzed Milk Protein, Ascorbic Acid, Fragrance, Benzyl Benzoate, Coumarin, Eugenol, Geraniol, Limonene",
    "description": "Strengthen the hair before, during, and after chemical services with this pro-grade pre-treatment. Restore Vitamin Treatment is powered by HydraStrength Vitamin & Protein Complex to help fill and smooth the cuticle, reduce porosity, and restore elasticity. Designed for over-processed, color-treated, or stressed hair, it visibly improves manageability while helping protect against future breakage.",
    "claims": [
-    "lissant",
-    "fortifiant"
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/restore-vitamin-hair-treatment.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--almond-butter-moisturizing-conditioner",
@@ -698,19 +833,26 @@
    "image_local": "public/scan/products-cheveux/design-essentials/almond-butter-moisturizing-conditioner.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "fins"
+   ],
    "actifs": [
     "protéines de blé"
    ],
    "ingredients": "Prunus Amygdalus Dulcis (Sweet Almond) Oil, Hydrolyzed Wheat Protein, Polyquaternium-32, Paraffinum Liquidum, PPG-1 Trideceth-6, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate, Tetrasodium EDTA, Fragrance",
    "description": "Every strand deserves thoughtful attention. This lightweight moisturizing conditioner, enriched with Sweet Almond Oil and Hydrolyzed Wheat Protein, instantly hydrates and detangles, leaving hair smooth, silky, and perfectly balanced. Sweet Almond Oil delivers shine and softness, ensuring hair stays sleek and manageable, while Hydrolyzed Wheat Protein strengthens and protects, enhancing elasticity and resilience during styling. Hair is uplifted, weightless, and effortlessly manageable from root t",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
     "brillance",
-    "lissant",
-    "fortifiant"
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/almond-butter-moisturizing-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--anti-breakage-moisture-retention-shampoo",
@@ -726,7 +868,8 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "epais"
+    "secs",
+    "abimes"
    ],
    "actifs": [
     "beurre de karité",
@@ -740,12 +883,18 @@
    "ingredients": "Cocamidopropyl Hydroxysultaine, Glycerin, Glycol Distearate, Cocamidopropyl Betaine, Glyceryl Laurate, Chébé Extract, Ricinus Communis (Castor) Seed Oil, Sclerocarya Birrea Seed Oil, Plantago Major Leaf Extract, Bambusa Vulgaris Leaf/Stem Extract, Butyrospermum Parkii (Shea) Nut Extract, Citrullus Vulgaris Seed Extract, Citrullus Lanatus (Watermelon) Fruit Extract, Adansonia Digitata Fruit Extract, Tocopheryl Acetate, Polyquaternium-10, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate, Fragrance, Caramel Liquid # 1884, Linalool",
    "description": "Breakage doesn’t stand a chance with this sulfate-free shampoo, designed to cleanse while preserving your hair’s natural oils. Infused with Chebé Extract, it strengthens strands, reduces breakage, and supports length retention. Castor Oil deeply moisturizes, promoting growth and protecting against dryness, while Marula Oil hydrates, boosts shine, and smooths frizz for effortlessly soft hair. This formula is perfect for removing granules from the Herbal Pre-Wash Masque, ensuring a clean, fresh st",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "croissance",
     "brillance",
-    "lissant",
-    "fortifiant"
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/anti-breakage-moisture-retention-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--honey-creme-moisture-retention-super-detangling-conditioning-shampoo",
@@ -760,18 +909,25 @@
    "image_local": "public/scan/products-cheveux/design-essentials/honey-creme-moisture-retention-super-detangling-conditioning-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "miel"
    ],
    "ingredients": "Deionized Water, Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Hydroxysultaine, Polyquaternium-7, Cocamide MEA, Propanediol, Hydroxypropyltrimonium Honey, Acrylamidopropyltrimonium Chloride/Acrylamide Copolymer, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate, Glycol Distearate, FDC Yellow #5 Powder, DC Orange #4, Fragrance",
    "description": "Detangle while you cleanse? Yes, please. This rich, creamy shampoo is thoughtfully designed to elevate your wash day experience, performing double duty to gently remove buildup while delivering the slip and moisture needed to melt through tangles with ease. Infused with the nourishing power of honey, it locks in hydration to keep hair soft and supple from root to tip. Its non-stripping, sulfate-free formula ensures hair is cleansed without compromise, leaving it smooth, manageable, and healthy s",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "purifiant",
+    "demelant",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/honey-creme-moisture-retention-super-detangling-conditioning-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--peppermint-aloe-soothing-scalp-tonic",
@@ -786,15 +942,22 @@
    "image_local": "public/scan/products-cheveux/design-essentials/peppermint-aloe-soothing-scalp-tonic.jpg",
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "crepus",
+    "cuir-chevelu-sensible"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "Give your scalp the care it deserves with the Peppermint & Aloe Soothing Scalp Tonic, a no-rinse formula designed to replenish comfort and balance. This lightweight, clean tonic refreshes with peppermint to cool and invigorate, while aloe gently hydrates and soothes. Whether your scalp feels dry, tight, or needs an extra boost between washes, it’s the perfect companion for maintaining healthier scalp. Tailored for all textures—braids, weaves, locs, or natural—this restorative tonic fits seamless",
    "claims": [
-    "hydratant",
-    "apaisant"
+    "hydratation",
+    "nutrition",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/peppermint-aloe-soothing-scalp-tonic.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--reflections-liquid-shine",
@@ -811,18 +974,21 @@
    "etape": 3,
    "cheveux_cibles": [
     "secs",
-    "fins",
-    "epais"
+    "fins"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "Designed to enhance your hair’s natural beauty, this lightweight, nourishing formula adds luster and sheen while leaving your hair weightless and full of volume. Reflections Liquid Shine Spray brings effortless brilliance to your styling routine. Perfect for eliminating frizz, controlling flyaways, and providing thermal protection during heat styling, this spray works beautifully on all hair types without alcohol or residue. Whether applied to wet or dry hair, it delivers radiant shine and a pol",
    "claims": [
-    "nourrissant",
+    "nutrition",
+    "anti-frisottis",
+    "volume",
     "brillance",
-    "volume"
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/reflections-liquid-shine.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--deep-moisture-milk-souffle",
@@ -838,7 +1004,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
+    "fins",
     "boucles"
    ],
    "actifs": [
@@ -850,12 +1017,14 @@
    "ingredients": "Deionized Water, Glycerin, Propylene Glycol, Cetyl Alcohol, Acetamide MEA, Cetearyl Alcohol, Polysorbate-60, Stearalkonium Chloride, Polyquaternium-11, Paraffinum Liquidum, PPG-10 Cetyl Ether, Cocos Nucifera (Coconut) Fruit Extract, Gardenia, Butyrospermum Parkii (Shea Butter), Hydrolyzed Milk Protein, Phenoxyethanol, Benzoic",
    "description": "Deeply hydrate and define curls in one step with this rich yet lightweight styling soufflé. Designed to moisturize without weighing hair down, Coconut & Monoi Deep Moisture Milk Soufflé nourishes every strand with a blend of milk protein, shea butter, and our signature coconut and monoi oils. It delivers long-lasting softness, frizz control, and smooth definition for styles that feel as good as they look.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "lissant",
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
     "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/deep-moisture-milk-souffle.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--formations-finishing-spritz",
@@ -877,9 +1046,14 @@
    "ingredients": null,
    "description": "Up your do with the perfect hold. Formations Finishing Spritz is a dynamic finishing spray designed to provide long-lasting, touchable hold for styled hair. Perfect for setting curly or updo styles, this lightweight formula dries quickly without leaving sticky residue or buildup. It delivers style memory with medium to firm hold while adding shine and enhancing manageability. Ideal for all hair types and textures, it ensures your hairstyle stays flawless throughout the day. Hypoallergenic and ea",
    "claims": [
-    "brillance"
+    "definition-boucles",
+    "purifiant",
+    "brillance",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/formations-finishing-spritz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--scalp-care-anti-itch-tension-relief",
@@ -895,6 +1069,7 @@
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
    "cheveux_cibles": [
+    "crepus",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -903,9 +1078,11 @@
    "ingredients": null,
    "description": "Say goodbye to scalp discomfort with Design Essentials® Scalp Care Anti-Itch & Tension Relief, a dermatologist-tested solution designed to soothe, calm, and revitalize your scalp. Perfect for braids, extensions, and protective styles, this deep-penetrating formula combines the power of natural tea tree oil, peppermint, and aloe vera to deliver relief from tension, soreness, and flaking. Free from artificial fragrances, dyes, and mineral oil.",
    "claims": [
-    "apaisant"
+    "apaisant-cuir-chevelu"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/scalp-care-anti-itch-tension-relief.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--silk-essentials-thermal-strengthening-serum",
@@ -921,18 +1098,23 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "secs"
+    "secs",
+    "gras"
    ],
    "actifs": [],
    "ingredients": "Isopropyl Palmitate, C13-15 Alkane, Dimethiconol, Fragrance, Ethylhexyl Methoxycinnamate, Hexyyl Cinnamic Aldehyde, Linalool, Benzyl Benzoate, Alpha-Isometheyl Ionone, Citronellol",
    "description": "Protect strands from heat damage while boosting resilience with Silk Essentials Thermal Strengthening Serum. Lightweight and easy to apply, it smooths the hair shaft, seals the cuticle, and locks in moisture to enhance softness and manageability. The formula adds a sleek, glossy finish and helps defend against the drying effects of thermal styling. Perfect for wet or dry hair, it absorbs instantly and leaves strands feeling soft, protected, and full of body — never greasy or weighed down.",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "fortifiant",
+    "anti-frisottis",
+    "anti-gras",
     "brillance",
-    "lissant",
-    "fortifiant"
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/silk-essentials-thermal-strengthening-serum.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--braid-twist-out-strengthening-creme",
@@ -948,8 +1130,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
-    "boucles"
+    "boucles",
+    "crepus"
    ],
    "actifs": [
     "chébé"
@@ -957,12 +1139,17 @@
    "ingredients": null,
    "description": "Twist it. Braid it. Stretch it. This styling crème does it all—while keeping your hair strong, soft, and hydrated. Infused with Cocoa Butter to lock in moisture, Sunflower Seed Oil to hydrate and smooth, and Chebé Extract to strengthen strands, this formula delivers frizz-fighting, medium to firm hold while supporting length retention. Ideal for twist-outs, braid-outs, and stretched styles, it enhances curl definition without buildup or crunch, leaving your hair incredibly soft and manageable. C",
    "claims": [
-    "hydratant",
-    "lissant",
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
     "definition-boucles",
-    "fortifiant"
+    "purifiant",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/braid-twist-out-strengthening-creme.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--kukui-coconut-hydrating-leave-in-conditioner-12oz",
@@ -975,9 +1162,13 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0697/7880/0869/files/DEC-KukuiCocoLeaveInCondi-FRONT-12oz_1080x1080_f6f4b56f-5180-4aa4-bb9b-d59136219e49.jpg?width=600",
    "image_local": "public/scan/products-cheveux/design-essentials/kukui-coconut-hydrating-leave-in-conditioner-12oz.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
-   "cheveux_cibles": [],
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "secs",
+    "fins",
+    "abimes"
+   ],
    "actifs": [
     "huile de coco",
     "huile de jojoba",
@@ -987,12 +1178,15 @@
    "ingredients": "Deionized Water, Glycerin, Polyquaternium-32, Paraffinum Liquidum, PPG-1 Trideceth-6, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate, Simmondsia Chinensis (Jojoba) Seed Oil, Persea Gratissima (Avocado) Oil, Hydrogenated Vegetable Oil, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Aleurites Moluccanus (Kukui) Seed Oil, Cocos Nucifera (Coconut) Oil, Simethicone, Fragrance",
    "description": "Hydrate, protect, and redefine softness. Formulated with kukui and coconut oils, this deeply nourishing leave-in conditioner restores moisture to dry, brittle strands while providing lasting hydration and manageability. Its lightweight formula smooths and detangles without weighing hair down, making it ideal for all textures. Perfect for weekly use, it leaves locks feeling soft, silky, and ready to shine with confidence.",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
     "brillance",
-    "lissant"
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/kukui-coconut-hydrating-leave-in-conditioner-12oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--strengthening-curl-perfecting-mousse",
@@ -1008,7 +1202,9 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "boucles"
+    "secs",
+    "boucles",
+    "abimes"
    ],
    "actifs": [
     "protéines de blé",
@@ -1021,10 +1217,17 @@
    "ingredients": "Polysorbate-20, Cetrimonium Chloride, PEG-12 Dimethicone, Methyl Gluceth-10, PEG-75 Lanolin, Chébé Extract, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate, Ricinus Communis (Castor) Seed Oil, Sclerocarya Birrea Seed Oil, Plantago Major Leaf Extract, Bambusa Vulgaris Leaf/Stem Extract, Butyrospermum Parkii (Shea) Nut Extract, Citrullus Vulgaris Seed Extract, Citrullus",
    "description": "This is not your average mousse. Designed to define and strengthen in one step, this airy foam delivers lasting results while keeping curls soft, shiny, and full of life. Key ingredients include Chebé Extract, which strengthens strands, reduces breakage, and supports length retention; Castor Oil, known for promoting hair growth, deeply moisturizing, and reducing dryness; and Hydrolyzed Wheat Protein, which boosts strength, enhances elasticity, and protects strands during styling. Unlike traditio",
    "claims": [
-    "hydratant",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "definition-boucles",
+    "croissance",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/strengthening-curl-perfecting-mousse.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--anti-breakage-moisturizing-leave-in-conditioner",
@@ -1037,9 +1240,12 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0697/7880/0869/files/AC-GC-LEAVEINCONDITIONER-12OZ-FRONT-1080x1080.jpg?width=600",
    "image_local": "public/scan/products-cheveux/design-essentials/anti-breakage-moisturizing-leave-in-conditioner.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
-   "cheveux_cibles": [],
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "secs",
+    "abimes"
+   ],
    "actifs": [
     "beurre de karité",
     "huile de ricin",
@@ -1051,11 +1257,16 @@
    "ingredients": "Behentrimonium Chloride, Hydroxyethylcellulose, Chébé Extract, Ricinus Communis (Castor) Seed Oil, Sclerocarya Birrea Seed Oil, Plantago Major Leaf Extract, Bambusa Vulgaris Leaf/Stem Extract, Butyrospermum Parkii (Shea) Nut Extract, Citrullus Vulgaris Seed Extract, Citrullus Lanatus (Watermelon) Fruit Extract, Adansonia Digitata Fruit Extract, Tocopheryl Acetate, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate, Fragrance, Caramel Liquid #1884, Benzyl Benzoate, Linalool",
    "description": "Achieve stronger, healthier hair with the African Chébé Anti-Breakage Moisturizing Leave-In Conditioner. Infused with the power of Chébé powder and a unique blend of African essential oils, this leave-in conditioner is designed to transform your hair care routine. It replenishes moisture deep into the hair cuticle, leaving strands hydrated, smooth, and manageable. This advanced formula deposits hair-strengthening fibers to fortify your hair, reducing breakage and promoting growth. Perfect for de",
    "claims": [
-    "hydratant",
-    "lissant",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "croissance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/anti-breakage-moisturizing-leave-in-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--sleek-max-edge-control",
@@ -1081,9 +1292,15 @@
    "ingredients": "Aqua/Water/Eau, Ceteareth-25, Glycerin, PEG-40 Hydrogenated Castor Oil, Methyl Gluceth-10, Phenoxyethanol (and) Caprylyl Glycol, Fragrance (Parfum), Palmitoyltripeptide (Peptide Solution), Amyl Cinnamal, Benzoyl Benzoate, Limonene",
    "description": "Hold that doesn’t quit. Our strongest edge control delivers maximum hold with a sleek, high-shine finish. Ideal for coarse textures and sculpted styles, it locks down frizz and flyaways without flaking or buildup. The humidity-resistant formula works on wet or dry hair and keeps styles in place from day to night with a clean, touchable finish.",
    "claims": [
-    "brillance"
+    "fortifiant",
+    "anti-frisottis",
+    "purifiant",
+    "brillance",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/sleek-max-edge-control.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--almond-avocado-leave-in-conditioner-12oz",
@@ -1096,10 +1313,10 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0697/7880/0869/files/AA-LeaveInConditioner-12oz-FRONT-WO-0523_1500x1500_0872df05-0aa0-40fb-8f5b-d30d6483bd02.jpg?width=600",
    "image_local": "public/scan/products-cheveux/design-essentials/almond-avocado-leave-in-conditioner-12oz.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "secs"
    ],
    "actifs": [
     "huile de coco",
@@ -1112,11 +1329,15 @@
    "ingredients": "Deionized Water, Glycerin, Methyl Gluceth-10, Polyquaternium-32, Paraffinum Liquidum, PPG-1 Trideceth-6, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate, Prunus Amygdalus Dulcis (Sweet Almond) Fruit Extract, Persea Gratissima (Avocado) Fruit Extract, Butyrospermum Parkii (Shea) Leaf Extract, Olea Europaea (Olive) Fruit Extract, Simmondsia Chinensis (Jojoba) Seed Extract, Theobroma Cacao (Cocoa) Extract, Cocos Nucifera (Coconut) Fruit Extract, Aleuriteus Moluccanus (Kukui) Seed Extract, Fragrance, Benzyl Benzoate, Citral, Geraniol, Linalool, Limonene",
    "description": "Say goodbye to stubborn tangles and hello to effortlessly smooth, frizz-free hair. Our Almond & Avocado Moisturizing & Detangling Leave-In Conditioner delivers lightweight hydration that softens and smooths hair, making it the perfect first step in your styling routine. Crafted with a blend of botanical extracts—including almond, avocado, and shea—this formula naturally detangles while restoring moisture, reducing frizz, and adding softness and shine. Backed by decades of expertise, it’s designe",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
     "brillance",
-    "lissant"
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/almond-avocado-leave-in-conditioner-12oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--almond-avocado-daily-moisturizing-lotion-12oz",
@@ -1132,8 +1353,9 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
-    "boucles"
+    "secs",
+    "boucles",
+    "abimes"
    ],
    "actifs": [
     "huile de coco",
@@ -1144,14 +1366,19 @@
     "huile d'olive"
    ],
    "ingredients": "Deionized Water, Glycerin, Acetamide MEA, PPG-15 Stearyl Ether, Cetearyl Alcohol, Ceteareth-20, Stearalkonium Chloride, Hydroxyethylcellulose, Polyquaternium-11, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate, Simmondsia Chinensis (Jojoba) Seed Oil, Olea Europaea (Olive) Fruit Oil, Theobroma Cacao (Cocoa) Seed Butter, Behentrimonium Methosulfate, Butylene Glycol, Prunus Amygdalus Dulcis (Sweet Almond) Fruit Extract, Persea Gratissima (Avocado) Fruit Extract, Butyrospermum Parkii (Shea) Leaf Extract, Cocos Nucifera (Coconut) Fruit Extract, Aleuriteus Moluccanus (Kukui) Seed Extract, Fragrance, Benzyl Benzoate, Citral, Geraniol, Linalool, Limonene",
-   "description": "Experience the perfect balance of hydration and manageability with our Almond & Avocado Daily Moisturizing Lotion. Designed for waves, curls, and coils, this lightweight formula keeps your hair soft without added weight. Crafted with a blend of botanical oils including olive oil, cocoa butter, and jojoba oil, it restores moisture, strengthens the hair shaft, and enhances shine. Sweet almond and avocado oils further nourish your hair, providing long-lasting protection against breakage and frizz. ",
+   "description": "Experience the perfect balance of hydration and manageability with our Almond & Avocado Daily Moisturizing Lotion. Designed for waves, curls, and coils, this lightweight formula keeps your hair soft without added weight. Crafted with a blend of botanical oils including olive oil, cocoa butter, and jojoba oil, it restores moisture, strengthens the hair shaft, and enhances shine. Sweet almond and avocado oils further nourish your hair, providing long-lasting protection against breakage and frizz.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "brillance",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/almond-avocado-daily-moisturizing-lotion-12oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--agave-lavender-moisturizing-strengthening-shampoo",
@@ -1167,21 +1394,30 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "gras",
-    "epais",
+    "secs",
     "boucles",
-    "crepus"
+    "crepus",
+    "abimes",
+    "chute"
    ],
    "actifs": [],
    "ingredients": "Deionized Water, Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Hydroxysultaine, Polyquaternium-7, Cocamide MEA, Propanediol, Acrylamidopropyltrimonium Chloride/Acrylamide Copolymer, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate, Glycol Distearate, Agave Tequilana Leaf Extract, Lavandula Angustifolia (Lavender) Flower Extract, Vitis Vinifera (Grape) Seed Extract, Mangifera Indicia (Mango) Fruit Extract, DC Violet No. 2, DC Red No. 33 Powder, FDC Blue No. 1 Powder, Fragrance",
    "description": "Gently cleanse and hydrate your hair with the Agave & Lavender Moisturizing & Strengthening Shampoo. This sulfate-free formula is designed to provide intense moisture while softening and smoothing the cuticle for easier blow-drying. Infused with agave, lavender, and mango, it nourishes and strengthens hair, promoting healthy growth and reducing shedding and breakage. Perfect for naturally curly and coily textures, this shampoo is free from sulfates, alcohol, parabens, paraffins, mineral oil, pet",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "lissant",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
+    "anti-chute",
+    "croissance",
+    "anti-gras",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/agave-lavender-moisturizing-strengthening-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--almond-avocado-curl-stretching-creme",
@@ -1197,6 +1433,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "fins",
     "boucles"
    ],
    "actifs": [
@@ -1208,9 +1445,13 @@
    "ingredients": "Deionized Water, Glycerin, Glyceryl Stearate, PEG-100 Stearate, Olea Europaea (Olive) Fruit Oil, Polyvinylpyrrolidone/Vinylacetate, Prunus Amygdalus",
    "description": "The Almond & Avocado Curl Stretching Crème elongates and define curls instantly with this rich crème. Formulated with sweet almond, jojoba, olive oil, and shea butter, it smooths cuticles, enhances elasticity, and stretches your natural curl pattern without weighing hair down. Use after cleansing to prime and elongate curls, leaving them soft, bouncy, and beautifully defined.",
    "claims": [
-    "lissant"
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/almond-avocado-curl-stretching-creme.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--mist-shine-dry-finishing-spray",
@@ -1227,6 +1468,7 @@
    "etape": 3,
    "cheveux_cibles": [
     "secs",
+    "fins",
     "boucles"
    ],
    "actifs": [
@@ -1238,10 +1480,14 @@
    "ingredients": "Deionized Water, Glycerin, Propylene Glycol, Methyl Gluceth-10, PEG-12 Dimethicone, Acetamide MEA, Silk Amino Acids, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate, Polysorbate-20, DL Panthenol, Fragrance, Benzyl Benzoate, Coumarin, Amyl Cinnamal, LinalooL",
    "description": "Dull, dry hair doesn’t stand a chance. The Wave by Design® Mist & Shine Dry Finishing Spray is a lightweight daily mist that helps replenish moisture and enhance shine without weighing hair down. Powered by hydrating humectants and conditioners, this fast-absorbing formula softens strands and helps improve manageability in curls, waves, and permanent textured styles. Its versatile finish makes it the perfect maintenance spray to pair with Define & Shine 2-N-1 Dry Finishing Lotion for lasting sty",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "nutrition",
+    "definition-boucles",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/mist-shine-dry-finishing-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--milk-honey-6n1-reconstructive-conditioner-pro",
@@ -1266,11 +1512,13 @@
    "ingredients": "Hydrolyzed Collagen, Phenoxyethanol, Caprylyl Glycol, Ethylhexyglycerin, Dimethicone, Laureth-4, Laureth-23, DL-Alpha-Tocopheryl Acetate, Fragrance, Benzyl Benzoate, Coumarin, Eugenol, Geraniol, Limonene",
    "description": "Design Essentials® Milk & Honey 6-N-1 Reconstructive Conditioner is a professional-grade treatment designed to restore hair after chemical services or damage. Powered by the HydraStrength Vitamin & Protein Complex, it strengthens the hair shaft, fills in broken fibers, and seals the cuticle for long-lasting resilience. This deeply conditioning formula moisturizes with honey and reinforces with milk protein to protect against breakage and restore pH balance. Ideal for improving softness, strength",
    "claims": [
-    "hydratant",
-    "reparateur",
+    "hydratation",
+    "reparation",
     "fortifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/milk-honey-6n1-reconstructive-conditioner-pro.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "design-essentials--contours-protein-styling-gel",
@@ -1285,18 +1533,27 @@
    "image_local": "public/scan/products-cheveux/design-essentials/contours-protein-styling-gel.jpg",
    "categorie": "proteine-reconstruction",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "epais",
+    "boucles",
+    "lisses",
+    "abimes"
+   ],
    "actifs": [
     "panthénol"
    ],
    "ingredients": "Aqua/Water/Eau, Carbomer, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate, Aminomethyl Propanol, Polysorbate-20, Propylene Glycol, Fragrance, Silanetriol, Panthenol, Tetrasodium EDTA",
    "description": "Bring definition and control to every look with Contours Protein Styling Gel, a clear, quick-drying formula that delivers medium to firm hold. Perfect for sculpted styles, sleek ponytails, and precision molding, this non-flaking gel keeps hair smooth and secure while maintaining a natural-looking finish. Enriched with panthenol, it helps protect and strengthen strands during styling, reducing breakage and supporting healthy elasticity. Ideal for medium to coarse textures, the lightweight gel spr",
    "claims": [
-    "lissant",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
     "definition-boucles",
-    "fortifiant"
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/contours-protein-styling-gel.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--scalp-care-moisturizing-oil-treatment",
@@ -1312,7 +1569,8 @@
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
    "cheveux_cibles": [
-    "gras"
+    "secs",
+    "cuir-chevelu-sensible"
    ],
    "actifs": [
     "huile de marula"
@@ -1320,11 +1578,15 @@
    "ingredients": null,
    "description": "Set your scalp up for greatness. We make that easy with our Design Essentials® Scalp Care Moisturizing Oil Treatment featuring marula & lavender. It's an advanced restoration treatment that instantly moisturizes and provides soothing nourishment to the scalp. This lightweight formula helps to promote healthy hair growth...all without any oily buildup. Wondering how it works? Well, marula oil is a key ingredient high in antioxidants that helps hydrate the scalp without clogging pores. And lavende",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "apaisant"
+    "hydratation",
+    "nutrition",
+    "croissance",
+    "apaisant-cuir-chevelu",
+    "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/scalp-care-moisturizing-oil-treatment.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--almond-avocado-shampoo-12oz",
@@ -1340,7 +1602,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "epais"
+    "secs"
    ],
    "actifs": [
     "huile de coco",
@@ -1352,10 +1614,15 @@
    "ingredients": "Deionized Water, Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Hydroxysultaine, Propanediol, Polyquaternium-7, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate, Cocamide MEA, Acrylamidopropyltrimonium Chloride/Acrylamide Copolymer, Glycol Distearate, Prunus Amygdalus Dulcis (Sweet Almond) Fruit Extract, Persea Gratissima (Avocado) Fruit Extract, Butyrospermum Parkii (Shea) Leaf Extract, Olea Europaea (Olive) Fruit Extract, Simmondsia Chinensis (Jojoba) Seed Extract, Theobroma Cacao (Cocoa) Extract, Cocos Nucifera (Coconut) Fruit Extract, Aleuriteus Moluccanus (Kukui) Seed Extract, Fragrance, Benzyl Benzoate, Citral, Geraniol, Linalool, Limonene",
    "description": "Discover a shampoo that truly delivers. The Almond & Avocado Moisturizing & Detangling Sulfate-Free Shampoo is expertly crafted to gently cleanse your hair without stripping away its essential natural oils. Enriched with nutrient-packed almond and avocado oils, this formula provides deep hydration while offering exceptional slip for effortless detangling. A little goes a long way—just a small amount leaves your hair smooth, manageable, and beautifully frizz-free. Plus, its inviting fragrance ele",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "demelant",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/almond-avocado-shampoo-12oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--agave-lavender-detangling-conditioner",
@@ -1370,7 +1637,9 @@
    "image_local": "public/scan/products-cheveux/design-essentials/agave-lavender-detangling-conditioner.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "protéines de blé",
     "glycérine"
@@ -1378,12 +1647,16 @@
    "ingredients": "Deionized Water, Cetyl Alcohol, Behentrimonium Chloride, Glycerin, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate, Dimethicone, Laureth-4, Laureth-23, Benzotriazolyl Dodecyl P-Cresol, Tocopheryl Acetate, Hydrolyzed Wheat Protein, DC Red #33 Powder, DC Violet #2, FDC Blue #1 Powder, Agave Tequilana Leaf Extract, Lavandula Angustifolia (Lavender) Flower Extract, Vitis Vinifera (Grape) Seed Extract, Mangifera Indicia (Mango) Fruit Extract, Fragrance",
    "description": "Replenish and transform your hair with the Agave & Lavender Moisturizing & Detangling Conditioner. This ultra-hydrating formula restores balance to dry strands, making detangling effortless while creating the perfect foundation for longer-lasting, flawless blowouts. Infused with agave to soften and strengthen, lavender to nourish, and mango to deliver intense moisture, i`t leaves hair smooth, manageable, and beautifully radiant. Packed with antioxidants and designed to boost the tensile strength",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "lissant",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
+    "brillance",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/agave-lavender-detangling-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--scalp-care-vitamin-drops",
@@ -1398,12 +1671,18 @@
    "image_local": "public/scan/products-cheveux/design-essentials/scalp-care-vitamin-drops.jpg",
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "cuir-chevelu-sensible"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "Healthy, thriving hair starts where it matters most—with a healthy scalp. With every use, Design Essentials® Scalp Care Vitamin Drops brings you one step closer to your best hair yet. A luxurious blend of natural essential oils crafted to nurture your scalp and awaken your hair’s full potential. Infused with Vitamins A, D3, and E, this innovative formula replenishes vital nutrients and creates the ideal foundation for strong, vibrant, resilient strands. Every drop is enriched with powerhouse ing",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "nutrition"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/scalp-care-vitamin-drops.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--milk-honey-neutralizing-conditioning-shampoo-pro",
@@ -1418,7 +1697,10 @@
    "image_local": "public/scan/products-cheveux/design-essentials/milk-honey-neutralizing-conditioning-shampoo-pro.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "abimes"
+   ],
    "actifs": [
     "kératine",
     "aloe vera",
@@ -1429,11 +1711,14 @@
    "ingredients": "Deionized Water, Sodium Laureth Sulfate, Cocamidopropyl Betaine, Polyquaternium-7, Glycerin, Cocamide MEA, Citric Acid, Aloe Barbadensis (Aloe) Vera, Hydroxypropyltrimonium Honey, Hydrolyzed Keratin, Hydrolyzed Milk Protein, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate",
    "description": "Cleanse, balance, and condition in one step with this professional-grade neutralizing shampoo made to protect hair after chemical services. Design Essentials® Milk & Honey Neutralizing Conditioning Shampoo features a visible color indicator that changes from pink to white, signaling complete removal of relaxer. Powered by the HydraStrength Vitamin & Protein Complex, it strengthens and softens while milk protein reinforces the hair shaft and honey replenishes essential moisture for smooth, manage",
    "claims": [
-    "hydratant",
-    "lissant",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/milk-honey-neutralizing-conditioning-shampoo-pro.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--honey-curl-forming-custard-12oz",
@@ -1449,8 +1734,9 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
-    "boucles"
+    "boucles",
+    "abimes",
+    "cuir-chevelu-sensible"
    ],
    "actifs": [
     "protéines de soie",
@@ -1458,13 +1744,19 @@
     "miel"
    ],
    "ingredients": "Honey, PEG-12 Dimethicone, Silk Amino Acids, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin",
-   "description": "Our Almond & Avocado Honey Curl Forming Custard is crafted to define, shape, and elongate natural curls and coils while delivering lasting hold and shine. This lightweight custard controls frizz without leaving behind sticky residue, making it perfect for: Wash-and-go stylesFinger coilsTwo-strand twistsBantu knots Formulated with sweet almond, avocado, honey, and chamomile, it hydrates, seals in moisture, and helps reduce breakage—all while soothing and protecting your hair. Free from parabens, ",
+   "description": "Our Almond & Avocado Honey Curl Forming Custard is crafted to define, shape, and elongate natural curls and coils while delivering lasting hold and shine. This lightweight custard controls frizz without leaving behind sticky residue, making it perfect for: Wash-and-go stylesFinger coilsTwo-strand twistsBantu knots Formulated with sweet almond, avocado, honey, and chamomile, it hydrates, seals in moisture, and helps reduce breakage—all while soothing and protecting your hair. Free from parabens,",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "reparation",
+    "anti-frisottis",
+    "definition-boucles",
+    "apaisant-cuir-chevelu",
     "brillance",
-    "apaisant"
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/honey-curl-forming-custard-12oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--scalp-care-edge-temple-strengthening-oil",
@@ -1480,19 +1772,26 @@
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
    "cheveux_cibles": [
+    "secs",
+    "fins",
+    "abimes",
     "chute"
    ],
    "actifs": [
     "huile de ricin"
    ],
    "ingredients": null,
-   "description": "Stress-free edges are here with our Scalp Care Edge & Temple Strengthening Oil. Specially formulated for the most fragile areas—your hairline, edges, and temples—this nourishing oil helps reduce breakage, support growth, and strengthen thinning strands. Infused with black castor oil and rosemary, it locks in moisture, shields against environmental stressors, and restores vitality to weakened areas. Lightweight and gentle, this expertly crafted formula won’t clog pores or weigh hair down, making ",
+   "description": "Stress-free edges are here with our Scalp Care Edge & Temple Strengthening Oil. Specially formulated for the most fragile areas—your hairline, edges, and temples—this nourishing oil helps reduce breakage, support growth, and strengthen thinning strands. Infused with black castor oil and rosemary, it locks in moisture, shields against environmental stressors, and restores vitality to weakened areas. Lightweight and gentle, this expertly crafted formula won’t clog pores or weigh hair down, making",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "croissance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/scalp-care-edge-temple-strengthening-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "design-essentials--curl-defining-gelee",
@@ -1508,7 +1807,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -1519,13 +1818,18 @@
    "ingredients": "Gluceth-10, Polyquaternium-11, Polysorbate-20, Helianthus Annuus (Sunflower) Seed Oil, Ethylhexylglycerin, Cocos Nucifera (Coconut) Fruit Extract, Caprylyl Glycol, Phenoxyethanol, Gardenia, Fragrance",
    "description": "Define and shape curls with Coconut & Monoi Curl Defining Gelée, a lightweight styler that enhances natural texture without crunch or buildup. This hydrating gelée delivers long-lasting moisture, frizz control, and radiant shine while smoothing flyaways and supporting flexible hold. Infused with a nourishing Coconut & Monoi blend plus sunflower seed oil, it leaves curls soft, bouncy, and beautifully defined from root to tip.",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant",
+    "purifiant",
     "brillance",
-    "lissant",
-    "definition-boucles"
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/design-essentials/cutout/curl-defining-gelee.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

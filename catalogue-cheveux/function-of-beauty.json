@@ -16,17 +16,20 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "lisses"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "This deep conditioning hair mask for straight hair helps hydrate, smooth, and soften strands while boosting healthy-looking shine. Made with naturally derived ingredients and backed by advanced science, our cruelty-free formula delivers targeted care for healthier-looking straight hair.",
    "claims": [
-    "hydratant",
-    "brillance",
-    "lissant"
+    "hydratation",
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/function-of-beauty/cutout/straight-hair-mask-1.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "function-of-beauty--super-shape-curl-cream-for-curly-hair",
@@ -42,8 +45,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
-    "boucles"
+    "boucles",
+    "abimes"
    ],
    "actifs": [
     "panthénol",
@@ -55,11 +58,16 @@
    "ingredients": "water, c13-15 alkane (hemisqualane), cetearyl alcohol, dioctyldodecyl dodecanedioate, pvp, glycerin, maltodextrin/vp copolymer, moringa oleifera seed oil, ricinus communis (castor) seed oil, caesalpinia spinosa fruit extract, helianthus annuus (sunflower) sprout extract, propanediol, glyceryl ricinoleate, hydroxyethylcellulose, panthenol, tocopherol, fragrance, disodium edta, ethylhexylglycerin, phenoxyethanol, ammonium polyacryloyldimethyl taurate, caprylyl glycol, chlorphenesin, propylene glycol, disodium phosphate, sodium phosphate, sodium benzoate, linalool, limonene, hexyl cinnamal, benzyl salicylate, amyl cinnamal, citral.' '",
    "description": "Our Curly Hair Super Shape Curl Cream defines and hydrates curls with a flexible, touchable hold that never feels crunchy or sticky. This lightweight, plant-based cream enhances your natural curl pattern while reducing frizz and boosting elasticity for smooth, bouncy curls that last. Formulated with Castor Seed Oil and Moringa Oil for softness and shine, plus Hemisqualane to protect against breakage and humidity.",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "reparation",
+    "anti-frisottis",
+    "definition-boucles",
     "brillance",
-    "lissant"
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/function-of-beauty/cutout/super-shape-curl-cream-for-curly-hair.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "function-of-beauty--sos-shampoo",
@@ -81,10 +89,13 @@
    "ingredients": null,
    "description": "A sulfate-free, strengthening shampoo for stronger, more resilient hair thanks to our U.S. patent pending Biotech Powered Repair that works to help repair hair from the inside out. Dermatologist tested and fully customized to the unique needs of your hair type and damage level. Size: 11oz",
    "claims": [
-    "reparateur",
-    "fortifiant"
+    "reparation",
+    "fortifiant",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/function-of-beauty/cutout/sos-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "function-of-beauty--sos-conditioner",
@@ -106,11 +117,13 @@
    "ingredients": null,
    "description": "A strengthening and nourishing conditioner for stronger, more resilient hair thanks to our U.S. patent-pending Biotech Powered Custom Repair that works to help repair hair from the inside out. Dermatologist tested and fully customized to the unique needs of your hair type and damage level. Size: 11 oz",
    "claims": [
-    "nourrissant",
-    "reparateur",
+    "nutrition",
+    "reparation",
     "fortifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/function-of-beauty/cutout/sos-conditioner.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "function-of-beauty--curly-base-leave-in-conditioner",
@@ -123,19 +136,24 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0690/8139/9608/files/FOB_Curly_LIC_Front_01.jpg?width=600",
    "image_local": "public/scan/products-cheveux/function-of-beauty/curly-base-leave-in-conditioner.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "boucles"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "Our leave-in conditioner for curly hair is formulated with mango butter known for root to tip hydration, de-frizzing, and defining curls. Indulge our most popular nude (p)each fragrance.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/function-of-beauty/cutout/curly-base-leave-in-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "function-of-beauty--wavy-hair-leave-in-treatment",
@@ -157,10 +175,12 @@
    "ingredients": null,
    "description": "Function of Beauty’s custom Leave-in Treatment for wavy hair is formulated with babassu oil for lightweight wave definition and glossy shine. Indulge our most popular nude peach fragrance– with notes of peach nectar, lemon zest, and jasmine.",
    "claims": [
-    "brillance",
-    "definition-boucles"
+    "definition-boucles",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/function-of-beauty/cutout/wavy-hair-leave-in-treatment.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "function-of-beauty--hair-serum",
@@ -175,19 +195,20 @@
    "image_local": "public/scan/products-cheveux/function-of-beauty/hair-serum.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [
     "huile de jojoba"
    ],
    "ingredients": null,
    "description": "A custom serum formulated with sunflower seed oil and jojoba oil that smooths frizz, enhances shine, and protects hair from heat. The lightweight formula is fit for all hair types. Size: 3 oz",
    "claims": [
+    "anti-frisottis",
     "brillance",
-    "lissant"
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/function-of-beauty/cutout/hair-serum.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "function-of-beauty--zero-gravity-styling-mousse",
@@ -204,7 +225,6 @@
    "etape": 3,
    "cheveux_cibles": [
     "fins",
-    "epais",
     "boucles"
    ],
    "actifs": [
@@ -218,11 +238,15 @@
    "ingredients": "Water (Aqua/Eau), Polyimide-1, Aloe Barbadensis Leaf Juice, Pyrus Malus (Apple) Fruit Extract, Helianthus Annuus (Sunflower) Sprout Extract, Caesalpinia Spinosa Fruit Extract, Glycerin, Tocopherol, Panthenol, Polysorbate 20, Polyquaternium-73, Decyl Glucoside, Vp/Dmapa Acrylates Copolymer, Propylene Glycol, Cetrimonium Chloride, Disodium Edta, Fragrance (Parfum), Ethylhexylglycerin, Phenoxyethanol, Citric Acid, Caprylyl Glycol, Sodium Benzoate, Benzyl Salicylate, Amyl Cinnamal, Citral, Linalool, Limonene, Hexyl Cinnamal",
    "description": "Flat waves, frizz, or styling products that feel crunch or heavy? This lightweight styling mousse is made for naturally wavy hair. It enhances your natural wave pattern with flexible hold, instant volume, and humidity protection without stiffness. Designed to keep waves soft and touchable, the cloud-like foam delivers weightless moisture and definition so your pattern stay bouncy and controlled all day. No crunch. No sticky feel. Just natural-looking waves that move. Size: 7oz",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles",
     "volume",
-    "definition-boucles"
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/function-of-beauty/cutout/zero-gravity-styling-mousse.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "function-of-beauty--sos-leave-in-treatment",
@@ -244,9 +268,12 @@
    "ingredients": null,
    "description": "Experience a remarkable hair transformation after JUST one use with our most advanced repair product. This lightweight, cream-gel formula boasts the highest concentration of our cutting-edge Custom Biotech Repair, alongside nutrient-rich antioxidants. Dermatologist tested and fully customized to the unique needs of your hair type and damage level. Bonus! This product is 3oz and TSA compliant.",
    "claims": [
-    "reparateur"
+    "nutrition",
+    "reparation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/function-of-beauty/cutout/sos-leave-in-treatment.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "function-of-beauty--sos-hair-mask",
@@ -268,10 +295,12 @@
    "ingredients": null,
    "description": "This award winning rinse-out mask is a weekly must to intensely recover dry, brittle strands with boosted shine thanks to our U.S. patent-pending Biotech Powered Custom Repair that works to help repair hair from the inside out. Dermatologist tested and fully customized to the unique needs of your hair type and damage level. Size: 7.5 oz",
    "claims": [
-    "reparateur",
+    "reparation",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/function-of-beauty/cutout/sos-hair-mask.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "function-of-beauty--conditioner",
@@ -286,16 +315,20 @@
    "image_local": "public/scan/products-cheveux/function-of-beauty/conditioner.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "A custom conditioner with a lightweight feel that provides essential hydration to your individual hair type. Packed full of nourishing ingredients for soft, smooth strands. Size: 11 oz",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/function-of-beauty/cutout/conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "function-of-beauty--cowash",
@@ -313,15 +346,23 @@
    "cheveux_cibles": [
     "gras",
     "boucles",
-    "crepus"
+    "crepus",
+    "colores"
    ],
-   "actifs": [],
+   "actifs": [
+    "avocat"
+   ],
    "ingredients": null,
    "description": "A light cleansing and conditioning hybrid for those in-between wash days. Formulated with jamaican black castor seed oil and avocado oil, this co-wash moisturizes and protects coily, curly, and color-treated hair.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "definition-boucles",
+    "anti-gras",
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/function-of-beauty/cutout/cowash.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "function-of-beauty--hair-mask",
@@ -337,6 +378,7 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -346,10 +388,13 @@
    "ingredients": null,
    "description": "A custom hair mask formulated with argan oil and jojoba esters that acts as a deep conditioning treatment for the days when your hair could use a little extra love. Hydrates and nourishes dry, damaged hair. Size: 7.5 oz",
    "claims": [
-    "hydratant",
-    "nourrissant"
+    "hydratation",
+    "nutrition",
+    "reparation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/function-of-beauty/cutout/hair-mask.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "function-of-beauty--leave-in-conditioner",
@@ -362,18 +407,22 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0690/8139/9608/files/Leave-In_Beige_Reflection.png?width=600",
    "image_local": "public/scan/products-cheveux/function-of-beauty/leave-in-conditioner.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
     "secs"
    ],
-   "actifs": [],
+   "actifs": [
+    "avocat"
+   ],
    "ingredients": null,
    "description": "A custom conditioning cream formulated with avocado oil and coffee seed extract, with a lightweight feel that doubles as a moisture treatment and styling product for wet or dry hair. Size: 8 oz",
    "claims": [
-    "hydratant"
+    "hydratation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/function-of-beauty/cutout/leave-in-conditioner.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "function-of-beauty--purple-hair-mask",
@@ -395,8 +444,12 @@
    "actifs": [],
    "ingredients": null,
    "description": "A custom Purple Mask designed to deeply condition dry, damaged strands, while refreshing color and toning brassy hues on blonde, silver, gray, or highlighted hair thanks to neutralizing violet pigments. Leave on hair, especially brassy areas, for 2-3 minutes. Rinse thoroughly. For more intense results, leave in for an additional 1-2 minutes. Rinse your tub, shower, or sink well afterward to prevent staining. Size: 7.5 oz",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "anti-jaunissement"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/function-of-beauty/cutout/purple-hair-mask.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "function-of-beauty--purple-shampoo",
@@ -417,8 +470,12 @@
    "actifs": [],
    "ingredients": null,
    "description": "A custom Purple Shampoo formulated with neutralizing violet pigments designed to gently cleanse the scalp and tone brassy hues on blonde, silver, gray, or highlighted hair for fresher-looking color. Leave on hair, especially brassy areas, for 2-3 minutes. Rinse thoroughly. For more intense results, leave in for an additional 1-2 minutes. Rinse your tub, shower, or sink well afterward to prevent staining. Size: 11 oz",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "anti-jaunissement"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/function-of-beauty/cutout/purple-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "function-of-beauty--shampoo",
@@ -433,14 +490,18 @@
    "image_local": "public/scan/products-cheveux/function-of-beauty/shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "A custom shampoo that gently cleanses the scalp and hair without stripping, while providing hydration. Formulated to fit your personalized needs and reveal healthy looking hair. Size: 11 oz",
    "claims": [
-    "hydratant"
+    "hydratation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/function-of-beauty/cutout/shampoo.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "function-of-beauty--styling-primer",
@@ -462,9 +523,12 @@
    "ingredients": null,
    "description": "A custom styling primer formulated with provitamin B5 that provides color, UV, and heat protection (up to 450°F). Formulated for your unique hair goals with a personalized level of hold. Size: 6 oz",
    "claims": [
-    "protection-thermique"
+    "protection-chaleur",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/function-of-beauty/cutout/styling-primer.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

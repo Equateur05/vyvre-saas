@@ -3,28 +3,6 @@
  "brand_name": "Color Wow",
  "products": [
   {
-   "id": "color-wow--curly-hair-shampoo-frizzy-sca-clone-freegift",
-   "name": "🎁 FREE Hooked ~ 100% Clean Curl Shampoo ~ with Root-Locking Technology",
-   "brand": "color-wow",
-   "brand_name": "Color Wow",
-   "url": "https://colorwowhair.com/products/curly-hair-shampoo-frizzy-sca_clone_freegift",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0587/5210/6688/files/CW567_CurlHooked_295ml_2048x2048_2f3ef4fd-7214-40ed-b156-432c0155c833.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/color-wow/curly-hair-shampoo-frizzy-sca-clone-freegift.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [
-    "boucles"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "This product is used for the app BOGOS.io Free Gift BOGO Bundle to work. Please do not delete/edit it while the offers are still running! If you need assistance, please contact us via Live chat in-app or email us at: help@bogos.io.",
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
    "id": "color-wow--money-glossing-conditioner",
    "name": "Money Laundering Glossing Conditioner",
    "brand": "color-wow",
@@ -38,7 +16,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "epais"
+    "fins"
    ],
    "actifs": [
     "glycérine",
@@ -48,12 +26,16 @@
    "ingredients": "AQUA/EAU), STEARYL ALCOHOL, CETYL ALCOHOL, STEARAMIDOPROPYL DIMETHYLAMINE, BEHENTRIMONIUM CHLORIDE, BUTYLENE GLYCOL, ISOAMYL LAURATE, PHYTOSTERYL/ISOSTEARYL/CETYL/STEARYL/BEHENYL DIMER DILINOLEATE, LAURYL/MYRISTYL POLYRICINOLEATE, SQUALANE, GLYCERIN, FRAGRANCE (PARFUM), OCTYLDODECYL PCA, PROPANEDIOL, HYDROLYZED VEGETABLE PROTEIN PG-PROPYL SILANETRIOL, CITRIC ACID, CHLORELLA PYRENOIDOSA EXTRACT, CHONDRUS CRISPUS (CARRAGEENAN) EXTRACT, UNDARIA PINNATIFIDA EXTRACT, LAMINARIA SACCHARINA EXTRACT, C13-15 ALKANES, CETEARETH-20, POLYQUATERNIUM-55, PHENOXYETHANOL, POLYRICINOLEIC ACID, CHLORPHENESIN, PROPYLENE GLYCOL, SODIUM BENZOATE, ISOPROPYL ALCOHOL, GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, POTASSIUM BENZOATE, POTASSIUM SORBATE, DISODIUM EDTA, BENZYL SALICYLATE, ALPHA-ISOMETHYL IONONE, AMYL SALICYLATE, BLUE 1 (CI 42090), EXT VIOLET 2 (CI 60730)",
    "description": "Why It's Wow Seals in nutrient rich hydration with a silky, weightless finish. High gloss shine without traditional silicones or buildup. Seals the cuticle with a biomimetic ceramide to lock in moisture and reduce frizz. Infused with nutrient-rich marine botanicals to soften, strengthen, and improve hair manageability. Leaves hair smooth, reflective, and polished after every use.",
    "claims": [
-    "hydratant",
-    "brillance",
-    "lissant",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
+    "purifiant",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/money-glossing-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "color-wow--money-hydrating-shampoo",
@@ -68,7 +50,9 @@
    "image_local": "public/scan/products-cheveux/color-wow/money-hydrating-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "acide hyaluronique",
     "protéines de blé",
@@ -78,9 +62,13 @@
    "ingredients": "AQUA/EAU), COCAMIDOPROPYL HYDROXYSULTAINE, SODIUM METHYL 2-SULFOLAURATE, SODIUM COCOYL ISETHIONATE, SODIUM LAURYL SULFOACETATE, SODIUM METHYL COCOYL TAURATE, DISODIUM COCOAMPHODIACETATE, GLYCERIN, FRAGRANCE (PARFUM) , SODIUM LAUROAMPHOACETATE, PHENOXYETHANOL, DISODIUM 2-SULFOLAURATE, SODIUM COCOYL GLYCINATE, SODIUM PCA , PEG-150 DISTEARATE, POLYQUATERNIUM-22, PPG-2 HYDROXYETHYL COCAMIDE, SODIUM HYALURONATE, HYDROLYZED WHEAT PROTEIN, HYDROLYZED WHEAT STARCH, CHLORPHENESIN, BENZOIC ACID, PROPYLENE GLYCOL , DISODIUM EDTA, DEHYDROACETIC ACID, CITRIC ACID, TOCOPHERYL ACETATE, CHLORELLA PYRENOIDOSA EXTRACT, CHONDRUS CRISPUS (CARRAGEENAN) EXTRACT, UNDARIA PINNATIFIDA EXTRACT, LAMINARIA SACCHARINA EXTRACT, POTASSIUM SORBATE, POTASSIUM BENZOATE, BENZYL SALICYLATE, ALPHA-ISOMETHYL IONONE, AMYL SALICYLATE",
    "description": "WHY IT’S WOW Rich-lathering, sulfate-free, residue-free cleanse for all hair types. Formulated with hyaluronic acid + four types of nutrient-rich marine algae to deliver a surge of hydration to hair and scalp. Rinses away completely, for 100% clean hair + scalp. Keeps strands in pristine condition - silky, supple, + super-hydrated.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/money-hydrating-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "color-wow--curly-hair-shampoo-frizzy",
@@ -96,7 +84,9 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "fins",
     "boucles",
+    "crepus",
     "chute"
    ],
    "actifs": [
@@ -110,40 +100,14 @@
    "ingredients": "AQUA/WATER/EAU, SODIUM METHYL 2-SULFOLAURATE, COCAMIDOPROPYL HYDROXYSULTAINE, SODIUM COCOYL ISETHIONATE, SODIUM LAURYL SULFOACETATE, SODIUM LAUROAMPHOACETATE, SODIUM METHYL COCOYL TAURATE, GLYCERIN, PHENOXYETHANOL, DISODIUM 2-SULFOLAURATE, FRAGRANCE/PARFUM, SODIUM COCOYL GLYCINATE, SODIUM PCA, PEG-150 DISTEARATE, POLYQUATERNIUM-22, ALOE BARBADENSIS LEAF EXTRACT, CHLORPHENESIN, PPG-2 HYDROXYETHYL COCAMIDE, BENZOIC ACID, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, DEHYDROACETIC ACID, CITRIC ACID, HYDROLYZED WHEAT STARCH, HYDROLYZED WHEAT PROTEIN, BUTYLENE GLYCOL, PEG-40 HYDROGENATED CASTOR OIL, TOCOPHERYL ACETATE, BHA, PPG-26-BUTETH-26, PEG-40 HYDROGENATED CASTOR OIL, APIGENIN, OLEANOLIC ACID, BIOTINOYL TRIPEPTIDE-1, POTASSIUM SORBATE",
    "description": "Unique, sulfate-free formula within our curl enhancing shampoo leaves NO residues for optimum scalp and hair conditions, and bouncier, weightless curls. Hooked curly hair shampoo features our proprietary Procapil® blend to help “anchor” strands at the root, preventing excessive shedding or hair loss from styling stressors (braids, weaves, extensions). Leaves curls’ surface film-free and optimally receptive to leave-in hydrators + moisturizing stylers.",
    "claims": [
-    "hydratant",
-    "anti-chute"
+    "hydratation",
+    "definition-boucles",
+    "anti-chute",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "color-wow--dream-team-duo",
-   "name": "The Dream Team Flawless + Frizz-Proof",
-   "brand": "color-wow",
-   "brand_name": "Color Wow",
-   "url": "https://colorwowhair.com/products/dream-team-duo",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 55.2,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0587/5210/6688/files/CRE-7346W_DC_Dreaming_Bundle_PDP_Main.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/color-wow/dream-team-duo.jpg",
-   "categorie": "masque",
-   "etape": 2,
-   "cheveux_cibles": [
-    "epais",
-    "boucles",
-    "abimes"
-   ],
-   "actifs": [
-    "glycérine",
-    "acide citrique"
-   ],
-   "ingredients": "WATER, DIPROPYLENE GLYCOL, POLYSILICONE-29, SILICONE QUATERNIUM-18, GLYCERIN, TRIDECETH-6, CHAMOMILLA RECUTITA (MATRICARIA) FLOWER EXTRACT , CALENDULA OFFICINALIS FLOWER EXTRACT, POTASSIUM SORBATE, PHENOXYETHANOL, TRIDECETH-12, SODIUM BENZOATE, CHLORPHENESIN, POTASSIUM BENZOATE, DISODIUM EDTA, CITRIC ACID",
-   "description": "WHY IT'S WOW Award-winning anti-damage, anti-frizz mask + the G.O.A.T. anti-humidity spray = flawless, frizz-free finish. Dreaming Advanced Repair and Resurfacing Treatment smooths, polishes, + visibly repairs damaged frizzy strands. Dream Coat Supernatural Spray delivers a glassy-sleek blow-out that won’t re-frizz, even in high humidity. For all frizz-prone hair types: straight, wavy or curly.",
-   "claims": [
-    "reparateur",
-    "lissant"
-   ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/curly-hair-shampoo-frizzy.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "color-wow--insta-wow-dry-shampoo",
@@ -156,10 +120,11 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0587/5210/6688/files/large-CW590_InstawowUS_171ml_main_pdp_2048x2048_b855b3f5-5d7f-4917-9aca-137a97409612.jpg?width=600",
    "image_local": "public/scan/products-cheveux/color-wow/insta-wow-dry-shampoo.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
     "gras",
+    "colores",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -169,9 +134,14 @@
    "ingredients": "WATER (AQUA), CAPRYLOYL GLYCINE, SACCHAROMYCES FERMENT FILTRATE, HAMAMELIS VIRGINIANA (WITCH HAZEL) WATER, COCO-GLUCOSIDE, SARCOSINE, DIPROPYLENE GLYCOL, MORINGA OLEIFERA SEED EXTRACT, NYMPHAEA CAERULEA FLOWER EXTRACT, NELUMBO NUCIFERA FLOWER EXTRACT, EPILOBIUM ANGUSTIFOLIUM FLOWER/LEAF/STEM EXTRACT, QUERCUS SUBER BARK EXTRACT, OLEA EUROPAEA (OLIVE) LEAF EXTRACT, FRAGRANCE (PARFUM), PHENOXYETHANOL, POTASSIUM SORBATE, SODIUM BENZOATE, DISODIUM PHOSPHATE, CITRIC ACID, ALPHA-ISOMETHYL IONONE, JUNIPERUS VIRGINIANA OIL, HEXAMETHYLINDANOPYRAN, GERANIOL, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, LINALOOL, LINALYL ACETATE, CITRUS AURANTIUM DULCIS (ORANGE) PEEL OIL, TERPINEOL",
    "description": ": Powered by real cleansing tech. Best dry shampoo for dark hair, color-treated hair. Non-dulling, less whitening, no gritty texture. Leaves color light, bright and glossy again. Helps normalize excess sebum production. Deodorizing formula helps prevent odor absorption.",
    "claims": [
-    "brillance"
+    "texturisant",
+    "anti-gras",
+    "brillance",
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/insta-wow-dry-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "color-wow--dreaming-hair-smoothing-treatment",
@@ -187,6 +157,8 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
+    "colores",
     "abimes"
    ],
    "actifs": [
@@ -200,32 +172,13 @@
    "ingredients": "AQUA/EAU), CETEARYL ALCOHOL, PPG-3 BENZYL ETHER MYRISTATE, CAPRYLIC/CAPRIC TRIGLYCERIDE, GLYCERIN, STEARAMIDOPROPYL DIMETHYLAMINE, OLEYL ALCOHOL, HYDROGENATED POLYISOBUTENE, QUATERNIUM-91, DISTEARYLDIMONIUM CHLORIDE, LAURYL LAURATE, COCOS NUCIFERA (COCONUT) OIL, HYDROGENATED CASTOR OIL/SEBACIC ACID COPOLYMER, SQUALANE, ORYZA SATIVA (RICE) BRAN OIL, BEHENTRIMONIUM METHOSULFATE, CITRIC ACID, HYDROXYPROPYL BIS-HYDROXETHYLDIMONIUM CHLORIDE, PANTHENOL, HYDROXYPROPYL GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, POLYQUATERNIUM-55 , PHENOXYETHANOL, CETYL HYDROXYETHYLCELLULOSE, CETEARETH-20, HYDROLYZED QUINOA, ETHYLHEXYLGLYCERIN, HYDROLYZED KERATIN, FRAGRANCE (PARFUM), PROPYLENE GLYCOL , DISODIUM EDTA, POTASSIUM SORBATE , POTASSIUM BENZOATE, BENZYL ALCOHOL, PENTYLENE GLYCOL, SODIUM BENZOATE, RED 33(CI 17200), TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, LINALOOL, LINALYL ACETATE",
    "description": "WHY IT'S WOW Silky hair treatment repairs + refinishes hair’s surface. Hair is more compliant, manageable, easy to style. Silicone-free formula is not heavy or greasy. Color protection (reduces color washout and fade). \"No puff, no fluff\" results last through 2-3 shampoos.",
    "claims": [
-    "reparateur",
-    "protection-couleur"
+    "reparation",
+    "protection-couleur",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "color-wow--replacement-pump-raise-the-root",
-   "name": "Replacement Pump - RTR / DF",
-   "brand": "color-wow",
-   "brand_name": "Color Wow",
-   "url": "https://colorwowhair.com/products/replacement-pump-raise-the-root",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": "https:Liquid error (snippets/microdata-schema line 348): invalid url input",
-   "image_local": null,
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [
-    "boucles"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Replacement Pump for 16.9 fl oz Dream Coat and Dream Coat Curly",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/dreaming-hair-smoothing-treatment.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "color-wow--texas-hold-em-big-hold-hair-spray",
@@ -240,16 +193,23 @@
    "image_local": "public/scan/products-cheveux/color-wow/texas-hold-em-big-hold-hair-spray.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "pellicules"
+   ],
    "actifs": [
     "extrait de bambou"
    ],
    "ingredients": "WATER (AQUA), PROPYLENE GLYCOL DIBENZOATE, FRAGRANCE (PARFUM), PROPANEDIOL, BAMBUSA ARUNDINACEA LEAF EXTRACT, LINALOOL, HEXYL CINNAMAL",
    "description": "WHY IT’S WOW Less wet, fast-drying, flake free formula. Extra hold hairspray delivers 82% style retention in high humidity*. Deposits up to 50% less alcohol than leading sprays**. 2 forms of heat protection + UV protection to protect against color fade. *Independent study. Average results recorded after 8 hours in 60% relative humidity **Results of internal lab testing",
    "claims": [
-    "protection-thermique"
+    "anti-frisottis",
+    "protection-couleur",
+    "protection-chaleur",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/texas-hold-em-big-hold-hair-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "color-wow--youth-juice-scalp-treatment",
@@ -264,7 +224,9 @@
    "image_local": "public/scan/products-cheveux/color-wow/youth-juice-scalp-treatment.jpg",
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "chute"
+   ],
    "actifs": [
     "panthénol",
     "caféine",
@@ -279,8 +241,12 @@
    ],
    "ingredients": "WATER/AQUA/EAU, BUTYLENE GLYCOL, PENTYLENE GLYCOL, PROPANEDIOL, GLYCERIN, HEXYLENE GLYCOL, PHENOXYETHANOL, CARBOMER, ACETAMIDE MEA, PHYLLANTHUS EMBLICA FRUIT EXTRACT, NIACINAMIDE, AMINOMETHYL PROPANOL, KAPPAPHYCUS ALVAREZII EXTRACT, PANTHENOL, CAFFEINE, ETHYLHEXYLGLYCERIN, ARGININE, LACTIC ACID, AMARANTHUS CAUDATUS SEED EXTRACT, DISODIUM EDTA, PINUS PINASTER BARK EXTRACT, GLYCINE SOJA GERM EXTRACT, TRITICUM VULGARE GERM EXTRACT, SEA WATER, SODIUM BENZOATE, GLUCONOLACTONE, HYDROLYZED RICE PROTEIN, SCUTELLARIA BAICALENSIS ROOT EXTRACT, PPG-26-BUTETH-26, 1,2-HEXANEDIOL, SERENOA SERRULATA FRUIT EXTRACT, PEG-40 HYDROGENATED CASTOR OIL, SH-POLYPEPTIDE-123, POTASSIUM SORBATE, HYDROLYZED YEAST PROTEIN, APIGENIN, CALCIUM GLUCONATE, OLEANOLIC ACID, BIOTINOYL TRIPEPTIDE-1",
    "description": "Why It’s Wow Helps keep hair in its prime: thick, strong, supple. Creates optimal conditions for hair growth. No greasy feel or build up.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "croissance"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/youth-juice-scalp-treatment.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "color-wow--money-mist-leave-in-conditioner",
@@ -293,10 +259,11 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0587/5210/6688/files/CRE-5268ipdpassetsGailsselects-06.jpg?width=600",
    "image_local": "public/scan/products-cheveux/color-wow/money-mist-leave-in-conditioner.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "fins",
+    "abimes"
    ],
    "actifs": [
     "protéines de riz",
@@ -306,12 +273,18 @@
    "ingredients": "Water, Butylene Glycol, Behentrimonium Chloride, Cetyl Alcohol, Polyquaternium-55, Hydrolyzed Rice Protein, Adansonia Digitata Seed Extract, Amaranthus Caudatus Seed Extract, Propanediol, Stearamidopropyl Dimethylamine, Stearyl Alcohol, Dicetyldimonium Chloride, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Crambe Maritima (Blue Sea Kale) Leaf Extract, Chlorella Pyrenoidosa Extract, Chondrus Crispus (Carrageenan) Extract, Undaria Pinnatifida Extract, Laminaria Saccharina Extract, Fragrance, Ceteareth-20, Caprylyl Glycol, Phenoxyethanol, Citric Acid, Potassium Benzoate, Dimethicone, Potassium Sorbate, Propylene Glycol, Sodium Benzoate, Disodium EDTA, Isopropyl Alcohol, Benzyl Salicylate, Alpha-Isomethyl Ionone",
    "description": "Easy to use, instant transformation!. Powerful detangler reduces breakage. Strengthens strands to support healthy growth. Moisturizes + de-frizzes for smooth, silky, luxe texture. Like a whole new head of luxe, healthy-looking hair. Ultralight, penetrating spray won’t weigh hair down. Heat protectant.",
    "claims": [
-    "hydratant",
-    "lissant",
-    "protection-thermique",
-    "fortifiant"
+    "hydratation",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "texturisant",
+    "croissance",
+    "protection-chaleur",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/money-mist-leave-in-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "color-wow--chris-appletons-wash-day-faves",
@@ -326,7 +299,11 @@
    "image_local": "public/scan/products-cheveux/color-wow/chris-appletons-wash-day-faves.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "fins",
+    "abimes"
+   ],
    "actifs": [
     "kératine",
     "protéines de blé",
@@ -336,33 +313,16 @@
    "ingredients": "WATER/AQUA/EAU, SODIUM METHYL 2-SULFOLAURATE, COCAMIDOPROPYL HYDROXYSULTAINE, SODIUM COCOYL ISETHIONATE, SODIUM LAURYL SULFOACETATE, SODIUM LAUROAMPHOACETATE, SODIUM METHYL COCOYL TAURATE, GLYCERIN, PHENOXYETHANOL, DISODIUM 2-SULFOLAURATE, FRAGRANCE/PARFUM, SODIUM COCOYL GLYCINATE, SODIUM PCA, PEG-150 DISTEARATE, PROPYLENE GLYCOL, POLYQUATERNIUM-22, CHLORPHENESIN, PPG-2 HYDROXYETHYL COCAMIDE, BENZOIC ACID, DISODIUM EDTA, DEHYDROACETIC ACID, CITRIC ACID, HYDROLYZED WHEAT STARCH, HYDROLYZED WHEAT PROTEIN, HYDROLYZED KERATIN, POTASSIUM BENZOATE, BUTYLENE GLYCOL, TOCOPHERYL ACETATE, POTASSIUM SORBATE, BHA, CITRONELLOL, LINALOOL, HEXYL CINNAMAL",
    "description": "This wash day duo delivers your deepest, truest clean, plus deep penetrating hydration for ultra healthy-looking hair. Color Security Shampoo – Rich-lathering, 100% clean, sulfate-free shampoo leaves no residues behind to weigh hair down, dull color or worst of all, block new hair growth. Money Masque – Deep hydrating hair treatment weightlessly hydrates and strengthens, for renewed suppleness and expensive-looking texture. For all hair types. Heat protectant.",
    "claims": [
-    "hydratant",
-    "protection-thermique",
-    "fortifiant"
+    "hydratation",
+    "fortifiant",
+    "texturisant",
+    "croissance",
+    "protection-chaleur",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "color-wow--copy-of-replacement-pump-16-9-fl-oz-dream-coat-dream-coat-curly",
-   "name": "Replacement Pump 16.9 fl oz- Dream Coat/Dream Coat Curly",
-   "brand": "color-wow",
-   "brand_name": "Color Wow",
-   "url": "https://colorwowhair.com/products/copy-of-replacement-pump-16-9-fl-oz-dream-coat-dream-coat-curly",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": "https:Liquid error (snippets/microdata-schema line 348): invalid url input",
-   "image_local": null,
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [
-    "boucles"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Replacement Pump for 16.9 fl oz Dream Coat and Dream Coat Curly",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/chris-appletons-wash-day-faves.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "color-wow--extra-strength-dream-coat",
@@ -378,7 +338,6 @@
    "categorie": "protection-thermique",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
     "boucles"
    ],
    "actifs": [
@@ -389,11 +348,16 @@
    "ingredients": "WATER/AQUA/EAU, DIPROPYLENE GLYCOL, POLYSILICONE-29, VP/METHACRYLAMIDE /VINYL IMIDAZOLE COPOLYMER, SILICONE QUATERNIUM-18, GLYCERIN, TRIDECETH-6, CHAMOMILLA RECUTITA (MATRICARIA) FLOWER EXTRACT, CALENDULA OFFICINALIS FLOWER EXTRACT, POLYIMIDE-1, POTASSIUM SORBATE, PHENOXYETHANOL, TRIDECETH-12, SODIUM BENZOATE, CHLORPHENESIN, POTASSIUM BENZOATE, PHENYLPROPANOL, DISODIUM EDTA, PROPANEDIOL, CAPRYLYL GLYCOL, TOCOPHEROL, CITRIC ACID",
    "description": "Award-winning water resistant technology blocks out humidity + locks in moisture to prevent smooth, straight styles from reverting back to naturally curly or frizzy texture. Delivers silky, glassy-smooth, super frizz-resistant styles. Heat-activated formula contains heat protectants. Ultra-light spray feels like nothing is on the hair. Economical. Results last through 3-4 shampoos.",
    "claims": [
-    "hydratant",
-    "lissant",
-    "protection-thermique"
+    "hydratation",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant",
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/extra-strength-dream-coat.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "color-wow--curly-hair-spray",
@@ -423,10 +387,13 @@
    "ingredients": "WATER/AQUA, ISOHEXADECANE, HYDROGENATED FARNESENE, GLYCERIN, PROPANEDIOL, POLYIMIDE-1, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, ORYZA SATIVA (RICE) BRAN OIL, NEOPENTYL GLYCOL DIHEPTANOATE, ISOPROPYL PALMITATE, VITIS VINIFERA (GRAPE) SEED OIL, SQUALANE, ALOE BARBADENSIS LEAF JUICE, PASSIFLORA EDULIS SEED OIL, PANTHENOL, ETHYLHEXYL SALICYLATE, C12-15 ALKYL BENZOATE, PHENOXYETHANOL, COCOS NUCIFERA (COCONUT) OIL, DIPROPYLENE GLYCOL, ISODODECANE, CETYL ETHYLHEXANOATE, CETEARYL ETHYLHEXANOATE, CETRIMONIUM CHLORIDE, ACETAMIDE MEA, VP/METHACRYLAMIDE/VINYL IMIDAZOLE COPOLYMER, BIS- (ISOSTEAROYL/OLEOYL ISOPROPYL) DIMONIUM METHOSULFATE, QUATERNIUM-33, PEG-40/PPG-8 METHYLAMINOPROPYL/HYDROXYPROPYL DIMETHICONE COPOLYMER, TOCOPHEROL, C10-40 ISOALKYLAMIDOPROPYLETHYLDIMONIUM ETHOSULFATE, ETHYLHEXYLGLYCERIN, FRAGRANCE/PARFUM, CITRIC ACID, CI 60725 VIOLET 2, CI61570 GREEN 5",
    "description": "New “Naked Technology” feels like nothing’s on the hair!. Shook curl spray’s unique “shake-to-activate” bi-phase formula features one-part powerful, natural hydrating oils + one-part breakthrough curl-bundling polymers for bouncy, defined “naked curl” results. Our proprietary Profaxil-18 Complex™ breaks up large oil particles (hemi-squalane [a natural alternative to silicone], Jojoba, Rice Bran, Passion Flower, and Grape Seed Oils) to micro-disperse rich moisture that smooths, silkens and defriz",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/curly-hair-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "color-wow--curly-hair-smoothing-serum",
@@ -442,8 +409,10 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "gras",
-    "boucles"
+    "secs",
+    "fins",
+    "boucles",
+    "crepus"
    ],
    "actifs": [
     "protéines de riz",
@@ -454,11 +423,15 @@
     "vitamine E"
    ],
    "ingredients": "WATER/AQUA, BEHENTRIMONIUM METHOSULFATE, CETEARYL ALCOHOL, COCOS NUCIFERA (COCONUT) OIL, PEG-40/PPG-8 METHYLAMINOPROPYL/HYDROXYPROPYL DIMETHICONE COPOLYMER, GLYCERIN, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, CARYOCAR BRASILIENSE (PEQUI) FRUIT OIL, PROPYLENE GLYCOL DICAPRYLATE/DICAPRATE, HYDROLYZED RICE PROTEIN, POLYQUATERNIUM-37, DIPROPYLENE GLYCOL, PHENOXYETHANOL, C10-40 ISOALKYLAMIDOPROPYLETHYLDIMONIUM ETHOSULFATE, PPG-26-BUTETH-26, QUATERNIUM-33, CETEARETH-20, CAPRYLYL GLYCOL, PEG-40 HYDROGENATED CASTOR OIL, PPG-1 TRIDECETH-6, FRAGRANCE/PARFUM, TOCOPHEROL, BENZYL ALCOHOL, POTASSIUM SORBATE, SODIUM BENZOATE",
-   "description": "\"Naked Technology” feels like nothing’s on the hair!. Flo-etry curl serum instantly moisturizes and plumps dehydrated curls (that are inherently dry because natural oils from the scalp can’t easily flow down the bends and twists of curly strands). Our proprietary Profaxil-18 Complex™ breaks up Jojoba, Pequi, and Coconut Oils’ large particles to micro-disperse these rich oils throughout hair strands, from lengths to ends for weightless, non-oily results. Instantly delivers super hydrated, juicy, ",
+   "description": "\"Naked Technology” feels like nothing’s on the hair!. Flo-etry curl serum instantly moisturizes and plumps dehydrated curls (that are inherently dry because natural oils from the scalp can’t easily flow down the bends and twists of curly strands). Our proprietary Profaxil-18 Complex™ breaks up Jojoba, Pequi, and Coconut Oils’ large particles to micro-disperse these rich oils throughout hair strands, from lengths to ends for weightless, non-oily results. Instantly delivers super hydrated, juicy,",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "definition-boucles",
+    "volume"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/curly-hair-smoothing-serum.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "color-wow--curly-hair-conditioner-dry-hair",
@@ -474,7 +447,10 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "boucles"
+    "secs",
+    "fins",
+    "boucles",
+    "abimes"
    ],
    "actifs": [
     "panthénol",
@@ -486,9 +462,14 @@
    "ingredients": "WATER/AQUA/EAU, BUTYLENE GLYCOL, STEARYL ALCOHOL, CETYL ALCOHOL, PPG-3 BENZYL ETHER MYRISTATE, COCOS NUCIFERA (COCONUT) OIL, STEARAMIDOPROPYL DIMETHYLAMINE, COCO-CAPRYLATE/CAPRATE, BIS-(ISOSTEAROYL/OLEOYL ISOPROPYL) DIMONIUM METHOSULFATE, ORYZA SATIVA (RICE) BRAN OIL, C12-15 ALKYL BENZOATE, BEHENTRIMONIUM METHOSULFATE, ASTROCARYUM MURUMURU SEED BUTTER, CETEARYL ALCOHOL, POLYQUATERNIUM-37, SCLEROCARYA BIRREA SEED OIL, DIMER DILINOLEYL DIMER DILINOLEATE, GLYCERIN, PHENOXYETHANOL, CITRIC ACID, CETEARETH-20, CAPRYLYL GLYCOL, PROPYLENE GLYCOL DICAPRYLATE/DICAPRATE, FRAGRANCE/PARFUM, PANTHENOL, POLYQUATERNIUM-7, DIPROPYLENE GLYCOL, PPG-1 TRIDECETH-6, C10-40 ISOALKYLAMIDOPROPYLETHYLDIMONIUM ETHOSULFATE, DISODIUM EDTA, SODIUM BENZOATE, QUATERNIUM-33",
    "description": "New “Naked Technology” feels like nothing’s on the hair!. Weightless curl conditioner works deep inside strands. No heavy, greasy feel because our proprietary Profaxil-18 Complex™ breaks up Marula Oil and Coconut Oil particles, enabling them to penetrate hair and lubricate hair’s internal protein chains. Instantly gives dry, dehydrated, brittle, “static” curls fluid motion, silky texture, bounce and elasticity.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/curly-hair-conditioner-dry-hair.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "color-wow--curly-hair-detangler",
@@ -501,11 +482,13 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0587/5210/6688/products/CW570snag-freepdp-02.jpg?width=600",
    "image_local": "public/scan/products-cheveux/color-wow/curly-hair-detangler.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
-    "epais",
-    "boucles"
+    "secs",
+    "boucles",
+    "abimes",
+    "chute"
    ],
    "actifs": [
     "huile de coco",
@@ -517,29 +500,16 @@
    "ingredients": "WATER/AQUA, GLYCERIN, POLYQUATERNIUM-37, COCOS NUCIFERA (COCONUT) OIL, PENTACLETHRA MACROLOBA SEED OIL, POLYQUATERNIUM-55, PPG-26-BUTETH-26, DIPROPYLENE GLYCOL, FRAGRANCE/PARFUM, C10-40 ISOALKYLAMIDOPROPYLETHYLDIMONIUM ETHOSULFATE, PEG-40 HYDROGENATED CASTOR OIL, PHENOXYETHANOL, QUATERNIUM-33, CAPRYLYL GLYCOL, DISODIUM EDTA, TOCOPHEROL",
    "description": "Our detangler for curly hair offers faster, easier, pain-free washdays and fresher shampoo results. No-knots wet-combing for reduced breakage + shedding. Vitamin-rich Pracaxi Oil defrizzes and lubricates curl surface. Coconut Oil helps moisturize to maximize slip and minimize breakage.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "reparation",
+    "anti-frisottis",
+    "definition-boucles",
+    "anti-chute",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "color-wow--replacement-pump-shampoo-conditioner",
-   "name": "Replacement Pump - Shampoo/Conditioner",
-   "brand": "color-wow",
-   "brand_name": "Color Wow",
-   "url": "https://colorwowhair.com/products/replacement-pump-shampoo-conditioner",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": "https:Liquid error (snippets/microdata-schema line 348): invalid url input",
-   "image_local": null,
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Replacement Pump for Liter Shampoo and Conditioners",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/curly-hair-detangler.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "color-wow--root-cover-up",
@@ -555,11 +525,15 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [],
-   "actifs": [],
+   "actifs": [
+    "kaolin"
+   ],
    "ingredients": "SYNTHETIC FLUORPHLOGOPITE, TALC, Mica, OCTYLDODECYL STEAROYL STEARATE, ETHYLHEXYL PALMITATE, ZINC STEARATE, SILICA, ZEA MAYS STARCH, PENTAERYTHRITYL TETRAISOSTEARATE, ALUMINUM STARCH OCTENYLSUCCINATE, KAOLIN, PHENOXYETHANOL, DIMETHICONE, TRIETHOXYCAPRYLYLSILANE, CI 77499 (Iron Oxides), CI 77491 (Iron Oxides), CI 77891 (Titanium Dioxide) FORMULA #711-0",
    "description": "Why it's WOW Easy, instant, precise: just press, no mess!. Temporary color stays until shampoo’d out (you can swim in it!). Reflective mineral powder for a multi-dimensional, natural look. Never stiff, sticky, or waxy like mascaras, crayons and sprays. Great value! 6 months to 1 year usage for one compact. Our root concealer has no waxes, no dyes, no PPD’s + cruelty-free.",
    "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/root-cover-up.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "color-wow--dream-coat-curly-hair",
@@ -575,7 +549,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "boucles"
+    "boucles",
+    "abimes"
    ],
    "actifs": [
     "kératine",
@@ -586,10 +561,14 @@
    "ingredients": "AQUA/WATER/EAU, VP / METHACRYLAMIDE / VINYL IMIDAZOLE COPOLYMER, PEG-40/PPG-8 METHYLAMINOPROPYL/HYDROXYPROPYL DIMETHICONE COPOLYMER , GLYCERIN, DIPROPYLENE GLYCOL, POLYIMIDE-1, PHENOXYETHANOL, HYDROLYZED KERATIN, ETHYLHEXYLGLYCERIN, PHENYLPROPANOL, PROPANEDIOL, POTASSIUM SORBATE, POTASSIUM BENZOATE, CAPRYLYL GLYCOL, PROPYLENE GLYCOL, DISODIUM EDTA, TOCOPHEROL, CITRIC ACID",
    "description": "A multi-tasking styling product for wavy hair that delivers the benefits of gels, creams and serums—without the weight. Powered by 3 polymers that moisturize, define and boost shine. Delivers bounce and elasticity without stiffness or dulling weight. Alcohol-free, non-drying, adds moisture.",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "definition-boucles",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/dream-coat-curly-hair.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "color-wow--conditioner-color-security-conditioner-fine-to-normal",
@@ -604,7 +583,10 @@
    "image_local": "public/scan/products-cheveux/color-wow/conditioner-color-security-conditioner-fine-to-normal.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "abimes"
+   ],
    "actifs": [
     "kératine",
     "panthénol",
@@ -616,12 +598,17 @@
    "ingredients": "WATER/AQUA/EAU, CETEARYL ALCOHOL, DIMETHICONE, BEHENTRIMONIUM CHLORIDE, AMODIMETHICONE, BUTYLENE GLYCOL, PHENOXYETHANOL, FRAGRANCE/PARFUM, STEARAMIDOPROPYL DIMETHYLAMINE, ISOPROPYL ALCOHOL, CETEARETH-20, PANTHENOL, PERSEA GRATISSIMA (AVOCADO) OIL, PROPYLENE GLYCOL, GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, CITRIC ACID, ARGANIA SPINOSA KERNEL OIL, SORBITAN OLEATE, ETHYLHEXYLGLYCERIN, HYDROLYZED RICE PROTEIN, CETRIMONIUM CHLORIDE, DISODIUM EDTA, TRIDECETH-12, DIMETHICONOL, POLYQUATERNIUM-7, HYDROLYZED KERATIN, SODIUM BENZOATE, POTASSIUM SORBATE, BENZYL ALCOHOL, POTASSIUM BENZOATE, LINALOOL, HEXYL CINNAMAL, CITRONELLOL",
    "description": "Why it's WOW Super light hydrator and power detangler. 3 levels of thermal protection keep hair safe from dehydration and dulling. Won't oxidize and turn hair yellow or brassy so your color stays glossy and bright. Argan oil nourishes + delivers silky-smooth, glossy hair.",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
     "brillance",
-    "lissant"
+    "anti-jaunissement",
+    "protection-chaleur",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/conditioner-color-security-conditioner-fine-to-normal.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "color-wow--flat-hair-extra-mistical",
@@ -636,7 +623,9 @@
    "image_local": "public/scan/products-cheveux/color-wow/flat-hair-extra-mistical.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "gras"
+   ],
    "actifs": [
     "glycérine",
     "acide citrique"
@@ -645,9 +634,11 @@
    "description": "Why it's WOW Flower-powered formula converts UV light into intense radiance. Super-fine mist. All gloss, no grease. Heat protection.",
    "claims": [
     "brillance",
-    "protection-thermique"
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/flat-hair-extra-mistical.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "color-wow--pop-and-lock-frizzy-control-serum",
@@ -663,16 +654,24 @@
    "categorie": "coloration-soin",
    "etape": 2,
    "cheveux_cibles": [
+    "colores",
     "abimes"
    ],
-   "actifs": [],
+   "actifs": [
+    "acide salicylique"
+   ],
    "ingredients": "AQUA/WATER, CYCLOPENTASILOXANE, HEXYLENE GLYCOL, PHENYL TRIMETHICONE, DIMETHICONOL, PHENOXYETHANOL, CAPRYLYL GLYCOL, POLYACRYLAMIDE, C13-14 ISOPARAFFIN, MICA, PARFUM/FRAGRANCE, ETHYLHEXYL SALICYLATE, LAURETH-7, TITANIUM DIOXIDE (CI 77891), BUTYLENE GLYCOL, LINALOOL, HEXYL CINNAMAL, CITRONELLOL",
    "description": "Why It's WOW Combines the conditioning benefits of an oil with the shine power of a serum. Ultra-light, non-greasy. Sparkling high-gloss finish locks down the cuticle and temporarily seals split ends. 3 levels of heat protection. UV protectant against color fade.",
    "claims": [
+    "reparation",
     "brillance",
-    "protection-thermique"
+    "protection-couleur",
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/pop-and-lock-frizzy-control-serum.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "color-wow--hard-water-preshampoo-mineral-remover",
@@ -687,7 +686,9 @@
    "image_local": "public/scan/products-cheveux/color-wow/hard-water-preshampoo-mineral-remover.jpg",
    "categorie": "autre-cheveux",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "gras"
+   ],
    "actifs": [
     "glycérine",
     "acide citrique"
@@ -695,9 +696,12 @@
    "ingredients": "AQUA, PROPANEDIOL, SODIUM ITACONATE, COCOAMIDOPROPYL HYDROXYSULTAINE, GLYCERIN, PHENOXYETHANOL, TETRASODIUM GLUTAMATE DIACETATE, SODIUM POLYSTYRENE SULFONATE, SODIUM PHYTATE, ETHYLHEXYLGLYCERIN, CITRIC ACID",
    "description": "Fastest, easiest 3-minute hair detox. Removes minerals that dull, darken and distort color, and coarsen texture. Dramatically improves texture compromised by hard water residues.",
    "claims": [
+    "texturisant",
     "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/hard-water-preshampoo-mineral-remover.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "color-wow--conditioner-color-security-conditioner-normal-to-thick",
@@ -713,7 +717,9 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "epais"
+    "secs",
+    "epais",
+    "abimes"
    ],
    "actifs": [
     "kératine",
@@ -725,12 +731,16 @@
    "ingredients": "WATER/AQUA/EAU, CETEARYL ALCOHOL, CETYL ALCOHOL, DIMETHICONE, STEARAMIDOPROPYL DIMETHYLAMINE, DIHEPTYL SUCCINATE, BEHENTRIMONIUM CHLORIDE, AMODIMETHICONE, GLYCERIN, CITRIC ACID, PERSEA GRATISSIMA (AVOCADO) OIL, FRAGRANCE/PARFUM, CETEARETH-20, PANTHENOL, ISOHEXADECANE, DIMETHICONOL, ISODODECANE, PROPYLENE GLYCOL, ISOPROPYL ALCOHOL, C13-15 ALKANE, GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, CAPRYLOYL GLYCERIN/SEBACIC ACID COPOLYMER, HYDROLYZED KERATIN, POLYQUATERNIUM-7, PHENOXYETHANOL, QUATERNIUM-95, ETHYLHEXYLGLYCERIN, CETRIMONIUM CHLORIDE, DISODIUM EDTA, PROPANEDIOL, TRIDECETH-12, BUTYLENE GLYCOL, SODIUM BENZOATE, POTASSIUM SORBATE, POTASSIUM BENZOATE, PENTAERYTHRITYL TETRA-DI-T-BUTYL HYDROXYHYDROCINNAMATE, LINALOOL, HEXYL CINNAMAL, CITRONELLOL",
    "description": "Won't oxidize and turn hair yellow or brassy so your color stays glossy and bright. 3 levels of thermal protection keep hair safe from dehydration and dulling. Avocado oil, rich in omega 3’s, nourishes + delivers silky-smooth, glossy hair. Rich moisture without greasiness.",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
     "brillance",
-    "lissant"
+    "anti-jaunissement",
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/conditioner-color-security-conditioner-normal-to-thick.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "color-wow--raise-the-root",
@@ -747,7 +757,8 @@
    "etape": 3,
    "cheveux_cibles": [
     "secs",
-    "fins"
+    "fins",
+    "abimes"
    ],
    "actifs": [
     "kératine",
@@ -759,7 +770,10 @@
    "claims": [
     "volume"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/raise-the-root.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "color-wow--dream-cocktail-kale",
@@ -784,10 +798,13 @@
    "ingredients": "AQUA/EAU), BEHENTRIMONIUM METHOSULFATE, CETEARYL ALCOHOL, CAPRYLIC/CAPRIC TRIGLYCERIDE, POLYQUATERNIUM-37, GLYCERIN, BUTYLENE GLYCOL, PEG-40 HYDROGENATED CASTOR OIL, PROPYLENE GLYCOL DICAPRYLATE/DICAPRATE, CRAMBE MARITIMA LEAF EXTRACT, ASCOPHYLLUM NODOSUM EXTRACT, CAPRYLYL GLYCOL, CETEARETH-20, PHENOXYETHANOL, PPG-26-BUTETH-26, FRAGRANCE (PARFUM), SILICONE QUATERNIUM-18, TRIDECETH-6, PPG-1 TRIDECETH-6, TRIDECETH-12, BENZYL SALICYLATE, LINALOOL, LIMONENE",
    "description": "Why it's WOW Makes a major difference with just one blow dry. 50%* less breakage after just one use. Instantly strengthens brittle, fragile, damaged hair. Heat protectant. *Average results based on independent testing",
    "claims": [
-    "protection-thermique",
-    "fortifiant"
+    "reparation",
+    "fortifiant",
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/dream-cocktail-kale.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "color-wow--dream-cocktail-carb",
@@ -802,7 +819,11 @@
    "image_local": "public/scan/products-cheveux/color-wow/dream-cocktail-carb.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "fins",
+    "abimes"
+   ],
    "actifs": [
     "kératine",
     "panthénol",
@@ -813,9 +834,11 @@
    "ingredients": "AQUA/EAU), GLYCERIN, POLYQUATERNIUM-4, PANTHENOL, POLYQUATERNIUM-11, PEG- 12 DIMETHICONE, SILICONE QUATERNIUM-18, PPG-26-BUTETH-26, PHENOXYETHANOL, PEG-40 HYDROGENATED CASTOR OIL, TRIDECETH-6, CORN STARCH MODIFIED, FRAGRANCE (PARFUM), HYDROLYZED QUINOA, DISODIUM EDTA, TRIDECETH-12, HYDROLYZED KERATIN, CAPRYLYL GLYCOL, BETA-GLUCAN (OAT), 1,2-HEXANEDIOL, BENZYL ALCOHOL, SODIUM BENZOATE, POTASSIUM SORBATE, CITRIC ACID, HEXYL CINNAMAL",
    "description": "Why it's WOW Makes a major difference with just one blow dry. Instantly adds mass by bonding a weightless carb-based complex to hair’s surface. Heat protectant.",
    "claims": [
-    "protection-thermique"
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/dream-cocktail-carb.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "color-wow--dream-cocktail-coconut",
@@ -830,7 +853,10 @@
    "image_local": "public/scan/products-cheveux/color-wow/dream-cocktail-coconut.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "abimes"
+   ],
    "actifs": [
     "kératine",
     "huile de coco",
@@ -840,10 +866,12 @@
    "ingredients": "WATER/AQUA, BEHENTRIMONIUM METHOSULFATE , CETYL ALCOHOL, COCOS NUCIFERA (COCONUT) OIL, POLYQUATERNIUM-37, DIPROPYLENE GLYCOL, PHENOXYETHANOL, PROPYLENE GLYCOL DICAPRYLATE/DICAPRATE, C10-40 ISOALKYLAMIDOPROPYLETHYLDIMONIUM ETHOSULFATE, SILICONE QUATERNIUM-18, CAPRYLYL GLYCOL, CETEARETH-20, PPG-26-BUTETH-26 , TRIDECETH-12, PEG-40 HYDROGENATED CASTOR OIL, TRIDECETH-6, PPG-1 TRIDECETH-6, HYDROLYZED KERATIN, FRAGRANCE (PARFUM), LAURDIMONIUM HYDROXYPROPYL HYDROLYZED KERATIN, CITRIC ACID, COUMARIN, QUATERNIUM 33, SODIUM HYDROXIDE, BENZYL ALCOHOL , SODIUM BENZOATE, POTASSIUM SORBATE",
    "description": "Why it's WOW Makes a major difference with just one blow dry. Instant healthy hydration restores silky suppleness to dry, dehydrated, straw-like hair. Heat protectant.",
    "claims": [
-    "hydratant",
-    "protection-thermique"
+    "hydratation",
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/dream-cocktail-coconut.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "color-wow--chris-appleton-money-masque",
@@ -859,6 +887,8 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
+    "fins",
     "abimes"
    ],
    "actifs": [
@@ -869,11 +899,14 @@
    "ingredients": "WATER/AQUA/EAU, STEARYL ALCOHOL, DIMETHICONE,CETYL ALCOHOL, STEARAMIDOPROPYL DIMETHYLAMINE, BUTYLENE GLYCOL, DICETYLDIMONIUM CHLORIDE, BEHENTRIMONIUM CHLORIDE, PROPANEDIOL, HYDROLYZED VEGETABLE PROTEIN PG-PROPYL SILANETRIOL, CITRIC ACID, CHLORELLA PYRENOIDOSA EXTRACT, CHONDRUS CRISPUS (CARRAGEENAN) EXTRACT, UNDARIA PINNATIFIDA EXTRACT, LAMINARIA SACCHARINA EXTRACT, CETEARETH-20, DIMETHICONOL, PHENOXYETHANOL, PPG-26-BUTETH-26, APIGENIN, OLEANOLIC ACID, BIOTINOYL TRIPEPTIDE-1, CRAMBE MARITIMA (BLUE SEA KALE) LEAF EXTRACT, FRAGRANCE/ PARFUM, CHLORPHENESIN,ISOPROPYL ALCOHOL, PEG-40 HYDROGENATED CASTOR OIL, CAPRYLYL GLYCOL, PROPYLENE GLYCOL, POTASSIUM BENZOATE, POTASSIUM SORBATE, DISODIUM EDTA, BENZYL SALICYLATE, ALPHA-ISOMETHYL IONONE, BLUE 1 (CI 42090), EXT. VIOLET 2 (CI 60730)",
    "description": "Celebrity Stylist Chris Appleton’s 1-step-prep for luxe, super healthy hair. Weightless formula instantly absorbs; leaves no waxy, heavy buildup. Penetrates deep to help strengthen, repair and renew suppleness. A deep conditioning hair mask for all hair types. Heat protection.",
    "claims": [
-    "reparateur",
-    "protection-thermique",
-    "fortifiant"
+    "reparation",
+    "fortifiant",
+    "purifiant",
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/chris-appleton-money-masque.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "color-wow--flat-hair-volumizer-extra-large",
@@ -899,9 +932,12 @@
    "description": "Our hair volumizer is free of alcohol, salt, drying resins typically used to create volume. Massive volume plus super healthy hair quality. Long-lasting. Innovative light, frothy formula for weightless volume. Heat protection.",
    "claims": [
     "volume",
-    "protection-thermique"
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/flat-hair-volumizer-extra-large.webp",
+   "image_fond": true,
+   "ciblage_source": "fiche"
   },
   {
    "id": "color-wow--color-control-foam-blonde",
@@ -917,7 +953,8 @@
    "categorie": "coloration-soin",
    "etape": 2,
    "cheveux_cibles": [
-    "secs"
+    "secs",
+    "colores"
    ],
    "actifs": [
     "panthénol",
@@ -926,8 +963,14 @@
    ],
    "ingredients": "WATER/AQUA/EAU, VP/VA COPOLYMER, ISOBUTANE, PROPANE, COCAMIDOPROPYL BETAINE, PEG-40 HYDROGENATED CASTOR OIL, METHYL HYDROGENATED ROSINATE, PARFUM/FRAGRANCE, BENZALKONIUM CHLORIDE, DIAZOLIDINYL UREA, PANTHENOL, AMODIMETHICONE, MYRISTAMIDOPROPYL PG-DIMONIUM CHLORIDE PHOSPHATE, TRIDECETH-12, CETRIMONIUM CHLORIDE, IODOPROPYNYL BUTYLCARBAMATE, PPG-5-CETETH-20, LINALOOL, HEXYL CINNAMAL, CI 60730 (D&C VIOLET 2)",
    "description": "Lavender-tinted foam neutralizes yellow and brassy tones instantly. No-mess alternative to purple shampoo (use on wet or dry hair). Never sticky, stiff or crunchy for shiny, bouncy, supple results.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "brillance",
+    "anti-jaunissement"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/color-control-foam-blonde.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "color-wow--speed-dry-spray-best-blowout-spray",
@@ -942,7 +985,10 @@
    "image_local": "public/scan/products-cheveux/color-wow/speed-dry-spray-best-blowout-spray.jpg",
    "categorie": "protection-thermique",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "abimes"
+   ],
    "actifs": [
     "kératine",
     "panthénol",
@@ -952,10 +998,13 @@
    "ingredients": "AQUA/WATER, PVP, COCAMIDOPROPYL HYDROXYSULTAINE, CETRIMONIUM CHLORIDE, PPG-26-BUTETH-26, PROPYLENE GLYCOL, PEG-40 HYDROGENATED CASTOR OIL, PANTHENOL, PHENOXYETHANOL, CAPRYLYL GLYCOL PARFUM/FRAGRANCE, HYDROLYZED KERATIN, POLYQUATERNIUM-59 BUTYLENE GLYCOL, SODIUM HYDROXIDE, CITRIC ACID, POTASSIUM SORBATE, POTASSIUM BENZOATE, LINALOOL, HEXYL CINNAMAL, CITRONELLOL",
    "description": "Reduces drying time (blow dry or air dry) by 30% or more. Alcohol-free. New technology works like shrink wrap to squeeze out water without dehydrating hair. Heat protection.",
    "claims": [
-    "hydratant",
-    "protection-thermique"
+    "hydratation",
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/speed-dry-spray-best-blowout-spray.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "color-wow--dream-coat-anti-frizz-treatment",
@@ -971,7 +1020,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "fins"
    ],
    "actifs": [
     "glycérine",
@@ -980,10 +1029,14 @@
    "ingredients": "WATER, DIPROPYLENE GLYCOL, POLYSILICONE-29, SILICONE QUATERNIUM-18, GLYCERIN, TRIDECETH-6, CHAMOMILLA RECUTITA (MATRICARIA) FLOWER EXTRACT , CALENDULA OFFICINALIS FLOWER EXTRACT, POTASSIUM SORBATE, PHENOXYETHANOL, TRIDECETH-12, SODIUM BENZOATE, CHLORPHENESIN, POTASSIUM BENZOATE, DISODIUM EDTA, CITRIC ACID",
    "description": "Powerful humidity-proofer delivers the ultimate, long-lasting frizz control. Silkens, smooths, glosses – totally transforms hair texture. Keeps blowouts sleek + smooth, even in extreme humidity. Weightless, non-greasy – feels like nothing is on your hair!. Results last through 3-4 shampoos. Provides two levels of heat protection.",
    "claims": [
-    "lissant",
-    "protection-thermique"
+    "anti-frisottis",
+    "texturisant",
+    "brillance",
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/dream-coat-anti-frizz-treatment.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "color-wow--shampoo-color-security",
@@ -1000,7 +1053,8 @@
    "etape": 1,
    "cheveux_cibles": [
     "fins",
-    "epais",
+    "colores",
+    "abimes",
     "chute",
     "cuir-chevelu-sensible"
    ],
@@ -1013,12 +1067,16 @@
    "ingredients": "WATER/AQUA/EAU, SODIUM METHYL 2-SULFOLAURATE, COCAMIDOPROPYL HYDROXYSULTAINE, SODIUM COCOYL ISETHIONATE, SODIUM LAURYL SULFOACETATE, SODIUM LAUROAMPHOACETATE, SODIUM METHYL COCOYL TAURATE, GLYCERIN, PHENOXYETHANOL, DISODIUM 2-SULFOLAURATE, FRAGRANCE/PARFUM, SODIUM COCOYL GLYCINATE, SODIUM PCA, PEG-150 DISTEARATE, PROPYLENE GLYCOL, POLYQUATERNIUM-22, CHLORPHENESIN, PPG-2 HYDROXYETHYL COCAMIDE, BENZOIC ACID, DISODIUM EDTA, DEHYDROACETIC ACID, CITRIC ACID, HYDROLYZED WHEAT STARCH, HYDROLYZED WHEAT PROTEIN, HYDROLYZED KERATIN, POTASSIUM BENZOATE, BUTYLENE GLYCOL, TOCOPHERYL ACETATE, POTASSIUM SORBATE, BHA, CITRONELLOL, LINALOOL, HEXYL CINNAMAL",
    "description": "One rich lathering, sulfate-free, residue-free formula for all hair types. Unlike most shampoos, every ingredient rinses off for optimal hair and scalp health. Our color protect shampoo contains no silicones, thickening, conditioning or anti-frizz ingredients that stay behind and can weigh hair down, dull it, cause scalp irritation and even hair loss.",
    "claims": [
+    "anti-frisottis",
     "volume",
-    "lissant",
     "anti-chute",
-    "protection-couleur"
+    "apaisant-cuir-chevelu",
+    "protection-couleur",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/shampoo-color-security.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "color-wow--one-minute-transformation",
@@ -1033,9 +1091,7 @@
    "image_local": "public/scan/products-cheveux/color-wow/one-minute-transformation.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [
     "protéines de blé",
     "glycérine",
@@ -1044,9 +1100,14 @@
    "ingredients": "AQUA/EAU), PROPYLENE GLYCOL, PERSEA GRATISSIMA(AVOCADO) OIL, PHENYL TRIMETHICONE, GLYCERIN, ISOSTEARYL PALMITATE, GLYCERYL STEARATE, C12-15 ALKYL BENZOATE, ETHYLHEXYL SALICYLATE, PVP, SORBITAN OLEATE, FRAGRANCE (PARFUM), ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, MYRISTAMIDOPROPYL PG-DIMONIUM CHLORIDE PHOSPHATE, AMINOMETHYL PROPANOL, LAURDIMONIUM HYDROXYPROPYL HYDROLYZED WHEAT PROTEIN, PHENOXYETHANOL, CAPRYLYL GLYCOL, ETHYLHEXYLGLYCERIN, BUTYLENE GLYCOL, BENZYL ALCOHOL, POTASSIUM SORBATE, SODIUM BENZOATE, LINALOOL, HEXYL CINNAMAL, CITRONELLOL",
    "description": "Why it's WOW Instant on-the-spot frizz fix. Apply our frizz cream to bumps, bends and bed head then either brush or blow dry the unruly sections for a super quick, smooth, polished refresh. No waxy, greasy buildup on hair.",
    "claims": [
-    "lissant"
+    "anti-frisottis",
+    "purifiant",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/one-minute-transformation.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "color-wow--cult-favorite-hairspray",
@@ -1061,7 +1122,9 @@
    "image_local": "public/scan/products-cheveux/color-wow/cult-favorite-hairspray.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "abimes"
+   ],
    "actifs": [
     "kératine",
     "acide citrique"
@@ -1069,10 +1132,16 @@
    "ingredients": "AQUA/WATER/EAU, DIMETHYL ETHER, ISOBUTYLENE/ETHYLMALEIMIDE/HYDROXYETHYLMALEIMIDE COPOLYMER, FRAGRANCE/PARFUM, PROPYLENE GLYCOL, ETHYLHEXYL SALICYLATE, HYDROLYZED KERATIN, POTASSIUM SORBATE, POTASSIUM BENZOATE, PHENOXYETHANOL, CITRIC ACID, LINALOOL, HEXYL CINNAMAL",
    "description": "Why it's WOW Flexible, firm hold and style control that’s never sticky or stiff. Won’t build up and is totally brushable. Non-yellowing, doesn’t darken or dull shine. Our firm, flexible hold hairspray offers heat protection, UV protectant against color fade, humidity-resistant.",
    "claims": [
+    "fortifiant",
+    "anti-frisottis",
     "brillance",
-    "protection-thermique"
+    "protection-couleur",
+    "protection-chaleur",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/cult-favorite-hairspray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "color-wow--style-on-steroids-texture-spray",
@@ -1088,7 +1157,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "secs"
+    "secs",
+    "colores"
    ],
    "actifs": [
     "glycérine"
@@ -1096,10 +1166,16 @@
    "ingredients": "HYDROFLUOROCARBON 152A, BUTANE, ALCOHOL DENAT., VP/VA COPOLYMER, TRISILOXANE, PEG/PPG-17/18 DIMETHICONE, ZEOLITE, GLYCERIN, ACETYL TRIETHYL CITRATE, FRAGRANCE/PARFUM, LINALOOL, HEXYL CINNAMAL, CITRONELLOL",
    "description": "Why it's WOW Unique moisturizing texture spray won’t dry hair or glue strands together. Transparent texturizers won’t cloud or dull color. Gives hair “guts” and long-lasting style memory. Non-yellowing, color-safe. Never sticky or stiff. Powerful heat protection.",
    "claims": [
-    "hydratant",
-    "protection-thermique"
+    "hydratation",
+    "texturisant",
+    "protection-couleur",
+    "protection-chaleur",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/color-wow/cutout/style-on-steroids-texture-spray.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   }
  ]
 }

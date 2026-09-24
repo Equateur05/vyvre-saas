@@ -113,3 +113,12 @@ create policy hair_products_read on public.hair_products for select using (true)
 --   join public.skin_products s on s.id = h.id;
 -- select h.url from public.hair_products h
 --   join public.products p on p.url = h.url;
+
+-- 23/09/2026 — trois colonnes ajoutees apres l'audit : sans elles, l'import
+-- perdait les alertes qualite d'image (fiche sans photo, photo douteuse), le
+-- detourage, et l'origine du ciblage (declare par la marque ou deduit).
+alter table public.hair_products
+  add column if not exists image_absente    boolean not null default false,
+  add column if not exists image_incertaine boolean not null default false,
+  add column if not exists cutout_url       text,
+  add column if not exists ciblage_source   text;

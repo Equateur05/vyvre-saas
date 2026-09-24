@@ -3,46 +3,6 @@
  "brand_name": "Ethique",
  "products": [
   {
-   "id": "ethique--travel-case-for-shampoo-conditioner-bars",
-   "name": "TRAVEL CASE for shampoo & conditioner bars",
-   "brand": "ethique",
-   "brand_name": "Ethique",
-   "url": "https://ethique.com/products/travel-case-for-shampoo-conditioner-bars",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 16.56,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0025/1717/2339/files/TRAVEL-CASE-1.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/ethique/travel-case-for-shampoo-conditioner-bars.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": null,
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "ethique--charcoal-haircare-tray",
-   "name": "Haircare Storage Tray",
-   "brand": "ethique",
-   "brand_name": "Ethique",
-   "url": "https://ethique.com/products/charcoal-haircare-tray",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0025/1717/2339/files/Untitleddesign.png?width=600",
-   "image_local": "public/scan/products-cheveux/ethique/charcoal-haircare-tray.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": null,
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
    "id": "ethique--st-clements-shampoo-for-oily-hair",
    "name": "Clarifying Shampoo Bar for Oily Scalp and Hair: St Clements™",
    "brand": "ethique",
@@ -66,9 +26,12 @@
    "ingredients": "aqua (water), Theobroma cacao (cocoa) seed butter, glycerin, Ricinus communis (castor) seed oil, brassica alcohol, lactic acid, caprylic/capric triglyceride, Citrus aurantifolia (lime) oil, Citrus aurantium dulcis (orange) peel oil, sodium isethionate, behentrimonium methosulfate, limonene¹, mica, CI 77891, CI 77492, CI 77861.¹Component of essential oils How to Use + Store",
    "description": "Our most clarifying shampoo is perfect for oily scalps, and for those who want a deep cleanse. Lift away impurities with the help of lime and orange essential oils and effective surfactants for full, fresh hair! Details: Our clarifiying shampoo bar effectively removes oils, chlorine, and styling product buildup from hair. Expect lots of bubbly lather that rinses away to reveal fresh, bouncy tresses. Long-lasting and easy to use: Each pH balanced Ethique shampoo bar lasts at least 80 washes, equi",
    "claims": [
-    "purifiant"
+    "purifiant",
+    "anti-gras"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/ethique/cutout/st-clements-shampoo-for-oily-hair.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ethique--wonderbar-conditioner-for-oily-to-normal-hair",
@@ -84,6 +47,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "gras",
     "fins"
    ],
@@ -96,10 +60,15 @@
    "ingredients": "Brassica alcohol, behentrimonium methosulfate, hydrogenated castor oil, Cocos nucifera (coconut) oil, glycerin, Theobroma cacao (cocoa) seed butter, stearic acid, caprylic/capric triglyceride, panthenol, parfum¹, benzyl alcohol, dehydroacetic acid, aqua (water), linalool². ¹Natural fragrance ²Component of natural fragrance",
    "description": "Greasy scalp or oily hair? Wonderbar will nourish and condition without weighing strands down for weightless shine. Details: The lightest, dreamiest conditioner bar that Ethique has to offer! Packed with fairly traded coconut oil, cocoa butter, and vitamin B5. Finally, you can tame flyaways, detangle hair, and nourish without adding weight or overloading the hair. How to Use: After shampooing, swipe the conditioner bar 4-5 times down the length of your hair. Put the bar down, and massage the pro",
    "claims": [
-    "nourrissant",
-    "brillance"
+    "nutrition",
+    "anti-frisottis",
+    "anti-gras",
+    "brillance",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/ethique/cutout/wonderbar-conditioner-for-oily-to-normal-hair.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ethique--strengthening-shampoo-bar",
@@ -115,7 +84,10 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "colores"
+    "fins",
+    "colores",
+    "abimes",
+    "chute"
    ],
    "actifs": [
     "biotine",
@@ -129,10 +101,17 @@
    "ingredients": "Aqua (Water), Guar Hydroxypropyltrimonium Chloride, Lactic Acid, Benzyl Alcohol, Sodium Chloride, Mentha Piperita (Peppermint) Oil, Helianthus Annuus (Sunflower) Seed Oil, Menthol¹, Biotin, Chenopodium Quinoa Seed Extract, Dehydroacetic Acid, Rosmarinus Officinalis (Rosemary) Leaf Extract, Citric Acid, Sodium Benzoate, Potassium Sorbate, Limonene¹, Mica, Titanium Dioxide (CI 77891), Chromium Oxide Greens (CI 77288). ¹Component of essential oils",
    "description": "A strengthening shampoo bar that fortifies strands and boosts density for visibly thicker, fuller-looking hair after one wash. This solid shampoo helps defend against breakage, shedding, and fallout for stronger, fuller-looking hair after one wash and over time. A concentrated blend of Amino Acids, Rosemary, Biotin, and Peppermint oil works to support strand strength, resilience, and elasticity while helping create the optimal environment for healthy hair growth. Suitable for colour-treated hair",
    "claims": [
+    "reparation",
+    "fortifiant",
     "volume",
-    "fortifiant"
+    "densifiant",
+    "anti-chute",
+    "croissance",
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/ethique/cutout/strengthening-shampoo-bar.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ethique--gentle-shampoo-bar-fragrance-free",
@@ -157,9 +136,13 @@
    "ingredients": "Aqua (Water), Lactic Acid, Guar Hydroxypropyltrimonium Chloride, Benzyl Alcohol, Sodium Chloride, Dehydroacetic Acid. How to Use + Store Easy as 1",
    "description": "Simple and effective care for sensitive scalps. This mild, fragrance-free shampoo gently cleanses and nourishes your hair while being kind to your skin. Babassu oil, betaine, and cocoa butter work in harmony to leave your hair soft, manageable, and beautifully clean. Free from fragrance, designed for sensitive skin – just great hair. Minimalist routine. Maximalist results. Suitable for colour-treated hair. Scent profile: Zero added fragrance or essential oils. 98% of users say this product clean",
    "claims": [
-    "nourrissant"
+    "nutrition",
+    "apaisant-cuir-chevelu",
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/ethique/cutout/gentle-shampoo-bar-fragrance-free.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ethique--shampooch-shampoo-for-sensitive-dogs",
@@ -179,9 +162,13 @@
     "huile de coco"
    ],
    "ingredients": null,
-   "description": "Is your pooch a bit smelly but hates bath time? No more struggling with bottles, lids, and pump tops that get jammed full of dried shampoo with our easy-to-use shampoo bar for dogs and horses. Designed for the most delicate doggy skin, Shampooch is enriched with flaxseed and coconut oils for a super shiny coat. It’s scent-free and very gentle, with the perfect pH to keep your pooch’s skin comfy, while getting fur all floofy and clean. While we do not recommend washing your cat, this bar doesn’t ",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "description": "Is your pooch a bit smelly but hates bath time? No more struggling with bottles, lids, and pump tops that get jammed full of dried shampoo with our easy-to-use shampoo bar for dogs and horses. Designed for the most delicate doggy skin, Shampooch is enriched with flaxseed and coconut oils for a super shiny coat. It’s scent-free and very gentle, with the perfect pH to keep your pooch’s skin comfy, while getting fur all floofy and clean. While we do not recommend washing your cat, this bar doesn’t",
+   "claims": [
+    "brillance"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/ethique/cutout/shampooch-shampoo-for-sensitive-dogs.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ethique--shampoo-bar-for-dry-scalp",
@@ -197,6 +184,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
     "colores",
     "cuir-chevelu-sensible"
    ],
@@ -208,10 +196,13 @@
    "ingredients": "Aqua (Water), Decyl Glucoside, Theobroma Cacao (Cocoa) Seed Butter, Cocos Nucifera (Coconut) Oil, Coconut Acid, Glycerine, Avena Sativa (Oat) Kernel Flour, Citrus Aurantifolia (Lime) Oil, Caprylic/Capric Triglyceride, Brassica Alcohol, Lactic Acid, Sodium Isethionate, Azadirachta Indica (Neem) Seed Oil, Pongamia Glabra (Karanja) Seed Oil, Behentrimonium Methosulfate, Limonene¹, Citrus Aurantium Peel Oil¹, Terpinolene¹, Terpineol¹, Pinene¹, Alpha-Terpinene¹. ¹Component of essential oils. How to Use +",
    "description": "A solid shampoo bar that soothes dry, itchy scalps. Supports scalp health for stronger, softer, healthier-feeling hair. Like skincare for your scalp, this solid shampoo bar detoxifies and soothes, relieving flakes, dryness, and itchiness. Powered by oatmeal neem, and karanja oils. Safe for colour-treated hair and formulated to calm and restore irritated scalps. Scent profile: Lime and earthy. 93% agree that this shampoo helped visibly reduce the presence of dry scalp flaking* *Tested as a system",
    "claims": [
-    "apaisant",
-    "purifiant"
+    "apaisant-cuir-chevelu",
+    "purifiant",
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/ethique/cutout/shampoo-bar-for-dry-scalp.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ethique--repairing-conditioner-bar-with-rice-protein",
@@ -235,14 +226,18 @@
     "acides aminés"
    ],
    "ingredients": "Aqua (Water), Mica, Dehydroacetic Acid, Lactobacillus/Tomato Fruit Ferment Extract, Yeast Amino Acids, Oryza Sativa (Rice) Extract, Leuconostoc/Radish Root Ferment Filtrate, Acyl Coenzyme A Desaturase, Citrus Aurantium Peel Oil², Limonene², Linalool², Citronellol², Titanium Dioxide (CI 77891), Iron Oxides (CI 77491). ¹Natural fragrance. ²Component of natural frag",
-   "description": "Give stressed strands a new lease on life. This powerhouse conditioner, armed with rice protein, is on a mission to strengthen and prevent damage. Mango and shea butters join forces to lock in moisture and smooth split ends. The result? Revitalised, resilient hair that looks and feels healthier. Upgrade your strands from lifeless to luscious. Suitable for colour-treated hair. Scent profile: Ripe passionfruit. Reduces breakage by 5x after just one use* *Clinically proven when used with Repairing ",
+   "description": "Give stressed strands a new lease on life. This powerhouse conditioner, armed with rice protein, is on a mission to strengthen and prevent damage. Mango and shea butters join forces to lock in moisture and smooth split ends. The result? Revitalised, resilient hair that looks and feels healthier. Upgrade your strands from lifeless to luscious. Suitable for colour-treated hair. Scent profile: Ripe passionfruit. Reduces breakage by 5x after just one use* *Clinically proven when used with Repairing",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "lissant",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/ethique/cutout/repairing-conditioner-bar-with-rice-protein.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ethique--repairing-shampoo-bar-with-rice-protein",
@@ -268,11 +263,15 @@
    "ingredients": "Aqua (Water), Fragrance (Parfum)¹, Lactic Acid, Guar Hydroxypropyltrimonium Chloride, Benzyl Alcohol, Mica, Sodium Chloride, Dehydroacetic Acid, Lactobacillus/Tomato Fruit Ferment Extract, Oryza Sativa (Rice) Extract, Yeast Amino Acids, Leuconostoc/Radish Root Ferment Filtrate, Acyl Coenzyme A Desaturase, Citrus Aurantium Peel Oil², Limonene², Linalool², Citronellol², Titanium Dioxide (CI 77891), Iron Oxides (CI 77491). ¹Natural fragrance. ²Component of natural fr",
    "description": "Hair in need of some TLC? This replenishing shampoo is your strand saviour. Packed with rice protein, it fortifies brittle locks and helps prevent future damage. Mango butter steps in to smooth those pesky split ends, leaving you with resilient, lustrous hair that's ready to face the world. Rescue your locks: stronger, healthier-looking hair starts here! Suitable for colour-treated hair. Scent profile: Ripe passionfruit. Reduces breakage by 5x after just one use* *Clinically proven when used wit",
    "claims": [
-    "reparateur",
-    "lissant",
-    "fortifiant"
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/ethique/cutout/repairing-shampoo-bar-with-rice-protein.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ethique--smoothing-shampoo-bar-for-frizzy-hair",
@@ -288,7 +287,6 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "epais",
     "colores",
     "abimes"
    ],
@@ -299,10 +297,15 @@
    "ingredients": "Aqua (Water), Decyl Glucoside, Theobroma Cacao (Cocoa) Seed Butter, Brassica Alcohol, Caprylic/Capric Triglyceride, Cocos Nucifera (Coconut) Fruit, Coconut Acid, Lactic Acid, Sodium Isethionate, Behentrimonium Methosulfate, C13-16 Isoalkane, Fragrance (Parfum)¹, Mica, Tin Oxide, Linalool², Titanium Dioxide (CI 77891), Iron Oxides (CI 77491). ¹Natural fragrance. ²Component of natural frag",
    "description": "Bid farewell to frizz with this smoothing superstar. Packed with hemi-squalane and coconut butter, it cleanses while replenishing moisture and vital nutrients. The result? Hair that's not just clean, but also sleek, shiny, and wonderfully manageable. Hello, good hair days! Frizz doesn't stand a chance. Suitable for colour-treated hair. Scent profile: Creamy coconut. Boosts hydration and moisturisation by 8x after one use* *Clinically proven when used with Smoothing Conditioner versus damaged hai",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "brillance",
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/ethique/cutout/smoothing-shampoo-bar-for-frizzy-hair.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ethique--gentle-conditioner-bar-fragrance-free",
@@ -327,9 +330,13 @@
    "ingredients": null,
    "description": "Sensitive skin? Meet your new hair hero. This fragrance-free conditioner is gentle on your hair and scalp but doesn't skimp on moisture and softness. Babassu oil and glycerine team up to deliver hydration and manageability without any irritating fragrances or essential oils. It's simple, effective hair care at its finest. Sometimes, less is more for better hair. Suitable for colour-treated hair. Scent profile: Zero added fragrance or essential oils. 100% of users say this product conditions with",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "apaisant-cuir-chevelu",
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/ethique/cutout/gentle-conditioner-bar-fragrance-free.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ethique--everyday-shine-nourishing-conditioner-bar",
@@ -345,6 +352,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "colores"
    ],
    "actifs": [
@@ -353,12 +361,15 @@
    "ingredients": "Aqua (Water), Ascorbic Acid, Limonene², Vanillin², Titanium Dioxide (CI 77891), Iron Oxides (CI 77491). ¹Natural fragrance. ²Component of essential oi",
    "description": "Elevate your daily hair care with this vitamin-rich wonder. Vitamin C brings the shine, while vitamin B5 and coconut oil tag team to add softness and improve manageability. It's like a green smoothie for your hair – nourishing, revitalising, and leaving your locks looking their absolute best. Your daily ritual for irresistibly soft, shiny hair. Suitable for colour-treated hair. Scent profile: Invigorating pink grapefruit and vanilla. Boosts hydration and moisturisation by 8x after one use* *Clin",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
     "brillance",
-    "lissant"
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/ethique/cutout/everyday-shine-nourishing-conditioner-bar.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ethique--everyday-shine-shampoo-bar",
@@ -383,12 +394,15 @@
     "acide lactique"
    ],
    "ingredients": "Aqua (Water), Decyl Glucoside, Glycerine, Brassica Alcohol, Coconut Acid, Cocos Nucifera (Coconut) Oil, Cocos Nucifera (Coconut) Fruit, Caprylic/Capric Triglyceride, Lactic Acid, Citrus Paradisi (Grapefruit) Peel Oil, Sodium Isethionate, Panthenol, Behentrimonium Methosulfate, Fragrance (Parfum)¹, Mica, Ascorbic Acid, Limonene², Vanillin², Titanium Dioxide (CI 77891), Iron Oxides (CI 77491). ¹Natural fragrance. ²Component of essential oi",
-   "description": "Give your locks a daily dose of brilliance. This vitamin-packed shampoo, featuring vitamin C, vitamin B5, and coconut oil, is your ticket to hair that feels soft, looks shiny, and radiates health. It's the perfect way to start your day, leaving your hair ready to face whatever life throws its way. Everyday routine, extraordinary results. Suitable for colour-treated hair. Scent profile: Invigorating pink grapefruit and vanilla. Boosts hydration and moisturisation by 8x after one use* *Clinically ",
+   "description": "Give your locks a daily dose of brilliance. This vitamin-packed shampoo, featuring vitamin C, vitamin B5, and coconut oil, is your ticket to hair that feels soft, looks shiny, and radiates health. It's the perfect way to start your day, leaving your hair ready to face whatever life throws its way. Everyday routine, extraordinary results. Suitable for colour-treated hair. Scent profile: Invigorating pink grapefruit and vanilla. Boosts hydration and moisturisation by 8x after one use* *Clinically",
    "claims": [
-    "hydratant",
-    "brillance"
+    "hydratation",
+    "brillance",
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/ethique/cutout/everyday-shine-shampoo-bar.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ethique--smoothing-conditioner-bar-for-frizzy-hair",
@@ -404,7 +418,6 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "epais",
     "colores",
     "abimes"
    ],
@@ -412,11 +425,16 @@
    "ingredients": null,
    "description": "Frizz, meet your match. This smooth operator banishes flyaways while leaving hair silky soft. Cocoa seed butter forms a protective shield as hemi-squalane infuses moisture, gifting you glossy, resilient locks. Get ready for hair so smooth, you won't be able to keep your hands off it. Smooth sailing ahead. Suitable for colour-treated hair. Scent profile: Creamy coconut. Boosts hydration and moisturisation by 8x after one use* *Clinically proven when used with Smoothing Shampoo versus damaged hair",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "anti-frisottis",
     "brillance",
-    "lissant"
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/ethique/cutout/smoothing-conditioner-bar-for-frizzy-hair.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ethique--purple-conditioner-bar",
@@ -442,10 +460,13 @@
    "ingredients": "Aqua (Water), Distarch Phosphate, Beta Vulgaris (Beet) Root Powder, Tocopherol, Citric Acid, Linalool², Titanium Dioxide (CI 77891), Ultramarines (CI 77007), Iron Oxides (CI 77491). ¹Natural fragrance. ²Component of essential oi",
    "description": "Elevate your blonde or grey game with this purple sensation. Beetroot powder illuminates as babassu oil and glycerine deeply hydrate and smooth. It's the secret to maintaining those cool, bright tones while keeping your hair soft, manageable, and utterly gorgeous. Brassiness doesn't stand a chance. Brilliant tones are in your future. Suitable for colour-treated hair. Scent profile: Jasmine and vanilla. Up to 10x more concentrated active ingredients for superior results* *Versus typical liquid co",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "anti-frisottis",
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/ethique/cutout/purple-conditioner-bar.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ethique--purple-shampoo-bar",
@@ -471,9 +492,14 @@
    "ingredients": "Aqua (Water), Lactic Acid, Glycerine, Guar Hydroxypropyltrimonium Chloride, Fragrance (Parfum)¹, Benzyl Alcohol, Sodium Chloride, Dehydroacetic Acid, Jasminum Officinale (Jasmine) Oil, Distarch Phosphate, Beta Vulgaris (Beet) Root Powder, Citric Acid, Linalool², Titanium Dioxide (CI 77891), Ultramarines (CI 77007), Iron Oxides (CI 77491). ¹Natural fragrance. ²Component of essential oi",
    "description": "Blondes and silver stunners, listen up! This purple powerhouse is here to banish brassiness and boost brilliance and is formulated for daily use. Infused with beetroot, babassu oil, and betaine, it not only tones but also hydrates and restores radiance. Get ready for cooler, brighter, more vibrant locks that turn heads. Goodbye brass, hello brightness. Suitable for colour-treated hair and suitable for daily cleansing. Scent profile: Jasmine and vanilla. Up to 10x more concentrated active ingredi",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "brillance",
+    "protection-couleur",
+    "anti-jaunissement"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/ethique/cutout/purple-shampoo-bar.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ethique--hydrating-conditioner-bar",
@@ -489,6 +515,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "colores"
    ],
    "actifs": [
@@ -499,10 +526,15 @@
    "ingredients": "Aqua (Water), Limonene², Geraniol², Titanium Dioxide (CI 77891), Chromium Oxide Greens (CI 77288), Iron Oxides (CI 77499). ¹Natural fragrance. ²Component of natural frag",
    "description": "Thirsty hair, drink up! This moisture-locking conditioner is like a tall glass of water for your strands. Argan oil, hyaluronic acid, and glycerine work in perfect harmony to deeply hydrate and smooth. The result? Soft, shiny, and beautifully replenished hair that feels as good as it looks. Make dry, thirsty tresses a thing of the past. Suitable for colour-treated hair. Scent profile: Fresh pear and vanilla. Increases hydration and moisturisation by 8x after one use* *Clinically proven when used",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "brillance",
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/ethique/cutout/hydrating-conditioner-bar.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ethique--hydrating-shampoo-bar",
@@ -531,10 +563,15 @@
    "ingredients": "Aqua (Water), Glycerine, Decyl Glucoside, Theobroma Cacao (Cocoa) Seed Butter, Butyrospermum Parkii (Shea) Butter, Caprylic/Capric Triglyceride, Coconut Acid, Brassica Alcohol, Lactic Acid, Argania Spinosa Kernel (Argan) Oil, Fragrance (Parfum)¹, Behentrimonium Methosulfate, Sodium Isethionate, Sodium Hyaluronate, Benzyl Alcohol, Dehydroacetic Acid, Mica, Limonene², Geraniol², Titanium Dioxide (CI 77891), Chromium Oxide Greens (CI 77288), Iron Oxides (CI 77499). ¹Natural fragrance. ²Component of natural frag",
    "description": "Parched strands, meet your oasis. This ultra-hydrating formula, enriched with argan oil, hyaluronic acid, and glycerine, quenches even the thirstiest hair. It cleanses while deeply moisturising, leaving your locks soft, smooth, and gloriously shiny. Dry hair is about to become a distant memory. Like eight glasses of water for your hair. Suitable for colour-treated hair. Scent profile: Fresh pear and vanilla. Increases hydration and moisturisation by 8x after one use* *Clinically proven when used",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "brillance",
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/ethique/cutout/hydrating-shampoo-bar.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ethique--conditioner-bar-for-curly-hair",
@@ -550,6 +587,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "boucles",
     "colores"
    ],
@@ -557,11 +595,18 @@
    "ingredients": "Aqua (Water), Dehydroacetic Acid, Hydroxypropylgluconamide, Hydroxypropylammonium Gluconate, Tartaric Acid, Potassium Benzoate, Sodium Benzoate, Citral², Geraniol², Linalool², Geranyl Acetate², Titanium Dioxide (CI 77891), Chromium Oxide Greens (CI 77288). ¹Natural fragrance. ²Component of es",
    "description": "Embrace your coils! This silicone-free wonder transforms undefined curls into a cascade of gorgeous spirals. It quenches thirsty strands with a potent blend of hydration, detangling power, and nourishment. Experience soft, springy, and defined curls that are ready to shine. Define and hydrate for bouncy curls. Suitable for colour-treated hair. Scent profile: Tropical lemongrass and coconut. Clinically proven to improve manageability by 6x after just one use* *Clinically proven when used with Cur",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "brillance"
+    "hydratation",
+    "nutrition",
+    "definition-boucles",
+    "anti-gras",
+    "brillance",
+    "protection-couleur",
+    "demelant",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/ethique/cutout/conditioner-bar-for-curly-hair.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ethique--shampoo-bar-for-curly-hair",
@@ -578,7 +623,6 @@
    "etape": 1,
    "cheveux_cibles": [
     "gras",
-    "epais",
     "boucles",
     "crepus",
     "colores"
@@ -590,11 +634,18 @@
    "ingredients": "Aqua (Water), Fragrance (Parfum)¹, Guar Hydroxypropyltrimonium Chloride, Lactic Acid, Benzyl Alcohol, Sodium Chloride, Cymbopogon Flexuosus (Lemongrass) Oil, Dehydroacetic Acid, Hydroxypropylgluconamide, Hydroxypropylammonium Gluconate, Tartaric Acid, Potassium Benzoate, Sodium Benzoate, Citral², Geraniol², Geranyl Acetate², Linalool², Mica, Titanium Dioxide (CI 77891), Ultramarines (CI 77007), Chromium Oxide Greens (CI 77288). ¹Natural fragrance. ²Component of es",
    "description": "This sulfate-free champion is your secret weapon for defined, frizz-free locks that command attention. It gently cleanses while infusing moisture, thanks to cocoa and shea butters. The payoff? Soft, bouncy curls that spring to life with natural definition. Moisturised, healthy curls start here. Suitable for colour-treated hair. Scent profile: Tropical lemongrass and coconut. Increases shine by 70% for curly hair after one use* Increases shine by 104% for coily hair after one use**Clinically prov",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "anti-gras",
     "brillance",
-    "definition-boucles"
+    "protection-couleur",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/ethique/cutout/shampoo-bar-for-curly-hair.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ethique--clarifying-shampoo-bar",
@@ -610,6 +661,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "gras",
     "colores"
    ],
    "actifs": [
@@ -618,11 +670,15 @@
     "acide lactique"
    ],
    "ingredients": "Aqua (Water), Decyl Glucoside, Theobroma Cacao (Cocoa) Seed Butter, Glycerine, Coconut Acid, Ricinus Communis (Castor) Seed Oil, Brassica Alcohol, Lactic Acid, Citrus Aurantium Dulcis (Orange) Peel Oil, Caprylic/Capric Triglyceride, Citrus Aurantifolia (Lime) Oil, Sodium Isethionate, Panax Ginseng Root Extract, Behentrimonium Methosulfate, Mica, Tin Oxide, Limonene¹, Citrus Aurantium Peel Oil¹, Terpinolene¹, Terpineol¹, Pinene¹, Alpha-Terpinene¹, Linalool¹, Titanium Dioxide (CI 77891), Iron Oxides (CI 77492, CI 77491). ¹Component of essential oils. How to Use + Store",
-   "description": "A deeply cleansing shampoo bar that clarifies without stripping. Removes oil and build-up, leaving hair clean, light, and balanced. This solid shampoo bar clears build-up and excess oil with castor oil, ginseng, and orange peel. It deeply clarifies without disrupting your scalp’s natural balance. Safe for colour-treated hair. Scent profile: Fresh citrus blend of lime and orange. 92% of users agree this shampoo helped remove excess oil or build-up* *Based on a survey of 322 Ethique consumers How ",
+   "description": "A deeply cleansing shampoo bar that clarifies without stripping. Removes oil and build-up, leaving hair clean, light, and balanced. This solid shampoo bar clears build-up and excess oil with castor oil, ginseng, and orange peel. It deeply clarifies without disrupting your scalp’s natural balance. Safe for colour-treated hair. Scent profile: Fresh citrus blend of lime and orange. 92% of users agree this shampoo helped remove excess oil or build-up* *Based on a survey of 322 Ethique consumers How",
    "claims": [
-    "purifiant"
+    "purifiant",
+    "anti-gras",
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/ethique/cutout/clarifying-shampoo-bar.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ethique--volumizing-conditioner-bar",
@@ -639,7 +695,8 @@
    "etape": 2,
    "cheveux_cibles": [
     "fins",
-    "colores"
+    "colores",
+    "chute"
    ],
    "actifs": [
     "caféine",
@@ -648,10 +705,13 @@
    "ingredients": "Aqua (Water), Citrus Aurantium Peel Oil², Limonene², Pinene², Linalool², Titanium Dioxide (CI 77891), Iron Oxides (CI 77491). ¹Natural fragrance. ²Component of essential oi",
    "description": "Fine hair's new best friend has arrived. This lightweight wonder, infused with caffeine and biotin, boosts body and bounce without weighing you down. It's the secret to hair that looks fuller, feels softer, and moves with enviable ease. Flat hair days are officially over. Weightless moisture for healthy-looking locks. Suitable for colour-treated hair. Scent profile: Zesty orange-ginger. Up to 10x more concentrated active ingredients* for superior results *Versus typical liquid conditioner How to",
    "claims": [
-    "hydratant",
-    "volume"
+    "hydratation",
+    "volume",
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/ethique/cutout/volumizing-conditioner-bar.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ethique--volumizing-shampoo-bar",
@@ -668,7 +728,8 @@
    "etape": 1,
    "cheveux_cibles": [
     "fins",
-    "colores"
+    "colores",
+    "chute"
    ],
    "actifs": [
     "caféine",
@@ -679,9 +740,12 @@
    "ingredients": "Aqua (Water), Decyl Glucoside, Coconut Acid, Theobroma Cacao (Cocoa) Seed Butter, Brassica Alcohol, Citrus Aurantium Dulcis (Orange) Peel Oil, Caprylic/Capric Triglyceride, Lactic Acid, Glycerine, Magnesium Sulfate, Sodium Isethionate, Behentrimonium Methosulfate, Benzyl Alcohol, Caffeine, Mica, Biotin, Fragrance (Parfum)¹, Dehydroacetic Acid, Zingiber Officinale (Ginger) Root Oil, Citrus Aurantium Peel Oil², Limonene², Pinene², Linalool², Titanium Dioxide (CI 77891), Iron Oxides (CI 77491). ¹Natural fragrance. ²Component of essential",
    "description": "This volume-boosting shampoo is like an espresso shot for your strands. A blend of caffeine, biotin, and Epsom salt lifts roots and adds body to fine hair. Get ready for a fuller, more voluminous mane that defies gravity. Farewell, flat hair. Suitable for colour-treated hair. Scent profile: Zesty orange-ginger. 204.9% increase in volume after 1 wash* *Clinically tested How to Use: Wet hair and bar. Massage bar directly onto scalp and work into a lather with hands. Rinse completely, following wit",
    "claims": [
-    "volume"
+    "volume",
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/ethique/cutout/volumizing-shampoo-bar.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

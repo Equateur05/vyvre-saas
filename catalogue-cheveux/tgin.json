@@ -16,8 +16,10 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
-    "epais",
-    "abimes"
+    "secs",
+    "colores",
+    "abimes",
+    "chute"
    ],
    "actifs": [
     "biotine",
@@ -34,36 +36,16 @@
    "ingredients": "Water, Raw Black Honey, Ricinus Communis (Castor Seed Oil), Biotin, Olea Europaea (Olive) Fruit Oil, Agave Americana Leaf (Agave) Extract, Carica Papaya Fruit (Papaya) Extract, Ginger Root (Ginger) Extract, Gardenia Tahitensis (Monoi) Flower Extract, Euterpe Oleracea (Acai) Fruit Extract, Sclerocarya Birrea (Marula) Seed Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Aloe Barbadensis (Aloe Vera) Leaf Juice, Cocos Nucifera (Coconut) Oil, Stearyl Alcohol, Cetyl Alcohol, Stearamidopropyl Dimethylamine, Glycerin, Fragrance, Cyclopentasiloxane, Dimethicone",
    "description": "Intensely hydrating, the tgin Miracle RepaiRx Deep Hydrating Hair Mask restores life to dry, damaged, or color treated hair with healing biotin and moisturizes with black castor oil, smoothing and softening the hair. Improves shine and manageability, locks in moisture and repairs damage, while reducing shedding and breakage.",
    "claims": [
-    "hydratant",
-    "reparateur",
+    "hydratation",
+    "reparation",
+    "anti-frisottis",
+    "anti-chute",
     "brillance",
-    "lissant"
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "tgin--tgin-water-bottle",
-   "name": "tgin® Water Bottle",
-   "brand": "tgin",
-   "brand_name": "Thank God It's Natural",
-   "url": "https://tginatural.com/products/tgin%C2%AE-water-bottle",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 30.95,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0716/9540/1252/files/1_69832aee-30b7-49f7-a641-28ca3795ff0b.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/tgin/tgin-water-bottle.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [
-    "boucles"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "At tgin® we believe beauty & wellness go hand in hand. Hydration is the key to healthy hair. By choosing tgin, you’re joining our community of Miracle Babes who trust us to keep their curls popping and their wellness prioritized. Enjoy our premium tgin Water Bottles while they last! Details: 18 oz. Metal Not suitable for dishwasher use Not suitable for microwave use",
-   "claims": [
-    "hydratant"
-   ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/miracle-repairx-deep-hydrating-hair-mask-1-75oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "tgin--miracle-styling-ayurvedic-hair-scalp-oil",
@@ -88,8 +70,12 @@
    ],
    "ingredients": "Ersea Gratissima (Avocado) Oil, Sesamum Indicum (Sesame) Seed Oil, Ricinus Communis (Castor) Seed Oil, Azadirachta Indica Seed Oil, Pogostemon Cablin Leaf Oil*, Camellia Sinensis Leaf Extract, Larix Europaea Wood Extract, Melaleuca Alternifolia (Tea Tree) Leaf Oil, Vitis Vinifera (Grape) Seed Oil, Glycine, Glycerin, Emblica Officinalis Fruit Powder, Bacopa Monnieri Leaf Powder, Zinc Chloride, Polyester-37, Peg-40 Hydrogenated Castor Oil, Water, Fragrance",
    "description": "tgin Miracle Styling Ayurvedic Hair & Scalp Oil, inspired by tgin founder Chris-Tia’s journey in Bali, is rooted in restorative practices, nurturing both hair and scalp. Formulated with Neem Oil and Brahmi Powder, our luxurious blend conditions, eases tension and reduces scalp irritation, for a calm, balanced scalp in any hairstyle.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "apaisant-cuir-chevelu"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/miracle-styling-ayurvedic-hair-scalp-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "tgin--miracle-styling-multi-use-setting-foam",
@@ -104,7 +90,9 @@
    "image_local": "public/scan/products-cheveux/tgin/miracle-styling-multi-use-setting-foam.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "panthénol",
     "aloe vera"
@@ -112,10 +100,13 @@
    "ingredients": "Water (Aqua) (Eau), Polysorbate 20, Aloe Barbadensis Leaf Juice, Polyquaternium-55, PEG-7 Glyceryl Cocoate, Panthenol, Caprylyl Glycol, Polyquaternium-10, Cetrimonium Chloride, Cocamidopropyl Betaine, Phenoxyethanol, Ethylhexylglycerin, Fragrance (Parfum), Limonene, Citral, Pinene, Linalool, Citronellol",
    "description": "Indulge in the brilliance of glossy hair combined with the perfect balance of a medium-soft hold with tgin Miracle Styling Multi-Use Setting Foam. Formulated with nourishing aloe and essential B5 vitamin, our foam supports a variety of styles while nurturing hair from roots to ends.",
    "claims": [
-    "nourrissant",
-    "brillance"
+    "nutrition",
+    "brillance",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/miracle-styling-multi-use-setting-foam.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "tgin--miracle-styling-smooth-sleek-wax-stick",
@@ -130,9 +121,7 @@
    "image_local": "public/scan/products-cheveux/tgin/miracle-styling-smooth-sleek-wax-stick.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [
     "biotine",
     "huile de ricin"
@@ -140,10 +129,14 @@
    "ingredients": "Ricinus Communis (Castor) Seed Oil, Beeswax, Hydrogenated Castor Oil, Japan Wax Synthetic, Candelilla (Euphorbia Cerifera) Cera, Sorbitan Stearate, Hydrogenated Olive Oil Unsaponifiables, Squalane, Fragrance (Parfum), Biotin, Tocopheryl Acetate, Benzyl Benzoate, Citral, Limonene, Linalool",
    "description": "tgin Miracle Styling Smooth & Sleek Wax Stick is the answer to achieving sleek and polished hairstyles with ease. Formulated with Castor oil and Squalane, our wax stick offers moisturizing, lightweight, and pliable hold for smooth, frizz-free styles.",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "anti-frisottis",
+    "brillance",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/miracle-styling-smooth-sleek-wax-stick.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "tgin--miracle-styling-water-activated-curl-elongating-gel",
@@ -159,7 +152,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -170,11 +163,14 @@
    "ingredients": "Water, Vp/va Copolymer, Glycerin, Alcohol, Polysorbate 20, Panthenol, Aloe Barbadensis Leaf Juice, Prunus Armeniaca (Apricot) Kernel Oil, Carbomer, Disodium Edta, Aminomethyl Propanol, Phenoxyethanol, Ethylhexylglycerin, Fragrance",
    "description": "Say goodbye to shrinkage and hello to beautiful, elongated coils and curls with tgin Miracle Styling Water Activated Curl Elongating Gel. Formulated with nourishing aloe, it hydrates and seals the hair cuticle, while Apricot oil helps styles remain smooth and frizz-free all day long.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/miracle-styling-water-activated-curl-elongating-gel.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "tgin--miracle-styling-3-n-1-heat-protectant-spray",
@@ -203,9 +199,12 @@
    "ingredients": "Isohexadecane, C12-15 Alkyl Benzoate, Coconut Alkanes, Fragrance (Parfum), Simmondsia Chinensis (Jojoba) Seed Oil, Tocopherol, Persea Gratissima (Avocado) Oil, Vitis Vinifera (Grape) Seed Oil, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Helianthus Annuus (Sunflower) Seed Oil, Crambe Abyssinica Seed Oil, Argania Spinosa Kernel Oil, Arginine, Coco-Caprylate/Caprate, Ethyl Oleate, Ethyl Linoleate, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Limonene, Citral, Pinene, Linalool, Rose Ketones, Benzyl Benzoate, Citronellol, Linalyl Acetate",
    "description": "Prep and protect silky looks with tgin Miracle Styling 3-N-1 Heat Protectant Spray. Formulated with Jojoba, Almond, and Avocado oils our heat protectant conditions and safeguards hair against the intense heat of flat irons, curling wands, and blow dryers.",
    "claims": [
-    "protection-thermique"
+    "definition-boucles",
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/miracle-styling-3-n-1-heat-protectant-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "tgin--rose-water-hydrating-styling-lotion",
@@ -233,9 +232,12 @@
    "ingredients": "Water (Aqua), C12-15 Alkyl Benzoate, Cetyl Alcohol, Glycerin, Diheptyl Succinate, Glyceryl Stearate, Acrylamidopropyltrimonium, Chloride/acrylamide Copolymer, Fragrance (Parfum), Panthenol, Tocopherol, Tocopheryl Acetate, Retinyl Palmitate, Rose Extract, Euterpe Oleracea Fruit Oil, Aloe Barbadensis Leaf Juice, Capryloyl Glycerin/sebacic Acid Copolymer, Behentrimonium Chloride, Propylene Glycol Dicaprylate/dicaprate, Polyquaternium-37, Ppg-1 Trideceth-6, Peg-100 Stearate, Dipropylene Glycol, Phenoxyethanol, Ethylhexylglycerin, Potassium Sorbate, Sodium Benzoate, Leuconostoc/radish Root Ferment Filtrate, Citric Acid, Anthocyanins",
    "description": "This daily styling lotion provides a soft-touchable hold and features rose water and acai berry delivering ultra-hydrating results ideal for low porosity and dry hair types. This lightweight formulation can be used daily for an extra dose of moisture and hydration.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/rose-water-hydrating-styling-lotion.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "tgin--rose-water-hydrating-curl-cream",
@@ -251,8 +253,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "fins",
-    "epais",
     "boucles"
    ],
    "actifs": [
@@ -265,10 +267,15 @@
    "ingredients": "Water (Aqua), C12-15 Alkyl Benzoate, Glycerin, Cetearyl Alcohol, Aloe Barbadensis Leaf Juice, Diheptyl Succinate, Behentrimonium Chloride, Glyceryl Stearate, Polyester-37, Fragrance (Parfum), Panthenol, Tocopherol, Tocopheryl Acetate, Retinyl Palmitate, Rose Extract, Euterpe Oleracea Fruit Oil, Capryloyl Glycerin/sebacic Acid Copolymer, Polyquaternium-10, Polyquaternium-11, Peg-100 Stearate, Dipropylene Glycol, Disodium Edta, Phenoxyehanol, Ethylhexylglycerin, Potassium Sorbate, Sodium Benzoate, Leuconostoc/radish Root Ferment Filtrate, Citric Acid",
    "description": "Achieve the perfect one-product wash and go with this moisturizing styling cream infused with rose water and acai berry. This styling cream is ultra-hydrating and delivers a lightweight hold that defines and provides frizz-free volume for wavy to curly hair textures.",
    "claims": [
-    "hydratant",
-    "volume"
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles",
+    "volume",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/rose-water-hydrating-curl-cream.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "tgin--miracle-repairx-strengthening-conditioner-13-oz",
@@ -284,6 +291,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -301,13 +309,16 @@
    "ingredients": "Aqua (Purified Water) Infused With Camellia Sinensis (Green Tea) Leaf Extract, Cocos Nucifera (Coconut) Oil, Raw Black Honey (Mel), Ricinus Communis (Castor Seed Oil), Agave Americana Leaf (Agave) Extract, Carica Papaya Fruit (Papaya) Extract, Ginger Root (Ginger) Extract, Gardenia Tahitensis (Monoi), Flower Extract, Euterpe Oleracea (Acai) Fruit Extract, Moringa Oleifera Leaf (Moringa) Extract, Sclerocarya Birrea (Marula) Seed Oil, Theobroma Grandiflorum (Cupuacu) Butter, Butyrospermum Parkii (Shea Butter), Argania Spinosa (Moroccan Argan) Kernel Oil, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Biotin, Pantothenic Acid (Pro-vitamin B5), Cetearyl Alcohol, Propanediol, Cetyl Alcohol, Dimethicone, Behentrimonium Methosulfate, Behentrimonium Choloride, Panthenol (Pro Vitamin B5), Tocopheryl Acetate (Vitamin E), Phenoxyethanol, Caprylyl Glycol, Disodium Edta, Fragrance",
    "description": "The tgin Miracle RepaiRx Strengthening Conditioner works fast to replenish hair’s natural oils and promotes healthy growth with rich black castor oil to enhance shine, while nourishing with biotin. Repairs damaged, brittle hair, leaving it soft, smooth and manageable with every use.When used with Miracle RepaiRx Anti-Breakage Serum the system is clinically tested to reduce breakage by 93% vs. shampoo alone.",
    "claims": [
-    "nourrissant",
-    "reparateur",
-    "brillance",
-    "lissant",
-    "fortifiant"
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "croissance",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/miracle-repairx-strengthening-conditioner-13-oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "tgin--this-is-only-a-test-what-breast-cancer-taught-me-about-faith-love-hair-and-busin",
@@ -326,8 +337,13 @@
    "actifs": [],
    "ingredients": null,
    "description": "This is Only A Test is also available on Amazon on Kindle and Audible. About the Book CHRIS-TIA DONALDSON knows what it means to beat the odds. Going from the inner city of Detroit to the Ivy League to founding a successful hair care company and facing brutal trials like breast cancer along the way, she embodies the strength so many women in America aspire to have—and knows how the challenges women face can create remarkable perspective, calm, and understanding. In This is Only a Test, Chris-Tia",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "fortifiant",
+    "apaisant-cuir-chevelu"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/this-is-only-a-test-what-breast-cancer-taught-me-about-faith-love-hair-and-busin.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "tgin--honey-miracle-hair-mask",
@@ -356,10 +372,12 @@
    "ingredients": "Water (Aqua) (Eau), Cetearyl Alcohol, Glycerin, Simmondsia Chinensis (Jojoba) Seed Oil, Isododecane, C13-15 Alkane, Stearamidopropyl Dimethylamine, Dimethiconol, Aloe Barbadensis Leaf Juice, Fragrance (Parfum), Honey (Mel) (Miel), Glutamic Acid, Hydrolyzed Wheat Protein, Caprylyl Methicone, Glyceryl Caprylate, Polysorbate 60, Caprylhydroxamic Acid, Disodium EDTA, BHT, Potassium Sorbate, Sodium Benzoate, Benzyl Alcohol, Coumarin, Linalool, Benzyl Salicylate We occasionally update tgin® product formulas to ensure compliance with all applicable regulations across all markets. For the most accurate and up-to-date information",
    "description": "tgin Honey Miracle Hair Mask is like an instant make over for dry, damaged or colored treated hair. This luxurious deep conditioner contains raw honey for softer, shinier tresses and jojoba and olive oils, which nourish and heal strands in need of repair. The result is hair that never looked so good.",
    "claims": [
-    "nourrissant",
-    "reparateur"
+    "nutrition",
+    "reparation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/honey-miracle-hair-mask.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "tgin--rosewater-curl-defining-styling-gel-13oz",
@@ -387,10 +405,12 @@
    "ingredients": "Water, Rosa Centifolia (Rose) Flower Extract, Euterpe Oleracea (Acai) Fruit Extract, Pvp/va Copolymer, Polysorbate 20, Ginger Root (Ginger) Extract, Lavandula Angustifolia (Lavender) Flower Extract, Calendula Officinalis Flower Extract, Sclerocarya Birrea (Marula) Seed Oil, Olea Europaea (Olive) Fruit Oil, Glycerin, Carbomer, Hydrolyzed Wheat Protein, Aminomethyl Propanol, Sodium Hydroxymethylglycinate, Tetrasodium Edta, Fragrance (Parfum)",
    "description": "tgin Rose Water Curl Defining Styling Gel will help you achieve flawless styling. Boost volume and define your kinks, curls, and waves, for touchable, soft hair.",
    "claims": [
-    "volume",
-    "definition-boucles"
+    "definition-boucles",
+    "volume"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/rosewater-curl-defining-styling-gel-13oz.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "tgin--triple-moisture-replenishing-conditioner-13oz",
@@ -406,6 +426,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -423,11 +444,14 @@
    "ingredients": "Water (Aqua) (Eau), Cocos Nucifera (Coconut) Oil, Propanediol, Cetearyl Alcohol, Cetyl Alcohol, Behentrimonium Methosulfate, Panthenol, Tocopheryl Acetate, Butyrospermum Parkii (Shea) Butter, Argania Spinosa Kernel Oil, Rosmarinus Officinalis (Rosemary) Leaf Extract, Camellia Sinensis Leaf Extract, Aloe Barbadensis Leaf Juice, Theobroma Grandiflorum Seed Butter, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Helianthus Annuus (Sunflower) Seed Oil, Honey (Mel) (Miel), Glycerin, Behentrimonium Chloride, Caprylyl Glycol, Hydrogenated Ethylhexyl Olivate, Hydrogenated Olive Oil Unsaponifiables, Isopropyl Alcohol, Dimethicone, Dimethicone/Vinyl Dimethicone Crosspolymer, Disodium EDTA, Phenoxyethanol, Potassium Sorbate, Sodium Benzoate, Sodium Sulfite, Citric Acid, Fragrance (Parfum), Limonene",
    "description": "tgin Triple Moisture Replenishing Conditioner is the perfect pick me up for even the most dry, damaged hair. Our special formula is enriched with shea butter and sweet almond oil to hydrate, smooth and repair strands with every use. The result is healthy hair that stays soft, moisturized, and easy to manage.",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/triple-moisture-replenishing-conditioner-13oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "tgin--sweet-honey-hair-milk-8oz",
@@ -462,9 +486,14 @@
    "ingredients": "Water (Aqua) (Eau), Glycerin, Butyrospermum Parkii (Shea) Butter, Cetearyl Alcohol, Brassicamidopropyl Dimethylamine, Amodimethicone, Glyceryl Stearate, PEG-100 Stearate, Hydrogenated Ethylhexyl Olivate, Cocos Nucifera (Coconut) Oil, Olea Europaea (Olive) Fruit Oil, Tocopherol, Tocopheryl Acetate, Panthenol, Honey (Mel) (Miel)*, Agave Americana Leaf Extract, Rosmarinus Officinalis (Rosemary) Leaf Extract, Oryza Sativa (Rice) Bran Extract, Carica Papaya (Papaya) Fruit Extract, Helianthus Annuus (Sunflower) Extract, Zingiber Officinale (Ginger) Root Extract, Euterpe Oleracea Fruit Extract, Gardenia Taitensis Flower Extract, Aloe Barbadensis Leaf Juice, Theobroma Cacao (Cocoa) Seed Butter, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Triticum Vulgare (Wheat) Germ Oil, Sclerocarya Birrea Seed Oil, Argania Spinosa Kernel Oil, Hydrolyzed Wheat Protein, Lactic Acid, Caprylyl Glycol, Hydrogenated Olive Oil Unsaponifiables, Polyquaternium-10, Polyquaternium-37, Tetrasodium EDTA, Tetrasodium Glutamate Diacetate, Phenoxyethanol, Sorbic Acid, Potassium Sorbate, Sodium Benzoate, Sodium Sulfite, Benzyl Alcohol, Citric Acid, Sodium Hydroxide, Fragrance (Parfum), Hexamethylindanopyran, Limonene, Benzyl Benzoate, Geraniol, Pinene, Linalool, Hexyl Cinnamal, Linalyl Acetate, Geranyl Acetate * Certified organic ingredient/Ingrédient certifié biologique",
    "description": "Kiss dry hair goodbye and say hello to soft, beautiful moisturized curls with tgin Sweet Honey Hair Milk. Infused with raw honey and agave nectar, this lightweight hair milk has the perfect combination of moisture and antioxidants, to help condition and detangle overworked kinky, curly and wavy tresses.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "definition-boucles",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/sweet-honey-hair-milk-8oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "tgin--miracle-repairx-strengthening-shampoo-13oz",
@@ -480,6 +509,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -497,12 +527,15 @@
    "ingredients": "Water (Aqua), Sodium C14-16 Olefin Sulfonate, Disodium Cocoamphodipropionate, Cocamidopropyl Betaine, Citric Acid, Sodium Cocoyl Isethionates, Decyl Glucoside, Maltodextrin, Honey (Mel), Glycerin, Agave Americana (Agave) Leaf Extract, Carica Papaya (Papaya) Seed Oil, Zingiber Officinale (Ginger) Root Oil, Cocos Nucifera (Coconut) Oil, Gardenia Tahitensis Flower, Tocopherol, Helianthus Annuus (Sunflower) Seed Oil, Ricinus Communis (Castor) Seed Oil, Phyllanthus Emblica (Amla) Fruit Powder, Euterpe Oleracea (Acai) Seed Oil, Sclerocarya Birrea, (Marula) Seed Oil, Tocopheryl Acetate, Panthenol, Phospholipids, Biotin, Phenoxyethanol, Caprylyl Glycol, Disodium Edta, Lactic Acid, Glycolic Acid, Vaccinium Myrtillus (Bilberry) Extract, Saccharum Officinarum (Sugar Cane) Extract, Citrus Aurantium Dulcis (Orange) Fruit Extract, Citrus Medica Limonum (Lemon) Fruit Extract, Acer Saccharum (Sugar Maple) Extract, Tartaric Acid, Malic Acid, Polyquaternium-10, Fragrance (Parfum)",
    "description": "Formulated with black castor oil and biotin tgin Miracle RepaiRx Strengthening Shampoo gently cleanses hair without harsh sulfates. Black castor oil smooths the cuticle surface and helps promote healthy hair growth while biotin nourishes and promotes length retention.",
    "claims": [
-    "nourrissant",
-    "reparateur",
-    "lissant",
-    "fortifiant"
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "croissance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/miracle-repairx-strengthening-shampoo-13oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "tgin--green-tea-super-moist-leave-in-conditioner",
@@ -534,9 +567,13 @@
    "ingredients": "Water (Aqua) (Eau), Aloe Barbadensis Leaf Juice, Propanediol, Cetearyl Alcohol, Helianthus Annuus (Sunflower) Seed Oil, Cetyl Alcohol, Behentrimonium Methosulfate, Panthenol, Tocopheryl Acetate, Camellia Sinensis Leaf Extract, Argania Spinosa Kernel Oil, Butyrospermum Parkii (Shea) Butter, Theobroma Cacao (Cocoa) Seed Butter, Theobroma Grandiflorum Seed Butter, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Ricinus Communis (Castor) Seed Oil, Honey (Mel) (Miel), Caprylyl Glycol, Disodium EDTA, Phenoxyethanol, Leuconostoc/Radish Root Ferment Filtrate, Fragrance (Parfum), Citral",
    "description": "A portion of the proceeds from this sale goes towards providing women better access to breast health services through transportation and out-of-pocket expenses through the tgin® Foundation. ----- Kiss dry hair goodbye and say hello to soft, beautiful moisturized curls with tgin Green Tea Super Moist Leave in Conditioner. Packed with green tea, shea butter, and argan oil, this lightweight formula has the perfect combination of moisture and antioxidants, which helps to improve manageability, fight",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/green-tea-super-moist-leave-in-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "tgin--jamaican-black-castor-oil-4oz",
@@ -553,7 +590,8 @@
    "etape": 4,
    "cheveux_cibles": [
     "fins",
-    "abimes"
+    "abimes",
+    "chute"
    ],
    "actifs": [
     "huile de ricin"
@@ -561,10 +599,14 @@
    "ingredients": null,
    "description": "Kiss dry and damaged hair goodbye with tgin Jamaican Black Castor Oil Growth Serum. Our oil helps restore life to dry, damaged hair, and helps strengthen and re-grow hair. You can also use our oil to help lengthen and thicken eyebrows and eyelashes. Size: 4oz",
    "claims": [
+    "reparation",
+    "fortifiant",
     "volume",
-    "fortifiant"
+    "croissance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/jamaican-black-castor-oil-4oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "tgin--butter-cream-daily-moisturizer-for-natural-hair-12oz-1",
@@ -579,7 +621,9 @@
    "image_local": "public/scan/products-cheveux/tgin/butter-cream-daily-moisturizer-for-natural-hair-12oz-1.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "panthénol",
     "beurre de karité",
@@ -591,9 +635,13 @@
    "ingredients": "Water (Aqua) (Eau), Glycerin, Butyrospermum Parkii (Shea) Butter, Cetearyl Alcohol, Dimethicone, Hydrogenated Ethylhexyl Olivate, Glyceryl Stearate, PEG-100 Stearate, Brassicamidopropyl Dimethylamine, Olea Europaea (Olive) Fruit Oil, Tocopheryl Acetate, Panthenol, Aloe Barbadensis Leaf Juice, Theobroma Cacao (Cocoa) Seed Butter, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Triticum Vulgare (Wheat) Germ Oil, Aspartic Acid, Hydrolyzed Soy Protein, Propylene Glycol Dicaprylate/Dicaprate, Hydrogenated Olive Oil Unsaponifiables, Polyquaternium-10, Polyquaternium-37, Trideceth-6, Ceteareth-20, Dimethicone/Vinyl Dimethicone Crosspolymer, Tetrasodium EDTA, Phenoxyethanol, Ethylhexylglycerin, Potassium Sorbate, Sodium Benzoate, Benzyl Alcohol, C11-15-lsoalkanes, Fragrance (Parfum), Hexamethylindanopyran, Limonene, Benzyl Benzoate, Geraniol, Pinene, Linalool, Hexyl Cinnamal, Linalyl Acetate, Geranyl Acetate * We've enhanced our Butter Cream Daily Moisturizer with an improved formula that aligns with the highest global clean beauty ingredients while maintaining all the moisturizing and nourishing benefits you trust. After months of careful testing, we can guarantee that this update delivers the same exceptional performance you've come to expect from your daily moisturizer. Your hair health and wellness remain our top priority, and you can continue your haircare routine with complete confidence in achieving the same beautiful, healthy results you love",
    "description": "Enriched with shea butter, cocoa butter, and Vitamin E, tgin Butter Cream Daily Moisturizer will give your strands the moisture they need and crave for soft, shiny, manageable hair.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/butter-cream-daily-moisturizer-for-natural-hair-12oz-1.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "tgin--curl-bomb-moisturizing-styling-gel-13oz",
@@ -609,6 +657,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
+    "gras",
     "boucles"
    ],
    "actifs": [
@@ -620,10 +670,12 @@
    "ingredients": "Water (Aqua), Pvp/va Copolymer, Polysorbate 20, Maca Root (Lepidium Meyenii), Black Cohosh (Cimicifuga Racemosa), Milk Thistle (Silybum Marianum), Nettle Leaf (Urtica Dioica), Olea Europaea (Olive) Fruit Oil, Glycerin, Carbomer, Hydrolyzed Wheat Protein, Aminomethyl Propanol, Sodium Hydroxymethylglycinate, Tetrasodium Edta, Fragrance (Parfum)",
    "description": "Create soft touchable curls without the crunch using tgin Curl Bomb Moisturizing Styling Gel. This unique formula aids in moisture retention, while providing long lasting curl definition.",
    "claims": [
-    "hydratant",
+    "hydratation",
     "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/curl-bomb-moisturizing-styling-gel-13oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "tgin--miracle-repairx-protective-leave-in-conditioner",
@@ -639,6 +691,8 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
+    "boucles",
     "abimes"
    ],
    "actifs": [
@@ -655,12 +709,16 @@
    "ingredients": "Water (Aqua), Propanediol, Cetearyl Alcohol, Cetyl Alcohol, Cocos Nucifera (Coconut) Oil, Behentrimonium Methosulfate, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Theobroma Cacao (Cocoa) Seed Butter, Theobroma Grandiflorum (Cupuacu) Seed Butter, Butyrospermum Parkii (Shea Butter), Maltodextrin, Honey (Mel), Argania Spinosa (Argan) Kernel Oil, Ricinus Communis (Castor) Seed Oil, Panthenol, Phospholipids, Biotin, Tocopheryl Acetate (Vitamin E), Camellia Sinensis (Green Tea) Leaf Extract, Phenoxyethanol, Caprylyl Glycol, Rosmarinus Officinalis (Rosemary) Leaf Extract, Vegetable Oil, Disodium Edta, Fragrance (Parfum)",
    "description": "tgin Miracle RepaiRx Protective Leave In Conditioner adds definition while replenishing moisture to hair, restoring softness and shine. This intense conditioner uses black castor oil and biotin to treat hair, reducing split ends and promoting hair growth.",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "brillance",
-    "definition-boucles"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "definition-boucles",
+    "croissance",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/miracle-repairx-protective-leave-in-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "tgin--honey-whip-hydrating-mousse-8oz-1",
@@ -677,8 +735,8 @@
    "etape": 3,
    "cheveux_cibles": [
     "secs",
-    "epais",
-    "boucles"
+    "boucles",
+    "abimes"
    ],
    "actifs": [
     "huile de ricin",
@@ -688,10 +746,13 @@
    "ingredients": "Water (Aqua), Propanediol, Polysorbate 20, Peg-8 Pg-coco-glucoside Dimethicone, Maltodextrin/vp Copolymer, Fragrance (Parfum), Ppg-26-buteth-26, Honey (Mel), Agave Americana Leaf Extract, Rosa Damascena Flower Water*, Calendula Officinalis Flower Extract, Arctium Lappa Root Extract, Carica Papaya (Papaya) Seed Oil, Glycerin, Glyceryl Caprylate, Polyquaternium-81, Pvp, Peg-40 Hydrogenated Castor Oil, Cetrimonium Chloride, Butylene Gylcol, Propylene Glycol, Caprylhydroxamic Acid, Phenoxyethanol, Ethylhexylglycerin, Leuconostoc/radish Root Ferment Filtrate, Geraniol, Linalool, Hexyl Cinnamal, Limonene *Certified Organic Ingredient/ingrèdient Certifiè Biologique",
    "description": "Kiss dry hair goodbye and say hello to soft, beautiful moisturized curls with tgin Honey Whip Hydrating Mousse. Infused with raw honey and agave nectar, this lightweight mousse softly defines kinks, curls and waves. This perfect combination of moisture and antioxidants, helps to improve manageability, fight frizz, and transform dry brittle strands into soft, smooth and healthy hair.",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/honey-whip-hydrating-mousse-8oz-1.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "tgin--rose-water-curl-defining-mousse-8oz",
@@ -707,7 +768,6 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
     "boucles",
     "chute"
    ],
@@ -721,11 +781,14 @@
    "ingredients": "Water, Euterpe Oleracea Fruit Extract, Honey (Mel) (Miel)*, Apple Cider Vinegar*, Calendula Officinalis Flower Extract, Agave Americana Leaf Extract, Arctium Lappa Root Extract, Aloe Barbadensis Leaf Juice, Lavandula Angustifolia (Lavender) Oil, Carica Papaya (Papaya) Seed Oil, Glycerin, Macadamia Seed Oil Polyglyceryl-4 Esters, Polyquaternium-81, Maltodextrin/VP Copolymer, PVP, Cetrimonium Chloride, Propylene Glycol, Phenoxyethanol, Ethylhexylglycerin, Potassium Sorbate, Sodium Benzoate, Leuconostoc/Radish Root Ferment Filtrate, Sodium Sulfite, Citric Acid, Sodium Hydroxide, Fragrance (Parfum) *Certified organic ingredient/Ingrédient certifié",
    "description": "Our tgin Rose Water Curl Defining Mousse is formulated with rose water and acai berries which deeply nourishes hair, reduces hair loss and controls frizz to create touchably soft and defined curls.",
    "claims": [
-    "nourrissant",
-    "anti-chute",
-    "definition-boucles"
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "anti-chute"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/rose-water-curl-defining-mousse-8oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "tgin--rose-water-hydrating-hair-mask-12oz",
@@ -740,7 +803,10 @@
    "image_local": "public/scan/products-cheveux/tgin/rose-water-hydrating-hair-mask-12oz.jpg",
    "categorie": "masque",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "abimes"
+   ],
    "actifs": [
     "huile de coco",
     "aloe vera",
@@ -750,9 +816,12 @@
    "ingredients": "Water, Rosa Centifolia (Rose) Flower Extract, Euterpe Oleracea (Acai) Fruit Extract, Olea Europaea (Olive) Fruit Oil, Ginger Root (Ginger) Extract, Lavandula Angustifolia (Lavender) Flower Extract, Calendula Officinalis Flower Extract, Sclerocarya Birrea (Marula) Seed Oil, Aloe Barbadensis (Aloe Vera) Leaf Juice, Cocos Nucifera (Coconut) Oil, Stearyl Alcohol, Cetyl Alcohol, Stearamidopropyl Dimethylamine, Fragrance, Cyclopentasiloxane, Dimethicone",
    "description": "Our tgin Rose Water Hydrating Hair Mask helps revitalize dry and brittle hair. The deep-penetrating hair mask works to melt away knots and tangles while adding moisture and softness.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/rose-water-hydrating-hair-mask-12oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "tgin--rose-water-smoothing-leave-in-conditioner",
@@ -768,7 +837,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "epais"
+    "secs"
    ],
    "actifs": [
     "huile d'argan",
@@ -781,11 +850,14 @@
    "ingredients": "Water (Aqua), Rosa Centifolia (Rose) Flower Extract, Euterpe Oleracea (Acai) Fruit Extract, Ginger Root (Ginger) Extract, Lavandula Angustifolia (Lavender) Flower Extract, Calendula Officinalis Flower Extract, Sclerocarya Birrea (Marula) Seed Oil, Aloe Barbedensis Leaf Juice Theobroma Cacao (Cocoa) Seed Butter, Butyrospermum Parkii (Shea Butter), Argania Spinosa (Moroccan Argan) Kernel Oil, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Ricinus Communis (Castor) Seed Oil, Helianthus Annuus (Sunflower) Seed Oil, Theobroma Grandiflorum (Cupuacu) Seed Butter, Honey, Hypericum Perforatum (St. John's Wort) Flower, Tocopheryl Acetate (Vitamin E), Pro Vitamin B5, Propanediol, Cetearyl Alcohol, Cetyl Alcohol, Phenoxyethanol, Caprylyl Glycol, Disodium Edta, Rosemary Extract, Fragrance (Parfum)",
    "description": "Our tgin Rose Water Smoothing Leave in Conditioner is designed to add shine and body to dull hair while providing all-day moisture.",
    "claims": [
-    "hydratant",
-    "brillance",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/rose-water-smoothing-leave-in-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "tgin--rose-water-sulfate-free-hydrating-shampoo-13oz",
@@ -800,7 +872,9 @@
    "image_local": "public/scan/products-cheveux/tgin/rose-water-sulfate-free-hydrating-shampoo-13oz.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "panthénol",
     "niacinamide",
@@ -810,9 +884,12 @@
    "ingredients": "Aqua (Water), Rosa Centifolia (Rose) Flower Extract, Euterpe Oleracea (Acai) Fruit Extract, Ginger Root (Ginger) Extract, Lavandula Angustifolia (Lavender) Flower Extract, Calendula Officinalis Flower Extract, Sclerocarya Birrea (Marula) Seed Oil, Saccharum Officinarum (Sugar Cane) Extract, Acer Saccharum (Sugar Maple) Extract, Citrus Aurantium Dulcis (Orange) Fruit Extract, And Citrus Medica Limonum (Lemon) Fruit, Retinyl Palmitate (Vitamin A) And Niacinamide (Vitamin B3), Pantothenic Acid (Pro-vitamin B5), Disodium Cocoamphodipropionate, Sodium C14-16 Olefin Sulfonate, Polysorbate 20, Cocamidopropyl Betaine (Derived From Coconut), Sodium Cocoyl Isethionate, Decyl Glucoside, Polyquaternium-10, Citric Acid, Phenoxyethanol, Fragrance, Caprylyl Glycol, Edta Disodium, Panthenol (Pro Vitamin B5), Tocopheryl Acetate (Vitamin E)",
    "description": "Our tgin Rose Water Sulfate-Free Hydrating Shampoo gently cleanses hair, leaving it moisturized without a greasy finish.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/rose-water-sulfate-free-hydrating-shampoo-13oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "tgin--honey-curls-custard-12oz",
@@ -829,7 +906,6 @@
    "etape": 3,
    "cheveux_cibles": [
     "secs",
-    "epais",
     "boucles"
    ],
    "actifs": [
@@ -843,11 +919,15 @@
    "ingredients": "Water (Aqua) (Eau), Glycerin, Propanediol, Honey (Mel) (Miel)*, Polyquaternium-37, Methyl Gluceth-10, Tocopherol, Agave Americana Leaf Extract, Euterpe Oleracea Fruit Oil*, Zingiber Officinale (Ginger) Root Extract, Gardenia Taitensis Flower Extract, Cocos Nucifera (Coconut) Oil, Carica Papaya (Papaya) Seed Oil, Sclerocarya Birrea Seed Oil, Caprylyl Glycol, Polyquaternium-11, Tetrasodium EDTA, Tetrasodium Glutamate Diacetate, Phenoxyethanol, Sorbic Acid, Potassium Sorbate, Sodium Benzoate, Citric Acid, Sodium Hydroxide, Fragrance (Parfum), Hexamethylindanopyran, Limonene, Benzyl Benzoate, Geraniol, Pinene, Linalool, Hexyl Cinnamal, Linalyl Acetate, Geranyl Acetate *Certified organic ingredient/Ingrédient certifié biologique",
    "description": "Kiss dry hair goodbye and say hello to soft, beautiful moisturized curls with tgin Honey Curls Custard. Infused with raw honey and agave nectar, this shine enhancing curl custard provides a firm frizz-free long-lasting hold for high curl definition while helping restore moisture to the hair.",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles",
     "brillance",
-    "definition-boucles"
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/honey-curls-custard-12oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "tgin--miracle-repairx-cpr-protein-treatment-12oz",
@@ -863,6 +943,7 @@
    "categorie": "proteine-reconstruction",
    "etape": 4,
    "cheveux_cibles": [
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -880,12 +961,15 @@
    "ingredients": "Water (Aqua), Glycerin, Persea Gratissima (Avocado) Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Cetyl Alcohol, Cetearyl Alcohol, Stearamidopropyl Dimethylamine, Cocos Nucifera (Coconut) Oil, Raw Black Honey, Ricinus Communis (Castor Seed Oil), Biotin, Arctium Lappa (Burdock) Root Extract, Sclerocarya Birrea (Marula) Seed Oil, Carica Papaya (Papaya) Seed Oil, Zingiber Officinale (Ginger) Root Oil, Gardenia Tahitensis (Monoi) Flower Extract, Moringa Oleifera (Moringa) Seed Oil, Euterpe Oleracea (Acai) Fruit Extract, Behentrimonium Methosulfate, Cetrimonium Chloride, Hydrolyzed Wheat Protein, Polysorbate 60, Panthenol, Polyquaternium-10, Disodium Edta, Dmdm Hydantoin, Caprylhydroxamic Acid, Glyceryl Caprylate, Fragrance (Parfum)",
    "description": "tgin Miracle RepaiRx CPR Protein Treatment works deep to restore protein in hair, strengthening from the inside out. This gentle formula moisturizes the scalp, smooths the hair cuticle, and will help add nutrients to leave the hair smooth and hydrated.",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "lissant",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/miracle-repairx-cpr-protein-treatment-12oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "tgin--rose-water-frizz-free-hydrating-conditioner-13oz",
@@ -901,7 +985,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "epais"
+    "secs"
    ],
    "actifs": [
     "panthénol",
@@ -915,10 +999,15 @@
    "ingredients": "Aqua (Water), Rosa Centifolia (Rose) Flower Extract, Euterpe Oleracea (Acai) Fruit Extract, Ginger Root (Ginger) Extract, Lavandula Angustifolia (Lavender) Flower Extract, Calendula Officinalis Flower Extract, Sclerocarya Birrea (Marula) Seed Oil, Rosmarinus Officinalis (Rosemary) Leaf Extract, Theobroma Grandiflorum (Cupuacu) Butter, Butyrospermum Parkii (Shea Butter), Argania Spinosa (Moroccan Argan) Kernel Oil, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Biotin, Retinyl Palmitate (Vitamin A) And Niacinamide (Vitamin B3), Pantothenic Acid (Pro-vitamin B5), Cetearyl Alcohol, Propanediol, Cetyl Alcohol, Dimethicone, Behentrimonium Methosulfate, Behentrimonium Chloride, Panthenol (Pro Vitamin B5), Tocopheryl Acetate (Vitamin E), Phenoxyethanol, Caprylyl Glycol, Disodium Edta, Fragrance",
    "description": "Our tgin Rose Water Frizz Free Hydrating Conditioner is a lightweight, moisturizing formula that helps detangle hair and add shine.",
    "claims": [
-    "hydratant",
-    "brillance"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "brillance",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/rose-water-frizz-free-hydrating-conditioner-13oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "tgin--miracle-repairx-curl-food-12oz",
@@ -934,9 +1023,10 @@
    "categorie": "traitement-chute",
    "etape": 4,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "boucles",
-    "abimes"
+    "abimes",
+    "chute"
    ],
    "actifs": [
     "panthénol",
@@ -953,10 +1043,15 @@
    "ingredients": "Water (Aqua) (Eau), Cetearyl Alcohol, Glycerin, Cocos Nucifera (Coconut) Oil, Butyrospermum Parkii (Shea) Butter, Amodimethicone, Brassicamidopropyl Dimethylamine, Ricinus Communis (Castor) Seed Oil, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Biotin, Panthenol, Tocopherol, Tocopheryl Acetate, Honey (Mel) (Miel)*, Carica Papaya (Papaya) Fruit Extract, Zingiber Officinale (Ginger) Root Extract, Euterpe Oleracea Fruit Extract, Gardenia Taitensis Flower Extract, Moringa Oleifera Seed Extract, Agave Americana Leaf Extract, Arctium Lappa Root Extract, Aloe Barbadensis Leaf Juice, Theobroma Cacao (Cocoa) Seed Butter, Triticum Vulgare (Wheat) Germ Oil, Hydrolyzed Soy Protein, Lactic Acid, Zea Mays (Corn) Starch, Ceteareth-20, Tetrasodium Glutamate Diacetate, Phenoxyethanol, Potassium Sorbate, Sodium Benzoate, Sodium Sulfite, Benzyl Alcohol, Citric Acid, Sodium Hydroxide, Fragrance (Parfum), Linalool, Hexyl Cinnamal, Citronellol, Rose Ketones, Geranyl Acetate * Certified organic ingredient/Ingrédient certifié biologique",
    "description": "Restoring nutrients into the hair, the tgin Miracle RepaiRx Curl Food is the herbal solution to dry, damaged hair. This daily moisturizer uses black castor oil and biotin to add healing hydration into your styling routine, controlling dryness and frizz.",
    "claims": [
-    "hydratant",
-    "reparateur"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "anti-frisottis",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/miracle-repairx-curl-food-12oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "tgin--miracle-repairx-smooth-protect-edge-control-4oz",
@@ -969,9 +1064,10 @@
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0716/9540/1252/files/MRx_Edge_Control.png?width=600",
    "image_local": "public/scan/products-cheveux/tgin/miracle-repairx-smooth-protect-edge-control-4oz.jpg",
-   "categorie": "traitement-chute",
-   "etape": 4,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -985,10 +1081,14 @@
    "ingredients": "Water, (Aqua), Biotin, Maca Root (Lepidium Meyenii), Black Cohosh (Cimicifuga Racemosa), Milk Thistle (Silybum Marianum), Honey, Coconut Oil (Cocos Nucifera), Retinyl Palmitate (Vitamin A), Ceteareth-25, Glycerin, Peg-40 Hydrogenated Castor Oil, Caprylic/capric Triglyceride, Panthenol, Phenoxyethanol, Caprylyl Glycol, Fragrance (Parfum)",
    "description": "Create a smooth, finished look with tgin Smooth & Protect Edge Control. Infused with biotin and castor oil, this nutrient rich formula holds edges in place without building up and flaking. Perfect for creating sleek styles, polished ponytails, and tapered cuts. Great for natural & relaxed hair!",
    "claims": [
-    "reparateur",
-    "lissant"
+    "nutrition",
+    "reparation",
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/miracle-repairx-smooth-protect-edge-control-4oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "tgin--quench-3-in-1-co-wash-conditioner-and-detangler",
@@ -1001,12 +1101,12 @@
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0716/9540/1252/files/Quench.png?width=600",
    "image_local": "public/scan/products-cheveux/tgin/quench-3-in-1-co-wash-conditioner-and-detangler.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
     "secs",
-    "epais",
-    "boucles"
+    "boucles",
+    "abimes"
    ],
    "actifs": [
     "panthénol",
@@ -1020,10 +1120,15 @@
    "ingredients": "Water (Aqua) (Eau), Propanediol, Cetearyl Alcohol, Cocos Nucifera (Coconut) Oil, Cetyl Alcohol, Olea Europaea (Olive) Fruit Oil, Glyceryl Stearate, Tocopheryl Acetate, Panthenol, Sambucus Nigra Fruit Extract, Cucumis Sativus (Cucumber) Fruit Extract, Hedera Helix (Ivy) Leaf Extract, Malva Sylvestris (Mallow) Leaf Extract, Arnica Montana Flower Extract, Parietaria Officinalis Extract, Hydrolyzed Wheat Protein, Glycerin, Guar Hydroxypropyltrimonium Chloride, Polyquaternium-73, Polysorbate 60, Cetrimonium Chloride, Sodium Cocoyl Alaninate, Behentrimonium Methosulfate, Tetrasodium Glutamate Diacetate, Phenoxyethanol, Potassium Sorbate, Sodium Benzoate, Benzyl Alcohol, Citric Acid, Sodium Hydroxide, Fragrance (Parfum), Hexamethylindanopyran, Limonene",
    "description": "Kiss dry hair goodbye and say hello to soft, beautiful, moisturized curls with tgin Quench 3-in-1 Co-Wash Conditioner and Detangler. Infused with shea butter, and sweet almond oil, this lightweight formula has the perfect combination of moisture and antioxidants, which helps to improve manageability, fight frizz, and transform dry brittle strands into soft, smooth and healthy hair.",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/quench-3-in-1-co-wash-conditioner-and-detangler.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "tgin--miracle-repairx-anti-breakage-serum-4oz",
@@ -1039,7 +1144,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -1057,12 +1162,15 @@
    "ingredients": "Cocos Nucifera (Coconut) Oil, Caprylic/Capric Triglyceride, Olea Europaea (Olive) Fruit Oil, Prunus Persica (Peach) Kernel Oil, Vitis Vinifera (Grape) Seed Oil, Ricinus Communis (Castor) Seed Oil, Simmondsia Chinensis (Jojoba) Seed Oil*, Biotin, Tocopherol, Tocopheryl Acetate, Rosmarinus Officinalis (Rosemary) Leaf Extract, Helianthus Annuus (Sunflower) Extract, Oryza Sativa (Rice) Bran Extract, Arctium Lappa Root Extract, Lepidium Meyenii Root Extract, Carica Papaya (Papaya) Seed Oil, Oryza Sativa (Rice) Bran Oil, Sclerocarya Birrea Seed Oil, Zea Mays (Corn) Starch, Fragrance (Parfum), Linalool, Hexyl Cinnamal, Citronellol, Rose Ketones *Certified organic ingredient/Ingrédient certifié biologique We occasionally update tgin® product formulas to ensure compliance with all applicable regulations across all markets. For the most accurate and up-to-date information",
    "description": "Packed with rejuvenating castor, coconut, olive, argan, jojoba, and peach kernel oils, the nutrient-rich tgin Miracle RepaiRx Anti-Breakage Serum smooths frizz and flyaways, adds hydration and leaves hair feeling soft and strong with vitamin E.When used with Miracle RepaiRx Strengthening Conditioner the system is clinically tested to reduce breakage by 93% vs. shampoo alone.",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "lissant",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/miracle-repairx-anti-breakage-serum-4oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "tgin--tea-tree-detoxifying-hair-scalp-serum-4oz",
@@ -1081,38 +1189,20 @@
     "gras",
     "cuir-chevelu-sensible"
    ],
-   "actifs": [],
+   "actifs": [
+    "arbre à thé"
+   ],
    "ingredients": null,
    "description": "Fight back against dry skin and scalp with our tgin Tea Tree + Olive Oil Detoxifying Hair & Scalp Serum. Tea tree and olive oil fuse together to eliminate dry skin and itchy scalp while removing excess dirt, oil and sebum from the scalp to promote healthy hair growth.",
    "claims": [
-    "purifiant"
+    "croissance",
+    "apaisant-cuir-chevelu",
+    "purifiant",
+    "anti-gras"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "tgin--thank-god-i-m-natural-hair-book-soft-cover",
-   "name": "Thank God I'm Natural Hair Book (soft cover)",
-   "brand": "tgin",
-   "brand_name": "Thank God It's Natural",
-   "url": "https://tginatural.com/products/thank-god-i-m-natural-hair-book-soft-cover",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 14.95,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0716/9540/1252/products/book_2nd.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/tgin/thank-god-i-m-natural-hair-book-soft-cover.jpg",
-   "categorie": "traitement-chute",
-   "etape": 4,
-   "cheveux_cibles": [
-    "crepus",
-    "chute"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Written by a Harvard graduate, Thank God I’m Natural: The Ultimate Guide to Caring for and Maintaining Natural Hair is a must-read for any black woman who has suffered hair loss or breakage caused by relaxers — or has grown tired of spending thousands of dollars and her Saturday afternoons frying her kinky tresses into submission. Thank God I’m Natural offers up to date information -- and a plethora of tips to help women break free from wigs, weaves, and damaging chemical processes, and was rece",
-   "claims": [
-    "anti-chute"
-   ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/tea-tree-detoxifying-hair-scalp-serum-4oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "tgin--moisture-rich-sulfate-free-shampoo-13oz",
@@ -1127,7 +1217,10 @@
    "image_local": "public/scan/products-cheveux/tgin/moisture-rich-sulfate-free-shampoo-13oz.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "abimes"
+   ],
    "actifs": [
     "panthénol",
     "huile de coco",
@@ -1137,10 +1230,15 @@
    "ingredients": "Water (Aqua) (Eau), Disodium Cocoamphodipropionate, Polysorbate 20, Sodium C14-16 Olefin Sulfonate, Sodium Cocoyl Isethionate, Panthenol, Tocopheryl Acetate, Citrus Aurantium Dulcis (Orange) Fruit Extract, Citrus Limon (Lemon) Fruit Extract, Acer Saccharum (Sugar Maple) Extract, Saccharum Officinarum (Sugarcane) Extract (Extrait de canne à sucre), Vaccinium Myrtillus Fruit Extract, Phyllanthus Emblica Fruit Extract, Polyquaternium-10, Decyl Glucoside, Cocamidopropyl Betaine, Maltodextrin, Phenoxyethanol, Ethylhexylglycerin, Sodium Benzoate, Citric Acid, Fragrance (Parfum), Benzyl Benzoate, Limonene",
    "description": "tgin Moisture Rich Sulfate Free Shampoo is formulated to gently cleanse and detangle hair without stripping strands of their natural oils. Infused with Amla Oil, Coconut Oil, and Pro Vitamin B5, our shampoo helps reduce breakage and increase moisture retention for soft, smooth, and healthier hair.",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "reparation",
+    "anti-frisottis",
+    "demelant",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/moisture-rich-sulfate-free-shampoo-13oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "tgin--rose-water-curl-refresher-8oz",
@@ -1169,10 +1267,13 @@
    "ingredients": "Water (Aqua), Honey, Ginger Root (Ginger) Extract, Rosa Centifolia Flower (Cabbage Rose) Extract, Euterpe Oleracea (Acai) Fruit Extract, Carica Papaya Fruit (Papaya) Extract, Gardenia Tahitensis (Monoi) Flower Extract, Camellia Sinensis (Green Tea) Leaf Extract, Calendula Officinalis (Marigold) Flower Extract, Glycerin, Propanediol, Dimethicone Peg-8 Meadowfoamate, Ppg-26-buteth-26, Sodium Pca, Panthenol, Butylene Glycol, Bis-pca Dimethicone Sulfosuccinate, Aminomethyl Propanol, Dmdm Hydantoin, Phenoxyethanol, Fragrance",
    "description": "tgin Rose Water Curl Refresher is the perfect pick me up for even the most dull, lifeless curls. Our special formula is enriched with rose water and coconut oil to hydrate, smooth and refresh overworked kinks, curls, and waves.",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/tgin/cutout/rose-water-curl-refresher-8oz.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

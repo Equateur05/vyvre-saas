@@ -25,10 +25,12 @@
    "ingredients": null,
    "description": "Ce masque repigmentant 2-en-1 ravive l’intensité des blonds clairs à foncés et apporte des reflets dorés, tout en nourrissant intensément la fibre pour des cheveux doux, souples et brillants.",
    "claims": [
-    "nourrissant",
+    "nutrition",
     "brillance"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/masque-raviveur-de-couleur-et-soin-blond-miel-color-gloss.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "phyto--masque-raviveur-de-couleur-et-soin-chatain-chaud-color-gloss",
@@ -50,10 +52,12 @@
    "ingredients": null,
    "description": "Ce masque repigmentant 2-en-1 ravive l’intensité des châtains à bruns et apporte des reflets chauds, tout en nourrissant intensément la fibre pour des cheveux doux, souples et brillants.",
    "claims": [
-    "nourrissant",
+    "nutrition",
     "brillance"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/masque-raviveur-de-couleur-et-soin-chatain-chaud-color-gloss.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "phyto--masque-raviveur-de-couleur-et-soin-marron-glace-color-gloss",
@@ -75,10 +79,12 @@
    "ingredients": null,
    "description": "Ce masque repigmentant 2-en-1 ravive l’intensité des bruns à bruns foncés et apporte des reflets froids, tout en nourrissant intensément la fibre pour des cheveux doux, souples et brillants.",
    "claims": [
-    "nourrissant",
+    "nutrition",
     "brillance"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/masque-raviveur-de-couleur-et-soin-marron-glace-color-gloss.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "phyto--masque-raviveur-de-couleur-et-soin-blond-polaire-color-gloss",
@@ -101,10 +107,13 @@
    "ingredients": null,
    "description": "Ce masque neutralisant 2-en-1 corrige les reflets jaunes et cuivrés, ravive les reflets froids des cheveux blonds décolorés, gris et blancs, tout en nourrissant intensément la fibre pour des cheveux doux, souples et brillants.",
    "claims": [
-    "nourrissant",
-    "brillance"
+    "nutrition",
+    "brillance",
+    "anti-jaunissement"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/masque-raviveur-de-couleur-et-soin-blond-polaire-color-gloss.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--traitement-antichute-femme-phytocyane",
@@ -120,16 +129,19 @@
    "categorie": "traitement-chute",
    "etape": 4,
    "cheveux_cibles": [
-    "epais",
     "chute"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "Le traitement antichute pour freiner la chute progressive et stimuler la croissance de cheveux plus forts, plus épais et de meilleure qualité.87%(1) CHUTE FREINÉE. (1)% de volontaires ayant perçu un effet durant un test de satisfaction sur 75 femmes pendant 3 mois.",
    "claims": [
-    "anti-chute"
+    "anti-chute",
+    "croissance"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/traitement-antichute-femme-phytocyane.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--shampooing-antichute-femme-phytocyane",
@@ -145,6 +157,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "fins",
     "chute"
    ],
    "actifs": [],
@@ -153,34 +166,9 @@
    "claims": [
     "anti-chute"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
-  },
-  {
-   "id": "phyto--complement-alimentaire-antichute-phytocyane",
-   "name": "Complément Alimentaire Antichute - Phytocyane",
-   "brand": "phyto",
-   "brand_name": "Phyto",
-   "url": "https://fr.phyto.com/p/PH1002061EN/ph1002061en-phytocyane-complement-alimentaire-antichute-complement-alimentaire-chute-cheveux-84-capsules",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 49.0,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://admin.phyto.com/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/p/a/packshot_cyane-flacon_fr-es_phyto_1.jpg",
-   "image_local": "public/scan/products-cheveux/phyto/complement-alimentaire-antichute-phytocyane.jpg",
-   "categorie": "traitement-chute",
-   "etape": 4,
-   "cheveux_cibles": [
-    "chute"
-   ],
-   "actifs": [
-    "urée"
-   ],
-   "ingredients": null,
-   "description": "Stimulez votre capital capillaire de l’intérieur avec PHYTOCYANE Complément Alimentaire Antichute, spécifiquement élaboré pour les cheveux clairsemés en perte de densité. Une formule experte, fruit de la recherche antichute Phyto, qui associe des ingrédients à leur juste concentration pour freiner la chute, stimuler la croissance et augmenter la densité des cheveux.Durée minimale recommandée de la cure : 3 mois. Pour une efficacité durable, nous recommandons 6 mois de cure.",
-   "claims": [
-    "volume",
-    "anti-chute"
-   ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/shampooing-antichute-femme-phytocyane.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "phyto--traitement-antichute-homme-phytocyane",
@@ -196,16 +184,19 @@
    "categorie": "traitement-chute",
    "etape": 4,
    "cheveux_cibles": [
-    "epais",
     "chute"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "Le traitement antichute à la triple efficacité pour combattre la chute de cheveux et stimuler la croissance de cheveux plus épais. + 6 440(1) cheveux dès 6 semaines.(1) (1) mesure instrumentale du nombre de cheveux au cm² après utilisation pendant 1,5 mois sur 73 hommes.",
    "claims": [
-    "anti-chute"
+    "anti-chute",
+    "croissance"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/traitement-antichute-homme-phytocyane.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--shampooing-antichute-homme-phytocyane",
@@ -229,60 +220,9 @@
    "claims": [
     "anti-chute"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
-  },
-  {
-   "id": "phyto--complement-alimentaire-phytophanere",
-   "name": "Complément Alimentaire - Phytophanere",
-   "brand": "phyto",
-   "brand_name": "Phyto",
-   "url": "https://fr.phyto.com/p/PH1004041EN/ph1004041en-phytophanere-complement-alimentaire-cure-pousse-cheveux-ongles-120capsules",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 15.92,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://admin.phyto.com/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/p/a/packshot-single_best-seller_1_1.jpg",
-   "image_local": "public/scan/products-cheveux/phyto/complement-alimentaire-phytophanere.jpg",
-   "categorie": "traitement-chute",
-   "etape": 4,
-   "cheveux_cibles": [
-    "fins",
-    "abimes",
-    "chute"
-   ],
-   "actifs": [
-    "urée"
-   ],
-   "ingredients": null,
-   "description": "Agissez de l’intérieur avec PHYTOPHANERE, l'allié beauté idéal des cheveux & ongles dévitalisés et cassants. Une formule complète et justement dosée riche de 15 ingrédients concentrés pour apporter FORCE, CROISSANCE, VOLUME. DURÉE RECOMMANDÉE : minimum 3 mois de cure",
-   "claims": [
-    "volume"
-   ],
-   "source": "sitemap fr.phyto.com + fiche"
-  },
-  {
-   "id": "phyto--complement-alimentaire-effervescent-cheveux-et-ongles-phytophanere",
-   "name": "Complément Alimentaire Effervescent Cheveux & Ongles - Phytophanere",
-   "brand": "phyto",
-   "brand_name": "Phyto",
-   "url": "https://fr.phyto.com/p/PH1004061FR/ph1004061fr-phytophanere-duo-complement-alimentaire-effervescent-cheveux-et-ongles-vegan-vitamine-c-sans-sucre-post-partum-30-comprimes",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 15.92,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://admin.phyto.com/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/3/7/3701436939045_packshot_en.jpg",
-   "image_local": "public/scan/products-cheveux/phyto/complement-alimentaire-effervescent-cheveux-et-ongles-phytophanere.jpg",
-   "categorie": "traitement-chute",
-   "etape": 4,
-   "cheveux_cibles": [
-    "fins",
-    "chute"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "1er complément alimentaire effervescent PHYTOPHANERE* cheveux & ongles, offre FORCE (1), CROISSANCE (2) et VOLUME. Formule multivitaminée vegan fruitée, sans sucre ni édulcorant. *de PHYTO PARIS",
-   "claims": [
-    "volume"
-   ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/shampooing-antichute-homme-phytocyane.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "phyto--ultra-serum-boosteur-de-longueur-phytophanere",
@@ -298,14 +238,18 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "gras",
-    "chute"
+    "gras"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "ULTRA SERUM PHYTOPHANERE, le 1er sérum(1) quotidien au fini non gras qui stimule l’énergie folliculaire pour booster la croissance capillaire. Formule légère aux extraits botaniques brevetés et cliniquement prouvée. 90% des panélistes constatent des cheveux plus longs, plus vite(2).Sans silicone.",
-   "claims": [],
-   "source": "sitemap fr.phyto.com + fiche"
+   "claims": [
+    "croissance",
+    "sans-silicone"
+   ],
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/ultra-serum-boosteur-de-longueur-phytophanere.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--traitement-antichute-reactionnelle-phytophanere",
@@ -321,6 +265,7 @@
    "categorie": "traitement-chute",
    "etape": 4,
    "cheveux_cibles": [
+    "fins",
     "chute"
    ],
    "actifs": [],
@@ -328,9 +273,12 @@
    "description": "Le Traitement Antichute PHYTOPHANERE freine la chute dès 4 applications(1) grâce à 4 extraits botaniques brevetés* pour une densité retrouvée en 6 semaines(2). Étude clinique, 52 femmes (1) 1 mois, (2) 6 semaines, % de satisfaction",
    "claims": [
     "volume",
+    "densifiant",
     "anti-chute"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/traitement-antichute-reactionnelle-phytophanere.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--apres-shampooing-reparateur-reparation",
@@ -343,8 +291,8 @@
    "price_source": "site officiel EUR",
    "image_source_url": "https://admin.phyto.com/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/3/7/3701436916923.jpg",
    "image_local": "public/scan/products-cheveux/phyto/apres-shampooing-reparateur-reparation.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
     "abimes"
    ],
@@ -352,10 +300,13 @@
    "ingredients": null,
    "description": "L'après-shampooing qui répare et renforce la fibre tout en démêlant.",
    "claims": [
-    "reparateur",
-    "fortifiant"
+    "reparation",
+    "fortifiant",
+    "demelant"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/apres-shampooing-reparateur-reparation.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--masque-reparation-intense-reparation",
@@ -377,9 +328,11 @@
    "ingredients": null,
    "description": "Le masque qui restaure et consolide la fibre des cheveux abîmés et cassants.",
    "claims": [
-    "reparateur"
+    "reparation"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/masque-reparation-intense-reparation.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "phyto--shampooing-reparateur-reparation",
@@ -401,9 +354,11 @@
    "ingredients": null,
    "description": "Le shampooing soin qui répare les cheveux abîmés et cassants.",
    "claims": [
-    "reparateur"
+    "reparation"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/shampooing-reparateur-reparation.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "phyto--spray-thermo-protecteur-230-c-anti-casse-reparation",
@@ -425,10 +380,12 @@
    "ingredients": null,
    "description": "Le soin qui protège la fibre de la chaleur jusqu'à 230°C.",
    "claims": [
-    "reparateur",
-    "protection-thermique"
+    "reparation",
+    "protection-chaleur"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/spray-thermo-protecteur-230-c-anti-casse-reparation.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "phyto--apres-shampooing-volumateur-volume",
@@ -441,8 +398,8 @@
    "price_source": "site officiel EUR",
    "image_source_url": "https://admin.phyto.com/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/3/7/3701436916176.jpg",
    "image_local": "public/scan/products-cheveux/phyto/apres-shampooing-volumateur-volume.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
     "fins"
    ],
@@ -450,10 +407,13 @@
    "ingredients": null,
    "description": "L'après-shampooing qui démêle et hydrate sans alourdir.",
    "claims": [
-    "hydratant",
-    "volume"
+    "hydratation",
+    "volume",
+    "demelant"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/apres-shampooing-volumateur-volume.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--shampooing-volumateur-volume",
@@ -477,7 +437,9 @@
    "claims": [
     "volume"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/shampooing-volumateur-volume.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "phyto--spray-brushing-volumateur-volume",
@@ -501,7 +463,9 @@
    "claims": [
     "volume"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/spray-brushing-volumateur-volume.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "phyto--apres-shampooing-douceur-douceur",
@@ -514,16 +478,19 @@
    "price_source": "site officiel EUR",
    "image_source_url": "https://admin.phyto.com/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/p/d/pdp_apres-shampooing_carrousel_1.jpg",
    "image_local": "public/scan/products-cheveux/phyto/apres-shampooing-douceur-douceur.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [],
    "actifs": [],
    "ingredients": null,
    "description": "L'après-shampooing quotidien de toute la famille qui démêle en douceur et apporte brillance à la fibre. Usage fréquent.",
    "claims": [
-    "brillance"
+    "brillance",
+    "demelant"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/apres-shampooing-douceur-douceur.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--lait-demelant-express-douceur",
@@ -545,9 +512,13 @@
    "ingredients": null,
    "description": "Le soin sans rinçage qui démêle les cheveux secs ou mouillés de toute la famille, discipline et facilite le coiffage. Usage fréquent.",
    "claims": [
-    "lissant"
+    "anti-frisottis",
+    "demelant",
+    "fixation"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/lait-demelant-express-douceur.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--shampooing-sec-douceur",
@@ -560,10 +531,11 @@
    "price_source": "site officiel EUR",
    "image_source_url": "https://admin.phyto.com/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/p/d/pdp_shampooing-sec_1_1_1.jpg",
    "image_local": "public/scan/products-cheveux/phyto/shampooing-sec-douceur.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
     "secs",
+    "gras",
     "fins"
    ],
    "actifs": [],
@@ -572,7 +544,9 @@
    "claims": [
     "volume"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/shampooing-sec-douceur.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--shampooing-douceur-douceur",
@@ -592,7 +566,9 @@
    "ingredients": null,
    "description": "Le shampooing quotidien de toute la famille qui rééquilibre et protège le cuir chevelu. Usage fréquent.",
    "claims": [],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/shampooing-douceur-douceur.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "phyto--gommage-lavant-purifiant-solution-cuir-chevelu",
@@ -614,9 +590,13 @@
    "ingredients": null,
    "description": "Le GOMMAGE LAVANT PURIFIANT exfolie et libère le cuir chevelu des impuretés grâce sa texture granitée aux cristaux de sel marin. Les cheveux sont légers et en pleine santé. C’est le soin idéal pour une détox ! Sans silicones, sans tensio-actifs sulfatés.",
    "claims": [
-    "purifiant"
+    "texturisant",
+    "purifiant",
+    "sans-silicone"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/gommage-lavant-purifiant-solution-cuir-chevelu.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--concentre-equilibrant-polleine-solution-cuir-chevelu",
@@ -638,10 +618,15 @@
    "ingredients": null,
    "description": "Soin culte 100% d’origine végétale, POLLEINE est un concentré pour cuir chevelu aux 10 huiles essentielles purifiantes et revitalisantes. Ce soin avant-shampooing équilibre, fortifie, réduit les sensations d’inconfort et l’excès de sébum. POLLEINE est le parfait allié d’un cuir chevelu sain. Sans silicones, sans tensio-actifs sulfatés.",
    "claims": [
+    "fortifiant",
     "purifiant",
-    "fortifiant"
+    "anti-gras",
+    "sans-silicone"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/concentre-equilibrant-polleine-solution-cuir-chevelu.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--apres-shampooing-raviveur-d-eclat-couleur",
@@ -654,8 +639,8 @@
    "price_source": "site officiel EUR",
    "image_source_url": "https://admin.phyto.com/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/3/7/3701436915735.jpg",
    "image_local": "public/scan/products-cheveux/phyto/apres-shampooing-raviveur-d-eclat-couleur.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
     "colores"
    ],
@@ -665,7 +650,9 @@
    "claims": [
     "brillance"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/apres-shampooing-raviveur-d-eclat-couleur.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "phyto--shampooing-dejaunissant-violet",
@@ -685,7 +672,9 @@
    "ingredients": null,
    "description": "Le shampooing qui neutralise les reflets indésirables dès la 1ère application.",
    "claims": [],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/shampooing-dejaunissant-violet.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "phyto--shampooing-anti-degorgement-couleur",
@@ -707,7 +696,9 @@
    "ingredients": null,
    "description": "Le shampooing qui protège du dégorgement de la couleur jusqu'à 12 shampooings*. *Etude clinique réalisée sur 22 volontaires pendant 28 jours, cheveux colorés.",
    "claims": [],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/shampooing-anti-degorgement-couleur.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "phyto--masque-dejaunissant-reparateur-violet",
@@ -729,10 +720,12 @@
    "ingredients": null,
    "description": "Le masque qui ravive l'éclat des reflets froids tout en réparant les cheveux fragilisés.",
    "claims": [
-    "reparateur",
+    "reparation",
     "brillance"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/masque-dejaunissant-reparateur-violet.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "phyto--masque-prolongateur-de-couleur-couleur",
@@ -752,9 +745,12 @@
    "ingredients": null,
    "description": "Le masque qui prolonge durablement l'éclat de la couleur jusqu'à 9 semaines**.",
    "claims": [
-    "brillance"
+    "brillance",
+    "protection-couleur"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/masque-prolongateur-de-couleur-couleur.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--masque-nourrissant-nutrition",
@@ -776,9 +772,11 @@
    "ingredients": null,
    "description": "Le masque qui nourrit intensément les cheveux secs et très secs.",
    "claims": [
-    "nourrissant"
+    "nutrition"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/masque-nourrissant-nutrition.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "phyto--shampooing-nourrissant-nutrition",
@@ -800,9 +798,11 @@
    "ingredients": null,
    "description": "Le Shampooing qui apporte douceur et nutrition aux cheveux secs et très secs.",
    "claims": [
-    "nourrissant"
+    "nutrition"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/shampooing-nourrissant-nutrition.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "phyto--apres-shampooing-nourrissant-nutrition",
@@ -815,8 +815,8 @@
    "price_source": "site officiel EUR",
    "image_source_url": "https://admin.phyto.com/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/3/7/3701436916800.jpg",
    "image_local": "public/scan/products-cheveux/phyto/apres-shampooing-nourrissant-nutrition.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
     "secs"
    ],
@@ -824,9 +824,12 @@
    "ingredients": null,
    "description": "L'après-shampooing qui démêle et nourrit les cheveux secs et très secs, sans les alourdir.",
    "claims": [
-    "nourrissant"
+    "nutrition",
+    "demelant"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/apres-shampooing-nourrissant-nutrition.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--shampooing-apres-soleil-rehydratant-plage",
@@ -841,14 +844,20 @@
    "image_local": "public/scan/products-cheveux/phyto/shampooing-apres-soleil-rehydratant-plage.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "Le shampooing qui élimine les résidus de protection solaire, sel, sable et chlore tout en réhydratant intensément la fibre.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "purifiant"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/shampooing-apres-soleil-rehydratant-plage.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--l-icone-huile-protectrice-plage",
@@ -870,9 +879,12 @@
    "ingredients": null,
    "description": "L’huile qui protège et nourrit les cheveux exposés au soleil, à la mer et à la piscine.",
    "claims": [
-    "nourrissant"
+    "nutrition"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/l-icone-huile-protectrice-plage.webp",
+   "image_fond": true,
+   "ciblage_source": "fiche"
   },
   {
    "id": "phyto--spray-demelant-rehydratant-apres-soleil-plage",
@@ -887,15 +899,22 @@
    "image_local": "public/scan/products-cheveux/phyto/spray-demelant-rehydratant-apres-soleil-plage.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "abimes"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "Le spray sans rinçage qui démêle instantanément et réhydrate intensément la chevelure après une baignade ou une exposition prolongée au soleil, pour des cheveux doux, brillants et protégés de la casse.",
    "claims": [
-    "hydratant",
-    "brillance"
+    "hydratation",
+    "reparation",
+    "brillance",
+    "demelant"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/spray-demelant-rehydratant-apres-soleil-plage.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--shampooing-hydratation-boucles-boucles",
@@ -911,15 +930,21 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
     "boucles"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "Le shampooing qui nettoie délicatement et hydrate les cheveux ondulés et bouclés.Sans silicones, sans tensio-actifs sulfatés, sans colorants, sans PEG.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "definition-boucles",
+    "sans-silicone"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/shampooing-hydratation-boucles-boucles.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--apres-shampooing-hydratation-boucles-boucles",
@@ -932,18 +957,25 @@
    "price_source": "site officiel EUR",
    "image_source_url": "https://admin.phyto.com/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/p/a/packshot_picto_boucle_phyto_apres-shampooing.jpg",
    "image_local": "public/scan/products-cheveux/phyto/apres-shampooing-hydratation-boucles-boucles.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "boucles"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "L’après-shampooing qui démêle instantanément et hydrate les cheveux ondulés et bouclés.Sans silicones.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "definition-boucles",
+    "demelant",
+    "sans-silicone"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/apres-shampooing-hydratation-boucles-boucles.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--gel-creme-definition-boucles-jour-1-boucles",
@@ -965,9 +997,13 @@
    "ingredients": null,
    "description": "Le gel-crème qui définit la forme naturelle des ondulations et des boucles sans effet carton.Sans silicones.",
    "claims": [
-    "definition-boucles"
+    "definition-boucles",
+    "sans-silicone"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/gel-creme-definition-boucles-jour-1-boucles.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--spray-reveil-boucles-jour-2-boucles",
@@ -988,8 +1024,14 @@
    "actifs": [],
    "ingredients": null,
    "description": "Le spray qui redynamise les ondulations et les boucles entre 2 shampooings sans les alourdir.Sans silicones.",
-   "claims": [],
-   "source": "sitemap fr.phyto.com + fiche"
+   "claims": [
+    "definition-boucles",
+    "sans-silicone"
+   ],
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/spray-reveil-boucles-jour-2-boucles.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--laque-vegetale-fixation-souple-laque",
@@ -1010,8 +1052,13 @@
    ],
    "ingredients": null,
    "description": "La laque végétale sans gaz propulseur qui assure une fixation naturelle longue durée tout en prenant soin de vos cheveux sensibilisés, sans coller ni cartonner.",
-   "claims": [],
-   "source": "sitemap fr.phyto.com + fiche"
+   "claims": [
+    "fixation"
+   ],
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/laque-vegetale-fixation-souple-laque.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--laque-vegetale-fixation-medium-a-forte-laque",
@@ -1032,8 +1079,13 @@
    ],
    "ingredients": null,
    "description": "La laque végétale sans gaz propulseur qui assure une fixation forte longue durée tout en prenant soin de vos cheveux, sans coller ni cartonner.",
-   "claims": [],
-   "source": "sitemap fr.phyto.com + fiche"
+   "claims": [
+    "fixation"
+   ],
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/laque-vegetale-fixation-medium-a-forte-laque.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--shampooing-seboreducteur-solution-cuir-chevelu",
@@ -1055,9 +1107,13 @@
    "ingredients": null,
    "description": "Le Shampooing SÉBORÉDUCTEUR régule la production excessive de sébum et purifie le cuir chevelu et les cheveux gras. Sans silicones.",
    "claims": [
-    "purifiant"
+    "purifiant",
+    "anti-gras",
+    "sans-silicone"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/shampooing-seboreducteur-solution-cuir-chevelu.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--shampooing-dermo-apaisant-solution-cuir-chevelu",
@@ -1079,9 +1135,12 @@
    "ingredients": null,
    "description": "Dès la première utilisation, le Shampooing DERMO-APAISANT calme les démangeaisons et réduit les rougeurs du cuir chevelu irrité et sensible, tout en le rééquilibrant pour une efficacité durable. Sans silicones, sans tensio-actifs sulfatés.",
    "claims": [
-    "apaisant"
+    "apaisant-cuir-chevelu",
+    "sans-silicone"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/shampooing-dermo-apaisant-solution-cuir-chevelu.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--shampooing-dermo-traitant-solution-cuir-chevelu",
@@ -1103,9 +1162,12 @@
    "ingredients": null,
    "description": "Dès la première utilisation, le Shampooing DERMO-TRAITANT élimine les pellicules et limite la récidive. Sans silicones.",
    "claims": [
-    "anti-pellicules"
+    "antipelliculaire",
+    "sans-silicone"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/shampooing-dermo-traitant-solution-cuir-chevelu.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--shampooing-illuminant-blond",
@@ -1127,7 +1189,9 @@
    "ingredients": null,
    "description": "Le shampooing qui illumine les cheveux blonds de toute la famille dès 3 ans.",
    "claims": [],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/shampooing-illuminant-blond.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "phyto--spray-lumiere-eclaircissant-jusqu-a-2-tons-blond",
@@ -1149,7 +1213,9 @@
    "ingredients": null,
    "description": "Le spray qui éclaircit jusqu’à 2 tons* les cheveux blonds clairs à foncés, sans les assécher. Réservé à l’adulte. *Evaluation de l’action éclaircissante du spray seul sur mèches de cheveux blonds après 20 applications.",
    "claims": [],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/spray-lumiere-eclaircissant-jusqu-a-2-tons-blond.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "phyto--apres-shampooing-sublimateur-blond",
@@ -1162,8 +1228,8 @@
    "price_source": "site officiel EUR",
    "image_source_url": "https://admin.phyto.com/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/b/l/blond-apres-shampooing_1-phyto.jpg",
    "image_local": "public/scan/products-cheveux/phyto/apres-shampooing-sublimateur-blond.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
     "secs",
     "colores"
@@ -1172,10 +1238,12 @@
    "ingredients": null,
    "description": "L’après-shampooing qui nourrit et sublime l’éclat des cheveux blonds de toute la famille dès 3 ans.",
    "claims": [
-    "nourrissant",
+    "nutrition",
     "brillance"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/apres-shampooing-sublimateur-blond.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "phyto--creme-riche-definition-boucles-boucles-intenses",
@@ -1198,10 +1266,13 @@
    "ingredients": null,
    "description": "La crème riche qui définit la forme naturelle des boucles tout en les nourrissant intensément sans effet carton. Sans silicones",
    "claims": [
-    "nourrissant",
-    "definition-boucles"
+    "nutrition",
+    "definition-boucles",
+    "sans-silicone"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/creme-riche-definition-boucles-boucles-intenses.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--gelee-anti-frizz-boucles-boucles-intenses",
@@ -1217,17 +1288,21 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
     "boucles"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "La gelée qui fixe la forme naturelle des boucles et hydrate la fibre capillaire. Sans silicones.",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles",
+    "sans-silicone"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/gelee-anti-frizz-boucles-boucles-intenses.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--masque-nutrition-boucles-boucles-intenses",
@@ -1244,15 +1319,21 @@
    "etape": 2,
    "cheveux_cibles": [
     "secs",
-    "boucles"
+    "boucles",
+    "crepus"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "Le masque qui démêle instantanément et nourrit les cheveux frisés et crépus. Sans silicones.",
    "claims": [
-    "nourrissant"
+    "nutrition",
+    "definition-boucles",
+    "demelant",
+    "sans-silicone"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/masque-nutrition-boucles-boucles-intenses.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--shampooing-nutrition-boucles-boucles-intenses",
@@ -1269,15 +1350,20 @@
    "etape": 1,
    "cheveux_cibles": [
     "secs",
-    "boucles"
+    "boucles",
+    "crepus"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "Le shampooing qui nettoie délicatement et nourrit les cheveux frisés et crépus.Sans silicones, sans tensio-actifs sulfatés, sans colorants.",
    "claims": [
-    "nourrissant"
+    "nutrition",
+    "definition-boucles",
+    "sans-silicone"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/shampooing-nutrition-boucles-boucles-intenses.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--spray-demelant-magique-boucles-intenses",
@@ -1293,15 +1379,21 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "boucles"
+    "boucles",
+    "crepus"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "Le spray magique qui discipline et démêle les cheveux frisés et crépus des enfants à partir de 3 ans. Sans silicones.",
    "claims": [
-    "lissant"
+    "anti-frisottis",
+    "definition-boucles",
+    "demelant",
+    "sans-silicone"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/spray-demelant-magique-boucles-intenses.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--shampooing-douche-magique-boucles-intenses",
@@ -1317,13 +1409,20 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "boucles"
+    "boucles",
+    "crepus"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "Le shampooing douche 2 en 1 qui nettoie délicatement les cheveux frisés et crépus et la peau fragile des enfants à partir de 3 ans. Fini les nœuds ! Comme par magie, il démêle instantanément. Sans silicones, sans tensio-actifs sulfatés.",
-   "claims": [],
-   "source": "sitemap fr.phyto.com + fiche"
+   "claims": [
+    "definition-boucles",
+    "demelant",
+    "sans-silicone"
+   ],
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/shampooing-douche-magique-boucles-intenses.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--huile-sublimatrice-disciplinante-phyto-7-elixir",
@@ -1339,16 +1438,21 @@
    "categorie": "huile",
    "etape": 3,
    "cheveux_cibles": [
-    "secs",
-    "lisses"
+    "secs"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "Cet elixir de nutrition intense à la texture fluide nourrit et transforme vos cheveux en une matière incroyablement lisse et soyeuse, sans les alourdir.Formule multi-usage, sans silicones.99% d'ingrédients d'origine naturelle.",
    "claims": [
-    "nourrissant"
+    "nutrition",
+    "anti-frisottis",
+    "texturisant",
+    "sans-silicone"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/huile-sublimatrice-disciplinante-phyto-7-elixir.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--huile-sublimatrice-universelle-phyto-7-elixir",
@@ -1370,9 +1474,14 @@
    "ingredients": null,
    "description": "Cet elixir de nutrition à la texture légère nourrit et transforme vos cheveux en une matière intensément souple et soyeuse, sans les alourdir.Formule multi-usage, sans silicones.99% d'ingrédients d'origine naturelle.",
    "claims": [
-    "nourrissant"
+    "nutrition",
+    "texturisant",
+    "sans-silicone"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/huile-sublimatrice-universelle-phyto-7-elixir.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--creme-de-jour-universelle-50ml-phyto-7-elixir",
@@ -1385,48 +1494,23 @@
    "price_source": "site officiel EUR",
    "image_source_url": "https://admin.phyto.com/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/3/7/3701436941321_packshot_ww.jpg",
    "image_local": "public/scan/products-cheveux/phyto/creme-de-jour-universelle-50ml-phyto-7-elixir.jpg",
-   "categorie": "huile",
+   "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
     "secs",
-    "epais",
-    "lisses"
+    "fins"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "La crème cheveux universelle nourrit intensément sans alourdir, discipline et lisse les frisottis pour transformer instantanément vos cheveux en une matière douce et soyeuse. Nutrition haute légèreté pour tous types de cheveux secs.",
    "claims": [
-    "nourrissant",
-    "lissant"
+    "nutrition",
+    "anti-frisottis"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
-  },
-  {
-   "id": "phyto--complement-alimentaire-antichute-phytocyane-intensive",
-   "name": "Complément Alimentaire Antichute - Phytocyane Intensive+",
-   "brand": "phyto",
-   "brand_name": "Phyto",
-   "url": "https://fr.phyto.com/p/PH1019011FR/complement-alimentaire-antichute",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 39.2,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://admin.phyto.com/media/catalog/product/cache/74c1057f7991b4edb2bc7bdaa94de933/3/7/3701436926397_1.jpg",
-   "image_local": "public/scan/products-cheveux/phyto/complement-alimentaire-antichute-phytocyane-intensive.jpg",
-   "categorie": "traitement-chute",
-   "etape": 4,
-   "cheveux_cibles": [
-    "chute"
-   ],
-   "actifs": [
-    "urée"
-   ],
-   "ingredients": null,
-   "description": "Stimulez votre capital capillaire de l’intérieur avec PHYTOCYANE Complément Alimentaire Antichute, spécifiquement élaboré pour les cheveux clairsemés en perte de densité. Une formule experte, fruit de la recherche antichute Phyto, qui associe des ingrédients à leur juste concentration pour freiner la chute, stimuler la croissance et augmenter la densité des cheveux. Durée minimale recommandée de la cure : 3 mois. Pour une efficacité durable, nous recommandons 6 mois de cure.",
-   "claims": [
-    "volume",
-    "anti-chute"
-   ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/creme-de-jour-universelle-50ml-phyto-7-elixir.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--shampooing-antichute-homme-phytocyane-intensive",
@@ -1450,7 +1534,9 @@
    "claims": [
     "anti-chute"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/shampooing-antichute-homme-phytocyane-intensive.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "phyto--shampooing-antichute-femme-phytocyane-intensive",
@@ -1466,6 +1552,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "fins",
     "chute"
    ],
    "actifs": [],
@@ -1474,7 +1561,9 @@
    "claims": [
     "anti-chute"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/shampooing-antichute-femme-phytocyane-intensive.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "phyto--phytocyane-men-shampooing-antichute-500ml-phytocyane-intensive",
@@ -1498,7 +1587,9 @@
    "claims": [
     "anti-chute"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/phytocyane-men-shampooing-antichute-500ml-phytocyane-intensive.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "phyto--cure-antichute-in-et-out-progressive-femme-phytocyane",
@@ -1514,16 +1605,18 @@
    "categorie": "traitement-chute",
    "etape": 4,
    "cheveux_cibles": [
-    "epais",
     "chute"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "Le rituel complet PHYTOCYANE Antichute de cheveux progressive, pour ralentir la chute progressive des cheveux et stimuler la croissance de cheveux plus forts, plus épais et de meilleure qualité.",
    "claims": [
-    "anti-chute"
+    "anti-chute",
+    "croissance"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/cure-antichute-in-et-out-progressive-femme-phytocyane.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "phyto--cure-antichute-in-et-out-progressive-homme-phytocyane",
@@ -1539,16 +1632,18 @@
    "categorie": "traitement-chute",
    "etape": 4,
    "cheveux_cibles": [
-    "epais",
     "chute"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "Le rituel complet PHYTOCYANE Anti-chute de cheveux pour ralentir la chute progressive des cheveux et stimuler la croissance de cheveux plus forts, plus épais et de meilleure qualité.",
    "claims": [
-    "anti-chute"
+    "anti-chute",
+    "croissance"
    ],
-   "source": "sitemap fr.phyto.com + fiche"
+   "source": "sitemap fr.phyto.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/phyto/cutout/cure-antichute-in-et-out-progressive-homme-phytocyane.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

@@ -1,0 +1,5751 @@
+{
+  "genere_le": "2026-09-23",
+  "objet": "Marques de soin peau / cheveux vendues par les grands magasins parisiens et absentes du catalogue vyvre",
+  "methode": "Relevé direct des pages 'toutes les marques' / facettes marque des sites des 4 enseignes, ouvertes dans un navigateur réel (les 4 sites refusent les requêtes non-navigateur, HTTP 403).",
+  "catalogue_vyvre": {
+    "marques_peau": 146,
+    "marques_cheveux": 114
+  },
+  "releve_par_enseigne": {
+    "Galeries Lafayette": {
+      "marques_soins_visage": 144,
+      "marques_soins_cheveux": 102,
+      "sources": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux",
+        "https://www.galerieslafayette.com/siteMap/facette-marque-beaute-fr-EUR.xml"
+      ]
+    },
+    "Printemps": {
+      "marques_soins_visage": 84,
+      "marques_soins_cheveux": 46,
+      "sources": [
+        "https://www.printemps.com/fr/fr/soins-visage",
+        "https://www.printemps.com/fr/fr/soins-cheveux"
+      ]
+    },
+    "Le Bon Marche": {
+      "marques_beaute_annuaire_magasin": 128,
+      "marques_soin_24s": 12,
+      "sources": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.24s.com/fr-fr/femme/beaute/soins-visage",
+        "https://www.24s.com/fr-fr/femme/beaute/soins-cheveux",
+        "https://www.24s.com/fr-fr/femme/beaute/soins-corps"
+      ],
+      "note": "24S (e-commerce du groupe) ne vend que 5 marques de soin visage (Augustinus Bader, Dr Barbara Sturm, La Mer, Valmont, Hermes) et 2 en cheveux ; l'annuaire du magasin physique lebonmarche.com est bien plus large."
+    },
+    "La Samaritaine": {
+      "marques_beaute": 161,
+      "sources": [
+        "https://www.samaritaine.com/fr/univers/beaute/",
+        "https://www.samaritaine.com/fr/marques/"
+      ],
+      "note": "dfs.com/fr/samaritaine redirige en 301 vers samaritaine.com."
+    }
+  },
+  "totaux": {
+    "marques_distinctes_relevees": 411,
+    "deja_dans_le_catalogue": 92,
+    "manquantes": 319
+  },
+  "presentes_dans_les_4_enseignes": [
+    "Acqua di Parma",
+    "Aesop",
+    "Augustinus Bader",
+    "Clinique",
+    "Cut by Fred",
+    "Davines",
+    "Estee Lauder",
+    "Flora Lab Paris",
+    "K18",
+    "La Mer",
+    "Le Labo",
+    "Leonor Greyl",
+    "Olaplex",
+    "Victoria Beckham Beauty"
+  ],
+  "non_verifie": [
+    "Le facettage marque de 24s.com n'a pas pu etre ouvert (page qui se fige) : le relevé 24S vient des listes produits soins visage / cheveux / corps, pas d'un index de marques.",
+    "L'annuaire beaute de lebonmarche.com et de samaritaine.com liste les marques du magasin physique tous rayons confondus (parfum, maquillage, soin) : la repartition peau / cheveux n'y est pas donnee, d'ou categorie 'a preciser'.",
+    "Les sites officiels ne sont renseignes que lorsqu'ils ont ete verifies ; les autres sont a null.",
+    "Aucun releve en rayon physique : uniquement ce que les quatre sites publient au 23/09/2026."
+  ],
+  "marques_manquantes": [
+    {
+      "nom": "Biotherm",
+      "site_officiel": "https://www.biotherm.fr",
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "France",
+      "priorite_demarchage": 1,
+      "justification": "Marque de soin grand public majeure, absente du catalogue : gamme visage et corps complete, forte notoriete, referencee aux Galeries Lafayette.",
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Aveda",
+      "site_officiel": "https://www.aveda.com",
+      "enseignes": [
+        "Galeries Lafayette",
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "cheveux",
+      "type_offre": "soin",
+      "positionnement": "salon",
+      "pays": "Etats-Unis",
+      "priorite_demarchage": 2,
+      "justification": "Reference mondiale du soin capillaire salon (Estee Lauder), gamme cuir chevelu complete, vendue chez GL et au Bon Marche.",
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux",
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Flora Lab Paris",
+      "site_officiel": "https://www.floralabparis.com",
+      "enseignes": [
+        "Galeries Lafayette",
+        "La Samaritaine",
+        "Le Bon Marche",
+        "Printemps"
+      ],
+      "nb_enseignes": 4,
+      "categorie": "cheveux",
+      "type_offre": "soin",
+      "positionnement": "luxe",
+      "pays": "France",
+      "priorite_demarchage": 3,
+      "justification": "Seule marque cheveux presente dans les 4 enseignes : 40 formules biomimetiques positionnees 'skinification du cheveu', exactement le discours d'un scan capillaire.",
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux",
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.printemps.com/fr/fr/soins-cheveux",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Cut by Fred",
+      "site_officiel": "https://cutbyfred.com",
+      "enseignes": [
+        "Galeries Lafayette",
+        "La Samaritaine",
+        "Le Bon Marche",
+        "Printemps"
+      ],
+      "nb_enseignes": 4,
+      "categorie": "cheveux",
+      "type_offre": "soin",
+      "positionnement": "salon",
+      "pays": "France",
+      "priorite_demarchage": 4,
+      "justification": "Presente dans les 4 enseignes, marque francaise de soin capillaire par type de cheveu (boucles, lisses) : segmentation ideale pour un diagnostic.",
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux",
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.printemps.com/fr/fr/soins-cheveux",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Bumble and bumble",
+      "site_officiel": "https://www.bumbleandbumble.com",
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "soin",
+      "positionnement": "salon",
+      "pays": "Etats-Unis",
+      "priorite_demarchage": 5,
+      "justification": "Grande marque salon americaine (Estee Lauder), gamme large par texture de cheveu, referencee aux Galeries Lafayette.",
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "SheaMoisture",
+      "site_officiel": "https://www.sheamoisture.com",
+      "enseignes": [
+        "Printemps"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Etats-Unis",
+      "priorite_demarchage": 6,
+      "justification": "Leader mondial du soin cheveux textures et bouclés, seule grande marque de ce segment vue chez Printemps ; comble un trou du catalogue.",
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Shu Uemura Art of Hair",
+      "site_officiel": "https://www.shuuemuraartofhair-usa.com",
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "soin",
+      "positionnement": "salon",
+      "pays": "Japon",
+      "priorite_demarchage": 7,
+      "justification": "Soin capillaire de luxe (L'Oreal), gamme par diagnostic de fibre, tres forte valeur panier chez GL.",
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Dr. Hauschka",
+      "site_officiel": "https://www.drhauschka.fr",
+      "enseignes": [
+        "Galeries Lafayette",
+        "La Samaritaine",
+        "Printemps"
+      ],
+      "nb_enseignes": 3,
+      "categorie": "les deux",
+      "type_offre": "soin",
+      "positionnement": "pharmacie",
+      "pays": "Allemagne",
+      "priorite_demarchage": 8,
+      "justification": "Dans 3 enseignes sur 4 ; gamme visage naturelle certifiee tres large, un pilier du soin naturel absent du catalogue.",
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux",
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.printemps.com/fr/fr/soins-cheveux",
+        "https://www.printemps.com/fr/fr/soins-visage",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Erborian",
+      "site_officiel": "https://www.erborian.com",
+      "enseignes": [
+        "Galeries Lafayette",
+        "La Samaritaine",
+        "Printemps"
+      ],
+      "nb_enseignes": 3,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "France / Coree du Sud",
+      "priorite_demarchage": 9,
+      "justification": "Dans 3 enseignes ; marque franco-coreenne avec une vraie gamme visage (BB, soin, nettoyants), tres forte rotation.",
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.printemps.com/fr/fr/soins-visage",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Purito Seoul",
+      "site_officiel": "https://purito.com",
+      "enseignes": [
+        "Galeries Lafayette",
+        "La Samaritaine",
+        "Printemps"
+      ],
+      "nb_enseignes": 3,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Coree du Sud",
+      "priorite_demarchage": 10,
+      "justification": "Dans 3 enseignes ; K-beauty soin barriere pour peaux sensibles, gamme complete et prix accessibles, parfait pour des recommandations de scan.",
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.printemps.com/fr/fr/soins-visage",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Biodance",
+      "site_officiel": "https://www.biodancecom.com",
+      "enseignes": [
+        "Galeries Lafayette",
+        "La Samaritaine",
+        "Printemps"
+      ],
+      "nb_enseignes": 3,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Coree du Sud",
+      "priorite_demarchage": 11,
+      "justification": "Dans 3 enseignes ; masques biocollagene et pads, marque la plus virale de la K-beauty actuelle, gamme entierement soin.",
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.printemps.com/fr/fr/soins-visage",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Bioeffect",
+      "site_officiel": "https://www.bioeffect.com",
+      "enseignes": [
+        "Galeries Lafayette",
+        "La Samaritaine",
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 3,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "luxe",
+      "pays": "Islande",
+      "priorite_demarchage": 12,
+      "justification": "Dans 3 enseignes ; serums biotech EGF islandais, positionnement luxe scientifique tres vendeur en recommandation.",
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "My Blend",
+      "site_officiel": "https://www.my-blend.com",
+      "enseignes": [
+        "La Samaritaine",
+        "Le Bon Marche",
+        "Printemps"
+      ],
+      "nb_enseignes": 3,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "luxe",
+      "pays": "France",
+      "priorite_demarchage": 13,
+      "justification": "Dans 3 enseignes ; soin personnalise par diagnostic (Dr Olivier Courtin-Clarins) : 150 formules modulaires, le partenaire le plus naturel d'un scan de peau.",
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.printemps.com/fr/fr/soins-visage",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Cosmetics 27",
+      "site_officiel": "https://www.cosmetics27.com",
+      "enseignes": [
+        "Galeries Lafayette",
+        "La Samaritaine",
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 3,
+      "categorie": "les deux",
+      "type_offre": "soin",
+      "positionnement": "luxe",
+      "pays": "France",
+      "priorite_demarchage": 14,
+      "justification": "Dans 3 enseignes ; soin regeneratif francais a la Centella, gamme visage complete, cible institut/luxe.",
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux",
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "On The Wild Side",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "La Samaritaine",
+        "Printemps"
+      ],
+      "nb_enseignes": 3,
+      "categorie": "les deux",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "France",
+      "priorite_demarchage": 15,
+      "justification": "Dans 3 enseignes ; naturel francais couvrant visage ET cheveux, donc valorisable sur les deux scans.",
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux",
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.printemps.com/fr/fr/soins-cheveux",
+        "https://www.printemps.com/fr/fr/soins-visage",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Etat Pur",
+      "site_officiel": "https://www.etatpur.fr",
+      "enseignes": [
+        "Galeries Lafayette",
+        "Printemps"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "pharmacie",
+      "pays": "France",
+      "priorite_demarchage": 16,
+      "justification": "Actifs purs dosés a l'unite (groupe NAOS, deja partenaire potentiel via Bioderma et Institut Esthederm) : le format 'un actif par probleme' colle au resultat d'un scan.",
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "RoC Skincare",
+      "site_officiel": "https://rocskincare.fr",
+      "enseignes": [
+        "Printemps"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "pharmacie",
+      "pays": "France / Etats-Unis",
+      "priorite_demarchage": 17,
+      "justification": "Dermocosmetique retinol cliniquement prouvee, grande distribution + Printemps, gamme anti-age structuree par probleme.",
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Pai Skincare",
+      "site_officiel": "https://www.paiskincare.com",
+      "enseignes": [
+        "Galeries Lafayette",
+        "Printemps"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "pharmacie",
+      "pays": "Royaume-Uni",
+      "priorite_demarchage": 18,
+      "justification": "Peaux sensibles et reactives, gamme visage complete certifiee, presente chez GL et Printemps.",
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Antipodes",
+      "site_officiel": "https://www.antipodesnature.com",
+      "enseignes": [
+        "Galeries Lafayette",
+        "Printemps"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "les deux",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Nouvelle-Zelande",
+      "priorite_demarchage": 19,
+      "justification": "Soin naturel certifie neo-zelandais, gamme visage complete, chez GL et Printemps.",
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux",
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.printemps.com/fr/fr/soins-cheveux",
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Susanne Kaufmann",
+      "site_officiel": "https://www.susannekaufmann.com",
+      "enseignes": [
+        "Galeries Lafayette",
+        "Printemps"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "luxe",
+      "pays": "Autriche",
+      "priorite_demarchage": 20,
+      "justification": "Soin spa autrichien haut de gamme, gamme visage et corps complete, chez GL et Printemps.",
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "REN Clean Skincare",
+      "site_officiel": "https://www.renskincare.com",
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Royaume-Uni",
+      "priorite_demarchage": 21,
+      "justification": "Gamme visage clean tres structuree par type de peau (AHA, Evercalm, Vita Mineral), ideale pour du matching de scan.",
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Sunday Riley",
+      "site_officiel": "https://sundayriley.com",
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "luxe",
+      "pays": "Etats-Unis",
+      "priorite_demarchage": 22,
+      "justification": "Soin a actifs forts (Good Genes, A+), gamme visage entiere, forte demande en recommandation ciblee.",
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Rodial",
+      "site_officiel": "https://www.rodial.com",
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "luxe",
+      "pays": "Royaume-Uni",
+      "priorite_demarchage": 23,
+      "justification": "Soin anti-age britannique a actifs concentres, gamme visage large chez GL.",
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Allies of Skin",
+      "site_officiel": "https://alliesofskin.com",
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "luxe",
+      "pays": "Singapour",
+      "priorite_demarchage": 24,
+      "justification": "Soin biotech multi-actifs, gamme visage entiere, tres bien note en efficacite mesurable.",
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Dr. Jart+",
+      "site_officiel": "https://www.drjart.com",
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "pharmacie",
+      "pays": "Coree du Sud",
+      "priorite_demarchage": 25,
+      "justification": "K-beauty dermatologique (Estee Lauder) : Cicapair, Ceramidin, gammes clairement indexees sur un diagnostic de peau.",
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Acqua di Parma",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "La Samaritaine",
+        "Le Bon Marche",
+        "Printemps"
+      ],
+      "nb_enseignes": 4,
+      "categorie": "les deux",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux",
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.printemps.com/fr/fr/soins-cheveux",
+        "https://www.printemps.com/fr/fr/soins-visage",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Le Labo",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "La Samaritaine",
+        "Le Bon Marche",
+        "Printemps"
+      ],
+      "nb_enseignes": 4,
+      "categorie": "les deux",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux",
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.printemps.com/fr/fr/soins-cheveux",
+        "https://www.printemps.com/fr/fr/soins-visage",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Victoria Beckham Beauty",
+      "site_officiel": "https://victoriabeckhambeauty.com",
+      "enseignes": [
+        "Galeries Lafayette",
+        "La Samaritaine",
+        "Le Bon Marche",
+        "Printemps"
+      ],
+      "nb_enseignes": 4,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "luxe",
+      "pays": "Royaume-Uni",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.printemps.com/fr/fr/soins-visage",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Armani Beauty",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "La Samaritaine",
+        "Printemps"
+      ],
+      "nb_enseignes": 3,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "luxe",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.printemps.com/fr/fr/soins-visage",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Byredo",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "La Samaritaine",
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 3,
+      "categorie": "peau",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Diptyque",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine",
+        "Le Bon Marche",
+        "Printemps"
+      ],
+      "nb_enseignes": 3,
+      "categorie": "peau",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.printemps.com/fr/fr/soins-visage",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Hermes Beaute",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "La Samaritaine",
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 3,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "luxe",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Lightinderm",
+      "site_officiel": "https://lightinderm.com",
+      "enseignes": [
+        "Galeries Lafayette",
+        "Le Bon Marche",
+        "Printemps"
+      ],
+      "nb_enseignes": 3,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Maison Francis Kurkdjian",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "La Samaritaine",
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 3,
+      "categorie": "cheveux",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux",
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Nars",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "La Samaritaine",
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 3,
+      "categorie": "peau",
+      "type_offre": "maquillage",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Nooance Paris",
+      "site_officiel": "https://www.nooance-paris.com",
+      "enseignes": [
+        "Galeries Lafayette",
+        "La Samaritaine",
+        "Printemps"
+      ],
+      "nb_enseignes": 3,
+      "categorie": "les deux",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux",
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.printemps.com/fr/fr/soins-cheveux",
+        "https://www.printemps.com/fr/fr/soins-visage",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Penhaligon's",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "La Samaritaine",
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 3,
+      "categorie": "peau",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Tom Ford Beauty",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine",
+        "Le Bon Marche",
+        "Printemps"
+      ],
+      "nb_enseignes": 3,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "luxe",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.printemps.com/fr/fr/soins-visage",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Westman Atelier",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "La Samaritaine",
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 3,
+      "categorie": "peau",
+      "type_offre": "maquillage",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Yves Saint Laurent Beaute",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "La Samaritaine",
+        "Printemps"
+      ],
+      "nb_enseignes": 3,
+      "categorie": "les deux",
+      "type_offre": "soin",
+      "positionnement": "luxe",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux",
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.printemps.com/fr/fr/soins-cheveux",
+        "https://www.printemps.com/fr/fr/soins-visage",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "ghd",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "La Samaritaine",
+        "Printemps"
+      ],
+      "nb_enseignes": 3,
+      "categorie": "cheveux",
+      "type_offre": "appareil",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux",
+        "https://www.printemps.com/fr/fr/soins-cheveux",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Alaena",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Alexandre de Paris",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine",
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "a preciser",
+      "type_offre": "accessoire",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Bachca",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "les deux",
+      "type_offre": "accessoire",
+      "positionnement": "normal",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux",
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Banila Co",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "Printemps"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Coree du Sud",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Bijo;",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine",
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Bonpoint",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "Printemps"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "les deux",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux",
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.printemps.com/fr/fr/soins-cheveux",
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Bvlgari",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "peau",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "By Terry",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "peau",
+      "type_offre": "maquillage",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Creed",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine",
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "DAY+",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "Printemps"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Decorte",
+      "site_officiel": "https://www.decorte.com",
+      "enseignes": [
+        "Galeries Lafayette",
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "luxe",
+      "pays": "Japon",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Demain Beauty",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "Printemps"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Dr. Althea",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Coree du Sud",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Dyson",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "Printemps"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "cheveux",
+      "type_offre": "appareil",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux",
+        "https://www.printemps.com/fr/fr/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Epycure",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine",
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "a preciser",
+      "type_offre": "complement",
+      "positionnement": "pharmacie",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Evidens de Beaute",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "luxe",
+      "pays": "France / Japon",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Ex Nihilo",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine",
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Frederic Malle",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine",
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Inuwet",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "Printemps"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "les deux",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux",
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.printemps.com/fr/fr/soins-cheveux",
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "JOD",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Jo Malone",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine",
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Kat Burki",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "Printemps"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "les deux",
+      "type_offre": "soin",
+      "positionnement": "luxe",
+      "pays": "Etats-Unis",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux",
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.printemps.com/fr/fr/soins-cheveux",
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Kilian",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine",
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Kreme",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine",
+        "Printemps"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-visage",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Kure Bazaar",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine",
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "a preciser",
+      "type_offre": "maquillage",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "L'artisan Parfumeur",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche",
+        "Printemps"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "peau",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "L:A Bruket",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Suede",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Lovechrome",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "cheveux",
+      "type_offre": "maquillage",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Make My Mask",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "Printemps"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "cheveux",
+      "type_offre": "soin",
+      "positionnement": "salon",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux",
+        "https://www.printemps.com/fr/fr/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Mantle",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Suede",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Mason Pearson",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine",
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "a preciser",
+      "type_offre": "accessoire",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Memo",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine",
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Merci Handy",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "Printemps"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Mitomo",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Japon",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Mon Shampoing",
+      "site_officiel": "https://monshampoing.com",
+      "enseignes": [
+        "Galeries Lafayette",
+        "Printemps"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "cheveux",
+      "type_offre": "soin",
+      "positionnement": "salon",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux",
+        "https://www.printemps.com/fr/fr/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Oden",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine",
+        "Printemps"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "les deux",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-cheveux",
+        "https://www.printemps.com/fr/fr/soins-visage",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Pers",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche",
+        "Printemps"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Prada Beauty",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "les deux",
+      "type_offre": "soin",
+      "positionnement": "luxe",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux",
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Roll on Jade",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine",
+        "Printemps"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-visage",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Seoulista Beauty",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine",
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Royaume-Uni",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Skin & Out",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "Printemps"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Slip Silk",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "les deux",
+      "type_offre": "accessoire",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux",
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Tokio Inkarami",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "Printemps"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "cheveux",
+      "type_offre": "soin",
+      "positionnement": "salon",
+      "pays": "Japon",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux",
+        "https://www.printemps.com/fr/fr/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Trudon",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine",
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Uka",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette",
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "cheveux",
+      "type_offre": "soin",
+      "positionnement": "salon",
+      "pays": "Japon",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Ziip",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine",
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 2,
+      "categorie": "a preciser",
+      "type_offre": "appareil",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute",
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "100bon",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "ANSWR",
+      "site_officiel": null,
+      "enseignes": [
+        "Printemps"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "soin",
+      "positionnement": "salon",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Ad Caelia",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Adhoc",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Agent Nateur",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "les deux",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Etats-Unis",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux",
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Agnes B",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "accessoire",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Aje",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "accessoire",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Altesse Studio",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "appareil",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Alyscamps",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "les deux",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux",
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "American Crew",
+      "site_officiel": "https://www.americancrew.com",
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "soin",
+      "positionnement": "salon",
+      "pays": "Etats-Unis",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Amouage",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Amuse",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "maquillage",
+      "positionnement": "normal",
+      "pays": "Coree du Sud",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Annick Goutal",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Apricot",
+      "site_officiel": null,
+      "enseignes": [
+        "Printemps"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Allemagne",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Arencia",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Coree du Sud",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Arocell",
+      "site_officiel": null,
+      "enseignes": [
+        "Printemps"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "pharmacie",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Aromatherapy Associates",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Royaume-Uni",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Arromic",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "appareil",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Atelier Choux",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "accessoire",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Atelier Materi",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Awvi",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Babyliss",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "appareil",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Balabooste",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "accessoire",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Balenciaga",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Bath Bazaar",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "accessoire",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Bdk Parfums",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Bellissima",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "appareil",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Beurer",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "appareil",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Bi;jus",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Bibbi Parfum",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Biogel Kure Bazaar",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "maquillage",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Bioheal BOH",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Coree du Sud",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Birkenstock",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "accessoire",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Boa Beauty",
+      "site_officiel": null,
+      "enseignes": [
+        "Printemps"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Bon Parfumeur",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Boome",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "complement",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Borntostandout",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Bottega Veneta",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Braun",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "appareil",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "By Ava",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "maquillage",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Calor",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "appareil",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Caron",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Cartier",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Casanera",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Celimax",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Coree du Sud",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Celine",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Chateau de Versailles",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "accessoire",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Circles",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Clapoti",
+      "site_officiel": null,
+      "enseignes": [
+        "Printemps"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Cocosolis",
+      "site_officiel": null,
+      "enseignes": [
+        "Printemps"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "les deux",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Bulgarie",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-cheveux",
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Collosol",
+      "site_officiel": null,
+      "enseignes": [
+        "Printemps"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Corefit",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "appareil",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Currentbody",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "appareil",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Cyrillus",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "accessoire",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "D'orsay",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "D+ For Care",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "D-lab Nutricosmetics",
+      "site_officiel": null,
+      "enseignes": [
+        "Printemps"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "complement",
+      "positionnement": "pharmacie",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "DAMDAM",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Japon",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Danessa Myricks",
+      "site_officiel": null,
+      "enseignes": [
+        "Printemps"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "maquillage",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Dear Dahlia",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "maquillage",
+      "positionnement": "normal",
+      "pays": "Coree du Sud",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Dhc",
+      "site_officiel": null,
+      "enseignes": [
+        "Printemps"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Dix Hectares",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Dore",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Dreame",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "appareil",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Dries Van Noten",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Editions de Parfums Frederic Malle",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Elemense",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Emily's Pillow",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "accessoire",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Environ Skin Care",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "luxe",
+      "pays": "Afrique du Sud",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Essential Parfums",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Essentiel B",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "appareil",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Fauve",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "maquillage",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Fiona Franchimon",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "accessoire",
+      "positionnement": "salon",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Firn",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Florasis",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "maquillage",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Foreo",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "les deux",
+      "type_offre": "appareil",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux",
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Fragonard Parfumeur",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Frederika Van Hagen",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Fugazzi",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Fwee",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "maquillage",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Gemo",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "accessoire",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Gezeiten",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Gigi Clozeau",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "accessoire",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Goodal",
+      "site_officiel": null,
+      "enseignes": [
+        "Printemps"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Coree du Sud",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Granado",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Headspace",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "complement",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Henry Jacques",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Herve Herau",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Holidermie",
+      "site_officiel": "https://www.holidermie.com",
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "luxe",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Holyxir",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Honey",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "accessoire",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Hourglass",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "maquillage",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Humanrace",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Humble+",
+      "site_officiel": null,
+      "enseignes": [
+        "Printemps"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "IRAYE",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "luxe",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Il Gufo",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "accessoire",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Ilia",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "maquillage",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Indie Lee",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Etats-Unis",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Initio",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Insentials",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "complement",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Iren Shizen",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Japon",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Irene Forte",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "luxe",
+      "pays": "Italie",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Josh Rosebrook",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Etats-Unis",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "K-Secret",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Coree du Sud",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Keyth",
+      "site_officiel": null,
+      "enseignes": [
+        "Printemps"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Kobako",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Kos",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "complement",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Kosmopellis",
+      "site_officiel": null,
+      "enseignes": [
+        "Printemps"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "pharmacie",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "L'Oreal Paris",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "L'objet",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "La Bonne Brosse",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "accessoire",
+      "positionnement": "salon",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "La Chenaie",
+      "site_officiel": null,
+      "enseignes": [
+        "Printemps"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "La Doublej",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "accessoire",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Laboratoires Botanique Avancee",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Laboratoires de Biarritz",
+      "site_officiel": null,
+      "enseignes": [
+        "Printemps"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "pharmacie",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Lancel",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "accessoire",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Le Biberon Francais",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "accessoire",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Le Rub",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Les Eaux Primordiales",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Les Petits Prodiges",
+      "site_officiel": null,
+      "enseignes": [
+        "Printemps"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Les Poulettes",
+      "site_officiel": null,
+      "enseignes": [
+        "Printemps"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Love Liner",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "maquillage",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Lululun",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Japon",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "M.a.c",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "maquillage",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Madame la Presidente",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "accessoire",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Madara",
+      "site_officiel": "https://www.madaracosmetics.com",
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Lettonie",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Magicstripes",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "appareil",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Maison Crivelli",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Maison Kosane",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Maison Margiela",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Manucurist",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "maquillage",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Marc Antoine Barrois",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Mario Badescu",
+      "site_officiel": "https://www.mariobadescu.com",
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Etats-Unis",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Martine Cosmetics Make Up",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "maquillage",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Masqmai",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Coree du Sud",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Matiere Premiere",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Mavala",
+      "site_officiel": null,
+      "enseignes": [
+        "Printemps"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "maquillage",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Medi-Peel",
+      "site_officiel": null,
+      "enseignes": [
+        "Printemps"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Coree du Sud",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Medilift",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "appareil",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Mermade",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "appareil",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Milia Matcha",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Mimetique",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Minimaliste",
+      "site_officiel": null,
+      "enseignes": [
+        "Printemps"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "les deux",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-cheveux",
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Miye",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "complement",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Momo Puri",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Japon",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Monnalisa",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "accessoire",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Mono Skincare",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Moussse",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Muse&Heroine",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "luxe",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Nabla",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "maquillage",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Neurae",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "complement",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Nishane",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Nouvel Amour",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Nudestix",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "maquillage",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Nuori",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Danemark",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Odacite",
+      "site_officiel": "https://odacite.com",
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "France / Etats-Unis",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Omads",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "accessoire",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Orlane",
+      "site_officiel": "https://www.orlane.com",
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "luxe",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Ormaie",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Oryza Lab",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Oskia",
+      "site_officiel": "https://oskiaskincare.com",
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "luxe",
+      "pays": "Royaume-Uni",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Panasonic",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "appareil",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Parfums de Marly",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Pasito a Pasito",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "accessoire",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Peignee",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "accessoire",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Perfumer H",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Philips",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "appareil",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Pomponne",
+      "site_officiel": null,
+      "enseignes": [
+        "Printemps"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Q+A",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "les deux",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Royaume-Uni",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux",
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Rare",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Refeel Naturals",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Reju'all",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Remington",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "appareil",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Restored",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "RevitaLash",
+      "site_officiel": null,
+      "enseignes": [
+        "Printemps"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "pharmacie",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Revlon",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "appareil",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Rhodista",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Rmn",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "accessoire",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Rms Beauty",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "maquillage",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Roger & Gallet",
+      "site_officiel": "https://www.roger-gallet.com",
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Rowenta",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "appareil",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Rudolph Care",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Danemark",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Rue de Verneuil",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Ruhaku",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Japon",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "S Heart",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "appareil",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Sabon",
+      "site_officiel": "https://www.sabon.com",
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Israel",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Saborino",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Japon",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Saint Algue",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "soin",
+      "positionnement": "salon",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Santa Maria Novella",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Scrunchie Is Back",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "accessoire",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Sekkisei Blue (Kose)",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Japon",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Sentara Holistic",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "luxe",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Serge Lutens",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Seventy One",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "luxe",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Shark",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "appareil",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Shikohin",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Silk N",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "les deux",
+      "type_offre": "appareil",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux",
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Sitre",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Skin Diligent",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Skin Office Paris",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Skincycles",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "appareil",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Slim Cera",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "appareil",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Solaris Laboratoires",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Soraali",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Storie Veneziane",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Substance of Light",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "luxe",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Subtle Energies",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "luxe",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Suqqu",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "maquillage",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Sweed",
+      "site_officiel": null,
+      "enseignes": [
+        "Printemps"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "les deux",
+      "type_offre": "maquillage",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-cheveux",
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Swiss Perfection",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "luxe",
+      "pays": "Suisse",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "TWK",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Talika",
+      "site_officiel": "https://www.talika.com",
+      "enseignes": [
+        "Printemps"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "les deux",
+      "type_offre": "soin",
+      "positionnement": "pharmacie",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-cheveux",
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Talm",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "soin",
+      "positionnement": "luxe",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Tanda",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "peau",
+      "type_offre": "appareil",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-visage"
+      ]
+    },
+    {
+      "nom": "Tartine et Chocolat",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "accessoire",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Ulike",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "appareil",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Ultra Violette",
+      "site_officiel": "https://ultraviolette.com.au",
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Australie",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Umai",
+      "site_officiel": null,
+      "enseignes": [
+        "Printemps"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "les deux",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-cheveux",
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Uniikon",
+      "site_officiel": null,
+      "enseignes": [
+        "Printemps"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "soin",
+      "positionnement": "salon",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Urban Keratin",
+      "site_officiel": null,
+      "enseignes": [
+        "Printemps"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "soin",
+      "positionnement": "salon",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "VT Cosmetics",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Coree du Sud",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Valera",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "appareil",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Vegetalement Provence",
+      "site_officiel": null,
+      "enseignes": [
+        "Printemps"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "soin",
+      "positionnement": "salon",
+      "pays": "France",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Vinida Savant",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Violette_fr",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "maquillage",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Whamisa",
+      "site_officiel": null,
+      "enseignes": [
+        "Printemps"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "les deux",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": "Coree du Sud",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.printemps.com/fr/fr/soins-cheveux",
+        "https://www.printemps.com/fr/fr/soins-visage"
+      ]
+    },
+    {
+      "nom": "Xerjoff",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "parfum",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Yaman",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "appareil",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "Yookare",
+      "site_officiel": null,
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    },
+    {
+      "nom": "Zakuw",
+      "site_officiel": null,
+      "enseignes": [
+        "Galeries Lafayette"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "cheveux",
+      "type_offre": "accessoire",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.galerieslafayette.com/c/beaute/soins/soins-cheveux"
+      ]
+    },
+    {
+      "nom": "Zoeva",
+      "site_officiel": null,
+      "enseignes": [
+        "La Samaritaine"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "maquillage",
+      "positionnement": "normal",
+      "pays": null,
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.samaritaine.com/fr/univers/beaute/"
+      ]
+    },
+    {
+      "nom": "iS Clinical",
+      "site_officiel": "https://isclinical.com",
+      "enseignes": [
+        "Le Bon Marche"
+      ],
+      "nb_enseignes": 1,
+      "categorie": "a preciser",
+      "type_offre": "soin",
+      "positionnement": "luxe",
+      "pays": "Etats-Unis",
+      "priorite_demarchage": null,
+      "justification": null,
+      "source": [
+        "https://www.lebonmarche.com/fr/les_marques#beaute"
+      ]
+    }
+  ]
+}

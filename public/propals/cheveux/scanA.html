@@ -1,0 +1,1022 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<meta name="vy-title-key" content="hcg.meta.t">
+<title>vyvre — Scan cheveux</title>
+<script src="/scan/vy-i18n.js?v=9"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;800&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased}
+html,body{background:#000;color:#eaf6ff;font-family:Inter,sans-serif;font-weight:300;overflow:hidden;height:100%}
+#cv{position:fixed;inset:0;width:100%;height:100%;display:block}
+video{display:none}
+.hud{position:fixed;inset:0;pointer-events:none;z-index:3}
+.marque{position:absolute;top:28px;left:4vw;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.34em;color:rgba(223,234,242,.6)}
+.note{position:absolute;top:52px;left:4vw;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;color:#ffb38a;opacity:.85}
+.choix{position:absolute;top:20px;right:4vw;display:flex;gap:4px;pointer-events:auto;flex-wrap:wrap;justify-content:flex-end;max-width:74vw}
+.choix button{all:unset;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+  padding:9px 14px;border:1px solid rgba(223,234,242,.16);color:rgba(223,234,242,.6);background:rgba(0,0,0,.35);backdrop-filter:blur(10px)}
+.choix button:hover{color:rgba(234,246,255,.95);border-color:rgba(127,216,255,.5)}
+.choix button.on{color:#000;background:#eaf6ff;border-color:#eaf6ff}
+body.p3 .choix button.on{background:#e8c98a;border-color:#e8c98a}
+.phrase{position:absolute;left:4vw;bottom:9vh;max-width:15ch;font-weight:200;font-size:clamp(40px,5.6vw,96px);line-height:.98;letter-spacing:-.03em;transition:opacity .8s}
+.phrase small{display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.3em;color:#7fd8ff;margin-bottom:18px;font-weight:300}
+.aide{position:absolute;left:4vw;bottom:calc(9vh - 42px);font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#7fd8ff;opacity:0;transition:opacity .6s}
+.aide.on{opacity:1}
+.total{position:absolute;right:4vw;bottom:9vh;font-family:'IBM Plex Mono',monospace;font-weight:300;font-size:clamp(40px,5vw,84px);letter-spacing:-.04em;text-align:right}
+.total i{display:block;font-style:normal;font-size:10px;letter-spacing:.3em;color:rgba(223,234,242,.5);margin-top:8px}
+.debug{position:absolute;left:4vw;top:80px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:#7fd8ff;white-space:pre;opacity:.7}
+/* chaque mise en scene a sa lumiere : l'or n'ecrit pas en bleu */
+body.p3 .phrase small,body.p3 .total i{color:#e8c98a}
+body.p3 .total span{color:#f4dcaa}
+body.p2 .marque{color:rgba(223,234,242,.75)}
+
+body.fini .phrase{opacity:0}
+@media(max-width:760px){.choix{top:12px;left:auto;right:3vw;bottom:auto;max-width:94vw;justify-content:flex-end}
+  .choix button{font-size:8px;padding:6px 9px;letter-spacing:.1em}
+  .phrase{bottom:16vh;font-size:clamp(32px,8vw,60px)}.total{bottom:16vh}}
+</style>
+</head>
+<body class="p1">
+<video id="vid" playsinline muted autoplay></video>
+<canvas id="cv"></canvas>
+<div class="hud">
+  <div class="choix" id="choix">
+    <button data-p="1">Encre qui coule</button>
+    <button data-p="2">Tranche de lumière</button>
+    <button data-p="3">Or sur les mèches</button>
+  </div>
+  <div class="marque" data-i18n="hcg.marque">VYVRE · SCAN CHEVEUX</div>
+  <div class="note" id="note"></div>
+  <div class="debug" id="lectureDebug"></div>
+  <div class="phrase" id="phrase"><small data-i18n="hcg.kick">SCAN CHEVEUX</small><span id="phraseTxt" data-i18n="hcg.remplir">Remplissez vos cheveux de bleu.</span></div>
+  <div class="aide" id="aide"></div>
+  <div class="total"><span id="pct">0 %</span><i data-i18n="hcg.total">DE LA CHEVELURE LUE</i></div>
+</div>
+<script type="module">
+/* ==========================================================================
+   LE GUIDAGE SANS ORDRES — trois propales.
+   On ne dit pas « tournez a gauche » : on montre ce qui reste a lire, et la
+   personne tourne d'elle-meme pour le remplir (le principe de Face ID).
+
+   Tout est REEL sur la camera :
+   - l'orientation de la tete : « face_landmarker » de MediaPipe (Google,
+     Apache 2.0), 478 points du visage, lus a chaque image ;
+   - les cheveux : « hair_segmenter », le meme modele que les propales du scan.
+   Une zone ne se remplit que si la tete est dans le bon angle ET que des
+   cheveux sont vraiment vus a ce moment-la.
+
+   TROIS MISES EN SCENE, plus hautes de ton que les cinq premieres :
+   1 ENCRE — les cheveux coulent, et ce qui est lu se fige en bleu profond ;
+   2 TRANCHE DE LUMIERE — un plan traverse la tete et laisse ses coupes ;
+   3 OR — les reflets suivent le sens des meches, le bleu ne dit que l'avancement.
+
+   ?p=1..3 choisit la mise en scene (touches 1 a 3) · ?demo=1 : une tete fictive
+   tourne toute seule (pour voir sans camera, et c'est ecrit a l'ecran) ·
+   ?photo=p_232 : une photo traitee comme la camera · ?debug=1 : les angles lus.
+   ========================================================================== */
+import { FilesetResolver, ImageSegmenter, FaceLandmarker } from "/cheveux/vendor/mediapipe/vision_bundle.mjs";
+
+const $ = id => document.getElementById(id);
+
+/* ---------------- les douze langues ----------------
+   vy-i18n.js charge son dictionnaire apres ce module. Tant qu'il n'est pas la,
+   T() rend null et on laisse le francais ecrit dans le HTML : jamais de clef
+   nue a l'ecran. dit() pose la clef sur l'element ; VY.apply() la repeindra a
+   chaque changement de langue. */
+let LANGUE_PRETE = false;
+function T(k, v){
+  if(window.VY && VY.t){ const s = VY.t(k, v); if(s !== k) return s; }
+  return null;
+}
+function dit(el, k){
+  if(!el) return;
+  el.setAttribute('data-i18n', k);
+  const s = T(k); if(s !== null) el.textContent = s;
+}
+document.addEventListener('vy:lang', function(){
+  LANGUE_PRETE = true;
+  if(window.VY && VY.apply) VY.apply();
+});
+const clamp=(v,a,b)=>v<a?a:v>b?b:v, lerp=(a,b,t)=>a+(b-a)*t, sm=t=>{t=clamp(t,0,1);return t*t*(3-2*t)};
+const Q = new URLSearchParams(location.search);
+const DEMO = Q.get('demo') === '1', DEBUG = Q.get('debug') === '1';
+
+/* les quatre zones, nommees par le geste qui les montre */
+const ZONES = ['face','gauche','droite','dessus'];
+const NOMS = { face:'le devant', gauche:'le côté gauche', droite:'le côté droit', dessus:'le dessus' };
+const CLEF_COTE = { face:'hcg.cote.face', gauche:'hcg.cote.gauche', droite:'hcg.cote.droite', dessus:'hcg.cote.dessus' };
+const nomCote = z => T(CLEF_COTE[z]) ?? NOMS[z];
+const DUREE_ZONE = { face:1.0, gauche:1.3, droite:1.3, dessus:1.4 };   /* secondes de lecture par zone */
+const Z = { face:0, gauche:0, droite:0, dessus:0 };
+let pose = 'face', vuCheveux = 0, visage = false, yawV = 0, pitchV = 0, finiDepuis = 0, bloqueDepuis = performance.now();
+
+/* ---------------- camera ---------------- */
+const vid = $('vid'); let src = null, miroir = true;
+async function ouvrirSource(){
+  if(!DEMO && !PHOTO){
+    try{
+      const st = await navigator.mediaDevices.getUserMedia({ video:{ facingMode:'user', width:{ideal:1280}, height:{ideal:720} }, audio:false });
+      vid.srcObject = st; await vid.play();
+      await new Promise(r => vid.videoWidth ? r() : vid.onloadedmetadata = r);
+      src = vid; return;
+    }catch(e){}
+  }
+  if(!DEMO && !PHOTO){
+    /* 23/09 — avant, une camera refusee affichait le portrait d'une INCONNUE et
+       le compteur montait tout seul jusqu'a 100 % sans qu'aucune image existe :
+       le parcours restait bloque la pour toujours. Desormais on rend la main. */
+    dit($('note'), 'hcg.cam.t');
+    dit($('phraseTxt'), 'hcg.cam.p');
+    if(parent !== window) parent.postMessage({ type:'vyvre-scan-camera-refusee' }, location.origin);
+    return;
+  }
+  const img = new Image(); img.src = '/_test_masque/' + (PHOTO || 'p_073') + '.jpg'; await img.decode(); src = img; miroir = false;
+  dit($('note'), DEMO ? 'hcg.demo' : 'hcg.photo');
+}
+const SW = () => src.videoWidth || src.naturalWidth, SH = () => src.videoHeight || src.naturalHeight;
+const PHOTO = Q.get('photo');   /* ?photo=p_073 : une photo traitee comme la camera (pour verifier le double) */
+const demo = () => DEMO || (src !== vid && !PHOTO);
+
+/* ---------------- lecture : visage + cheveux ---------------- */
+const PW = 256; let PH = 192;
+const petit = document.createElement('canvas'), pctx = petit.getContext('2d', { willReadFrequently:true });
+const mH = document.createElement('canvas'), mHc = mH.getContext('2d');
+let HAIR, idH, segH, face, dernierVisage = null, dernierVisageT = -1e9, tour = 0, dern = 0, pitchRef = null, refN = 0;
+async function ouvrirLecture(){
+  const fs = await FilesetResolver.forVisionTasks("/cheveux/vendor/mediapipe/wasm");
+  segH = await ImageSegmenter.createFromOptions(fs, { baseOptions:{ modelAssetPath:"/cheveux/vendor/mediapipe/modeles/hair_segmenter.tflite", delegate:'CPU' },
+    runningMode:'VIDEO', outputConfidenceMasks:true, outputCategoryMask:false });
+  const fo = d => ({ baseOptions:{ modelAssetPath:"/cheveux/vendor/mediapipe/modeles/face_landmarker.task", delegate:d },
+    runningMode:'VIDEO', numFaces:1 });
+  try { face = await FaceLandmarker.createFromOptions(fs, fo('GPU')); }
+  catch(e){ try { face = await FaceLandmarker.createFromOptions(fs, fo('CPU')); } catch(e2){ console.warn('visage', e2); } }
+  window.__lecture = { cheveux: !!segH, visage: !!face };
+}
+function tailles(){
+  PH = Math.round(PW * SH() / SW());
+  for(const c of [petit, mH]){ c.width = PW; c.height = PH; }
+  idH = mHc.createImageData(PW, PH); HAIR = new Float32Array(PW*PH);
+  for(let i=0;i<PW*PH;i++){ idH.data[i*4]=idH.data[i*4+1]=idH.data[i*4+2]=255; }
+}
+function lire(now){
+  if(!segH || now - dern < 60) return; dern = now;
+  pctx.save(); if(miroir){ pctx.translate(PW,0); pctx.scale(-1,1); } pctx.drawImage(src,0,0,PW,PH); pctx.restore();
+  try{
+    if(tour++ % 2 === 0){
+      segH.segmentForVideo(petit, now, r => {
+        const cm = r.confidenceMasks; if(!cm) return;
+        const m = (cm[1] || cm[0]).getAsFloat32Array(); let n = 0;
+        /* la barbe et la moustache ne sont pas la chevelure : tout ce qui est
+           sous le nez, entre les deux joues, est retire */
+        let bx0 = -1, bx1 = -1, by0 = PH;
+        if(dernierVisage && !demo()){ const L = dernierVisage; const xa = L[234].x*PW, xb = L[454].x*PW;
+          bx0 = Math.min(xa,xb) - 4; bx1 = Math.max(xa,xb) + 4; by0 = L[2].y*PH; }
+        for(let i=0;i<PW*PH;i++){
+          let v = m[i]; const x = i % PW, y = (i / PW) | 0;
+          if(y > by0 && x > bx0 && x < bx1) v = 0;
+          HAIR[i] = HAIR[i]*.3 + v*.7; idH.data[i*4+3] = sm((HAIR[i]-.45)/.35)*255; if(HAIR[i] > .5) n++;
+        }
+        mHc.putImageData(idH,0,0); vuCheveux = n / (PW*PH);
+        apresMasque();
+        cm.forEach(x => x.close && x.close());
+      });
+    } else if(!demo() && face){
+      const r = face.detectForVideo(petit, now);
+      const L = r.faceLandmarks && r.faceLandmarks[0];
+      if(L){ dernierVisage = L; dernierVisageT = now; }
+      visage = !!L;
+      jugerImage(now, L);
+      if(L){
+        /* le lacet : ou est le bout du nez entre les deux joues (image en miroir,
+           donc « a gauche de l'ecran » = vers la gauche de la personne) */
+        const nez = L[1], jg = L[234], jd = L[454], yeux = { y:(L[33].y + L[263].y)/2 }, men = L[152], front = L[10];
+        const lx = Math.min(jg.x, jd.x), rx = Math.max(jg.x, jd.x);
+        yawV = ((nez.x - lx) / (rx - lx || 1) - .5) * 2;          /* -1 .. 1 */
+        const p = (nez.y - yeux.y) / (men.y - front.y || 1);      /* grandit quand on baisse la tete */
+        if(refN < 20 && Math.abs(yawV) < .2){ pitchRef = pitchRef == null ? p : pitchRef*.9 + p*.1; refN++; }
+        pitchV = pitchRef == null ? 0 : (p - pitchRef) / .1;
+      }
+    }
+  }catch(e){}
+}
+
+/* la pose, telle qu'on la lit ; en demo, une tete fictive qui fait le tour */
+function lirePose(now, dt){
+  if(demo()){
+    const t = (now / 1000) % 12;
+    const cible = t < 2 ? 'face' : t < 4.5 ? 'gauche' : t < 7 ? 'droite' : t < 9.5 ? 'dessus' : 'face';
+    const yc = cible === 'gauche' ? -.75 : cible === 'droite' ? .75 : 0, pc = cible === 'dessus' ? 1.4 : 0;
+    yawV = lerp(yawV, yc, 1 - Math.exp(-dt*3)); pitchV = lerp(pitchV, pc, 1 - Math.exp(-dt*3)); visage = true;
+    vuCheveux = Math.max(vuCheveux, .05);
+  }
+  if(visage && pitchV > .6) descenteVue = now;
+  let p = 'face';
+  /* le sommet : tete baissee avec le visage encore vu, ou visage perdu juste
+     apres une descente (moins de 1,5 s) avec beaucoup de cheveux */
+  if((visage && pitchV > 1.1) || (!visage && now - descenteVue < 1500 && vuCheveux > .15)) p = 'dessus';
+  else if(!visage && !demo()) p = 'aucune';
+  else if(yawV < -.42) p = 'gauche';
+  else if(yawV > .42) p = 'droite';
+  else if(Math.abs(yawV) > .2) p = 'entre';
+  pose = p;
+  if(demo() && ZONES.includes(p) && now - dernierePrise > 150 && IMAGES[p].length < N_IMAGES){
+    IMAGES[p].push(null); dernierePrise = now; Z[p] = IMAGES[p].length / N_IMAGES; bloqueDepuis = now;
+  }
+}
+/* ==========================================================================
+   LE VRAI COMPTE. Chaque cote demande N_IMAGES images exploitables. Une image
+   n'est gardee que si le visage est vu dans le bon angle, que des cheveux sont
+   visibles (plus de 3 % de l'image), qu'elle est nette (variance du laplacien
+   sur les cheveux, jugee par rapport a cette camera) et que la personne ne
+   bouge pas. Le pourcentage affiche = images gardees / N_IMAGES.
+   Pour chaque cote on garde la plus nette, en pleine definition et SANS miroir :
+   c'est elle que le moteur lira (les memes poses que l'ancien parcours).
+   ========================================================================== */
+const N_IMAGES = 8, SEUIL_BOUGE = .03;
+const IMAGES = { face:[], gauche:[], droite:[], dessus:[] };
+const MEILLEURE = { face:null, gauche:null, droite:null, dessus:null };
+let descenteVue = -1e9, dernierePrise = 0, grisPrec = null, refus = '', refusDepuis = 0;
+const NETS = [];
+function seuilNet(){ if(NETS.length < 8) return .00024; const t = NETS.slice().sort((a,b) => a-b); return Math.max(.00024, t[Math.floor(t.length*.8)] * .6); }
+function jugerImage(now, L){
+  const d = pctx.getImageData(0, 0, PW, PH).data, n = PW*PH, g = new Float32Array(n);
+  for(let i=0;i<n;i++) g[i] = (d[i*4]*.3 + d[i*4+1]*.59 + d[i*4+2]*.11) / 255;
+  let bouge = 0; if(grisPrec){ for(let i=0;i<n;i+=3) bouge += Math.abs(g[i] - grisPrec[i]); bouge /= (n/3); }
+  grisPrec = g;
+  let s1 = 0, s2 = 0, k = 0; const peu = vuCheveux < .03;
+  for(let y=1;y<PH-1;y+=2) for(let x=1;x<PW-1;x+=2){
+    const i = y*PW + x; if(!peu && HAIR[i] < .5) continue;
+    const l = 4*g[i] - g[i-1] - g[i+1] - g[i-PW] - g[i+PW]; s1 += l; s2 += l*l; k++;
+  }
+  const net = k ? s2/k - (s1/k)*(s1/k) : 0;
+  NETS.push(net); if(NETS.length > 60) NETS.shift();
+  const z = pose; let r = '';
+  if(!ZONES.includes(z)) r = z === 'aucune' ? 'visage' : 'angle';
+  else if(IMAGES[z].length >= N_IMAGES) r = '';
+  else if(vuCheveux < .03) r = 'cheveux';
+  else if(bouge > SEUIL_BOUGE) r = 'bouge';
+  else if(net < seuilNet()) r = 'flou';
+  if(r){ if(r !== refus){ refus = r; refusDepuis = now; } return; }
+  refus = '';
+  if(ZONES.includes(z) && IMAGES[z].length < N_IMAGES && now - dernierePrise > 120){
+    IMAGES[z].push(net); dernierePrise = now; Z[z] = IMAGES[z].length / N_IMAGES; bloqueDepuis = now;
+    if(!MEILLEURE[z] || net > MEILLEURE[z].net) MEILLEURE[z] = { net, image: prendreImage(), masque: prendreMasque(), faceBox: boiteVisage(L) };
+  }
+}
+/* l'image pour le moteur : pleine definition (1100 px), non miroir */
+function prendreImage(){
+  const sc = Math.min(1, 1100 / SW()), c = document.createElement('canvas');
+  c.width = Math.round(SW()*sc); c.height = Math.round(SH()*sc);
+  c.getContext('2d').drawImage(src, 0, 0, c.width, c.height); return c;
+}
+/* LE MASQUE DE CHEVEUX QUI PART AVEC L'IMAGE.
+   Le moteur du scan segmentait les cheveux lui-meme, par la couleur, en partant
+   d'une bande au-dessus du front : quand le decor ressemblait aux cheveux, le
+   decor entrait dans la mesure (audit du 23/09 : du feuillage lu comme une
+   coloration vive, un fond magenta lu comme une chevelure coloree). Or ce
+   guidage possede deja un masque juste, celui de hair_segmenter, et il le
+   calcule a chaque image. On le lui donne donc, au lieu de le lui faire refaire
+   moins bien.
+   Format : PNG en niveaux de gris, 256 px de large, 0 = pas de cheveux,
+   255 = cheveux certains. Le moteur le reechantillonne a sa propre resolution.
+   Il est remis A L'ENDROIT : l'apercu camera est en miroir, l'image envoyee au
+   moteur ne l'est pas, et un masque retourne lirait la chevelure du mauvais cote.
+   HAIR est lisse dans le temps et calcule une image sur deux : le masque envoye
+   peut donc avoir une image de retard sur la photo. A tete immobile — et on
+   n'enregistre que quand elle l'est — cela ne se voit pas. */
+const mEnvoi = document.createElement('canvas'), mEnvoiCtx = mEnvoi.getContext('2d');
+function prendreMasque(){
+  if(!HAIR) return null;
+  mEnvoi.width = PW; mEnvoi.height = PH;
+  const id = mEnvoiCtx.createImageData(PW, PH);
+  for(let y=0;y<PH;y++) for(let x=0;x<PW;x++){
+    const v = Math.round(clamp(HAIR[y*PW + (miroir ? PW-1-x : x)], 0, 1) * 255);
+    const j = (y*PW + x)*4;
+    id.data[j] = id.data[j+1] = id.data[j+2] = v; id.data[j+3] = 255;
+  }
+  mEnvoiCtx.putImageData(id, 0, 0);
+  return { png: mEnvoi.toDataURL('image/png'), largeur: PW, hauteur: PH };
+}
+/* le cadre du visage, dans l'image non miroir */
+function boiteVisage(L){
+  if(!L) return null;
+  let x0 = 1, x1 = 0, y0 = 1, y1 = 0;
+  for(const q of L){ const x = miroir ? 1 - q.x : q.x; if(x < x0) x0 = x; if(x > x1) x1 = x; if(q.y < y0) y0 = q.y; if(q.y > y1) y1 = q.y; }
+  const sc = Math.min(1, 1100 / SW()), w = SW()*sc, h = SH()*sc;
+  return { x:x0*w, y:y0*h, width:(x1-x0)*w, height:(y1-y0)*h };
+}
+/* fini : on rend au scan les meilleures images de chaque cote */
+let rendu = false;
+function rendre(){
+  if(rendu || demo()) return; rendu = true;
+  const poses = ZONES.filter(z => MEILLEURE[z]).map(z => ({ pose:z, image:MEILLEURE[z].image.toDataURL('image/jpeg', .9), masque:MEILLEURE[z].masque, faceBox:MEILLEURE[z].faceBox }));
+  try{ if(src && src.srcObject) src.srcObject.getTracks().forEach(t => t.stop()); }catch(e){}
+  if(parent !== window) parent.postMessage({ type:'vyvre-scan-fini', poses }, location.origin);
+}
+const total = () => ZONES.reduce((a,z) => a + Z[z], 0) / 4;
+const manquante = () => ZONES.find(z => Z[z] < 1);
+
+/* ---------------- toile 2D ---------------- */
+const cv = $('cv'), ctx = cv.getContext('2d'); let W=0, H=0, DPR=1;
+function taille(){ DPR = Math.min(devicePixelRatio||1, 1.25); W = innerWidth; H = innerHeight; cv.width = W*DPR; cv.height = H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0); }
+addEventListener('resize', taille);
+const tmp = document.createElement('canvas'), tx = tmp.getContext('2d');
+function cadre(){ const s = Math.max(W/SW(), H/SH()); const w = SW()*s, h = SH()*s; return { x:(W-w)/2, y:(H-h)/2, w, h }; }
+function peindre(c, r, f){ c.save(); if(f) c.filter = f; if(miroir){ c.translate(r.x + r.w, r.y); c.scale(-1,1); c.drawImage(src,0,0,r.w,r.h); } else c.drawImage(src, r.x, r.y, r.w, r.h); c.restore(); }
+function cheveux(r, couleur, mode){
+  if(tmp.width !== cv.width || tmp.height !== cv.height){ tmp.width = cv.width; tmp.height = cv.height; tx.setTransform(DPR,0,0,DPR,0,0); }
+  tx.save(); tx.setTransform(1,0,0,1,0,0); tx.clearRect(0,0,tmp.width,tmp.height); tx.restore();
+  tx.save(); tx.imageSmoothingQuality = 'low'; tx.drawImage(mH, r.x, r.y, r.w, r.h);
+  tx.globalCompositeOperation = 'source-in'; tx.fillStyle = couleur; tx.fillRect(0,0,W,H); tx.restore();
+  ctx.save(); ctx.globalCompositeOperation = mode || 'color'; ctx.drawImage(tmp, 0, 0, W, H); ctx.restore();
+}
+const BLEU = a => 'rgba(64,170,255,' + a + ')';
+/* ==========================================================================
+   TROIS MISES EN SCENE DU MEME MOMENT.
+   La lecture au-dessus n'a pas bouge d'une ligne : camera, orientation de la
+   tete (478 points), masque des cheveux, huit images gardees par cote avec
+   les quatre conditions, phrases de guidage, douze langues, repli si la
+   camera est refusee. Ce qui suit ne fait que DESSINER ce qui est deja lu.
+
+   1 · ENCRE      vos cheveux coulent ; ce qui est lu se fige en bleu profond
+   2 · TRANCHES   un plan de lumiere traverse la tete et laisse ses coupes
+   3 · OR         les reflets coulent le long des meches ; le bleu ne dit que
+                  l'avancement
+   ========================================================================== */
+let PROP = clamp(+(Q.get('p') || Q.get('g') || 1), 1, 3), T0 = performance.now(), tPrec = T0;
+
+/* ---------------- les voiles : la personne reste en couleur ----------------
+   On n'assombrit QUE la ou du texte doit rester lisible : le bas (la phrase et
+   le pourcentage) et une bande en haut (la marque et le selecteur). */
+/* UN SEUL VOILE, PAS DEUX. Chaque remplissage plein cadre se paie ; le haut
+   (la marque, le selecteur) et le bas (la phrase, le pourcentage) tiennent
+   dans un seul degrade. */
+function voiles(haut, bas){
+  const g = ctx.createLinearGradient(0, 0, 0, H);
+  g.addColorStop(0, 'rgba(0,0,0,'+haut+')');
+  g.addColorStop(.20, 'rgba(0,0,0,0)');
+  g.addColorStop(.50, 'rgba(0,0,0,0)');
+  g.addColorStop(.80, 'rgba(0,0,0,'+(bas*.50)+')');
+  g.addColorStop(1, 'rgba(0,0,0,'+bas+')');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+}
+function vignette(a, r0){
+  const g = ctx.createRadialGradient(W*.5, H*.42, Math.min(W,H)*(r0 || .16), W*.5, H*.42, Math.max(W,H)*.56);
+  g.addColorStop(0,'rgba(0,0,0,0)'); g.addColorStop(.30,'rgba(0,0,0,'+(a*.30)+')');
+  g.addColorStop(.58,'rgba(0,0,0,'+(a*.74)+')'); g.addColorStop(.82,'rgba(0,0,0,'+(a*.94)+')');
+  g.addColorStop(1,'rgba(0,0,0,'+a+')');
+  ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+}
+
+
+/* ==========================================================================
+   CE QU'ON DEDUIT DU MASQUE, A CHAQUE NOUVELLE LECTURE (8 fois par seconde).
+   Trois choses, et rien de plus : la boite des cheveux, la part de chaque
+   cote dans chaque pixel, et — pour l'or seulement — le sens des meches.
+   ========================================================================== */
+const REP = { cx:128, w:40, yFront:70 };
+const BOITE = { x0:0, x1:0, y0:0, y1:0, ok:false };
+let ZW = null, DIRX = null, DIRY = null, COH = null, NBUF = 0, GRAINES = [], versionMasque = 0;
+let Jxx = null, Jyy = null, Jxy = null, Kxx = null, Kyy = null, Kxy = null, GRIS = null;
+
+function allouer(n){
+  if(NBUF === n) return;
+  NBUF = n;
+  ZW = new Uint8Array(n*4);                                   /* la part des 4 cotes, par pixel */
+  DIRX = new Float32Array(n); DIRY = new Float32Array(n); COH = new Float32Array(n);
+  GRIS = new Float32Array(n);
+  Jxx = new Float32Array(n); Jyy = new Float32Array(n); Jxy = new Float32Array(n);
+  Kxx = new Float32Array(n); Kyy = new Float32Array(n); Kxy = new Float32Array(n);
+}
+
+/* appelee juste apres que HAIR a ete remis a jour */
+function apresMasque(){
+  const n = PW*PH; allouer(n);
+  let x0 = PW, x1 = 0, y0 = PH, y1 = 0, k = 0;
+  for(let y=0;y<PH;y++){ const o = y*PW;
+    for(let x=0;x<PW;x++) if(HAIR[o+x] > .5){ k++; if(x<x0)x0=x; if(x>x1)x1=x; if(y<y0)y0=y; if(y>y1)y1=y; }
+  }
+  BOITE.ok = k > 80;
+  if(BOITE.ok){ BOITE.x0=x0; BOITE.x1=x1; BOITE.y0=y0; BOITE.y1=y1; }
+  /* les reperes : le visage s'il vient d'etre lu, sinon la boite des cheveux
+     (demo, contre-jour) — de cette facon le dessin ne s'effondre jamais */
+  const L = dernierVisage;
+  if(L && performance.now() - dernierVisageT < 2500){
+    REP.cx = (L[234].x + L[454].x)/2 * PW;
+    REP.w = Math.max(10, Math.abs(L[454].x - L[234].x) * PW / 2);
+    REP.yFront = L[10].y * PH;
+  } else if(BOITE.ok){
+    REP.cx = (x0+x1)/2; REP.w = Math.max(10, (x1-x0)*.40); REP.yFront = y0 + (y1-y0)*.40;
+  }
+  parts();
+  if(PROP !== 2) tenseur();   /* l'encre aussi coule le long des meches */
+  graines();
+  versionMasque++;
+}
+
+/* LA PART DE CHAQUE COTE DANS CHAQUE PIXEL.
+   Un pixel n'appartient pas a un cote : il en montre plusieurs, plus ou moins.
+   On lui donne donc quatre poids, doux, dont la somme fait 1 — sans quoi le
+   figeage dessinerait des frontieres droites en travers de la chevelure.
+   Le cote « gauche » (la personne tourne vers SA gauche) devoile la masse qui
+   part vers la DROITE de l'ecran : c'est le miroir, et c'est deja la
+   convention du reste du parcours. */
+function parts(){
+  const cx = REP.cx, w = REP.w, yf = REP.yFront;
+  for(let y=0;y<PH;y++){
+    const dy = (yf - y) / Math.max(6, w*.85);
+    const haut = sm((dy - .05) / .55);
+    for(let x=0;x<PW;x++){
+      const i = y*PW + x, j = i*4;
+      const dx = (x - cx) / w;
+      const g = sm((dx - .12)/.42) * (1 - haut*.72);
+      const d = sm((-dx - .12)/.42) * (1 - haut*.72);
+      const de = haut * (1 - .5*sm((Math.abs(dx) - .85)/.5));
+      let f = 1 - clamp(g + d + de, 0, 1); if(f < 0) f = 0;
+      const s = (f + g + d + de) || 1;
+      ZW[j] = (f/s)*255; ZW[j+1] = (g/s)*255; ZW[j+2] = (d/s)*255; ZW[j+3] = (de/s)*255;
+    }
+  }
+}
+/* combien de ce pixel a deja ete lu : 0 = encore liquide, 1 = fige */
+function froid(i){
+  const j = i*4;
+  return (ZW[j]*Z.face + ZW[j+1]*Z.gauche + ZW[j+2]*Z.droite + ZW[j+3]*Z.dessus) / 255;
+}
+
+/* LE SENS DES MECHES, PAR TENSEUR DE STRUCTURE.
+   Sobel sur l'image en gris, puis on moyenne les produits des gradients sur un
+   petit voisinage (flou en croix, separable). La direction propre dominante est
+   celle du GRADIENT ; une meche court perpendiculairement a son gradient, donc
+   on tourne de 90 degres. La coherence dit si l'endroit a vraiment un sens
+   (une meche) ou pas (une masse plate) : les reflets n'y coulent qu'a peine. */
+const R_TENS = 3;
+function tenseur(){
+  if(!BOITE.ok) return;
+  /* on ne calcule QUE sur la boite des cheveux, un peu elargie : le decor n'a
+     pas de meches, et le tenseur sur toute l'image coutait quatre images par
+     seconde pour rien. */
+  const M = R_TENS + 2;
+  const x0 = Math.max(1, BOITE.x0 - M), x1 = Math.min(PW-2, BOITE.x1 + M);
+  const y0 = Math.max(1, BOITE.y0 - M), y1 = Math.min(PH-2, BOITE.y1 + M);
+  const d = pctx.getImageData(x0, y0, x1-x0+1, y1-y0+1).data, lw = x1-x0+1;
+  for(let y=y0;y<=y1;y++){ const o = (y-y0)*lw;
+    for(let x=x0;x<=x1;x++){ const j = (o + x-x0)*4;
+      GRIS[y*PW+x] = (d[j]*.30 + d[j+1]*.59 + d[j+2]*.11) / 255; } }
+  for(let y=y0+1;y<y1;y++) for(let x=x0+1;x<x1;x++){
+    const i = y*PW + x;
+    const gx = (GRIS[i+1-PW] + 2*GRIS[i+1] + GRIS[i+1+PW]) - (GRIS[i-1-PW] + 2*GRIS[i-1] + GRIS[i-1+PW]);
+    const gy = (GRIS[i+PW-1] + 2*GRIS[i+PW] + GRIS[i+PW+1]) - (GRIS[i-PW-1] + 2*GRIS[i-PW] + GRIS[i-PW+1]);
+    Jxx[i] = gx*gx; Jyy[i] = gy*gy; Jxy[i] = gx*gy;
+  }
+  const R = R_TENS;
+  for(let y=y0+1;y<y1;y++) for(let x=x0+1+R;x<x1-R;x++){
+    const i = y*PW + x; let a=0,b=0,c=0;
+    for(let k=-R;k<=R;k++){ const q = i+k; a += Jxx[q]; b += Jyy[q]; c += Jxy[q]; }
+    Kxx[i]=a; Kyy[i]=b; Kxy[i]=c;
+  }
+  for(let y=y0+1+R;y<y1-R;y++) for(let x=x0+1+R;x<x1-R;x++){
+    const i = y*PW + x;
+    if(HAIR[i] < .35){ COH[i] = 0; continue; }                 /* pas de cheveux : rien a orienter */
+    let a=0,b=0,c=0;
+    for(let k=-R;k<=R;k++){ const q = i+k*PW; a += Kxx[q]; b += Kyy[q]; c += Kxy[q]; }
+    const th = .5 * Math.atan2(2*c, a - b);                    /* le gradient */
+    DIRX[i] = -Math.sin(th); DIRY[i] = Math.cos(th);           /* la meche : 90 degres de plus */
+    const tr = a + b;
+    COH[i] = tr > 1e-6 ? clamp(Math.hypot(a-b, 2*c) / tr, 0, 1) : 0;
+  }
+}
+
+/* quelques milliers de points ou il y a vraiment des cheveux : c'est la que
+   naissent l'encre et l'or (jamais dans le decor) */
+function graines(){
+  GRAINES.length = 0;
+  for(let y=0;y<PH;y+=2) for(let x=0;x<PW;x+=2){ const i = y*PW+x; if(HAIR[i] > .55) GRAINES.push(i); }
+}
+const auHasard = () => GRAINES.length ? GRAINES[(Math.random()*GRAINES.length)|0] : -1;
+
+/* DESSINER DEUX MILLE FILETS SANS DEUX MILLE APPELS AU PINCEAU.
+   Premiere mesure : 17 images par seconde sur l'or. Un beginPath()/stroke()
+   par grain coutait, a lui seul, plus que la lecture MediaPipe. On range donc
+   les segments dans des seaux — deux familles de couleur, huit tranches
+   d'opacite — et on ne trace que seize fois par image. */
+const N_SEAU = 8, SEAUX = [[], []];
+for(const f of SEAUX) for(let i=0;i<N_SEAU;i++) f.push([]);
+function seauxVides(){ for(const f of SEAUX) for(const s of f) s.length = 0; }
+function seau(fam, a, x0, y0, x1, y1){
+  let k = (a*N_SEAU)|0; if(k < 0) k = 0; if(k > N_SEAU-1) k = N_SEAU-1;
+  const s = SEAUX[fam][k]; s.push(x0, y0, x1, y1);
+}
+function seauxTracer(c, couleurs, largeurs){
+  for(let f=0;f<2;f++) for(let k=0;k<N_SEAU;k++){
+    const s = SEAUX[f][k]; if(!s.length) continue;
+    c.globalAlpha = (k + .5) / N_SEAU;
+    c.strokeStyle = couleurs[f]; c.lineWidth = largeurs[f];
+    c.beginPath();
+    for(let i=0;i<s.length;i+=4){ c.moveTo(s[i], s[i+1]); c.lineTo(s[i+2], s[i+3]); }
+    c.stroke();
+  }
+  c.globalAlpha = 1;
+}
+
+/* du petit cadre vers l'ecran */
+let RC = { x:0, y:0, w:1, h:1 };
+const EX = x => RC.x + (x / PW) * RC.w, EY = y => RC.y + (y / PH) * RC.h;
+const ES = () => RC.w / PW;
+
+/* une toile de trainees, a demi-definition : c'est elle qui donne la matiere
+   (encre ou or) sans couter une image pleine a chaque fois */
+const tr1 = document.createElement('canvas'), t1 = tr1.getContext('2d');
+function tailleTrainee(){ const w = Math.round(W*.5), h = Math.round(H*.5); if(tr1.width !== w){ tr1.width = w; tr1.height = h; } }
+function effacerTrainee(){ t1.setTransform(1,0,0,1,0,0); t1.clearRect(0,0,tr1.width,tr1.height); }
+const TX = x => (EX(x) / W) * tr1.width, TY = y => (EY(y) / H) * tr1.height;
+
+/* ==========================================================================
+   1 · ENCRE — VOS CHEVEUX SONT UNE ENCRE VIVANTE.
+   Le masque nourrit un ecoulement : chaque grain suit le contour de la
+   chevelure (la tangente au gradient du masque), retombe, et sort par le bas
+   en filets. Ce n'est pas un decor pose a cote : sans cheveux vus, il ne coule
+   rien. A mesure qu'un cote est lu, son encre CESSE de couler et se fige : le
+   bleu profond se pose, le bord devient net, et le liquide ne repart plus de
+   la. A la fin la tete entiere est une encre seche, nette, bleu nuit.
+   ========================================================================== */
+const N_GRAIN = 1050;   /* mesure : au-dela, l'encre ne gagne plus rien a l'oeil et coute des images */
+const GR = { x:new Float32Array(N_GRAIN), y:new Float32Array(N_GRAIN), px:new Float32Array(N_GRAIN),
+             py:new Float32Array(N_GRAIN), vx:new Float32Array(N_GRAIN), vy:new Float32Array(N_GRAIN),
+             v:new Float32Array(N_GRAIN), e:new Float32Array(N_GRAIN) };
+function naitre(i){
+  const g = auHasard();
+  if(g < 0){ GR.v[i] = 0; return; }
+  GR.x[i] = (g % PW) + Math.random() - .5; GR.y[i] = ((g / PW)|0) + Math.random() - .5;
+  GR.px[i] = GR.x[i]; GR.py[i] = GR.y[i];
+  GR.vx[i] = 0; GR.vy[i] = 0; GR.v[i] = .6 + Math.random()*.8; GR.e[i] = .35 + Math.random()*.65;
+}
+function encreVide(){ for(let i=0;i<N_GRAIN;i++) GR.v[i] = 0; effacerTrainee(); FLAQUE.h = 0; }
+const FLAQUE = { h:0 };
+const encreCv = document.createElement('canvas'), ec = encreCv.getContext('2d');
+let encreId = null, encreVersion = -1, encreZ = -1;
+
+/* L'ENCRE SECHE. Elle ne recouvre pas la chevelure d'un aplat : elle la TEINT.
+   Le bleu prend la teinte (mode « color » : la luminosite reste celle des
+   cheveux, donc les meches restent des meches), puis un passage en « multiply »
+   l'epaissit jusqu'au bleu nuit, et un liseré clair en « screen » redonne au
+   bord la nettete de l'encre seche. Trois passages, pas un aplat. */
+const rimCv = document.createElement('canvas'), rc2 = rimCv.getContext('2d');
+let rimId = null;
+/* Le bord du masque monte de 256 px a 1 400 : sans adoucissement il fait des
+   marches d'escalier. On floute UNE fois, a la taille du masque (ou un pixel
+   ne coute rien), au lieu de trois fois plein cadre : la premiere version
+   tombait a 17 images par seconde rien que pour cela. */
+const douxCv = document.createElement('canvas'), dc = douxCv.getContext('2d');
+const rimDouxCv = document.createElement('canvas'), rdc = rimDouxCv.getContext('2d');
+function adoucir(){
+  for(const c of [douxCv, rimDouxCv]) if(c.width !== PW || c.height !== PH){ c.width = PW; c.height = PH; }
+  dc.setTransform(1,0,0,1,0,0); dc.clearRect(0,0,PW,PH); dc.filter = 'blur(.85px)'; dc.drawImage(encreCv,0,0); dc.filter = 'none';
+  rdc.setTransform(1,0,0,1,0,0); rdc.clearRect(0,0,PW,PH); rdc.filter = 'blur(1.15px)'; rdc.drawImage(rimCv,0,0); rdc.filter = 'none';
+}
+function encreFigee(){
+  if(!ZW) return;
+  const n = PW*PH, tt = Z.face + Z.gauche + Z.droite + Z.dessus;
+  if(encreVersion === versionMasque && Math.abs(encreZ - tt) < 1e-4) return;
+  encreVersion = versionMasque; encreZ = tt;
+  if(encreCv.width !== PW || encreCv.height !== PH){
+    encreCv.width = rimCv.width = PW; encreCv.height = rimCv.height = PH;
+    encreId = ec.createImageData(PW, PH); rimId = rc2.createImageData(PW, PH);
+  }
+  const D = encreId.data, Rd = rimId.data;
+  for(let i=0;i<n;i++){
+    const j = i*4, h = HAIR[i];
+    if(h < .26){ D[j+3] = 0; Rd[j+3] = 0; continue; }
+    const f = froid(i);
+    if(f < .02){ D[j+3] = 0; Rd[j+3] = 0; continue; }
+    const dedans = sm((h - .44)/.14);
+    const bord = sm((h - .34)/.11) * (1 - sm((h - .56)/.13));
+    /* un bleu d'encre, pas un bleu de perruque : le mode « color » prend la
+       saturation de CETTE couleur telle quelle, donc elle est deja rabattue */
+    D[j] = 74; D[j+1] = 108; D[j+2] = 206;
+    D[j+3] = clamp(dedans * f * 255, 0, 255);
+    Rd[j] = 120; Rd[j+1] = 186; Rd[j+2] = 250;
+    Rd[j+3] = clamp((bord*1.0 + dedans*.14) * f * f * 215, 0, 255);
+  }
+  ec.putImageData(encreId, 0, 0); rc2.putImageData(rimId, 0, 0);
+  adoucir();
+}
+function dessin1(t, dt){
+  peindre(ctx, RC, 'saturate(1.04) brightness(.58) contrast(1.08)');
+  vignette(.94, .13); voiles(.55, .90);
+
+  /* L'ECOULEMENT. Dans la chevelure, l'encre suit le SENS DES MECHES (tenseur
+     de structure) melange a la tangente du bord ; dehors, elle tombe. */
+  tailleTrainee();
+  t1.setTransform(1,0,0,1,0,0);
+  t1.globalCompositeOperation = 'destination-out';
+  t1.fillStyle = 'rgba(0,0,0,.075)'; t1.fillRect(0,0,tr1.width,tr1.height);
+  t1.globalCompositeOperation = 'lighter'; t1.lineCap = 'round';
+  seauxVides();
+  for(let i=0;i<N_GRAIN;i++){
+    if(GR.v[i] <= 0){ if(Math.random() < .3) naitre(i); continue; }
+    let x = GR.x[i], y = GR.y[i];
+    const xi = x|0, yi = y|0;
+    if(xi < 1 || xi > PW-2 || yi < 1 || yi > PH-2){ GR.v[i] = 0; continue; }
+    const k = yi*PW + xi, h = HAIR[k], dedans = h > .42;
+    const f = froid(k);
+    if(f > .5 && dedans){ GR.v[i] -= dt*2.2; if(GR.v[i] <= 0) continue; }
+    /* le sens de la meche, remis vers le bas */
+    let mx = DIRX[k], my = DIRY[k]; if(my < 0){ mx = -mx; my = -my; }
+    const co = COH[k];
+    /* la tangente au bord du masque : l'encre epouse la silhouette */
+    const gx = HAIR[k+1] - HAIR[k-1], gy = HAIR[k+PW] - HAIR[k-PW];
+    let tx = gy, ty = -gx; if(ty < 0){ tx = -tx; ty = -ty; }
+    let dx, dy2;
+    if(dedans){ const p = .35 + .55*co; dx = mx*p + tx*(1-p)*1.6; dy2 = my*p + ty*(1-p)*1.6 + .30; }
+    else { dx = tx*.5 + Math.sin(y*.19 + t*.0011 + i*.7)*.13; dy2 = 1.25; }
+    const nn = Math.hypot(dx, dy2) || 1; dx /= nn; dy2 /= nn;
+    const vit = (dedans ? 20 + 24*co : 34) * dt;
+    GR.px[i] = x; GR.py[i] = y;
+    x += dx*vit*GR.v[i]; y += dy2*vit*GR.v[i];
+    GR.x[i] = x; GR.y[i] = y;
+    GR.v[i] -= dt*(dedans ? .10 : .30);
+    if(y > PH-1){ GR.v[i] = 0; continue; }
+    const a = clamp(GR.e[i] * GR.v[i] * (dedans ? (.16 + .26*co) : .24) * (1 - f*.85), 0, 1);
+    if(a < .02) continue;
+    seau(dedans ? 0 : 1, a, TX(GR.px[i]), TY(GR.py[i]), TX(x), TY(y));
+  }
+  const lg1 = (tr1.width/W) * ES();
+  seauxTracer(t1, ['rgba(92,168,240,1)', 'rgba(56,126,214,1)'], [1.2*lg1 + .45, .85*lg1 + .35]);
+  ctx.save(); ctx.globalCompositeOperation = 'screen'; ctx.globalAlpha = .78;
+  ctx.drawImage(tr1, 0, 0, W, H); ctx.restore();
+
+  /* l'encre seche : teinte, epaisseur, puis le bord net */
+  encreFigee();
+  ctx.save();
+  ctx.globalCompositeOperation = 'multiply'; ctx.drawImage(douxCv, RC.x, RC.y, RC.w, RC.h);
+  ctx.globalCompositeOperation = 'screen';   ctx.drawImage(rimDouxCv, RC.x, RC.y, RC.w, RC.h);
+  ctx.restore();
+
+  /* LE DEPOT. L'encre sortie par le bas s'accumule : le niveau EST le
+     pourcentage lu — la meme mesure, montree autrement. */
+  const tt = total();
+  FLAQUE.h += (tt * H * .048 - FLAQUE.h) * clamp(dt*2, 0, 1);
+  if(FLAQUE.h > .8){
+    const yb = H - FLAQUE.h;
+    ctx.save(); ctx.beginPath(); ctx.moveTo(0, H); ctx.lineTo(0, yb);
+    for(let x=0;x<=W;x+=18) ctx.lineTo(x, yb + Math.sin(x*.0125 + t*.0017)*2.4 + Math.sin(x*.0043 - t*.0009)*1.7);
+    ctx.lineTo(W, H); ctx.closePath();
+    const g = ctx.createLinearGradient(0, yb, 0, H);
+    g.addColorStop(0, 'rgba(10,46,104,.88)'); g.addColorStop(.35, 'rgba(4,20,56,.95)'); g.addColorStop(1, 'rgba(1,6,20,.99)');
+    ctx.fillStyle = g; ctx.fill();
+    ctx.globalCompositeOperation = 'screen';
+    ctx.strokeStyle = 'rgba(132,196,255,.62)'; ctx.lineWidth = 1; ctx.stroke();
+    ctx.restore();
+  }
+}
+
+/* ==========================================================================
+   2 · TRANCHES — UN PLAN DE LUMIERE TRAVERSE LA TETE.
+   Une seule ligne de lumiere descend, puis remonte, en boucle. La ou elle
+   croise la chevelure, elle en lit le contour A CET ENDROIT : les segments
+   sont pris dans le masque, rangee par rangee, en direct.
+   Chaque fois qu'une image est GARDEE (une des huit d'un cote), la tranche du
+   moment se fige. A la fin, trente-deux tranches empilees : une tete faite de
+   coupes, et chacune est une image que le moteur lira vraiment.
+   ========================================================================== */
+const COUPES = [];
+let balai = 0, sensBalai = 1, prisPrec = 0;
+function tranchesVide(){ COUPES.length = 0; balai = 0; sensBalai = 1; prisPrec = 0; }
+const TEINTE = { face:[190,232,255], gauche:[127,216,255], droite:[127,216,255], dessus:[214,240,255] };
+
+/* les segments de chevelure sur une rangee du masque */
+function segments(yi){
+  const s = []; if(yi < 0 || yi >= PH) return s;
+  const o = yi*PW; let d = -1;
+  for(let x=0;x<PW;x++){
+    const h = HAIR[o+x] > .5;
+    if(h && d < 0) d = x;
+    if((!h || x === PW-1) && d >= 0){ if(x - d > 1) s.push([d, x]); d = -1; }
+  }
+  return s;
+}
+function dessin2(t, dt){
+  peindre(ctx, RC, 'saturate(.84) brightness(.36) contrast(1.12)');
+  vignette(1, .10); voiles(.50, .88);
+
+  /* le plan descend et remonte sur la hauteur de la tete */
+  /* le plan reste entre les textes : sinon il traverse la marque en haut et le
+     pourcentage en bas, et on ne lit plus rien */
+  const gardeH = 118, gardeB = 150;
+  const bh = (yy) => clamp((yy - RC.y) / RC.h, -.2, 1.2) * PH;
+  let hy0 = BOITE.ok ? BOITE.y0 - 3 : PH*.12, hy1 = BOITE.ok ? BOITE.y1 + 3 : PH*.86;
+  hy0 = Math.max(hy0, bh(gardeH)); hy1 = Math.min(hy1, bh(H - gardeB));
+  if(hy1 - hy0 < PH*.08){ hy0 = bh(gardeH); hy1 = bh(H - gardeB); }
+  balai += sensBalai * dt * (hy1 - hy0) / 3.1;
+  if(balai > hy1){ balai = hy1; sensBalai = -1; }
+  if(balai < hy0){ balai = hy0; sensBalai = 1; }
+  balai = clamp(balai, hy0, hy1);
+  const yi = Math.round(balai), ys = EY(balai);
+
+  /* LES COUPES DEJA GARDEES : une tete faite de tranches empilees.
+     On les trace de la plus ancienne a la plus recente, et on relie les bords
+     d'une tranche a la suivante : le volume apparait sans qu'on l'ait dessine. */
+  ctx.save(); ctx.globalCompositeOperation = 'screen'; ctx.lineCap = 'round';
+  const ordre = COUPES.slice().sort((a,b) => a.y - b.y);
+  let prec = null;
+  for(const c of ordre){
+    const y = EY(c.y), col = TEINTE[c.z] || TEINTE.face;
+    const jeune = clamp(1 - (t - c.t)/900, 0, 1);
+    if(prec && c.spans.length && prec.spans.length && Math.abs(c.y - prec.y) < PH*.30){
+      const y2 = EY(prec.y);
+      ctx.strokeStyle = 'rgba(96,178,232,.30)'; ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(EX(prec.spans[0][0]), y2); ctx.lineTo(EX(c.spans[0][0]), y);
+      ctx.moveTo(EX(prec.spans[prec.spans.length-1][1]), y2); ctx.lineTo(EX(c.spans[c.spans.length-1][1]), y);
+      ctx.stroke();
+    }
+    for(const s of c.spans){
+      const a = EX(s[0]), b = EX(s[1]);
+      ctx.strokeStyle = 'rgba('+col[0]+','+col[1]+','+col[2]+','+(.16 + .30*jeune)+')';
+      ctx.lineWidth = 9 + 12*jeune; ctx.beginPath(); ctx.moveTo(a, y); ctx.lineTo(b, y); ctx.stroke();
+      ctx.strokeStyle = 'rgba('+col[0]+','+col[1]+','+col[2]+',.62)';
+      ctx.lineWidth = 2.6; ctx.beginPath(); ctx.moveTo(a, y); ctx.lineTo(b, y); ctx.stroke();
+      ctx.strokeStyle = 'rgba(244,252,255,'+(.72 + .28*jeune)+')';
+      ctx.lineWidth = 1.1; ctx.beginPath(); ctx.moveTo(a, y); ctx.lineTo(b, y); ctx.stroke();
+    }
+    prec = c;
+  }
+  ctx.restore();
+
+  /* LA COUPE DE MAINTENANT : le contour des cheveux a cet endroit, lu dans le
+     masque, rangee par rangee. Elle donne aussi l'etendue du faisceau. */
+  const sp = segments(yi); let larg = 0;
+  for(const q of sp) larg += (q[1]-q[0])/PW;
+  const lx = sp.length ? EX(sp[0][0]) : (BOITE.ok ? EX(BOITE.x0) : W*.34);
+  const rx = sp.length ? EX(sp[sp.length-1][1]) : (BOITE.ok ? EX(BOITE.x1) : W*.66);
+
+  /* LE FAISCEAU. Un plan de lumiere n'est pas une barre blanche d'un bord a
+     l'autre : il eclaire la tete et s'eteint sur les cotes. On ne redessine
+     QUE la bande, prise dans la source (un dessin plein cadre par image
+     coutait le tiers du budget pour un ruban de cinquante pixels), puis on
+     rend le noir aux cotes. */
+  const ep = Math.max(16, H*.026);
+  const mb = Math.max(W*.035, (rx-lx)*.12);
+  const prof = (c0, c1) => {                       /* le profil du faisceau, de gauche a droite */
+    const g = ctx.createLinearGradient(0, 0, W, 0);
+    const a0 = clamp((lx - mb)/W, 0, 1), a1 = clamp((lx + mb*.15)/W, 0, 1);
+    const b0 = clamp((rx - mb*.15)/W, 0, 1), b1 = clamp((rx + mb)/W, 0, 1);
+    g.addColorStop(0, c0); g.addColorStop(a0, c0);
+    g.addColorStop(a1, c1); g.addColorStop(b0, c1);
+    g.addColorStop(b1, c0); g.addColorStop(1, c0);
+    return g;
+  };
+  const sy0 = clamp((ys - ep - RC.y) / RC.h, 0, 1) * SH(), sy1 = clamp((ys + ep - RC.y) / RC.h, 0, 1) * SH();
+  if(sy1 - sy0 > .5){
+    ctx.save();
+    ctx.filter = 'brightness(1.62) saturate(1.12) contrast(1.02)';
+    const dy = RC.y + (sy0/SH())*RC.h, dh = ((sy1-sy0)/SH())*RC.h;
+    if(miroir){ ctx.translate(RC.x + RC.w, 0); ctx.scale(-1,1); ctx.drawImage(src, 0, sy0, SW(), sy1-sy0, 0, dy, RC.w, dh); }
+    else ctx.drawImage(src, 0, sy0, SW(), sy1-sy0, RC.x, dy, RC.w, dh);
+    ctx.restore();
+    ctx.save();
+    ctx.fillStyle = prof('rgba(0,0,0,.96)', 'rgba(0,0,0,0)');
+    ctx.fillRect(0, ys - ep, W, ep*2);
+    ctx.restore();
+  }
+  ctx.save(); ctx.globalCompositeOperation = 'screen';
+  /* le halo, lui aussi tenu dans le faisceau */
+  for(let k=1;k<=4;k++){
+    const e = ep*1.7*k/4, a = .075*(1 - (k-1)/4);
+    ctx.fillStyle = prof('rgba(127,216,255,0)', 'rgba(168,228,255,'+a.toFixed(3)+')');
+    ctx.fillRect(0, ys - e, W, e*2);
+  }
+  /* le trait du plan : lui seul traverse tout l'ecran, tres fin */
+  const lg = ctx.createLinearGradient(0,0,W,0);
+  lg.addColorStop(0,'rgba(127,216,255,.05)'); lg.addColorStop(.5,'rgba(236,250,255,.85)'); lg.addColorStop(1,'rgba(127,216,255,.05)');
+  ctx.fillStyle = lg; ctx.fillRect(0, ys-.6, W, 1.2);
+
+  for(const q of sp){
+    const a = EX(q[0]), b = EX(q[1]);
+    ctx.strokeStyle = 'rgba(150,222,255,.5)'; ctx.lineWidth = 20; ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.moveTo(a, ys); ctx.lineTo(b, ys); ctx.stroke();
+    ctx.strokeStyle = 'rgba(255,255,255,1)'; ctx.lineWidth = 2.2;
+    ctx.beginPath(); ctx.moveTo(a, ys); ctx.lineTo(b, ys); ctx.stroke();
+    for(const px of [a, b]){
+      ctx.strokeStyle = 'rgba(236,250,255,.95)'; ctx.lineWidth = 1.3;
+      ctx.beginPath(); ctx.moveTo(px, ys-10); ctx.lineTo(px, ys+10); ctx.stroke();
+    }
+  }
+  ctx.restore();
+
+  /* ce que la tranche mesure, en clair, et le compte des coupes gardees */
+  ctx.save();
+  ctx.font = '300 11px "IBM Plex Mono", monospace'; ctx.textBaseline = 'middle';
+  ctx.fillStyle = 'rgba(180,232,255,.92)';
+  const mg = Math.max(24, W*.04);
+  const yt = sensBalai > 0 ? ys - ep*2.2 : ys + ep*2.2;   /* toujours hors du halo */
+  ctx.textAlign = 'right'; ctx.fillText('LARGEUR LUE  ' + Math.round(larg*100) + ' %', W - mg, yt);
+  ctx.textAlign = 'left';
+  ctx.fillText(COUPES.length + '  COUPE' + (COUPES.length > 1 ? 'S' : '') + ' GARDÉE' + (COUPES.length > 1 ? 'S' : ''), mg, yt);
+  ctx.restore();
+}
+
+/* ==========================================================================
+   3 · OR — LA CHEVELURE EN OR CHAMPAGNE, LE BLEU RIEN QUE POUR L'AVANCEMENT.
+   Les reflets ne sont pas jetes au hasard : ils suivent le SENS DES MECHES,
+   calcule par tenseur de structure sur l'image (voir tenseur()). La ou le sens
+   est franc — une meche — l'or file, long et brillant ; la ou la matiere est
+   plate, il ne fait que scintiller. Noir profond, or, et une seule touche de
+   bleu : le liser qui fait le tour de la tete et se remplit.
+   ========================================================================== */
+const N_OR = 1200;
+const OR = { x:new Float32Array(N_OR), y:new Float32Array(N_OR), px:new Float32Array(N_OR),
+             py:new Float32Array(N_OR), v:new Float32Array(N_OR), e:new Float32Array(N_OR), s:new Float32Array(N_OR) };
+function naitreOr(i){
+  const g = auHasard(); if(g < 0){ OR.v[i] = 0; return; }
+  OR.x[i] = (g % PW) + Math.random() - .5; OR.y[i] = ((g / PW)|0) + Math.random() - .5;
+  OR.px[i] = OR.x[i]; OR.py[i] = OR.y[i];
+  OR.v[i] = .7 + Math.random()*1.2; OR.e[i] = .3 + Math.random()*.7; OR.s[i] = 18 + Math.random()*26;
+}
+function orVide(){ for(let i=0;i<N_OR;i++) OR.v[i] = 0; effacerTrainee(); }
+function dessin3(t, dt){
+  /* la personne reste en couleur, mais le noir mange tout ce qui n'est pas elle */
+  peindre(ctx, RC, 'saturate(.58) brightness(.38) contrast(1.18)');
+  vignette(1, .09); voiles(.60, .92);
+  /* la chevelure prend l'or : la teinte change, la matiere reste la sienne */
+  cheveux(RC, 'rgba(228,182,96,1)', 'color');
+
+  tailleTrainee();
+  t1.setTransform(1,0,0,1,0,0);
+  t1.globalCompositeOperation = 'destination-out';
+  t1.fillStyle = 'rgba(0,0,0,.105)'; t1.fillRect(0,0,tr1.width,tr1.height);
+  t1.globalCompositeOperation = 'lighter'; t1.lineCap = 'round';
+  seauxVides();
+  for(let i=0;i<N_OR;i++){
+    if(OR.v[i] <= 0){ if(Math.random() < .4) naitreOr(i); continue; }
+    let x = OR.x[i], y = OR.y[i];
+    const xi = x|0, yi = y|0;
+    if(xi < 2 || xi > PW-3 || yi < 2 || yi > PH-3){ OR.v[i] = 0; continue; }
+    const k = yi*PW + xi;
+    if(HAIR[k] < .45){ OR.v[i] = 0; continue; }
+    let dx = DIRX[k], dy = DIRY[k];
+    if(dy < 0){ dx = -dx; dy = -dy; }                      /* l'or descend la meche */
+    const co = COH[k];
+    OR.px[i] = x; OR.py[i] = y;
+    const vit = OR.s[i] * 1.35 * (.40 + .60*co) * dt;
+    x += dx*vit; y += dy*vit;
+    OR.x[i] = x; OR.y[i] = y;
+    OR.v[i] -= dt*(.34 + .48*(1-co));
+    /* le reflet passe : il s'allume au milieu de sa course, pas a sa naissance */
+    const a = clamp(OR.e[i] * Math.sin(clamp(OR.v[i],0,1)*Math.PI) * (.22 + .44*co), 0, 1);
+    if(a < .02) continue;
+    /* deux familles : la meche franche file, longue et claire ; la matiere
+       plate ne fait que scintiller, plus sombre et plus fine */
+    seau(co > .5 ? 0 : 1, a, TX(OR.px[i]), TY(OR.py[i]), TX(x), TY(y));
+  }
+  const lgo = (tr1.width/W) * ES();
+  seauxTracer(t1, ['rgba(255,196,88,1)', 'rgba(206,140,52,1)'], [1.0*lgo + .3, .7*lgo + .25]);
+  ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.globalAlpha = .88;
+  ctx.drawImage(tr1, 0, 0, W, H); ctx.restore();
+
+  /* LA SEULE TOUCHE DE BLEU : le liseré qui fait le tour de la tete et se
+     remplit. Il part du bas, et sa longueur EST le pourcentage lu. */
+  if(BOITE.ok){
+    const cx = EX((BOITE.x0 + BOITE.x1)/2), cy = EY((BOITE.y0 + BOITE.y1)/2);
+    const marge = Math.min(W,H)*.022;
+    const rx = Math.min((EX(BOITE.x1) - EX(BOITE.x0))/2 + marge, W*.40, H*.43);
+    const ry = Math.min((EY(BOITE.y1) - EY(BOITE.y0))/2 + marge, H*.41);
+    const tt = total();
+    ctx.save(); ctx.translate(cx, clamp(cy, ry + 16, H - ry - 16));
+    ctx.strokeStyle = 'rgba(127,216,255,.13)'; ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.ellipse(0, 0, rx, ry, 0, 0, Math.PI*2); ctx.stroke();
+    if(tt > .002){
+      ctx.globalCompositeOperation = 'screen'; ctx.lineCap = 'round';
+      ctx.strokeStyle = 'rgba(64,150,225,.45)'; ctx.lineWidth = 6;
+      ctx.beginPath(); ctx.ellipse(0, 0, rx, ry, 0, Math.PI/2, Math.PI/2 + Math.PI*2*tt); ctx.stroke();
+      ctx.strokeStyle = 'rgba(188,234,255,.92)'; ctx.lineWidth = 1.3;
+      ctx.beginPath(); ctx.ellipse(0, 0, rx, ry, 0, Math.PI/2, Math.PI/2 + Math.PI*2*tt); ctx.stroke();
+      ctx.globalCompositeOperation = 'source-over';
+    }
+    /* quatre reperes : les quatre cotes, a leur place autour de la tete */
+    const REPS = [['face', Math.PI/2], ['gauche', 0], ['dessus', -Math.PI/2], ['droite', Math.PI]];
+    for(const [z, a] of REPS){
+      const px = Math.cos(a)*rx, py = Math.sin(a)*ry, v = Z[z];
+      if(pose === z && v < 1){
+        ctx.beginPath(); ctx.arc(px, py, 9 + 3*Math.sin(t/220), 0, Math.PI*2);
+        ctx.fillStyle = 'rgba(96,198,255,.16)'; ctx.fill();
+      }
+      ctx.beginPath(); ctx.arc(px, py, 3.6, 0, Math.PI*2);
+      ctx.fillStyle = v >= 1 ? 'rgba(196,238,255,.98)' : (pose === z ? 'rgba(96,198,255,.95)' : 'rgba(127,216,255,.24)');
+      ctx.fill();
+    }
+    ctx.restore();
+  }
+}
+
+/* ==========================================================================
+   CHANGER DE MISE EN SCENE.
+   Le piege deja rencontre : remettre le pourcentage a zero SANS vider les
+   images gardees. IMAGES[z] restait a huit, jugerImage refusait toute nouvelle
+   image, et le cote ne se remplissait plus JAMAIS. On remet donc tout d'un
+   bloc : pourcentages, images gardees, meilleures poses, et la matiere propre
+   a chaque mise en scene.
+   ========================================================================== */
+function choisir(p, pousser){
+  PROP = clamp(p, 1, 3);
+  document.body.className = 'p' + PROP;                       /* enleve aussi 'fini' */
+  for(const z of ZONES){ Z[z] = 0; IMAGES[z].length = 0; MEILLEURE[z] = null; }
+  finiDepuis = 0; rendu = false; refus = ''; refusDepuis = 0;
+  descenteVue = -1e9; dernierePrise = 0; NETS.length = 0; grisPrec = null;
+  encreVide(); tranchesVide(); orVide();
+  encreVersion = -1; encreZ = -1;
+  bloqueDepuis = performance.now(); debutSansVisage = 0;
+  $('pct').textContent = '0 %';
+  $('aide').classList.remove('on');
+  const b = $('choix');
+  if(b) for(const x of b.children) x.classList.toggle('on', +x.dataset.p === PROP);
+  if(pousser){ const u = new URL(location.href); u.searchParams.set('p', PROP); history.replaceState(null, '', u); }
+}
+$('choix').addEventListener('click', function(e){ const b = e.target.closest('button'); if(b) choisir(+b.dataset.p, true); });
+addEventListener('keydown', function(e){ if(e.key >= '1' && e.key <= '3') choisir(+e.key, true); });
+
+let debutSansVisage = 0, msDessin = 0;
+function image(now){
+  requestAnimationFrame(image);
+  if(!src || !HAIR) return;
+  /* 23/09 — si le visage n'est JAMAIS vu (contre-jour, camera trop sombre), on
+     restait a 0 % sans issue. Au bout de 20 s sans une seule image gardee, on
+     rend la main au parcours, qui proposera l'ancien enchainement. */
+  if(!demo()){
+    if(!debutSansVisage) debutSansVisage = now;
+    const rienDuTout = ZONES.every(z => IMAGES[z].length === 0);
+    if(rienDuTout && now - debutSansVisage > 20000){
+      debutSansVisage = now + 1e9;
+      if(parent !== window) parent.postMessage({ type:'vyvre-scan-sans-visage' }, location.origin);
+    }
+    if(!rienDuTout) debutSansVisage = now + 1e9;
+  }
+  const dt = Math.min(.1, (now - tPrec)/1000); tPrec = now;
+  lire(now); lirePose(now, dt);
+  ctx.save(); ctx.setTransform(1,0,0,1,0,0); ctx.fillStyle = '#000'; ctx.fillRect(0,0,cv.width,cv.height); ctx.restore();
+  RC = cadre();
+  /* une image gardee de plus : la tranche du moment se fige (mise en scene 2) */
+  const pris = ZONES.reduce((a,z) => a + IMAGES[z].length, 0);
+  if(pris > prisPrec){
+    prisPrec = pris;
+    if(PROP === 2 && ZONES.includes(pose)){
+      const sp = segments(Math.round(balai));
+      if(sp.length) COUPES.push({ y:balai, spans:sp, z:pose, t:now });
+      if(COUPES.length > 40) COUPES.shift();
+    }
+  } else if(pris < prisPrec) prisPrec = pris;
+  /* ?debug=1 dit aussi CE QUE COUTE LE DESSIN, a part de la lecture : sur une
+     machine partagee, les images par seconde ne veulent plus rien dire, alors
+     que cette millisecondee-la, elle, se compare. */
+  const tD = performance.now();
+  if(PROP === 1) dessin1(now, dt); else if(PROP === 2) dessin2(now, dt); else dessin3(now, dt);
+  msDessin = msDessin ? msDessin*.94 + (performance.now() - tD)*.06 : (performance.now() - tD);
+  const tt = total();
+  /* « Lu. » ne doit pas etre reecrit par le pourcentage ; il est repeint a
+     chaque image pour suivre un changement de langue arrive apres coup. */
+  if(!finiDepuis) $('pct').textContent = Math.round(tt*100) + ' %';
+  else $('pct').textContent = T('hcg.lu') ?? 'Lu.';
+  /* secours : bloque 5 s, on nomme ce qui manque (et seulement a ce moment-la) */
+  const m = manquante();
+  const RAISONS = { visage:'Votre visage n’est pas visible.', angle:'Tenez la tête un instant.', cheveux:'On ne voit pas assez vos cheveux.', bouge:'Ne bougez plus.', flou:'L’image est floue : un peu plus de lumière.' };
+  const CLEF_RAISON = { visage:'hcg.r.visage', angle:'hcg.r.angle', cheveux:'hcg.r.cheveux', bouge:'hcg.r.bouge', flou:'hcg.r.flou' };
+  /* 23/09 — Charles n'etait pas assiste pendant son essai : on dit tot, en une
+     phrase, LE GESTE qui manque ; la raison technique ne vient qu'apres. */
+  const GESTES = { face:'Revenez bien de face.', gauche:'Tournez un peu plus à gauche.',
+                   droite:'Tournez un peu plus à droite.', dessus:'Baissez la tête pour montrer le dessus.' };
+  const CLEF_GESTE = { face:'hcg.g.face', gauche:'hcg.g.gauche', droite:'hcg.g.droite', dessus:'hcg.g.dessus' };
+  const aide = m && now - bloqueDepuis > 1200;
+  $('aide').classList.toggle('on', !!aide);
+  if(aide){
+    const dit_raison = refus && now - refusDepuis > 2200 && RAISONS[refus];
+    $('aide').textContent = dit_raison
+      ? (T(CLEF_RAISON[refus]) ?? RAISONS[refus])
+      : (T(CLEF_GESTE[m]) ?? GESTES[m] ?? (T('hcg.manque', { z: nomCote(m) }) ?? ('Il manque ' + NOMS[m] + '.')));
+  }
+  if(tt >= 1){
+    if(!finiDepuis){ finiDepuis = now; document.body.classList.add('fini'); $('pct').textContent = T('hcg.lu') ?? 'Lu.'; }
+    else if(now - finiDepuis > 300) rendre();
+  }
+  if(DEBUG) $('lectureDebug').textContent = 'lacet ' + yawV.toFixed(2) + '\ntangage ' + pitchV.toFixed(2) + '\nvisage ' + visage + '\ncheveux ' + (vuCheveux*100).toFixed(1) + ' %\npose ' + pose + '\ndessin ' + msDessin.toFixed(2) + ' ms';
+}
+
+(async function(){
+  taille(); tailleTrainee();
+  choisir(PROP);            /* le selecteur est juste des le depart, meme si la camera est refusee */
+  await ouvrirSource();
+  if(!src) return;          /* camera refusee : le parcours a deja repris la main */
+  tailles(); allouer(PW*PH);   /* les tampons de dessin, a la taille du masque */
+  await ouvrirLecture();
+  choisir(PROP); bloqueDepuis = performance.now();
+  requestAnimationFrame(image);
+})();
+</script>
+</body>
+</html>

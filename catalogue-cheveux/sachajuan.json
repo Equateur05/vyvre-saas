@@ -3,56 +3,6 @@
  "brand_name": "Sachajuan",
  "products": [
   {
-   "id": "sachajuan--detangling-hairbrush-black",
-   "name": "DETANGLING HAIRBRUSH BLACK",
-   "brand": "sachajuan",
-   "brand_name": "Sachajuan",
-   "url": "https://sachajuan.com/products/detangling-hairbrush-black",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 21.0,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0452/7974/0069/files/561_Detangling_Brush_Black_Web_Sachajuan.png?width=600",
-   "image_local": "public/scan/products-cheveux/sachajuan/detangling-hairbrush-black.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
-   "cheveux_cibles": [
-    "secs"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "• Gently detangles without causing breakage• Soft nylon bristles and flexible pins• Enhances hair shine and smoothness• Reduces damage and promotes scalp health• Suitable for both wet and dry hair",
-   "claims": [
-    "brillance",
-    "lissant"
-   ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "sachajuan--detangling-hairbrush-silver",
-   "name": "DETANGLING HAIRBRUSH SILVER",
-   "brand": "sachajuan",
-   "brand_name": "Sachajuan",
-   "url": "https://sachajuan.com/products/detangling-hairbrush-silver",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 21.0,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0452/7974/0069/files/562_Detangling_Brush_Silver_web_Sachajuan_7fac0bb0-96bf-4d86-be7c-93549945b2c7.png?width=600",
-   "image_local": "public/scan/products-cheveux/sachajuan/detangling-hairbrush-silver.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
-   "cheveux_cibles": [
-    "secs"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "• Gently detangles without causing breakage• Soft nylon bristles and flexible pins• Enhances hair shine and smoothness• Reduces damage and promotes scalp health• Suitable for both wet and dry hair",
-   "claims": [
-    "brillance",
-    "lissant"
-   ],
-   "source": "products.json + fiche produit"
-  },
-  {
    "id": "sachajuan--bioshield-hair-bonding-treatment",
    "name": "BIOSHIELD HAIR BONDING TREATMENT",
    "brand": "sachajuan",
@@ -78,11 +28,14 @@
    "ingredients": "INGREDIENTS/INGREDIÉNTS: AQUA (WATER) (EAU), BEHENTRIMONIUM CHLORIDE, CETYL ALCOHOL, STEARYL ALCOHOL, PROPYLENE GLYCOL, GLYCERIN, COCOS NUCIFERA OIL, GLYCERETH-2 COCOATE, PHENOXYETHANOL, ISOPROPYL ALCOHOL, PARFUM (FRAGRANCE), HYDROXYPROPYL GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, PANTHENOL, HYDROXYPROPYLGLUCONAMIDE, HYDROXYPROPYLAMMONIUM GLUCONATE, LINALOOL, ETHYLHEXYLGLYCERIN, LINALYL ACETATE, LIMONENE, LACTIC ACID, LAVANDULA OIL/EXTRACT, TARTARIC ACID, PANTOLACTONE, SODIUM BENZOATE, POTASSIUM SORBATE. Note the ingredient list may change. Please see the delivered product for the exact ingredient list",
    "description": "• Advanced bond-strengthening treatment formulated with FiberHance™ • Helps repair and strengthen damaged hair from within • Supports stronger internal hair bonds • Deeply moisturizes and improves softness • Ideal for colour-treated, bleached, and chemically stressed hair",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "fortifiant"
+    "hydratation",
+    "reparation",
+    "fortifiant",
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/bioshield-hair-bonding-treatment.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--glow-hair-mist",
@@ -98,7 +51,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "fins"
    ],
    "actifs": [
     "huile de ricin",
@@ -107,10 +60,12 @@
    "ingredients": "INGREDIENTS/INGREDIÉNTS: AQUA (WATER) (EAU),DIPROPYLENE GLYCOL, POLYSILICONE-29, PEG-40 HYDROGENATED CASTOR OIL, PARFUM (FRAGRANCE), SODIUM BENZOATE, CITRIC ACID, LINALOOL, LINALYL ACETATE, LIMONENE, HYDROLYZED RHODOPHYCEAE EXTRACT, LAVANDULA OIL/EXTRACT, CITRUS LIMON PEEL OIL, PHENOXYETHANOL, GERANYL ACETATE, TERPINEOL, GERANIOL, PINENE, CAMPHOR, CITRAL, EUCALYPTUS GLOBULUS OIL",
    "description": "• Lightweight, shine-enhancing hair mist • Smooths and softens the hair • Helps reduce frizz and improve manageability • Creates a polished, glossy finish without weighing hair down • Heat-activated shine shield helps protect the hair",
    "claims": [
-    "brillance",
-    "lissant"
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/glow-hair-mist.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--bioshield-conditioner",
@@ -125,7 +80,9 @@
    "image_local": "public/scan/products-cheveux/sachajuan/bioshield-conditioner.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "AHA",
     "huile de ricin",
@@ -137,10 +94,14 @@
    "ingredients": "INGREDIENTS/INGREDIÉNTS: AQUA (WATER) (EAU), CETYL ALCOHOL, STEARYL ALCOHOL, GLYCERYL STEARATE, STEARAMIDOPROPYL DIMETHYLAMINE, ISOPROPYL MYRISTATE, LACTIC ACID, PARFUM (FRAGRANCE), PHENOXYETHANOL, BEHENTRIMONIUM CHLORIDE, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, PEG-40 HYDROGENATED CASTOR OIL, LINALOOL, LINALYL ACETATE, ISOPROPYL ALCOHOL, GLYCOLIC ACID, ETHYLHEXYLGLYCERIN, LIMONENE, CAMELLIA SINENSIS LEAF EXTRACT, LAVANDULA OIL/EXTRACT, GLUCOSE, GLYCERIN, CHONDRUS CRISPUS EXTRACT, CITRIC ACID, MALIC ACID, SODIUM DEHYDROACETATE, POTASSIUM SORBATE",
    "description": "• Helps protect against metal ions and mineral buildup caused by hard water • Formulated with TED and Fruitbio • Helps reinforce and seal the hair’s protective barrier • Provides moisture and improves manageability • Enriched with Ocean Silk Technology™ for softness, strength, and shine",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "fortifiant",
+    "purifiant",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/bioshield-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--bioshield-shampoo",
@@ -164,10 +125,14 @@
    "ingredients": "INGREDIENTS/INGREDIÉNTS: AQUA (WATER) (EAU), SODIUM LAURETH SULFATE, COCAMIDOPROPYL BETAINE, GLYCERETH-2 COCOATE, PEG-4 RAPESEEDAMIDE, GLYCERIN",
    "description": "• Helps protect against metal ions and mineral buildup caused by hard water • Formulated with TED and Fruitbio • Gently cleanses while helping maintain moisture • Helps reduce colour dullness caused by hard water • Enriched with Ocean Silk Technology™ for softness, strength, and shine",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "fortifiant",
+    "purifiant",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/bioshield-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--kopia-av-silver-shampoo",
@@ -182,7 +147,9 @@
    "image_local": "public/scan/products-cheveux/sachajuan/kopia-av-silver-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "glycérine",
     "acide citrique"
@@ -190,10 +157,12 @@
    "ingredients": "AQUA (WATER) (EAU), SODIUM LAURETH SULFATE, GLYCERIN, CAPRYLYL/CAPRYL, GLUCOSIDE, COCAMIDOPROPYL BETAINE, PEG-4 RAPESEEDAMIDE, GLYCERETH-2 COCOATE, CHONDRUS CRISPUS, (CARRAGEENAN) EXTRACT, PARFUM (FRAGRANCE), HYDROXYPROPYL GUAR HYDROXYPROPYLTRIMONIUM, CHLORIDE, SODIUM CHLORIDE, SODIUM BENZOATE, PEG-7 GLYCERYL COCOATE, CITRIC ACID, HEXYL CINNAMAL, POLYQUATERNIUM-10, CI 60730 (EXT. VIOLET 2), SODIUM SULFATE, DIMETHYLPABAMIDOPROPYL LAURDIMONIUM, TOSYLATE, LIMONENE, LINALOOL, SODIUM ACETATE, ISOPROPYL ALCOHOL",
    "description": "• Helps reduce yellow and warm shades • Supports hydration and shine • UV filter",
    "claims": [
-    "hydratant",
+    "hydratation",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/kopia-av-silver-shampoo.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "sachajuan--free-deluxe-sample-ocean-mist-volume-conditioner-50-ml",
@@ -219,9 +188,13 @@
    "ingredients": "AQUA (WATER) (EAU), CETYL ALCOHOL, GLYCERYL STEARATE, STEARAMIDOPROPYL, DIMETHYLAMINE, STEARYL ALCOHOL, DICAPRYLYL ETHER, HYDROLYZED WHEAT PROTEIN, PHENOXYETHANOL, LACTIC ACID, PARFUM (FRAGRANCE), PEG-40 HYDROGENATED CASTOR OIL, DISODIUM EDTA, ETHYLHEXYLGLYCERIN, LINALOOL, LIMONENE, BENZYL SALICYLATE, HEXYL CINNAMAL, SODIUM BENZOATE, HYDROLYZED RHODOPHYCEA (RED ALGAE) EXTRACT, CI 42090 (BLUE 1), SODIUM SULFATE, SODIUM CHLORIDE",
    "description": "• Lightweight formula promotes volume and texture • Easy to detangle, keeps hair light, texturized, and manageable",
    "claims": [
-    "volume"
+    "volume",
+    "texturisant",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/free-deluxe-sample-ocean-mist-volume-conditioner-50-ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--free-deluxe-sample-ocean-mist-volume-shampoo-50-ml",
@@ -247,9 +220,12 @@
    "ingredients": "AQUA (WATER) (EAU), SODIUM LAURETH SULFATE, PEG-4 RAPESEEDAMIDE, COCAMIDOPROPYL BETAINE, GLYCERIN, HYDROLYZED WHEAT PROTEIN, PARFUM (FRAGRANCE), SODIUM CHLORIDE, SODIUM BENZOATE, PEG-7 GLYCERYL COCOATE, CITRIC ACID, DISODIUM EDTA, PEG-150 PENTAERYTHRITYL, TETRASTEARATE, PEG-6 CAPRYLIC/CAPRIC GLYCERIDES, LINALOOL, LIMONENE, BENZYL SALICYLATE, HEXYL, CINNAMAL, ALPHA-ISOMETHYL IONONE, HYDROLYZED RHODOPHYCEA (RED ALGAE) EXTRACT, PHENOXYETHANOL, CI 42090 (BLUE 1), SODIUM SULFATE",
    "description": "• Adds volume and texture • Lightweight formula that supports movement • Gentle cleansing for daily use",
    "claims": [
-    "volume"
+    "volume",
+    "texturisant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/free-deluxe-sample-ocean-mist-volume-shampoo-50-ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--moisturizing-shampoo-50-ml",
@@ -264,7 +240,9 @@
    "image_local": "public/scan/products-cheveux/sachajuan/moisturizing-shampoo-50-ml.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "huile d'argan",
     "glycérine",
@@ -273,11 +251,14 @@
    "ingredients": "AQUA (WATER) (EAU), SODIUM LAURETH SULFATE, COCAMIDOPROPYL BETAINE, GLYCERIN, PEG-7 GLYCERYL COCOATE, PEG-4 RAPESEEDAMIDE, PARFUM (FRAGRANCE), SODIUM BENZOATE, HYDROXYPROPYL GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, COCO-GLUCOSIDE, GLYCERYL OLEATE, CITRIC ACID, SODIUM CHLORIDE, PEG-150 PENTAERYTHRITYL TETRASTEARATE, LINALOOL, PEG-6 CAPRYLIC/CAPRIC GLYCERIDES, ARGANIA SPINOSA KERNEL OIL, LIMONENE, BENZYL SALICYLATE, HEXYL CINNAMAL, ALPHA-ISOMETHYL IONONE, CHONDRUS CRISPUS (CARRAGEENAN) EXTRACT, CITRONELLOL",
    "description": "• Deeply hydrates and restores moisture and shine retention • Leaves hair smooth and manageable • Lightweight formula",
    "claims": [
-    "hydratant",
-    "brillance",
-    "lissant"
+    "hydratation",
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/moisturizing-shampoo-50-ml.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--moisturizing-conditioner-50-ml",
@@ -293,7 +274,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -307,11 +288,15 @@
    "ingredients": "AQUA (WATER) (EAU), CETYL ALCOHOL, BEHENTRIMONIUM CHLORIDE, GLYCERIN, STEARYL, ALCOHOL, PROPYLENE GLYCOL, DIMETHICONE, DIOLEOYLETHYL HYDROXYETHYLMONIUM METHOSULFATE, CETEARYL ETHYLHEXANOATE, PARFUM (FRAGRANCE), GLYCERETH-2 COCOATE, PERSEA GRATISSIMA (AVOCADO) OIL, ISOPROPYL ALCOHOL, SODIUM BENZOATE, PEG-40 HYDROGENATED CASTOR OIL, CITRIC ACID, SODIUM CHLORIDE, ARGANIA SPINOSA KERNEL OIL, ISOPROPYL MYRISTATE, C12-13 PARETH-3, C12-13 PARETH-23, LINALOOL, CHONDRUS CRISPUS (CARRAGEENAN) EXTRACT, LIMONENE, BENZYL SALICYLATE, HEXYL CINNAMAL, SALICYLIC ACID",
    "description": "• Provides hydration for dry and damaged hair • Promotes a smooth feel and helps reduce frizz. • Supports shine and manageability",
    "claims": [
-    "hydratant",
-    "brillance",
-    "lissant"
+    "hydratation",
+    "reparation",
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/moisturizing-conditioner-50-ml.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--scalp-conditioner-50-ml",
@@ -344,9 +329,13 @@
    "ingredients": "AQUA (WATER) (EAU), CETYL ALCOHOL, STEARYL ALCOHOL, ISOPROPYL MYRISTATE, BEHENTRIMONIUM CHLORIDE, PROPYLENE GLYCOL, DIOLEOYLETHYL HYDROXYETHYLMONIUM METHOSULFATE, CHONDRUS CRISPUS (CARRAGEENAN) EXTRACT, DIMETHICONE, GLYCERETH-2 COCOATE, CLIMBAZOLE, PIROCTONE OLAMINE, ISOPROPYL ALCOHOL, HYDROLYZED WHEAT PROTEIN, LACTIC ACID, PEG-40 HYDROGENATED CASTOR OIL, SODIUM CHLORIDE, BUTYLENE GLYCOL, AVENA SATIVA (OAT) KERNEL OIL, GLYCERIN, C12-13 PARETH-3, C12-13 PARETH-23, ZINGIBER OFFICINALE ROOT EXTRACT, POLYSORBATE 20, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF OIL, MENTHOL, SALICYLIC ACID, PARFUM (FRAGRANCE), SODIUM BENZOATE, POTASSIUM SORBATE, SORBIC ACID",
    "description": "• Balancing for irritated scalps • Helps prevent dandruff• Promotes scalp health",
    "claims": [
-    "anti-pellicules"
+    "antipelliculaire",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/scalp-conditioner-50-ml.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--scalp-shampoo-50-ml",
@@ -377,10 +366,13 @@
    "ingredients": "AQUA (WATER) (EAU), SODIUM LAURETH SULFATE, COCAMIDOPROPYL BETAINE, SODIUM CHLORIDE, CLIMBAZOLE, PIROCTONE OLAMINE, LACTIC ACID, C12-13 ALKYL LACTATE, HYDROLYZED WHEAT PROTEIN, BUTYLENE GLYCOL, ZINGIBER OFFICINALE (GINGER) ROOT EXTRACT, POLYSORBATE 20, SALICYLIC ACID, MENTHOL, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF OIL, LIMONENE, SODIUM BENZOATE, POTASSIUM SORBATE, SORBIC ACID, PARFUM (FRAGRANCE)",
    "description": "• Soothing relief for irritated scalps• Helps reduce dandruff and supports scalp health• Suitable for sensitive skin and scalp• Natural fragrance of rosemary, menthol, and ginger extract",
    "claims": [
-    "apaisant",
-    "anti-pellicules"
+    "antipelliculaire",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/scalp-shampoo-50-ml.webp",
+   "image_fond": true,
+   "ciblage_source": "fiche"
   },
   {
    "id": "sachajuan--clarifying-conditioner-deluxe-50-ml-clarifying-conditioner-deluxe-50ml",
@@ -396,6 +388,9 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "gras",
+    "fins",
+    "pellicules",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -407,11 +402,14 @@
    "ingredients": "AQUA (WATER) (EAU), CETYL ALCOHOL, STEARYL ALCOHOL, BUTYLENE GLYCOL, BEHENTRIMONIUM CHLORIDE, PARFUM (FRAGRANCE), SALICYLIC ACID, DIOLEOYLETHYL HYDROXYETHYLMONIUM METHOSULFATE, DIMETHICONE, GLYCERETH-2 COCOATE, CETEARYL ETHYLHEXANOATE, ISOPROPYL ALCOHOL, SODIUM BENZOATE, PIROCTONE OLAMINE, HEXAMETHYLINDANOPYRAN, PROPYLENE GLYCOL, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, LINALOOL, LIMONENE, PEG-40 HYDROGENATED CASTOR OIL, SODIUM CHLORIDE, LINALYL ACETATE, CITRUS AURANTIUM PEEL OIL, CITRIC ACID, ISOPROPYL MYRISTATE, PINENE CITRUS LIMON PEEL OIL, GERANYL ACETATE, CITRONELLOL, GERANIOL",
    "description": "• Deeply hydrates without weighing hair down • Restores softness and enhances shine • Improves manageability and styling performance • Ideal for all hair types and sensitive scalps",
    "claims": [
-    "hydratant",
-    "brillance",
-    "purifiant"
+    "hydratation",
+    "apaisant-cuir-chevelu",
+    "purifiant",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/clarifying-conditioner-deluxe-50-ml-clarifying-conditioner-deluxe-50ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--clarifying-shampoo-deluxe-50ml",
@@ -426,7 +424,11 @@
    "image_local": "public/scan/products-cheveux/sachajuan/clarifying-shampoo-deluxe-50ml.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "gras",
+    "pellicules"
+   ],
    "actifs": [
     "piroctone olamine",
     "AHA",
@@ -437,10 +439,12 @@
    "ingredients": "AQUA (WATER) (EAU), COCAMIDOPROPYL BETAINE, SODIUM LAUROYL SARCOSINATE, PEG-4 RAPESEEDAMIDE, SODIUM COCOYL APPLE AMINO ACIDS, PARFUM (FRAGRANCE), CHONDRUS CRISPUS (CARRAGEENAN) POWDER, GLYCOLIC ACID, SODIUM BENZOATE, C12-13 ALKYL LACTATE, HEXYLENE GLYCOL, HEXAMETHYLINDANOPYRAN, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, CITRIC ACID, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, LINALOOL, LIMONENE, LINALYL ACETATE, CITRUS AURANTIUM PEEL OIL, PIROCTONE OLAMINE, SODIUM HYALURONATE, TETRASODIUM EDTA, PINENE, SODIUM CHLORIDE, CALCIUM LACTATE, CITRUS LIMON PEEL OIL, TETRASODIUM GLUTAMATE DIACETATE, CALCIUM GLUCONATE, GERANYL ACETATE, CITRONELLOL, GERANIOL",
    "description": "• Formulated without sulfates; The Clarifying shampoo deeply cleanses while maintaining moisture. • Removes buildup, oil, and impurities for a fresh scalp • Leaves hair light, clean, and ready for styling • Purifying shampoo for regular scalp reset • Ideal for weekly use",
    "claims": [
-    "hydratant",
+    "hydratation",
     "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/clarifying-shampoo-deluxe-50ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--clarifying-scalp-scrub-220ml",
@@ -455,7 +459,11 @@
    "image_local": "public/scan/products-cheveux/sachajuan/clarifying-scalp-scrub-220ml.jpg",
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "gras",
+    "pellicules"
+   ],
    "actifs": [
     "piroctone olamine",
     "beurre de karité",
@@ -465,10 +473,13 @@
    "ingredients": "SUCROSE, AQUA (WATER) (EAU), GLYCERYL CAPRYLATE/CAPRATE, CANOLA OIL, GLYCERIN, SODIUM LAUROYL SARCOSINATE, COCO-BETAINE, PARFUM (FRAGRANCE), BUTYROSPERMUM PARKII BUTTER, PIROCTONE OLAMINE, SODIUM METHYL COCOYL TAURATE, SODIUM COCOYL ISETHIONATE, ETHYLHEXYLGLYCERIN, CITRIC ACID, TETRASODIUM EDTA, SODIUM BENZOATE, PHENOXYETHANOL, HEXAMETHYLINDANOPYRAN, LINALYL ACETATE, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, LINALOOL, LIMONENE, CITRUS AURANTIUM PEEL OIL, PINENE",
    "description": "• Gentle scalp exfoliation helps remove buildup and dead skin cells • Exfoliates while maintaining moisture and supporting microbiome balance • Formulated without sulfates",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "nutrition",
     "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/clarifying-scalp-scrub-220ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--hair-bonding-booster",
@@ -499,12 +510,15 @@
    "ingredients": "AQUA (WATER) (EAU), HYDROXYPROPYLGLUCONAMIDE, HYDROXYPROPYLAMMONIUM GLUCONATE, PENTYLENE GLYCOL, PROPANEDIOL, PEG-40 HYDROGENATED CASTOR OIL, PHENOXYETHANOL, DIPROPYLENE GLYCOL, PANTHENOL, PARFUM (FRAGRANCE), POLYSILICONE-29, HYDROLYZED RICE PROTEIN, HYDROLYZED QUINOA, SILICONE QUATERNIUM-18, BUTYLENE GLYCOL, TARTARIC ACID, TRIDECETH-6, ETHYLHEXYLGLYCERIN, BENZYL ALCOHOL, SODIUM PCA, SODIUM LACTATE, TRIDECETH-12, HELIANTHUS ANNUUS (SUNFLOWER) SEED EXTRACT, ISOCHRYSIS GALBANA EXTRACT, ARGININE, SODIUM BENZOATE, ASPARTIC ACID, PCA, GLYCOLIC ACID, POTASSIUM SORBATE, GLYCINE, ALANINE, CITRIC ACID, SERINE, VALINE, THREONINE, ISOLEUCINE, PROLINE, HISTIDINE, PHENYLALANINE, LINALOOL, LIMONENE",
    "description": "• Deeply repairing bond-building treatment • Helps restore and strengthen damaged hair from within • Enhances colour retention and natural shine • Deeply conditions and moisturises the hair • Supports long-term hair health",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "brillance",
-    "fortifiant"
+    "hydratation",
+    "reparation",
+    "fortifiant",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/hair-bonding-booster.webp",
+   "image_fond": true,
+   "ciblage_source": "fiche"
   },
   {
    "id": "sachajuan--ocean-mist-texturizing-hair-cream",
@@ -531,10 +545,14 @@
    "ingredients": "AQUA (WATER) (EAU), PROPYLENE GLYCOL, DIMETHICONE, VP/VA COPOLYMER, PVP, BUTYROSPERMUM PARKII BUTTER, CETEARETH-20, PHENOXYETHANOL, GLYCERIN, CETYL ALCOHOL, PARFUM (FRAGRANCE), CARBOMER, AMINOMETHYL PROPANOL, ETHYLHEXYLGLYCERIN, LINALOOL, HYDROLYZED RHODOPHYCEA EXTRACT, LIMONENE, BENZYL SALICYLATE, HEXYL CINNAMAL, CITRONELLOL, ALPHA-ISOMETHYL IONONE, GERANIOL, CI 42090, SODIUM SULFATE, SODIUM CHLORIDE, CITRIC ACID",
    "description": "• Creates texture, grip, and volume • Supports curl and wave definition • Provides a saltwater-inspired, touchable finish • Infused with Ocean Silk Technology • Ideal for creating beachy styles or as a versatile styling base",
    "claims": [
+    "nutrition",
+    "definition-boucles",
     "volume",
-    "definition-boucles"
+    "texturisant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/ocean-mist-texturizing-hair-cream.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--hair-after-the-sun-1",
@@ -549,7 +567,9 @@
    "image_local": "public/scan/products-cheveux/sachajuan/hair-after-the-sun-1.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "panthénol",
     "huile de ricin",
@@ -562,10 +582,13 @@
    "ingredients": "AQUA (WATER) (EAU), GLYCERIN, C15-19 ALKANE, PARFUM (FRAGRANCE), DICAPRYLYL ETHER, PPG-3 CAPRYLYL ETHER, PHENOXYETHANOL, POLYQUATERNIUM-46, PEG-40 HYDROGENATED CASTOR OIL, ACRYLATES/C10-30 ALKYL ACRYLATE CROSSPOLYMER, CAPRYLOYL GLYCERIN/SEBACIC ACID COPOLYMER, DIHEPTYL SUCCINATE, PANTHENOL, HEXYL CINNAMAL, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, LIMONENE, SODIUM HYDROXIDE, ETHYLHEXYLGLYCERIN, CHONDRUS CRISPUS EXTRACT, LINALOOL, HYDROLYZED RHODOPHYCEA EXTRACT, LACTIC ACID, PHENYLPROPANOL, PROPANEDIOL, CAPRYLYL GLYCOL, CITRAL, CAMELLIA SINENSIS LEAF EXTRACT, GLUCOSE, AMYL CINNAMAL, CITRIC ACID, MALIC ACID, TOCOPHEROL, SODIUM DEHYDROACETATE, POTASSIUM SORBATE",
    "description": "• Helps replenish moisture and add shine • Help reduce dryness from saltwater and chlorine • Works as a leave-in treatment",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "nutrition",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/hair-after-the-sun-1.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--hair-in-the-sun-1",
@@ -580,7 +603,9 @@
    "image_local": "public/scan/products-cheveux/sachajuan/hair-in-the-sun-1.jpg",
    "categorie": "coloration-soin",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "colores"
+   ],
    "actifs": [
     "panthénol",
     "huile de ricin",
@@ -592,7 +617,9 @@
    "ingredients": "AQUA (WATER) (EAU), PARFUM (FRAGRANCE), DIPROPYLENE GLYCOL, POLYSILICONE-19, HYDROXYPROPYL GUAR, PEG-40 HYDROGENATED CASTOR OIL, HYDROXYPROPYL GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, PROPANEDIOL, PANTHENOL, SODIUM BENZOATE, HEXYL CINNAMAL, POLYQUATERNIUM-37, POLYQUATERNIUM-47, LIMONENE, LINALOOL, CITRIC ACID, LACTIC ACID, HYDROLYZED RHODOPHYCEA (RED ALGAE) EXTRACT, ISOPROPYL ALCOHOL, PHENOXYETHANOL, CITRAL, CI 15985 (YELLOW 6), CAMELLIA SINENSIS LEAF EXTRACT, GLUCOSE, AMYL CINNAMAL, GLYCERIN, MALIC ACID, SODIUM SULFATE, SODIUM CHLORIDE, TETRASODIUM EDTA, SODIUM DEHYDROACETATE, POTASSIUM SORBATE",
    "description": "• Protects the hair natural or artificial color pigments against the sun. • Reduce the fading and distortion of hair color. • Contains UV filter to help protect hair pigments • Minimize the effects of pool water and mineral build up • To be used during sun exposure",
    "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/hair-in-the-sun-1.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--ocean-mist-hair-mousse",
@@ -619,30 +646,14 @@
    "ingredients": "AQUA (WATER) (EAU), HYDROLYZED RICE PROTEIN, PANTHENOL, POLYIMIDE-1, POLYQUATERNIUM-55, PEG-40 HYDROGENATED CASTOR OIL, CETRIMONIUM CHLORIDE, VP/VA COPOLYMER, CAPRYLYL GLYCOL, ISOPROPYL ALCOHOL, BENZOTRIAZOLYL DODECYL P-CRESOL, ETHYLHEXYLGLYCERIN, BENZYL SALICYLATE, HEXYL CINNAMAL, CITRONELLOL, ALPHA-ISOMETHYL IONONE, LINALOOL, LIMONENE, PHENOXYETHANOL, CITRIC ACID, BENZYL ALCOHOL, POTASSIUM SORBATE, SODIUM BENZOATE, PARFUM (FRAGRANCE)",
    "description": "• Adds volume, grip, and texture • Lightweight formula for a soft, touchable finish • Ideal for prepping hair before blow-drying • Helps reduce static while enhancing shine",
    "claims": [
-    "brillance",
-    "volume"
+    "anti-frisottis",
+    "volume",
+    "texturisant",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "sachajuan--blowdryer",
-   "name": "BLOWDRYER",
-   "brand": "sachajuan",
-   "brand_name": "Sachajuan",
-   "url": "https://sachajuan.com/products/blowdryer",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 90.0,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0452/7974/0069/files/700SachajuanBlowdryer.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/sachajuan/blowdryer.jpg",
-   "categorie": "protection-thermique",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "• Three heat settings and two speed settings• Cool shot button• 2.84m cord length• Handle hole for suspension• Operates on 240V with a powerful 1500W motor Attachments - Two concentrator nozzles, one wide and one slim, are included for detailed hair styling, easily attaching to the blowdryer",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/ocean-mist-hair-mousse.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--intensive-leave-in-conditioner",
@@ -667,12 +678,15 @@
    "ingredients": "AQUA (WATER) (EAU), CETEARYL ALCOHOL, BEHENAMIDOPROPYL DIMETHYLAMINE, ISOPROPYL MYRISTATE, METHYLPROPANEDIOL, DIMETHICONE, HYDROLYZED RHODOPHYCEA EXTRACT, MACADAMIA SEED OIL GLYCERETH-8 ESTERS, ETHYLHEXYLGLYCERIN, C15-19 ALKANE, PROPOXYTETRAMETHYL PIPERIDINYL DIMETHICONE, DIPHENYL DIMETHICONE, PARFUM, LACTIC ACID, PHENOXYETHANOL, TRIDECETH-6, LINALOOL, LIMONENE, GERANIOL",
    "description": "• Intensive hydration and repair • Easy to detangle hair • Strengthens and revitalizes weakened hair • Enhances softness and shine",
    "claims": [
-    "hydratant",
-    "reparateur",
+    "hydratation",
+    "reparation",
+    "fortifiant",
     "brillance",
-    "fortifiant"
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/intensive-leave-in-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--heat-protection-hair-cream",
@@ -687,18 +701,20 @@
    "image_local": "public/scan/products-cheveux/sachajuan/heat-protection-hair-cream.jpg",
    "categorie": "protection-thermique",
    "etape": 3,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [],
    "ingredients": "AQUA (WATER) (EAU), C15-19 ALKANE, HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, PROPYLENE GLYCOL, DICAPRYLYL ETHER, SQUALANE, PPG-3 CAPRYLYL ETHER, PHENOXYETHANOL, PARFUM (FRAGRANCE), SODIUM LANETH-40 MALEATE/STYRENE SULFONATE COPOLYMER, POLYSORBATE 60, ETHYLHEXYLGLYCERIN, LINALOOL, LIMONENE, POTASSIUM SORBATE, CHONDRUS CRISPUS EXTRACT, HYDROLYZED RHODOPHYCEA EXTRACT, GERANIOL, CITRONELLOL, HEXYL CINNAMAL",
    "description": "• Protects hair from heat damage • Reduces frizz and adds shine • Strengthens and enhances elasticity • Provides lasting style hold",
    "claims": [
+    "fortifiant",
+    "anti-frisottis",
     "brillance",
-    "protection-thermique",
-    "fortifiant"
+    "protection-chaleur",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/heat-protection-hair-cream.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--root-lift",
@@ -722,9 +738,12 @@
    "ingredients": "AQUA (WATER) (EAU), DIMETHYL ETHER, ALCOHOL DENAT., BUTANE, VP/VA COPOLYMER, PVP, ISOBUTANE, PROPANE, VP/DIMETHYLAMINOETHYLMETHACRYLATE COPOLYMER, SHEA BUTTER ETHYL ESTERS, ACRYLATES COPOLYMER, CAPRYLYL GLYCOL, TRIETHANOLAMINE, POLYSORBATE 20, LAURETH-4, PHENOXYETHANOL, PARFUM (FRAGRANCE), LINALOOL, LIMONENE, HEXYL CINNAMAL, BENZYL SALICYLATE, ALPHA-ISOMETHYL IONONE, CITRONELLOL, GERANIOL",
    "description": "• Maximizes hair volume and root lift • Adds stability and lift • Flexible formula",
    "claims": [
+    "nutrition",
     "volume"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/root-lift.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--dark-volume-powder",
@@ -740,15 +759,20 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "gras",
     "fins"
    ],
    "actifs": [],
    "ingredients": "BUTANE, ISOBUTANE, PROPANE, ALCOHOL DENAT., SOLANUM TUBEROSUM (POTATO) STARCH, ALUMINUM STARCH OCTENYLSUCCINATE, SILICA, PARFUM (FRAGRANCE), CI 77491 (IRON OXIDES), CI 77492 (IRON OXIDES), CI 77499 (IRON OXIDES)",
    "description": "• Creates volume, texture, and grip • Refreshes hair by absorbing excess oils • Creates a satin matte finish • For all hair types, both long and short hair",
    "claims": [
-    "volume"
+    "volume",
+    "texturisant",
+    "anti-gras"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/dark-volume-powder.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--shine-serum",
@@ -764,7 +788,6 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
     "abimes"
    ],
    "actifs": [
@@ -773,10 +796,13 @@
    "ingredients": "CYCLOPENTASILOXANE, DIPHENYL DIMETHICONE, ALCOHOL DENAT., PARFUM (FRAGRANCE), C12-15 ALKYL BENZOATE, PANTHENOL, LINALOOL, LIMONENE, BENZYL SALICYLATE, HEXYL CINNAMAL, ALPHA-ISOMETHYL IONONE, CITRONELLOL, GERANIOL, COUMARIN, EUGENOL",
    "description": "• Reduces the appearance of split ends • Adds reflection to the hair surface, specifically for matte and frizzy hair • Smooths the hair cuticles",
    "claims": [
-    "brillance",
-    "lissant"
+    "reparation",
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/shine-serum.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--hairspray-strong-control-1",
@@ -799,8 +825,12 @@
    ],
    "ingredients": "ALCOHOL DENAT., DIMETHYL ETHER, AQUA (WATER) (EAU), OCTYLACRYLAMIDE/ACRYLATES/BUTYLAMINOETHYL METHACRYLATE COPOLYMER, ACRYLATES COPOLYMER, AMINOMETHYL PROPANOL, GLYCERIN, TRIMETHYLSILOXYPHENYL DIMETHICONE, PANTHENOL, BENZOPHENONE-4, CITRIC ACID, PARFUM (FRAGRANCE), BENZYL SALICYLATE, CITRONELLOL, LIMONENE, ALPHA-ISOMETHYL IONONE, HEXYL CINNAMAL, LINALOOL",
    "description": "• Strong hold for strong control and long-lasting support • Leaves no residue after application",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "fixation"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/hairspray-strong-control-1.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--copy-of-hairspray-light-and-flexible",
@@ -816,11 +846,17 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [],
-   "actifs": [],
+   "actifs": [
+    "acide salicylique"
+   ],
    "ingredients": "ALCOHOL DENAT, BUTANE, ISOBUTANE, PROPANE, OCTYLACRYLAMIDE/ACRYLATES/ BUTYLAMINOETHYL METHACRYLATE COPOLYMER, AMINOMETHYL PROPANOL, PEG-12 DIMETHICONE, AQUA (WATER) (EAU), PARFUM (FRAGRANCE), BENZYL SALICYLATE, CITRONELLOL, LIMONENE, ALPHA-ISOMETHYL IONONE, HEXYL CINNAMAL, LINALOOL",
    "description": "• Lightweight, flexible hold • Easy to brush out • Adds a light, bouncy finish • Shape, control, and movement • Suitable for all hair textures",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "fixation"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/copy-of-hairspray-light-and-flexible.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--intensive-hair-oil",
@@ -835,7 +871,9 @@
    "image_local": "public/scan/products-cheveux/sachajuan/intensive-hair-oil.jpg",
    "categorie": "huile",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "huile d'argan",
     "huile de tournesol",
@@ -844,35 +882,12 @@
    "ingredients": "CYCLOPENTASILOXANE, ARGANIA SPINOSA KERNEL OIL, DIPHENYL DIMETHICONE, PARFUM (FRAGRANCE), DIMETHICONOL, HIPPOPHAE RHAMNOIDES SEED OIL, LINALOOL, LIMONENE, BENZYL SALICYLATE, HEXYL CINNAMAL, ALPHA-ISOMETHYL IONONE, CITRONELLOL, GERANIOL, COUMARIN, EUGENOL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, ROSMARINUS OFFICINALIS (ROSEMARY) LEAF EXTRACT",
    "description": "• Lightweight formula absorbs quickly into the hair • Helps smooth, moisturize, and condition hair • Supports elasticity and manageability • Infused with argan oil, sea buckthorn oil, and antioxidants",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "sachajuan--detangling-brush",
-   "name": "DETANGLING HAIRBRUSH",
-   "brand": "sachajuan",
-   "brand_name": "Sachajuan",
-   "url": "https://sachajuan.com/products/detangling-brush",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 21.0,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0452/7974/0069/products/455_Detangle_Brush.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/sachajuan/detangling-brush.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
-   "cheveux_cibles": [
-    "secs"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "• Gently detangles without causing breakage• Soft nylon bristles and flexible pins• Enhances hair shine and smoothness• Reduces damage and promotes scalp health• Suitable for both wet and dry hair",
-   "claims": [
-    "brillance",
-    "lissant"
-   ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/intensive-hair-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--hair-repair-treatment",
@@ -888,7 +903,6 @@
    "categorie": "proteine-reconstruction",
    "etape": 4,
    "cheveux_cibles": [
-    "epais",
     "abimes"
    ],
    "actifs": [
@@ -899,10 +913,13 @@
    "ingredients": "AQUA (WATER) (EAU), CETYL, ALCOHOL, BEHENTRIMONIUM CHLORIDE, STEARYL, ALCOHOL, PROPYLENE GLYCOL, AMODIMETHICONE, PARFUM (FRAGRANCE), ISOPROPYL ALCOHOL, PHENOXYETHANOL, GLYCERETH-2 COCOATE, CETEARYL, ETHYLHEXANOATE, PEG-7 GLYCERYL COCOATE, HYDROLYZED WHEAT PROTEIN, PEG-40 HYDROGENATED, CASTOR OIL, SODIUM CHLORIDE, CETRIMONIUM, CHLORIDE, TRIDECETH-10, ETHYLHEXYLGLYCERIN, ISOPROPYL MYRISTATE, LINALOOL, HYDROLYZED, RHODOPHYCEA (RED ALGAE) EXTRACT, CITRIC ACID, LIMONENE, BENZYL SALICYLATE, HEXYL CINNAMAL, ALPHA-ISOMETHYL IONONE",
    "description": "• Deep repairing treatment, rebalances damaged and over-processed hair • Promotes a stronger, more flexible, healthy hair • Reduces frizz and adds shine",
    "claims": [
-    "reparateur",
+    "reparation",
+    "anti-frisottis",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/hair-repair-treatment.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--thermal-protection-spray",
@@ -918,6 +935,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "fins",
     "boucles"
    ],
    "actifs": [
@@ -928,11 +946,14 @@
    "ingredients": "BUTANE, ALCOHOL DENAT., ISOBUTANE, PROPANE, AQUA (WATER) (EAU), DIISOPROPYL ADIPATE, AMINOPROPYL PHENYL TRIMETHICONE, TRIMETHYLSILOXYPHENYL DIMETHICONE, QUATERNIUM-91, HELIANTHUS ANNUUS (SUNFLOWER) SEED EXTRACT, PANTHENOL, CETEARYL ALCOHOL, TOCOPHERYL ACETATE, BUTYLENE GLYCOL, MYRISTYL MYRISTATE, BEHENTRIMONIUM CHLORIDE, CETRIMONIUM CHLORIDE, CITRIC ACID, SYNTHETIC FLUORPHLOGOPITE, TIN OXIDE, CI 77891 (TITANIUM DIOXIDE), PARFUM (FRAGRANCE), ALPHA- ISOMETHYL IONONE, BENZYL SALICYLATE, CITRONELLOL, HEXYL CINNAMAL, LINALOOL, LIMONENE, GERANIOL",
    "description": "• Lightweight heat protection spray enriched with Ocean Silk Technology • Helps protect the hair from heat damage up to 230°C • Enhances shine and smoothness, ideal for use with straighteners and curling tools • Weightless formula without greasiness",
    "claims": [
+    "anti-frisottis",
+    "definition-boucles",
     "brillance",
-    "lissant",
-    "protection-thermique"
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/thermal-protection-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--ocean-mist",
@@ -948,7 +969,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "fins"
+    "fins",
+    "boucles"
    ],
    "actifs": [
     "panthénol",
@@ -958,9 +980,13 @@
    "ingredients": "AQUA (WATER) (EAU), ALCOHOL DENAT., SODIUM CHLORIDE, MAGNESIUM SULFATE, HYDROGENATED STARCH HYDROLYSATE, PVP, PHENOXYETHANOL, PEG-40 HYDROGENATED CASTOR OIL, PARFUM (FRAGRANCE), PANTHENOL, CITRIC ACID, CI 42090 (BLUE 1), LINALOOL, LIMONENE, HEXYL CINNAMAL, BENZYL SALICYLATE, ALPHA-ISOMETHYL IONONE",
    "description": "• Adds grip, volume, and texture • Creates beachy waves with movement • Versatile for air-drying, blow-drying, or diffusing",
    "claims": [
-    "volume"
+    "definition-boucles",
+    "volume",
+    "texturisant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/ocean-mist.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--colour-protect-shampoo",
@@ -985,10 +1011,13 @@
    "ingredients": "AQUA (WATER) (EAU), SODIUM LAURETH SULFATE, GLYCERIN, GLYCERETH-2 COCOATE, COCAMIDOPROPYL BETAINE, PEG-4 RAPESEEDAMIDE, PARFUM (FRAGRANCE), HYDROXYPROPYL GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, SODIUM BENZOATE, PEG-7 GLYCERYL COCOATE, CITRIC ACID, SILICONE QUATERNIUM-22, PEG-150 PENTAERYTHRITYL TETRASTEARATE, SODIUM CHLORIDE, DISODIUM EDTA, PEG-6 CAPRYLIC/CAPRIC GLYCERIDES, DIPROPYLENE GLYCOL, POLYGLYCERYL-3 CAPRATE, LINALOOL, LIMONENE, BENZYL SALICYLATE, HEXYL CINNAMAL, ALPHA-ISOMETHYL IONONE, GELLAN GUM, CITRONELLOL, PROPYLENE GLYCOL, CHONDRUS CRISPUS (CARRAGEENAN) EXTRACT",
    "description": "• Developed to reduce color fade • Formulated for colour-treated hair • Formula developed for gentle cleansing • Supports smoothness, bounce, and shine",
    "claims": [
+    "anti-frisottis",
     "brillance",
-    "lissant"
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/colour-protect-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--colour-protect-conditioner",
@@ -1014,9 +1043,13 @@
    "ingredients": "AQUA (WATER) (EAU), CETYL ALCOHOL, STEARYL ALCOHOL, GLYCERYL STEARATE, STEARAMIDOPROPYL DIMETHYLAMINE, GLYCERIN, DICAPRYLYL ETHER, PHENOXYETHANOL, LACTIC ACID, PARFUM (FRAGRANCE), DIPROPYLENE GLYCOL, POLYSILICONE-19, PEG-40 HYDROGENATED CASTOR OIL, BENZOIC ACID, DEHYDROACETIC ACID, LINALOOL, LIMONENE, BENZYL SALICYLATE, HEXYL CINNAMAL, CHONDRUS CRISPUS (CARRAGEENAN) EXTRACT",
    "description": "• Protection for colour-treated hair • Supports detangling and a smoother feel • Improves manageability and softness",
    "claims": [
-    "lissant"
+    "anti-frisottis",
+    "protection-couleur",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/colour-protect-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--styling-cream",
@@ -1032,6 +1065,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "fins",
     "boucles",
     "lisses"
    ],
@@ -1043,12 +1077,15 @@
    "ingredients": "AQUA (WATER) (EAU), AMODIMETHICONE, HYDROXYPROPYL GUAR, HYDROXYPROPYL GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, PROPYLENE GLYCOL, PHENOXYETHANOL, PANTHENOL, PARFUM (FRAGRANCE), HYDROLYZED WHEAT PROTEIN, TRIDECETH-12, CETRIMONIUM CHLORIDE, ETHYLHEXYLGLYCERIN, CITRIC ACID, HYDROLYZED RHODOPHYCEA (RED ALGAE) EXTRACT, LINALOOL, LIMONENE, GERANIOL, CITRONELLOL",
    "description": "• Styling aid for curly and straight hair• Provides heat protection• Creates control• Adds density, shine and definition",
    "claims": [
-    "brillance",
-    "volume",
     "definition-boucles",
-    "protection-thermique"
+    "volume",
+    "densifiant",
+    "brillance",
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/styling-cream.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--over-night-hair-repair",
@@ -1073,12 +1110,15 @@
    "ingredients": "AQUA (WATER) (EAU), CYCLOPENTASILOXANE, GLYCERIN, DIMETHICONE, PARFUM (FRAGRANCE), HYDROLYZED RHODOPHYCEA (RED ALGAE), EXTRACT, CHONDRUS CRISPUS (CARRAGEENAN) EXTRACT, PHENOXYETHANOL, GLYCERYL ACRYLATE/ACRYLIC ACID, COPOLYMER, PROPYLENE GLYCOL, ACRYLATES/C10-30, ALKYL ACRYLATE CROSSPOLYMER, PEG-40 HYDROGENATED, CASTOR OIL, AMINOMETHYL PROPANOL, ETHYLHEXYLGLYCERIN, CITRONELLOL, LIMONENE, GERANIOL, HEXYL, CINNAMAL, LINALOOL",
    "description": "• Offers intensive hydration • Helps support strength and repair • Designed to improve smoothness and shine • Lightweight, non-greasy formula • Suitable for all hair textures",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "brillance",
-    "lissant"
+    "hydratation",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/over-night-hair-repair.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--volume-powder",
@@ -1094,15 +1134,20 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "gras",
     "fins"
    ],
    "actifs": [],
    "ingredients": "BUTANE, ISOBUTANE, ALCOHOL DENAT, PROPANE, SOLANUM TUBEROSUM (POTATO) STARCH, ALUMINUM STARCH OCTENYLSUCCINATE, HYDRATED SILICA, SILICA, PARFUM (FRAGRANCE)",
    "description": "• Creates volume, texture, and grip • Refreshes hair by absorbing excess oils • Creates a satin matte finish • For all hair types, both long and short hair",
    "claims": [
-    "volume"
+    "volume",
+    "texturisant",
+    "anti-gras"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/volume-powder.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--finish-cream",
@@ -1117,16 +1162,23 @@
    "image_local": "public/scan/products-cheveux/sachajuan/finish-cream.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "fins",
+    "boucles",
+    "lisses"
+   ],
    "actifs": [],
    "ingredients": "AQUA (WATER) (EAU), PARAFFINUM LIQUIDUM (MINERAL OIL), PETROLATUM, CETYL ALCOHOL, C12-15 ALKYL BENZOATE, CETEARETH-25, DIMETHICONE, PARFUM (FRAGRANCE), HYDROXYETHYL ACRYLATE/SODIUM ACRYLOYLDIMETHYL TAURATE COPOLYMER, PHENOXYETHANOL, SQUALANE, POLYSORBATE 60, ETHYLHEXYLGLYCERIN, LINALOOL, LIMONENE, CHONDRUS CRISPUS (CARRAGEENAN) EXTRACT, GERANIOL, CITRONELLOL, HEXYL CINNAMAL",
    "description": "• A non-greasy formula, provides moisture • Adds natural, weightless control and definition • Moisturizes and smooths hair while taming flyaways",
    "claims": [
-    "hydratant",
-    "lissant",
+    "hydratation",
+    "anti-frisottis",
     "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/finish-cream.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--volume-cream",
@@ -1153,7 +1205,9 @@
    "claims": [
     "volume"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/volume-cream.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "sachajuan--hair-cleansing-cream",
@@ -1169,6 +1223,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "epais",
     "abimes"
    ],
    "actifs": [
@@ -1179,10 +1234,13 @@
    "ingredients": "AQUA (WATER) (EAU), GLYCERIN, ISOPROPYL PALMITATE, CETYL ALCOHOL, STEARYL ALCOHOL, STEARAMIDOPROPYL, DIMETHYLAMINE, GLYCERYL STEARATE, PARFUM (FRAGRANCE), HYDROLYZED RHODOPHYCEA (RED ALGAE) EXTRACT, LACTIC ACID, PHENOXYETHANOL, PEG-40 HYDROGENATED CASTOR OIL, DICAPRYLYL ETHER, ETHYLHEXYLGLYCERIN, LINALOOL, LIMONENE",
    "description": "• Formulated without parabens and sulfates • Helps maintain natural moisture and balance • Leaves hair with a soft, effortless second-day hair texture • Promotes shine • Ideal for damaged, coarse, and chemical-treated hair",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "texturisant",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/hair-cleansing-cream.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--leave-in-conditioner",
@@ -1197,18 +1255,24 @@
    "image_local": "public/scan/products-cheveux/sachajuan/leave-in-conditioner.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "fins"
+   ],
    "actifs": [
     "acide citrique"
    ],
    "ingredients": "AQUA (WATER) (EAU), SILICONE QUATERNIUM-18, TRIDECETH-6, PARFUM(FRAGRANCE), PHENOXYETHANOL, PEG-4 RAPESEEDAMIDE, TRIDECETH-12, ACRYLATES/C10-30 ALKYLACRYLATE CROSSPOLYMER, AMINOMETHYL PROPANOL, ETHYLHEXYLGLYCERIN, LINALOOL, HYDROLYZED RHODOPHYCEA (RED ALGAE) EXTRACT, LIMONENE, BENZYL SALICYLATE, HEXYL CINNAMAL, ALPHA-ISOMETHYL IONONE, CITRONELLOL, CITRIC ACID, GERANIOL, COUMARIN, EUGENOL",
    "description": "• Lightweight formula • Provides weightless moisture and shine • Detangles, conditions, and enhances manageability • Leaves hair nourished and easy to comb and style",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "brillance"
+    "hydratation",
+    "nutrition",
+    "brillance",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/leave-in-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--anti-pollution-conditioner",
@@ -1235,9 +1299,13 @@
    "ingredients": "AQUA (WATER) (EAU), CETYL ALCOHOL, STEARYL ALCOHOL, GLYCERYL STEARATE, STEARAMIDOPROPYL DIMETHYLAMINE, ISOPROPYL MYRISTATE, CHONDRUS CRISPUS (CARRAGEENAN) EXTRACT, CAMELLIA SINENSIS LEAF EXTRACT, LACTIC ACID, GLYCOLIC ACID, MALIC ACID, PARFUM (FRAGRANCE), PHENOXYETHANOL, BEHENTRIMONIUM CHLORIDE, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, PEG-40 HYDROGENATED CASTOR OIL, ISOPROPYL ALCOHOL, LINALOOL, ETHYLHEXYLGLYCERIN, COUMARIN, GLUCOSE, GLYCERIN, CITRONELLOL, ALPHA-ISOMETHYL IONONE, LIMONENE, GERANIOL, CITRIC ACID, SODIUM DEHYDROACETATE, POTASSIUM SORBATE",
    "description": "• Creates a barrier against pollution build up on the scalp and hair • Reduce-color fade and mineral build up from hard water • Smooths the surface of the hair to prevent pollutants and odors from adhering • Eliminates odors, leaving hair with a delicate scent of lavender",
    "claims": [
-    "lissant"
+    "anti-frisottis",
+    "protection-couleur",
+    "anti-pollution"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/anti-pollution-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--anti-pollution-shampoo",
@@ -1263,9 +1331,13 @@
    "ingredients": "AQUA (WATER) (EAU), SODIUM LAURETH SULFATE, COCAMIDOPROPYL BETAINE, GLYCERETH-2 COCOATE, PEG-4 RAPESEEDAMIDE, PARFUM (FRAGRANCE), GLYCERIN, CHONDRUS CRISPUS (CARRAGEENAN) EXTRACT, CAMELLIA SINENSIS LEAF EXTRACT, LACTIC ACID, GLYCOLIC ACID, MALIC ACID, SODIUM BENZOATE, SODIUM CHLORIDE, HYDROXYPROPYL GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, TRISODIUM ETHYLENEDIAMINE DISUCCINATE, LINALOOL, COUMARIN, CITRIC ACID, GLUCOSE, CITRONELLOL, ALPHA-ISOMETHYL IONONE, PHENOXYETHANOL, SODIUM DEHYDROACETATE, POTASSIUM SORBATE",
    "description": "• Creates a barrier against pollution build up on the scalp and hair• Reduce-color fade and mineral build up from hard water• Smooths the surface of the hair to prevent pollutants and odors from adhering• Eliminates odors, leaving hair with a delicate scent of lavender",
    "claims": [
-    "lissant"
+    "anti-frisottis",
+    "protection-couleur",
+    "anti-pollution"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/anti-pollution-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--intensive-repair-shampoo",
@@ -1292,12 +1364,14 @@
    "ingredients": "AQUA (WATER) (EAU), SODIUM LAURETH SULFATE, PEG-4 RAPESEEDAMIDE, COCAMIDOPROPYL BETAINE, GLYCERIN, GLYCERETH-2 COCOATE, SODIUM CHLORIDE, PARFUM, PEG-7 GLYCERYL COCOATE, HYDROXYPROPYL GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, SODIUM BENZOATE, AMODIMETHICONE, CITRIC ACID, DISODIUM EDTA, PANTHENOL, POLYQUATERNIUM-47, DIMETHYLPABAMIDOPROPYL LAURDIMONIUM TOSYLATE, TRIDECETH-12, LINALOOL, LIMONENE, CETRIMONIUM CHLORIDE, HYDROLYZED RHODOPHYCEA EXTRACT, GELLAN GUM, CHONDRUS CRISPUS EXTRACT, PHENOXYETHANOL",
    "description": "• Intensive hydration and repair • Protection against environmental and mechanical damage • Strengthens and revitalizes damaged hair • Promotes softness and shine",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "brillance",
-    "fortifiant"
+    "hydratation",
+    "reparation",
+    "fortifiant",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/intensive-repair-shampoo.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "sachajuan--thickening-conditioner",
@@ -1322,11 +1396,14 @@
    "ingredients": "AQUA (WATER) (EAU), CETYL ALCOHOL, STEARYL ALCOHOL, GLYCERYL STEARATE, STEARAMIDOPROPYL DIMETHYLAMINE, DICAPRYLYL ETHER, LACTIC ACID, PHENOXYETHANOL, AMODIMETHICONE, VP/DMAPA ACRYLATES COPOLYMER, PARFUM (FRAGRANCE), POLYACRYLATE-1 CROSSPOLYMER, PEG-40 HYDROGENATED CASTOR OIL, TRIDECETH-12, ETHYLHEXYLGLYCERIN, CETRIMONIUM CHLORIDE, LINALOOL, LIMONENE, BENZYL SALICYLATE, HEXYL CINNAMAL, BENZALKONIUM CHLORIDE, HYDROLYZED RHODOPHYCEA (RED ALGAE) EXTRACT",
    "description": "• Provides fuller, thicker hair with smooth volume • Nourishes and detangles hair",
    "claims": [
-    "nourrissant",
+    "nutrition",
+    "anti-frisottis",
     "volume",
-    "lissant"
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/thickening-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--thickening-shampoo",
@@ -1351,10 +1428,12 @@
    "ingredients": "AQUA (WATER) (EAU), SODIUM LAURETH SULFATE, GLYCERETH-2 COCOATE, COCAMIDOPROPYL BETAINE, GLYCERIN, PEG-4 RAPESEEDAMIDE, PARFUM (FRAGRANCE), SODIUM CHLORIDE, SODIUM BENZOATE, HYDROXYPROPYL GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, CITRIC ACID, VP/DMAPA ACRYLATES COPOLYMER, LINALOOL, LIMONENE, BENZYL SALICYLATE, HEXYL CINNAMAL, ALPHA-ISOMETHYL IONONE, HYDROLYZED RHODOPHYCEA (RED ALGAE) EXTRACT, BENZALKONIUM CHLORIDE, PHENOXYETHANOL",
    "description": "• Fuller, thicker hair with volume • Provides heat and UV protection to shield against damage • Nourishes hair to create a foundation for volume",
    "claims": [
-    "nourrissant",
+    "nutrition",
     "volume"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/thickening-shampoo.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "sachajuan--intensive-repair-conditioner",
@@ -1381,12 +1460,15 @@
    "ingredients": "AQUA (WATER) (EAU), CETYL ALCOHOL, GLYCERIN, STEARYL ALCOHOL, BEHENTRIMONIUM CHLORIDE, PROPYLENE GLYCOL, GLYCERETH-2 COCOATE, DIOLEOYLETHYL HYDROXYETHYLMONIUM METHOSULFATE, CETEARYL ETHYLHEXANOATE, AMODIMETHICONE, PARFUM, PHENOXYETHANOL, ISOPROPYL ALCOHOL, DIMETHYLPABAMIDOPROPYL LAURDIMONIUM TOSYLATE, PEG-40 HYDROGENATED CASTOR OIL, PANTHENOL, SODIUM CHLORIDE, TRIDECETH-12, ISOPROPYL MYRISTATE, ETHYLHEXYLGLYCERIN, CITRIC ACID, CETRIMONIUM CHLORIDE, LINALOOL, LIMONENE, HYDROLYZED RHODOPHYCEA EXTRACT, CHONDRUS CRISPUS EXTRACT",
    "description": "• Intensive hydration and repair • Easy to detangle hair • Strengthens and revitalizes weakened hair • Enhances softness and shine",
    "claims": [
-    "hydratant",
-    "reparateur",
+    "hydratation",
+    "reparation",
+    "fortifiant",
     "brillance",
-    "fortifiant"
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/intensive-repair-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--normal-hair-conditioner",
@@ -1409,9 +1491,12 @@
    "ingredients": "AQUA (WATER), CETYL ALCOHOL, STEARYL ALCOHOL, BEHENTRIMONIUM CHLORIDE, PROPYLENE GLYCOL, DIOLEOYLETHYL HYDROXYETHYLMONIUM METHOSULFATE, PHENOXYETHANOL, AMODIMETHICONE, GLYCERETH-2 COCOATE, CETEARYL ETHYLHEXANOATE, PARFUM (FRAGRANCE), ISOPROPYL ALCOHOL, PEG-40 HYDROGENATED CASTOR OIL, SODIUM CHLORIDE, TRIDECETH-12, ETHYLHEXYLGLYCERIN, CITRIC ACID, ISOPROPYL MYRISTATE, CETRIMONIUM CHLORIDE, HYDROLYZED RHODOPHYCEA (RED ALGAE) EXTRACT, LINALOOL",
    "description": "• Developed for all textures • Provides conditioning and detangling • Leaves hair with natural bounce and silky shine",
    "claims": [
-    "brillance"
+    "brillance",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/normal-hair-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "sachajuan--normal-hair-shampoo",
@@ -1436,7 +1521,9 @@
    "claims": [
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/sachajuan/cutout/normal-hair-shampoo.webp",
+   "ciblage_source": "fiche"
   }
  ]
 }

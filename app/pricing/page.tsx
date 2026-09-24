@@ -1,27 +1,32 @@
 /**
- * VYVRE — /pricing page
+ * VYVRE — /pricing
  *
- * Single source of truth pour le pricing public.
- * Linked depuis les 27 POCs Firebase via : vyvre.fr/pricing?from=BRAND
+ * Source unique du tarif public, dans les douze langues.
+ * Appelée depuis les démonstrations par : vyvre.fr/pricing?from=MARQUE
  *
  * Comportement :
- * - Détecte ?from=BRAND → personnalise le header ("Vous venez de tester la démo X")
- * - 4 tiers : Pilot, Starter, Growth, Enterprise
- * - Toggle monthly/annual
- * - CTAs → Stripe Payment Links (avec client_reference_id pour tracking)
+ * - ?from=MARQUE → bandeau personnalisé et lien de démonstration de la marque
+ * - 4 plans : Pilot, Starter, Growth, Enterprise
+ * - bascule mensuel / annuel
+ * - boutons → Stripe Payment Links (client_reference_id pour le suivi)
+ * - les prix restent en euros dans toutes les langues
  */
 
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import Script from 'next/script';
 import SiteHeader from '../SiteHeader';
-import PricingClient from './PricingClient';
+import PricingClient, { type PricingStrings } from './PricingClient';
+import { STRIPE_LINKS } from './links';
+import { getPage } from '../../lib/i18n/server';
+import type { T } from '../../lib/i18n';
 
-export const metadata = {
-  title: 'Pricing · VYVRE',
-  description: 'Diagnostic de peau mesuré, hébergé en France. Pilot gratuit, Starter 299 €/mois, Growth 499 €/mois, Enterprise à partir de 699 €/mois.',
-};
+export function generateMetadata(): Metadata {
+  const { t } = getPage();
+  return { title: t('pri.meta.title'), description: t('pri.meta.desc') };
+}
 
-// ── Brand display name mapping ──
+// ── Noms de marque affichés ──
 const BRAND_NAMES: Record<string, string> = {
   'caudalie': 'Caudalie',
   'sisley': 'Sisley',
@@ -50,28 +55,171 @@ const BRAND_NAMES: Record<string, string> = {
   'tata-harper': 'Tata Harper',
   'beauty-of-joseon': 'Beauty of Joseon',
   'medicube': 'Medicube',
+  // marques anglophones (anciennement /pricing/en)
+  'sturm': 'Dr. Barbara Sturm',
+  'laneige': 'Laneige',
+  'innisfree': 'Innisfree',
+  'sulwhasoo': 'Sulwhasoo',
+  'cosrx': 'COSRX',
+  'some-by-mi': 'Some By Mi',
+  'mizon': 'Mizon',
+  'klairs': 'Klairs',
+  'pyunkang-yul': 'Pyunkang Yul',
+  'round-lab': 'Round Lab',
+  'anua': 'ANUA',
+  'skin1004': 'SKIN1004',
+  'tirtir': 'TIRTIR',
+  'torriden': 'Torriden',
+  'mediheal': 'Mediheal',
+  'etude-house': 'Etude House',
+  'cerave': 'CeraVe',
+  'cetaphil': 'Cetaphil',
+  'olay': 'Olay',
+  'neutrogena': 'Neutrogena',
+  'the-ordinary': 'The Ordinary',
+  'drunk-elephant': 'Drunk Elephant',
+  'glow-recipe': 'Glow Recipe',
+  'youth-to-the-people': 'Youth To The People',
+  'versed': 'Versed',
+  'bubble-skincare': 'Bubble Skincare',
+  'tatcha': 'Tatcha',
+  'glossier': 'Glossier',
+  'murad': 'Murad',
+  'eucerin': 'Eucerin',
+  'sensilis': 'Sensilis',
+  'clinique': 'Clinique',
+  'estee-lauder': 'Estée Lauder',
+  'shiseido': 'Shiseido',
+  'kiehls': 'Kiehl’s',
+  'fresh': 'Fresh',
+  'origins': 'Origins',
+  'bobbi-brown': 'Bobbi Brown',
+  'the-inkey-list': 'The INKEY List',
+  'beauty-pie': 'Beauty Pie',
+  'liz-earle': 'Liz Earle',
+  'trinny-london': 'Trinny London',
+  'charlotte-tilbury': 'Charlotte Tilbury',
+  'wishful': 'Wishful',
+  'hada-labo': 'Hada Labo',
+  'curel': 'Curél',
+  'senka': 'Senka',
+  'sand-and-sky': 'Sand & Sky',
 };
 
-// ── Overrides slug → fichier démo ──
-// Convention par défaut : fichier démo marque = VYVRE_<SLUG_MAJUSCULE_UNDERSCORE>.html
-// sur https://vyvre-demos.web.app . Ne lister que les slugs dont le nom de fichier
-// NE suit PAS cette convention (ex. alias pointant vers un fichier partagé).
+// ── Exceptions slug → fichier de démonstration ──
+// Convention par défaut : VYVRE_<SLUG_MAJUSCULE_UNDERSCORE>.html
 const DEMO_SLUG_OVERRIDES: Record<string, string> = {
-  'barbara-sturm': 'STURM', // alias → VYVRE_STURM.html
+  'barbara-sturm': 'STURM',
 };
 
 const DEMO_BASE_URL = 'https://vyvre-demos.web.app';
 const GENERIC_DEMO_URL = `${DEMO_BASE_URL}/SCAN_LIVE_DEMO_VYVRE.html`;
 
-// Résout le lien DÉMO du header pour la marque courante.
-// Retombe sur la démo VYVRE générique si aucun contexte de marque.
 function getDemoUrl(brandSlug: string): string {
-  // Construit VYVRE_<MARQUE>.html pour TOUTE marque valide (la convention couvre
-  // les ~115 marques). Générique uniquement si pas de marque / slug invalide.
   if (!brandSlug || !/^[a-z0-9][a-z0-9-]{1,40}$/.test(brandSlug)) return GENERIC_DEMO_URL;
-  const token =
-    DEMO_SLUG_OVERRIDES[brandSlug] || brandSlug.toUpperCase().replace(/-/g, '_');
+  const token = DEMO_SLUG_OVERRIDES[brandSlug] || brandSlug.toUpperCase().replace(/-/g, '_');
   return `${DEMO_BASE_URL}/VYVRE_${token}.html`;
+}
+
+function pricingStrings(t: T): PricingStrings {
+  return {
+    monthly: t('pri.toggle.monthly'),
+    annual: t('pri.toggle.annual'),
+    themeLabel: t('pri.theme.label'),
+    themeDark: t('pri.theme.dark'),
+    themeLight: t('pri.theme.light'),
+    themeNote: t('pri.theme.note'),
+    plan: t('pri.card.plan'),
+    recommended: t('pri.card.recommended'),
+    perMonth: t('pri.per.month'),
+    trust: t('pri.trust'),
+    tiers: [
+      {
+        tier: 'Pilot',
+        price: t('pri.pilot.price'),
+        priceAnnual: t('pri.pilot.price'),
+        suffix: '',
+        sub: t('pri.pilot.sub'),
+        subAnnual: t('pri.pilot.sub'),
+        features: [
+          t('pri.pilot.f1'),
+          t('pri.pilot.f2'),
+          t('pri.pilot.f3'),
+          t('pri.pilot.f4'),
+          t('pri.pilot.f5'),
+        ],
+        cta: t('pri.pilot.cta'),
+        recommended: false,
+        linkMonthly: STRIPE_LINKS.pilot,
+        linkAnnual: STRIPE_LINKS.pilot,
+        refMonthly: 'pilot',
+        refAnnual: 'pilot',
+      },
+      {
+        tier: 'Starter',
+        price: '299 €',
+        priceAnnual: '249 €',
+        suffix: t('pri.per.month'),
+        sub: t('pri.starter.subM'),
+        subAnnual: t('pri.starter.subA'),
+        features: [
+          t('pri.starter.f1'),
+          t('pri.starter.f2'),
+          t('pri.starter.f3'),
+          t('pri.starter.f4'),
+          t('pri.starter.f5'),
+        ],
+        cta: t('pri.starter.cta'),
+        recommended: false,
+        linkMonthly: STRIPE_LINKS.starter_monthly,
+        linkAnnual: STRIPE_LINKS.starter_annual,
+        refMonthly: 'starter_monthly',
+        refAnnual: 'starter_annual',
+      },
+      {
+        tier: 'Growth',
+        price: '499 €',
+        priceAnnual: '415 €',
+        suffix: t('pri.per.month'),
+        sub: t('pri.growth.subM'),
+        subAnnual: t('pri.growth.subA'),
+        features: [
+          t('pri.growth.f1'),
+          t('pri.growth.f2'),
+          t('pri.growth.f3'),
+          t('pri.growth.f4'),
+          t('pri.growth.f5'),
+        ],
+        cta: t('pri.growth.cta'),
+        recommended: true,
+        linkMonthly: STRIPE_LINKS.growth_monthly,
+        linkAnnual: STRIPE_LINKS.growth_annual,
+        refMonthly: 'growth_monthly',
+        refAnnual: 'growth_annual',
+      },
+      {
+        tier: 'Enterprise',
+        price: '699 €',
+        priceAnnual: '582 €',
+        suffix: t('pri.per.month'),
+        sub: t('pri.ent.subM'),
+        subAnnual: t('pri.ent.subA'),
+        features: [
+          t('pri.ent.f1'),
+          t('pri.ent.f2'),
+          t('pri.ent.f3'),
+          t('pri.ent.f4'),
+          t('pri.ent.f5'),
+        ],
+        cta: t('pri.ent.cta'),
+        recommended: false,
+        linkMonthly: STRIPE_LINKS.enterprise_monthly,
+        linkAnnual: STRIPE_LINKS.enterprise_annual,
+        refMonthly: 'enterprise_monthly',
+        refAnnual: 'enterprise_annual',
+      },
+    ],
+  };
 }
 
 interface PricingPageProps {
@@ -79,6 +227,7 @@ interface PricingPageProps {
 }
 
 export default function PricingPage({ searchParams }: PricingPageProps) {
+  const { t, dir } = getPage();
   const brandSlug = (searchParams.from || '').toLowerCase().trim();
   const brandName = BRAND_NAMES[brandSlug] || null;
   const demoUrl = getDemoUrl(brandSlug);
@@ -88,137 +237,125 @@ export default function PricingPage({ searchParams }: PricingPageProps) {
       <Script src="/vyvre-mini-lattice.js" strategy="afterInteractive" />
       <SiteHeader demoUrl={demoUrl} />
 
-      {/* ===== Brand personalization banner (only if ?from=BRAND) ===== */}
+      {/* ===== Bandeau marque (si ?from=MARQUE) ===== */}
       {brandName && (
         <section className="px-8 py-4">
           <div className="max-w-5xl mx-auto flex items-center gap-4 text-sm px-6 py-4 rounded-full bg-accent/5 border border-accent/20 backdrop-blur">
-            <span className="text-accent text-lg">✓</span>
+            <span className="text-accent text-lg" aria-hidden="true">✓</span>
             <div>
-              <span className="text-text">Vous venez de tester la démo {brandName}</span>
-              <span className="text-text/55 ml-2">— Choisissez votre plan pour l'activer sur votre site.</span>
+              <span className="text-text">{t('pri.banner1', { brand: brandName })}</span>
+              <span className="text-text/55 ms-2">{t('pri.banner2')}</span>
             </div>
           </div>
         </section>
       )}
 
-      {/* ===== Hero (style V6 minimal, compact) ===== */}
+      {/* ===== Hero ===== */}
       <section className="px-8 py-8 md:py-12 text-center">
         <div className="max-w-3xl mx-auto flex flex-col items-center gap-4">
           <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-text/55">
-            Tarification · VYVRE Business
+            {t('pri.hero.eyebrow')}
           </span>
           <h1 className="font-sans text-4xl md:text-6xl font-thin leading-[1.03] -tracking-[0.03em]">
-            Le prix est<br/>
-            <em className="not-italic text-text/55 font-extralight">sur la page.</em>
+            {t('pri.hero.h1a')}<br/>
+            <em className="not-italic text-text/55 font-extralight">{t('pri.hero.h1b')}</em>
           </h1>
           <p className="font-mono text-[11px] tracking-[0.2em] uppercase text-text/45 max-w-xl leading-relaxed">
-            Hébergement France · RGPD natif · Aucune photo conservée
+            {t('pri.hero.p')}
           </p>
         </div>
       </section>
 
-      {/* ===== Pricing Cards (remontées juste après hero pour conversion) ===== */}
-      <PricingClient brandSlug={brandSlug} />
+      {/* ===== Plans ===== */}
+      <PricingClient brandSlug={brandSlug} s={pricingStrings(t)} rtl={dir === 'rtl'} />
 
-      {/* ===== Section ARGUMENTS (sous les cards) ===== */}
+      {/* ===== Arguments ===== */}
       <section className="px-8 py-16 md:py-20">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12 md:mb-16 flex flex-col items-center gap-4">
             <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
-              Pourquoi nous choisir
+              {t('pri.args.eyebrow')}
             </span>
             <h2 className="font-sans text-4xl md:text-5xl font-extralight leading-[1.05] -tracking-[0.022em] max-w-3xl">
-              Pourquoi VYVRE
+              {t('pri.args.h2a')}
               <br />
-              <span className="text-text/55">et pas les autres ?</span>
+              <span className="text-text/55">{t('pri.args.h2b')}</span>
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             <ArgumentCard
-              eyebrow="Made in France"
-              title="Le seul widget skin tech 100% français"
+              eyebrow={t('pri.arg1.e')}
+              title={t('pri.arg1.t')}
               body={
                 <>
-                  Infrastructure hébergée en France, équipe à Paris, DPA signé.
-                  <span className="block mt-2 text-text/45 text-[12px]">
-                    Les solutions comparables sont hébergées hors UE.
-                  </span>
+                  {t('pri.arg1.b')}
+                  <span className="block mt-2 text-text/45 text-[12px]">{t('pri.arg1.n')}</span>
                 </>
               }
             />
 
             <ArgumentCard
-              eyebrow="-90% sur la facture"
-              title={<>Jusqu&apos;à 10× moins cher<br />que la concurrence</>}
+              eyebrow={t('pri.arg2.e')}
+              title={<>{t('pri.arg2.t1')}<br />{t('pri.arg2.t2')}</>}
               body={
                 <>
-                  VYVRE Starter = <span className="text-text">à partir de 299 € / mois</span> (3 588 € / an). SkinConsult AI démarre à ~50 000 € / an + 30 000 € de setup, Perfect Corp à ~30 000 € / an.
-                  <span className="block mt-2 text-text/45 text-[12px]">
-                    Tableau comparatif détaillé plus bas sur cette page.
-                  </span>
+                  {t('pri.arg2.b1')} <span className="text-text">{t('pri.arg2.b2')}</span> {t('pri.arg2.b3')}
+                  <span className="block mt-2 text-text/45 text-[12px]">{t('pri.arg2.n')}</span>
                 </>
               }
             />
 
             <ArgumentCard
-              eyebrow="Activation 48h chrono"
-              title="Embed code reçu après paiement"
+              eyebrow={t('pri.arg3.e')}
+              title={t('pri.arg3.t')}
               body={
                 <>
-                  Vous collez <span className="font-mono text-[12px] text-text">&lt;script src=&quot;vyvre.fr/widget.js&quot;&gt;</span> sur votre site, c&apos;est live.
-                  <span className="block mt-2 text-text/45 text-[12px]">
-                    Pas de meeting d&apos;onboarding, pas d&apos;intégrateur tiers facturé.
-                  </span>
+                  {t('pri.arg3.b1')} <span className="font-mono text-[12px] text-text vy-ltr">&lt;script src=&quot;vyvre.fr/widget.js&quot;&gt;</span> {t('pri.arg3.b2')}
+                  <span className="block mt-2 text-text/45 text-[12px]">{t('pri.arg3.n')}</span>
                 </>
               }
             />
 
             <ArgumentCard
-              eyebrow="Sans engagement"
-              title="Annulation en 1 clic"
+              eyebrow={t('pri.arg4.e')}
+              title={t('pri.arg4.t')}
               body={
                 <>
-                  Downgrade, upgrade, ou résiliation depuis votre dashboard. Aucun lock-in contractuel, aucune pénalité.
-                  <span className="block mt-2 text-text/45 text-[12px]">
-                    Vous gardez l&apos;export de toutes vos données scans.
-                  </span>
+                  {t('pri.arg4.b')}
+                  <span className="block mt-2 text-text/45 text-[12px]">{t('pri.arg4.n')}</span>
                 </>
               }
             />
 
             <ArgumentCard
-              eyebrow="White-label total"
-              title="Votre marque, pas la nôtre"
+              eyebrow={t('pri.arg5.e')}
+              title={t('pri.arg5.t')}
               body={
                 <>
-                  Logo, couleurs, typographie, produits matchés — tout est paramétré à votre charte.
-                  <span className="block mt-2 text-text/45 text-[12px]">
-                    Aucun &laquo; Powered by VYVRE &raquo; imposé dès le plan Starter.
-                  </span>
+                  {t('pri.arg5.b')}
+                  <span className="block mt-2 text-text/45 text-[12px]">{t('pri.arg5.n')}</span>
                 </>
               }
             />
 
             <ArgumentCard
-              eyebrow="Science peer-reviewed"
-              title="Une mesure, pas une simulation"
+              eyebrow={t('pri.arg6.e')}
+              title={t('pri.arg6.t')}
               body={
                 <>
-                  Colorimétrie CIE L*a*b*, 68 repères de visage, indices dérivés de la littérature dermatologique.
-                  <span className="block mt-2 text-text/45 text-[12px]">
-                    Bibliographie : Flament, Chardon, Stamatas, Takiwaki, Yamamoto.
-                  </span>
+                  {t('pri.arg6.b')}
+                  <span className="block mt-2 text-text/45 text-[12px]">{t('pri.arg6.n')}</span>
                 </>
               }
             />
           </div>
 
-          {/* === Tableau comparatif concurrence === */}
+          {/* === Comparatif marché === */}
           <div className="mt-16 md:mt-20">
             <div className="text-center mb-8">
               <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-text/55">
-                Comparatif marché · prix publics constatés 2025
+                {t('pri.tbl.caption')}
               </span>
             </div>
 
@@ -226,157 +363,117 @@ export default function PricingPage({ searchParams }: PricingPageProps) {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-line bg-text/[0.02]">
-                    <th className="text-left font-mono text-[10px] tracking-[0.2em] uppercase text-text/45 px-5 py-4">
-                      Solution
-                    </th>
-                    <th className="text-left font-mono text-[10px] tracking-[0.2em] uppercase text-text/45 px-5 py-4">
-                      Tarif annuel (entry)
-                    </th>
-                    <th className="text-left font-mono text-[10px] tracking-[0.2em] uppercase text-text/45 px-5 py-4">
-                      Setup / intégration
-                    </th>
-                    <th className="text-left font-mono text-[10px] tracking-[0.2em] uppercase text-text/45 px-5 py-4">
-                      Hébergement
-                    </th>
-                    <th className="text-left font-mono text-[10px] tracking-[0.2em] uppercase text-text/45 px-5 py-4">
-                      Activation
-                    </th>
+                    <th className="text-left font-mono text-[10px] tracking-[0.2em] uppercase text-text/45 px-5 py-4">{t('pri.tbl.h1')}</th>
+                    <th className="text-left font-mono text-[10px] tracking-[0.2em] uppercase text-text/45 px-5 py-4">{t('pri.tbl.h2')}</th>
+                    <th className="text-left font-mono text-[10px] tracking-[0.2em] uppercase text-text/45 px-5 py-4">{t('pri.tbl.h3')}</th>
+                    <th className="text-left font-mono text-[10px] tracking-[0.2em] uppercase text-text/45 px-5 py-4">{t('pri.tbl.h4')}</th>
+                    <th className="text-left font-mono text-[10px] tracking-[0.2em] uppercase text-text/45 px-5 py-4">{t('pri.tbl.h5')}</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr className="border-b border-line bg-accent/[0.04]">
                     <td className="px-5 py-4">
                       <span className="font-medium text-text">VYVRE Starter</span>
-                      <span className="block text-[11px] text-accent mt-1">À partir de</span>
+                      <span className="block text-[11px] text-accent mt-1">{t('pri.tbl.from')}</span>
                     </td>
-                    <td className="px-5 py-4 text-text">299 €/mois <span className="text-text/50 text-[11px]">(3 588 €/an)</span></td>
-                    <td className="px-5 py-4 text-text">0 €</td>
-                    <td className="px-5 py-4 text-text">France</td>
-                    <td className="px-5 py-4 text-text">48h</td>
+                    <td className="px-5 py-4 text-text"><span className="vy-ltr">299 €{t('pri.tbl.month')}</span> <span className="text-text/50 text-[11px] vy-ltr">(3 588 €{t('pri.tbl.year')})</span></td>
+                    <td className="px-5 py-4 text-text vy-ltr">0 €</td>
+                    <td className="px-5 py-4 text-text">{t('pri.tbl.france')}</td>
+                    <td className="px-5 py-4 text-text vy-ltr">48 h</td>
                   </tr>
                   <tr className="border-b border-line">
                     <td className="px-5 py-4 text-text/75">SkinConsult AI <span className="text-text/40">(L&apos;Oréal)</span></td>
-                    <td className="px-5 py-4 text-text/75">à partir de ~50 000 €</td>
-                    <td className="px-5 py-4 text-text/75">~30 000 €</td>
+                    <td className="px-5 py-4 text-text/75">{t('pri.tbl.fromApprox')} <span className="vy-ltr">~50 000 €</span></td>
+                    <td className="px-5 py-4 text-text/75 vy-ltr">~30 000 €</td>
                     <td className="px-5 py-4 text-text/75">AWS US</td>
-                    <td className="px-5 py-4 text-text/75">8-12 sem.</td>
+                    <td className="px-5 py-4 text-text/75">{t('pri.tbl.w812')}</td>
                   </tr>
                   <tr className="border-b border-line">
                     <td className="px-5 py-4 text-text/75">Modiface <span className="text-text/40">(L&apos;Oréal)</span></td>
-                    <td className="px-5 py-4 text-text/75">à partir de ~80 000 €</td>
-                    <td className="px-5 py-4 text-text/75">sur devis</td>
+                    <td className="px-5 py-4 text-text/75">{t('pri.tbl.fromApprox')} <span className="vy-ltr">~80 000 €</span></td>
+                    <td className="px-5 py-4 text-text/75">{t('pri.tbl.onQuote')}</td>
                     <td className="px-5 py-4 text-text/75">AWS US</td>
-                    <td className="px-5 py-4 text-text/75">12 sem. +</td>
+                    <td className="px-5 py-4 text-text/75">{t('pri.tbl.w12')}</td>
                   </tr>
                   <tr>
                     <td className="px-5 py-4 text-text/75">Perfect Corp <span className="text-text/40">(YouCam)</span></td>
-                    <td className="px-5 py-4 text-text/75">à partir de ~30 000 €</td>
-                    <td className="px-5 py-4 text-text/75">~10 000 €</td>
+                    <td className="px-5 py-4 text-text/75">{t('pri.tbl.fromApprox')} <span className="vy-ltr">~30 000 €</span></td>
+                    <td className="px-5 py-4 text-text/75 vy-ltr">~10 000 €</td>
                     <td className="px-5 py-4 text-text/75">AWS US</td>
-                    <td className="px-5 py-4 text-text/75">6-8 sem.</td>
+                    <td className="px-5 py-4 text-text/75">{t('pri.tbl.w68')}</td>
                   </tr>
                 </tbody>
               </table>
             </div>
 
             <p className="text-[11px] text-text/40 mt-4 text-center font-mono tracking-[0.1em]">
-              Tarifs concurrents : ordres de grandeur publics constatés (RFP marques cosmétiques 2024-2025).
+              {t('pri.tbl.note')}
             </p>
           </div>
         </div>
       </section>
 
-      {/* ===== Section "Ce que vous obtenez" (sous arguments) ===== */}
+      {/* ===== Ce que vous obtenez ===== */}
       <section className="px-8 py-16 md:py-20 border-t border-line">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-12 flex flex-col items-center gap-4">
             <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
-              Onboarding · à la seconde du paiement
+              {t('pri.del.eyebrow')}
             </span>
             <h2 className="font-sans text-3xl md:text-4xl font-extralight leading-[1.05] -tracking-[0.022em] max-w-3xl">
-              Ce que vous obtenez,
+              {t('pri.del.h2a')}
               <br />
-              <span className="text-text/55">dès la confirmation Stripe.</span>
+              <span className="text-text/55">{t('pri.del.h2b')}</span>
             </h2>
           </div>
 
           <ul className="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5 max-w-4xl mx-auto">
+            <DeliverableItem title={t('pri.del1.t')} body={t('pri.del1.b')} />
             <DeliverableItem
-              title="Email de bienvenue"
-              body="Avec votre lien d'admin personnel + identifiants dashboard."
-            />
-            <DeliverableItem
-              title="Embed code prêt à coller"
+              title={t('pri.del2.t')}
               body={
-                <span className="font-mono text-[12px]">
-                  &lt;script src=&quot;vyvre.fr/widget.js&quot; data-brand=&quot;vous&quot;&gt;&lt;/script&gt;
+                <span className="font-mono text-[12px] vy-ltr">
+                  &lt;script src=&quot;vyvre.fr/widget.js&quot; data-brand=&quot;...&quot;&gt;&lt;/script&gt;
                 </span>
               }
             />
-            <DeliverableItem
-              title="Catalogue produits pré-rempli"
-              body="30 à 60 de vos produits scrapés depuis votre site, déjà mappés aux biomarqueurs."
-            />
-            <DeliverableItem
-              title="Branding personnalisé"
-              body="Logo + palette couleurs + nom de marque appliqués au widget et au dashboard."
-            />
-            <DeliverableItem
-              title="Dashboard analytics"
-              body="Scans/jour, taux de conversion, biomarqueurs moyens, top produits recommandés."
-            />
-                                    <DeliverableItem
-              title="Export RGPD complet"
-              body="Vous gardez l'intégralité de vos données scans, exportables CSV à tout moment."
-            />
+            <DeliverableItem title={t('pri.del3.t')} body={t('pri.del3.b')} />
+            <DeliverableItem title={t('pri.del4.t')} body={t('pri.del4.b')} />
+            <DeliverableItem title={t('pri.del5.t')} body={t('pri.del5.b')} />
+            <DeliverableItem title={t('pri.del6.t')} body={t('pri.del6.b')} />
           </ul>
         </div>
       </section>
 
-      {/* ===== FAQ — 8 questions concrètes ===== */}
+      {/* ===== Questions fréquentes ===== */}
       <section className="px-8 py-16 border-t border-line">
         <div className="max-w-5xl mx-auto">
           <div className="text-center mb-10">
-            <span className="text-[10px] tracking-[0.3em] uppercase text-accent font-mono">Questions fréquentes</span>
+            <span className="text-[10px] tracking-[0.3em] uppercase text-accent font-mono">{t('pri.faq.eyebrow')}</span>
             <h2 className="font-sans text-2xl md:text-3xl font-extralight -tracking-[0.015em] text-text/85 mt-3">
-              Tout ce que vous voulez <em className="not-italic font-light text-accent" style={{ fontStyle: 'italic' }}>savoir.</em>
+              {t('pri.faq.h2a')} <em className="not-italic font-light text-accent" style={{ fontStyle: 'italic' }}>{t('pri.faq.h2b')}</em>
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                                    <FAQItem
-              question="Que se passe-t-il si je dépasse mon quota de scans ?"
-              answer="Le service continue. Chaque scan supplémentaire est facturé entre 0,01 € et 0,02 € selon votre plan, sur la facture du mois suivant."
-            />
-            <FAQItem
-              question="Où sont stockées les données utilisateurs ?"
-              answer="Exclusivement en France. Aucune photo conservée, aucun transfert hors UE, DPA signé."
-            />
-            <FAQItem
-              question="Puis-je changer de plan en cours de route ?"
-              answer="Oui, à tout moment depuis votre dashboard. Upgrade prorata immédiat, downgrade au mois suivant."
-            />
-                        <FAQItem
-              question="Quel niveau de support technique ?"
-              answer="Support email sous 48h sur tous les plans. Support prioritaire avec Account Manager dédié à partir de Growth."
-            />
-            <FAQItem
-              question="Les produits matchés sont-ils paramétrables ?"
-              answer="Oui. Votre catalogue Supabase est entièrement éditable. Vous ajoutez, retirez, modifiez les produits depuis le dashboard."
-            />
+            <FAQItem question={t('pri.faq1.q')} answer={t('pri.faq1.a')} />
+            <FAQItem question={t('pri.faq2.q')} answer={t('pri.faq2.a')} />
+            <FAQItem question={t('pri.faq3.q')} answer={t('pri.faq3.a')} />
+            <FAQItem question={t('pri.faq4.q')} answer={t('pri.faq4.a')} />
+            <FAQItem question={t('pri.faq5.q')} answer={t('pri.faq5.a')} />
           </div>
         </div>
       </section>
 
-      {/* ===== CTA Calendly ===== */}
+      {/* ===== Rendez-vous ===== */}
       <section className="px-8 py-12 border-t border-line">
         <div className="max-w-3xl mx-auto text-center flex flex-col items-center gap-4">
-          <span className="text-[10px] tracking-[0.3em] uppercase text-accent font-mono">Pas encore prêt ?</span>
+          <span className="text-[10px] tracking-[0.3em] uppercase text-accent font-mono">{t('pri.cal.eyebrow')}</span>
           <h2 className="font-sans text-3xl md:text-4xl font-extralight -tracking-[0.02em]">
-            Réservez une démo de 20 minutes
+            {t('pri.cal.h2')}
           </h2>
           <p className="text-text/55 max-w-lg font-light">
-            Charles, fondateur, vous montre le widget en visio + répond à toutes vos questions techniques et contractuelles.
+            {t('pri.cal.p')}
           </p>
           <a
             href="https://calendly.com/charles-symphonydrive"
@@ -384,27 +481,25 @@ export default function PricingPage({ searchParams }: PricingPageProps) {
             rel="noopener"
             className="btn-secondary mt-4"
           >
-            Réserver 20 min →
+            {t('pri.cal.cta')}
           </a>
         </div>
       </section>
 
-      {/* ===== Footer · Conditions ===== */}
+      {/* ===== Pied de page ===== */}
       <footer className="px-8 py-12 border-t border-line">
         <div className="max-w-5xl mx-auto">
-          {/* Conditions links */}
           <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-[10px] tracking-[0.3em] uppercase text-text/45 font-mono mb-6">
-            <Link href="/cgv" className="hover:text-accent transition-colors">CGV</Link>
-            <Link href="/mentions-legales" className="hover:text-accent transition-colors">Mentions légales</Link>
-            <Link href="/confidentialite" className="hover:text-accent transition-colors">Confidentialité</Link>
-            <Link href="/dpa" className="hover:text-accent transition-colors">DPA</Link>
-            <a href="mailto:charles@symphonydrive.com" className="hover:text-accent transition-colors">Contact</a>
-            <Link href="/" className="hover:text-accent transition-colors">Accueil</Link>
+            <Link href="/cgv" className="hover:text-accent transition-colors">{t('footer.cgv')}</Link>
+            <Link href="/mentions-legales" className="hover:text-accent transition-colors">{t('footer.legal')}</Link>
+            <Link href="/confidentialite" className="hover:text-accent transition-colors">{t('footer.privacy')}</Link>
+            <Link href="/dpa" className="hover:text-accent transition-colors">{t('footer.dpa')}</Link>
+            <a href="mailto:charles@symphonydrive.com" className="hover:text-accent transition-colors">{t('footer.contact')}</a>
+            <Link href="/" className="hover:text-accent transition-colors">{t('footer.home')}</Link>
           </div>
 
-          {/* Copyright + mentions */}
           <div className="text-center text-[9px] tracking-[0.35em] uppercase text-text/30 font-mono">
-            VYVRE © 2026 · SAS au capital de 1 000 € · Paris, France · SIREN en cours
+            VYVRE © {new Date().getFullYear()} · {t('footer.company')}
           </div>
         </div>
       </footer>
@@ -412,7 +507,7 @@ export default function PricingPage({ searchParams }: PricingPageProps) {
   );
 }
 
-// ── Card argument (style V6 — gradient radial gris + label mono) ──
+// ── Carte argument (style V6) ──
 function ArgumentCard({
   eyebrow,
   title,
@@ -452,20 +547,12 @@ function ArgumentCard({
   );
 }
 
-// ── FAQ Item (Q/R sobre) ──
-function FAQItem({
-  question,
-  answer,
-}: {
-  question: string;
-  answer: string;
-}) {
+// ── Question / réponse ──
+function FAQItem({ question, answer }: { question: string; answer: string }) {
   return (
-    <div
-      className="rounded-2xl p-5 bg-accent/[0.02] border border-line transition-colors hover:border-accent/30"
-    >
+    <div className="rounded-2xl p-5 bg-accent/[0.02] border border-line transition-colors hover:border-accent/30">
       <p className="text-[13px] text-text font-light leading-snug mb-2">
-        <span className="font-mono text-[9px] tracking-[0.3em] uppercase text-accent mr-2 font-medium">Q.</span>
+        <span className="font-mono text-[9px] tracking-[0.3em] uppercase text-accent me-2 font-medium">Q.</span>
         {question}
       </p>
       <p className="text-[12px] text-text/55 leading-relaxed font-light">{answer}</p>
@@ -473,14 +560,8 @@ function FAQItem({
   );
 }
 
-// ── Item livrable (checklist verte) ──
-function DeliverableItem({
-  title,
-  body,
-}: {
-  title: string;
-  body: React.ReactNode;
-}) {
+// ── Livrable ──
+function DeliverableItem({ title, body }: { title: string; body: React.ReactNode }) {
   return (
     <li className="flex items-start gap-3">
       <span

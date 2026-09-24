@@ -16,20 +16,25 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "abimes"
+    "secs",
+    "abimes",
+    "cuir-chevelu-sensible"
    ],
    "actifs": [],
    "ingredients": "Sodium Levulinate, Potassium Sorbate, Alpha-Terpinene, Anethole, Benzyl Alcohol, Benzyl",
    "description": "Restorative bonding serum to revitalize damaged hair. Repair and reverse signs of damaged hair overnight with this deeply nourishing gel cream serum. Wake up to stronger, smoother, healthier -looking hair with high shine and lasting softness. Hydrolyzed Moringa Protein penetrates the hair cortex and removes cysteic acid to rebuild broken bonds and restore structure and strength. Lavandin Extract soothes the senses to promote restful sleep. Tamanu Oil locks in moisture, smooths the cuticle and mi",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "reparateur",
-    "brillance",
-    "lissant",
-    "apaisant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "apaisant-cuir-chevelu",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/innersense/cutout/overnight-repair-serum.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "innersense--inner-reflection-sculpting-pomade",
@@ -45,7 +50,9 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "secs",
+    "boucles",
+    "abimes"
    ],
    "actifs": [
     "huile d'argan",
@@ -58,11 +65,17 @@
    "ingredients": "Ricinus Communis (Castor) Seed Oil, Butyrospermum Parkii (Shea) Butter, Euphorbia Cerifera (Candelilla) Wax, Cocos Nucifera (Coconut) Oil, Hydrogenated Castor Oil, Copernicia Cerifera (Carnauba) Wax, Argania Spinosa Kernel Oil, Mangifera Indica (Mango) Seed Butter, Citric Acid, Silica, Citrus Limon Peel Oil, Limonene, Linalool, Linalyl Acetate, Pinene, Benzyl Salicylate, Pogostemon Cablin Oil, Geraniol, Camphor, Geranyl Acetate, Triethyl Citrate, Juniperus Mexicana Wood Oil, Coriandrum Sativum Fruit Oil, Gamma-Undecalactone, Rhodinol, Beta-Pinene, Salvia Sclarea Oil, Zanthoxylum Schinifolium Fruit Extract, Boswellia Carterii Gum Oil, Citrus Aurantium Amara Leaf/Twig Oil, Cyperus Scariosus Root Oil, Cis-3-Hexenyl Acetate, 3-Hexenol, Nerolidol, Mentha Piperita Oil, 4-(Trimethylcyclohexenyl)-3-buten-2-on, Viola Odorata Leaf Extract, Cinnamomum Camphora Linalooliferum Leaf Oil, Eucalyptus Citriodora Oil, Cymbopogon Winterianus Herb Oil, Citronellol, Cedrol, Jasminium Grandiflorum Flower Extract, Ethyl Hexanoat, Lavandula Angustifolia Oil, I-Carvone, Cocos Nucifera (Coconut) Pulp Extract",
    "description": "Clean, high-performance styling pomade with medium–strong hold to shape and structure hair without residue, crunch, or buildup. Powered by Castor Seed Oil plus Mango and Shea Butters, it smooths unwanted frizz, nourishes strands, and helps prevent dryness and breakage—making it ideal for slick back styles, short hair definition, textured cut, and polished looks. 3.4oz Jar.",
    "claims": [
-    "nourrissant",
-    "lissant",
-    "definition-boucles"
+    "nutrition",
+    "reparation",
+    "anti-frisottis",
+    "definition-boucles",
+    "purifiant",
+    "brillance",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/innersense/cutout/inner-reflection-sculpting-pomade.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "innersense--inner-peace",
@@ -78,7 +91,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -93,12 +106,17 @@
    "ingredients": "Water/Aqua/EAU, Oryza Sativa (Rice) Extract, Cetearyl Alcohol, Beeswax, Glyceryl Stearate SE, Cetyl Alcohol, Glycerin, Olea Europaea (Olive) Fruit Oil, Sodium Stearoyl Lactylate, Helianthus Annuus (Sunflower) Seed Oil, Butyrospermum Parkii (Shea) Butter, Hydrolyzed Quinoa, Cetyl Hydroxyethylcellulose, Panthenol, Sodium Gluconate, Sodium Benzoate, Potassium Sorbate, Hydrated Silica, Disodium Phosphate, Silica Dimethyl Silylate, Monosodium Phosphate, Benzyl Alcohol, Citric Acid, *Natural Fragrance, Hydroxycitronellal, Limonene, Linalool",
    "description": "A whipped styling creme to create texture and definition. Create defined curls, tousled waves and sleek styles with this whipped creme that improves hair's appearance and health. Its delicious texture is crafted with Certified Organic Honey and Beeswax to provide workable hold, definition and shine. Ultra emollient Certified Organic Shea Butter helps smooth frizz, protect against humidity and moisturize parched strands. Hair is left with bounce, texture, separation and shine. This lightweight fo",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant",
     "brillance",
-    "lissant",
-    "definition-boucles"
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/innersense/cutout/inner-peace.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "innersense--pure-inspiration",
@@ -113,7 +131,10 @@
    "image_local": "public/scan/products-cheveux/innersense/pure-inspiration.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "fins"
+   ],
    "actifs": [
     "protéines de riz",
     "huile de coco",
@@ -127,11 +148,16 @@
    "ingredients": "Water/Aqua/EAU, Cetearyl Alcohol, Glycerin, Aloe Barbadensis Leaf Juice*, Caprylic/Capric Triglyceride, Behentrimonium Methosulfate, Gluconolactone, Stearalkonium Chloride, Oryza Sativa (Rice) Extract*, Sodium Benzoate, Potassium Sorbate, Cetyl Hydroxyethylcellulose, Cocos Nucifera (Coconut) Oil*, Oryza Sativa (Rice) Bran Oil, Persea Gratissima (Avocado) Oil*, Butyrospermum Parkii (Shea) Butter*, Hydrolyzed Quinoa, Hydrolyzed Rice Protein, Citric Acid, Citrus Aurantium Dulcis (Orange) Peel Oil, Camellia Sinensis Leaf Extract*, Cucumis Sativus (Cucumber) Fruit Extract*, Mangifera Indica (Mango) Fruit Extract*, Persea Gratissima (Avocado) Fruit Extract*, Stearyl Alcohol, Amine HCL, Calcium Gluconate, Silica Dimethyl Silylate, Hydrated Silica, Monosodium Phosphate, Disodium Phosphate, Benzyl Alcohol, Amyl Cinnamal, Benzyl Salicylateᵻ, Citronellolᵻ, Hexyl Cinnamalᵻ, Limoneneᵻ, Linaloolᵻ",
    "description": "A weightless conditioner for fine to medium hair. Detangle and smooth fine to medium hair with this conditioner that softens strands with weightless hydration. Its clean, silicone free formula features ingredients such as Rice Bran Oil, Aloe Vera, and Avocado Oil to provide lightweight moisture and leave hair with body. Organic Green Tea douses hair with natural antioxidants to protect against environmental stressors and add lustrous shine. Best for fine to medium hair. Fragrance: Grapefruit, Ja",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
     "brillance",
-    "lissant"
+    "demelant",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/innersense/cutout/pure-inspiration.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "innersense--pure-harmony",
@@ -147,8 +173,8 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "fins",
-    "epais"
+    "secs",
+    "fins"
    ],
    "actifs": [
     "protéines de riz",
@@ -159,16 +185,19 @@
     "huile d'avocat"
    ],
    "ingredients": "Water/Aqua/EAU, Cocamidopropyl Hydroxysultaine, Sodium Cocoyl Isethionate, Caprylyl/Capryl Glucoside, Glycerin, Sodium Chloride, Sodium Lauroyl Methyl Isethionate, Butyrosepermum Parkii (Shea Butter), Citrus Aurantium Dulcis (Orange) Peel Oil, Citrus Medica Limonum (Lemon) Peel Oil, Eucalyptus Globulus (Eucalyptus), Cucurbita Pepo (Pumpkin Seed Oil)*, Hydroxypropyltrimonium Honey, Hydrolyzed Quinoa, Trisodium Ethylenediamine Disuccinate, Sodium Benzoate, Hydrolyzed Rice Protein, Guar Hydroxypropyltrimonium Chloride, Persea Gratissima (Avocado) Oil, Oryza Sativa (Rice) Bran Oil, Camellia Sinensis (Green Tea) Leaf Extract*, Cucumis Sativus (Cucumber) Fruit Extract, Persea Gratissima (Avocado)* Fruit Extract, Mangifera Indica (Mango)* Fruit Extract",
-   "description": "A cleansing shampoo for fine to medium hair that enhances volume and shine. Made with fine to medium textures in mind, this shampoo deeply cleanses hair and leaves it with a weightless bounce and brilliant shine. Its sulfate free (SLS/SLES) formula is crafted with naturally softening cleansers such as Coconut, Rice Bran and Avocado Oil to clarify strands without stripping moisture. Nourishing Shea Butter and Organic Pumpkin Seed Oil smooth frizz and deliver shine, while Quinoa and Rice extracts ",
+   "description": "A cleansing shampoo for fine to medium hair that enhances volume and shine. Made with fine to medium textures in mind, this shampoo deeply cleanses hair and leaves it with a weightless bounce and brilliant shine. Its sulfate free (SLS/SLES) formula is crafted with naturally softening cleansers such as Coconut, Rice Bran and Avocado Oil to clarify strands without stripping moisture. Nourishing Shea Butter and Organic Pumpkin Seed Oil smooth frizz and deliver shine, while Quinoa and Rice extracts",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "brillance",
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
     "volume",
-    "lissant",
-    "purifiant"
+    "purifiant",
+    "brillance",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/innersense/cutout/pure-harmony.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "innersense--hydrating-hair-mask",
@@ -184,6 +213,7 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "epais",
     "abimes"
    ],
@@ -200,31 +230,14 @@
    "ingredients": "Water/Aqua/EAU, Cetearyl Alcohol, Glycerin, Carthamus Tinctorius (Safflower) Seed Oil, Simmondsia Chinensis (Jojoba) Seed Oil*, Cocos Nucifera (Coconut Oil)*, Stearalkonium Chloride, Behentrimonium Methosulfate, Cananga Odorata Flower Oil, Lavandula Angustifolia (Lavender) Oil , Citrus Aurantium Dulcis (Orange) Peel Oil*, Salvia Sclarea (Clary) Oil, Vanillin, Pogostemon Cablin Oil, Glycine Soja (Soybean) Oil, Cetyl Hydroxyethylcellulose, Butyrospermum Parkii (Shea Butter)*, Sodium Benzoate, Pyrus Malus (Apple) Fruit Extract, Potassium Sorbate, Calophyllum Inophyllum (Tamanu) Oil*, Guar Hydroxypropyltrimonium Chloride, Linum Usitatissimum (Linseed) Seed Oil, Camellia Japonica (Camellia) Oil, Oryza Sativa (Rice) Extract*, Sodium PCA, Sodium Lactate, Arginine, Aspartic Acid, PCA, Glycine, Alanine, Serine, Valine, Proline, Threonine, Isoleucine, Histidine, Phenylalanine, Citric Acid, Oenothera Biennis (Evening Primrose) Oil*, Persea Gratissima (Avocado) Oil*, Taraxacum Officinale (Dandelion) Leaf Extract, Salvia Officinalis (Sage) Leaf Extract, Melissa Officinalis Leaf Extract, Hydrolyzed Quinoa, Benzyl Alcohol, Vacciniumm Myrtillus (Bilberry) Fruit Extract, Saccharum Officinarum (Sugar Cane) Extract, Acer Saccharum (Sugar Maple) Extract, Citrus Aurantium Dulcis (Orange) Fruit Extract, Citrus Limon (Lemon) Fruit Extract, Linalool†, Limonene†",
    "description": "An intensive hair mask to restore dry, damaged hair. Restore integrity, softness and hydration to dry, damaged or coarse hair with this indulgent treatment mask. Its clean formula is brimming with decadent, Certified Organic ingredients such as Shea Butter, Tamanu Oil and Jojoba Oil to help fight frizz, smooth split ends, replenish hydration and protect against moisture loss, breakage and environmental stressors. Hair is left looking and feeling repaired, revitalized and resilient. Best for dry,",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "innersense--hair-renew-scalp-mirror-cling",
-   "name": "Hair Renew Scalp Mirror Cling",
-   "brand": "innersense",
-   "brand_name": "Innersense",
-   "url": "https://innersensebeauty.com/products/hair-renew-scalp-mirror-cling",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0626/1063/6976/files/HairRenew_FreeCollateral_1.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/innersense/hair-renew-scalp-mirror-cling.jpg",
-   "categorie": "serum-cuir-chevelu",
-   "etape": 4,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": null,
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/innersense/cutout/hydrating-hair-mask.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "innersense--hair-renew-soothing-conditioner",
@@ -239,7 +252,11 @@
    "image_local": "public/scan/products-cheveux/innersense/hair-renew-soothing-conditioner.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "fins",
+    "cuir-chevelu-sensible"
+   ],
    "actifs": [
     "panthénol",
     "niacinamide",
@@ -255,13 +272,16 @@
    "ingredients": "Water/Aqua/EAU, Cetearyl Alcohol, Glycerin, Behentrimonium Methosulfate, Cocos Nucifera (Coconut) Oil, Pisum Sativum (Pea) Peptide, Lactobacillus/Salix Purpurea Bark Ferment Extract, Stearalkonium Chloride, Hydrolyzed Rice Protein, Persea Gratissima (Avocado) Oil, Butyrospermum Parkii (Shea) Butter, Stearyl Alcohol, Mangifera Indica (Mango) Seed Butter, Panthenol, Guar Hydroxypropyltrimonium Chloride, Niacinamide, Agave Tequilana Leaf Extract, Linum Usitatissimum (Linseed) Seed Oil, Adansonia Digitata Seed Oil, Calophyllum Inophyllum Seed Oil, Sodium Benzoate, Leuconostoc/Radish Root Ferment Filtrate, Sodium Gluconate, Sodium Levulinate, Potassium Sorbate, Citric Acid, Carvone, Mentha Piperita (Peppermint) Oil, Mentha Viridis (Spearmint) Leaf Oil, Natural Fragrance*",
    "description": "Deeply moisturize and strengthen hair with this treatment conditioner. Fermented Willowbark, Rice Protein and Niacinamide nourish both scalp and strands while fortifying and promoting density of the hair shaft for shinier, healthier hair. Fragrance: Peppermint, Sage, Rosemary",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
+    "fortifiant",
     "volume",
-    "apaisant",
-    "fortifiant"
+    "densifiant",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/innersense/cutout/hair-renew-soothing-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "innersense--hair-renew-scalp-hairbath",
@@ -276,7 +296,10 @@
    "image_local": "public/scan/products-cheveux/innersense/hair-renew-scalp-hairbath.jpg",
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "pellicules"
+   ],
    "actifs": [
     "acide salicylique",
     "biotine",
@@ -288,9 +311,12 @@
    "ingredients": "Water/Aqua/EAU, Cocamidopropyl Hydroxysultaine, Sodium Cocoyl Isethionate, Caprylyl/Capryl Glucoside, Glycerin, Pyrus Malus (Apple) Fruit Extract, Lactobacillus/Salix Purpurea Bark Ferment Extract, Salicylic Acid, Glyceryl Stearate SE, Cucurbita Pepo (Pumpkin) Seed Oil, Biotin, Coconut Acid, Sodium Isethionate, Menthol, Coffea Arabica (Coffee) Seed Extract, Bambusa Arundinacea Stem Powder, Oenothera Biennis (Evening Primrose) Oil, Benzyl Alcohol, Sodium Gluconate, Potassium Sorbate, Sorbic Acid, Citric Acid, Carvone, Mentha Piperita (Peppermint) Oil, Mentha Viridis (Spearmint) Leaf Oil, Natural Fragrance*",
    "description": "Gently and effectively cleanse with this treatment shampoo. Fermented Willowbark, Green Coffee Bean Extract and Pumpkin Seed Oil join together to reduce flakes and refresh and moisturize the scalp, creating a balanced environment to promote healthy hair growth. Fragrance: Peppermint, Sage, Rosemary",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "croissance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/innersense/cutout/hair-renew-scalp-hairbath.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "innersense--pure-brilliance-powder-1",
@@ -311,68 +337,12 @@
    "actifs": [],
    "ingredients": null,
    "description": "Our Pure Brilliance Lighteners craft radiant blondes with unparalleled purity and precision. This versatile, finely milled powder formula achieves the creamiest consistency, delivering beautiful lightening results on all hair types and textures. This formula can lift to nine levels and is suitable for both on- and off-scalp applications.",
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "innersense--color-measuring-scale",
-   "name": "Color Measuring Scale",
-   "brand": "innersense",
-   "brand_name": "Innersense",
-   "url": "https://innersensebeauty.com/products/color-measuring-scale",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 46.0,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0626/1063/6976/files/Coloring_Measuring_Scale-transparent_NewWeb.png?width=600",
-   "image_local": "public/scan/products-cheveux/innersense/color-measuring-scale.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Precise measuring for exact ratios. Zero out your bowl and create perfect blends. Care instructions : Wipe down with a sanitizing solution after use and dry naturally or with a cotton towel.",
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "innersense--color-tube-crimper",
-   "name": "Hair Color Tube Crimper",
-   "brand": "innersense",
-   "brand_name": "Innersense",
-   "url": "https://innersensebeauty.com/products/color-tube-crimper",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 27.6,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0626/1063/6976/files/Hair_Color_Tube_Crimper-transparent_NewWeb.png?width=600",
-   "image_local": "public/scan/products-cheveux/innersense/color-tube-crimper.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "This crimper features an ergonomic design to allow for Care instructions : Wipe down with a sanitizing solution after use and air dry or with a cotton towel. Material/packaging: They are made with 30% natural wheat fiber and 70% recycled polypropylene. They are also packaged using recycled paper instead of industry-standard plastic wrap.",
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "innersense--color-clips-1",
-   "name": "Color Clips",
-   "brand": "innersense",
-   "brand_name": "Innersense",
-   "url": "https://innersensebeauty.com/products/color-clips-1",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 16.56,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0626/1063/6976/files/Cream_Sectioing_Clips-transparent.png?width=600",
-   "image_local": "public/scan/products-cheveux/innersense/color-clips-1.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Available in beige or brown, these sectioning clips expertly separate hair for coloring, cutting, or styling techniques. Care instructions : Wash with your favorite Innersense Hairbath and rinse with water. Then, soak in your preferred sanitizing solution. Rinse after the sanitizing soak and dry naturally or with a cotton towel. Material/packaging: They are made with 30% natural wheat fiber and 70% recycle d polypropylene . They are also p ackaged using recycled paper instead of industry-standar",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "brillance"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/innersense/cutout/pure-brilliance-powder-1.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "innersense--color-mixing-whisk-1",
@@ -387,76 +357,17 @@
    "image_local": "public/scan/products-cheveux/innersense/color-mixing-whisk-1.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "Efficiently mix developer, color, product blends , and more! Care instructions : Wash with your favorite Innersense Hairbath and rinse with water. Then, soak in your preferred sanitizing solution. Rinse after the sanitizing soak and dry naturally or with a cotton towel. Material/packaging: It is made with 30% natural wheat fiber and 70% recycle d polypropylene . It is also p ackaged using recycled paper instead of industry-standard plastic wrap .",
    "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "innersense--color-mixing-bowl-1",
-   "name": "Color Bowl",
-   "brand": "innersense",
-   "brand_name": "Innersense",
-   "url": "https://innersensebeauty.com/products/color-mixing-bowl-1",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 7.36,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0626/1063/6976/files/Color_Mixing_Bowl-transparent_NewWeb.png?width=600",
-   "image_local": "public/scan/products-cheveux/innersense/color-mixing-bowl-1.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Zero out your scale and measure color and developer directly in this bowl. Squared edges allow for precise application to brushes. These tools are durable but can discolor over time. Wash with your favorite Innersense Hairbath and rinse with water. Then, soak in your preferred sanitizing solution. Rinse after the sanitizing soak and dry naturally or with a cotton towel. It is made with 30% natural wheat fiber and 70% recycle d polypropylene . It is also p ackaged using recycled paper instead of ",
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "innersense--color-brush-angled",
-   "name": "Color Brushes",
-   "brand": "innersense",
-   "brand_name": "Innersense",
-   "url": "https://innersensebeauty.com/products/color-brush-angled",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 7.36,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0626/1063/6976/files/Angled_Color_Brush-transparent_NewWeb.png?width=600",
-   "image_local": "public/scan/products-cheveux/innersense/color-brush-angled.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [
-    "colores"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Three sizes allow you to move through the hair freely and get great saturation: Small Angled Brush: The small bristles make balayage or pintura applications flow smoothly Medium Brush: The small bristles are wonderful for applying highlights and free-hand detail work. Large Brush: Wide bristles make applying a base color or all-over color efficient. They are perfect for applying all hair colors. Care instructions : Wash with your favorite Innersense Hairbath and rinse with water. Then, soak in y",
-   "claims": [
-    "lissant"
-   ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "innersense--color-purity-swatch-book",
-   "name": "True Color Shades",
-   "brand": "innersense",
-   "brand_name": "Innersense",
-   "url": "https://innersensebeauty.com/products/color-purity-swatch-book",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 25.67,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0626/1063/6976/files/2n-darkest-natural-brown.png?width=600",
-   "image_local": "public/scan/products-cheveux/innersense/color-purity-swatch-book.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "You must have an Innersense Salon Account to place an order. Learn more here . Color Purity’s True Color collection is the industry’s first high-performance clean hair dye. Meeting our Innersense Standard of Clean, True Color consists of safe, gentle formulations that provide a healthier professional color experience without compromising stunning results. Available in 40 intermixable shades plus shade-diffusing white, True Color creates vibrant, long-lasting, and consistent results. Craft formul",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/innersense/cutout/color-mixing-whisk-1.webp",
+   "image_fond": true,
+   "ciblage_source": "fiche"
   },
   {
    "id": "innersense--elevate-shine-hair-ceremony",
@@ -478,10 +389,12 @@
    "ingredients": null,
    "description": "A Hair Ceremony to Elevate Shine Includes: Color Awakening Hairbath, Color Radiance Daily Conditioner, Sweet Spirit Leave-In Conditioner, I Create Volume, I Create Shine Maximize shine for lackluster hair",
    "claims": [
-    "brillance",
-    "volume"
+    "volume",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/innersense/cutout/elevate-shine-hair-ceremony.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "innersense--renew-texture-hair-ceremony",
@@ -497,15 +410,22 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "epais",
     "boucles"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "A Hair Ceremony for Thick, Coarse Curly Hair Includes: Hydrating Cream Hairbath, Hydrating Cream Conditioner, Hydrating Hair Mask, Quiet Calm Curl Control, I Create Hold For thick, coarse curly hair",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "definition-boucles",
+    "texturisant",
+    "apaisant-cuir-chevelu",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/innersense/cutout/renew-texture-hair-ceremony.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "innersense--hair-renew-daily-active-serum",
@@ -521,6 +441,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -536,11 +457,14 @@
    "ingredients": "Water/Aqua/Eau, Propanediol, Glycerin, Caprylyl/Capryl Glucoside, Pyrus Malus (Apple) Fruit Extract, Citric Acid, Sodium Levulinate, Potassium Sorbate, Ethanol, Angelica Archangelica Root Extract, Chamomilla Recutita (Matricaria) Flower Extract*, Mentha Piperita (Peppermint) Oil, Lactic Acid, Sodium Gluconate, Glycolic Acid, Lavandula Angustifolia (Lavender) Oil, Vaccinium Myrtillus Fruit/Leaf Extract, Pisum Sativum (Pea) Sprout Extract, Gevuina Avellana (Hazelnut) Oil, Melaleuca Alternifolia (Tea Tree) Leaf Oil, Oenothera Biennis (Evening Primrose) Oil*, Euterpe Oleracea Fruit Oil, Helianthus Annuus (Sunflower) Seed Oil*, Saccharum Officinarum (Sugar Cane) Extract, Calendula Officinalis Flower Extract, Citrus Aurantium Dulcis (Orange) Fruit Extract, Citrus Limon (Lemon) Fruit Extract, Acer Saccharinum (Sugar Maple) Extract, Cannabis Sativa (Hemp) Seed Oil, Malic Acid, Hydrolyzed Adansonia Digitata Seed Extract, Tartaric Acid, Equisetum Arvense Extract*, Prunus Persica (Peach) Gum, Menthyl Lactate, Tocopherol, Sodium Benzoate, Limoneneᵻ",
    "description": "A daily serum to nourish, soothe and maintain scalp health. This soothing serum restores peace and harmony to scalps in distress. Its clean, moisturizing formula features Tea Tree Oil and Hemp Seed Oil to replenish moisture and help reduce flaking and itching of the scalp due to dryness. Antioxidant rich Pea Sprout Extract helps fortify hair follicles and revitalize roots. Use daily or after washing to improve and maintain the health of your scalp and hair. Ideal for all skin and scalp types. Fr",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "apaisant"
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/innersense/cutout/hair-renew-daily-active-serum.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "innersense--hydrating-cream-hairbath",
@@ -556,6 +480,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
+    "fins",
     "epais",
     "abimes"
    ],
@@ -570,31 +496,17 @@
    "ingredients": "Water/Aqua/EAU, Cocamidopropyl Hydroxysultaine, Sodium Methyl Cocoyl Taurate, Glycerin, Caprylyl/Capryl Glucoside, Sodium Cocoyl Isethionate, Glyceryl Stearate SE, Sodium Chloride, Sodium Lauroyl Methyl Isethionate, Trisodium Ethylenediamine Disuccinate, Guar Hydroxypropyltrimonium Chloride, Plumeria Acutifolia (Monoi) Flower Extract*, Cananga Odorata Flower Oil*, Lavandula Angustifolia (Lavender) Oil*, Citrus Aurantium Dulcis (Orange) Peel Oil*, Salvia Sclarea (Clary) Oil, Vanillin, Pogostemon Cablin Oil, Glycine Soja (Soybean) Oil, Sodium Benzoate, Pyrus Malus (Apple) Fruit Extract, Potassium Sorbate, Simmondsia Chinensis (Jojoba) Seed Oil*, Oryza Sativa (Rice) Extract*, Citric Acid, Hydrolyzed Quinoa, Hydrolyzed Rice Protein, Calophyllum Inophyllum (Tamanu) Oil*, Butyrospermum Parkii (Shea Butter)*, Persia Gratissima (Avocado) Oil, Taraxacum Officinale (Dandelion) Leaf Extract, Salvia Officinalis (Sage) Leaf Extract, Melissa Officinalis Leaf Extract, Linalool†, Limonene†",
    "description": "A rich and creamy shampoo that restores hydration and softness to dry, coarse and damaged hair. Restore hydration, bounce and shine to dry, coarse or thirsty hair with this creamy shampoo. Its silicone free formula utilizes natural emollients such as Certified Organic Raw Shea Butter and Monoi Oil to smooth frizz, deliver indulgent moisture and enhance natural texture. Avocado Oil and Tamanu Oil weightlessly quench parched strands to leave hair with bounce and brilliant shine. Best for coarse, d",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "anti-frisottis",
+    "texturisant",
     "brillance",
-    "lissant"
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "innersense--replacement-pump-10oz",
-   "name": "Replacement Pump 10oz",
-   "brand": "innersense",
-   "brand_name": "Innersense",
-   "url": "https://innersensebeauty.com/products/replacement-pump-10oz",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 2.3,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0626/1063/6976/files/Pro-Website-Merch-Cover_1_4431c727-4021-4bd1-bbc7-5e435cb2db90.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/innersense/replacement-pump-10oz.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Replacement pump, compatible with any white Innersense 10oz bottle.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/innersense/cutout/hydrating-cream-hairbath.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "innersense--bright-brilliant-hair-ceremony",
@@ -609,16 +521,22 @@
    "image_local": "public/scan/products-cheveux/innersense/bright-brilliant-hair-ceremony.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "gras"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "A hair ceremony to neutralize brass, increase hydration and keep color cool while boosting brilliance. Includes: Detox Hair Mask, Bright Balance Hairbath, Bright Balance Conditioner, Sweet Spirit Leave In Conditioner, I Create Shine",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "purifiant",
     "brillance",
-    "purifiant"
+    "anti-jaunissement"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/innersense/cutout/bright-brilliant-hair-ceremony.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "innersense--i-create-shine-glossing-serum",
@@ -633,7 +551,11 @@
    "image_local": "public/scan/products-cheveux/innersense/i-create-shine-glossing-serum.jpg",
    "categorie": "coloration-soin",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "colores",
+    "abimes"
+   ],
    "actifs": [
     "huile de coco",
     "beurre de karité",
@@ -646,10 +568,14 @@
    "ingredients": "Hydrogenated Ethylhexyl Olivate* (Olive Oil), Ethyl Macadamiate* (Macadamia Oil), Sesamum Indicum (Sesame) Seed Oil*, Cocos Nucifera (Coconut) Oil*, Hydrogenated Olive Oil Unsaponifiable, Vitis Vinifera (Grape) Seed Oil*, Coco-Caprylate, Simmondsia Chinensis (Jojoba) Seed Oil*, Triethyl Citrate, Persea Gratissima (Avocado) Oil, Fragrance**, Helianthus Annuus (Sunflower) Seed Oil, Vaccinium Macrocarpon (Cranberry) Seed Oil*, Butyrospermum Parkii (Shea) Butter*, Tocopherol, Malic Acid *Certified Organic",
    "description": "A shine enhancing serum that reflects your glossiest, healthiest hair. Reflect your most beautiful hair with this bottle of liquid sunshine. Its silicone free formula features a carefully crafted blend of lightweight oils such as Sesame, Macadamia and Cranberry Seed to provide mirror-like shine, shield from damage and improve hydration. Its exquisite lotus flower scent leaves hair smelling fresh and uplifts your mood. Ideal for all hair types and textures. Fragrance: lotus flower",
    "claims": [
-    "hydratant",
-    "brillance"
+    "hydratation",
+    "nutrition",
+    "brillance",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/innersense/cutout/i-create-shine-glossing-serum.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "innersense--enliven-hair-ceremony",
@@ -665,15 +591,20 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "fins",
     "boucles"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "A Hair Ceremony for Thin, Fine Curly Hair Includes: Pure Harmony Hairbath, Pure Inspiration Daily Conditioner, Sweet Spirit Leave-In Conditioner, Inner Peace Whipped Creme Texturizer, I Create Lift Volumizing Foam For thin, fine curly hair",
    "claims": [
-    "volume"
+    "definition-boucles",
+    "volume",
+    "texturisant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/innersense/cutout/enliven-hair-ceremony.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "innersense--awaken-hair-ceremony",
@@ -692,8 +623,12 @@
    "actifs": [],
    "ingredients": null,
    "description": "A Hair Ceremony to Revitalize Color Includes: Color Awakening Hairbath, Color Radiance Daily Conditioner, Sweet Spirit Leave-In Conditioner, Harmonic Treatment Oil, and I Create Finish",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "brillance"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/innersense/cutout/awaken-hair-ceremony.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "innersense--true-enlightenment-scalp-scrub-treatment",
@@ -708,7 +643,9 @@
    "image_local": "public/scan/products-cheveux/innersense/true-enlightenment-scalp-scrub-treatment.jpg",
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "cuir-chevelu-sensible"
+   ],
    "actifs": [
     "acide salicylique",
     "glycérine",
@@ -719,8 +656,13 @@
    ],
    "ingredients": "Sodium Chloride, Water, Sodium Cocoyl Isethionate, Cocamidopropyl Hydroxysultaine, Stearic Acid, Myristic Acid, Mentha Piperita (Peppermint) Oil, Clay Mineral Oxides, Sodium Levulinate, Potassium Sorbate, Sodium Benzoate, Menthol, Guar Hydroxypropyltrimonium Chloride, Allantoin, Menthyl Lactate, Pyrus Malus (Apple) Fruit Extract, Glycerin, Camellia Sinensis (Green Tea) Leaf Extract, Helianthus Annuus (Sunflower) Seed Oil*, Chamomilla Recutita (Matricaria) Flower Extract*, Salicylic Acid, Melaleuca Alternifolia (Tea Tree) Leaf Oil, Lactobacillus/Arundinaria Gigantea Leaf Ferment Filtrate, Leuconostoc/Radish Root Ferment Filtrate, Caprylic/Capric Triglyceride, Apium Graveolens (Celery) Seed Extract, Coconut Acid, Sodium Isethionate, Limonene†",
    "description": "An invigorating peppermint scalp scrub to refresh and exfoliate. Give the scalp a fresh start by beginning your cleansing routine with this scrub treatment. Its invigorating formula features Hawaiian Red Salt, a mineral rich exfoliant to gently buff away dead skin, buildup and impurities. Vitamin packed Apple Extract replenishes nutrients to the skin while cooling Peppermint Oil revitalizes the scalp and invigorates your senses. Scalp, roots and mood are left feeling uplifted and refreshed. Idea",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "nutrition",
+    "purifiant"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/innersense/cutout/true-enlightenment-scalp-scrub-treatment.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "innersense--harmonic-treatment-oil",
@@ -735,17 +677,24 @@
    "image_local": "public/scan/products-cheveux/innersense/harmonic-treatment-oil.jpg",
    "categorie": "huile",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "cuir-chevelu-sensible"
+   ],
    "actifs": [
     "huile de jojoba"
    ],
    "ingredients": null,
    "description": "A luxurious treatment oil to indulge skin. Harmonize the skin on your scalp and body with this luxurious treatment oil crafted with flower essences and oils. Its indulgent formula features Jojoba Seed Oil, Evening Primrose and Certified Organic Tamanu Oil, giving it a silky texture that readily absorbs into the skin to replenish moisture, soothe dryness, and deliver essential vitamins. Use Harmonic Treatment Oil before shampoo as a hydrating treatment or anytime the skin or scalp needs a boost o",
    "claims": [
-    "hydratant",
-    "apaisant"
+    "hydratation",
+    "nutrition",
+    "texturisant",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/innersense/cutout/harmonic-treatment-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "innersense--hydrating-cream-conditioner",
@@ -761,6 +710,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "epais",
     "abimes"
    ],
@@ -779,13 +729,17 @@
    "ingredients": "Water/Aqua/EAU, Cetearyl Alcohol, Glycerin, Behentrimonium Methosulfate, Aloe Barbadensis (Aloe Vera) Leaf Gel*, Stearalkonium Chloride, Diheptyl Succinate, Capryloyl Glycerin, Cocos Nucifera* , Cananga Odorata Flower Oil, Lavandula Angustifolia (Lavender) Oil*, Citrus Aurantium Dulcis (Orange) Peel Oil*, Salvia Sclarea (Clary) Oil, Vanillin, Pogostemon Cablin Oil, Glycine Soja (Soybean) Oil, Cocos Nucifera (Coconut) Oil*, Sodium Benzoate, Oryza Sativa (Rice) Extract*, Theobroma Cacao (Cocoa) Seed Butter*, Potassium Sorbate, Guar Hydroxypropyltrimonium Chloride, Citric Acid, Cetyl Hydroxyethylcellulose, Linum Usitatissimum (Linseed) Seed Oil, Calophyllum Inophyllum (Tamanu) Oil*, Hydrolyzed Rice Protein, Plumeria Acutifolia (Monoi) Flower Extract, Persea Gratissima (Avocado) Oil*, Butyrospermum Parkii (Shea Butter)*, Simmondsia Chinensis (Jojoba) Seed Oil*, Hydrolyzed Quinoa, Benzyl Alcohol, Taraxacum Officinale (Dandelion) Leaf Extract, Salvia Officinalis (Sage) Leaf Extract, Melissa Officinalis Leaf Extract, Linalool†, Limonene†",
    "description": "An indulgently rich conditioner for thick, coarse, and thirsty hair that intensively restores moisture and shine. This creamy conditioner restores hydration, health, and harmony to damaged, coarse, and thirsty hair. Its silicone free and indulgently rich formula utilizes naturally nourishing emollients such as Certified Organic Shea Butter and Coconut to coat the hair cuticle, help repair damage and control frizz. Rice, quinoa and flax seed strengthen strands and improve elasticity to reduce bre",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "reparateur",
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
     "brillance",
-    "fortifiant"
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/innersense/cutout/hydrating-cream-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "innersense--i-create-hold",
@@ -801,7 +755,9 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "boucles"
+    "secs",
+    "boucles",
+    "abimes"
    ],
    "actifs": [
     "aloe vera",
@@ -811,12 +767,17 @@
    "ingredients": "Water/Aqua/EAU, Aloe Barbadensis Gel*, Hydroxyethylcellulose, Maltodextrin Copolymer, Potassium Hydroxide, Gluconolactone, Sodium Benzoate, Calcium Gluconate, Alkyl Acrylate Crosspolymer, Citrus Aurantium Dulcis Peel Oil, Caprylic/Capric Triglyceride, Potassium Sorbate, Sodium Phytate, Glycerin*, Chamomilla Recutita (Matricaria) Flower Extract*, Eucalyptus Globulus Leaf Extract*, Ginkgo Biloba Leaf Extract*, Aspalathus Linearis Leaf Extract*, Honey Extract*, Limonene†",
    "description": "A honey based styling gel for structured hold and healthy shine. Create bouncy curls or slicked-back styles with this versatile gel crafted with clean, organic ingredients that nourish your hair. Its concentrated base of hydrating Certified Organic Aloe Vera and bee-friendly Organic Honey helps smooth flyaways, define curls and provide firm hold with a shiny finish. Certified Organic Eucalyptus Oil imparts additional moisture to keep strands soft and resilient against breakage. Best for curly to",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "anti-frisottis",
+    "definition-boucles",
     "brillance",
-    "lissant"
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/innersense/cutout/i-create-hold.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "innersense--bright-balance-purple-conditioner",
@@ -832,7 +793,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "colores",
     "cuir-chevelu-sensible"
    ],
@@ -849,11 +810,14 @@
    "ingredients": "Water/Aqua/EAU, Cetearyl Alcohol, Hamamelis Virginiana (Witch Hazel) Water, Glycerin, Cocos Nucifera (Coconut) Oil*, Behentrimonium Methosulfate, Alcohol, Stearalkonium Chloride, Sodium Levulinate, Potassium Sorbate, Citric Acid, Guar Hydroxypropyltrimonium Chloride, Butyrospermum Parkii (Shea) Butter*, Cucurbita Pepo (Pumpkin) Seed Oil*, Oryza Sativa (Rice) Bran Oil, Oryza Sativa (Rice) Extract*, Persea Gratissima (Avocado) Oil*, 2,6-Dimethyl-7-octen-2-ol, Orange Terpenes, Triethyl Citrate, Basic Blue 99, Sodium Gluconate, Basic Red 76, Hydrolyzed Rice Protein, Hydrolyzed Quinoa, Angelica Archangelica Root Extract, Allyl Heptoate Natural, Alpha-Terpineol, Amyris Balsamifera Bark Oil, Anisaldehyde, Benzyl Acetate, Beta-Ionone, Citronellol, Dimethyl Heptenal, Dodecahydro Tetramethyl Naphthofuran, Eugenia Caryophyllus (Clove) Leaf Oil, Eugenol, Gamma Decalactone, Gamma Nonalactone, Gamma-Undecalactone, Hexenyl Acetate, Hexyl Acetate, Hexyl Cinnamal (Hexyl Cinnamic Aldehyde), Lemon Oil Terpenes, Methyl Benzoate, Phenethyl Acetate, Phenethyl Alcohol, Raspberry Ketone, Rosmarinus Officinalis (Rosemary) Leaf Oil, Vanillin, Camellia Sinensis Leaf Extract, Cucumis Sativus (Cucumber) Fruit Extract, Mangifera Indica (Mango) Fruit Extract, Persea Gratissima (Avocado) Fruit Extract, Stearyl Alcohol, Amine HCL, Sodium Benzoate, Benzyl Alcohol, Citronellolᵻ, Limoneneᵻ, Linaloolᵻ",
    "description": "A bright idea for blondes, grays and silvers. Boost brilliance and deeply nourish blondes, grays and silvers with this purple conditioner. Its clean, silicone free formula features a custom pigment blend that delivers potent purple power to restore balance and vibrancy to blonde tones. Good-for-you ingredients such as Organic Coconut and Pumpkin Seed Oil help replenish moisture and smooth frizz. antioxidant rich Rice Bran Oil helps improve the longevity of hair color by protecting strands from t",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/innersense/cutout/bright-balance-purple-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "innersense--bright-balance-purple-shampoo",
@@ -869,6 +833,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
     "colores",
     "cuir-chevelu-sensible"
    ],
@@ -885,31 +850,16 @@
    "ingredients": "Water/Aqua/EAU, Cocamidopropyl Hydroxysultaine, Hamamelis Virginiana (Witch Hazel) Water, Sodium Cocoyl Isethionate, Glycerin, Alcohol, Caprylyl/Capryl Glucoside. Glyceryl Stearate SE, Guar Hydroxypropyltrimonium Chloride, Sodium Levulinate, Potassium Sorbate, Citric Acid, Pyrus Malus (Apple) Fruit Extract, Oryza Sativa (Rice) Extract*, 2,6-Dimethyl-7-octen-2-ol, Orange Terpenes, Triethyl Citrate, Basic Blue 99, Sodium Gluconate, Basic Red 76, Hydrolyzed Rice Protein, Butyrospermum Parkii (Shea) Butter*, Calophyllum Inophyllum Seed Oil*, Persea Gratissima (Avocado) Oil, Plumeria Acutifolia Flower Extract, Simmondsia Chinensis (Jojoba) Seed Oil*, Allyl Heptoate Natural, Alpha-Terpineol, Amyris Balsamifera Bark Oil, Anisaldehyde, Benzyl Acetate, Beta-Ionone, Citronellol, Dimethyl Heptenal, Dodecahydro Tetramethyl Naphthofuran, Eugenia Caryophyllus (Clove) Leaf Oil, Eugenol, Gamma Decalactone, Gamma Nonalactone, Gamma Undecalactone, Hexenyl Acetate, Hexyl Acetate, Hexyl Cinnamal (Hexyl Cinnamic Aldehyde), Lemon Oil Terpenes, Methyl Benzoate, Phenethyl Acetate, Phenethyl Alcohol, Raspberry Ketone, Rosmarinus Officinalis (Rosemary) Leaf Oil, Vanillin, Hydrolyzed Quinoa, Taraxacum Officinale (Dandelion) Leaf Extract, Melissa Officinalis Leaf Extract, Salvia Officinalis (Sage) Leaf Extract, Coconut Acid, Sodium Isethionate, Sodium Benzoate, Benzyl Alcohol, Citronellolᵻ, Limoneneᵻ, Linaloolᵻ",
    "description": "A bright idea for blondes, grays and silvers. Boost the brilliance of blondes, grays and silvers with this nourishing purple shampoo. Its silicone free formula features a custom pigment blend that delivers potent purple power to restore balance and vibrancy to blonde tones without leaving hair stripped of moisture. Good-for-you ingredients like Witch Hazel and Apple Extract dissolve oils and amplify shine and color vibrancy. Monoi Oil splashes strands with a high dose of antioxidants and vitamin",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "brillance"
+    "hydratation",
+    "nutrition",
+    "brillance",
+    "protection-couleur",
+    "anti-jaunissement",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "innersense--paper-shopping-bags",
-   "name": "Paper Shopping Bags",
-   "brand": "innersense",
-   "brand_name": "Innersense",
-   "url": "https://innersensebeauty.com/products/paper-shopping-bags",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 13.8,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0626/1063/6976/files/ShoppingBagsilo_1.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/innersense/paper-shopping-bags.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "8\" x 10.5\" x 4\" Pack of 10 white paper shopping bags with Innersense logo.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/innersense/cutout/bright-balance-purple-shampoo.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

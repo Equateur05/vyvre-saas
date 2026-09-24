@@ -22,7 +22,9 @@
    "ingredients": null,
    "description": "IVIVE, la coloration végétale professionnelle 100 % naturelle qui respecte et protège les cheveux.",
    "claims": [],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "image_absente": true,
+   "ciblage_source": "fiche"
   },
   {
    "id": "rene-furterer--0-43-marron-clair-cuivre-naturel",
@@ -35,14 +37,18 @@
    "price_source": null,
    "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5sjcmojpd8q6hypzy96p4oxfa67sa/u5wa3z31qn5sjcmojpd8q6hypzy96p4oxfa67sa?t=resize&width=300&height=300",
    "image_local": null,
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [],
+   "categorie": "coloration-soin",
+   "etape": 2,
+   "cheveux_cibles": [
+    "colores"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "IVIVE, la coloration végétale professionnelle 100 % naturelle qui respecte et protège les cheveux.",
    "claims": [],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "image_absente": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--masque-reparateur-ultime-cheveux-normaux-a-fins",
@@ -67,9 +73,11 @@
    "ingredients": null,
    "description": "Le masque à la Kératine Végétale ultra-concentré pour réparer les cheveux fins abimés.",
    "claims": [
-    "reparateur"
+    "reparation"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/masque-reparateur-ultime-cheveux-normaux-a-fins.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "rene-furterer--shampoing-antipelliculaire-reparateur-cuir-chevelu-a-pellicules",
@@ -92,10 +100,12 @@
    "ingredients": null,
    "description": "Le 1er Shampooing Antipelliculaire Réparateur* qui cible les pellicules à la racine, restaure l’intégrité de la barrière protectrice du cuir chevelu et prévient les récidives pour un cuir chevelu équilibré et sain.",
    "claims": [
-    "reparateur",
-    "anti-pellicules"
+    "reparation",
+    "antipelliculaire"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/shampoing-antipelliculaire-reparateur-cuir-chevelu-a-pellicules.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "rene-furterer--shampooing-apaisant-cuir-chevelu-irrite",
@@ -117,10 +127,12 @@
    "ingredients": null,
    "description": "René Furterer Astera Shampoing Apaisant agit grâce à la technologie [Asteracalm] pour réduire les biomarqueurs d’irritation (-75 % démangeaisons perçues*), hydrater et apaiser le cuir chevelu.",
    "claims": [
-    "hydratant",
-    "apaisant"
+    "hydratation",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/shampooing-apaisant-cuir-chevelu-irrite.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "rene-furterer--baume-demelant-eclat",
@@ -142,9 +154,12 @@
    "ingredients": null,
    "description": "Le soin démêlant instantané pour des cheveux blonds lumineux et doux, sans temps de pose.",
    "claims": [
-    "brillance"
+    "brillance",
+    "demelant"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/baume-demelant-eclat.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--baume-demelant-expanseur",
@@ -166,9 +181,13 @@
    "ingredients": null,
    "description": "Le soin après shampoing sans silicone qui démêle parfaitement les cheveux fins et leur apporte un volume durable.",
    "claims": [
-    "volume"
+    "volume",
+    "demelant",
+    "sans-silicone"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/baume-demelant-expanseur.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--baume-demelant-sublimateur",
@@ -183,15 +202,20 @@
    "image_local": "public/scan/products-cheveux/rene-furterer/baume-demelant-sublimateur.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "L'après-shampoing doux démêlant révélateur de brillance et de beauté, à base de 5 huiles végétales précieuses naturelles, pour des cheveux doux, hydratés, soyeux.",
    "claims": [
-    "hydratant",
-    "brillance"
+    "hydratation",
+    "brillance",
+    "demelant"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/baume-demelant-sublimateur.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--baume-soin-eclat",
@@ -213,10 +237,13 @@
    "ingredients": null,
    "description": "Le soin après shampoing démêlant qui hydrate les cheveux gris, blancs ou blond platine et favorise les reflets froids.",
    "claims": [
-    "hydratant",
-    "brillance"
+    "hydratation",
+    "brillance",
+    "demelant"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "image_absente": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--creme-eclat-thermo-protectrice",
@@ -241,12 +268,14 @@
    "ingredients": null,
    "description": "Le soin coiffant professionnel 5-en-1 qui hydrate, répare et protège jusqu'à 230 °C* les cheveux colorés ou méchés pour révéler une brillance longue durée 48h** . Sans rinçage.",
    "claims": [
-    "hydratant",
-    "reparateur",
+    "hydratation",
+    "reparation",
     "brillance",
-    "protection-thermique"
+    "protection-chaleur"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/creme-eclat-thermo-protectrice.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "rene-furterer--masque-eclat-reparateur",
@@ -269,12 +298,14 @@
    "ingredients": null,
    "description": "Le soin profond professionnel incontournable pour les cheveux colorés ou méchés qui répare, hydrate et renforce la fibre capillaire fragilisée par la coloration.",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "brillance",
-    "fortifiant"
+    "hydratation",
+    "reparation",
+    "fortifiant",
+    "brillance"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/masque-eclat-reparateur.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "rene-furterer--shampooing-protecteur-couleur",
@@ -295,8 +326,13 @@
    "actifs": [],
    "ingredients": null,
    "description": "Le shampooing soin professionnel sans sulfate* qui nettoie en douceur les cheveux colorés ou méchés et prévient l'affadissement de la couleur jusqu'à 10 semaines¹ !",
-   "claims": [],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "claims": [
+    "protection-couleur",
+    "sans-sulfate"
+   ],
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/shampooing-protecteur-couleur.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--creme-de-beaute-reparatrice",
@@ -320,9 +356,11 @@
    "ingredients": null,
    "description": "Le soin réparateur à la Kératine Végétale pour cheveux abimés, fragilisés.",
    "claims": [
-    "reparateur"
+    "reparation"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/creme-de-beaute-reparatrice.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "rene-furterer--fluide-d-ete-protecteur",
@@ -337,14 +375,20 @@
    "image_local": "public/scan/products-cheveux/rene-furterer/fluide-d-ete-protecteur.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "gras"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "Le fluide cheveux à l'effet naturel et à la texture non grasse, protège et hydrate les cheveux sensibilisés par le soleil. Sans rinçage.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "texturisant"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/fluide-d-ete-protecteur.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--lotion-tonique-fortifiante",
@@ -366,7 +410,9 @@
    "claims": [
     "fortifiant"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/lotion-tonique-fortifiante.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "rene-furterer--shampooing-fortifiant-revitalisant-aux-vitamines-b3-b5-et-huiles-essentielles",
@@ -388,7 +434,9 @@
    "claims": [
     "fortifiant"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/shampooing-fortifiant-revitalisant-aux-vitamines-b3-b5-et-huiles-essentielles.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "rene-furterer--gel-fixant",
@@ -409,8 +457,12 @@
    ],
    "ingredients": null,
    "description": "Le gel fixant cheveux à l'extrait végétal de Jojoba, idéal pour définir et fixer les coiffures. Sans résidu ni effet carton.",
-   "claims": [],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "claims": [
+    "fixation"
+   ],
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/gel-fixant.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--astera-concentre-apaisant-fraicheur-et-purete",
@@ -432,9 +484,11 @@
    "ingredients": null,
    "description": "Votre 1ère étape incontournable avant-shampooing : ce soin expert apaise instantanément le cuir chevelu pour des cheveux plus légers en pleine santé.",
    "claims": [
-    "apaisant"
+    "apaisant-cuir-chevelu"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/astera-concentre-apaisant-fraicheur-et-purete.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "rene-furterer--complexe-5-concentre-stimulant-force-et-vitalite",
@@ -454,7 +508,9 @@
    "ingredients": null,
    "description": "Votre 1ère étape incontournable avant-shampooing : ce soin culte tonifie le cuir chevelu pour une pousse de cheveux plus forts dès 4 applications.",
    "claims": [],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/complexe-5-concentre-stimulant-force-et-vitalite.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "rene-furterer--scrub-gommage-purifiant-detox",
@@ -478,7 +534,9 @@
    "claims": [
     "purifiant"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/scrub-gommage-purifiant-detox.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "rene-furterer--huile-d-ete-protectrice",
@@ -501,10 +559,12 @@
    "ingredients": null,
    "description": "L'huile capillaire protectrice et intensément nourrissante destinée à tous les types de cheveux exposés au soleil. Offre un fini brillant non gras, non collant. Produit sans rinçage.",
    "claims": [
-    "nourrissant",
+    "nutrition",
     "brillance"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/huile-d-ete-protectrice.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "rene-furterer--laque",
@@ -523,8 +583,12 @@
    "actifs": [],
    "ingredients": null,
    "description": "L'incontournable geste de finition pour toutes les coiffures.",
-   "claims": [],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "claims": [
+    "fixation"
+   ],
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/laque.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--masque-reparateur-ultime-cheveux-epais",
@@ -549,9 +613,11 @@
    "ingredients": null,
    "description": "Le masque à la Kératine Végétale ultra-concentré pour réparer les cheveux épais abimés.",
    "claims": [
-    "reparateur"
+    "reparation"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/masque-reparateur-ultime-cheveux-epais.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "rene-furterer--masque-repulpant-demelant",
@@ -564,19 +630,24 @@
    "price_source": null,
    "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5se3fz3fmq4pjxkd6trd5uh6fd37e/u5wa3z31qn5se3fz3fmq4pjxkd6trd5uh6fd37e?t=resize&width=300&height=300",
    "image_local": "public/scan/products-cheveux/rene-furterer/masque-repulpant-demelant.jpg",
-   "categorie": "apres-shampooing",
+   "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
+    "fins",
     "chute"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "Le soin redensifiant pro-jeunesse des cheveux fatigués qui hydrate, densifie et démêle sans alourdir.",
    "claims": [
-    "hydratant",
-    "anti-chute"
+    "hydratation",
+    "densifiant",
+    "anti-chute",
+    "demelant"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/masque-repulpant-demelant.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--mousse-amplifiante",
@@ -598,9 +669,12 @@
    "ingredients": null,
    "description": "La mousse coiffante après shampoing sans rinçage VOLUMEA offre volume maîtrisé et texture aux cheveux fins.",
    "claims": [
-    "volume"
+    "volume",
+    "texturisant"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/mousse-amplifiante.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--mousse-sculptante",
@@ -624,7 +698,9 @@
    "claims": [
     "volume"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/mousse-sculptante.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "rene-furterer--baume-lacte-demelant-soin-demelant-certifie-bio",
@@ -639,14 +715,19 @@
    "image_local": "public/scan/products-cheveux/rene-furterer/baume-lacte-demelant-soin-demelant-certifie-bio.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "Le soin quotidien certifié bio sans temps de pose, qui démêle et hydrate les cheveux de toute la famille sans les alourdir.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "demelant"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/baume-lacte-demelant-soin-demelant-certifie-bio.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--shampooing-micellaire-douceur",
@@ -666,7 +747,9 @@
    "ingredients": null,
    "description": "Le soin lavant expert et certifié bio du quotidien, qui nettoie en douceur les cheveux de toute la famille dès 3 ans.",
    "claims": [],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/shampooing-micellaire-douceur.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "rene-furterer--shampooing-sec-invisible-shampoing-sec-naturel",
@@ -679,8 +762,8 @@
    "price_source": null,
    "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5se3fz3fmq4pjxknb43sji7wsncdo/u5wa3z31qn5se3fz3fmq4pjxknb43sji7wsncdo?t=resize&width=300&height=300",
    "image_local": "public/scan/products-cheveux/rene-furterer/shampooing-sec-invisible-shampoing-sec-naturel.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
     "secs",
     "gras"
@@ -688,8 +771,12 @@
    "actifs": [],
    "ingredients": null,
    "description": "Le geste de beauté express usage fréquent qui absorbe instantanément le sébum. Pour un résultat naturel, sans aucun résidu.",
-   "claims": [],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "claims": [
+    "anti-gras"
+   ],
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/shampooing-sec-invisible-shampoing-sec-naturel.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--spray-demelant-express-spray-demelant-cheveux-certifie-bio",
@@ -709,9 +796,12 @@
    "ingredients": null,
    "description": "Le spray express certifié bio qui démêle parfaitement tous les types de cheveux sans les alourdir, et leur offre une brillance immédiate.",
    "claims": [
-    "brillance"
+    "brillance",
+    "demelant"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/spray-demelant-express-spray-demelant-cheveux-certifie-bio.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--pate-modelante",
@@ -730,8 +820,12 @@
    "actifs": [],
    "ingredients": null,
    "description": "La cire coiffante idéale pour fixer durablement les coupes courtes. Modèle et texturise tous les styles, fini naturel.",
-   "claims": [],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "claims": [
+    "texturisant"
+   ],
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/pate-modelante.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--rene-furterer-0-4-cuivre-pur-coloration-vegetale-professionnelle-ivive",
@@ -744,14 +838,18 @@
    "price_source": null,
    "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5sjcmojpd8q6hypspyeobbdpzg9ya/u5wa3z31qn5sjcmojpd8q6hypspyeobbdpzg9ya?t=resize&width=300&height=300",
    "image_local": null,
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [],
+   "categorie": "coloration-soin",
+   "etape": 2,
+   "cheveux_cibles": [
+    "colores"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "IVIVE, la coloration végétale professionnelle 100 % naturelle qui respecte et protège les cheveux.",
    "claims": [],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "image_absente": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--serum-concentre-de-jeunesse",
@@ -766,15 +864,19 @@
    "image_local": "public/scan/products-cheveux/rene-furterer/serum-concentre-de-jeunesse.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "Le soin de jour sans rinçage qui réhydrate et protège le cuir chevelu, pour une chevelure dense et éclatante de vie.",
    "claims": [
-    "hydratant",
+    "hydratation",
     "brillance"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/serum-concentre-de-jeunesse.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "rene-furterer--serum-reparateur-ultime-soin-pointes-abimees",
@@ -796,9 +898,11 @@
    "ingredients": null,
    "description": "Le soin ultra-concentré naturel sans rinçage qui répare les pointes, comble les brèches et limite durablement les fourches.",
    "claims": [
-    "reparateur"
+    "reparation"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/serum-reparateur-ultime-soin-pointes-abimees.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "rene-furterer--shampooing-dejaunissant",
@@ -819,8 +923,12 @@
    "actifs": [],
    "ingredients": null,
    "description": "Le shampoing déjaunisseur pour cheveux gris, blancs ou blond platine, qui neutralise immédiatement les reflets jaunes indésirables.",
-   "claims": [],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "claims": [
+    "anti-jaunissement"
+   ],
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/shampooing-dejaunissant.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--shampooing-eclat",
@@ -844,7 +952,9 @@
    "claims": [
     "brillance"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/shampooing-eclat.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "rene-furterer--shampooing-expanseur",
@@ -866,9 +976,12 @@
    "ingredients": null,
    "description": "Le shampoing volume usage fréquent aux actifs 100% d'origine naturelle, qui apporte corps et texture aux cheveux fins.",
    "claims": [
-    "volume"
+    "volume",
+    "texturisant"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/shampooing-expanseur.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--shampooing-haute-tolerance",
@@ -889,8 +1002,12 @@
    "actifs": [],
    "ingredients": null,
    "description": "Le shampoing pour cuir chevelu sensible qui nettoie en douceur et protège, avec une formule haute tolérance aux actifs 100% d’origine naturelle. Usage fréquent.",
-   "claims": [],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "claims": [
+    "apaisant-cuir-chevelu"
+   ],
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "image_absente": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--shampooing-purifiant-legerete",
@@ -912,9 +1029,12 @@
    "ingredients": null,
    "description": "Le shampooing anti cheveux gras aux actifs 100% naturels qui purifie et nettoie en douceur les cuirs chevelus à tendance grasse.",
    "claims": [
-    "purifiant"
+    "purifiant",
+    "anti-gras"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/shampooing-purifiant-legerete.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--shampooing-repulpant",
@@ -930,15 +1050,19 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "fins",
     "chute"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "Le shampoing pro-jeunesse qui repulpe et redensifie les cheveux affinés et fatigués.",
    "claims": [
+    "densifiant",
     "anti-chute"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/shampooing-repulpant.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--shampooing-soin-reparateur",
@@ -962,9 +1086,13 @@
    "ingredients": null,
    "description": "Le shampoing réparateur à la Kératine Végétale sans sulfates et sans silicone.",
    "claims": [
-    "reparateur"
+    "reparation",
+    "sans-sulfate",
+    "sans-silicone"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/shampooing-soin-reparateur.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--shampooing-sublimateur",
@@ -984,9 +1112,12 @@
    "ingredients": null,
    "description": "Le shampoing révélateur de beauté, sans silicone, à base de 5 huiles végétales précieuses, pour des cheveux brillants, doux, soyeux. À utiliser au quotidien, pour tous types de cheveux.",
    "claims": [
-    "brillance"
+    "brillance",
+    "sans-silicone"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/shampooing-sublimateur.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--spray-eclaircissant",
@@ -1008,7 +1139,9 @@
    "ingredients": null,
    "description": "Le spray beauté sans rinçage essentiel pour éclaircir progressivement le blond d’un ton.",
    "claims": [],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/spray-eclaircissant.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "rene-furterer--spray-fixant",
@@ -1027,8 +1160,12 @@
    "actifs": [],
    "ingredients": null,
    "description": "Le spray coiffant STYLE structure et fixe durablement les mouvements de la coiffure, grâce à sa diffusion ciblée.",
-   "claims": [],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "claims": [
+    "fixation"
+   ],
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/spray-fixant.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--spray-texturisant",
@@ -1050,9 +1187,12 @@
    "ingredients": null,
    "description": "Le spray texturisant au fini invisible qui apporte instantanément volume et matière à la chevelure.",
    "claims": [
-    "volume"
+    "volume",
+    "texturisant"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/spray-texturisant.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--spray-thermoprotecteur",
@@ -1072,9 +1212,11 @@
    "ingredients": null,
    "description": "Le spray de protection pour les cheveux STYLE protège la fibre capillaire des agressions thermiques jusqu'à 220 °C.",
    "claims": [
-    "protection-thermique"
+    "protection-chaleur"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/spray-thermoprotecteur.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "rene-furterer--baume-demelant-definition-boucles",
@@ -1090,17 +1232,19 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "epais",
     "boucles"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "Le baume démêlant aux actifs d'origine naturelle, pour des boucles redéfinies et une protection contre les frisottis.",
    "claims": [
-    "lissant",
-    "definition-boucles"
+    "anti-frisottis",
+    "definition-boucles",
+    "demelant"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/baume-demelant-definition-boucles.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--creme-bouclante-nutritive",
@@ -1123,9 +1267,13 @@
    "ingredients": null,
    "description": "Le soin cheveux bouclés express pour nourrir et définir ondulations et boucles, doublé d'une action anti-humidité.",
    "claims": [
-    "nourrissant"
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/creme-bouclante-nutritive.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--shampooing-sublimateur-de-boucles",
@@ -1147,9 +1295,12 @@
    "ingredients": null,
    "description": "Le shampoing usage fréquent des cheveux bouclés et ondulés, qui apporte galbe et brillance aux boucles.",
    "claims": [
+    "definition-boucles",
     "brillance"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/shampooing-sublimateur-de-boucles.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--spray-activateur-de-boucles",
@@ -1170,8 +1321,12 @@
    "actifs": [],
    "ingredients": null,
    "description": "Le spray activateur de boucles incontournable pour redynamiser et redéfinir les boucles paresseuses. Sans rinçage.",
-   "claims": [],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "claims": [
+    "definition-boucles"
+   ],
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/spray-activateur-de-boucles.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--creme-lissante-coiffage-professionnel",
@@ -1187,17 +1342,19 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "secs",
-    "epais"
+    "secs"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "Inspiré des salons, ce soin coiffant est l'indispensable des cheveux les plus secs pour nourrir et lisser la fibre.",
    "claims": [
-    "nourrissant",
-    "lissant"
+    "nutrition",
+    "anti-frisottis",
+    "fixation"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/creme-lissante-coiffage-professionnel.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--lait-disciplinant-coiffage-professionnel",
@@ -1219,10 +1376,13 @@
    "ingredients": null,
    "description": "Inspiré des salons, ce soin coiffant est l'indispensable des cheveux secs pour hydrater et discipliner la fibre.",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "anti-frisottis",
+    "fixation"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/lait-disciplinant-coiffage-professionnel.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--masque-hydratant-gainant",
@@ -1244,9 +1404,11 @@
    "ingredients": null,
    "description": "Le masque professionnel qui hydrate intensément dès la 1ère application, et qui gaine les cheveux secs.",
    "claims": [
-    "hydratant"
+    "hydratation"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/masque-hydratant-gainant.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "rene-furterer--masque-nourrissant-lissant",
@@ -1262,8 +1424,7 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
-    "secs",
-    "epais"
+    "secs"
    ],
    "actifs": [
     "beurre de karité"
@@ -1271,10 +1432,12 @@
    "ingredients": null,
    "description": "Le masque professionnel hautement nourrissant et lissant, enrichi en beurre de Karité, conçu pour les cheveux les plus secs des racines aux pointes.",
    "claims": [
-    "nourrissant",
-    "lissant"
+    "nutrition",
+    "anti-frisottis"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/masque-nourrissant-lissant.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--shampooing-disciplinant-hydratant",
@@ -1289,15 +1452,19 @@
    "image_local": "public/scan/products-cheveux/rene-furterer/shampooing-disciplinant-hydratant.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "Le shampooing à l'action 2 en 1 qui hydrate durablement et discipline des racines aux pointes.",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "anti-frisottis"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/shampooing-disciplinant-hydratant.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--baume-densifiant-longevite",
@@ -1313,15 +1480,22 @@
    "categorie": "traitement-chute",
    "etape": 4,
    "cheveux_cibles": [
+    "fins",
+    "colores",
+    "abimes",
     "chute"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "Le 1er baume* densifiant ciblant la chute de cheveux hormonale et héréditaire pour -44 % de casse** et une longévité capillaire accrue. *Chez René Furterer. **Étude biométrique sur 10 mèches après 9 applications.",
    "claims": [
+    "reparation",
+    "densifiant",
     "anti-chute"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/baume-densifiant-longevite.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--masque-fortifiant-anti-casse",
@@ -1336,16 +1510,21 @@
    "image_local": "public/scan/products-cheveux/rene-furterer/masque-fortifiant-anti-casse.jpg",
    "categorie": "masque",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "abimes"
+   ],
    "actifs": [
     "kératine"
    ],
    "ingredients": null,
    "description": "Le masque fortifiant pour les cheveux anti-casse à la propolis qui booste la production de kératine et comble les brèches* pour des longueurs renforcées et protégées. * Brevet déposé",
    "claims": [
+    "reparation",
     "fortifiant"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/masque-fortifiant-anti-casse.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--serum-accelerateur-de-pousse",
@@ -1365,7 +1544,10 @@
    "ingredients": null,
    "description": "Le sérum accélérateur de pousse stimule le cuir chevelu pour des cheveux 2X plus forts* et plus longs.",
    "claims": [],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/serum-accelerateur-de-pousse.webp",
+   "image_fond": true,
+   "ciblage_source": "fiche"
   },
   {
    "id": "rene-furterer--triphasic-serum-de-nuit-createur-de-densite",
@@ -1381,6 +1563,7 @@
    "categorie": "traitement-chute",
    "etape": 4,
    "cheveux_cibles": [
+    "fins",
     "chute"
    ],
    "actifs": [
@@ -1390,9 +1573,13 @@
    "description": "Le 1er sérum de nuit* à la niacinamide pure régénératrice de cellules qui lutte contre la perte de densité pour des cheveux redensifiés.",
    "claims": [
     "volume",
+    "densifiant",
     "anti-chute"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/triphasic-serum-de-nuit-createur-de-densite.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--shampooing-antichute-longevite",
@@ -1408,6 +1595,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "fins",
     "chute"
    ],
    "actifs": [],
@@ -1416,7 +1604,9 @@
    "claims": [
     "anti-chute"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/shampooing-antichute-longevite.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "rene-furterer--shampooing-activateur-de-pousse",
@@ -1436,7 +1626,9 @@
    "ingredients": null,
    "description": "Le shampooing activateur de pousse stimule la microcirculation dès la racine pour des cheveux plus longs, plus rapidement.",
    "claims": [],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/shampooing-activateur-de-pousse.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "rene-furterer--traitement-antichute-reactionnelle",
@@ -1460,7 +1652,10 @@
    "claims": [
     "anti-chute"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/traitement-antichute-reactionnelle.webp",
+   "image_fond": true,
+   "ciblage_source": "fiche"
   },
   {
    "id": "rene-furterer--triphasic-progressive-traitement-antichute-longevite-et-densite",
@@ -1476,6 +1671,7 @@
    "categorie": "traitement-chute",
    "etape": 4,
    "cheveux_cibles": [
+    "fins",
     "chute"
    ],
    "actifs": [],
@@ -1483,53 +1679,13 @@
    "description": "Le 1er* traitement expert antichute ciblant les 3 marqueurs génétiques responsables de la chute de cheveux hormonale et héréditaire pour réinitialiser +2 mm d'implantation capillaire**. La marque antichute n°1 en France depuis 22 ans***. *Chez René Furterer **Augmentation moyenne du nombre de cheveux existants en phase de croissance chez les hommes. Étude clinique menée sur 29 hommes et 32 femmes, résultats à 3 mois. ***IQVIA – PharmaOne Pharmatrend - marché des soins anti-chute (86H2C + 86H2Z +",
    "claims": [
     "volume",
-    "anti-chute"
+    "densifiant",
+    "anti-chute",
+    "croissance"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
-  },
-  {
-   "id": "rene-furterer--triphasic-caps-antichute-complement-alimentaire-antichute-de-cheveux",
-   "name": "Triphasic Caps Antichute - Complément alimentaire antichute de cheveux",
-   "brand": "rene-furterer",
-   "brand_name": "René Furterer",
-   "url": "https://www.renefurterer.com/fr-fr/p/triphasic-triphasic-caps-antichute-complement-alimentaire-anti-chute-de-cheveux-3282770398670-14c39aab",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5sjcxxij9gurscpwaiofhncatxwna/u5wa3z31qn5sjcxxij9gurscpwaiofhncatxwna?t=resize&width=300&height=300",
-   "image_local": "public/scan/products-cheveux/rene-furterer/triphasic-caps-antichute-complement-alimentaire-antichute-de-cheveux.jpg",
-   "categorie": "traitement-chute",
-   "etape": 4,
-   "cheveux_cibles": [
-    "chute"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Les compléments alimentaires Triphasic Caps Antichute de Furterer : remettent à niveau les nutriments essentiels dont les cheveux ont besoin, et participent à freiner la perte de cheveux grâce à l'huile de palmier de Floride et à relancer la croissance grâce à l'extrait de prêle des champs.",
-   "claims": [
-    "anti-chute"
-   ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
-  },
-  {
-   "id": "rene-furterer--triphasic-caps-longueur",
-   "name": "Triphasic Caps longueur",
-   "brand": "rene-furterer",
-   "brand_name": "René Furterer",
-   "url": "https://www.renefurterer.com/fr-fr/p/triphasic-triphasic-caps-longueur-3282770400588-14c39aab",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5se3fz3fmq4pjxkbtwm8f1surxeay/u5wa3z31qn5se3fz3fmq4pjxkbtwm8f1surxeay?t=resize&width=300&height=300",
-   "image_local": "public/scan/products-cheveux/rene-furterer/triphasic-caps-longueur.jpg",
-   "categorie": "traitement-chute",
-   "etape": 4,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Le complément alimentaire pour cheveux qui préserve la beauté des cheveux longs et diminue la casse*.",
-   "claims": [],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/triphasic-progressive-traitement-antichute-longevite-et-densite.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rene-furterer--soin-expanseur",
@@ -1553,7 +1709,9 @@
    "claims": [
     "volume"
    ],
-   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld"
+   "source": "sitemap renefurterer.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/rene-furterer/cutout/soin-expanseur.webp",
+   "ciblage_source": "fiche"
   }
  ]
 }

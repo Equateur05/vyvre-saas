@@ -30,10 +30,15 @@
    "ingredients": "purified water, organic aloe vera gel, behentrimonium methosulfate (and) cetearyl alcohol (emulsifier derived from colza oil), honey, virgin hemp oil, coconut oil, vegetable glycerine, hydrolized silk, optiphen (preservative)",
    "description": "Our cult-favorite conditioner works wonders! Enriched with a powerhouse of ingredients, Honey Hemp naturally detangles by drenching your hair in pure honey, hempseed oil, and silk to nourish and replenish, bringing it back to life, while moisturizing every single strand. Why You Need It: Rinses easy and detangles like a dream Leaves lasting moisture works to restore dry hair Excellent for kinky, coily, curly, and wavy textures Usage: Slather on clean, damp hair. Hum a tune. Detangle using a wide",
    "claims": [
-    "hydratant",
-    "nourrissant"
+    "hydratation",
+    "nutrition",
+    "definition-boucles",
+    "anti-gras",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oyin-handmade/cutout/honey-hemp-conditioner-unscented.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oyin-handmade--honey-wash-shampoo-unscented",
@@ -59,11 +64,15 @@
    "ingredients": "water (aqua), decyl glucoside (and) sodium lauroyl lactylate, apis mellifera (honey), vegetable glycerin, aloe barbadensis leaf juice (organic), propanediol, hydrolized quinoa, cannabis sativa (hemp) seed oil, glycine betain (beta vulgaris/beet) sugar extract, polyquaternium-10",
    "description": "This luxurious sulfate-free natural shampoo gets your hair cleaner than clean and is kind to kinks, coils, and curls. Bathe your hair in our natural formula that helps nourish, cleanse and protect each strand of your hair with quinoa protein, organic aloe vera juice, and pure honey. Why You Need It: our plant-based formula helps increase shine and smoothness, making hair stronger after each wash softens and nourishes hair with superfood formula works wonders for dry and highly textured hair Usag",
    "claims": [
-    "nourrissant",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
     "brillance",
-    "lissant"
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oyin-handmade/cutout/honey-wash-shampoo-unscented.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oyin-handmade--hair-dew-hair-lotion-unscented",
@@ -79,7 +88,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "boucles"
+    "boucles",
+    "abimes"
    ],
    "actifs": [
     "huile de ricin",
@@ -89,9 +99,13 @@
    "ingredients": "water, ricinus communis (castor) oil, olea europaea (olive) oil, aloe barbadensis leaf juice (organic), olea europaea (olive) oil, behentrimonium methosulfate (and) cetearyl alcohol (emulsifier derived",
    "description": "This award-winning natural moisture lotion is the leave-in to believe in! With castor oil and olive squalane, this creamy formula will keep your kinks, coils, and curls moisturized, hydrated, and healthy. Stop breakage in its tracks by keeping hair moist and refreshed. Why you need it: Perfect leave-in after cleansing/washing A lifesaver when your hair needs mid-week refreshment Helps reduce breakage by keeping hair pliant Award-winning formula that our community swears by! Usage: Apply from roo",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "reparation",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oyin-handmade/cutout/hair-dew-hair-lotion-unscented.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oyin-handmade--2oz-juices-minis",
@@ -111,9 +125,11 @@
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "Don't let dry hair get you down! End dry hair with Juices and berries. These 2oz Travel Size/Teaser Samplers of our \"Juices\" herbal refreshing mists let you try it out before purchasing the full size! Try a new flavor or pick your favorite scent! Purchase to use when traveling or to give as a gift to share the Oyin love. :o) Juices&Berries has a juicy, fruity scent that will make your mouth water but never linger too long. Greg Juice is scented with essential oils only for the lightest scent of ",
+   "description": "Don't let dry hair get you down! End dry hair with Juices and berries. These 2oz Travel Size/Teaser Samplers of our \"Juices\" herbal refreshing mists let you try it out before purchasing the full size! Try a new flavor or pick your favorite scent! Purchase to use when traveling or to give as a gift to share the Oyin love. :o) Juices&Berries has a juicy, fruity scent that will make your mouth water but never linger too long. Greg Juice is scented with essential oils only for the lightest scent of",
    "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oyin-handmade/cutout/2oz-juices-minis.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "oyin-handmade--what-the-hemp-deep-moisture-mask",
@@ -129,6 +145,7 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -141,12 +158,15 @@
    "ingredients": "water (aqua),behentrimonium methosulfate (and) cetearyl alcohol, bambusa vulgaris (bamboo) extract, apis mellifera (honey), sodium lactate ,cannabis sativa (hemp) seed oil ,stearamidopropyl dimethylamine, propanediol, vegetable glycerin, butyrospermum parkii (shea butter),cetyl alcohol, stearyl alcohol, quinoa protein, hydrolyzed oat protein, gluconolactone sodium benzoate (preservative), phthalate-free fragrance, citric acid, and LOVE!",
    "description": "Hair needs some love? We formulated this nutrient-rich replenishing mask with bamboo extract, oat proteins, quinoa and more to help revive, strengthen, and smooth fragile ends and dehydrated hair. Why You Need It: Helps build strength and suppleness Infused with bamboo extract for a natural and sustainable source of silica Quinoa and oat proteins work to repair, strengthen, and smooth fragile ends Usage: Apply generously to clean, damp hair, ensuring even application. Leave on hair for 20-30 min",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "lissant",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oyin-handmade/cutout/what-the-hemp-deep-moisture-mask.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oyin-handmade--honey-wash-hydrating-shampoo",
@@ -162,6 +182,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -175,12 +196,17 @@
    "ingredients": "water (aqua), decyl glucoside (and) sodium lauroyl lactylate, apis mellifera (honey), vegetable glycerin, aloe barbadensis leaf juice (organic), propanediol, hydrolized quinoa, cannabis sativa (hemp) seed oil, glycine betain (beta vulgaris/beet) sugar extract, polyquaternium-10, fragrance, phenoxyethanol (and) caprylyl glycol (preservative), simmondsia chinesis (jojoba) oil, camellia sinensis (green tea) leaf extract, xanthan gum, guar gum, citric acid, citrus sinensis (sweet orange) oil, and love!",
    "description": "This luxurious sulfate-free natural shampoo gets your hair cleaner than clean and is kind to kinks, coils and curls. Bathe your hair in our natural formula that helps nourish, cleanse and protect each strand of your hair with quinoa protein, organic aloe vera juice, and pure honey. Why You Need It: our plant-based formula helps increase shine and smoothness, making hair stronger after each wash softens and nourishes hair with superfood formula works wonders for dry and highly textured hair Usage",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
     "brillance",
-    "lissant"
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oyin-handmade/cutout/honey-wash-hydrating-shampoo.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "oyin-handmade--2oz-gingermint-co-wash",
@@ -205,9 +231,14 @@
    "ingredients": "water (aqua), cocamidopropyl betaine, behentrimonium methosulfate (and) cetearyl alcohol, ricinus communist (castor) oil, cetrimonium chloride, cetyl alcohol, stearyl alcohol, stearamidopropyl dimethylamine, helianthus annuus (sunflower) seed oil, phenoxyethanol (and) caprylyl glycol (preservative), hydrolyzed oat protein, Camellia Sinensis (green tea) leaf extract, fragrance, mentha arvensis (peppermint) oil, citrus sinensis (sweet orange) oil, citric acid, Zingiber officianalis (ginger) oil",
    "description": "Smooth & soften your way to clean hair! Gentle, simple cleansing for all hair types.Pure extracts of ginger and peppermint stimulate your scalp, and green tea extract provides an astringent and antioxidant boost! Detangles and softens Removes product buildup Conditions and detangles hair at the same time Sulfate-Free HOW TO USE:Soak your hair & apply generously, using the pads of your fingers to massage and stimulate your crown. Don't expect any lather - this cleansing cream's gentle action is s",
    "claims": [
-    "lissant"
+    "anti-frisottis",
+    "purifiant",
+    "demelant",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oyin-handmade/cutout/2oz-gingermint-co-wash.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oyin-handmade--2oz-oh-my-glide-prestyling-detangler",
@@ -220,9 +251,12 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0697/2879/6895/files/Oyin_mini_ohmyglide__95676.1601180609.1280.1280.jpg?width=600",
    "image_local": "public/scan/products-cheveux/oyin-handmade/2oz-oh-my-glide-prestyling-detangler.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
-   "cheveux_cibles": [],
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "secs",
+    "crepus"
+   ],
    "actifs": [
     "aloe vera",
     "glycérine",
@@ -232,11 +266,14 @@
    "ingredients": "water (aqua), aloe barbadensis (aloe) leaf juice (organic), cetrimonium chloride, behentrimonium methosulfate (and) cetearyl alcohol, vegetable glycerin, phenoxyethanol (and) caprylyl glycol (preservative), citrus sinensis (sweet orange) oil, helianthus annuus (sunflower) seed oil, cetyl alcohol, persea gratissima (avocado) oil, guar conditioner, hydrolyzed oat protein, oryza sativa (rice bran) oil, castor, squalane (from olive oil), and love!",
    "description": "Simply magical! End detangling drama!Ease tangles away with this nourishing detangling spray!Cut your detangling time in half with the epic slip-in-a-bottle of OMGlide prestyling detangler. Packed full of nourishing oils and plant extracts. You will not only ease away tangles, but feed your hair from the inside out & provide lasting moisture in one citrus-scented step Perfect for the whole family, this product shines brightest when creating or removing braids, twists, or longer-term protective s",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "brillance"
+    "hydratation",
+    "nutrition",
+    "brillance",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oyin-handmade/cutout/2oz-oh-my-glide-prestyling-detangler.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oyin-handmade--ginger-mint-co-wash-invigorating-cleansing-cream",
@@ -251,7 +288,9 @@
    "image_local": "public/scan/products-cheveux/oyin-handmade/ginger-mint-co-wash-invigorating-cleansing-cream.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "huile de ricin",
     "huile de tournesol",
@@ -261,9 +300,12 @@
    "ingredients": "water (aqua), cocamidopropyl betaine, behentrimonium methosulfate (and) cetearyl alcohol, ricinus communis (castor) oil, cetrimonium chloride, cetyl alcohol, stearyl alcohol, stearamidopropyl dimethylamine, helianthus annuus (sunflower) seed oil, phenoxyethanol (and) caprylyl glycol (preservative), hydrolyzed oat protein, Camellia Sinensis (green tea) leaf extract, fragrance, mentha arvensis (peppermint) oil, citrus sinensis (sweet orange) oil, citric acid, Zingiber officianalis (ginger) oil",
    "description": "Give your hair the spa treatment it deserves with our ginger mint co-wash! Formulated with green tea, peppermint and ginger extracts, this sud-free (yup!) formula is gentle but hardworking, softly moisturizing, cleansing, and detangling your hair with each wash. Use as a substitute to shampoo or afterwards for a second cleanse. Why You Need It: perfect alternative to shampoo formulated with ginger, peppermint, and green tea for a stimulated cleanse that works from root to end powerful sud-free f",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oyin-handmade/cutout/ginger-mint-co-wash-invigorating-cleansing-cream.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oyin-handmade--grand-poo-bar-natural-shampoo-bar",
@@ -278,7 +320,10 @@
    "image_local": "public/scan/products-cheveux/oyin-handmade/grand-poo-bar-natural-shampoo-bar.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "gras"
+   ],
    "actifs": [
     "huile de coco",
     "beurre de karité",
@@ -287,10 +332,14 @@
    "ingredients": "purified water, glycerin, sodium stearate and sodium oleate (mild foaming/cleansing agents derived from vegetable oils), sorbitol, stearic acid, lauric acid, african black soap, cocoa butter, shea butter, cetyl alcohol, coconut oil, lavender, rosemary & citrus oils",
    "description": "Give your hair a thorough cleanse with our all-natural shampoo bar. Perfect for traveling, this non-drying sulfate-free solid bar is infused with shea and cocoa butter to maintain moisture while working to cleanse & balance hair. Why You Need It: great alternative to your everyday liquid cleanser handcut and poured formula makes for a natural dream come true allows you to directly target specific scalp areas helps you wash in sections for a more controlled shampoo experience Ingredients: purifie",
    "claims": [
-    "hydratant",
-    "purifiant"
+    "hydratation",
+    "nutrition",
+    "purifiant",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oyin-handmade/cutout/grand-poo-bar-natural-shampoo-bar.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oyin-handmade--go-tea-2-in-1-grooming-leave-in-spray",
@@ -305,7 +354,9 @@
    "image_local": "public/scan/products-cheveux/oyin-handmade/go-tea-2-in-1-grooming-leave-in-spray.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "huile de jojoba",
     "aloe vera",
@@ -314,9 +365,11 @@
    "ingredients": "water, vegetable glycerine, organic aloe vera juice, olive oil, polysorbate 20, behentrimonium methosulfate (emulsifier derived from colza oil), optiphen (preservative), jojoba oil, olive squalane, fragrance, tea tree & lavender essential oils",
    "description": "Our two-in-one go tea formula works for your hair, scalp, and beard! We formulated this hydrating leave-in spray with jojoba oil, olive squalane and tea tree oil to give you a hydrating grooming experience you can brag about. Why You Need It: works great for beard and scalp Great for hydrating low cut, bald, and close cut hair Mildly scented with a sandalwood/herbal blend Usage: Lightly spray 6 inches away from your beard or scalp after washing or conditioning. Also can be used as a daily refres",
    "claims": [
-    "hydratant"
+    "hydratation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oyin-handmade/cutout/go-tea-2-in-1-grooming-leave-in-spray.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "oyin-handmade--boing",
@@ -332,6 +385,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -341,10 +395,13 @@
    "ingredients": null,
    "description": "Now you can make every coil count without that cringe-worthy crunchy hair feeling. This coil-encouraging creme gel helps bring out every curl and coil, while moisturizing each strand of hair with shea butter, coconut oil, and Irish Moss, promoting curl definition and elongation. Why You Need It: helps your hair retain moisture and coils while bouncing like springs enhances highly textured patterns gives your hair curl definition without crunchy harsh ingredients Usage: Work a small to medium amo",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "nutrition",
     "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oyin-handmade/cutout/boing.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oyin-handmade--hair-dew-moisturizing-leave-in-hair-lotion",
@@ -360,7 +417,9 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "boucles"
+    "secs",
+    "boucles",
+    "abimes"
    ],
    "actifs": [
     "huile de ricin",
@@ -368,11 +427,15 @@
     "huile d'olive"
    ],
    "ingredients": "water, ricinus communis (castor) oil, olea europaea (olive) oil, aloe barbadensis leaf juice (organic), olea europaea (olive) oil, behentrimonium methosulfate (and) cetearyl alcohol (emulsifier derived",
-   "description": "This award-winning natural moisture lotion is the leave-in to believe in! With castor oil and olive squalane, this creamy formula will keep your kinks, coils, and curls moisturized, hydrated, and healthy. Stop breakage in its tracks by keeping hair moist and refreshed. Why you need it: Perfect leave-in after cleansing/washing A lifesaver when your hair needs mid-week refreshment Helps reduce breakage by keeping hair pliant Award-winning formula that our community swears by! Light vanilla cookie ",
+   "description": "This award-winning natural moisture lotion is the leave-in to believe in! With castor oil and olive squalane, this creamy formula will keep your kinks, coils, and curls moisturized, hydrated, and healthy. Stop breakage in its tracks by keeping hair moist and refreshed. Why you need it: Perfect leave-in after cleansing/washing A lifesaver when your hair needs mid-week refreshment Helps reduce breakage by keeping hair pliant Award-winning formula that our community swears by! Light vanilla cookie",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "reparation",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oyin-handmade/cutout/hair-dew-moisturizing-leave-in-hair-lotion.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oyin-handmade--the-sugar-pomades-humectant-hair-pomades",
@@ -387,15 +450,19 @@
    "image_local": "public/scan/products-cheveux/oyin-handmade/the-sugar-pomades-humectant-hair-pomades.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "Our sugar pomades are petroleum-free, sheen-enhancing powerhouses that help shine & seal your hair. Formulated with castor, unrefined hempseed, and broccoli seed oil, our pomades are the perfect final step over a liquid or cream moisturizer in your natural moisture retention regimen. This completely vegan blend of oils, butters, and veggie waxes acts as humectant and protectant for hair, increasing shine to a high glossy sheen, locking in moisture.Why You Need It: Available in two delicious scen",
    "claims": [
-    "hydratant",
+    "hydratation",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oyin-handmade/cutout/the-sugar-pomades-humectant-hair-pomades.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "oyin-handmade--shine-define-gentle-styling-serum",
@@ -411,7 +478,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "secs",
+    "crepus"
    ],
    "actifs": [
     "huile de coco",
@@ -425,9 +493,14 @@
    "ingredients": "Water, linum usitatissimum (flax) seeds (organic), aloe barbadensis leaf juice (organic), sea vegetable complex, cocos nucifera (coconut) oil, ricinus communis (castor) seed oil, unrefined butyrospermum parkii (shea butter) fruit, raw honey, vegetable glycerin, stearic acid (from palm), emulsifying wax NF (vegetable derived), fruit pectin, xanthan gum, dextrose, phenoxyethanol (and) caprylyl glycol (preservative), citrus limonum (lemon) peel oil, citrus aurantium dulcis (orange) peel oil; fragrance. Additional",
    "description": "Naturally style your hair without sacrificing softness! This clean-feeling natural creme gel is great for twist outs, braid outs, and soft wash & go styles. Contains Aloe vera, sea vegetables, shea butter, coconut oil for a non-drying, gentle formula. Why You Need It: Workable, soft hold crème Reduces frizz without drying your hair Formulated with pure Aloe Vera, Flax Seed Extract, Shea Butter and more Layers beautifully under our Whipped Pudding Usage:Apply generously, and finger comb using a ‘",
    "claims": [
-    "brillance"
+    "nutrition",
+    "anti-frisottis",
+    "brillance",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oyin-handmade/cutout/shine-define-gentle-styling-serum.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oyin-handmade--1-oz-shine-define-styling-serum",
@@ -443,8 +516,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "secs",
-    "epais"
+    "secs"
    ],
    "actifs": [
     "huile de coco",
@@ -458,12 +530,15 @@
    "ingredients": "Water, linum usitatissimum (flax) seeds (organic), aloe barbadensis leaf juice (organic), sea vegetable complex, cocos nucifera (coconut) oil, ricinus communis (castor) seed oil, unrefined butyrospermum parkii (shea butter) fruit, raw honey, vegetable glycerin, stearic acid (from palm), emulsifying wax NF (vegetable derived), fruit pectin, xanthan gum, dextrose, phenoxyethanol (and) caprylyl glycol (preservative), citrus limonum (lemon) peel oil, citrus aurantium dulcis (orange) peel oil; fragrance",
    "description": "Designed to be nourishing, light & non-greasy, this soft creamy serum contains herbal infusions, pure Aloe Vera, flax seed extract, nutritive sea vegetables, shea butter, and more.It's like a smoothie for your hair! Tired of styling products that provide hold but strip moisture with drying alcohols... or deliver crispety, crunchety, bulletproof hair? That control frizz but rob you of softness? Oyin Shine & Define is a new philosophy in styling products. Formulated from vegetable sources renowned",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
     "brillance",
-    "lissant"
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oyin-handmade/cutout/1-oz-shine-define-styling-serum.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oyin-handmade--honey-hemp-detangling-and-moisturizing-hair-conditioner",
@@ -493,10 +568,15 @@
    "ingredients": "purified water, organic aloe vera gel, behentrimonium methosulfate (and) cetearyl alcohol (emulsifier derived from colza oil), honey, virgin hemp oil, coconut oil, vegetable glycerine, hydrolized silk, citrus essences, fragrance, optiphen (preservative)",
    "description": "Our cult-favorite conditioner works wonders! Enriched with a powerhouse of ingredients, Honey Hemp naturally detangles by drenching your hair in pure honey, hempseed oil, and silk to nourish and replenish, bringing it back to life, while moisturizing every single strand. Why You Need It: Rinses rinses easily and detangles like a dream Leaves lasting moisture works to restore dry hair Excellent for kinky, coily, curly, and wavy textures Usage: Slather on clean, damp hair. Hum a tune. Detangle, us",
    "claims": [
-    "hydratant",
-    "nourrissant"
+    "hydratation",
+    "nutrition",
+    "definition-boucles",
+    "anti-gras",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oyin-handmade/cutout/honey-hemp-detangling-and-moisturizing-hair-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oyin-handmade--the-juices-hydrating-herbal-leave-ins",
@@ -512,15 +592,20 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "secs"
+    "secs",
+    "crepus"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "Don’t let dry hair get you down! Our natural herbal hair tonic is a scalp-satisfying tea of herbs that helps to condition and stimulate the scalp and is the perfect refresher for braids, twists, and locs. Why You Need It: Keeps hair moisturized without buildup Can be used as a daily refresher for all hair types Natural ingredients encourage hair growth and tone the scalp Great for low-porosity hair Gift yourself this spa treatment for your hair, available in three natural flavors: Frank Juice, G",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "croissance",
+    "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oyin-handmade/cutout/the-juices-hydrating-herbal-leave-ins.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

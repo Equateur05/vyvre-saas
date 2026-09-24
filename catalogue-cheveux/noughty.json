@@ -27,10 +27,13 @@
    "ingredients": "Aqua/Water/Eau, C15-19 Alkane, Cetearyl Alcohol, Polyquaternium-37, Brassicamidopropyl Dimethylamine, Hydroxypropylgluconamide, Citric Acid, Diisostearoyl Polyglyceryl-3 Dimer Dilinoleate, Phenoxyethanol, Caprylic/Capric Triglyceride, Hydroxypropylammonium Gluconate, Ceteareth-20, Chlorphenesin, Cocos Nucifera (Coconut) Fruit Extract, Hydrogenated Polyfarnesene, Ethylhexylglycerin, Fragrance (Parfum), Tartaric Acid, Benzyl Alcohol, Sodium Benzoate, Potassium Sorbate, Tocopherol, Sodium PCA, Sodium Lactate, Arginine, Aspartic Acid, PCA, Glycine, Alanine, Serine, Valine, Isoleucine, Proline, Threonine, Histidine, Phenylalanine, Coumarin, Vanillin, Citrus Aurantium Peel Oil, Tetramethyl Acetyloctahydronaphthalenes, Limonene, Hydroxycitronellal, Alpha-isomethyl Ionone Note - The lists of ingredients contained in t",
    "description": "Instant Damage Repair: Repairs and restores hair to a healthy state after just one use*. Enhanced Shine: Delivers 2x more shine and gloss, giving your hair a radiant finish. Restored Strength: Instantly restores your hair to its original, pre-damaged strength, improving resilience*. Immediate Transformation: Experience an instant revitalisation, bringing your hair back to its healthiest, most vibrant state. *When used as a regime vs. untreated hair.",
    "claims": [
-    "reparateur",
+    "reparation",
+    "fortifiant",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/noughty/cutout/lets-bond-leave-in-treatment.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "noughty--lets-bond-conditioner",
@@ -57,10 +60,13 @@
    "ingredients": "Aqua/Water/Eau, Cetearyl Alcohol, Brassicamidopropyl Dimethylamine, Glycerin, C15-19 Alkane, Phenoxyethanol, Glycolic Acid, Hydrogenated Polyfarnesene, Citric Acid, Chlorphenesin, Hydroxypropylgluconamide, Sodium PCA, Sodium Lactate, Hydroxypropylammonium Gluconate, Arginine, Aspartic Acid, Fragrance (Parfum), PCA, Sodium Phytate, Glycine, Alanine, Serine, Valine, Isoleucine, Proline, Threonine, Tartaric Acid, Benzyl Alcohol, Histidine, Phenylalanine, Sodium Benzoate, Potassium Sorbate. Note - The lists of ingredients contained in the c",
    "description": "Immediate Damage Repair: Reverses and repairs damaged hair, returning it to a healthy state after just one use*. Strength Boost: Increases hair strength by 70%, making it more resilient to daily stressors*. Breakage Reduction: Reduces hair breakage by 3 times, ensuring smoother, more manageable strands*. Restored Original Strength: Instantly restores hair to its original, pre-damaged strength, reviving its natural vitality*. *When used as a regime vs. untreated hair.",
    "claims": [
-    "reparateur",
-    "lissant"
+    "reparation",
+    "fortifiant",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/noughty/cutout/lets-bond-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "noughty--lets-bond-shampoo",
@@ -87,11 +93,14 @@
    "ingredients": "Aqua/Water/Eau, Cocamidopropyl Betaine, Sodium Cocoyl Methyl Isethionate, Glycerin, Phenoxyethanol, Sodium Methyl Isethionate, Sodium Lauroyl Sarcosinate, Coco-Glucoside, Coconut Acid, Lauryl Glucoside, Polyquaternium-6, Potassium Sorbate, Glycol Distearate, Sodium Cocoate, Fragrance (Parfum), Trisodium Ethylenediamine Disuccinate, Citric Acid, Hydroxypropylgluconamide, Hydroxypropylammonium Gluconate, Sodium PCA, Sodium Lactate, Sodium Chloride, Arginine, Aspartic Acid, PCA, Glycine, Alanine, Serine, Valine, Tartaric Acid, Isoleucine, Proline, Threonine, Benzyl Alcohol, Histidine, Phenylalanine, Sodium Benzoate. Note - The lists of ingredients contained in the com",
    "description": "Instant Damage Repair: Repairs and restores hair to a healthy condition after a single use*. Stronger Hair: Boosts hair strength by 70%, making it more resilient*. Breakage Reduction: Decreases hair breakage by 3 times, promoting smoother, more robust strands*. Colour Protection: Preserves vibrant hair colour for up to 30 washes, ensuring long-lasting shine. *When used as a regime vs. untreated hair.",
    "claims": [
-    "reparateur",
-    "brillance",
-    "lissant"
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/noughty/cutout/lets-bond-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "noughty--strands-away-flyaway-wand",
@@ -107,7 +116,7 @@
    "categorie": "autre-cheveux",
    "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "secs"
    ],
    "actifs": [
     "panthénol",
@@ -119,10 +128,13 @@
    "ingredients": "Aqua/Water/Eau, Polyacrylate Crosspolymer-6, Polyimide-1, Sclerocarya Birrea Seed Oil, Cocos Nucifera (Coconut) Oil, Argan Oil Glycereth-8 Esters, Panthenol, Polyglyceryl-4 Caprate, Trisodium Ethylenediamine Disuccinate, Sodium Benzoate, Potassium Sorbate, Citric Acid",
    "description": "Key Benefits: Frizz Reduction + Control: Effectively smoothes frizz and fly aways improving the alignment (way strands lie against each other) for a sleeker appearance. Multipurpose: This clever 2-in-1 tames brows, baby hair and flyaways giving back control. Natural-feel Hold: Keep stubborn flyaways, willful baby hairs and brows with a mind of their own where you put them with light, natural-feeling hold. Natural Ingredients: Formulated with moisturising oils of marula and coconut.",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "anti-frisottis",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/noughty/cutout/strands-away-flyaway-wand.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "noughty--howdy-curls-spring-back-gel-creme",
@@ -147,31 +159,15 @@
    "ingredients": "Aqua/Water/Eau, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Ceteareth-20, Cetearyl Alcohol, Glycerin, Triticum Vulgare (Wheat) Bran Extract, Corn Starch Modified, Acrylates/Palmeth25 Acrylate Copolymer, Acrylates/Beheneth-25 Methacrylate Copolymer, Pentylene Glycol, Polyimide-1, Fragrance (Parfum), Citrus Aurantium Amara (Bitter Orange) Leaf/Twig Oil, Chondrus Crispus Extract, Laminaria Digitata Extract, Crithmum Maritimum Extract, Citrus Limon (Lemon) Peel Oil, Trisodium Ethylenediamine Disuccinate, 1,2-Hexanediol, Potassium Sorbate, Phenoxyethanol, Caprylyl Glycol, Chlorphenesin, Ethylhexylglycerin, Benzyl Salicylate, Amyl Cinnamal, Linalool, Hydroxycitronellal, Geraniol, Eugenol, Citronellol, Limonene, Citric Acid, Sodium Hydroxide",
    "description": "Key Benefits: Restores Moisture: Replenishes moisture to enhance the cuticle barrier and moisture content for touchably soft curls. Curl Definition: Smoothes each cuticle (the surface of a hair strand) for more aligned and defined waves and curls. Lasting Hold: Provides rich, flexible and medium hold without flakes, crunch or stickiness for a natural feel. Natural Ingredients: Enriched with a blend of vitamin and mineral-rich sea botanicals including sea fennel and irish moss and wheat bran extr",
    "claims": [
-    "hydratant",
-    "lissant",
-    "definition-boucles"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "noughty--noughty-drawstring-bag",
-   "name": "Noughty Drawstring Bag",
-   "brand": "noughty",
-   "brand_name": "Noughty",
-   "url": "https://lovenoughty.com/products/noughty-drawstring-bag",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 7.82,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/1668/1791/files/Untitled_design_5.webp?width=600",
-   "image_local": "public/scan/products-cheveux/noughty/noughty-drawstring-bag.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Key Benefits: Storage: we all know how annoying it is to loose hair grips and scrunchie in the bottom of a bag. Why not keep them all in one place with our Noughty Draw String. Gift: Instead of one use wrapping paper why not put your haircare goodies in our Noughty Draw String bag. Two gifts in one!",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/noughty/cutout/howdy-curls-spring-back-gel-creme.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "noughty--1-hit-wonder-cleansing-conditioner",
@@ -186,7 +182,9 @@
    "image_local": "public/scan/products-cheveux/noughty/1-hit-wonder-cleansing-conditioner.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "huile de coco",
     "beurre de karité",
@@ -197,9 +195,14 @@
    "ingredients": "Aqua/Water/Eau, Glycerin, Cetearyl Alcohol, Cetyl Alcohol, Behentrimonium Chloride, Butyrospermum Parkii (Shea) Butter, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Stearamidopropyl Dimethylamine, Phenoxyethanol, Citric Acid, Behentrimonium Methosulfate, Coco-Glucoside, Cocos Nucifera (Coconut) Oil, Ricinus Communis (Castor) Seed Oil, Steareth-2, Steareth-21, Parfum (Fragrance), Sodium Benzoate, Disodium EDTA, Coumarin, Amyl Cinnamal",
    "description": "Key Benefits: Moisturizing: Conditions scalp and hair, improving moisture content and detangling. Gentle Cleansing: The Natural, sulphate-free and foam-free formula gently cleanses hair and scalp without stripping, ensuring an effective and conditioning wash. Scalp (health) Support: Washes away dirt and build up for a healthy-feeling, clean, moisturized scalp to support optimal scalp and hair condition. Natural Ingredients: A pampering blend of coconut, castor and sweet almond oils and shea butt",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "demelant",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/noughty/cutout/1-hit-wonder-cleansing-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "noughty--back-to-balance-shampoo",
@@ -215,8 +218,10 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
     "gras",
-    "fins"
+    "fins",
+    "pellicules"
    ],
    "actifs": [
     "panthénol",
@@ -227,13 +232,17 @@
     "acide citrique"
    ],
    "ingredients": "Aqua/Water/Eau, Cocamidopropyl Betaine, Sodium Cocoyl Methyl Isethionate, Glycerin, Sodium Lauroyl Sarcosinate, Sodium Methyl Isethionate, Sodium Cocoate, Coco-Glucoside, Zinc PCA, Panthenol, Eucalyptus Globulus (Eucalyptus) Leaf Oil, Melaleuca Alternifolia (Tea Tree) Flower/Leaf/Stem Oil, Mentha Spicata (Spearmint) Flower/Leaf/Stem Extract, Rosmarinus Officinalis (Rosemary) Leaf Extract, Coconut Acid, Parfum (Fragrance), Piroctone Olamine, Polyquaternium-7, Glycol Distearate, Trisodium Ethylenediamine Disuccinate, Phenoxyethanol, Potassium Sorbate, Sodium Benzoate, Limonene, Sodium Chloride, Citric Acid",
-   "description": "Key Benefits: Oil Control: Normalise sebum production and combat greasy roots and hair for better balance and more days between washes. Gently Cleanses: The Natural, sulphate free formula gently cleanses hair and scalp without stripping, ensuring an effective and nourishing wash. Volume Boost: Plumps hair by attracting moisture to plump the hair shaft. Promotes healthy looking volume through hydration. Natural Ingredients: Moisturising provitamin B5 and glycerine combine with tea tree essential ",
+   "description": "Key Benefits: Oil Control: Normalise sebum production and combat greasy roots and hair for better balance and more days between washes. Gently Cleanses: The Natural, sulphate free formula gently cleanses hair and scalp without stripping, ensuring an effective and nourishing wash. Volume Boost: Plumps hair by attracting moisture to plump the hair shaft. Promotes healthy looking volume through hydration. Natural Ingredients: Moisturising provitamin B5 and glycerine combine with tea tree essential",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "volume"
+    "hydratation",
+    "nutrition",
+    "volume",
+    "anti-gras",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/noughty/cutout/back-to-balance-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "noughty--detox-dynamo-scalp-scrub",
@@ -248,7 +257,11 @@
    "image_local": "public/scan/products-cheveux/noughty/detox-dynamo-scalp-scrub.jpg",
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "gras",
+    "pellicules"
+   ],
    "actifs": [
     "piroctone olamine",
     "huile de coco",
@@ -258,12 +271,17 @@
     "acide citrique"
    ],
    "ingredients": "Aqua/Water/Eau, Cocamidopropyl Betaine, Glycerin, Sodium Cocoyl Methyl Isethionate, Glyceryl Caprylate/Caprate, Benzyl Alcohol, Polyacrylate Crosspolymer-6, Pumice, Xanthan Gum, Bambusa Arundinacea Stem Powder, Sodium Lauroyl Sarcosinate, Sodium Methyl Isethionate, Potassium Sorbate, Parfum (Fragrance), Piroctone Olamine, Coconut Acid, Cocos Nucifera (Coconut) Shell Powder, Sodium Cocoate, Sodium Phytate, Citric Acid, Coffea Canephora Seed Extract, Mentha Piperita (Peppermint) Leaf Extract, Rumex Acetosella (Sorrel) Extract, Sodium Benzoate. Note - The lists of ingredients contained in the com",
-   "description": "Carefully curated natural ingredients to help cleanse and clarify our hardworking scalps. A trio of exfoliants, combined with peppermint and sorrel extract, work hard to remove follicle-clogging impurities, and break down pollution. PEPPERMINT EXTRACTReplenishes moisture, peppermint extract helps to purify and hydrate the hair. GREEN BAMBOO POWDERThis fine powder works to buff the scalp, powering the high polish of our blend of exfoliating particles. COCONUT SHELL POWDERWorks to loosen and lift ",
+   "description": "Carefully curated natural ingredients to help cleanse and clarify our hardworking scalps. A trio of exfoliants, combined with peppermint and sorrel extract, work hard to remove follicle-clogging impurities, and break down pollution. PEPPERMINT EXTRACTReplenishes moisture, peppermint extract helps to purify and hydrate the hair. GREEN BAMBOO POWDERThis fine powder works to buff the scalp, powering the high polish of our blend of exfoliating particles. COCONUT SHELL POWDERWorks to loosen and lift",
    "claims": [
-    "hydratant",
-    "purifiant"
+    "hydratation",
+    "nutrition",
+    "purifiant",
+    "brillance",
+    "anti-pollution"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/noughty/cutout/detox-dynamo-scalp-scrub.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "noughty--care-taker-scalp-relief-mask",
@@ -279,6 +297,7 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
+    "pellicules",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -291,9 +310,11 @@
    "ingredients": "Aqua/Water/Eau, Polyquaternium-37, Stearyl Alcohol, Glycerin, Coffea Arabica (Coffee) Seed Extract, Coffea Robusta Seed Extract, Bisabolol, Distearoylethyl Dimonium Chloride, Avena Sativa (Oat) Meal Extract, Benzyl Alcohol, Zingiber Officinale (Ginger) Root Extract, Parfum (Fragrance), Cetearyl Alcohol, Ceteareth-20, Piroctone Olamine, Chlorphenesin, Salicylic Acid, Sorbic Acid, Sodium Benzoate, Potassium Sorbate, Citric Acid, Amyl Cinnamal, Coumarin. Note - The lists of ingredients contained in the compositio",
    "description": "Carefully curated natural ingredients help soothe irritated scalps. The plant power in Care Taker Scalp Relief Mask includes: OATMEAL EXTRACTOatmeal extract is packed with scalp-soothing avenanthramides which helps calm and relieve the itch. BLACK COFFEE EXTRACTExtracted from a blend of Arabica and Robusta beans that provide a stimulating and antioxidant-rich cup of coffee to wake up the scalp. BISABOLOL Anti-irritant, calming and soothing bisabolol helps to relieve irritated skin and scalp. Esp",
    "claims": [
-    "apaisant"
+    "apaisant-cuir-chevelu"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/noughty/cutout/care-taker-scalp-relief-mask.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "noughty--wave-hello-curl-butter-3-in-1-treatment",
@@ -309,6 +330,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "boucles",
     "abimes"
    ],
@@ -322,11 +344,16 @@
    "ingredients": "Aqua/Water/Eau, Cetearyl Alcohol, Cocos Nucifera (Coconut) Oil, Butyrospermum Parkii (Shea) Butter, Behentrimonium Chloride, Salicylic Acid, Mangifera Indica (Mango) Seed Butter, Triticum Vulgare (Wheat) Protein, Chondrus Crispus (Carrageenan) Extract, Laminaria Digitata Extract, Crithmum Maritimum Extract, Citrus Aurantium Leaf Oil, Cetrimonium Chloride, Glycerin, Distearoylethyl Hydroxyethylmonium Methosulfate, Citric Acid, Potassium Sorbate, Trisodium Ethylenediamine Disuccinate, Citrus Aurantium Dulcis Peel Oil, Citrus Limon Peel Oil Expressed, Parfum (Fragrance), Sorbic Acid, 1,2-Hexanediol, Caprylyl Glycol, Benzoic Acid, Benzyl Alcohol, Benzyl Salicylate, Amyl Cinnamal, Linalool, Hydroxycitronellal. Note - The lists of ingredients contained in the",
    "description": "Carefully curated natural ingredients nurture curls helping to improve suppleness, smoothness and shine. In Wave Hello Curl Butter this includes: SEA KELP EXTRACTRich in vitamins, minerals and trace elements that provide support for the hair. GLIADIN WHEAT PROTEIN This smart protein attaches itself wherever hair is most damaged, delivering targeted improvement in the hair fibre’s strength, resistance, and elasticity. MANGO BUTTER Includes the luscious texture of mango butter, which contributes m",
    "claims": [
-    "brillance",
-    "lissant",
-    "fortifiant"
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/noughty/cutout/wave-hello-curl-butter-3-in-1-treatment.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "noughty--purple-reign-tone-correcting-shampoo",
@@ -341,7 +368,9 @@
    "image_local": "public/scan/products-cheveux/noughty/purple-reign-tone-correcting-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "acide salicylique",
     "glycérine",
@@ -350,10 +379,13 @@
    "ingredients": "Aqua/Water/Eau, Cocamidopropyl Betaine, Sodium Cocoyl Methyl Isethionate, Glycerin, Sodium Cocoamphoacetate, Vaccinium Angustifolium (Blueberry) Fruit Extract, Ribes Nigrum (Black Currant) Fruit Extract, Sodium Methyl Isethionate, Salicylic Acid, Sodium Laurate, Trisodium Ethylenediamine Disuccinate, Citric Acid, Sorbic Acid, Lauryl Glucoside, Parfum (Fragrance), Sodium Benzoate, Polyquaternium-10, Potassium Sorbate, Sodium Chloride, Sodium Hydroxide, Benzyl Alcohol, Acid Violet 43 Note - The lists of ingredients contained in the compo",
    "description": "Carefully curated ingredients help to gently cleanse and tone hair. The plant power in Purple Reign Shampoo includes:GLYCERINEA moisture maven – this humectant works to soften and smooth as well as helping hair retain its moistureBLUEBERRIES Whether in your breakfast bowl or haircare they hydrate and help keep hair looking and feeling healthy.BLACKCURRANTAn antioxidant powerhouse extracted to help hair replenish lost moisture This tone-correcting shampoo also contains:VIOLET PIGMENTSBalancing th",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/noughty/cutout/purple-reign-tone-correcting-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "noughty--frizz-magic-serum",
@@ -369,7 +401,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "secs",
+    "abimes"
    ],
    "actifs": [
     "protéines de blé",
@@ -384,10 +417,15 @@
    "ingredients": "Aqua/Water/Eau, C13-15 Alkane, Cetearyl Alcohol, Propanediol, Cetrimonium Chloride, Behentrimonium Chloride, Phenoxyethanol, Hydrolyzed Corn Protein, Hydrolyzed Soy Protein, Hydrolyzed Wheat Protein, Cocodimonium Hydroxypropyl Hydrolyzed Wheat Protein, Hydroxyethylcellulose, Trametes Versicolor Extract, Polyquaternium-37, Raphanus Sativus (Radish) Seed Extract, Cetearyl Nonanoate, Butyrospermum Parkii (Shea) Butter, Prunus Amygdalus Dulcis (Sweet Almond) Seed Extract, Camellia Oleifera Seed Oil, Helianthus Annuus (Sunflower) Seed Oil, Triticum Vulgare (Wheat) Bran Extract, Sclerocarya Birrea (Marula) Seed Oil, Citric Acid, Helianthus Annuus (Sunflower) Seed Extract, Leuconostoc/Radish Root Ferment Filtrate, Linoleic Acid, Glycerin, Parfum (Fragrance), Sodium Benzoate, Butylene Glycol, Ethylhexyl Isononanoate, Trisodium Ethylenediamine Disuccinate, Citrus Sinensis (Sweet Orange) Oil, Potassium Sorbate, Rosmarinus Officinalis (Rosemary) Leaf Extract, Linalool, Limonene, Hexyl Cinnamal. Note - The lists of ingredients contained in the comp",
    "description": "Carefully curated natural ingredients assist in trapping moisture in the hair shaft, helping to reduce dryness, damage and breakage. The plant power in the Frizz Magic serum includes:MARULA OILAn oil your hair will go simply nuts for. Rich in essential fatty acids, it helps to coat the hair and trap moisture in the shaft. DAIKON RADISH EXTRACT Exceeds the performance of traditional silicones to increase the manageability and combing process of your hair. Also adds super shine. Our daikon seed ex",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "anti-frisottis",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/noughty/cutout/frizz-magic-serum.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "noughty--frizz-magic-shampoo",
@@ -402,9 +440,7 @@
    "image_local": "public/scan/products-cheveux/noughty/frizz-magic-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [
     "acide salicylique",
     "glycérine",
@@ -416,11 +452,13 @@
    "ingredients": "Aqua (Water), Cocamidopropyl Betaine, Sodium Cocoyl Methyl Isethionate, Glycerin, Caprylyl/Capryl Glucoside, Sodium Methyl Isethionate, Raphanus Sativus (Radish) Seed Extract, Triticum Vulgare (Wheat) Bran Extract, Benzyl Alcohol, Lauryl Glucoside, Coconut Acid, Sclerocarya Birrea (Marula) Seed Oil, Camellia Oleifera Seed Oil, Helianthus Annuus (Sunflower) Seed Oil, Rosmarinus Officinalis (Rosemary) Leaf Extract, Potassium Sorbate, Citrus Sinensis (Sweet Orange) Oil, Parfum (Fragrance), Polyquaternium-10, Coco-Glucoside, Sodium Cocoate, Salicylic Acid, Glycol Distearate, Cetearyl Nonanoate, Trisodium Ethylenediamine Disuccinate, Ethylhexyl Isononanoate, Citric Acid, Sorbic Acid, Linoleic Acid, Sodium Chloride, Sodium Hydroxide, Linalool, Limonene, Hexyl Cinnamal, Citronellol. Note - The lists of ingredients contained in the composi",
    "description": "Carefully curated natural ingredients assist in building frizz control, helping to improve overall smoothness, static and manageability while adding shine. The plant power in the Frizz Magic shampoo includes: MARULA OILAn oil your hair will go simply nuts for. Rich in essential fatty acids, it helps to coat the hair and trap moisture in the shaft. DAIKON RADISH EXTRACT Exceeds the performance of traditional silicones to increase the manageability of your hair for easy combing- also adds super sh",
    "claims": [
-    "hydratant",
-    "brillance",
-    "lissant"
+    "hydratation",
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/noughty/cutout/frizz-magic-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "noughty--frizz-magic-conditioner",
@@ -436,7 +474,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "epais"
+    "secs"
    ],
    "actifs": [
     "huile de coco",
@@ -449,11 +487,13 @@
    "ingredients": "Aqua/Water/Eau, Cetearyl Alcohol, Glyceryl Stearate, Glycerin, Cetrimonium Chloride, Behentrimonium Chloride, Cocos Nucifera (Coconut) Oil, C15-19 Alkane, Triticum Vulgare (Wheat) Bran Extract, Raphanus Sativus (Radish) Seed Extract, Sclerocarya Birrea (Marula) Seed Oil, Camellia Oleifera Seed Oil, Helianthus Annuus (Sunflower) Seed Oil, Rosmarinus Officinalis (Rosemary) Leaf Extract, Linoleic Acid, Citrus Sinensis (Sweet Orange) Oil, Citric Acid, Phenoxyethanol, Cetearyl Nonanoate, Parfum (Fragrance), Chlorphenesin, Hydroxypropyl Guar Hydroxypropyltrimonium Chloride",
    "description": "Carefully curated natural ingredients assist in building frizz control, helping to improve overall smoothness and manageability while adding shine. The plant power in the Frizz Magic conditioner includes:COCONUT OILSolid at room temperature and melting around body temperature, this multitasker helps create luxurious textures while benefiting the hair’s condition.MARULA OILAn oil your hair will go simply nuts for. Rich in essential fatty acids, it helps to coat the hair and trap moisture in the s",
    "claims": [
-    "hydratant",
-    "brillance",
-    "lissant"
+    "hydratation",
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/noughty/cutout/frizz-magic-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "noughty--wave-hello-shampoo",
@@ -481,10 +521,14 @@
    "ingredients": "Aqua/Water/Eau, Cocamidopropyl Betaine, Sodium Lauroyl Sarcosinate, Glycerin, Sodium Lauroyl Methyl Isethionate, Sodium Chloride, Sodium Benzoate, Parfum (Fragrance), Potassium Sorbate, Polyquaternium-6, CocoGlucoside, Glycol Distearate, Trisodium Ethylenediamine Disuccinate, Sodium Phytate, Citrus Aurantium Dulcis (Orange) Peel Oil, Pelargonium Graveolens Flower Oil, Chondrus Crispus (Carrageenan) Extract, Citric Acid, Persea Gratissima (Avocado) Oil, Laminaria Digitata Extract, Crithmum Maritimum Extract, Benzyl Salicylate, Linalool, Butylphenyl Methylpropional. Note - The lists of ingredients containe",
    "description": "Carefully curated natural ingredients nurture curls helping to improve suppleness, smoothness and shine. In Wave Hello shampoo this includes: SEA KELP EXTRACT Rich in vitamins, minerals and trace elements that provide support for the hair.CHLORELLA EXTRACTFor manes in distress this adds a replenishing dose of amino acids, vitamins and minerals.AVOCADO OILRich in vitamins, this star oil gets its' green colour from chlorophylls and carotenoids contributing to protection from antioxidants.This curl",
    "claims": [
-    "brillance",
-    "lissant"
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/noughty/cutout/wave-hello-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "noughty--purple-reign-tone-correcting-conditioner",
@@ -499,7 +543,9 @@
    "image_local": "public/scan/products-cheveux/noughty/purple-reign-tone-correcting-conditioner.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "acide salicylique",
     "glycérine",
@@ -508,10 +554,13 @@
    "ingredients": "Aqua/Water/Eau, Cetearyl Alcohol, Stearyl Alcohol, Glycerin, Distearoylethyl Hydroxyethylmonium Methosulfate, Ribes Nigrum (Black Currant) Fruit Extract, Vaccinium Angustifolium (Blueberry) Fruit Extract, Sorbic Acid, Salicylic Acid, Trisodium Ethylenediamine Disuccinate, Potassium Sorbate, Sodium Benzoate, Behentrimonium Chloride, Cetrimonium Chloride, Parfum (Fragrance), C13-15 Alkane, Hydroxyethylcellulose, Polyquaternium-10, Dicaprylyl Ether, Citric Acid, Chlorphenesin, Lauryl Alcohol, Benzyl Alcohol, Acid Violet 43 Note - The lists of ingredients contained in the compo",
    "description": "Carefully curated ingredients help to hydrate and tone hair. The plant power in Purple Reign Conditioner includes:GLYCERINEA moisture maven – this humectant works to soften and smooth as well as helping hair retain its moisture.BLUEBERRIES Whether in your breakfast bowl or haircare they hydrate and help keep hair looking and feeling healthy.BLACKCURRANTAn antioxidant powerhouse extracted to help hair replenish lost moisture. This tone-correcting conditioner also contains:VIOLET PIGMENTSBalancing",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/noughty/cutout/purple-reign-tone-correcting-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "noughty--hey-curl-scrunching-jelly",
@@ -535,13 +584,18 @@
     "acide citrique"
    ],
    "ingredients": "Aqua (Water), Glycerin, Propanediol, Chondrus Crispus (Carrageenan) Extract, Laminaria Digitata Extract, Crithmum Maritimum Extract, Acrylates/Palmeth-25 Acrylate Copolymer, Polyquaternium-11, Acrylates/Beheneth-25 Methacrylate Copolymer, Citrus Aurantium Amara (Bitter Orange) Leaf/Twig Extract, Citric Acid, Potassium Sorbate, Citrus Aurantium Dulcis (Orange) Peel Extract, Citrus Medica Limonum (Lemon) Peel Extract, Polysorbate 20, Parfum (Fragrance), Sodium Hydroxide, Ethylhexylglycerin, Phenoxyethanol. Note - The lists of ingredients contained in the comp",
-   "description": "Carefully curated natural ingredients provide ultimate curl power. The plant power in Hey Curl Scrunching Gel includes:SEA FENNELHydrates and smooths the cuticle. Smooth cuticles = reflect more light which creates major shine and controlled curls.IRISH MOSSDry hair beware. This super sea ingredient softens hair and replenishes lost moisture.This medium hold hair gel is also powered by:COPOLYMERSThis clever technology powers the hold. Part of the 3% synthetic ingredients, they attract individual ",
+   "description": "Carefully curated natural ingredients provide ultimate curl power. The plant power in Hey Curl Scrunching Gel includes:SEA FENNELHydrates and smooths the cuticle. Smooth cuticles = reflect more light which creates major shine and controlled curls.IRISH MOSSDry hair beware. This super sea ingredient softens hair and replenishes lost moisture.This medium hold hair gel is also powered by:COPOLYMERSThis clever technology powers the hold. Part of the 3% synthetic ingredients, they attract individual",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
     "brillance",
-    "lissant"
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/noughty/cutout/hey-curl-scrunching-jelly.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "noughty--hello-curls-define-reshape-curl-primer",
@@ -570,8 +624,14 @@
    ],
    "ingredients": "Aqua/Water/Eau, Glycerin, Cetearyl Alcohol, Butyrospermum Parkii (Shea Butter), Persea Gratissima (Avocado) Oil, Camellia Oleifera Seed Oil, Hydrolyzed Wheat Protein, Triticum Vulgare (Wheat) Bran Extract, Crithmum Maritimum Extract, Laminaria Digitata Extract, Chondrus Crispus (Carrageenan) Extract, Corn Starch Modified, Coco-Caprylate, Glycine, Alanine, Serine, Valine, Citrus Aurantium Dulcis (Orange) Peel Extract, Citrus Medica Limonum (Lemon) Peel Extract, Citrus Aurantium Amara (Bitter Orange) Leaf/Twig Extract, Parfum (Fragrance), Phenoxyethanol, Behentrimonium Chloride, Brassicamidopropyl Dimethylamine, Polyquaternium-37, Cetearyl Nonanoate, Cetrimonium Chloride, Ethylhexylglycerin, Sodium PCA, Sodium Lactate, Ethylhexyl Isononanoate, Arginine, Aspartic Acid, PCA, Linoleic Acid, PVP, Sodium Benzoate, Isoleucine, Proline, Threonine, Histidine, Phenylalanine, Citric Acid, Potassium Sorbate, Benzyl Salicylate, Amyl Cinnamal, Linalool, Hydroxycitronellal, Geraniol, Eugenol, Citronellol, Limonene Note - The lists of ingredients contained in the composition",
    "description": "Carefully curated natural ingredients help to style waves and/or prep curls for styling. The plant power in Hello Curls Curl Primer includes: SEA KELP EXTRACT Rich in vitamins, minerals and trace elements that provide support for the hair. AVOCADO OILRich in vitamins, this star oil gets its' green colour from chlorophylls and carotenoids which help protect from antioxidants.SHEA BUTTERSolid at room temperature and melting around body temperature, this dreamy butter helps create luxurious texture",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "nutrition",
+    "definition-boucles",
+    "texturisant"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/noughty/cutout/hello-curls-define-reshape-curl-primer.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "noughty--thirst-aid-conditioning-detangling-spray",
@@ -586,7 +646,10 @@
    "image_local": "public/scan/products-cheveux/noughty/thirst-aid-conditioning-detangling-spray.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "abimes"
+   ],
    "actifs": [
     "panthénol",
     "huile d'argan",
@@ -598,9 +661,14 @@
    "ingredients": "Aqua/Water/Eau, Glycerin, Argania Spinosa Kernel Oil, Butyrospermum Parkii (Shea Butter), Cetearyl Alcohol, Helianthus Annuus (Sunflower) Seed Extract, Prunus Amygdalus Dulcis (Sweet Almond) Extract, Coco-Caprylate, Panthenol, Phenoxyethanol, Behentrimonium Chloride, Brassicamidopropyl Dimethylamine, Polyquaternium-37, Parfum (Fragrance), Cetrimonium Chloride, Ethylhexylglycerin, Phytantriol, Potassium Sorbate, Sodium Benzoate, Citric Acid, Linalool, Coumarin. Note - The lists of ingredients contained in the compositio",
    "description": "Carefully curated natural ingredients assist in trapping moisture in the hair shaft, helping to reduce dryness, damage and breakage. The plant power in Thirst Aid includes:SWEET ALMOND EXTRACTA heavyweight to replenish lost moisture. Because when it comes to hair fibres, moisture=strength.ARGAN OILA gem sourced responsibly from Essaouira, Morocco, is rich in vitamin E that helps to increase elasticity.SHEA BUTTERA body temperature melting point that helps us create luxurious textures while benef",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/noughty/cutout/thirst-aid-conditioning-detangling-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "noughty--wave-hello-curl-taming-cream",
@@ -616,7 +684,6 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
     "boucles"
    ],
    "actifs": [
@@ -626,10 +693,15 @@
    "ingredients": "Aqua/Water/Eau, Cetearyl Alcohol, Glycerin, Dicaprylyl Ether, Distearoylethyl Hydroxyethylmonium Methosulfate, Corn Starch Modified, Ceteareth-20, Parfum (Fragrance), Benzyl Alcohol, Chlorphenesin, Cetearyl Nonanoate, Triticum Vulgare (Wheat) Bran Extract, Disodium EDTA, Mangifera Indica (Mango) Seed Butter, Ethylhexyl Isononanoate, PVP, Dehydroacetic Acid, Linoleic Acid, Chondrus Crispus (Carrageenan) Extract, Laminaria Digitata Extract, Citrus Aurantium Amara (Bitter Orange) Leaf/Twig Extract, Camellia Oleifera Seed Oil, Crithmum Maritimum Extract, Citrus Aurantium Dulcis (Orange) Peel Extract, Citrus Medica Limonum (Lemon) Peel Extract, Citric Acid, Potassium Sorbate, Sodium Hydroxide, Benzyl Salicylate, Amyl Cinnamal, Linalool, Hydroxycitronellal. Note - The lists of ingredients contained in the",
    "description": "Carefully curated plant oils nurture curls helping to improve suppleness, smoothness and shine. In Wave Hello Taming Cream this includes: SEA KELP EXTRACT Rich in vitamins, minerals and trace elements that provide support for the hair. MANGO BUTTERLoaded with vitamin A and E this fruity butter melts at body temperature giving a luscious texture that contributes to feel and performance.This smoothing curl cream also contains:QUINOXYNoughty’s curl optimizing formula defines curls and reduces frizz",
    "claims": [
-    "brillance",
-    "lissant"
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/noughty/cutout/wave-hello-curl-taming-cream.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "noughty--wave-hello-conditioner",
@@ -660,11 +732,15 @@
    "ingredients": "Aqua/Water/Eau, Cetearyl Alcohol, Cocos Nucifera (Coconut) Oil, Glyceryl Stearate, Cetrimonium Chloride, Butyrospermum Parkii (Shea) Butter, Coco-Caprylate, Glycerin, Olea Europaea (Olive) Fruit Oil, Parfum (Fragrance), Phenoxyethanol, Sodium Benzoate, Citric Acid, Persea Gratissima (Avocado) Oil, Ethylhexylglycerin, Sodium Phytate, Chondrus Crispus (Carrageenan) Extract, Laminaria Digitata Extract, Citrus Aurantium Dulcis (Orange) Peel Oil, Pelargonium Graveolens Flower Oil, Crithmum Maritimum Extract, Potassium Sorbate, Benzyl Salicylate, Linalool, Butylphenyl Methylpropional. Note - The lists of ingredients containe",
    "description": "Carefully curated natural ingredients nurture curls, helping to improve suppleness, smoothness and shine. In Wave Hello Conditioner this includes: SEA FENNELHydrates and smooths the cuticle. Smooth cuticles = reflect more light which creates major shine and controlled curls.IRISH MOSSDry hair beware. This super sea ingredient softens hair and replenishes lost moisture.AVOCADO OILRich in vitamins, this star oil gets its' green colour from chlorophylls and carotenoids contributing to protection fr",
    "claims": [
-    "hydratant",
-    "brillance",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/noughty/cutout/wave-hello-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "noughty--to-the-rescue-shampoo",
@@ -679,7 +755,10 @@
    "image_local": "public/scan/products-cheveux/noughty/to-the-rescue-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "abimes"
+   ],
    "actifs": [
     "glycérine",
     "acides aminés",
@@ -690,9 +769,14 @@
    "ingredients": "Aqua/Eau/Water, Cocamidopropyl Betaine, Sodium Lauroyl Methyl Isethionate, Sodium Lauroyl Sarcosinate, Glycerin, Helianthus Annuus (Sunflower) Seed Extract, Prunus Amygdalus Dulcis (Sweet Almond) Seed Extract, Coco-Glucoside, Glycol Distearate, Wheat Amino Acids, Citric Acid, Tocopherol, Parfum (Fragrance), Polyquaternium-6, Sodium Hydroxymethylglycinate, Trisodium Ethylenediamine Disuccinate, Potassium Sorbate, Disodium EDTA, Sodium Phytate, Sodium Benzoate, Sodium Chloride, Phenoxyethanol, Linalool, Coumarin. Note - The lists of ingredients contained in the compositio",
    "description": "Carefully curated natural ingredients assist in trapping moisture in the hair shaft, helping to reduce dryness, damage and breakage. The plant power in the To The Rescue shampoo includes:SUNFLOWER SEED EXTRACTUltimate flower power. This hydrating seed extract helps to create healthy looking hair by putting back some of what the modern environment sucks out of hair fibres.SWEET ALMOND EXTRACTA heavyweight to replenish lost moisture. Because, when it comes to hair fibres, moisture=strength. Increa",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/noughty/cutout/to-the-rescue-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "noughty--to-the-rescue-anti-frizz-serum",
@@ -707,7 +791,10 @@
    "image_local": "public/scan/products-cheveux/noughty/to-the-rescue-anti-frizz-serum.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "abimes"
+   ],
    "actifs": [
     "panthénol",
     "huile d'argan",
@@ -721,10 +808,14 @@
    "ingredients": "Aqua/Water/Eau, Alcohol Denat., Propanediol, Argan Oil Glycereth-8 Esters, Polyglyceryl-4 Caprate, Hydroxyethylcellulose, Hydrolyzed Corn Protein, Hydrolyzed Soy Protein, Hydrolyzed Wheat Protein, Benzyl Alcohol, Citric Acid, Trametes Versicolor Extract, Pentylene Glycol, Glycerin, Polyquaternium-6, Polyquaternium-46, Chlorphenesin, Parfum (Fragrance), Panthenol, Helianthus Annuus (Sunflower) Seed Extract, Prunus Amygdalus Dulcis Extract, Leuconostoc/Radish Root Ferment Filtrate, Dehydroacetic Acid, Triticum Vulgare (Wheat) Bran Extract, Caprylyl Glycol, 1, 2-Hexanediol, Potassium Sorbate, Sodium Benzoate, Phenoxyethanol, Phenylpropanol, Tocopherol, Linalool, Coumarin. Note - The lists of ingredients contained in the compositio",
    "description": "Carefully curated natural ingredients assist in trapping moisture in the hair shaft, helping to reduce dryness, damage and breakage. The plant power in the serum includes:PROTEINSA triple threat of soy, corn and wheat proteins work together to strengthen hair, helping it hang onto more moisture and be less porous.WHEAT BRAN EXTRACTSplits and snaps beware. This wonder ingredient improves comb-ability and adds gloss to lifeless locks. MUSHROOM EXTRACT Great at breakfast, miraculous for the hair. C",
    "claims": [
-    "hydratant",
-    "fortifiant"
+    "hydratation",
+    "reparation",
+    "fortifiant",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/noughty/cutout/to-the-rescue-anti-frizz-serum.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "noughty--to-the-rescue-intense-moisture-treatment",
@@ -740,7 +831,8 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
-    "epais"
+    "secs",
+    "abimes"
    ],
    "actifs": [
     "huile d'argan",
@@ -753,10 +845,14 @@
    "ingredients": "Aqua/Water/Eau, Cetearyl Alcohol, Glycerin, Butyrospermum Parkii (Shea Butter), Coco-Caprylate, Cocos Nucifera (Coconut) Oil, Behentrimonium Chloride, Limnanthes Alba (Meadowfoam) Seed Oil, Cetrimonium Chloride, Phenoxyethanol, Parfum (Fragrance), Potassium Sorbate, Citric Acid, Argania Spinosa Kernel Oil, Sodium Phytate, Caramel, Helianthus Annuus (Sunflower) Seed Extract, Prunus Amygdalus Dulcis Extract, Avena Strigosa Seed Extract, Lecithin, Sodium Benzoate, Linalool, Coumarin Note - The lists of ingredients contained in the composition",
    "description": "Carefully curated natural ingredients assist in trapping moisture in the hair shaft, helping to reduce dryness, damage and breakage. The plant power in the To The Rescue treatment mask includes:BLACK OAT + LECITHIN EXTRACTLike a club bouncer for your hair, lecithin enhances the hair’s natural barrier, smoothing each shaft to renew its surface. Black oats are packed with natural water reservoirs while the polymers act to create a restructuring film on the hair. This blend has been shown to help i",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/noughty/cutout/to-the-rescue-intense-moisture-treatment.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "noughty--to-the-rescue-conditioner",
@@ -771,7 +867,10 @@
    "image_local": "public/scan/products-cheveux/noughty/to-the-rescue-conditioner.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "abimes"
+   ],
    "actifs": [
     "huile de coco",
     "beurre de karité",
@@ -785,9 +884,14 @@
    "ingredients": "Aqua/Water/Eau, Cetearyl Alcohol, Cocos Nucifera (Coconut) Oil, Glyceryl Stearate, Glycerin, Butyrospermum Parkii (Shea) Butter, Coco-Caprylate, Cetrimonium Chloride, Olea Europaea (Olive) Fruit Oil, Phenoxyethanol, Sodium Benzoate, Parfum (Fragrance), Citric Acid, Ethylhexylglycerin, Sodium Phytate, Sodium Chloride, Wheat Amino Acids, Helianthus Annuus (Sunflower) Seed Extract, Prunus Amygdalus Dulcis (Sweet Almond) Seed Extract, Tocopherol, Potassium Sorbate, Disodium EDTA, Linalool, Coumarin Note - The lists of ingredients contained in the composition",
    "description": "Carefully curated natural ingredients assist in trapping moisture in the hair shaft, helping to reduce dryness, damage and breakage. The plant power in the To The Rescue Conditioner includes:SWEET ALMOND EXTRACTA heavyweight to replenish lost moisture. Because, when it comes to hair fibres, moisture=strength. Increasing the moisture content of hair is important for increasing its elasticity and strength.OLIVE OIL Loaded with Omega 6 fatty acids for intense moisturization. COCONUT OIL & SHEA BUTT",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/noughty/cutout/to-the-rescue-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "noughty--pumped-up-volumizing-shampoo",
@@ -813,10 +917,12 @@
    "ingredients": "Aqua/Water/Eau, Cocamidopropyl Betaine, Sodium Lauroyl Methyl Isethionate, Glycerin, Lauryl Glucoside, Sodium Chloride, Sodium Lauroyl Sarcosinate, Parfum (Fragrance), Laureth-7 Citrate, DMDM Hydantoin, Disodium EDTA, Trisodium Ethylenediamine Disuccinate, Coco-Glucoside, Lauryl Betaine, Glycol Distearate, Panthenol, Sodium Benzoate, Polyquaternium-6, Vitis Vinifera (Grape) Juice, Citrus Limon (Lemon) Fruit Oil, Citrus Reticulata (Tangerine) Leaf Oil, Citrus Sinensis (Sweet Orange) Oil, Potassium Sorbate, Ficus Carica (Fig) Fruit Extract, Garcinia Mangostana Fruit Extract, Passiflora Incarnata Extract, Rosa Damascena Flower Extract, Sodium Hydroxide, Citric Acid, Limonene, Benzyl Benzoate, Linalool, Geraniol. Note - The lists of ingredients contained in the compositio",
    "description": "Carefully curated natural ingredients add volume without weighing hair down. The plant power in Pumped Up includes:VITAMIN B5Aka pantothenic acid or panthenol, it’s a humectant, penetrating the cuticle where it attracts moisture to plump the shaft. The result: amped up volume with hydration.RED GRAPE EXTRACT No hangovers here. Infamous for its super protective antioxidants, red grape is hydrating in haircare.FIG + MANGOSTEEN EXTRACTSA blend of fig extract, from fruit rich in magnesium and vitami",
    "claims": [
-    "hydratant",
+    "hydratation",
     "volume"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/noughty/cutout/pumped-up-volumizing-shampoo.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "noughty--pumped-up-volumising-conditioner",
@@ -842,10 +948,12 @@
    "ingredients": "Aqua/Water/Eau, Cetearyl Alcohol, Glyceryl Stearate, Glycerin, Behentrimonium Chloride, Coco-Caprylate, Stearamidopropyl Dimethylamine, Cetrimonium Chloride, Phenoxyethanol, Citric Acid, Sodium Benzoate, Parfum (Fragrance),Hydroxypropyl Guar Hydroxypropyltrimonium Chloride, Disodium EDTA, Panthenol, Vitis Vinifera (Grape) Juice, Citrus Limon (Lemon) Fruit Oil, Citrus Reticulata (Tangerine) Leaf Oil, Citrus Sinensis (Sweet Orange) Oil, Potassium Sorbate, Limonene, Benzyl Benzoate, Linalool. Note - The lists of ingredients contained in the compositio",
    "description": "Carefully curated natural ingredients add volume without weighing hair down. The plant power in Pumped Up includes:VITAMIN B5Aka acid or panthenol, is a humectant, penetrating the cuticle where it attracts moisture to plump the hair shaft. The result: amped up volume with hydration.RED GRAPE EXTRACT No hangovers here. Infamous for its super protective antioxidants, red grape is hydrating in haircare.GLYCERINENatural source glycerine is rich in moisture-attracting humectants which pull water into",
    "claims": [
-    "hydratant",
+    "hydratation",
     "volume"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/noughty/cutout/pumped-up-volumising-conditioner.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "noughty--intensive-care-conditioner",
@@ -860,7 +968,10 @@
    "image_local": "public/scan/products-cheveux/noughty/intensive-care-conditioner.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "abimes"
+   ],
    "actifs": [
     "huile d'argan",
     "beurre de karité",
@@ -873,9 +984,13 @@
    "ingredients": "Aqua/Water/Eau, Cetearyl Alcohol, Polyquaternium-37, Brassicamidopropyl Dimethylamine, Aspartic Acid, Ceteareth-20, Chlorphenesin, Parfum (Fragrance), Dicaprylyl Ether, Argania Spinosa Kernel Oil, Butyrospermum Parkii (Shea) Butter, Lauryl Alcohol, Dehydroacetic Acid, Glycerin, Sodium Chloride, Wheat Amino Acids, Helianthus Annuus (Sunflower) Seed Extract, Prunus Amygdalus Dulcis (Sweet Almond) Seed Extract, Tocopherol, Potassium Sorbate, Sodium Benzoate, Disodium EDTA, Phenoxyethanol, Citric Acid, Benzyl Alcohol, Linalool, Coumarin. Note - The lists of ingredients contained in the compositio",
    "description": "Carefully curated natural ingredients assist in trapping moisture in the hair shaft, helping to reduce dryness, damage and breakage. The plant power in Intensive Care includes:VITAMIN EA powerful antioxidant that protects hair from environmental stressors, aka the bane of our mane’s lives! We use natural source where possible as it’s twice as effective as the synthetic equivalent = more protection for the same amount of vitamin.ARGAN OILA gem sourced responsibly from Essaouira, Morocco, is nan o",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "reparation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/noughty/cutout/intensive-care-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "noughty--detox-dynamo",
@@ -890,7 +1005,10 @@
    "image_local": "public/scan/products-cheveux/noughty/detox-dynamo.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "gras"
+   ],
    "actifs": [
     "glycérine",
     "menthol",
@@ -899,10 +1017,13 @@
    "ingredients": "Aqua/Water/Eau, Cocamidopropyl Betaine, Glycerin, Sodium Lauroyl Methyl Isethionate, Sodium Lauroyl Sarcosinate, Sodium Chloride, Sodium Benzoate, Parfum (Fragrance), Potassium Sorbate, Coco-Glucoside, Glycol Distearate, Trisodium Ethylenediamine Disuccinate, Sodium Phytate, Citric Acid, Cucumis Sativus (Cucumber) Fruit Extract, Moringa Oleifera Seed Oil, Beta Vulgaris (Beet) Root Extract, Mentha Piperita (Peppermint) Leaf Extract, Rumex Acetosella (Sorrel) Extract, Phenoxyethanol Note - The lists of ingredients contained in the compo",
    "description": "Carefully curated natural ingredients help to gently cleanse and clarify hair that's struggling with build-up. The plant power in Detox Dynamo Shampoo includes:SUGAR BEET EXTRACTKeeping it sweet, it’s loaded with sugars, minerals and betanin to condition the hair.PEPPERMINT & SORREL EXTRACTSA refresh for your scalp. Peppermint and sorrel extracts help to replenish lost moisture.This deep cleanse shampoo also contains:SODIUM PHTATE and TRISODIUM ENTHYENEDIAMENE DISUCCINATEClarifying agents that l",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "nutrition",
     "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/noughty/cutout/detox-dynamo.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

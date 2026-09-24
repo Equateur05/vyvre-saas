@@ -16,6 +16,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "fins",
     "chute"
    ],
    "actifs": [
@@ -24,11 +25,15 @@
    "ingredients": null,
    "description": "Renversez la chute de cheveux et retrouvez votre densité capillaire avec le shampoing antichute fortifiant et stimulant à la Quinine extraite du Quinquina médicinal de Klorane, qui réduit la chute de cheveux de 60%* et redonne force et vitalité aux cheveux fatigués.",
    "claims": [
+    "fortifiant",
     "volume",
-    "anti-chute",
-    "fortifiant"
+    "densifiant",
+    "anti-chute"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/antichute-shampoing-fortifiant-et-stimulant-a-la-quinine.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--antichute-apres-shampoing-fortifiant-et-stimulant-a-la-quinine",
@@ -41,10 +46,11 @@
    "price_source": null,
    "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5sj93s7jntprhj7itwm8f1surxeay/u5wa3z31qn5sj93s7jntprhj7itwm8f1surxeay?t=resize&width=300&height=300",
    "image_local": "public/scan/products-cheveux/klorane/antichute-apres-shampoing-fortifiant-et-stimulant-a-la-quinine.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
-    "epais",
+    "fins",
+    "abimes",
     "chute"
    ],
    "actifs": [
@@ -53,37 +59,16 @@
    "ingredients": null,
    "description": "Renversez la chute de cheveux et retrouvez votre densité capillaire avec notre après-shampoing antichute fortifiant et stimulant à la Quinine extraite du Quinquina médicinal, qui freine la chute, réduit la casse de 61%* dès la 1ère utilisation, tout en rendant vos cheveux plus forts et plus épais.",
    "claims": [
+    "reparation",
+    "fortifiant",
     "volume",
-    "anti-chute",
-    "fortifiant"
-   ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
-  },
-  {
-   "id": "klorane--antichute-complement-alimentaire",
-   "name": "Antichute - Complément alimentaire",
-   "brand": "klorane",
-   "brand_name": "Klorane",
-   "url": "https://www.klorane.com/fr-fr/p/antichute-complement-alimentaire-3282770399257-14c39aab",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5sj93s7jntprhj7sajyt6owsimkha/u5wa3z31qn5sj93s7jntprhj7sajyt6owsimkha?t=resize&width=300&height=300",
-   "image_local": "public/scan/products-cheveux/klorane/antichute-complement-alimentaire.jpg",
-   "categorie": "traitement-chute",
-   "etape": 4,
-   "cheveux_cibles": [
-    "chute"
-   ],
-   "actifs": [
-    "kératine"
-   ],
-   "ingredients": null,
-   "description": "Riche en micronutriments* et contenant de la Kératine et des extraits de prêle des champs et quinquina, notre complément alimentaire Antichute agit de l’intérieur pour prévenir la chute de cheveux et aider à maintenir des cheveux forts et en bonne santé**.",
-   "claims": [
+    "densifiant",
     "anti-chute"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/antichute-apres-shampoing-fortifiant-et-stimulant-a-la-quinine.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--antichute-traitement-fortifiant-intense",
@@ -99,6 +84,7 @@
    "categorie": "traitement-chute",
    "etape": 4,
    "cheveux_cibles": [
+    "fins",
     "chute"
    ],
    "actifs": [
@@ -107,11 +93,14 @@
    "ingredients": null,
    "description": "Renversez la chute de cheveux et retrouvez votre densité capillaire avec notre traitement antichute fortifiant intense à la Quinine extraite du Quinquina médicinal, qui freine la chute de 67%* et redonne force et vitalité aux cheveux fatigués, tout en les protégeant des effets néfastes liés au stress.",
    "claims": [
+    "fortifiant",
     "volume",
-    "anti-chute",
-    "fortifiant"
+    "densifiant",
+    "anti-chute"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/antichute-traitement-fortifiant-intense.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--antipelliculaire-shampoing-traitant-et-reequilibrant",
@@ -133,9 +122,13 @@
    "ingredients": null,
    "description": "Le Shampoing Traitant et Rééquilibrant au Galanga médicinal élimine jusqu’à 100 %* des pellicules visibles, sèches ou grasses, même les plus persistantes.",
    "claims": [
-    "anti-pellicules"
+    "antipelliculaire",
+    "anti-gras"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/antipelliculaire-shampoing-traitant-et-reequilibrant.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--antipelliculaire-traitement-anti-demangeaisons",
@@ -149,7 +142,7 @@
    "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5sefkqjbgrndhck6bw6yuona5k75o/u5wa3z31qn5sefkqjbgrndhck6bw6yuona5k75o?t=resize&width=300&height=300",
    "image_local": "public/scan/products-cheveux/klorane/antipelliculaire-traitement-anti-demangeaisons.jpg",
    "categorie": "anti-pellicules",
-   "etape": 1,
+   "etape": 4,
    "cheveux_cibles": [
     "pellicules",
     "cuir-chevelu-sensible"
@@ -158,10 +151,13 @@
    "ingredients": null,
    "description": "Le Traitement Antipelliculaire Anti-démangeaisons au Galanga médicinal apaise instantanément le cuir chevelu, réduit les démangeaisons tout en favorisant l'élimination des pellicules.",
    "claims": [
-    "apaisant",
-    "anti-pellicules"
+    "antipelliculaire",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/antipelliculaire-traitement-anti-demangeaisons.webp",
+   "image_fond": true,
+   "ciblage_source": "fiche"
   },
   {
    "id": "klorane--extra-doux-apres-shampoing-quotidien-et-haute-tolerance",
@@ -174,14 +170,18 @@
    "price_source": null,
    "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5se8widm1tmhztm8anwacazis1bto/u5wa3z31qn5se8widm1tmhztm8anwacazis1bto?t=resize&width=300&height=300",
    "image_local": "public/scan/products-cheveux/klorane/extra-doux-apres-shampoing-quotidien-et-haute-tolerance.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [],
    "actifs": [],
    "ingredients": null,
    "description": "Cet Après-shampoing quotidien et haute tolérance à l'Avoine médicinale Bio démêle, protège et adoucit les cheveux de toute la famille, dès 3 ans.",
-   "claims": [],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "claims": [
+    "demelant"
+   ],
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/extra-doux-apres-shampoing-quotidien-et-haute-tolerance.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--reflets-blonds-apres-shampoing-illuminateur-et-adoucissant",
@@ -194,19 +194,26 @@
    "price_source": null,
    "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5se8widm1tmhztmgmc9fkm5o59h1y/u5wa3z31qn5se8widm1tmhztmgmc9fkm5o59h1y?t=resize&width=300&height=300",
    "image_local": "public/scan/products-cheveux/klorane/reflets-blonds-apres-shampoing-illuminateur-et-adoucissant.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
-    "colores"
+    "colores",
+    "cuir-chevelu-sensible"
    ],
-   "actifs": [],
+   "actifs": [
+    "camomille"
+   ],
    "ingredients": null,
    "description": "L’Après-Shampoing illuminateur et adoucissant d'origine naturelle* à la Camomille médicinale démêle et hydrate les cheveux blonds, apporte brillance et reflets dorés.",
    "claims": [
-    "hydratant",
-    "brillance"
+    "hydratation",
+    "brillance",
+    "demelant"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/reflets-blonds-apres-shampoing-illuminateur-et-adoucissant.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--dejaunissant-apres-shampoing-neutralisateur-et-raviveur",
@@ -219,8 +226,8 @@
    "price_source": null,
    "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5sjstmpia9mjbsrexuee5jn54fmie/u5wa3z31qn5sjstmpia9mjbsrexuee5jn54fmie?t=resize&width=300&height=300",
    "image_local": "public/scan/products-cheveux/klorane/dejaunissant-apres-shampoing-neutralisateur-et-raviveur.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
     "colores"
    ],
@@ -228,9 +235,13 @@
    "ingredients": null,
    "description": "L'Après-Shampoing neutralisateur et raviveur ravive l’éclat des cheveux gris, blancs ou blonds platine en neutralisant immédiatement* le jaunissement.",
    "claims": [
-    "brillance"
+    "brillance",
+    "anti-jaunissement"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/dejaunissant-apres-shampoing-neutralisateur-et-raviveur.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--eclat-couleur-apres-shampoing-raviveur-et-prolongateur",
@@ -243,8 +254,8 @@
    "price_source": null,
    "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5sjb794d9qy5n194utdib5qkw1mwo/u5wa3z31qn5sjb794d9qy5n194utdib5qkw1mwo?t=resize&width=300&height=300",
    "image_local": "public/scan/products-cheveux/klorane/eclat-couleur-apres-shampoing-raviveur-et-prolongateur.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
     "secs",
     "colores"
@@ -253,10 +264,14 @@
    "ingredients": null,
    "description": "L’Après-shampoing raviveur et prolongateur à la Grenade médicinale démêle et nourrit les cheveux colorés tout en prolongeant naturellement leur éclat.",
    "claims": [
-    "nourrissant",
-    "brillance"
+    "nutrition",
+    "brillance",
+    "demelant"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/eclat-couleur-apres-shampoing-raviveur-et-prolongateur.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--nutrition-apres-shampoing-nourrissant-et-eclat",
@@ -269,8 +284,8 @@
    "price_source": null,
    "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5se8widm1tmhztmrsstfa4odhhcny/u5wa3z31qn5se8widm1tmhztmrsstfa4odhhcny?t=resize&width=300&height=300",
    "image_local": "public/scan/products-cheveux/klorane/nutrition-apres-shampoing-nourrissant-et-eclat.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
     "secs"
    ],
@@ -278,10 +293,13 @@
    "ingredients": null,
    "description": "L’Après-shampoing nourrissant et éclat à la Mangue médicinale est un soin pour cheveux secs et gourmands de nutrition. Dès 3 ans.",
    "claims": [
-    "nourrissant",
+    "nutrition",
     "brillance"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/nutrition-apres-shampoing-nourrissant-et-eclat.webp",
+   "image_fond": true,
+   "ciblage_source": "fiche"
   },
   {
    "id": "klorane--apaisant-apres-shampoing-anti-irritation-et-protecteur",
@@ -294,8 +312,8 @@
    "price_source": null,
    "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5se8widm1tmhztmr1g7a1mjar9ere/u5wa3z31qn5se8widm1tmhztmr1g7a1mjar9ere?t=resize&width=300&height=300",
    "image_local": "public/scan/products-cheveux/klorane/apaisant-apres-shampoing-anti-irritation-et-protecteur.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
     "cuir-chevelu-sensible"
    ],
@@ -303,9 +321,12 @@
    "ingredients": null,
    "description": "Cet Après-shampoing anti-irritation et protecteur à la Pivoine médicinale Bio pour cuir chevelu sensible apaise immédiatement et durablement les sensations d'irritations et d'inconfort du cuir chevelu, tout en aidant à l'équilibre de son microbiome. Avec ou sans rinçage.",
    "claims": [
-    "apaisant"
+    "apaisant-cuir-chevelu"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/apaisant-apres-shampoing-anti-irritation-et-protecteur.webp",
+   "image_fond": true,
+   "ciblage_source": "fiche"
   },
   {
    "id": "klorane--apres-shampoing-au-cupuacu-bio",
@@ -316,10 +337,10 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": null,
    "price_source": null,
-   "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5sj33fcuem5objh1hwj4b36xoscce/u5wa3z31qn5sj33fcuem5objh1hwj4b36xoscce?t=resize&width=300&height=300",
+   "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5sj33fcuem5objh1hwj4b36xoscce/out?t=resize&width=1600",
    "image_local": "public/scan/products-cheveux/klorane/apres-shampoing-au-cupuacu-bio.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
     "secs",
     "abimes"
@@ -328,10 +349,16 @@
    "ingredients": null,
    "description": "L’après-shampoing au Cupuaçu BIO nourrit et répare les cheveux très secs ou abîmés, pour un démêlage facilité.",
    "claims": [
-    "nourrissant",
-    "reparateur"
+    "nutrition",
+    "reparation",
+    "demelant"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": null,
+   "image_fond": true,
+   "image_provenance": "page produit https://www.klorane.com/fr-fr/p/apres-shampoing-au-cupuacu-bio-3282770144659-14c39aab",
+   "image_reparee_le": "2026-09-23",
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--volume-apres-shampoing-gainant-et-volumisant",
@@ -344,8 +371,8 @@
    "price_source": null,
    "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5sjyqhhk8b7hftnypthos33ngeieo/u5wa3z31qn5sjyqhhk8b7hftnypthos33ngeieo?t=resize&width=300&height=300",
    "image_local": "public/scan/products-cheveux/klorane/volume-apres-shampoing-gainant-et-volumisant.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
     "fins"
    ],
@@ -353,9 +380,13 @@
    "ingredients": null,
    "description": "L’Après-shampoing gainant et volumisant démêle les cheveux fins sans les alourdir et préserve durablement leur volume.",
    "claims": [
-    "volume"
+    "volume",
+    "demelant"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/volume-apres-shampoing-gainant-et-volumisant.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--bain-d-hydratation-nuit-au-bleuet-bio",
@@ -370,16 +401,20 @@
    "image_local": "public/scan/products-cheveux/klorane/bain-d-hydratation-nuit-au-bleuet-bio.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "acide hyaluronique"
    ],
    "ingredients": null,
    "description": "Le Bain d’Hydratation au Bleuet BIO et acide hyaluronique réhydrate, repulpe et régénère la peau lors du sommeil.",
    "claims": [
-    "hydratant"
+    "hydratation"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/bain-d-hydratation-nuit-au-bleuet-bio.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "klorane--baume-apres-shampoing-au-lait-d-avoine",
@@ -392,16 +427,19 @@
    "price_source": null,
    "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5seth59s91mkkjtuhitc8msdhumpy/u5wa3z31qn5seth59s91mkkjtuhitc8msdhumpy?t=resize&width=300&height=300",
    "image_local": "public/scan/products-cheveux/klorane/baume-apres-shampoing-au-lait-d-avoine.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [],
    "actifs": [],
    "ingredients": null,
    "description": "Adoucissant et démêlant, le Baume après-shampoing au lait d’Avoine laisse les cheveux souples, brillants et doux.",
    "claims": [
-    "brillance"
+    "brillance",
+    "demelant"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/baume-apres-shampoing-au-lait-d-avoine.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--solaire-apres-shampoing-nourrissant-et-reparateur",
@@ -414,8 +452,8 @@
    "price_source": null,
    "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5sjcrfu3d1nduf5azn6eiuwr4heno/u5wa3z31qn5sjcrfu3d1nduf5azn6eiuwr4heno?t=resize&width=300&height=300",
    "image_local": "public/scan/products-cheveux/klorane/solaire-apres-shampoing-nourrissant-et-reparateur.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
     "secs",
     "abimes"
@@ -426,10 +464,12 @@
    "ingredients": null,
    "description": "L'Après-shampoing nourrissant et réparateur au Tamanu BIO et Monoï répare, nourrit et sublime les cheveux après l’exposition au soleil. 1% Monoï de Tahiti. Appellation d'origine.",
    "claims": [
-    "nourrissant",
-    "reparateur"
+    "nutrition",
+    "reparation"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/solaire-apres-shampoing-nourrissant-et-reparateur.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "klorane--croissance-apres-shampoing-accelerateur-de-pousse",
@@ -442,18 +482,21 @@
    "price_source": null,
    "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5set3pxwin15yhxytx5ipg1c1941a/u5wa3z31qn5set3pxwin15yhxytx5ipg1c1941a?t=resize&width=300&height=300",
    "image_local": "public/scan/products-cheveux/klorane/croissance-apres-shampoing-accelerateur-de-pousse.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [
-    "chute"
-   ],
+   "categorie": "apres-shampooing",
+   "etape": 2,
+   "cheveux_cibles": [],
    "actifs": [
     "quinine"
    ],
    "ingredients": null,
    "description": "Donnez à vos cheveux la force de pousser plus vite avec notre après-shampoing accélérateur de pousse à la Quinine médicinale, qui stimule la croissance des cheveux et les rend plus forts.",
-   "claims": [],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "claims": [
+    "croissance"
+   ],
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/croissance-apres-shampoing-accelerateur-de-pousse.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--croissance-serum-accelerateur-de-pousse-intense-a-l-adenosine",
@@ -476,8 +519,12 @@
    ],
    "ingredients": null,
    "description": "Donnez à vos cheveux la force de pousser plus vite avec notre sérum accélérateur de pousse intense à la Quinine extraite du Quinquina médicinal et à l'Adénosine, qui stimule la croissance des cheveux et les rend plus forts.",
-   "claims": [],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "claims": [
+    "croissance"
+   ],
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/croissance-serum-accelerateur-de-pousse-intense-a-l-adenosine.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--croissance-shampoing-accelerateur-de-pousse-a-l-adenosine",
@@ -492,36 +539,19 @@
    "image_local": "public/scan/products-cheveux/klorane/croissance-shampoing-accelerateur-de-pousse-a-l-adenosine.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [
-    "chute"
-   ],
+   "cheveux_cibles": [],
    "actifs": [
     "quinine"
    ],
    "ingredients": null,
    "description": "Donnez à vos cheveux la force de pousser plus vite avec notre shampoing accélérateur de pousse à l'Adénosine et à la Quinine médicinale, qui stimule la croissance des cheveux et les rend plus forts.",
-   "claims": [],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
-  },
-  {
-   "id": "klorane--eau-fraiche-parfumee",
-   "name": "Eau fraîche parfumée",
-   "brand": "klorane",
-   "brand_name": "Klorane",
-   "url": "https://www.klorane.com/fr-fr/p/eau-fraiche-parfumee-au-calendula-3282770104882-14c39aab",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5sjdp68c8461onbu3rh14d61ik6je/u5wa3z31qn5sjdp68c8461onbu3rh14d61ik6je?t=resize&width=300&height=300",
-   "image_local": "public/scan/products-cheveux/klorane/eau-fraiche-parfumee.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "L’Eau fraîche parfume, rafraîchit en douceur et facilite le coiffage",
-   "claims": [],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "claims": [
+    "croissance"
+   ],
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/croissance-shampoing-accelerateur-de-pousse-a-l-adenosine.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--eau-nettoyante-bebe",
@@ -541,7 +571,9 @@
    "ingredients": null,
    "description": "Sans rinçage, nettoie la peau en évitant le dessèchement et en participant à l'équilibre du microbiome.",
    "claims": [],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/eau-nettoyante-bebe.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "klorane--gel-lavant-doux",
@@ -563,10 +595,12 @@
    "ingredients": null,
    "description": "Riche en agents hydratants, le Gel lavant doux nettoie, apaise et protège la peau et les cheveux délicats de bébé.",
    "claims": [
-    "hydratant",
-    "apaisant"
+    "hydratation",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/gel-lavant-doux.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "klorane--nutrition-huile-bi-phase-anti-dessechement",
@@ -577,7 +611,7 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": null,
    "price_source": null,
-   "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5sjbtqosjoqkdb1jb5iktm337k63a/u5wa3z31qn5sjbtqosjoqkdb1jb5iktm337k63a?t=resize&width=300&height=300",
+   "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5sjbtqosjoqkdb1jb5iktm337k63a/out?t=resize&width=1600",
    "image_local": "public/scan/products-cheveux/klorane/nutrition-huile-bi-phase-anti-dessechement.jpg",
    "categorie": "huile",
    "etape": 3,
@@ -588,9 +622,14 @@
    "ingredients": null,
    "description": "Véritable concentré nutritif, l’Huile bi-phase à la Mangue médicinale est le geste indispensable pour nourrir et sublimer les cheveux secs.",
    "claims": [
-    "nourrissant"
+    "nutrition"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": null,
+   "image_fond": true,
+   "image_provenance": "page produit https://www.klorane.com/fr-fr/p/huile-a-la-mangue-3282770141030-14c39aab",
+   "image_reparee_le": "2026-09-23",
+   "ciblage_source": "fiche"
   },
   {
    "id": "klorane--solaire-huile-protectrice-et-nourrissante",
@@ -615,10 +654,12 @@
    "ingredients": null,
    "description": "L’Huile capillaire Protectrice et nourrissante au Tamanu BIO et au Monoï protège, nourrit, répare et sublime les cheveux exposés au soleil. 1% Monoï de Tahiti. Appellation d'origine",
    "claims": [
-    "nourrissant",
-    "reparateur"
+    "nutrition",
+    "reparation"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/solaire-huile-protectrice-et-nourrissante.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "klorane--hydratation-et-brillance-apres-shampoing-desalterant-au-figuier-de-barbarie",
@@ -631,8 +672,8 @@
    "price_source": null,
    "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5se5mcuzgydes5n1ri98rfxc3aene/u5wa3z31qn5se5mcuzgydes5n1ri98rfxc3aene?t=resize&width=300&height=300",
    "image_local": "public/scan/products-cheveux/klorane/hydratation-et-brillance-apres-shampoing-desalterant-au-figuier-de-barbarie.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
     "secs"
    ],
@@ -640,10 +681,12 @@
    "ingredients": null,
    "description": "Inondez vos cheveux de lumière avec notre après-shampoing au Figuier de barbarie pour hydrater pour 72h* et redonner brillance aux cheveux déshydratés, ternes.",
    "claims": [
-    "hydratant",
+    "hydratation",
     "brillance"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/hydratation-et-brillance-apres-shampoing-desalterant-au-figuier-de-barbarie.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "klorane--masque-repulpant-au-figuier-de-barbarie",
@@ -665,10 +708,12 @@
    "ingredients": null,
    "description": "Inondez vos cheveux de lumière avec notre masque repulpant au Figuier de Barbarie qui hydrate pour 72H* et redonne 2x plus de brillance* aux cheveux déshydratés, ternes.",
    "claims": [
-    "hydratant",
+    "hydratation",
     "brillance"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/masque-repulpant-au-figuier-de-barbarie.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "klorane--serum-desalterant-au-figuier-de-barbarie-et-acide-hyaluronique",
@@ -692,10 +737,12 @@
    "ingredients": null,
    "description": "Inondez vos cheveux de lumière avec notre sérum désaltérant au Figuier de Barbarie & Acide Hyaluronique. Ce sérum hydrate pour 24H* et redonne brillance aux cheveux déshydratés, ternes.",
    "claims": [
-    "hydratant",
+    "hydratation",
     "brillance"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/serum-desalterant-au-figuier-de-barbarie-et-acide-hyaluronique.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "klorane--hydratation-et-brillance-shampoing-desalterant",
@@ -717,32 +764,12 @@
    "ingredients": null,
    "description": "Inondez vos cheveux de lumière avec notre shampoing désaltérant au Figuier de Barbarie médicinal. Ce shampoing hydrate pour 72H* et redonne brillance aux cheveux déshydratés, ternes.",
    "claims": [
-    "hydratant",
+    "hydratation",
     "brillance"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
-  },
-  {
-   "id": "klorane--keratincaps-complement-alimentaire",
-   "name": "KeratinCaps - Complément alimentaire",
-   "brand": "klorane",
-   "brand_name": "Klorane",
-   "url": "https://www.klorane.com/fr-fr/p/keratincaps-complement-alimentaire-3282770393033-14c39aab",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5seb6jj5483q9rhhopxpx1ee14xpe/u5wa3z31qn5seb6jj5483q9rhhopxpx1ee14xpe?t=resize&width=300&height=300",
-   "image_local": "public/scan/products-cheveux/klorane/keratincaps-complement-alimentaire.jpg",
-   "categorie": "traitement-chute",
-   "etape": 4,
-   "cheveux_cibles": [],
-   "actifs": [
-    "kératine"
-   ],
-   "ingredients": null,
-   "description": "Riche en micronutriments et contenant de la Kératine, KeratinCaps agit de l’intérieur pour aider à maintenir des cheveux forts et en bonne santé. Compatible avec la grossesse et l'allaitement.",
-   "claims": [],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/hydratation-et-brillance-shampoing-desalterant.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "klorane--lait-de-toilette-bebe-sans-rincage",
@@ -765,10 +792,12 @@
    "ingredients": null,
    "description": "En un seul geste, le Lait de toilette nettoyant sans rinçage apaisant nettoie, nourrit et protège la peau sensible de bébé.",
    "claims": [
-    "nourrissant",
-    "apaisant"
+    "nutrition",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/lait-de-toilette-bebe-sans-rincage.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "klorane--nutrition-creme-nourrissante-sans-rincage",
@@ -779,7 +808,7 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": null,
    "price_source": null,
-   "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5sjbtqosjoqkdb1ebzmkymo3fy3sy/u5wa3z31qn5sjbtqosjoqkdb1ebzmkymo3fy3sy?t=resize&width=300&height=300",
+   "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5sjbtqosjoqkdb1ebzmkymo3fy3sy/out?t=resize&width=1600",
    "image_local": "public/scan/products-cheveux/klorane/nutrition-creme-nourrissante-sans-rincage.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
@@ -790,9 +819,14 @@
    "ingredients": null,
    "description": "Geste de nutrition au quotidien, la Crème nourrissante sans rinçage à la Mangue médicinale, protège et sublime les longueurs des cheveux secs.",
    "claims": [
-    "nourrissant"
+    "nutrition"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": null,
+   "image_fond": true,
+   "image_provenance": "page produit https://www.klorane.com/fr-fr/p/nutrition-creme-nourrissante-sans-rincage-3282771001142-14c39aab",
+   "image_reparee_le": "2026-09-23",
+   "ciblage_source": "fiche"
   },
   {
    "id": "klorane--nutrition-masque-nourrissant-et-eclat",
@@ -814,10 +848,12 @@
    "ingredients": null,
    "description": "En masque classique ou de nuit, ce soin hautement nutritif gaine et protège les cheveux secs pour une brillance durable.",
    "claims": [
-    "nourrissant",
+    "nutrition",
     "brillance"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/nutrition-masque-nourrissant-et-eclat.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "klorane--reparation-apres-shampoing-regenerant-et-disciplinant",
@@ -830,8 +866,8 @@
    "price_source": null,
    "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5sj6b6g8dfqtzyaj8ng8fi9hj4ede/u5wa3z31qn5sj6b6g8dfqtzyaj8ng8fi9hj4ede?t=resize&width=300&height=300",
    "image_local": "public/scan/products-cheveux/klorane/reparation-apres-shampoing-regenerant-et-disciplinant.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
     "secs",
     "abimes"
@@ -840,10 +876,14 @@
    "ingredients": null,
    "description": "\"L’Après-shampoing régénérant et disciplinant au Cupuaçu BIO nourrit et répare les cheveux très secs ou abîmés, pour un démêlage facilité. \"",
    "claims": [
-    "nourrissant",
-    "reparateur"
+    "nutrition",
+    "reparation",
+    "demelant"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/reparation-apres-shampoing-regenerant-et-disciplinant.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--reparation-cica-serum-regenerant-a-l-acide-hyaluronique",
@@ -868,10 +908,12 @@
    "ingredients": null,
    "description": "Ce Cica-Sérum régénérant à l'acide hyaluronique et au Cupuaçu BIO pour cheveux très secs, abîmés, nourrit et protège intensément la fibre capillaire.",
    "claims": [
-    "nourrissant",
-    "reparateur"
+    "nutrition",
+    "reparation"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/reparation-cica-serum-regenerant-a-l-acide-hyaluronique.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "klorane--reparation-cica-shampoing-regenerant-et-anti-casse",
@@ -894,10 +936,13 @@
    "ingredients": null,
    "description": "Le Cica-Shampoing régénérant et anti-casse au Cupuaçu BIO nettoie, nourrit la fibre capillaire et répare les cheveux abîmés, très secs, dès la première utilisation*.",
    "claims": [
-    "nourrissant",
-    "reparateur"
+    "nutrition",
+    "reparation"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/reparation-cica-shampoing-regenerant-et-anti-casse.webp",
+   "image_fond": true,
+   "ciblage_source": "fiche"
   },
   {
    "id": "klorane--reparation-masque-reconstructeur",
@@ -920,11 +965,13 @@
    "ingredients": null,
    "description": "Le Masque reconstructeur au Cupuaçu nourrit intensément, répare et fortifie les cheveux très secs et abimés.",
    "claims": [
-    "nourrissant",
-    "reparateur",
+    "nutrition",
+    "reparation",
     "fortifiant"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/reparation-masque-reconstructeur.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "klorane--apaisant-serum-calmant-et-anti-demangeaisons",
@@ -946,10 +993,13 @@
    "ingredients": null,
    "description": "Le Sérum calmant et anti-démangeaisons à la Pivoine médicinale BIO apaise et hydrate durablement le cuir chevelu sensible et irrité, tout en aidant à l'équilibre du microbiome.",
    "claims": [
-    "hydratant",
-    "apaisant"
+    "hydratation",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/apaisant-serum-calmant-et-anti-demangeaisons.webp",
+   "image_fond": true,
+   "ciblage_source": "fiche"
   },
   {
    "id": "klorane--extra-doux-shampoing-quotidien-et-haute-tolerance",
@@ -960,7 +1010,7 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": null,
    "price_source": null,
-   "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5sjhzfgekqso73caz83nikbuzzuzy/u5wa3z31qn5sjhzfgekqso73caz83nikbuzzuzy?t=resize&width=300&height=300",
+   "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5sjhzfgekqso73caz83nikbuzzuzy/out?t=resize&width=1600",
    "image_local": "public/scan/products-cheveux/klorane/extra-doux-shampoing-quotidien-et-haute-tolerance.jpg",
    "categorie": "shampooing",
    "etape": 1,
@@ -969,7 +1019,12 @@
    "ingredients": null,
    "description": "Ce Shampoing quotidien et haute tolérance à l'Avoine médicinale issue de culture Bio nettoie, adoucit et protège cuir chevelu et cheveux de toute la famille, dès 3 ans.",
    "claims": [],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": null,
+   "image_fond": true,
+   "image_provenance": "page produit https://www.klorane.com/fr-fr/p/shampoing-a-l-avoine-3282770145359-14c39aab",
+   "image_reparee_le": "2026-09-23",
+   "ciblage_source": "fiche"
   },
   {
    "id": "klorane--seboreducteur-shampoing-purifiant-et-equilibrant",
@@ -993,9 +1048,12 @@
    "ingredients": null,
    "description": "En diminuant l'excès de sébum, le Shampoing purifiant et équilibrant à l'Ortie médicinale assainit les cheveux gras et rééquilibre le cuir chevelu gras.",
    "claims": [
-    "purifiant"
+    "purifiant",
+    "anti-gras"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/seboreducteur-shampoing-purifiant-et-equilibrant.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--reflets-blonds-shampoing-illuminateur-et-adoucissant",
@@ -1011,13 +1069,19 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "colores"
+    "colores",
+    "cuir-chevelu-sensible"
    ],
-   "actifs": [],
+   "actifs": [
+    "camomille"
+   ],
    "ingredients": null,
    "description": "Le Shampoing illuminateur et adoucissant à la Camomille médicinale nettoie en douceur les cheveux blonds et les illumine de reflets dorés.",
    "claims": [],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/reflets-blonds-shampoing-illuminateur-et-adoucissant.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--dejaunissant-shampoing-neutralisateur-et-raviveur",
@@ -1039,9 +1103,13 @@
    "ingredients": null,
    "description": "Le Shampoing neutralisateur et raviveur ravive l’éclat des cheveux gris, blancs ou blonds platine en neutralisant immédiatement le jaunissement.",
    "claims": [
-    "brillance"
+    "brillance",
+    "anti-jaunissement"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/dejaunissant-shampoing-neutralisateur-et-raviveur.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--eclat-couleur-shampoing-raviveur-et-prolongateur",
@@ -1065,7 +1133,10 @@
    "claims": [
     "brillance"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/eclat-couleur-shampoing-raviveur-et-prolongateur.webp",
+   "image_fond": true,
+   "ciblage_source": "fiche"
   },
   {
    "id": "klorane--nutrition-shampoing-nourrissant-et-eclat",
@@ -1087,10 +1158,13 @@
    "ingredients": null,
    "description": "Ultra gourmand, le Shampoing nourrissant et éclat à la Mangue médicinale nourrit les cheveux secs, leur redonne souplesse, douceur et brillance. Idéal pour la toute la famille, dès 3 ans.",
    "claims": [
-    "nourrissant",
+    "nutrition",
     "brillance"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/nutrition-shampoing-nourrissant-et-eclat.webp",
+   "image_fond": true,
+   "ciblage_source": "fiche"
   },
   {
    "id": "klorane--detox-shampoing-rafraichissant-et-anti-pollution",
@@ -1105,14 +1179,20 @@
    "image_local": "public/scan/products-cheveux/klorane/detox-shampoing-rafraichissant-et-anti-pollution.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "gras"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "Ce Shampoing rafraichissant et anti-pollution à la Menthe Aquatique Bio nettoie en profondeur, détoxifie le cuir chevelu et élimine les particules polluantes.",
    "claims": [
-    "purifiant"
+    "purifiant",
+    "anti-pollution"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/detox-shampoing-rafraichissant-et-anti-pollution.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--apaisant-shampoing-anti-irritation-et-protecteur",
@@ -1134,9 +1214,12 @@
    "ingredients": null,
    "description": "Le Shampoing anti-irritation et protecteur à la Pivoine médicinale Bio lave, protège et apporte une sensation d'apaisement immédiate* et pour 48 heures** au cuir chevelu sensible.",
    "claims": [
-    "apaisant"
+    "apaisant-cuir-chevelu"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/apaisant-shampoing-anti-irritation-et-protecteur.webp",
+   "image_fond": true,
+   "ciblage_source": "fiche"
   },
   {
    "id": "klorane--vitalite-shampoing-energisant-et-legerete",
@@ -1157,8 +1240,13 @@
    "actifs": [],
    "ingredients": null,
    "description": "Le Shampoing énergisant et légèreté au Cédrat, élimine l'excès de sébum, pour des cheveux pleins de vitalité.",
-   "claims": [],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "claims": [
+    "anti-gras"
+   ],
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/vitalite-shampoing-energisant-et-legerete.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--shampoing-reparateur",
@@ -1181,10 +1269,12 @@
    "ingredients": null,
    "description": "Notre Shampoing réparateur nettoie, nourrit et répare les cheveux très secs.",
    "claims": [
-    "nourrissant",
-    "reparateur"
+    "nutrition",
+    "reparation"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/shampoing-reparateur.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "klorane--volume-shampoing-gainant-et-volumisant",
@@ -1206,9 +1296,13 @@
    "ingredients": null,
    "description": "Le Shampoing gainant et volumisant lave et texturise les cheveux fins pour leur insuffler naturellement volume et souplesse.",
    "claims": [
-    "volume"
+    "volume",
+    "texturisant"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/volume-shampoing-gainant-et-volumisant.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--shampoing-demelant",
@@ -1221,14 +1315,18 @@
    "price_source": null,
    "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5sjxymhc6csh7grryybhfqzsuaqxe/u5wa3z31qn5sjxymhc6csh7grryybhfqzsuaqxe?t=resize&width=300&height=300",
    "image_local": "public/scan/products-cheveux/klorane/shampoing-demelant.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [],
    "actifs": [],
    "ingredients": null,
    "description": "Ce shampoing nettoie les cheveux de bébé en douceur, et respecte son cuir chevelu délicat, pour un démêlage agréable.",
-   "claims": [],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "claims": [
+    "demelant"
+   ],
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/shampoing-demelant.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--shampoing-douche-apres-soleil-au-monoi",
@@ -1252,9 +1350,11 @@
    "ingredients": null,
    "description": "Pratique et double emploi, le Shampoing douche Monoï nettoie et nourrit peau et cheveux après l’exposition au soleil. 0,3% Monoï de Tahiti. Appellation d'origine",
    "claims": [
-    "nourrissant"
+    "nutrition"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/shampoing-douche-apres-soleil-au-monoi.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "klorane--douceur-shampoing-gainant-et-adoucissant",
@@ -1273,8 +1373,13 @@
    "actifs": [],
    "ingredients": null,
    "description": "Le Shampoing gainant et adoucissant à l’Amande médicinale apporte souplesse, douceur et tenue à tous les types de cheveux.",
-   "claims": [],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "claims": [
+    "fixation"
+   ],
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/douceur-shampoing-gainant-et-adoucissant.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--shampoing-nutritif-apres-soleil",
@@ -1290,6 +1395,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -1298,10 +1404,13 @@
    "ingredients": null,
    "description": "Le Shampoing nutritif au Monoï et Tamanu BIO protège et répare en douceur les cheveux fragilisés par le soleil. 1% Monoï de Tahiti. Appellation d'origine",
    "claims": [
-    "nourrissant",
-    "reparateur"
+    "nutrition",
+    "reparation"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/shampoing-nutritif-apres-soleil.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--solaire-shampoing-nourrissant-et-reparateur",
@@ -1326,10 +1435,12 @@
    "ingredients": null,
    "description": "Le Shampoing nourrissant et réparateur au Tamanu BIO et au Monoï protège et répare en douceur les cheveux fragilisés par le soleil. 1% Monoï de Tahiti. Appellation d'origine.",
    "claims": [
-    "nourrissant",
-    "reparateur"
+    "nutrition",
+    "reparation"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/solaire-shampoing-nourrissant-et-reparateur.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "klorane--extra-doux-shampoing-sec-enrichi-en-ceramidelike",
@@ -1342,10 +1453,11 @@
    "price_source": null,
    "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5sjf4xj5h5n6hpyjetgznwrfsa1ce/u5wa3z31qn5sjf4xj5h5n6hpyjetgznwrfsa1ce?t=resize&width=300&height=300",
    "image_local": "public/scan/products-cheveux/klorane/extra-doux-shampoing-sec-enrichi-en-ceramidelike.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
-    "secs"
+    "secs",
+    "gras"
    ],
    "actifs": [
     "céramides"
@@ -1353,7 +1465,10 @@
    "ingredients": null,
    "description": "Le Shampoing sec extra-doux enrichi en Céramideᴸᴵᴷᴱ à l'Avoine médicinale nettoie en douceur et revitalise tous les types de cuirs chevelus et cheveux pendant 12h*.",
    "claims": [],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/extra-doux-shampoing-sec-enrichi-en-ceramidelike.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--shampoing-sec-a-l-avoine-et-ceramide-like",
@@ -1366,10 +1481,11 @@
    "price_source": null,
    "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5se5gzrdkqdiwn84q7wtsrpd7k6me/u5wa3z31qn5se5gzrdkqdiwn84q7wtsrpd7k6me?t=resize&width=300&height=300",
    "image_local": "public/scan/products-cheveux/klorane/shampoing-sec-a-l-avoine-et-ceramide-like.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
-    "secs"
+    "secs",
+    "gras"
    ],
    "actifs": [
     "céramides"
@@ -1377,7 +1493,9 @@
    "ingredients": null,
    "description": "Ce Shampoing sec extra-doux à l'Avoine et Céramideᴸᴵᴷᴱ nettoie en douceur et revitalise tous les types de cuirs chevelus et cheveux pendant 12h*.",
    "claims": [],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/shampoing-sec-a-l-avoine-et-ceramide-like.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--purifiant-shampoing-sec-a-l-ortie-et-vitamine-e",
@@ -1390,8 +1508,8 @@
    "price_source": null,
    "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5se8widm1tmhztmrbzmkymo3fy3sy/u5wa3z31qn5se8widm1tmhztmrbzmkymo3fy3sy?t=resize&width=300&height=300",
    "image_local": "public/scan/products-cheveux/klorane/purifiant-shampoing-sec-a-l-ortie-et-vitamine-e.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
     "secs",
     "gras"
@@ -1403,9 +1521,12 @@
    "ingredients": null,
    "description": "Le Shampoing sec purifiant à l'Ortie médicinale et Vitamine E limite la production de sébum, assainit les racines et purifie les cheveux gras pour 24h*.",
    "claims": [
-    "purifiant"
+    "purifiant",
+    "anti-gras"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/purifiant-shampoing-sec-a-l-ortie-et-vitamine-e.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--purifiant-teinte-shampoing-sec-a-l-ortie-et-vitamine-e",
@@ -1418,8 +1539,8 @@
    "price_source": null,
    "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5se8widm1tmhztmghejkbqg9537te/u5wa3z31qn5se8widm1tmhztmghejkbqg9537te?t=resize&width=300&height=300",
    "image_local": "public/scan/products-cheveux/klorane/purifiant-teinte-shampoing-sec-a-l-ortie-et-vitamine-e.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
     "secs",
     "gras"
@@ -1431,9 +1552,12 @@
    "ingredients": null,
    "description": "Le Shampoing sec purifiant teinté à l'Ortie médicinale et Vitamine E limite la production de sébum, assainit les racines et purifie les cheveux gras, bruns pour 24h*.",
    "claims": [
-    "purifiant"
+    "purifiant",
+    "anti-gras"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/purifiant-teinte-shampoing-sec-a-l-ortie-et-vitamine-e.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--shampoing-sec-au-lait-d-avoine-sans-gaz",
@@ -1446,19 +1570,24 @@
    "price_source": null,
    "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5semdy8zgzdha8au8oqxwu9tmn4po/u5wa3z31qn5semdy8zgzdha8au8oqxwu9tmn4po?t=resize&width=300&height=300",
    "image_local": "public/scan/products-cheveux/klorane/shampoing-sec-au-lait-d-avoine-sans-gaz.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
     "secs",
+    "gras",
     "fins"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "Un Shampoing sec sans gaz qui nettoie les cheveux en douceur en apportant texture et volume en 2 minutes.",
    "claims": [
-    "volume"
+    "volume",
+    "texturisant"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/shampoing-sec-au-lait-d-avoine-sans-gaz.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--extra-doux-teinte-shampoing-sec-enrichi-en-ceramidelike",
@@ -1471,10 +1600,11 @@
    "price_source": null,
    "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5sj7qwsqe9964cixh8dyx89qfbe9e/u5wa3z31qn5sj7qwsqe9964cixh8dyx89qfbe9e?t=resize&width=300&height=300",
    "image_local": "public/scan/products-cheveux/klorane/extra-doux-teinte-shampoing-sec-enrichi-en-ceramidelike.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
     "secs",
+    "gras",
     "fins"
    ],
    "actifs": [
@@ -1485,7 +1615,9 @@
    "claims": [
     "volume"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/extra-doux-teinte-shampoing-sec-enrichi-en-ceramidelike.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--shampoing-sec-teinte-a-l-avoine-et-ceramide-like",
@@ -1496,12 +1628,13 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": null,
    "price_source": null,
-   "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5seckgtfpnz7g67oaiofhncatxwna/u5wa3z31qn5seckgtfpnz7g67oaiofhncatxwna?t=resize&width=300&height=300",
+   "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5seckgtfpnz7g67oaiofhncatxwna/out?t=resize&width=1600",
    "image_local": "public/scan/products-cheveux/klorane/shampoing-sec-teinte-a-l-avoine-et-ceramide-like.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
     "secs",
+    "gras",
     "fins"
    ],
    "actifs": [
@@ -1512,7 +1645,12 @@
    "claims": [
     "volume"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": null,
+   "image_fond": true,
+   "image_provenance": "page produit https://www.klorane.com/fr-fr/p/shampoing-sec-teinte-a-l-avoine-ceramide-3282770390780-14c39aab",
+   "image_reparee_le": "2026-09-23",
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--volume-shampoing-sec-texturisant",
@@ -1525,19 +1663,24 @@
    "price_source": null,
    "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5se7uwuza46urhb659jsw3bo5uq5a/u5wa3z31qn5se7uwuza46urhb659jsw3bo5uq5a?t=resize&width=300&height=300",
    "image_local": "public/scan/products-cheveux/klorane/volume-shampoing-sec-texturisant.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
     "secs",
+    "gras",
     "fins"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "Le Shampoing sec volume texturisant lave et redonne un volume immédiat et pour 8H* aux cheveux fins, sans volume.",
    "claims": [
-    "volume"
+    "volume",
+    "texturisant"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/volume-shampoing-sec-texturisant.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--extra-doux-shampoing-solide",
@@ -1556,8 +1699,12 @@
    "actifs": [],
    "ingredients": null,
    "description": "Shampoing solide 2-en-1 pour laver et démêler les cheveux de toute la famille.",
-   "claims": [],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "claims": [
+    "demelant"
+   ],
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/extra-doux-shampoing-solide.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--nutrition-shampoing-solide",
@@ -1579,9 +1726,11 @@
    "ingredients": null,
    "description": "Un shampoing solide 2-en-1 pour laver et nourrir les cheveux secs sans les alourdir.",
    "claims": [
-    "nourrissant"
+    "nutrition"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/nutrition-shampoing-solide.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "klorane--shampoing-solide-a-la-pivoine-bio",
@@ -1603,9 +1752,12 @@
    "ingredients": null,
    "description": "Un Shampoing Solide à la Pivoine BIO, pour apaiser le cuir chevelu sensible ou irrité de toute la famille, dès 3 ans.",
    "claims": [
-    "apaisant"
+    "apaisant-cuir-chevelu"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/shampoing-solide-a-la-pivoine-bio.webp",
+   "image_fond": true,
+   "ciblage_source": "fiche"
   },
   {
    "id": "klorane--shampoing-solide-au-cedrat-cheveux-normaux-a-gras",
@@ -1627,9 +1779,13 @@
    "ingredients": null,
    "description": "Un Shampoing Solide au Cédrat assainissant, pour des cheveux tonifiés et un cuir chevelu libéré de l'excès de sébum.",
    "claims": [
-    "purifiant"
+    "purifiant",
+    "anti-gras"
    ],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/shampoing-solide-au-cedrat-cheveux-normaux-a-gras.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--soin-demelant-au-miel-d-acacia",
@@ -1650,8 +1806,12 @@
    ],
    "ingredients": null,
    "description": "Ce soin démêlant tout doux, délicatement parfumé au miel d’Acacia, démêle en douceur les cheveux des enfants dès 3 ans.",
-   "claims": [],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "claims": [
+    "demelant"
+   ],
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/soin-demelant-au-miel-d-acacia.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "klorane--reflets-blonds-soin-illuminateur-et-demelant",
@@ -1672,8 +1832,12 @@
    "actifs": [],
    "ingredients": null,
    "description": "REFLETS BLONDS Soin illuminateur et démêlant, spray d'origine naturelle* 3 en 1 pour éclaircir progressivement, faire briller et démêler les cheveux blonds.",
-   "claims": [],
-   "source": "sitemap klorane.com/fr-fr product.xml + json-ld"
+   "claims": [
+    "demelant"
+   ],
+   "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/klorane/cutout/reflets-blonds-soin-illuminateur-et-demelant.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

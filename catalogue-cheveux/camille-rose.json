@@ -22,9 +22,11 @@
    "ingredients": null,
    "description": "Camille Rose Rejuva Boost Guava Mango brings the brand’s gourmet-inspired, ingredient-forward philosophy into a richer, more nourishing daily wellness ritual. Formulated for those who want a long-term approach to hair wellness, this nutritional drink mix is designed to help support the hair cycle over time, from the inside out. WHY YOU'LL LOVE IT Consistency, Made Delicious Rejuva Boost Guava Mango is built for the long game -- a richer, more nourishing formula designed to support the hair cycle",
    "claims": [
-    "nourrissant"
+    "nutrition"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/rejuva-boost-guava-mango.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "camille-rose--rejuva-boost-orange-zest",
@@ -48,9 +50,11 @@
    "ingredients": null,
    "description": "Camille Rose Rejuva Boost Orange Zest turns the brand’s gourmet-inspired, ingredient-forward philosophy into a daily wellness ritual you drink. Developed with a root-first focus, this nutritional drink mix is formulated to help create the conditions your scalp and hair need to look and feel healthy. WHY YOU'LL LOVE IT Root-First, Refreshingly Simple Rejuva Boost Orange Zest is built around a root-first focus -- scalp nourishment, amino acid support, and prebiotic balance -- in a light, bright ci",
    "claims": [
-    "nourrissant"
+    "nutrition"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/rejuva-boost-orange-zest.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "camille-rose--rejuva-boost-raspberry-lemonade",
@@ -72,9 +76,11 @@
    "ingredients": null,
    "description": "Camille Rose Rejuva Boost Raspberry Lemonade brings the brand’s gourmet-inspired, ingredient-forward philosophy into a daily wellness ritual you drink. This nutritional drink mix is designed to work from the inside out, helping create the conditions hair needs to look and feel its healthiest. WHY YOU'LL LOVE IT Wellness You Can Taste Rejuva Boost turns Camille Rose’s ingredient-forward, gourmet-inspired philosophy into a daily ritual you drink instead of apply. It’s hair care that starts from wi",
    "claims": [
-    "nourrissant"
+    "nutrition"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/rejuva-boost-raspberry-lemonade.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "camille-rose--tester-oud-rich-infusion-moisture-treatment",
@@ -89,7 +95,9 @@
    "image_local": "public/scan/products-cheveux/camille-rose/tester-oud-rich-infusion-moisture-treatment.jpg",
    "categorie": "huile",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "panthénol",
     "huile de coco",
@@ -104,11 +112,14 @@
    "ingredients": "Water (Agua), Cocos Nucifera (Coconut) Oil, Glycerin, Cetearyl Alcohol, Behentrimonium Methosulfate, Butyrospermum Parkii (Shea Butter), Theobroma Cacao (Cocoa) Seed Butter, Linum Usitatissimum (Linseed) Seed Oil, Ricinus Communis (Castor) Seed Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Vitis Vinifera (Grape) Seed Oil, Aquilaria Agallocha (Oud) Oil, Rosmarinus Officinalis (Rosemary) Leaf Extract, Lauryl Lactyl Lactate, Honey (Mel), Panthenol, Guar Hydroxypropyltrimonium Chloride, Phenoxyethanol, Ethylhexylglycerin, and Fragrance",
    "description": "A rich moisture treatment that targets dry, lifeless, and tangled hair to revitalize and restore. Deliver intense, moisture-rich benefits with the rare Middle Eastern extract of Oud oil in our deep hair treatment blend. Dry, rough, and lifeless strands are nourished with the richness of olive, jojoba, and white tea for improved softness, shine, and manageability.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "brillance"
+    "hydratation",
+    "nutrition",
+    "brillance",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/tester-oud-rich-infusion-moisture-treatment.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--nangai-tsubaki-strength-restore-protein-treatment-1",
@@ -126,13 +137,19 @@
    "cheveux_cibles": [
     "abimes"
    ],
-   "actifs": [],
+   "actifs": [
+    "vitamine E"
+   ],
    "ingredients": null,
    "description": "A revitalizing hair and scalp treatment ideal for breaking, damaged, and splitting hair. Our strength restoring cocktail infuses Nangai nut oil with Japanese Tsubaki oil rich in Vitamin E and Omega 3, crafted to prevent breakage, retain moisture, and promote healthy and stronger hair.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "reparation",
+    "fortifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/nangai-tsubaki-strength-restore-protein-treatment-1.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--edge-freeze",
@@ -147,15 +164,23 @@
    "image_local": "public/scan/products-cheveux/camille-rose/edge-freeze.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "crepus",
+    "pellicules"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "Edges are the finishing touch that can completely transform any hairstyle. They’re a canvas for creativity, allowing you to showcase the uniqueness of your hair. With Edge Freeze edge control hair gel, you get a flake-free, sculpted finish that holds while keeping edges nourished, hydrated, and sleek. Perfect for defining part lines, laying baby hairs, or perfecting intricate designs, or finishing a braid, this styling essential adds personality, polish, and strong hold to every look",
    "claims": [
-    "hydratant",
-    "nourrissant"
+    "hydratation",
+    "nutrition",
+    "brillance",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/edge-freeze.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--clean-rinse-clarifying-shampoo",
@@ -171,6 +196,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "gras",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -187,10 +213,13 @@
    "ingredients": "WATER (AQUA/EAU), DISODIUM COCOAMPHODIPROPIO-NATE, SODIUM C14-16 OLEFIN SULFONATE, GLYCERIN, CITRIC ACID, COCAMIDOPROPYL BETAINE, PEG-120 METHYL GLUCOSE DIOLEATE, MENTHA PIPERITA (PEPPERMINT) OIL, HONEY (MEL/MIEL), RICINUS COMMUNIS (CASTOR) SEED OIL, VACCINIUM MYRTILLUS FRUIT EXTRACT, SACCHARUM OFFICINARUM (SUGARCANE) EXTRACT, CITRUS AURANTIUM DULCIS (ORANGE) FRUIT EXTRACT, CITRUS LIMON (LEMON) FRUIT EXTRACT, ACER SACCHARUM (SUGAR MAPLE) EXTRACT, TOCOPHEROL, LACTIC ACID, GLYCOLIC ACID, MALIC ACID, TARTARIC ACID, SODIUM COCOYL ISETHIONATE",
    "description": "Our minty hair clarifying shampoo effectively removes product and oil build up without irritating the scalp.Discover a unique blend of sesame and olive botanical oils infused with a hydrating puree of organic honey and aqua. Pure and clarifying peppermint oil is added to create a natural, non-stripping, and refreshing hair cleansing experience for all hair types.",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "apaisant-cuir-chevelu",
     "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/clean-rinse-clarifying-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--batana-miracle-oil-fro-mousse",
@@ -203,21 +232,25 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0980/9736/files/ProductCard_Batana_Mousse-update.webp?width=600",
    "image_local": "public/scan/products-cheveux/camille-rose/batana-miracle-oil-fro-mousse.jpg",
-   "categorie": "huile",
+   "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "boucles"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "Batana ‘Fro Mousse is a gel-to-mousse styler made for curls and textured hair, inspired by centuries-old South American beauty traditions. This nourishing mousse defines curls and coils, locks in hydration, and leaves strands soft, resilient, and flexible. Infused with authentic Honduran Batana Oil and Chia Seed Oil, it boosts shine, tames frizz, and keeps hair looking healthy and vibrant. Styling becomes a treat, blending modern hair care with time-honored plant-based practices.",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/batana-miracle-oil-fro-mousse.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--pure-batana-oil-honduran-miracle-balm",
@@ -230,9 +263,13 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0980/9736/files/Batana_Balm.png?width=600",
    "image_local": "public/scan/products-cheveux/camille-rose/pure-batana-oil-honduran-miracle-balm.jpg",
-   "categorie": "huile",
+   "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "crepus",
+    "abimes"
+   ],
    "actifs": [
     "beurre de karité",
     "hibiscus"
@@ -240,11 +277,14 @@
    "ingredients": "BUTYROSPERMUM PARKII (SHEA) BUTTER, ELAEIS OLEIFERA (BATANA) KERNEL OIL, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, THEOBROMA CACAO SEED (COCOA) BUTTER, EUPHORBIA CERIFERA (CANDELILLA) WAX, CETEARYL ALCOHOL, BEHENTRIMONIUM METHOSULFATE, FRAGRANCE (PARFUM), RUBIA CORDIFOLIA (MANJISTHA) ROOT POWDER, TERMINALIA CHEBULA (HARAD) FRUIT POWDER, TINOSPORA CORDIFOLIA (GILOY) STEM POWDER, ROSA SINENSIS (HIBISCUS) FLOWER POWDER, AZADIRACHTA INDICA (NEEM) LEAF POWDER, ETHYLHEXYLGLYCERIN",
    "description": "Our Batana Hair Balm is your go-to for rich, natural care. Powered by Batana oil and nourishing botanicals, it melts into textured strands to lock in hydration and help fight dryness. Perfect for brittle hair, it boosts strength, softness, and natural shine. Use it on protective styles, before styling, or for daily moisture. A little goes a long way to keep hair feeling nourished, resilient, and looking effortlessly healthy.",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
+    "fortifiant",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/pure-batana-oil-honduran-miracle-balm.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--temp-tamer",
@@ -259,7 +299,9 @@
    "image_local": "public/scan/products-cheveux/camille-rose/temp-tamer.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "huile de jojoba",
     "huile de tournesol",
@@ -268,11 +310,16 @@
    "ingredients": "Isohexadecane, C12-15 Alkyl Benzoate, Coconut Alkanes, Simmondsia Chinensis (Jojoba) Seed Oil, Coco Caprylate/Caprate, Ethyl Linoleate, Ethyl Oleate, Crambe Abyssinica Seed Oil, Helianthus Annuus (Sunflower) Seed Oil, Persea Gratissima (Avocado) Oil, Fragrance, *Benzyl Alcohol, *Benzyl Benzoate, *Benzyl Salicylate, *D-Limonene, *Hydroxycitronellal, *Linalool",
    "description": "Shiny, silky, healthy hair! Our crystal-clear, silicone-free blowout spray detangles, conditions, smooths and seals every strand for superior thermal protection. Nourishing Jojoba, Avocado and Abyssinian oils infuse touchable softness and guard all textures against high heat for brilliant, high-gloss shine with a salon-like finish!",
    "claims": [
-    "nourrissant",
+    "nutrition",
+    "anti-frisottis",
     "brillance",
-    "lissant"
+    "protection-chaleur",
+    "demelant",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/temp-tamer.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--coconut-water-leave-in-treatment",
@@ -287,7 +334,9 @@
    "image_local": "public/scan/products-cheveux/camille-rose/coconut-water-leave-in-treatment.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "huile de coco",
     "beurre de karité",
@@ -298,10 +347,14 @@
    "ingredients": "DISTILLED WATER, COCOS NUCIFERA (COCONUT) WATER, CETEARYL ALCOHOL, CETYL ALCOHOL, BEHENTRIMONIUM METHOSULFATE, COCOS NUCIFERA (COCONUT) FRUIT EXTRACT, ALTHAEA OFFICINALIS (MARSHMALLOW) LEAF/ROOT EXTRACT, LINUM USITATISSIMUM (FLAX SEED) OIL, BUTYROSPERMUM PARKII GLYCERIDES (SHEA BUTTER), BUTYLENE GLYCOL, VITIS VINIFERA (GRAPE) SEED OIL, CAMELLIA SINENSIS (GREEN TEA) LEAF EXTRACT, CANNABIS SATIVA (HEMP SEED) OIL, HELIANTHUS ANNUUS (SUNFLOWER SEED) OIL, PHENOXYETHANOL AND CAPRYLYL GLYCOL (OPTIPHEN ND), ALOE FEROX POWDER, MARSHMALLOW ROOT, YUCCA ROOT, BLUE COHOSH, FRAGRANCE",
    "description": "A lightweight leave-in detangling conditioner that’s enriched with coconut water to hydrate hair. Pure coconut water and fruit extracts are blended with flaxseed oil, grape, hemp and sunflower for intense moisturization. Our formulation includes shea butter, marshmallow root, and green tea to create a non-greasy, shine-enhancing hair care solution for all textures.",
    "claims": [
-    "hydratant",
-    "brillance"
+    "hydratation",
+    "nutrition",
+    "brillance",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/coconut-water-leave-in-treatment.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--curl-love-conditioner",
@@ -317,6 +370,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -326,11 +380,15 @@
    "ingredients": "Water (Aqua), Aloe Barbadensis Leaf Juice, Cetyl Alcohol, Hellianthus Annus Sunflower Oil, Cetearyl Alcohol, Olea Europea (Olive) Fruit Oil, Behentrimonium Methosulfate, Polyester 37, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Cellulose, Persea Gratissima (Avocado) Oil, Hydroxypropyl Methylcellulose, Phenoxyethanol, Ethylhexylglycerin, Fragrance, Chromium Oxide Greens",
    "description": "Nourish curls in maximum hydration with our signature Curl Love Conditioner, a blend of avocado and olive oil beads infused with rich moisturizing agents. The silky moisturizing conditioner gently detangles knots and leaves hair smooth, providing the perfect base for additional hydration and styling for every hair type.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/curl-love-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--curl-love-shampoo",
@@ -357,9 +415,13 @@
    "ingredients": "Water (Aqua), Aloe Barbadensis Leaf Juice, Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Betaine, Decyl Glucoside, Di-PPG-2-Myreth-10 Adipate, Sodium Lauroyl Lactylate, Persea Gratissima (Avocado) Oil, Sodium Lauroyl Sarcosinate, Olea Europea (Olive) Fruit Oil, Cocamide MEA, Polyquaternium-10, Citric Acid, Phenoxyethanol, Ethylhexylglycerin, Fragrance",
    "description": "Curl Love Shampoo is a moisture-boosting cleanser crafted to gently purify all hair types without stripping essential hydration. This moisturizing shampoo for curly hair gently foams, cleanses, and moisturizes hair, promoting healthy strands from scalp to tip. Hair is left perfectly prepped for the rest of your curl care routine to conquer dry, damaged hair.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "reparation",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/curl-love-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--guava-slip-whipped-souffle",
@@ -376,7 +438,6 @@
    "etape": 3,
    "cheveux_cibles": [
     "secs",
-    "epais",
     "boucles"
    ],
    "actifs": [
@@ -392,10 +453,15 @@
    "ingredients": "Water (Aqua), Aloe Barbadensis Leaf Juice, Helianthus Annuus (Sunflower) Seed Oil, Cocos Nucifera (Coconut) Oil, Cetyl Alcohol, Polyglyceryl-6 Stearate, Polyquaternium-37, Butyrospermum Parkii (Shea) Butter, Panthenol, Tocopheryl Acetate, Ricinus Communis (Castor) Seed Oil, Sesamum Indicum (Sesame) Seed Oil, Pyrus Malus (Apple) Fruit Extract, Unum Ustiatissium (Linseed) Oil Extract, Annona Muricata (Graviola) Fruit Extract, Persea Gratissima (Avocado) Fruit Extract, Psidium Guajava (Guava) Fruit Extract, Terminalia Ferdinandiana (Kakadu Plum) Fruit Extract, Behentrimonium Chloride, Glyceryl Stearate, Ethylhexylglycerin, Polyglyceryl-6 Behenate, Leuconostoc/Radish Root Ferment Filtrate, Isopropyl Alcohol, Tetrasodium Glutamate Diacetate, Citric Acid, Phenoxyethanol, Chlorphenesin, Fragrance (Parfum) Limonene",
    "description": "When it comes to curly hair products, we’ve got you covered. The Guava Slip Whipped Soufflé is infused with holistic botanicals to provide superior frizz control and styling versatility for curls, coils, and wavy hair. Knots and tangles dissolve effortlessly on wet or dry hair, leaving strands hydrated, defined, and silky smooth.",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/guava-slip-whipped-souffle.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--guava-slip-leave-in-conditioner",
@@ -408,10 +474,10 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0980/9736/files/ProductCard_Guava_LeaveinConditioner.webp?width=600",
    "image_local": "public/scan/products-cheveux/camille-rose/guava-slip-leave-in-conditioner.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -423,11 +489,16 @@
    "ingredients": "Water (Aqua), Aloe Barbadensis Leaf Juice, Cetearyl Alcohol, Glycerin, Simmondsia Chinensis (Jojoba) Seed Oil, Caprylic/Capric Triglyceride, Behentrimonium Chloride, Psidium Guajava (Guava) Fruit Extract, Terminalia Ferdinandiana (Kakadu Plum) Fruit Extract, Persea Gratissima (Avocado) Oil, Annona Muricata (Graviola) Fruit Extract, Dipropylene Glycol, Phenoxyethanol, Ethylhexylglycerin, Leuconostoc/Radish Root Ferment Filtrate, Maltodextrin, Fragrance, Benzyl Alcohol, Benzyl Benzoate, Benzyl Salicylate, D-Limonene, Hydroxycitronellal",
    "description": "Celebrate your natural texture with our high-slip guava detangling leave-in conditioner. The lightweight formula delivers effortless glide for seamless styling and enhanced frizz control on curls, coils, and wavy hair. Infused with guava fruit essence and Kakadu plum extract, the guava leave-in treatment provides hydrating nourishment, resulting in hair that’s smooth, supple, and soft to the touch.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/guava-slip-leave-in-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--guava-slip-conditioner",
@@ -443,7 +514,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -455,11 +526,15 @@
    "ingredients": "Water (Aqua), Aloe Barbadensis Leaf Juice, Cetearyl Alcohol, Glycerin, Simmondsia Chinensis (Jojoba) Seed Oil, Caprylic/Capric Triglyceride, Behentrimonium Chloride, Psidium Guajava (Guava) Fruit Extract, Terminalia Ferdinandiana (Kakadu Plum) Fruit Extract, Persea Gratissima (Avocado) Oil, Annona Muricata (Graviola) Fruit Extract, Dipropylene Glycol, Phenoxyethanol, Ethylhexylglycerin, Leuconostoc/Radish Root Ferment Filtrate, Maltodextrin, Fragrance, Benzyl Alcohol, Benzyl Benzoate, Benzyl Salicylate, D-Limonene, Hydroxycitronellal",
    "description": "Top off your hair wash routine with our high-slip detangling conditioner. This intensely nourishing formula, enriched with guava fruit essence and Kakadu plum extract, is designed to shorten wash days for all hair types by smoothing tangles and knots with ease. A rich blend of moisturizing nectars hydrates every curl, leaving hair soft, revitalized, and prepped for styling.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/guava-slip-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--guava-slip-shampoo",
@@ -474,7 +549,9 @@
    "image_local": "public/scan/products-cheveux/camille-rose/guava-slip-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "gras"
+   ],
    "actifs": [
     "acide citrique",
     "huile d'avocat"
@@ -482,9 +559,12 @@
    "ingredients": "Water (Aqua), Disodium Cocoamphodipropionate, Cocamidopropyl Betaine, Sodium Lauroyl Sarcosinate, Citric Acid, Psidium Guajava (Guava) Fruit Extract, Terminala Ferdinandiana (Kakadu Plum) Fruit Extract, Persea Gratissima (Avocado) Oil, Unum Ustiatissium (Linseed) Oil Extract, Annonimuricata (Graviola) Fruit Extract, Phenoxyethanol, Polyquaternium 10, Polyquaternium 7, Sodium Chloride, Methyl Glucose Caprate/Caprylate/Oleate, Decyl Glucoside, Propanediol, Cetrimonium Chloride, Exthyhexylglycerin, Leuconostoc/Radish Root Ferment Filtrate, Maltodextrin, Fragrance D-Limonene",
    "description": "Detangle + Cleanse Experience a decadent cleanse with our high-slip detangling shampoo. Infused with guava fruit essence and Kakadu plum extract, this gentle formula is crafted to shorten wash days by effectively removing dirt and buildup while dissolving stubborn knots and tangles. Hair is left purified and perfectly primed for conditioning. How to Enjoy: Apply a generous amount to drenched hair, massaging through from scalp to tip until a lather forms. Use fingers to separate knots and tangles",
    "claims": [
-    "purifiant"
+    "purifiant",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/guava-slip-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--mint-condition-nourishing-braiding-gel-extreme-hold",
@@ -500,7 +580,10 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "epais"
+    "secs",
+    "crepus",
+    "abimes",
+    "chute"
    ],
    "actifs": [
     "protéines de blé",
@@ -512,10 +595,16 @@
    "ingredients": "Water, Ceteareth-25, PEG-7,Glyceryl Cocoate, Glycerin, Chrondus Crispus (Sea Moss) Extract, PEG-40 Hydrogenated Castor Oil, Aloe Barbadensis Leaf Juice, Mentha Piperita (Peppermint) Oil, Hydrolyzed Wheat Protein, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate, Fragrance",
    "description": "A braiding gel infused with aloe vera and sea moss to keep braids, locs, and twists neat and nourished. Achieve your desired protective style with our specially formulated hair gel for braids. Prevents frizz, maintains extreme hold, and reduces breakage and shedding while delivering a high shine for that perfect braid.",
    "claims": [
-    "nourrissant",
-    "brillance"
+    "nutrition",
+    "reparation",
+    "anti-frisottis",
+    "anti-chute",
+    "brillance",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/mint-condition-nourishing-braiding-gel-extreme-hold.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--coconut-water-shampoo",
@@ -531,7 +620,8 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "epais",
+    "secs",
+    "fins",
     "boucles"
    ],
    "actifs": [
@@ -543,10 +633,15 @@
    "ingredients": "Sodium C14-16 Olefin Sulfonate , Cocamidopropyl Betaine, Disodium Cocoamphodipropionate, Citric Acid, Polyquaternium-10, Ricinus communis (Castor) oil, Rosmarinus officinalis (Rosemary) Leaf Oil, Cocos Nucifera (Coconut) Oil, Polyquaternium-7, Ethylhexylglycerin, Phenoxyethanol, Fragrance (Parfum)",
    "description": "Nourishing coconut-infused cleanser for soft, bouncy curls. Our coconut water shampoo is a weightless, sulfate-free cleanser that minimizes frizz and smoothens hair. Treat your scalp and strands with a blend of coconut oil, castor oil, and rosemary oil to stimulate hair growth.",
    "claims": [
-    "nourrissant",
-    "lissant"
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "croissance",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/coconut-water-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--rosemary-oil-5-minute-strengthening-hair-mask",
@@ -561,7 +656,10 @@
    "image_local": "public/scan/products-cheveux/camille-rose/rosemary-oil-5-minute-strengthening-hair-mask.jpg",
    "categorie": "masque",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "gras",
+    "abimes"
+   ],
    "actifs": [
     "biotine",
     "protéines de blé",
@@ -577,11 +675,15 @@
    "ingredients": "Water (Aqua), Cetearyl Alcohol, Olea Europaea (Olive) Fruit Oil, Glycerin, Behentrimonium Methosulfate, Stearamidopropyl Dimethylamine, Ricinus Communis (Castor) Seed Oil, Cetrimonium Chloride, Rosmarinus Officinalis (Rosemary) Leaf Oil, Urtica Dioica (Nettle) Leaf Extract, Melissa Officinalis (Melissa) Leaf Extract, Mentha Piperita (Peppermint) Leaf Extract, Equisetum Arvense (Horsetail) Leaf Extract, Yucca Leaf Extract, Rosmarinus Officinalis (Rosemary) Flower/Leaf/Stem Extract, Mentha Piperita (Peppermint) Oil, Guar Hydroxypropyltrimonium Chloride, Hydrolyzed Wheat Protein, Phenoxyethanol, EthylhexylGLycerin, and Citric Acid",
    "description": "Our rosemary hair mask can help reduce hair breakage, strengthen strands, and promote healthy hair growth in a fraction of the time. Made with a blend of pure rosemary oil, peppermint, amla, apigenin, shikakai, and biotin, we created a unique blend to support hair growth for all textures. Nourish your scalp and give your hair a healthy boost for unstoppable shine.",
    "claims": [
-    "nourrissant",
-    "brillance",
-    "fortifiant"
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "croissance",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/rosemary-oil-5-minute-strengthening-hair-mask.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--rosemary-oil-strengthening-hair-scalp-drops",
@@ -596,18 +698,22 @@
    "image_local": "public/scan/products-cheveux/camille-rose/rosemary-oil-strengthening-hair-scalp-drops.jpg",
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "huile d'amla"
    ],
    "ingredients": null,
    "description": "A multi-use oil infused with pure rosemary to help nourish the scalp and support the appearance of healthier, more resilient hair with enhanced shine, our rosemary hair drops keep hair soft while nourishing it at the root. Support your healthy hair goals with a blend of pure rosemary oil, peppermint, amla, shikakai, and more. Experience the difference with just a few drops!",
    "claims": [
-    "nourrissant",
-    "brillance",
-    "fortifiant"
+    "nutrition",
+    "fortifiant",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/rosemary-oil-strengthening-hair-scalp-drops.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "camille-rose--rosemary-water-daily-strengthening-mist",
@@ -622,7 +728,10 @@
    "image_local": "public/scan/products-cheveux/camille-rose/rosemary-water-daily-strengthening-mist.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "gras",
+    "fins"
+   ],
    "actifs": [
     "biotine",
     "huile de ricin",
@@ -636,11 +745,14 @@
    "ingredients": "Water (Aqua), Aloe Barbadensis Leaf Juice, Glycerin, Polysorbate 20, Cetrimonium Chloride, Rosmarinus Officinalis (Rosemary) Leaf Oil, Urtica Dioica (Nettle) Leaf Extract, Melissa Officinalis (Melissa) Leaf Extract, Mentha Piperita (Peppermint) Leaf Extract, Equisetum Arvense (Horsetail) Leaf Extract, Yucca Leaf Extract, Rosmarinus Officinalis (Rosemary) Flower/Leaf/Stem Extract, Ricinus communis (Castor Beans) Oil, Mentha Piperita (Peppermint) Oil, Polyquaternium-37, Phenoxyethanol, Ethylhexylglycerin, and Phthalate-Free Fragrance (Parfum)",
    "description": "A rosemary hair spray crafted to help invigorate and refresh the scalp while supporting the overall look and feel of healthier, more vibrant hair. This nourishing mist helps condition hair from root to tip, leaving strands feeling revitalized and looking fuller with enhanced shine.Support the appearance of longer, stronger-looking hair with a powerhouse blend of pure rosemary oil, peppermint, amla, apigenin, shikakai, and biotin. Our lightweight, non-greasy formulation is ideal for all hair text",
    "claims": [
-    "nourrissant",
-    "brillance",
-    "fortifiant"
+    "nutrition",
+    "fortifiant",
+    "volume",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/rosemary-water-daily-strengthening-mist.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--rosemary-oil-strengthening-leave-in-conditioner",
@@ -653,9 +765,10 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0980/9736/files/ProductCard_Rosemary_LeaveinConditioner.webp?width=600",
    "image_local": "public/scan/products-cheveux/camille-rose/rosemary-oil-strengthening-leave-in-conditioner.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -673,12 +786,17 @@
    "ingredients": "Glycerin, Propanediol, Olea Europaea (Olive) Fruit Oil, PEG-40 Hydrogenated Castor Oil, Rosmarinus Officinalis (Rosemary) Leaf Oil, Honey (Mel), Rosmarinus Officinalis (Rosemary) Flower/Leaf/Stem Extract, Water (Aqua), Lactic Acid, Glycolic Acid, Vaccinium Myrtillus Fruit Extract, Saccharum Officinarum (Sugarcane) Extract, Citric Acid, Citrus Aurantium Dulcis (Orange) Fruit Extract, Citrus Limon (Lemon) Fruit Extract, Acer Saccharum (Sugar Maple) Extract, Tartaric Acid, Malic Acid, Mentha Piperita (Peppermint) Oil, Phenoxyethanol, EthylhexylGLycerin, Chromium Oxide, Curcuma Longa (Turmeric) Root Extract, and Spirulina Platensis Extract",
    "description": "Daily texture moisturizer crafted to strengthen strands, detangle, and encourage growth with rosemary oil. Our rosemary leave-in conditioner is infused with peppermint, amla, apigenin, shikakai, and biotin to boost hair health. Nourish the scalp and repair hair strands that can lead to improved hair thickness and reduced breakage. We recommend using it on freshly cleansed hair for total repair.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "reparateur",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "texturisant",
+    "croissance",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/rosemary-oil-strengthening-leave-in-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--rosemary-oil-strengthening-hair-scalp-cleanser",
@@ -691,9 +809,11 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0980/9736/files/rosemary-oil-strengthening-hair-scalp-cleanser-6a561a30451e4.webp?width=600",
    "image_local": "public/scan/products-cheveux/camille-rose/rosemary-oil-strengthening-hair-scalp-cleanser.jpg",
-   "categorie": "serum-cuir-chevelu",
-   "etape": 4,
-   "cheveux_cibles": [],
+   "categorie": "shampooing",
+   "etape": 1,
+   "cheveux_cibles": [
+    "gras"
+   ],
    "actifs": [
     "biotine",
     "glycérine",
@@ -706,11 +826,14 @@
    "ingredients": "Water (Aqua), C14-16 Alpha Olefin Sulfonate, Cetearyl Alcohol, Cocamidopropyl Betaine, Glyceryl Stearate, Behentrimonium Methosulfate, PEG-100 Stearate, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Rosmarinus Officinalis (Rosemary) Leaf Oil, Urtica Dioica (Nettle) Leaf Extract, Melissa Officinalis (Melissa) Leaf Extract, Mentha Piperita (Peppermint) Leaf Extract, Equisetum Arvense (Horsetail) Leaf Extract, Yucca Leaf Extract, Rosmarinus Officinalis (Rosemary) Flower/Leaf/Stem Extract, Mentha Piperita (Peppermint) Oil, Guar Hydroxypropyltrimonium Chloride, Citrus Limon (Lemon) Peel Powder, Glycerin, Behenyl Behenate, Phenoxyethanol, EthylhexylGLycerin, and Citric Acid",
    "description": "Strengthening hair and scalp cleanser crafted to gently remove product build-up and restore essential moisture with lemon peel and rosemary.Our Rosemary Collection is made with pure rosemary oil, peppermint, amla, apigenin, shikakai, and biotin. Blended into our scalp cleanser, it can improve hair strength for all textures to give you a healthy boost and unstoppable shine.",
    "claims": [
-    "hydratant",
-    "brillance",
-    "fortifiant"
+    "hydratation",
+    "fortifiant",
+    "purifiant",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/rosemary-oil-strengthening-hair-scalp-cleanser.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--black-castor-oil-chebe-repair-pure-strengthening-oil",
@@ -725,7 +848,9 @@
    "image_local": "public/scan/products-cheveux/camille-rose/black-castor-oil-chebe-repair-pure-strengthening-oil.jpg",
    "categorie": "huile",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "huile de ricin",
     "glycérine",
@@ -734,10 +859,13 @@
    "ingredients": "DEIONIZED WATER (AQUA), CETEARETH-25, PEG-7 (GLYCERYL COCOATE), GLYCERIN, PEG-40 HYDROGENATED CASTOR OIL, CAPRYLIC/CAPRIC TRIGLYCERIDE, RICINUS COMMUNIS (BLACK CASTOR) SEED OIL, CROTON ZAMBESICUS (CHEBE) POWDER, PHENOXYETHANOL (OPTIPHENND), CAPRYLYL GLYCOL, FRAGRANCE",
    "description": "Pure Black Castor Oil infused with Chebe promotes hair growth by strengthening strands and deeply moisturizing the shaft. See and feel the difference of our hair strengthening oil that gives hair a healthy boost. For optimal results, we recommend using daily after cleansing hair.",
    "claims": [
-    "hydratant",
-    "fortifiant"
+    "hydratation",
+    "fortifiant",
+    "croissance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/black-castor-oil-chebe-repair-pure-strengthening-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--black-castor-oil-chebe-buttercream",
@@ -750,9 +878,11 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0980/9736/files/ProductCard_BCO_Chebe_Buttercream.webp?width=600",
    "image_local": "public/scan/products-cheveux/camille-rose/black-castor-oil-chebe-buttercream.jpg",
-   "categorie": "huile",
+   "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "huile de coco",
     "beurre de karité",
@@ -763,9 +893,13 @@
    "ingredients": "DEIONIZED WATER (AQUA), COCOS NUCIFERA (COCONUT) OIL, GLYCERIN, BRASSICYL ISOLEUCINATE ESYLATE, CETEARYL ALCOHOL, RICINUS COMMUNIS (BLACK CASTOR) SEED OIL, BUTYROSPERMUM PARKII (SHEA) BUTTER, THEOBROMA CACAO (COCOA) SEED BUTTER, DIHEPTYL SUCCINATE, BRASSICA ALCOHOL, CAPRYLOYL GLYCERIN/SEBACIC ACID COPOLYMER, CAPRYLIC/CAPRIC TRIGLYCERIDE, CROTON ZAMBESICUS (CHEBE) POWDER, BLACK TEA EXTRACT, CURCUMIN, ORYZA SATIVA (RICE) BRAN WAX, PHENOXYETHANOL (OPTIPHEN ND), ETHYLHEXYLGLYCERIN, FRAGRANCE",
    "description": "A rich oil-cream butter crafted to restore moisture for thicker textures and set styles in place.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "volume"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/black-castor-oil-chebe-buttercream.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--black-castor-oil-chebe-deep-conditioner",
@@ -781,6 +915,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "boucles",
     "abimes"
    ],
@@ -796,11 +931,16 @@
    "ingredients": "Deionized Water (Aqua), Cetearyl Alcohol, Cocos Nucifera (Coconut) Oil, Glycerin, Cyclopentasiloxane, Simmondsia Chinensis (Jojoba) Seed Oil, Stearamidopropyl Dimethylamine (Plant Derived), Behentrimonium Chloride (Plant Derived)Behentrimonium Methosulfate(PlantDerived),Cyclotetrasiloxane, Dimethiconol, Ricinus Communis (Black Castor) Seed Oil, Croton Zambesicus (Chebe) Powder, Hydrolyzed Wheat Protein, Guar Hydroxypropyltrimonium Chloride, Phenoxyethanol (Optiphen ND), Ethylhexylglycerin, Citric Acid, and Phthalate-Free Fragrance",
    "description": "An intensive hair conditioner treatment that helps nourish and fortify the hair, promoting a healthier-looking, more resilient texture and restoring vitality to damaged strands.Invigorate your curls with black castor oil and chebe, known for their intense moisture and repairing properties. Effectively soften hair and refresh your natural hair with our Black Castor Oil + Chebe Collection.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "reparateur"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "definition-boucles",
+    "texturisant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/black-castor-oil-chebe-deep-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--black-castor-oil-chebe-cleanse",
@@ -826,10 +966,12 @@
    "ingredients": "DEIONIZED WATER (AQUA), GLYCERIN, DISODIUM COCOAMPHODIPROPIONATE (VEGETABLE DERIVED), SODIUM C14-16 OLEFIN SULFONATE (VEGETABLE DERIVED), COCAMIDOPROPYL BETAINE (VEGETABLE DERIVED), CITRIC ACID, RICINUS COMMUNIS (BLACK CASTOR) SEED OIL, CROTON ZAMBESICUS (CHEBE) POWDER, BLACK TEA EXTRACT, CURCUMIN, DECYL GLUCOSIDE, PANTHENOL, POLYQUATERNIUM-7, POLYQUATERNIUM-10, PHENOXYETHANOL (OPTIPHENND), ETHYLHEXYLGLYCERIN, FRAGRANCE",
    "description": "Our oil-infused hair cleanser combines black castor oil and chebe to strengthen strands, restore shine, and improve manageability. Invigorate your scalp with the Black Castor Oil + Chebe Cleanse shampoo that’s ideal for all hair types and textures.",
    "claims": [
-    "brillance",
-    "fortifiant"
+    "fortifiant",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/black-castor-oil-chebe-cleanse.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "camille-rose--honey-dew-liquid-moisture-refresher",
@@ -844,7 +986,11 @@
    "image_local": "public/scan/products-cheveux/camille-rose/honey-dew-liquid-moisture-refresher.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "gras",
+    "cuir-chevelu-sensible"
+   ],
    "actifs": [
     "huile de ricin",
     "aloe vera",
@@ -854,11 +1000,13 @@
    "ingredients": "WATER (AQUA), ORYZA SATIVA (RICE WATER) EXTRACT, URTICA DIOICA (NETTLE) EXTRACT, HONEY (MEL) WILDFLOWER & CLOVER, POLYSORBATE 20, ALOE BARBADENSIS LEAF JUICE, CENTRIMONIUM CHLORIDE, RICINUS COMMUNIS (CASTOR BEANS) OIL, POLYQUATERNIUM-37, ORBIGNYA OLEIFERA (BABASSU) SEED OIL, POLYQUATERNIUM 6, PHENOXYETHANOL (OPTIPHEN ND), ETHYLHEXYLGLYCERIN",
    "description": "A hair refresher spray infused with honey and nettle root that hydrates and soothes natural hair. Revitalize your hair with nourishing ingredients great for all textures. Our hair freshener spray is versatile whether you’re hydrating freshly washed hair or adding more moisture to protective hair styles.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "apaisant"
+    "hydratation",
+    "nutrition",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/honey-dew-liquid-moisture-refresher.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--spiked-honey-mousse-4-in-1-styler",
@@ -873,7 +1021,13 @@
    "image_local": "public/scan/products-cheveux/camille-rose/spiked-honey-mousse-4-in-1-styler.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "gras",
+    "boucles",
+    "lisses",
+    "cuir-chevelu-sensible"
+   ],
    "actifs": [
     "panthénol",
     "protéines de soie",
@@ -887,14 +1041,17 @@
    "ingredients": "AQUA, POLYSORBATE 20, COCAMIDOPROPYL BETAINE, GLYCERETH-2 COCOATE, PVP, METHYL GLUCETH-20 PHENOXYETHANOL, PARFUM, ETHYLHEXYLGLYCERIN, ALOE BARBADENSIS LEAF EXTRACT, CITRIC ACID, POLYQUATERNIUM-55, QUATERNIUM-75, GLYCERIN, PANTHENOL, TOCOPHERYL ACETATE, LIMONENE, HONEY EXTRACT, SILK AMINO ACIDS, CAPRYLYL GLYCOL, URTICA DIOICA LEAF EXTRACT, ORYZA SATIVA EXTRACT, POTASSIUM SORBATE, SODIUM BENZOATE, BENZYL ALCOHOL, SODIUM SULFITE",
    "description": "Our nourishing hair styling mousse is crafted with hydrating honey and soothing nettle root ideal for all hair textures. The honey helps soften, smooth, and hydrate strands, while nettle root enhances shine and improves overall hair health. The added benefits? It provides intense conditioning, texture-definition, effortless styling, and everyday refreshing.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "brillance",
-    "lissant",
-    "apaisant",
-    "definition-boucles"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant",
+    "apaisant-cuir-chevelu",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/spiked-honey-mousse-4-in-1-styler.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--honeycomb-curl-whip-texture-defining-supercream",
@@ -910,8 +1067,9 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
-    "boucles"
+    "secs",
+    "boucles",
+    "cuir-chevelu-sensible"
    ],
    "actifs": [
     "miel"
@@ -919,13 +1077,18 @@
    "ingredients": null,
    "description": "A defining supercream infused with HONEY and NETTLE, crafted to boost shine, eliminate frizz, and hold styles in place.Sweeten your hair care ritual with our NEW! Honey Collection crafted with hydrating Honey and soothing Nettle Root. Our nourishing Honey Collection offers a rich assortment of handcrafted hair blends for all textures. Droplets of real honey soften, smooth, and hydrate strands, while infusions of nettle root enhance shine and improve overall hair health. This collection offers in",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant",
+    "apaisant-cuir-chevelu",
     "brillance",
-    "lissant",
-    "apaisant"
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/honeycomb-curl-whip-texture-defining-supercream.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--mint-condition-braid-and-scalp-spray",
@@ -941,6 +1104,8 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "fins",
+    "crepus",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -954,10 +1119,12 @@
    "ingredients": "Deionized Water (Aqua), Aloe Barbadensis Leaf Juice, Simmondsia Chinensis (Jojoba) Seed Oil, Olea Europaea (Olive) Fruit Oil, Polysorbate 20, Cetrimonium Chloride, Mentha Piperita (Peppermint) Oil, Menthol, Chondrus Crispus (Sea Moss) Extract, Ricinus communis (Castor Beans) Oil, Rubus Idaeus (Raspberry) Leaf Extract, Withania Somnifera (Ashwagandha) Root Extract, MEL (honey), Melaleuca Alternifolia (Tea Tree) Leaf Oil, Polyquaternium-37, Phenoxyethanol (Optiphen ND), Ethylhexylglycerin, and Phthalate-Free Fragrance (Parfum)",
    "description": "Our braid and scalp spray is a revitalizing blend of essential oils, herbs, and sea moss, meticulously formulated to soothe dry, itchy scalps. Mint Condition softens hair roots and revitalizes hair strands with a few sprays. Support the appearance of stronger, more resilient strands while you comfort your scalp with clean, consciously-chosen ingredients. This lightweight, refreshing spray delivers moisture and scalp-soothing care without weighing hair down, leaving your braids, locs, and protect",
    "claims": [
-    "hydratant",
-    "apaisant"
+    "hydratation",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/mint-condition-braid-and-scalp-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--the-hair-grower",
@@ -971,10 +1138,12 @@
    "image_source_url": "https://cdn.shopify.com/s/files/1/0980/9736/files/ProductCard_The_Gro_Grease_copy.webp?width=600",
    "image_local": "public/scan/products-cheveux/camille-rose/the-hair-grower.jpg",
    "categorie": "anti-pellicules",
-   "etape": 1,
+   "etape": 4,
    "cheveux_cibles": [
+    "secs",
     "abimes",
-    "pellicules"
+    "pellicules",
+    "cuir-chevelu-sensible"
    ],
    "actifs": [
     "huile de ricin",
@@ -987,11 +1156,14 @@
    "ingredients": "ALCOHOL, PRUNUS AMYGDALUS DULCIS FRUIT EXTRACT, PRUNUS AMYGDALUS DULCIS (SWEET ALMOND) OIL, CUCURBITA PEPO (PUMPKIN) SEED OIL, SESAMUM INDICUM (SESAME) SEED OIL, SIMMONDSIA CHINENSIS (JOJOBA) SEED OIL, ORYZA SATIVA (RICE) BRAN OIL, MACADAMIA TERNIFOLIA SEED OIL, OLEA EUROPAEA (OLIVE) FRUIT OIL, CANNABIS SATIVA (HEMP) SEED OIL, ULMUS FULVA BARK (SLIPPERY ELM) EXTRACT, RICINUS COMMUNIS (CASTOR) SEED OIL, ALOE BARBADENSIS LEAF JUICE, CERA ALBA, CAMELLIA SINENSIS LEAF EXTRACT, PHENOXYETHANOL (OPTIPHEN ND), CAPRYLYL GLYCOL, FRAGRANCE",
    "description": "Experience our scalp conditioner for hair growth crafted to decrease the occurrence of psoriasis, dandruff, and eczema. Formerly called “The Hair Grower” and aids in healthy hair growth.Healthy hair starts at the scalp. Gro Grease is created with essential oils rich in sulfur that’s vital for hair growth. It soothes inflammation and helps repair flaky skin on the scalp. Pair with a hair regrowth serum for an added boost.",
    "claims": [
-    "reparateur",
-    "apaisant",
-    "anti-pellicules"
+    "reparation",
+    "croissance",
+    "antipelliculaire",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/the-hair-grower.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--rejuva-drops-come-back",
@@ -1007,6 +1179,7 @@
    "categorie": "traitement-chute",
    "etape": 4,
    "cheveux_cibles": [
+    "fins",
     "chute"
    ],
    "actifs": [
@@ -1019,11 +1192,14 @@
    "ingredients": "Aqua (Water), Alcohol Denat. SD Alcohol 40-B, Butylene Glycol, PPG-26-Buteth-26, PEG-40 Hydrogenated Castor Oil, Apigenin, Oleanolic Acid, Biotinoyl Tripeptide, Hydrolyzed Vegetable Protein, PG-Propyl Silanetriol, Xanthan Gum, Serenoa Serrulata Fruit Extract, Lavandula Angustifolia (Lavender) Oil, Mentha Piperita (Peppermint) Oil, Citric Acid, Phenoxyethanol, Ethylhexylglycerine, Parfum (Fragrance)",
    "description": "Hair growth drops infused with saw palmetto, peppermint leaves, and castor beans to combat hair loss and damage.Mixed with castor oil, peppermint oil, and saw palmetto to nourish the hair while slowing the aging process by blocking DHT (dihydrotestosterone). Our hair regrowth serum rejuvenates, stimulates, and strengthens the hair follicle. For optimal results, we recommend using daily while massaging the product into the scalp.",
    "claims": [
-    "nourrissant",
+    "nutrition",
+    "fortifiant",
     "anti-chute",
-    "fortifiant"
+    "croissance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/rejuva-drops-come-back.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--buritti-nectar-repair-cholesterol-treatment",
@@ -1039,6 +1215,8 @@
    "categorie": "huile",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
+    "colores",
     "abimes"
    ],
    "actifs": [
@@ -1050,11 +1228,15 @@
    "ingredients": "Water (agua) cocos nucifera (coconut) oil, glycerin, cetearyl alcohol, behentrimonium methosulfate, cholesterol, mauritia flexuosa (buriti) fruit oil, aloe barbadensis leaf juice, ceteareth-20, theobroma cacao (cocoa) seed butter, phenoxyethanol (preservative), ethylhexylglycerin, citric acid, and fragrance (phthalate free) beta carotene",
    "description": "Our cholesterol hair treatment is ideal for dry and brittle textured hair that needs extra nourishment. Buriti fruit oil is rich in Omega 3, 6, and 9 that helps repair textured hair. Dry, limp, brittle, and over-processed strands can be damaged from heat styling, hair color treatments, or lack of moisture. Rejuvenate and enjoy soft, shiny and lustrous hair strands with our cholesterol treatment for natural hair.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "reparateur"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "brillance",
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/buritti-nectar-repair-cholesterol-treatment.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--cocoa-nibs-and-honey",
@@ -1070,6 +1252,9 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
+    "fins",
+    "abimes",
     "chute"
    ],
    "actifs": [
@@ -1084,10 +1269,14 @@
    "ingredients": "Emblica Officinalis (Amla) Fruit Extract, Sesamum Indicum (Sesame) Seed Oil, Virgin Coconut Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Virgin Olive Oil, Pressed Macadamia Ternifolia Seed Oil, Butyrospermum Parkii Butter, Theobroma Cacao ( Cocoa) Seed Butter, Honey (Mel), Biotin, MSM, Acacia Concinna (Shikakai) Extract, Sapindus Laurifolia (Aritha) Fruit Powder, Bacopa Monnieri (Brahmi) Extract, Eclipta Alba (Bhringraj) Extract, Melaleuca Alternifolia (Tea Tree) Leaf Oil, Behentrimonium Methosulfate (BTMS), Fragrance",
    "description": "A healing hair oil blend crafted to combat thinning and hair breakage.Restore your strands with our hair strengthening serum. We crafted a healing hair oil made with ayurvedic amla oil and brahmi herbal infusions to deliver intense care. Accelerate hair growth with our Cocoa Nibs + Honey Ultimate Strength Serum that combats hair thinning and breakage while nourishing your scalp and hair.",
    "claims": [
-    "nourrissant",
-    "fortifiant"
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "croissance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/cocoa-nibs-and-honey.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--coconut-water-style-setter",
@@ -1102,7 +1291,9 @@
    "image_local": "public/scan/products-cheveux/camille-rose/coconut-water-style-setter.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "huile de coco",
     "huile de ricin",
@@ -1111,10 +1302,13 @@
    "ingredients": "Ingredients: distilled water, cocos nucifera (coconut) water, ricinus communis (castor) seed oil, europaea ( olive) fruit oil, vaccinum myrtillus (bilberry) extract, saccharum officinarum (sugar cane) extract, citrus aurantium dulcis (orange) fruit extract, citrus medica limonum (lemon)fruit extract, dehentrimonium methodulfate ( btms), cocos nucifera (coconut) fruit extract, aloe barbedensis leaf juice, phenoxyethanol and caprylyl glycol (optiphen), scent and LOVE!",
    "description": "A tropical cream hair gel with warm scents of citrus and coconut, crafted to hydrate and hold styles in place. “Set today upon the hope of a more natural tomorrow.” Love, Camille Recipe: Thirst-quenching coconut waters are layered with botanical aloe vera juices, then mixed together with ripe citrus extracts of orange and lemon. Castor and coconut oils deeply penetrate tresses to provide maximum moisture and shine in this tropical styling treat. Gourmet Ingredients: Aloe Juices aid in moisture r",
    "claims": [
-    "hydratant",
-    "brillance"
+    "hydratation",
+    "brillance",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/coconut-water-style-setter.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--moroccan-pear-conditioning-custard",
@@ -1130,6 +1324,8 @@
    "categorie": "huile",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
+    "gras",
     "abimes"
    ],
    "actifs": [
@@ -1144,12 +1340,14 @@
    "ingredients": "Deionized Water, Opuntia Ficus Indica (Moroccan Pear) Oil, Prunus Avium (Cherry) Kernel Oil, Urtica Dioica Extract, Cocos Nucifera (Coconut) Oil, Aloe Barbadensis Leaf Juice, Simmondsia Chinensis (Jojoba) Seed Oil, Vegetable Glycerin, Cetearyl Alcohol, Rosa Canina (Rosehip) Fruit Oil, Equisetum Arvense (Horsetail) Extract, Behentrimonium Methosulfate (BTMS), Oils, Almond, Cocoa Butter, Phenoxyethanol (Optiphen ND), Citric Acid, Fragrance",
    "description": "Moroccan Pear Conditioning Custard is a luxurious blend of nourishing oils to soften and protect the hair's moisture barrier.Our natural buttercream base is silkened with a culinary cocktail oil blend of Moroccan pear, Cherry Kernel and Urica (nettle). Vitamin-rich extracts A,B,C,D and K are paired with powerful antioxidants to repair and strengthen hair strands. Rich Omega 6 and 9 top off our conditioning custard that is ideal for all hair types.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "reparateur",
+    "hydratation",
+    "nutrition",
+    "reparation",
     "fortifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/moroccan-pear-conditioning-custard.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--sweet-ginger-cleansing-rinse",
@@ -1164,7 +1362,9 @@
    "image_local": "public/scan/products-cheveux/camille-rose/sweet-ginger-cleansing-rinse.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "huile de ricin",
     "acide citrique"
@@ -1172,10 +1372,13 @@
    "ingredients": "Deionized Water (Aqua) Infused With Zingiber Officinale (Ginger) Root Oil, Disodium Cocoamphodipropionate, Sodium C14-16 Olefin Sulfonate (Sulfate Free Cleanser), Cocamidopropyl Betaine (Coconut Cleanser), Citric Acid, Pimpinella Anisum (Anissed) Seed Oil, Ricinus Communis (Castor) Oil, Phenoxyethanol (Optiphen Nd), Ethylhexylglycerin, Polyquaternium-10, Sodium Cocoyl Isethionate (Coconut Cleanser), Decyl Glucoside (Sugar Based Cleanser), Glycol Distearate (Vegetable Derived), Guar Hydroxypropyltrimonium Chloride, Fragrance",
    "description": "A cleanser for natural hair to remove oils and product build-up while delivering moisture to hair strands.Invigorate your hair with Sweet Ginger Cleansing Rinse, an aromatic hair cleanser crafted to wash strands without stripping moisture. Infused in our shampoo are sweet ginger and aniseed oil to nourish the scalp and hair – perfect for all hair types.",
    "claims": [
-    "hydratant",
-    "nourrissant"
+    "hydratation",
+    "nutrition",
+    "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/sweet-ginger-cleansing-rinse.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--algae-renew-deep-conditioning-max",
@@ -1191,6 +1394,8 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
+    "fins",
     "chute"
    ],
    "actifs": [
@@ -1208,10 +1413,15 @@
    "ingredients": "Deionized Water, Aloe Barbadensis Leaf Juice, Butyrospermum Parkii Butter, Cocos Nucifera (Coconut) Oil, Behentrimonium Methosulfate (BTMS), Cetyl Alcohol, Theobroma Cacao ( Cocoa) Seed Butter, Mangifera Indica (Mango) Seed Butter, Cannabis Sativa (Hemp) Seed Oil, Panthenol, (Honey) Mel, Vegetable Glycerin, Camellia Sinensis (Green Tea) Leaf Extract, Simmondsia Chinensis (Jojoba) Seed Oil, Rosa Canina (Rosehip) Fruit Oil, Vitis Vinifera (Grape) Seed Oil, Oenothera Biennis (Evening Primrose) Oil, Phenoxyethanol (Optiphen ND), Caprylyl Glycol, Blue Green Algae, Biotin, Msm, Tocopheryl Acetate (Vitamin E), Mentha Piperita (Peppermint) Oil, Fragrance",
    "description": "For natural hair, our deep conditioner mask is infused with blue green algae and mango butter to prevent strands from breaking, shedding, and thinning.Packed with essential vitamins for healthy hair, enjoy a deep conditioning hair mask that moisturizes and strengthens hair. Revitalize your hair and quickly detangle it with our simple wash-out hair mask.",
    "claims": [
-    "hydratant",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "anti-chute",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/algae-renew-deep-conditioning-max.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "camille-rose--almond-jai-twisting-butter",
@@ -1227,7 +1437,10 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "boucles"
+    "secs",
+    "boucles",
+    "crepus",
+    "cuir-chevelu-sensible"
    ],
    "actifs": [
     "huile de ricin",
@@ -1241,11 +1454,15 @@
    "ingredients": "Deionized Water, Behentrimonium Methosulfate, (BTMS), Cetearyl Alcohol, Prunus Amygdalus Dulcis Fruit Extract, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Cucurbita Pepo (Pumpkin) Seed Oil, Sesamum Indicum (Sesame) Seed Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Oryza Sativa (Rice) Bran Oil, Macadamia Ternifolia Seed Oil, Olea Europaea (Olive) Fruit Oil, Cannabis Sativa Seed Oil, Ulmus Fulva Bark (Slippery Elm) Extract, Ricinus Communis (Castor) Seed Oil, Aloe Barbadensis Leaf Juice, Cera Alba, Camellia Sinensis Leaf Extract, Phenoxyethanol (Optiphen ND), Caprylyl Glycol, Fragrance",
    "description": "A soft hair twist product as a styling butter to smoothen and elongate strands. Our formulation includes almond milk, honey, and aloe vera to penetrate the hair shaft and soothe the scalp. Using our twisting butter for natural hair ensures that your curls are properly moisturized and protected for twist out styles.",
    "claims": [
-    "hydratant",
-    "lissant",
-    "apaisant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/camille-rose/cutout/almond-jai-twisting-butter.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

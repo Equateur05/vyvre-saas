@@ -747,9 +747,11 @@ export default function DiorScanClient({ products, onBack }: Props) {
       const result = lastScanResult;
       window.vyvreLastScanResult = result;
       let globalScore = 91,
-        cellAge = 29,
         hydration = 88;
-      let ageMethod = 'estimation';
+      // v11.1 — l'age n'est plus recalcule ici. Le moteur decide s'il est lisible
+      // et fournit la chaine a afficher (une fourchette) ou rien du tout.
+      let ageTexte: string | null = null;
+      let ageNoteTexte = 'Age de la peau - signal insuffisant sur cette image';
 
       if (result && result.scores) {
         const s = result.scores;
@@ -767,21 +769,20 @@ export default function DiorScanClient({ products, onBack }: Props) {
         );
         globalScore = Math.max(20, Math.min(99, globalScore));
 
-        // Âge : préférer l'estimation du MOTEUR (CNN-aware si TF.js chargé).
-        // Sinon fallback dermato à plage ÉLARGIE (≈18-85, vs ~28-48 avant, qui
-        // rajeunissait tout le monde — cf. audit clinique CLINICAL_AGE_VALIDATION.md).
-        const engineAge = typeof s.cellAge === 'number' && isFinite(s.cellAge) ? (s.cellAge as number) : null;
-        const cnnMethod = String(s.cellAgeMethod ?? s.cnnMethod ?? '').toLowerCase();
-        const usedCnn = /cnn|ensemble|advanced/.test(cnnMethod);
-        if (engineAge != null) {
-          cellAge = Math.round(engineAge);
+        // Age : c'est le moteur qui tranche (ageReadable / ageDisplay). Aucune
+        // formule locale : trois formules concurrentes ont deja publie trois ages
+        // differents pour le meme visage.
+        if (s.ageReadable === true && typeof s.ageDisplay === 'string' && s.ageDisplay) {
+          ageTexte = s.ageDisplay;
+          const conf = typeof s.confidence === 'number' ? Math.round(s.confidence * 100) : null;
+          ageNoteTexte =
+            'Fourchette lue sur l\u2019image, pas un age civil' + (conf != null ? ' \u00b7 confiance ' + conf + ' %' : '');
         } else {
-          const pigmentationYouth = 100 - (s.pigmentation ?? 50);
-          const youthScore = (s.wrinkles ?? 50) * 0.37 + (s.firmness ?? 50) * 0.37 + pigmentationYouth * 0.18 + (s.glow ?? 50) * 0.08;
-          cellAge = Math.round(58 - (youthScore - 50) * 0.9);
+          ageTexte = null;
+          ageNoteTexte =
+            (s.ageClassHint ? 'Age de la peau \u2014 ' + s.ageClassHint : 'Age de la peau \u2014 signal insuffisant') +
+            '. Aucun chiffre n\u2019est affiche tant que la mesure ne le permet pas.';
         }
-        cellAge = Math.max(18, Math.min(85, cellAge));
-        ageMethod = usedCnn ? 'CNN' : 'estimation';
 
         hydration = Math.round(s.hydration ?? 50);
         hydration = Math.max(25, Math.min(85, hydration));
@@ -789,17 +790,31 @@ export default function DiorScanClient({ products, onBack }: Props) {
 
       root!.querySelectorAll('[data-vyvre-score]').forEach((el) => ((el as HTMLElement).dataset.target = String(globalScore)));
       root!.querySelectorAll('[data-vyvre-score-large]').forEach((el) => ((el as HTMLElement).dataset.target = String(globalScore)));
-      root!.querySelectorAll('[data-vyvre-age]').forEach((el) => ((el as HTMLElement).dataset.target = String(cellAge)));
+      root!.querySelectorAll('[data-vyvre-age]').forEach((el) => {
+        const node = el as HTMLElement;
+        node.removeAttribute('data-target'); // pas de compteur animé sur une fourchette
+        node.textContent = ageTexte ?? '—';
+      });
+      // L'âge ne prend la place que s'il est lisible ; sinon on montre la fermeté,
+      // qui est mesurée sur l'image. Aucune carte ne reste vide, aucun chiffre inventé.
+      {
+        const carteAge = root!.querySelector<HTMLElement>('#dior-carte-age');
+        const carteFermete = root!.querySelector<HTMLElement>('#dior-carte-fermete');
+        if (carteAge) carteAge.style.display = ageTexte ? '' : 'none';
+        if (carteFermete) carteFermete.style.display = ageTexte ? 'none' : '';
+        const fermete = Math.max(
+          0,
+          Math.min(100, Math.round(Number(result?.scores?.firmness ?? 74))),
+        );
+        root!
+          .querySelectorAll('[data-vyvre-firmness]')
+          .forEach((el) => ((el as HTMLElement).dataset.target = String(fermete)));
+      }
       root!.querySelectorAll('[data-vyvre-hydration]').forEach((el) => ((el as HTMLElement).dataset.target = String(hydration)));
 
       // Note honnête sur la méthode + fourchette d'incertitude
       const ageNote = q('#vyvre-age-note');
-      if (ageNote) {
-        ageNote.textContent =
-          ageMethod === 'CNN'
-            ? 'Âge cellulaire · réseau de neurones (CNN) — indicatif ±5 ans'
-            : 'Âge cellulaire · estimation colorimétrique — indicatif ±8 ans';
-      }
+      if (ageNote) ageNote.textContent = ageNoteTexte;
 
       // Lien protocole + localStorage
       try {
@@ -816,11 +831,12 @@ export default function DiorScanClient({ products, onBack }: Props) {
                 sebum: Math.round(result.scores.sebum ?? 50),
                 pigmentation: Math.round(result.scores.pigmentation ?? 50),
                 globalScore,
-                cellAge,
+                ageDisplay: ageTexte,
               }
             : null;
         if (protocolLink) {
-          const params = new URLSearchParams({ score: String(globalScore), age: String(cellAge), hyd: String(hydration), from: 'dior' });
+          const params = new URLSearchParams({ score: String(globalScore), hyd: String(hydration), from: 'dior' });
+          if (ageTexte) params.set('age_display', ageTexte);
           if (scanPayload) {
             try {
               params.set('scores', btoa(JSON.stringify(scanPayload)));
@@ -836,7 +852,9 @@ export default function DiorScanClient({ products, onBack }: Props) {
           protocolLink.href = protoFile + '?' + params.toString();
         }
         localStorage.setItem('vyvre_score', String(globalScore));
-        localStorage.setItem('vyvre_age', String(cellAge));
+        if (ageTexte) localStorage.setItem('vyvre_age_display', ageTexte);
+        else localStorage.removeItem('vyvre_age_display');
+        localStorage.removeItem('vyvre_age'); // ancien chiffre inventé : on le purge
         localStorage.setItem('vyvre_hyd', String(hydration));
         if (scanPayload) {
           localStorage.setItem('vyvre_scan_scores', JSON.stringify(scanPayload));
@@ -1126,14 +1144,24 @@ export default function DiorScanClient({ products, onBack }: Props) {
                   <span className="v6unit">/100</span>
                 </div>
               </div>
-              <div className="v6card">
+              {/* Âge : affiché seulement quand le moteur sait le lire. Sinon la
+                  carte cède la place à la fermeté, qui est, elle, mesurée. */}
+              <div className="v6card" id="dior-carte-age" style={{ display: 'none' }}>
                 <span className="v6lbl">Cible : Âge peau</span>
                 <h3>Âge peau</h3>
                 <div className="v6num">
-                  <span data-vyvre-age data-target="29">
-                    29
+                  <span data-vyvre-age>—</span>
+                  <span className="v6unit" data-vyvre-age-unit style={{ display: 'none' }} />
+                </div>
+              </div>
+              <div className="v6card" id="dior-carte-fermete">
+                <span className="v6lbl">Cible : Fermeté</span>
+                <h3>Fermeté</h3>
+                <div className="v6num">
+                  <span data-vyvre-firmness data-target="74">
+                    74
                   </span>
-                  <span className="v6unit">ans</span>
+                  <span className="v6unit">/100</span>
                 </div>
               </div>
               <div className="v6card">
@@ -1159,7 +1187,7 @@ export default function DiorScanClient({ products, onBack }: Props) {
             </div>
 
             <div className="vyvre-age-note" id="vyvre-age-note">
-              Âge cellulaire · estimation — indicatif
+              Âge de la peau · en attente de mesure
             </div>
 
             <div className="v6r3" id="vyvre-product-row">

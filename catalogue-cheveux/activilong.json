@@ -13,7 +13,7 @@
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0871/6596/0457/files/complexe-longueurs-ampoules-fortifiantes.jpg?width=600",
    "image_local": "public/scan/products-cheveux/activilong/complexe-longueurs-acticlassic.jpg",
-   "categorie": "autre-cheveux",
+   "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
     "abimes"
@@ -28,10 +28,12 @@
    "ingredients": "Aqua (Water), Glycerin, Cetrimonium Chloride, Phenethyl Alcohol, PPG-26-Buteth-26, Panax Ginseng Root Extract, Propylene Glycol, PEG-40 Hydrogenated Castor Oil, Parfum (Fragrance), Ethylhexylglycerin, Citric Acid, Hibiscus Sabdariffa Flower Extract, Hexyl Cinnamal, Sorbitol, Calophyllum Inophyllum Seed Oil, Oxidized Corn Oil, Citronellol, Linalool, Benzyl Benzoate, Geraniol, Amyl Cinnamal, Phenoxyethanol, Alpha-Isomethyl Ionone, Tocopherol",
    "description": "Le Complexe Longueurs - Ampoules Fortifiantes Activilong restructure, renforce et répare les longueurs desséchées et les pointes fourchues.",
    "claims": [
-    "reparateur",
+    "reparation",
     "fortifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/complexe-longueurs-acticlassic.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "activilong--complexe-racines-acticlassic",
@@ -56,9 +58,12 @@
    "ingredients": "Aqua (Water), Alcohol, Panthenol, Phenethyl Alcohol, Glycosaminoglycans, Ppg-26-Buteth-26, Peg-40",
    "description": "Le Complexe Racines - Ampoules Phyto-Concentrées freine la chute des cheveux en tonifiant le cuir chevelu et en le débarrassant des pellicules.",
    "claims": [
-    "anti-pellicules"
+    "anti-chute",
+    "antipelliculaire"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/complexe-racines-acticlassic.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--shampooing-coulis-de-passion",
@@ -85,10 +90,14 @@
    "ingredients": "Aqua (Water), Lauryl Glucoside, Polyglyceryl-4 Caprate, Sodium Cocoyl Glutamate, Glycerin, Caprylyl/Capryl Glucoside, Coco-Glucoside, Citric Acid, Hydroxypropyl Guar Hydroxypropyltrimonium Chloride, Parfum (Fragrance), Maltodextrin, Potassium Sorbate, Sodium Benzoate, Propylene Glycol, Polyquaternium-10, Glyceryl Oleate, Passiflora Edulis Fruit Juice (Jus de Maracuja), Hydrolyzed Pea Protein (Peptides de pois), Phytic Acid, Lecithin, Ascorbyl Palmitate, Tocopherol, Hydrogenated Palm Glycerides Citrate",
    "description": "Shampoing cheveux bouclés - Doux et Apaisant. Enrichi au jus de maracuja, il démêle et apporte de la brillance. 250 ml - Tendre Passion",
    "claims": [
+    "definition-boucles",
+    "apaisant-cuir-chevelu",
     "brillance",
-    "apaisant"
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/shampooing-coulis-de-passion.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--ti-masque-soin-actikids",
@@ -105,7 +114,8 @@
    "etape": 2,
    "cheveux_cibles": [
     "secs",
-    "boucles"
+    "boucles",
+    "crepus"
    ],
    "actifs": [
     "huile de coco",
@@ -116,9 +126,13 @@
    "ingredients": "Aqua (Water), Cetearyl Alcohol, Behentrimonium Chloride, Glycerin, Dipalmoylisopropyl Dimonium Methosulfate, Cetyl Alcohol, Cocos Nucifera (Coconut) Oil (huile de coco), Oleyl Alcohol, Cetyl Palmitate, Isopropyl Alcohol, Mangifera Indica (Mango) Seed Butter (Beurre de Mangue), Parfum (Fragrance), Prunus Amygdalus Dulcis (Sweet Almond) Oil (Huile d'Amande Douce), Guar Hydroxypropyltrimonium Chloride, Potassium Sorbate, Hydrolyzed Sweet Almond Protein, Citric Acid, Lauroyl Lysine, Phytosteryl / Octyldodecyl Lauroyl Glutamate, Tocopherol, Sodium Benzoate, Glycine Soja Oil, Hydrogenated Palm Glycerides Citrate",
    "description": "Masque cheveux bouclés pour enfants dès 3 ans. Démêle intensément, assouplit et nourrit les cheveux bouclés, frisés et crépus. 300 ml – Actikids.",
    "claims": [
-    "nourrissant"
+    "nutrition",
+    "definition-boucles",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/ti-masque-soin-actikids.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--tite-mousse-frimouss-actikids",
@@ -143,8 +157,12 @@
    ],
    "ingredients": "Aqua (Water), Erythritol, Glycerin, Propylene Glycol, Caprylyl/Capryl Glucoside, Inulin, Polyglyceryl-3 Cocoate, Polyglyceryl-6 Caprate, Polyglyceryl-6 Caprylate, Polyglyceryl-6 Ricinoleate, Parfum (Fragrance), Mangifera Indica Extract (Extrait de Mangue), Sodium Benzoate, Cocodimonium Hydroxypropyl Hydrolyzed Wheat Protein, Citric Acid, Potassium Sorbate, Hydrolyzed Sweet Almond Protein",
    "description": "Mousse cheveux bouclés pour enfants dès 3 ans. Rafraîchit et définit les boucles ondulées et bouclées - 200 ml – Gamme Actikids.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "definition-boucles"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/tite-mousse-frimouss-actikids.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--masque-soin-lait-de-coco",
@@ -160,7 +178,9 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
-    "boucles"
+    "secs",
+    "boucles",
+    "crepus"
    ],
    "actifs": [
     "huile de coco",
@@ -169,9 +189,14 @@
    "ingredients": "Aqua (Water), Cocos Nucifera Water, Cetearyl Alcohol, Glycerin, Behentrimonium Chloride, Cocos Nucifera (Coconut) Oil",
    "description": "Masque-Soin Lait de Coco : hydratation intense & démêlage facile pour cheveux bouclés, frisés et crépus. 97 % d'origine naturelle, vegan, sans silicone.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "definition-boucles",
+    "demelant",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/masque-soin-lait-de-coco.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--mousse-chantilly-coco-damour",
@@ -187,7 +212,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "boucles"
+    "boucles",
+    "crepus"
    ],
    "actifs": [
     "panthénol",
@@ -200,9 +226,13 @@
    "ingredients": "Aqua (Water), Cocos Nucifera Water, Propylene Glycol, Glycerin, Erythritol, Caprylyl/Capryl Glucoside, Sodium Cocoyl Glutamate, Parfum (Fragrance), Arginine, Citral, Citric Acid, Cocodimonium Hydroxypropyl Hydrolyzed Wheat Protein, Cocos Nucifera (Coconut) Oil, Coumarin, Geranyl Acetate, Hydrolyzed Pea Protein, Linalool, Linalyl Acetate, Panthenol, Phytic Acid, Pinene, Polyglyceryl-3 Cocoate, Polyglyceryl-6 Caprate, Polyglyceryl-6 Caprylate, Polyglyceryl-6 Ricinoleate, Potassium Sorbate, Sodium Benzoate, Tetramethyl Acetyloctahydronaphthalenes, Vanillin, Xanthan Gum",
    "description": "Une mousse chantilly aérienne pour des boucles hydratées et définies Mousse coiffante d'exception, la Mousse Chantilly Coco d'Amour transforme la routine des cheveux bouclés, frisés et crépus en un geste sensoriel. Sa texture aérienne sublime ondulés, bouclés, frisés et crépus en un seul geste. Une mousse cheveux boucl",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "definition-boucles",
+    "texturisant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/mousse-chantilly-coco-damour.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--lait-hydratant-hairxpert",
@@ -218,6 +248,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -229,10 +260,16 @@
    "ingredients": "Aqua (Water), Coco-Caprylate/Caprate, C13-15 Alkane, Arachidyl Alcohol, Behenyl Alcohol, Glycerin, Butyrospermum Parkii (Shea) Butter, Cannabis Sativa Seed Oil, Cetyl Alcohol, Parfum (Fragrance), Arachidyl Glucoside, Guar Hydroxypropyltrimonium Chloride, Caesalpinia Spinosa Gum, Cetrimonium Chloride, Potassium Sorbate, Citric Acid, Zingiber Officinale Extract, Tocopherol, Limonene, Citrus Limon (Lemon) Peel Oil, Linalyl Acetate, Linalool, Citrus Aurantium Peel Oil, Pinene, Pogostemon Cablin Leaf Oil, Glycine Soja Oil",
    "description": "Lotion cheveux pour homme HairXpert : assouplit, facilite le coiffage et discipline les boucles. Texture légère, 99% naturelle - Activilong For Men",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/lait-hydratant-hairxpert.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--cire-coiffante-hairxpert",
@@ -248,7 +285,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "boucles"
+    "boucles",
+    "crepus"
    ],
    "actifs": [
     "huile de ricin",
@@ -258,9 +296,13 @@
    "ingredients": "Ricinus Communis (Castor) Seed Oil, Caprylic/Capric Triglyceride, Helianthus Annuus Seed Cera (Helianthus Annuus (Sunflower) Seed Wax), C10-18 Triglycerides, Myrica Pubescens Fruit Cera (Myrica Pubescens Fruit Wax), Cannabis Sativa Seed Oil, Mangifera Indica (Mango) Seed Butter, Parfum (Fragrance), Glyceryl Caprylate, Glyceryl Dibehenate, Tribehenin, Glyceryl Behenate, Tocopherol, Zingiber Officinale Extract, Limonene, Citrus Limon (Lemon) Peel Oil, Linalyl Acetate, Linalool, Glycine Soja Oil, Citrus Aurantium Peel Oil, Pinene, Pogostemon Cablin Leaf Oil, Eucalyptus Globulus Oil, Citral",
    "description": "Cire coiffante pour homme HairXpert : brillance, tenue légère et maîtrise naturelle. Sculpte et protège les cheveux ondulés à crépus.",
    "claims": [
-    "brillance"
+    "definition-boucles",
+    "brillance",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/cire-coiffante-hairxpert.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--cire-modelante-barberxpert",
@@ -284,9 +326,12 @@
    "ingredients": "Ricinus Communis (Castor) Seed Oil, C10-18 Triglycerides, Helianthus Annuus Seed Cera (Helianthus Annuus (Sunflower) Seed Wax), Cannabis Sativa Seed Oil, Mangifera Indica (Mango) Seed Butter, Shorea Robusta Resin, Cellulose, Helianthus Annuus (Sunflower) Seed Oil, Glyceryl Caprylate, Parfum (Fragrance), Tocopherol, Zingiber Officinale Extract, Glycine Soja Oil, Limonene, Citrus Limon (Lemon) Peel Oil, Linalyl Acetate, Linalool, Citral, Pinene, Citrus Aurantium Peel Oil",
    "description": "Cire barbe BarberXpert : contrôle, structure et définit la barbe pour un fini brillant naturel. Texture fondante, 99 % d'origine naturelle. 50 ml.",
    "claims": [
+    "texturisant",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/cire-modelante-barberxpert.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--shampooing-douche-homme-hairxpert",
@@ -309,7 +354,9 @@
    "ingredients": "Aqua (Water), Sodium Cocoyl Glutamate, Erythritol, Lauryl Glucoside, Glycerin, Polyglyceryl-4 Caprate, Coco-Glucoside, Citric Acid, Propylene Glycol, Xanthan Gum, Hydroxypropyl Guar Hydroxypropyltrimonium Chloride, Parfum (Fragrance), Potassium Sorbate, Sodium Benzoate, Sorbitan Sesquicaprylate, Cannabis Sativa Seed Oil, Phytic Acid, Zingiber Officinale Rhizome Extract, Maltodextrin",
    "description": "Shampoing Douche pour homme 3-en-1 - HairXpert : un seul geste pour laver cheveux, barbe et corps. Une routine simple et efficace. 250 ml.",
    "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/shampooing-douche-homme-hairxpert.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "activilong--huile-pour-cheveux-tendre-passion",
@@ -338,10 +385,12 @@
    "ingredients": "Coco-Caprylate/Caprate, Caprylic/Capric Triglyceride, Cocos Nucifera (Coconut) Oil*, Helianthus Annuus (Sunflower) Seed Oil, Passiflora Edulis Seed Oil, Simmondsia Chinensis (Jojoba) Seed Oil*, Parfum (Fragrance), Brassica Oleracea Italica Seed Oil, Hibiscus",
    "description": "Découvrez l’Huile Sublime Tendre Passion, une huile pour cheveux qui nourrit, protège la fibre et révèle une brillance naturelle sans effet gras.",
    "claims": [
-    "nourrissant",
+    "nutrition",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/huile-pour-cheveux-tendre-passion.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "activilong--foulard-tendre-passion",
@@ -357,17 +406,20 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
-    "boucles"
+    "boucles",
+    "crepus"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "Foulard pour cheveux texturés doux et stylé. Protège les boucles, limite les frisottis et préserve l’hydratation des cheveux bouclés à crépus.",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/foulard-tendre-passion.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--beurre-karite-avocat",
@@ -392,11 +444,13 @@
    "ingredients": null,
    "description": "Beurre fondant corps et cheveux 100% naturel au karité BIO et avocat BIO. Nourrit, hydrate et répare, dès 3 ans, pour toute la famille.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "reparateur"
+    "hydratation",
+    "nutrition",
+    "reparation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/beurre-karite-avocat.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "activilong--beurre-mangue-coco-bio",
@@ -421,10 +475,14 @@
    "ingredients": null,
    "description": "Corps et Cheveux Véritable concentré de bienfaits, ce beurre à la texture fondante est 100% d’origine naturelle. Enrichi en beurre de mangue et en Huile de coco BIO, il est l’allié indispensable des peaux normales à sèches et des chevelures sèches, fragilisées et abîmées. Ce soin apporte nutrition, hydratation et perme",
    "claims": [
-    "hydratant",
-    "nourrissant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "texturisant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/beurre-mangue-coco-bio.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--masque-sorbet-tendre-passion",
@@ -453,12 +511,14 @@
    "ingredients": "Aqua (Water), Cetearyl Alcohol, Behentrimonium Chloride, Dipalmoylisopropyl Dimonium Methosulfate, Cetyl Alcohol, Cocos Nucifera (Coconut) Oil*, Glycerin, Oleyl Alcohol, Cetyl Palmitate, Parfum (Fragrance), Maltodextrin*, Isopropyl Alcohol, Passiflora Edulis Seed Oil, Passiflora Edulis Fruit Juice*, Guar Hydroxypropyltrimonium Chloride, Mangifera Indica (Mango) Seed Butter, Potassium Sorbate, Hydrolyzed Pea Protein, Citric Acid, Hibiscus Sabdariffa Flower Powder, Lauroyl Lysine, Phytosteryl / Octyldodecyl Lauroyl Glutamate, Tocopherol, Hydrogenated Palm",
    "description": "Masque Sorbet Tendre Passion : hydrate, répare et protège les cheveux texturés avec 98 % d’ingrédients naturels. Brillance, douceur, nutrition.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "reparateur",
+    "hydratation",
+    "nutrition",
+    "reparation",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/masque-sorbet-tendre-passion.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "activilong--bain-huiles-actiforce",
@@ -474,7 +534,8 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "secs"
+    "secs",
+    "abimes"
    ],
    "actifs": [
     "huile de ricin",
@@ -487,9 +548,11 @@
    "ingredients": "Olea Europaea (Olive) Fruit Oil, Ricinus Communis (Castor) Seed Oil, Ricinus Communis (Black Castor) Seed Oil, Glyceryl Oleate, Parfum (Fragrance), Glyceryl Caprylate, Persea Gratissima (Avocado) Oil, Pouteria Sapota Seed Butter, Sesamum Indicum (Sesame) Seed Oil, Limonene, Hexyl Cinnamal, Helianthus Annuus (Sunflower) Seed Oil, Citronellol, Tocopherol, Hydroxycitronellal, Alpha-Isomethyl Ionone, Datem, Sunflower Seed Oil Glycerides, Rosmarinus Officinalis (Rosemary) Leaf Extract, Glycine Soja Oil, Lecithin, Ascorbyl Palmitate, Hydrogenated Palm Glycerides Citrate",
    "description": "Le Bain d'huiles Actiforce d'Activilong est idéal pour nourrir et restaurer les cheveux secs, ternes et endommagés.",
    "claims": [
-    "nourrissant"
+    "nutrition"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/bain-huiles-actiforce.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--vaporisateur-activilong",
@@ -511,66 +574,12 @@
    "ingredients": null,
    "description": "Vaporisateur brume fine Activilong, l’outil parfait pour hydrater et rafraîchir les boucles de vos cheveux texturés sans les alourdir.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "activilong--gamme-actiforce",
-   "name": "Gamme Actiforce",
-   "brand": "activilong",
-   "brand_name": "Activilong",
-   "url": "https://activilong.com/products/gamme-actiforce",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 106.79,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0871/6596/0457/files/gamme-actiforce_8e721da2-962b-4a6b-bed6-e433c15667fd.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/activilong/gamme-actiforce.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [
-    "huile de ricin",
-    "vitamine E",
-    "huile de tournesol",
-    "romarin",
-    "huile d'avocat",
-    "huile d'olive"
-   ],
-   "ingredients": "Bain d’huiles : Olea Europaea (Olive) Fruit Oil, Ricinus Communis (Castor) Seed Oil, Ricinus Communis (Black Castor) Seed Oil, Glyceryl Oleate, Parfum (Fragrance), Glyceryl Caprylate, Persea Gratissima (Avocado) Oil, Pouteria Sapota Seed Butter, Sesamum Indicum (Sesame) Seed Oil, Limonene, Hexyl Cinnamal, Helianthus Annuus (Sunflower) Seed Oil, Citronellol, Tocopherol, Hydroxycitronellal, Alpha-Isomethyl Ionone, Datem, Sunflower Seed Oil Glycerides, Rosmarinus",
-   "description": "La routine Actiforce, conçue pour redonner toute leur splendeur aux cheveux frisés et crépus est idéale pour les cheveux à forte porosité.",
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "activilong--gamme-actidetox",
-   "name": "Gamme Actidetox",
-   "brand": "activilong",
-   "brand_name": "Activilong",
-   "url": "https://activilong.com/products/gamme-actidetox",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 56.3,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0871/6596/0457/files/Packshot_Gamme_Complete_Actidetox.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/activilong/gamme-actidetox.jpg",
-   "categorie": "serum-cuir-chevelu",
-   "etape": 4,
-   "cheveux_cibles": [
-    "gras"
-   ],
-   "actifs": [
-    "glycérine",
-    "vitamine E",
-    "huile de tournesol",
-    "romarin",
-    "menthol"
-   ],
-   "ingredients": "Gommage : Helianthus Annuus (Sunflower) Seed Oil, Saccharum Officinarum (Sugar Cane)Extract, Glycerin, Aqua (Water), Sesamum Indicum (Sesame) Seed Oil, Glycerylcaprylate, Menthol, Quillaja Saponaria Wood Extract, Limonene, Citrusaurantium Dulcis (Orange) Peel Oil, Rosmarinus Officinalis (Rosemary) Leafoil, Saponaria Officinalis Leaf/Root Extract, Citrus Aurantifolia (Lime) Oil,Melaleuca Alternifolia (Tea Tree) Leaf Oil, Pimenta Racemosa (Bay) Leaf Oil,Tocopherol",
-   "description": "Offrez-vous une détox cheveux complète avec Actidetox. Une routine purifiante qui nettoie, assainit et rafraîchit le cuir chevelu en douceur.",
-   "claims": [
-    "purifiant"
-   ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/vaporisateur-activilong.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--shampooing-purifiant-actidetox",
@@ -587,6 +596,7 @@
    "etape": 1,
    "cheveux_cibles": [
     "gras",
+    "crepus",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -601,10 +611,12 @@
    "ingredients": "Aqua (Water), Sodium Lauroyl Sarcosinate, Coco-Glucoside, Glycerin, Polyglyceryl-4 Caprate, Undecylenamidopropyl Betaine, Xanthan Gum, Polyquaternium-10, Maris Sal (Sea Salt), Potassium Sorbate, Sodium Benzoate, Sodium Chloride, Lactic Acid, Limonene, Citrus Aurantium Peel Oil, Menthol, Rosmarinus Officinalis (Rosemary) Leaf/Stem Oil, Undecylenic Acid, Allantoin, Aloe Barbadensis Leaf Juice Powder, Phytic Acid, Pimenta Racemosa (Bay) Leaf/Fruit Oil, Pinene, Eugenol, Maltodextrin, Urtica Dioica (Nettle) Leaf Extract, Citrus Aurantifolia (Lime) Oil, Melaleuca Alternifolia (Tea Tree) Leaf Oil, Camphor",
    "description": "Shampoing purifiant naturel pour cheveux frisés et crépus. Nettoie, détoxifie et apaise le cuir chevelu sans l’irriter. Fraîcheur et légèreté garanties.",
    "claims": [
-    "apaisant",
+    "apaisant-cuir-chevelu",
     "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/shampooing-purifiant-actidetox.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--shampooing-fruite-tendre-passion",
@@ -631,9 +643,13 @@
    "ingredients": "Aqua (Water), Sodium Cocoyl Glutamate, Coco-Glucoside, Glycerin, Caprylyl/Capryl Glucoside, Sorbitan Sesquicaprylate, Xanthan Gum, Lactic Acid, Propylene Glycol, Maltodextrin**, Parfum (Fragrance), Passiflora Edulis Seed Powder, Potassium Sorbate, Sodium Benzoate, Polyquaternium-10, Passiflora Edulis Fruit Juice**, Glyceryl Oleate, Phytic Acid, Citric Acid, Tartaric Acid, Glucose, Acer Saccharum Extract, Citrus Limon (Lemon) Peel Oil, Lecithin, Ascorbyl Palmitate, Tocopherol, Hydrogenated Palm Glycerides Citrate",
    "description": "Ce shampoing pour les cheveux bouclés, ondulés et frisés nettoie et exfolie le cuir chevelu en douceur tout en ravivant l’éclat des boucles.",
    "claims": [
+    "definition-boucles",
+    "purifiant",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/shampooing-fruite-tendre-passion.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--rincage-eclat-tendre-passion",
@@ -648,9 +664,7 @@
    "image_local": "public/scan/products-cheveux/activilong/rincage-eclat-tendre-passion.jpg",
    "categorie": "autre-cheveux",
    "etape": 3,
-   "cheveux_cibles": [
-    "lisses"
-   ],
+   "cheveux_cibles": [],
    "actifs": [
     "glycérine",
     "acide citrique",
@@ -659,10 +673,13 @@
    "ingredients": "Aqua (Water), Glycerin, Acetum (Vinegar),Caprylyl / Capryl Glucoside, Parfum (Fragrance), Passiflora Edulis Fruit Extract*, Hibiscus Sabdariffa Flower Extract, Citric Acid, Sodium Benzoate, Potassium Sorbate, Geranyl Acetate",
    "description": "Rinçage Éclat Tendre Passion : lisse, purifie et booste la brillance des cheveux texturés. 99 % naturel, vegan, éclat immédiat garanti.",
    "claims": [
-    "brillance",
-    "purifiant"
+    "anti-frisottis",
+    "purifiant",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/rincage-eclat-tendre-passion.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--brume-infusion-tendre-passion",
@@ -690,11 +707,14 @@
    "ingredients": "Aqua (Water), Coco-Caprylate/Caprate, Propylene Glycol, Glycerin, Parfum (Fragrance), Polyglyceryl-3 Polyricinoleate, Hibiscus Sabdariffa Seed Oil*, Passiflora Edulis Seed Oil, Cetrimonium Chloride, Potassium Sorbate, Panthenol, Acetum (Vinegar)*, Citric Acid, Passiflora Edulis Fruit Extract*, Tocopherol, Geranyl Acetate, Glycine Soja Oil, Linalyl Acetate, Pelargonium Graveolens Flower Oil",
    "description": "Brume biphasée 99 % naturelle qui hydrate, nourrit, démêle et booste l’éclat des cheveux texturés. Vegan, sans alcool, effet lumière immédiat.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "brillance"
+    "hydratation",
+    "nutrition",
+    "brillance",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/brume-infusion-tendre-passion.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--creme-onctueuse-tendre-passion",
@@ -720,11 +740,14 @@
    "ingredients": "Aqua (Water), Cetearyl Alcohol, Isoamyl Laurate, Cocos Nucifera (Coconut) Oil*, Glyceryl Stearate, Mangifera Indica (Mango) Seed Butter, Behentrimonium Methosulfate, Cetearyl Glucoside, Glycerin, Parfum (Fragrance), Maltodextrin*, Hibiscus Sabdariffa Seed",
    "description": "Crème riche 99 % naturelle qui nourrit, assouplit et renforce les cheveux texturés. Vegan, sans silicone ni huile minérale. Brillance et douceur.",
    "claims": [
-    "nourrissant",
+    "nutrition",
+    "fortifiant",
     "brillance",
-    "fortifiant"
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/creme-onctueuse-tendre-passion.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--nuage-de-lait-tendre-passion",
@@ -740,6 +763,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "fins",
     "boucles"
    ],
    "actifs": [
@@ -752,10 +776,13 @@
    "ingredients": "Dipalmoylisopropyl Dimonium Methosulfate, Glycerin, Maltodextrin*, Parfum (Fragrance), Hibiscus Sabdariffa Seed Oil*, Passiflora Edulis Seed Oil, Oleyl Alcohol, Isopropyl Alcohol, Passiflora Edulis Fruit Juice*, Potassium Sorbate, Citric Acid, Panthenol, Tocopherol, Geranyl Acetate, Glycine Soja Oil, Linalyl Acetate, Hydrogenated Palm Glycerides Citrate",
    "description": "Hydrate, définit et illumine les boucles sans alourdir. Un nuage lacté fruité à 98 % naturel pour une chevelure douce, légère et éclatante.",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "definition-boucles",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/nuage-de-lait-tendre-passion.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--gelee-fondante-tendre-passion",
@@ -771,7 +798,6 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "epais",
     "boucles"
    ],
    "actifs": [
@@ -781,10 +807,16 @@
    "ingredients": "Aqua (Water), Triethyl Citrate, Glycerin, Dehydroxanthan Gum, Citric Acid, Parfum (Fragrance), Glyceryl Oleate, Maltodextrin*, Potassium Sorbate, Sodium Benzoate, Sodium Citrate, Passiflora Edulis Fruit Juice*, Passiflora Edulis Seed Oil, Polyglyceryl-3 Cocoate, Polyglyceryl-6 Caprate, Polyglyceryl-6 Caprylate, Polyglyceryl-6 Ricinoleate, Phytic Acid, Xanthan Gum, Geranyl Acetate",
    "description": "Définit les boucles sans effet carton, dompte les frisottis et booste l’éclat. Texture légère, 99 % naturelle, sans silicone, sans résidus.",
    "claims": [
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant",
+    "purifiant",
     "brillance",
-    "lissant"
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/gelee-fondante-tendre-passion.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--mousse-maracuja-tendre-passion",
@@ -813,11 +845,15 @@
    "ingredients": "Aqua (Water), Caprylyl/Capryl Glucoside, Erythritol, Triethyl Citrate, Sodium Cocoyl Glutamate, Sodium Polyitaconate, Citric Acid, Parfum (Fragrance), Sodium Benzoate, Glycerin, Cocodimonium Hydroxypropyl Hydrolyzed Wheat Protein, Potassium Sorbate, Panthenol, Phytic Acid, Acetum (Vinegar)*, Arginine, Passiflora Edulis Fruit Extract*, Geranyl Acetate, Linalyl Acetate",
    "description": "Mousse légère sans résidus pour des boucles définies, brillantes et pleines de volume. 99 % naturelle, sans alcool ajouté, sans silicone, vegan.",
    "claims": [
-    "brillance",
+    "definition-boucles",
     "volume",
-    "definition-boucles"
+    "purifiant",
+    "brillance",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/mousse-maracuja-tendre-passion.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--passion-butter-tendre-passion",
@@ -845,40 +881,14 @@
    "ingredients": "Mangifera Indica (Mango) Seed Butter, Cocos Nucifera (Coconut) Oil*, Theobroma Cacao (Cocoa) Seed Butter*, C10-18 Triglycerides, Helianthus Annuus Seed Cera (Helianthus Annuus (Sunflower) Seed Wax), Parfum (Fragrance), Glyceryl Caprylate, Passiflora Edulis Seed Oil, Tocopherol, Geranyl Acetate, Glycine Soja Oil, Linalyl Acetate, Pelargonium Graveolens Flower Oil, Linalool",
    "description": "Scelle l'hydratation et protège les boucles, 100 % naturel. Nourrit, répare, fait briller les cheveux texturés. Vegan et multi-usage (cheveux et corps)",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "reparateur"
-   ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "activilong--gamme-tendre-passion",
-   "name": "Gamme Tendre Passion",
-   "brand": "activilong",
-   "brand_name": "Activilong",
-   "url": "https://activilong.com/products/gamme-tendre-passion",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 124.42,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0871/6596/0457/files/Packshot_Gamme_Tendre_Passion.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/activilong/gamme-tendre-passion.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [
-    "glycérine",
-    "vitamine E",
-    "acide citrique",
-    "acide lactique"
-   ],
-   "ingredients": "Shampooing Fruité : Aqua (Water), Sodium Cocoyl Glutamate, Coco-Glucoside, Glycerin, Caprylyl/Capryl Glucoside, Sorbitan Sesquicaprylate, Xanthan Gum, Lactic Acid, Propylene Glycol, Maltodextrin**, Parfum (Fragrance), Passiflora Edulis Seed Powder, Potassium Sorbate, Sodium Benzoate, Polyquaternium-10, Passiflora Edulis Fruit Juice**, Glyceryl Oleate, Phytic Acid, Citric Acid, Tartaric Acid, Glucose, Acer Saccharum Extract, Citrus Limon (Lemon) Peel Oil, Lecithin, Ascorbyl Palmitate, Tocopherol, Hydrogenated Palm Glycerides Citrate",
-   "description": "Votre routine capillaire passionnante pour cheveux texturés de 98 à 100 % d'origine naturelle. Hydratation, brillance & définition au parfum fruité de passion.",
-   "claims": [
-    "hydratant",
-    "brillance",
+    "hydratation",
+    "nutrition",
+    "reparation",
     "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/passion-butter-tendre-passion.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--cure-stop-actigro",
@@ -894,7 +904,10 @@
    "categorie": "traitement-chute",
    "etape": 4,
    "cheveux_cibles": [
-    "secs"
+    "gras",
+    "fins",
+    "abimes",
+    "chute"
    ],
    "actifs": [
     "panthénol",
@@ -905,10 +918,13 @@
    "ingredients": "Panthenol, Caprylyl/Capryl Glucoside, Glycerin, Phenethyl Alcohol, Proline, Maltodextrin, Urtica Dioica (Nettle) Leaf Extract, Ptychopetalum Olacoides Bark Extract, Arctium Lappa Root Extract, Buxus Sempervirens Leaf Extract, Nasturtium Officinale Leaf Extract, Salvia Officinalis (Sage) Leaf Extract, Ethylhexylglycerin, Limonene, Citrus Aurantium Peel Oil, Methionine, Lavandula Oil/Extract, Methyl Nicotinate, Cupressus Sempervirens Stem Oil, Rosmarinus",
    "description": "Enrichi en ingrédients puissants pour renforcer et nourrir, la Cure Stop Actigro aide à prévenir la casse et favorise des cheveux plus sains et plus longs.",
    "claims": [
-    "nourrissant",
+    "nutrition",
+    "reparation",
     "fortifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/cure-stop-actigro.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--cure-boost-actigro",
@@ -924,7 +940,6 @@
    "categorie": "traitement-chute",
    "etape": 4,
    "cheveux_cibles": [
-    "epais",
     "chute"
    ],
    "actifs": [
@@ -937,8 +952,12 @@
    ],
    "ingredients": "Sérum Riche : Glycerin, Propylene Glycol, Panthenol, Camphor, Menthol, Rosmarinus Officinalis (Rosemary) Leaf/Stem Oil, Hydrolyzed Wheat Protein, Aqua (Water), Limonene, Linalool, Ci 19140 (Yellow 5), Citric Acid, Ci 42090 (Blue 1)",
    "description": "Parfait pour combattre la fatigue capillaire et favoriser une croissance saine et vigoureuse des cheveux. Obtenez des cheveux plus forts et plus épais.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "croissance"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/cure-boost-actigro.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--les-essentiels-lavants-actikids",
@@ -962,92 +981,9 @@
    "ingredients": "Ti Shampooing Conditionneur : Aqua (Water), Lauryl Glucoside, Polyglyceryl-4 Caprate, Sodium Cocoyl Glutamate, Sodium Cocoyl Isethionate, Glycerin, Coco-Glucoside, Hydroxypropyl Guar Hydroxypropyltrimonium Chloride, Glyceryl Oleate, Parfum (Fragrance), Sodium Benzoate, Potassium Sorbate, Citric Acid, Polyglyceryl-3 Cocoate, Polyquaternium-10, Isopropyl Alcohol, Phytic Acid, Hydrolyzed Sweet Almond Protein, Mangifera Indica (Mango) Seed Butter, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Lecithin, Ascorbyl Palmitate, Tocopherol, Hydrogenated Palm Glycerides Citrate",
    "description": "Retrouvez les 3 soins lavants de la gamme Actikids ! Le Ti Shampooing Conditionneur, Le Ti Après-shampoing et Le Ti Co-wash.",
    "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "activilong--gamme-actigro",
-   "name": "Gamme Actigro",
-   "brand": "activilong",
-   "brand_name": "Activilong",
-   "url": "https://activilong.com/products/gamme-actigro",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 65.75,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0871/6596/0457/files/gamme-actigro_28b4df41-e5b6-4757-a048-dbe8a45916d1.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/activilong/gamme-actigro.jpg",
-   "categorie": "traitement-chute",
-   "etape": 4,
-   "cheveux_cibles": [
-    "chute"
-   ],
-   "actifs": [
-    "panthénol",
-    "glycérine",
-    "romarin",
-    "menthol"
-   ],
-   "ingredients": "Sérum Riche : Glycerin, Propylene Glycol, Panthenol, Camphor, Menthol, Rosmarinus Officinalis",
-   "description": "Découvrez la Gamme Actigro, spécialement conçue pour stimuler la croissance et renforcer les cheveux texturés.",
-   "claims": [
-    "fortifiant"
-   ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "activilong--gamme-actikids",
-   "name": "Gamme Actikids",
-   "brand": "activilong",
-   "brand_name": "Activilong",
-   "url": "https://activilong.com/products/gamme-actikids",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 116.82,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0871/6596/0457/files/Packshot_Gamme_Actikids_1.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/activilong/gamme-actikids.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [
-    "glycérine",
-    "vitamine E",
-    "acide citrique"
-   ],
-   "ingredients": "Ti Shampooing Conditionneur : Aqua (Water), Lauryl Glucoside, Polyglyceryl-4 Caprate, Sodium Cocoyl Glutamate, Sodium Cocoyl Isethionate, Glycerin, Coco-Glucoside, Hydroxypropyl Guar Hydroxypropyltrimonium Chloride, Glyceryl Oleate, Parfum (Fragrance), Sodium Benzoate, Potassium Sorbate, Propylene Glycol, Citric Acid, Polyglyceryl-3 Cocoate, Polyquaternium-10, Phytic Acid, Hydrolyzed Sweet Almond Protein, Mangifera Indica (Mango) Seed Butter, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Lecithin, Ascorbyl Palmitate, Tocopherol, Hydrogenated Palm Glycerides Citrate",
-   "description": "Parce que votre enfant mérite le meilleur, la gamme est à minimum 97% d'origine naturelle pour répondre aux besoins spécifiques des cheveux délicats !",
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "activilong--gamme-acticurl-expert",
-   "name": "Gamme Acticurl Expert",
-   "brand": "activilong",
-   "brand_name": "Activilong",
-   "url": "https://activilong.com/products/gamme-acticurl-expert",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 54.86,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0871/6596/0457/files/routine-cheveux-boucles-acticurl-expert-4-produits-packshot.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/activilong/gamme-acticurl-expert.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [
-    "boucles"
-   ],
-   "actifs": [
-    "panthénol",
-    "huile de coco",
-    "beurre de karité",
-    "huile de jojoba",
-    "aloe vera",
-    "glycérine",
-    "vitamine E",
-    "acide citrique",
-    "acide lactique"
-   ],
-   "ingredients": "Après-shampooing : Aqua (Water), Cetearyl Alcohol, Glycerin, Arachidyl/Behenyl Alcohol, Cocos Nucifera (Coconut) Oil, Sodium Lactate, Arachidyl/Behenyl Betainate Esylate, Aloe Barbadensis Leaf Juice Powder, Butyrospermum Parkii (Shea) Butter, Citric Acid, Glyceryl Caprylate, Glycine Soja Oil, Hylocereus Undatus Fruit Extract, Isoamyl Laurate, Lactic Acid, Maltodextrin, Panthenol, Parfum (Fragrance), Potassium Sorbate, Sclerotium Gum, Simmondsia Chinensis (Jojoba) Seed Oil, Sodium Benzoate, Tocopherol",
-   "description": "Votre routine cheveux bouclés prête à l’emploi, composée de 4 produits pour accompagner les cheveux bouclés, frisés et ondulés au quotidien !",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/les-essentiels-lavants-actikids.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "activilong--gelee-scrunching-acticurl-expert",
@@ -1072,8 +1008,13 @@
    ],
    "ingredients": "Glycerin, Dehydroxanthan Gum, Sodium Citrate, Citric Acid, Glyceryl Oleate, Parfum (Fragrance), Phenethyl Alcohol, Hylocereus Undatus Fruit Extract, Maltodextrin, Xanthan Gum, Ethylhexylglycerin, Tetramethyl Acetyloctahydronaphthalenes, Sodium Benzoate, Dimethyl Phenethyl Acetate, Linalyl Acetate, Potassium Sorbate, Geranyl Acetate, Terpineol, Tocopherol, Lecithin, Ascorbyl Palmitate, Hydrogenated Palm Glycerides Citrate",
    "description": "Gelée coiffante pour cheveux bouclés, la Gelée Scrunching Acticurl Expert sculpte et gaine les boucles avec une fixation légère, sans effet cartonné.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "definition-boucles",
+    "fixation"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/gelee-scrunching-acticurl-expert.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--mousse-bouclante-acticurl-expert",
@@ -1100,8 +1041,14 @@
    ],
    "ingredients": "Aqua (Water), Aloe Barbadensis Leaf Juice, Caprylyl/Capryl Glucoside, Erythritol, Triethyl Citrate, Sodium Cocoyl Glutamate, Glycerin, Arginine, Citric Acid, Cocodimonium Hydroxypropyl Hydrolyzed Wheat Protein, Hylocereus Undatus Fruit Extract",
    "description": "Mousse cheveux bouclés à fixation légère, la Mousse Bouclante Acticurl Expert définit et rafraîchit les boucles sans effet cartonné ni résidus.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "definition-boucles",
+    "purifiant",
+    "fixation"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/mousse-bouclante-acticurl-expert.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--lait-thermo-protecteur-acticurl-expert",
@@ -1117,7 +1064,6 @@
    "categorie": "protection-thermique",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
     "boucles"
    ],
    "actifs": [
@@ -1132,10 +1078,14 @@
    "ingredients": "Aqua (Water), Coco-Caprylate/Caprate, C13-15 Alkane, Microcrystalline Cellulose, Cetearyl Alcohol, Glycerin, Sodium Stearoyl Glutamate, Aloe Barbadensis Leaf Juice Powder, Cellulose Gum, Cetrimonium Chloride, Citric Acid, Cocodimonium Hydroxypropyl Hydrolyzed Wheat Protein, Dimethyl Phenethyl Acetate, Geranyl Acetate, Hylocereus Undatus Fruit Extract, Lauroyl Lysine, Linalyl Acetate, Maltodextrin, Panthenol, Parfum (Fragrance), Potassium Sorbate, Rosa Moschata Seed Oil, Rose Ketones, Simmondsia Chinensis (Jojoba) Seed Oil, Terpineol, Tetramethyl Acetyloctahydronaphthalenes, Tocopherol, Tocopheryl Acetate, Xanthan Gum, Zea Mays (Corn) Oil",
    "description": "Le Lait Thermo-Protecteur protège les cheveux de la chaleur jusqu’à 220 °C et facilite le coiffage. Les boucles sont redessinées, sans frisottis.",
    "claims": [
-    "lissant",
-    "protection-thermique"
+    "anti-frisottis",
+    "definition-boucles",
+    "protection-chaleur",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/lait-thermo-protecteur-acticurl-expert.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--apres-shampooing-sublimateur-acticurl-expert",
@@ -1148,9 +1098,11 @@
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0871/6596/0457/files/Packshot_Apres_Shampoing_Sublimateur_Acticurl_Expert.jpg?width=600",
    "image_local": "public/scan/products-cheveux/activilong/apres-shampooing-sublimateur-acticurl-expert.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
+    "secs",
+    "fins",
     "boucles"
    ],
    "actifs": [
@@ -1167,10 +1119,15 @@
    "ingredients": "Aqua (Water), Cetearyl Alcohol, Glycerin, Arachidyl/Behenyl Alcohol, Cocos Nucifera (Coconut) Oil, Sodium Lactate, Arachidyl/Behenyl Betainate Esylate, Parfum (Fragrance), Lactic Acid, Isoamyl Laurate, Simmondsia Chinensis (Jojoba) Seed Oil, Sodium Benzoate, Glyceryl Caprylate, Sclerotium Gum, Potassium Sorbate, Butyrospermum Parkii (Shea) Butter, Panthenol, Aloe Barbadensis Leaf Juice Powder, Hylocereus Undatus Fruit Extract, Tetramethyl Acetyloctahydronaphthalenes, Dimethyl Phenethyl Acetate, Maltodextrin, Tocopherol, Glycine Soja Oil, Citric Acid",
    "description": "L'Après shampoing pour les cheveux bouclés Acticurl Expert démêle et hydrate sans alourdir, pour des boucles douces, brillantes et faciles à coiffer.",
    "claims": [
-    "hydratant",
-    "brillance"
+    "hydratation",
+    "nutrition",
+    "definition-boucles",
+    "brillance",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/apres-shampooing-sublimateur-acticurl-expert.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--apres-shampooing-actikids",
@@ -1183,8 +1140,8 @@
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0871/6596/0457/files/Packshot_Apres_Shampoing_Actikids.jpg?width=600",
    "image_local": "public/scan/products-cheveux/activilong/apres-shampooing-actikids.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
     "secs"
    ],
@@ -1201,9 +1158,11 @@
    "ingredients": "Aqua (Water), Cetearyl Alcohol, Behentrimonium Chloride, Cocos Nucifera (Coconut) Oil, Glycerin, Dipalmoylisopropyl Dimonium Methosulfate, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Mangifera Indica (Mango) Seed Butter, Oleyl Alcohol, Isopropyl Alcohol, Parfum (Fragrance), Glyceryl Caprylate, Potassium Sorbate, Simmondsia Chinensis (Jojoba) Seed Oil, Guar Hydroxypropyltrimonium Chloride, Citric Acid, Panthenol, Hydrolyzed Sweet Almond Protein, Tocopherol, Helianthus Annuus (Sunflower) Seed Oil, Sodium Benzoate, Datem, Sunflower Seed Oil Glycerides, Glycine Soja Oil, Rosmarinus Officinalis (Rosemary) Leaf Extract, Hydrogenated Palm Glycerides Citrate",
    "description": "Spécialement conçu pour venir à bout des nœuds les plus rebelles. Les cheveux sont nourris intensément et très faciles à coiffer.",
    "claims": [
-    "nourrissant"
+    "nutrition"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/apres-shampooing-actikids.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "activilong--shampooing-conditionneur-actikids",
@@ -1229,10 +1188,12 @@
    "ingredients": "Aqua (Water), Lauryl Glucoside, Polyglyceryl-4 Caprate, Sodium Cocoyl Glutamate, Sodium Cocoyl Isethionate, Glycerin, Coco-Glucoside, Hydroxypropyl Guar Hydroxypropyltrimonium Chloride, Glyceryl Oleate, Parfum (Fragrance), Sodium Benzoate, Potassium Sorbate, Propylene Glycol, Citric Acid, Polyglyceryl-3 Cocoate, Polyquaternium-10, Phytic Acid, Hydrolyzed Sweet Almond Protein, Mangifera Indica (Mango) Seed Butter, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Lecithin, Ascorbyl Palmitate, Tocopherol, Hydrogenated Palm Glycerides Citrate",
    "description": "Le Ti Shampooing Conditionneur, permet de nettoyer les cuirs chevelus les plus délicats. Les cheveux de votre enfant sont nourris, doux et brillants !",
    "claims": [
-    "nourrissant",
+    "nutrition",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/shampooing-conditionneur-actikids.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "activilong--serum-riche-actigro",
@@ -1247,9 +1208,7 @@
    "image_local": "public/scan/products-cheveux/activilong/serum-riche-actigro.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [
-    "chute"
-   ],
+   "cheveux_cibles": [],
    "actifs": [
     "panthénol",
     "protéines de blé",
@@ -1261,9 +1220,12 @@
    "ingredients": "Glycerin, Propylene Glycol, Panthenol, Camphor, Menthol, Rosmarinus Officinalis (Rosemary) Leaf/Stem Oil, Hydrolyzed Wheat Protein, Aqua (Water), Pinene, Limonene, Beta-Caryophyllene, Linalool, Terpineol, Ci 19140 (Yellow 5), Citric Acid, Alpha-Terpinene, Ci 42090 (Blue 1)",
    "description": "Riche en actifs assainissants et tonifiants, le Sérum Riche sera votre allié de nuit indispensable pour activer la croissance de vos follicules pileux.",
    "claims": [
+    "croissance",
     "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/serum-riche-actigro.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--baume-fondant-coco-amour",
@@ -1278,9 +1240,7 @@
    "image_local": "public/scan/products-cheveux/activilong/baume-fondant-coco-amour.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [
     "vitamine E",
     "huile de tournesol",
@@ -1289,11 +1249,13 @@
    "ingredients": "Acetate, Glycine Soja Oil, Helianthus Annuus (Sunflower) Seed Oil, Linalool, Linalyl Acetate, Parfum (Fragrance), Pinene, Rosmarinus Officinalis (Rosemary) Leaf Extract, Sunflower Seed Oil Glycerides, Tetramethyl Acetyloctahydronaphthalenes, Tocopherol, Vanillin",
    "description": "Le Baume fondant scelle l'hydratation et discipline les cheveux. Les frisottis sont limités et votre chevelure est plus douce et brillante.",
    "claims": [
-    "hydratant",
-    "brillance",
-    "lissant"
+    "hydratation",
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/baume-fondant-coco-amour.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--gelee-gourmande-coco-amour",
@@ -1320,9 +1282,12 @@
    "ingredients": "Aqua (Water), Glycerin, Cocos Nucifera Water, Propylene Glycol, Hydroxypropyl Guar Hydroxypropyltrimonium Chloride, Aloe Barbadensis Leaf Juice Powder, Citral, Citric Acid, Cocos Nucifera (Coconut) Fruit Extract, Cocos Nucifera (Coconut) Oil, Coumarin, Geranyl Acetate, Isoamyl Laurate, Linalool, Linalyl Acetate",
    "description": "La gelée gourmande Coco D'Amour permet de raviver vos boucles en les définissant et en maintenant l'hydratation naturelle de vos cheveux.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/gelee-gourmande-coco-amour.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--brume-legere-coco",
@@ -1348,8 +1313,12 @@
    ],
    "ingredients": "Aqua (Water), Glycerin, Cocos Nucifera Water, Propylene Glycol, Cetrimonium Chloride, Citral, Citric Acid, Cocos Nucifera (Coconut) Oil, Coumarin, Geranyl Acetate, Levulinic Acid, Linalool, Linalyl Acetate, Panthenol, Parfum (Fragrance), Pinene, Polyglyceryl-3 Cocoate, Polyglyceryl-6 Caprate, Polyglyceryl-6 Caprylate, Polyglyceryl-6 Ricinoleate, Potassium Sorbate, Sodium Benzoate, Sodium Levulinate, Tetramethyl Acetyloctahydronaphthalenes, Vanillin",
    "description": "La brume légère Coco D'Amour rafraîchit vos boucles tout en apportant de la légèreté à votre chevelure.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "definition-boucles"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/brume-legere-coco.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--soin-exquis-3-en-1-coco-amour",
@@ -1377,10 +1346,13 @@
    "ingredients": "Aqua (Water), Cocos Nucifera Water, Glycerin, Cetearyl Alcohol, Cocos Nucifera (Coconut) Oil, Behentrimonium Chloride, Coconut Alkanes, Dipalmoylisopropyl Dimonium Methosulfate, Citral, Citric Acid, Coco-Caprylate/Caprate, Coumarin, Geranyl Acetate, Glyceryl Caprylate, Glycine Soja Oil, Guar Hydroxypropyltrimonium Chloride, Isopropyl Alcohol, Linalool, Linalyl Acetate, Panthenol, Parfum (Fragrance), Pinene, Potassium Sorbate, Sodium Benzoate, Tetramethyl Acetyloctahydronaphthalenes, Tocopherol, Vanillin",
    "description": "Le soin exquis 3-en-1 offre hydratation et nutrition à vos cheveux sans les alourdir. Ce soin va démêler intensément vos cheveux tout en douceur.",
    "claims": [
-    "hydratant",
-    "nourrissant"
+    "hydratation",
+    "nutrition",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/soin-exquis-3-en-1-coco-amour.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--shampooing-douceur-coco-amour",
@@ -1395,7 +1367,9 @@
    "image_local": "public/scan/products-cheveux/activilong/shampooing-douceur-coco-amour.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "huile de coco",
     "glycérine"
@@ -1403,9 +1377,11 @@
    "ingredients": "Aqua (Water), Lauryl Glucoside, Cocos Nucifera Water, Glycerin, Polyglyceryl-4 Caprate, Coco-Glucoside, Sodium Cocoyl Glutamate",
    "description": "Le Shampooing Douceur Coco D'Amour lave les cheveux en douceur en leur apportant légèreté et hydratation.",
    "claims": [
-    "hydratant"
+    "hydratation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/shampooing-douceur-coco-amour.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "activilong--masque-soin-conditionneur-acticurl",
@@ -1418,7 +1394,7 @@
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0871/6596/0457/files/Packshot_Masque_Soin_Conditionneur_Acticurl.jpg?width=600",
    "image_local": "public/scan/products-cheveux/activilong/masque-soin-conditionneur-acticurl.jpg",
-   "categorie": "apres-shampooing",
+   "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
     "secs",
@@ -1438,10 +1414,14 @@
    "ingredients": "Aqua (Water), Cetearyl Alcohol, Cocos Nucifera (Coconut) Oil, Glycerin, Behentrimonium Chloride, Parfum (Fragrance), Cetyl Alcohol, Dipalmoylisopropyl Dimonium Methosulfate, Aloe Barbadensis Leaf Juice Powder, Arginine, Aspartic Acid, Butyrospermum Parkii (Shea) Butter, Cetyl Palmitate, Citric Acid, Datem, Dimethyl Phenethyl Acetate, Glutamic Acid, Guar Hydroxypropyltrimonium Chloride, Helianthus Annuus (Sunflower) Seed Oil, Hydrogenated Palm Glycerides Citrate, Hylocereus Undatus Fruit Extract, Isopropyl Alcohol, Linalyl Acetate, Maltodextrin, Oleyl Alcohol, Potassium Sorbate, Rosmarinus Officinalis (Rosemary) Leaf Extract, Sunflower Seed Oil Glycerides, Tetramethyl Acetyloctahydronaphthalenes, Tocopherol",
    "description": "Découvrez le Masque-Soin Conditionneur Acticurl, un masque pour cheveux bouclés qui nourrit, facilite le démêlage et redonne souplesse et brillance.",
    "claims": [
-    "nourrissant",
-    "brillance"
+    "nutrition",
+    "definition-boucles",
+    "brillance",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/masque-soin-conditionneur-acticurl.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--masque-soin-fortifiant-actiforce",
@@ -1456,7 +1436,9 @@
    "image_local": "public/scan/products-cheveux/activilong/masque-soin-fortifiant-actiforce.jpg",
    "categorie": "masque",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "protéines de blé",
     "huile de coco",
@@ -1472,9 +1454,12 @@
    "ingredients": "Aqua (Water), Cetearyl Alcohol, Behentrimonium Chloride, Dipalmoylisopropyl Dimonium Methosulfate, Cetyl Alcohol, Ricinus Communis (Black Castor) Seed Oil, Cocos Nucifera (Coconut) Oil, Glycerin, Parfum (Fragrance), Oleyl Alcohol, Cetyl Palmitate, Isopropyl Alcohol, Pouteria Sapota Seed Butter, Guar Hydroxypropyltrimonium Chloride, Potassium Sorbate, Butyrospermum Parkii (Shea) Butter, Hydrolyzed Wheat Protein, Hydrolyzed Sweet Almond Protein, Limonene, Hexyl Cinnamal, Aspartic Acid, Glutamic Acid, Citric Acid, Citronellol, Helianthus Annuus (Sunflower) Seed Oil, Aloe Barbadensis Leaf Juice Powder, Datem, Sunflower Seed Oil Glycerides, Sodium Benzoate, Rosmarinus Officinalis (Rosemary) Leaf Extract, Ci 75120 (Annatto), Potassium Hydroxide, Tocopherol, Hydrogenated Palm Glycerides Citrate",
    "description": "Enrichi en protéines végétales, ce masque se fond dans la chevelure pour une régénération profonde de la fibre capillaire, des racines aux pointes.",
    "claims": [
+    "nutrition",
     "fortifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/masque-soin-fortifiant-actiforce.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--gommage-capillaire-actidetox",
@@ -1489,7 +1474,10 @@
    "image_local": "public/scan/products-cheveux/activilong/gommage-capillaire-actidetox.jpg",
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "gras",
+    "crepus"
+   ],
    "actifs": [
     "glycérine",
     "vitamine E",
@@ -1502,7 +1490,9 @@
    "claims": [
     "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/gommage-capillaire-actidetox.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "activilong--apres-shampooing-hydratant-actidetox",
@@ -1515,9 +1505,13 @@
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0871/6596/0457/files/Packshot_Apres_Shampooing_Hydratant_Actidetox.jpg?width=600",
    "image_local": "public/scan/products-cheveux/activilong/apres-shampooing-hydratant-actidetox.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [],
+   "categorie": "apres-shampooing",
+   "etape": 2,
+   "cheveux_cibles": [
+    "secs",
+    "gras",
+    "crepus"
+   ],
    "actifs": [
     "panthénol",
     "protéines de blé",
@@ -1533,10 +1527,14 @@
    "ingredients": "Aqua (Water), Cetearyl Alcohol, Glycerin, Behentrimonium Chloride, Cocos Nucifera (Coconut) Oil, Dipalmoylisopropyl Dimonium Methosulfate, Cetyl Palmitate, Butyrospermum Parkii (Shea) Butter, Oleyl Alcohol, Potassium Sorbate, Isopropyl Alcohol, Panthenol, Limonene, Citrus Aurantium Peel Oil, Glyceryl Caprylate, Borago Officinalis Seed Oil, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Acetum (Vinegar), Guar Hydroxypropyltrimonium Chloride, Rosmarinus Officinalis (Rosemary) Leaf/Stem Oil, Citric Acid, Allantoin, Hydrolyzed Wheat Protein, Menthol, Hydrolyzed Sweet Almond Protein, Aloe Barbadensis Leaf Juice Powder, Maltodextrin, Urtica Dioica (Nettle) Leaf Extract, Pinene, Pimenta Racemosa (Bay) Leaf/Fruit Oil, Citrus Aurantifolia (Lime) Oil, Melaleuca Alternifolia (Tea Tree) Leaf Oil, Eugenol, Hibiscus Sabdariffa Flower Extract, Camphor, Terpineol, Tocopherol, Helianthus Annuus (Sunflower) Seed Oil, Sodium Benzoate, Datem, Sunflower Seed Oil Glycerides, Glycine Soja Oil, Rosmarinus Officinalis (Rosemary) Leaf Extract, Hydrogenated Palm Glycerides Citrate",
    "description": "Après-shampoing démêlant naturel pour cheveux frisés et crépus. Démêle, hydrate et purifie le cuir chevelu grâce au Romarin, Bois d’Inde et Tea Tree.",
    "claims": [
-    "hydratant",
-    "purifiant"
+    "hydratation",
+    "nutrition",
+    "purifiant",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/apres-shampooing-hydratant-actidetox.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--shampooing-fortifiant-actiforce",
@@ -1562,9 +1560,12 @@
    "ingredients": "Coco-Glucoside, Glycerin, Cocamidopropyl Betaine, Xanthan Gum, Benzyl Alcohol, Parfum (Fragrance), Polyquaternium-10, Citric Acid, Sodium Benzoate, Caramel, Hydrolyzed Wheat Protein, Ricinus Communis (Black Castor) Seed Oil, Dehydroacetic Acid, Panthenol, Phytic Acid, Pouteria Sapota Seed Butter, Citrus Aurantium Peel Oil, Limonene, Tetramethyl Acetyloctahydronaphthalenes, Hexyl Cinnamal, Linalyl Acetate",
    "description": "Enrichi en protéines, le Shampooing Fortifiant Actiforce nettoie le cuir chevelu en douceur et le libère des impuretés tout en fortifiant les longueurs.",
    "claims": [
-    "fortifiant"
+    "fortifiant",
+    "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/shampooing-fortifiant-actiforce.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--ti-hairfood-actikids",
@@ -1591,11 +1592,14 @@
    "ingredients": "Ricinus Communis (Castor) Seed Oil, Myrica Pubescens Fruit Cera (Myrica Pubescens Fruit Wax), Parfum (Fragrance), Mangifera Indica (Mango) Seed Butter, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Helianthus Annuus Seed Cera (Helianthus Annuus (Sunflower) Seed Wax), Glyceryl Caprylate, Tocopherol, Helianthus Annuus (Sunflower) Seed Oil, Datem, Sunflower Seed Oil Glycerides, Glycine Soja Oil, Rosmarinus Officinalis (Rosemary) Leaf Extract",
    "description": "Il nourrit intensément, protège, mais surtout discipline les cheveux. Sa texture fondante scelle l’hydratation et laisse la chevelure toute douce.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "texturisant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/ti-hairfood-actikids.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--tite-gelee-definissante-actikids",
@@ -1621,9 +1625,12 @@
    "ingredients": "Aqua (Water), Propylene Glycol, Glycerin, Hydroxypropyl Guar, Corn Starch Modified, Parfum (Fragrance), Potassium Sorbate, Citric Acid, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Phytic Acid, Pvp, Mica, Mangifera Indica (Mango) Seed Butter, Hydrolyzed Sweet Almond Protein, Alcohol, Titanium Dioxide, Tocopherol, Glycine Soja Oil, Sodium Benzoate",
    "description": "Sa formule unique, permet de créer et maintenir de belles boucles soyeuses et rebondies . Les cheveux sont brillants et sans effet cartonné.",
    "claims": [
+    "definition-boucles",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/tite-gelee-definissante-actikids.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--tite-topping-creme-actikids",
@@ -1639,6 +1646,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -1648,9 +1656,13 @@
    "ingredients": "Aqua (Water), Cetearyl Alcohol, Propylene Glycol, Glyceryl Stearate, Cocos Nucifera (Coconut) Oil, Glycerin, Mangifera Indica (Mango) Seed Butter, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Behentrimonium Chloride, Parfum (Fragrance), Potassium Sorbate",
    "description": "Cette crème fondante et légère sculpte et redessine les boucles de votre enfant tout en leur apportant tenue, douceur et hydratation intense.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "definition-boucles",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/tite-topping-creme-actikids.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--ti-milkshake-leave-in-actikids",
@@ -1680,10 +1692,14 @@
    "ingredients": "Aqua (Water), Behenyl Alcohol, Coconut Alkanes, Behentrimonium Chloride, Glycerin, Cetyl Ricinoleate, Cetyl Alcohol, Dipalmoylisopropyl Dimonium Methosulfate, Parfum (Fragrance), Cocos Nucifera (Coconut) Oil, Mangifera Indica (Mango) Seed Butter, Oleyl Alcohol, Isopropyl Alcohol, Potassium Sorbate, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Citric Acid, Hydrolyzed Sweet Almond Protein, Tocopherol, Helianthus Annuus (Sunflower) Seed Oil, Sodium Benzoate, Datem, Sunflower Seed Oil Glycerides, Glycine Soja Oil, Rosmarinus Officinalis (Rosemary) Leaf Extract, Hydrogenated Palm Glycerides Citrate",
    "description": "Le Ti Milkshake enveloppe la chevelure pour lui apporter hydratation et nutrition, sans graisser ni alourdir. Il permet de démêler et de définir les boucles.",
    "claims": [
-    "hydratant",
-    "nourrissant"
+    "hydratation",
+    "nutrition",
+    "definition-boucles",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/ti-milkshake-leave-in-actikids.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--ti-spray-demelant-actikids",
@@ -1708,8 +1724,14 @@
    ],
    "ingredients": "Aqua (Water), Propylene Glycol, Coco-Caprylate/Caprate, Polyglyceryl-3 Cocoate, Glycerin, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Parfum (Fragrance), Cetrimonium Chloride, Potassium Sorbate, Panthenol, Citric Acid, Mangifera Indica (Mango) Seed Butter, Hydroxypropyl Guar Hydroxypropyltrimonium Chloride, Polyquaternium-10, Hydrolyzed Sweet Almond Protein, Helianthus Annuus (Sunflower) Seed Oil, Datem, Sunflower Seed Oil Glycerides, Rosmarinus Officinalis (Rosemary) Leaf Extract, Sodium Benzoate",
    "description": "Sa formule enrichie en huile d'Amande Douce Bio et beurre de Mangue, facilite le coiffage et laisse les cheveux doux. Idéal pour limiter les nœuds.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "nutrition",
+    "demelant",
+    "fixation"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/ti-spray-demelant-actikids.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--ti-cowash-actikids",
@@ -1735,8 +1757,12 @@
    ],
    "ingredients": "Aqua (Water), Coco-Glucoside, Cetearyl Alcohol, Glycerin, Behentrimonium Chloride, Cetyl Alcohol, Cetyl Palmitate, Parfum (Fragrance), Isopropyl Alcohol, Guar Hydroxypropyltrimonium Chloride, Glyceryl Caprylate, Potassium Sorbate, Citric Acid, Cocos Nucifera (Coconut) Oil, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Mangifera Indica (Mango) Seed Butter, Panthenol, Hydrolyzed Sweet Almond Protein, Helianthus Annuus (Sunflower) Seed Oil, Datem, Sunflower Seed Oil Glycerides, Sodium Benzoate, Rosmarinus Officinalis (Rosemary) Leaf Extract",
    "description": "Une formule douce et crémeuse pour laver et démêler intensément. Il peut s’utiliser au quotidien afin d’espacer les shampoings.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "demelant"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/ti-cowash-actikids.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--brume-assouplissante-actiforce",
@@ -1751,9 +1777,7 @@
    "image_local": "public/scan/products-cheveux/activilong/brume-assouplissante-actiforce.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [
     "panthénol",
     "protéines de blé",
@@ -1765,10 +1789,14 @@
    "ingredients": "Aqua (Water), Coconut Alkanes, Coco-Caprylate/Caprate, Glycerin, Laureth-4, Parfum (Fragrance), Dipalmoylisopropyl Dimonium Methosulfate, Panthenol, Potassium Sorbate, Polyquaternium-6, Cetrimonium Chloride, Hydrolyzed Wheat Protein, Ricinus Communis (Black Castor) Seed Oil, Citric Acid, Pouteria Sapota Seed Butter, Citrus Aurantium Peel Oil, Tetramethyl Acetyloctahydronaphthalenes, Limonene, Hexyl Cinnamal, Linalyl Acetate, Vanillin, Citronellol, Helianthus",
    "description": "Véritable base capillaire, la Brume Assouplissante hydrate, démêle et assouplit le cheveu sans l’alourdir permettant ainsi un coiffage facile.",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "anti-frisottis",
+    "demelant",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/brume-assouplissante-actiforce.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--serum-definissant-acticurl",
@@ -1785,6 +1813,7 @@
    "etape": 3,
    "cheveux_cibles": [
     "secs",
+    "fins",
     "boucles"
    ],
    "actifs": [
@@ -1797,11 +1826,14 @@
    "ingredients": "Coco-Caprylate/Caprate, Triisostearin, Cocos Nucifera (Coconut) Oil, Glyceryl Caprylate, Ricinus Communis (Castor) Seed Oil, Parfum (Fragrance), Macadamia Ternifolia Seed Oil, Olea Europaea (Olive) Fruit Oil, Glycerin, Tetramethyl Acetyloctahydronaphthalenes",
    "description": "Le Sérum Définissant Acticurl est un sérum pour les cheveux bouclés qui nourrit et définit sans alourdir. Il apporte brillance et préserve l’hydratation.",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
+    "definition-boucles",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/serum-definissant-acticurl.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--huile-scellante-actiforce",
@@ -1829,10 +1861,12 @@
    "ingredients": "Triisostearin, Coco-Caprylate/ Caprate, Cocos Nucifera (Coconut) Oil, Glyceryl Caprylate, Parfum (Fragrance), Ricinus Communis (Black Castor) Seed Oil, Helianthus Annuus (Sunflower) Seed Oil, Pouteria Sapota Seed Butter, Limonene, Hexyl Cinnamal, Tocopherol, Citronellol, Ci 75810 (Chlorophyllin-Copper Complex), Caprylic/Capric Triglyceride,Hydroxycitronellal, Alpha-Isomethyl Ionone, Alkanna Tinctoria Root Extract, Datem, Sunflower Seed Oil Glycerides, Glycine Soja Oil, Citral, Rosmarinus Officinalis (Rosemary) Leaf Extract, Linalool, Coumarin, Lycopene, Curcumin",
    "description": "L'Huile Scellante Actiforce apporte force, nutrition et protection aux cheveux sans les alourdir. Elle est parfaite pour sceller l'hydratation.",
    "claims": [
-    "hydratant",
-    "nourrissant"
+    "hydratation",
+    "nutrition"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/huile-scellante-actiforce.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "activilong--hair-food-actiforce",
@@ -1848,8 +1882,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "secs",
-    "epais"
+    "secs"
    ],
    "actifs": [
     "huile de ricin",
@@ -1859,11 +1892,13 @@
    "ingredients": "Ricinus Communis (Black Castor) Seed Oil, Glyceryl Oleate, Glyceryl Dibehenate, Sucrose Tetrastearate Triacetate, Mangifera Indica (Mango) Seed Butter, Parfum (Fragrance), Tribehenin, Glyceryl Caprylate, Glyceryl Behenate, Pouteria Sapota Seed Butter, Citrus Aurantium Peel Oil, Limonene, Tetramethyl Acetyloctahydronaphthalenes, Hexyl Cinnamal, Oxidized Corn Oil, Linalyl Acetate, Tocopherol, Vanillin, Citronellol, Alpha-Isomethyl Ionone, Geranyl Acetate, Datem, Sunflower Seed Oil Glycerides, Hydroxycitronellal, Terpineol, Dimethyl Phenethyl Acetate, Ci 47000 (Yellow 11), Rosmarinus Officinalis (Rosemary) Leaf Extract, Ci 26100 (Red 17), Citral, Rose Ketones, Ci 61565 (Green 6), Glycine Soja Oil, Linalool, Coumarin, Pinene, Lecithin, Ascorbyl Palmitate, Hydrogenated Palm Glycerides Citrate",
    "description": "Le Hair Food Actiforce nourrit, protège et discipline les cheveux. Ainsi les frisottis sont limités et laissent place à une chevelure douce et brillante.",
    "claims": [
-    "nourrissant",
-    "brillance",
-    "lissant"
+    "nutrition",
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/hair-food-actiforce.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--creme-soufflee-actiforce",
@@ -1878,7 +1913,10 @@
    "image_local": "public/scan/products-cheveux/activilong/creme-soufflee-actiforce.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "crepus"
+   ],
    "actifs": [
     "huile de coco",
     "beurre de karité",
@@ -1889,9 +1927,12 @@
    "ingredients": "Aqua (Water), Cetearyl Alcohol, Propylene Glycol, Glyceryl Stearate, Cocos Nucifera (Coconut) Oil, Glycerin, Ricinus Communis (Black Castor) Seed Oil, Behentrimonium Chloride, Parfum (Fragrance), Butyrospermum Parkii (Shea) Butter, Macadamia Ternifolia Seed",
    "description": "La Crème Soufflée Actiforce, enrichie en protéines végétales, apporte au quotidien force et résistance aux cheveux frisés et crépus sans les alourdir.",
    "claims": [
+    "nutrition",
     "fortifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/creme-soufflee-actiforce.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--leave-in-actiforce",
@@ -1907,7 +1948,9 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "boucles"
+    "secs",
+    "boucles",
+    "crepus"
    ],
    "actifs": [
     "huile de coco",
@@ -1917,8 +1960,12 @@
    ],
    "ingredients": "Aqua (Water), Coconut Alkanes, Cetearyl Alcohol, Ricinus Communis (Black Castor) Seed Oil, Behentrimonium Chloride, Cetyl Ricinoleate, Glycerin, Cetyl Alcohol, Parfum (Fragrance), Pouteria Sapota Seed Butter, Isopropyl Alcohol, Potassium Sorbate, Cocos Nucifera (Coconut) Oil, Cetrimonium Chloride, Citric Acid, Citrus Aurantium Peel Oil, Limonene, Tetramethyl Acetyloctahydronaphthalenes, Hexyl",
    "description": "A 98% d'origine naturelle, le Leave-in ACTIFORCE d'Activilong donne force et vitalité aux cheveux bouclés, frisés et crépus. Il définit et booste les boucles.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "definition-boucles"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/leave-in-actiforce.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--co-wash-actiforce",
@@ -1945,10 +1992,12 @@
    "ingredients": "Aqua (Water), Coco-Glucoside, Cetearyl Alcohol, Glycerin, Behentrimonium Chloride, Cetyl Alcohol, Cetyl Palmitate, Parfum (Fragrance), Isopropyl Alcohol, Guar Hydroxypropyltrimonium Chloride, Potassium Sorbate, Citric Acid, Cocos Nucifera (Coconut) Oil, Hydrolyzed Wheat Protein, Pouteria Sapota Seed Butter, Ricinus",
    "description": "A 98% d'origine naturelle le Co-wash ACTIFORCE d'Activilong est enrichi en protéines végétale pour plus de nutrition et d'hydratation.",
    "claims": [
-    "hydratant",
-    "nourrissant"
+    "hydratation",
+    "nutrition"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/co-wash-actiforce.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "activilong--creme-fouettee-acticurl",
@@ -1974,10 +2023,13 @@
    "ingredients": "Aqua (Water), Cetearyl Alcohol, Propylene Glycol, Glyceryl Stearate, Cocos Nucifera (Coconut) Oil, Glycerin, Parfum (Fragrance), Aloe",
    "description": "Découvrez la Crème Fouettée Acticurl, la crème pour cheveux bouclés qui nourrit, hydrate et définit les boucles sans les alourdir.",
    "claims": [
-    "hydratant",
-    "nourrissant"
+    "hydratation",
+    "nutrition",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/creme-fouettee-acticurl.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--leave-in-acticurl",
@@ -1994,7 +2046,7 @@
    "etape": 3,
    "cheveux_cibles": [
     "secs",
-    "epais",
+    "fins",
     "boucles"
    ],
    "actifs": [
@@ -2012,10 +2064,13 @@
    "ingredients": "Aqua (Water), Behenyl Alcohol, Coco-Caprylate/Caprate, Isostearyl Isostearate, Glycerin, Behentrimonium Chloride, Cetyl Alcohol, Dipalmoylisopropyl Dimonium Methosulfate, Aloe Barbadensis Leaf Juice Powder, Butyrospermum Parkii (Shea) Butter, Citric Acid, Cocos Nucifera (Coconut) Oil, Datem, Dimethyl Phenethyl Acetate, Geranyl Acetate, Glycine Soja Oil, Helianthus Annuus (Sunflower) Seed Oil, Hydrogenated Palm Glycerides Citrate, Hylocereus Undatus Fruit Extract, Isopropyl Alcohol, Linalyl Acetate, Maltodextrin, Olea Europaea (Olive) Fruit Oil, Oleyl Alcohol, Parfum (Fragrance), Persea Gratissima (Avocado) Oil, Potassium Sorbate, Rose Ketones, Rosmarinus Officinalis (Rosemary) Leaf Extract, Sunflower Seed Oil Glycerides, Terpineol, Tetramethyl Acetyloctahydronaphthalenes, Tocopherol",
    "description": "Découvrez le leave-in cheveux bouclés Acticurl, un soin sans rinçage qui nourrit, définit les boucles et réduit les frisottis sans alourdir.",
    "claims": [
-    "nourrissant",
-    "lissant"
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/leave-in-acticurl.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--co-wash-acticurl",
@@ -2044,9 +2099,12 @@
    "ingredients": "Aqua (Water), Cetearyl Alcohol, Coco-Glucoside, Glycerin, Behentrimonium Chloride, Cetyl Alcohol, Cetyl Palmitate, Aloe Barbadensis Leaf Juice Powder, Butyrospermum Parkii (Shea) Butter, Citric Acid, Cocodimonium Hydroxypropyl Hydrolyzed Wheat",
    "description": "Découvrez le co-wash pour cheveux bouclés Acticurl, une alternative douce au shampoing qui nettoie, nourrit et respecte la fibre capillaire.",
    "claims": [
-    "nourrissant"
+    "nutrition",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/co-wash-acticurl.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--spray-activateur-de-boucles-acticurl",
@@ -2073,10 +2131,13 @@
    "ingredients": "Aqua (Water), Propylene Glycol, Glycerin, Peg-40 Hydrogenated Castor Oil, Aloe Barbadensis Leaf Juice Powder, Dimethyl Phenethyl Acetate, Hylocereus Undatus Fruit Extract, Linalyl Acetate, Maltodextrin, Parfum (Fragrance), Phytic Acid, Potassium Sorbate, Tetramethyl Acetyloctahydronaphthalenes",
    "description": "Découvrez le spray pour cheveux bouclés Acticurl, idéal pour rafraîchir les boucles, leur redonner du volume et les hydrater entre deux lavages.",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "definition-boucles",
     "volume"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/spray-activateur-de-boucles-acticurl.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--shampooing-activateur-de-boucles-acticurl",
@@ -2093,7 +2154,6 @@
    "etape": 1,
    "cheveux_cibles": [
     "secs",
-    "epais",
     "boucles"
    ],
    "actifs": [
@@ -2104,11 +2164,15 @@
    "ingredients": "Aqua (Water), Sodium Lauroyl Sarcosinate, Cocamide Mea, Glycol Distearate, Cocamidopropyl Betaine, Coco-Glucoside, Glycerin, Behenyl Alcohol, Aloe Barbadensis Leaf Juice Powder, Benzoic Acid, Cetearyl Alcohol, Cetrimonium Methosulfate, Citric Acid, Dimethyl Phenethyl Acetate, Glyceryl Caprylate, Hylocereus Undatus Fruit Extract, Maltodextrin, Parfum (Fragrance), Phytic Acid, Polyquaternium-10, Potassium Sorbate, Quaternium-91, Tetramethyl",
    "description": "Shampoing pour cheveux bouclés Acticurl qui nourrit, adoucit et facilite le démêlage. Des boucles souples, brillantes et sans frisottis.",
    "claims": [
-    "nourrissant",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
     "brillance",
-    "lissant"
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/shampooing-activateur-de-boucles-acticurl.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--complexe-racines-actigro",
@@ -2123,7 +2187,10 @@
    "image_local": "public/scan/products-cheveux/activilong/complexe-racines-actigro.jpg",
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "gras",
+    "abimes"
+   ],
    "actifs": [
     "panthénol",
     "biotine",
@@ -2136,9 +2203,12 @@
    "ingredients": "Aqua (Water), Alcohol, Capryloyl/Caproyl Methyl Glucamide, Sucrose Palmitate, Panthenol, Caprylyl/Capryl Glucoside, Glycerin, Phenethyl Alcohol, Proline, Maltodextrin, Urtica Dioica (Nettle) Leaf Extract, Ptychopetalum Olacoides Bark Extract, Arctium Lappa Root Extract, Buxus Sempervirens Leaf Extract, Nasturtium Officinale Leaf Extract, Salvia Officinalis (Sage) Leaf Extract, Ethylhexylglycerin, Limonene, Citrus Aurantium Peel Oil, Methionine, Lavandula Oil/Extract, Methyl Nicotinate, Cupressus Sempervirens Stem Oil, Rosmarinus Officinalis (Rosemary) Leaf/Stem Oil, Thymus Zygis Flower Oil, Arnica Montana Flower Extract, Cinchona Succirubra Bark Extract, Linalool, Biotin, Calophyllum Inophyllum Seed Oil, Oxidized Corn Oil, Citric Acid, Sodium Riboflavin Phosphate, Tocopherol",
    "description": "Renforcez vos cheveux dès la racine avec le Complexe Racines. Ce soin puissant est idéal pour améliorer la vitalité des cheveux et réduire la casse.",
    "claims": [
+    "reparation",
     "fortifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/complexe-racines-actigro.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--complexe-longueurs-actigro",
@@ -2153,7 +2223,9 @@
    "image_local": "public/scan/products-cheveux/activilong/complexe-longueurs-actigro.jpg",
    "categorie": "autre-cheveux",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "abimes"
+   ],
    "actifs": [
     "panthénol",
     "protéines de blé",
@@ -2165,9 +2237,12 @@
    "ingredients": "Aqua (Water), Glycerin, Polyglyceryl-4 Caprate, Cetrimonium Chloride, Phenethyl Alcohol, Panax Ginseng Root Extract, Panthenol, Hydrolyzed Pea Protein, Hydrolyzed Wheat Protein, Parfum (Fragrance), Maltodextrin, Citric Acid, Ethylhexylglycerin, Hibiscus Sabdariffa Flower Powder, Hexyl Cinnamal, Calophyllum Inophyllum Seed Oil, Oxidized Corn Oil, Citronellol, Linalool, Benzyl Benzoate, Geraniol, Amyl Cinnamal, Alpha-Isomethyl Ionone, Tocopherol",
    "description": "Notre Complexe Longueurs est la solution idéale pour celles et ceux désireux de protéger leurs cheveux contre la casse tout en apportant éclat et vigueur.",
    "claims": [
+    "reparation",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/complexe-longueurs-actigro.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "activilong--serum-fluide-actigro",
@@ -2182,7 +2257,9 @@
    "image_local": "public/scan/products-cheveux/activilong/serum-fluide-actigro.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "gras"
+   ],
    "actifs": [
     "panthénol",
     "protéines de blé",
@@ -2197,7 +2274,9 @@
    "claims": [
     "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/activilong/cutout/serum-fluide-actigro.webp",
+   "ciblage_source": "fiche"
   }
  ]
 }

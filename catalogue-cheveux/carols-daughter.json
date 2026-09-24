@@ -16,6 +16,7 @@
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
    "cheveux_cibles": [
+    "gras",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -24,10 +25,15 @@
    "ingredients": null,
    "description": "Lisa's Kitchen Scalp Detox Cleansing Nectar is a sulfate-free scalp cleanser designed to lift buildup, excess oil, sweat, and impurities without stripping the scalp. The airy foam delivers the satisfying clean feel of a detox while helping maintain the scalp's natural moisture balance. Powered by Ceramides, a skincare-inspired ingredient known for helping support the skin's moisture barrier, it helps replenish hydration as it cleanses. Nettle Leaf, Soursop, and Lavender further enhance the formu",
    "claims": [
-    "hydratant",
-    "purifiant"
+    "hydratation",
+    "nutrition",
+    "purifiant",
+    "anti-gras",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/carols-daughter/cutout/scalp-detox-cleansing-nectar.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "carols-daughter--scalp-edge-cleansing-oil",
@@ -43,15 +49,20 @@
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
    "cheveux_cibles": [
+    "gras",
     "cuir-chevelu-sensible"
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "Lisa's Kitchen Scalp &amp; Edge Cleansing Oil brings the cleansing oil concept from skincare to your scalp and edges. This lightweight, no-rinse formula helps dissolve buildup, excess oil, sweat, and styling residue—without water, without stripping, and without disrupting your look. With Rice Bran Oil, a skincare-inspired ingredient known for its nourishing properties, it leaves the scalp and hairline feeling clean, comfortable, and conditioned. Nettle Leaf, Soursop, and Lavender further enhance",
+   "description": "Lisa's Kitchen Scalp & Edge Cleansing Oil brings the cleansing oil concept from skincare to your scalp and edges. This lightweight, no-rinse formula helps dissolve buildup, excess oil, sweat, and styling residue—without water, without stripping, and without disrupting your look. With Rice Bran Oil, a skincare-inspired ingredient known for its nourishing properties, it leaves the scalp and hairline feeling clean, comfortable, and conditioned. Nettle Leaf, Soursop, and Lavender further enhance",
    "claims": [
-    "nourrissant"
+    "nutrition",
+    "purifiant",
+    "anti-gras"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/carols-daughter/cutout/scalp-edge-cleansing-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "carols-daughter--scalp-balancing-serum",
@@ -67,6 +78,7 @@
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
    "cheveux_cibles": [
+    "fins",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -76,10 +88,13 @@
    "ingredients": null,
    "description": "Lisa's Kitchen Scalp Balancing Serum is a lightweight, oil-free treatment designed to hydrate and support the scalp without heaviness, buildup, or residue. Fast-absorbing and fragrance-free, it delivers weightless hydration in a single daily step. With skin-inspired ingredients such as Niacinamide to help support a healthy-feeling scalp, Hyaluronic Acid for lightweight hydration, and Rice Protein to help strengthen hair at the root, this breathable formula delivers targeted support exactly where",
    "claims": [
-    "hydratant",
-    "fortifiant"
+    "hydratation",
+    "fortifiant",
+    "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/carols-daughter/cutout/scalp-balancing-serum.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "carols-daughter--edge-treatment-balm",
@@ -95,16 +110,21 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
+    "crepus",
     "cuir-chevelu-sensible"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "Lisa's Kitchen Edge Treatment Balm is a nourishing balm-to-oil treatment designed for fragile edges. Rich yet lightweight, it cushions, conditions, and softens the hairline without buildup. Powered by Green Coffee Butter, a skincare-inspired ingredient known for its conditioning and moisture-retaining properties, it helps defend the hairline against the daily stress of slick-backs, protective styles, wigs, scarves, and laid-edge looks. Nettle Leaf, Soursop, and Lavender further enhance the formu",
    "claims": [
-    "hydratant",
-    "nourrissant"
+    "hydratation",
+    "nutrition",
+    "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/carols-daughter/cutout/edge-treatment-balm.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "carols-daughter--born-to-repair-sulfate-free-nourishing-shampoo",
@@ -120,18 +140,22 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
     "abimes"
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "Our sulfate free shampoo provides a deep clean to your scalp &amp; stands to leave hair 10x moisturized, 4x stronger, 6x smoother vs non conditioning shampoo. When used with the full system, helps fight up to 1 year of visible damage in 1 use.",
+   "description": "Our sulfate free shampoo provides a deep clean to your scalp & stands to leave hair 10x moisturized, 4x stronger, 6x smoother vs non conditioning shampoo. When used with the full system, helps fight up to 1 year of visible damage in 1 use.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "reparateur",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "anti-frisottis",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/carols-daughter/cutout/born-to-repair-sulfate-free-nourishing-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "carols-daughter--born-to-repair-reviving-hair-oil-with-shea-butter",
@@ -144,10 +168,10 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0707/7609/4772/files/Carols-Daughter-Born-to-Repair-Reviving-Oil--Front-0820645011786-Primary.jpg?width=600",
    "image_local": "public/scan/products-cheveux/carols-daughter/born-to-repair-reviving-hair-oil-with-shea-butter.jpg",
-   "categorie": "huile",
+   "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "boucles",
     "abimes"
    ],
@@ -158,12 +182,17 @@
    "ingredients": null,
    "description": "Bring damaged hair back to life with this multitasking hair oil. Born to Repair Reviving Hair Oil is a clean, color-caring vegan formula that conditions and detangles strands, smooths frizz and enhances shine. Blended with Shea Butter and Jojoba, Coconut, Olive, Amazonian Nut and Babassu Oils, this hair oil helps to fight up to 1 year of visible damage in 1 use*. Curls are left 4X stronger, 6X smoother and 10X more moisturized.*When used with the full system",
    "claims": [
-    "hydratant",
-    "reparateur",
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "anti-frisottis",
+    "definition-boucles",
     "brillance",
-    "lissant"
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/carols-daughter/cutout/born-to-repair-reviving-hair-oil-with-shea-butter.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "carols-daughter--born-to-repair-defining-leave-in-cream-with-shea-butter",
@@ -179,7 +208,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "boucles",
     "abimes"
    ],
@@ -189,14 +218,18 @@
    "ingredients": null,
    "description": "Bring that bounce back! Our Born to Repair Defining Leave-In Cream with Shea Butter helps curls get in shape with definition, softness and shine. Blended with sustainably-sourced Shea Butter, Amazonian Nut Oil and Babassu Oil, this anti-frizz hair cream restores moisture while helping to smooth, strengthen, and detangle. By the way, check out the revolutionary packaging for this curl defining cream: the carton tube uses -78% plastic!",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "brillance",
-    "lissant",
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
     "definition-boucles",
-    "fortifiant"
+    "brillance",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/carols-daughter/cutout/born-to-repair-defining-leave-in-cream-with-shea-butter.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "carols-daughter--born-to-repair-nourishing-conditioner-with-shea-butter",
@@ -212,6 +245,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "boucles",
     "abimes"
    ],
@@ -221,13 +255,17 @@
    "ingredients": null,
    "description": "Coat your strands in nourishment with this creamy, rich conditioner for curly hair. Blended with sustainably-sourced Shea Butter, Amazonian Nut Oil and Babassu Oil, Born to Repair Nourishing Conditioner intensely hydrates and detangles without the weigh down. This conditioner is a part of the Born to Repair collection, our line of clean and color-caring formulas that help to strengthen and improve the smoothness of curls and coils.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "reparateur",
-    "lissant",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/carols-daughter/cutout/born-to-repair-nourishing-conditioner-with-shea-butter.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "carols-daughter--wash-day-delight-sulfate-free-shampoo-for-curly-hair",
@@ -248,8 +286,15 @@
    "actifs": [],
    "ingredients": null,
    "description": "Successful wash days start with our Wash Day Delight Water-to-Foam Shampoo. This sulfate free shampoo for curly hair transforms from a water to a gentle foam to deeply and rapidly cleanse hair without stripping or creating tangle-causing friction. Its formula includes Micellar Water, which acts like a magnet to attract and lift away buildup. You’ll love the targeted applicator: it enables easy scalp access and helps the liquid instantly flow through curls and coils. This Water-to-Foam Shampoo fe",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "definition-boucles",
+    "purifiant",
+    "demelant",
+    "sans-sulfate"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/carols-daughter/cutout/wash-day-delight-sulfate-free-shampoo-for-curly-hair.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "carols-daughter--mimosa-hair-honey-shine-pomade",
@@ -265,19 +310,23 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "fins",
+    "crepus",
     "colores"
    ],
    "actifs": [
     "miel"
    ],
    "ingredients": null,
-   "description": "We do everything to our hair—relax it, lock it, highlight it, braid it, heat-style it—and through it all, we want to keep it healthy, shiny and easy to manage. For 20 years, Mimosa Hair Honey has been the go-to hairdress for every style. It’s something sweet for the hair, because it smells so good and it’s packed with the most nourishing ingredients, like Nettles &amp; Sage Leaf Extract to soften and strengthen your hair without weighing it down. This citrus-smelling shine pomade is an all-in-on",
+   "description": "We do everything to our hair—relax it, lock it, highlight it, braid it, heat-style it—and through it all, we want to keep it healthy, shiny and easy to manage. For 20 years, Mimosa Hair Honey has been the go-to hairdress for every style. It’s something sweet for the hair, because it smells so good and it’s packed with the most nourishing ingredients, like Nettles & Sage Leaf Extract to soften and strengthen your hair without weighing it down. This citrus-smelling shine pomade is an all-in-on",
    "claims": [
-    "nourrissant",
-    "brillance",
-    "fortifiant"
+    "nutrition",
+    "fortifiant",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/carols-daughter/cutout/mimosa-hair-honey-shine-pomade.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "carols-daughter--hair-milk-leave-in-moisturizer",
@@ -293,8 +342,9 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
-    "boucles"
+    "secs",
+    "boucles",
+    "abimes"
    ],
    "actifs": [
     "beurre de karité"
@@ -302,12 +352,17 @@
    "ingredients": null,
    "description": "Leave it in and forget the frizz. With our Hair Milk Original Leave-In Moisturizer, curls get the moisture they need to stay smooth. This leave in conditioner milk also takes care of breakage, dryness and unmanageability. Shea Butter provides intense hydration, Soybean Oil softens and strengthens hair, and Agave Nectar locks in moisture. Application is easy: this rich leave-in hair moisturizer quickly absorbs into hair while amplifying shine.",
    "claims": [
-    "hydratant",
-    "brillance",
-    "lissant",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/carols-daughter/cutout/hair-milk-leave-in-moisturizer.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "carols-daughter--hair-milk-refresher-spray",
@@ -323,16 +378,22 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
     "boucles"
    ],
-   "actifs": [],
+   "actifs": [
+    "amande douce"
+   ],
    "ingredients": null,
    "description": "This hair refresher spray will keep your style going strong on day 2 and beyond. When strands get flat, dry or frizzy, mist this on for a renewing boost of moisture that'll help keep curls defined. Meet the star ingredients: Agave to lock in moisture and control frizz, and Wheat Protein and Sweet Almond Oil to soften and detangle hair for increased manageability",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/carols-daughter/cutout/hair-milk-refresher-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "carols-daughter--coco-creme-curl-shaping-cream-gel-with-coconut-oil",
@@ -345,7 +406,7 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0707/7609/4772/files/carols-daughter-coco-creme-curl-shaping-cream-gel-P1.jpg?width=600",
    "image_local": "public/scan/products-cheveux/carols-daughter/coco-creme-curl-shaping-cream-gel-with-coconut-oil.jpg",
-   "categorie": "huile",
+   "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
     "boucles"
@@ -356,9 +417,12 @@
    "ingredients": null,
    "description": "Get your curls in perfect shape with this coconut oil curl cream. Lightweight with easy slip, our Coco Crème Curl Shaping Cream Gel adds definition while providing a soft, natural hold that lasts all day and won’t dry out your hair. It’s the ultimate styling product for setting bouncy curls without crunch, flakes, stiffness or residue.",
    "claims": [
-    "definition-boucles"
+    "definition-boucles",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/carols-daughter/cutout/coco-creme-curl-shaping-cream-gel-with-coconut-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "carols-daughter--coco-creme-coil-enhancing-moisture-butter",
@@ -374,6 +438,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -382,11 +447,14 @@
    "ingredients": null,
    "description": "Once dry strands get a taste of this rich hair butter cream, there’s no turning back. Our Coco Crème Coil Enhancing Moisture Butter delivers intense moisture so curls have long-lasting definition, mega-watt shine and touchable softness. We’ve whipped up this moisture butter with our Coco Crème recipe, a blend of Coconut Oil, Coconut Milk, Mango Butter and Murumuru Oil.",
    "claims": [
-    "hydratant",
-    "brillance",
-    "definition-boucles"
+    "hydratation",
+    "nutrition",
+    "definition-boucles",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/carols-daughter/cutout/coco-creme-coil-enhancing-moisture-butter.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "carols-daughter--coco-creme-sulfate-free-shampoo",
@@ -410,9 +478,13 @@
    "ingredients": null,
    "description": "Hair that needs a vacay from extreme dryness will love our Coco Crème Sulfate Free Shampoo. This shampoo for dry hair will take strands to paradise with its deeply moisturizing, creamy formula. Coco Crème Sulfate Free Shampoo is blended with our Coco Crème recipe, which contains Coconut Oil for hair as well as Coconut Milk, Mango Butter and Murumuru Oil.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/carols-daughter/cutout/coco-creme-sulfate-free-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "carols-daughter--coco-creme-creamy-conditioner",
@@ -436,9 +508,11 @@
    "ingredients": null,
    "description": "Our Coco Crème Creamy Conditioner delivers the moisture extremely dry hair thirsts for. Use this intensely softening coconut oil conditioner with the rest of our Coco Crème system, which includes a shampoo and mask, to quench parched strands from roots to ends.",
    "claims": [
-    "hydratant"
+    "hydratation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/carols-daughter/cutout/coco-creme-creamy-conditioner.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "carols-daughter--goddess-strength-cocoon-hydrating-hair-mask",
@@ -454,6 +528,7 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "boucles",
     "abimes"
    ],
@@ -461,11 +536,16 @@
    "ingredients": null,
    "description": "Surround your strands with nourishment and protection for the ultimate goddess glow-up. Goddess Strength Cocoon Hair Mask has a non-sticky creamy texture that effortlessly wraps around curls and coils like a moisture-locking cocoon. In the process, this hair treatment repairs damage and protects against breakage. Experience beautiful results in just 5 minutes. After using this hair mask, 9 out of 10 women with curly hair agreed that their hair was deeply moisturized, nourished and easier to deta",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "reparateur"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "definition-boucles",
+    "texturisant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/carols-daughter/cutout/goddess-strength-cocoon-hydrating-hair-mask.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "carols-daughter--goddess-strength-true-stretch-defining-cream",
@@ -489,10 +569,14 @@
    "ingredients": null,
    "description": "This elongating cream gifts your hair with goddess-like length and strength. Enjoy stretched and defined curls for up to 48 hours! Blended with Castor Oil, Black Cumin Seed Oil and Ginger, this rich formula deeply moisturizes and helps reinforce strands so hair looks longer and smoother with every application.",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/carols-daughter/cutout/goddess-strength-true-stretch-defining-cream.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "carols-daughter--goddess-strength-curl-restoration-concentrate",
@@ -509,7 +593,8 @@
    "etape": 4,
    "cheveux_cibles": [
     "boucles",
-    "abimes"
+    "abimes",
+    "chute"
    ],
    "actifs": [
     "biotine",
@@ -518,10 +603,13 @@
    "ingredients": null,
    "description": "Help prevent future breakage and split ends with this pre-wash, blended with castor oil and biotin, to help repair weak bonds, restoring curl’s inner strength and definition.",
    "claims": [
-    "reparateur",
+    "reparation",
+    "fortifiant",
     "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/carols-daughter/cutout/goddess-strength-curl-restoration-concentrate.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "carols-daughter--black-vanilla-moisture-shine-leave-in-conditioner",
@@ -534,19 +622,27 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0707/7609/4772/files/CD_BV_LIC_newpack.jpg?width=600",
    "image_local": "public/scan/products-cheveux/carols-daughter/black-vanilla-moisture-shine-leave-in-conditioner.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
-   "cheveux_cibles": [],
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "secs",
+    "abimes"
+   ],
    "actifs": [
     "panthénol"
    ],
    "ingredients": null,
-   "description": "Instantly take hair from dry, dull and brittle to moisturized, manageable and shiny with just a few spritzes! This leave-in hair treatment, when used with our Black Vanilla shampoo and conditioner, restores natural moisture to your strands. And thanks to a blend of Soy Protein and Pro-vitamin B5, hair becomes stronger and breakage resistant during detangling. This lightweight leave-in conditioner is made with natural moisturizers, not synthetic silicones, so your hair experiences true hydration ",
+   "description": "Instantly take hair from dry, dull and brittle to moisturized, manageable and shiny with just a few spritzes! This leave-in hair treatment, when used with our Black Vanilla shampoo and conditioner, restores natural moisture to your strands. And thanks to a blend of Soy Protein and Pro-vitamin B5, hair becomes stronger and breakage resistant during detangling. This lightweight leave-in conditioner is made with natural moisturizers, not synthetic silicones, so your hair experiences true hydration",
    "claims": [
-    "hydratant",
-    "brillance"
+    "hydratation",
+    "reparation",
+    "fortifiant",
+    "brillance",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/carols-daughter/cutout/black-vanilla-moisture-shine-leave-in-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "carols-daughter--black-vanilla-moisture-shine-hydrating-conditioner",
@@ -561,18 +657,25 @@
    "image_local": "public/scan/products-cheveux/carols-daughter/black-vanilla-moisture-shine-hydrating-conditioner.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "abimes"
+   ],
    "actifs": [
     "beurre de karité"
    ],
    "ingredients": null,
    "description": "It’s time to leave dry, dull, brittle hair in the past. Use this hair conditioner with our Black Vanilla Shampoo for shinier, softer, more manageable strands. As a system, the pair detangles and smooths wet hair so there are fewer snags, snaps and tugs. This deep conditioner, blended with Shea Butter, instantly hydrates strands and naturally balances hair’s moisture. Bonus: it’s light enough for daily use and works great as a co-wash",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
     "brillance",
-    "lissant"
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/carols-daughter/cutout/black-vanilla-moisture-shine-hydrating-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "carols-daughter--black-vanilla-moisture-shine-sulfate-free-shampoo",
@@ -587,16 +690,26 @@
    "image_local": "public/scan/products-cheveux/carols-daughter/black-vanilla-moisture-shine-sulfate-free-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "fins",
+    "colores",
+    "abimes",
+    "cuir-chevelu-sensible"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "Good hair days start with the right balance of moisture. This color-safe, sulfate free shampoo for dry, dull or brittle hair can help. As it cleanses, it weightlessly restores your hair’s natural moisture. Hydrating Aloe Leaf Juice makes your strands softer and more manageable, while Rose Extract boosts shine. The warm and sensual Black Vanilla scent delivers a soothing fragrance experience.",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "apaisant-cuir-chevelu",
     "brillance",
-    "apaisant"
+    "protection-couleur",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/carols-daughter/cutout/black-vanilla-moisture-shine-sulfate-free-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "carols-daughter--black-vanilla-moisture-hold-jelly",
@@ -612,6 +725,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -619,12 +733,18 @@
     "huile de jojoba"
    ],
    "ingredients": null,
-   "description": "Searching for a gel that’ll give you major hold, hydration and restyling flexibility? Our Moisture &amp; Hold Jelly does that and more, locking in moisture and letting you style &amp; restyle without buildup, flakes or crunch. Blended with Shea Butter, Jojoba, Vanilla and zero drying alcohols, this non-sticky hair jelly provides up to 72 hours of hold, so you can enjoy your ‘do for days. Set your style with shine while keeping your curls looking healthy and manageable with this moisturizing hair",
+   "description": "Searching for a gel that’ll give you major hold, hydration and restyling flexibility? Our Moisture & Hold Jelly does that and more, locking in moisture and letting you style & restyle without buildup, flakes or crunch. Blended with Shea Butter, Jojoba, Vanilla and zero drying alcohols, this non-sticky hair jelly provides up to 72 hours of hold, so you can enjoy your ‘do for days. Set your style with shine while keeping your curls looking healthy and manageable with this moisturizing hair",
    "claims": [
-    "hydratant",
-    "brillance"
+    "hydratation",
+    "nutrition",
+    "definition-boucles",
+    "purifiant",
+    "brillance",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/carols-daughter/cutout/black-vanilla-moisture-hold-jelly.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "carols-daughter--goddess-strength-divine-strength-leave-in-cream-with-castor-oil",
@@ -637,10 +757,11 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0707/7609/4772/files/CD_GODDESSSTRENGTH_Leaveincopy.jpg?width=600",
    "image_local": "public/scan/products-cheveux/carols-daughter/goddess-strength-divine-strength-leave-in-cream-with-castor-oil.jpg",
-   "categorie": "huile",
+   "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "boucles"
+    "boucles",
+    "abimes"
    ],
    "actifs": [
     "huile de ricin"
@@ -648,9 +769,14 @@
    "ingredients": null,
    "description": "When your strands become weak, it’s divine timing to step up your hair care routine. Enter Divine Strength Leave-In Cream, blended with Castor Oil, Black Cumin Seed Oil and Ginger. With every use, this leave-in conditioner intensely moisturizes, helping to reinforce weak strands so hair is stronger and more breakage resistant between washes. This curly hair cream is a part of our Goddess Strength System, which delivers 15X stronger hair in one use, 94% less breakage* and supports the strength of",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "reparation",
+    "fortifiant",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/carols-daughter/cutout/goddess-strength-divine-strength-leave-in-cream-with-castor-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "carols-daughter--goddess-strength-fortifying-conditioner-with-castor-oil",
@@ -666,7 +792,8 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "secs"
+    "secs",
+    "abimes"
    ],
    "actifs": [
     "huile de ricin"
@@ -674,10 +801,15 @@
    "ingredients": null,
    "description": "Transform weak strands and take them to goddess status with Carol’s Daughter Goddess Strength Fortifying Conditioner. Made with Castor Oil and Black Cumin Seed Oil, this conditioner restores intense moisture and fortifies hair for stronger strands from root to tip. And because it makes detangling easier, there’s less breakage and your hair can keep its length. This paraben free conditioner for dry hair is a part of our Goddess Strength system, which delivers 15X stronger hair in one use, 94% les",
    "claims": [
-    "hydratant",
-    "fortifiant"
+    "hydratation",
+    "reparation",
+    "fortifiant",
+    "demelant",
+    "sans-paraben"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/carols-daughter/cutout/goddess-strength-fortifying-conditioner-with-castor-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "carols-daughter--goddess-strength-fortifying-shampoo-with-castor-oil",
@@ -693,7 +825,8 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "secs"
+    "secs",
+    "abimes"
    ],
    "actifs": [
     "huile de ricin"
@@ -701,10 +834,14 @@
    "ingredients": null,
    "description": "A fortifying shampoo fit for a goddess. Strengthen weak hair from the first wash with Carol’s Daughter Goddess Strength Fortifying Sulfate Free Shampoo. Blended with Castor Oil, Black Cumin Seed Oil and Ginger, this formula for dry hair cleanses while it moisturizes, for strands that are instantly stronger, less prone to breakage and healthy-looking. This shampoo is a part of our Goddess Strength System, which delivers 15X stronger hair in one use, 94% less breakage*, and supports the strength o",
    "claims": [
-    "hydratant",
-    "fortifiant"
+    "hydratation",
+    "reparation",
+    "fortifiant",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/carols-daughter/cutout/goddess-strength-fortifying-shampoo-with-castor-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "carols-daughter--goddess-strength-smooth-shape-balm",
@@ -720,19 +857,23 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "abimes"
    ],
    "actifs": [
     "huile de ricin"
    ],
    "ingredients": null,
-   "description": "Don’t let loose, piecey, stand-up strands cramp your style. Smooth &amp; Shape Balm, our new hair balm, keeps hairs in place for 24 hours, smoothing and controlling your look with a natural matte finish. This non-dulling formula, blended with Castor Oil, Ginger and Black Cumin Seed, delivers touchable, lasting hold so your ponytails and buns are all set all day. As you style, brush out &amp; restyle, Carol’s Daughter hair balm fortifies delicate hairs with nourishing care to prevent breakage.",
+   "description": "Don’t let loose, piecey, stand-up strands cramp your style. Smooth & Shape Balm, our new hair balm, keeps hairs in place for 24 hours, smoothing and controlling your look with a natural matte finish. This non-dulling formula, blended with Castor Oil, Ginger and Black Cumin Seed, delivers touchable, lasting hold so your ponytails and buns are all set all day. As you style, brush out & restyle, Carol’s Daughter hair balm fortifies delicate hairs with nourishing care to prevent breakage.",
    "claims": [
-    "nourrissant",
-    "lissant",
-    "fortifiant"
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/carols-daughter/cutout/goddess-strength-smooth-shape-balm.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "carols-daughter--goddess-strength-7-oil-blend-scalp-hair-oil",
@@ -749,17 +890,22 @@
    "etape": 4,
    "cheveux_cibles": [
     "secs",
+    "fins",
     "abimes"
    ],
    "actifs": [
     "huile de ricin"
    ],
    "ingredients": null,
-   "description": "Give weak, dry hair the goddess treatment with Carol’s Daughter Goddess Strength Hair and Scalp Oil. Made with a 7 oil blend that includes Castor Oil and Black Cumin Seed Oil, this formula weightlessly moisturizes the hair and scalp to help protect from breakage and prevent split ends. The result: stronger and healthy-looking hair with every use. This hair &amp; scalp oil is a part of our Goddess Strength System, which delivers 15X stronger hair in one use, 94% less breakage*, and supports the s",
+   "description": "Give weak, dry hair the goddess treatment with Carol’s Daughter Goddess Strength Hair and Scalp Oil. Made with a 7 oil blend that includes Castor Oil and Black Cumin Seed Oil, this formula weightlessly moisturizes the hair and scalp to help protect from breakage and prevent split ends. The result: stronger and healthy-looking hair with every use. This hair & scalp oil is a part of our Goddess Strength System, which delivers 15X stronger hair in one use, 94% less breakage*, and supports the s",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "reparation",
+    "fortifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/carols-daughter/cutout/goddess-strength-7-oil-blend-scalp-hair-oil.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

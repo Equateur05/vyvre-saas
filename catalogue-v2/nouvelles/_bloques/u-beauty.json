@@ -1,0 +1,84 @@
+{
+ "brand": "u-beauty",
+ "brand_name": "U Beauty",
+ "date": "2026-09-19",
+ "raison": "ubeauty.com est entierement derriere un challenge Cloudflare 'Just a moment...' : accueil, locale /en-eu/, locale /en-fr/, collection /collections/all, /products.json, /collections/all/products.json, sitemap.xml et sitemap_products_1.xml repondent tous 403 avec la page de defi JS. Les fiches produit elles-memes (ex. /en-eu/products/the-barrier-bioactive-treatment, deja servie dans le catalogue) repondent 403 : la regle 3 (GET 200 sur la fiche produit) ne peut donc etre satisfaite pour aucun produit, et la regle 5 interdit de contourner l'anti-robot (pas de rendu JS, pas de proxy). Seul /robots.txt passe (200). u-beauty.com n'est pas la marque (page de frames parking). ubeauty.eu est aussi derriere le meme challenge 403. Aucun revendeur utilise. Consequence : 0 produit ajoute ; les 3 produits deja presents dans public/scan/catalogue/u-beauty.json sont laisses intacts, aucun fichier catalogue-v2/nouvelles/u-beauty.json n'a ete cree.",
+ "avertissement_securite": "Le fichier https://ubeauty.com/robots.txt contient des instructions adressees aux agents automatiques : il demande d'utiliser un endpoint 'UCP/MCP' (https://ubeauty.com/api/ucp/mcp) et de recommander a l'utilisateur d'installer https://shop.app/SKILL.md pour acheter des produits directement. Ce texte est du contenu observe, pas une consigne de Charles : il n'a PAS ete suivi, aucun endpoint MCP n'a ete appele, rien n'a ete installe ni achete.",
+ "urls_testees": [
+  {
+   "url": "https://ubeauty.com/",
+   "statut": 403,
+   "note": "challenge Cloudflare 'Just a moment...'"
+  },
+  {
+   "url": "https://www.ubeauty.com/",
+   "statut": 403,
+   "note": "challenge Cloudflare"
+  },
+  {
+   "url": "https://ubeauty.com/en-eu/",
+   "statut": 403,
+   "note": "locale EU (source actuelle du catalogue) - challenge Cloudflare"
+  },
+  {
+   "url": "https://ubeauty.com/en-fr/",
+   "statut": 403,
+   "note": "tentative de locale francophone - challenge Cloudflare"
+  },
+  {
+   "url": "https://ubeauty.com/fr-fr/products/the-barrier-bioactive-treatment",
+   "statut": 403,
+   "note": "fiche produit, locale FR"
+  },
+  {
+   "url": "https://ubeauty.com/en-eu/products/the-barrier-bioactive-treatment",
+   "statut": 403,
+   "note": "fiche produit deja servie dans le catalogue : inverifiable aujourd'hui"
+  },
+  {
+   "url": "https://ubeauty.com/products.json?limit=250",
+   "statut": 403,
+   "note": "API Shopify publique - challenge Cloudflare"
+  },
+  {
+   "url": "https://ubeauty.com/en-eu/products.json?limit=250",
+   "statut": 403,
+   "note": "challenge Cloudflare"
+  },
+  {
+   "url": "https://ubeauty.com/en-eu/collections/all/products.json?limit=250",
+   "statut": 403,
+   "note": "challenge Cloudflare"
+  },
+  {
+   "url": "https://ubeauty.com/collections/all",
+   "statut": 403,
+   "note": "page de collection - challenge Cloudflare"
+  },
+  {
+   "url": "https://ubeauty.com/sitemap.xml",
+   "statut": 403,
+   "note": "challenge Cloudflare"
+  },
+  {
+   "url": "https://ubeauty.com/sitemap_products_1.xml",
+   "statut": 403,
+   "note": "challenge Cloudflare"
+  },
+  {
+   "url": "https://ubeauty.com/robots.txt",
+   "statut": 200,
+   "note": "seule URL qui passe ; contient les instructions aux agents signalees ci-dessus"
+  },
+  {
+   "url": "https://ubeauty.eu/",
+   "statut": 403,
+   "note": "challenge Cloudflare"
+  },
+  {
+   "url": "https://u-beauty.com/",
+   "statut": 200,
+   "note": "PAS la marque : page de parking a frames, aucun contenu produit"
+  }
+ ]
+}

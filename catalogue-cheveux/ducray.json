@@ -3,55 +3,6 @@
  "brand_name": "Ducray",
  "products": [
   {
-   "id": "ducray--complement-alimentaire",
-   "name": "Complément alimentaire",
-   "brand": "ducray",
-   "brand_name": "Ducray",
-   "url": "https://www.ducray.com/fr-fr/p/anacaps-expert-complement-alimentaire-3282770389036-14c39aab",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5sja6yss36918bypjpa7ygtfumwae/u5wa3z31qn5sja6yss36918bypjpa7ygtfumwae?t=resize&width=300&height=300",
-   "image_local": "public/scan/products-cheveux/ducray/complement-alimentaire.jpg",
-   "categorie": "traitement-chute",
-   "etape": 4,
-   "cheveux_cibles": [
-    "chute"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Le complément alimentaire ANACAPS EXPERT conseillé dans le cadre d’une chute de cheveux chronique.",
-   "claims": [],
-   "source": "sitemap ducray.com/fr-fr product.xml + json-ld"
-  },
-  {
-   "id": "ducray--complement-alimentaire-antichute",
-   "name": "Complément alimentaire Antichute",
-   "brand": "ducray",
-   "brand_name": "Ducray",
-   "url": "https://www.ducray.com/fr-fr/p/anacaps-expert-complement-alimentaire-antichute-3282771003023-14c39aab",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5seq7xox3kzmjmcznzepkdhxmzjze/u5wa3z31qn5seq7xox3kzmjmcznzepkdhxmzjze?t=resize&width=300&height=300",
-   "image_local": "public/scan/products-cheveux/ducray/complement-alimentaire-antichute.jpg",
-   "categorie": "traitement-chute",
-   "etape": 4,
-   "cheveux_cibles": [
-    "fins",
-    "epais",
-    "chute"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Le complément alimentaire antichute ANACAPS EXPERT aide à soutenir l'ancrage des cheveux, freine la chute progressive de 68%*, relance la densité et l'épaisseur.",
-   "claims": [
-    "volume",
-    "anti-chute"
-   ],
-   "source": "sitemap ducray.com/fr-fr product.xml + json-ld"
-  },
-  {
    "id": "ducray--apres-shampooing-fortifiant-anti-casse",
    "name": "Après-shampooing fortifiant anti-casse",
    "brand": "ducray",
@@ -62,21 +13,23 @@
    "price_source": null,
    "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5seiy5c8nxcymc13c64pcktk99zuy/u5wa3z31qn5seiy5c8nxcymc13c64pcktk99zuy?t=resize&width=300&height=300",
    "image_local": "public/scan/products-cheveux/ducray/apres-shampooing-fortifiant-anti-casse.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
     "fins",
-    "epais",
     "abimes"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "L'après shampooing fortifiant anti-casse renforce chaque cheveu, prévient les fourches et augmente leur épaisseur pour des cheveux plus résistants.",
    "claims": [
-    "volume",
-    "fortifiant"
+    "reparation",
+    "fortifiant",
+    "volume"
    ],
-   "source": "sitemap ducray.com/fr-fr product.xml + json-ld"
+   "source": "sitemap ducray.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/ducray/cutout/apres-shampooing-fortifiant-anti-casse.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ducray--shampooing-antichute-et-croissance",
@@ -92,6 +45,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "fins",
     "chute"
    ],
    "actifs": [],
@@ -99,9 +53,13 @@
    "description": "Le shampooing antichute et croissance freine la chute réactive et stimule la repousse des cheveux* pour une chevelure plus forte et volumineuse.",
    "claims": [
     "volume",
-    "anti-chute"
+    "anti-chute",
+    "croissance",
+    "brillance"
    ],
-   "source": "sitemap ducray.com/fr-fr product.xml + json-ld"
+   "source": "sitemap ducray.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/ducray/cutout/shampooing-antichute-et-croissance.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ducray--shampooing-antichute-anti-affinement",
@@ -117,6 +75,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "fins",
     "chute"
    ],
    "actifs": [],
@@ -125,7 +84,9 @@
    "claims": [
     "anti-chute"
    ],
-   "source": "sitemap ducray.com/fr-fr product.xml + json-ld"
+   "source": "sitemap ducray.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/ducray/cutout/shampooing-antichute-anti-affinement.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "ducray--shampooing-antichute-et-ancrage",
@@ -141,6 +102,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "fins",
     "chute"
    ],
    "actifs": [],
@@ -148,9 +110,13 @@
    "description": "Le shampooing antichute qui ancre chaque cheveu à sa racine et stimule la repousse jusqu'à +74%*, pour des cheveux visiblement plus denses et volumineux.",
    "claims": [
     "volume",
-    "anti-chute"
+    "anti-chute",
+    "croissance",
+    "brillance"
    ],
-   "source": "sitemap ducray.com/fr-fr product.xml + json-ld"
+   "source": "sitemap ducray.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/ducray/cutout/shampooing-antichute-et-ancrage.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ducray--lotion-antichute-et-croissance",
@@ -166,6 +132,7 @@
    "categorie": "traitement-chute",
    "etape": 4,
    "cheveux_cibles": [
+    "fins",
     "chute"
    ],
    "actifs": [],
@@ -173,9 +140,13 @@
    "description": "La lotion antichute et croissance ANAPHASE CREASTIM freine la perte de cheveux occasionnelle liée au stress, la fatigue, la grossesse, ou aux changements de saison. Véritable innovation, elle agit directement au cœur du cuir chevelu pour doubler la vitesse de repousse*, redonnant longueur, densité et vitalité à la chevelure.",
    "claims": [
     "volume",
-    "anti-chute"
+    "densifiant",
+    "anti-chute",
+    "croissance"
    ],
-   "source": "sitemap ducray.com/fr-fr product.xml + json-ld"
+   "source": "sitemap ducray.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/ducray/cutout/lotion-antichute-et-croissance.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ducray--shampooing-quotidien-anti-pelliculaire",
@@ -197,9 +168,11 @@
    "ingredients": null,
    "description": "Un soin complémentaire qui prolonge et maintient l’efficacité des traitements antipelliculaires.",
    "claims": [
-    "anti-pellicules"
+    "antipelliculaire"
    ],
-   "source": "sitemap ducray.com/fr-fr product.xml + json-ld"
+   "source": "sitemap ducray.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/ducray/cutout/shampooing-quotidien-anti-pelliculaire.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "ducray--shampooing-dermo-protecteur",
@@ -214,14 +187,18 @@
    "image_local": "public/scan/products-cheveux/ducray/shampooing-dermo-protecteur.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "cuir-chevelu-sensible"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "Le shampooing haute tolérance à usage fréquent pour toute la famille qui laisse les cheveux plus doux, brillants et souples.",
    "claims": [
     "brillance"
    ],
-   "source": "sitemap ducray.com/fr-fr product.xml + json-ld"
+   "source": "sitemap ducray.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/ducray/cutout/shampooing-dermo-protecteur.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "ducray--tonique-capillaire",
@@ -242,8 +219,12 @@
    "actifs": [],
    "ingredients": null,
    "description": "Un soin indiqué en cas de chute de cheveux par plaques.",
-   "claims": [],
-   "source": "sitemap ducray.com/fr-fr product.xml + json-ld"
+   "claims": [
+    "anti-chute"
+   ],
+   "source": "sitemap ducray.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/ducray/cutout/tonique-capillaire.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ducray--creme-apaisante",
@@ -259,6 +240,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "gras",
     "pellicules",
     "cuir-chevelu-sensible"
    ],
@@ -266,9 +248,13 @@
    "ingredients": null,
    "description": "Un gel-crème apaisant spécifiquement développé pour les peaux irritées et sujettes à la dermite séborrhéique : avec rougeurs et squames (petites plaques de peau qui se détachent).",
    "claims": [
-    "apaisant"
+    "antipelliculaire",
+    "apaisant-cuir-chevelu",
+    "anti-gras"
    ],
-   "source": "sitemap ducray.com/fr-fr product.xml + json-ld"
+   "source": "sitemap ducray.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/ducray/cutout/creme-apaisante.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ducray--gel-nettoyant-anti-squames",
@@ -282,7 +268,7 @@
    "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5sep3cmcddto9oiwmdts13b7bw94o/u5wa3z31qn5sep3cmcddto9oiwmdts13b7bw94o?t=resize&width=300&height=300",
    "image_local": "public/scan/products-cheveux/ducray/gel-nettoyant-anti-squames.jpg",
    "categorie": "anti-pellicules",
-   "etape": 1,
+   "etape": 4,
    "cheveux_cibles": [
     "pellicules",
     "cuir-chevelu-sensible"
@@ -290,12 +276,17 @@
    "actifs": [],
    "ingredients": null,
    "description": "Le geste d'hygiène doux, régulateur et traitant spécifiquement développé pour les peaux irritées, avec rougeurs et squames (petites plaques de peau qui se détachent).",
-   "claims": [],
-   "source": "sitemap ducray.com/fr-fr product.xml + json-ld"
+   "claims": [
+    "antipelliculaire",
+    "apaisant-cuir-chevelu"
+   ],
+   "source": "sitemap ducray.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/ducray/cutout/gel-nettoyant-anti-squames.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ducray--shampooing-traitant-anti-pelliculaire",
-   "name": "Shampooing traitant anti-pelliculaire",
+   "name": "Kelual DS Intensive Shampooing traitant anti-pelliculaire",
    "brand": "ducray",
    "brand_name": "Ducray",
    "url": "https://www.ducray.com/fr-fr/p/kelual-ds-intensive-shampooing-traitant-anti-pelliculaire-3282770400786-14c39aab",
@@ -314,9 +305,13 @@
    "ingredients": null,
    "description": "1er shampooing traitant anti-pelliculaire à l'efficacité renforcée contre les démangeaisons les plus intenses et récurrentes. 0 pellicules, démangeaisons et sensations de brûlure*. Soulagement anti-crises 72h**.",
    "claims": [
-    "anti-pellicules"
+    "fortifiant",
+    "antipelliculaire",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "sitemap ducray.com/fr-fr product.xml + json-ld"
+   "source": "sitemap ducray.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/ducray/cutout/shampooing-traitant-anti-pelliculaire.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ducray--spray-calmant-anti-pelliculaire",
@@ -330,7 +325,7 @@
    "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5seif1b6knjtak89zw9qtzh955sho/u5wa3z31qn5seif1b6knjtak89zw9qtzh955sho?t=resize&width=300&height=300",
    "image_local": "public/scan/products-cheveux/ducray/spray-calmant-anti-pelliculaire.jpg",
    "categorie": "anti-pellicules",
-   "etape": 1,
+   "etape": 4,
    "cheveux_cibles": [
     "pellicules",
     "cuir-chevelu-sensible"
@@ -339,10 +334,12 @@
    "ingredients": null,
    "description": "Calme immédiatement les crises de démangeaisons intenses liées aux pellicules sévères. 0 pellicule, 0 démangeaison et 0 sensation de brûlure*.",
    "claims": [
-    "apaisant",
-    "anti-pellicules"
+    "antipelliculaire",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "sitemap ducray.com/fr-fr product.xml + json-ld"
+   "source": "sitemap ducray.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/ducray/cutout/spray-calmant-anti-pelliculaire.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "ducray--emulsion-anti-squames-cuir-chevelu-et-visage",
@@ -356,7 +353,7 @@
    "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5sep3cmcddto9oiz6trd5uh6fd37e/u5wa3z31qn5sep3cmcddto9oiz6trd5uh6fd37e?t=resize&width=300&height=300",
    "image_local": "public/scan/products-cheveux/ducray/emulsion-anti-squames-cuir-chevelu-et-visage.jpg",
    "categorie": "anti-pellicules",
-   "etape": 1,
+   "etape": 4,
    "cheveux_cibles": [
     "secs",
     "pellicules",
@@ -366,10 +363,13 @@
    "ingredients": null,
    "description": "Elimine en douceur les croûtes de lait et apaise la peau des nourrissons.",
    "claims": [
-    "nourrissant",
-    "apaisant"
+    "nutrition",
+    "antipelliculaire",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "sitemap ducray.com/fr-fr product.xml + json-ld"
+   "source": "sitemap ducray.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/ducray/cutout/emulsion-anti-squames-cuir-chevelu-et-visage.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ducray--lotion-rafraichissante-anti-pelliculaire",
@@ -383,7 +383,7 @@
    "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5sj34fpzjf4nd38nskbrfs8yerh6a/u5wa3z31qn5sj34fpzjf4nd38nskbrfs8yerh6a?t=resize&width=300&height=300",
    "image_local": "public/scan/products-cheveux/ducray/lotion-rafraichissante-anti-pelliculaire.jpg",
    "categorie": "anti-pellicules",
-   "etape": 1,
+   "etape": 4,
    "cheveux_cibles": [
     "pellicules",
     "cuir-chevelu-sensible"
@@ -392,10 +392,14 @@
    "ingredients": null,
    "description": "1ère lotion anti-pelliculaire au pouvoir rafraîchissant, ciblant les pellicules grasses aggravées par la transpiration, la chaleur et la pollution. Pellicules réduites et démangeaisons apaisées dès la 1ère application*. Action anti-récidive 2 semaines**.",
    "claims": [
-    "apaisant",
-    "anti-pellicules"
+    "antipelliculaire",
+    "apaisant-cuir-chevelu",
+    "anti-gras",
+    "anti-pollution"
    ],
-   "source": "sitemap ducray.com/fr-fr product.xml + json-ld"
+   "source": "sitemap ducray.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/ducray/cutout/lotion-rafraichissante-anti-pelliculaire.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ducray--shampooing-rafraichissant-anti-pelliculaire",
@@ -417,9 +421,14 @@
    "ingredients": null,
    "description": "1er shampooing anti-pelliculaire au pouvoir rafraîchissant, luttant efficacement contre les pellicules grasses aggravées par la transpiration, la chaleur et la pollution. 100% des pellicules et impuretés résiduelles éliminées*. Action anti-récidive 2 mois**. -4 °C rafraîchissement instantanément et durablement ressenti jusqu’à 4h*.",
    "claims": [
-    "anti-pellicules"
+    "antipelliculaire",
+    "purifiant",
+    "anti-gras",
+    "anti-pollution"
    ],
-   "source": "sitemap ducray.com/fr-fr product.xml + json-ld"
+   "source": "sitemap ducray.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/ducray/cutout/shampooing-rafraichissant-anti-pelliculaire.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ducray--concentre",
@@ -430,16 +439,23 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": null,
    "price_source": null,
-   "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5se6qhf7r5uzighk9phkwz4qu384y/u5wa3z31qn5se6qhf7r5uzighk9phkwz4qu384y?t=resize&width=300&height=300",
+   "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5se6qhf7r5uzighk9phkwz4qu384y/out?t=resize&width=1600",
    "image_local": "public/scan/products-cheveux/ducray/concentre.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "cuir-chevelu-sensible"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "Un soin d’accompagnement anti-plaques des peaux et cuirs chevelus à tendance psoriasique.",
    "claims": [],
-   "source": "sitemap ducray.com/fr-fr product.xml + json-ld"
+   "source": "sitemap ducray.com/fr-fr product.xml + json-ld",
+   "cutout_url": null,
+   "image_fond": true,
+   "image_provenance": "page produit https://www.ducray.com/fr-fr/p/kertyol-pso-concentre-usage-local-3282770148480-14c39aab",
+   "image_reparee_le": "2026-09-23",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ducray--shampooing-traitant",
@@ -454,12 +470,16 @@
    "image_local": "public/scan/products-cheveux/ducray/shampooing-traitant.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "cuir-chevelu-sensible"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "Un soin d’accompagnement des cuirs chevelus à tendance psoriasique.",
    "claims": [],
-   "source": "sitemap ducray.com/fr-fr product.xml + json-ld"
+   "source": "sitemap ducray.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/ducray/cutout/shampooing-traitant.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ducray--shampooing-quotidien-sebo-absorbant",
@@ -480,8 +500,12 @@
    "actifs": [],
    "ingredients": null,
    "description": "Un soin d’hygiène quotidien à destination des cuirs chevelus et cheveux gras.",
-   "claims": [],
-   "source": "sitemap ducray.com/fr-fr product.xml + json-ld"
+   "claims": [
+    "anti-gras"
+   ],
+   "source": "sitemap ducray.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/ducray/cutout/shampooing-quotidien-sebo-absorbant.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ducray--shampooing-traitant-sebo-regulateur",
@@ -502,8 +526,12 @@
    "actifs": [],
    "ingredients": null,
    "description": "Un soin d’attaque à destination des cuirs chevelus et cheveux gras.",
-   "claims": [],
-   "source": "sitemap ducray.com/fr-fr product.xml + json-ld"
+   "claims": [
+    "anti-gras"
+   ],
+   "source": "sitemap ducray.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/ducray/cutout/shampooing-traitant-sebo-regulateur.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ducray--sensinol-shampooing-traitant",
@@ -525,9 +553,11 @@
    "ingredients": null,
    "description": "Shampooing traitant qui calme durablement les démangeaisons du cuir chevelu sensible et irrité, et limite leur réapparition, même après l'arrêt du traitement.",
    "claims": [
-    "apaisant"
+    "apaisant-cuir-chevelu"
    ],
-   "source": "sitemap ducray.com/fr-fr product.xml + json-ld"
+   "source": "sitemap ducray.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/ducray/cutout/sensinol-shampooing-traitant.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "ducray--sensinol-spray-sos",
@@ -548,8 +578,12 @@
    "actifs": [],
    "ingredients": null,
    "description": "Soin SOS anti-démangeaisons qui stoppe instantanément les pics de démangeaisons du cuir chevelu irrité.",
-   "claims": [],
-   "source": "sitemap ducray.com/fr-fr product.xml + json-ld"
+   "claims": [
+    "apaisant-cuir-chevelu"
+   ],
+   "source": "sitemap ducray.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/ducray/cutout/sensinol-spray-sos.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ducray--shampooing-hydratant-anti-pelliculaire",
@@ -565,16 +599,19 @@
    "categorie": "anti-pellicules",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
     "pellicules"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "1er shampooing antipelliculaire, à la technologie PROBIOTIC-SCIENCE, luttant efficacement contre les pellicules sèches afin de retrouver immédiatement et durablement un cuir chevelu sain. 100% de pellicules éliminées*. Action anti-récidive 2 mois**.",
    "claims": [
-    "hydratant",
-    "anti-pellicules"
+    "hydratation",
+    "antipelliculaire"
    ],
-   "source": "sitemap ducray.com/fr-fr product.xml + json-ld"
+   "source": "sitemap ducray.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/ducray/cutout/shampooing-hydratant-anti-pelliculaire.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "ducray--shampooing-regulateur-anti-pelliculaire",
@@ -596,9 +633,140 @@
    "ingredients": null,
    "description": "1er shampooing antipelliculaire, à la technologie PROBIOTIC-SCIENCE, luttant efficacement contre les pellicules grasses afin de retrouver immédiatement et durablement un cuir chevelu sain. 100% de pellicules éliminées*. Action anti-récidive 2 mois**.",
    "claims": [
-    "anti-pellicules"
+    "antipelliculaire",
+    "anti-gras"
    ],
-   "source": "sitemap ducray.com/fr-fr product.xml + json-ld"
+   "source": "sitemap ducray.com/fr-fr product.xml + json-ld",
+   "cutout_url": "public/scan/products-cheveux/ducray/cutout/shampooing-regulateur-anti-pelliculaire.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "ducray--neoptide-expert-serum-antichute-et-ancrage",
+   "name": "Sérum antichute et ancrage",
+   "brand": "ducray",
+   "brand_name": "Ducray",
+   "url": "https://www.ducray.com/fr-fr/p/neoptide-expert-serum-antichute-croissance-3282770153255-14c39aab",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": null,
+   "price_source": null,
+   "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5seiy5c8nxcymc14grz3ujtseo1de/u5wa3z31qn5seiy5c8nxcymc14grz3ujtseo1de?t=resize&width=300&height=300",
+   "image_local": "public/scan/products-cheveux/ducray/neoptide-expert-serum-antichute-et-ancrage.jpg",
+   "categorie": "traitement-chute",
+   "etape": 4,
+   "cheveux_cibles": [
+    "fins",
+    "chute"
+   ],
+   "actifs": [
+    "Lespedeza",
+    "Anchorane"
+   ],
+   "ingredients": null,
+   "description": "Le sérum antichute au double ancrage qui verrouille chaque cheveu à sa racine et relance de +50% la densité, l’épaisseur et le volume des cheveux affinés et clairsemés*.",
+   "claims": [
+    "volume",
+    "densifiant",
+    "anti-chute"
+   ],
+   "source": "sitemap ducray.com/fr-fr product.xml + JSON-LD fiche produit",
+   "cutout_url": "public/scan/products-cheveux/ducray/cutout/neoptide-expert-serum-antichute-et-ancrage.webp",
+   "ciblage_source": "fiche"
+  },
+  {
+   "id": "ducray--kelual-ds-shampooing-traitant-anti-pelliculaire",
+   "name": "Kelual DS Shampooing traitant anti-pelliculaire",
+   "brand": "ducray",
+   "brand_name": "Ducray",
+   "url": "https://www.ducray.com/fr-fr/p/kelual-ds-shampooing-traitant-3282770140453-14c39aab",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": null,
+   "price_source": null,
+   "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5sjg8j7uf8fks6nwo1qira4q8xkno/u5wa3z31qn5sjg8j7uf8fks6nwo1qira4q8xkno?t=resize&width=300&height=300",
+   "image_local": "public/scan/products-cheveux/ducray/kelual-ds-shampooing-traitant-anti-pelliculaire.jpg",
+   "categorie": "anti-pellicules",
+   "etape": 1,
+   "cheveux_cibles": [
+    "pellicules",
+    "cuir-chevelu-sensible"
+   ],
+   "actifs": [
+    "CPO/PO"
+   ],
+   "ingredients": null,
+   "description": "Elimine efficacement les pellicules sévères associées aux démangeaisons et rougeurs.",
+   "claims": [
+    "antipelliculaire",
+    "apaisant-cuir-chevelu"
+   ],
+   "source": "sitemap ducray.com/fr-fr product.xml + JSON-LD fiche produit",
+   "cutout_url": "public/scan/products-cheveux/ducray/cutout/kelual-ds-shampooing-traitant-anti-pelliculaire.webp",
+   "ciblage_source": "fiche"
+  },
+  {
+   "id": "ducray--kelual-ds-sebolyse-shampooing-traitant-anti-pelliculaire",
+   "name": "Kelual DS Sebolyse Shampooing traitant anti-pelliculaire",
+   "brand": "ducray",
+   "brand_name": "Ducray",
+   "url": "https://www.ducray.com/fr-fr/p/kelual-ds-shampooing-traitant-anti-pelliculaire-3282771001920-14c39aab",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": null,
+   "price_source": null,
+   "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5sjygzqr99mi5tw351ofhrane3pje/u5wa3z31qn5sjygzqr99mi5tw351ofhrane3pje?t=resize&width=300&height=300",
+   "image_local": "public/scan/products-cheveux/ducray/kelual-ds-sebolyse-shampooing-traitant-anti-pelliculaire.jpg",
+   "categorie": "anti-pellicules",
+   "etape": 1,
+   "cheveux_cibles": [
+    "gras",
+    "pellicules"
+   ],
+   "actifs": [
+    "CPO/PO",
+    "SEBOLYSE"
+   ],
+   "ingredients": null,
+   "description": "Shampooing traitant anti-pelliculaire à l'efficacité renforcée contre le sébum excessif et persistant. 0 pellicule,0 sébum excessif, 0 impuretés*. Purifie et espace les shampooings jusqu'à 72h**.",
+   "claims": [
+    "fortifiant",
+    "antipelliculaire",
+    "purifiant",
+    "anti-gras"
+   ],
+   "source": "sitemap ducray.com/fr-fr product.xml + JSON-LD fiche produit",
+   "cutout_url": "public/scan/products-cheveux/ducray/cutout/kelual-ds-sebolyse-shampooing-traitant-anti-pelliculaire.webp",
+   "ciblage_source": "fiche"
+  },
+  {
+   "id": "ducray--sensinol-serum-apaisant-physioprotecteur",
+   "name": "Sérum apaisant physioprotecteur",
+   "brand": "ducray",
+   "brand_name": "Ducray",
+   "url": "https://www.ducray.com/fr-fr/p/sensinol-serum-apaisant-physioprotecteur-3282779417006-14c39aab",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": null,
+   "price_source": null,
+   "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5sea858my6t4b5t9z43diywws4kqe/u5wa3z31qn5sea858my6t4b5t9z43diywws4kqe?t=resize&width=300&height=300",
+   "image_local": "public/scan/products-cheveux/ducray/sensinol-serum-apaisant-physioprotecteur.jpg",
+   "categorie": "serum-cuir-chevelu",
+   "etape": 4,
+   "cheveux_cibles": [
+    "gras",
+    "cuir-chevelu-sensible"
+   ],
+   "actifs": [
+    "Glycocolle",
+    "Polidocanol",
+    "Gluconate de zinc"
+   ],
+   "ingredients": null,
+   "description": "Un soin S.O.S. anti-démangeaisons à destination des cuirs chevelus très sensibles.",
+   "claims": [
+    "texturisant",
+    "apaisant-cuir-chevelu",
+    "anti-gras"
+   ],
+   "source": "sitemap ducray.com/fr-fr product.xml + JSON-LD fiche produit",
+   "cutout_url": "public/scan/products-cheveux/ducray/cutout/sensinol-serum-apaisant-physioprotecteur.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

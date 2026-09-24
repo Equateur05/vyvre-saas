@@ -1,7 +1,7 @@
 {
  "brand": "glossier",
  "brand_name": "Glossier",
- "source": "catalogue-v2 2026-09-17",
+ "source": "catalogue-v2 2026-09-19",
  "products": [
   {
    "id": "glossier--full-orbit",
@@ -150,7 +150,7 @@
     "hydratant",
     "éclat"
    ],
-   "image_source_url": "https://www.glossier.com/cdn/shopifycloud/storefront/assets/no-image-2048-a2addb12_348x.gif",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0627/9164/7477/files/glossier-skincare-futuredew-carousel-01.png?v=1762200221",
    "source": "json-ld",
    "cutout_url": "/scan/products/glossier/v2/cutout/futuredew.webp",
    "image_fond": true
@@ -255,6 +255,53 @@
    "cutout_url": "/scan/products/glossier/v2/cutout/priming-moisturizer-rich.webp"
   },
   {
+   "id": "glossier--solution",
+   "name": "Solution",
+   "price_eur": 36.0,
+   "image_url": "/scan/products/glossier/v2/solution.jpg",
+   "url": "https://www.glossier.com/fr-fr/products/solution",
+   "targets": [
+    "glow",
+    "pores"
+   ],
+   "concern_scores": {
+    "wrinkles": 0.25,
+    "firmness": 0.06,
+    "glow": 0.72,
+    "hydration": 0.26,
+    "redness": 0.27,
+    "pores": 0.63,
+    "sebum": 0.37,
+    "pigmentation": 0.43
+   },
+   "position": 5,
+   "brand": "glossier",
+   "brand_name": "Glossier",
+   "categorie": "exfoliant",
+   "price_source": "site officiel FR",
+   "url_verifiee_le": "2026-09-19",
+   "pays": "US",
+   "univers": "normal",
+   "score_raisons": [
+    "acide glycolique (INCI #4)",
+    "acide lactique (INCI #3)",
+    "acide salicylique / BHA (INCI #10)",
+    "exfoliant (claim)",
+    "niacinamide (INCI #11)",
+    "PHA (INCI #5)",
+    "categorie exfoliant"
+   ],
+   "name_origine": "Solution",
+   "ingredients": "Water/Aqua/Eau, Sodium Hydroxide, Lactic Acid, Glycolic Acid, Gluconolactone, Propanediol, Pentylene Glycol, Magnesium Chloride, Glycerin, Salicylic Acid, Niacinamide, Aloe Barbadensis Leaf Juice, Ethylhexylglycerin, Citric Acid, Phytic Acid, Polysorbate 20, Amylopectin, Polydextrose, Dextrin, Caprylyl Glycol",
+   "description": "A gentle way to slough away dead skin to reveal a fresh, smooth complexion",
+   "claims": [
+    "exfoliant"
+   ],
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0627/9164/7477/files/glossier-skincare-solution-carousel-01.png?v=1762201015",
+   "source": "products.json + fiche produit verifiee",
+   "cutout_url": "/scan/products/glossier/v2/cutout/solution.webp"
+  },
+  {
    "id": "glossier--milky-oil",
    "name": "Milky Oil",
    "price_eur": 21.06,
@@ -274,7 +321,7 @@
     "sebum": 0.07,
     "pigmentation": 0.07
    },
-   "position": 5,
+   "position": 6,
    "brand": "glossier",
    "brand_name": "Glossier",
    "categorie": "huile",
@@ -322,7 +369,7 @@
     "sebum": 0.34,
     "pigmentation": 0.06
    },
-   "position": 6,
+   "position": 7,
    "brand": "glossier",
    "brand_name": "Glossier",
    "categorie": "nettoyant",
@@ -348,7 +395,7 @@
     "nourrissant",
     "nettoyant"
    ],
-   "image_source_url": "https://www.glossier.com/cdn/shopifycloud/storefront/assets/no-image-2048-a2addb12_348x.gif",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0627/9164/7477/files/glossier-skincare-mjc177ml-carousel-1.png?v=1770906323",
    "source": "json-ld",
    "cutout_url": "/scan/products/glossier/v2/cutout/milky-jelly-cleanser.webp",
    "image_fond": true
@@ -372,7 +419,7 @@
     "sebum": 0.3,
     "pigmentation": 0.06
    },
-   "position": 7,
+   "position": 8,
    "brand": "glossier",
    "brand_name": "Glossier",
    "categorie": "nettoyant",
@@ -398,6 +445,151 @@
    "cutout_url": "/scan/products/glossier/v2/cutout/milky-jelly-cleansing-balm.webp"
   },
   {
+   "id": "glossier--super-bounce",
+   "name": "Super Bounce",
+   "price_eur": 41.0,
+   "image_url": "/scan/products/glossier/v2/super-bounce.jpg",
+   "url": "https://www.glossier.com/fr-fr/products/super-bounce",
+   "targets": [
+    "hydration",
+    "redness",
+    "firmness"
+   ],
+   "concern_scores": {
+    "wrinkles": 0.28,
+    "firmness": 0.59,
+    "glow": 0.16,
+    "hydration": 0.79,
+    "redness": 0.65,
+    "pores": 0.16,
+    "sebum": 0.21,
+    "pigmentation": 0.08
+   },
+   "position": 9,
+   "brand": "glossier",
+   "brand_name": "Glossier",
+   "categorie": "serum",
+   "price_source": "site officiel FR",
+   "url_verifiee_le": "2026-09-19",
+   "pays": "US",
+   "univers": "normal",
+   "score_raisons": [
+    "fermete (nom)",
+    "apaisant (claim+description)",
+    "hydratant (claim+description)",
+    "acide hyaluronique (INCI #6)",
+    "glycerine en tete (INCI #3)",
+    "acide hyaluronique (texte) (description)",
+    "categorie serum"
+   ],
+   "name_origine": "Super Bounce",
+   "ingredients": "Water/Aqua/Eau, Ethylhexyl Palmitate, Glycerin, Caprylic/Capric Triglyceride, Propanediol, Sodium Hyaluronate, Panthenol, Biosaccharide Gum-2, Methyl Glucose Sesquistearate, Xanthan Gum, Acrylates/C10-30 Alkyl Acrylate Crosspolymer, 1,2-Hexanediol, Caprylyl Glycol, Chlorphenesin, Citric Acid, Sodium Hydroxide",
+   "description": "A soothing combination of 2% Hyaluronic Acid Complex and Pro-Vitamin B5 that hydrates the skin on multiple levels.",
+   "claims": [
+    "hydratant",
+    "apaisant"
+   ],
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0627/9164/7477/products/glossier-super-bounce-carousel-01_76a56806-4efa-4df0-9beb-2f030da73fa3.png?v=1762200229",
+   "source": "products.json + fiche produit verifiee"
+  },
+  {
+   "id": "glossier--super-glow",
+   "name": "Super Glow",
+   "price_eur": 41.0,
+   "image_url": "/scan/products/glossier/v2/super-glow.jpg",
+   "url": "https://www.glossier.com/fr-fr/products/super-glow",
+   "targets": [
+    "glow",
+    "pigmentation"
+   ],
+   "concern_scores": {
+    "wrinkles": 0.37,
+    "firmness": 0.26,
+    "glow": 0.84,
+    "hydration": 0.43,
+    "redness": 0.48,
+    "pores": 0.08,
+    "sebum": 0.12,
+    "pigmentation": 0.55
+   },
+   "position": 10,
+   "brand": "glossier",
+   "brand_name": "Glossier",
+   "categorie": "serum",
+   "price_source": "site officiel FR",
+   "url_verifiee_le": "2026-09-19",
+   "pays": "US",
+   "univers": "normal",
+   "score_raisons": [
+    "eclat (nom+claim)",
+    "vitamine C stable (INCI #2)",
+    "apaisant (description)",
+    "vitamine C (texte) (description)",
+    "antioxydant (claim)",
+    "peaux sensibles (description)",
+    "categorie serum"
+   ],
+   "name_origine": "Super Glow",
+   "ingredients": "Aqua/Water/Eau, Magnesium Ascorbyl Phosphate, Propanediol, Dimethicone, Glyceryl Stearate SE, Polyglyceryl-10 Oleate, Caprylic/Capric Triglyceride, Cetyl Alcohol, Glycerin, Magnesium PCA, Simmondsia Chinensis (Jojoba) Seed Oil, Butyrospermum Parkii (Shea) Butter, Helianthus Annuus (Sunflower) Seed Oil, Evodia Rutaecarpa Fruit Extract, Melia Azadirachta Flower Extract, Melia Azadirachta Leaf Extract, Corallina Officinalis Extract, Coccinia Indica Fruit Extract, 1,2-Hexanediol, Sodium Stearoyl Lactylate, Betaine, Sodium Citrate, Xanthan Gum, Caprylhydroxamic Acid. As we continue to evolve our product portfolio, ingredient lists may change or vary. Please refer to the ingredient list on the package, and reach out to gteam@glossier.com with any questions",
+   "description": "A potent, stable formulation of 5% Vitamin C derivative MAP + Magnesium PCA that delivers key ingredients without irritating sensitive skin",
+   "claims": [
+    "eclat",
+    "antioxydant"
+   ],
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0627/9164/7477/files/glossier-skincare-super-glow-carousel-01.png?v=1762200224",
+   "source": "products.json + fiche produit verifiee",
+   "cutout_url": "/scan/products/glossier/v2/cutout/super-glow.webp"
+  },
+  {
+   "id": "glossier--super-pure",
+   "name": "Super Pure",
+   "price_eur": 41.0,
+   "image_url": "/scan/products/glossier/v2/super-pure.jpg",
+   "url": "https://www.glossier.com/fr-fr/products/super-pure",
+   "targets": [
+    "pores",
+    "sebum",
+    "glow"
+   ],
+   "concern_scores": {
+    "wrinkles": 0.21,
+    "firmness": 0.08,
+    "glow": 0.57,
+    "hydration": 0.53,
+    "redness": 0.47,
+    "pores": 0.75,
+    "sebum": 0.71,
+    "pigmentation": 0.55
+   },
+   "position": 11,
+   "brand": "glossier",
+   "brand_name": "Glossier",
+   "categorie": "serum",
+   "price_source": "site officiel FR",
+   "url_verifiee_le": "2026-09-19",
+   "pays": "US",
+   "univers": "normal",
+   "score_raisons": [
+    "niacinamide (INCI #2)",
+    "anti-imperfections (claim)",
+    "zinc (PCA/gluconate) (INCI #5)",
+    "nourrissant (claim+description)",
+    "glycerine en tete (INCI #3)",
+    "allantoine (INCI #9)",
+    "categorie serum"
+   ],
+   "name_origine": "Super Pure",
+   "ingredients": "Water/Aqua/Eau, Niacinamide, Glycerin, Propanediol, Zinc PCA, Lonicera Japonica (Honeysuckle) Flower Extract, Lonicera Caprifolium (Honeysuckle) Extract, Citric Acid, Allantoin, Hydroxyethylcellulose, Polysorbate 60, Disodium Phosphate, Sodium Phosphate. As we continue to evolve our product portfolio, ingredient lists may change or vary. Please refer to the ingredient list on the package, and reach out to gteam@glossier.com with any questions",
+   "description": "A daily vitamin and mineral duo of 5% Niacinamide and Zinc PCA that nourishes skin, for visibly smoother texture and improved clarity.",
+   "claims": [
+    "anti-imperfections",
+    "nourrissant"
+   ],
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0627/9164/7477/files/glossier-skincare-super-pure-carousel-01.png?v=1762200217",
+   "source": "products.json + fiche produit verifiee",
+   "cutout_url": "/scan/products/glossier/v2/cutout/super-pure.webp"
+  },
+  {
    "id": "glossier--invisible-shield-spf50",
    "name": "Invisible Shield SPF50",
    "price_eur": 37.44,
@@ -417,7 +609,7 @@
     "sebum": 0.11,
     "pigmentation": 0.63
    },
-   "position": 8,
+   "position": 12,
    "brand": "glossier",
    "brand_name": "Glossier",
    "categorie": "solaire-visage",

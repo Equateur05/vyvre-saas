@@ -15,7 +15,9 @@
    "image_local": "public/scan/products-cheveux/vegamour/scalp-clarifying-treatment.jpg",
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "gras"
+   ],
    "actifs": [
     "acide salicylique",
     "glycérine",
@@ -27,9 +29,12 @@
    "ingredients": "Water/Aqua/Eau, Propanediol, Glycerin, Coco-Glucoside, Decyl Glucoside, Sorbitan Oleate Decylglucoside Crosspolymer, Salicylic Acid, Limnanthes Alba (Meadowfoam) Seed Oil, Zinc PCA, Lactobacillus/Salix Purpurea Bark Ferment Extract, Epilobium Angustifolium Flower/Leaf/Stem Extract, Apple Cider Vinegar, Bakuchiol, Botrytis Cinerea/Passiflora Edulis Fruit Extract/Piceatannol Ferment Lysate Filtrate, Coco-Betaine, Glyceryl Oleate, Glycolipids, Diutan Gum, Sodium Chloride, Sodium Hydroxide, Cellulose Gum, Cellulose, Polyester-37, Tetrasodium Glutamate Diacetate, Lactic Acid, Caprylyl Glyceryl Ether, Tocopherol, Hydrogenated Palm Glycerides Citrate, Citric Acid, Sodium Benzoate, Fragrance/Parfum, Limonene, Linalool, Linalyl Acetate, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Juniperus Virginiana Oil",
    "description": "A pre-wash scalp clarifying treatment that gently exfoliates to lift away buildup and excess oil while supporting a healthy, balanced microbiome.",
    "claims": [
-    "purifiant"
+    "purifiant",
+    "anti-gras"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/vegamour/cutout/scalp-clarifying-treatment.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "vegamour--hydrating-scalp-toner",
@@ -44,7 +49,10 @@
    "image_local": "public/scan/products-cheveux/vegamour/hydrating-scalp-toner.jpg",
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "cuir-chevelu-sensible"
+   ],
    "actifs": [
     "panthénol",
     "niacinamide",
@@ -60,10 +68,12 @@
    "ingredients": "Water/Aqua/Eau, Alcohol Denat., Propanediol, Pentylene Glycol, Sorbitan Oleate Decylglucoside Crosspolymer, Glycerin, Panthenol, Aloe Barbadensis Leaf Juice, Botrytis Cinerea/Passiflora Edulis Fruit Extract/Piceatannol Ferment Lysate Filtrate, Bakuchiol, 1,2-Hexanediol, Polyglyceryl-10 Heptanoate, Sodium Chloride, Zinc PCA, Niacinamide, Erythritol, Tetrasodium Glutamate Diacetate, Hibiscus Sabdariffa Fruit Extract, Phosphatidylcholine, Mannitol, sr-(Spider Polypeptide-1 Oligopeptide-178), Polyglyceryl-10 Laurate, Sodium Hyaluronate, Methylpropanediol, Cetyl Alcohol, Ceramide NP, Persea Gratissima (Avocado) Fruit Extract, Coco-Betaine, Butyl Avocadate, Maltodextrin, Sodium Cocoyl Isothionate, Caprylyl Glycol, Avena Sativa (Oat) Kernel Extract, Cetrimonium Chloride, Beta-Sitosterol, Phenylpropanol, Cocos Nucifera (Coconut) Oil, Sodium Isethionate, Tocopherol, Lactic Acid, Citric Acid, Sodium Benzoate, Caprylhydroxamic Acid, T-Butyl Alcohol, Potassium Sorbate, Denatonium Benzoate, Fragrance/Parfum, Limonene, Citrus Limon Peel Oil, Linalool, Citral, Citrus Aurantium Bergamia Peel Oil, Pinene, Linalyl Acetate, Lavandula Oil/ Extract, Pelargonium Graveolens Flower Oil, Cananga Odorate Oil/Extract, Amyl Cinnamal, Citronellol, Geraniol, Beta-Caryophyllene, Geranyl Acetate, Terpineol, Eugenia Caryophyllus Oil, Eugenol, Terpinolene, Benzyl Benzoate, Camphor, Farnesol, Benzyl Salicylate, Alpha-Terpinene, Isoeugenol, Benzyl Alcohol, Cinnamyl Alcohol, Coumarin, Sclareol, Benzaldehyde",
    "description": "A lightweight scalp toner that delivers instant and long-lasting hydration, soothes discomfort and helps defend against visible signs of scalp aging.",
    "claims": [
-    "hydratant",
-    "apaisant"
+    "hydratation",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/vegamour/cutout/hydrating-scalp-toner.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "vegamour--baby-hair-strengthen-style-wand",
@@ -78,7 +88,9 @@
    "image_local": "public/scan/products-cheveux/vegamour/baby-hair-strengthen-style-wand.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "chute"
+   ],
    "actifs": [
     "huile d'argan",
     "caféine",
@@ -92,10 +104,15 @@
    "ingredients": "Water/Aqua/Eau, Polyglyceryl-10 Diisostearate, Cetearyl Alcohol, Behentrimonium Chloride, Hydrolyzed Corn Starch, Isopentyldiol, (Trifolium Pratense (Clover)/Vigna Radiata) Sprout Extract, Neopentyl Glycol Diheptanoate, Helianthus Annuus (Sunflower) Seed Extract, C9-12 Alkane, Squalane, Citrullus Lanatus (Watermelon) Seed Oil, Argania Spinosa Kernel Oil, Coco-Caprylate/Caprate, Butyrospermum Parkii (Shea) Butter, Isopropyl Alcohol, Polyester-11, Guar Hydroxypropyltrimonium Chloride, Cetrimonium Chloride, Tetrasodium Glutamate Diacetate, Mannitol, Phosphatidylcholine, Glycerin, sr-(Spider Polypeptide-1 Oligopeptide-178), Cetyl Alcohol, Caffeine, Curcuma Longa (Turmeric) Callus Conditioned Media, Ceramide NP, Sorbitan Oleate, Sodium Chloride, Pentylene Glycol, Phytosphingosine, Phytic Acid, Tromethamine, Dipotassium Phosphate, Potassium Phosphate, Nicotiana Benthamiana Octapeptide-30 sh-Oligopeptide-2, Nicotiana Benthamiana Hexapeptide-40 sh-Polypeptide-9, Nicotiana Benthamiana Hexapeptide-40 sh-Polypeptide-86, Ethylhexylglycerin, Xanthan Gum, Lactic Acid, Citric Acid, Sodium Benzoate, Potassium Sorbate, Hydrochloric Acid, Limonene, Fragrance/Parfum, Citrus Limon (Lemon) Peel Oil, Citral, Linalool, Pinene, Linalyl Acetate, Pelargonium Graveolens Flower Oil, Citrus Aurantium Flower Oil, Citronellol, Carvone",
    "description": "A peptide-powered styling wand that provides all-day hold to smooth flyaways while strengthening delicate baby hairs.Smooths baby hairs and flyaways instantly. Maintains strength for styling without compromise. Flexible hold that lasts all day.",
    "claims": [
-    "lissant",
-    "fortifiant"
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/vegamour/cutout/baby-hair-strengthen-style-wand.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "vegamour--gro-revitalizing-conditioner",
@@ -110,7 +127,11 @@
    "image_local": "public/scan/products-cheveux/vegamour/gro-revitalizing-conditioner.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "fins",
+    "abimes"
+   ],
    "actifs": [
     "biotine",
     "huile de baobab",
@@ -126,38 +147,13 @@
    "ingredients": "Water/Aqua/Eau, Cetearyl Alcohol, Behentrimonium Chloride, Astrocaryum Murumuru Seed Butter, Macadamia Ternifolia Seed Oil, Copaifera Officinalis (Balsam Copaiba) Resin Oil, Adansonia Digitata Seed Oil, Behentrimonium Methosulfate, Cetrimonium Chloride, Fragrance/Parfum, Moringa Oleifera Seed Oil, Citrus Limon (Lemon) Peel Oil, Brassica Oleracea Italica (Broccoli) Seed Oil, Biotin, Aloe Barbadensis Leaf Juice, Sclerocarya Birrea Seed Oil, Mannitol, Phosphatidylcholine, Brassicamidopropyl Dimethylamine, Polyquaternium-7, Polyquaternium-73, Glycerin, Ximenia Americana Seed Oil, Tetrasodium Glutamate Diacetate, Citric Acid, sr-(Spider Polypeptide-1 Oligopeptide-178), Curcuma Longa (Turmeric) Callus Conditioned Media, Glyceryl Stearate SE, Glyceryl Behenate, Isopropyl Alcohol, Guar Hydroxypropyltrimonium Chloride, Lactic Acid, Linalyl Acetate, Cetyl Alcohol, Sodium Benzoate, Potassium Sorbate, Ceramide NP, Sodium Chloride, Sorbitan Oleate, Benzyl Benzoate, Citral, Hydroxycitronellal, Limonene, Linalool, Xanthan Gum, Pentylene Glycol, Phytosphingosine, Phytic Acid, (Trifolium Pratense (Clover)/Vigna Radiata) Sprout Extract",
    "description": "A lightweight conditioner powered by Karmatin™ Peptide to help strengthen fragile strands, enhance resilience and leave hair soft and smooth.Strengthens strands to reduce breakage. Supports long-term resilience. Softens and smooths without weighing hair down.",
    "claims": [
-    "lissant",
-    "fortifiant"
+    "reparation",
+    "fortifiant",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "vegamour--360-hair-reboot-system",
-   "name": "360° Hair Reboot System",
-   "brand": "vegamour",
-   "brand_name": "Vegamour",
-   "url": "https://vegamour.com/products/360-hair-reboot-system",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 118.68,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/1336/0857/files/01_360-Kit_Hero-Image_06.30.25.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/vegamour/360-hair-reboot-system.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [
-    "caféine",
-    "biotine",
-    "glycérine",
-    "acide citrique",
-    "acide lactique"
-   ],
-   "ingredients": "Water/Aqua/Eau, Butylene Glycol, Glycerin, Alcohol Denat., Polyglyceryl-10 Laurate, Caffeine, Curcuma Longa (Turmeric) Callus Conditioned Media, Citrus Bergamia Peel Oil Expressed, Sodium Phytate, Pentylene Glycol, Limonene, Citric Acid, Sodium Benzoate, Potassium Sorbate, Lactic Acid, (Trifolium Pratense (Clover)/Vigna Radiata) Sprout Extract, Linalool, Sodium Hydroxide, Biotin, Alcohol, Phytic Acid, Linalyl Acetate, Pinene, Nicotiana Benthamiana Octapeptide-30 sh-Oligopeptide-2, Nicotiana Benthamiana Hexapeptide-40 sh-Polypeptide-9, Nicotiana Benthamiana Hexapeptide-40 sh-Polypeptide-86",
-   "description": "Our most comprehensive GRO routine, designed to help you stay consistent with daily care that helps reduce shedding and breakage while supporting fuller-looking hair over time.Helps reduce hair shedding. Helps strengthen fragile strands against breakage. Promotes fuller, healthier-looking hair over time. Includes: Full Size GRO Hair Serum, Full Size GRO Revitalizing Shampoo & Conditioner, GRO Biotin Gummies for Hair Wellness®, free Satin Eye Mask ($16 value)",
-   "claims": [
-    "fortifiant"
-   ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/vegamour/cutout/gro-revitalizing-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "vegamour--gro-hair-serum",
@@ -172,7 +168,10 @@
    "image_local": "public/scan/products-cheveux/vegamour/gro-hair-serum.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "abimes",
+    "chute"
+   ],
    "actifs": [
     "caféine",
     "biotine",
@@ -182,8 +181,14 @@
    ],
    "ingredients": "Water/Aqua/Eau, Butylene Glycol, Glycerin, Alcohol Denat., Polyglyceryl-10 Laurate, Caffeine, Curcuma Longa (Turmeric) Callus Conditioned Media, Citrus Bergamia Peel Oil Expressed, Sodium Phytate, Pentylene Glycol, Limonene, Citric Acid, Sodium Benzoate, Potassium Sorbate, Lactic Acid, (Trifolium Pratense (Clover)/Vigna Radiata) Sprout Extract, Linalool, Sodium Hydroxide, Biotin, Alcohol, Phytic Acid, Linalyl Acetate, Pinene, Nicotiana Benthamiana Octapeptide-30 sh-Oligopeptide-2, Nicotiana Benthamiana Hexapeptide-40 sh-Polypeptide-9, Nicotiana Benthamiana Hexapeptide-40 sh-Polypeptide-86",
    "description": "Our best-selling serum powered by phytoactives and peptides that visibly reduces shedding and supports fuller, healthier-looking hair.Helps reduce hair shedding. Hair looks visibly fuller over time. Promotes healthier-looking hair with less breakage.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "reparation",
+    "volume",
+    "anti-chute"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/vegamour/cutout/gro-hair-serum.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "vegamour--loyalty-gro-dry-shampoo",
@@ -196,16 +201,23 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/1336/0857/files/GRO-DRY-SHAMPOO_6cec1e96-f9fd-4e2e-919f-155e6cff8200.jpg?width=600",
    "image_local": "public/scan/products-cheveux/vegamour/loyalty-gro-dry-shampoo.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [],
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "gras",
+    "fins"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "Staying true to our 360º approach to hair wellness, we’ve created the only plant-based dry shampoo with Vegamour's follicle-stimulating technology. This scalp balancing, volumizing formula fuses the texturizing perks of a traditional dry shampoo with the upshot of the same powerful phyto-actives found in our best-selling GRO Hair Serum, clinically tested to help increase visible hair density and inhibit the production of follicle damaging DHT. Best used in tandem with our GRO or GRO+ hair serums",
    "claims": [
-    "volume"
+    "volume",
+    "texturisant",
+    "densifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/vegamour/cutout/loyalty-gro-dry-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "vegamour--gro-advanced-hair-growth-and-density-supplements",
@@ -220,7 +232,10 @@
    "image_local": "public/scan/products-cheveux/vegamour/gro-advanced-hair-growth-and-density-supplements.jpg",
    "categorie": "traitement-chute",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "fins",
+    "chute"
+   ],
    "actifs": [
     "biotine",
     "glycérine",
@@ -231,9 +246,14 @@
    "ingredients": "Vitamin A (as Beta Carotene), Vitamin C (as L-Ascorbic Acid), Vitamin D (as Linchen Cholecalciferol), Vitamin E (as D-alpha Tocopherol), Folate (as Folic Acid), Vitamin B12 (as Cyanocobalamin), Biotin, Zinc (as Zinc Gluconate), Selenium (as Sodium Selenite Complex), Copper (as Copper Sulfate), Pyrroquinoline Quinone Disodium Salt, Pumpkin Seed Extract, Miliacin (as Millet Seed Extract), Saw Palmetto Extract, Turmeric Root Extract, Reishi Fruiting Body Extract (as Ganoderma Lucidum), Black Pepper, Non GMO Soybean Oil, Glyceryl Monostearate, Lecithin, Food Starch-modified, Glycerin, Water, Carrageenan, Caramel Color, Hydroxypropyl Methyl Cellulose, Calcium Carbonate, Microcrystalline Cellulose, Corn Starch",
    "description": "MD-formulated supplements help reduce hair shedding and support longer-looking hair with visible results in as soon as 3–4 months.*Reduces hair shedding*. Supports longer, healthier-looking hair over time*. MD-Formulated. *Based on a 120-day consumer perception study with 46 participants taking GRO+ Advanced Supplements daily.",
    "claims": [
-    "volume"
+    "volume",
+    "densifiant",
+    "anti-chute",
+    "croissance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/vegamour/cutout/gro-advanced-hair-growth-and-density-supplements.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "vegamour--gro-advanced-hair-serum",
@@ -248,7 +268,10 @@
    "image_local": "public/scan/products-cheveux/vegamour/gro-advanced-hair-serum.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "abimes",
+    "chute"
+   ],
    "actifs": [
     "caféine",
     "biotine",
@@ -261,8 +284,13 @@
    ],
    "ingredients": "Water/Aqua/Eau, Butylene Glycol, Alcohol Denat., Propanediol, Curcuma Longa (Turmeric) Root Extract, (Trifolium Pratense (Clover)/Vigna Radiata) Sprout Extract, Biotinoyl Tripeptide-1, Rheum Rhaponticum Root Extract, Acetyl Tetrapeptide-3, Callicarpa Japonica Fruit Extract, Chlorella Vulgaris Extract, Olea Europaea (Olive) Leaf Extract, Caffeine, Tocopherol, Glycerin, Pentylene Glycol, Hydroxypropyl Cyclodextrin, Lecithin, Sodium Phytate, Helianthus Annuus (Sunflower) Seed Oil, Sodium Starch Octenylsuccinate, Alcohol, Cyclodextrin, Citric Acid, Phytic Acid, Lactic Acid, Cyamopsis Tetragonoloba (Guar) Gum, Xanthan Gum",
    "description": "An MD-formulated serum that reduces shedding and visible signs of breakage while improving hair's overall appearance and supporting scalp balance.Reduces hair shedding and breakage. Helps improve the look of hair. Supports a healthy, balanced scalp. MD-Formulated.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "reparation",
+    "anti-chute"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/vegamour/cutout/gro-advanced-hair-serum.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "vegamour--uplift-volumizing-styling-foam",
@@ -278,8 +306,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "fins",
-    "epais"
+    "fins"
    ],
    "actifs": [
     "protéines de riz",
@@ -290,9 +317,13 @@
    "ingredients": "Water/Aqua/Eau, Hydrolyzed Corn Starch, Propanediol, Glycerin, Linum Usitatissimum (Linseed) Seed Extract, Hydrolyzed Rice Protein, Laurdimonium Hydroxypropyl Hydrolyzed Barley Protein, Salvia Hispanica Seed Extract, Maranta Arundinacea Root Extract, Sophora Angustifolia Root Extract, Creatine, Tapioca Starch, Polyquaternium-68, Polyglyceryl-6 Caprylate, Polyglyceryl-4 Caprate, Decyl Glucoside, Cetrimonium Chloride, Tetrasodium Glutamate Diacetate, Xylitol, Caprylic Acid, Ammonium Bicarbonate, 1,2-Hexanediol, Ethylhexylglycerin, Citric Acid, Chlorphenesin, Sodium Benzoate, Caprylhydroxamic Acid, Phenoxyethanol, Potassium Sorbate, Fragrance/Parfum, Citrus Limon (Lemon) Peel Oil, Benzyl Alcohol, Limonene, Pinene, Citral",
    "description": "A weightless styling foam that adds instant, long-lasting volume and shields hair from heat and humidity without crunch, stiffness or stickiness.Adds instant, lasting volume right at the root. Delivers weightless lift with no crunch, stiffness or stickiness. Shields strands from heat and reduces frizz.",
    "claims": [
-    "volume"
+    "anti-frisottis",
+    "volume",
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/vegamour/cutout/uplift-volumizing-styling-foam.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "vegamour--uplift-volumizing-conditioner",
@@ -308,8 +339,8 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "fins",
-    "epais"
+    "secs",
+    "fins"
    ],
    "actifs": [
     "protéines de riz",
@@ -324,11 +355,14 @@
    "ingredients": "Water/Aqua/Eau, Cetearyl Alcohol, Propanediol, Maranta Arundinacea Root Extract, Brassica Alcohol, Cetyl Esters, Orbignya Speciosa Kernel Oil, Glyceryl Stearate SE, Hydrogenated Soybean Oil, Stearamidopropyl Dimethylamine, Astrocaryum Murumuru Seed Butter, Hydrolyzed Rice Protein, Sophora Angustifolia Root Extract, Aspergillus Ferment, Creatine, Arginine, Cocodimonium Hydroxypropyl Hydrolyzed Rice Protein, Linum Usitatissimum (Linseed) Seed Oil, Brassicyl Isoleucinate Esylate, Sclerocarya Birrea Seed Oil, Hydroxypropyl Starch Phosphate, Behentrimonium Methosulfate, Glycerin, Guar Hydroxypropyltrimonium Chloride, Cocos Nucifera (Coconut) Oil, Polyquaternium-7, Tetrasodium Glutamate Diacetate, Pentylene Glycol, Tocopherol, Lactic Acid, Sodium Benzoate, Potassium Sorbate, Fragrance/Parfum, Citrus Limon (Lemon) Peel Oil, Benzyl Alcohol, Limonene, Pinene",
    "description": "A volumizing conditioner that nourishes, detangles and controls frizz while shielding hair from humidity for smoother, fuller-looking strands.Nourishes and detangles for softer, more manageable hair. Adds instant volume, body and fullness. Controls frizz and shields hair from humidity.",
    "claims": [
-    "nourrissant",
+    "nutrition",
+    "anti-frisottis",
     "volume",
-    "lissant"
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/vegamour/cutout/uplift-volumizing-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "vegamour--uplift-volumizing-shampoo",
@@ -356,56 +390,13 @@
    "ingredients": "Water/Aqua/Eau, Cocamidopropyl Hydroxysultaine, Sodium C14-16 Olefin Sulfonate, Coco-Glucoside, Glycerin, Lauramidopropyl Betaine, Sodium Methyl Cocoyl Taurate, Sodium Chloride, Sorbitan Oleate Decylglucoside Crosspolymer, Hydrolyzed Rice Protein, Tilia Tomentosa Bud Extract, Maranta Arundinacea Root Extract, Sophora Angustifolia Root Extract, Myristamidopropyl Betaine, Guar Hydroxypropyltrimonium Chloride, Cetrimonium Chloride, Panthenol, Coconut Acid, Behenamidopropyl Dimethylamine, Tetrasodium Glutamate Diacetate, Polyquaternium-7, Lactic Acid, Sodium Hydroxide, Citric Acid, Sodium Benzoate, Potassium Sorbate, Fragrance/Parfum, Citrus Limon (Lemon) Peel Oil, Benzyl Alcohol, Limonene, Pinene",
    "description": "A volumizing shampoo that gently cleanses, hydrates and boosts body without weighing down fine or flat hair.Gently cleanses and removes buildup. Adds instant volume, body and fullness. Hydrates without weighing hair down.",
    "claims": [
-    "hydratant",
-    "volume"
+    "hydratation",
+    "volume",
+    "purifiant"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "vegamour--gro-biotin-gummies",
-   "name": "GRO Biotin Gummies for Hair Wellness®",
-   "brand": "vegamour",
-   "brand_name": "Vegamour",
-   "url": "https://vegamour.com/products/gro-biotin-gummies",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 27.6,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/1336/0857/files/vegamour-01-gro-biotin-gummies-pdp-hero-v1.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/vegamour/gro-biotin-gummies.jpg",
-   "categorie": "traitement-chute",
-   "etape": 4,
-   "cheveux_cibles": [],
-   "actifs": [
-    "biotine",
-    "vitamine E",
-    "acide citrique"
-   ],
-   "ingredients": "Vitamin A (as acetate), Vitamin C (as ascorbic acid), Vitamin D3 (as cholecalciferol), Vitamin E (as d-alpha tocopherol acetate), Vitamin B6 (as pyridoxine HCl), Folate (Folic Acid), Vitamin B12 (as cyanocobalamin), Biotin, Pantothenic Acid, Zinc (as zinc citrate), Iodine (as potassium iodide), Choline (as choline bitartrate), Inositol, Organic Tapioca Syrup, Cane Sugar, Dextrose, Pectin, Citric Acid, Natural Flavors, Black Carrot Extract (for color), Water/Aqua/Eau, Non-Hydrogenated Vegetable Oil (Coconut) and Lecithins, Sodium Citrate",
-   "description": "A daily multivitamin with biotin designed to boost Hair Wellness® from within and help promote the look of fuller, healthier strands over time.Nourishes from the inside out. Supports healthy-looking hair and nails. Promotes overall vitality.",
-   "claims": [
-    "nourrissant"
-   ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "vegamour--gro-advanced-dermaroller-replacement-head",
-   "name": "GRO+ Advanced Dermaroller Replacement Head",
-   "brand": "vegamour",
-   "brand_name": "Vegamour",
-   "url": "https://vegamour.com/products/gro-advanced-dermaroller-replacement-head",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 18.4,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/1336/0857/files/vegamour-01-gro-plus-advanced-dermaroller-replacement-head-pdp-hero-v1.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/vegamour/gro-advanced-dermaroller-replacement-head.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "A monthly replacement head designed to maintain optimal performance of your GRO+ Advanced Dermaroller.Easy twist-on, twist-off design. Maintains peak tool performance. Replace monthly for best results.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/vegamour/cutout/uplift-volumizing-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "vegamour--gro-advanced-balancing-conditioner",
@@ -420,7 +411,11 @@
    "image_local": "public/scan/products-cheveux/vegamour/gro-advanced-balancing-conditioner.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "abimes",
+    "chute"
+   ],
    "actifs": [
     "panthénol",
     "caféine",
@@ -436,32 +431,15 @@
    "ingredients": "Water/Aqua/Eau, Cetearyl Alcohol, Cetyl Alcohol, Cetyl Esters, Hydrogenated Ethylhexyl Olivate, Rheum Rhaponticum Root Extract, Chlorella Vulgaris Extract, Callicarpa Japonica Fruit Extract, Biotin, Aloe Barbadensis Leaf Juice, Stearamidopropyl Dimethylamine, Glycerin, Diheptyl Succinate, Glyceryl Stearate SE, Behentrimonium Methosulfate, Behentrimonium Chloride, Lactic Acid, Polyester-11, Brassicamidopropyl Dimethylamine, Sclerocarya Birrea Seed Oil, Butyrospermum Parkii (Shea) Butter, Cetrimonium Chloride, Sodium PCA, Cocos Nucifera (Coconut) Oil, Guar Hydroxypropyltrimonium Chloride, Panthenol, Butylene Glycol, Hydroxypropyl Cyclodextrin, Propanediol, Polyquaternium-7, Sodium Lactate, Hydrogenated Olive Oil Unsaponifiables, Niacinamide, Caffeine, Tetrasodium Glutamate Diacetate, Arginine, PCA, Capryloyl Glycerin/Sebacic Acid Copolymer, Glycine, Alanine, Sodium Starch Octenylsuccinate, Serine, Valine, Threonine, Proline, Isoleucine, Phenylalanine, Histidine, Aspartic Acid, Sodium Benzoate, Fragrance/Parfum, Limonene, Linalool, Citral, Amyl Cinnamal",
    "description": "An MD-formulated, nourishing conditioner designed to strengthen strands and leave hair visibly smoother and easier to manage.Nourishes, softens and smooths hair. Helps reduce breakage while improving manageability. Hydrates and helps balance the scalp. MD-Formulated.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "lissant",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "vegamour--gro-advanced-dermaroller",
-   "name": "GRO+ Advanced Dermaroller",
-   "brand": "vegamour",
-   "brand_name": "Vegamour",
-   "url": "https://vegamour.com/products/gro-advanced-dermaroller",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 38.64,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/1336/0857/files/vegamour-01-gro-plus-advanced-dermaroller-pdp-hero-v1.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/vegamour/gro-advanced-dermaroller.jpg",
-   "categorie": "serum-cuir-chevelu",
-   "etape": 4,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "An MD-developed scalp tool that creates micropathways to enhance serum absorption for more effective hair wellness&reg; results.Enhances serum absorption. 1,200 medical grade stainless steel needles. Award-winning design. Works best as part of the GRO+ Advanced System.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/vegamour/cutout/gro-advanced-balancing-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "vegamour--gro-advanced-balancing-shampoo",
@@ -476,7 +454,11 @@
    "image_local": "public/scan/products-cheveux/vegamour/gro-advanced-balancing-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "abimes",
+    "chute"
+   ],
    "actifs": [
     "caféine",
     "biotine",
@@ -490,9 +472,14 @@
    "ingredients": "Water/Aqua/Eau, Butylene Glycol, Alcohol Denat., Propanediol, Curcuma Longa (Turmeric) Root Extract, (Trifolium Pratense (Clover)/Vigna Radiata) Sprout Extract, Biotinoyl Tripeptide-1, Rheum Rhaponticum Root Extract, Acetyl Tetrapeptide-3, Callicarpa Japonica Fruit Extract, Chlorella Vulgaris Extract, Olea Europaea (Olive) Leaf Extract, Caffeine, Tocopherol, Glycerin, Pentylene Glycol, Hydroxypropyl Cyclodextrin, Lecithin, Sodium Phytate, Helianthus Annuus (Sunflower) Seed Oil, Sodium Starch Octenylsuccinate, Alcohol, Cyclodextrin, Citric Acid, Phytic Acid, Lactic Acid, Cyamopsis Tetragonoloba (Guar) Gum, Xanthan Gum",
    "description": "An MD-formulated, scalp-balancing shampoo that gently removes buildup without stripping and reduces breakage with every wash.Gently removes buildup without stripping. Supports scalp hydration and balance. Helps reduce shedding and breakage. MD-Formulated.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "reparation",
+    "anti-chute",
+    "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/vegamour/cutout/gro-advanced-balancing-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "vegamour--hydr8-weightless-repair-oil",
@@ -508,7 +495,7 @@
    "categorie": "huile",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "fins",
     "abimes"
    ],
    "actifs": [
@@ -519,12 +506,14 @@
    "ingredients": "C13-15 Alkane, Coco-Caprylate, Ethylhexyl Olivate, Undecane, Tridecane, Sclerocarya Birrea Seed Oil, Jojoba Esters, Squalane, Plukenetia Volubilis Seed Oil, Salvia Hispanica Seed Oil, Tocopherol, Tetrahexyldecyl Ascorbate, Eclipta Prostrata Extract, Melia Azadirachta Leaf Extract, Moringa Oleifera Seed Oil, Glycine Soja (Soybean) Oil, Brassica Campestris/Aleurites Fordi Oil Copolymer, Fragrance/Parfum, Linalool, Limonene, Eugenol, Citronellol, Citral",
    "description": "A lightweight hair oil that delivers lasting hydration, smooths frizz, seals split ends and boosts shine — without ever feeling heavy or greasy.Instantly smooths frizz without heaviness. Boosts natural shine with a weightless finish. Supports ongoing repair by sealing split ends.",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "brillance",
-    "lissant"
+    "hydratation",
+    "reparation",
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/vegamour/cutout/hydr8-weightless-repair-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "vegamour--hydr8-leave-in-conditioner",
@@ -537,10 +526,10 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/1336/0857/files/01_HYDR-8_Leave-In-Conditioner_Full-Size_Hero-Image_06.30.25.jpg?width=600",
    "image_local": "public/scan/products-cheveux/vegamour/hydr8-leave-in-conditioner.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -556,13 +545,17 @@
     "acide lactique"
    ],
    "ingredients": "Water/Aqua/Eau, Glycerin, Pentylene Glycol, Behenamidopropyl Dimethylamine, sr-(Spider Polypeptide-1 Oligopeptide-178), Polyporus Umbellatus (Mushroom) Extract, sr-Spider Polypeptide-1, Laurdimonium Hydroxypropyl Hydrolyzed Barley Protein, Cocos Nucifera (Coconut) Fruit Juice, Cocos Nucifera (Coconut) Liquid Endosperm, Moringa Oleifera Seed Oil, Oenothera Biennis (Evening Primrose) Oil, Sclerocarya Birrea Seed Oil, Ximenia Americana Seed Oil, Cocos Nucifera (Coconut) Oil, Persea Gratissima (Avocado) Oil, Orbignya Speciosa Kernel Oil, Hydrogenated Olive Oil Unsaponifiables, Astrocaryum Murumuru Seed Butter, Sodium PCA, Sodium Lactate, Arginine, Aspartic Acid, PCA, Glycine, Alanine, Serine, Valine, Proline, Threonine, Isoleucine, Histidine, Phenylalanine, Tocopherol, Glyceryl Undecylenate, Phospholipids, Polyglyceryl-10 Dioleate, Polyglyceryl-10 Oleate, Sodium Stearoyl Lactylate, Fragrance/Parfum, Amyl Cinnamal, Benzyl Alcohol, Citral, Citronellol, Limonene, Benzyl Benzoate, Geraniol, Linalool, Sodium Hyaluronate, Lactic Acid, Cetearyl Alcohol, Sodium Benzoate, Hydrogenated Ethylhexyl Olivate, Polyglyceryl-2 Stearate, Potassium Sorbate, Capryloyl Glycerin/Sebacic Acid Copolymer, Diheptyl Succinate, Glyceryl Stearate, Fructose, Stearyl Alcohol, Tetrasodium Glutamate Diacetate, Sodium Citrate, Guar Hydroxypropyltrimonium Chloride, Mannitol, Phosphatidylcholine, 1,2-Hexanediol, Caprylyl Glycol, Citric Acid, Cetyl Alcohol, Ceramide NP, Glyceryl Caprylate, Propanediol, Sodium Chloride, Cetrimonium Chloride, Benzyl Salicylate, Eugenol, Isoeugenol",
-   "description": "A hydrating leave-in conditioner with heat protection that detangles, smooths frizz, seals split ends and helps shield hair from damage.Detangles and protects from heat styling. Powered by Karmatin&trade; Peptide. Scientifically validated results.",
+   "description": "A hydrating leave-in conditioner with heat protection that detangles, smooths frizz, seals split ends and helps shield hair from damage.Detangles and protects from heat styling. Powered by Karmatin™ Peptide. Scientifically validated results.",
    "claims": [
-    "hydratant",
-    "lissant",
-    "protection-thermique"
+    "hydratation",
+    "reparation",
+    "anti-frisottis",
+    "protection-chaleur",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/vegamour/cutout/hydr8-leave-in-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "vegamour--hydr8-deep-moisture-repair-mask",
@@ -578,6 +571,7 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -593,13 +587,16 @@
     "huile d'avocat"
    ],
    "ingredients": "Water (Aqua, Eau), Cetearyl Alcohol, Cocos Nucifera (Coconut) Oil, Silybum Marianum Ethyl Ester, Limnanthes Alba (Meadowfoam) Seed Oil, Brassicamidopropyl Dimethylamine, Cetyl Alcohol, Cetrimonium Chloride, Fragrance (Parfum), sr-(Spider Polypeptide-1 Oligopeptide-178), Moringa Oleifera Seed Oil, Sclerocarya Birrea Seed Oil, Adansonia Digitata Seed Oil, Crambe Abyssinica Seed Oil, Persea Gratissima (Avocado) Oil, Helianthus Annuus (Sunflower) Seed Oil, Aloe Barbadensis Leaf Juice, Magnolia Officinalis Bark Extract, Aspergillus Ferment, Glyceryl Stearate SE, Ximenia Americana Seed Oil, Behenamidopropyl Dimethylamine, Quaternium-91, Ethyl Linoleate, Behentrimonium Chloride, Guar Hydroxypropyltrimonium Chloride, Gluconolactone, Ethyl Oleate, Polyester-11, Polyquaternium-37, Myristyl Myristate, Pentaerythrityl Tetra-Di-T-Butyl Hydroxyhydrocinnamate, Tocopherol, Leuconostoc/Radish Root Ferment Filtrate, Glycerin, Stearamidopropyl Dimethylamine, Arginine, Lactic Acid, Tetrasodium Glutamate Diacetate, Mannitol, Phosphatidylcholine, Sodium Benzoate, Potassium Sorbate, Ceramide NP, Citral, Citronellol, Benzyl Alcohol, Amyl Cinnamal, Limonene, Linalool, Geraniol, Citric Acid, Sodium Chloride",
-   "description": "A weekly mask that delivers deep hydration and repairs dry, damaged hair &mdash; restoring softness, strength and natural shine.Repairs dry, damaged hair. Powered by Karmatin&trade; Peptide. Scientifically validated results.",
+   "description": "A weekly mask that delivers deep hydration and repairs dry, damaged hair — restoring softness, strength and natural shine.Repairs dry, damaged hair. Powered by Karmatin™ Peptide. Scientifically validated results.",
    "claims": [
-    "hydratant",
-    "reparateur",
+    "hydratation",
+    "reparation",
+    "fortifiant",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/vegamour/cutout/hydr8-deep-moisture-repair-mask.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "vegamour--hydr8-hydrate-repair-conditioner",
@@ -615,7 +612,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -631,14 +628,16 @@
     "huile de brocoli"
    ],
    "ingredients": "Water (Aqua, Eau), Cetearyl Alcohol, Macadamia Ternifolia Seed Oil, Astrocaryum Murumuru Seed Butter, Behentrimonium Chloride, Copaifera Officinalis (Balsam Copaiba) Resin Oil, Adansonia Digitata Seed Oil, Glyceryl Behenate, Behentrimonium Methosulfate, Fragrance (Parfum), Cetrimonium Chloride, sr-(Spider Polypeptide-1 Oligopeptide-178), Moringa Oleifera Seed Oil, Sclerocarya Birrea Seed Oil, Brassicamidopropyl Dimethylamine, Mannitol, Phosphatidylcholine, Ximenia Americana Seed Oil, Tetrasodium Glutamate Diacetate, Aloe Barbadensis Leaf Juice, Cetyl Alcohol, Ceramide NP, Citric Acid, Sodium Chloride, Biotin, Brassica Oleracea Italica (Broccoli) Seed Oil, Aspergillus Ferment, Guar Hydroxypropyltrimonium Chloride, Isopropyl Alcohol, Arginine, Glycerin, Sodium Benzoate, Potassium Sorbate, Limonene, Geraniol, Citral, Benzyl Alcohol, Citronellol, Amyl Cinnamal, Linalool",
-   "description": "A hydrating conditioner that smooths frizz, locks in lasting moisture and strengthens damaged strands for softer, shinier and more manageable hair.Strengthens damaged strands. Powered by Karmatin&trade; Peptide. Scientifically validated results.",
+   "description": "A hydrating conditioner that smooths frizz, locks in lasting moisture and strengthens damaged strands for softer, shinier and more manageable hair.Strengthens damaged strands. Powered by Karmatin™ Peptide. Scientifically validated results.",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "lissant",
-    "fortifiant"
+    "hydratation",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/vegamour/cutout/hydr8-hydrate-repair-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "vegamour--hydr8-hydrate-repair-shampoo",
@@ -654,6 +653,8 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
+    "colores",
     "abimes"
    ],
    "actifs": [
@@ -665,33 +666,16 @@
     "acide citrique"
    ],
    "ingredients": "Water (Aqua, Eau), Sodium C14-16 Olefin Sulfonate, Lauramidopropyl Betaine, Cocamidopropyl Hydroxysultaine, Sorbitan Oleate Decylglucoside Crosspolymer, Fragrance (Parfum), sr-(Spider Polypeptide-1 Oligopeptide-178), Polyquaternium-7, Aspergillus Ferment, Arginine, Glycerin, Magnolia Officinalis Bark Extract, Aloe Barbadensis Leaf Juice, Sodium PCA, Mannitol, Phosphatidylcholine, Sodium Hydroxide, Ceramide NP, Citric Acid, Cetrimonium Chloride, Biotin, Guar Hydroxypropyltrimonium Chloride, Polyquaternium-73, Leuconostoc/Radish Root Ferment Filtrate, Tetrasodium Glutamate Diacetate, Cetyl Alcohol, Potassium Sorbate, Sodium Benzoate, Sodium Chloride, Limonene, Geraniol, Citral, Benzyl Alcohol, Citronellol, Amyl Cinnamal, Linalool",
-   "description": "A color-safe hydrating shampoo that strengthens and repairs dry, damaged strands and supports healthier, more resilient hair over time.Strengthens damaged strands. Powered by Karmatin&trade; Peptide. Scientifically validated results.",
+   "description": "A color-safe hydrating shampoo that strengthens and repairs dry, damaged strands and supports healthier, more resilient hair over time.Strengthens damaged strands. Powered by Karmatin™ Peptide. Scientifically validated results.",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "fortifiant"
+    "hydratation",
+    "reparation",
+    "fortifiant",
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "vegamour--eye-mask",
-   "name": "Eye Mask",
-   "brand": "vegamour",
-   "brand_name": "Vegamour",
-   "url": "https://vegamour.com/products/eye-mask",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 14.72,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/1336/0857/files/EYE-MASK_e655b0de-057f-446e-9dbd-149faa1b65db.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/vegamour/eye-mask.jpg",
-   "categorie": "masque",
-   "etape": 2,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "A soft to the touch eye mask that gently snuggles around eyes, blocking out light during sleep in any environment. It helps nurture a good night’s sleep — a necessity for overall health and hair wellness.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/vegamour/cutout/hydr8-hydrate-repair-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "vegamour--scalp-scrubber",
@@ -706,32 +690,18 @@
    "image_local": "public/scan/products-cheveux/vegamour/scalp-scrubber.jpg",
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "A scalp scrubber that helps to stimulate and boost the appearance of scalp health. The scalp tool features flexible bristles to provide a relaxing and deeper cleansing experience as well as a comfortable, easy to grip handle. It’s designed for use on dry or wet hair to either massage or work in your favorite Vegamour serums, foams or shampoos.",
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "vegamour--gro-ageless-gray-delay-hair-supplement",
-   "name": "GRO AGELESS Gray Delay™ Hair Supplement",
-   "brand": "vegamour",
-   "brand_name": "Vegamour",
-   "url": "https://vegamour.com/products/gro-ageless-gray-delay-hair-supplement",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 62.56,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/1336/0857/files/vegamour-01-gro-ageless-gray-delay-hair-supplement-pdp-hero-single-v1.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/vegamour/gro-ageless-gray-delay-hair-supplement.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "A vitamin-rich daily supplement that helps reduce the appearance of new grays for more youthful-looking hair.Helps reduce the appearance of new grays. Supports aging hair from the inside out. Promotes more youthful-looking hair.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "texturisant"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/vegamour/cutout/scalp-scrubber.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "vegamour--gro-ageless-anti-gray-hair-serum",
@@ -746,7 +716,10 @@
    "image_local": "public/scan/products-cheveux/vegamour/gro-ageless-anti-gray-hair-serum.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "chute"
+   ],
    "actifs": [
     "caféine",
     "niacinamide",
@@ -757,10 +730,13 @@
    "ingredients": "Water/Aqua/Eau, Propanediol, Glycerin, Pentylene Glycol, Alcohol Denat., Polyglyceryl-10 Laurate, Niacinamide, Caffeine, Palmitoyl Tetrapeptide-20 Amide, Acetyl Hexapeptide-1, Calcium Pantothenate, Sodium Ascorbyl Phosphate, Pyridoxine HCl, Tocopheryl Acetate, Polygonum Multiflorum Root Extract, Zinc PCA, Maltodextrin, Sodium Starch Octenylsuccinate, Citrus Bergamia Peel Oil Expressed, Glycine Soja (Soybean) Seed Extract, Limonene, Linalool, Citric Acid, Citral, Silica, Sodium Hydroxide, Dextran, Nicotiana Benthamiana sh-Polypeptide-45, Linalyl Acetate, Pinene, Terpinolene, Geranyl Acetate, Beta-caryophyllene, Alpha-Terpinene, Terpineol",
    "description": "A targeted scalp serum that reduces the appearance of new grays and revives youthful vibrancy with peptides, glycoproteins and Fo-Ti.Reduces the appearance of new grays and early signs of hair aging. Supports hair that looks healthier and a scalp that feels nourished. Revives youthful vibrancy and healthy shine.",
    "claims": [
-    "nourrissant",
-    "brillance"
+    "nutrition",
+    "brillance",
+    "anti-age"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/vegamour/cutout/gro-ageless-anti-gray-hair-serum.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "vegamour--gro-scalp-detoxifying-serum",
@@ -775,7 +751,12 @@
    "image_local": "public/scan/products-cheveux/vegamour/gro-scalp-detoxifying-serum.jpg",
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "gras",
+    "chute",
+    "pellicules"
+   ],
    "actifs": [
     "caféine",
     "huile de baobab",
@@ -787,9 +768,12 @@
    "ingredients": "Water/Aqua/Eau, Propanediol, Pentylene Glycol, Glycerin, Sclerocarya Birrea Seed Oil, Alcohol Denat., Adansonia Digitata Seed Oil, Zinc PCA, Dicaprylyl Carbonate, Glycine Soja (Soybean) Oil, Inulin Lauryl Carbamate, Caffeine, Xanthan Gum, Tocopherol, Fragrance/Parfum, Glycine Soja (Soybean) Seed Extract, Sodium Phytate, Limonene, Epilobium Angustifolium Flower/Leaf/Stem Extract, Sodium Hydroxide, sr-Spider Polypeptide-1, Phenoxyethanol, 1,2-Hexanediol, Caprylyl Glycol, Alcohol, Sodium Metabisulfite",
    "description": "A weekly pre-shampoo treatment that clears buildup, removes excess oil and targets visible flakes from dryness for a healthier, more balanced scalp.Gently removes buildup, excess oil and impurities. Targets visible flakes from dryness. Promotes a balanced, healthy scalp environment.",
    "claims": [
-    "purifiant"
+    "purifiant",
+    "anti-gras"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/vegamour/cutout/gro-scalp-detoxifying-serum.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "vegamour--gro-dry-shampoo",
@@ -802,17 +786,23 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/1336/0857/files/vegamour-01-gro-dry-shampoo-pdp-full-size-hero-v1.jpg?width=600",
    "image_local": "public/scan/products-cheveux/vegamour/gro-dry-shampoo.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [],
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "gras"
+   ],
    "actifs": [
     "glycérine",
     "acide lactique"
    ],
    "ingredients": "Isobutane, Hydrofluorocarbon 152a, Oryza Sativa (Rice) Starch, Alcohol Denat., Kaolin, Fragrance/Parfum, Glycerin, Water/Aqua/Eau, (Trifolium Pratense (Clover)/Vigna Radiata) Sprout Extract, Sodium Benzoate, Potassium Sorbate, Cetrimonium Chloride, Distearyldimonium Chloride, Lactic Acid, Isopropyl Alcohol, Citral, Limonene, Linalool, Butane, Propane, Linalyl Acetate, Pinene, Terpinolene, Citrus Aurantium Peel Oil",
    "description": "A plant-powered dry shampoo that absorbs oil, neutralizes odor and refreshes between washes to support overall Hair Wellness®.Instantly absorbs excess oil and neutralizes odor. Extends your style between washes. Supports overall Hair Wellness®. Note: Dry Shampoo products can only be shipped within the continental US.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "anti-gras"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/vegamour/cutout/gro-dry-shampoo.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

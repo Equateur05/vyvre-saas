@@ -65,3 +65,31 @@ Dernière mise à jour : 17/09/2026. 44 marques, 1832 produits. Sources : produc
 - Biotherm, L'Oréal Paris, Carita : défi Cloudflare / anti-robot (403).
 - Laboratoires Vendôme, Garancia, Institut Arnaud, Novexpert : connexion refusée ou délai dépassé.
 - Rilastil : pas de sitemap exploitable ni de prix ; Natura Bissé : pas de site FR, pas d'URL produit dans le sitemap ; Elemis : prix non présent dans la page ; Rodial, Zelens : boutique en GBP seulement ; Lavera : site en allemand seulement. Non faites.
+
+---
+
+## Passe du 19/09/2026 — completion des marques maigres
+
+Objet : les 13 marques du catalogue peau sous 10 produits.
+
+| marque | avant | apres | issue |
+|---|---:|---:|---|
+| guerlain | 1 | 1 | **bloquee** — guerlain.com repond 403 partout (FR, BE, CH, CA, UK, US, DE, IT), sitemaps declares par robots.txt compris, OCAPI compris. Les domaines nationaux qui repondent 200 ne sont pas la marque (domaines parques). guerlain.com.cn est bien officiel mais c'est une SPA : le HTML servi ne contient ni nom, ni prix, ni image. Rien contourne. Detail : `nouvelles/_bloques/guerlain.json`. |
+| givenchy-beauty | 3 | 3 | **bloquee** — givenchybeauty.com 403 ; m.givenchybeauty.com/fr/fr repond 410 ; givenchybeauty.de et .it repondent 200 mais sont de faux outlets, pas LVMH ; givenchy.com n'a aucune page beaute. Detail : `nouvelles/_bloques/givenchy-beauty.json`. |
+| u-beauty | 3 | 3 | **bloquee** — Cloudflare 403 sur tout ubeauty.com, y compris les fiches deja servies. Detail : `nouvelles/_bloques/u-beauty.json`. |
+| lyma | 3 | 4 | gamme visage reelle = 3 soins (serum, creme, mist) ; le reste est laser, complement, recharge ou accessoire. |
+| oneskin | 3 | 5 | gamme visage reelle = 5 produits ; les 76 autres entrees sont corps, levres, cheveux, doublons d'abonnement, recharges, minis et lots. |
+| senka | 4 | 11 | onlineshop.finetoday.com (Fine Today, officiel). Noms officiels japonais + `name_fr` : c'est le `name_fr` qui s'affiche, comme pour les 6 fiches deja presentes. |
+| wishful | 5 | 5 | la collection FR officielle contient exactement les 5 fiches deja servies. |
+| mustela | 6 | 8 | **la gamme VISAGE de Mustela fait reellement 8 produits.** Sur 90 references, tout le reste est corps, bain, cheveux, maternite, solaire corps ou accessoire. |
+| aime | 8 | 6 | ligne visage deja complete ; 2 fiches hors sujet retirees (sticks a boire = complement, patchs yeux reutilisables = accessoire). |
+| rhode | 9 | 9 | catalogue soin visage deja complet sur 112 references ; le reste est levres, maquillage et variantes de packaging. |
+| glossier | 9 | 13 | bascule sur la boutique francophone glossier.com/fr-fr (prix en euros reels, plus de conversion GBP). 2 images « no-image » reparees au passage. |
+| ho-karan | 9 | 11 | ecartes : huiles sublinguales CBD, infusion, ebook, brume d'interieur, duos et routine. |
+| hada-labo | 4 | 31 | jp.rohto.com (proprietaire de la marque), noms officiels japonais + `name_fr`, images officielles. **25 fiches sur 26 sans prix** : Rohto affiche « オープン価格 » (prix libre laisse au revendeur), pas un montant. Le site europeen hadalabotokyo.pl offre 38 fiches de plus mais n'affiche aucun prix et ses images sont injoignables (TLS refuse sur media.dax.com.pl) : elles sont parquees telles quelles dans `nouvelles/_bloques/hada-labo-eu.json`. |
+
+Autres corrections de cette passe :
+- **344 noms tronques repares** (« ... with Hyal… »). Le nom complet etait deja dans les fichiers bruts ; c'est `sortie/` qui etait en retard sur eux. La refusion les a restaures.
+- **`norm_name()` effacait les kana et les kanji** : 8 produits Senka se reduisaient tous a la cle `f` ou `fa` (le suffixe de formule) et fusionnaient en 2. Les caracteres japonais sont desormais conserves, et une cle de moins de 3 caracteres ne sert plus a dedoublonner.
+- **Prix > 500 EUR ou < 2 EUR, 90 fiches revues une par une** sur la page officielle : aucune n'etait fausse. Les prix eleves de La Prairie, Dior, Valmont, Sisley et La Mer sont reels (celui de La Mer est confirme par son prix au litre), les masques coreens a 0,99 EUR aussi. 6 ecarts de quelques euros mis a jour. 17 fiches non revues parce que leur site repond 403.
+- **Aucun coffret ni parfum** dans le catalogue peau : les 47 noms suspects verifies sont des noms de gamme (« Skin Regimen », « Skin essentials », « AC Collection », « The Ritual of Karma ») ou le mot coreen « Pack » qui designe un masque.

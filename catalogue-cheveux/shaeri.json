@@ -3,6 +3,44 @@
  "brand_name": "Shaeri",
  "products": [
   {
+   "id": "shaeri--shampoing",
+   "name": "Shampoing Nourrissant",
+   "brand": "shaeri",
+   "brand_name": "Shaeri",
+   "url": "https://www.shaeri.com/products/shampoing",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 18.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0611/1723/5376/files/Shampoing_rouge_packshot_info.png?v=1759824125",
+   "image_local": "public/scan/products-cheveux/shaeri/shampoing.jpg",
+   "categorie": "shampooing",
+   "etape": 1,
+   "cheveux_cibles": [
+    "secs"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "vitamine E",
+    "beurre de karité",
+    "huile de figue de barbarie",
+    "inuline"
+   ],
+   "ingredients": "Aqua / Water, Cocamidopropyl Betaine, Glycerin, Decyl Glucoside, Butyrospermum Parkii (Shea) Butter, Inulin, Citric Acid, Sodium Benzoate, Chondrus Crispus (Carrageenan) Powder, Xanthan Gum, Parfum / Fragrance, Opuntia Ficus-Indica Seed Oil*, Tocopherol, Squalene, Beta-Sitosterol. *issue de l'agriculture biologique",
+   "description": "Le Shampoing Nourrissant Shaeri nettoie en douceur tout en nourrissant intensément les cheveux secs et texturés. Enrichi en huile de figue de Barbarie et beurre de karité , il hydrate , régénère et laisse les cheveux doux , brillants et souples . Note Yuka : 93/100 Conseils d’utilisation Appliquer sur le cuir chevelu, masser délicatement puis rincer. Mousse peu : c’est normal pour une formule sans sulfates. Bénéfices clés Nourrit et régénère Nettoie sans assécher Redonne douceur et brillance FAQ",
+   "claims": [
+    "hydratation",
+    "nutrition",
+    "texturisant",
+    "brillance",
+    "sans-sulfate"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/shaeri/cutout/shampoing.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
+  },
+  {
    "id": "shaeri--shampoing-light-nourrissant-a-l-huile-de-pepins-figue-de-barbarie",
    "name": "Shampoing Purifiant",
    "brand": "shaeri",
@@ -10,27 +48,187 @@
    "url": "https://www.shaeri.com/products/shampoing-light-nourrissant-a-l-huile-de-pepins-figue-de-barbarie",
    "url_verifiee_le": "2026-09-19",
    "price_eur": 18.0,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0611/1723/5376/files/Shampoing_bleu_packshot_info.png?width=600",
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0611/1723/5376/files/Shampoing_bleu_packshot_info.png?v=1759823649",
    "image_local": "public/scan/products-cheveux/shaeri/shampoing-light-nourrissant-a-l-huile-de-pepins-figue-de-barbarie.jpg",
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "gras"
+    "gras",
+    "fins"
    ],
    "actifs": [
     "glycérine",
-    "huile de figue de barbarie",
-    "acide citrique"
+    "acide citrique",
+    "huile de figue de barbarie"
    ],
    "ingredients": "Aqua / Water, Decyl Glucoside, Glycerin, Cocamidopropyl Betaine, Opuntia Ficus-Indica Flower Extract, Chondrus Crispus (Carrageenan) Powder, Xanthan Gum Sodium Benzoate, Potassium Sorbet, Citric Acid, Parfum (Flagrance) *issue de l'agriculture biologique",
-   "description": "Spécialement formulé pour les cheveux à tendance grasse, le Shampoing Purifiant Shaeri nettoie en douceur tout en rééquilibrant le cuir chevelu. Enrichi en figue de Barbarie, reconnue pour ses propriétés purifiantes et revitalisantes, il aide à réguler l’excès de sébum sans agresser la fibre capillaire. Sa formule sans sulfate, sans silicone et sans PEG laisse les cheveux légers, propres, brillants et visiblement plus volumineux. Note Yuka : 100/100 Conseils d’utilisation Appliquer le shampoing ",
+   "description": "Spécialement formulé pour les cheveux à tendance grasse , le Shampoing Purifiant Shaeri nettoie en douceur tout en rééquilibrant le cuir chevelu. Enrichi en figue de Barbarie , reconnue pour ses propriétés purifiantes et revitalisantes, il aide à réguler l’excès de sébum sans agresser la fibre capillaire. Sa formule sans sulfate, sans silicone et sans PEG laisse les cheveux légers, propres, brillants et visiblement plus volumineux . Note Yuka : 100/100 Conseils d’utilisation Appliquer le shampoi",
    "claims": [
-    "brillance",
     "volume",
-    "purifiant"
+    "purifiant",
+    "anti-gras",
+    "brillance",
+    "sans-sulfate",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/shaeri/cutout/shampoing-light-nourrissant-a-l-huile-de-pepins-figue-de-barbarie.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "shaeri--soin-lavant-et-demelant",
+   "name": "Soin Lavant et Démêlant",
+   "brand": "shaeri",
+   "brand_name": "Shaeri",
+   "url": "https://www.shaeri.com/products/soin-lavant-et-demelant",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 29.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0611/1723/5376/files/Soin_lavant_packshot_info.png?v=1759823744",
+   "image_local": "public/scan/products-cheveux/shaeri/soin-lavant-et-demelant.jpg",
+   "categorie": "apres-shampooing",
+   "etape": 2,
+   "cheveux_cibles": [
+    "secs",
+    "crepus",
+    "abimes"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "vitamine E",
+    "aloe vera",
+    "huile de figue de barbarie"
+   ],
+   "ingredients": "Aqua (Water), Glycerin, Cetearyl Alcohol, Distearoylethyl Dimonium Chloride, C15-19 Alkane, Leuconostoc/Radish Root Ferment Filtrate, Opuntia Ficus-Indica Flower Extract, Aloe Barbadensis Leaf Powder*, Glyceryl Oleate, Squalene, Opuntia Ficus-Indica Seed Oil*, Citrus Limon (Lemon) Peel Oil*, Sclerotium Gum, Coco-Glucoside, Decyl Glucoside, Tocopherol, Beta-Sitosterol, Potassium Sorbate, Sodium Benzoate, Citric Acid, Parfum (Fragrance), Linalool. * ingrédient issu de l’agriculture biologique",
+   "description": "Le Soin Lavant Shaeri est un co-wash doux à 98 % d’origine naturelle, qui lave et démêle en un seul geste. Parfait pour les cheveux secs, frisés ou crépus, il hydrate et nourrit tout en respectant la nature des cheveux. Note Yuka : 86/100 Conseils d’utilisation Appliquer sur cheveux humides, insister sur les longueurs Masser le cuir chevelu, démêler avec les doigts ou un peigne à larges dents Rincer abondamment Astuce : sa faible mousse est normale, la formule reste très efficace pour nettoyer s",
+   "claims": [
+    "hydratation",
+    "nutrition",
+    "demelant"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/shaeri/cutout/soin-lavant-et-demelant.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "shaeri--soin-demelant-light",
+   "name": "Soin Démêlant",
+   "brand": "shaeri",
+   "brand_name": "Shaeri",
+   "url": "https://www.shaeri.com/products/soin-demelant-light",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 24.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0611/1723/5376/files/Soin_demelant_packshot_info.png?v=1759823598",
+   "image_local": "public/scan/products-cheveux/shaeri/soin-demelant-light.jpg",
+   "categorie": "apres-shampooing",
+   "etape": 2,
+   "cheveux_cibles": [
+    "secs",
+    "abimes"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "vitamine E",
+    "huile de figue de barbarie"
+   ],
+   "ingredients": "Aqua (Water), Glycerin, Distearoylethyl Dimonium Chloride, Cetearyl Alcohol, C15-19 Alkane, Leuconostoc/Radish Root Ferment Filtrate, Opuntia Ficus-Indica Flower Extract, Sclerotium Gum, Squalene, Beta-Sitosterol, Tocopherol, Citric Acid, Potassium Sorbate, Sodium Benzoate, Parfum (Fragrance) *ingrédient issu de l’agriculture biologique",
+   "description": "Le Soin Démêlant Shaeri concentre toute la puissance de la figue de Barbarie dans une formule sans silicone et sans sulfate, idéale pour un usage fréquent. Il hydrate la fibre capillaire, facilite le démêlage et aide à prévenir les fourches, sans jamais alourdir. Note Yuka : 100/100 Conseils d’utilisation Après le shampoing, appliquer sur les longueurs. Démêler délicatement aux doigts ou au peigne à larges dents, puis rincer abondamment. Bénéfices clés Hydrate et assouplit les cheveux Répare les",
+   "claims": [
+    "hydratation",
+    "reparation",
+    "demelant",
+    "sans-sulfate",
+    "sans-silicone"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/shaeri/cutout/soin-demelant-light.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "shaeri--soin-quotidien",
+   "name": "Soin Quotidien hydratant et démêlant",
+   "brand": "shaeri",
+   "brand_name": "Shaeri",
+   "url": "https://www.shaeri.com/products/soin-quotidien",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 22.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0611/1723/5376/files/Soin_quotidien_packshot_info.png?v=1759824174",
+   "image_local": "public/scan/products-cheveux/shaeri/soin-quotidien.jpg",
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "secs",
+    "gras",
+    "boucles",
+    "lisses"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "huile de jojoba",
+    "acides aminés",
+    "protéines de soja",
+    "huile de figue de barbarie"
+   ],
+   "ingredients": "Aqua (Water), Glycerin, Brassica Alcohol, Dicaprylyl Carbonate, Prunus Amygdalus Dulcis (Sweat Almond) Oil, Brassicyl Valinate Esylate, Phospholipids, Calcium Gluconate, Glycine Soja (Soybean) Oil, Potassium Sorbate, Sodium Benzoate, Parfum (Fragrance), Simmondsia Chinensis (Jojoba) Seed Oil, Glycolipids, Glycine Soja (Soybean) Sterols, Opuntia Ficus Indica Seed Oil*, Coumarin, Citric Acid. *ingrédient issu de l’agriculture biologique",
+   "description": "Véritable soin iconique, le Soin Quotidien Shaeri hydrate , nourrit et protège les cheveux au quotidien. Enrichi en huile de pépins de figue de Barbarie , huile de jojoba et huile d’amande douce , il apporte douceur, brillance et vitalité sans effet gras. Prix Madame Figaro Beauté Stars Note Yuka : 93/100 Conseils d’utilisation Sur cheveux humides : appliquer avant le séchage pour hydrater et protéger de la chaleur. Sur cheveux secs : utiliser en retouche pour discipliner, raviver les boucles et",
+   "claims": [
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "brillance",
+    "demelant"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/shaeri/cutout/soin-quotidien.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "shaeri--soin-masque-intense",
+   "name": "Soin Masque Intense",
+   "brand": "shaeri",
+   "brand_name": "Shaeri",
+   "url": "https://www.shaeri.com/products/soin-masque-intense",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 39.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0611/1723/5376/files/Masque_soin_intense_packshot_info.png?v=1759824101",
+   "image_local": "public/scan/products-cheveux/shaeri/soin-masque-intense.jpg",
+   "categorie": "masque",
+   "etape": 2,
+   "cheveux_cibles": [
+    "secs",
+    "fins"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "huile de figue de barbarie"
+   ],
+   "ingredients": "Aqua (Water), Glycerin, Distearoylethyl Dimonium Chloride, Cetearyl Alcohol, C15-19 Alkane, Leuconostoc/Radish Rootferment Filtrate, Opuntia Ficus-Indica Flower Extract, Sclerotium Gum, Ethylhexylglycerin, Parfum(Fragrance), Citric Acid, Potassium Sorbate, Sodium Benzoate, Beta-Sitosterol, Squalene",
+   "description": "Concentré de nutrition , le Soin Masque Intense Shaeri hydrate durablement, répare la fibre et redonne vitalité aux cheveux les plus secs. Sa formule riche à la figue de Barbarie agit en profondeur sans alourdir. Note Yuka : 100/100 Conseils d’utilisation Avant shampoing : en pré-masque (5 à 20 min) Après shampoing : en démêlant ou en masque (10 min sous serviette chaude) Bénéfices clés Nourrit intensément Répare et fortifie Redonne souplesse et brillance FAQ À quelle fréquence l’utiliser ? 1 à ",
+   "claims": [
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "brillance",
+    "demelant"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/shaeri/cutout/soin-masque-intense.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "shaeri--creme-de-soin",
@@ -40,34 +238,38 @@
    "url": "https://www.shaeri.com/products/creme-de-soin",
    "url_verifiee_le": "2026-09-19",
    "price_eur": 29.0,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0611/1723/5376/files/Creme_de_soin_packshot_info.png?width=600",
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0611/1723/5376/files/Creme_de_soin_packshot_info.png?v=1759824079",
    "image_local": "public/scan/products-cheveux/shaeri/creme-de-soin.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
     "secs",
     "boucles",
-    "abimes"
+    "crepus"
    ],
    "actifs": [
-    "huile d'argan",
-    "beurre de karité",
+    "glycérine",
+    "acide citrique",
+    "vitamine E",
     "huile de ricin",
     "aloe vera",
-    "glycérine",
-    "huile de figue de barbarie",
-    "vitamine E",
-    "acide citrique"
+    "beurre de karité",
+    "huile d'argan",
+    "huile de figue de barbarie"
    ],
    "ingredients": "Aqua (Water), Glycerin, Distearoylethyl Dimonium Chloride, Cetearyl Alcohol, Butyrospermum Parkii (Shea) Butter, Ricinus Communis (Castor) Seed Oil, Leuconostoc/Radish Root Ferment Filtrate, Aloe Barbadensis Leaf Powder*, Opuntia Ficus-Indica Seed Oil*, Argania Spinosa Kernel Oil*, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Citrus Aurantium Amara (Bitter Orange) Flower Water, Sclerotium Gum, Citric Acid, Tocopherol, Squalene, Beta-Sitosterol, Sodium Benzoate, Potassium Sorbate, Parfum/Fragrance. * Ingrédient issu de l’agriculture biologique",
-   "description": "La Crème de Soin Shaeri est un soin sans rinçage, à 99 % d’ingrédients naturels, qui hydrate, nourrit et répare les cheveux secs, bouclés, frisés ou crépus. Polyvalente, elle s’utilise pour hydrater, définir les boucles, coiffer ou rafraîchir les cheveux tout au long de la semaine. Note Yuka : 100/100 Conseils d’utilisation Appliquer sur cheveux humides ou secs Répartir une noisette sur l’ensemble de la chevelure, insister sur les longueurs Utiliser pour : hydrater, nourrir, définir les boucles,",
+   "description": "La Crème de Soin Shaeri est un soin sans rinçage , à 99 % d’ingrédients naturels, qui hydrate , nourrit et répare les cheveux secs, bouclés, frisés ou crépus. Polyvalente, elle s’utilise pour hydrater , définir les boucles, coiffer ou rafraîchir les cheveux tout au long de la semaine. Note Yuka : 100/100 Conseils d’utilisation Appliquer sur cheveux humides ou secs Répartir une noisette sur l’ensemble de la chevelure, insister sur les longueurs Utiliser pour : hydrater, nourrir, définir les boucl",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "reparateur"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/shaeri/cutout/creme-de-soin.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "shaeri--huile-de-soin",
@@ -77,24 +279,106 @@
    "url": "https://www.shaeri.com/products/huile-de-soin",
    "url_verifiee_le": "2026-09-19",
    "price_eur": 32.0,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0611/1723/5376/files/Huile_de_soin_packshot_info.png?width=600",
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0611/1723/5376/files/Huile_de_soin_packshot_info.png?v=1759824205",
    "image_local": "public/scan/products-cheveux/shaeri/huile-de-soin.jpg",
    "categorie": "huile",
    "etape": 3,
    "cheveux_cibles": [
     "secs",
     "boucles",
-    "abimes"
+    "crepus"
    ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Véritable concentré de nutrition, l’Huile de Soin multi-usages Shaeri associe 5 huiles végétales complémentaires pour nourrir, réparer et régénérer intensément les cheveux secs, bouclés, frisés ou crépus. Formulée à 99,04 % d’ingrédients d’origine naturelle, elle s’utilise aussi bien sur les cheveux que sur le corps et le visage. Son parfum iconique et sa texture sensorielle en font un indispensable addictif. Note Yuka : 93/100 Conseils d’utilisation Bain d’huile : laisser poser 30 min sous bonn",
+   "actifs": [
+    "vitamine E",
+    "huile de jojoba",
+    "huile d'argan",
+    "huile de macadamia",
+    "huile de figue de barbarie"
+   ],
+   "ingredients": "Caprylic/Capric Triglyceride, Carthamus Tinctorius (Safflower) Seed Oil, Macadamia Ternfolia Seed Oil, Argania Spinosa Kernel Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Opuntia Ficus-Indica Seed Oil, Tocopherol, Squalene, Beta-Sitosterol, Parfum (Fragrance) Coumarin. *issue de l'agriculture biologique",
+   "description": "Véritable concentré de nutrition , l’ Huile de Soin multi-usages Shaeri associe 5 huiles végétales complémentaires pour nourrir , réparer et régénérer intensément les cheveux secs, bouclés, frisés ou crépus. Formulée à 99,04 % d’ingrédients d’origine naturelle, elle s’utilise aussi bien sur les cheveux que sur le corps et le visage . Son parfum iconique et sa texture sensorielle en font un indispensable addictif. Note Yuka : 93/100 Conseils d’utilisation Bain d’huile : laisser poser 30 min sous ",
    "claims": [
-    "nourrissant",
-    "reparateur"
+    "nutrition",
+    "reparation",
+    "definition-boucles",
+    "texturisant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/shaeri/cutout/huile-de-soin.webp",
+   "image_fond": true,
+   "ciblage_source": "fiche"
+  },
+  {
+   "id": "shaeri--pure-scrub",
+   "name": "Pure Scrub détoxifiant pour le cuir chevelu",
+   "brand": "shaeri",
+   "brand_name": "Shaeri",
+   "url": "https://www.shaeri.com/products/pure-scrub",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 24.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0611/1723/5376/files/Pure_scrub_packshot_info.png?v=1759824049",
+   "image_local": "public/scan/products-cheveux/shaeri/pure-scrub.jpg",
+   "categorie": "serum-cuir-chevelu",
+   "etape": 4,
+   "cheveux_cibles": [
+    "gras"
+   ],
+   "actifs": [
+    "vitamine E",
+    "aloe vera",
+    "huile de figue de barbarie"
+   ],
+   "ingredients": "Aqua (Water), Lauryl Glucoside, Glyceryl Stearate Se, Cocamidopropyl Betaine, Parfum (Fragrance), Maris Sal (Sea Salt), Aloe Barbadensis Leaf Extract*, Citrus Limon (Lemon) Peel Oil, Opuntia Ficus-Indica Seed Oil*, Tocopherol, Squalene, Beta-Sitosterol, Linalool * ingrédient issu de l’agriculture biologique",
+   "description": "Le Pure Scrub Détoxifiant Shaeri est un gommage essentiel pour un cuir chevelu purifié , équilibré et revitalisé . Sa formule à 98 % d’ingrédients naturels, à base d ’Aloe Vera, sel marin et huile essentielle de citron , élimine les impuretés et résidus tout en respectant la sensibilité du cuir chevelu. Bonus : il peut aussi être utilisé comme gommage corporel. Note Yuka : 86/100 Conseils d’utilisation Appliquer raie par raie sur le cuir chevelu Masser délicatement pour stimuler la microcirculat",
+   "claims": [
+    "purifiant"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/shaeri/cutout/pure-scrub.webp",
+   "image_fond": true,
+   "ciblage_source": "fiche"
+  },
+  {
+   "id": "shaeri--serum-longevity-1",
+   "name": "Sérum Longevity",
+   "brand": "shaeri",
+   "brand_name": "Shaeri",
+   "url": "https://www.shaeri.com/products/serum-longevity-1",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 39.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0611/1723/5376/files/Serum_longevity_texture_nouveaute.png?v=1763547012",
+   "image_local": "public/scan/products-cheveux/shaeri/serum-longevity-1.jpg",
+   "categorie": "serum-cuir-chevelu",
+   "etape": 4,
+   "cheveux_cibles": [
+    "fins"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "vitamine E",
+    "huile de tournesol",
+    "acides aminés",
+    "protéines de soja",
+    "huile d'amla",
+    "huile de figue de barbarie"
+   ],
+   "ingredients": "Aqua (Water), Glycerin, Helianthus annuus (Sunflower) seed oil, Opuntia ficus-indica flower extract, Allium sativum (Garlic) bulb extract, Phyllanthus emblica fruit extract, Propylene glycol, Sodium benzoate, Xanthan gum, Propanediol, C12-20 alkyl glucoside, Gellan gum, C14-22 alcohols,,Glycine soja (Soybean) oil, Citric acid, Potassium sorbate, Tocopherol, Beta-sitosterol, Squalene, Geraniol, Linalool, Parfum (Fragrance),",
+   "description": "Avec le temps, le cuir chevelu se déséquilibre et la fibre capillaire perd en densité , en éclat et en vitalité . Le Sérum Longevity Shaeri est un soin anti-âge capillaire innovant qui agit directement à la racine pour préserver la jeunesse des cheveux et ralentir les signes visibles du vieillissement capillaire. Formulé à partir d’actifs naturels puissants, comme la figue de Barbarie , l’ extrait d’ail et le Kerascalp® (actif breveté issu de l’amla), ce sérum cible les 3 signes majeurs de l’âge",
+   "claims": [
+    "anti-frisottis",
+    "volume",
+    "densifiant",
+    "brillance",
+    "anti-age"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/shaeri/cutout/serum-longevity-1.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   }
  ]
 }

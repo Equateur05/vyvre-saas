@@ -29,10 +29,11 @@ pixels mais **n'a pas passé la validation** : le moteur le garde dans `mesures`
 ```
 
 ```js
-// 1. le questionnaire est posé AVANT le scan (5 questions max)
-const questions = VYVRE_HAIR_ENGINE.QUESTIONS;       // id, libelle, options
-const reponses  = { type_ressenti:'boucles', etat:'colores',
-                    probleme:'secheresse', lavage:'hebdo', age:'25-39' };
+// 1. le questionnaire est posé AVANT le scan — TROIS questions depuis le 19/09/2026
+const questions = VYVRE_HAIR_ENGINE.QUESTIONS;       // type_ressenti, probleme, etat
+const reponses  = { type_ressenti:'boucles', probleme:'secheresse', etat:'colores' };
+// lavage et age ne sont plus demandés. Un appelant qui les possède déjà (fiche institut)
+// peut les passer quand même : VYVRE_HAIR_ENGINE.QUESTIONS_FACULTATIVES les décrit.
 
 // 2. scan (video, image ou canvas). Rien ne sort de l'appareil.
 const r = await VYVRE_HAIR_ENGINE.runHairScan(videoOuImage, {
@@ -52,8 +53,9 @@ else {
 ```
 
 API : `runHairScan`, `analyseFrame(imageData, roi)`, `segmentCheveux(imageData, faceBoxOuLandmarks)`,
-`composerRoutine(scores, reponses, produits, options)`, plus `QUESTIONS`, `VALIDATION`,
-`CE_QUI_EST_MESURE` et toutes les briques exposées pour audit.
+`composerRoutine(scores, reponses, produits, options)`, plus `QUESTIONS`,
+`QUESTIONS_FACULTATIVES`, `VALIDATION`, `CE_QUI_EST_MESURE` et toutes les briques exposées
+pour audit.
 
 Aucune dépendance en dehors de face-api déjà présent. Tout se calcule sur l'appareil.
 
@@ -460,6 +462,78 @@ Ces quatre points sont à corriger dans le catalogue, pas dans le moteur.
 
 ---
 
+## 9.4 Passage à trois questions (19/09/2026) — effet mesuré sur les routines
+
+Le questionnaire passe de cinq à trois questions : **nature ressentie**, **gêne
+principale**, **naturels ou colorés**. La fréquence de lavage et l'âge ne sont plus
+demandés.
+
+Règle appliquée dans le moteur : **aucune valeur par défaut ne remplace une réponse
+absente.** Chaque score ne retient que les signaux réellement présents dans les réponses et
+garde le plus fort ; s'il n'y en a aucun, le score vaut `null` avec ses deux causes
+(`pourquoiNull` : ce qu'a donné la mesure, et le fait que le questionnaire n'informe pas ce
+point). Trois valeurs inventées ont été supprimées au passage :
+
+| Valeur inventée avant | Ce qu'elle affirmait à tort | Maintenant |
+|---|---|---|
+| sécheresse = 0,45 dès qu'une réponse existait | « moyennement sec » sans que rien ne le dise | `null` si ni la gêne ni l'état n'informent |
+| casse = 0,35 dans le même cas | idem | `null` |
+| pellicules = 10 et chute = 10 quand ce n'était pas la gêne principale | « cette personne n'a pas de pellicules » — jamais constaté | `null`, raison `non_declaree_comme_gene_principale` |
+
+### Comparaison avant / après sur les 16 mêmes profils
+
+Chemin réel testé : `mesures` → `composerScores` → `composerRoutine`, catalogue réel de
+474 produits.
+
+| | avant (5 réponses) | après (3 réponses) |
+|---|---|---|
+| Routines complètes (4 produits) | 16 / 16 | **16 / 16** |
+| Doublons d'étape | 0 | **0** |
+| Routines strictement identiques | — | **15 / 16** |
+| Scores lisibles en moins | — | `racinesGrasses` sur 13 profils, `blancs` sur 15 profils |
+
+**La qualité des routines ne baisse pas.** Un seul profil change, « Homme court, chute
+débutante » :
+
+| étape | avant (savait qu'il lave tous les jours) | après (ne le sait plus) |
+|---|---|---|
+| 1 lavage | Jumbo PEPTIDE PREP detox shampoo (K18) | Color Security Shampoo (Color Wow) |
+| 2 soin | Full Conditioner (Living Proof) | Full Conditioner (Living Proof) |
+| 3 sans-rinçage | VOLUMIZING BLOW DRY MIST (Olaplex) | Wave Spray (Ouai) |
+| 4 traitement | RITUEL ANTICHUTE (Leonor Greyl) | RITUEL ANTICHUTE (Leonor Greyl) |
+
+Le shampooing détoxifiant n'était justifié que par « il lave tous les jours ». Cette
+information n'existe plus, donc la justification disparaît avec elle : c'est le
+comportement attendu, pas une régression. Le traitement ciblé, qui est le produit qui
+compte pour ce profil, est identique.
+
+Pour les trois profils dont la gêne principale EST « gras vite », rien ne change : le score
+racines grasses passe simplement de 85 (déduit du lavage quotidien) à 80 (déduit de la gêne
+déclarée), et les quatre produits sont les mêmes.
+
+### Ce que l'on ne sait plus, et qu'il faut assumer à l'écran
+
+- **Racines grasses** : lisible uniquement si « gras vite » est la gêne choisie. Pour tous
+  les autres, le score est `null`. La mesure photo existe mais n'est pas validée (§ 5.6),
+  elle ne peut donc pas compenser.
+- **Cheveux blancs** : plus aucune source. La mesure n'est pas validée (§ 5.3) et l'âge
+  n'est plus demandé : le score est `null` pour tout le monde. Il ne faut pas l'afficher.
+- **Pellicules et chute** : lisibles seulement si c'est la gêne choisie. Ne pas l'avoir
+  choisie ne veut pas dire qu'on ne l'a pas — le moteur ne se prononce plus.
+
+Sans aucune réponse du tout (questionnaire sauté), le moteur reste utilisable : un seul
+score lisible, la boucle, et une routine complète construite sur les cibles produit.
+
+### Faiblesse résiduelle constatée
+
+Pour « Homme court, chute débutante », l'étape 1 retenue est un shampooing de protection de
+la couleur sur des cheveux naturels (note 2,44, retenu pour « cible fins » et « cible
+chute »). Ce n'est pas un contresens mais ce n'est pas idéal : le catalogue ne contient
+aucun shampooing visant à la fois cheveux fins et chute. À corriger côté catalogue, pas
+côté moteur.
+
+---
+
 ## 10. Ce qu'il faut faire ensuite, dans l'ordre
 
 1. **Interdire le scan tête couverte** côté écran, et redire dans le parcours que bonnet,
@@ -470,8 +544,9 @@ Ces quatre points sont à corriger dans le catalogue, pas dans le moteur.
    sont un plancher obtenu sur des photos de presse ; le vrai cas d'usage est plus facile,
    et c'est là qu'il faut décider si la brillance et le frizz redeviennent affichables.
 3. **Ne rien afficher aujourd'hui en dehors de** : la nature de la boucle, la couleur en
-   L\*a\*b\* avec sa classe grossière, la qualité de prise, et les scores déclarés issus du
-   questionnaire. Le reste est dans `mesures` pour l'audit, pas pour l'écran.
+   L\*a\*b\* avec sa classe grossière, la qualité de prise, et les scores déclarés issus des
+   trois questions. Ne pas afficher « cheveux blancs » : depuis le passage à trois
+   questions, plus aucune source ne l'alimente. Le reste est dans `mesures` pour l'audit, pas pour l'écran.
 4. Si la brillance et le frizz sont nécessaires commercialement, il faut **une capture
    guidée** (distance imposée, lumière de face, fond uni) ou une charte de gris dans le
    champ. Sans ça, ils resteront non validés.

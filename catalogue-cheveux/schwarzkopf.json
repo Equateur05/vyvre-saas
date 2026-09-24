@@ -22,7 +22,9 @@
    "ingredients": null,
    "description": "Shampooing Gliss Aqua Revive 250ml cheveux normaux à secs",
    "claims": [],
-   "source": "sitemap schwarzkopf.fr + fiche"
+   "source": "sitemap schwarzkopf.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/schwarzkopf/cutout/shampooing-gliss-aqua-revive-250ml.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "schwarzkopf--shampooing-gliss-blonde-hair-perfector-250ml",
@@ -44,7 +46,9 @@
    "ingredients": null,
    "description": "Shampooing Gliss Blonde Hair Perfector cheveux blonds naturels, colorés ou méchés",
    "claims": [],
-   "source": "sitemap schwarzkopf.fr + fiche"
+   "source": "sitemap schwarzkopf.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/schwarzkopf/cutout/shampooing-gliss-blonde-hair-perfector-250ml.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "schwarzkopf--shampooing-gliss-color-perfector-250ml",
@@ -66,7 +70,9 @@
    "ingredients": null,
    "description": "Shampooing Gliss Color Perfector cheveux colorés ou méchés",
    "claims": [],
-   "source": "sitemap schwarzkopf.fr + fiche"
+   "source": "sitemap schwarzkopf.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/schwarzkopf/cutout/shampooing-gliss-color-perfector-250ml.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "schwarzkopf--gliss-masque-4-en-1-eclat-couleur-400ml",
@@ -90,7 +96,9 @@
    "claims": [
     "brillance"
    ],
-   "source": "sitemap schwarzkopf.fr + fiche"
+   "source": "sitemap schwarzkopf.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/schwarzkopf/cutout/gliss-masque-4-en-1-eclat-couleur-400ml.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "schwarzkopf--shampooing-gliss-full-hair-wonder-250ml",
@@ -105,14 +113,18 @@
    "image_local": "public/scan/products-cheveux/schwarzkopf/shampooing-gliss-full-hair-wonder-250ml.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "chute"
+   ],
    "actifs": [
     "caféine"
    ],
    "ingredients": null,
    "description": "La gamme FULL HAIR WONDER contient des peptides et de la caféine. Ce shampooing est conçu pour laver les cheveux en douceur et activer les racines.",
    "claims": [],
-   "source": "sitemap schwarzkopf.fr + fiche"
+   "source": "sitemap schwarzkopf.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/schwarzkopf/cutout/shampooing-gliss-full-hair-wonder-250ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "schwarzkopf--serum-fortifiant-de-longueurs-gliss-full-hair-wonder-100ml",
@@ -127,16 +139,22 @@
    "image_local": "public/scan/products-cheveux/schwarzkopf/serum-fortifiant-de-longueurs-gliss-full-hair-wonder-100ml.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "abimes",
+    "chute"
+   ],
    "actifs": [
     "caféine"
    ],
    "ingredients": null,
    "description": "La gamme FULL HAIR WONDER contient des peptides et de la caféine. Ce Fortifiant de Longueurs est conçu pour prévenir la casse des cheveux dès la première utilisation grâce au système HAPTIQ.",
    "claims": [
+    "reparation",
     "fortifiant"
    ],
-   "source": "sitemap schwarzkopf.fr + fiche"
+   "source": "sitemap schwarzkopf.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/schwarzkopf/cutout/serum-fortifiant-de-longueurs-gliss-full-hair-wonder-100ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "schwarzkopf--stimulateur-de-racines-gliss-full-hair-wonder-100ml",
@@ -151,14 +169,19 @@
    "image_local": "public/scan/products-cheveux/schwarzkopf/stimulateur-de-racines-gliss-full-hair-wonder-100ml.jpg",
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "chute",
+    "cuir-chevelu-sensible"
+   ],
    "actifs": [
     "caféine"
    ],
    "ingredients": null,
    "description": "La gamme FULL HAIR WONDER contient des peptides et de la caféine. Ce Stimulateur de Racines est conçu pour booster l’activité des follicules pileux aidant ainsi les cheveux à pousser plus vite.",
    "claims": [],
-   "source": "sitemap schwarzkopf.fr + fiche"
+   "source": "sitemap schwarzkopf.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/schwarzkopf/cutout/stimulateur-de-racines-gliss-full-hair-wonder-100ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "schwarzkopf--lait-demelant-express-gliss-soie-liquide-200ml",
@@ -178,9 +201,12 @@
    "ingredients": null,
    "description": "Lait Démêlant Express Gliss Soie Liquide cheveux ternes, rêches, sans éclat",
    "claims": [
-    "brillance"
+    "brillance",
+    "demelant"
    ],
-   "source": "sitemap schwarzkopf.fr + fiche"
+   "source": "sitemap schwarzkopf.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/schwarzkopf/cutout/lait-demelant-express-gliss-soie-liquide-200ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "schwarzkopf--lait-demelant-express-gliss-sos-longueurs-et-pointes-200ml",
@@ -201,8 +227,13 @@
    "actifs": [],
    "ingredients": null,
    "description": "Lait Démêlant Express Gliss SOS Longueurs & Pointes anti-fourches",
-   "claims": [],
-   "source": "sitemap schwarzkopf.fr + fiche"
+   "claims": [
+    "reparation",
+    "demelant"
+   ],
+   "source": "sitemap schwarzkopf.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/schwarzkopf/cutout/lait-demelant-express-gliss-sos-longueurs-et-pointes-200ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "schwarzkopf--shampooing-gliss-sos-longueurs-et-pointes-250ml",
@@ -223,8 +254,12 @@
    "actifs": [],
    "ingredients": null,
    "description": "Shampooing Gliss SOS Longueurs & Pointes anti-fourches",
-   "claims": [],
-   "source": "sitemap schwarzkopf.fr + fiche"
+   "claims": [
+    "reparation"
+   ],
+   "source": "sitemap schwarzkopf.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/schwarzkopf/cutout/shampooing-gliss-sos-longueurs-et-pointes-250ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "schwarzkopf--gliss-huile-de-soin-precieuse-75ml",
@@ -246,8 +281,12 @@
    "actifs": [],
    "ingredients": null,
    "description": "Gliss Huile de Soin Précieuse 75ml cheveux secs et très abîmés",
-   "claims": [],
-   "source": "sitemap schwarzkopf.fr + fiche"
+   "claims": [
+    "reparation"
+   ],
+   "source": "sitemap schwarzkopf.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/schwarzkopf/cutout/gliss-huile-de-soin-precieuse-75ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "schwarzkopf--gliss-masque-4-en-1-nutrition-400ml",
@@ -270,9 +309,14 @@
    "ingredients": null,
    "description": "Lait Démêlant Express Gliss Huile Précieuse cheveux fragilisés, cassants",
    "claims": [
-    "nourrissant"
+    "nutrition",
+    "reparation",
+    "demelant"
    ],
-   "source": "sitemap schwarzkopf.fr + fiche"
+   "source": "sitemap schwarzkopf.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/schwarzkopf/cutout/gliss-masque-4-en-1-nutrition-400ml.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "schwarzkopf--lait-demelant-express-gliss-huile-precieuse-200ml",
@@ -293,8 +337,13 @@
    "actifs": [],
    "ingredients": null,
    "description": "Lait Démêlant Express Gliss Huile Précieuse cheveux fragilisés, cassants",
-   "claims": [],
-   "source": "sitemap schwarzkopf.fr + fiche"
+   "claims": [
+    "reparation",
+    "demelant"
+   ],
+   "source": "sitemap schwarzkopf.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/schwarzkopf/cutout/lait-demelant-express-gliss-huile-precieuse-200ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "schwarzkopf--shampooing-gliss-huile-precieuse-250ml",
@@ -310,13 +359,18 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "secs"
+    "secs",
+    "abimes"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "Shampooing Gliss Ultimate Huile Précieuse cheveux secs et anti-casse",
-   "claims": [],
-   "source": "sitemap schwarzkopf.fr + fiche"
+   "claims": [
+    "reparation"
+   ],
+   "source": "sitemap schwarzkopf.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/schwarzkopf/cutout/shampooing-gliss-huile-precieuse-250ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "schwarzkopf--apres-shampooing-gliss-ultimate-repair-200ml",
@@ -329,8 +383,8 @@
    "price_source": null,
    "image_source_url": "https://dm.henkel-dam.com/is/image/henkel/3178040683181_A1N1_S01",
    "image_local": "public/scan/products-cheveux/schwarzkopf/apres-shampooing-gliss-ultimate-repair-200ml.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
     "secs",
     "abimes"
@@ -339,9 +393,11 @@
    "ingredients": null,
    "description": "Après-shampooing Gliss Ultimate Repair cheveux secs et abîmés",
    "claims": [
-    "reparateur"
+    "reparation"
    ],
-   "source": "sitemap schwarzkopf.fr + fiche"
+   "source": "sitemap schwarzkopf.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/schwarzkopf/cutout/apres-shampooing-gliss-ultimate-repair-200ml.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "schwarzkopf--gliss-masque-4-en-1-reparation-400ml",
@@ -364,9 +420,11 @@
    "ingredients": null,
    "description": "Gliss Masque 4 en 1 Réparation cheveux secs et abîmés",
    "claims": [
-    "reparateur"
+    "reparation"
    ],
-   "source": "sitemap schwarzkopf.fr + fiche"
+   "source": "sitemap schwarzkopf.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/schwarzkopf/cutout/gliss-masque-4-en-1-reparation-400ml.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "schwarzkopf--shampooing-gliss-ultimate-repair-250ml",
@@ -389,9 +447,11 @@
    "ingredients": null,
    "description": "Shampooing Gliss Ultimate Repair cheveux secs et abîmés",
    "claims": [
-    "reparateur"
+    "reparation"
    ],
-   "source": "sitemap schwarzkopf.fr + fiche"
+   "source": "sitemap schwarzkopf.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/schwarzkopf/cutout/shampooing-gliss-ultimate-repair-250ml.webp",
+   "ciblage_source": "fiche"
   }
  ]
 }

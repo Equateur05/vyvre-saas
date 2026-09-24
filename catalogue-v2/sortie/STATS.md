@@ -1,32 +1,32 @@
-# Catalogue v2 - statistiques (sortie du 17/09/2026)
+# Catalogue v2 - statistiques (sortie du 19/09/2026)
 
 - Marques avec produits : **146** (marques.json : 147 entrees, dont Sothys conservee sans produit)
-- Produits : **5883** (sources brutes 5944, doublons URL 50, doublons nom 8, rejets 3)
-- Sans prix : 1085 (18.4 %)
-- Sans INCI (champ vide) : 2861
-- Sans INCI exploitable (vide ou moins de 5 ingredients) : 3153 (53.6 %)
+- Produits : **5926** (sources brutes 5985, doublons URL 50, doublons nom 6, rejets 3)
+- Sans prix : 1110 (18.7 %)
+- Sans INCI (champ vide) : 2894
+- Sans INCI exploitable (vide ou moins de 5 ingredients) : 3188 (53.8 %)
 - Sans image : 26
-- Marques retirees de marques.json : blueprint, cult-beauty, diptyque, elysium, neko-health, oh-my-cream, roger-gallet, sephora, space-nk, tally-health, ulta
+- Marques retirees de marques.json : 
 
 ## Par univers
 
 | valeur | produits | marques |
 |---|---:|---:|
-| normal | 1716 | 46 |
-| petit-prix | 1652 | 36 |
-| luxe | 1369 | 37 |
-| pharmacie | 1146 | 27 |
+| normal | 1722 | 46 |
+| petit-prix | 1686 | 36 |
+| luxe | 1370 | 37 |
+| pharmacie | 1148 | 27 |
 
 ## Par pays
 
 | valeur | produits | marques |
 |---|---:|---:|
-| FR | 2217 | 52 |
-| US | 1248 | 34 |
+| FR | 2219 | 52 |
+| US | 1254 | 34 |
 | KR | 1003 | 22 |
-| GB | 317 | 10 |
+| GB | 318 | 10 |
+| JP | 209 | 7 |
 | IT | 184 | 3 |
-| JP | 175 | 7 |
 | DE | 173 | 4 |
 | CH | 172 | 4 |
 | ES | 165 | 3 |
@@ -41,26 +41,23 @@
 
 | valeur | produits | marques |
 |---|---:|---:|
-| creme | 1430 | 144 |
-| serum | 1088 | 137 |
-| nettoyant | 876 | 138 |
-| masque | 535 | 113 |
-| solaire-visage | 523 | 111 |
-| contour-yeux | 516 | 136 |
-| lotion | 445 | 113 |
-| exfoliant | 276 | 103 |
-| huile | 133 | 63 |
-| autre-visage | 61 | 36 |
+| creme | 1444 | 144 |
+| serum | 1092 | 139 |
+| nettoyant | 885 | 139 |
+| masque | 537 | 114 |
+| solaire-visage | 524 | 112 |
+| contour-yeux | 517 | 136 |
+| lotion | 454 | 114 |
+| exfoliant | 277 | 104 |
+| huile | 134 | 63 |
+| autre-visage | 62 | 37 |
 
 ## Marques avec moins de 5 produits
 
 - guerlain : 1
 - givenchy-beauty : 3
-- lyma : 3
-- oneskin : 3
 - u-beauty : 3
-- hada-labo : 4
-- senka : 4
+- lyma : 4
 
 ## Rejets
 

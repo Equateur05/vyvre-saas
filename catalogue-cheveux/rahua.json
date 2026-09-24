@@ -3,542 +3,1346 @@
  "brand_name": "Rahua",
  "products": [
   {
-   "id": "rahua--rahua-rebalance-conditioner",
-   "name": "Rebalance Conditioner",
-   "brand": "rahua",
-   "brand_name": "Rahua",
-   "url": "https://rahua.com/products/rahua-rebalance-conditioner",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 36.8,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0067/5266/5673/files/Rebalance_Conditioner_PDP_4x5_1.png?width=600",
-   "image_local": "public/scan/products-cheveux/rahua/rahua-rebalance-conditioner.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
-   "cheveux_cibles": [
-    "gras"
-   ],
-   "actifs": [
-    "glycérine",
-    "huile de tournesol",
-    "huile de rahua",
-    "acide citrique"
-   ],
-   "ingredients": "Water/Aqua/Eau, Behentrimonium Methosulfate, Cetearyl Alcohol^, Glycerin^, Helianthus Annuus (Sunflower) Seed Oil^, Stearalkonium Chloride, Oenocarpus Bataua (Ungurahua) Fruit Oil^, Plukentia Volubulis (Sacha Inchi) Seed Oil*^, Ilex Guayusa Leaf Extract*^, Calendula Officinalis Flower Extract*^, Magnesium Chloride, Potassium Sorbate, Citric Acid^ (*Denotes Organic ingredients, ^Plant derived ingredients) View full details",
-   "description": "A lightweight conditioner that replenishes moisture while helping restore balance to oily or buildup-prone scalps. Calendula supports stronger, healthier-looking hair by helping clear follicles, magnesium chloride helps balance the scalp while improving circulation, and omega-rich sacha inchi nourishes without weighing hair down. Hair is left refreshed, hydrated, and balanced after every wash. Best For: Mildly Sensitive Skin and Scalp Buildup",
-   "claims": [
-    "hydratant",
-    "nourrissant"
-   ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "rahua--rebalance-shampoo",
-   "name": "Rebalance Shampoo",
-   "brand": "rahua",
-   "brand_name": "Rahua",
-   "url": "https://rahua.com/products/rebalance-shampoo",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 34.96,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0067/5266/5673/files/Rebalance_Shampoo_PDP_4x5_1.png?width=600",
-   "image_local": "public/scan/products-cheveux/rahua/rebalance-shampoo.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [],
-   "actifs": [
-    "glycérine",
-    "huile de rahua",
-    "acide citrique"
-   ],
-   "ingredients": "Water/Aqua/Eau, Sodium C14-16 Olefin Sulfonate^, Cocamidopropyl Betaine, Sodium Chloride (Sea Salt), Glycerin^, Oenocarpus Bataua (Ungurahua) Fruit Oil^, Plukentia Volubulis (Sacha Inchi) Seed Oil*^, Ilex Guayusa Leaf Extract*^, Calendula Officinalis Flower Extract*^, Magnesium Chloride, Potassium Sorbate, Citric Acid^(*Denotes Organic ingredients, ^Plant derived ingredients) View full details",
-   "description": "A balancing shampoo that gently removes excess oil and buildup without stripping the scalp. Calendula helps support healthy hair growth by strengthening follicles, magnesium chloride detoxifies while restoring scalp balance, and omega-rich sacha inchi replenishes moisture to keep hair soft and healthy. The result is a refreshed scalp and clean, lightweight strands. Best For: Mildly Sensitive Skin and Scalp BuildupMildly Sensitive Skin and Scalp Buildup",
-   "claims": [
-    "hydratant",
-    "purifiant",
-    "fortifiant"
-   ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "rahua--leave-in-treatment",
-   "name": "Leave-In Treatment",
-   "brand": "rahua",
-   "brand_name": "Rahua",
-   "url": "https://rahua.com/products/leave-in-treatment",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 44.16,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0067/5266/5673/files/01_Rahua_Leave_In_Treatment.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/rahua/leave-in-treatment.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [
-    "epais"
-   ],
-   "actifs": [
-    "panthénol",
-    "huile de coco",
-    "beurre de karité",
-    "huile de jojoba",
-    "aloe vera",
-    "glycérine",
-    "huile de tournesol",
-    "huile de rahua",
-    "thé vert",
-    "romarin"
-   ],
-   "ingredients": "Aqua, Organic Camellia Sinensis (Green Tea) Leaf Extract, Organic Rosmarinus Officinalis (Rosemary) Leaf Extract, Organic Rubus Idaeus (Raspberry) Leaf Extract, Organic Aloe Barbadensis Leaf Extract, Oenocarpus Bataua (Rahua Ungurahua) Oil, Behentrimonium Methosulfate, Cetearyl Alcohol (Coconut Oil), Helianthus Annuus (Sunflower) Seed Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Glycerin, Butyrospermum Parkii (Shea Butter), Stearalkonium Chloride, Organic Molasses, Panthenol, Glycine, Bursera Graveolens (Palo Santo) Oil, Vanilla Planifolia Fruit Extract, Potassium Sorbate, Organic Hydrolyzed Quinoa. View full details",
-   "description": "A restorative leave-in treatment that strengthens, smooths, and protects hair while helping prevent breakage and frizz. High concentrations of rahua oil fortify strands from within, quinoa protein improves elasticity to help reduce future damage, and raspberry leaf attracts moisture to smooth flyaways while enhancing shine. Hair is left softer, stronger, and noticeably healthier-looking with every use.Best for: Medium to ThickNatural Notes: Sizes 3.3 oz and under are final sale and cannot be ret",
-   "claims": [
-    "hydratant",
-    "brillance",
-    "lissant",
-    "fortifiant"
-   ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "rahua--hydration-shampoo",
-   "name": "Hydration Shampoo",
-   "brand": "rahua",
-   "brand_name": "Rahua",
-   "url": "https://rahua.com/products/hydration-shampoo",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 34.96,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0067/5266/5673/files/Hydration_Shampooo_9.3_PDP_1.png?width=600",
-   "image_local": "public/scan/products-cheveux/rahua/hydration-shampoo.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [
-    "epais",
-    "boucles"
-   ],
-   "actifs": [
-    "aloe vera",
-    "glycérine",
-    "acides aminés",
-    "huile de rahua",
-    "acide lactique"
-   ],
-   "ingredients": "Water (Aqua), Mangifera Indica (Mango) Fruit Extract*^, Passiflora Incarnata Fruit Extract*^, Aloe Barbadensis Leaf Extract*^, Sodium Cocoyl Isethionate, Cocamidopropyl Betaine, Sodium Methyl Cocoyl Taurate, Sodium Cocoyl Glutamate^, Disodium Cocoyl Glutamate^, Sodium Chloride, Glycerin^, Lactic Acid^, Hydroxyethylcellulose^, Mauritia Flexuosa (Morete) Fruit Oil*^, Oenocarpus Bataua (Ungurahua) Fruit Oil^, Plukenetia Volubilis (Sacha Inchi) Seed Oil*^, Capryloyl Glycine, Guar Hydroxypropyltrimonium Chloride, Hydrolyzed Quinoa^, Coco-Caprylate^, Xanthan Gum^, Arginine^, Kaolin, Sucrose^, Cymbopogon Nardus (Citronella) Oil^, Fragrance (Parfum)†, Potassium Sorbate (*Denotes Organic ingredients, ^Plant derived ingredients, †Naturally derived blend) View full details",
-   "description": "A deeply hydrating shampoo that gently cleanses while restoring softness to dry, thick, or textured hair. Mango sugars attract and retain moisture, omega-rich sacha inchi replenishes hydration while enhancing shine, and rose clay helps improve moisture absorption to reduce frizz and boost manageability. Hair is left clean, smooth, and deeply nourished without sacrificing softness.Best for: Dry, Thick, Curly HairNatural Notes: Sizes 3.3 oz and under are final sale and cannot be returned or exchan",
-   "claims": [
-    "hydratant",
-    "nourrissant",
-    "brillance",
-    "lissant"
-   ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "rahua--aloe-vera-shampoo",
-   "name": "Aloe Vera Shampoo",
-   "brand": "rahua",
-   "brand_name": "Rahua",
-   "url": "https://rahua.com/products/aloe-vera-shampoo",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 34.96,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0067/5266/5673/files/Aloe_Shampoo_9.3_PDP_1.png?width=600",
-   "image_local": "public/scan/products-cheveux/rahua/aloe-vera-shampoo.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [
-    "cuir-chevelu-sensible"
-   ],
-   "actifs": [
-    "aloe vera",
-    "glycérine",
-    "huile de rahua",
-    "thé vert",
-    "acide citrique"
-   ],
-   "ingredients": "Water/Aqua/Eau, Sodium C14-16 Olefin Sulfonate^, Cocamidopropyl Betaine, Sodium Chloride (Sea Salt), Glycerin^, Hamamelis Virginiana (Witch Hazel) Leaf Extract^, Oenocarpus Bataua (Ungurahua) Fruit Oil^, Mauritia Flexuosa (Morete) Fruit Oil*^, Plukenetia Volubilis (Sacha Inchi) Seed Oil*^, Aloe Barbadensis Leaf Extract*^, Ilex Guayusa Leaf Extract*^, Cucumis Sativus (Cucumber) Fruit Extract*^, Hydrolyzed Quinoa^, Medicago Sativa (Alfalfa) Extract^, Calendula Extract*^, Camellia Sinensis (Green Tea) Leaf Extract*^, Fragrance/Parfum†, Glycine^, Citric Acid^, Potassium Sorbate (*Denotes Organic ingredients, ^Plant derived ingredients, †Naturally derived fragrance blend) View full deta",
-   "description": "A soothing shampoo that gently cleanses while helping restore balance to dry, irritated scalps. Aloe vera deeply hydrates, witch hazel helps calm irritation and reduce excess oil, and antioxidant-rich guayusa protects against everyday environmental stressors. Hair is left refreshed, healthier-looking, and comfortably hydrated with every wash—never stripped or weighed down.Best for: Dry, Irritated ScalpNatural Notes: Sizes 3.3 oz and under are final sale and cannot be returned or exchanged.",
-   "claims": [
-    "hydratant",
-    "apaisant"
-   ],
-   "source": "products.json + fiche produit"
-  },
-  {
    "id": "rahua--aloe-vera-conditioner",
    "name": "Aloe Vera Conditioner",
    "brand": "rahua",
    "brand_name": "Rahua",
-   "url": "https://rahua.com/products/aloe-vera-conditioner",
+   "url": "https://rahua.eu/fr/products/aloe-vera-conditioner",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 36.8,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0067/5266/5673/files/Aloe_Conditioner_9.3_PDP_1.png?width=600",
+   "price_eur": 42.5,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/Aloe_Conditioner_9.3_PDP_1_a34cac30-4cee-4003-9188-03a05d7d0fb4.png?width=600",
    "image_local": "public/scan/products-cheveux/rahua/aloe-vera-conditioner.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "epais",
+    "secs",
+    "fins",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
+    "glycérine",
+    "acide citrique",
     "panthénol",
+    "aloe vera",
+    "huile de tournesol",
     "beurre de karité",
     "huile de jojoba",
-    "aloe vera",
-    "glycérine",
-    "huile de tournesol",
-    "huile de rahua",
-    "thé vert",
-    "acide citrique"
+    "thé vert"
    ],
-   "ingredients": "Water/Aqua/Eau, Behentrimonium Methosulfate, Glycerin^, Cetyl Alcohol^, Cetearyl Alcohol^, Stearalkonium Chloride, Oenocarpus Bataua (Ungurahua) Fruit Oil^, Mauritia Flexuosa (Morete) Fruit Oil*^, Plukenetia Volubilis (Sacha Inchi) Seed Oil*^, Aloe Barbadensis Leaf Extract*^, Ilex Guayusa Leaf Extract*^, Cucumis Sativus (Cucumber) Fruit Extract*^, Butyrospermum Parkii (Shea) Butter^, Simmondsia Chinensis (Jojoba) Oil^, Helianthus Annuus (Sunflower) Seed Oil^, Medicago Sativa (Alfalfa) Extract^, Camellia Sinensis (Green Tea) Leaf Extract*^, Hydrolyzed Quinoa^, Calendula Extract*, Fragrance/Parfum†, Panthenol^, Citric Acid^, Potassium Sorbate (*Denotes Organic ingredients, ^Plant derived ingredients, †Naturally derived fragrance blend) View full deta",
-   "description": "A lightweight conditioner that hydrates, softens, and helps restore comfort to dry, irritated scalps. Aloe vera replenishes moisture while smoothing strands, witch hazel helps calm excess oil and irritation, and antioxidant-rich guayusa protects against environmental stress while supporting overall scalp health. Hair is left soft, healthy-looking, and hydrated without feeling weighed down.Best for: Dry, Irritated ScalpNatural Notes: Sizes 3.3 oz and under are final sale and cannot be returned or",
+   "ingredients": "Water/Aqua/Eau, Behentrimonium Methosulfate, Glycerin^, Cetyl Alcohol^, Cetearyl Alcohol^, Stearalkonium Chloride, Oenocarpus Bataua (Ungurahua) Fruit Oil^, Mauritia Flexuosa (Morete) Fruit Oil*^, Plukenetia Volubilis (Sacha Inchi) Seed Oil*^, Aloe Barbadensis Leaf Extract*^, Ilex Guayusa Leaf Extract*^, Cucumis Sativus (Cucumber) Fruit Extract*^, Butyrospermum Parkii (Shea) Butter^, Simmondsia Chinensis (Jojoba) Oil^, Helianthus Annuus (Sunflower) Seed Oil^, Medicago Sativa (Alfalfa) Extract^, Camellia Sinensis (Green Tea) Leaf Extract*^, Hydrolyzed Quinoa^, Calendula Extract*, Fragrance/Parfum†, Panthenol^, Citric Acid^, Potassium Sorbate (*Denotes Organic ingredients, ^Plant derived ingredients, †Naturally derived fragrance blend) Afficher tous les détails playCurrentVideo()); }\"> Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Aloe Vera Conditioner selectedPrice\"> Choose your size 9.3 oz 3.3 oz Add to Cart Shop Now How to use After shampooing with Aloe Vera Shampoo, apply to mid-lengths and ends. Allow to remain on hair for 2-3 minutes to maximize soothing benefits, then rinse thoroughly. Follow with the Scalp & Skin Toner as a final cleansing step in your routine. Key Ingredients Aloe Vera Hydrates and nourishes, bringing renewed vibrancy to damaged and lackluster hair",
+   "description": "This gentle conditioning formula complements our Aloe Vera Shampoo with a perfectly balanced approach to moisture and scalp wellness. Crafted with aloe vera that provides essential hydration without heaviness, while cucumber extract delivers refreshing comfort to sensitive scalps. Rainforest-grown oils, including rahua, morete, and sacha inchi, penetrate to strengthen and protect from within, while shea butter and jojoba oil seal in moisture without weighing hair down. The result is softer, smoo",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "products.json + fiche produit"
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/aloe-vera-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
-   "id": "rahua--defining-hair-spray",
-   "name": "Defining Hair Spray",
+   "id": "rahua--aloe-vera-hair-gel",
+   "name": "Aloe Vera Hair Gel",
    "brand": "rahua",
    "brand_name": "Rahua",
-   "url": "https://rahua.com/products/defining-hair-spray",
+   "url": "https://rahua.eu/fr/products/aloe-vera-hair-gel",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 41.4,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0067/5266/5673/files/Rahua_Defining_Hair_Spray_1.png?width=600",
-   "image_local": "public/scan/products-cheveux/rahua/defining-hair-spray.jpg",
+   "price_eur": 38.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/AloeGel_PDP_1.png?width=600",
+   "image_local": "public/scan/products-cheveux/rahua/aloe-vera-hair-gel.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "boucles",
+    "crepus",
+    "abimes",
+    "cuir-chevelu-sensible"
+   ],
    "actifs": [
-    "aloe vera",
     "glycérine",
-    "thé vert",
-    "acide citrique"
+    "acide citrique",
+    "aloe vera"
    ],
-   "ingredients": "Aqua, Organic Aloe Barbadensis (Aloe Vera) Leaf Juice, Alcohol (SDA 38B Lavender Oil) Lavandula Angustifolia, Sucrose, Caprylyl/Capryl Glycosides*, Sodium Cocoyl Glutamate*, Polyglyceryl-5 Oleate*, Glyceryl Caprylate*, Citric Acid*, Maltodextrin/VP Copolymer, Lavandula Hybrida (Lavandin) Oil, Citrus Bergamia (Bergamot Orange) Oil, Bursera Graveolens (Palo Santo) Oil, Pelargonium Graveolens (Gernanium) Flower Oil, Gardenia Jasminoides (Gardenia Enfleurage) Oil, Pogostemon Cablin (Patchouli) Oil, Citral, Citronellol, Geraniol, Limonene, Glycerin, Camellia Sinensis (Green Tea) Leaf Extract. *Denotes plant derived ing",
-   "description": "A flexible finishing spray that locks in styles while maintaining natural movement and touchable hold. Natural sugar cane provides lasting definition and bounce, restorative aloe vera smooths and hydrates strands, and antioxidant-rich green tea helps protect against environmental stressors that can dull hair over time. The result is polished, brushable hold with shine that never feels stiff or sticky.Best for: All Hair TypesNatural Notes: Sizes 3.3 oz and under are final sale and cannot be retur",
+   "ingredients": "Aqua, Herbal Infusion of Organic Aloe Barbadensis Leaf Extract, Organic Ilex Guayusa Leaf Extract, Organic Cucumis Sativus (Cucumber Fruit) Extract, Sucrose (Brown Sugar Cane), Hydroxyethyl Cellulose, Caprylhydroxamic acid and Glyceryl Caprylate, Oenocarpus Bataua (Rahua Ungurahua) Oil, Natural Aroma, Vegetable Glycerin, Chlorophyll, Xanthan gum*, Plukenetia Volubilis (Sacha Inchi) Seed Oil, Citric Acid*. *Denotes plant derived ingredient Afficher tous les détails playCurrentVideo()); }\"> Aloe Vera Hair Gel selectedPrice\"> Choose your size 4 oz - Sold Out 0.74 oz Add to Cart Shop Now How to use For flexible hold, apply to towel-dried hair and work through strands evenly. Style as desired, either air drying for natural texture or blow drying for a smoother finish. Perfect for creating sleek, pulled-back styles or enhancing natural waves and curls. Can be applied to damp hair before styling to minimize frizz and add definition. Key Ingredients Rahua Oil Amazonian tree nut oil with superfine molecules that fortify strands, help maintain scalp health, and lock in color. Sustainably harvested through our Symbiotic® partnerships. Aloe Vera Hydrates and nourishes, bringing renewed vibrancy to damaged and lackluster hair. Guayusa Antioxidant-rich Amazonian plant that revitalizes hair and protects against environmental stressors. Sugar Cane Natural styling agent that provides hold, definition, and shine without synthetic ingredients. Sacha Inchi Exceptionally rich in omega-3 fatty acids, this ancient seed oil locks in moisture while soothing the scalp. \"This is even better than what I used... makes my curls defined and glossy, but not stiff. 10/10!\" —Morgan T. Read all reviews Complete The Ritual Aloe Vera Hair Mousse Add to cart — € 46.00 Saving the rainforest, one bottle at a time Since starting in 2008",
+   "description": "This innovative reinvention of traditional hair gel delivers both style and substance through plant-powered nutrition. Formulated as a \"green juice\" for hair, this lightweight gel combines aloe vera's healing properties with cucumber's refreshing hydration and sugarcane's natural hold. Rainforest-grown rahua oil penetrates to repair damage while guayusa, containing twice the antioxidants of green tea, protects against environmental stressors. The result is defined, smooth styles with natural mov",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant",
+    "apaisant-cuir-chevelu",
     "brillance",
-    "lissant",
-    "definition-boucles"
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/aloe-vera-hair-gel.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rahua--aloe-vera-hair-mousse",
    "name": "Aloe Vera Hair Mousse",
    "brand": "rahua",
    "brand_name": "Rahua",
-   "url": "https://rahua.com/products/aloe-vera-hair-mousse",
+   "url": "https://rahua.eu/fr/products/aloe-vera-hair-mousse",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 34.96,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0067/5266/5673/files/AloeMousse_PDP_1.png?width=600",
+   "price_eur": 46.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/AloeMousse_PDP_1.png?width=600",
    "image_local": "public/scan/products-cheveux/rahua/aloe-vera-hair-mousse.jpg",
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "secs",
+    "fins",
+    "boucles",
+    "abimes",
+    "cuir-chevelu-sensible"
+   ],
+   "actifs": [
+    "glycérine",
+    "aloe vera"
+   ],
+   "ingredients": "Aqua, Herbal Infusion of Organic Aloe Barbadensis Leaf Extract, Organic Ilex Guayusa Leaf Extract, Organic Cucumis Sativus (Cucumber Fruit) Extract, Maltodextrin PV Copolymer*, Disodium Cocoyl Glutamate*, Vegetable Glycerin, Caprylhydroxamic Acid*, Glyceryl Caprylate*, Sucrose (Brown Sugarcane), Oenocarpus Bataua (Rahua Ungurahua) Oil, Xanthan Gum*, Chlorophyll, Natural Aroma*, Organic Plukenetia Volubilis (Sacha Inchi) Seed Oil. *Denotes plant derived ingredient Afficher tous les détails playCurrentVideo()); }\"> Aloe Vera Hair Mousse selectedPrice\"> Add to Cart Shop Now How to use Apply a pump to towel-dried hair and distribute evenly from roots to tips. Style as desired – blow dry with a round brush for maximum volume, pull back for sleek looks, or scrunch and air dry to enhance natural waves and curls. For extra volume, focus application at the roots before styling. Clinical Results 95% said hair felt soft and touchable 94% said mousse felt weightless in their hair 87% saw enhanced natural texture Key Ingredients Aloe Vera Hydrates and nourishes, bringing renewed vibrancy to damaged and lackluster hair. Guayusa Antioxidant-rich Amazonian plant that revitalizes hair and protects against environmental stressors. Sugar Cane Natural styling agent that provides hold, definition, and shine without synthetic ingredients. Rahua Oil Amazonian tree nut oil with superfine molecules that fortify strands, help maintain scalp health, and lock in color. Sustainably harvested through our Symbiotic® partnerships. Sacha Inchi Exceptionally rich in omega-3 fatty acids, this ancient seed oil locks in moisture while soothing the scalp. \"This brand is amazing. It’s clean and works wonders. My hair has never looked or felt better.\" —Jessica M Read all reviews Saving the rainforest, one bottle at a time Since starting in 2008",
+   "description": "This innovative alcohol-free mousse transforms from liquid to airy foam, creating effortless body and movement without stiffness or buildup. Formulated with aloe vera that smooths and strengthens while sugarcane provides natural hold and definition. Rainforest-grown guayusa, rich in vitamin B3 and antioxidants, protects against environmental damage while Rahua oil penetrates to nourish from within. The result is volumized, styled hair with enhanced shine and bounce that feels touchably soft. Per",
+   "claims": [
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
+    "volume",
+    "texturisant",
+    "apaisant-cuir-chevelu",
+    "purifiant",
+    "brillance",
+    "fixation"
+   ],
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/aloe-vera-hair-mousse.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "rahua--aloe-vera-shampoo",
+   "name": "Aloe Vera Shampoo",
+   "brand": "rahua",
+   "brand_name": "Rahua",
+   "url": "https://rahua.eu/fr/products/aloe-vera-shampoo",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 40.5,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/Aloe_Shampoo_9.3_PDP_1.png?width=600",
+   "image_local": "public/scan/products-cheveux/rahua/aloe-vera-shampoo.jpg",
+   "categorie": "shampooing",
+   "etape": 1,
+   "cheveux_cibles": [
+    "secs",
+    "cuir-chevelu-sensible"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "aloe vera",
+    "acides aminés",
+    "thé vert"
+   ],
+   "ingredients": "Water/Aqua/Eau, Sodium C14-16 Olefin Sulfonate^, Cocamidopropyl Betaine, Sodium Chloride (Sea Salt), Glycerin^, Hamamelis Virginiana (Witch Hazel) Leaf Extract^, Oenocarpus Bataua (Ungurahua) Fruit Oil^, Mauritia Flexuosa (Morete) Fruit Oil*^, Plukenetia Volubilis (Sacha Inchi) Seed Oil*^, Aloe Barbadensis Leaf Extract*^, Ilex Guayusa Leaf Extract*^, Cucumis Sativus (Cucumber) Fruit Extract*^, Hydrolyzed Quinoa^, Medicago Sativa (Alfalfa) Extract^, Calendula Extract*^, Camellia Sinensis (Green Tea) Leaf Extract*^, Fragrance/Parfum†, Glycine^, Citric Acid^, Potassium Sorbate (*Denotes Organic ingredients, ^Plant derived ingredients, †Naturally derived fragrance blend) Afficher tous les détails playCurrentVideo()); }\"> Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Aloe Vera Shampoo selectedPrice\"> Choose your size 9.3 oz 3.3 oz Add to Cart Shop Now How to use Apply to thoroughly wet hair and massage into scalp using gentle circular motions to stimulate circulation and enhance the balancing benefits. Allow the formula to remain on the scalp briefly before rinsing completely. Double cleanse for richer lather. Follow with Aloe Vera Conditioner. For best results, use regularly as part of your scalp wellness routine. Key Ingredients Aloe Vera Hydrates and nourishes",
+   "description": "This restorative shampoo helps to address scalp concerns while providing gentle cleansing for all hair types. Formulated with a calming blend of aloe vera that reduces inflammation, cucumber extract for refreshing hydration, witch hazel that balances the scalp's natural mantle while restoring balance to the skin barrier, and guayusa leaf for antioxidant protection. Its gentle toning action helps remove impurities, including dirt, oil, product buildup, bacteria, and pollution, while creating a re",
+   "claims": [
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "apaisant-cuir-chevelu",
+    "purifiant",
+    "anti-jaunissement",
+    "anti-pollution"
+   ],
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/aloe-vera-shampoo.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "rahua--apres-shampooing-volumineux-rahua",
+   "name": "Après-shampooing volumineux Rahua",
+   "brand": "rahua",
+   "brand_name": "Rahua",
+   "url": "https://rahua.eu/fr/products/voluminous-conditioner",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 42.5,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/Voluminous_Conditioner_9.3_PDP_1.png?width=600",
+   "image_local": "public/scan/products-cheveux/rahua/apres-shampooing-volumineux-rahua.jpg",
+   "categorie": "apres-shampooing",
+   "etape": 2,
+   "cheveux_cibles": [
+    "secs",
+    "fins",
+    "colores",
+    "abimes",
+    "cuir-chevelu-sensible"
+   ],
+   "actifs": [
+    "glycérine",
+    "panthénol",
+    "aloe vera",
+    "beurre de karité",
+    "huile de jojoba",
+    "acides aminés",
+    "romarin",
+    "thé vert"
+   ],
+   "ingredients": "Water (Aqua), Aloe Barbadensis Leaf Extract*^, Behentrimonium Methosulfate, Glycerin^, Simmondsia Chinensis (Jojoba) Seed Oil^, Capryloyl Glycine, Cetearyl Alcohol^, Rosmarinus Officinalis (Rosemary) Leaf Extract*^, Oenocarpus Bataua (Ungurahua) Fruit Oil^, Stearalkonium Chloride, Butyrospermum Parkii (Shea) Butter^, Camellia Sinensis (Green Tea) Leaf Extract*^, Cymbopogon Schoenanthus (Lemongrass) Extract*^, Eucalyptus Globulus Leaf Oil*^, Lavandula Angustifolia (Lavender) Oil*^, Hydrolyzed Quinoa^, Panthenol^, Potassium Sorbate (*Denotes Organic ingredients, ^Plant derived ingredients) Afficher tous les détails playCurrentVideo()); }\"> Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Après-shampooing volumineux Rahua selectedPrice\"> Choose your size 9.3 oz 18 oz - Sold Out 2 oz 3.3 oz - Sold Out 0.74 oz - Sold Out Add to Cart Shop Now How to use After shampooing, apply a small amount from mid-lengths to ends, using less for fine hair. Leave in for 3 minutes, then rinse thoroughly. For co-washing, massage a generous amount into wet hair and scalp, then rinse well. Ideal for alternating with Classic Shampoo to maintain volume between washes. Key Ingredients Rahua Oil Amazonian tree nut oil with superfine molecules that fortify strands, help maintain scalp health, and lock in color",
+   "description": "Un complément nourrissant à notre Shampooing Volumineux. Cet après-shampooing volumineux rend les cheveux brillants, soyeux et pleins de corps et de rebond. Associé à la lavande apaisante et l'eucalyptus remontant, il procure une expérience d'aromathérapie. Adéquat pour les cheveux fins/huileux et ou colorés.",
+   "claims": [
+    "nutrition",
+    "fortifiant",
+    "volume",
+    "apaisant-cuir-chevelu",
+    "brillance"
+   ],
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/apres-shampooing-volumineux-rahua.webp",
+   "image_fond": true,
+   "ciblage_source": "fiche"
+  },
+  {
+   "id": "rahua--baume-a-cheveux-lisses-rahua",
+   "name": "Baume à cheveux lisses Rahua",
+   "brand": "rahua",
+   "brand_name": "Rahua",
+   "url": "https://rahua.eu/fr/products/smoothing-hair-balm",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 41.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/rahua-smoothing-balm-styler_2789f931-be71-40a1-9f2c-10d35b2ce459.jpg?width=600",
+   "image_local": "public/scan/products-cheveux/rahua/baume-a-cheveux-lisses-rahua.jpg",
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "secs",
+    "lisses"
+   ],
+   "actifs": [],
+   "ingredients": null,
+   "description": "Notre baume lissant de cheveux est un baume nourrissant et anti-frisottis qui hydrate et lisse les cheveux secs. Florale parfumée à l’huile enchanteresse Gardenia Enfleurage, la formule légère et de renforcement ajoute de la brillance et améliore la couleur. Notre baume lissant de cheveux est un baume nourrissant et anti-frisottis qui hydrate et lisse les cheveux secs. Florale parfumée à l’huile enchanteresse Gardenia Enfleurage, la formule légère et de renforcement ajoute de la brillance et amé",
+   "claims": [
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
+    "brillance"
+   ],
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/baume-a-cheveux-lisses-rahua.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "rahua--color-fulltm-conditioner",
+   "name": "Color Full™ Conditioner",
+   "brand": "rahua",
+   "brand_name": "Rahua",
+   "url": "https://rahua.eu/fr/products/color-full-conditioner",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 46.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/rahua-color-full-conditioner.jpg?width=600",
+   "image_local": "public/scan/products-cheveux/rahua/color-fulltm-conditioner.jpg",
+   "categorie": "apres-shampooing",
+   "etape": 2,
+   "cheveux_cibles": [
+    "secs",
+    "colores"
+   ],
+   "actifs": [
+    "glycérine",
+    "aloe vera",
+    "huile de tournesol",
+    "beurre de karité",
+    "huile de lin",
+    "hibiscus",
+    "huile de moringa"
+   ],
+   "ingredients": "Aqua, Herbal Infusion of Organic Aloe Barbadensis Leaf Extract, Organic Hibiscus Sabdariffa Flower Extract, Eclipta Prostatra Extract, Organic Vacciniumm Myrtillus (Bilberry Fruit) Extract, Behentrimonium Methosulfate*, Helianthus Annuus (Sunflower) Seed Oil, Cetearyl Alcohol*, Oenocarpus Bataua (Rahua Ungurahua) Oil, Butyrospermum Parkii (Shea Butter), Vegetable Glycerin, Kaolin Clay, Zinc Oxide, Hydrolyzed Quinoa, Stearalkonium Chloride*, Gardenia Jasminoides (Gardenia Enfleurage) Oil, Aroma, Cyamopsis Tetragonoloba (Guar) Gum, Organic Ocimum Basilicum (Sweet Basil) Extract, Mauritia Flexuosa (Morete) Fruit Oil, Organic Moringa Oleifera Seed Oil,Linum Usitatissimum (Flax) Seed Oil, Sucrose Extract, Vaccinium Macrocarpon (Cranberry) Seed Oil. *Denotes plant derived ingredient Afficher tous les détails playCurrentVideo()); }\"> Color Full™ Conditioner selectedPrice\"> Add to Cart Shop Now How to use After shampooing, apply generously from mid-lengths to ends. Allow to remain on hair for 3 minutes to maximize color-protecting benefits, then rinse thoroughly. For intense color protection, use after every wash. \"This brand is amazing. It’s clean and works wonders. My hair has never looked or felt better.\" —Jessica M Read all reviews Saving the rainforest, one bottle at a time Since starting in 2008, Rahua has provided the financial and legal resources to preserve over 3,276,520 acres of the Amazon rainforest for the indigenous communities that call it home. 4.8 Rated 4",
+   "description": "This rich, creamy formula works on multiple levels: Rahua oil's superfine molecules lock color pigments deep into the hair shaft, while lilacclay naturally neutralizes brassiness in blonde and brown shades, and Morete oil creates a UV-protective shield to prevent sun-related fading. The result is true, vibrant color that maintains salon-fresh appearance significantly longer, with hair that feels increasingly soft and manageable with each use. Flaxseed oil adds additional nourishment and slip for",
+   "claims": [
+    "nutrition",
+    "protection-couleur",
+    "anti-jaunissement"
+   ],
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/color-fulltm-conditioner.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "rahua--color-fulltm-glossing-oil-mist",
+   "name": "Color Full™ Glossing Oil Mist",
+   "brand": "rahua",
+   "brand_name": "Rahua",
+   "url": "https://rahua.eu/fr/products/color-full-glossing-oil-mist",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 68.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/products/1_rahua-color-full-glossing-oil-mist.jpg?width=600",
+   "image_local": "public/scan/products-cheveux/rahua/color-fulltm-glossing-oil-mist.jpg",
+   "categorie": "huile",
+   "etape": 3,
+   "cheveux_cibles": [
+    "colores"
+   ],
+   "actifs": [],
+   "ingredients": null,
+   "description": "This innovative misting oil delivers salon-quality gloss and color enhancement in seconds. Formulated with a specialized blend of rahua oil that locks in color molecules, Morete oil for UV protection, and Blue Tansy flower oil with powerful antioxidant properties. The result is immediate luminosity and enhanced vibrancy for both natural and color-treated hair. This lightweight formula can be used daily without buildup, creating a protective shield that maintains color brilliance while adding tou",
+   "claims": [
+    "purifiant",
+    "brillance",
+    "protection-couleur"
+   ],
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/color-fulltm-glossing-oil-mist.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "rahua--color-fulltm-hair-mask",
+   "name": "Color Full™ Hair Mask",
+   "brand": "rahua",
+   "brand_name": "Rahua",
+   "url": "https://rahua.eu/fr/products/rahua-color-full-hair-mask",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 52.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/1_rahua-color-full-hair-mask_720.jpg?width=600",
+   "image_local": "public/scan/products-cheveux/rahua/color-fulltm-hair-mask.jpg",
+   "categorie": "masque",
+   "etape": 2,
+   "cheveux_cibles": [
+    "colores",
+    "abimes"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "aloe vera",
+    "huile de tournesol",
+    "huile de lin",
+    "hibiscus",
+    "huile de moringa"
+   ],
+   "ingredients": "Aqua, Herbal Infusion of Organic Vaccinium Myrtillus (Bilberry fruit) Extract, Organic Aloe Barbadensis Leaf Extract, Eclipta Prostrata (King of hair) Extract, and Organic Hibiscus Sabdariffa Flower Extract, Helianthus Annuus (Sunflower) Seed Oil, Behentrimonium Methosulfate*, Cetearyl Alcohol*, Stearalkonium Chloride*, Oenocarpus Bataua (Rahua Ungurahua) Oil, Vegetable Glycerin, Mauritia Flexuosa (Morete) Fruit Oil, Tanacetum Annuum (Blue Tansy) Flower Oil, Plukenetia Volubilis (Sacha Inchi) Seed Oil, Citric Acid*, Kaolin (Lilac Clay), Hydrolyzed Quinoa Protein, Potassium Sorbate, Guar Hydroxypropyltrimonium Chloride*, Organic Linum Usitatissimum (Flax) Seed Oil, Gardenia Jasminoides (Enfleurage Gardenia) Extract, Aroma*, Benzyl Benzoate, Hexyl Cinnamal, Linalool, Organic Moringa Oleifera Seed Oil, Organic Vaccinium Macrocarpon (Cranberry) Seed Oil *Denotes plant derived ingredient Afficher tous les détails playCurrentVideo()); }\"> Color Full™ Hair Mask selectedPrice\"> Choose your size 4 oz 0.74 oz - Sold Out Add to Cart Shop Now How to use After shampooing with Color Full™ Shampoo, apply generously from roots to ends and comb through to ensure even distribution. Leave on for 10-15 minutes to allow the botanical to fully penetrate, then rinse thoroughly. Use weekly or bi-weekly for optimal color preservation and hair restoration. \"This brand is amazing. It’s clean and works wonders. My hair has never looked or felt better.\" —Jessica M Read all reviews Saving the rainforest, one bottle at a time Since starting in 2008, Rahua has provided the financial and legal resources to preserve over 3,276,520 acres of the Amazon rainforest for the indigenous communities that call it home. 5.0 Rated 5",
+   "description": "This intensive treatment delivers salon-quality results for all color-treated and highlighted hair. Rahua oil's superfine molecules lock color pigments deeper into the hair shaft, lilac clay neutralizes brassiness in blonde and brown shades, and Morete oil creates a protective UV shield to prevent sun-related fading. Hibiscus, rich in antioxidants, provides additional protection against environmental damage while enhancing shine and manageability. The result is vibrant, extended color with signi",
+   "claims": [
+    "reparation",
+    "brillance",
+    "protection-couleur",
+    "anti-jaunissement"
+   ],
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/color-fulltm-hair-mask.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "rahua--color-fulltm-shampoo",
+   "name": "Color Full™ Shampoo",
+   "brand": "rahua",
+   "brand_name": "Rahua",
+   "url": "https://rahua.eu/fr/products/color-full-shampoo",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 43.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/products/rahua-color-full-shampoo_e79883cb-d72d-48d1-bc32-178ddf866ccb.jpg?width=600",
+   "image_local": "public/scan/products-cheveux/rahua/color-fulltm-shampoo.jpg",
+   "categorie": "shampooing",
+   "etape": 1,
+   "cheveux_cibles": [
+    "colores",
+    "abimes"
+   ],
+   "actifs": [
+    "glycérine",
+    "aloe vera",
+    "huile de tournesol",
+    "acides aminés",
+    "huile de lin",
+    "hibiscus",
+    "huile de moringa"
+   ],
+   "ingredients": "Water (Aqua), Cocamidopropyl Betaine, Sodium C14-16 Olefin Sulfonate, Aloe Barbadensis Leaf Extract*, Eclipta Prostrata Extract, Hibiscus Sabdariffa Flower Extract*, Vaccinium Myrtillus Fruit Extract*, Sodium Cocoyl Isethionate, Helianthus Annuus (Sunflower) Seed Oil, Linum Usitatissimum (Linseed) Seed Oil, Ocimum Basilicum (Basil) Extract*, Vaccinium Macrocarpon (Cranberry) Seed Oil, Moringa Oleifera Seed Oil*, Gardenia Jasminoides (Gardenia) Flower Extract, Mauritia Flexuosa (Morete) Fruit Oil, Oenocarpus Bataua (Ungurahua) Fruit Oil, Glycerin, Cyamopsis Tetragonoloba Gum, Sucrose, Kaolin, Capryloyl Glycine, Hydrolyzed Quinoa, Sodium Chloride, Zinc Oxide, Potassium Sorbate, Fragrance (Parfum), Hexyl Cinnamal, Linalool, Benzyl Benzoate (*Denotes Organic ingredients, ^Plant derived ingredients) Afficher tous les détails playCurrentVideo()); }\"> Color Full™ Shampoo selectedPrice\"> Add to Cart Shop Now How to use Apply to thoroughly wet hair and massage into scalp, working into a gentle lather. Rinse completely and follow with Rahua Color Full™ Conditioner. For maximum color preservation, use as your primary cleanser after coloring treatments. \"This brand is amazing. It’s clean and works wonders. My hair has never looked or felt better.\" —Jessica M Read all reviews Saving the rainforest, one bottle at a time Since starting in 2008, Rahua has provided the financial and legal resources to preserve over 3,276,520 acres of the Amazon rainforest for the indigenous communities that call it home. 5.0 Rated 5",
+   "description": "This unique, color-preserving formula works differently than conventional options through a plant-based approach to color longevity. It creates three layers of defense: Rahua oil's superfine molecules push color pigment deeper into the hair shaft, while natural botanicals balance tonality and reduce brassiness, and Morete oil creates an exterior shield against UV damage. The result is vibrant, true color that lasts significantly longer between salon visits, with hair that feels stronger and more",
+   "claims": [],
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/color-fulltm-shampoo.webp",
+   "image_fond": true,
+   "ciblage_source": "fiche"
+  },
+  {
+   "id": "rahua--conditionneur-classique-rahua",
+   "name": "Conditionneur Classique Rahua",
+   "brand": "rahua",
+   "brand_name": "Rahua",
+   "url": "https://rahua.eu/fr/products/classic-conditioner",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 42.5,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/AB0001-2_Classic_Conditioner_9.3_PDP_1.png?width=600",
+   "image_local": "public/scan/products-cheveux/rahua/conditionneur-classique-rahua.jpg",
+   "categorie": "apres-shampooing",
+   "etape": 2,
+   "cheveux_cibles": [
+    "secs",
+    "fins",
+    "colores"
+   ],
+   "actifs": [
+    "glycérine",
+    "panthénol",
+    "aloe vera",
+    "huile de tournesol",
+    "beurre de karité",
+    "huile de jojoba",
+    "acides aminés",
+    "romarin",
+    "thé vert"
+   ],
+   "ingredients": "Water (Aqua), Aloe Barbadensis Leaf Extract*^, Oenocarpus Bataua (Ungurahua) Fruit Oil^, Behentrimonium Methosulfate, Cetearyl Alcohol^, Glycerin^, Stearalkonium Chloride, Butyrospermum Parkii (Shea) Butter^, Saccharum Officinarum (Sugar Cane) Extract*^,Bursera Graveolens (Palo Santo) Wood Oil*^, Hydrolyzed Quinoa^, Simmondsia Chinensis (Jojoba) Seed Oil^, Rosmarinus Officinalis (Rosemary) Leaf Extract*^, Camellia Sinensis (Green Tea) Leaf Extract*^, Rubus Idaeus (Raspberry) Leaf Extract*^, Helianthus Annuus (Sunflower) Seed Oil^, Capryloyl Glycine, Panthenol^, Potassium Sorbate (*Denotes Organic ingredients, ^Plant derived ingredients) Afficher tous les détails playCurrentVideo()); }\"> Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Conditionneur Classique Rahua selectedPrice\"> Choose your size 9.3 oz 18 oz - Sold Out 2 oz 3.3 oz 0.74 oz Add to Cart Shop Now How to use After shampooing, apply a small amount to mid-lengths and ends, using less for fine hair and more for thicker textures. Leave in for 3 minutes, then rinse. Can also be used as a leave-in styling cream for smoothing flyaways: apply a tiny amount to dry hair and style as usual. Clinical Results 97% said their scalp felt hydrated and less irritated 97% said their hair felt healthier 94% said their hair felt less damaged Key Ingredients Rahua Oil Amazonian tree nut oil with superfine molecules that fortify strands",
+   "description": "Complément enrichissant et luxueux de notre shampooing classique Rahua®, ce revitalisant primé offre des cheveux brillants, riches et ultra-hydratés. L'huile de Rahua riche en oméga-9, agit comme un démêlant et les extraits exotiques maintiennent des cheveux forts et un cuir chevelu sain. Peut également être utilisé comme une crème coiffante légère pour lisser, apprivoiser les frisottis, les mèches rebelles et ajouter de la tenue. Idéal pour tous les types de cheveux",
+   "claims": [
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
+    "volume",
+    "texturisant",
+    "brillance",
+    "demelant",
+    "fixation"
+   ],
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/conditionneur-classique-rahua.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "rahua--conditionneur-hydratant-rahua",
+   "name": "Conditionneur Hydratant Rahua",
+   "brand": "rahua",
+   "brand_name": "Rahua",
+   "url": "https://rahua.eu/fr/products/hydration-conditioner",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 42.5,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/Hydration_Conditioner_9.3_PDP_1.png?width=600",
+   "image_local": "public/scan/products-cheveux/rahua/conditionneur-hydratant-rahua.jpg",
+   "categorie": "apres-shampooing",
+   "etape": 2,
+   "cheveux_cibles": [
+    "secs",
+    "fins"
+   ],
+   "actifs": [
+    "glycérine",
+    "aloe vera",
+    "acides aminés",
+    "thé vert"
+   ],
+   "ingredients": "Water (Aqua), Mangifera Indica (Mango) Fruit Extract*^, Passiflora Incarnata Fruit Extract*^ Aloe Barbadensis Leaf Extract*^, Camellia Sinensis (Green Tea) Leaf Extract*^, Behentrimonium Methosulfate, Cetearyl Alcohol^, Glycerin^, Mauritia Flexuosa (Morete) Fruit Oil*^, Oenocarpus Bataua (Ungurahua) Fruit Oil^, Plukenetia Volubilis (Sacha Inchi) Seed Oil*^, Behentrimonium Chloride, Glycine^, Guar Hydroxypropyltrimonium Chloride, Hydrolyzed Quinoa^, Kaolin, Sucrose^, Cymbopogon Nardus (Citronella) Oil^, Fragrance (Parfum)†, Potassium Sorbate (*Denotes Organic ingredients, ^Plant derived ingredients, †Naturally derived blend) Afficher tous les détails playCurrentVideo()); }\"> Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Conditionneur Hydratant Rahua selectedPrice\"> Choose your size 9.3 oz - Sold Out 18 oz - Sold Out 2 oz 3.3 oz 0.74 oz Add to Cart Shop Now How to use After shampooing, apply generously from mid-lengths to ends, using less for finer textures and more for thicker, coarser hair. Leave in for 3 minutes to allow the botanical formula to penetrate, then rinse thoroughly. For maximum hydration benefits, use regularly. Key Ingredients Rahua Oil Amazonian tree nut oil with superfine molecules that fortify strands, help maintain scalp health, and lock in color. Sustainably harvested through our Symbiotic® partnerships",
+   "description": "Créée pour réapprovisionner les cheveux les plus secs et les plus assoiffées , cette formule riche et crémeuse est perfusée avec notre complexe de plantes fabriquées à l'aide d'huiles amazoniennes rares et de sucres de liaison protéique naturelle qui conduisent à une hydratation profonde dans chaque mèche de cheveux. Parfumé avec les arômes tropicaux de la passion fruit et de la mangue, cette formule innovante adoucie, démêle et apprivoise les cheveux, le laissant gérable et plus fort, plus sain",
+   "claims": [
+    "hydratation",
+    "reparation",
+    "fortifiant",
+    "volume",
+    "texturisant",
+    "demelant"
+   ],
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/conditionneur-hydratant-rahua.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "rahua--cream-wax",
+   "name": "Cream Wax",
+   "brand": "rahua",
+   "brand_name": "Rahua",
+   "url": "https://rahua.eu/fr/products/rahua-cream-wax-2-oz",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 45.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/Sephorauk.png?width=600",
+   "image_local": "public/scan/products-cheveux/rahua/cream-wax.jpg",
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "gras"
+   ],
+   "actifs": [],
+   "ingredients": null,
+   "description": "This versatile styling cream offers the perfect balance of hold and flexibility for effortless styling. Formulated with sustainably harvested Amazonian carnauba wax that provides lasting structure without stiffness, while rahua oil penetrates to fortify strands and fight frizz from within. The result is controlled, defined styles with a low-key natural shine and touchable movement. This non-greasy formula adds height and texture to short styles while providing manageability and polish to longer",
+   "claims": [
+    "fortifiant",
+    "anti-frisottis",
+    "texturisant",
+    "brillance",
+    "fixation"
+   ],
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/cream-wax.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "rahua--creme-controle-de-coiffure-bouclee-rahua",
+   "name": "Crème contrôle de coiffure bouclée Rahua",
+   "brand": "rahua",
+   "brand_name": "Rahua",
+   "url": "https://rahua.eu/fr/products/control-cream-curl-styler",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 44.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/Group60.png?width=600",
+   "image_local": "public/scan/products-cheveux/rahua/creme-controle-de-coiffure-bouclee-rahua.jpg",
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "secs",
+    "fins",
+    "boucles",
+    "abimes"
+   ],
+   "actifs": [
+    "glycérine",
+    "panthénol",
+    "aloe vera",
+    "huile de tournesol",
+    "beurre de karité",
+    "huile de jojoba",
+    "acides aminés",
+    "romarin",
+    "thé vert"
+   ],
+   "ingredients": "Aqua, Herbal Infusion of Organic Aloe Barbadensis Leaf Extract, Organic Camellia Sinensis (Green Tea) Leaf Extract, Organic Rosmarinus Officinalis (Rosemary) Leaf Extract, and Organic Robus Ideous (Raspberry) Leaf Extract, Behentrimonium Methosulfate*, Vegetable Glycerin, Oenocarpus Bataua (Rahua Ungurahua) Oil, Helianthus Annuus (Sunflower) Seed Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Butyrospermum Parkii (Shea) Butter, Stearalkonium Chloride*, Hydrolyzed Quinoa, Organic Saccharum Officinarum (Molasses) Extract, Bursera Graveolens (Palo Santo) Oil, Glycine*, Potassium Sorbate, Panthenol. *Denotes plant derived ingredient Afficher tous les détails playCurrentVideo()); }\"> Crème contrôle de coiffure bouclée Rahua selectedPrice\"> Add to Cart Shop Now How to use Apply to clean, damp hair by sectioning and working product through each section with fingers or a wide-tooth comb. Use more for thicker, coarser textures and less for finer curls. Diffuse for enhanced volume or air dry for a more natural finish. Can be used alone or layered with other styling products for customized hold. \"This brand is amazing. It’s clean and works wonders. My hair has never looked or felt better.\" —Jessica M Read all reviews Saving the rainforest, one bottle at a time Since starting in 2008, Rahua has provided the financial and legal resources to preserve over 3,276,520 acres of the Amazon rainforest for the indigenous communities that call it home. 4.9 Rated 4",
+   "description": "Ce styleur de courbure unique en son genre utilise des ingrédients à base de plantes pour nourrir les brins, fournir du poids, tenir et laisser les boucles douces et tactiles. Une formule innovante conçue avec du beurre de karité hydratant et de la mélasse offrant la boucle parfaite : définie et séparée, avec rebond sans effort, mouvement naturel et éclat doux.",
+   "claims": [
+    "hydratation",
+    "nutrition",
+    "definition-boucles",
+    "volume",
+    "texturisant",
+    "brillance",
+    "fixation"
+   ],
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/creme-controle-de-coiffure-bouclee-rahua.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "rahua--enchanted-islandtm-conditioner",
+   "name": "Enchanted Island™ Conditioner",
+   "brand": "rahua",
+   "brand_name": "Rahua",
+   "url": "https://rahua.eu/fr/products/enchanted-island-conditioner",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 42.5,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/EI_Conditioner_9.3_PDP_1.png?width=600",
+   "image_local": "public/scan/products-cheveux/rahua/enchanted-islandtm-conditioner.jpg",
+   "categorie": "apres-shampooing",
+   "etape": 2,
+   "cheveux_cibles": [
+    "chute"
+   ],
+   "actifs": [
+    "glycérine",
+    "aloe vera",
+    "huile de coco",
+    "acides aminés",
+    "biotine",
+    "niacinamide"
+   ],
+   "ingredients": "Water/Aqua/Eau, Behentrimonium Methosulfate, Cetearyl Alcohol^, Glycerin^, Stearalkonium Chloride, Oenocarpus Bataua (Ungurahua) Fruit Oil^, Plukenetia Volubilis (Sacha Inchi) Seed Oil*^, Mauritia Flexuosa (Morete) Fruit Oil*^, Ilex Guayusa Leaf Extract*^, Punica Granatum (Pomegranate) Fruit Extract^, Psidium Guajava (Guava) Leaf Extract*^, Aloe Barbadensis Leaf Extract*^, Biotin (B7)^, Thiamine HCl (B1)^, Riboflavin (B2)^, Niacinamide (B3)^, Cyanocobalamin (B12)^, Pyridoxine (B6)^, Hydrolyzed Quinoa^, Cocos Nucifera (Coconut) Oil^, Kaolin, Glycine^, Fragrance/Parfum†, Potassium Sorbate *Denotes Organic Ingredients, ^Plant derived ingredients, †Naturally derived blend Afficher tous les détails playCurrentVideo()); }\"> Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Enchanted Island™ Conditioner selectedPrice\"> Choose your size 9.3 oz 18 oz - Sold Out 2 oz 3.3 oz - Sold Out 0.74 oz Add to Cart Shop Now How to use After shampooing, apply generously from mid-lengths to ends. Massage into hair and scalp to distribute evenly. Leave in for 2-3 minutes to allow the nutrient-rich formula to penetrate, then rinse thoroughly. Use regularly for optimal strengthening benefits. Key Ingredients Rahua Oil Amazonian tree nut oil with superfine molecules that fortify strands, help maintain scalp health, and lock in color. Sustainably harvested through our Symbiotic® partnerships",
+   "description": "This tropically inspired formula complements our Enchanted Island™ Shampoo to enhance vitality and radiance from root to tip. Created as a celebration of paradise, our nutrient-dense formula features biotin and essential vitamins B6, A, C, and E to fortify hair follicles and help prevent premature hair loss. Rainforest botanicals guayusa, rahua, morete and sacha inchi oils work in harmony to promote healthy growth while detangling and adding noticeable shine. Pomegranate extract helps to stimula",
+   "claims": [
+    "nutrition",
+    "fortifiant",
+    "anti-chute",
+    "croissance",
+    "brillance",
+    "demelant"
+   ],
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/enchanted-islandtm-conditioner.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "rahua--enchanted-islandtm-shampoo",
+   "name": "Enchanted Island™ Shampoo",
+   "brand": "rahua",
+   "brand_name": "Rahua",
+   "url": "https://rahua.eu/fr/products/enchanted-island-shampoo",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 40.5,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/EI_Shampoo_9.3_PDP_1.png?width=600",
+   "image_local": "public/scan/products-cheveux/rahua/enchanted-islandtm-shampoo.jpg",
+   "categorie": "shampooing",
+   "etape": 1,
+   "cheveux_cibles": [
+    "chute"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "aloe vera",
+    "acides aminés",
+    "biotine",
+    "niacinamide"
+   ],
+   "ingredients": "Water/Aqua/Eau, Sodium C14-16 Olefin Sulfonate^, Cocamidopropyl Betaine, Sodium Chloride (Sea Salt), Glycerin^, Oenocarpus Bataua (Ungurahua) Fruit Oil^, Plukenetia Volubilis (Sacha Inchi) Seed Oil*^, Mauritia Flexuosa (Morete) Fruit Oil*^, Ilex Guayusa Leaf Extract*^, Punica Granatum (Pomegranate) Fruit Extract^, Psidium Guajava (Guava) Leaf Extract*^, Aloe Barbadensis Leaf Extract*^, Biotin (B7)^, Thiamine HCl (B1)^, Riboflavin (B2)^, Niacinamide (B3)^, Cyanocobalamin (B12)^, Pyridoxine (B6)^, Hydrolyzed Quinoa^, Cocos Nucifera (Coconut) Oil^, Saccharum Officinarum (Sugar Cane) Extract^, Glycine^, Fragrance/Parfum†, Citric Acid^, Potassium Sorbate Afficher tous les détails playCurrentVideo()); }\"> Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Enchanted Island™ Shampoo selectedPrice\"> Choose your size 9.3 oz - Sold Out 18 oz - Sold Out 2 oz 3.3 oz 0.74 oz Add to Cart Shop Now How to use Apply to damp hair and massage into scalp, working into a gentle lather. Rinse thoroughly. For maximum benefits, repeat if desired. Follow with Enchanted Island™ Conditioner. Use regularly to maintain strength and shine. Key Ingredients Rahua Oil Amazonian tree nut oil with superfine molecules that fortify strands, help maintain scalp health, and lock in color. Sustainably harvested through our Symbiotic® partnerships. Pomegranate Source of antioxidants that stimulate growth, reinforce follicles",
+   "description": "This tropically inspired formula enhances vitality and radiance for all hair types. Created as a celebration of paradise, our nutrient-rich formula features plant-based biotin and essential vitamins B6, A, C, and E to fortify hair follicles to help prevent premature hair loss. Rainforest-grown guayusa, rahua, morete and sacha inchi oils work together to promote healthy growth while enhancing shine and vibrancy. The result is stronger, more resilient hair that captures light beautifully. This dai",
+   "claims": [
+    "nutrition",
+    "fortifiant",
+    "anti-chute",
+    "croissance",
+    "brillance"
+   ],
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/enchanted-islandtm-shampoo.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "rahua--enchanted-islandtm-vegan-curl-butter",
+   "name": "Enchanted Island™ Vegan Curl Butter",
+   "brand": "rahua",
+   "brand_name": "Rahua",
+   "url": "https://rahua.eu/fr/products/enchanted-island-vegan-curl-butter",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 58.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/EI_CurlButter_Packshot.png?width=600",
+   "image_local": "public/scan/products-cheveux/rahua/enchanted-islandtm-vegan-curl-butter.jpg",
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "secs",
+    "boucles",
+    "chute"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "aloe vera",
+    "beurre de karité",
+    "biotine"
+   ],
+   "ingredients": "Aqua, Cetearyl Alcohol*, Glyceryl Stearate Citrate*, Organic Ilex Guayusa Extract, Organic Aloe Barbadensis Leaf Extract, Organic Psidium Guajava (Guava) Leaf Extract, Hydroxyethylcellulose*, Vegetable Glycerin, Organic Butyrospermum Parkii (Shea Butter), Oenocarpus Bataua (Rahua Ungurahua) Oil, Organic Mauritia Flexuosa Fruit (Morete) Oil, Biotin (B7)*, Xanthan Gum*, Organic Potassium Cocoate (Cocos Nucifera Coconut Oil), Citric Acid*, Kaolin Clay, Organic Punica Granatum (Pomegranate) Fruit Oil, Natural Aroma*, Potassium Sorbate, Saccharum Officinarum (Molasses) Extract. *Denotes plant derived ingredient Afficher tous les détails playCurrentVideo()); }\"> Enchanted Island™ Vegan Curl Butter selectedPrice\"> Add to Cart Shop Now How to use Apply to damp, freshly washed hair, starting with a small amount and adding more as needed. Massage product into hair, working through curls section by section. Leave in, do not rinse. Twist, shape and define curls into desired style. Can be used with other styling products for customized hold and definition. \"This brand is amazing. It’s clean and works wonders. My hair has never looked or felt better.\" —Jessica M Read all reviews Saving the rainforest, one bottle at a time Since starting in 2008, Rahua has provided the financial and legal resources to preserve over 3,276,520 acres of the Amazon rainforest for the indigenous communities that call it home. 4.9 Rated 4.9 out of 5 stars Based on 38 reviews 5 Rated out of 5 stars 35 4 Rated out of 5 stars 3 3 Rated out of 5 stars 0 2 Rated out of 5 stars 0 1 Rated out of 5 stars 0 100% would recommend this product Slide 1 selected Reviews 38 (tab expanded) Questions (tab collapsed) Filters Write a Review (Opens in a new window) 38 reviews Sort Most Recent Oldest Most Helpful Photos & Videos Highest Rating Lowest Rating Least Helpful MA Mutia A",
+   "description": "This luxurious leave-in treatment delivers optimal hydration and definition for all curl patterns. Formulated with African shea butter and earth clay that enhance natural curl formation while improving frizz resistance, this rich butter provides the perfect balance of moisture and hold. Rainforest-grown rahua oil penetrates deeply to nourish and strengthen from within, while plant-based biotin promotes healthy hair growth and helps prevent premature shedding. The result is defined, bouncy curls",
+   "claims": [
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
+    "anti-chute",
+    "croissance",
+    "fixation"
+   ],
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/enchanted-islandtm-vegan-curl-butter.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "rahua--freestyle-texturizer",
+   "name": "Freestyle Texturizer",
+   "brand": "rahua",
+   "brand_name": "Rahua",
+   "url": "https://rahua.eu/fr/products/freestyle-texturizer-1",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 53.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/AB0148Image1.jpg?width=600",
+   "image_local": "public/scan/products-cheveux/rahua/freestyle-texturizer.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
     "fins"
    ],
-   "actifs": [
-    "aloe vera",
-    "glycérine",
-    "huile de rahua"
-   ],
-   "ingredients": "Aqua, Herbal Infusion of Organic Aloe Barbadensis Leaf Extract, Organic Ilex Guayusa Leaf Extract, Organic Cucumis Sativus (Cucumber Fruit) Extract, Maltodextrin PV Copolymer*, Disodium Cocoyl Glutamate*, Vegetable Glycerin, Caprylhydroxamic Acid*, Glyceryl Caprylate*, Sucrose (Brown Sugarcane), Oenocarpus Bataua (Rahua Ungurahua) Oil, Xanthan Gum*, Chlorophyll, Natural Aroma*, Organic Plukenetia Volubilis (Sacha Inchi) Seed Oil. *Denotes plant de",
-   "description": "An airy styling mousse that builds soft volume while enhancing texture, shine, and movement. Aloe vera hydrates and smooths strands, natural sugar cane provides flexible hold with lasting bounce, and nutrient-rich alfalfa strengthens follicles while boosting body and fullness. Hair is left lifted, touchably soft—never stiff or crunchy.Best for: Fine to MediumNatural Notes: Sizes 3.3 oz and under are final sale and cannot be returned or exchanged.",
+   "actifs": [],
+   "ingredients": null,
+   "description": "This versatile styling product delivers that coveted \"just out of bed\" look with natural, touchable hold. Formulated as a high-performance alternative to synthetic texturizers, it combines sustainably harvested Amazonian carnauba wax that provides flexible structure with tapioca starch for added support and separation. Rahua oil penetrates to strengthen from within while enhancing natural texture. The result is loose, voluminous styles with movement and definition that lasts throughout the day.",
    "claims": [
-    "hydratant",
-    "brillance",
+    "fortifiant",
+    "definition-boucles",
     "volume",
-    "lissant",
-    "fortifiant"
+    "texturisant",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/freestyle-texturizer.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
-   "id": "rahua--rahua-color-full-hair-mask",
-   "name": "Color Full™ Hair Mask",
+   "id": "rahua--heat-protectant-shield",
+   "name": "Heat Protectant Shield",
    "brand": "rahua",
    "brand_name": "Rahua",
-   "url": "https://rahua.com/products/rahua-color-full-hair-mask",
+   "url": "https://rahua.eu/fr/products/heat-protectant-shield",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 40.48,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0067/5266/5673/files/1_rahua-color-full-hair-mask_720.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/rahua/rahua-color-full-hair-mask.jpg",
-   "categorie": "masque",
-   "etape": 2,
+   "price_eur": 48.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/01_Heat_Protectant_New_Look.jpg?width=600",
+   "image_local": "public/scan/products-cheveux/rahua/heat-protectant-shield.jpg",
+   "categorie": "protection-thermique",
+   "etape": 3,
+   "cheveux_cibles": [
+    "secs",
+    "colores"
+   ],
+   "actifs": [
+    "acide citrique",
+    "panthénol",
+    "huile de ricin",
+    "beurre de karité",
+    "hibiscus"
+   ],
+   "ingredients": "Aqua, Coco Glucoside*, Cetyl Alcohol*, Organic Hibiscus Flower Sabdariffa Extract, Stearalkonium Chloride*, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Organic Avocado Oil, Organic Butyrospermum Parkii (Shea) Butter, Oenocarpus Bataua (Rahua Ungurahua) Oil, Organic Plukenetia Volubilis (Sacha Inchi) Seed Oil, Panthenol*, Mauritia Flexuosa (Morete) Fruit Oil, Ricinus Communis (Castor) Seed Oil, Citric Acid*, Propanediol*, Isopropyl Myristate*, Natural Aroma*, Hydrolyzed Quinoa Protein, Potassium Sorbate. *Denotes plant derived ingredient Afficher tous les détails playCurrentVideo()); }\"> Heat Protectant Shield selectedPrice\"> Choose your size 6.5 oz 2 oz - Sold Out Add to Cart Shop Now How to use Key Ingredients Rahua Oil Amazonian tree nut oil with superfine molecules that fortify strands, help maintain scalp health, and lock in color. Sustainably harvested through our Symbiotic® partnerships. Morete Oil Rich in vitamins A, C, and E, this Amazonian fruit oil protects hair from damaging UVA rays while enhancing moisture. Hibiscus Packed with antioxidant anthocyanins that enhance shine, strengthen hair, and provide comprehensive color protection. Shea Butter Long treasured for its emollient qualities, this extract softens and gently hydrates, and seals in moisture to protect hair from becoming dry or brittle. \"This is a wonderful heat protectant! Love the ingredients, and a little goes a long way.\" —Katharine A. Read all reviews Saving the rainforest, one bottle at a time Since starting in 2008, Rahua has provided the financial and legal resources to preserve over 3,276,520 acres of the Amazon rainforest for the indigenous communities that call it home. 4.7 Rated 4",
+   "description": "Heat Protectant Shield",
+   "claims": [
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "brillance",
+    "protection-couleur",
+    "protection-chaleur"
+   ],
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/heat-protectant-shield.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "rahua--huile-d-amazone-legendaire-rahua-tm",
+   "name": "Huile d'amazone légendaire Rahua ™",
+   "brand": "rahua",
+   "brand_name": "Rahua",
+   "url": "https://rahua.eu/fr/products/legendary-amazon-oil",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 51.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/Legendary_PDP_1.png?width=600",
+   "image_local": "public/scan/products-cheveux/rahua/huile-d-amazone-legendaire-rahua-tm.jpg",
+   "categorie": "huile",
+   "etape": 3,
    "cheveux_cibles": [],
    "actifs": [],
    "ingredients": null,
-   "description": "An intensive weekly treatment that deeply hydrates while helping preserve vibrant, true-to-tone color. Lilac clay helps neutralize brassiness, blue tansy strengthens and softens while enhancing color vitality, and antioxidant-rich morete oil protects against UV damage while locking in moisture. Hair is left deeply nourished, noticeably softer, and brilliantly glossy after every treatment.Best for: Color Treated HairNatural Notes: Sizes 3.3 oz and under are final sale and cannot be returned or ex",
+   "description": "Ce mélange exclusif rahua® utilise des huiles végétales et florales légères et non des silicones, pour offrir une parfaite finition lisse, brillante et anti-frisottis. Rahua, Sacha Inchi, et les huiles Morete récoltées en Amazonie pénètrent profondément dans chaque mèche de cheveux pour guérir et renforcer. Un moyen puissant de bannir les mouches, guérir les pointes fourchues, et de promouvoir la brillance, cette formule est rapidement absorbée et remarquablement revitalisante. Formulé spécialem",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "brillance",
-    "fortifiant"
+    "fortifiant",
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "rahua--enchanted-island-conditioner",
-   "name": "Enchanted Island™ Conditioner",
-   "brand": "rahua",
-   "brand_name": "Rahua",
-   "url": "https://rahua.com/products/enchanted-island-conditioner",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 36.8,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0067/5266/5673/files/EI_Conditioner_9.3_PDP_1.png?width=600",
-   "image_local": "public/scan/products-cheveux/rahua/enchanted-island-conditioner.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
-   "cheveux_cibles": [],
-   "actifs": [
-    "biotine",
-    "niacinamide",
-    "huile de coco",
-    "aloe vera",
-    "glycérine",
-    "huile de rahua"
-   ],
-   "ingredients": "Water/Aqua/Eau, Behentrimonium Methosulfate, Cetearyl Alcohol^, Glycerin^, Stearalkonium Chloride, Oenocarpus Bataua (Ungurahua) Fruit Oil^, Plukenetia Volubilis (Sacha Inchi) Seed Oil*^, Mauritia Flexuosa (Morete) Fruit Oil*^, Ilex Guayusa Leaf Extract*^, Punica Granatum (Pomegranate) Fruit Extract^, Psidium Guajava (Guava) Leaf Extract*^, Aloe Barbadensis Leaf Extract*^, Biotin (B7)^, Thiamine HCl (B1)^, Riboflavin (B2)^, Niacinamide (B3)^, Cyanocobalamin (B12)^, Pyridoxine (B6)^, Hydrolyzed Quinoa^, Cocos Nucifera (Coconut) Oil^, Kaolin, Glycine^, Fragrance/Parfum†, Potassium Sorbate *Denotes Organic Ingredients, ^Plant derived ingredients, †Naturally derived blend View full details",
-   "description": "A nutrient-rich conditioner that deeply nourishes while helping support stronger, healthier-looking hair. Plant-based biotin helps fortify follicles, antioxidant-rich pomegranate encourages healthy growth, and vitamin-rich guava helps strengthen hair while supporting scalp health. The result is softer, shinier, more resilient strands inspired by the lush botanicals of the Galápagos Islands.Best for: All Hair TypesNatural Notes: Sizes 3.3 oz and under are final sale and cannot be returned or exch",
-   "claims": [
-    "nourrissant",
-    "fortifiant"
-   ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "rahua--enchanted-island-shampoo",
-   "name": "Enchanted Island™ Shampoo",
-   "brand": "rahua",
-   "brand_name": "Rahua",
-   "url": "https://rahua.com/products/enchanted-island-shampoo",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 34.96,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0067/5266/5673/files/EI_Shampoo_9.3_PDP_1.png?width=600",
-   "image_local": "public/scan/products-cheveux/rahua/enchanted-island-shampoo.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [],
-   "actifs": [
-    "biotine",
-    "niacinamide",
-    "huile de coco",
-    "aloe vera",
-    "glycérine",
-    "huile de rahua",
-    "acide citrique"
-   ],
-   "ingredients": "Water/Aqua/Eau, Sodium C14-16 Olefin Sulfonate^, Cocamidopropyl Betaine, Sodium Chloride (Sea Salt), Glycerin^, Oenocarpus Bataua (Ungurahua) Fruit Oil^, Plukenetia Volubilis (Sacha Inchi) Seed Oil*^, Mauritia Flexuosa (Morete) Fruit Oil*^, Ilex Guayusa Leaf Extract*^, Punica Granatum (Pomegranate) Fruit Extract^, Psidium Guajava (Guava) Leaf Extract*^, Aloe Barbadensis Leaf Extract*^, Biotin (B7)^, Thiamine HCl (B1)^, Riboflavin (B2)^, Niacinamide (B3)^, Cyanocobalamin (B12)^, Pyridoxine (B6)^, Hydrolyzed Quinoa^, Cocos Nucifera (Coconut) Oil^, Saccharum Officinarum (Sugar Cane) Extract^, Glycine^, Fragrance/Parfum†, Citric Acid^, Potassium Sorbate *Denotes Organic Ingredients, ^Plant derived ingredients, †Naturally derived blend View full details",
-   "description": "A strengthening shampoo that gently cleanses while supporting fuller, healthier-looking hair. Plant-based biotin helps fortify follicles and encourage healthy growth, pomegranate strengthens and nourishes from the root, while vitamin-rich guava supports scalp health and stronger strands. Hair feels refreshed, revitalized, and noticeably shinier after every wash.Best for: All Hair TypesNatural Notes: Sizes 3.3 oz and under are final sale and cannot be returned or exchanged.",
-   "claims": [
-    "nourrissant",
-    "fortifiant"
-   ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "rahua--curl-rituals",
-   "name": "Curl Rituals",
-   "brand": "rahua",
-   "brand_name": "Rahua",
-   "url": "https://rahua.com/products/curl-rituals",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 91.08,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0067/5266/5673/files/AB0090_p0_d7b3c403-a755-4b83-9724-574a9d27f803.png?width=600",
-   "image_local": "public/scan/products-cheveux/rahua/curl-rituals.jpg",
-   "categorie": "proteine-reconstruction",
-   "etape": 4,
-   "cheveux_cibles": [
-    "boucles"
-   ],
-   "actifs": [
-    "beurre de karité",
-    "aloe vera",
-    "glycérine",
-    "huile de rahua",
-    "thé vert"
-   ],
-   "ingredients": "Hydration Conditioner Aqua, Herbal Infusion of Organic Mangifera Indica (Mango) Fruit Extract, Organic Passiflora Incarnate (Passion) Fruit Extract, Organic Aloe Barbadensis Leaf Extract and Organic Camellia Sinensis (Green tea) Leaf Extract, Behentrimonium Methosulfate*, Cetearyl Alcohol*, Oenocarpus Bataua (Rahua Ungurahua) Oil, Plukenetia Volubilis (Sacha Inchi) Seed Oil, Sucrose, Mauritia Flexuosa (Morete) Fruit Oil, Hydrolyzed Quinoa Protein, Vegetable Glycerin, Kaolinite (Rose Clay), Natural Aroma, Cymbopogon Nardus (Citronella) Oil, Glycine*, Behentrimonium Chloride*, Potassium Sorbate, Guar Hydroxypropyltrimonium Chloride*. *Denotes plant derived ingredient",
-   "description": "This curl-focused trio delivers everything you need to embrace and enhance your natural texture with lush hydration and bounce. Begin with the Hydration Essential Hair Care Set, a moisturizing foundation crafted with rare Amazonian oils and protein-bonding sugars that drive hydration deep into each strand while leaving curly hair stronger, healthier, and more manageable. Complete your ritual with Control Cream Curl Styler, expertly crafted with moisturizing shea butter and molasses to deliver th",
-   "claims": [
-    "hydratant"
-   ],
-   "source": "products.json + fiche produit"
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/huile-d-amazone-legendaire-rahua-tm.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "rahua--hydration-hair-mask",
    "name": "Hydration Hair Mask",
    "brand": "rahua",
    "brand_name": "Rahua",
-   "url": "https://rahua.com/products/hydration-hair-mask",
+   "url": "https://rahua.eu/fr/products/hydration-hair-mask",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 40.48,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0067/5266/5673/files/hydration-hair-mask-text-edit.jpg?width=600",
+   "price_eur": 48.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/hydration-hair-mask-text-edit.jpg?width=600",
    "image_local": "public/scan/products-cheveux/rahua/hydration-hair-mask.jpg",
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
-    "abimes"
+    "secs",
+    "abimes",
+    "cuir-chevelu-sensible"
    ],
    "actifs": [
+    "glycérine",
+    "huile de tournesol",
     "beurre de karité",
-    "glycérine",
-    "huile de tournesol",
-    "huile de rahua"
+    "acides aminés"
    ],
-   "ingredients": "Aqua, Herbal Infusion of Organic Mangifera Indica (Mango) Fruit Extract, Organic Passiflora Incarnate (Passion) Fruit Extract, Organic Helianthus Annuus (Sunflower) Seed Oil, Behentrimonium Methosulfate*, Cetearyl Alcohol*, Vegetable Glycerin, Oenocarpus Bataua (Rahua Ungurahua) Oil, Butyrospermum Parkii (Shea Butter), Stearalkonium Chloride*, Glycine*, Mauritia Flexuosa (Morete) Fruit Oil, Kaolinite (Rose Clay), Plukenetia Volubilis (Sacha Inchi) Seed Oil, Hydrolyzed Quinoa Protein, Organic Rosemary Extract, Natural Aroma, Sucrose, Potassium Sorbate, Guar Hydroxypropyltrimonium Chloride*, Cymbopogon Nardus (Citronella) Oil. *Denotes plant derived ingredient",
-   "description": "An intensive treatment that deeply replenishes moisture while restoring softness, shine, and manageability to dry or damaged hair. Omega-rich sacha inchi deeply hydrates and supports scalp health, shea butter seals in moisture to protect against dryness, and rahua oil strengthens strands while helping repair visible damage. Hair is left silky, smooth, and noticeably healthier-looking after every use.Best for: Medium to ThickNatural Notes: Sizes 3.3 oz and under are final sale and cannot be retur",
+   "ingredients": "Aqua, Herbal Infusion of Organic Mangifera Indica (Mango) Fruit Extract, Organic Passiflora Incarnate (Passion) Fruit Extract, Organic Helianthus Annuus (Sunflower) Seed Oil, Behentrimonium Methosulfate*, Cetearyl Alcohol*, Vegetable Glycerin, Oenocarpus Bataua (Rahua Ungurahua) Oil, Butyrospermum Parkii (Shea Butter), Stearalkonium Chloride*, Glycine*, Mauritia Flexuosa (Morete) Fruit Oil, Kaolinite (Rose Clay), Plukenetia Volubilis (Sacha Inchi) Seed Oil, Hydrolyzed Quinoa Protein, Organic Rosemary Extract, Natural Aroma, Sucrose, Potassium Sorbate, Guar Hydroxypropyltrimonium Chloride*, Cymbopogon Nardus (Citronella) Oil. *Denotes plant derived ingredient Afficher tous les détails playCurrentVideo()); }\"> Hydration Hair Mask selectedPrice\"> Choose your size 4 oz - Sold Out 0.74 oz Add to Cart Shop Now How to use Apply generously to wet hair before or after shampooing. Comb through to ensure even distribution, paying special attention to ends and damaged areas. Leave in for 10-15 minutes to allow complete penetration, then rinse thoroughly. For an effortless leave-in treatment, rinse lightly while leaving some product in hair. Use weekly or as needed for optimal hydration. Key Ingredients Rahua Oil Amazonian tree nut oil with superfine molecules that fortify strands, help maintain scalp health, and lock in color. Sustainably harvested through our Symbiotic® partnerships. Shea Butter Long treasured for its emollient qualities, this extract softens and gently hydrates, and seals in moisture to protect hair from becoming dry or brittle. Morete Oil Rich in vitamins A, C, and E, this Amazonian fruit oil protects hair from damaging UVA rays while enhancing moisture. Sacha Inchi Exceptionally rich in omega-3 fatty acids, this ancient seed oil locks in moisture while soothing the scalp. Mango Sugars Natural bonding agents that help proteins adhere to the hair shaft",
+   "description": "This professional-grade deep conditioning treatment transforms thirsty, dehydrated hair. Formulated with a rich blend of symbiotic Amazonian oils and protein-bonding sugars that maximize hydration retention while sealing the cuticle. Rahua oil penetrates to strengthen from within, while shea butter creates a protective moisture barrier that blocks humidity and controls frizz. Sacha inchi delivers essential omega-3 fatty acids for enhanced elasticity, and morete oil provides natural UV protection",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "brillance",
-    "lissant",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "products.json + fiche produit"
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/hydration-hair-mask.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
-   "id": "rahua--hydration-detangler-uv-barrier",
-   "name": "Hydration Detangler + UV Barrier",
+   "id": "rahua--masque-capillaire-omega-9",
+   "name": "Masque capillaire Omega 9",
    "brand": "rahua",
    "brand_name": "Rahua",
-   "url": "https://rahua.com/products/hydration-detangler-uv-barrier",
+   "url": "https://rahua.eu/fr/products/omega-9-hair-mask",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 33.12,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0067/5266/5673/files/HydrationDetangler_PDP_1.png?width=600",
-   "image_local": "public/scan/products-cheveux/rahua/hydration-detangler-uv-barrier.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
-   "cheveux_cibles": [
-    "epais"
-   ],
-   "actifs": [
-    "aloe vera",
-    "glycérine",
-    "huile de tournesol",
-    "huile de rahua",
-    "thé vert",
-    "acide citrique"
-   ],
-   "ingredients": "Water/Aqua/Eau, Behentrimonium Methosulfate, Oenocarpus Bataua (Ungurahua) Fruit Oil^, Mauritia Flexuosa (Morete) Fruit Oil*^, Plukenetia Volubilis (Sacha Inchi) Seed Oil*^, Aloe Barbadensis Leaf Extract*^, Mangifera Indica (Mango) Fruit Extract*^, Passiflora Incarnate Fruit Extract*^, Camellia Sinensis (Green Tea) Leaf Extract*^, Saccharum Officinarum (Sugar Cane) Extract^, Helianthus Annuus (Sunflower) Seed Oil^, Cymbopogon Nardus (Citronella) Oil^, Propanediol^, Glycerin^, Polyglyceryl-4 Oleate, Behentrimonium Chloride, Hydroxypropyl Guar^, Citric Acid^, Potassium Sorbate, Fragrance/Parfum†, Limonene, Linalool, Amyl Cinnamal, Benzyl Salicylate, Hydroxycitronellal (*Denotes Organic ingredients, ^Plant derived ingredients, †Naturally derived blend) View full details",
-   "description": "A weightless leave-in mist that detangles while protecting hair from UV damage, humidity, and environmental stressors. Moisture-binding mango sugars improve slip for smoother brushing, antioxidant-rich morete oil helps shield hair from UV exposure while locking in hydration, and sacha inchi oil deeply nourishes to minimize frizz and improve softness. Hair is left feeling silky and easier to manage throughout the day.Best for: All Hair TypesNatural Notes: Sizes 3.3 oz and under are final sale and",
-   "claims": [
-    "hydratant",
-    "nourrissant",
-    "lissant"
-   ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "rahua--legendary-amazon-oil",
-   "name": "Legendary Amazon Oil™",
-   "brand": "rahua",
-   "brand_name": "Rahua",
-   "url": "https://rahua.com/products/legendary-amazon-oil",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 44.16,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0067/5266/5673/files/Legendary_PDP_1.png?width=600",
-   "image_local": "public/scan/products-cheveux/rahua/legendary-amazon-oil.jpg",
-   "categorie": "huile",
-   "etape": 3,
-   "cheveux_cibles": [
-    "epais"
-   ],
-   "actifs": [
-    "huile de rahua"
-   ],
-   "ingredients": null,
-   "description": "A fast-absorbing finishing oil that smooths frizz, boosts shine, and protects hair from daily environmental stressors. Rahua oil strengthens strands from within, antioxidant-rich morete oil helps defend against UV damage while preserving moisture, and omega-rich sacha inchi deeply hydrates to improve softness and elasticity. Just a few drops leave hair sleek, luminous, and healthy-looking.Best for: All Hair TypesNatural Notes: Sizes 3.3 oz and under are final sale and cannot be returned or excha",
-   "claims": [
-    "hydratant",
-    "brillance",
-    "lissant",
-    "fortifiant"
-   ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "rahua--omega-9-hair-mask",
-   "name": "Omega 9 Hair Mask",
-   "brand": "rahua",
-   "brand_name": "Rahua",
-   "url": "https://rahua.com/products/omega-9-hair-mask",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 40.48,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0067/5266/5673/files/rahua-omega9-hair-mask.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/rahua/omega-9-hair-mask.jpg",
+   "price_eur": 48.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/rahua-omega9-hair-mask.jpg?width=600",
+   "image_local": "public/scan/products-cheveux/rahua/masque-capillaire-omega-9.jpg",
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
+    "cuir-chevelu-sensible"
+   ],
+   "actifs": [
+    "glycérine",
+    "panthénol",
+    "huile de tournesol",
+    "beurre de karité",
+    "acides aminés"
+   ],
+   "ingredients": "Aqua, Organic Helianthus Annuus (Sunflower) Seed Oil, Canola Oil, Behentrimonium Methosulfate (Colza Oil), Glyceryl Stearate, Glycerin, Oenocarpus Bataua (Rahua, Ungurahua) Oil, Stearalkonium Chloride, Organic Butyrospermum Parkii (Shea Butter), Organic Hydrolyzed Quinoa, Glycine, Lavandula Angustifolia (Lavender) Oil, Eucalyptus Globulus Leaf Oil, Panthenol, Potassium Sorbate. Afficher tous les détails playCurrentVideo()); }\"> Masque capillaire Omega 9 selectedPrice\"> Choose your size 4 oz 0.74 oz Add to Cart Shop Now How to use After shampooing, apply generously to hair and massage thoroughly into scalp for maximum penetration. Comb through to ensure even distribution. Leave in for 10-15 minutes to allow the botanical formula to work, then rinse thoroughly. Use weekly as a maintenance treatment or more frequently for severely damaged hair. Key Ingredients Rahua Oil Amazonian tree nut oil with superfine molecules that fortify strands, help maintain scalp health, and lock in color. Sustainably harvested through our Symbiotic® partnerships. Sunflower An oil rich in vitamin E and oleic acid that strengthens and gently softens while eliminating frizz. Quinoa Ancient Incan \"mother grain\" that revitalizes hair while promoting healing and moisture retention. Lavender Calming floral extract that soothes the senses while helping to balance oil production on the scalp. Eucalyptus Clarifying botanical with antimicrobial properties that keeps hair clean longer and extends time between washes. \"I’ve been using all Rahua for the past two years and have been very happy with my hair. On a whim I tried this product and finally just used it. Wow.\" —Britt F. Read all reviews Saving the rainforest, one bottle at a time Since starting in 2008, Rahua has provided the financial and legal resources to preserve over 3,276",
+   "description": "Fabriqué à partir d'ingrédients d'origine végétale, ce masque revitalisant intensif de qualité professionnelle est conçu pour fonctionner comme un traitement en salon, pénétrant profondément la tige du cheveu et le fortifiant de la racine à la pointe, laissant les cheveux forts, doux, brillants et hydratés . Naturellement parfumé à la lavande apaisante et à l'eucalyptus édifiant. Idéal pour tous les types de cheveux.",
+   "claims": [
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
+    "apaisant-cuir-chevelu",
+    "purifiant",
+    "brillance"
+   ],
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/masque-capillaire-omega-9.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "rahua--rahua-elixir",
+   "name": "Rahua Elixir",
+   "brand": "rahua",
+   "brand_name": "Rahua",
+   "url": "https://rahua.eu/fr/products/elixir",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 186.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/rahua-elixir.jpg?width=600",
+   "image_local": "public/scan/products-cheveux/rahua/rahua-elixir.jpg",
+   "categorie": "huile",
+   "etape": 3,
+   "cheveux_cibles": [
+    "colores",
+    "abimes"
+   ],
+   "actifs": [],
+   "ingredients": null,
+   "description": "Fabriqué avec de l'huile de Rahua 100% pure à la main, ce traitement luxueux et concentré pour les cheveux et le cuir chevelu offre des résultats spectaculaires. Récolté de manière durable dans la forêt amazonienne, l'huile de Rahua revitalise et renforce visiblement les mèches faibles et endommagées, laissant les cheveux extrêmement sains et naturellement radieux, tandis qu'une infusion d'antioxydants actifs, d'antibactériens et de propriétés microcirculatoires travaillent ensemble pour équilib",
+   "claims": [
+    "fortifiant"
+   ],
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/rahua-elixir.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "rahua--rahua-hydratation-soin-demelant-barriere-uv",
+   "name": "Rahua Hydratation soin Démêlant + Barrière UV",
+   "brand": "rahua",
+   "brand_name": "Rahua",
+   "url": "https://rahua.eu/fr/products/hydration-detangler-uv-barrier",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 44.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/HydrationDetangler_PDP_1.webp?width=600",
+   "image_local": "public/scan/products-cheveux/rahua/rahua-hydratation-soin-demelant-barriere-uv.jpg",
+   "categorie": "apres-shampooing",
+   "etape": 2,
+   "cheveux_cibles": [
+    "secs",
+    "cuir-chevelu-sensible"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "aloe vera",
+    "huile de tournesol",
+    "thé vert"
+   ],
+   "ingredients": "Water/Aqua/Eau, Behentrimonium Methosulfate, Oenocarpus Bataua (Ungurahua) Fruit Oil^, Mauritia Flexuosa (Morete) Fruit Oil*^, Plukenetia Volubilis (Sacha Inchi) Seed Oil*^, Aloe Barbadensis Leaf Extract*^, Mangifera Indica (Mango) Fruit Extract*^, Passiflora Incarnate Fruit Extract*^, Camellia Sinensis (Green Tea) Leaf Extract*^, Saccharum Officinarum (Sugar Cane) Extract^, Helianthus Annuus (Sunflower) Seed Oil^, Cymbopogon Nardus (Citronella) Oil^, Propanediol^, Glycerin^, Polyglyceryl-4 Oleate, Behentrimonium Chloride, Hydroxypropyl Guar^, Citric Acid^, Potassium Sorbate, Fragrance/Parfum†, Limonene, Linalool, Amyl Cinnamal, Benzyl Salicylate, Hydroxycitronellal (*Denotes Organic ingredients, ^Plant derived ingredients, †Naturally derived blend) Afficher tous les détails playCurrentVideo()); }\"> Rahua Hydratation soin Démêlant + Barrière UV selectedPrice\"> Choose your size 6.5 oz 2 oz Add to Cart Shop Now How to use Mist generously on freshly washed, damp hair and comb through to detangle. Can also be applied to dry hair throughout the day for added protection and frizz control. Leave in, do not rinse. Use before heat styling or sun exposure for maximum protection. Key Ingredients Rahua Oil Amazonian tree nut oil with superfine molecules that fortify strands, help maintain scalp health, and lock in color. Sustainably harvested through our Symbiotic® partnerships. Morete Oil Rich in vitamins A, C, and E, this Amazonian fruit oil protects hair from damaging UVA rays while enhancing moisture. Sacha Inchi Exceptionally rich in omega-3 fatty acids, this ancient seed oil locks in moisture while soothing the scalp. Mango Sugars Natural bonding agents that help proteins adhere to the hair shaft, maximizing hydration and retention. Aloe Vera Hydrates and nourishes, bringing renewed vibrancy to damaged and lackluster hair. \"My hair no longer breaks, brushing does not hurt",
+   "description": "Créez instantanément l'effet cheveux brossés avec ce démêlant sans rinçage. Apprêtez les cheveux en vaporisant partout pour démêler et faites glisser le peigne dans les cheveux. Cette formule hydratante adoucit les cheveux, lisse les frisottis, empêche la rupture et les dommages capillaires. La puissance de l'huile de la plante de Morete permet d'offrir une barrière de défense UV, fournit la couleur des cheveux traités avec photoprotection tout en laissant une odeur aromatique de fruits de la pa",
+   "claims": [
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
+    "apaisant-cuir-chevelu",
+    "demelant"
+   ],
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/rahua-hydratation-soin-demelant-barriere-uv.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "rahua--rahua-traitement-de-jour-non-rincable",
+   "name": "Rahua traitement de jour non rinçable",
+   "brand": "rahua",
+   "brand_name": "Rahua",
+   "url": "https://rahua.eu/fr/products/leave-in-treatment-light",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 51.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/rahua-leave-in-treatment-light.jpg?width=600",
+   "image_local": "public/scan/products-cheveux/rahua/rahua-traitement-de-jour-non-rincable.jpg",
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "fins",
+    "colores"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "panthénol",
+    "huile de tournesol",
+    "romarin",
+    "thé vert",
+    "beurre de cacao"
+   ],
+   "ingredients": "Aqua, Herbal Infusion of Organic Ilex Paraguariensis (Yerba Mate) Leaf, Organic Camellia Sinensis (Green Tea) Leaf, Organic Rosmarinus Officinalis (Rosemary) Leaf, Helianthus Annuus (Sunflower) Seed Oil, Behentrimonium Methosulfate*, Cetearyl Alcohol*, Oenocarpus Bataua (Rahua, Ungurahua) Oil, Organic Cocos Nucifera (Coconut) Oil, Stearalkonium Chloride*, Organic Theobroma Cacao (Cocoa Butter), Vegetable Glycerin, Citric Acid*, Lavandula Angustifolia (Lavender) Oil, Eucalyptus Globulus (Eucalyptus) Oil, Potassium Sorbate, Panthenol*, Hydrolyzed Quinoa Protein. *Denotes plant derived ingredient Afficher tous les détails playCurrentVideo()); }\"> Rahua traitement de jour non rinçable selectedPrice\"> Add to Cart Shop Now How to use Utiliser avant les outils de style chaud ou lors du séchage à l’air. Appliquez juste une touche sur les cheveux humides. Produit de massage dans les extrémités et les zones sèches. Soufflez les cheveux secs à l’air comme d’habitude. \"This brand is amazing. It’s clean and works wonders. My hair has never looked or felt better.\" —Jessica M Read all reviews Saving the rainforest, one bottle at a time Since starting in 2008, Rahua has provided the financial and legal resources to preserve over 3,276,520 acres of the Amazon rainforest for the indigenous communities that call it home. 4.9 Rated 4.9 out of 5 stars Based on 79 reviews 5 Rated out of 5 stars 71 4 Rated out of 5 stars 7 3 Rated out of 5 stars 1 2 Rated out of 5 stars 0 1 Rated out of 5 stars 0 99% would recommend this product Slide 1 selected Reviews 79 (tab expanded) Questions (tab collapsed) Filters Write a Review (Opens in a new window) 79 reviews Sort Most Recent Oldest Most Helpful Photos & Videos Highest Rating Lowest Rating Least Helpful GS Gabriella S",
+   "description": "Protecteur de chaleur en apesanteur conçu spécifiquement pour les types de cheveux fins pour fournir une finition anti-frisottis impeccable et légère, que vous les coiffiez avec des outils chauds ou que vous les séchez à l'air. Fabriqué avec de l'huile de Rahua riche en oméga-9 et fouetté à la perfection; cette formule offre aux mèches une protection cicatrisante contre les outils de brushing et de coiffage ainsi qu'une définition lors du séchage à l'air. En aidant à prévenir les pointes fourchu",
+   "claims": [
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "fixation"
+   ],
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/rahua-traitement-de-jour-non-rincable.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "rahua--rebalance-conditioner",
+   "name": "Rebalance Conditioner",
+   "brand": "rahua",
+   "brand_name": "Rahua",
+   "url": "https://rahua.eu/fr/products/rebalance-conditioner",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 42.5,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/Rebalance_Conditioner_PDP_4x5_1.png?width=600",
+   "image_local": "public/scan/products-cheveux/rahua/rebalance-conditioner.jpg",
+   "categorie": "apres-shampooing",
+   "etape": 2,
+   "cheveux_cibles": [
+    "secs",
+    "gras",
+    "fins",
+    "cuir-chevelu-sensible"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "huile de tournesol"
+   ],
+   "ingredients": "Water/Aqua/Eau, Behentrimonium Methosulfate, Cetearyl Alcohol^, Glycerin^, Helianthus Annuus (Sunflower) Seed Oil^, Stearalkonium Chloride, Oenocarpus Bataua (Ungurahua) Fruit Oil^, Plukentia Volubulis (Sacha Inchi) Seed Oil*^, Ilex Guayusa Leaf Extract*^, Calendula Officinalis Flower Extract*^, Magnesium Chloride, Potassium Sorbate, Citric Acid^ (*Denotes Organic ingredients, ^Plant derived ingredients) Afficher tous les détails playCurrentVideo()); }\"> Rebalance Conditioner selectedPrice\"> Add to Cart Shop Now Key Ingredients Sacha Inchi Exceptionally rich in omega-3 fatty acids, this ancient seed oil locks in moisture while soothing the scalp. Salt Calendula Read all reviews Saving the rainforest, one bottle at a time Since starting in 2008, Rahua has provided the financial and legal resources to preserve over 3,276,520 acres of the Amazon rainforest for the indigenous communities that call it home. 5.0 Rated 5.0 out of 5 stars Based on 2 reviews 5 Rated out of 5 stars 2 4 Rated out of 5 stars 0 3 Rated out of 5 stars 0 2 Rated out of 5 stars 0 1 Rated out of 5 stars 0 100% would recommend this product Reviews 2 (tab expanded) Questions (tab collapsed) Filters Write a Review (Opens in a new window) 2 reviews Sort Most Recent Oldest Most Helpful Photos & Videos Highest Rating Lowest Rating Least Helpful AW Alyna W. Verified Reviewer Hair Type: Fine Scalp Condition: Dry 14 hours ago Hair Type: Fine Scalp Condition: Dry Rated 5 out of 5 stars absolutely love! love this conditioner, I have fine wavy / curly hair (a lil heat damaged) that needs a lot of hydration, so many conditioners just aren't enough or end up being too heavy, this conditioner is perfect as it moisturizes + hydrates without weighing down my hair. The rebalance conditioner is a little lighter than the classic, so actually works a little better for my hair type",
+   "description": "A lightweight conditioner that replenishes moisture while helping restore balance to oily or buildup-prone scalps. Calendula supports stronger, healthier-looking hair by helping clear follicles, magnesium chloride helps balance the scalp while improving circulation, and omega-rich sacha inchi nourishes without weighing hair down. Hair is left refreshed, hydrated, and balanced after every wash. Best For: Mildly Sensitive Skin and Scalp Buildup",
+   "claims": [
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "apaisant-cuir-chevelu",
+    "purifiant",
+    "anti-gras"
+   ],
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/rebalance-conditioner.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "rahua--rebalance-shampoo",
+   "name": "Rebalance Shampoo",
+   "brand": "rahua",
+   "brand_name": "Rahua",
+   "url": "https://rahua.eu/fr/products/rebalance-shampoo",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 40.5,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/Rebalance_Shampoo_PDP_4x5_1.png?width=600",
+   "image_local": "public/scan/products-cheveux/rahua/rebalance-shampoo.jpg",
+   "categorie": "shampooing",
+   "etape": 1,
+   "cheveux_cibles": [
+    "secs",
+    "gras",
+    "chute",
+    "cuir-chevelu-sensible"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "aloe vera"
+   ],
+   "ingredients": "Water/Aqua/Eau, Sodium C14-16 Olefin Sulfonate^, Cocamidopropyl Betaine, Sodium Chloride (Sea Salt), Glycerin^, Oenocarpus Bataua (Ungurahua) Fruit Oil^, Plukentia Volubulis (Sacha Inchi) Seed Oil*^, Ilex Guayusa Leaf Extract*^, Calendula Officinalis Flower Extract*^, Magnesium Chloride, Potassium Sorbate, Citric Acid^(*Denotes Organic ingredients, ^Plant derived ingredients) Afficher tous les détails playCurrentVideo()); }\"> Rebalance Shampoo selectedPrice\"> Add to Cart Shop Now Key Ingredients Sacha Inchi Exceptionally rich in omega-3 fatty acids, this ancient seed oil locks in moisture while soothing the scalp. Salt Calendula Read all reviews Saving the rainforest, one bottle at a time Since starting in 2008, Rahua has provided the financial and legal resources to preserve over 3,276,520 acres of the Amazon rainforest for the indigenous communities that call it home. 5.0 Rated 5.0 out of 5 stars Based on 3 reviews 5 Rated out of 5 stars 3 4 Rated out of 5 stars 0 3 Rated out of 5 stars 0 2 Rated out of 5 stars 0 1 Rated out of 5 stars 0 100% would recommend this product Reviews 3 (tab expanded) Questions (tab collapsed) Filters Write a Review (Opens in a new window) 3 reviews Sort Most Recent Oldest Most Helpful Photos & Videos Highest Rating Lowest Rating Least Helpful LP Lisa P. Verified Reviewer Hair Type: Fine Scalp Condition: Balanced 3 days ago Hair Type: Fine Scalp Condition: Balanced Rated 5 out of 5 stars Lovely! So gentle and effective! I love how gentle the Rebalance is and how it left my scalp and fine, curly hair feeling clean and moisturized! I appreciate the low-scent formula as well. I will definitely incorporate the Rebalance duo into my scalp care routine (alternating with my other favorites, the Classic and the Aloe Vera). Rahua is just the best! Read More Read more about this review Was this helpful? Yes, this review from Lisa P. was helpful",
+   "description": "A balancing shampoo that gently removes excess oil and buildup without stripping the scalp. Calendula helps support healthy hair growth by strengthening follicles, magnesium chloride detoxifies while restoring scalp balance, and omega-rich sacha inchi replenishes moisture to keep hair soft and healthy. The result is a refreshed scalp and clean, lightweight strands. Best For: Mildly Sensitive Skin and Scalp Buildup Mildly Sensitive Skin and Scalp Buildup",
+   "claims": [
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "croissance",
+    "apaisant-cuir-chevelu",
+    "purifiant",
+    "anti-gras"
+   ],
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/rebalance-shampoo.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "rahua--scalp-skin-toner",
+   "name": "Scalp & Skin Toner",
+   "brand": "rahua",
+   "brand_name": "Rahua",
+   "url": "https://rahua.eu/fr/products/scalp-skin-toner",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 44.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/AloeToner_PDP_1.png?width=600",
+   "image_local": "public/scan/products-cheveux/rahua/scalp-skin-toner.jpg",
+   "categorie": "serum-cuir-chevelu",
+   "etape": 4,
+   "cheveux_cibles": [
+    "secs",
+    "abimes",
+    "cuir-chevelu-sensible"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "aloe vera"
+   ],
+   "ingredients": "Aqua, Hamamelis Virginiana (Witch Hazel) Extract, Organic Aloe Barbadensis (Aloe Vera) Juice, Organic Cucumis Sativus (Cucumber) Fruit Extract, Coco Glucoside*, Ilex Guayusa Leaf Extract*, Chlorophyll, Natural Aroma*, Vegetable Glycerin, Potassium Sorbate, Citric Acid*. *Denotes plant derived ingredient. Afficher tous les détails playCurrentVideo()); }\"> Scalp & Skin Toner selectedPrice\"> Choose your size 4.2 oz 1 oz Add to Cart Shop Now How to use Shake well before using. Apply morning and night to clean skin and scalp by misting generously. For enhanced benefits, gently massage into the scalp to boost circulation and support cell regeneration. Follow with your regular skincare or hairstyling routine. Can be reapplied throughout the day as a refreshing pick-me-up for both scalp and skin. Key Ingredients Cucumber Rich in vitamins A, C, and silica that support hair repair while regulating natural oil production for optimal scalp health. Aloe Vera Hydrates and nourishes, bringing renewed vibrancy to damaged and lackluster hair. Guayusa Antioxidant-rich Amazonian plant that revitalizes hair and protects against environmental stressors. \"This brand is amazing. It’s clean and works wonders. My hair has never looked or felt better.\" —Jessica M Read all reviews Saving the rainforest, one bottle at a time Since starting in 2008, Rahua has provided the financial and legal resources to preserve over 3,276,520 acres of the Amazon rainforest for the indigenous communities that call it home. 4.9 Rated 4",
+   "description": "This versatile, dual-purpose toner bridges the gap between skincare and haircare with a gentle yet effective formula. Created to cleanse, balance, and refresh both scalp and facial skin, this lightweight mist works to regulate oil production. Aloe vera delivers healing antioxidants and essential vitamins that soothe irritation, while guayusa provides double the antioxidant power of green tea to reduce inflammation and free radical damage. Cucumber fruit offers immediate cooling relief and hydrat",
+   "claims": [
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "apaisant-cuir-chevelu"
+   ],
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/scalp-skin-toner.webp",
+   "ciblage_source": "fiche"
+  },
+  {
+   "id": "rahua--scalp-exfoliating-shampoo",
+   "name": "Scalp Exfoliating Shampoo",
+   "brand": "rahua",
+   "brand_name": "Rahua",
+   "url": "https://rahua.eu/fr/products/scalp-exfoliating-shampoo",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 45.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/Aloe_Duo_9.3_PDP_1_075d6de0-6409-46ad-8498-64465cd48a72.png?width=600",
+   "image_local": "public/scan/products-cheveux/rahua/scalp-exfoliating-shampoo.jpg",
+   "categorie": "shampooing",
+   "etape": 1,
+   "cheveux_cibles": [
+    "secs",
+    "fins",
+    "cuir-chevelu-sensible"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide lactique",
+    "acides aminés",
+    "arginine"
+   ],
+   "ingredients": "Water/Aqua/Eau, Sodium Cocoyl Isethionate, Cocamidopropyl Betaine, Illicium Verum (Anise) Fruit Powder^, Sodium Methyl Cocoyl Taurate, Sodium Cocoyl Glutamate^, Disodium Cocoyl Glutamate^, Sodium Chloride (Sea Salt), Mangifera Indica (Mango) Fruit Extract*^, Passiflora Incarnata Fruit Extract*^, Glycerin^, Oenocarpus Bataua (Ungurahua) Fruit Oil^, Mauritia Flexuosa (Morete) Fruit Oil*^, Plukenetia Volubilis (Sacha Inchi) Seed Oil*^, Sucrose^, Hydrolyzed Quinoa^, Lactic Acid^, Kaolin, Arginine^, Hydroxyethylcellulose, Coco-Caprylate^, Cymbopogon Nardus (Citronella) Oil^, Glycine^, Guar Hydroxypropyltrimonium Chloride, Xanthan Gum^, Fragrance/Parfum†, Potassium Sorbate *Denotes Organic ingredients, ^Plant derived ingredients, †Naturally derived blend Afficher tous les détails playCurrentVideo()); }\"> Scalp Exfoliating Shampoo selectedPrice\"> Choose your size 9.3 oz 0.74 oz Add to Cart Shop Now How to use Ce styler de cheveux innovant fournit la prise tout en nourrissant des cheveux. Pour de meilleurs résultats, secouez bien le produit à activer, vaporiser généreusement des racines aux extrémités sur les cheveux séchés à la serviette. Peignez les cheveux avec les doigts ou peigne à dents large dans le style désiré. Laissez sécher les cheveux à l'air, profitez-en! Les ingrédients naturels peuvent se déposer, secouer pour activer avant utilisation. Key Ingredients Star Anise Provides gentle physical exfoliation while offering antimicrobial properties to help maintain a healthy scalp environment. Rahua Oil Amazonian tree nut oil with superfine molecules that fortify strands, help maintain scalp health, and lock in color. Sustainably harvested through our Symbiotic® partnerships. Sacha Inchi Exceptionally rich in omega-3 fatty acids, this ancient seed oil locks in moisture while soothing the scalp",
+   "description": "Composé de puissantes plantes, Rahua Air Dry Spray rétablit la vitalité de vos cheveux en redonnant à la chevelure sa forme, sa texture et sa direction naturelle. Ce vaporisateur constitué de gommes botaniques et de sucres naturels donne le poids adéquat et contrôle les besoins des cheveux afin de les maintenir en place tout en gardant leur légèreté où ils ont besoin de volume. Rahua Air Dry Spray permet aux cheveux de sécher à l'air parfaitement dans leur forme et texture naturelles. L'aloès et",
+   "claims": [
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "volume",
+    "texturisant",
+    "apaisant-cuir-chevelu",
+    "purifiant"
+   ],
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/scalp-exfoliating-shampoo.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "rahua--shampooing-classique-rahua",
+   "name": "Shampooing Classique Rahua",
+   "brand": "rahua",
+   "brand_name": "Rahua",
+   "url": "https://rahua.eu/fr/products/classic-shampoo",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 40.5,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/AB0001-2_Classic_Shampoo_9.3_PDP_1.png?width=600",
+   "image_local": "public/scan/products-cheveux/rahua/shampooing-classique-rahua.jpg",
+   "categorie": "shampooing",
+   "etape": 1,
+   "cheveux_cibles": [
+    "secs",
+    "abimes",
+    "cuir-chevelu-sensible"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "panthénol",
+    "aloe vera",
+    "acides aminés",
+    "romarin",
+    "thé vert"
+   ],
+   "ingredients": "Water (Aqua), Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Betaine, Sodium Chloride, Glycerin, Saccharum Officinarum (Sugar Cane) Extract, Oenocarpus Bataua (Ungurahua) Fruit Oil, Bursera Graveolens (Palo Santo) Wood Oil, Aloe Barbadensis Leaf Extract, Camellia Sinensis Leaf Extract, Rosmarinus Officinalis (Rosemary) Leaf Extract, Rubus Idaeus (Raspberry) Leaf Extract, Hydrolyzed Quinoa, Capryloyl Glycine, Caprylic Acid, Panthenol, Citric Acid, Potassium Sorbate (*Denotes Organic ingredients, ^Plant derived ingredients) Afficher tous les détails playCurrentVideo()); }\"> Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Shampooing Classique Rahua selectedPrice\"> Choose your size 9.3 oz 18 oz 2 oz 3.3 oz 0.74 oz Add to Cart Shop Now How to use Dispense a quarter-sized portion (less for shorter hair) into your palm. Massage into wet hair and scalp, working into a lather. Rinse thoroughly and follow with Classic Conditioner. Use regularly for best results. Clinical Results 94% said their hair felt less damaged 97% said their hair felt healthier 97% said their scalp felt hydrated and less irritated Key Ingredients Rahua Oil Amazonian tree nut oil with superfine molecules that fortify strands, help maintain scalp health, and lock in color. Sustainably harvested through our Symbiotic® partnerships. Palo Santo Oil Purifying oil that adds an earthy, woodsy aroma",
+   "description": "Formulé avec des ingrédients rares et d’origine durable, ce shampooing riche et réparateur laisse les cheveux doux, soyeux et lumineux, et le cuir chevelu apaisé. Fabriquée à partir d’huile de Rahua riche en oméga-9 et naturellement parfumée à l’arôme frais et boisé de l’huile de Palo Santo, cette formule culte-préférée est concentrée et maintient le cuir chevelu en équilibre, pas trop huileux, et pas trop sec. Idéal pour tous les types de cheveux.",
+   "claims": [
+    "hydratation",
+    "reparation",
+    "fortifiant",
+    "apaisant-cuir-chevelu",
+    "purifiant",
+    "brillance"
+   ],
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/shampooing-classique-rahua.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "rahua--shampooing-hydratant-rahua",
+   "name": "Shampooing Hydratant Rahua",
+   "brand": "rahua",
+   "brand_name": "Rahua",
+   "url": "https://rahua.eu/fr/products/hydration-shampoo",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 40.5,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/Hydration_Shampooo_9.3_PDP_1.png?width=600",
+   "image_local": "public/scan/products-cheveux/rahua/shampooing-hydratant-rahua.jpg",
+   "categorie": "shampooing",
+   "etape": 1,
+   "cheveux_cibles": [
+    "secs",
     "abimes"
    ],
    "actifs": [
-    "panthénol",
-    "beurre de karité",
     "glycérine",
-    "huile de tournesol",
-    "huile de rahua"
+    "aloe vera",
+    "acide lactique",
+    "acides aminés",
+    "arginine"
    ],
-   "ingredients": "Aqua, Organic Helianthus Annuus (Sunflower) Seed Oil, Canola Oil, Behentrimonium Methosulfate (Colza Oil), Glyceryl Stearate, Glycerin, Oenocarpus Bataua (Rahua, Ungurahua) Oil, Stearalkonium Chloride, Organic Butyrospermum Parkii (Shea Butter), Organic Hydrolyzed Quinoa, Glycine, Lavandula Angustifolia (Lavender) Oil, Eucalyptus Globulus Leaf Oil, Panthenol, Potassium Sorbate. View full details",
-   "description": "An intensive treatment mask that deeply replenishes dry, damaged hair with long-lasting moisture and shine. Rahua oil strengthens and repairs weakened strands, quinoa protein improves elasticity to help prevent future breakage, and sunflower seed oil delivers lightweight hydration while enhancing softness and radiance. Hair is left healthier-looking, smoother, and deeply restored after every treatment.Best for: Fine to Medium hairNatural Notes: Sizes 3.3 oz and under are final sale and cannot be",
+   "ingredients": "Water (Aqua), Mangifera Indica (Mango) Fruit Extract*^, Passiflora Incarnata Fruit Extract*^, Aloe Barbadensis Leaf Extract*^, Sodium Cocoyl Isethionate, Cocamidopropyl Betaine, Sodium Methyl Cocoyl Taurate, Sodium Cocoyl Glutamate^, Disodium Cocoyl Glutamate^, Sodium Chloride, Glycerin^, Lactic Acid^, Hydroxyethylcellulose^, Mauritia Flexuosa (Morete) Fruit Oil*^, Oenocarpus Bataua (Ungurahua) Fruit Oil^, Plukenetia Volubilis (Sacha Inchi) Seed Oil*^, Capryloyl Glycine, Guar Hydroxypropyltrimonium Chloride, Hydrolyzed Quinoa^, Coco-Caprylate^, Xanthan Gum^, Arginine^, Kaolin, Sucrose^, Cymbopogon Nardus (Citronella) Oil^, Fragrance (Parfum)†, Potassium Sorbate (*Denotes Organic ingredients, ^Plant derived ingredients, †Naturally derived blend) Afficher tous les détails playCurrentVideo()); }\"> Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Shampooing Hydratant Rahua selectedPrice\"> Choose your size 9.3 oz 18 oz - Sold Out 2 oz - Sold Out 3.3 oz 0.74 oz Add to Cart Shop Now How to use Apply to thoroughly wet hair and massage into scalp, working into a gentle lather. Rinse completely and follow with Rahua Hydration Conditioner. For maximum hydration benefits, use regularly as your primary cleanser. Key Ingredients Rahua Oil Amazonian tree nut oil with superfine molecules that fortify strands, help maintain scalp health, and lock in color",
+   "description": "Créée pour reconstituer les cheveux les plus endommagés et assoiffés, cette formule riche et crémeuse est infusée de notre complexe végétal conçu avec des huiles amazoniennes rares et des sucres naturels liant les protéines qui entraînent l’hydratation profondément dans chaque mèche de cheveux. Parfumée aux arômes tropicaux de fruits de la passion et de mangue, cette formule innovante laisse le cuir chevelu hydraté et équilibré et les cheveux plus forts, plus sains, plus lisses et plus brillants",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "brillance",
-    "lissant",
-    "fortifiant"
+    "hydratation",
+    "fortifiant",
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/shampooing-hydratant-rahua.webp",
+   "ciblage_source": "deduit"
   },
   {
-   "id": "rahua--leave-in-treatment-light",
-   "name": "Leave-In Treatment Light",
+   "id": "rahua--shampooing-volumateur-rahua",
+   "name": "Shampooing volumateur Rahua",
    "brand": "rahua",
    "brand_name": "Rahua",
-   "url": "https://rahua.com/products/leave-in-treatment-light",
+   "url": "https://rahua.eu/fr/products/voluminous-shampoo",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 44.16,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0067/5266/5673/files/rahua-leave-in-treatment-light.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/rahua/leave-in-treatment-light.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
+   "price_eur": 40.5,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/Voluminous_Shampoo_9.3_Packshot.png?width=600",
+   "image_local": "public/scan/products-cheveux/rahua/shampooing-volumateur-rahua.jpg",
+   "categorie": "shampooing",
+   "etape": 1,
    "cheveux_cibles": [
     "fins",
     "abimes"
    ],
    "actifs": [
-    "panthénol",
-    "huile de coco",
     "glycérine",
-    "huile de tournesol",
-    "huile de rahua",
-    "thé vert",
+    "acide citrique",
+    "panthénol",
+    "aloe vera",
+    "acides aminés",
     "romarin",
-    "acide citrique"
+    "thé vert"
    ],
-   "ingredients": "Aqua, Herbal Infusion of Organic Ilex Paraguariensis (Yerba Mate) Leaf, Organic Camellia Sinensis (Green Tea) Leaf, Organic Rosmarinus Officinalis (Rosemary) Leaf, Helianthus Annuus (Sunflower) Seed Oil, Behentrimonium Methosulfate*, Cetearyl Alcohol*, Oenocarpus Bataua (Rahua, Ungurahua) Oil, Organic Cocos Nucifera (Coconut) Oil, Stearalkonium Chloride*, Organic Theobroma Cacao (Cocoa Butter), Vegetable Glycerin, Citric Acid*, Lavandula Angustifolia (Lavender) Oil, Eucalyptus Globulus (Eucalyptus) Oil, Potassium Sorbate, Panthenol*, Hydrolyzed Quinoa Protein. *Denotes plant derived ingredient",
-   "description": "A featherweight leave-in treatment that strengthens fine hair while helping reduce breakage, split ends, and shedding. Rahua oil fortifies strands from within, quinoa protein improves elasticity to help prevent future damage, and antioxidant-rich yerba mate strengthens follicles while supporting healthier growth. Hair is left softer, stronger, and naturally fuller without added weight.Best for: Fine to MediumNatural Notes: Sizes 3.3 oz and under are final sale and cannot be returned or exchanged",
+   "ingredients": "Water (Aqua), Sodium C14-16 Olefin Sulfonate^, Cocamidopropyl Betaine, Sodium Chloride, Cymbopogon Schoenanthus (Lemongrass) Extract*^, Camellia Sinensis (Green Tea) Leaf Extract*^, Aloe Barbadensis Leaf Extract*^, Oenocarpus Bataua (Ungurahua) Fruit Oil^, Eucalyptus Globulus Leaf Oil*^, Lavandula Angustifolia (Lavender) Oil*^, Rosmarinus Officinalis (Rosemary) Leaf Extract*^, Medicago Sativa (Alfalfa) Extract^, Saccharum Officinarum (Sugar Cane) Extract*^, Hydrolyzed Quinoa^, Caprylic Acid^, Glycerin^, Capryloyl Glycine, Panthenol^, Citric Acid^, Potassium Sorbate (*Denotes Organic ingredients, ^Plant derived ingredients) Afficher tous les détails playCurrentVideo()); }\"> Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Your browser does not support the video tag. Shampooing volumateur Rahua selectedPrice\"> Choose your size 9.3 oz 18 oz - Sold Out 2 oz - Sold Out 3.3 oz 0.74 oz Add to Cart Shop Now How to use Dispense a quarter-sized amount into your palm and massage into wet hair and scalp, working into a lather. Focus on the roots for maximum volume. Rinse thoroughly and follow with Voluminous Conditioner. For optimal results, use regularly as your daily cleanser. Key Ingredients Eucalyptus Clarifying botanical with antimicrobial properties that keeps hair clean longer and extends time between washes",
+   "description": "Notre shampooing volumineux primé renforce, clarifie et nourrit les cheveux tout en offrant un volume et un corps remarquables. Une combinaison d'antioxydants de thé vert, de jus d'agrumes et de citronnelle élimine l'accumulation de produit et réduit la production d'huile pour prolonger le temps entre les shampooings, sans sécher les cheveux ou le cuir chevelu. L'huile de rahua, riche en oméga-9, fortifie les cheveux de l'intérieur pour aider à prévenir la casse et les extraits de lavande et d'e",
    "claims": [
-    "fortifiant"
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "volume",
+    "purifiant",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/shampooing-volumateur-rahua.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "rahua--spray-volumineux-rahua",
+   "name": "Spray Volumineux Rahua",
+   "brand": "rahua",
+   "brand_name": "Rahua",
+   "url": "https://rahua.eu/fr/products/voluminous-spray",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 46.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/rahua-voluminous-spray_9292266d-f8b6-4f41-9b06-a66195219972.jpg?width=600",
+   "image_local": "public/scan/products-cheveux/rahua/spray-volumineux-rahua.jpg",
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "fins"
+   ],
+   "actifs": [
+    "acide citrique",
+    "huile de lin"
+   ],
+   "ingredients": "Aqua, Citrus Medica Limonum (Lemon) Peel Extract*, Cymbopogon Schoenanthus (Lemongrass) Extract*, Zea Mays (Corn) Silk Extract *, Linum Usitatissimum (Linseed) Seed Extract*, Saccharum Officinarum (Sugar Cane)*, Lavandula Angustifolia (Lavender) Oil, Eucalyptus Globulus Leaf Oil (Limonene)*, Tabebuia Impetiginosa Bark Extract, Citric Acid, Sodium Chloride, Pyrus Malus (Apple) Pectin. * Denotes Certified Organic Ingredient Afficher tous les détails playCurrentVideo()); }\"> Spray Volumineux Rahua selectedPrice\"> Add to Cart Shop Now How to use Spray directly at roots to absorb oil and create lift. For all-over texture, spray throughout hair and scrunch with fingers. For maximum volume, flip head upside down, spray at roots, and aim a blow dryer at the roots. Can be applied to dry hair throughout the day to refresh and revitalize. \"This brand is amazing. It’s clean and works wonders. My hair has never looked or felt better.\" —Jessica M Read all reviews Saving the rainforest, one bottle at a time Since starting in 2008, Rahua has provided the financial and legal resources to preserve over 3,276,520 acres of the Amazon rainforest for the indigenous communities that call it home. 4.9 Rated 4.9 out of 5 stars Based on 42 reviews 5 Rated out of 5 stars 38 4 Rated out of 5 stars 3 3 Rated out of 5 stars 1 2 Rated out of 5 stars 0 1 Rated out of 5 stars 0 98% would recommend this product Slide 1 selected Reviews 42 (tab expanded) Questions (tab collapsed) Filters Write a Review (Opens in a new window) 42 reviews Sort Most Recent Oldest Most Helpful Photos & Videos Highest Rating Lowest Rating Least Helpful CT Cydney T. Verified Buyer Hair Type: Medium Scalp Condition: Dry 1 month ago Hair Type: Medium Scalp Condition: Dry Rated 5 out of 5 stars Voluminous Spray WOW! Totally a great product",
+   "description": "Notre rafraîchissement biologique pour les cheveux certifié sain et innovant s’est fait un spray volumineux polyvalent. À base de plantes et sans alcool, il offre une portance, une texture légère, ébouriffée et une tenue souple. Les extraits de jus d’agrumes décomposent les huiles de surface, revitalisent les cheveux et le cuir chevelu tandis que la lavande et l’eucalyptus offrent un arôme frais et naturel. Utilisez entre les lavages ou tout au long de la journée pour raviver les cheveux. Idéal",
+   "claims": [
+    "volume",
+    "texturisant",
+    "brillance",
+    "fixation"
+   ],
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/spray-volumineux-rahua.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "rahua--traitement-sans-rincage-rahua",
+   "name": "Traitement sans rinçage Rahua",
+   "brand": "rahua",
+   "brand_name": "Rahua",
+   "url": "https://rahua.eu/fr/products/leave-in-treatment",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 51.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/01_Rahua_Leave_In_Treatment.jpg?width=600",
+   "image_local": "public/scan/products-cheveux/rahua/traitement-sans-rincage-rahua.jpg",
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "secs",
+    "crepus",
+    "lisses"
+   ],
+   "actifs": [
+    "glycérine",
+    "panthénol",
+    "aloe vera",
+    "huile de tournesol",
+    "beurre de karité",
+    "huile de jojoba",
+    "acides aminés",
+    "romarin",
+    "thé vert"
+   ],
+   "ingredients": "Aqua, Organic Camellia Sinensis (Green Tea) Leaf Extract, Organic Rosmarinus Officinalis (Rosemary) Leaf Extract, Organic Rubus Idaeus (Raspberry) Leaf Extract, Organic Aloe Barbadensis Leaf Extract, Oenocarpus Bataua (Rahua Ungurahua) Oil, Behentrimonium Methosulfate, Cetearyl Alcohol (Coconut Oil), Helianthus Annuus (Sunflower) Seed Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Glycerin, Butyrospermum Parkii (Shea Butter), Stearalkonium Chloride, Organic Molasses, Panthenol, Glycine, Bursera Graveolens (Palo Santo) Oil, Vanilla Planifolia Fruit Extract, Potassium Sorbate, Organic Hydrolyzed Quinoa. Afficher tous les détails playCurrentVideo()); }\"> Traitement sans rinçage Rahua selectedPrice\"> Add to Cart Shop Now How to use \"This brand is amazing. It’s clean and works wonders. My hair has never looked or felt better.\" —Jessica M Read all reviews Saving the rainforest, one bottle at a time Since starting in 2008, Rahua has provided the financial and legal resources to preserve over 3,276,520 acres of the Amazon rainforest for the indigenous communities that call it home. 4.8 Rated 4.8 out of 5 stars Based on 108 reviews 5 Rated out of 5 stars 101 4 Rated out of 5 stars 3 3 Rated out of 5 stars 0 2 Rated out of 5 stars 1 1 Rated out of 5 stars 3 96% would recommend this product Slide 1 selected Reviews 108 (tab expanded) Questions (tab collapsed) Filters Write a Review (Opens in a new window) 108 reviews Sort Most Recent Oldest Most Helpful Photos & Videos Highest Rating Lowest Rating Least Helpful DM Diana M. Verified Buyer 3 days ago Rated 5 out of 5 stars the best! love it Read More Read more about this review Was this helpful? Yes, this review from Diana M. was helpful. 0 people voted yes No, this review from Diana M. was not helpful. 0 people voted no AS Alexandra S",
+   "description": "Protecteur et cicatrisant, ce traitement flexible anti-frisottis - parfait si vous le coiffez avec des outils chauds ou à l'air sec - offre une brillance remarquable, protège les cheveux du stress et empêche les cassures et les pointes fourchues. Fabriqué avec de l'huile de Rahua riche en oméga-9, il agit comme un protecteur de chaleur, protège les cheveux du stress des outils de séchage et de coiffage et ajoute de la définition et de la séparation lors du séchage à l'air. Idéal pour tous les ty",
+   "claims": [
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "brillance",
+    "fixation"
+   ],
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/traitement-sans-rincage-rahua.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "rahua--vaporisateur-au-sel-rahua-ile-enchantee-tm",
+   "name": "Vaporisateur au sel Rahua île enchantée ™",
+   "brand": "rahua",
+   "brand_name": "Rahua",
+   "url": "https://rahua.eu/fr/products/enchanted-island-salt-spray",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 44.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/rahua-enchanted-island-salt-spray.jpg?width=600",
+   "image_local": "public/scan/products-cheveux/rahua/vaporisateur-au-sel-rahua-ile-enchantee-tm.jpg",
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "fins",
+    "boucles"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "aloe vera",
+    "hibiscus",
+    "huile de moringa"
+   ],
+   "ingredients": "Aqua, Sodium Chloride (Sea salt), Glycerin, Sorbitan Oleate Decylglucoside Crosspolymer, Aloe Barbadensis (Aloe Vera) Leaf Juice*, Psidium Guajava (Guayaba) Fruit Juice, Caprylyl Glycol, Ethylhexylglycerin, Passiflora Incarnata (Passion) Fruit Extract, Phenethyl Alcohol, Caprylyl/Capryl Glycosides, Sodium Cocoyl Glutamate, Hibiscus Sabdariffa (Hibiscus) Flower Extract, Polyglyceryl-5 Oleate, Glyceryl Caprylate, Citric Acid, Alcohol (SDA 38B Lavender Oil) Lavandula Angustifolia, Eclipta Prostrata Extract (King of hair), Melia Azadirachta Leaf Extract, Moringa Pterygosperma Seed Oil. *Denotes certified organic Afficher tous les détails playCurrentVideo()); }\"> Vaporisateur au sel Rahua île enchantée ™ selectedPrice\"> Add to Cart Shop Now How to use Spray generously onto damp or dry hair, focusing on mid-lengths to ends. Scrunch with fingers to enhance wave formation and texture. For maximum volume, flip head upside down and spray at roots. Allow to air dry for a natural, beachy finish or diffuse for enhanced definition. \"This brand is amazing. It’s clean and works wonders. My hair has never looked or felt better.\" —Jessica M Read all reviews Saving the rainforest, one bottle at a time Since starting in 2008, Rahua has provided the financial and legal resources to preserve over 3,276,520 acres of the Amazon rainforest for the indigenous communities that call it home. 4.9 Rated 4.9 out of 5 stars Based on 31 reviews 5 Rated out of 5 stars 29 4 Rated out of 5 stars 0 3 Rated out of 5 stars 2 2 Rated out of 5 stars 0 1 Rated out of 5 stars 0 94% would recommend this product Slide 1 selected Reviews 31 (tab expanded) Questions (tab collapsed) Filters Write a Review (Opens in a new window) 31 reviews Sort Most Recent Oldest Most Helpful Photos & Videos Highest Rating Lowest Rating Least Helpful CD Cari D",
+   "description": "Inspiré des îles Galapagos, notre spray salé île enchantée ™ offre des cheveux de plage sexy, ébouriffés et ondulés. Fabriqué avec du sel de mer rose naturel pour la texture et le volume, ce spray offre une tenue légère et brossable et la combinaison de parfums tropicaux luxuriants de guayaba, d'hibiscus et de fruits de la passion. Votre achat soutient le projet Pink Flamingos Idéal pour des cheveux fins à normaux.",
+   "claims": [
+    "definition-boucles",
+    "volume",
+    "texturisant",
+    "fixation"
+   ],
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/vaporisateur-au-sel-rahua-ile-enchantee-tm.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "rahua--voluminous-dry-shampoo",
+   "name": "Voluminous Dry Shampoo",
+   "brand": "rahua",
+   "brand_name": "Rahua",
+   "url": "https://rahua.eu/fr/products/voluminous-dry-shampoo",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 38.0,
+   "price_source": "site officiel FR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0250/0748/9123/files/voluminousDryShampoo.png?width=600",
+   "image_local": "public/scan/products-cheveux/rahua/voluminous-dry-shampoo.jpg",
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "secs",
+    "gras",
+    "fins",
+    "colores"
+   ],
+   "actifs": [],
+   "ingredients": null,
+   "description": "This plant-based, non-aerosol dry shampoo transforms limp, oily hair into refreshed, voluminous styles without water. Our innovative formula combines organic, food-grade cassava (tapioca) starch with cosmetic clay to effectively absorb oil, perspiration, and debris from scalp and hair, creating a clean base with noticeable lift. Unlike conventional powder formulas that leave residue, this lightweight spray disperses evenly for an invisible finish that works on all hair colors. The result is revi",
+   "claims": [
+    "volume",
+    "anti-gras"
+   ],
+   "source": "rahua.eu/fr (boutique officielle EU, locale francaise) — products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/rahua/cutout/voluminous-dry-shampoo.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

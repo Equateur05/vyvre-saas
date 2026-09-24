@@ -16,6 +16,7 @@
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
    "cheveux_cibles": [
+    "gras",
     "boucles"
    ],
    "actifs": [
@@ -24,63 +25,14 @@
    ],
    "ingredients": "Water (Aqua), Propylene Glycol, Polysorbate 20, Betaine, Salicylic Acid, Polyacrylate Crosspolymer-6, Fragrance (Parfum), Sodium Hydroxide, Trisodium Ethylenediamine Disuccinate, Cocos Nucifera (Coconut) Oil, Ananas Sativus (Pineapple) Fruit Extract, Lactobacillus Ferment, Limonene",
    "description": "Healthy curls start at the scalp. Salicylic Serum Scalp Reset Treatment s a lightweight pre-wash treatment designed to exfoliate build-up, rebalance stressed scalps and create the perfect foundation for healthier-looking curls. Powered by Salicylic Acid, Coconut Oil and Pineapple Fruit Extract, this curl-friendly formula helps remove excess oil, flakes and product build-up that can leave curls looking weighed down and roots feeling uncomfortable. Whether it's wash day residue, dry shampoo overlo",
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "umberto-giannini--vanilla-gelato-hair-mist",
-   "name": "Vanilla Gelato Hair Mist 250ml",
-   "brand": "umberto-giannini",
-   "brand_name": "Umberto Giannini",
-   "url": "https://www.umbertogiannini.com/products/vanilla-gelato-hair-mist",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 10.82,
-   "price_source": "converti GBP x1.17 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0144/3636/8419/files/U380-packshot_69bb4ecd-d046-43d2-bfb6-70f9e57ab3cc.png?width=600",
-   "image_local": "public/scan/products-cheveux/umberto-giannini/vanilla-gelato-hair-mist.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [
-    "boucles"
-   ],
-   "actifs": [
-    "panthénol",
-    "niacinamide",
-    "acide hyaluronique",
-    "huile de ricin",
-    "aloe vera",
-    "glycérine"
-   ],
-   "ingredients": "Water (Aqua), Glycerin, Propylene Glycol, PEG-40 Hydrogenated Castor Oil, Fragrance (Parfum), Phenoxyethanol, Chlorphenesin, Niacinamide, Disodium EDTA, Sodium Hyaluronate, Panthenol, 3-O-Ethyl Ascorbic Acid, Aloe Barbadensis Leaf Extract, Butylene Glycol, Hydroxyacetophenone, Coumarin",
-   "description": "Say hello to the NEW Vanilla Scented Curl Mist. The perfect pair to our Vanilla Gelato Curl Jelly, to keep your curls smelling sweet all day long! Enjoy soft, shiny curls that you love, infused with an irresistible scent of sweet vanilla. Lightweight & silicone-free, this is everything your waves, curls and coils crave.",
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "umberto-giannini--curl-jelly-strawberry-summer-routine",
-   "name": "Curl Jelly Strawberry Summer Routine",
-   "brand": "umberto-giannini",
-   "brand_name": "Umberto Giannini",
-   "url": "https://www.umbertogiannini.com/products/curl-jelly-strawberry-summer-routine",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 47.99,
-   "price_source": "converti GBP x1.17 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0144/3636/8419/files/newsummerkit_306f6ea5-7251-4ffd-9292-64517091dea3.png?width=600",
-   "image_local": "public/scan/products-cheveux/umberto-giannini/curl-jelly-strawberry-summer-routine.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [
-    "fins",
-    "epais",
-    "boucles"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Say hello to the NEW limited edition Curl Jelly Summer Routine. Everything you need to define, de-frizz and volumise your curls - now with a juicy strawberry twist! This edit brings together our cult-favourite Curl Jelly heroes with 6 wash and styling essentials, so you can build the ultimate wash day routine.",
    "claims": [
-    "volume"
+    "definition-boucles",
+    "purifiant",
+    "anti-gras"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/salicilic-scalp-treatment-150ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--curl-jelly-strawberry-glaze-curl-mist-150ml",
@@ -96,17 +48,22 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
+    "fins",
     "boucles"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "Curl Mist, drenched in juicy Strawberry scent. Give thirsty curls and coils a burst of lightweight moisture whenever they need it. Inspired by our beloved Curls & Coils Moisture Mist, this ultra-fine spray helps replenish hydration, boost softness, and leave hair feeling refreshed without weighing it down. Finished with the sweetest Strawberry scent of the season, it leaves curls looking glossy, feeling nourished, and smelling unreal from every angle.",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
+    "definition-boucles",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/curl-jelly-strawberry-glaze-curl-mist-150ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--curl-jelly-scrunching-jelly-strawberry-glaze-200ml",
@@ -122,17 +79,21 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
     "boucles"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "The Curl Jelly you’re obsessed with, now dipped in Strawberry. Get the same iconic curl definition, long-lasting hold, and frizz control you know and love, now with a juicy fruity scent that smells good enough to eat. Lightweight, silicone-free, and shine-boosting, this limited edition formula keeps curls looking defined, bouncy, and glossy all day long. Your wash day just got sweeter.",
    "claims": [
+    "anti-frisottis",
+    "definition-boucles",
     "brillance",
-    "definition-boucles"
+    "fixation",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/curl-jelly-scrunching-jelly-strawberry-glaze-200ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--curl-jelly-wand-12ml",
@@ -148,7 +109,6 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
     "boucles"
    ],
    "actifs": [
@@ -158,49 +118,15 @@
    "ingredients": "Water (Aqua), PVP, AMP-Acrylates/Allyl Methacrylate Copolymer, Polysorbate 20, Phenoxyethanol, Acrylates/C10-30 Alkyl Acrylate Crosspolymer, Panthenol, Sodium Hydroxide, Ethylhexylglycerin, Fragrance (Parfum), Trisodium Ethylenediamine Disuccinate, Citric Acid, Tetramethyl Acetyloctahydronaphthalenes, Coumarin",
    "description": "New styling sidekick for sleek, polished looks on the go. Curl Jelly Wand is a lightweight, silicone-free strong hold styling jelly designed to smooth baby hairs, tame flyaways and keep every style perfectly in place. Powered by the iconic Curl Jelly formula, this precision wand glides effortlessly along the hairline to define, de-frizz and smooth without stickiness or residue. Whether you're perfecting slick-back styles, shaping edges or finishing curls with a sleek touch, the compact wand deli",
    "claims": [
-    "lissant"
+    "anti-frisottis",
+    "definition-boucles",
+    "brillance",
+    "fixation",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "umberto-giannini--xl-mystery-8-products",
-   "name": "XL Mystery Box - 8 products",
-   "brand": "umberto-giannini",
-   "brand_name": "Umberto Giannini",
-   "url": "https://www.umbertogiannini.com/products/xl-mystery-8-products",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 35.1,
-   "price_source": "converti GBP x1.17 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0144/3636/8419/files/mysterybox_1_03da64dc-b0da-46af-8f14-9eb781adbbcf.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/umberto-giannini/xl-mystery-8-products.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Meet your new haircare obsession Discover something new with the Umberto Giannini Mystery Box, a surprise selection of our salon-quality haircare, styling favourites, and beauty accessories. Perfect for refreshing your routine or trying something different.",
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "umberto-giannini--small-mystery-4-products",
-   "name": "Starter Mystery Box - 4 products",
-   "brand": "umberto-giannini",
-   "brand_name": "Umberto Giannini",
-   "url": "https://www.umbertogiannini.com/products/small-mystery-4-products",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 17.55,
-   "price_source": "converti GBP x1.17 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0144/3636/8419/files/mysterybox_1.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/umberto-giannini/small-mystery-4-products.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Meet your new haircare obsession Discover something new with the Umberto Giannini Mystery Box, a surprise selection of our salon-quality haircare, styling favourites, and beauty accessories. Perfect for refreshing your routine or trying something different.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/curl-jelly-wand-12ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--damage-reverse-bond-serum",
@@ -216,7 +142,6 @@
    "categorie": "proteine-reconstruction",
    "etape": 4,
    "cheveux_cibles": [
-    "epais",
     "boucles",
     "colores",
     "abimes"
@@ -226,13 +151,17 @@
     "glycérine"
    ],
    "ingredients": "Propylene Glycol, Water (Aqua), Dimethicone, Dimethiconol, PEG-12 Dimethicone, Phenoxyethanol, Polyacrylamide, Fragrance (Parfum), Pentylene Glycol, C13-14 Isoalkane, Ammonium Acryloyldimethyltaurate/VP Copolymer, Glycerin, Ethylhexylglycerin, Laureth-7, Sodium Gluconate, Avena Sativa (Oat) Peptide, Triticum Vulgare (Wheat) Bran Extract, Hydrolyzed Wheat Protein, Sodium Benzoate, Benzoic Acid, 1,2-Hexanediol, Caprylyl Glycol, Maltodextrin, Silybum Marianum Seed Extract, Hexyl Cinnamal, Tetramethyl Acetyloctahydronaphthalenes, Linalyl Acetate, Linalool, Limonene, Alpha-isomethyl Ionone, Citronellol, Hydroxycitronellal, Geraniol, Juniperus Virginiana Oil",
-   "description": "The only salon-level bond repair system engineered for curls. Damage reverse Bond serum is powered by an advanced Bond Sealing Technology to strengthen, protect, and reinforce strands for up to 40% stronger hair with 84% fewer split ends.* Formulated for damaged, coloured, and chemically treated curls, this Bond bulding serum smooths the hair surface while working deep within the fibre to help reverse visible signs of damage, reduce frizz, enhance gloss and softness for healthier-looking curls. ",
+   "description": "The only salon-level bond repair system engineered for curls. Damage reverse Bond serum is powered by an advanced Bond Sealing Technology to strengthen, protect, and reinforce strands for up to 40% stronger hair with 84% fewer split ends.* Formulated for damaged, coloured, and chemically treated curls, this Bond bulding serum smooths the hair surface while working deep within the fibre to help reverse visible signs of damage, reduce frizz, enhance gloss and softness for healthier-looking curls.",
    "claims": [
-    "reparateur",
-    "lissant",
-    "fortifiant"
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/damage-reverse-bond-serum.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--bond-build-leave-in",
@@ -248,7 +177,6 @@
    "categorie": "proteine-reconstruction",
    "etape": 4,
    "cheveux_cibles": [
-    "epais",
     "boucles",
     "colores",
     "abimes"
@@ -264,10 +192,14 @@
    "ingredients": "Water (Aqua), Propylene Glycol, Cetearyl Alcohol, Polyquaternium-37, C15-19 Alkane, Brassicamidopropyl Dimethylamine, Cocos Nucifera (Coconut) Fruit Extract, Hydrogenated Polyfarnesene, Citric Acid, Fragrance (Parfum), Phenoxyethanol, Corn Starch Modified, Pentylene Glycol, Polyimide-1, Ceteareth-20, Chlorphenesin, Glycerin, Ethylhexylglycerin, Tocopheryl Acetate, Avena Sativa (Oat) Peptide, Sodium Phytate, Triticum Vulgare (Wheat) Bran Extract, Hydrolyzed Wheat Protein, Sodium Benzoate, Benzoic Acid, 1,2-Hexanediol, Caprylyl Glycol, Maltodextrin, Silybum Marianum Seed Extract, Tocopherol, Hexyl Cinnamal, Tetramethyl Acetyloctahydronaphthalenes, Linalyl Acetate, Linalool, Limonene, Alpha-isomethyl Ionone, Citronellol, Hydroxycitronellal, Geraniol, Juniperus Virginiana Oil",
    "description": "The only salon-level bond repair system engineered for curls. Rebuild and fortify curls with Bond-build leave in treatment*, Formulated for damaged, coloured, and chemically treated curls. Powered by advanced bond-building technology, this high-performance leave-in treatment works deep within the curl structure to restore weakened bonds and revive dry, damaged, and frizz-prone curls. For 40% stronger*, smoother with enhanced curl defiinition. Infused with Vegan Keratin, Wheat Micro-Proteins, Oat",
    "claims": [
-    "reparateur",
-    "lissant"
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/bond-build-leave-in.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--curl-bond-conditioner-250ml",
@@ -299,11 +231,14 @@
    "ingredients": "Water (Aqua), Cetearyl Alcohol, Behentrimonium Chloride, Stearamidopropyl Dimethylamine, Citric Acid, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Benzyl Alcohol, Fragrance (Parfum), Ricinus Communis (Castor) Seed Oil, Sodium Benzoate, Pentylene Glycol, Polyquaternium-10, Glycerin, Panthenol, Avena Sativa (Oat) Peptide, PG- Hydroxyethylcellulose Cocodimonium Chloride, Triticum Vulgare (Wheat) Bran Extract, Hydrolyzed Wheat Protein, Trisodium Ethylenediamine Disuccinate, Benzoic Acid, 1,2- Hexanediol, Caprylyl Glycol, Phenoxyethanol, Maltodextrin, Silybum Marianum Seed Extract, Hexyl Cinnamal, Tetramethyl Acetyloctahydronaphthalenes, Linalyl Acetate, Linalool",
    "description": "Condition and rebuild curls with advanced salon bond-building technology for 40% stronger curls*. The only salon-level bond repair system engineered for curls. Designed for damaged, coloured, and chemically treated strands , it deeply nourishes and repairs hair at a molecular level, strengthening weakened bonds, reducing breakage, and restoring curl resilience. Formulated with Vegan Keratin, Wheat Micro-Proteins, and Oat Peptides, it supports cystine repair and long-lasting bond protection, help",
    "claims": [
-    "nourrissant",
-    "reparateur",
-    "fortifiant"
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/curl-bond-conditioner-250ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--curl-bond-shampoo-250ml",
@@ -319,7 +254,6 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "epais",
     "boucles",
     "colores",
     "abimes"
@@ -336,63 +270,15 @@
    "ingredients": "Water (Aqua), Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Betaine, Sodium Methyl Cocoyl Taurate, Sodium Cocoamphoacetate, Benzyl Alcohol, Coco-Glucoside, Fragrance (Parfum), Glycol Distearate, Sodium Chloride, Pentylene Glycol, Polyquaternium-10, Glycerin, Lauryl Glucoside, Salicylic Acid, Citric Acid, Panthenol, Sodium Hydroxide, Avena Sativa (Oat) Peptide, Benzophenone-4, Triticum Vulgare (Wheat) Bran Extract, Hydrolyzed Wheat Protein, Trisodium Ethylenediamine Disuccinate, Sodium Benzoate, Benzoic Acid, 1,2-Hexanediol, Caprylyl Glycol, Sorbic Acid, Maltodextrin, Silybum Marianum Seed Extract, Hexyl Cinnamal, Tetramethyl Acetyloctahydronaphthalenes, Linalyl Acetate, Linalool",
    "description": "The only salon-level bond repair system engineered for curls. Designed for damaged, coloured, and chemically treated curls. Clinically proven to repair weakened hair bonds at a molecular level*, this advanced formula rebuilds and reinforces each curl for 40% stronger strands*, reducing breakage, taming frizz, and restoring strength, elasticity and shine. Enriched with Vegan Keratin, Wheat Micro-Proteins, and Oat Peptides, it supports cystine repair and long-lasting bond protection, leaving curls",
    "claims": [
-    "reparateur",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "umberto-giannini--cubed-hair-bobble-accessory-sca-clone-freegift",
-   "name": "🎁 LOVE Cubed Hair Bobble Accessory (100% off)",
-   "brand": "umberto-giannini",
-   "brand_name": "Umberto Giannini",
-   "url": "https://www.umbertogiannini.com/products/cubed-hair-bobble-accessory-sca_clone_freegift",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0144/3636/8419/files/Untitleddesign-562_aa4bc398-7ec7-4a7c-9d06-7f46bd866648.png?width=600",
-   "image_local": "public/scan/products-cheveux/umberto-giannini/cubed-hair-bobble-accessory-sca-clone-freegift.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "This product is used for the app BOGOS.io Free Gift BOGO Bundle to work. Please do not delete/edit it while the offers are still running! If you need assistance, please contact us via Live chat in-app or email us at: help@bogos.io.",
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "umberto-giannini--fuller-longer-thicker-kit",
-   "name": "Fuller, Longer, Thicker Ultimate Routine",
-   "brand": "umberto-giannini",
-   "brand_name": "Umberto Giannini",
-   "url": "https://www.umbertogiannini.com/products/fuller-longer-thicker-kit",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 47.16,
-   "price_source": "converti GBP x1.17 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0144/3636/8419/files/FLT_Ultimate_Kit.png?width=600",
-   "image_local": "public/scan/products-cheveux/umberto-giannini/fuller-longer-thicker-kit.jpg",
-   "categorie": "proteine-reconstruction",
-   "etape": 4,
-   "cheveux_cibles": [
-    "boucles"
-   ],
-   "actifs": [
-    "panthénol",
-    "caféine",
-    "protéines de blé",
-    "glycérine",
-    "acides aminés",
-    "acide citrique"
-   ],
-   "ingredients": "Water (Aqua), Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Betaine, Glycerin, Sodium Cocoyl Methyl Isethionate, Cocamide DIPA, Fragrance (Parfum), Glycol Distearate, Sodium Lauroyl Sarcosinate, Sodium Benzoate, Polyquaternium-10, Laureth-4, Hydrolyzed Wheat Protein, Potassium Sorbate, Xanthan Gum, Caffeine, Citric Acid, Sodium Chloride, Sodium Hydroxide, Panthenol, Sodium PCA, Tetrasodium Glutamate Diacetate, Sodium Lactate, Arginine, Trisodium Ethylenediamine Disuccinate, Aspartic Acid, Sodium Citrate, PCA, Coffea Canephora Seed Extract, Glycine, Alanine, Formic Acid, Serine, Valine, Isoleucine, Proline, Threonine, Histidine, Phenylalanine, Caramel",
-   "description": "The Fuller, Longer, Thicker Ultimate Routine is a complete, root-to-tip system designed to reduce hair fall due to breakage and support stronger, denser-looking curls over time. Powered by caffeine, proteins, amino acids and density-boosting actives, this five-step routine works at every stage of your wash day - from scalp detox and strengthening cleanse to targeted root treatment and protective styling. Each product plays a specific role in reinforcing fragile strands, supporting curl structure",
-   "claims": [
-    "volume",
-    "purifiant",
-    "fortifiant"
-   ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/curl-bond-shampoo-250ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--soft-natural-curls-moisturising-styling-balm-200ml",
@@ -408,8 +294,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "gras",
-    "epais",
     "boucles",
     "crepus"
    ],
@@ -425,14 +311,18 @@
     "huile d'avocat"
    ],
    "ingredients": "Water (Aqua), Cetearyl Alcohol, Cocos Nucifera (Coconut) Oil, Glycerin, Aloe Barbadensis Leaf Juice Powder, Hydroxypropyl Starch Phosphate, PPG-3 Benzyl Ether Myristate, Phenoxyethanol, Argania Spinosa Kernel Oil, Butyrospermum Parkii (Shea) Butter, Ceteareth-20, Fragrance (Parfum), Persea Gratissima (Avocado) Oil, Prunus Armeniaca (Apricot) Kernel Oil, Panthenol, Chlorphenesin, Polyquaternium-10, Cetrimonium Chloride, Disodium EDTA, Ethylhexylglycerin, Rosmarinus Officinalis (Rosemary) Leaf Extract, PG- Hydroxyethylcellulose Cocodimonium Chloride, Sodium Hydroxide, Citric Acid, Potassium Sorbate, Sodium Benzoate, Tetramethyl Acetyloctahydronaphthalenes, Hexyl Cinnamal, Linalool, Alpha-isomethyl Ionone, Limonene, Vanillin",
-   "description": "Soft definition, done right. Curls that hold their shape, drink in moisture and still move like hair. This velvety styling balm melts into curls to deliver moisture and soft, natural definition, enhancing curl shape without weight for a comfortable, touchable finish that wears effortlessly throughout the day. Formulated with Shea Butter and a nourishing blend of Coconut, Argan, Apricot and Avocado oils, it smooths frizz, supports curl flexibility and keeps curls moisturised, defined and full of ",
+   "description": "Soft definition, done right. Curls that hold their shape, drink in moisture and still move like hair. This velvety styling balm melts into curls to deliver moisture and soft, natural definition, enhancing curl shape without weight for a comfortable, touchable finish that wears effortlessly throughout the day. Formulated with Shea Butter and a nourishing blend of Coconut, Argan, Apricot and Avocado oils, it smooths frizz, supports curl flexibility and keeps curls moisturised, defined and full of",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "lissant",
-    "definition-boucles"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "anti-gras",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/soft-natural-curls-moisturising-styling-balm-200ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--curl-rehab-pre-shampoo-repair-treatment-250ml",
@@ -460,12 +350,17 @@
    "ingredients": "Water (Aqua), Cetearyl Alcohol, Creatine, Stearamidopropyl Dimethylamine, Phenoxyethanol, Glycerin, Fragrance (Parfum), Polyquaternium-10, Polyquaternium-37, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Chlorphenesin, Ethylhexylglycerin, Salvia Hispanica Seed Oil, Trisodium Ethylenediamine Disuccinate, Citric Acid, Tetramethyl Acetyloctahydronaphthalenes, Hexyl Cinnamal, Linalool, Alpha-isomethyl Ionone, Limonene",
    "description": "Moisture comes first. This is your pre-shampoo ritual for curls that expect more. Before cleansing, drench your coils or curls in this intensive treatment to seal in moisture and prep every strand for the wash ahead. The rich formula creates a protective coating for superior slip and effortless detangling, making the cleansing step smoother and keeping curls defined, comfortable, and never stripped. Infused with Sweet Almond Oil and Chia Seed Oil, it softens, fortifies, and delivers lasting hydr",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "lissant",
-    "fortifiant"
+    "hydratation",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
+    "anti-gras",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/curl-rehab-pre-shampoo-repair-treatment-250ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--more-than-moisture-300ml-bigger-size",
@@ -481,6 +376,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -495,11 +391,13 @@
    "ingredients": "Aqua (Water), Glycerin, Butyrospermum Parkii (Shea) Butter, Cetearyl Alcohol, Glyceryl Stearate, Cetyl Alcohol Cocos Nucifera (Coconut) Oil, Dimethicone Olus Oil, Persea Gratissima (Avocado) Oil, Phenoxyethanol, PEG-100 Stearate, Benzyl Alcohol, Astrocaryum Murumuru Seed Butter, Hydroxyethylcellulose, Polyquaternium-72, Parfum (Fragrance), Caprylyl Glycol, Panthenol, Hydrogenated Vegetable Oil, Cetrimonium Chloride, Argania Spinosa Kernel Oil, Sodium Chloride, Disodium EDTA, Tocopheryl Acetate, Hexyl Cinnamal, Candelilla Cera, Linalool, Alpha-isomethyl Ionone, Sodium Hydroxide, Limonene, Citric Acid, Eugenol, Isoeugenol, Benzyl Benzoate, Coumarin, Amyl Cinnamal, Citral, Geraniol, Benzyl Cinnamate, Benzyl Salicylate, Citronellol, Farnesol",
    "description": "Meet your favourite styler, now in an XL size. The More Than Moisture XL Twirling and Styling Defining Cream delivers the same curl-loving formula you know and trust - just more of it to keep your routine going for longer. Elevate your curl game with definition that lasts. This rich cream transforms curls, coils, and kinks with bold, flexible shape and long-lasting moisture. Perfect for twisting, twirling, and sculpting, the formula feeds textured hair with deep nourishment while building defini",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
     "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/more-than-moisture-300ml-bigger-size.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--coily-oil-100ml",
@@ -515,8 +413,8 @@
    "categorie": "huile",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "gras",
-    "epais",
     "boucles",
     "crepus"
    ],
@@ -529,12 +427,18 @@
    "ingredients": "Caprylic/Capric Triglyceride, Hydrogenated Ethylhexyl Olivate, Cocos Nucifera (Coconut) Oil, Ricinus Communis (Castor) Seed Oil, Shea Butter Ethyl Esters, Fragrance (Parfum), Hydrogenated Olive Oil Unsaponifiables, Citric Acid, Tetramethyl Acetyloctahydronaphthalenes, Hexyl Cinnamal, Linalool, Alpha-isomethyl Ionone, Limonene, Vanillin",
    "description": "Set the standard for glossy, defined curls every day. This nourishing oil delivers moisture and shine without ever weighing you down. A lightweight blend of Coconut Oil, Castor Oil, Shea Butter, and Olive Oil seals the cuticle, smooths frizz, and defines texture, leaving hair soft, nourished, and never greasy. The silicone-free formula melts in instantly to perfect your curl pattern and boost lasting hydration. Use before styling, after styling, or overnight for curls and coils that stay moistur",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant",
+    "anti-gras",
     "brillance",
-    "lissant"
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/coily-oil-100ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--twirl-whip",
@@ -550,9 +454,9 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "gras",
     "fins",
-    "epais",
     "boucles",
     "crepus"
    ],
@@ -565,14 +469,18 @@
    "ingredients": "Water (Aqua), Butane, Propylene Glycol, PVP, PEG-40 Hydrogenated Castor Oil, Isobutane, Propane, Phenoxyethanol, Cocamidopropylamine Oxide, Fragrance (Parfum), Polyquaternium-11, Ethylhexylglycerin, Persea Gratissima (Avocado) Oil, Argania Spinosa (Argan) Kernel Oil, Panthenol, Cetrimonium Chloride, Acetyl Cedrene, Coumarin, Tetramethyl Acetyloctahydronaphthalenes, Trimethylcyclopentenyl Methylisopentenol",
    "description": "Curls deserve lift, shape, and movement that never settle. This curl-creating mousse delivers definition, airy volume, and lasting moisture in every pump. Enjoy flexible, crunch-free hold that keeps curls soft, touchable, and full of life. Infused with nourishing Argan and Avocado Oils, this lightweight mousse smooths frizz, boosts shine, and maintains curl shape without stiffness. Perfect for curling, twirling, or scrunching, it leaves curls bouncy, defined, and comfortable all day long.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "brillance",
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
     "volume",
-    "lissant",
-    "definition-boucles"
+    "anti-gras",
+    "brillance",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/twirl-whip.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--curls-coils-anti-frizz-moisture-mist",
@@ -588,7 +496,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -600,11 +508,15 @@
    "ingredients": "Water (Aqua), Dipropylene Glycol, Glycerin, Phenoxyethanol, VP/Methacrylamide/Vinyl Imidazole Copolymer, Polysorbate 20, Polyimide-1, Fragrance (Parfum), Disodium EDTA, Ethylhexylglycerin, Citric Acid, Tetramethyl Acetyloctahydronaphthalenes, Hexyl Cinnamal, Linalool, Alpha-isomethyl Ionone, Limonene, Vanillin",
    "description": "Definition that feels as good as it looks. This is your go-to for soft, sculpted shape that moves with you. For curls that crave moisture, flexible hold, and a touchable finish, this velvety styling balm is the answer. It melts into each strand, enhancing curl shape while keeping hair light and comfortable. The result is a natural definition, with moisture locked in and movement fully intact from morning to night. Infused with Shea Butter and a blend of Coconut, Argan, Apricot, and Avocado oils,",
    "claims": [
-    "hydratant",
-    "lissant",
-    "definition-boucles"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/curls-coils-anti-frizz-moisture-mist.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--curl-jelly-refresh-curl-reviving-spray-250ml",
@@ -620,7 +532,6 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
     "boucles"
    ],
    "actifs": [
@@ -631,10 +542,15 @@
    "ingredients": "Aqua (Water), Glycerin, Propylene Glycol, Phenoxyethanol, Acrylates/Palmeth-25 Acrylate Copolymer, PEG-40 Hydrogenated Castor Oil, Polyquaternium-11, Parfum (Fragrance), Sodium Benzoate, Ethylhexylglycerin, Benzophenone-4, Sodium Hydroxide, Coumarin, Alpha-isomethyl Ionone, Linalool, Coriandrum Sativum (Coriander) Fruit Oil, Lavandula Angustifolia (Lavender) Oil, Salvia Sclarea (Clary Sage) Oil, Cinnamonmum Zeylanicum (Cinnamom) Bark Oil, Cuminum Cyminum (Cumin) Seed Oil, Dipteryx Odorata (Tonka Beans) Beans Extract, Elettaria Cardamomum (Cardamon) Seed Oil, Mentha Piperita (Peppermint) Oil, Styrax Benzoin Gum, Vanilla Planifolia Seed, Limonene, Geraniol, Cinnamal, Eugenol, Citral, Citronellol, Benzyl Benzoate, CI 17200 (Red No 33)",
    "description": "Revive your curls between washes with our Curl Jelly Refresh Curl Reviving Spray, now in a bigger 250ml bottle for even more curl-loving refresh. Powered by the iconic Curl Jelly formula, this lightweight mist reactivates, revitalises and restores bounce, bringing dull next-day curls back to life. Perfect for waves, curls and coils that need a quick pick-me-up, it boosts definition, enhances natural texture and adds shine while helping to tame frizz. The flexible hold keeps curls looking fresh a",
    "claims": [
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant",
     "brillance",
-    "definition-boucles"
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/curl-jelly-refresh-curl-reviving-spray-250ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--fuller-longer-thicker-root-lock-anti-hair-fall-conditioner",
@@ -650,7 +566,9 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "boucles"
+    "fins",
+    "boucles",
+    "chute"
    ],
    "actifs": [
     "panthénol",
@@ -662,8 +580,17 @@
    ],
    "ingredients": "Water (Aqua), Cetearyl Alcohol, Stearyl Alcohol, Glycerin, Behentrimonium Chloride, Stearamidopropyl Dimethylamine, Citric Acid, Fragrance (Parfum), Phenoxyethanol, Sodium Benzoate, Cetrimonium Chloride, Hydrolyzed Wheat Protein, Panthenol, Caffeine, Tocopheryl Acetate, Hydroxypropyl Guar Hydroxypropyltrimonium Chloride, Sodium PCA, Sodium Lactate, Arginine, Aspartic Acid, PCA, Trisodium Ethylenediamine Disuccinate, Coffea Canephora Seed Extract, Glycine, Alanine, Serine, Valine, Isoleucine, Proline, Threonine, Histidine, Phenylalanine, Potassium Sorbate, Caramel",
    "description": "Grow more of what you love. This weightless, silicone-free conditioner powered by Caffeine and 11 Amino Acids revives curls from the root to support healthy, fuller growth. Clinically proven to reduce hair fall* for up to 2× less hair on your brush**, it helps reinforce every strand so hair stays stronger for longer. Hydrolysed Wheat Protein and Caffeine energise the scalp, while the Amino Acid complex supports the hair’s structure for improved resilience. Coffee Seed Extract and Vitamin E nouri",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "fortifiant",
+    "definition-boucles",
+    "volume",
+    "anti-chute",
+    "croissance",
+    "sans-silicone"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/fuller-longer-thicker-root-lock-anti-hair-fall-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--collagen-density-drops-anti-shedding-treatment",
@@ -679,6 +606,7 @@
    "categorie": "traitement-chute",
    "etape": 4,
    "cheveux_cibles": [
+    "fins",
     "boucles",
     "chute"
    ],
@@ -696,10 +624,15 @@
    "ingredients": "Water (Aqua), Butylene Glycol, Glycerin, Polysorbate 20, Benzyl Alcohol, Fragrance (Parfum), Polyacrylate Crosspolymer-6, Hydrolyzed Wheat Protein, Potassium Sorbate, Caffeine, Hydroxyacetophenone, Panthenol, Cucurbita Pepo (Pumpkin) Seed Extract, Xanthan Gum, Salicylic Acid, Sodium PCA, Sodium Lactate, Arginine, Aspartic Acid, PCA, Trisodium Ethylenediamine Disuccinate, Citric Acid, Sodium Benzoate, Coffea Canephora Seed Extract, Lactic Acid, Glycine, Alanine, Serine, Valine, Isoleucine, Proline, Threonine, Sodium Hydroxide, Histidine, Phenylalanine, Caramel",
    "description": "Your \"must-have\" step towards growing more of the curls you love. Revive those thinning strands with this lightweight, root-strengthening treatment designed to support fuller, thicker-looking hair. Phytocollagen proven to reduce hair fall* and 2× less hair on your brush**, these concentrated drops work deep into the root to reinforce every strand and help increase hair diameter. Powered by Wheat Protein, Caffeine, Coffee Seed Extract, and a blend of 11 Amino Acids, the formula energises the root",
    "claims": [
+    "fortifiant",
+    "definition-boucles",
     "volume",
-    "fortifiant"
+    "densifiant",
+    "anti-chute"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/collagen-density-drops-anti-shedding-treatment.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--fuller-longer-thicker-root-lock-anti-hair-fall-shampoo",
@@ -715,7 +648,9 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "boucles"
+    "fins",
+    "boucles",
+    "chute"
    ],
    "actifs": [
     "panthénol",
@@ -728,11 +663,16 @@
    "ingredients": "Water (Aqua), Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Betaine, Glycerin, Sodium Cocoyl Methyl Isethionate, Cocamide DIPA, Fragrance (Parfum), Glycol Distearate, Sodium Lauroyl Sarcosinate, Sodium Benzoate, Polyquaternium-10, Laureth-4, Hydrolyzed Wheat Protein, Potassium Sorbate, Xanthan Gum, Caffeine, Citric Acid, Sodium Chloride, Sodium Hydroxide, Panthenol, Sodium PCA, Tetrasodium Glutamate Diacetate, Sodium Lactate, Arginine, Trisodium Ethylenediamine Disuccinate, Aspartic Acid, Sodium Citrate, PCA, Coffea Canephora Seed Extract, Glycine, Alanine, Formic Acid, Serine, Valine, Isoleucine, Proline, Threonine, Histidine, Phenylalanine, Caramel",
    "description": "Stop washing your curls down the drain. This innovative formulation is designed to reduce hair fall* for up to 2× less hair on your brush**. Infused with Wheat Protein, Caffeine, and a blend of 11 Amino Acids, this shampoo strengthens strands from the root, helping hair feel fuller, longer, and boosts resilience. Coffee Seed Extract supports density, while Glycerin locks in moisture without weighing hair down. Perfect for all curl types, especially those experiencing hair fall, it promotes healt",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "fortifiant",
+    "definition-boucles",
     "volume",
-    "fortifiant"
+    "densifiant",
+    "anti-chute"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/fuller-longer-thicker-root-lock-anti-hair-fall-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--root-to-tip-anti-hair-fall-treatment",
@@ -745,9 +685,12 @@
    "price_source": "converti GBP x1.17 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0144/3636/8419/files/Mainimageofproduct_24621cbf-77b7-4e0c-b392-aaac1738d26d.jpg?width=600",
    "image_local": "public/scan/products-cheveux/umberto-giannini/root-to-tip-anti-hair-fall-treatment.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [],
+   "categorie": "traitement-chute",
+   "etape": 4,
+   "cheveux_cibles": [
+    "fins",
+    "chute"
+   ],
    "actifs": [
     "huile d'argan",
     "huile de ricin",
@@ -759,12 +702,16 @@
     "huile de lin"
    ],
    "ingredients": "Prunus Amygdalus Dulcis (Sweet Almond) Oil, Helianthus Annuus (Sunflower) Seed Oil, Fragrance (Parfum), Linum Usitatissimum (Linseed) Seed Oil, Olea Europaea (Olive) Fruit Oil, Persea Gratissima (Avocado) Oil, Prunus Armeniaca (Apricot) Kernel Oil, Ricinus Communis (Castor) Seed Oil, Coffea Arabica (Coffee) Seed Oil, Prunus Avium (Sweet Cherry) Seed Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Tocopherol, Argania Spinosa Kernel Oil, Punica Granatum Seed Oil",
-   "description": "Your first step towards growing more of the hair you love. Powered by 12 natural oils and proven to reduce hair fall* for up to 2× less hair on your brush**, this pre-wash treatment gets to the root, literally. Designed to strengthen the foundation of every strand, it helps lock hair in place so it stays fuller, longer and thicker. This lightweight, non-greasy oil deeply conditions before you even step into the shower. The result is softer, smoother, more resilient strand that are Fuller Longer ",
+   "description": "Your first step towards growing more of the hair you love. Powered by 12 natural oils and proven to reduce hair fall* for up to 2× less hair on your brush**, this pre-wash treatment gets to the root, literally. Designed to strengthen the foundation of every strand, it helps lock hair in place so it stays fuller, longer and thicker. This lightweight, non-greasy oil deeply conditions before you even step into the shower. The result is softer, smoother, more resilient strand that are Fuller Longer",
    "claims": [
-    "lissant",
-    "fortifiant"
+    "fortifiant",
+    "anti-frisottis",
+    "volume",
+    "anti-chute"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/root-to-tip-anti-hair-fall-treatment.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--fuller-longer-thicker-heat-protect-cream-150ml",
@@ -780,8 +727,10 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "fins",
     "boucles",
-    "colores"
+    "colores",
+    "chute"
    ],
    "actifs": [
     "caféine",
@@ -794,82 +743,19 @@
    "ingredients": "Water (Aqua), Glycerin, Dimethicone, Polyacrylamide, PVP, C13-14 Isoalkane, PPG-3 Benzyl Ether Myristate, Benzyl Alcohol, Dimethiconol, Fragrance (Parfum), Laureth-7, Linoleamidopropyl PG-Dimonium Chloride Phosphate Dimethicone, Hydroxyacetophenone, Hydrolyzed Wheat Protein, Caffeine, Salicylic Acid, Sodium PCA, Sodium Lactate, Trisodium Ethylenediamine Disuccinate, Arginine, Aspartic Acid, Coffea Canephora Seed Extract, Sodium Benzoate, PCA, Sodium Hydroxide, Glycine, Alanine, Serine, Valine, Isoleucine, Proline, Threonine, Histidine, Phenylalanine, Citric Acid, Potassium Sorbate, Caramel",
    "description": "Plump and fill without the sting. Give the density your curls have always needed. Reduce your hair fall* with this lightweight, heat-protecting, styling balm, clinically proven to leave up to 3× less hair on your brush**. Smooth and strengthen your strands for healthier, longer-lasting hair. Boost elasticity, shine, and softness, all while gently detangling and preserving colour. Protects against heat up to 230°C***, making styling effortless. Infused with Wheat Protein, Caffeine, Arginine, Coff",
    "claims": [
-    "brillance",
-    "volume",
-    "lissant",
-    "fortifiant"
-   ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "umberto-giannini--dreamy-waves-kit",
-   "name": "Natural Waves Wash & Style Routine",
-   "brand": "umberto-giannini",
-   "brand_name": "Umberto Giannini",
-   "url": "https://www.umbertogiannini.com/products/dreamy-waves-kit",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 44.53,
-   "price_source": "converti GBP x1.17 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0144/3636/8419/files/DW_Wash_Style_Kit.png?width=600",
-   "image_local": "public/scan/products-cheveux/umberto-giannini/dreamy-waves-kit.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [
-    "fins",
-    "epais"
-   ],
-   "actifs": [
-    "panthénol",
-    "acide salicylique",
-    "protéines de blé",
-    "protéines de riz",
-    "glycérine",
-    "acide citrique"
-   ],
-   "ingredients": "Water (Aqua), Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Betaine, Glycerin, Coco-Glucoside, Fragrance (Parfum), Benzyl Alcohol, Citric Acid, Hydrolyzed Wheat Protein, Glycol Distearate, Sodium Lauroyl Sarcosinate, Xanthan Gum, Hydroxypropyl Guar Hydroxypropyltrimonium Chloride, Hydroxyacetophenone, Sodium Chloride, Sodium Hydroxide, Salicylic Acid, Panthenol, Polyquaternium-7, Trisodium Ethylenediamine Disuccinate, Sodium Benzoate, Hydrolyzed Rice Protein, Salvia Hispanica Seed Extract, Avena Sativa (Oat) Peptide, Benzoic Acid, 1,2-Hexanediol, Caprylyl Glycol, Lactobacillus Ferment, Tetramethyl Acetyloctahydronaphthalenes, Acetyl Cedrene, Coumarin, Yellow 6 (CI 15985)",
-   "description": "The Dreamy Waves Complete Routine Kit is your full wash, care and styling system for soft, bouncy, high-shine waves. Designed to work seamlessly from cleanse to finish, this routine enhances natural wave patterns while keeping hair lightweight, hydrated and frizz-free. Beginning with gentle, sulphate-free cleansing and conditioning, the routine restores moisture and strengthens strands without stripping natural oils. The styling steps then build definition, boost volume and smooth flyaways, allo",
-   "claims": [
-    "hydratant",
-    "brillance",
-    "volume",
-    "lissant",
+    "fortifiant",
+    "anti-frisottis",
     "definition-boucles",
-    "fortifiant"
-   ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "umberto-giannini--dreamy-waves-trio",
-   "name": "Natural Waves Styling Routine",
-   "brand": "umberto-giannini",
-   "brand_name": "Umberto Giannini",
-   "url": "https://www.umbertogiannini.com/products/dreamy-waves-trio",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 27.06,
-   "price_source": "converti GBP x1.17 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0144/3636/8419/files/DW_Styling_Trio.png?width=600",
-   "image_local": "public/scan/products-cheveux/umberto-giannini/dreamy-waves-trio.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [
-    "fins",
-    "epais"
-   ],
-   "actifs": [
-    "protéines de blé",
-    "protéines de riz",
-    "huile de coco",
-    "acide citrique"
-   ],
-   "ingredients": "Water (Aqua), Cetearyl Alcohol, Polyquaternium-37, Brassicamidopropyl Dimethylamine, Citric Acid, Fragrance (Parfum), Phenoxyethanol, Polyquaternium-11, Polyimide-1, Ceteareth-20, Chlorphenesin, Corn Starch Modified, Dicaprylyl Ether, Cocos Nucifera (Coconut) Oil, Salvia Hispanica Seed Oil, Lauryl Alcohol, Ethylhexylglycerin, Tocopheryl Acetate, Sodium Phytate, Hydrolyzed Rice Protein, Hydrolyzed Wheat Protein, Salvia Hispanica Seed Extract, Sodium Benzoate, Avena Sativa (Oat) Peptide, Lactobacillus Ferment, Benzoic Acid, 1,2-Hexanediol, Caprylyl Glycol, Tetramethyl Acetyloctahydronaphthalenes, Acetyl Cedrene, Coumarin, Trimethylcyclopentenyl Methylisopentenol, Caramel",
-   "description": "The Natural Waves Styling Routine is your go-to routine for shaping, defining and perfecting soft, bouncy waves with frizz control and shine. Designed to work together, this styling kit enhances natural texture while keeping hair light, touchable and full of movement. Whether you’re air-drying, creating heatless waves or styling a polished blowout, this trio builds definition, boosts volume and locks in smoothness without crunch or stiffness. Waves appear visibly more defined, glossy and resilie",
-   "claims": [
-    "brillance",
     "volume",
-    "lissant",
-    "definition-boucles"
+    "densifiant",
+    "anti-chute",
+    "brillance",
+    "protection-chaleur",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/fuller-longer-thicker-heat-protect-cream-150ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--waves-for-days-setting-spray-200ml",
@@ -885,7 +771,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "fins",
+    "boucles"
    ],
    "actifs": [
     "panthénol",
@@ -897,12 +784,15 @@
    "ingredients": "Water (Aqua), Alcohol Denat., Glycerin, Polysorbate 20, VP/VA Copolymer, Phenoxyethanol, Fragrance (Parfum), Panthenol, Polyquaternium-11, Polyquaternium-10, Hydrolyzed Wheat Protein, Ethylhexylglycerin, Trisodium Ethylenediamine Disuccinate, PG-Hydroxyethylcellulose Cocodimonium Chloride, Citric Acid, Hydrolyzed Rice Protein, Salvia Hispanica Seed Extract, Sodium Benzoate, Avena Sativa (Oat) Peptide, Benzoic Acid, 1,2-Hexanediol, Caprylyl Glycol, Lactobacillus Ferment, Tetramethyl Acetyloctahydronaphthalenes, Acetyl Cedrene, Coumarin, Trimethylcyclopentenyl Methylisopentenol",
    "description": "Your dreamiest waves, locked in. Voluminous sculpted waves that stay lifted, bouncy and flawless with 12 hours of unstoppable hold* This lightweight setting spray shapes every strand, for full-bodied definition with up to 5 x less frizz* From root to tip, its wave-locking formula crafts and holds big bouncy waves with natural movement and no stiffness. For waves that hold their shape: bold, defined, dynamic and full-bodied. Infused with Oat Peptide and Chia Seed Extract, it strengthens, restores",
    "claims": [
-    "volume",
-    "lissant",
+    "fortifiant",
+    "anti-frisottis",
     "definition-boucles",
-    "fortifiant"
+    "volume",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/waves-for-days-setting-spray-200ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--dream-hold-frizz-control-hairspray-200ml",
@@ -918,7 +808,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "boucles"
    ],
    "actifs": [
     "panthénol",
@@ -927,11 +817,15 @@
    "ingredients": "Alcohol denat., Butane, Isobutane, Propane, Octylacrylamide/Acrylates/Butylaminoethyl Methacrylate Copolymer, Aqua, Aminomethyl Propanol, PEG-12 Dimethicone, Parfum, Panthenol, Persea Gratissima Oil, Acetyl Cedrene, Coumarin, Tetramethyl Acetyloctahydronaphthalenes, Trimethylcyclopentenyl Methylisopentenol",
    "description": "Live your full wave fantasy with Dream Hold Frizz Control Spray. For instant, long-lasting hold that locks in your waves while maintaining glossy, radiant shine. This spray provides strong, reliable control, keeping your waves defined and smooth without the crunch. Enriched with nourishing Avocado Oil, it conditions and softens each strand, leaving you with bouncy, frizz-free waves. With anti-humidity protection and heat defence up to 210°C, Dream Hold ensures your waves stay perfectly smooth, d",
    "claims": [
-    "nourrissant",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
     "brillance",
-    "lissant"
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/dream-hold-frizz-control-hairspray-200ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--wavy-whip-style-control-mousse-200ml",
@@ -948,7 +842,6 @@
    "etape": 3,
    "cheveux_cibles": [
     "fins",
-    "epais",
     "boucles"
    ],
    "actifs": [
@@ -959,10 +852,14 @@
    "ingredients": "Water (Aqua), VP/VA Copolymer, Butane, Alcohol denat., Isobutane, VP/Vinylcaprolactam/DMAPA Acrylates Copolymer, Propane, Propylene Glycol, PEG-12, Dimethicone, PEG-40 Hydrogenated Castor Oil, Phenoxyethanol, Polyquaternium-11, Fragrance (Parfum), Ethylhexylglycerin, Panthenol, Citric Acid, Tetramethyl, Acetyloctahydronaphthalenes, Acetyl Cedrene, Coumarin, Trimethylcyclopentenyl Methylisopentenol",
    "description": "Activate big, bouncy, dream-worthy waves. This high-definition, weightless mousse enhances waves, delivering dynamic volume and lift to natural or blow out waves. It transforms limp undefined strands into full bodied sculpted waves with zero crunch and no residue, keeping hair touchably soft. With all-day flexible hold, it effortlessly shapes so waves remain full-bodied and frizz free with unbeatable bounce. With a built-in humidity and heat shield perfect for natural air-dried styles or a polis",
    "claims": [
+    "anti-frisottis",
+    "definition-boucles",
     "volume",
-    "definition-boucles"
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/wavy-whip-style-control-mousse-200ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--natural-waves-air-dry-cream",
@@ -979,7 +876,7 @@
    "etape": 3,
    "cheveux_cibles": [
     "fins",
-    "epais"
+    "boucles"
    ],
    "actifs": [
     "protéines de blé",
@@ -990,11 +887,15 @@
    "ingredients": "Water (Aqua), Cetearyl Alcohol, Polyquaternium-37, Brassicamidopropyl Dimethylamine, Citric Acid, Fragrance (Parfum), Phenoxyethanol, Polyquaternium-11, Polyimide-1, Ceteareth-20, Chlorphenesin, Corn Starch Modified, Dicaprylyl Ether, Cocos Nucifera (Coconut) Oil, Salvia Hispanica Seed Oil, Lauryl Alcohol, Ethylhexylglycerin, Tocopheryl Acetate, Sodium Phytate, Hydrolyzed Rice Protein, Hydrolyzed Wheat Protein, Salvia Hispanica Seed Extract, Sodium Benzoate, Avena Sativa (Oat) Peptide, Lactobacillus Ferment, Benzoic Acid, 1,2-Hexanediol, Caprylyl Glycol, Tetramethyl Acetyloctahydronaphthalenes, Acetyl Cedrene, Coumarin, Trimethylcyclopentenyl Methylisopentenol, Caramel",
    "description": "Heatless waves that stay dreamy all day with 12 hour hold!*. This lightweight air dry cream enhances your natural wave pattern - no heat needed, delivering effortless definition with a soft, touchable finish. The anti-static formula nourishes and shapes each strand while helping shield hair from humidity, providing up to 94% less frizz* and improved flyaway control. Designed to enhance natural volume, it keeps roots lifted and waves bouncy for full-bodied, long-lasting definition without stiffne",
    "claims": [
-    "nourrissant",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
     "volume",
-    "definition-boucles"
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/natural-waves-air-dry-cream.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--dreamy-waves-conditioner",
@@ -1009,7 +910,11 @@
    "image_local": "public/scan/products-cheveux/umberto-giannini/dreamy-waves-conditioner.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "boucles",
+    "lisses"
+   ],
    "actifs": [
     "panthénol",
     "protéines de blé",
@@ -1021,13 +926,18 @@
    "ingredients": "Water (Aqua), Cetearyl Alcohol, Glycol Distearate, Butyrospermum Parkii (Shea) Butter, Glycerin, Butylene Glycol, Citric Acid, Stearamidopropyl Dimethylamine, Behentrimonium Chloride, Phenoxyethanol, Fragrance (Parfum), Polyquaternium-37, Hydrolyzed Wheat Protein, Chlorphenesin, Panthenol, Guar Hydroxypropyltrimonium Chloride, Ethylhexylglycerin, Trisodium Ethylenediamine Disuccinate, Sodium Benzoate, Hydrolyzed Rice Protein, Salvia Hispanica Seed Extract, Avena Sativa (Oat) Peptide, Benzoic Acid, 1,2- Hexanediol, Caprylyl Glycol, Lactobacillus Ferment, Tetramethyl Acetyloctahydronaphthalenes, Acetyl Cedrene, Caramel",
    "description": "For waves that stay soft, smooth, and endlessly dreamy. This lightweight conditioner delivers lasting hydration and nourishment without heaviness, leaving waves silky, bouncy and full of natural movement. Made to enhance both natural texture and styled waves, It smooths the hair cuticle, adding slip for easy detangling, and luminous shine to every strand. Formulated with Rice Protein and rich Shea Butter, it helps restore essential moisture, strengthen the hair, and support effortless detangling",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant",
     "brillance",
-    "lissant",
-    "fortifiant"
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/dreamy-waves-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--dreamy-waves-shampoo",
@@ -1042,7 +952,12 @@
    "image_local": "public/scan/products-cheveux/umberto-giannini/dreamy-waves-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "fins",
+    "boucles",
+    "lisses"
+   ],
    "actifs": [
     "panthénol",
     "acide salicylique",
@@ -1054,13 +969,18 @@
    "ingredients": "Water (Aqua), Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Betaine, Glycerin, Coco-Glucoside, Fragrance (Parfum), Benzyl Alcohol, Citric Acid, Hydrolyzed Wheat Protein, Glycol Distearate, Sodium Lauroyl Sarcosinate, Xanthan Gum, Hydroxypropyl Guar Hydroxypropyltrimonium Chloride, Hydroxyacetophenone, Sodium Chloride, Sodium Hydroxide, Salicylic Acid, Panthenol, Polyquaternium-7, Trisodium Ethylenediamine Disuccinate, Sodium Benzoate, Hydrolyzed Rice Protein, Salvia Hispanica Seed Extract, Avena Sativa (Oat) Peptide, Benzoic Acid, 1,2-Hexanediol, Caprylyl Glycol, Lactobacillus Ferment, Tetramethyl Acetyloctahydronaphthalenes, Acetyl Cedrene, Coumarin, Yellow 6 (CI 15985)",
    "description": "Your waves, at their dreamiest. This moisturising, sulphate-free shampoo gently removes build-up while preserving your hair’s natural oils, ensuring waves remain soft, balanced and nourished. Designed to enhance and support the wave pattern, this lightweight formula delivers definition without weighing hair down - whether you're embracing your natural texture or styling a smooth blow-out wave. Infused with strengthening Peptides and nutrient-rich Chia Seed Extract, it helps nourish and reinforce",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "lissant",
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
     "definition-boucles",
-    "fortifiant"
+    "texturisant",
+    "purifiant",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/dreamy-waves-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--glazed-waves-shine-serum-75ml",
@@ -1076,7 +996,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "boucles"
    ],
    "actifs": [
     "protéines de blé",
@@ -1084,15 +1004,19 @@
     "vitamine E"
    ],
    "ingredients": "Water (Aqua), Cetearyl Alcohol, Polyquaternium-37, Brassicamidopropyl Dimethylamine, Phenoxyethanol, Fragrance (Parfum), Ceteareth-20, Chlorphenesin, Dicaprylyl Ether, Hydrolyzed Wheat Protein, Ethylhexylglycerin, Salvia Hispanica Seed Oil, Lauryl Alcohol, Trisodium Ethylenediamine Disuccinate, Hydrolyzed Rice Protein, Salvia Hispanica Seed Extract, Sodium Benzoate, Triticum Vulgare (Wheat) Germ Oil, Lactobacillus Ferment, Avena Sativa (Oat) Peptide, Benzoic Acid, 1,2-Hexanediol, Caprylyl Glycol, Tocopherol, Hexyl Cinnamal, Tetramethyl Acetyloctahydronaphthalenes, Linalyl Acetate, Linalool, Limonene, Alpha-isomethyl Ionone, Citronellol, Hydroxycitronellal, Geraniol, Juniperus Virginiana Oil",
-   "description": "Glaze your waves for glossy, frizz-free strands. A lightweight finishing serum with heat protection for high gloss. Smooth and seal your style, for up to 90% less frizz and instant, long-lasting shine*. Enriched with nutrient-rich Chia Seed Oil, it strengthens, hydrates, and revives hair from root to tip. Designed to provide shine-boosting care without weight, it keeps waves light, bouncy, and effortlessly glossy. Just a few drops create glazed, dream-worthy waves, with added heat protection up ",
+   "description": "Glaze your waves for glossy, frizz-free strands. A lightweight finishing serum with heat protection for high gloss. Smooth and seal your style, for up to 90% less frizz and instant, long-lasting shine*. Enriched with nutrient-rich Chia Seed Oil, it strengthens, hydrates, and revives hair from root to tip. Designed to provide shine-boosting care without weight, it keeps waves light, bouncy, and effortlessly glossy. Just a few drops create glazed, dream-worthy waves, with added heat protection up",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
     "brillance",
-    "lissant",
-    "protection-thermique",
-    "fortifiant"
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/glazed-waves-shine-serum-75ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--curl-jelly-500ml",
@@ -1108,7 +1032,6 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
     "boucles"
    ],
    "actifs": [
@@ -1118,9 +1041,12 @@
    "ingredients": "Water (Aqua), Xanthan Gum, Glycerin, Propylene Glycol, Phenoxyethanol, Acrylates/Palmeth-25 Acrylate Copolymer, Fragrance (Parfum), PEG-40 Hydrogenated Castor Oil, Polyquaternium-11, Aminomethyl Propanol, Ethylhexylglycerin, Benzophenone-4, Coumarin, Alpha-isomethyl Ionone, Linalool, Red 33 (CI 17200)",
    "description": "You asked for more. A lot more.Our cult-favourite Curl Jelly is now available in a new HUGE 500ml pump bottle because great curls deserve a generous dose of definition. Same iconic formula, same frizz-fighting magic, just more of it. Curly Knows Curly and we understand that one tube has never been enough.",
    "claims": [
+    "anti-frisottis",
     "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/curl-jelly-500ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--thirsty-curls-de-frizzer-cream",
@@ -1136,7 +1062,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -1148,11 +1074,14 @@
    "ingredients": "Water (Aqua), Glycerin, Dimethicone, Cetearyl Alcohol, Polyquaternium-10, Glyceryl Stearate, Phenoxyethanol, Hydroxyethylcellulose, Fragrance (Parfum), PEG-100 Stearate, Chlorphenesin, Corn Starch Modified, VP/Methacrylamide/Vinyl Imidazole Copolymer, Ethylhexylglycerin, Sodium Phytate, Citric Acid, Tremella Fuciformis (Mushroom) Extract, Sodium Hyaluronate, Caprylyl Glycol, Phenylpropanol, Propanediol, Tocopherol, Avena Strigosa Seed Extract, Lecithin, Lactobacillus Ferment, Potassium Sorbate, Limonene, Alpha-Isomethyl Ionone, Linalool",
    "description": "Drench hair in moisture with this instant anti-frizz transformation cream for a more manageable, smooth finish. A daily essential fix to restore style and de-frizz. The non-greasy formula instantly smooths, tames and hydrates, for glossy hair on the go. Perfect for parched waves, curls and coils. Can be used to instantly banish frizz and as a second day curl reviver to re-define curls and smooth out frizz. Call it a drink of water for your hair! With a unique Triple-hydrating COMPLEX that combin",
    "claims": [
-    "hydratant",
-    "brillance",
-    "lissant"
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/thirsty-curls-de-frizzer-cream.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--waves-curls-coils-shampoo-conditioner",
@@ -1168,8 +1097,11 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "epais",
-    "boucles"
+    "secs",
+    "gras",
+    "fins",
+    "boucles",
+    "crepus"
    ],
    "actifs": [
     "panthénol",
@@ -1182,12 +1114,19 @@
    "ingredients": "Shampoo: Water (Aqua), Sodium Cocoyl Methyl Isethionate, Cocamidopropyl Betaine, Glycerin, PEG- 120 Methyl Glucose Dioleate, Sodium Methyl Isethionate, Benzyl Alcohol, Coconut Acid, Fragrance (Parfum), Polyquaternium-10, Panthenol, Sodium Cocoate, Salicylic Acid, Disodium EDTA, Sodium Hydroxide, Sorbic Acid, Argan Oil Glycereth-8 Esters, Citric Acid, Tocopherol, Tetramethyl Acetyloctahydronaphthalenes, Pogostemon Cablin Oil, Trimethylcyclopentenyl Methylisopentenol, Linalool, Eugenia Caryophyllus Oil, Citrus Aurantium Bergamia Peel Oil, Eugenol, Red 4 (CI 14700), Yellow 5 (CI 19140), Blue 1 (CI 42090)",
    "description": "The iconic de-frizzing Curl Jelly formula, now in a shampoo and conditioner duo — with a new Sandalwood and Bergamot scent twist. The sulphate-free shampoo gently cleanses, removing product build-up and excess oil for a balanced, healthy scalp. The conditioner follows with weightless yet powerful conditioning to deeply nourish, detangle and add shine. Both infused with Vitamin B5 to moisturise, soften and define — leaving curls bouncy, glossy and full of definition. Free from parabens, silicones",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "purifiant",
+    "anti-gras",
     "brillance",
-    "definition-boucles"
+    "demelant",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/waves-curls-coils-shampoo-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--curly-jelly-scrunching-jelly-sandalwood-bergamot",
@@ -1203,7 +1142,6 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
     "boucles"
    ],
    "actifs": [
@@ -1214,11 +1152,15 @@
    "ingredients": "Water (Aqua), Xanthan Gum, Glycerin, PEG-40 Hydrogenated Castor Oil, Propylene Glycol, Phenoxyethanol, Tetramethyl Acetyloctahydronaphthalenes, Acrylates/Palmeth-25 Acrylate Copolymer, Fragrance (Parfum), Polyquaternium-11, Aminomethyl Propanol, Argania Spinosa Kernel Oil, Ethylhexylglycerin, Linalool, Pogostemon Cablin Oil, Trimethylcyclopentenyl Methylisopentenol, Benzophenone-4, Eugenol, Limonene, Eugenia Caryophyllus Oil, Citrus Aurantium Bergamia Peel Oil, Eucalyptus Globulus Oil, Linalyl Acetate, Citronellol, Geraniol, Pinene, Terpineol, Beta-Caryophyllene, Citral, Eugenyl Acetate",
    "description": "The OG curl definer, now with a warm fragrance kick of Sandalwood and Bergamot! Infused with the same iconic Curl Jelly formula that delivers frizz-free definition with no crunch or white residue. This lightweight, medium hold scrunching jelly glides effortlessly through hair. Infused with Glycerin to coat each strand, locking in long-lasting moisture and shine.",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles",
     "brillance",
-    "definition-boucles"
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/curly-jelly-scrunching-jelly-sandalwood-bergamot.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--waves-curls-coils-curl-defining-conditioner",
@@ -1234,8 +1176,9 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "epais",
-    "boucles"
+    "fins",
+    "boucles",
+    "crepus"
    ],
    "actifs": [
     "huile d'argan",
@@ -1245,11 +1188,14 @@
    "ingredients": "Water (Aqua), Cetearyl Alcohol, Glycerin, Propylene Glycol, Behentrimonium Chloride, Hydroxyethylcellulose, Cetrimonium Chloride, Phenoxyethanol, Polyquaternium-37, Polyquaternium-11, Fragrance (Parfum), Sodium Benzoate, Citric Acid, Disodium EDTA, Argania Spinosa Kernel Oil, Ethylhexylglycerin, Tetramethyl Acetyloctahydronaphthalenes, Pogostemon Cablin Oil, Trimethylcyclopentenyl Methylisopentenol, Caramel",
    "description": "The magical de-frizzing power of Curl Jelly in a conditioner. With a fresh Sandalwood and Bergamot fragrance twist. Weightless yet powerful conditioning, infused with Vitamin B5 to deeply nourishes curls and prevent tangling and frizz. Enhances shine and adds definition for soft, bouncy curls.",
    "claims": [
-    "nourrissant",
-    "brillance",
-    "definition-boucles"
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/waves-curls-coils-curl-defining-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--waves-curls-coils-wash-250ml",
@@ -1265,8 +1211,9 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "epais",
-    "boucles"
+    "gras",
+    "boucles",
+    "crepus"
    ],
    "actifs": [
     "panthénol",
@@ -1279,9 +1226,16 @@
    "ingredients": "Water (Aqua), Sodium Cocoyl Methyl Isethionate, Cocamidopropyl Betaine, Glycerin, PEG- 120 Methyl Glucose Dioleate, Sodium Methyl Isethionate, Benzyl Alcohol, Coconut Acid, Fragrance (Parfum), Polyquaternium-10, Panthenol, Sodium Cocoate, Salicylic Acid, Disodium EDTA, Sodium Hydroxide, Sorbic Acid, Argan Oil Glycereth-8 Esters, Citric Acid, Tocopherol, Tetramethyl Acetyloctahydronaphthalenes, Pogostemon Cablin Oil, Trimethylcyclopentenyl Methylisopentenol, Linalool, Eugenia Caryophyllus Oil, Citrus Aurantium Bergamia Peel Oil, Eugenol, Red 4 (CI 14700), Yellow 5 (CI 19140), Blue 1 (CI 42090)",
    "description": "The same trusted de-frizzing formula you know and love, with a fresh Sandalwood and Bergamot fragrance twist! This Sulphate free shampoo is formulated for all types of curls, gently removing product build-up and excess oil for a balanced, healthy scalp. Infused with Vitamin B5 to moisturise, soften and define each curl - hair is left feeling bouncy and defined.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles",
+    "purifiant",
+    "anti-gras",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/waves-curls-coils-wash-250ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--rosemary-scalp-scrub",
@@ -1314,36 +1268,15 @@
    "ingredients": "Water (Aqua), Sodium C14-16 Olefin Sulfonate, Juglans Regia (Walnut) Shell Powder, Cocamidopropyl Betaine, Polysorbate 20, Glycerin, Acrylates/C10-30 Alkyl Acrylate Crosspolymer, Fragrance (Parfum), Benzyl Alcohol, Sodium Hydroxide, Sodium Lauroyl Sarcosinate, Hydroxyacetophenone, Polyquaternium-7, Panthenol, Salicylic Acid, Sodium Chloride, Trisodium Ethylenediamine Disuccinate, Hydrolyzed Rice Protein, Biotin, Ricinus Communis (Castor) Seed Oil, Jojoba Oil Glycereth-8 Esters, Citric Acid, Rosmarinus Officinalis (Rosemary) Leaf Oil, Sodium Benzoate, Eucalyptus Globulus Oil, Limonene, Citrus Limon Peel Oil, Lavandula Oil/ Extract, Linalool, Pinene, Linalyl Acetate, Camphor, Yellow No. 5 (CI 19140)",
    "description": "Exfoliating scalp scrub that gently lifts away product build-up to support a healthier scalp and stronger, more resilient hair. With natural exfoliants to gently cleanse scalp and strengthening biotin to repair and replenish strands.",
    "claims": [
-    "reparateur",
-    "fortifiant"
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "definition-boucles",
+    "purifiant"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "umberto-giannini--mister-spray-bottle",
-   "name": "Mister Bottle",
-   "brand": "umberto-giannini",
-   "brand_name": "Umberto Giannini",
-   "url": "https://www.umbertogiannini.com/products/mister-spray-bottle",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 11.7,
-   "price_source": "converti GBP x1.17 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0144/3636/8419/files/1_6b61f8ff-623a-4471-a323-25d8adb1dca8.png?width=600",
-   "image_local": "public/scan/products-cheveux/umberto-giannini/mister-spray-bottle.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [
-    "epais",
-    "boucles"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Refreshing your curls just got easier with our Misting Spray Bottle. With a fine nozzle to deliver a smooth, even mist that dampens hair without over-saturating strands. Ideal for reviving curls, reducing frizz, and reactivating bounce between wash days, this bottle gives you total control for targeted application. It’s the perfect tool to keep your curls fresh, defined and hydrated every day.",
-   "claims": [
-    "hydratant",
-    "lissant"
-   ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/rosemary-scalp-scrub.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--banana-jelly",
@@ -1359,6 +1292,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -1370,11 +1304,16 @@
    "ingredients": "Water (Aqua), Glycerin, Sorbitol, Carbomer, Polysorbate 20, Phenoxyethanol, PVP, Fragrance (Parfum), Panthenol, Ethylhexylglycerin, Sodium Hydroxide, Trisodium Ethylenediamine Disuccinate, Musa Sapientum (Banana) Fruit Extract, Citric Acid, Carica Papaya (Papaya) Fruit Extract, Cocos Nucifera (Coconut) Fruit Extract, Ficus Carica (Fig) Fruit Extract, Garcinia Mangostana Fruit Extract, Mangifera Indica (Mango) Fruit Extract, Theobroma Cacao (Cocoa) Seed Extract, Potassium Sorbate, Sodium Benzoate, Limonene, Coumarin",
    "description": "Silicone free Banana Curl Jelly, infused with Banana Extract deeply moisturises and boosts manageability for healthier-looking hair. This banana jelly glides smoothly through hair, delivering a strong hold that's perfect for slick-back looks.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "fixation",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/banana-jelly.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--curl-jelly-curl-whip-curl-refresh-spray",
@@ -1400,9 +1339,12 @@
    "ingredients": "Curl Jelly: Water (Aqua), Xanthan Gum, Glycerin, Propylene Glycol, Phenoxyethanol, Acrylates/Palmeth-25 Acrylate Copolymer, Fragrance (Parfum), PEG-40 Hydrogenated Castor Oil, Polyquaternium-11, Aminomethyl Propanol, Ethylhexylglycerin, Benzophenone-4, Coumarin, Alpha-isomethyl Ionone, Linalool, Red 33 (CI 17200)",
    "description": "Your full styling routine in one best-selling trio. Define, volumise and refresh your curls with our cult-favourite stylers - perfect for waves, curls, and coils. Whether you're styling from wash day or reviving curls on day three, this set has you covered.",
    "claims": [
+    "definition-boucles",
     "volume"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/curl-jelly-curl-whip-curl-refresh-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--type-4-duo",
@@ -1418,7 +1360,6 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
     "boucles"
    ],
    "actifs": [
@@ -1428,9 +1369,14 @@
    "ingredients": "Curl Jelly Scrunching Jelly: Aqua, Xanthan Gum, Glycerin, Propylene Glycol Phenoxyethanol, Acrylates/Palmeth-25 Acrylate Copolymer, Parfum, PEG-40 Hydrogenated Castor Oil, Polyquaternium-11, Aminomethyl Propanol, Ethylhexylglycerin, Benzophenone-4, CI 17200, Coumarin , Alpha-Isomethyl Ionone, Linalool",
    "description": "Perfect for defining coils, eliminating frizz and nourishing hair. Includes two of our best-sellers: Banana Butter Leave-in Conditioner and Curl Jelly Scrunching Jelly. Sulphate and Silicone Free!",
    "claims": [
-    "nourrissant"
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/type-4-duo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--curl-jelly-scrunching-jelly-curl-whip-mousse",
@@ -1456,10 +1402,13 @@
    "ingredients": "Curl Jelly:Water (Aqua), Xanthan Gum, Glycerin, Propylene Glycol, Phenoxyethanol, Acrylates/Palmeth-25 Acrylate Copolymer, Fragrance (Parfum), PEG-40 Hydrogenated Castor Oil, Polyquaternium-11, Aminomethyl Propanol, Ethylhexylglycerin, Benzophenone-4, Coumarin, Alpha-isomethyl Ionone, Linalool, Red 33 (CI 17200)",
    "description": "💖 THE KIT: We are the OG's in Curl. We have kitted our two best-sellers to give you the ultimate hold & long-lasting definition for your curls, these products layer together perfectly. 💖 HOW-TO: Start your routine with applying Curl Whip Mousse to wet hair, focusing on adding to the root for volume and to the lengths to prime your hair before adding gel. Whilst the air is still wet, apply Curl Jelly Scrunching Jelly for definition, rake the gel through your hair with your fingers and scrunch cur",
    "claims": [
+    "definition-boucles",
     "volume",
-    "definition-boucles"
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/curl-jelly-scrunching-jelly-curl-whip-mousse.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--curl-jelly-smoothie",
@@ -1475,6 +1424,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -1485,11 +1435,16 @@
    "ingredients": "Aqua, Cetearyl Alcohol, Behentrimonium Methosulfate, Cetyl Alcohol, Butyrospermum Parkii Butter, Helianthus Annuus Seed Oil, Sodium Benzoate, Parfum, Citric Acid, Potassium Sorbate, Coumarin, Alpha-Isomethyl Ionone, Linalool",
    "description": "Curly method friendly, silicone-free curl smoothie leave-in conditioner enriched with Shea Butter and Sunflower Seed Oil to leave your curls soft, nourished and silky smooth. This lightweight, lotion-like formula is the perfect base for your styling routine, locking in moisture while helping to detangle and define your curls. It clumps strands together beautifully, prepping your hair for the next step in your routine.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "demelant",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/curl-jelly-smoothie.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--curl-jelly-stick",
@@ -1505,8 +1460,8 @@
    "categorie": "coloration-soin",
    "etape": 2,
    "cheveux_cibles": [
-    "epais",
-    "boucles"
+    "boucles",
+    "colores"
    ],
    "actifs": [
     "huile de ricin"
@@ -1514,9 +1469,14 @@
    "ingredients": "Ricinus Communis Seed Oil, PEG-40 Hydrogenated Castor Oil, Synthetic Beeswax, Rhus Verniciflua Peel Cera, Parfum, Sorbitan Stearate, Tocopheryl Acetate, CI 17200, Coumarin, Alpha-Isomethyl Ionone, Linalool, Limonene",
    "description": "Curl Method Friendly hair wax stick designed for sleek looks with maximum control and zero fuss. This smoothing, gloss-finish formula offers extra strong hold to keep flyaways and edges in check. Perfect for slick-back looks, ponytails and precision parting, it glides on effortlessly for quick styling without stiffness or residue. Whether you're going for a polished updo or a sleek everyday look, this wax stick keeps your hair smooth, controlled and perfectly in place.",
    "claims": [
-    "lissant"
+    "anti-frisottis",
+    "definition-boucles",
+    "brillance",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/curl-jelly-stick.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--curl-jelly-creme",
@@ -1532,7 +1492,7 @@
    "categorie": "huile",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -1543,9 +1503,14 @@
    "ingredients": "Aqua (Water), Cetearyl Alcohol, Hydroxyethylcellulose, Behentrimonium Chloride, Butyrospermum Parkii (Shea) Butter, Hydroxypropyltrimonium Hydrolyzed Corn Starch, Benzyl Alcohol, Ceteareth-20, Cocos Nucifera (Coconut) Oil, Parfum (Fragrance), Isopropyl Alcohol, Citric Acid, Polyquaternium-11, Dehydroacetic Acid, Phenoxyethanol, Sodium Hydroxide, Coumarin, Alpha-Isomethyl Ionone, Linalool",
    "description": "Styling crème enriched with Shea Butter & Coconut Oil. Designed to de-frizz, and deeply hydrate. Formulated for high porosity hair, this lightweight, cream formula is the hydrating base for your styling routine. Locking in moisture while helping to define and clump your curls, prepping your hair for the next step in your routine. Leaving curls soft, bouncy and beautifully frizz-free all day. Previously named Curl Jelly Crème",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/curl-jelly-creme.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--curl-jelly-scrunching-jelly-limited-edition-vanilla-gelato",
@@ -1561,7 +1526,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "boucles"
+    "boucles",
+    "crepus"
    ],
    "actifs": [
     "huile de ricin",
@@ -1572,30 +1538,14 @@
    "ingredients": "Aqua, Xanthan Gum, PEG-40 Hydrogenated Castor Oil, Glycerin, Parfum, Propylene Glycol, Phenoxyethanol, Acrylates/Palmeth-25 Acrylate Copolymer, Polyquaternium-11, Disodium EDTA, Aminomethyl Propanol, Tocopherol, Ethylhexylglycerin, Helianthus Annuus Seed Oil, Benzophenone-4, Coumarin, Vanillin, Benzaldehyde",
    "description": "Say hello to our limited edition Curl Jelly - the OG curl definer, now with a summer twist! Enjoy the same unbeatable definition and long-lasting hold you love, now infused with the irresistible scent of sweet vanilla. Lightweight, silicone-free, and shine-boosting, it’s everything your curls crave. Ready to take your curl obsession to the next level? This summer treat won’t be around forever!",
    "claims": [
+    "definition-boucles",
     "brillance",
-    "definition-boucles"
+    "fixation",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "umberto-giannini--overnight-vegan-silk-hair-wrap-sca-clone-freegift",
-   "name": "🎁 Overnight Vegan Silk Hair Wrap (100% off)",
-   "brand": "umberto-giannini",
-   "brand_name": "Umberto Giannini",
-   "url": "https://www.umbertogiannini.com/products/overnight-vegan-silk-hair-wrap-sca_clone_freegift",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0144/3636/8419/files/Untitleddesign-640_ed46fd1b-3083-42ba-9c20-4634fae13b9d.png?width=600",
-   "image_local": "public/scan/products-cheveux/umberto-giannini/overnight-vegan-silk-hair-wrap-sca-clone-freegift.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "This product is used for the app BOGOS: Free gift & Buy X Get Y to work. Please do not delete/edit it while the offers are still running! If you need assistance, please contact us via Livechat in-app or email us at: support@secomapp.com .",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/curl-jelly-scrunching-jelly-limited-edition-vanilla-gelato.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--frizz-fix-deep-conditioning-mask",
@@ -1611,7 +1561,7 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -1621,11 +1571,14 @@
     "huile d'olive"
    ],
    "ingredients": "Water (Aqua), Ricinus Communis (Castor) Seed Oil, Glycerin, Cetearyl Alcohol, Propylene Glycol, Olea Europaea (Olive) Fruit Oil, Amodimethicone, Cetrimonium Chloride, Fragrance",
-   "description": "This deep conditioning hair mask is THE ultimate frizz fighter. Powered by vegan KeraFUSION™ bond repair technology, a plant-based keratin alternative formulated using an upcycled by-product of milk thistle. Clinically proven actives penetrate the hair strand to fight frizz from within for softer, stronger, frizz-free hair from the inside. Rich in peptides that penetrate deep into the hair at molecular level to repair bonds and stop frizz from forming. Softer, stronger, frizz-free hair from the ",
+   "description": "This deep conditioning hair mask is THE ultimate frizz fighter. Powered by vegan KeraFUSION™ bond repair technology, a plant-based keratin alternative formulated using an upcycled by-product of milk thistle. Clinically proven actives penetrate the hair strand to fight frizz from within for softer, stronger, frizz-free hair from the inside. Rich in peptides that penetrate deep into the hair at molecular level to repair bonds and stop frizz from forming. Softer, stronger, frizz-free hair from the",
    "claims": [
-    "reparateur"
+    "reparation",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/frizz-fix-deep-conditioning-mask.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--thirsty-curls-souffle-mask",
@@ -1641,7 +1594,9 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "boucles"
+    "secs",
+    "boucles",
+    "cuir-chevelu-sensible"
    ],
    "actifs": [
     "acide hyaluronique",
@@ -1654,11 +1609,13 @@
    "ingredients": "Water (Aqua), Glycerin, Butyrospermum Parkii (Shea) Butter, C15-19 Alkane, Cetearyl Alcohol, Coco-Caprylate, Phenoxyethanol, Acrylates/Vinyl Isodecanoate Crosspolymer, Hydroxypropyl Starch Phosphate, Fragrance (Parfum), Dicaprylyl Ether, Sodium Hydroxide, Chlorphenesin, Lauryl Alcohol, Ethylhexylglycerin, Trisodium Ethylenediamine Disuccinate, Tremella Fuciformis (Mushroom) Extract, Pentylene Glycol, Citric Acid, Avena Strigosa Seed Extract, Fructose, Urea, Lecithin, Lactobacillus Ferment, Allantoin, Maltose, Sodium Chloride, Sodium Lactate, Sodium PCA, Trehalose, Potassium Sorbate, Glucose, Sodium Hyaluronate, Tetramethyl Acetyloctahydronaphthalenes, Linalyl Acetate, Limonene, Acetyl Cedrene, Hexamethylindanopyran, Citrus Aurantium Peel Oil, Citrus Limon Peel Oil, Alpha-somethyl Ionone, Citrus Aurantium Bergamia Peel Oil, Pogostemon Cablin Oil, Pinene, Linalool, Lavandula Oil/ Extract",
    "description": "Drench hair with moisture using this super hydrating styling soufflé. Perfect for dry, parched waves and curls craving definition and hydration. This curl enhancing leave-in soufflé glides through, defining every curl. The super hydrating formula clumps curls and nourishes parched hair. Call it a drink of water for your hair! With a unique Triple-hydrating COMPLEX that combines moisture-loving wheat proteins, Hyaluronic acid, Snow Mushroom. Added Shea Butter gives long lasting moisture and defin",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
     "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/thirsty-curls-souffle-mask.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--slick-gel-rosemary-castor-oil",
@@ -1671,7 +1628,7 @@
    "price_source": "converti GBP x1.17 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0144/3636/8419/files/Mainimageofproduct_d71b7a2e-3cb6-40a7-b067-d99b27c02159.jpg?width=600",
    "image_local": "public/scan/products-cheveux/umberto-giannini/slick-gel-rosemary-castor-oil.jpg",
-   "categorie": "huile",
+   "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
     "boucles"
@@ -1689,9 +1646,16 @@
    "ingredients": "Water (Aqua), Ceteareth-25, Propylene Glycol, Polysorbate 60, Glycerin, Fragrance (Parfum), Phenoxyethanol, Dicaprylyl Ether, Chlorphenesin, Lauryl Alcohol, PEG-90M, Triticum Vulgare (Wheat) Protein, Ethylhexylglycerin, Styrene/Acrylates Copolymer, Coco-Glucoside, Sodium Phytate, Ricinus Communis (Castor) Seed Oil, 1,2-Hexanediol, Caprylyl Glycol, Benzoic Acid, Biotin, Rosmarinus Officinalis (Rosemary) Leaf Oil, Jojoba Oil Glycereth-8 Esters, Hydrolyzed Wheat Protein, Hydrolyzed Rice Protein, Citric Acid, Sodium Benzoate, Eucalyptus Globulus Oil, Limonene, Citrus Limon Peel Oil, Lavandula Oil/ Extract, Linalool, Pinene, Linalyl Acetate, Camphor, Beta-Caryophyllene, Citral, Terpineol, Terpinolene, Geranyl Acetate, Geraniol, Alpha-Terpinene",
    "description": "Protect delicate roots and edges with our Biotin and Rosemary Oil infused strong hold gel specifically designed for curly hair. This gel gives you an all-day smooth finish without flaking, defines edges and creates an endless amount of polished slick-back styles. A smooth, defined look with the added benefits of promoting growth and strength. Ideal for all waves, curls and coils. Formulated to be curly girl friendly.",
    "claims": [
-    "lissant"
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
+    "croissance",
+    "brillance",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/slick-gel-rosemary-castor-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--moisture-milk-rosemary-oil-leave-in-conditioner",
@@ -1704,10 +1668,10 @@
    "price_source": "converti GBP x1.17 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0144/3636/8419/files/Mainimageofproduct_358f13b7-43a5-43fe-8de1-73e58a3083a6.jpg?width=600",
    "image_local": "public/scan/products-cheveux/umberto-giannini/moisture-milk-rosemary-oil-leave-in-conditioner.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "boucles",
     "abimes"
    ],
@@ -1724,14 +1688,18 @@
    "ingredients": "Water (Aqua), Cetearyl Alcohol, Brassicamidopropyl Dimethylamine, Polyquaternium-37, Fragrance (Parfum), Citric Acid, Phenoxyethanol, Ceteareth-20, Chlorphenesin, Dicaprylyl Ether, Butyrospermum Parkii (Shea) Butter, Helianthus Annuus (Sunflower) Seed Oil, Ricinus Communis (Castor) Seed Oil, Lauryl Alcohol, Ethylhexyl Methoxycinnamate, Ethylhexylglycerin, Tocopheryl Acetate, Biotin, Jojoba Oil Glycereth-8 Esters, Carica Papaya (Papaya) Fruit Extract, Cocos Nucifera (Coconut) Fruit Extract, Ficus Carica (Fig) Fruit Extract, Garcinia Mangostana Fruit Extract, Mangifera Indica (Mango) Fruit Extract, Theobroma Cacao (Cocoa) Seed Extract, Rosmarinus Officinalis (Rosemary) Leaf Oil, Potassium Sorbate, Eucalyptus Globulus Oil, Limonene, Citrus Limon Peel Oil, Lavandula Oil/ Extract, Linalool, Pinene, Linalyl Acetate, Camphor, Beta-Caryophyllene, Citral, Terpineol, Terpinolene, Geranyl Acetate, Geraniol, Alpha-Terpinene",
    "description": "Silicone-free leave-in conditioner that strengthens, repairs and defines dry, damaged hair. Enriched with Biotin, Castor Oil, Rosemary Oil, Shea Butter, Jojoba Oil and Coconut Oil. It helps to de-frizz, restore shine, and enhance manageability. This nourishing formula leaves hair feeling silky soft and looking healthy and glossy. Moisture Milk provides intense hydration while protecting against dryness and damage, leaving your curls smooth, soft, and full of shine. Perfect for all waves, curls a",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "reparateur",
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
     "brillance",
-    "lissant",
-    "fortifiant"
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/moisture-milk-rosemary-oil-leave-in-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--strong-curls-boost-mousse",
@@ -1744,7 +1712,7 @@
    "price_source": "converti GBP x1.17 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0144/3636/8419/files/Mainimageofproduct_f9500975-b9fc-448c-94bb-564c6f0b7709.jpg?width=600",
    "image_local": "public/scan/products-cheveux/umberto-giannini/strong-curls-boost-mousse.jpg",
-   "categorie": "huile",
+   "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
     "boucles"
@@ -1763,12 +1731,16 @@
    "ingredients": "Water (Aqua), Glycerin, Polysorbate 20, Panthenol, Polyquaternium-46, Cocamidopropyl Betaine, Sodium Benzoate, Hydrolyzed Wheat Protein, Fragrance (Parfum), Potassium Sorbate, Citric Acid, Oryza Sativa (Rice) Seed Water, Trisodium Ethylenediamine Disuccinate, Saccharomyces Ferment, Ricinus Communis (Castor) Seed Oil, Jojoba Oil Glycereth-8 Esters, Caprylyl Glycol, Phenoxyethanol, Phenylpropanol, Propanediol, Tocopherol, Lactobacillus Ferment, Biotin, Rosmarinus Officinalis (Rosemary) Leaf Oil, Eucalyptus Globulus Oil, Limonene, Citrus Limon Peel Oil, Lavandula Oil/ Extract, Linalool, Pinene, Linalyl Acetate, Camphor, Beta-Caryophyllene, Citral, Terpineol",
    "description": "Why limit an ingredient scientifically proven to promote hair growth to just one part of your routine? Infused with Biotin, Rosemary Oil, Rice Water, Jojoba Oil, and Castor Oil, it helps to maintain healthy, damage free curls while providing long-lasting hold and shine. This (lighter than) mousse is designed to boost definition and shape, giving you the perfect balance of nourishment and styling power. Strong healthier-looking curls with a natural, glossy finish and hold that lasts all day. This",
    "claims": [
-    "nourrissant",
-    "brillance",
+    "nutrition",
+    "fortifiant",
     "definition-boucles",
-    "fortifiant"
+    "croissance",
+    "brillance",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/strong-curls-boost-mousse.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--strong-curls-conditioner",
@@ -1784,6 +1756,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "boucles",
     "abimes"
    ],
@@ -1800,13 +1773,17 @@
    "ingredients": "Water (Aqua), Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Betaine, Cocamide DIPA, Glycerin, Caprylyl/Capryl Glucoside, Sodium Cocoyl Methyl Isethionate, Fragrance (Parfum), Sodium Lauroyl Sarcosinate, Sodium Benzoate, Polyquaternium-22, Potassium Sorbate, Polyquaternium-7, Sodium Chloride, Glycol Distearate, Panthenol, Tetrasodium Glutamate Diacetate, Sodium Hydroxide, Sodium Phytate, Laureth-4, Sodium Citrate, Ricinus Communis (Castor) Seed Oil, Jojoba Oil Glycereth-8 Esters, Citric Acid, Biotin, Rosmarinus Officinalis (Rosemary) Leaf Oil, Formic Acid, Mentha Piperita (Peppermint) Leaf Extract, Rumex Acetosella Extract, Eucalyptus Globulus Oil, Limonene, Citrus Limon Peel Oil, Lavandula Oil/ Extract, Linalool, Pinene, Linalyl Acetate, Camphor, Beta-Caryophyllene, Yellow 5 (CI 19140)",
    "description": "Formulated to repair, protect, and replenish your curls. Packed with Biotin and Rosemary Oil, to strengthen and promote healthier growth. A blend of nourishing natural oils, including Jojoba, Almond, Avocado, and Olive Oil, deeply hydrates and nourishes your hair, leaving it soft and smooth. Rosemary Oil & peppermint Leaf Extract stimulates the scalp, for stronger, longer curls. This conditioner is for you if you suffer from breakage and dream of stronger and longer curls.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "reparateur",
-    "lissant",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
+    "croissance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/strong-curls-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--strong-curls-shampoo",
@@ -1837,10 +1814,16 @@
    "ingredients": "Water (Aqua), Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Betaine, Cocamide DIPA, Glycerin, Caprylyl/Capryl Glucoside, Sodium Cocoyl Methyl Isethionate, Fragrance (Parfum), Sodium Lauroyl Sarcosinate, Sodium Benzoate, Polyquaternium-22, Potassium Sorbate, Polyquaternium-7, Sodium Chloride, Glycol Distearate, Panthenol, Tetrasodium Glutamate Diacetate, Sodium Hydroxide, Sodium Phytate, Laureth-4, Sodium Citrate, Ricinus Communis (Castor) Seed Oil, Jojoba Oil Glycereth-8 Esters, Citric Acid, Biotin, Rosmarinus Officinalis (Rosemary) Leaf Oil, Formic Acid, Mentha Piperita (Peppermint) Leaf Extract, Rumex Acetosella Extract, Eucalyptus Globulus Oil, Limonene, Citrus Limon Peel Oil, Lavandula Oil/ Extract, Linalool, Pinene, Linalyl Acetate, Camphor, Beta-Caryophyllene, Yellow 5 (CI 19140)",
    "description": "Sulphate-free shampoo designed to gently cleanse the hair and scalp, providing superior slip without stripping natural moisture. Infused with a blend of strengthening Biotin, growth stimulating Rosemary Oil, and calming Castor Oil, this shampoo promotes healthier hair while protecting length. The perfect first step for your strengthening hair journey.",
    "claims": [
-    "hydratant",
-    "fortifiant"
+    "hydratation",
+    "fortifiant",
+    "definition-boucles",
+    "croissance",
+    "apaisant-cuir-chevelu",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/strong-curls-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--coconut-shea-curl-oil",
@@ -1856,6 +1839,7 @@
    "categorie": "huile",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "boucles",
     "abimes"
    ],
@@ -1868,9 +1852,17 @@
    "ingredients": "Caprylic/Capric Triglyceride, Hydrogenated Ethylhexyl Olivate, Cocos Nucifera (Coconut) Oil, Ricinus Communis (Castor) Seed Oil, Fragrance (Parfum), Shea Butter Ethyl Esters, Hydrogenated Olive Oil Unsaponifiables, Citric Acid, Coumarin, Alpha-isomethyl Ionone, Linalool",
    "description": "Bond with your curls! This super-lightweight oil with a trio of nature's favourite curl-friendly ingredients - Coconut Oil, Shea Butter and Olive Oil - that transforms hair texture and seals in moisture, preventing hair bonds from breakage and protecting against future damage. The result - strong, healthy and shiny waves, curls and coils. Silicone-free.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "definition-boucles",
+    "texturisant",
+    "brillance",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/coconut-shea-curl-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--frizz-weatherproof-hairspray",
@@ -1886,17 +1878,23 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
     "boucles"
    ],
-   "actifs": [],
+   "actifs": [
+    "vitamine E"
+   ],
    "ingredients": "Alcohol denat, Butane, Isobutane, Propane, Octylacrylamide/Acrylates/Butylaminoethyl Methacrylate Copolymer, Aqua, Aminomethyl Propanol, Aminopropyl Phenyl Trimethicone, Parfum, PEG-12 Dimethicone, Tocopheryl Acetate, Hexyl Cinnamal, Linalool, Limonene, Alpha-Isomethyl Ionone, Citronellol, Hydroxycitronellal",
    "description": "Protect your locks with this amazing humidity shield hairspray capable of keeping your style in place even in city drizzle. Hairspray like you've never used before. Ultra-lightweight, super versatile styler absorbs instantly to provide a medium-strong hold. It shields from heat damage up to 210°C so perfect to use before curling and straightening for glossy styles that last. With Vitamin E for smooth, shiny tresses that stay completely frizz free.",
    "claims": [
+    "anti-frisottis",
+    "definition-boucles",
     "brillance",
-    "lissant"
+    "protection-chaleur",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/frizz-weatherproof-hairspray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--hair-gloss-high-shine-smoothing-balm",
@@ -1912,7 +1910,7 @@
    "categorie": "coloration-soin",
    "etape": 2,
    "cheveux_cibles": [
-    "epais",
+    "colores",
     "abimes"
    ],
    "actifs": [
@@ -1924,11 +1922,13 @@
    "ingredients": "Aqua, Glycerin, Dimethicone, Polyacrylamide, Dimethiconol, Polysorbate 20, C13-14 Isoparaffin, Phenylpropyl-dimethylsiloxysilicate, Phenoxyethanol, Benzyl Alcohol, Linoleamidopropyl PG-Dimonium Chloride Phosphate Dimethicone, Parfum, Laureth – 7, Potassium Sorbate, Tocopherol, Maltodextrin, Silybum Marianum Seed Extract, Citric Acid, CI 14700, CI 19140",
    "description": "Add this wonder leave-in to your routine to seriously up the game on silky, glossy, swishy hair. A surprisingly lightweight leave-in conditioner that makes hair feel softer, look glossier and stay completely frizz free. Contains Vegan KeraFUSION™ bond repair technology, a plant-based keratin alternative formulated using an upcycled by-product of milk thistle. Clinically proven to penetrate the hair strand to fight frizz from within for softer, stronger, frizz-free hair from the inside.",
    "claims": [
-    "reparateur",
-    "brillance",
-    "lissant"
+    "reparation",
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/hair-gloss-high-shine-smoothing-balm.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--curl-jelly-care-conditioner",
@@ -1944,7 +1944,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "epais",
+    "fins",
     "boucles"
    ],
    "actifs": [
@@ -1954,10 +1954,15 @@
    "ingredients": "Water (Aqua), Cetearyl Alcohol, Glycerin, Propylene Glycol, Behentrimonium Chloride, Hydroxyethylcellulose, Cetrimonium Chloride, Phenoxyethanol, Polyquaternium-37, Polyquaternium-11, Fragrance (Parfum), Sodium Benzoate, Citric Acid, Disodium EDTA, Ethylhexylglycerin, Tetramethyl Acetyloctahydronaphthalenes, Red 33 (CI 17200), Yellow 5 (CI 19140)",
    "description": "Umberto Giannini Curl Jelly Care Conditioner is a de-frizz formula that adds moisture, builds bounce, detangles, and conditions all types of natural waves and curls. It coats each hair strand to provide weightless conditioning with added shine, enhancing the shape of every curl. This gentle conditioner is a sister haircare product of the iconic vegan Curl Scrunching Jelly. It is formulated without silicones and parabens. What it does: De-frizzes, detangles & defines curls, adds bounce, moisturis",
    "claims": [
-    "hydratant",
-    "brillance"
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles",
+    "brillance",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/curl-jelly-care-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--swim-proof-hair-protect-cream",
@@ -1973,6 +1978,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "colores"
    ],
    "actifs": [
@@ -1983,12 +1989,15 @@
     "huile d'olive"
    ],
    "ingredients": "Water (Aqua), Glycerin, Cetearyl Alcohol, Cocos Nucifera (Coconut) Oil, Dimethicone, Ricinus Communis (Castor) Seed Oil, Olea Europaea (Olive) Fruit Oil, Polyquaternium-37, Distearoylethyl Hydroxyethylmonium Methosulfate, Phenoxyethanol, Ceteareth-20, Fragrance (Parfum), Chlorphenesin, Butylene Glycol, Ethylhexyl Methoxycinnamate, Ethylhexyl Salicylate, Disodium EDTA, Helianthus Annuus (Sunflower) Seed Extract, Hexyl Cinnamal, Linalool, Benzyl Salicylate, Benzyl Alcohol, Limonene, Geraniol",
-   "description": "Swim Proof Leave-In Cream protects locks from the damaging effects of chlorine, salt water and the sun. The nourishing formula protects hair and scalp, locking in moisture for healthy, hydrated hair. <br>Powered by nourishing Coconut Oil, Olive Oil and Sunflower Seed plus UV filters help protect colour for longer against yellowing and fading. <br>And to top it off? The Coconut Crush scent will transport you to sunnier places with notes of warm vanilla, mandarin, creamy coconut, sandalwood & musk",
+   "description": "Swim Proof Leave-In Cream protects locks from the damaging effects of chlorine, salt water and the sun. The nourishing formula protects hair and scalp, locking in moisture for healthy, hydrated hair. Powered by nourishing Coconut Oil, Olive Oil and Sunflower Seed plus UV filters help protect colour for longer against yellowing and fading. And to top it off? The Coconut Crush scent will transport you to sunnier places with notes of warm vanilla, mandarin, creamy coconut, sandalwood & musk",
    "claims": [
-    "hydratant",
-    "nourrissant"
+    "hydratation",
+    "nutrition"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/swim-proof-hair-protect-cream.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--coco-beach-waves-shampoo",
@@ -2004,6 +2013,8 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
+    "boucles",
     "abimes"
    ],
    "actifs": [
@@ -2015,9 +2026,14 @@
    "ingredients": "Water (Aqua), Cocamidopropyl Betaine, Sodium Cocoyl Methyl Isethionate, Glycerin, Phenoxyethanol, Fragrance (Parfum), Sodium Methyl Isethionate, Styrene/Acrylates Copolymer, Coconut Acid, Lauryl Glucoside, Potassium Sorbate, Sodium Lauroyl Sarcosinate, Hydroxypropyl Guar Hydroxypropyltrimonium Chloride, Polyquaternium-7, Coco-Glucoside, Sodium Cocoate, Coconut Oil Glycereth-8 Esters, Sodium Chloride, Trisodium Ethylenediamine Disuccinate, Citric Acid, Benzoic Acid, Sodium Hyaluronate, Carica Papaya (Papaya) Fruit Extract, Cocos Nucifera (Coconut) Fruit Extract, Ficus Carica (Fig) Fruit Extract, Garcinia Mangostana Fruit Extract, Mangifera Indica (Mango) Fruit Extract, Theobroma Cacao (Cocoa) Seed Extract, Sodium Hydroxide, Hexyl Cinnamal, Linalool, Benzyl Salicylate",
    "description": "Locks feeling parched, dull and lacklustre? Revive dry, sun-damaged hair and gently lift away product, sand and sea build up with this conditioning shampoo. Powered by a blend of Coconut Oil, Cocoa Seed Butter, Hyaluronic Acid, Mango Extract and Papaya Extract, to cleanse without stripping away essential moisture. Its irresistible Coconut Crush scent will transport you to the beach with notes of warm vanilla, mandarin, creamy coconut, sandalwood & musk.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/coco-beach-waves-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--coco-beach-waves-conditioner",
@@ -2033,6 +2049,9 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
+    "fins",
+    "boucles",
     "abimes"
    ],
    "actifs": [
@@ -2044,10 +2063,15 @@
    "ingredients": "Water (Aqua), Cetearyl Alcohol, Dimethicone, Behentrimonium Chloride, Glycerin, Dicaprylyl Ether, Cetyl Alcohol, Phenoxyethanol, Amodimethicone, Lauryl Alcohol, Cetrimonium Chloride, Fragrance (Parfum), Potassium Sorbate, Citric Acid, Ethylhexylglycerin, Trideceth-12, Trisodium Ethylenediamine Disuccinate, Sodium Benzoate, Triticum Vulgare (Wheat) Germ Oil, Carica Papaya (Papaya) Fruit Extract, Cocos Nucifera (Coconut) Fruit Extract, Ficus Carica (Fig) Fruit Extract, Garcinia Mangostana Fruit Extract, Mangifera Indica (Mango) Fruit Extract, Theobroma Cacao (Cocoa) Seed Extract, Tocopherol, Hexyl Cinnamal, Linalool, Benzyl Salicylate",
    "description": "Locks feeling parched, dull and lacklustre? Intensely hydrate sun-damaged hair without weighing it down, leaving it smoother and bouncier in minutes. Powered by a blend of Coconut Oil, Cocoa Seed Butter, Mango Extract and Papaya Extract, it instantly revives parched hair back to life. The silky soft formula is also infused with Vitamin E for weightless moisture to rehydrate thirsty hair, without any heaviness. Its irresistible Coconut Crush scent will transport you to the beach with notes of war",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "anti-frisottis",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/coco-beach-waves-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--mermaid-beach-waves-texturising-volume-mousse",
@@ -2064,6 +2088,7 @@
    "etape": 3,
    "cheveux_cibles": [
     "fins",
+    "boucles",
     "colores"
    ],
    "actifs": [
@@ -2074,10 +2099,14 @@
    "ingredients": "Aqua (Water), VP/VA Copolymer, Butane, Isobutane, Propane, PEG-12 Dimethicone, Polysorbate 20, Phenoxyethanol, Polyquaternium-1 1, Propylene Glycol, Parfum (Fragrance), Cocamidopropylamine Oxide, Benzophenone-4, Ethylhexylglycerin, Glycerin, Cocos Nucifera Liquid Endosperm (Coconut Water), Tapioca Starch, Sodium Benzoate, Potassium Sorbate, Citric Acid, Hexyl Cinnamal, Linalool, Benzyl Salicylate, Cinnamyl Alcohol, Benzyl Alcohol, Limonene, Geraniol",
    "description": "A creamy volumising mousse with natural volume and lift for gorgeous beachy waves and a tousled texture. Infused with hydrating Coconut Water to naturally condition whilst styling, for soft, moisturised waves. Colour protecting UV filters help to prevent colour fade caused by sun exposure, for gorgeous healthy vibrant hair. Perfect for beachy mermaid-style textured waves on all hair types, this low crunch formula gives long-lasting natural looking volume. The Coconut Crush scent will transport y",
    "claims": [
-    "hydratant",
-    "volume"
+    "hydratation",
+    "definition-boucles",
+    "volume",
+    "texturisant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/mermaid-beach-waves-texturising-volume-mousse.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--grow-scrub-exfoliating-scalp-scrub",
@@ -2092,7 +2121,11 @@
    "image_local": "public/scan/products-cheveux/umberto-giannini/grow-scrub-exfoliating-scalp-scrub.jpg",
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "chute",
+    "pellicules",
+    "cuir-chevelu-sensible"
+   ],
    "actifs": [
     "caféine",
     "piroctone olamine",
@@ -2101,8 +2134,15 @@
    ],
    "ingredients": "Maris Sal (Sea Salt), Ammonium Laureth Sulfate, Aqua (Water), Sodium Lauroyl Sarcosinate, Polyquaternium-6, Parfum (Fragrance), Potassium Sorbate, Caffeine, Piroctone Olamine, Citric Acid, Maris Sal (Dead Sea Salt), Glycerin Coffea Arabica (Coffee) Seed Extract, Chondrus Crispus (Carrageenan) Extract, Coffea Robusta Seed Extract, Fucus Vesiculosus Extract, Laminaria Digitata Extract, Sodium Benzoate",
    "description": "The caffeine hit for your scalp. Exfoliating scrub gives your scalp a deeper, more invigorating cleanse for when you feel more build up. It removes dead skin and product build-up without stripping the hair, leaving your scalp fresh, balanced and ready for healthier growth. The blend of Caffeine, Black Coffee Seed and Pea Sprout Extract (reducing premature shedding) helps energise the roots, while Sea Salt, polishes away impurities to clear and stimulate the scalp. Powerful Irish Moss, Seaweed an",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "anti-chute",
+    "croissance",
+    "purifiant",
+    "brillance"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/grow-scrub-exfoliating-scalp-scrub.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--fuzz-off-control-clay",
@@ -2118,8 +2158,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
-    "abimes"
+    "abimes",
+    "chute"
    ],
    "actifs": [
     "kératine",
@@ -2130,9 +2170,12 @@
    "ingredients": "Water (Aqua), Kaolin, Propylene Glycol, PVP, Steareth-21, Tribehenin, VP/VA Copolymer, Cetyl Alcohol, Ozokerite, Steareth-2, Cocoglycerides, Phenoxyethanol, Fragrance (Parfum), Chlorphenesin, Caffeine, Maltodextrin, Hydrolyzed Wheat Protein, Disodium EDTA, Tocopheryl Acetate, Ethylhexylglycerin, Silybum Marianum Seed Extract, Biotin, Sodium Benzoate, Linalool, Citronellol, Benzyl Benzoate, Coumarin, Limonene",
    "description": "Did you know broken, damaged hair bonds are the number one cause of frizz? Instantly fix frizz with Fuzz-Off™ Control Clay. Enriched with Kaolin Clay and Caffeine to instantly banishes root fuzz and unruly fly-aways from frizz-prone hair… whatever the weather. A versatile finishing product with a soft matte finish. Powered by vegan KeraFUSION™ bond repair technology, a plant-based keratin alternative formulated using an upcycled by-product of milk thistle. Clinically proven actives penetrate the",
    "claims": [
-    "reparateur"
+    "reparation",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/fuzz-off-control-clay.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--frizz-fix-shampoo-and-conditioner",
@@ -2145,10 +2188,9 @@
    "price_source": "converti GBP x1.17 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0144/3636/8419/files/Untitleddesign-629.png?width=600",
    "image_local": "public/scan/products-cheveux/umberto-giannini/frizz-fix-shampoo-and-conditioner.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
-    "epais",
     "abimes"
    ],
    "actifs": [
@@ -2160,10 +2202,15 @@
    "ingredients": "Shampoo: Water (Aqua), Cocamidopropyl Betaine, Sodium Cocoyl Methyl Isethionate, Glycerin, Phenoxyethanol, Sodium Lauroyl Sarcosinate, Fragrance (Parfum), Sodium Methyl Isethionate, Coconut Acid, Lauryl Glucoside, Potassium Sorbate, Hydroxypropyl Guar Hydroxypropyltrimonium Chloride, Polyquaternium-7, Sodium Gluconate, Maltodextrin, Sodium Cocoate, Sodium Chloride, Silybum Marianum Seed Extract, Citric Acid, Sodium Hyaluronate, Sodium Hydroxide, Linalool, Yellow 6 (CI 15985)",
    "description": "Did you know broken, damaged hair bonds are the number one cause of frizz? Fix frizz with this sulphate-free Shampoo 250ml and Conditioner 250ml duo for 78% less breakage. Powered by Vegan KeraFUSION™ bond repair technology, a plant-based keratin alternative formulated using an upcycled by-product of milk thistle. Clinically proven actives penetrate the hair strand to fight frizz from within for softer, stronger, frizz-free hair from the inside.The 94% natural detangling formulas strengthens str",
    "claims": [
-    "reparateur",
-    "fortifiant"
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "demelant",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/frizz-fix-shampoo-and-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--frizz-fix-shampoo",
@@ -2179,7 +2226,6 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "epais",
     "abimes"
    ],
    "actifs": [
@@ -2191,10 +2237,14 @@
    "ingredients": "Water (Aqua), Cocamidopropyl Betaine, Sodium Cocoyl Methyl Isethionate, Glycerin, Phenoxyethanol, Sodium Lauroyl Sarcosinate, Fragrance (Parfum), Sodium Methyl Isethionate, Coconut Acid, Lauryl Glucoside, Potassium Sorbate, Hydroxypropyl Guar Hydroxypropyltrimonium Chloride, Polyquaternium-7, Sodium Gluconate, Maltodextrin, Sodium Cocoate, Sodium Chloride, Silybum Marianum Seed Extract, Citric Acid, Sodium Hyaluronate, Sodium Hydroxide, Linalool, Yellow 6 (CI 15985)",
    "description": "Did you know broken, damaged hair bonds are the number one cause of frizz? Fix frizz with this sulphate-free shampoo for 78% less breakage*. Powered by vegan KeraFUSION™ bond repair technology, a plant-based keratin alternative formulated using an upcycled by-product of milk thistle. Clinically proven actives penetrate the hair strand to fight frizz from within for softer, stronger, frizz-free hair from the inside.The metal detox technology with Sodium Gluconate helps remove dulling metals and m",
    "claims": [
-    "reparateur",
-    "purifiant"
+    "reparation",
+    "anti-frisottis",
+    "purifiant",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/frizz-fix-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--the-frizz-oil",
@@ -2210,7 +2260,6 @@
    "categorie": "huile",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
     "abimes"
    ],
    "actifs": [
@@ -2219,10 +2268,13 @@
    "ingredients": "Propylene Glycol, Aqua (Water), Cyclopentasiloxane, Dimethicone, Dimethiconol, PEG-12 Dimethicone, Phenoxyethanol, Polyacrylamide, Fragrance (Parfum), C13-14 Isoalkane, Maltodextrin, Acacia Senegal Gum, Xanthan Gum, Laureth-7, Silybum Marianum Seed Extract, Sodium Gluconate, Linalool, Citronellol, Benzyl Benzoate, Coumarin, Limonene, Caramel",
    "description": "Did you know broken, damaged hair bonds are the number one cause of frizz? Instantly fix frizz with The Frizz Oil™ 50ml. Powered by vegan KeraFUSION™ bond repair technology, a plant-based keratin alternative formulated using an up-cycled by-product of milk thistle. Clinically proven actives penetrate the hair strand to fight frizz from within for softer, stronger, frizz-free hair from the inside. The metal detox technology with Sodium Gluconate helps remove dulling metals and minerals found in e",
    "claims": [
-    "reparateur",
+    "reparation",
+    "anti-frisottis",
     "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/the-frizz-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--frizz-fix-conditioner",
@@ -2238,7 +2290,6 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "epais",
     "abimes"
    ],
    "actifs": [
@@ -2251,10 +2302,14 @@
    "ingredients": "Water (Aqua), Cetearyl Alcohol, Dimethicone, Behentrimonium Chloride, Glycerin, Cetyl Alcohol, Cocos Nucifera (Coconut) Oil, Phenoxyethanol, Cetrimonium Chloride, Fragrance (Parfum), Potassium Sorbate, Maltodextrin, Ethylhexylglycerin, Silybum Marianum Seed Extract, Citric Acid, Sodium Phytate, Triticum Vulgare (Wheat) Germ Oil, Tocopherol, Linalool, Caramel",
    "description": "Did you know broken, damaged hair bonds are the number one cause of frizz? Fix frizz with this conditioner for 78% less breakage*. Powered by vegan KeraFUSION™ bond repair technology, a plant-based keratin alternative formulated using an upcycled by-product of milk thistle. Clinically proven actives penetrate the hair strand to fight frizz from within for softer, stronger, frizz-free hair from the inside. The 94% natural detangling formula strengthens strands while helping to prevent the formati",
    "claims": [
-    "reparateur",
-    "fortifiant"
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/frizz-fix-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--blow-out-frizz-styling-cream",
@@ -2270,7 +2325,6 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
     "abimes"
    ],
    "actifs": [
@@ -2281,10 +2335,12 @@
    "ingredients": "Water (Aqua), Cyclopentasiloxane, Propylene Glycol, Dimethiconol, Polyacrylamide, C13-14 Isoalkane, Phenoxyethanol, Laureth-7, Fragrance (Parfum), Panthenol, Maltodextrin, Ethylhexylglycerin, Tocopheryl Acetate, Silybum Marianum Seed Extract, Citric Acid, Linalool, Citronellol, Benzyl Benzoate, Coumarin, Limonene",
    "description": "Did you know broken, damaged hair bonds are the number one cause of frizz? Fix frizz with this smoothing styling cream. Powered by vegan KeraFUSION™ bond repair technology, a plant-based keratin alternative formulated using an upcycled by-product of milk thistle. Clinically proven actives penetrate the hair strand to fight frizz from within for softer, stronger, frizz-free hair from the inside.The lightweight formula instantly transforms frizz into silky smooth hair in a single blow out. Powered",
    "claims": [
-    "reparateur",
-    "lissant"
+    "reparation",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/blow-out-frizz-styling-cream.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--banana-coconut-air-dry-cream",
@@ -2300,7 +2356,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
+    "fins",
     "boucles"
    ],
    "actifs": [
@@ -2313,10 +2370,16 @@
    "ingredients": "Water (Aqua), Glycerin, Cetearyl Alcohol, Glyceryl Stearate, Cetyl Alcohol, Cocos Nucifera (Coconut) Oil, Dimethicone, Vegetable Oil (Olus Oil), Butyrospermum Parkii (Shea) Butter, Phenoxyethanol, PEG-100 Stearate, Benzyl Alcohol, Hydroxyethylcellulose, Polyquaternium- 72, Fragrance (Parfum), Panthenol, Hydrogenated Vegetable Oil, Cetrimonium Chloride, Sodium Chloride, Sodium Phytate, Euphorbia Cerifera (Candelilla) Wax, Musa Sapientum (Banana) Fruit Extract, Sodium Hydroxide, Citric Acid, Carica Papaya (Papaya) Fruit",
    "description": "Unlocks perfectly imperfect natural looking waves and curls so you can save time and skip the heat tools. Created for fine to medium, naturally wavy and curly hair types, the lightweight formula adds moisture and tousled texture with medium hold for an air-dried look without an over-styled, crunchy feel.Packed with Banana Extract, Shea Butter and Coconut Oil to moisturise and soften, this easy-dry, curl-care formula smooths strands for a frizz-free finish. A muti-purpose cream to use alone or la",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/banana-coconut-air-dry-cream.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--scalp-restore-scalp-reviving-anti-dandruff-shampoo",
@@ -2343,29 +2406,13 @@
    "ingredients": "Aqua (Water), Sodium C14-16 Olefin Sulfonate, Cocamidopropyl betaine, Sodium Methyl Cocoyl Taurate, Sodium Lauroyl Sarcosinate, Parfum (Fragrance), Sodium Benzoate, Piroctone Olamine, Potassium Sorbate, Polyquaternium-10, Sodium Chloride, Polyquaternium-22, Citric Acid, Coconut Oil Glycereth-8 Esters, Sodium Hydroxide, Ananas Sativus (Pineapple) Extract, Bromelain, Lactobacillus Ferment, Limonene",
    "description": "Dry, flaky, itchy scalp? Show your scalp some love with Scalp Restore! This anti-dandruff, scalp reviving shampoo is clinically proven* to remove dandruff, leaving you with a flake free + balanced scalp. As part of the Scalp Restore range, this product contains Pineapple Enzymes which has multiple benefits for your hair + scalp with a refreshing pineapple scent. Say goodbye to itchy scalps, this product will be your new go-to! Source of photo-nutrients to help keep hair heathy and strong Removes",
    "claims": [
-    "anti-pellicules"
+    "nutrition",
+    "antipelliculaire",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "umberto-giannini--cubed-hair-bobble-accessory",
-   "name": "LOVE Cubed Hair Bobble Accessory",
-   "brand": "umberto-giannini",
-   "brand_name": "Umberto Giannini",
-   "url": "https://www.umbertogiannini.com/products/cubed-hair-bobble-accessory",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 11.7,
-   "price_source": "converti GBP x1.17 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0144/3636/8419/files/Untitleddesign-562.png?width=600",
-   "image_local": "public/scan/products-cheveux/umberto-giannini/cubed-hair-bobble-accessory.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Add a touch of glamour and versatile elegance to your styling routine. Whether you’re after a glam updo, a classic pony or a chic messy bun, the LOVE Cubed Hair Bobble effortlessly complements any hairstyle – a must-have for every occasion. Carefully created for a secure, slip-free hold.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/scalp-restore-scalp-reviving-anti-dandruff-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--rosemary-scalp-and-hair-oil",
@@ -2380,9 +2427,7 @@
    "image_local": "public/scan/products-cheveux/umberto-giannini/rosemary-scalp-and-hair-oil.jpg",
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [
     "huile de ricin",
     "huile de jojoba",
@@ -2393,11 +2438,16 @@
    "ingredients": "Glycine Soja (Soybean) Oil, Ricinus Communis (Castor) Seed Oil, C15-19 Alkane, Carthamus Tinctorius (Safflower) Seed Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Rosmarinus Officinalis (Rosemary) Leaf Oil, Menthol, Triticum Vulgare (Wheat) Germ Oil, Oryza Sativa (Rice) Bran Oil, Mentha Piperita (Peppermint) Oil, Eucalyptus Globulus Leaf Oil, Melaleuca Alternifolia (Tea Tree) Leaf Oil, Linaloo, Lavandula Angustifolia (Lavender) Oil, Prunus Amygdalus (Lavender) Oil, Vitis Vinifera (Grape) Seed Oil, Limonene, Pogostemon Cablin Leaf Oil, Salvia Sclarea (Clary) Oil, Geraniol, Tocopherol, Eugenol",
    "description": "Nourishes scalp for stronger, longer and healthier hair. Improves scalp health and strengthens hair. •Packed full of essential oils and natural extracts. •Stimulates hair growth. •Protects hair against environmental stressors. •Reduces frizz, de-tangles, adds shine. HOW TO: •Scalp Treatment: Section hair into 4 parts exposing scalp. Apply a small amount of oil to scalp, massage oil in with fingers and comb through to ends of hair. Leave in and style as desired. •Daily Use: Apply a small amount t",
    "claims": [
-    "nourrissant",
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
+    "croissance",
     "brillance",
-    "fortifiant"
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/rosemary-scalp-and-hair-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--heat-shield-frizz-control-heat-protecting-spray",
@@ -2414,7 +2464,6 @@
    "etape": 3,
    "cheveux_cibles": [
     "secs",
-    "epais",
     "boucles",
     "abimes"
    ],
@@ -2428,9 +2477,15 @@
    "ingredients": "Aqua, PEG-40 Hydrogenated Castor Oil, Sodium Methoxy PEG-16, Maleate/Styrene Sulfonate, Copolymer, Phenoxyethanol, Parfum, PEG-150 Distearate, Dipropylene Glycol, Polysilicone-29, Silicone Quaternium-18, Trideceth-6, Trideceth-12, Potassium Sorbate, Glycerin, Citric Acid, Maris Sal, Panthenol, Persea Gratissima Oil, Propylene Glycol, Tocopheryl Acetate, Laminaria Digitata Extract, Pentylene Glycol, Coffea Arabica Seed Extract, Triticum Vulgare Bran Extract, Chondrus Crispus Extract, Fucus Vesiculosus Extract, Laminaria Japonica Extract, Sargassum Pallidum Extract, Terminalia Ferdinandiana Fruit Extract, Sodium Benzoate, 1,2-Hexanediol, Caprylyl Glycol, Pisum Sativum Sprout Extract, Hexyl Cinnamal, Linalool, Limonene, Alpha-Isomethyl Ionone, Citronellol, Hydroxycitronellal, Geraniol",
    "description": "Style without damage. A defensive shield to protect your hair from heat damage that causes split ends and frizz. For soft, shiny results, this hair heat protection spray prevents hair from becoming brittle and dull when diffusing, curling, air-wrapping and straightening up to 220°C. Shake before use. Spritz Heat Shield heat protectant through damp or dry hair liberally from root to tip before heat styling, use a brush to pull hair straight and blow-dry from roots to ends.",
    "claims": [
-    "protection-thermique"
+    "reparation",
+    "anti-frisottis",
+    "definition-boucles",
+    "brillance",
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/heat-shield-frizz-control-heat-protecting-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--curl-volumising-foam-frizz-free-mousse",
@@ -2447,7 +2502,6 @@
    "etape": 3,
    "cheveux_cibles": [
     "fins",
-    "epais",
     "boucles",
     "abimes"
    ],
@@ -2461,12 +2515,16 @@
    "ingredients": "Water (Aqua), Glycerin, Polysorbate 20, Panthenol, Polyquaternium-46, Cocamidopropyl Betaine, Fragrance (Parfum), Sodium Benzoate, Potassium Sorbate, Hydrolyzed Wheat Protein, Citric Acid, Trisodium Ethylenediamine Disuccinate, Coumarin, Caprylyl Glycol, Phenoxyethanol, Phenylpropanol, Propanediol, Tocopherol, Alpha-isomethyl Ionone, Linalool, Limonene, Geraniol, Cinnamal, Eugenol, Citral, Citronellol, Benzyl Benzoate",
    "description": "Weightless Curl strength!The 93% natural formula effortlessly defines natural curls, without ever weighing down the hair. Looking to raise the roots? Curl Foam adds incredible volume when drying with a diffuser. The protein infused styling mousse hydrates & repairs waves, curls and coils for a silky, soft, light as (h)air finish.. no stringy or crunchy curls in sight",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "volume",
-    "lissant"
+    "hydratation",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
+    "volume"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/curl-volumising-foam-frizz-free-mousse.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--banana-butter-nourishing-superfood-conditioner",
@@ -2482,7 +2540,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -2492,13 +2550,17 @@
     "acide citrique"
    ],
    "ingredients": "Aqua (Water), Cetearyl Alcohol, Cocos Nucifera (Coconut) Oil, Distearoylethyl Hydroxyethylmonium Methosulfate, Stearamidopropyl Dimethylamine, Parfum (Fragrance), Citric Acid, Guar Hydroxypropyltrimonium Chloride, Cetearyl Nonanoate, Chlorphenesin, Triticum Vulgare (Wheat) Bran Extract, Salicylic Acid, Ethylhexyl Isononanoate, Trisodium Ethylenediamine Disuccinate, Linoleic Acid, Glycerin, Bertholletia Excelsa Seed Oil, D-Limonene, Sorbic Acid, Camellia Oleifera Seed Oil, Musa Sapientum (Banana) Extract, Potassium Sorbate, Sodium Benzoate, Benzyl Alcohol, Limonene, CI 19140 (Yellow No.5), CI 15985 (Yellow 6)",
-   "description": "You asked, we listened. Introducing Umberto Giannini Banana & Coconut Superfood Conditioner. A 97% natural formula, packed with natural oils and vitamins, designed to nourish, restore shine and improve manageability for dry, frizzy and textured hair with a deliciously fruity fragrance. Banana Extract Rich in potassium and vitamins A, B and C complex to nourish hair Packed with natural oils to deeply moisturise and soften hair Improves manageability and shine Coconut Oil Rich in antioxidants and ",
+   "description": "You asked, we listened. Introducing Umberto Giannini Banana & Coconut Superfood Conditioner. A 97% natural formula, packed with natural oils and vitamins, designed to nourish, restore shine and improve manageability for dry, frizzy and textured hair with a deliciously fruity fragrance. Banana Extract Rich in potassium and vitamins A, B and C complex to nourish hair Packed with natural oils to deeply moisturise and soften hair Improves manageability and shine Coconut Oil Rich in antioxidants and",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/banana-butter-nourishing-superfood-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--beach-waves-coconut-oil-texture-spray",
@@ -2511,10 +2573,11 @@
    "price_source": "converti GBP x1.17 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0144/3636/8419/products/BohosprayNEW.png?width=600",
    "image_local": "public/scan/products-cheveux/umberto-giannini/beach-waves-coconut-oil-texture-spray.jpg",
-   "categorie": "huile",
+   "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
     "fins",
+    "boucles",
     "colores"
    ],
    "actifs": [
@@ -2526,10 +2589,14 @@
    "ingredients": "Aqua (Water), Polysorbate 20, Benzyl Alcohol, Glycerin, Fragrance (Parfum), Polyurethane- 14, Xanthan Gum,AMP-Acrylates Copolymer, Panthenol, PVP, Cocos Nucifera (Coconut) Oil, Maltodextrin/VP Copolymer, Dehydroacetic Acid, Disodium EDTA, Aminomethyl Propanol, Phenoxyethanol, Ethylhexy|glycerin, Citric Acid, Tetrasodium Glutamate Diacetate, Hexyl Cinnamal, Linalool, Benzy Salicylate, Benzyl Alcohol, Limonene, Geraniol",
    "description": "Create waves with beachy texture and volume without the salt! Fresh from the sea tousled waves with no dry, crunchy sea salt feel. Adds grip, texture and a matt, undone finish. Nourishing Coconut Oil and colour protecting UV filters.",
    "claims": [
-    "nourrissant",
-    "volume"
+    "nutrition",
+    "definition-boucles",
+    "volume",
+    "texturisant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/beach-waves-coconut-oil-texture-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--banana-coconut-detangler",
@@ -2545,7 +2612,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -2556,12 +2623,16 @@
    "ingredients": "Water (Aqua), Amodimethicone, Polysorbate 20, Sodium Benzoate, Fragrance (Parfum), Cetrimonium Chloride, Trideceth-12, Polyquaternium-22, Citric Acid, Potassium Sorbate, Polyquaternium-11, Trisodium Ethylenediamine Disuccinate, Limonene, Glycerin, Phenoxyethanol, Carica Papaya (Papaya) Fruit Extract, Cocos Nucifera (Coconut) Fruit Extract, Ficus Carica (Fig) Fruit Extract, Garcinia Mangostana Fruit Extract, Mangifera Indica (Mango) Fruit Extract, Theobroma Cacao (Cocoa) Seed Extract, Coumarin, Musa Sapientum (Banana) Fruit Extract, Citral, Eugenol, Cinnamal, Ethylhexylglycerin",
    "description": "Detangles, moisturises and de-frizzes. For dry, tangled, unmanageable hair. Nourishing leave-in conditioning spray glides through knots, tangles and split ends. Smooths frizz and fly-aways for healthy manageable hair. Banana Extract -Rich in potassium and vitamins A, C and B. Packed with natural oils to moisturise and soften hair. Improves manageability and shine. Coconut Oil - Rich in anti-oxidants and vitamin E to nourish hair. Locks in moisture and adds shine. Softens and conditions.",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "anti-frisottis",
     "brillance",
-    "lissant"
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/banana-coconut-detangler.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--curl-jelly-mask-300ml",
@@ -2577,6 +2648,7 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -2588,9 +2660,12 @@
    "ingredients": "Water (Aqua), Glycerin, Propylene Glycol, Cetearyl Alcohol, Cetrimonium Chloride, Hydroxyethylcellulose, Behentrimonium Chloride, Phenoxyethanol, Butyrospermum Parkii (Shea) Butter, Cocos Nucifera (Coconut) Oil, Fragrance (Parfum), Polyquaternium-37, Saccharide Isomerate, Quaternium-80, Ethylhexylglycerin, Polyquaternium-11, Disodium EDTA, Citric Acid, Sodium Citrate, Red 33 (CI 17200), Yellow 5 (CI 19140)",
    "description": "Our Curl Jelly Mask just got bigger and better! Reformulated to leave hair feeling softer than ever, our hero Curl product is going super-size – 300ml of super nourishing and conditioning curl mask treatment.",
    "claims": [
-    "nourrissant"
+    "nutrition",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/curl-jelly-mask-300ml.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--umberto-giannini-thirsty-curls-curl-enhancing-hydration-lotion",
@@ -2606,8 +2681,9 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
-    "boucles"
+    "secs",
+    "boucles",
+    "cuir-chevelu-sensible"
    ],
    "actifs": [
     "panthénol",
@@ -2620,10 +2696,15 @@
    "ingredients": "Water (Aqua), Cyclopentasiloxane, Glycerin, Dimethicone, C15-19 Alkane, Glyceryl Stearate, Polyacrylamide, Phenoxyethanol, C13-14 Isoparaffin, PEG-100 Stearate, Citric Acid, Fragrance (Parfum), Chlorphenesin, Guar Hydroxypropyltrimonium Chloride, Laureth-7, Panthenol, Xanthan Gum, Cetearyl Nonanoate, Disodium EDTA, Triticum Vulgare (Wheat) Bran Extract, Limonene, Ethylhexyl Isononanoate, Linoleic Acid, Alpha-Isomethyl Ionone, Linalool, Pentylene Glycol, Citronellol, Avena Strigosa Seed Extract, Camellia Oleifera Seed Oil, Fructose, Sodium Hydroxide, Urea, Geraniol, Citral, Tremella Fuciformis (Mushroom) Extract, Lecithin, Allantoin, Maltose, Sodium Chloride, Sodium Lactate, Sodium PCA, Trehalose, Potassium Sorbate, Glucose, Sodium Hyaluronate, Ferric Hexapeptide-35",
    "description": "Lock in the moisture from your wash routine with this hydrating lotion ready for styling. Contains anti-frizz technology and UV protection to provide long-lasting smoothness. An instant hydration hit to banish frizz, smooth texture and protect against heat and humidity. Leave-in.",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant",
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/umberto-giannini-thirsty-curls-curl-enhancing-hydration-lotion.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--thirsty-curls-hydrating-shampoo",
@@ -2639,8 +2720,9 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "epais",
-    "boucles"
+    "secs",
+    "boucles",
+    "cuir-chevelu-sensible"
    ],
    "actifs": [
     "panthénol",
@@ -2654,10 +2736,15 @@
    "ingredients": "Aqua (Water), Sodium Cocoyl Methyl Isethionate, Cocamidopropyl Betaine, Glycerin, Sodium Methyl Isethionate, Benzyl Alcohol, PEG-150 Distearate, Fragrance (Parfum), Coconut Acid, Polyquaternium-10, Panthenol, Sodium Cocoate, Coco-Glucoside, Salicylic Acid, PPG-2 Hydroxyethyl Cocamide, Glycol Distearate, Disodium EDTA, Limonene, Alpha-Isomethyl Ionone, Sodium Hydroxide, Sorbic Acid, Tetrasodium EDTA, Citric Acid, Linalool, BHA, Citronellol, Geraniol, Citral, Pentylene Glycol, Avena Strigosa Seed Extract, Fructose, Urea, Tremella Fuciformis (Mushroom) Extract, Lecithin, Allantoin, Maltose, Sodium Chloride, Sodium Lactate, Sodium PCA, Trehalose, Potassium Sorbate, Glucose, Sodium Hyaluronate, Ferric Hexapeptide-35",
    "description": "The ultimate wash day curl quencher! Drench hair with moisture with this sulphate-free shampoo for a more manageable, frizz-free finish and up to 72 hours hydration.* Gently cleanse and moisturise dehydrated curls for a frizz-free healthy shine. Formulated without sulphates and silicones.",
    "claims": [
-    "hydratant",
-    "brillance"
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles",
+    "brillance",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/thirsty-curls-hydrating-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--thirsty-curls-hydrating-conditioner",
@@ -2673,8 +2760,9 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "epais",
-    "boucles"
+    "secs",
+    "boucles",
+    "cuir-chevelu-sensible"
    ],
    "actifs": [
     "acide hyaluronique",
@@ -2686,10 +2774,16 @@
    "ingredients": "Aqua (Water), Glycerin, Cetearyl Alcohol, Propylene Glycol, Behentrimonium Chloride, Hydroxyethylcellulose, Cetrimonium Chloride, Phenoxyethanol, Polyquaternium-37, Fragrance (Parfum), Polyquaternium-11, Sodium Benzoate, Citric Acid, Disodium EDTA, Limonene, Pentylene, Glycol, Alpha-Isomethyl Ionone, Fructose, Sodium Hydroxide, Urea, Avena Strigosa Seed Extract, Linalool, Lecithin, Allantoin, Maltose, Sodium Chloride, Sodium Lactate, Sodium PCA, Trehalose, Citronellol, Ethylhexylglycerin, Geraniol, Citral, Tremella Fuciformis (Mushroom) Extract, Glucose, Potassium Sorbate, Sodium Hyaluronate, Ferric Hexapeptide-35",
    "description": "The ultimate wash day curl quencher! Drench hair with moisture with this sulphate-free conditioner for a more manageable, frizz-free finish and up to 72 hours hydration.* Detangles, defrizzes and locks in long lasting moisture for a silky feel and a frizz-free healthy shine. Formulated without silicones. Frizz-free, bouncy and intensely hydrated waves, curls and coils.",
    "claims": [
-    "hydratant",
-    "brillance"
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles",
+    "brillance",
+    "demelant",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/thirsty-curls-hydrating-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--texture-boost-volumising-dry-texture-spray",
@@ -2716,9 +2810,13 @@
    "ingredients": "Butane, Alcohol Denat., Isobutane, Propane, Aluminium starch Octenylsuccinate, Polyvinylcaprolactam, Parfum, Aqua, Glycerin, Cocos nucifera water, Sodium Benzoate, Potassium Sorbate, Citric acid, Tapioca starch, Coumarin",
    "description": "Fine or flat hair? Plump up the volume with Texture Boost. This styling texture mist can be used daily to give hair a lift, adding body, bounce and hold to any style without heaviness or crunch. The non-sticky formula is easy to brush out so you can customise your look in an instant. Safe for colour, chemically treated, relaxed hair and hair extensions. What it does: Adds volume and texture to hair, creating movement without any additional weight. Weatherproof your style with this dry texture mi",
    "claims": [
-    "volume"
+    "volume",
+    "texturisant",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/texture-boost-volumising-dry-texture-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--curl-jelly-shine",
@@ -2731,11 +2829,10 @@
    "price_source": "converti GBP x1.17 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0144/3636/8419/files/Main_image_of_product_26333522-e903-488e-81fc-eabc6506a79d.jpg?width=600",
    "image_local": "public/scan/products-cheveux/umberto-giannini/curl-jelly-shine.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
     "gras",
-    "epais",
     "boucles",
     "crepus"
    ],
@@ -2747,11 +2844,17 @@
    "ingredients": "Aqua (Water), Glycerin, Dimethicone, Polyacrylamide, Dimethiconol, Polysorbate 20, C13-14 Isoparaffin, Hydrolyzed Wheat Protein, Diethylhexyl Succinate, Parfum, Phenoxyethanol, Benzyl Alcohol, Linoleamidopropyl, PG-Dimonium Chloride Phospate Dimethicone, Laureth - 7, Potassium Sorbate, Citric Acid, Sodium Benzoate, Coumarin, Alpha-Isomethyl Ionone, Linalool, CI 14700 (Red 1)",
    "description": "The perfect base for your curl styling routine. Curl Jelly Shine is an ultra-lightweight leave-in conditioning curl balm that primes curls, leaving your hair moisturised with a glossy, mirror shine finish. Added heat protectant allows you to diffuse and heat style without any damage, ensuring your curls are defined and frizz-free. What it does: Primes curls for styling, de-frizzes and defines curls whilst protecting against heat damage. Who’s it for: Those with wavy, curly and coily hair texture",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant",
+    "anti-gras",
     "brillance",
-    "protection-thermique"
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/curl-jelly-shine.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--scalp-refresh-anti-dandruff-dry-shampoo",
@@ -2764,9 +2867,11 @@
    "price_source": "converti GBP x1.17 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0144/3636/8419/files/nextdayperf.png?width=600",
    "image_local": "public/scan/products-cheveux/umberto-giannini/scalp-refresh-anti-dandruff-dry-shampoo.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
+    "gras",
+    "pellicules",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -2778,10 +2883,14 @@
    "ingredients": "Butane, Isobutane, Propane, Alcool Denat, Oryza Sativa Starch, Aluminium Starch Octenylsuccinate, Parfum, Dicocoylethyl Hydroxyethylmonium Methosulfate, Aqua, Glycerin, Aloe Barbadensis Leaf Juice, Limonene, Climbazole, Menthyl Lactate, Propylene Glycol, Bisabolol. Cetrimonium Chloride. Ananas Sativus Fruit Extract. Coumarin, Potassium Sorbate, Sodium Benzoate",
    "description": "A revolution in dry shampoo!Refresh your hair and scalp inbetween washes without the itch or white residue left by traditional dry shampoos. This Scalp Refreshing dry shampoo uses natural starches to absorb excess oil, leaving hair and scalps looking clean and fresh until your next wash day. Pineapple Extract Gently exfoliates, reducing scalp build up Helps restores scalps natural balance Antioxidant properties health give a balanced, healthy scalp Aloe Gently soothes scalp complexion Moisturise",
    "claims": [
-    "hydratant",
-    "apaisant"
+    "hydratation",
+    "apaisant-cuir-chevelu",
+    "purifiant",
+    "anti-gras"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/scalp-refresh-anti-dandruff-dry-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--boho-beach-jelly-coconut-oil-scrunching-jelly",
@@ -2794,10 +2903,10 @@
    "price_source": "converti GBP x1.17 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0144/3636/8419/products/Untitleddesign-233.png?width=600",
    "image_local": "public/scan/products-cheveux/umberto-giannini/boho-beach-jelly-coconut-oil-scrunching-jelly.jpg",
-   "categorie": "huile",
+   "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "boucles",
     "colores"
    ],
@@ -2809,9 +2918,15 @@
    "ingredients": "Water (Aqua), Glycerin, PEG-40 Hydrogenated Castor Oil, Phenoxyethanol, Propylene Glycol, Xanthan Gum, Fragrance (Parfum), Acrylates/Palmeth-25 Acrylate Copolymer, Polyquaternium-11, Caprylyl Glycol, Aminomethyl Propanol, Disodium EDTA, Benzophenone-4, Cocos Nucifera (Coconut) Oil, Ethylhexylglycerin, Hexyl Cinnamal, Linalool, Benzyl Salicylate, Benzyl Alcohol, Limonene, Geraniol, Red 4 (CI 14700), Yellow 6 (CI 15985)",
    "description": "Get laid back, beachy hair with Beach Jelly Coconut Oil Scrunching Jelly. Coconut oil to nourish and UV filters to protect against colour fade. Key product benefits:- Un-done, beachy texture.- Banishes frizz and adds a sheen with no crunchy feel.- Built–in UV filters help protect against colour fade.- With Coconut Oil to nourish.- Paraben and sulphate free.- 92% of users agreed that Boho Beach Jelly effectively minimised and tamed their frizz*. Who's it for: Naturally curly or wavy hair textures",
    "claims": [
-    "nourrissant"
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/boho-beach-jelly-coconut-oil-scrunching-jelly.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--banana-butter-nourishing-superfood-shampoo",
@@ -2827,7 +2942,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -2839,11 +2954,15 @@
    "ingredients": "Aqua (Water), Cocamidopropyl Betaine, Sodium Cocoyl Methyl Isethionate, Glycerin, Parfum (Fragrance), Caprylyl/Capryl Glucoside, Sodium Methyl Isethionate, Benzyl Alcohol, Lauryl Glucoside, Coconut Acid, Potassium Sorbate, Polyquaternium-10, Sodium Cocoate, Salicylic Acid, Coconut Oil Glycereth-8 Esters, Cetearyl Nonanoate, Trisodium Ethylenediamine Disuccinate, Triticum Vulgare (Wheat) Bran Extract, Ethylhexyl Isononanoate, Citric Acid, Cocos Nucifera (Coconut) Fruit Extract, Musa Sapientum (Banana) Extract, D-Limonene, Sorbic Acid, Linoleic Acid, Sodium Chloride, Sodium Benzoate, Camellia Oleifera Seed Oil, Sodium Hydroxide, Limonene, CI 19140 (Yellow No.5), CI 15985 (Yellow 6)",
    "description": "You asked, we listened. Introducing Umberto Giannini Banana & Coconut Curls Superfood Shampoo. A 97% natural formula, packed with natural oils and vitamins, designed to nourish, restore shine and improve manageability for dry, frizzy and textured hair with a deliciously fruity fragrance. Banana Extract Rich in potassium and vitamins A, B and C complex to nourish hair Packed with natural oils to deeply moisturise and soften hair Improves manageability and shine Coconut Oil Rich in antioxidants an",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/banana-butter-nourishing-superfood-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--scalp-scrub-exfoliating-anti-dandruff-treatment",
@@ -2857,7 +2976,7 @@
    "image_source_url": "https://cdn.shopify.com/s/files/1/0144/3636/8419/products/ss.jpg?width=600",
    "image_local": "public/scan/products-cheveux/umberto-giannini/scalp-scrub-exfoliating-anti-dandruff-treatment.jpg",
    "categorie": "anti-pellicules",
-   "etape": 1,
+   "etape": 4,
    "cheveux_cibles": [
     "gras",
     "pellicules"
@@ -2873,9 +2992,13 @@
    "ingredients": "Aqua (Water), Cetearyl Alcohol, Glycerin, Behentrimonium chloride, Juglans Regia (Walnut) Shell Powder, C15-19 Alkane, Cocos Nucifera (Coconut) Oil, Benzyl Alcohol, Palmitamidopropyltrimonium Chloride, Cocos Nucifera (Coconut) Shell Powder, Parfum, Piroctone Olamine, Chlorphenesin, Salicylic Acid, Tocopherol, Benzophenone-4, Trisodium Ethylenediamine Disuccinate, Citric Acid, Sorbic Acid, Bromelain, Ananas Sativus (Pineapple) Extract, Lactobacillus Ferment, Limonene,CI 19140 (Yellow No.5), CI 42090",
    "description": "Scalp problems? Show your scalp some love and transform sluggish, dry, flaky and oily scalps Scalp Scrub! Packed with natural exfoliants from super fruit enzymes and micro grains of natural walnut shell, this 97% natural clinically proven* formula removes dead skin cells, bacteria and excess oils to prevent flakes and restore a clear and healthy scalp. As part of the Scalp Restore range, this product contains Pineapple Enzymes which has multiple benefits for your hair + scalp with a refreshing p",
    "claims": [
-    "anti-pellicules"
+    "antipelliculaire",
+    "purifiant",
+    "anti-gras"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/scalp-scrub-exfoliating-anti-dandruff-treatment.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--scalp-restore-scalp-reviving-anti-dandruff-conditioner",
@@ -2903,13 +3026,16 @@
     "acide citrique"
    ],
    "ingredients": "Aqua (Water), Cetearyl Alcohol, Behentrimonium chloride, Glycerin, C15-19 Alkane, Cocos Nucifera (Coconut) Oil, Palmitamidopropyltrimonium Chloride, Parfum (Fragrance), Piroctone Olamine, Chlorphenesin, Salicylic Acid, Citric Acid, Tocopherol, Bromelain, Sorbic Acid, Ananas Sativus (Pineapple) Extract, Lactobacillus Ferment, Benzyl Alcohol, Limonene",
-   "description": "Dry, flaky, itchy scalp? Show your scalp some love with Scalp Restore! This anti-dandruff, scalp reviving conditioner is clinically proven* to remove dandruff, leaving you with a flake free + balanced scalp. Enriched with natural oils and vitamins to moisturise and soothe for healthy shiny hair. As part of the Scalp Restore range, this product contains Pineapple Enzymes which has multiple benefits for your hair + scalp with a refreshing pineapple scent. Say goodbye to itchy scalps, this product ",
+   "description": "Dry, flaky, itchy scalp? Show your scalp some love with Scalp Restore! This anti-dandruff, scalp reviving conditioner is clinically proven* to remove dandruff, leaving you with a flake free + balanced scalp. Enriched with natural oils and vitamins to moisturise and soothe for healthy shiny hair. As part of the Scalp Restore range, this product contains Pineapple Enzymes which has multiple benefits for your hair + scalp with a refreshing pineapple scent. Say goodbye to itchy scalps, this product",
    "claims": [
-    "hydratant",
-    "apaisant",
-    "anti-pellicules"
+    "hydratation",
+    "antipelliculaire",
+    "apaisant-cuir-chevelu",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/scalp-restore-scalp-reviving-anti-dandruff-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--grow-dream-long-anti-humidity-spray",
@@ -2925,7 +3051,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "chute"
    ],
    "actifs": [
     "caféine",
@@ -2935,12 +3061,17 @@
    "ingredients": "Aqua (Water), Polysorbate 20, Dipropylene Glycol, Propylene Glycol, Polysilicone-29 , Silicone Quaternium-18, Parfum (Fragrance), Glycerin, Caffeine, Citric Acid, Maris Sal (Sea Salt), Laminaria Digitata Extract , Pentylene Glycol, Trideceth-6, Coffea Arabica (Coffee) Seed Extract, Trideceth-12, Triticum Vulgare (Wheat) Bran Extract, Chondrus Crispus (Carrageen) Extract, Fucus Vesiculosus (Bladderwrack) Extract, Laminaria Japonica (Kelp) Extract, Sargassum Pallidum (Seaweed) Extract, 1,2-Hexanediol, Caprylyl Glycol , Pisum Sativum (Pea) Sprout Extract, Phenoxyethanol, Sodium Benzoate, Potassium Sorbate",
    "description": "A Heat activated anti humidity wonder spray that seals the hair cuticle to create a lightweight shield on every strand to repel moisture and banish frizz. Built-in heat protection, with no build-up and sublime shine Part of the Grow Long Range this product contains our unique Umberto Giannini Caffeine gro-complex which contains: Caffeine & Black Coffee Seed Extract to stimulate circulation Organic Pea Sprout Extract to accelerate hair growth and prolong hair lifecycle Seaweed, Marine Nutrients f",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "croissance",
+    "purifiant",
     "brillance",
-    "lissant",
-    "protection-thermique"
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/grow-dream-long-anti-humidity-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--banana-butter-leave-in-conditioner",
@@ -2953,10 +3084,11 @@
    "price_source": "converti GBP x1.17 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0144/3636/8419/products/Untitleddesign-250.png?width=600",
    "image_local": "public/scan/products-cheveux/umberto-giannini/banana-butter-leave-in-conditioner.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
+    "fins",
     "boucles",
     "abimes"
    ],
@@ -2972,12 +3104,18 @@
    "ingredients": "Water (Aqua), Cetearyl Alcohol, Cocos Nucifera (Coconut) Oil, Butyrospermum Parkii (Shea Butter), Behentrimonium Chloride, Glycerin, Cetrimonium Chloride, Distearoylethyl Hydroxyethylmonium Methosulfate, Parfum (Fragrance), Benzyl Alcohol, Citric Acid, Isopropyl Alcohol, Potassium Sorbate, Salicylic Acid, Bertholletia Excelsa Seed Oil, Triticum Vulgare (Wheat) Protein, Musa Sapientum (Banana) Extract, Theobroma Grandiflorum, Seed Butter, Trisodium Ethylenediamine Disuccinate, Limonene, D-Limonene, Sorbic Acid, Coumarin, 1,2-Hexanediol, Caprylyl Glycol, Citral, Eugenol, Benzoic Acid, Cinnamal, Sodium Benzoate, Tocopherol, Helianthus Annuus (Sunflower) Seed Oil, CI 19140 (Yellow No.5), CI 15985 (Yellow No 6)",
    "description": "Restore the bounce, shine and manageability to thirsty curls. This silicone-free repairing and moisturising leave-in conditioner is your new wonder product to repair, strengthen and de-frizz dry, frizzy or textured hair without weighing it down. With Banana, Shea Butter, Coconut Oil, Cupuacu Butter and Brazil nut oil. What it does: Repairs and moisturises, de-frizzes and adds shine to thirsty curls. Who’s it for: Those who suffer with dry, frizzy of textured hair. What it is: A de-frizzing leave",
    "claims": [
-    "hydratant",
-    "reparateur",
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
     "brillance",
-    "fortifiant"
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/banana-butter-leave-in-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--curl-jelly-wash-sulphate-free-shampoo",
@@ -3005,9 +3143,13 @@
    "ingredients": "Water (Aqua), Sodium Cocoyl Methyl Isethionate, Cocamidopropyl Betaine, Glycerin, PEG- 120 Methyl Glucose Dioleate, Sodium Methyl Isethionate, Benzyl Alcohol, Coconut Acid, Fragrance (Parfum), Polyquaternium-10, Panthenol, Sodium Cocoate, Salicylic Acid, Disodium EDTA, Sodium Hydroxide, Sorbic Acid, Citric Acid, Tocopherol, Red 33 (CI 17200), Yellow 5 (CI 19140)",
    "description": "Umberto Giannini Curl Jelly Wash Shampoo is a gentle cleansing formula designed for all types of natural waves and curls. It gently cleanses hair, defines curls, adds bounce, moisturises, and softens hair. Featuring Vitamin B5 to moisturise, soften, and define each curl, this gentle shampoo is a sister haircare product of the iconic vegan Curl Scrunching Jelly. It is formulated without silicones or parabens. Plus, it's 100% sulphate free! What it does: Gently cleanses hair, defines curls, adds b",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "definition-boucles",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/curl-jelly-wash-sulphate-free-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--coily-curls-moisture-conditioner",
@@ -3023,8 +3165,8 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "gras",
-    "epais",
     "boucles",
     "crepus",
     "colores"
@@ -3040,11 +3182,17 @@
    "ingredients": "Aqua (Water), Cetearyl Alcohol, Stearamidopropyl Dimethylamine, Butyrospermum Parkii (Shea) Butter, Glycerin, Lactic Acid, Hydroxyethylcellulose, Argania Spinosa Kernel Oil, Cetrimonium Chloride, Phenoxyethanol, Amodimethicone, Parfum (Fragrance), Sodium Benzoate, Trideceth-12, Disodium EDTA, Hexyl Cinnamal, Panthenol, Linalool, Alpha-isomethyl Ionone, Limonene, Eugenol, Citric Acid, Isoeugenol, Benzyl Benzoate, Coumarin, Amyl Cinnamal, Citral, Benzyl Alcohol, Geraniol, Benzyl Cinnamate, Benzyl Salicylate, Citronellol , Farnesol",
    "description": "Moisturising Conditioner for coils or curls. Detangles, smooths and restores hydration with argan oil and shea butter. This curl enhancing conditioner, replenishes the moisture and hydration needed for healthy, defined curls. Shea Butter and Argan Oil soften and nourish giving a frizz-free super silky finish to curls. Detangling and smoothing properties help to protect curls from heat styling damage. Safe for colour, chemically treated, relaxed hair and hair extensions",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "anti-gras",
+    "protection-chaleur",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/coily-curls-moisture-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--strongcoily-curls-moisture-strongbr-sulphate-free-gentle-shampoo",
@@ -3060,8 +3208,8 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
     "gras",
-    "epais",
     "boucles",
     "crepus",
     "colores"
@@ -3074,9 +3222,16 @@
    "ingredients": "Aqua (Water), Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Betaine, Glycol Distearate, Sodium Methyl Cocoyl Taurate, Parfum (Fragrance), Laureth-4, Sodium Benzoate, Hydroxypropyltrimonium Hydrolyzed Corn Starch, Sodium Lauroyl Sarcosinate, Potassium Sorbate, Polyquaternium-10, Citric Acid, Polyquaternium-7, Hexyl Cinnamal, Sodium Hydroxide, Trisodium Ethylenediamine Disuccinate, Sodium Chloride, Linalool, Alpha-isomethyl Ionone, Limonene , Butyrospermum Parkii (Shea) Butter, Cocos Nucifera (Coconut) Oil, Formic Acid, Caramel, Eugenol, Isoeugenol, Benzyl Benzoate, Coumarin, Amyl, Cinnamal, Citral, Benzyl Alcohol, Geraniol, Benzyl Cinnamate, Benzyl Salicylate, Citronellol, Farnesol",
    "description": "Moisturising sulphate-free Shampoo for coils or curls. Gently cleanses and restores hydration with coconut oil and shea butter. This moisture rich, sulphate free shampoo de-frizzes and moisturises thirsty curls, gently cleansing without the drying effect of ordinary shampoo. Made with two of the most powerful natural moisturisers - organic Coconut Oil and Shea Butter to hydrate and moisturise. Safe for colour, chemically treated, relaxed hair and hair extensions",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "anti-gras",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/strongcoily-curls-moisture-strongbr-sulphate-free-gentle-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--curl-jelly",
@@ -3092,7 +3247,6 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
     "boucles"
    ],
    "actifs": [
@@ -3102,10 +3256,15 @@
    "ingredients": "Water (Aqua), Xanthan Gum, Glycerin, Propylene Glycol, Phenoxyethanol, Acrylates/Palmeth-25 Acrylate Copolymer, Fragrance (Parfum), PEG-40 Hydrogenated Castor Oil, Polyquaternium-11, Aminomethyl Propanol, Ethylhexylglycerin, Benzophenone-4, Coumarin, Alpha-isomethyl Ionone, Linalool, Red 33 (CI 17200)",
    "description": "The one & only cult favourite - Umberto Giannini Curl Jelly banishes frizz, adds shine and gives definition to waves and curls; this is the scrunch drying jelly you've been looking for! Define Your Tresses - Combat manageability, flop, and whatever your curls throw at you on a daily basis with this medium hold, silicone-free, defining, frizz control gel; UK’s best-selling curl jelly! What it does: Banishes frizz, adds shine, gives definition to waves and curls. Who’s it for: Those with wavy, cur",
    "claims": [
+    "anti-frisottis",
+    "definition-boucles",
     "brillance",
-    "definition-boucles"
+    "fixation",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/curl-jelly.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--weather-proof-curls-finishing-cream",
@@ -3121,7 +3280,6 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
     "boucles"
    ],
    "actifs": [
@@ -3131,10 +3289,14 @@
    "ingredients": "Water (Aqua), Dimethicone, Glycerin, Cetearyl Alcohol, Polyquaternium-10, Phenoxyethanol, Hydroxyethylcellulose, Glyceryl Stearate, Fragrance (Parfum), PEG-100 Stearate, Potassium Sorbate, Ethylhexylglycerin, Tetrasodium EDTA, Citric Acid, Coumarin, Alpha-isomethyl Ionone, Linalool, Red 33 (CI 17200), Yellow 5 (CI 19140)",
    "description": "Frizz-free in any weather, humidity proof taming. Your best chance of frizz-free in any weather. Ah the life of a curl, so precarious, so unpredictable, and so unsuited to the good old British weather. So we got to thinking…we can make a great vegan finishing cream, conditioning, moisturising, smoothing, lightweight, touch of flexible hold to refine and define, but what it really needs, is to do all of this in any weather. Well let's face it, if it pours it pours, but for that drizzle, mizzle, h",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/weather-proof-curls-finishing-cream.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--no-more-frizz-curl-serum",
@@ -3151,7 +3313,6 @@
    "etape": 3,
    "cheveux_cibles": [
     "gras",
-    "epais",
     "boucles",
     "crepus",
     "colores",
@@ -3163,10 +3324,14 @@
    "ingredients": "Cyclopentasiloxane, Ethylhexyl Stearate, Dimethiconol, C12-15 Alkyl Benzoate, Cyclohexasiloxane, Argania Spinosa Kernel Oil, Fragrance (Parfum), Coumarin, Alpha-isomethyl Ionone, Linalool",
    "description": "Smooth things over with your curls. There’s nothing that can fight the battle of the frizz quite like a vegan serum, trust us, we’ve done our homework on this one! So we challenged our talented team of stylists to come up with the absolute best smoothing serum to tame curls that are outta control frizzy, dry and colour damaged. A slick of this stuff and you and your curls will be back to smooth sailing. What it does: instantly tames and shines frizz.Who’s it for: Those with wavy, curly and coily",
    "claims": [
-    "brillance",
-    "lissant"
+    "anti-frisottis",
+    "definition-boucles",
+    "anti-gras",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/no-more-frizz-curl-serum.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--curl-whip",
@@ -3182,7 +3347,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "fins",
     "boucles"
    ],
    "actifs": [
@@ -3191,9 +3356,12 @@
    "ingredients": "Aqua (Water), VP/VA Copolymer, Butane, Isobutane, Propane, PEG-12 dimethicone, Phenoxyethanol, Polyquaternium-11, Propylene glycol, Polysorbate 20, Parfum (Fragrance), Cocamidopropylamine Oxide, Ethylhexglycerin, Citric acid, Benzophenone-4, Coumarin, Alpha-Isomethyl ionone, Linalool",
    "description": "A curl activating definition mousse for weightless, flexible, frizz-free curls. Curl Whip transforms scruffy, flopping curls into super shapely spirals of bouncy loveliness in one go. Oh…and with absolutely no crunchiness in sight. Please note: We are currently unable to ship this product outside of mainland UK. Apologies for any inconvenience this may cause. What it does: Adds definition and bounce, for weightless, flexible, frizz-free curls. Who’s it for: Waves, curls and coils which are in ne",
    "claims": [
+    "anti-frisottis",
     "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/curl-whip.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--creme-de-curl-control-cream",
@@ -3210,7 +3378,6 @@
    "etape": 3,
    "cheveux_cibles": [
     "gras",
-    "epais",
     "boucles",
     "crepus"
    ],
@@ -3220,12 +3387,17 @@
     "acide citrique"
    ],
    "ingredients": "Aqua, Cyclopentasiloxane, Cetearyl Alcohol, VP/VA Copolymer, Cocos Nucifera Oil, Glycerin, Propylene Glycol, Glyceryl Stearate, Silicone Quaternium-22, PEG-100 Stearate, Phenoxyethanol, Dimethiconol, PPG-3 Myristyl Ether, Parfum, Hydroxyethylcellulose, Ethylhexylglycerin, Citric Acid, Tetrasodium EDTA, CI 17200, CI 19140",
-   "description": "What you need to use now curly girls. If you’re all about your natural curls today, and flat out over them tomorrow, then you want this invisible hydrating cream to de-frizz, moisturise and define natural curls. It also double duties to protect from heat styling when curl tweaks call for a little heat to straighten things out. What it does: De-frizzes, moisturises and defines naturals curls.Who’s it for: Those with wavy, curly and coily hair textures who need a little definition and controlWhat ",
+   "description": "What you need to use now curly girls. If you’re all about your natural curls today, and flat out over them tomorrow, then you want this invisible hydrating cream to de-frizz, moisturise and define natural curls. It also double duties to protect from heat styling when curl tweaks call for a little heat to straighten things out. What it does: De-frizzes, moisturises and defines naturals curls.Who’s it for: Those with wavy, curly and coily hair textures who need a little definition and controlWhat",
    "claims": [
-    "hydratant",
-    "definition-boucles"
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles",
+    "anti-gras",
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/creme-de-curl-control-cream.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "umberto-giannini--60-second-curls",
@@ -3241,8 +3413,8 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "gras",
-    "epais",
     "boucles",
     "crepus",
     "colores",
@@ -3255,14 +3427,20 @@
     "acide citrique"
    ],
    "ingredients": "Aqua (Water), Cetearyl alcohol, Dimethicone, Propylene glycol, Glyceryl stearate, Behentrimonium chloride, Hydroxyethylcellulose, Cetrimonium chloride, Cocos nucifera (Coconut) oil, Butyrospermum parkii (Shea) butter, Phenoxyethanol, Quaternium-80, Panthenol, Isopropyl alcohol, Dipropylene glycol, Parfum (Fragrance), Citric acid, Cl 17200 (Red 33), Cl 19140 (Yellow 5)",
-   "description": "Your one minute wonder mask. This once a week treatment promises to transform dry, sad curls to silky, detangled locks that lay hidden beneath all that air con, heating, sunshine and colouring abuse. What it does: Repairs and moisturises, de-frizzes and adds shine to thirsty curls. Who’s it for: Those with wavy, curly and coily hair textures who need added moisture What it is: A weekly moisturising treatment which repairs and detangles curls. How to use: Smooth through hair after shampooing and ",
+   "description": "Your one minute wonder mask. This once a week treatment promises to transform dry, sad curls to silky, detangled locks that lay hidden beneath all that air con, heating, sunshine and colouring abuse. What it does: Repairs and moisturises, de-frizzes and adds shine to thirsty curls. Who’s it for: Those with wavy, curly and coily hair textures who need added moisture What it is: A weekly moisturising treatment which repairs and detangles curls. How to use: Smooth through hair after shampooing and",
    "claims": [
-    "hydratant",
-    "reparateur",
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "anti-frisottis",
+    "definition-boucles",
+    "anti-gras",
     "brillance",
-    "lissant"
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/umberto-giannini/cutout/60-second-curls.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

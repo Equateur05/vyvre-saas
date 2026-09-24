@@ -46,7 +46,10 @@ def norm_name(name, brand_name):
     s = unicodedata.normalize('NFC', norm_txt(name))  # NFC : ne pas decomposer le hangeul en jamos
     s = SIZE.sub(' ', s)
     s = re.sub(r'[®™©]', '', s)
-    s = re.sub(r"[^a-z0-9%가-힣 ]+", ' ', s)
+    # Le hangeul etait deja conserve ; les kana et kanji ne l'etaient pas, si bien que
+    # 8 produits Senka aux noms japonais se reduisaient a la cle 'f' ou 'fa' (le suffixe
+    # de formule) et fusionnaient en 2. On garde donc aussi hiragana, katakana et kanji.
+    s = re.sub(r"[^a-z0-9%가-힣\u3040-\u30ff\u4e00-\u9fff\uff66-\uff9f ]+", ' ', s)
     b = re.sub(r"[^a-z0-9 ]+", ' ', norm_txt(brand_name)).strip()
     s = re.sub(r'\s+', ' ', s).strip()
     if b and s.startswith(b + ' '):
@@ -383,7 +386,9 @@ def main():
         keys = {norm_name(p['name'], p['brand_name'])}
         if p.get('name_fr'): keys.add(norm_name(p['name_fr'], p['brand_name']))
         for k in keys:
-            if not k: continue
+            # garde-fou : une cle de 1 ou 2 caracteres n'identifie pas un produit
+            # (suffixe de formule, numero de gamme) et ferait fusionner des produits distincts
+            if len(k) < 3: continue
             kk = (p['brand'], k)
             if kk in seen:
                 if find(i) != find(seen[kk]): log['doublon nom'] += 1
@@ -455,7 +460,7 @@ def main():
     PUB = ['id', 'name', 'price_eur', 'image_url', 'url', 'targets', 'concern_scores', 'position', 'brand', 'brand_name',
            'categorie', 'price_source', 'url_verifiee_le', 'pays', 'univers', 'score_raisons', 'name_origine']
     pub = [{k: x[k] for k in PUB} for x in out]
-    json.dump({'brand': 'all', 'source': 'catalogue-v2 2026-09-17', 'products': pub},
+    json.dump({'brand': 'all', 'source': 'catalogue-v2 2026-09-19', 'products': pub},
               open(os.path.join(OUT, 'all.json'), 'w'), ensure_ascii=False, separators=(',', ':'))
     parb = C.defaultdict(list)
     for x, pp in zip(out, pub):
@@ -465,7 +470,7 @@ def main():
                   'image_source_url': f.get('image_source_url'), 'source': f.get('source')})
         parb[x['brand']].append(d)
     for b, lst in parb.items():
-        json.dump({'brand': b, 'brand_name': lst[0]['brand_name'], 'source': 'catalogue-v2 2026-09-17', 'products': lst},
+        json.dump({'brand': b, 'brand_name': lst[0]['brand_name'], 'source': 'catalogue-v2 2026-09-19', 'products': lst},
                   open(os.path.join(OUT, b + '.json'), 'w'), ensure_ascii=False, indent=1)
     marques = {}
     retirees = []
@@ -495,7 +500,7 @@ def main():
 
 def ecrire_stats(out, marques, retirees, log, rejets):
     n = len(out)
-    L = ['# Catalogue v2 - statistiques (sortie du 17/09/2026)', '',
+    L = ['# Catalogue v2 - statistiques (sortie du 19/09/2026)', '',
          f'- Marques avec produits : **{len(set(x["brand"] for x in out))}** (marques.json : {len(marques)} entrees, dont Sothys conservee sans produit)',
          f'- Produits : **{n}** (sources brutes {log["brut"]}, doublons URL {log["doublon url"]}, doublons nom {log["doublon nom"]}, rejets {sum(v for k, v in log.items() if k.startswith("rejet"))})',
          f'- Sans prix : {sum(1 for x in out if x["price_eur"] is None)} ({100 * sum(1 for x in out if x["price_eur"] is None) / n:.1f} %)',

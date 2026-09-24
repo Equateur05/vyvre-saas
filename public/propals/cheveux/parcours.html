@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>vyvre — Scan cheveux · quatre parcours à essayer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,500&family=JetBrains+Mono:wght@400&family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased}
+html,body{background:#05060a;color:#fff;font-family:Inter,-apple-system,sans-serif;font-weight:300}
+body{min-height:100dvh;padding:56px 4vw 70px}
+.hd{max-width:1240px;margin:0 auto 14px}
+.hd h1{font-family:'Playfair Display',Georgia,serif;font-weight:400;font-size:clamp(30px,4.4vw,56px);line-height:1.04;letter-spacing:-.01em}
+.hd p{margin-top:16px;max-width:66ch;color:rgba(255,255,255,.6);font-size:15px;line-height:1.65}
+.hd p b{color:#fff;font-weight:400}
+.grid{max-width:1240px;margin:40px auto 0;display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media (max-width:1100px){.grid{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.grid{grid-template-columns:1fr}}
+.c{position:relative;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.12);
+  display:flex;flex-direction:column;min-height:440px;text-decoration:none;color:inherit;
+  transition:transform .6s cubic-bezier(.16,1,.3,1),border-color .4s}
+.c:hover{transform:translateY(-4px)}
+.c .vue{flex:1;position:relative;display:grid;place-items:center;padding:30px 22px;overflow:hidden}
+.c .vue::before{content:'';position:absolute;inset:0;opacity:.9}
+.c .t{position:relative;text-align:center}
+.c .n{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.3em;opacity:.55;display:block;margin-bottom:14px}
+.c .titre{font-size:26px;line-height:1.1}
+.c .puces{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:22px}
+.c .puces span{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;padding:8px 11px;border:1px solid}
+.c .bd{padding:18px 20px 20px;border-top:1px solid rgba(255,255,255,.1);background:rgba(0,0,0,.35)}
+.c .bd p{font-size:13px;line-height:1.55;color:rgba(255,255,255,.62);min-height:60px}
+.c .go{display:flex;align-items:center;justify-content:space-between;margin-top:16px;
+  font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase}
+.c .go i{font-style:normal;font-size:16px;transition:transform .4s}
+.c:hover .go i{transform:translateX(4px)}
+
+/* les quatre ecritures, reprises des vraies pages */
+.c1{border-color:rgba(232,210,168,.28)}
+.c1 .vue::before{background:radial-gradient(90% 80% at 50% 0%,rgba(232,210,168,.16),transparent 65%),#07070b}
+.c1 .titre{font-family:'Playfair Display',Georgia,serif;font-style:italic;color:#FFF3DA}
+.c1 .puces span{border-color:rgba(232,210,168,.3);color:rgba(255,243,218,.7)}
+.c1 .puces span.on{border-color:#E8D2A8;color:#fff;box-shadow:0 0 18px rgba(232,210,168,.4)}
+.c1 .go{color:#E8D2A8}
+
+.c2{border-color:rgba(122,208,255,.3)}
+.c2 .vue::before{background:radial-gradient(90% 80% at 50% 0%,rgba(40,110,200,.32),transparent 65%),#03060f}
+.c2 .titre{font-family:'Playfair Display',Georgia,serif;font-style:italic;color:#EAF7FF}
+.c2 .puces span{border-color:rgba(122,208,255,.3);color:rgba(210,235,255,.7)}
+.c2 .puces span.on{border-color:#7AD0FF;color:#fff;box-shadow:0 0 18px rgba(90,180,255,.5)}
+.c2 .go{color:#7AD0FF}
+
+.c3{border-color:rgba(224,146,90,.3)}
+.c3 .vue::before{background:radial-gradient(90% 80% at 50% 110%,rgba(150,62,20,.38),transparent 64%),#0d0806}
+.c3 .titre{font-weight:300;text-transform:uppercase;letter-spacing:.14em;font-size:19px;color:#FFE1C4}
+.c3 .puces span{border-color:rgba(224,146,90,.35);color:rgba(255,225,196,.7);border-radius:100px}
+.c3 .puces span.on{border-color:#E0925A;color:#fff;box-shadow:0 0 18px rgba(224,146,90,.45)}
+.c3 .go{color:#E0925A}
+
+.c4{border-color:rgba(200,210,220,.22)}
+.c4 .vue::before{background:linear-gradient(115deg,transparent 30%,rgba(210,220,232,.09) 48%,transparent 62%),#07080a}
+.c4 .titre{font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:.2em;font-size:15px;color:#F2F4F6}
+.c4 .puces span{border-color:rgba(200,210,220,.25);color:rgba(220,226,232,.65)}
+.c4 .puces span.on{border-color:#FF7A2E;color:#fff;box-shadow:inset 3px 0 0 #FF7A2E}
+.c4 .go{color:#FF7A2E}
+
+.nb{max-width:1240px;margin:34px auto 0;font-family:'JetBrains Mono',monospace;font-size:9.5px;
+  letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.36);line-height:2.1}
+</style>
+</head>
+<body>
+<header class="hd">
+  <h1>Quatre parcours à essayer</h1>
+  <p>Chacun est <b>le vrai scan</b>, avec votre caméra, de la première question aux quatre produits.
+  Même moteur, même catalogue, mêmes refus : seule l’écriture change. Essayez-les tous, gardez celui qui claque.</p>
+</header>
+
+<main class="grid">
+  <a class="c c1" href="/cheveux/index.html?lang=fr" target="_blank">
+    <div class="vue"><div class="t">
+      <span class="n">01 · CHAMPAGNE</span>
+      <div class="titre">Ce que la caméra<br>ne peut pas voir.</div>
+      <div class="puces"><span class="on">Secs</span><span>Chute</span><span>Cassants</span></div>
+    </div></div>
+    <div class="bd"><p>Or sur noir, titres en italique. L’écriture actuelle du site, la plus luxe.</p>
+      <div class="go">Lancer ce parcours <i>→</i></div></div>
+  </a>
+
+  <a class="c c2" href="/cheveux/index.html?da=bleu&lang=fr" target="_blank">
+    <div class="vue"><div class="t">
+      <span class="n">02 · RADIOGRAPHIE</span>
+      <div class="titre">Ce que la caméra<br>ne peut pas voir.</div>
+      <div class="puces"><span class="on">Secs</span><span>Chute</span><span>Cassants</span></div>
+    </div></div>
+    <div class="bd"><p>Marine profond et cyan. La planche 08 que vous avez validée, en entier.</p>
+      <div class="go">Lancer ce parcours <i>→</i></div></div>
+  </a>
+
+  <a class="c c3" href="/cheveux/index.html?da=atelier&lang=fr" target="_blank">
+    <div class="vue"><div class="t">
+      <span class="n">03 · ATELIER</span>
+      <div class="titre">Ce que la caméra<br>ne peut pas voir.</div>
+      <div class="puces"><span class="on">Secs</span><span>Chute</span><span>Cassants</span></div>
+    </div></div>
+    <div class="bd"><p>Cuivre et terre cuite, lumière de salon, options arrondies. Le plus chaleureux.</p>
+      <div class="go">Lancer ce parcours <i>→</i></div></div>
+  </a>
+
+  <a class="c c4" href="/cheveux/index.html?da=metal&lang=fr" target="_blank">
+    <div class="vue"><div class="t">
+      <span class="n">04 · NUIT MÉTAL</span>
+      <div class="titre">Ce que la caméra<br>ne peut pas voir.</div>
+      <div class="puces"><span class="on">Secs</span><span>Chute</span><span>Cassants</span></div>
+    </div></div>
+    <div class="bd"><p>Acier brossé, un seul témoin orange. Le plus sec, le plus instrument de mesure.</p>
+      <div class="go">Lancer ce parcours <i>→</i></div></div>
+  </a>
+</main>
+
+<div class="nb">
+  Placez-vous devant un fond plus sombre que vos cheveux · sinon le moteur refusera, et il aura raison<br>
+  Aucun prix · aucun diagnostic · les chiffres montrés sont ceux que le moteur sait lire
+</div>
+</body>
+</html>

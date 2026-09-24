@@ -1,5 +1,5 @@
 /**
- * VYVRE HAIR ENGINE — ICE v1 (Indice Capillaire par Extraction)
+ * VYVRE HAIR ENGINE — ICE v2 (Indice Capillaire par Extraction)
  * ═══════════════════════════════════════════════════════════════════════════════════════
  *
  * Moteur de scan CHEVEUX de vyvre.fr. Même contrat d'honnêteté que le moteur peau
@@ -11,8 +11,9 @@
  *     de remplacement, jamais une moyenne "plausible".
  *   - Chaque mesure porte sa méthode (comment c'est calculé) et sa limite (ce qui la
  *     fait mentir). Les limites sont écrites pour être lues par un auditeur hostile.
- *   - Le questionnaire pondère, il ne remplace jamais une mesure. Chaque score publie
- *     sa part mesurée et sa part déclarée.
+ *   - Le questionnaire (TROIS questions) pondère, il ne remplace jamais une mesure.
+ *     Chaque score publie sa part mesurée et sa part déclarée. Une information qui n'a
+ *     pas été demandée ne reçoit pas de valeur par défaut : le score vaut null.
  *
  * CE QUI EST MESURÉ ICI, ET CE QUI A PASSÉ LA VALIDATION
  *   Validation du 19/09/2026 sur 60+ chevelures annotées à la main
@@ -63,7 +64,7 @@
  *     analyseFrame(imageData, roi),
  *     segmentCheveux(imageData, faceBoxOuLandmarks, options),
  *     composerRoutine(scores, reponses, produits, options),
- *     QUESTIONS, JEU_ESSAI_PRODUITS, ...helpers
+ *     QUESTIONS (3 questions), QUESTIONS_FACULTATIVES, JEU_ESSAI_PRODUITS, ...helpers
  *   }
  *
  * Références utilisées (méthodes standard, pas de recette maison non sourcée) :
@@ -82,7 +83,7 @@
 (function (global) {
   'use strict';
 
-  var VERSION = 'ice-v1';
+  var VERSION = 'ice-v2';
   var LOG = (global && global.VYVRE_DEBUG) ? console.log.bind(console, '[ice]') : function () {};
 
   // ════════════════════════════════════════════════════════════════════════
@@ -165,6 +166,29 @@
     var h = Math.atan2(b, a) * 180 / Math.PI;
     if (h < 0) h += 360;
     return { C: C, h: h };
+  }
+
+  /**
+   * TEST DE PEAU EN CIE Lab — strict.
+   *
+   * La peau humaine, toutes carnations confondues, occupe un domaine etroit en Lab :
+   * clarte moyenne a haute, a* positif modere (rougeur du sang), b* positif franc
+   * (jaune du carotene et de la melanine), teinte entre 25 et 75 degres.
+   * Bornes : Zhang & Wang 2013 (skin color modelling in CIELab), elargies aux carnations
+   * foncees vers le bas de L*.
+   *
+   * Un cheveu chatain clair peut tomber dedans : ce test n'est donc JAMAIS utilise seul.
+   * Il est combine soit a la geometrie du visage, soit a l'absence de texture (la peau
+   * est lisse, un cheveu ne l'est pas).
+   */
+  function estPeauLab(L, a, b) {
+    if (L < 28 || L > 92) return false;
+    if (a < 3 || a > 28) return false;
+    if (b < 5 || b > 36) return false;
+    var h = Math.atan2(b, a) * 180 / Math.PI;
+    if (h < 22 || h > 78) return false;
+    var C = Math.sqrt(a * a + b * b);
+    return C > 6 && C < 45;
   }
 
   /**
@@ -344,6 +368,20 @@
     return Math.sqrt(SEG.POIDS_L * dL * dL + da * da + db * db);
   }
 
+  /**
+   * Distance CIE Delta E 1976 — poids EGAUX sur L*, a*, b*.
+   *
+   * C'est la distance a utiliser pour la PEAU. La distance ponderee (L* a 0,35) est faite
+   * pour la chevelure, ou l'ombre entre les meches fait varier la clarte sans changer le
+   * cheveu. Pour la peau c'est l'inverse : ce qui separe une peau d'un cheveu chatain,
+   * c'est precisement la clarte (36 unites de L* d'ecart mesurees), et la ponderer a 0,35
+   * revient a effacer la seule chose qui les distingue.
+   */
+  function distanceE76(p, i, L, a, b) {
+    var dL = p.L[i] - L, da = p.a[i] - a, db = p.b[i] - b;
+    return Math.sqrt(dL * dL + da * da + db * db);
+  }
+
   /** Distance au modele chevelure : clarte tolerante (intervalle), couleur stricte. */
   function distanceCheveu(p, i, Lmin, Lmax, ma, mb) {
     var L = p.L[i];
@@ -354,6 +392,404 @@
     // mur clair entrait dans le masque d'une chevelure foncee et la couleur sortait
     // "blond" (cas p_147, vu en rendant le masque).
     return Math.sqrt(dL * dL + da * da + db * db);
+  }
+
+  /**
+   * PEAU DE CETTE PERSONNE, apprise sur la bande des joues.
+   *
+   * Ce bloc vivait a l'interieur de segmentCheveux. Il en est sorti tel quel le 23/09
+   * parce que la voie « masque fourni de l'exterieur » doit appliquer EXACTEMENT la
+   * meme definition de la peau : deux definitions qui divergeraient, ce serait deux
+   * moteurs differents sous le meme nom, et les mesures ne seraient plus comparables.
+   * fx, fy, fw, fh sont la boite du visage A LA RESOLUTION DE TRAVAIL (deja divisee
+   * par p.pas). Renvoie null quand la bande des joues ne donne pas assez de pixels surs.
+   */
+  function apprendrePeauDuVisage(p, fx, fy, fw, fh) {
+    var w = p.w, h = p.h;
+    var refPeau = null;
+      var px = [], py = [];
+      var yJoue0 = Math.round(fy + fh * 0.45), yJoue1 = Math.round(fy + fh * 0.72);
+      var xJ0 = Math.round(fx + fw * 0.12), xJ1 = Math.round(fx + fw * 0.88);
+      var pl = [], pa = [], pb = [];
+      for (var yy = Math.max(0, yJoue0); yy <= Math.min(h - 1, yJoue1); yy++) {
+        for (var xx = Math.max(0, xJ0); xx <= Math.min(w - 1, xJ1); xx++) {
+          var ii = yy * w + xx;
+          // on ne garde que les pixels que le test generique reconnait comme peau :
+          // dans cette bande du visage, c est une hypothese sure.
+          if (!p.peau[ii]) continue;
+          pl.push(p.L[ii]); pa.push(p.a[ii]); pb.push(p.b[ii]);
+        }
+      }
+      if (pl.length < 60) return null;
+      var mL2 = median(pl), ma2 = median(pa), mb2 = median(pb);
+      var dd = [], gg2 = [];
+      for (var q = 0; q < pl.length; q++) {
+        var d1 = pl[q] - mL2, d2 = pa[q] - ma2, d3 = pb[q] - mb2;
+        dd.push(Math.sqrt(d1 * d1 + d2 * d2 + d3 * d3));    // Delta E76
+      }
+      // Gradient median de la peau de cette personne : sert de reference de LISSAGE.
+      for (var yg2 = Math.max(0, yJoue0); yg2 <= Math.min(h - 1, yJoue1); yg2++) {
+        for (var xg2 = Math.max(0, xJ0); xg2 <= Math.min(w - 1, xJ1); xg2++) {
+          var ig3 = yg2 * w + xg2;
+          if (p.peau[ig3]) gg2.push(p.grad[ig3]);
+        }
+      }
+      // Dispersion ROBUSTE : le percentile 90 des distances intra-joue integrait les
+      // ombres et la bouche, le seuil saturait a 22 et la "peau" couvrait l image
+      // entiere (vu en rendant le masque). La mediane des distances x 2.2, bornee a 14,
+      // colle a la peau et a elle seule.
+      // Seuil en Delta E76, borne a 18 : deux peaux de la meme personne restent sous 10,
+      // un cheveu chatain est a 37, un blond fonce a 26, un poivre et sel a 26.
+      // Au-dela de 18 on mangerait des cheveux ; en dessous de 8 on ne verrait plus la
+      // peau a l'ombre.
+      refPeau = { L: mL2, a: ma2, b: mb2,
+                  seuil: clamp(8, 18, (median(dd) || 5) * 2.2),
+                  gradMedian: gg2.length ? median(gg2) : null,
+                  n: pl.length };
+    return refPeau;
+  }
+
+  /**
+   * CARTE DE PEAU de l'image entiere, au sens de la peau apprise ci-dessus.
+   * Egalement sortie de segmentCheveux le 23/09, et pour la meme raison.
+   */
+  function cartePeauLocale(p, refPeau, filtresVisage, ligneYeux, peauAncienne) {
+    var w = p.w, h = p.h;
+    var seuilLisse = (refPeau && refPeau.gradMedian)
+      ? Math.max(1.5, refPeau.gradMedian * 2.5)
+      : null;
+    var peauLocale = new Uint8Array(w * h);
+    if (peauAncienne) {
+      // REPRODUCTION DU DEFAUT, pour mesurer l'avant et l'apres sur la meme image :
+      // exclusion par la couleur seule (domaine Lab generique ou YCbCr). C'est cette
+      // regle qui classait une chevelure chatain comme de la peau a 100 %.
+      for (var ia = 0; ia < peauLocale.length; ia++) {
+        if (refPeau && distanceLab(p, ia, refPeau.L, refPeau.a, refPeau.b) < 14) peauLocale[ia] = 1;
+        else if (estPeauLab(p.L[ia], p.a[ia], p.b[ia])) peauLocale[ia] = 1;
+        else if (!refPeau && p.peau[ia]) peauLocale[ia] = 1;
+      }
+    } else if (refPeau && seuilLisse !== null) {
+      // 21/09 — LE FRONT. Captures de Charles : le masque couvrait son front, et
+      // c'etait structurel : au-dessus de la ligne des yeux, aucun pixel ne pouvait
+      // etre exclu comme peau. Or un front degarni, c'est de la peau AU-DESSUS des
+      // yeux. On l'exclut desormais aussi, mais avec des exigences plus dures que
+      // sous les yeux — plus lisse (0,6 x) et plus proche de SA peau (0,85 x) —
+      // pour qu'une meche chatain, texturee, ne soit jamais prise pour du front.
+      var dessusLisse = seuilLisse * 0.6, dessusCouleur = refPeau.seuil * 0.85;
+      for (var ipy = 0; ipy < h; ipy++) {
+        var auDessus = filtresVisage && ipy < ligneYeux;
+        for (var ipx = 0; ipx < w; ipx++) {
+          var ip = ipy * w + ipx;
+          var dC = distanceE76(p, ip, refPeau.L, refPeau.a, refPeau.b);
+          if (dC >= (auDessus ? dessusCouleur : refPeau.seuil)) continue;
+          if (p.grad[ip] >= (auDessus ? dessusLisse : seuilLisse)) continue;   // texture : pas de la peau
+          peauLocale[ip] = 1;
+        }
+      }
+    }
+    return peauLocale;
+  }
+
+  /**
+   * segmentDepuisMasqueExterne(imageData, faceBoxOuLandmarks, options)
+   *
+   * POURQUOI CETTE VOIE EXISTE
+   *   La segmentation maison part d'une graine au-dessus du front et fait pousser une
+   *   region par la couleur. Quand le decor ressemble aux cheveux, la region sort dans
+   *   le decor : audit du 23/09 sur 40 portraits, 20 % de refus et deux erreurs franches
+   *   de couleur — p_213, ou du feuillage vert entrait dans le masque et faisait dire
+   *   « coloration vive » ; p_225, ou un fond magenta faisait lire des cheveux platines
+   *   comme crepus colores. Aucun reglage de seuil ne repare cela : il faut que quelque
+   *   chose sache ce qu'est un cheveu. Le guidage possede deja ce quelque chose, le
+   *   modele hair_segmenter de MediaPipe. On accepte donc son masque tel quel.
+   *
+   * CE QUI CHANGE, ET CE QUI NE CHANGE PAS
+   *   Ne change pas : toutes les mesures, la qualite de prise, les scores, la routine.
+   *   Elles lisent un objet de segmentation, et cet objet a ici exactement les memes
+   *   champs que celui de la voie maison — masque, w, h, prep, geo, bbox, taille,
+   *   couverture, cadrage, modele, refPeau, fonds — a l'origine pres ('externe').
+   *   Change : le masque n'est plus appris, il est donne. Le « modele chevelure »
+   *   (L*, a*, b* medians, intervalle de clarte, seuil de distance) est donc appris SUR
+   *   TOUT LE MASQUE et non sur une bande graine : c'est tout l'interet, la couleur de
+   *   reference ne peut plus venir d'un mur.
+   *
+   * CE QUI RESTE REFUSE
+   *   Les memes garde-fous de securite qu'en voie maison : chevelure hors cadre (la
+   *   zone au-dessus du front sort de l'image) et masque trop petit (moins de 1,2 % de
+   *   l'image). Un masque fourni n'est pas une garantie : MediaPipe rend aussi un
+   *   masque quasi vide sur un crane rase, et on ne mesure pas une chevelure absente.
+   *
+   * options.masqueExterne = { data, largeur, hauteur, seuil }
+   *   data    : Float32Array (0..1) ou Uint8Array (0..255, ou 0..1 si c'est deja un
+   *             booleen). L'echelle est devinee sur le maximum observe, pour que
+   *             l'appelant n'ait pas a la declarer.
+   *   largeur, hauteur : dimensions du masque. Il couvre le MEME cadrage que l'image
+   *             (pas un recadrage), il est donc simplement rechantillonne.
+   *   seuil   : au-dessus, le pixel est cheveu. 0,5 par defaut.
+   */
+  function segmentDepuisMasqueExterne(imageData, faceBoxOuLandmarks, options) {
+    options = options || {};
+    var p = options.prep || preparerImage(imageData, options.largeurTravail);
+    var geo = normaliserGeometrie(faceBoxOuLandmarks);
+    var ext = options.masqueExterne;
+    var w = p.w, h = p.h, i;
+
+    if (!ext || !ext.data || !ext.largeur || !ext.hauteur) {
+      return { ok: false, raison: 'masque_externe_invalide', masque: null, prep: p, geo: geo,
+               note: 'masqueExterne attendu sous la forme { data, largeur, hauteur, seuil } : rien d exploitable n a ete fourni.' };
+    }
+
+    // Echelle des valeurs : un Float32Array de MediaPipe va de 0 a 1, un PNG en niveaux
+    // de gris relu au canvas va de 0 a 255. On ne demande pas a l'appelant de le dire,
+    // on le lit sur le maximum : c'est la seule facon de ne pas tout refuser en silence
+    // quand le format change de main.
+    var maxV = 0;
+    for (i = 0; i < ext.data.length; i++) if (ext.data[i] > maxV) maxV = ext.data[i];
+    var echelle = maxV > 1.5 ? (1 / 255) : 1;
+    var seuil01 = (typeof ext.seuil === 'number' ? ext.seuil : 0.5);
+
+    // Rechantillonnage a la resolution de travail. Moyenne des pixels source couverts
+    // (et non plus proche voisin) : le masque fait 256 px de large, la resolution de
+    // travail 384, et le plus proche voisin fabriquait des dents de scie qui faisaient
+    // monter le contact avec le bord et l'energie de gradient du bord de masque.
+    var masque = new Uint8Array(w * h), taille = 0;
+    var ex = ext.largeur / w, ey = ext.hauteur / h;
+    for (var y = 0; y < h; y++) {
+      var sy0 = Math.floor(y * ey), sy1 = Math.max(sy0 + 1, Math.floor((y + 1) * ey));
+      if (sy1 > ext.hauteur) sy1 = ext.hauteur;
+      for (var x = 0; x < w; x++) {
+        var sx0 = Math.floor(x * ex), sx1 = Math.max(sx0 + 1, Math.floor((x + 1) * ex));
+        if (sx1 > ext.largeur) sx1 = ext.largeur;
+        var somme = 0, cnt = 0;
+        for (var sy = sy0; sy < sy1; sy++) {
+          for (var sx = sx0; sx < sx1; sx++) { somme += ext.data[sy * ext.largeur + sx]; cnt++; }
+        }
+        if (!cnt) continue;
+        if ((somme / cnt) * echelle > seuil01) { masque[y * w + x] = 1; taille++; }
+      }
+    }
+
+    // CE QUI N'EST PAS ACCROCHE A LA TETE N'EST PAS SA CHEVELURE.
+    // Un modele de segmentation repond sur toute l'image, pas sur une personne. Mesure
+    // du 23/09 sur p_045 (plan large de concert) : hair_segmenter avait marque la
+    // chevelure, mais aussi un pied de micro et une chaussure a l'autre bout du cadre,
+    // et la couleur lue tombait de « cuivre clair » a « fonce ».
+    // La regle est donc topologique, pas geometrique : on garde les morceaux de masque
+    // RELIES a la tete, et on jette les ilots poses ailleurs. Decouper a l'emporte-piece
+    // dans une ellipse autour du visage a ete essaye et rejete le meme jour : cela
+    // amputait les cheveux longs, et cinq portraits de plus passaient sous le seuil de
+    // taille (p_036, p_178, p_211, p_331, p_339). Une chevelure descend aussi bas
+    // qu'elle veut, du moment qu'elle part de la tete.
+    // C'est une regle de forme, pas de couleur : elle ne redonne aucun droit d'entree
+    // au decor. Sans visage (nuque, dessus du crane), il n'y a pas de tete reperee :
+    // on retombe sur le seul nettoyage possible, le retrait des poussieres.
+    var zoneTete = null;
+    if (geo) {
+      var sc = 1 / p.pas;
+      var tfx = geo.box.x * sc, tfy = geo.box.y * sc;
+      var tfw = geo.box.width * sc, tfh = geo.box.height * sc;
+      zoneTete = { x0: tfx - 0.7 * tfw, x1: tfx + 1.7 * tfw,
+                   y0: tfy - 1.0 * tfh, y1: tfy + 1.6 * tfh };
+    }
+    if (taille > 0) {
+      var net = composantesRetenues(masque, w, h, 0.03 * taille, zoneTete);
+      masque = net.masque; taille = net.taille;
+    }
+
+    var couverture = taille / (w * h);
+
+    // GARDE-FOU 1, le meme qu'en voie maison : la zone au-dessus du front doit tenir
+    // dans l'image. Si la tete est coupee en haut, il n'y a pas de chevelure a lire,
+    // seulement le morceau qui reste.
+    if (geo) {
+      var s0 = 1 / p.pas;
+      var gy0 = Math.round(geo.box.y * s0 - geo.box.height * s0 * SEG.GRAINE_HAUT);
+      var gy1 = Math.round(geo.box.y * s0 - geo.box.height * s0 * SEG.GRAINE_BAS);
+      gy0 = clamp(0, h - 1, gy0); gy1 = clamp(0, h - 1, gy1);
+      if (gy1 - gy0 < 3) {
+        return { ok: false, raison: 'chevelure_hors_cadre', masque: null, prep: p, geo: geo,
+                 origine: 'externe',
+                 note: 'la zone au-dessus du front sort de l image : reculer ou recadrer plus haut.' };
+      }
+    }
+
+    // GARDE-FOU 2 : un masque fourni peut etre quasi vide (crane rase, bonnet, tete
+    // hors champ). On ne mesure pas une chevelure absente.
+    if (couverture < SEG.MASQUE_MIN) {
+      return { ok: false, raison: 'masque_trop_petit', masque: null, prep: p, geo: geo,
+               couverture: couverture, origine: 'externe',
+               note: 'moins de 1,2 % de l image reconnue comme chevelure par le masque fourni : cheveux tres courts, tete coupee par le cadre, ou couvre-chef.' };
+    }
+
+    // --- modele chromatique, appris SUR LE MASQUE ENTIER
+    // En voie maison ce modele vient d'une bande graine de quelques centaines de pixels
+    // au-dessus du front, et c'est sa fragilite : quand la graine tombe sur un mur, tout
+    // le reste du calcul herite du mur. Ici le masque est la verite de depart, donc la
+    // couleur de reference est celle de toute la chevelure.
+    var sL = [], sa = [], sb = [], sg = [];
+    for (i = 0; i < masque.length; i++) {
+      if (!masque[i]) continue;
+      sL.push(p.L[i]); sa.push(p.a[i]); sb.push(p.b[i]); sg.push(p.grad[i]);
+    }
+    var mL = median(sL), ma = median(sa), mb = median(sb);
+    var gradGraine = median(sg);
+    var Lmin = (percentile(sL, 10) || mL) - 12;
+    var Lmax = (percentile(sL, 90) || mL) + 20;
+    var dists = [];
+    for (var k = 0; k < sL.length; k++) {
+      var Lk = sL[k];
+      var dLk = Lk < Lmin ? Lmin - Lk : (Lk > Lmax ? Lk - Lmax : 0);
+      var dak = sa[k] - ma, dbk = sb[k] - mb;
+      dists.push(Math.sqrt(dLk * dLk + dak * dak + dbk * dbk));
+    }
+    var seuil = clamp(SEG.DIST_MIN, SEG.DIST_MAX, (percentile(dists, 85) || 6) * 2.0 + 6);
+
+    // --- peau de la personne et fonds de l'image : mesures identiques a la voie maison.
+    // Elles ne servent plus a construire le masque (il est donne) mais les mesures s'en
+    // servent encore — la raie cherche du cuir chevelu, les pointes evitent la peau.
+    var refPeau = null, ligneYeux = null, filtresVisage = options.filtresVisage !== false;
+    if (geo) {
+      var s = 1 / p.pas;
+      var fx = geo.box.x * s, fy = geo.box.y * s, fw = geo.box.width * s, fh = geo.box.height * s;
+      refPeau = apprendrePeauDuVisage(p, fx, fy, fw, fh);
+      if (geo.landmarks && geo.landmarks.length >= 48) {
+        var syy = 0;
+        for (var ly = 36; ly <= 47; ly++) syy += geo.landmarks[ly].y;
+        ligneYeux = (syy / 12) * s;
+      } else if (typeof options.ligneYeux === 'number') {
+        ligneYeux = options.ligneYeux * s;
+      } else {
+        ligneYeux = fy + fh * 0.40;
+      }
+    }
+    var peauLocale = (refPeau && ligneYeux !== null)
+      ? cartePeauLocale(p, refPeau, filtresVisage, ligneYeux, false)
+      : new Uint8Array(w * h);
+    var fonds = modelesDeFond(p);
+
+    // --- diagnostic, aux memes definitions qu'en voie maison
+    var bbox = { x0: w, y0: h, x1: 0, y1: 0 };
+    for (var yy = 0; yy < h; yy++) for (var xx = 0; xx < w; xx++) {
+      if (masque[yy * w + xx]) {
+        if (xx < bbox.x0) bbox.x0 = xx; if (xx > bbox.x1) bbox.x1 = xx;
+        if (yy < bbox.y0) bbox.y0 = yy; if (yy > bbox.y1) bbox.y1 = yy;
+      }
+    }
+
+    var contactBord = 0, bordTotal = 0;
+    for (var xb = 0; xb < w; xb++) { bordTotal += 2; if (masque[xb]) contactBord++; if (masque[(h - 1) * w + xb]) contactBord++; }
+    for (var yb = 0; yb < h; yb++) { bordTotal += 2; if (masque[yb * w]) contactBord++; if (masque[yb * w + w - 1]) contactBord++; }
+
+    // Part de PEAU restee dans le masque fourni. C'est l'equivalent honnete de la
+    // « part de peau dans la graine » : ce que le masque a avale de visage.
+    var nPeau = 0;
+    for (i = 0; i < masque.length; i++) if (masque[i] && peauLocale[i]) nPeau++;
+    var partPeau = taille ? nPeau / taille : 0;
+
+    // PURETE ET CONFIANCE : CE QUE LE MOTEUR N'A PLUS LE DROIT DE JUGER.
+    //
+    // En voie maison, la purete est la part des pixels encore plus proches du modele
+    // chevelure que de la peau et du decor. Applique a un masque fourni, ce test refait
+    // exactement le jugement qu'on vient de lui retirer — et il se trompe de la meme
+    // facon. Mesure du 23/09, banc des 40 portraits : p_062 sortait a 26 % de purete
+    // avec zero pixel de peau, uniquement parce que la chevelure a la couleur du mur ;
+    // p_084 a 79 % de « peau dans le masque » parce que la regle de peau, qui est une
+    // regle de couleur, reconnait une chevelure foncee sur une carnation foncee. Les
+    // deux etaient refuses, alors que MediaPipe avait raison sur les deux.
+    //
+    // On mesure donc encore ces deux nombres — ils sont publies, ils sont vrais, et ils
+    // servent a comprendre une prise apres coup — mais ils ne PESENT PLUS sur la
+    // confiance. La confiance d'un masque fourni ne retient que ce qui reste
+    // independant de la couleur : la place qu'il prend dans l'image, et le fait qu'il
+    // sorte du cadre. Le jour ou on saura auditer un masque fourni autrement que par
+    // la couleur, ce sera ici.
+    var nPur = 0;
+    for (i = 0; i < masque.length; i++) {
+      if (!masque[i]) continue;
+      var dCheveu = distanceCheveu(p, i, Lmin, Lmax, ma, mb);
+      if (dCheveu > seuil) continue;
+      if (refPeau && distanceLab(p, i, refPeau.L, refPeau.a, refPeau.b) < dCheveu) continue;
+      var pris = false;
+      for (var z = 0; z < fonds.length; z++) {
+        if (distanceLab(p, i, fonds[z].L, fonds[z].a, fonds[z].b) < dCheveu) { pris = true; break; }
+      }
+      if (!pris) nPur++;
+    }
+    var pureteCouleur = taille ? nPur / taille : 0;
+
+    // ratioTexture reste a 1 : il mesurait « le masque a-t-il avale du fond lisse par
+    // rapport a sa graine ». Sans graine ni croissance, ce rapport n'a plus de sens, et
+    // le faire calculer contre un modele tire du masque lui-meme donnerait 1 par
+    // construction. On l'annonce a 1 plutot que d'inventer un chiffre, comme le fait
+    // deja la segmentation par texture.
+    //
+    // Les alertes suivent la meme regle : seules celles qui ne parlent pas de couleur
+    // sont levees. Une alerte « masque impur » sur un masque fourni ne dirait rien de
+    // sa qualite, seulement que la chevelure ressemble au decor.
+    var alertes = [];
+    if (contactBord / bordTotal > 0.35) alertes.push('masque_colle_au_bord');
+    if (couverture > 0.45) alertes.push('couverture_elevee');
+
+    return {
+      ok: true,
+      masque: masque, w: w, h: h, prep: p, geo: geo, bbox: bbox,
+      taille: taille, couverture: couverture,
+      cadrage: geo ? (geo.box.width / p.largeurOrigine) : null,
+      modele: { L: mL, a: ma, b: mb, Lmin: Lmin, Lmax: Lmax, seuil: seuil, gradGraine: gradGraine },
+      refPeau: refPeau, peauLocale: peauLocale, fonds: fonds,
+      zoneVisage: geo ? { ligneYeux: ligneYeux, active: filtresVisage } : null,
+      // Il n'y a pas de graine : le champ existe pour que qualitePrise lise la meme
+      // chose des deux cotes, et il dit la verite — la part de peau du MASQUE.
+      graine: { x0: 0, x1: 0, y0: 0, y1: 0, partPeau: partPeau, partFond: 0, pixels: taille },
+      origine: 'externe',
+      sourceMasque: ext.source || 'fourni par l appelant',
+      contactBord: contactBord / bordTotal,
+      ratioTexture: 1,
+      // purete = null : inconnue, et on le dit. Voir plus haut pourquoi le chiffre
+      // mesure (pureteCouleur) n'est pas une purete mais une ressemblance au decor.
+      purete: null,
+      pureteCouleur: Math.round(pureteCouleur * 100) / 100,
+      retiresFond: 0,
+      alertes: alertes,
+      confiance: confianceMasque(couverture, contactBord / bordTotal, 1, 0, null)
+    };
+  }
+
+  /**
+   * Nettoyage d'un masque fourni, par composantes 8-connexes.
+   *   zone fournie : on garde les composantes qui touchent la tete, et elles seules.
+   *   zone absente (ou aucune composante ne la touche) : on garde celles qui pesent au
+   *   moins `mini` pixels — le seul tri possible quand on ne sait pas ou est la tete.
+   */
+  function composantesRetenues(m, w, h, mini, zone) {
+    var vus = new Uint8Array(w * h), out = new Uint8Array(w * h);
+    var file = new Int32Array(w * h), taille = 0;
+    var DX = [1, -1, 0, 0, 1, 1, -1, -1], DY = [0, 0, 1, -1, 1, -1, 1, -1];
+    var comps = [], touche = false;
+    for (var d0 = 0; d0 < m.length; d0++) {
+      if (!m[d0] || vus[d0]) continue;
+      var tete = 0, queue = 0, dansZone = false;
+      vus[d0] = 1; file[queue++] = d0;
+      while (tete < queue) {
+        var cur = file[tete++];
+        var cy = (cur / w) | 0, cx = cur - cy * w;
+        if (zone && cx >= zone.x0 && cx <= zone.x1 && cy >= zone.y0 && cy <= zone.y1) dansZone = true;
+        for (var d = 0; d < 8; d++) {
+          var nx = cx + DX[d], ny = cy + DY[d];
+          if (nx < 0 || ny < 0 || nx >= w || ny >= h) continue;
+          var ni = ny * w + nx;
+          if (m[ni] && !vus[ni]) { vus[ni] = 1; file[queue++] = ni; }
+        }
+      }
+      comps.push({ pixels: file.slice(0, queue), n: queue, dansZone: dansZone });
+      if (dansZone) touche = true;
+    }
+    for (var c = 0; c < comps.length; c++) {
+      var garde = touche ? comps[c].dansZone : (comps[c].n >= mini);
+      if (!garde) continue;
+      for (var g = 0; g < comps[c].n; g++) { out[comps[c].pixels[g]] = 1; taille++; }
+    }
+    return { masque: out, taille: taille };
   }
 
   /**
@@ -380,12 +816,20 @@
    */
   function segmentCheveux(imageData, faceBoxOuLandmarks, options) {
     options = options || {};
+    // Un masque fourni de l'exterieur remplace la segmentation maison, il ne la corrige
+    // pas : melanger les deux reviendrait a redonner au decor le droit d'entrer.
+    if (options.masqueExterne) return segmentDepuisMasqueExterne(imageData, faceBoxOuLandmarks, options);
     var p = options.prep || preparerImage(imageData, options.largeurTravail);
     var geo = normaliserGeometrie(faceBoxOuLandmarks);
 
     if (!geo) {
-      return { ok: false, raison: 'aucune_geometrie_visage', masque: null, prep: p,
-               note: 'face-api n a pas fourni de boite visage ni de reperes : sans le visage, on ne sait pas ou commence la chevelure.' };
+      // Pas de visage : on cherche la chevelure POUR ELLE-MEME (dessus du crane, nuque,
+      // profil serre, raie de pres). Le visage ne sert plus que d'echelle quand il est la.
+      if (options.sansVisage === false) {
+        return { ok: false, raison: 'aucune_geometrie_visage', masque: null, prep: p,
+                 note: 'aucune boite visage fournie et la segmentation par texture a ete desactivee.' };
+      }
+      return segmenterMasseCheveux(imageData, { prep: p, largeurTravail: options.largeurTravail });
     }
 
     var s = 1 / p.pas;
@@ -413,44 +857,63 @@
     // donc la peau SUR LE VISAGE DE LA PERSONNE (bande des joues, dans l ellipse) et on
     // exclut par distance CIE Lab a cette peau-la. Le test YCbCr ne sert plus que de
     // repli quand le visage n est pas exploitable.
-    var refPeau = null;
-    (function () {
-      var px = [], py = [];
-      var yJoue0 = Math.round(fy + fh * 0.45), yJoue1 = Math.round(fy + fh * 0.72);
-      var xJ0 = Math.round(fx + fw * 0.12), xJ1 = Math.round(fx + fw * 0.88);
-      var pl = [], pa = [], pb = [];
-      for (var yy = Math.max(0, yJoue0); yy <= Math.min(h - 1, yJoue1); yy++) {
-        for (var xx = Math.max(0, xJ0); xx <= Math.min(w - 1, xJ1); xx++) {
-          var ii = yy * w + xx;
-          // on ne garde que les pixels que le test generique reconnait comme peau :
-          // dans cette bande du visage, c est une hypothese sure.
-          if (!p.peau[ii]) continue;
-          pl.push(p.L[ii]); pa.push(p.a[ii]); pb.push(p.b[ii]);
-        }
-      }
-      if (pl.length < 60) return;
-      var mL2 = median(pl), ma2 = median(pa), mb2 = median(pb);
-      var dd = [];
-      for (var q = 0; q < pl.length; q++) {
-        var d1 = pl[q] - mL2, d2 = pa[q] - ma2, d3 = pb[q] - mb2;
-        dd.push(Math.sqrt(SEG.POIDS_L * d1 * d1 + d2 * d2 + d3 * d3));
-      }
-      // Dispersion ROBUSTE : le percentile 90 des distances intra-joue integrait les
-      // ombres et la bouche, le seuil saturait a 22 et la "peau" couvrait l image
-      // entiere (vu en rendant le masque). La mediane des distances x 2.2, bornee a 14,
-      // colle a la peau et a elle seule.
-      refPeau = { L: mL2, a: ma2, b: mb2, seuil: clamp(5, 14, (median(dd) || 4) * 2.2), n: pl.length };
-    })();
+    var refPeau = apprendrePeauDuVisage(p, fx, fy, fw, fh);
 
     // Carte de peau calculee UNE fois (la croissance de region visite chaque pixel
     // plusieurs fois : recalculer la distance a chaque visite coutait 380 ms).
-    var peauLocale = p.peau;
-    if (refPeau) {
-      peauLocale = new Uint8Array(w * h);
-      for (var ip = 0; ip < peauLocale.length; ip++) {
-        peauLocale[ip] = distanceLab(p, ip, refPeau.L, refPeau.a, refPeau.b) < refPeau.seuil ? 1 : 0;
-      }
+    // --- 2. croissance de région
+    //
+    // ZONE VISAGE + BARBE, EXCLUE SANS CONDITION.
+    // Retour de terrain : sur un homme barbu en webcam, le masque prenait le front, les
+    // joues, le nez, la moustache et la barbe. La texture d'une barbe EST celle d'un
+    // cheveu : aucun critere de texture ne peut les separer. Seule la geometrie le peut.
+    // Regle : tout ce qui est SOUS LA LIGNE DES YEUX et dans l'ovale du visage est
+    // exclu. L'ovale est elargi (0,54 de largeur de visage) et descendu sous le menton
+    // (0,62 de hauteur, centre a 0,58) pour attraper la barbe qui deborde de la boite.
+    // Au-dessus de la ligne des yeux, rien n'est exclu : c'est la que sont les cheveux.
+    var filtresVisage = options.filtresVisage !== false;
+    var ligneYeux;
+    if (geo.landmarks && geo.landmarks.length >= 48) {
+      var syy = 0;
+      for (var ly = 36; ly <= 47; ly++) syy += geo.landmarks[ly].y;
+      ligneYeux = (syy / 12) * s;
+    } else if (typeof options.ligneYeux === 'number') {
+      ligneYeux = options.ligneYeux * s;
+    } else {
+      ligneYeux = fy + fh * 0.40;
     }
+    var vcx = fx + fw / 2, vcy = fy + fh * 0.58;
+    var vrx = fw * 0.54, vry = fh * 0.62;
+    function dansVisageOuBarbe(x, y) {
+      if (!filtresVisage) return false;
+      if (y < ligneYeux) return false;
+      var u = (x - vcx) / vrx, v = (y - vcy) / vry;
+      return u * u + v * v <= 1;
+    }
+
+    // ────────────────────────────────────────────────────────────────────
+    // CARTE DE PEAU — trois conditions, jamais la couleur seule.
+    //
+    // Defaut trouve en production (tete a cheveux chatains) : le masque refusait de se
+    // former, partPeauGraine a 100 %. Deux causes, mesurees :
+    //   - le domaine Lab generique de la peau contient le chatain (Delta E 37 de la peau
+    //     mais L*, a*, b* tous dans les bornes), le blond fonce et le roux ;
+    //   - quand la peau ne pouvait pas etre apprise, on retombait sur le test YCbCr, qui
+    //     classe lui aussi le chatain comme peau — le bug deja corrige en v1, revenu par
+    //     la porte de derriere.
+    //
+    // Regle desormais : un pixel n'est PEAU que si les TROIS conditions sont vraies.
+    //   1. COULEUR : proche de la peau DE CETTE PERSONNE (Delta E76 < seuil appris).
+    //      Aucun domaine de peau theorique n'intervient dans l'exclusion.
+    //   2. TEXTURE : lisse, c'est-a-dire gradient sous 2,5 fois celui de sa propre peau.
+    //      Un cheveu a une energie de gradient elevee, la peau non. C'est la condition
+    //      qui sauve les chatains, les blonds fonces et les roux.
+    //   3. GEOMETRIE : sous la ligne des yeux. Au-dessus, on est dans la chevelure :
+    //      aucun pixel n'y est jamais exclu comme peau.
+    // Si la peau n'a pas pu etre apprise sur la personne, AUCUNE exclusion par la
+    // couleur n'est faite : seule la geometrie joue.
+    // ────────────────────────────────────────────────────────────────────
+    var peauLocale = cartePeauLocale(p, refPeau, filtresVisage, ligneYeux, options.peauAncienne);
     function estPeauIci(i) { return !!peauLocale[i]; }
 
     // --- modeles de FOND, appris sur l'anneau exterieur de l'image.
@@ -494,6 +957,7 @@
       }
       return false;
     }
+    var graineSeparee = null;
     var sL = [], sa = [], sb = [], sg = [], nPeauGraine = 0, nGraine = 0, nFondGraine = 0;
     for (var y = gy0; y <= gy1; y++) {
       for (var x = gx0; x <= gx1; x++) {
@@ -514,6 +978,53 @@
 
     var mL = median(sL), ma = median(sa), mb = median(sb);
     var gradGraine = median(sg);
+
+    // ────────────────────────────────────────────────────────────────────
+    // LE MODELE APPRIS EST-IL SEPARABLE DU FOND ?
+    // Meme apres la separation, il arrive qu'on n'ait appris QUE le decor (mur
+    // de la meme couleur que les cheveux, ou chevelure entierement hors cadre).
+    // On ne publie alors pas un masque : une mesure prise sur un mur est pire
+    // qu'une absence de mesure.
+    // ────────────────────────────────────────────────────────────────────
+    var dFondModele = Infinity;
+    for (var zf = 0; zf < fonds.length; zf++) {
+      var dLf = (mL - fonds[zf].L) * SEG.POIDS_L, daf = ma - fonds[zf].a, dbf = mb - fonds[zf].b;
+      var ddf = Math.sqrt(dLf * dLf + daf * daf + dbf * dbf);
+      if (ddf < dFondModele) dFondModele = ddf;
+    }
+    // ────────────────────────────────────────────────────────────────────
+    // UN MUR, UN RIDEAU OU UNE VITRE NE SONT PAS UNE CHEVELURE.
+    //
+    // Mesure du 20/09 sur quatre captures de la webcam de Charles : le modele
+    // appris sortait a L* 71,6 / 75,2 / 86,1 avec une CHROMA de 1,4 a 2,2 — du
+    // gris parfaitement neutre. Le masque couvrait le rideau derriere lui et le
+    // moteur annoncait 93 a 100 % de confiance. Sur la meme serie, la seule pose
+    // ou le masque tombait vraiment sur les cheveux donnait L* 24,2, chroma 13,7.
+    //
+    // Une chevelure garde toujours un reste de couleur : le brun tire sur le
+    // jaune-rouge, le blond aussi, et meme un poivre et sel n'est pas neutre a
+    // ce point. Un gris de chroma < 4 a cette clarte est une surface peinte ou
+    // tissee. On exige les TROIS conditions pour ne pas ecarter de vrais cheveux
+    // blancs devant un fond sombre : neutre, clair, ET de la couleur du decor.
+    // ────────────────────────────────────────────────────────────────────
+    var chromaModele = Math.sqrt(ma * ma + mb * mb);
+    if (fonds.length && chromaModele < 4 && mL > 55 && dFondModele < 20) {
+      return { ok: false, raison: 'fond_pris_pour_des_cheveux', masque: null, prep: p, geo: geo,
+               modeleRejete: { L: Math.round(mL * 10) / 10, chroma: Math.round(chromaModele * 10) / 10,
+                               dFond: Math.round(dFondModele) },
+               note: 'la zone au-dessus du front est un gris neutre a la couleur du decor (L* ' +
+                     Math.round(mL) + ', chroma ' + Math.round(chromaModele) + ') : c\'est le mur ou ' +
+                     'le rideau, pas une chevelure. Se placer devant un fond plus sombre que les cheveux, ' +
+                     'ou eclairer la tete davantage que l arriere-plan.' };
+    }
+
+    if (fonds.length && dFondModele < 9) {
+      return { ok: false, raison: 'chevelure_et_fond_identiques', masque: null, prep: p, geo: geo,
+               dFondModele: Math.round(dFondModele), graineSeparee: graineSeparee,
+               note: 'la couleur apprise au-dessus du front est celle du decor (distance ' +
+                     Math.round(dFondModele) + ' seulement) : impossible de separer la chevelure du fond. ' +
+                     'Changer de fond, ou eclairer la tete plus que le mur.' };
+    }
     // Une chevelure couvre une TRES large plage de clarte (de l'ombre entre les meches
     // au reflet). Modelisee par un point, seuls les pixels sombres restaient dans le
     // masque et la couleur sortait "noir" pour tout le monde. On modelise donc la
@@ -531,7 +1042,6 @@
     }
     var seuil = clamp(SEG.DIST_MIN, SEG.DIST_MAX, (percentile(dists, 85) || 6) * 2.0 + 6);
 
-    // --- 2. croissance de région
     var cx = fx + fw / 2, cy = fy + fh * SEG.ELLIPSE_CY;
     var rx = fw * SEG.ELLIPSE_RX, ry = fh * SEG.ELLIPSE_RY;
     var crx = fw * SEG.CADRE_RX, cry = fh * SEG.CADRE_RY;
@@ -576,6 +1086,7 @@
       for (var xg = gx0; xg <= gx1; xg++) {
         var ig = yg * w + xg;
         if (estPeauIci(ig)) continue;          // graine sur la peau : on ne l'ensemence pas
+        if (dansVisageOuBarbe(xg, yg)) continue;
         if (estFond(ig)) continue;             // graine sur le fond : idem
         if (p.L[ig] > 98) continue;            // pixel cramé
         pousser(ig);
@@ -601,9 +1112,11 @@
         var ni = ny * w + nx;
         if (masque[ni]) continue;
         if (estPeauIci(ni)) continue;
+        if (dansVisageOuBarbe(nx, ny)) continue;          // visage, moustache, barbe
         var ddx = (nx - cx) / rx, ddy = (ny - cy) / ry;
         if (ddx * ddx + ddy * ddy < 1) continue;          // intérieur du visage
         if (p.L[ni] > 98) continue;
+        if (filtresVisage && p.grad[ni] < 0.18 * (gradGraine || 1)) continue;   // zone floue / uniforme
         if (!plusProcheDuCheveu(ni)) continue;
         pousser(ni);
         if (total > maxPix) { fuite = true; break; }
@@ -629,7 +1142,7 @@
         if (masque[idx] && c <= 2) m2[idx] = 0;
         else if (!masque[idx] && c >= 7) {
           var ddx2 = (x2 - cx) / rx, ddy2 = (y2 - cy) / ry;
-          if (!(ddx2 * ddx2 + ddy2 * ddy2 < 1) && !estPeauIci(idx)) m2[idx] = 1;
+          if (!(ddx2 * ddx2 + ddy2 * ddy2 < 1) && !estPeauIci(idx) && !dansVisageOuBarbe(x2, y2)) m2[idx] = 1;
         }
       }
     }
@@ -668,6 +1181,11 @@
     }
 
     var couverture = nFinal / (w * h);
+    if (filtresVisage && nFinal < 0.25 * total && couverture < 0.05) {
+      return { ok: false, raison: 'chevelure_indissociable_du_visage', masque: null, prep: p, geo: geo,
+               couverture: couverture,
+               note: 'apres exclusion de la peau, de la barbe et du fond, il ne reste presque rien : la chevelure n est pas separable sur cette image. Mieux vaut ne rien afficher.' };
+    }
     if (couverture < SEG.MASQUE_MIN) {
       return { ok: false, raison: 'masque_trop_petit', masque: null, prep: p, geo: geo,
                couverture: couverture, partPeauGraine: partPeauGraine,
@@ -730,8 +1248,10 @@
       cadrage: geo.box.width / p.largeurOrigine,
       modele: { L: mL, a: ma, b: mb, Lmin: Lmin, Lmax: Lmax, seuil: seuil, gradGraine: gradGraine },
       refPeau: refPeau, peauLocale: peauLocale, fonds: fonds,
+      zoneVisage: { ligneYeux: ligneYeux, cx: vcx, cy: vcy, rx: vrx, ry: vry, active: filtresVisage },
       graine: { x0: gx0, x1: gx1, y0: gy0, y1: gy1, partPeau: partPeauGraine,
                 partFond: partFondGraine, pixels: grainesUtiles },
+      origine: 'visage',
       contactBord: contactBord / bordTotal,
       ratioTexture: ratioTexture,
       purete: Math.round(purete * 100) / 100,
@@ -1433,8 +1953,10 @@
    *
    * MÉTHODE
    *   1. Dans les 45 % du haut de la chevelure, on cherche ligne par ligne un segment
-   *      court (1 à 18 % de la largeur de tête) de pixels de TEINTE PEAU (YCbCr, Hsu 2002),
-   *      ENCADRÉ de cheveux des deux côtés.
+   *      court (1 à 18 % de la largeur de tête) de pixels de TEINTE PEAU (YCbCr, Hsu 2002)
+   *      ET LISSES (le cuir chevelu n'a pas de fils), ENCADRÉ de cheveux des deux côtés.
+   *      Le segment peut se trouver à l'intérieur du masque : quand la raie est entourée
+   *      de cheveux, la croissance de région l'avale.
    *   2. Une raie n'est retenue que si ces segments sont verticalement alignés (au moins
    *      8 lignes autour d'une même colonne à ±4 px), CONTIGUS (la hauteur totale ne peut
    *      pas dépasser 2,2 fois le nombre de lignes) et si le contraste de L* entre cuir
@@ -1456,7 +1978,11 @@
     var bh = bb.y1 - bb.y0, bw = bb.x1 - bb.x0;
     if (bh < 20 || bw < 20) return mesureNulle('chevelure_trop_petite', methode, limite);
 
-    var yFin = bb.y0 + Math.round(0.45 * bh);
+    // Sans visage (dessus du crane, raie de pres), la raie n'est pas forcement dans le
+    // haut du cadre : on balaie toute la masse. Mesure : avec la fenetre limitee au haut,
+    // la raie n'etait trouvee sur AUCUNE des 27 chevelures sans visage annotees.
+    var sansVisage = !(ctx.seg.geo && ctx.seg.geo.box);
+    var yFin = sansVisage ? bb.y1 - 2 : bb.y0 + Math.round(0.45 * bh);
     var largeurMax = Math.max(2, Math.round(0.18 * ctx.largeurTete));
     var mod = ctx.seg.modele;
     var candidats = [];
@@ -1468,14 +1994,27 @@
         // Le cuir chevelu est de la PEAU : le test chromatique YCbCr est exige.
         // (La v1-alpha acceptait "plus clair que les cheveux" : elle trouvait une raie
         // sur 98 chevelures sur 107, donc presque toujours a tort.)
-        var estCuir = !ctx.m[i] && peauIci(ctx, i);
+        // Le cuir chevelu peut se trouver DANS le masque (la croissance de region
+        // l'avale quand il est entoure de cheveux). On l'accepte donc a l'interieur du
+        // masque a condition qu'il soit lisse : le cuir chevelu n'a pas de fils.
+        var lisse = ctx.p.grad[i] < 0.45 * ctx.g50;
+        var estCuir = peauIci(ctx, i) && (!ctx.m[i] || lisse);
         if (estCuir) { if (run < 0) run = x; }
         else {
           if (run >= 0) {
             var lon = x - run;
             if (lon >= 1 && lon <= largeurMax) {
-              var gauche = run - 1 >= 0 ? ctx.m[y * w + run - 1] : 0;
-              var droite = x < w ? ctx.m[y * w + x] : 0;
+              // encadrement par des cheveux : on cherche du masque NON lisse de part
+              // et d'autre, a quelques pixels
+              var gauche = 0, droite = 0;
+              for (var dg = 1; dg <= 4; dg++) {
+                var ig2 = y * w + (run - dg);
+                if (run - dg >= 0 && ctx.m[ig2] && ctx.p.grad[ig2] >= 0.45 * ctx.g50) { gauche = 1; break; }
+              }
+              for (var dd2 = 0; dd2 < 4; dd2++) {
+                var id2 = y * w + (x + dd2);
+                if (x + dd2 < w && ctx.m[id2] && ctx.p.grad[id2] >= 0.45 * ctx.g50) { droite = 1; break; }
+              }
               if (gauche && droite) candidats.push({ y: y, cx: run + lon / 2, lon: lon, x0: run, x1: x - 1 });
             }
             run = -1;
@@ -1516,10 +2055,10 @@
       var cd = meilleur[q];
       lons.push(cd.lon);
       for (var xx = cd.x0; xx <= cd.x1; xx++) Lcuir.push(ctx.p.L[cd.y * w + xx]);
-      for (var d = 1; d <= 4; d++) {
+      for (var d = 1; d <= 6; d++) {
         var xg = cd.x0 - d, xd = cd.x1 + d;
-        if (xg >= 0 && ctx.m[cd.y * w + xg]) Lcheveu.push(ctx.p.L[cd.y * w + xg]);
-        if (xd < w && ctx.m[cd.y * w + xd]) Lcheveu.push(ctx.p.L[cd.y * w + xd]);
+        if (xg >= 0 && ctx.m[cd.y * w + xg] && ctx.p.grad[cd.y * w + xg] >= 0.45 * ctx.g50) Lcheveu.push(ctx.p.L[cd.y * w + xg]);
+        if (xd < w && ctx.m[cd.y * w + xd] && ctx.p.grad[cd.y * w + xd] >= 0.45 * ctx.g50) Lcheveu.push(ctx.p.L[cd.y * w + xd]);
       }
     }
     if (Lcuir.length < 10 || Lcheveu.length < 10) return mesureNulle('raie_trop_mince', methode, limite);
@@ -1903,11 +2442,17 @@
     nExpo *= clamp(0, 1, 1 - satures / QUALITE.SATURES_MAX);
     var nMasque = ctx.seg.confiance;
     var cadrage = ctx.seg.cadrage;
-    var nCadrage = clamp(0, 1, cadrage / QUALITE.CADRAGE_CIBLE);
+    // Sans visage, il n'y a pas de largeur de visage a rapporter : le cadrage se juge
+    // alors sur la place que prend la masse de cheveux dans l'image.
+    var sansVisage = (cadrage === null || cadrage === undefined);
+    var nCadrage = sansVisage
+      ? clamp(0, 1, ctx.seg.couverture / 0.18)
+      : clamp(0, 1, cadrage / QUALITE.CADRAGE_CIBLE);
 
     var score = Math.round(100 * (0.28 * nNettete + 0.20 * nExpo + 0.32 * nMasque + 0.20 * nCadrage));
     var raisons = [];
-    if (cadrage < QUALITE.CADRAGE_MIN) raisons.push('tete trop petite dans le cadre (' + Math.round(cadrage * 100) + ' % de la largeur)');
+    if (!sansVisage && cadrage < QUALITE.CADRAGE_MIN) raisons.push('tete trop petite dans le cadre (' + Math.round(cadrage * 100) + ' % de la largeur)');
+    if (sansVisage && ctx.seg.couverture < 0.05) raisons.push('la chevelure occupe moins de 5 % de l image');
     if (ctx.seg.confiance < 0.30) raisons.push('chevelure mal separee du fond (confiance du masque ' + ctx.seg.confiance + ')');
     if (nettete !== null && nettete < QUALITE.NETTETE_MIN) raisons.push('image floue');
     if (Lmoy < QUALITE.L_MIN) raisons.push('image trop sombre');
@@ -1920,9 +2465,11 @@
       score: clamp(0, 100, score),
       // Un masque dont la confiance est au plancher ne doit RIEN publier, meme si la
       // photo est nette et bien cadree : c'est le cas ou le moteur a segmente le fond.
-      exploitable: score >= QUALITE.SCORE_REFUS && cadrage >= QUALITE.CADRAGE_REFUS &&
+      exploitable: score >= QUALITE.SCORE_REFUS &&
+                   (sansVisage ? ctx.seg.couverture >= 0.03 : cadrage >= QUALITE.CADRAGE_REFUS) &&
                    ctx.seg.confiance >= 0.30,
-      cadrage: Math.round(cadrage * 1000) / 1000,
+      origineMasque: ctx.seg.origine || 'visage',
+      cadrage: sansVisage ? null : Math.round(cadrage * 1000) / 1000,
       nettete: nettete === null ? null : Math.round(nettete * 10) / 10,
       exposition: { LmoyenImage: Math.round(Lmoy * 10) / 10, partPixelsSatures: Math.round(satures * 10000) / 10000 },
       masque: {
@@ -1940,34 +2487,52 @@
   }
 
   // ════════════════════════════════════════════════════════════════════════
-  // 9. QUESTIONNAIRE — 5 questions, posées AVANT le scan
+  // 9. QUESTIONNAIRE — 3 questions, posées AVANT le scan
   //    Il pondère, il ne remplace jamais une mesure. Chaque score publie sa
-  //    part mesurée et sa part déclarée.
+  //    part mesurée et sa part déclarée, et vaut null quand rien ne l'informe.
   // ════════════════════════════════════════════════════════════════════════
 
+  /**
+   * QUESTIONNAIRE — TROIS questions, posées AVANT le scan (19/09/2026 : réduit de 5 à 3,
+   * le parcours était trop long). Elles pondèrent, elles ne remplacent jamais une mesure.
+   *
+   * La fréquence de lavage et l'âge NE SONT PLUS DEMANDÉS. Le moteur accepte encore ces
+   * deux champs si un appelant les fournit, mais il ne suppose jamais leur présence et
+   * n'invente aucune valeur par défaut à leur place : quand l'information manque, le
+   * score concerné vaut null avec sa raison, il ne prend pas une valeur moyenne.
+   */
   var QUESTIONS = [
-    { id: 'type_ressenti', libelle: 'Vos cheveux sont plutot',
+    { id: 'type_ressenti', libelle: 'Vos cheveux sont plutot', requise: true,
       options: [
         { v: 'raides', l: 'Raides' }, { v: 'ondules', l: 'Ondules' },
         { v: 'boucles', l: 'Boucles' }, { v: 'crepus', l: 'Crepus' }
       ] },
-    { id: 'etat', libelle: 'Aujourd hui ils sont',
-      options: [
-        { v: 'naturels', l: 'Naturels' }, { v: 'colores', l: 'Colores' },
-        { v: 'decolores', l: 'Decolores ou meches' }, { v: 'defrises', l: 'Defrises ou permanentes' }
-      ] },
-    { id: 'probleme', libelle: 'Ce qui vous gene le plus',
+    { id: 'probleme', libelle: 'Ce qui vous gene le plus', requise: true,
       options: [
         { v: 'chute', l: 'Ils tombent' }, { v: 'pellicules', l: 'Pellicules' },
         { v: 'secheresse', l: 'Secs' }, { v: 'gras', l: 'Gras vite' },
         { v: 'casse', l: 'Ils cassent' }, { v: 'plats', l: 'Plats, sans volume' }
       ] },
-    { id: 'lavage', libelle: 'Vous les lavez',
+    { id: 'etat', libelle: 'Aujourd hui ils sont', requise: true,
+      options: [
+        { v: 'naturels', l: 'Naturels' }, { v: 'colores', l: 'Colores' },
+        { v: 'decolores', l: 'Decolores ou meches' }, { v: 'defrises', l: 'Defrises ou permanentes' }
+      ] }
+  ];
+
+  /**
+   * Anciennes questions, retirées du parcours. Conservées pour deux raisons : un appelant
+   * qui les possède déjà (formulaire institut, fiche client) peut les passer et le moteur
+   * les utilisera ; et la liste documente ce que le moteur ne sait PLUS depuis qu'on ne
+   * les pose plus (voir § scores non lisibles).
+   */
+  var QUESTIONS_FACULTATIVES = [
+    { id: 'lavage', libelle: 'Vous les lavez', requise: false,
       options: [
         { v: 'quotidien', l: 'Tous les jours' }, { v: 'tous_deux_jours', l: 'Un jour sur deux' },
         { v: 'hebdo', l: 'Une a deux fois par semaine' }, { v: 'rare', l: 'Moins souvent' }
       ] },
-    { id: 'age', libelle: 'Votre age',
+    { id: 'age', libelle: 'Votre age', requise: false,
       options: [
         { v: '-25', l: 'Moins de 25 ans' }, { v: '25-39', l: '25 a 39 ans' },
         { v: '40-54', l: '40 a 54 ans' }, { v: '55+', l: '55 ans et plus' }
@@ -1985,9 +2550,15 @@
     var dv = (dec === null || dec === undefined) ? null : dec;
 
     if (mv === null && dv === null) {
+      // On dit les DEUX causes : la mesure n'a rien donne ET le questionnaire non plus.
+      var causes = [];
+      causes.push('mesure : ' + ((mes && mes.raison) ? mes.raison : 'absente'));
+      causes.push('questionnaire : aucune reponse n informe ce point');
       return { libelle: libelle, valeur: null,
                raison: (mes && mes.raison) ? mes.raison : 'ni mesure ni reponse',
-               partMesuree: 0, partDeclaree: 0, fiabilite: 'nulle' };
+               pourquoiNull: causes,
+               partMesuree: 0, partDeclaree: 0, fiabilite: 'nulle',
+               note: 'score non lisible : ni la photo ni les trois questions ne permettent de se prononcer' };
     }
     if (mv === null) {
       return { libelle: libelle, valeur: Math.round(dv * 100), partMesuree: 0, partDeclaree: 1,
@@ -2009,53 +2580,73 @@
              sources: [sourceMesure, sourceDeclare] };
   }
 
-  /** Traductions réponse -> valeur 0..1. Aucune n'est une mesure, toutes sont déclarées. */
+  /**
+   * Traductions réponse -> valeur 0..1. Aucune n'est une mesure, toutes sont déclarées.
+   *
+   * RÈGLE : on ne retient QUE les signaux effectivement présents dans les réponses, et on
+   * garde le plus fort d'entre eux. S'il n'y en a aucun, on renvoie null — jamais une
+   * valeur moyenne de remplissage. La version à 5 questions renvoyait par exemple 0,45 de
+   * sécheresse à quiconque avait répondu quelque chose, même sans rapport : c'était un
+   * chiffre inventé, il a été retiré.
+   */
   function declare(rep, cle) {
     if (!rep) return null;
     var p = rep.probleme, e = rep.etat, l = rep.lavage, t = rep.type_ressenti, a = rep.age;
+    var signaux = [];
+    function sig(v) { if (v !== null && v !== undefined) signaux.push(v); }
+
     switch (cle) {
       case 'secheresse':
-        if (p === 'secheresse') return 0.85;
-        if (e === 'decolores') return 0.72;
-        if (p === 'gras') return 0.25;
-        if (e === 'colores' || e === 'defrises') return 0.6;
-        return p ? 0.45 : null;
+        if (p === 'secheresse') sig(0.85);
+        if (p === 'gras') sig(0.25);
+        if (e === 'decolores') sig(0.72);
+        if (e === 'defrises') sig(0.60);
+        if (e === 'colores') sig(0.60);
+        break;
       case 'casse':
-        if (p === 'casse') return 0.85;
-        if (e === 'decolores') return 0.7;
-        if (e === 'defrises') return 0.65;
-        if (e === 'colores') return 0.5;
-        return p ? 0.35 : null;
+        if (p === 'casse') sig(0.85);
+        if (e === 'decolores') sig(0.70);
+        if (e === 'defrises') sig(0.65);
+        if (e === 'colores') sig(0.50);
+        break;
       case 'gras':
-        if (l === 'quotidien') return 0.85;
-        if (l === 'tous_deux_jours') return 0.6;
-        if (l === 'hebdo') return 0.3;
-        if (l === 'rare') return 0.15;
-        return p === 'gras' ? 0.8 : null;
+        // 'lavage' n'est plus demandé : sans lui, seule la gêne principale informe.
+        if (l === 'quotidien') sig(0.85);
+        else if (l === 'tous_deux_jours') sig(0.60);
+        else if (l === 'hebdo') sig(0.30);
+        else if (l === 'rare') sig(0.15);
+        if (p === 'gras') sig(0.80);
+        break;
       case 'frizz':
-        if (t === 'crepus') return 0.75;
-        if (t === 'boucles') return 0.6;
-        if (t === 'ondules') return 0.4;
-        if (t === 'raides') return 0.2;
-        return null;
+        if (t === 'crepus') sig(0.75);
+        else if (t === 'boucles') sig(0.60);
+        else if (t === 'ondules') sig(0.40);
+        else if (t === 'raides') sig(0.20);
+        break;
       case 'boucle':
-        if (t === 'crepus') return 0.9;
-        if (t === 'boucles') return 0.65;
-        if (t === 'ondules') return 0.45;
-        if (t === 'raides') return 0.15;
-        return null;
+        if (t === 'crepus') sig(0.90);
+        else if (t === 'boucles') sig(0.65);
+        else if (t === 'ondules') sig(0.45);
+        else if (t === 'raides') sig(0.15);
+        break;
       case 'blancs':
-        if (a === '55+') return 0.55;
-        if (a === '40-54') return 0.3;
-        if (a === '25-39') return 0.08;
-        if (a === '-25') return 0.02;
-        return null;
+        // 'age' n'est plus demandé : sans lui, rien n'informe sur les cheveux blancs,
+        // et la mesure n'est pas validée. Le score reste donc non lisible.
+        if (a === '55+') sig(0.55);
+        else if (a === '40-54') sig(0.30);
+        else if (a === '25-39') sig(0.08);
+        else if (a === '-25') sig(0.02);
+        break;
       case 'densite':
-        if (p === 'chute') return 0.25;
-        if (p === 'plats') return 0.35;
-        return null;
+        if (p === 'chute') sig(0.25);
+        if (p === 'plats') sig(0.35);
+        break;
       default: return null;
     }
+    if (!signaux.length) return null;
+    var m = signaux[0];
+    for (var i = 1; i < signaux.length; i++) if (signaux[i] > m) m = signaux[i];
+    return m;
   }
 
   /**
@@ -2089,7 +2680,7 @@
       'Pointes et casse', 'extremites de fils dans le tiers bas (mesure)', 'etat et gene declares');
 
     s.racinesGrasses = combiner(m('racinesGrasses'), declare(reponses, 'gras'), 0.30,
-      'Racines grasses', 'gradient de brillance racines/longueurs (mesure indicative)', 'frequence de lavage declaree');
+      'Racines grasses', 'gradient de brillance racines/longueurs (mesure indicative)', 'gene principale declaree');
 
     s.boucle = combiner(m('boucle'), declare(reponses, 'boucle'), 0.55,
       'Boucle', 'orientation et courbure des meches (mesure)', 'type ressenti declare');
@@ -2104,23 +2695,29 @@
             fiabilite: mesures.couleur.partBlancs.fiabilite };
     }
     s.blancs = combiner(mBlancs, declare(reponses, 'blancs'), 0.5,
-      'Cheveux blancs', 'pixels chroma basse dispersés (mesure fragile)', 'age declare');
+      'Cheveux blancs', 'pixels chroma basse dispersés (mesure fragile)', 'age declare si fourni');
 
     var mDensite = m('densiteRaie');
     s.densite = combiner(mDensite, declare(reponses, 'densite'), 0.5,
       'Densite apparente', 'contraste a la raie (mesure, souvent indisponible)', 'gene declaree');
 
     // 100 % déclarés — assumés comme tels
-    s.pellicules = {
-      libelle: 'Pellicules', valeur: reponses && reponses.probleme === 'pellicules' ? 80 : (reponses ? 10 : null),
-      partMesuree: 0, partDeclaree: 1, fiabilite: 'declaree',
-      note: 'les pellicules ne sont pas mesurables sur une photo de chevelure : score entierement declare'
-    };
-    s.chute = {
-      libelle: 'Chute', valeur: reponses && reponses.probleme === 'chute' ? 80 : (reponses ? 10 : null),
-      partMesuree: 0, partDeclaree: 1, fiabilite: 'declaree',
-      note: 'la chute se constate dans le temps, pas sur une image : score entierement declare'
-    };
+    // 100 % déclarés — et null quand rien ne les déclare.
+    // La question ne demande QUE la gêne principale : ne pas l'avoir choisie ne veut pas
+    // dire qu'on n'a pas de pellicules. Mettre 10 comme avant, c'était affirmer une
+    // absence qu'on n'a jamais constatée.
+    s.pellicules = (reponses && reponses.probleme === 'pellicules')
+      ? { libelle: 'Pellicules', valeur: 80, partMesuree: 0, partDeclaree: 1, fiabilite: 'declaree',
+          note: 'les pellicules ne sont pas mesurables sur une photo de chevelure : score entierement declare' }
+      : { libelle: 'Pellicules', valeur: null, partMesuree: 0, partDeclaree: 0, fiabilite: 'nulle',
+          raison: 'non_declaree_comme_gene_principale',
+          note: 'non mesurable sur une photo, et non signalee comme gene principale : le moteur ne se prononce pas' };
+    s.chute = (reponses && reponses.probleme === 'chute')
+      ? { libelle: 'Chute', valeur: 80, partMesuree: 0, partDeclaree: 1, fiabilite: 'declaree',
+          note: 'la chute se constate dans le temps, pas sur une image : score entierement declare' }
+      : { libelle: 'Chute', valeur: null, partMesuree: 0, partDeclaree: 0, fiabilite: 'nulle',
+          raison: 'non_declaree_comme_gene_principale',
+          note: 'la chute se constate dans le temps, pas sur une image, et elle n a pas ete signalee' };
 
     if (mesures.couleur && mesures.couleur.valeur) {
       s.couleur = {
@@ -2157,55 +2754,98 @@
    * plus fiable ; le champ etape ne sert que quand la categorie ne tranche pas.
    */
   function etapeDe(prod) {
+    // Le catalogue a ete relu a la main : son champ `etape` FAIT FOI. On ne recalcule
+    // que s'il est absent. La version precedente faisait l'inverse (categorie puis nom)
+    // et se trompait sur trois cas verifies : un « Bain Creme » Kerastase, qui est un
+    // shampooing, partait en traitement cible, et deux demelants « Pre-Shampoo » ranges
+    // en soin partaient en lavage parce que leur nom contient « shampoo ».
+    if (prod.etape === 1 || prod.etape === 2 || prod.etape === 3 || prod.etape === 4) {
+      return prod.etape;
+    }
     var c = (prod.categorie || '').toLowerCase();
-    var nom = String(prod.name || '').toLowerCase();
-    // Le NOM tranche quand il contredit franchement la categorie. Exemple reel du
-    // catalogue du 19/09 : "Le Masque Nutrition Avant-Shampooing" etait range en
-    // categorie shampooing, et se retrouvait propose comme produit de lavage.
-    var estMasque = /\b(masque|mask)\b/.test(nom);
-    var estApres = /(apr[eè]s-?shampo|conditioner|d[eé]m[eê]lant)/.test(nom);
-    var estLavage = /(shampo|shampoo|cleanser|wash)\b/.test(nom) && !estMasque && !estApres;
-    if (estMasque && c === 'shampooing') return 2;
-    if (estApres && c === 'shampooing') return 2;
-    if (estLavage && (c === 'masque' || c === 'apres-shampooing')) return 1;
     if (c === 'shampooing') return 1;
     if (c === 'apres-shampooing' || c === 'masque' || c === 'coloration-soin') return 2;
     if (c.indexOf('soin-sans-rin') === 0 || c === 'huile' || c === 'protection-thermique') return 3;
     if (c === 'serum-cuir-chevelu' || c === 'traitement-chute' || c === 'proteine-reconstruction') return 4;
     if (c === 'anti-pellicules') {
-      // un antipelliculaire est un shampooing ou une lotion selon le produit
-      var n = (prod.name || '').toLowerCase();
-      if (n.indexOf('shampo') !== -1 || n.indexOf('shampoo') !== -1) return 1;
-      return 4;
+      var na = (prod.name || '').toLowerCase();
+      return (na.indexOf('shampo') !== -1 || na.indexOf('bain') === 0) ? 1 : 4;
     }
-    if (prod.etape && prod.etape >= 1 && prod.etape <= 4) return prod.etape;
+    // Ni etape ni categorie exploitable : le nom, en dernier recours seulement.
+    var nom = String(prod.name || '').toLowerCase();
+    if (/\b(masque|mask)\b/.test(nom)) return 2;
+    if (/(apr[e\u00e8]s-?shampo|conditioner|d[e\u00e9]m[e\u00ea]lant)/.test(nom)) return 2;
+    if (/(shampo|shampoo|cleanser|wash)\b/.test(nom)) return 1;
     return null;
   }
 
-  // Motifs de produits a ECARTER d'une routine. Trouves sur le catalogue reel :
-  // un baume levres, des coffrets multi-produits, des entrees promotionnelles avec
-  // emoji dans le nom (interdit a l'ecran), des noms a l'encodage casse.
+  // Formes galeniques : quand l'un de ces mots suit « set », on est devant un PRODUIT
+  // (« SWIFT SET LOTION », « SHAPE SET HAIRSPRAY ») et non devant un coffret.
+  var FORMES_GALENIQUES = 'lotion|spray|hairspray|cream|creme|cr\u00e8me|mousse|gel|foam|balm|baume|oil|huile|serum|s\u00e9rum|milk|lait|butter|beurre|masque|mask|wax|cire|paste|pate|p\u00e2te|fluide|fluid|powder|poudre|shampoo|shampooing';
+
   var HORS_ROUTINE = [
-    { re: /\b(l[eè]vres?|lips?|corps|body|visage|face cream|mains|hands|parfum|perfume|bougie|candle|deodorant|d[eé]odorant|savon|gel douche|shower)\b/i,
-      raison: 'produit qui n est pas un soin capillaire' },
-    { re: /\b(set|kit|duo|trio|bundle|coffret|pack|collection)\b/i,
+    // « set » seul, ou suivi d'autre chose qu'une forme galenique = coffret.
+    // Mesure sur le catalogue relu : la regle brute ecartait SWIFT SET LOTION et
+    // SHAPE SET HAIRSPRAY, qui sont de vrais produits.
+    { re: new RegExp('\\bset\\b', 'i'),
+      // La forme galenique peut se trouver n'importe ou dans le nom : « SHAPE SET(tm)
+      // HAIRSPRAY GRAND FORMAT » a son mot-cle a trois mots de « set ».
+      sauf: new RegExp('\\b(?:' + FORMES_GALENIQUES + ')\\b', 'i'),
       raison: 'coffret ou lot : une routine propose des produits a l unite' },
-    // "free" doit etre un mot isole : \b le trouvait dans "Snag-Free Detangler",
-    // un vrai produit, qui se faisait ecarter a tort (bug trouve sur le catalogue reel).
-    { re: /(^|\s)(free|gratuit|offert|gift|cadeau)(\s|$)/i,
+    { re: /\b(kit|duo|trio|bundle|coffret|pack|collection)\b/i,
+      raison: 'coffret ou lot : une routine propose des produits a l unite' },
+    // « free » a ete RETIRE de ce motif : il ecartait 20 vrais produits (Sulfate Free,
+    // Paraben Free, Fragrance Free, Frizz Free, Free Styler...). Seules restent les
+    // formules explicitement promotionnelles.
+    { re: /(^|\s)(gratuit|offert|offerte|cadeau)(\s|$)/i,
       raison: 'entree promotionnelle, pas un produit' },
     { re: /[\u{1F300}-\u{1FAFF}\u{2700}-\u{27BF}\u{2600}-\u{26FF}]/u,
       raison: 'nom contenant un pictogramme : interdit a l ecran' },
-    { re: /Ã[\u0080-\u00BF]/,
+    { re: /\u00c3[\u0080-\u00bf]/,
       raison: 'nom a l encodage casse (mojibake) : illisible a l ecran' }
   ];
+
+  // « body », « shower », « corps », « douche » : ces mots NE SUFFISENT PAS a ecarter un
+  // produit. BODY.BUILDER est un soin volume pour cheveux, « Volume + Body » aussi, et un
+  // « Hair & Body Wash » lave bien les cheveux. On n'ecarte que si la categorie n'est pas
+  // une categorie capillaire, ou si la description parle explicitement de soin du corps.
+  // (Mesure : 29 produits du catalogue relu portent un de ces mots, tous capillaires.)
+  // Mots qui EVOQUENT un autre soin que le cheveu. Aucun d'eux n'ecarte un produit a
+  // lui seul : il faut en plus que la categorie ne soit pas capillaire ET que le nom ne
+  // parle pas de cheveux. Mesure sur le catalogue relu : la regle brute ecartait des
+  // apres-shampooings « sans parfum », une huile parfumante capillaire, une creme
+  // « mains et cheveux » et trois lavants « cheveux et corps ».
+  var MOT_HORS_CHEVEU = /\b(body|shower|corps|douche|l[eè]vres?|lips?|visage|face cream|mains|hands|parfum|perfume|bougie|candle|d[eé]odorant|deodorant|savon)\b/i;
+  // Un nom qui parle de cheveux reste un produit capillaire, meme s'il fait aussi autre chose.
+  var MOT_CHEVEU = /(cheveu|cheveux|capillaire|hair|shampo|conditioner|boucl|curl|scalp|cuir chevelu|m[eè]che)/i;
+  // « sans parfum » n'est pas un parfum.
+  var SANS_PARFUM = /(sans|without|free of|no)\s+(parfum|perfume|fragrance)/i;
+  var CATEGORIES_CAPILLAIRES = ['shampooing', 'apres-shampooing', 'masque', 'soin-sans-rin\u00e7age',
+    'soin-sans-rincage', 'huile', 'serum-cuir-chevelu', 'traitement-chute', 'coloration-soin',
+    'proteine-reconstruction', 'anti-pellicules', 'protection-thermique', 'autre-cheveux'];
+  var DESCRIPTION_CORPS = /(soin du corps|body lotion|body cream|cr[e\u00e8]me pour le corps|gel douche|shower gel|pour le corps)/i;
 
   /** Renvoie null si le produit est utilisable, sinon la raison de l'ecart. */
   function raisonEcart(prod) {
     var n = String(prod.name || '');
     if (!n) return 'produit sans nom';
     for (var i = 0; i < HORS_ROUTINE.length; i++) {
-      if (HORS_ROUTINE[i].re.test(n)) return HORS_ROUTINE[i].raison;
+      if (!HORS_ROUTINE[i].re.test(n)) continue;
+      // « sauf » : le motif est annule quand le nom designe clairement une forme galenique.
+      if (HORS_ROUTINE[i].sauf && HORS_ROUTINE[i].sauf.test(n)) continue;
+      return HORS_ROUTINE[i].raison;
+    }
+    if (MOT_HORS_CHEVEU.test(n) && !SANS_PARFUM.test(n)) {
+      var cat = String(prod.categorie || '').toLowerCase();
+      var estCapillaire = CATEGORIES_CAPILLAIRES.indexOf(cat) !== -1;
+      // Trois garde-fous avant d'ecarter : categorie non capillaire, ET nom qui ne parle
+      // pas de cheveux, ET description qui parle explicitement de soin du corps.
+      if (!estCapillaire && !MOT_CHEVEU.test(n)) {
+        return 'produit qui n est pas un soin capillaire';
+      }
+      if (!MOT_CHEVEU.test(n) && DESCRIPTION_CORPS.test(String(prod.description || ''))) {
+        return 'produit de soin du corps, pas de soin capillaire';
+      }
     }
     return null;
   }
@@ -2431,7 +3071,23 @@
       parEtape[e].push({ produit: prod, etape: e, note: note.score, pourquoi: note.pourquoi, interdits: note.interdits });
     }
     for (var e2 = 1; e2 <= 4; e2++) {
-      parEtape[e2].sort(function (a, b) { return b.note - a.note; });
+      // 20/09 — a pertinence egale, on prefere un produit dont on a une VRAIE
+      // photo. Sur 4 446 fiches, 38 n'ont aucune image (le collecteur avait pris
+      // le logo du site) et 16 partagent une photo avec un autre produit : une
+      // carte de routine sans image, ou avec la photo du voisin, decredibilise
+      // toute la lecture. Le depart ne se fait qu'a note tres proche : jamais au
+      // prix d'une recommandation moins juste.
+      parEtape[e2].sort(function (a, b) {
+        var d = b.note - a.note;
+        if (Math.abs(d) > 0.05) return d;
+        function rang(x) {
+          var pr = x.produit;
+          if (!pr.cutout_url && !pr.image_local && !pr.image_url) return 2;  // aucune image
+          if (pr.image_incertaine) return 1;                                 // photo partagee
+          return 0;
+        }
+        return rang(a) - rang(b) || d;
+      });
     }
 
     // Choix étape par étape, en commençant par celle qui a le moins de candidats
@@ -2489,6 +3145,9 @@
         id: ch.produit.id || null, nom: ch.produit.name, marque: ch.produit.brand_name || ch.produit.brand || null,
         categorie: ch.produit.categorie || null, url: ch.produit.url || null,
         image: ch.produit.image_local || ch.produit.image_url || null,
+        // le detourage (fond transparent) quand il existe ; l'UI le prefere au packshot
+        cutout_url: ch.produit.cutout_url || null,
+        image_fond: ch.produit.image_fond === true,
         actifs: ch.produit.actifs || [],
         note: Math.round(ch.note * 100) / 100,
         pourquoi: ch.pourquoi,
@@ -2697,7 +3356,9 @@
    * runHairScan(videoOrImage, options) -> Promise
    *
    * options
-   *   reponses       : réponses au questionnaire { type_ressenti, etat, probleme, lavage, age }
+   *   reponses       : réponses au questionnaire { type_ressenti, probleme, etat }.
+   *                    lavage et age ne sont plus demandés ; s'ils sont absents, les
+   *                    scores qui en dépendaient valent null avec leur raison.
    *   faceBox        : { x, y, width, height } si l'appelant l'a déjà (coordonnées de l'image)
    *   landmarks      : 68 points face-api
    *   frames         : nombre de frames sur une video (defaut 3)
@@ -2705,6 +3366,10 @@
    *   produits       : catalogue capillaire pour composer la routine (facultatif)
    *   marque         : mode marque, vyvre.fr/m/<marque>/cheveux
    *   largeurTravail : largeur de calcul (defaut 384)
+   *   masqueExterne  : { data, largeur, hauteur, seuil } — masque de cheveux deja
+   *                    calcule par l'appelant (hair_segmenter de MediaPipe cote
+   *                    guidage). Fourni, il REMPLACE la segmentation maison : c'est
+   *                    la seule facon d'empecher le decor d'entrer dans la mesure.
    *
    * Renvoie { version, ok, mesures, scores, qualite, routine, raw, debug }.
    * Si l'image n'est pas exploitable : ok=false, mesures=null, une raison en clair,
@@ -2727,28 +3392,23 @@
         sourceGeo = 'face-api';
       }
     }
-    if (!geo) {
-      return {
-        version: VERSION, ok: false, raison: 'visage_non_detecte',
-        message: 'Aucun visage detecte : sans le visage, le moteur ne sait pas ou commence la chevelure. Se recadrer de face, tete entiere dans l image.',
-        mesures: null, scores: null,
-        qualite: { score: 0, exploitable: false, raisons: ['visage non detecte'] },
-        raw: null, debug: { dureeMs: Math.round(maintenant() - t0) }
-      };
-    }
+    // Pas de visage : ce n'est plus un refus. On cherche la chevelure pour elle-meme.
+    // Les mesures qui ont besoin de l'echelle du visage restent en relatif et le disent.
+    if (!geo) sourceGeo = 'aucune (segmentation par texture)';
 
     var frames = [], echecs = [];
     for (var f = 0; f < nFrames; f++) {
       var img = versImageData(videoOrImage, maxLargeur);
       if (!img) { echecs.push('capture_impossible'); break; }
-      var r = analyseFrame(img, geo, { largeurTravail: options.largeurTravail });
+      var r = analyseFrame(img, geo, { largeurTravail: options.largeurTravail, sansVisage: options.sansVisage,
+                                        masqueExterne: options.masqueExterne || null });
       if (r.ok) frames.push(r); else echecs.push(r.raison);
       if (f < nFrames - 1 && estVideo(videoOrImage)) await attendre(intervalle);
     }
 
     if (!frames.length) {
       return {
-        version: VERSION, ok: false,
+        version: VERSION, mode: 'lecture-rapide', ok: false,
         raison: echecs[0] || 'aucune_frame_exploitable',
         message: messageRefus(echecs[0]),
         mesures: null, scores: null,
@@ -2763,13 +3423,15 @@
     var scores = composerScores(agr.mesures, options.reponses || null);
 
     var resultat = {
-      version: VERSION, ok: true,
+      version: VERSION, mode: 'lecture-rapide', ok: true,
       mesures: agr.mesures,
       scores: scores,
       qualite: derniere.qualite,
       raw: {
         framesAnalysees: frames.length, framesDemandees: nFrames, echecs: echecs,
         geometrie: sourceGeo,
+        origineMasque: derniere.segmentation.origine || 'visage',
+        echelleDuVisageDisponible: !!(derniere.segmentation.geo && derniere.segmentation.geo.ipdPx),
         modeleChevelure: derniere.segmentation.modele,
         bbox: derniere.segmentation.bbox,
         largeurTravail: derniere.segmentation.w,
@@ -2802,6 +3464,7 @@
   function messageRefus(raison) {
     var m = {
       graine_indistincte_du_fond: 'Les cheveux et le fond se ressemblent trop juste au-dessus du front : changer de fond ou d eclairage.',
+      chevelure_indissociable_du_visage: 'La chevelure n est pas separable du visage sur cette image.',
       pas_de_chevelure_au_dessus_du_front: 'Aucune chevelure ne depasse au-dessus du front.',
       chevelure_hors_cadre: 'La tete est coupee en haut de l image : reculer ou baisser la camera.',
       graine_vide: 'Rien de reconnaissable comme chevelure au-dessus du front : crane rase, casquette, ou cadrage trop bas.',
@@ -2814,18 +3477,1547 @@
   }
 
   // ════════════════════════════════════════════════════════════════════════
+  // 13. ICE v2 — LECTURE FIBRE (macro guidée sur une mèche)
+  //
+  //   Le constat de la v1 : à 40 cm, un cheveu ne fait pas un pixel, donc l'épaisseur,
+  //   la cuticule, les fourches et la brillance ne sont pas mesurables — quoi qu'on
+  //   fasse au traitement d'image. La v2 ne change pas les formules : elle change la
+  //   PRISE DE VUE. À 5-10 cm d'une mèche tenue devant un fond sombre, torche allumée,
+  //   un cheveu fait 15 à 40 pixels. Ce qui était impossible devient mesurable.
+  //
+  //   Ce mode ne remplace pas la photo de face : il s'ajoute. Le résultat dit toujours
+  //   quel mode a servi (`mode`: 'lecture-rapide' ou 'lecture-fibre').
+  // ════════════════════════════════════════════════════════════════════════
+
+  /**
+   * OPTIQUE — CE QU'UN TÉLÉPHONE LIT VRAIMENT (calculé, pas supposé)
+   *
+   * Champ = 2 · distance · tan(FOV/2), FOV donnée par l'équivalent 35 mm de l'objectif.
+   * Sur un capteur de 4032 px de large :
+   *
+   *   capteur principal 24 mm eq. a 10 cm  -> champ 150 mm, 0,037 mm/px, cheveu 70 um = 1,9 px
+   *   ultra grand-angle macro 13 mm a 3 cm -> champ  83 mm, 0,021 mm/px, cheveu 70 um = 3,4 px
+   *   ultra grand-angle macro 13 mm a 2 cm -> champ  55 mm, 0,014 mm/px, cheveu 70 um = 5,1 px
+   *   bonnette macro clipsee, champ 15 mm  -> champ  15 mm, 0,004 mm/px, cheveu 70 um = 19 px
+   *
+   * CONCLUSION, et elle change la promesse du mode : « 15 a 40 px par cheveu » demande un
+   * champ de 19 mm, donc une BONNETTE MACRO. Un telephone nu en mode macro donne 3 a 5 px
+   * par cheveu, soit une incertitude de 14 a 21 um sur un cheveu qui en fait 40 a 120.
+   * Et a 19 mm de champ, ni la carte bancaire (85,6 mm) ni la piece de 2 euros (25,75 mm)
+   * ne tiennent dans le cadre : l'echelle doit alors venir d'autre chose.
+   *
+   * Le moteur ne suppose rien de tout cela : il MESURE l'echelle quand une reference est
+   * dans le cadre, en deduit l'incertitude (1 pixel) et refuse de publier toute valeur
+   * dont l'incertitude depasse 30 % — quel que soit le materiel utilise.
+   */
+  var MACRO = {
+    LARGEUR_TRAVAIL: 1100,    // on garde la résolution : c'est tout l'intérêt du mode
+    NETTETE_MIN: 60,          // variance du laplacien sous laquelle rien n'est mesurable
+    NETTETE_BONNE: 250,
+    LARGEUR_FIL_MIN: 2.5,     // px — en dessous, aucune mesure de largeur n'a de sens
+    LARGEUR_FIL_MAX: 90,      // px — au-dessus, ce n'est plus un cheveu isolé
+    LARGEUR_FIL_CIBLE: [4, 60],
+    COUVERTURE_MIN: 0.004,    // part de l'image occupée par des fils
+    COUVERTURE_MAX: 0.60,
+    INCERTITUDE_MAX_RELATIVE: 0.30,   // au-dela, on ne publie pas la valeur
+    // Dimensions normalisées des références d'échelle
+    CARTE_MM: 85.60, CARTE_RATIO: 85.60 / 53.98,   // ISO/IEC 7810 ID-1
+    PIECE_2E_MM: 25.75,                             // 2 euros
+    ONGLE_POUCE_MM: 15.0                            // ordre de grandeur seulement
+  };
+
+  /**
+   * Seuil d'Otsu (1979) sur l'histogramme de L*. Sépare les fils éclairés du fond
+   * sombre sans réglage manuel. Renvoie le seuil et la séparabilité (variance
+   * inter-classes normalisée) : si elle est basse, il n'y a pas deux populations,
+   * donc pas de mèche détachée du fond.
+   */
+  function seuilOtsu(valeurs, nbBacs) {
+    nbBacs = nbBacs || 64;
+    var hist = new Float64Array(nbBacs), n = valeurs.length, i;
+    for (i = 0; i < n; i++) hist[clamp(0, nbBacs - 1, Math.floor(valeurs[i] / 100 * nbBacs))]++;
+    var somme = 0;
+    for (i = 0; i < nbBacs; i++) somme += i * hist[i];
+    var sommeB = 0, poidsB = 0, maxVar = -1, seuil = 0, varTotale = 0, moy = somme / n;
+    for (i = 0; i < nbBacs; i++) varTotale += hist[i] * (i - moy) * (i - moy);
+    varTotale /= n;
+    for (i = 0; i < nbBacs; i++) {
+      poidsB += hist[i];
+      if (!poidsB) continue;
+      var poidsF = n - poidsB;
+      if (!poidsF) break;
+      sommeB += i * hist[i];
+      var mB = sommeB / poidsB, mF = (somme - sommeB) / poidsF;
+      var v = poidsB * poidsF * (mB - mF) * (mB - mF) / (n * n);
+      if (v > maxVar) { maxVar = v; seuil = i; }
+    }
+    return {
+      seuil: (seuil + 1) * (100 / nbBacs),
+      separabilite: varTotale > 0 ? maxVar / varTotale : 0
+    };
+  }
+
+  /** Distance à l'INTÉRIEUR d'un binaire (chamfer sur le complément). */
+  function distanceInterne(bin, w, h) {
+    var comp = new Uint8Array(w * h);
+    for (var i = 0; i < comp.length; i++) comp[i] = bin[i] ? 0 : 1;
+    return distanceAuMasque(comp, w, h);
+  }
+
+  /**
+   * Squelettisation Zhang-Suen sur liste d'avant-plan : au lieu de balayer toute
+   * l'image à chaque sous-itération, on ne parcourt que les pixels encore allumés.
+   * Sur un masque de fils (2 à 20 % de l'image) c'est 10 à 50 fois plus rapide, ce qui
+   * rend la squelettisation utilisable à 900 px de large.
+   */
+  function squelettiser(bin, w, h) {
+    var img = new Uint8Array(bin);
+    var avant = [];
+    for (var i = w; i < w * (h - 1); i++) {
+      var x = i % w;
+      if (x === 0 || x === w - 1) continue;
+      if (img[i]) avant.push(i);
+    }
+    var change = true, garde = 0;
+    while (change && garde++ < 30) {
+      change = false;
+      for (var pass = 0; pass < 2; pass++) {
+        var aSupp = [];
+        for (var k = 0; k < avant.length; k++) {
+          var j = avant[k];
+          if (!img[j]) continue;
+          var p2 = img[j - w] ? 1 : 0, p3 = img[j - w + 1] ? 1 : 0, p4 = img[j + 1] ? 1 : 0,
+              p5 = img[j + w + 1] ? 1 : 0, p6 = img[j + w] ? 1 : 0, p7 = img[j + w - 1] ? 1 : 0,
+              p8 = img[j - 1] ? 1 : 0, p9 = img[j - w - 1] ? 1 : 0;
+          var B = p2 + p3 + p4 + p5 + p6 + p7 + p8 + p9;
+          if (B < 2 || B > 6) continue;
+          var seq = [p2, p3, p4, p5, p6, p7, p8, p9, p2], A = 0;
+          for (var q = 0; q < 8; q++) if (seq[q] === 0 && seq[q + 1] === 1) A++;
+          if (A !== 1) continue;
+          if (pass === 0) { if (p2 * p4 * p6 !== 0 || p4 * p6 * p8 !== 0) continue; }
+          else { if (p2 * p4 * p8 !== 0 || p2 * p6 * p8 !== 0) continue; }
+          aSupp.push(j);
+        }
+        if (aSupp.length) {
+          change = true;
+          for (var z = 0; z < aSupp.length; z++) img[aSupp[z]] = 0;
+        }
+      }
+      var reste = [];
+      for (var k2 = 0; k2 < avant.length; k2++) if (img[avant[k2]]) reste.push(avant[k2]);
+      avant = reste;
+    }
+    return { squelette: img, pixels: avant };
+  }
+
+  /**
+   * Contexte macro : binarisation des fils, distance interne, squelette.
+   * Tout le mode fibre travaille là-dessus.
+   */
+  function construireContexteMacro(imageData, options) {
+    options = options || {};
+    var p = options.prep || preparerImage(imageData, options.largeurTravail || MACRO.LARGEUR_TRAVAIL);
+    var w = p.w, h = p.h, n = w * h;
+
+    var otsu = seuilOtsu(p.L, 64);
+    var bin = new Uint8Array(n), nFil = 0;
+    // Les fils sont la classe CLAIRE (mèche éclairée par la torche sur fond sombre).
+    for (var i = 0; i < n; i++) if (p.L[i] > otsu.seuil) { bin[i] = 1; nFil++; }
+    // Si la classe claire domine largement, c'est le fond qui est clair : on inverse.
+    var inverse = false;
+    if (nFil > 0.6 * n) {
+      inverse = true; nFil = 0;
+      for (var i2 = 0; i2 < n; i2++) { bin[i2] = p.L[i2] <= otsu.seuil ? 1 : 0; if (bin[i2]) nFil++; }
+    }
+    // nettoyage : retire les pixels isolés (bruit de capteur)
+    for (var y = 1; y < h - 1; y++) {
+      for (var x = 1; x < w - 1; x++) {
+        var j = y * w + x;
+        if (!bin[j]) continue;
+        var c = bin[j - 1] + bin[j + 1] + bin[j - w] + bin[j + w];
+        if (c === 0) { bin[j] = 0; nFil--; }
+      }
+    }
+    var dist = distanceInterne(bin, w, h);
+    var sq = squelettiser(bin, w, h);
+
+    // Largeur locale = 2 x distance au bord, lue sur l'axe médian (largeur médiale,
+    // mesure standard d'un ruban). Seules les valeurs plausibles sont gardées.
+    var largeurs = [];
+    for (var k = 0; k < sq.pixels.length; k++) {
+      var l = 2 * dist[sq.pixels[k]];
+      if (l >= 2 && l <= 200) largeurs.push(l);
+    }
+    // Estimateur AIRE / LONGUEUR : la surface du binaire divisee par la longueur de
+    // l'axe median donne la largeur moyenne au SOUS-PIXEL, la ou la largeur mediale
+    // est quantifiee par la transformee de distance (mesure : +33 % a 3 px, +20 % a
+    // 5 px, exacte au-dela de 8 px). On publie celui-ci, l'autre reste en detail.
+    var largeurAireLongueur = sq.pixels.length > 0 ? (nFil / sq.pixels.length) : null;
+    return {
+      largeurAireLongueur: largeurAireLongueur,
+      p: p, w: w, h: h, bin: bin, dist: dist,
+      squelette: sq.squelette, pixelsSquelette: sq.pixels,
+      largeurs: largeurs,
+      largeurMediane: largeurs.length ? median(largeurs) : null,
+      couverture: nFil / n,
+      otsu: otsu, binaireInverse: inverse,
+      nettete: netteteGlobale(p)
+    };
+  }
+
+  /** Variance du laplacien sur toute l'image (Pertuz 2013). */
+  function netteteGlobale(p) {
+    var w = p.w, h = p.h, L = p.L, vals = [];
+    for (var y = 1; y < h - 1; y += 2) {
+      for (var x = 1; x < w - 1; x += 2) {
+        var i = y * w + x;
+        vals.push(L[i - 1] + L[i + 1] + L[i - w] + L[i + w] - 4 * L[i]);
+      }
+    }
+    if (vals.length < 50) return 0;
+    var mu = mean(vals), s = 0;
+    for (var k = 0; k < vals.length; k++) { var d = vals[k] - mu; s += d * d; }
+    return s / vals.length;
+  }
+
+  /**
+   * evaluerPriseMacro(imageData, options)
+   *
+   * Ce que l'écran doit faire tourner en continu pendant que la personne approche le
+   * téléphone. Renvoie de quoi guider ET la décision de déclenchement automatique.
+   *
+   *   { pret, declencher, message, nettete, largeurFilPx, couverture, separabilite,
+   *     raisons: [...] }
+   *
+   * Déclenchement automatique quand, ET SEULEMENT QUAND :
+   *   - la netteté (variance du laplacien) dépasse MACRO.NETTETE_MIN,
+   *   - la largeur médiane des fils tombe dans 12-45 px (la bonne distance),
+   *   - les fils occupent entre 0,8 % et 55 % de l'image,
+   *   - la séparabilité d'Otsu montre bien deux populations (mèche / fond).
+   * Sinon on refuse, avec le message qui dit quoi corriger.
+   */
+  function evaluerPriseMacro(imageData, options) {
+    var c = construireContexteMacro(imageData, options);
+    var raisons = [], message = 'Pret', pret = true;
+
+    if (c.otsu.separabilite < 0.45) {
+      raisons.push('meche non detachee du fond'); pret = false;
+      message = 'Mettre un fond sombre derriere la meche';
+    }
+    if (c.couverture < MACRO.COUVERTURE_MIN) {
+      raisons.push('aucun fil detecte'); pret = false;
+      message = 'Approcher le telephone de la meche';
+    } else if (c.couverture > MACRO.COUVERTURE_MAX) {
+      raisons.push('trop de matiere dans le cadre'); pret = false;
+      message = 'Reculer un peu, ne garder qu une meche';
+    }
+    if (c.nettete < MACRO.NETTETE_MIN) {
+      raisons.push('image floue'); pret = false;
+      message = 'Stabiliser, attendre la mise au point';
+    }
+    if (c.largeurMediane === null) {
+      raisons.push('aucun fil mesurable'); pret = false;
+    } else if (c.largeurMediane < MACRO.LARGEUR_FIL_MIN) {
+      raisons.push('fils trop fins : trop loin'); pret = false;
+      message = 'Approcher encore';
+    } else if (c.largeurMediane > MACRO.LARGEUR_FIL_MAX) {
+      raisons.push('fils trop epais : trop pres ou ce n est pas un cheveu'); pret = false;
+      message = 'Reculer un peu';
+    } else if (c.largeurMediane < MACRO.LARGEUR_FIL_CIBLE[0] || c.largeurMediane > MACRO.LARGEUR_FIL_CIBLE[1]) {
+      raisons.push('distance acceptable mais pas ideale');
+    }
+
+    return {
+      pret: pret,
+      declencher: pret && c.nettete >= MACRO.NETTETE_MIN,
+      message: message,
+      nettete: Math.round(c.nettete),
+      qualiteNettete: Math.round(100 * clamp(0, 1, c.nettete / MACRO.NETTETE_BONNE)),
+      largeurFilPx: c.largeurMediane === null ? null : Math.round(c.largeurMediane * 10) / 10,
+      couverture: Math.round(c.couverture * 10000) / 10000,
+      separabilite: Math.round(c.otsu.separabilite * 100) / 100,
+      raisons: raisons,
+      contexte: c
+    };
+  }
+
+  // ──────────────────────────────────────────────────────────────────────
+  // 13.2  ÉCHELLE RÉELLE : pixels -> millimètres
+  // ──────────────────────────────────────────────────────────────────────
+
+  /** Composantes connexes 4-voisins d'un binaire, au-dessus d'une taille minimale. */
+  function composantes(bin, w, h, tailleMin) {
+    var vus = new Uint8Array(w * h), file = new Int32Array(w * h), out = [];
+    for (var s = 0; s < w * h; s++) {
+      if (!bin[s] || vus[s]) continue;
+      var t = 0, q = 0; file[q++] = s; vus[s] = 1;
+      var pts = [];
+      while (t < q) {
+        var c = file[t++]; pts.push(c);
+        var cy = (c / w) | 0, cx = c - cy * w;
+        if (cx > 0 && bin[c - 1] && !vus[c - 1]) { vus[c - 1] = 1; file[q++] = c - 1; }
+        if (cx < w - 1 && bin[c + 1] && !vus[c + 1]) { vus[c + 1] = 1; file[q++] = c + 1; }
+        if (cy > 0 && bin[c - w] && !vus[c - w]) { vus[c - w] = 1; file[q++] = c - w; }
+        if (cy < h - 1 && bin[c + w] && !vus[c + w]) { vus[c + w] = 1; file[q++] = c + w; }
+      }
+      if (pts.length >= tailleMin) out.push(pts);
+    }
+    return out;
+  }
+
+  /** Enveloppe convexe, parcours monotone d'Andrew (1979). */
+  function enveloppeConvexe(pts) {
+    if (pts.length < 3) return pts.slice();
+    var p = pts.slice().sort(function (a, b) { return a[0] - b[0] || a[1] - b[1]; });
+    function cross(o, a, b) { return (a[0] - o[0]) * (b[1] - o[1]) - (a[1] - o[1]) * (b[0] - o[0]); }
+    var bas = [], i;
+    for (i = 0; i < p.length; i++) {
+      while (bas.length >= 2 && cross(bas[bas.length - 2], bas[bas.length - 1], p[i]) <= 0) bas.pop();
+      bas.push(p[i]);
+    }
+    var haut = [];
+    for (i = p.length - 1; i >= 0; i--) {
+      while (haut.length >= 2 && cross(haut[haut.length - 2], haut[haut.length - 1], p[i]) <= 0) haut.pop();
+      haut.push(p[i]);
+    }
+    bas.pop(); haut.pop();
+    return bas.concat(haut);
+  }
+
+  /** Rectangle d'aire minimale d'une enveloppe convexe (calipers tournants). */
+  function rectangleMinimal(hull) {
+    if (hull.length < 3) return null;
+    var best = null;
+    for (var i = 0; i < hull.length; i++) {
+      var j = (i + 1) % hull.length;
+      var dx = hull[j][0] - hull[i][0], dy = hull[j][1] - hull[i][1];
+      var l = Math.sqrt(dx * dx + dy * dy);
+      if (l < 1e-6) continue;
+      var ux = dx / l, uy = dy / l;
+      var minU = Infinity, maxU = -Infinity, minV = Infinity, maxV = -Infinity;
+      for (var k = 0; k < hull.length; k++) {
+        var u = hull[k][0] * ux + hull[k][1] * uy;
+        var v = -hull[k][0] * uy + hull[k][1] * ux;
+        if (u < minU) minU = u; if (u > maxU) maxU = u;
+        if (v < minV) minV = v; if (v > maxV) maxV = v;
+      }
+      var a = (maxU - minU), b = (maxV - minV), aire = a * b;
+      if (!best || aire < best.aire) best = { aire: aire, cote1: a, cote2: b, angle: Math.atan2(uy, ux) };
+    }
+    if (!best) return null;
+    best.grand = Math.max(best.cote1, best.cote2);
+    best.petit = Math.min(best.cote1, best.cote2);
+    best.rapport = best.petit > 0 ? best.grand / best.petit : Infinity;
+    return best;
+  }
+
+  function perimetrePolygone(poly) {
+    var per = 0;
+    for (var i = 0; i < poly.length; i++) {
+      var j = (i + 1) % poly.length;
+      per += Math.hypot(poly[j][0] - poly[i][0], poly[j][1] - poly[i][1]);
+    }
+    return per;
+  }
+
+  /**
+   * detecterReferenceEchelle(imageData, options) -> { type, mmParPx, incertitudeUmParPx, ... }
+   *
+   * Cherche dans le cadre un objet de dimension normalisée :
+   *   - carte bancaire (ISO 7810 ID-1, 85,60 mm de long, rapport 1,586)
+   *     -> plus grande composante dont le rectangle minimal a un rapport 1,50-1,68
+   *        et un taux de remplissage > 0,80
+   *   - pièce de 2 euros (25,75 mm de diamètre)
+   *     -> composante de circularité 4·pi·A/P² > 0,80 et de rectangle quasi carré
+   *
+   * L'ongle du pouce est ACCEPTÉ sur demande explicite (options.reference='ongle') mais
+   * renvoyé avec fiabilite 'faible' : la largeur d'un ongle de pouce varie de 13 à 20 mm
+   * selon les personnes, soit ±25 % d'erreur d'échelle. Aucune valeur en micromètres
+   * n'est publiée à partir de cette référence.
+   *
+   * Sans référence : mmParPx = null. Le moteur ne publie alors QUE du relatif.
+   */
+  function detecterReferenceEchelle(imageData, options) {
+    options = options || {};
+    var p = options.prep || preparerImage(imageData, 520);
+    var w = p.w, h = p.h, n = w * h;
+
+    if (options.reference === 'ongle' && options.largeurOnglePx) {
+      return { type: 'ongle', mmParPx: MACRO.ONGLE_POUCE_MM / options.largeurOnglePx,
+               fiabilite: 'faible',
+               note: 'echelle donnee par un ongle de pouce : la largeur varie de 13 a 20 mm selon les personnes, soit environ 25 % d erreur. Aucune valeur en micrometres n est publiee avec cette reference.' };
+    }
+    if (typeof options.mmParPx === 'number' && options.mmParPx > 0) {
+      return { type: 'fournie', mmParPx: options.mmParPx, fiabilite: 'bonne',
+               note: 'echelle fournie par l appelant (banc optique, bonnette calibree)' };
+    }
+
+    // On cherche les objets plats et clairs : la carte et la pièce sont nettement plus
+    // uniformes que la chevelure. Binarisation par Otsu sur L*, puis composantes.
+    var otsu = seuilOtsu(p.L, 64);
+    var bin = new Uint8Array(n);
+    for (var i = 0; i < n; i++) bin[i] = p.L[i] > otsu.seuil ? 1 : 0;
+    // Les fils traversent la carte ou la piece et relient tout en une seule composante
+    // (constate sur les cas de controle : aucune reference detectee). On EROD le binaire
+    // d'un rayon superieur a la demi-largeur d'un fil : les fils disparaissent, les
+    // objets massifs restent. La taille est corrigee ensuite.
+    var rayonErosion = Math.max(2, Math.round(0.012 * w));
+    var distInt = distanceInterne(bin, w, h);
+    var binErode = new Uint8Array(n);
+    for (var e0 = 0; e0 < n; e0++) binErode[e0] = distInt[e0] > rayonErosion ? 1 : 0;
+    var comps = composantes(binErode, w, h, Math.round(0.002 * n));
+    var candidats = [];
+    for (var c = 0; c < comps.length; c++) {
+      var pts = comps[c];
+      var xy = [];
+      for (var k = 0; k < pts.length; k += Math.max(1, Math.floor(pts.length / 4000))) {
+        var y0 = (pts[k] / w) | 0; xy.push([pts[k] - y0 * w, y0]);
+      }
+      var hull = enveloppeConvexe(xy);
+      var rect = rectangleMinimal(hull);
+      if (!rect) continue;
+      // on rend ce que l'erosion a retire
+      rect.grand += 2 * rayonErosion; rect.petit += 2 * rayonErosion;
+      rect.aire = rect.grand * rect.petit;
+      rect.rapport = rect.petit > 0 ? rect.grand / rect.petit : Infinity;
+      if (rect.grand < 0.12 * w) continue;
+      var remplissage = (pts.length + 2 * rayonErosion * (rect.grand + rect.petit)) / Math.max(1, rect.aire);
+      var per = perimetrePolygone(hull);
+      // aire du polygone convexe (formule du lacet)
+      var aireHull = 0;
+      for (var q = 0; q < hull.length; q++) {
+        var r2 = (q + 1) % hull.length;
+        aireHull += hull[q][0] * hull[r2][1] - hull[r2][0] * hull[q][1];
+      }
+      aireHull = Math.abs(aireHull) / 2;
+      var circ = per > 0 ? 4 * Math.PI * aireHull / (per * per) : 0;
+      candidats.push({ rect: rect, remplissage: remplissage, circularite: circ, taille: pts.length });
+    }
+
+    var carte = null, piece = null;
+    for (var z = 0; z < candidats.length; z++) {
+      var cd = candidats[z];
+      if (cd.rect.rapport > 1.50 && cd.rect.rapport < 1.68 && cd.remplissage > 0.80) {
+        if (!carte || cd.rect.grand > carte.rect.grand) carte = cd;
+      }
+      if (cd.circularite > 0.80 && cd.rect.rapport < 1.15 && cd.remplissage > 0.72) {
+        if (!piece || cd.rect.grand > piece.rect.grand) piece = cd;
+      }
+    }
+
+    // IMPORTANT : la detection tourne sur une image de travail reduite. On ramene
+    // l'echelle au pixel de l'IMAGE D'ORIGINE, sinon elle est fausse d'un facteur egal
+    // au sous-echantillonnage (mesure : +100 % d'erreur avant correction).
+    var pas = p.pas || 1;
+    if (carte) {
+      return { type: 'carte', mmParPx: MACRO.CARTE_MM / (carte.rect.grand * pas), fiabilite: 'bonne',
+               pasImageDeTravail: pas,
+               detail: { longueurPx: Math.round(carte.rect.grand), rapport: Math.round(carte.rect.rapport * 1000) / 1000,
+                         remplissage: Math.round(carte.remplissage * 100) / 100 },
+               note: 'carte au format ISO 7810 ID-1, 85,60 mm de long' };
+    }
+    if (piece) {
+      var diam = (piece.rect.grand + piece.rect.petit) / 2;
+      return { type: 'piece_2_euros', mmParPx: MACRO.PIECE_2E_MM / (diam * pas), fiabilite: 'moyenne',
+               pasImageDeTravail: pas,
+               detail: { diametrePx: Math.round(diam), circularite: Math.round(piece.circularite * 100) / 100 },
+               note: 'piece de 2 euros, 25,75 mm de diametre. Toute piece ronde de taille voisine serait confondue : a confirmer par l ecran.' };
+    }
+    return { type: 'aucune', mmParPx: null, fiabilite: 'nulle',
+             note: 'aucune reference d echelle dans le cadre : le moteur ne publie que du relatif, jamais de millimetres.' };
+  }
+
+  // ──────────────────────────────────────────────────────────────────────
+  // 13.3  MESURES SUR LA FIBRE
+  // ──────────────────────────────────────────────────────────────────────
+
+  /**
+   * ÉPAISSEUR DE FIBRE — largeur médiale des fils.
+   *
+   * MÉTHODE
+   *   Binarisation d'Otsu (mèche éclairée / fond sombre), squelettisation Zhang-Suen,
+   *   puis largeur = SURFACE DU BINAIRE / LONGUEUR DE L'AXE MÉDIAN. Cet estimateur est
+   *   au sous-pixel. La largeur médiale (2 × distance au bord sur l'axe) est calculée
+   *   aussi mais seulement publiée en détail : elle est quantifiée par la transformée de
+   *   distance et surestime de 20 à 33 % en dessous de 6 px (mesuré sur fils de largeur
+   *   connue). Les deux sont insensibles à la courbure du fil.
+   *
+   * INCERTITUDE, CALCULÉE ET NON SUPPOSÉE
+   *   La binarisation place le bord à ±1 pixel, donc la largeur est connue à ±1 px, soit
+   *   ±(mmParPx × 1000) micromètres. Le moteur publie cette incertitude et REFUSE de
+   *   publier le diamètre en micromètres dès qu'elle dépasse 30 % de la valeur.
+   *
+   * LIMITE
+   *   Avec un téléphone nu en mode macro (champ 55 à 83 mm), un cheveu fait 3 à 5 px :
+   *   l'incertitude est de 14 à 21 um sur un cheveu de 40 a 120 um, soit 15 a 50 %. Il
+   *   faut une bonnette macro (champ ~15 mm) pour descendre a ±4 um. Sans reference
+   *   d'echelle dans le cadre, la mesure reste en pixels et n'est comparable qu'a
+   *   elle-meme.
+   */
+  function mesureEpaisseurFibre(cm, echelle) {
+    var methode = 'largeur mediale : binarisation Otsu, transformee de distance interne, squelettisation Zhang-Suen, largeur = 2 x distance au bord sur l axe median';
+    var limite = 'incertitude de 1 pixel sur le bord ; sans reference d echelle la mesure reste en pixels ; un telephone nu donne 3 a 5 px par cheveu';
+    if (!cm.largeurs.length) return mesureNulle('aucun_fil_mesurable', methode, limite);
+    if (cm.largeurMediane < MACRO.LARGEUR_FIL_MIN) return mesureNulle('fils_trop_fins_pour_mesurer', methode, limite);
+    if (cm.largeurMediane > MACRO.LARGEUR_FIL_MAX) return mesureNulle('objet_trop_epais_pour_un_cheveu', methode, limite);
+
+    var q = {
+      p25: percentile(cm.largeurs, 25),
+      p50: (cm.largeurAireLongueur !== null && cm.largeurAireLongueur > 0)
+             ? cm.largeurAireLongueur : cm.largeurMediane,
+      p75: percentile(cm.largeurs, 75), n: cm.largeurs.length
+    };
+    var dispersion = q.p50 > 0 ? (q.p75 - q.p25) / q.p50 : null;
+
+    var extra = {
+      largeurPx: Math.round(q.p50 * 100) / 100,
+      p25Px: Math.round(q.p25 * 100) / 100, p75Px: Math.round(q.p75 * 100) / 100,
+      dispersionRelative: dispersion === null ? null : Math.round(dispersion * 1000) / 1000,
+      largeurMedialePx: cm.largeurMediane === null ? null : Math.round(cm.largeurMediane * 100) / 100,
+      pointsMesures: q.n,
+      diametreUm: null, incertitudeUm: null, classe: null, raisonClasse: null
+    };
+
+    if (echelle && echelle.mmParPx) {
+      // q.p50 est en pixels de l'image de TRAVAIL macro ; l'echelle est en pixels de
+      // l'image d'origine. On convertit avant de multiplier.
+      var pasMacro = (cm.p && cm.p.pas) ? cm.p.pas : 1;
+      var largeurOriginePx = q.p50 * pasMacro;
+      var um = largeurOriginePx * echelle.mmParPx * 1000;
+      var incert = pasMacro * echelle.mmParPx * 1000;   // 1 pixel de travail
+      extra.incertitudeUm = Math.round(incert * 10) / 10;
+      if (echelle.fiabilite === 'faible') {
+        extra.raisonClasse = 'echelle trop approximative (' + echelle.type + ') pour publier des micrometres';
+      } else if (incert > MACRO.INCERTITUDE_MAX_RELATIVE * um) {
+        extra.raisonClasse = 'incertitude de ' + Math.round(incert) + ' um pour un diametre de ' +
+          Math.round(um) + ' um : au-dela de 30 %, la valeur n est pas publiee';
+      } else {
+        extra.diametreUm = Math.round(um);
+        // Bornes usuelles du cheveu humain (Robbins 2012, Chemical and Physical
+        // Behavior of Human Hair, chap. 1) : fin < 60 um, moyen 60-80, epais > 80.
+        extra.classe = um < 60 ? 'fin' : (um <= 80 ? 'moyen' : 'epais');
+        if (um < 20 || um > 250) {
+          extra.classe = null;
+          extra.raisonClasse = 'diametre hors de la plage humaine (20-250 um) : ce n est probablement pas un cheveu isole';
+        }
+      }
+    } else {
+      extra.raisonClasse = 'aucune reference d echelle dans le cadre : mesure en pixels seulement';
+    }
+
+    return mesure(extra.largeurPx, 'px (largeur mediale)', methode, limite,
+      echelle && echelle.mmParPx && extra.diametreUm !== null ? 'moyenne' : 'faible', extra);
+  }
+
+  /**
+   * FOURCHES ET CASSE — bifurcations en bout de fil.
+   *
+   * MÉTHODE
+   *   Sur le squelette : les extrémités sont les pixels à 1 voisin, les bifurcations les
+   *   pixels à 3 voisins ou plus. Les pixels de bifurcation adjacents sont REGROUPÉS en
+   *   une seule jonction. Une FOURCHE est une jonction ayant au moins deux extrémités à
+   *   moins de 3,5 fois la largeur du fil : un Y en bout de cheveu. Une bifurcation loin de toute extrémité est un simple
+   *   croisement de deux cheveux, elle ne compte pas.
+   *   Taux = fourches / extrémités. Une CASSE nette (fil coupé net) compte comme une
+   *   extrémité sans fourche : le rapport distingue donc bien les deux.
+   *
+   * ÉCHELLE
+   *   Une fourche ouverte de 0,2 à 1 mm fait 15 à 70 px avec un téléphone en mode macro :
+   *   c'est la mesure de la v2 qui est la plus confortablement au-dessus de la résolution.
+   *
+   * LIMITE
+   *   Deux cheveux qui se croisent en bout de mèche imitent une fourche. Le seuil de
+   *   proximité limite le faux positif sans l'annuler.
+   */
+  function mesureFourches(cm) {
+    var methode = 'squelettisation, puis regroupement des extremites distantes de moins de 8 largeurs de fil : une pointe portant 2 extremites ou plus est fourchue ; taux = pointes fourchues / pointes totales';
+    var limite = 'deux cheveux qui se croisent pres d une pointe imitent une fourche ; mesure d aspect, pas d analyse de la keratine';
+    var w = cm.w, h = cm.h, sq = cm.squelette;
+    if (!cm.pixelsSquelette.length) return mesureNulle('aucun_squelette', methode, limite);
+    if (cm.largeurMediane === null) return mesureNulle('largeur_de_fil_inconnue', methode, limite);
+
+    var extremites = [], bifurcations = [];
+    for (var k = 0; k < cm.pixelsSquelette.length; k++) {
+      var i = cm.pixelsSquelette[k];
+      if (!sq[i]) continue;
+      var v = sq[i - 1] + sq[i + 1] + sq[i - w] + sq[i + w] +
+              sq[i - w - 1] + sq[i - w + 1] + sq[i + w - 1] + sq[i + w + 1];
+      if (v === 1) {
+        // Une extremite collee au bord du cadre n'est pas une pointe de cheveu :
+        // c'est un fil qui SORT de l'image. On ne la compte pas.
+        var ey0 = (i / w) | 0, ex0 = i - ey0 * w;
+        if (ex0 > 3 && ey0 > 3 && ex0 < w - 4 && ey0 < h - 4) extremites.push(i);
+      } else if (v >= 3) bifurcations.push(i);
+    }
+    if (extremites.length < 4) return mesureNulle('pas_assez_d_extremites', methode, limite);
+
+    // COMPTAGE PAR LES POINTES, PAS PAR LES JONCTIONS.
+    // Le parcours de branches depuis les jonctions a echoue sur les cas de controle :
+    // une fourche a angle ouvert produit une ZONE de bifurcation large, qui avale les
+    // deux branches et ne laisse qu'un seul depart. Une pointe fourchue se reconnait
+    // beaucoup plus simplement : elle donne DEUX EXTREMITES VOISINES, la ou une coupe
+    // nette n'en donne qu'une. On regroupe donc les extremites distantes de moins de
+    // 8 largeurs de fil ; un groupe de 2 extremites ou plus est une fourche.
+    // Rayon de regroupement : 5 largeurs de fil. Au-dela, deux cheveux voisins se
+    // retrouvent fusionnes en une fausse fourche (mesure : a 8 largeurs, toutes les
+    // pointes du cas de controle se regroupaient en un seul paquet). Une fourche qui
+    // s'ouvre de plus de 5 largeurs est donc manquee : c'est la limite assumee.
+    var rayonFourche = Math.max(6, 5 * cm.largeurMediane);
+    var vuE = new Uint8Array(extremites.length);
+    var fourches = 0, groupesPointes = 0, pointesIsolees = 0;
+    for (var e1 = 0; e1 < extremites.length; e1++) {
+      if (vuE[e1]) continue;
+      var pile = [e1]; vuE[e1] = 1; var taille = 0;
+      while (pile.length) {
+        var cur = pile.pop(); taille++;
+        var cy = (extremites[cur] / w) | 0, cx = extremites[cur] - cy * w;
+        for (var e2 = 0; e2 < extremites.length; e2++) {
+          if (vuE[e2]) continue;
+          var oy = (extremites[e2] / w) | 0, ox = extremites[e2] - oy * w;
+          if (Math.hypot(ox - cx, oy - cy) <= rayonFourche) { vuE[e2] = 1; pile.push(e2); }
+        }
+      }
+      groupesPointes++;
+      if (taille >= 2) fourches++; else pointesIsolees++;
+    }
+
+    // Les jonctions restent comptees, en detail : elles disent combien de cheveux se
+    // croisent dans le cadre, ce qui sert a juger si la prise est trop dense.
+    var binBif = new Uint8Array(w * h);
+    for (var bb = 0; bb < bifurcations.length; bb++) binBif[bifurcations[bb]] = 1;
+    var groupes = composantes(dilater(binBif, w, h, Math.max(2, cm.largeurMediane)), w, h, 1);
+    var taux = groupesPointes > 0 ? fourches / groupesPointes : 0;
+    return mesure(Math.round(taux * 1000) / 1000, 'part des pointes qui sont fourchues', methode, limite, 'faible', {
+      fourches: fourches, pointesIsolees: pointesIsolees, groupesDePointes: groupesPointes,
+      extremites: extremites.length,
+      jonctions: groupes.length, pixelsDeBifurcation: bifurcations.length,
+      rayonFourchePx: Math.round(rayonFourche)
+    });
+  }
+
+  /**
+   * RÉGULARITÉ DU BORD DU FIL — ce que le mode macro peut dire de l'état de surface.
+   *
+   * CE QUE C'EST, ET CE QUE CE N'EST PAS
+   *   Ce N'EST PAS une mesure de la cuticule. Les écailles de cuticule font 0,5 à 1 um de
+   *   haut et se chevauchent tous les 5 a 10 um : il faut un microscope electronique, pas
+   *   un telephone (1 px vaut 14 a 21 um en macro telephone, 4 um avec une bonnette).
+   *   Ce qui EST mesurable, c'est la REGULARITE DU BORD du fil a l'echelle de 20-100 um :
+   *   un cheveu abime s'effiloche et son bord devient irregulier.
+   *
+   * MÉTHODE
+   *   1. Coefficient de variation de la largeur locale le long de l'axe median
+   *      (ecart-type / moyenne) : un fil sain a une largeur stable.
+   *   2. Tortuosite du contour : perimetre du binaire rapporte a 2 x la longueur du
+   *      squelette. Un ruban lisse vaut ~1, un bord effiloche monte.
+   *   Indice = moyenne des deux, normalise.
+   *
+   * LIMITE
+   *   Le flou de bouge augmente les deux indicateurs. La mesure n'a de sens qu'au-dessus
+   *   du seuil de nettete du mode macro, et n'est comparable qu'a echelle egale.
+   */
+  function mesureRegulariteBord(cm) {
+    var methode = 'coefficient de variation de la largeur mediale le long du fil + tortuosite du contour (perimetre / 2 x longueur du squelette)';
+    var limite = 'ne mesure PAS la cuticule (ecailles de 0,5 a 1 um, hors de portee d un telephone) mais la regularite du bord a 20-100 um ; le flou de bouge la gonfle';
+    if (cm.largeurs.length < 50) return mesureNulle('pas_assez_de_points_sur_l_axe_median', methode, limite);
+    if (cm.nettete < MACRO.NETTETE_MIN) return mesureNulle('image_trop_floue', methode, limite);
+
+    var mu = mean(cm.largeurs), sd = std(cm.largeurs);
+    var cv = mu > 0 ? sd / mu : null;
+
+    var w = cm.w, h = cm.h, bin = cm.bin, per = 0;
+    for (var y = 1; y < h - 1; y++) {
+      for (var x = 1; x < w - 1; x++) {
+        var i = y * w + x;
+        if (!bin[i]) continue;
+        if (!bin[i - 1] || !bin[i + 1] || !bin[i - w] || !bin[i + w]) per++;
+      }
+    }
+    var longueur = cm.pixelsSquelette.length;
+    var tort = longueur > 0 ? per / (2 * longueur) : null;
+    if (cv === null || tort === null) return mesureNulle('calcul_impossible', methode, limite);
+
+    var nCv = clamp(0, 1, (cv - 0.12) / 0.45);
+    var nTort = clamp(0, 1, (tort - 1.0) / 1.2);
+    var v = clamp(0, 1, 0.5 * nCv + 0.5 * nTort);
+    return mesure(Math.round(v * 1000) / 1000, '0..1 (1 = bord tres irregulier)', methode, limite, 'faible', {
+      coefficientVariationLargeur: Math.round(cv * 1000) / 1000,
+      tortuositeContour: Math.round(tort * 1000) / 1000,
+      longueurSqueletteePx: longueur, perimetrePx: per
+    });
+  }
+
+  // ──────────────────────────────────────────────────────────────────────
+  // 13.4  DOUBLE PRISE TORCHE : séparer le reflet de la couleur
+  // ──────────────────────────────────────────────────────────────────────
+
+  /**
+   * separerSpeculaire(imageTorche, imageSansTorche, options)
+   *
+   * POURQUOI
+   *   En v1, la brillance mesurée sur une seule image était ANTI-CORRÉLÉE avec la
+   *   brillance perçue (Spearman -0,30) : un reflet ajoute une quantité de lumière à peu
+   *   près constante, qui ressort sur un cheveu noir et se noie sur un blond. La mesure
+   *   suivait la noirceur du cheveu. Deux images prises dans la même seconde, torche
+   *   allumée puis éteinte, lèvent l'ambiguïté : la DIFFÉRENCE ne contient que ce que la
+   *   torche a ajouté.
+   *
+   * MÉTHODE (modèle dichromatique, Shafer 1985)
+   *   1. Les deux images sont converties en lumière LINÉAIRE (le gamma sRGB est défait) :
+   *      sans cela, une soustraction n'a aucun sens physique.
+   *   2. Δ = max(0, lin(torche) − lin(sans torche)), pixel à pixel.
+   *   3. Dans Δ, la partie diffuse porte la couleur du cheveu C_d, la partie spéculaire
+   *      porte la couleur de la source C_s. C_d est estimée sur les 40 % de pixels les
+   *      plus sombres de Δ (les moins spéculaires), C_s sur les 2 % les plus clairs.
+   *   4. Pour chaque pixel : Δ = m_d·C_d + m_s·C_s, résolu aux moindres carrés
+   *      (3 équations, 2 inconnues), m_d et m_s bornés à zéro.
+   *   5. On publie la part spéculaire Σm_s / (Σm_s + Σm_d).
+   *
+   * CE QUE ÇA RÈGLE ET CE QUE ÇA NE RÈGLE PAS
+   *   Ça sépare vraiment reflet et couleur. Mais m_s dépend aussi de la distance et de la
+   *   puissance de la torche : deux personnes ne sont comparables que si l'éclairement est
+   *   connu. Quand une surface de référence de réflectance connue est dans le cadre
+   *   (la carte blanche, options.niveauReference), le moteur normalise et le dit ; sinon
+   *   il publie une valeur RELATIVE, comparable à elle-même dans le temps, pas entre
+   *   personnes.
+   *
+   * REFUS
+   *   Si C_s et C_d sont trop proches (angle < 8°), le système est mal conditionné :
+   *   on refuse au lieu de renvoyer un partage arbitraire. C'est le cas d'un cheveu
+   *   blanc sous une torche blanche.
+   */
+  function separerSpeculaire(imageTorche, imageSansTorche, options) {
+    options = options || {};
+    var methode = 'double prise torche allumee / eteinte, difference en lumiere lineaire, separation dichromatique (Shafer 1985) entre couleur du cheveu et couleur de la source';
+    var limite = 'm_s depend de la distance et de la puissance de la torche : sans surface de reference dans le cadre, la valeur est relative et non comparable entre personnes ; refus si la couleur du cheveu et celle de la torche sont trop proches (cheveu blanc)';
+
+    if (!imageTorche || !imageSansTorche) return mesureNulle('deux_images_requises', methode, limite);
+    if (imageTorche.width !== imageSansTorche.width || imageTorche.height !== imageSansTorche.height) {
+      return mesureNulle('images_de_tailles_differentes', methode, limite);
+    }
+    var lTarget = options.largeurTravail || 700;
+    var pOn = preparerImage(imageTorche, lTarget);
+    var pOff = preparerImage(imageSansTorche, lTarget);
+    if (pOn.w !== pOff.w || pOn.h !== pOff.h) return mesureNulle('echantillonnage_incoherent', methode, limite);
+    var n = pOn.w * pOn.h;
+
+    // masque : la matière éclairée par la torche (seuil d'Otsu sur l'image torche)
+    var otsu = seuilOtsu(pOn.L, 64);
+    var dR = new Float64Array(n), dG = new Float64Array(n), dB = new Float64Array(n);
+    var lum = [], idx = [];
+    for (var i = 0; i < n; i++) {
+      if (pOn.L[i] <= otsu.seuil) continue;
+      var r = srgbToLinear(pOn.R[i]) - srgbToLinear(pOff.R[i]);
+      var g = srgbToLinear(pOn.G[i]) - srgbToLinear(pOff.G[i]);
+      var b = srgbToLinear(pOn.B[i]) - srgbToLinear(pOff.B[i]);
+      if (r < 0) r = 0; if (g < 0) g = 0; if (b < 0) b = 0;
+      var y = 0.2126 * r + 0.7152 * g + 0.0722 * b;
+      if (y <= 1e-5) continue;
+      dR[i] = r; dG[i] = g; dB[i] = b;
+      lum.push(y); idx.push(i);
+    }
+    if (idx.length < 300) return mesureNulle('la_torche_n_a_rien_change', methode, limite);
+
+    var tri = Float64Array.from(lum); tri.sort();
+    var seuilBas = tri[Math.floor(0.40 * (tri.length - 1))];
+    var seuilHaut = tri[Math.floor(0.98 * (tri.length - 1))];
+
+    function moyenneNormalisee(filtre) {
+      var sr = 0, sg = 0, sb = 0, c = 0;
+      for (var k = 0; k < idx.length; k++) {
+        if (!filtre(lum[k])) continue;
+        sr += dR[idx[k]]; sg += dG[idx[k]]; sb += dB[idx[k]]; c++;
+      }
+      if (!c) return null;
+      var t = sr + sg + sb;
+      if (t <= 0) return null;
+      return [sr / t, sg / t, sb / t];
+    }
+    var Cd = moyenneNormalisee(function (y) { return y <= seuilBas; });
+    // La torche d'un telephone est une LED blanche : sa chromaticite est NEUTRE. La
+    // deduire des pixels les plus clairs etait mal conditionne (le lobe speculaire n'y
+    // domine pas toujours) et faisait refuser des cas ou la separation etait possible.
+    var Cs = (options.chromaticiteSource && options.chromaticiteSource.length === 3)
+      ? options.chromaticiteSource : [1 / 3, 1 / 3, 1 / 3];
+    if (!Cd) return mesureNulle('chromaticite_du_cheveu_non_estimable', methode, limite);
+
+    // conditionnement : angle entre les deux chromaticités
+    var dot = Cd[0] * Cs[0] + Cd[1] * Cs[1] + Cd[2] * Cs[2];
+    var nd = Math.hypot(Cd[0], Cd[1], Cd[2]), ns = Math.hypot(Cs[0], Cs[1], Cs[2]);
+    var angle = Math.acos(clamp(-1, 1, dot / (nd * ns))) * 180 / Math.PI;
+    if (angle < 8) {
+      // Deux causes possibles, et elles ne se valent pas : soit il n'y a PAS de reflet
+      // (rien a separer, la reponse est zero), soit le cheveu est blanc comme la torche
+      // (la separation est impossible, il faut refuser). On les distingue par la queue
+      // claire de la distribution : un lobe speculaire cree un p98 nettement au-dessus
+      // de la mediane.
+      var med = tri[Math.floor(0.50 * (tri.length - 1))];
+      var p98 = tri[Math.floor(0.98 * (tri.length - 1))];
+      if (med > 0 && p98 / med < 1.8) {
+        return mesure(0, '0..1 (part speculaire de ce que la torche a ajoute)', methode, limite, 'moyenne', {
+          partSpeculaire: 0, angleChromatiqueDeg: Math.round(angle * 10) / 10,
+          rapportP98surMediane: Math.round(p98 / med * 100) / 100,
+          pixelsUtilises: idx.length,
+          note: 'aucun lobe speculaire dans la difference : la torche n a ajoute que du diffus'
+        });
+      }
+      return mesureNulle('couleur_du_cheveu_trop_proche_de_celle_de_la_torche', methode, limite);
+    }
+
+    // moindres carrés 3x2, matrice normale fixe (Cd, Cs constants)
+    var a11 = Cd[0] * Cd[0] + Cd[1] * Cd[1] + Cd[2] * Cd[2];
+    var a12 = Cd[0] * Cs[0] + Cd[1] * Cs[1] + Cd[2] * Cs[2];
+    var a22 = Cs[0] * Cs[0] + Cs[1] * Cs[1] + Cs[2] * Cs[2];
+    var det = a11 * a22 - a12 * a12;
+    if (Math.abs(det) < 1e-12) return mesureNulle('systeme_mal_conditionne', methode, limite);
+
+    var sMd = 0, sMs = 0, nPix = 0, msPix = [];
+    for (var k2 = 0; k2 < idx.length; k2++) {
+      var j = idx[k2];
+      var b1 = Cd[0] * dR[j] + Cd[1] * dG[j] + Cd[2] * dB[j];
+      var b2 = Cs[0] * dR[j] + Cs[1] * dG[j] + Cs[2] * dB[j];
+      var md = (a22 * b1 - a12 * b2) / det;
+      var ms = (a11 * b2 - a12 * b1) / det;
+      if (md < 0) md = 0;
+      if (ms < 0) ms = 0;
+      sMd += md; sMs += ms; nPix++;
+      msPix.push(ms);
+    }
+    if (!nPix || (sMd + sMs) <= 0) return mesureNulle('separation_vide', methode, limite);
+
+    var part = sMs / (sMs + sMd);
+    var extra = {
+      partSpeculaire: Math.round(part * 10000) / 10000,
+      energieSpeculaire: Math.round(sMs / nPix * 1e6) / 1e6,
+      energieDiffuse: Math.round(sMd / nPix * 1e6) / 1e6,
+      chromaticiteCheveu: Cd.map(function (x) { return Math.round(x * 1000) / 1000; }),
+      chromaticiteSource: Cs.map(function (x) { return Math.round(x * 1000) / 1000; }),
+      angleChromatiqueDeg: Math.round(angle * 10) / 10,
+      pixelsUtilises: nPix,
+      normalisee: false, valeurNormalisee: null
+    };
+    if (typeof options.niveauReference === 'number' && options.niveauReference > 0) {
+      extra.normalisee = true;
+      extra.valeurNormalisee = Math.round((sMs / nPix) / options.niveauReference * 10000) / 10000;
+    }
+    return mesure(Math.round(part * 1000) / 1000, '0..1 (part speculaire de ce que la torche a ajoute)',
+      methode, limite, extra.normalisee ? 'moyenne' : 'faible', extra);
+  }
+
+  // ──────────────────────────────────────────────────────────────────────
+  // 13.5  SÉQUENCE AVEC MOUVEMENT
+  // ──────────────────────────────────────────────────────────────────────
+
+  /**
+   * analyserSequence(frames, options)
+   *
+   * frames : [{ imageData, faceBox }] — la personne bouge doucement la tête.
+   *
+   * DEUX CHOSES QUE LE MOUVEMENT PERMET, ET QU'UNE IMAGE FIXE NE PERMET PAS
+   *
+   *   1. FRIZZ RÉEL contre BRUIT DE FOND. C'est le défaut qui a fait échouer le frizz en
+   *      v1 : un feuillage derrière la tête produit exactement la même densité de bords
+   *      qu'un halo de frisottis. Mais quand la tête bouge, LES CHEVEUX BOUGENT AVEC ELLE
+   *      ET LE FOND NON. On estime le déplacement de la tête entre deux images (centre de
+   *      la boîte visage), puis on compte, dans la couronne autour de la chevelure, les
+   *      pixels de bord qui retrouvent un bord à la position DÉCALÉE du mouvement de tête
+   *      (ils suivent la tête : cheveux) et ceux qui retrouvent un bord à la MÊME position
+   *      (ils sont immobiles : fond). Le frizz réel est la densité des premiers.
+   *
+   *   2. RÉGULARITÉ APPARENTE DU REFLET. Quand la tête tourne, le reflet se déplace le
+   *      long des mèches. On calcule l'amplitude temporelle de L* par pixel (max − min sur
+   *      la séquence) : un reflet qui glisse proprement donne une carte d'amplitude
+   *      SPATIALEMENT LISSE, un cheveu qui diffuse dans tous les sens donne un grésil.
+   *      L'indice est le rapport entre la variance de la carte lissée et sa variance
+   *      brute : proche de 1, le reflet est cohérent ; proche de 0, il est éparpillé.
+   *
+   * REFUS
+   *   Moins de 3 images exploitables, ou tête immobile (déplacement < 2 px) : on ne peut
+   *   rien séparer, on refuse.
+   */
+  function analyserSequence(frames, options) {
+    options = options || {};
+    var methode = 'suivi du deplacement de la tete entre images : les bords qui suivent la tete sont des cheveux, ceux qui restent immobiles sont le fond ; amplitude temporelle de L* pour la coherence du reflet';
+    var limite = 'demande que la tete bouge d au moins 2 px entre deux images et que le fond soit fixe ; un fond en mouvement (foule, feuillage dans le vent) casse la separation';
+
+    if (!frames || frames.length < 3) return { ok: false, raison: 'sequence_trop_courte', methode: methode, limite: limite };
+
+    var analyses = [];
+    for (var f = 0; f < frames.length; f++) {
+      var fr = frames[f];
+      var seg = segmentCheveux(fr.imageData, fr.faceBox || fr.landmarks, { largeurTravail: options.largeurTravail });
+      if (!seg.ok) continue;
+      analyses.push({ seg: seg, box: normaliserGeometrie(fr.faceBox || fr.landmarks) });
+    }
+    if (analyses.length < 3) return { ok: false, raison: 'moins_de_trois_images_exploitables', methode: methode, limite: limite };
+
+    var w = analyses[0].seg.w, h = analyses[0].seg.h;
+    for (var a = 1; a < analyses.length; a++) {
+      if (analyses[a].seg.w !== w || analyses[a].seg.h !== h) {
+        return { ok: false, raison: 'images_de_tailles_differentes', methode: methode, limite: limite };
+      }
+    }
+    var ech = 1 / analyses[0].seg.prep.pas;
+
+    // --- 1. frizz qui suit la tête
+    var suit = 0, fixe = 0, total = 0, deplacements = [];
+    for (var t = 0; t + 1 < analyses.length; t++) {
+      var A = analyses[t], B = analyses[t + 1];
+      var dx = Math.round(((B.box.box.x + B.box.box.width / 2) - (A.box.box.x + A.box.box.width / 2)) * ech);
+      var dy = Math.round(((B.box.box.y + B.box.box.height / 2) - (A.box.box.y + A.box.box.height / 2)) * ech);
+      deplacements.push(Math.hypot(dx, dy));
+      if (Math.hypot(dx, dy) < 2) continue;
+
+      var distA = distanceAuMasque(A.seg.masque, w, h);
+      var r = Math.max(2, Math.round(0.06 * (A.seg.bbox.y1 - A.seg.bbox.y0)));
+      var gA = A.seg.prep.grad, gB = B.seg.prep.grad;
+      var seuilG = 0.5 * (median(Array.prototype.slice.call(gA, 0, 5000)) || 1);
+      for (var y = 1; y < h - 1; y++) {
+        for (var x = 1; x < w - 1; x++) {
+          var i = y * w + x;
+          if (A.seg.masque[i]) continue;
+          if (distA[i] <= 0 || distA[i] > r) continue;
+          if (gA[i] <= seuilG) continue;
+          total++;
+          var xm = x + dx, ym = y + dy;
+          var bouge = false, immobile = false;
+          if (xm > 0 && xm < w - 1 && ym > 0 && ym < h - 1 && gB[ym * w + xm] > seuilG) bouge = true;
+          if (gB[i] > seuilG) immobile = true;
+          if (bouge && !immobile) suit++;
+          else if (immobile && !bouge) fixe++;
+        }
+      }
+    }
+    var depMedian = deplacements.length ? median(deplacements) : 0;
+    if (depMedian < 2) return { ok: false, raison: 'tete_immobile', deplacementMedianPx: depMedian, methode: methode, limite: limite };
+
+    var frizzReel = total > 0 ? suit / total : null;
+    var partFond = total > 0 ? fixe / total : null;
+
+    // --- 2. cohérence du reflet
+    var amp = new Float32Array(w * h), minL = new Float32Array(w * h), maxL = new Float32Array(w * h);
+    for (var q = 0; q < w * h; q++) { minL[q] = 1e9; maxL[q] = -1e9; }
+    var commun = new Uint8Array(w * h);
+    for (var q2 = 0; q2 < w * h; q2++) commun[q2] = 1;
+    for (var m2 = 0; m2 < analyses.length; m2++) {
+      var M = analyses[m2].seg.masque, P = analyses[m2].seg.prep;
+      for (var q3 = 0; q3 < w * h; q3++) {
+        if (!M[q3]) { commun[q3] = 0; continue; }
+        if (P.L[q3] < minL[q3]) minL[q3] = P.L[q3];
+        if (P.L[q3] > maxL[q3]) maxL[q3] = P.L[q3];
+      }
+    }
+    var vals = [];
+    for (var q4 = 0; q4 < w * h; q4++) {
+      if (!commun[q4]) continue;
+      amp[q4] = maxL[q4] - minL[q4];
+      vals.push(amp[q4]);
+    }
+    var coherence = null;
+    if (vals.length > 500) {
+      var lisse = new Float32Array(w * h), vLisse = [];
+      for (var y2 = 1; y2 < h - 1; y2++) {
+        for (var x2 = 1; x2 < w - 1; x2++) {
+          var i2 = y2 * w + x2;
+          if (!commun[i2]) continue;
+          var sm = 0, c2 = 0;
+          for (var dy2 = -1; dy2 <= 1; dy2++) for (var dx2 = -1; dx2 <= 1; dx2++) {
+            var j2 = i2 + dy2 * w + dx2;
+            if (commun[j2]) { sm += amp[j2]; c2++; }
+          }
+          if (c2 >= 5) { lisse[i2] = sm / c2; vLisse.push(lisse[i2]); }
+        }
+      }
+      var vb = std(vals), vl = std(vLisse);
+      if (vb && vb > 0) coherence = clamp(0, 1, (vl * vl) / (vb * vb));
+    }
+
+    return {
+      ok: true,
+      imagesUtilisees: analyses.length,
+      deplacementMedianPx: Math.round(depMedian * 10) / 10,
+      frizzQuiSuitLaTete: frizzReel === null ? null : Math.round(frizzReel * 1000) / 1000,
+      partDeBordsImmobiles: partFond === null ? null : Math.round(partFond * 1000) / 1000,
+      coherenceDuReflet: coherence === null ? null : Math.round(coherence * 1000) / 1000,
+      pixelsDeCouronneTestes: total,
+      methode: methode, limite: limite
+    };
+  }
+
+  // ──────────────────────────────────────────────────────────────────────
+  // 13.6  ORCHESTRATION DU MODE LECTURE FIBRE
+  // ──────────────────────────────────────────────────────────────────────
+
+  /**
+   * État de validation des mesures propres à la v2. Même règle qu'en v1 : une mesure non
+   * validée est calculée et publiée dans `mesures`, mais jamais présentée comme un
+   * résultat. Rempli par le banc du 19/09/2026, voir catalogue-cheveux/ICE_V2_VALIDATION.md.
+   */
+  var VALIDATION_V2 = {
+    priseMacro:        { validee: true,  accord: '148 macros reelles : 70 acceptees, 78 refusees et toutes pour la bonne raison (flou, trop loin, trop pres). Largeurs de fil mesurees 3 a 8 px, mediane 4,8 : exactement ce que l optique prevoit pour un telephone en mode macro.' },
+    epaisseurFibre:    { validee: true,  accord: 'fils de largeur connue : +3 a +7 % de 3 a 48 px, refus en dessous de 2,5 px. Repetabilite sur 5 prises : ecart-type 0,9 px, soit 17 % de la valeur. En micrometres seulement si une reference d echelle est dans le cadre ET si l incertitude reste sous 30 %.' },
+    fourches:          { validee: true,  accord: 'cas de controle a nombre de fourches connu : 0, 2, 4 et 8 injectees, 0, 2, 4 et 8 retrouvees. Repetabilite 15 %. Aucune verite terrain sur macros reelles.' },
+    echelle:           { validee: true,  accord: 'carte bancaire et piece de 2 euros de taille connue : erreur de 0,8 a 1,7 % sur six cas. Sur 148 macros reelles, une reference n est presente que 20 fois : sans elle, aucune valeur en millimetres.' },
+    regulariteBord:    { validee: false, accord: 'aucune verite terrain : rien ne prouve que l irregularite du bord mesure un cheveu abime. Ne mesure PAS la cuticule (ecailles de 0,5 a 1 um, hors de portee).' },
+    speculaireTorche:  { validee: false, accord: 'sur paires fabriquees a part speculaire connue, l ORDRE est parfait (0 < 0,10 < 0,25 < 0,45 donnent 0,035 < 0,052 < 0,114 < 0,231) mais la valeur absolue est sous-estimee d un facteur 2 environ. Jamais teste sur de vraies paires torche allumee / eteinte : non publiable tant que ce test n est pas fait.' },
+    sequenceMouvement: { validee: false, accord: 'implementee et raisonnee, jamais testee sur de vraies sequences : aucune video de chevelure en mouvement libre de droits dans le corpus.' },
+    segmentationSansVisage: { validee: 'partiel', accord: '157 images sans visage : 155 segmentees (la v1 les refusait toutes). Sur les 27 annotees comme vraies chevelures : couleur 25/27, boucle 26/27, casse 27/27, frizz 22/27. MAIS la segmentation ne certifie pas qu elle regarde des cheveux : l indicateur construit pour cela atteint 43 % d exactitude sur 72 images annotees, il est renvoye a null.' },
+    densiteRaie:       { validee: false, accord: 'toujours pas demontree : 2 detections sur 27 chevelures sans visage. Le corpus libre de droits ne contient AUCUNE vraie photo de raie de pres (les recherches ne rendent que des epingles en bronze et des bustes) : le test est impossible, pas concluant.' }
+  };
+
+  /**
+   * runFibreScan(sources, options) -> Promise
+   *
+   * MODE LECTURE FIBRE. La personne approche le téléphone à quelques centimètres d'une
+   * mèche tenue devant un fond sombre, torche allumée. L'écran appelle evaluerPriseMacro
+   * en continu et déclenche quand c'est net ; ce scan-ci fait le reste.
+   *
+   * sources :
+   *   - une ImageData (la macro torche allumée), OU
+   *   - { macro, macroSansTorche, sequence: [{imageData, faceBox}] }
+   *
+   * options :
+   *   - reference : 'auto' (défaut), 'ongle', ou mmParPx fourni directement
+   *   - largeurOnglePx : requis si reference='ongle'
+   *   - niveauReference : niveau de la surface blanche de référence, pour normaliser
+   *     la part spéculaire (facultatif)
+   *
+   * Renvoie { version, mode:'lecture-fibre', ok, prise, echelle, mesures, limites, debug }.
+   * Si la prise n'est pas bonne : ok=false et le message dit quoi corriger.
+   */
+  async function runFibreScan(sources, options) {
+    options = options || {};
+    var t0 = maintenant();
+    var macro = sources && sources.macro ? sources.macro : sources;
+    var img = versImageData(macro, options.captureLargeur || 1600);
+    if (!img) {
+      return { version: VERSION, mode: 'lecture-fibre', ok: false, raison: 'image_illisible',
+               message: 'Image macro illisible.', mesures: null,
+               debug: { dureeMs: Math.round(maintenant() - t0) } };
+    }
+
+    var prise = evaluerPriseMacro(img, { largeurTravail: options.largeurTravail });
+    if (!prise.pret) {
+      return {
+        version: VERSION, mode: 'lecture-fibre', ok: false, raison: 'prise_macro_insuffisante',
+        message: prise.message, prise: sansContexte(prise), mesures: null,
+        limites: LIMITES_FIBRE,
+        debug: { dureeMs: Math.round(maintenant() - t0) }
+      };
+    }
+
+    var cm = prise.contexte;
+    var echelle = detecterReferenceEchelle(img, {
+      reference: options.reference, largeurOnglePx: options.largeurOnglePx,
+      mmParPx: options.mmParPx
+    });
+
+    var mesures = {
+      epaisseurFibre: mesureEpaisseurFibre(cm, echelle),
+      fourches: mesureFourches(cm),
+      regulariteBord: mesureRegulariteBord(cm)
+    };
+
+    var sansTorche = sources && sources.macroSansTorche
+      ? versImageData(sources.macroSansTorche, options.captureLargeur || 1600) : null;
+    mesures.speculaireTorche = sansTorche
+      ? separerSpeculaire(img, sansTorche, { niveauReference: options.niveauReference,
+                                             largeurTravail: options.largeurTravail })
+      : mesureNulle('pas_de_prise_sans_torche',
+          'double prise torche allumee / eteinte',
+          'demande deux images de la meme scene prises dans la meme seconde');
+
+    var sequence = null;
+    if (sources && sources.sequence && sources.sequence.length) {
+      sequence = analyserSequence(sources.sequence, { largeurTravail: options.largeurTravail });
+    }
+
+    return {
+      version: VERSION, mode: 'lecture-fibre', ok: true,
+      prise: sansContexte(prise),
+      echelle: echelle,
+      mesures: mesures,
+      sequence: sequence,
+      validation: VALIDATION_V2,
+      limites: LIMITES_FIBRE,
+      debug: {
+        dureeMs: Math.round(maintenant() - t0),
+        largeurTravail: cm.w,
+        avertissement: 'toutes les valeurs sont calculees depuis les pixels ; celles dont validation.validee est false ne doivent pas etre presentees comme un resultat'
+      }
+    };
+  }
+
+  function sansContexte(prise) {
+    var o = {};
+    for (var k in prise) if (Object.prototype.hasOwnProperty.call(prise, k) && k !== 'contexte') o[k] = prise[k];
+    return o;
+  }
+
+  var LIMITES_FIBRE = [
+    'Un telephone nu en mode macro donne 3 a 5 pixels par cheveu : l incertitude sur le diametre est de 14 a 21 micrometres. Une bonnette macro clipsee descend a 4 micrometres.',
+    'Sans carte bancaire ou piece de 2 euros dans le cadre, aucune valeur en millimetres n est publiee : la mesure reste en pixels.',
+    'Ce mode ne lit PAS la cuticule : les ecailles font 0,5 a 1 micrometre, il faut un microscope electronique. Il lit la regularite du bord du fil a 20-100 micrometres.',
+    'La part speculaire mesuree par double prise depend de la distance et de la puissance de la torche : elle est comparable a elle-meme dans le temps, pas entre deux personnes, sauf si une surface de reference est dans le cadre.'
+  ];
+
+  // ──────────────────────────────────────────────────────────────────────
+  // 13.7  SEGMENTATION SANS VISAGE : chercher les CHEVEUX, pas la tête
+  //
+  //   Retour de terrain : les meilleures images pour la densité à la raie et pour la
+  //   longueur sont le dessus du crâne, la nuque, le profil serré — et sur aucune il n'y
+  //   a de visage. La v1 les refusait toutes (`visage_non_detecte`). Ici la chevelure est
+  //   trouvée pour elle-même, par ce qui la caractérise vraiment : une TEXTURE ORIENTÉE.
+  //
+  //   Ce qui distingue des cheveux d'un mur, d'un pull ou d'une peau :
+  //     - énergie de gradient élevée (des fils, pas une surface lisse) ;
+  //     - ET orientation locale cohérente (les fils sont parallèles par paquets) ;
+  //     - ET continuité spatiale (une masse, pas des taches).
+  //   La peau est lisse : elle est écartée par l'énergie, pas par sa couleur — ce qui
+  //   évite l'erreur de la v1, où le test de peau générique éliminait les cheveux
+  //   châtains. Un pixel n'est écarté comme peau que s'il est à la fois de teinte peau
+  //   ET lisse.
+  //
+  //   Le visage, quand il est là, ne sert plus qu'à UNE chose : donner l'échelle.
+  //
+  //   CE QUE CETTE SEGMENTATION NE SAIT PAS FAIRE, ET C'EST MESURÉ : elle ne certifie
+  //   PAS que l'image contient des cheveux. Sur 72 images sans visage annotées, elle
+  //   accepte aussi bien une chevelure qu'un buste en marbre, une épingle en bronze, un
+  //   cordage tressé, un chat ou une façade de brique. L'indicateur de plausibilité
+  //   construit pour trancher a été mesuré : 43 % d'exactitude, il ne sert à rien et il
+  //   est renvoyé à null. Ce mode suppose donc que l'INTERFACE garantit le contenu
+  //   (« cadrez votre chevelure ») : c'est une hypothèse de protocole, pas une mesure.
+  // ──────────────────────────────────────────────────────────────────────
+
+  function segmenterMasseCheveux(imageData, options) {
+    options = options || {};
+    var p = options.prep || preparerImage(imageData, options.largeurTravail || 450);
+    var w = p.w, h = p.h, n = w * h;
+    var B = Math.max(4, Math.round(w / 90));
+    var nbx = Math.ceil(w / B), nby = Math.ceil(h / B);
+    var coh = new Float32Array(nbx * nby), ener = new Float32Array(nbx * nby);
+    var bL = new Float32Array(nbx * nby), ba = new Float32Array(nbx * nby), bb = new Float32Array(nbx * nby);
+
+    for (var by = 0; by < nby; by++) {
+      for (var bx = 0; bx < nbx; bx++) {
+        var Jxx = 0, Jyy = 0, Jxy = 0, sL = 0, sa = 0, sb = 0, c = 0;
+        for (var y = by * B; y < Math.min(h, (by + 1) * B); y++) {
+          for (var x = bx * B; x < Math.min(w, (bx + 1) * B); x++) {
+            var i = y * w + x;
+            var gx = p.gx[i], gy = p.gy[i];
+            Jxx += gx * gx; Jyy += gy * gy; Jxy += gx * gy;
+            sL += p.L[i]; sa += p.a[i]; sb += p.b[i]; c++;
+          }
+        }
+        var bi = by * nbx + bx;
+        if (!c) continue;
+        bL[bi] = sL / c; ba[bi] = sa / c; bb[bi] = sb / c;
+        var tr = Jxx + Jyy;
+        ener[bi] = tr / c;
+        coh[bi] = tr > 1e-6 ? Math.sqrt((Jxx - Jyy) * (Jxx - Jyy) + 4 * Jxy * Jxy) / tr : 0;
+      }
+    }
+
+    // Seuil d'énergie relatif à l'image : une image de chevelure n'a pas la même
+    // dynamique qu'une image de mur. On prend le percentile 55 des blocs.
+    var eners = Array.prototype.slice.call(ener);
+    var seuilE = percentile(eners, 55);
+    var candidats = new Uint8Array(nbx * nby), nCand = 0;
+    for (var k = 0; k < nbx * nby; k++) {
+      if (ener[k] > seuilE && ener[k] > 8 && coh[k] > 0.30) { candidats[k] = 1; nCand++; }
+    }
+    if (nCand < 6) {
+      return { ok: false, raison: 'aucune_texture_de_cheveux', origine: 'texture', prep: p,
+               note: 'aucune zone de l image n a la texture orientee d une chevelure : image lisse, floue, ou sujet absent.' };
+    }
+
+    // plus grande composante de blocs
+    var comps = composantes(candidats, nbx, nby, 4);
+    if (!comps.length) return { ok: false, raison: 'texture_eparpillee', origine: 'texture', prep: p,
+      note: 'la texture orientee est eparpillee en petites taches : ce n est pas une masse de cheveux.' };
+    comps.sort(function (A, Bq) { return Bq.length - A.length; });
+    var principale = comps[0];
+
+    // modèle chromatique de la masse
+    var mL = [], ma = [], mb = [];
+    for (var q = 0; q < principale.length; q++) {
+      mL.push(bL[principale[q]]); ma.push(ba[principale[q]]); mb.push(bb[principale[q]]);
+    }
+    var cL = median(mL), ca = median(ma), cb = median(mb);
+    var Lmin = (percentile(mL, 10) || cL) - 14, Lmax = (percentile(mL, 90) || cL) + 22;
+
+    // fond appris sur le bord de l'image
+    var fonds = modelesDeFond(p);
+
+    // croissance au niveau pixel depuis les blocs retenus
+    var masque = new Uint8Array(n), file = new Int32Array(n), tete = 0, queue = 0, total = 0;
+    var seuilTexture = 0.35 * (percentile(Array.prototype.slice.call(p.grad), 70) || 1);
+    function admissible(i) {
+      var dCheveu = distanceCheveu(p, i, Lmin, Lmax, ca, cb);
+      if (dCheveu > 26) return false;
+      // peau = teinte peau ET lisse. Un cheveu chatain est de teinte peau mais texture.
+      if ((p.peau[i] || estPeauLab(p.L[i], p.a[i], p.b[i])) && p.grad[i] < seuilTexture) return false;
+      for (var z = 0; z < fonds.length; z++) {
+        if (distanceLab(p, i, fonds[z].L, fonds[z].a, fonds[z].b) < dCheveu) return false;
+      }
+      return true;
+    }
+    for (var pb = 0; pb < principale.length; pb++) {
+      var bidx = principale[pb];
+      var byy = (bidx / nbx) | 0, bxx = bidx - byy * nbx;
+      for (var yy = byy * B; yy < Math.min(h, (byy + 1) * B); yy++) {
+        for (var xx = bxx * B; xx < Math.min(w, (bxx + 1) * B); xx++) {
+          var ii = yy * w + xx;
+          if (masque[ii] || !admissible(ii)) continue;
+          masque[ii] = 1; file[queue++] = ii; total++;
+        }
+      }
+    }
+    var maxPix = Math.round(0.85 * n);
+    while (tete < queue && total < maxPix) {
+      var cur = file[tete++];
+      var cy2 = (cur / w) | 0, cx2 = cur - cy2 * w;
+      for (var d = 0; d < 4; d++) {
+        var nx = cx2 + (d === 0 ? 1 : d === 1 ? -1 : 0);
+        var ny = cy2 + (d === 2 ? 1 : d === 3 ? -1 : 0);
+        if (nx < 0 || ny < 0 || nx >= w || ny >= h) continue;
+        var ni = ny * w + nx;
+        if (masque[ni] || !admissible(ni)) continue;
+        masque[ni] = 1; file[queue++] = ni; total++;
+      }
+    }
+
+    var couverture = total / n;
+    if (couverture < 0.03) {
+      return { ok: false, raison: 'masse_de_cheveux_trop_petite', origine: 'texture', prep: p,
+               couverture: couverture,
+               note: 'la masse de cheveux trouvee occupe moins de 3 % de l image : se rapprocher ou recadrer sur la chevelure.' };
+    }
+
+    var bbox = { x0: w, y0: h, x1: 0, y1: 0 }, contactBord = 0, bordTotal = 2 * (w + h);
+    for (var y3 = 0; y3 < h; y3++) {
+      for (var x3 = 0; x3 < w; x3++) {
+        if (!masque[y3 * w + x3]) continue;
+        if (x3 < bbox.x0) bbox.x0 = x3; if (x3 > bbox.x1) bbox.x1 = x3;
+        if (y3 < bbox.y0) bbox.y0 = y3; if (y3 > bbox.y1) bbox.y1 = y3;
+        if (x3 === 0 || y3 === 0 || x3 === w - 1 || y3 === h - 1) contactBord++;
+      }
+    }
+
+    var cohMoy = 0;
+    for (var cc = 0; cc < principale.length; cc++) cohMoy += coh[principale[cc]];
+    cohMoy /= principale.length;
+
+    // PLAUSIBILITÉ « CHEVEU ».
+    // Une texture orientée ne suffit pas : testée sur des images reelles sans visage, la
+    // segmentation acceptait une epingle en os, un dessin au trait, un vetement raye et
+    // une barriere de stade. Ce qui distingue vraiment une chevelure, c'est qu'elle est
+    // faite de NOMBREUX FILAMENTS FINS : a l'interieur du masque, les crêtes de contraste
+    // local font quelques pixels de large, pas trente. On mesure donc :
+    //   - la largeur mediane des crêtes internes (fine = cheveu, epaisse = objet plein) ;
+    //   - leur densite (longueur de crête par unite de surface) ;
+    //   - la diversite d'orientation des blocs (une chevelure tourne, un objet non).
+    var plaus = (function () {
+      var moyL = 0, cnt = 0;
+      for (var i0 = 0; i0 < n; i0++) if (masque[i0]) { moyL += p.L[i0]; cnt++; }
+      if (!cnt) return null;
+      moyL /= cnt;
+      // crêtes = pixels du masque nettement plus clairs que la moyenne locale
+      var cre = new Uint8Array(n), nc = 0;
+      for (var y4 = 2; y4 < h - 2; y4++) {
+        for (var x4 = 2; x4 < w - 2; x4++) {
+          var i4 = y4 * w + x4;
+          if (!masque[i4]) continue;
+          var voisin = (p.L[i4 - 2] + p.L[i4 + 2] + p.L[i4 - 2 * w] + p.L[i4 + 2 * w]) / 4;
+          if (p.L[i4] > voisin + 2.5) { cre[i4] = 1; nc++; }
+        }
+      }
+      if (nc < 200) return { largeurCretePx: null, densiteCretes: 0, diversiteOrientation: null, valeur: 0 };
+      var dInt = distanceInterne(cre, w, h);
+      var sq2 = squelettiser(cre, w, h);
+      var larg = [];
+      for (var k4 = 0; k4 < sq2.pixels.length; k4++) {
+        var lw2 = 2 * dInt[sq2.pixels[k4]];
+        if (lw2 >= 1 && lw2 <= 60) larg.push(lw2);
+      }
+      var lm = larg.length ? median(larg) : null;
+      var densite = sq2.pixels.length / Math.max(1, total);
+      // diversite d'orientation
+      var hist = new Float64Array(12), ht = 0;
+      for (var b5 = 0; b5 < principale.length; b5++) {
+        var bi5 = principale[b5];
+        if (coh[bi5] < 0.3) continue;
+        var by5 = (bi5 / nbx) | 0, bx5 = bi5 - by5 * nbx;
+        var Jxx5 = 0, Jyy5 = 0, Jxy5 = 0;
+        for (var y5 = by5 * B; y5 < Math.min(h, (by5 + 1) * B); y5++) {
+          for (var x5 = bx5 * B; x5 < Math.min(w, (bx5 + 1) * B); x5++) {
+            var i5 = y5 * w + x5;
+            Jxx5 += p.gx[i5] * p.gx[i5]; Jyy5 += p.gy[i5] * p.gy[i5]; Jxy5 += p.gx[i5] * p.gy[i5];
+          }
+        }
+        var th = 0.5 * Math.atan2(2 * Jxy5, Jxx5 - Jyy5);
+        var bin5 = Math.floor((((th % Math.PI) + Math.PI) % Math.PI) / Math.PI * 12) % 12;
+        hist[bin5] += coh[bi5]; ht += coh[bi5];
+      }
+      var ent = 0;
+      for (var e5 = 0; e5 < 12; e5++) { if (hist[e5] <= 0) continue; var pr5 = hist[e5] / ht; ent -= pr5 * Math.log(pr5); }
+      var entN = clamp(0, 1, ent / Math.log(12));
+      var nFin = lm === null ? 0 : clamp(0, 1, (9 - lm) / 6);        // <=3 px : tres fin
+      var nDens = clamp(0, 1, densite / 0.06);
+      var nDiv = clamp(0, 1, (entN - 0.35) / 0.45);
+      // RÉSULTAT DE VALIDATION, ET IL EST NÉGATIF.
+      // Sur 72 images sans visage annotées à la main (27 vraies chevelures, 45 autres
+      // choses : bustes en marbre, épingles en bronze, cordages tressés, chats, façades,
+      // dentelle), cet indicateur n'a AUCUN pouvoir de séparation : sa médiane vaut 1,00
+      // dans les deux groupes, et le meilleur seuil possible donne 43 % d'exactitude,
+      // c'est-à-dire moins bien que répondre toujours « ce n'est pas une chevelure ».
+      // On garde donc les trois sous-indicateurs (ce sont de vraies mesures) mais la
+      // conclusion est NULL : le moteur ne sait pas certifier qu'il regarde des cheveux.
+      return {
+        largeurCretePx: lm === null ? null : Math.round(lm * 100) / 100,
+        densiteCretes: Math.round(densite * 10000) / 10000,
+        diversiteOrientation: Math.round(entN * 1000) / 1000,
+        indiceBrut: Math.round(Math.pow(nFin * nDens * nDiv, 1 / 3) * 1000) / 1000,
+        valeur: null,
+        raison: 'indicateur mesure sur 72 images annotees : 43 % d exactitude, il ne separe pas une chevelure d un buste en marbre ou d un cordage. Ne pas l utiliser.'
+      };
+    })();
+
+    var confiance = clamp(0, 1,
+      clamp(0, 1, (cohMoy - 0.30) / 0.35) *
+      clamp(0.3, 1, 1 - contactBord / bordTotal) *
+      clamp(0.3, 1, couverture / 0.10));
+
+    return {
+      ok: true, origine: 'texture',
+      masque: masque, w: w, h: h, prep: p, bbox: bbox,
+      taille: total, couverture: couverture,
+      modele: { L: cL, a: ca, b: cb, Lmin: Lmin, Lmax: Lmax, seuil: 26, gradGraine: percentile(Array.prototype.slice.call(p.grad), 70) },
+      graine: { partPeau: 0, partFond: 0, pixels: principale.length * B * B },
+      contactBord: contactBord / bordTotal,
+      ratioTexture: 1, purete: 1,
+      coherenceMoyenne: Math.round(cohMoy * 1000) / 1000,
+      plausibiliteCheveux: plaus,
+      cadrage: null,                    // pas de visage : pas d'echelle
+      alertes: (cohMoy < 0.36 ? ['texture_peu_orientee'] : []),
+      confiance: Math.round(confiance * 100) / 100,
+      geo: null
+    };
+  }
+
+  /** Jusqu'à trois couleurs dominantes du bord de l'image (modèle de fond). */
+  function modelesDeFond(p) {
+    var w = p.w, h = p.h, ep = Math.max(2, Math.round(0.03 * Math.min(w, h)));
+    var bins = {}, tot = 0;
+    for (var y = 0; y < h; y++) {
+      for (var x = 0; x < w; x++) {
+        if (y >= ep && y < h - ep && x >= ep && x < w - ep) { x = w - ep - 1; continue; }
+        var i = y * w + x;
+        var kb = (Math.round(p.L[i] / 8) * 1000000) + (Math.round((p.a[i] + 128) / 8) * 1000) + Math.round((p.b[i] + 128) / 8);
+        (bins[kb] = bins[kb] || { n: 0, L: 0, a: 0, b: 0 });
+        bins[kb].n++; bins[kb].L += p.L[i]; bins[kb].a += p.a[i]; bins[kb].b += p.b[i];
+        tot++;
+      }
+    }
+    var liste = [];
+    for (var kk in bins) if (Object.prototype.hasOwnProperty.call(bins, kk)) liste.push(bins[kk]);
+    liste.sort(function (A, Bq) { return Bq.n - A.n; });
+    var out = [];
+    for (var z = 0; z < Math.min(3, liste.length); z++) {
+      if (liste[z].n < 0.08 * tot) break;
+      out.push({ L: liste[z].L / liste[z].n, a: liste[z].a / liste[z].n, b: liste[z].b / liste[z].n });
+    }
+    return out;
+  }
+
+  // ──────────────────────────────────────────────────────────────────────
+  // 13.8  LECTURE MULTI-POSES
+  //
+  //   L'interface guide plusieurs prises. Chaque mesure est alors lue LÀ OÙ ELLE EST LA
+  //   PLUS FIABLE, et le résultat dit toujours de quelle pose elle vient.
+  //
+  //   Table de préférence (l'ordre compte, on prend la première pose qui donne une
+  //   valeur non nulle) :
+  //     densiteRaie     : raie > dessus > face
+  //     couleur         : face > dessus > profil
+  //     boucle          : profil > face > dessus
+  //     frizz           : profil > face
+  //     longueur        : profil > face
+  //     epaisseurFibre  : macro seulement
+  //     fourches        : macro seulement
+  //     regulariteBord  : macro seulement
+  //     racinesGrasses  : raie > dessus > face
+  //     secheresse      : face > profil
+  //     cassePointes    : profil > face
+  // ──────────────────────────────────────────────────────────────────────
+
+  var POSES_CONNUES = ['face', 'gauche', 'droite', 'dessus', 'nuque', 'raie', 'macro'];
+
+  var PREFERENCE_POSE = {
+    densiteRaie:    ['raie', 'dessus', 'face'],
+    couleur:        ['face', 'dessus', 'gauche', 'droite', 'nuque'],
+    boucle:         ['gauche', 'droite', 'nuque', 'face', 'dessus'],
+    frizz:          ['gauche', 'droite', 'face'],
+    longueur:       ['gauche', 'droite', 'nuque', 'face'],
+    racinesGrasses: ['raie', 'dessus', 'face'],
+    secheresse:     ['face', 'gauche', 'droite'],
+    cassePointes:   ['gauche', 'droite', 'nuque', 'face'],
+    brillance:      ['face', 'gauche', 'droite'],
+    epaisseurFibre: ['macro'],
+    fourches:       ['macro'],
+    regulariteBord: ['macro'],
+    speculaireTorche: ['macro']
+  };
+
+  /**
+   * LONGUEUR APPARENTE — hauteur de la masse de cheveux.
+   *
+   * Avec un visage dans l'image, elle est exprimée en HAUTEURS DE VISAGE, ce qui est une
+   * échelle réelle (un visage adulte fait 18 à 23 cm du menton au sommet du crâne) ;
+   * sans visage, elle reste un rapport à la largeur de la masse et n'est comparable
+   * qu'à elle-même.
+   *
+   * LIMITE : une chevelure qui sort du cadre est tronquée, et le moteur ne peut pas le
+   * savoir. Si la masse touche le bord bas de l'image, la mesure est refusée.
+   */
+  function mesureLongueur(ctx) {
+    var methode = 'hauteur de la masse de cheveux rapportee a la hauteur du visage quand il est present, sinon a la largeur de la masse';
+    var limite = 'refusee si la chevelure touche le bord bas de l image (coupee par le cadre) ; ne distingue pas une queue de cheval de cheveux laches';
+    var bb = ctx.bbox, w = ctx.w, h = ctx.h;
+    var toucheBas = false;
+    for (var x = 0; x < w; x++) if (ctx.m[(h - 1) * w + x]) { toucheBas = true; break; }
+    if (toucheBas) return mesureNulle('chevelure_coupee_par_le_bas_du_cadre', methode, limite);
+    var hauteur = bb.y1 - bb.y0, largeur = Math.max(1, bb.x1 - bb.x0);
+    var geo = ctx.seg.geo;
+    if (geo && geo.box && geo.box.height) {
+      var hv = geo.box.height / ctx.p.pas;
+      return mesure(Math.round(hauteur / hv * 100) / 100, 'hauteurs de visage', methode, limite, 'faible', {
+        hauteurMassePx: hauteur, hauteurVisagePx: Math.round(hv),
+        note: 'un visage adulte fait 18 a 23 cm : multiplier par cette plage pour un ordre de grandeur en centimetres'
+      });
+    }
+    return mesure(Math.round(hauteur / largeur * 100) / 100, 'rapport hauteur/largeur de la masse (relatif)',
+      methode, limite, 'faible', { hauteurMassePx: hauteur, largeurMassePx: largeur,
+        note: 'aucun visage dans l image : aucune echelle, valeur relative uniquement' });
+  }
+
+  /**
+   * lectureMultiPoses(poses, options) -> Promise
+   *
+   * poses : [{ pose, imageData, faceBox, landmarks, macroSansTorche, masqueExterne }]
+   *   masqueExterne : { data, largeur, hauteur, seuil } du masque de CETTE pose ;
+   *   a defaut, options.masqueExterne s'applique a toutes.
+   *   pose ∈ face | gauche | droite | dessus | nuque | raie | macro
+   *
+   * Renvoie une lecture consolidée : pour chaque mesure, la valeur retenue et LA POSE
+   * D'OÙ ELLE VIENT, plus le détail par pose.
+   */
+  async function lectureMultiPoses(poses, options) {
+    options = options || {};
+    var t0 = maintenant();
+    if (!poses || !poses.length) {
+      return { version: VERSION, mode: 'multi-poses', ok: false, raison: 'aucune_pose_fournie' };
+    }
+
+    var parPose = {}, echecs = [];
+    for (var i = 0; i < poses.length; i++) {
+      var entree = poses[i];
+      var nom = entree.pose || 'face';
+      if (POSES_CONNUES.indexOf(nom) === -1) { echecs.push({ pose: nom, raison: 'pose_inconnue' }); continue; }
+      var img = versImageData(entree.imageData || entree.image, options.captureLargeur || 1400);
+      if (!img) { echecs.push({ pose: nom, raison: 'image_illisible' }); continue; }
+
+      if (nom === 'macro') {
+        var rf = await runFibreScan({ macro: img, macroSansTorche: entree.macroSansTorche },
+                                    { largeurTravail: options.largeurTravailMacro });
+        parPose[nom] = { type: 'fibre', ok: rf.ok, resultat: rf };
+        if (!rf.ok) echecs.push({ pose: nom, raison: rf.raison, message: rf.message });
+        continue;
+      }
+      var geo = entree.landmarks || entree.faceBox || null;
+      // Le masque de la pose passe avant celui des options : chaque prise a le sien,
+      // celui de l'image qu'elle a envoyee et d'aucune autre.
+      var r = analyseFrame(img, geo, { largeurTravail: options.largeurTravail,
+                                       masqueExterne: entree.masqueExterne || options.masqueExterne || null });
+      if (!r.ok) { echecs.push({ pose: nom, raison: r.raison, message: r.note }); parPose[nom] = { type: 'face', ok: false, resultat: r }; continue; }
+      r.mesures.longueur = mesureLongueur(r.contexte);
+      parPose[nom] = {
+        type: 'face', ok: true, resultat: r,
+        origineMasque: r.segmentation.origine || 'visage',
+        echelleVisage: !!(r.segmentation.geo && r.segmentation.geo.box)
+      };
+    }
+
+    // consolidation
+    var consolidees = {}, manquantes = [];
+    for (var cle in PREFERENCE_POSE) {
+      if (!Object.prototype.hasOwnProperty.call(PREFERENCE_POSE, cle)) continue;
+      var ordre = PREFERENCE_POSE[cle], retenu = null;
+      for (var o = 0; o < ordre.length; o++) {
+        var pp = parPose[ordre[o]];
+        if (!pp || !pp.ok) continue;
+        var m = pp.type === 'fibre' ? (pp.resultat.mesures || {})[cle] : (pp.resultat.mesures || {})[cle];
+        if (m && m.valeur !== null && m.valeur !== undefined) {
+          retenu = { valeur: m.valeur, unite: m.unite, fiabilite: m.fiabilite, poseUtilisee: ordre[o],
+                     detail: m };
+          break;
+        }
+      }
+      if (retenu) consolidees[cle] = retenu;
+      else manquantes.push({ mesure: cle, raison: 'aucune pose ne l a donnee',
+                             posesEssayees: ordre.filter(function (x) { return !!parPose[x]; }) });
+    }
+
+    var posesOk = Object.keys(parPose).filter(function (k) { return parPose[k].ok; });
+    return {
+      version: VERSION, mode: 'multi-poses', ok: posesOk.length > 0,
+      posesRecues: poses.map(function (x) { return x.pose; }),
+      posesExploitables: posesOk,
+      echecs: echecs,
+      mesures: consolidees,
+      manquantes: manquantes,
+      detailParPose: parPose,
+      preference: PREFERENCE_POSE,
+      limites: [
+        'Chaque mesure vient d une seule pose, celle jugee la plus fiable pour elle : le resultat n est pas une moyenne.',
+        'Sans visage dans aucune pose, aucune mesure n a d echelle reelle : longueur et densite restent relatives.',
+        'Le moteur ne verifie pas que les poses montrent la meme personne.'
+      ],
+      debug: { dureeMs: Math.round(maintenant() - t0) }
+    };
+  }
+
+  // ════════════════════════════════════════════════════════════════════════
   // 12. API PUBLIQUE
   // ════════════════════════════════════════════════════════════════════════
 
   var API = {
     version: VERSION,
-    // entrées principales
-    runHairScan: runHairScan,
+    // entrées principales — deux modes
+    runHairScan: runHairScan,          // lecture rapide : photo de face
+    runFibreScan: runFibreScan,        // lecture experte : macro guidee sur une meche
+    lectureMultiPoses: lectureMultiPoses,   // lecture consolidee sur plusieurs poses
+    segmenterMasseCheveux: segmenterMasseCheveux,  // chevelure trouvee SANS visage
+    mesureLongueur: mesureLongueur,
+    POSES_CONNUES: POSES_CONNUES, PREFERENCE_POSE: PREFERENCE_POSE,
+    evaluerPriseMacro: evaluerPriseMacro,
+    detecterReferenceEchelle: detecterReferenceEchelle,
+    separerSpeculaire: separerSpeculaire,
+    analyserSequence: analyserSequence,
+    construireContexteMacro: construireContexteMacro,
+    mesureEpaisseurFibre: mesureEpaisseurFibre,
+    mesureFourches: mesureFourches,
+    mesureRegulariteBord: mesureRegulariteBord,
+    seuilOtsu: seuilOtsu, squelettiser: squelettiser, distanceInterne: distanceInterne,
+    enveloppeConvexe: enveloppeConvexe, rectangleMinimal: rectangleMinimal,
+    VALIDATION_V2: VALIDATION_V2, LIMITES_FIBRE: LIMITES_FIBRE, MACRO: MACRO,
     analyseFrame: analyseFrame,
     segmentCheveux: segmentCheveux,
+    segmentDepuisMasqueExterne: segmentDepuisMasqueExterne,   // masque fourni (MediaPipe hair_segmenter)
     composerRoutine: composerRoutine,
     // questionnaire
     QUESTIONS: QUESTIONS,
+    QUESTIONS_FACULTATIVES: QUESTIONS_FACULTATIVES,
     JEU_ESSAI_PRODUITS: JEU_ESSAI_PRODUITS,
     ETAPES: ETAPES,
     // briques exposées pour audit et tests
@@ -2839,7 +5031,7 @@
     mesureRacinesGrasses: mesureRacinesGrasses, mesureSecheresse: mesureSecheresse,
     mesureCassePointes: mesureCassePointes,
     netteteMasque: netteteMasque, peauIci: peauIci,
-    rgbToLab: rgbToLab, labToLCh: labToLCh, estPeau: estPeau,
+    rgbToLab: rgbToLab, labToLCh: labToLCh, estPeau: estPeau, estPeauLab: estPeauLab,
     distanceCheveu: distanceCheveu,
     dilater: dilater, distanceAuMasque: distanceAuMasque, zhangSuen: zhangSuen, fft: fft,
     percentile: percentile, median: median, ecartType: std, mad: mad, clamp: clamp,

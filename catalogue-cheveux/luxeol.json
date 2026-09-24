@@ -13,8 +13,8 @@
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0953/0612/1480/files/Photo1_apres-shampooing-volumateur_91748bed-53f4-49d1-a8c3-9c12abe4923d.jpg?width=600",
    "image_local": "public/scan/products-cheveux/luxeol/apres-shampooing-volume.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
     "fins"
    ],
@@ -27,9 +27,14 @@
    "ingredients": "Aqua, Prunus Amygdalus Dulcis Oil, Cetearyl Alcohol, Glycerin, Cetearyl Betainate Mesylate, Distearoylethyl Dimonium Chloride, Sodium Lactate, Hydrolyzed Vegetable Protein, Tilia Tomentosa Bud Extract, Caesalpinia Spinosa Gum, Parfum, Lactic Acid, Sodium Benzoate, Potassium Sorbate, Citric Acid",
    "description": "Découvrez l’Après-Shampooing Volume, à la texture crémeuse et spécialement formulé pour démêler les cheveux sans les alourdir. Associé au Shampooing et au Spray Volume, il forme un protocole complet qui agit de la racine jusqu’aux pointes pour révéler une chevelure visiblement plus volumineuse. Cliniquement prouvé, ce protocole permet de doubler le volume des cheveux, avec un effet immédiat et longue durée, et fonctionne dans 100 % des cas testés*. Testé et approuvé, cet après-shampooing associé",
    "claims": [
-    "volume"
+    "volume",
+    "texturisant",
+    "brillance",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/apres-shampooing-volume.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--shampooing-volume",
@@ -53,12 +58,14 @@
     "urée"
    ],
    "ingredients": "Aqua, Sodium Chloride, Cocamidopropyl Betaine, Sodium Methyl Cocoyl Taurate, Glycerin, Lauryl Glucoside, Hydrolyzed Vegetable Protein, Tilia Tomentosa Bud Extract, Avena Sativa Kernel Extract, Hydrolyzed Sweet Almond Protein, Coconut Acid, Parfum, Citric Acid, Sodium Benzoate, Potassium Sorbate",
-   "description": "Découvrez le Shampooing Volume, spécialement formulé pour apporter du volume sans alourdir les cheveux. Sa mousse agréable est facile à rincer. Utilisé dans le cadre du Protocole Volume, composé du shampooing, de l’après-shampooing et du spray Volume, il contribue à révéler des cheveux visiblement plus volumineux, plus légers et éclatants de santé. Cliniquement prouvé et testé & approuvé, il permet de doubler le volume des cheveux, avec un effet immédiat et longue durée*. Les cheveux paraissent ",
+   "description": "Découvrez le Shampooing Volume, spécialement formulé pour apporter du volume sans alourdir les cheveux. Sa mousse agréable est facile à rincer. Utilisé dans le cadre du Protocole Volume, composé du shampooing, de l’après-shampooing et du spray Volume, il contribue à révéler des cheveux visiblement plus volumineux, plus légers et éclatants de santé. Cliniquement prouvé et testé & approuvé, il permet de doubler le volume des cheveux, avec un effet immédiat et longue durée*. Les cheveux paraissent",
    "claims": [
-    "brillance",
-    "volume"
+    "volume",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/shampooing-volume.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "luxeol--shampooing-fortifiant",
@@ -74,7 +81,8 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "boucles"
+    "boucles",
+    "abimes"
    ],
    "actifs": [
     "panthénol",
@@ -86,10 +94,14 @@
    "ingredients": "Aqua, Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Betaine, Glycerin, Inulin, Coco-Glucoside, Sodium Methyl Oleoyl Taurate, Hydrolyzed Wheat Protein, Hydrolyzed Soy Protein, Niacinamide, Panthenol, Parfum, Guar Hydroxypropyltrimonium Chloride",
    "description": "Découvrez le Shampooing Fortifiant, issu du Protocole Fortifiant spécialement formulé pour renforcer la fibre capillaire et agir comme un bouclier contre la casse liée au brossage. Grâce à une double étude ex vivo et in vivo, ce protocole a démontré des cheveux jusqu’à 64x plus résistants et une action anti-casse prouvée.* Testé et approuvé, il aide à réduire la casse des cheveux, protège la fibre des agressions extérieures et laisse les cheveux doux, souples et hydratés. Sa mousse délicate nett",
    "claims": [
-    "hydratant",
-    "fortifiant"
+    "hydratation",
+    "reparation",
+    "fortifiant",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/shampooing-fortifiant.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--apres-shampooing-fortifiant",
@@ -102,9 +114,11 @@
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0953/0612/1480/files/Photo1_apres-shampooing-fortifiant.jpg?width=600",
    "image_local": "public/scan/products-cheveux/luxeol/apres-shampooing-fortifiant.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [],
+   "categorie": "apres-shampooing",
+   "etape": 2,
+   "cheveux_cibles": [
+    "abimes"
+   ],
    "actifs": [
     "panthénol",
     "niacinamide",
@@ -118,9 +132,14 @@
    "ingredients": "Aqua, Glycerin, Brassicamidopropyl Dimethylamine, Cetearyl Alcohol, Behenyl Alcohol, Simmondsia Chinensis Seed Oil, Hydrolyzed Wheat Protein, Hydrolyzed Soy Protein, Niacinamide, Panthenol, Parfum, Caesalpinia Spinosa Gum, Lactic Acid, Guar Hydroxypropyltrimonium Chloride, Sodium Lactate, Tocopherol, Gluconolactone, Calcium Gluconate, Sodium Benzoate, Potassium Sorbate",
    "description": "Découvrez l’Après-Shampooing Fortifiant, issu du Protocole Fortifiant spécialement formulé pour renforcer la fibre capillaire et protéger les cheveux des agressions extérieures. Grâce à une double étude ex vivo & in vivo, ce protocole aide à rendre les cheveux plus résistants et à réduire la casse liée au brossage. Les cheveux paraissent plus forts, plus solides et visiblement plus sains. La texture crémeuse et agréable de l'après-shampooing démêle instantanément les cheveux et améliore leur gli",
    "claims": [
-    "fortifiant"
+    "reparation",
+    "fortifiant",
+    "texturisant",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/apres-shampooing-fortifiant.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--serum-fortifiant",
@@ -136,7 +155,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "boucles"
+    "boucles",
+    "abimes"
    ],
    "actifs": [
     "protéines de blé",
@@ -146,31 +166,13 @@
    "ingredients": "Aqua, Glycerin, Diglycerin, Caesalpinia Spinosa Gum, Hydrolyzed Wheat Protein, Hydrolyzed Soy Protein",
    "description": "Découvrez le Sérum Fortifiant issu du Protocole Fortifiant, spécialement formulé pour renforcer la fibre capillaire et agir comme un bouclier contre les agressions extérieures. Grâce à une double étude ex vivo & in vivo, ce protocole a démontré des cheveux jusqu’à 64x plus résistants* et une réduction de la casse des cheveux*. La fibre paraît plus forte, plus solide et mieux protégée au quotidien. Le sérum Fortifiant gaine les cheveux sans les graisser ni les alourdir. Véritable soin capillaire,",
    "claims": [
-    "fortifiant"
+    "reparation",
+    "fortifiant",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "luxeol--trousse-summer-boucles",
-   "name": "Trousse Summer Boucles",
-   "brand": "luxeol",
-   "brand_name": "Luxéol",
-   "url": "https://luxeol.com/products/trousse-summer-boucles",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 17.9,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0953/0612/1480/files/Photo1_trousse-boucles.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/luxeol/trousse-summer-boucles.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [
-    "boucles"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Découvrez la Trousse Summer Boucles, l’accessoire idéal pour transporter et protéger tous vos essentiels capillaires avec style. Sa couleur rose et son format pratique en font la trousse parfaite pour accompagner votre routine cheveux tout l’été. Pensée pour accueillir vos soins et accessoires favoris, elle permet de garder vos indispensables beauté toujours à portée de main, à la maison comme en voyage. Son design matelassé apporte une touche tendance tout en protégeant efficacement vos produit",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/serum-fortifiant.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--spray-refresh-boucles",
@@ -186,6 +188,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "fins",
     "boucles"
    ],
    "actifs": [
@@ -195,9 +198,14 @@
    "ingredients": "Aqua, Erythritol, Polysorbate 20, VP/VA Copolymer, Xylitylglucoside, Anhydroxylitol, Maltitol, Xylitol, Persea Gratissima Oil, Pelvetia Canaliculata Extract, Glycerin, Parfum, Xanthan Gum, Sodium Citrate, Levulinic Acid, Sodium Levulinate, Sodium Benzoate, Potassium Sorbate",
    "description": "Découvrez le Spray Refresh Boucles*, spécialement formulé pour rafraîchir et redessiner les boucles, sans alourdir ni laisser de résidus. Sa formule à la texture légère et non collante ravive et redessine les boucles et leur apporte de la souplesse en quelques gestes. Elle hydrate la fibre capillaire sans l’assécher et limite l’effet mousseux. Véritable allié du quotidien, il permet de redonner fraîcheur et redessiner les boucles, tout en faisant gagner du temps dans la routine capillaire. Les c",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "definition-boucles",
+    "texturisant",
+    "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/spray-refresh-boucles.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--mousse-boucles",
@@ -226,13 +234,16 @@
    "ingredients": "Aqua, Caprylyl/Capryl Glucoside, Erythritol, Polysorbate 20, Disodium Cocoyl Glutamate, Inulin, Propanediol, Xylitylglucoside, Anhydroxylitol, Maltitol, Xylitol, Persea Gratissima Oil, Pelvetia Canaliculata Extract, Sodium Cocoyl Glutamate, Glycerin, Xanthan Gum, Parfum, Sodium Citrate, Citric Acid, Potassium Sorbate, Sodium Levulinate, Sodium Benzoate, Levulinic Acid",
    "description": "Découvrez la Mousse Boucles, spécialement conçue pour sublimer la forme naturelle des boucles tout en apportant volume et maintien. Sa formule agréable se répartit facilement sur les longueurs et gaine les boucles sans effet carton. Elle discipline les cheveux, sculpte les boucles et aide à leur donner un aspect rebondi et défini. Cette mousse coiffante hydrate et nourrit la fibre capillaire tout en apportant du volume et en sublimant la forme naturelle des boucles. Les cheveux sont plus doux, s",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "reparateur",
-    "volume",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "anti-frisottis",
+    "definition-boucles",
+    "volume"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/mousse-boucles.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--huile-boucles",
@@ -249,7 +260,6 @@
    "etape": 3,
    "cheveux_cibles": [
     "secs",
-    "epais",
     "boucles",
     "abimes"
    ],
@@ -263,12 +273,16 @@
    "ingredients": "C15-19 Alkane, Caprylic/Capric Triglyceride, Cocos Nucifera Oil, Coco-Caprylate/Caprate, Persea Gratissima Oil, Prunus Amygdalus Dulcis Oil, Simmondsia Chinensis Seed Oil, Ricinus Communis Seed Oil, Parfum, Tocopherol",
    "description": "Découvrez l’Huile Boucles, spécialement formulée pour nourrir la fibre capillaire et sublimer les boucles en gardant les cheveux légers. Elle se répartit facilement sur les longueurs et enveloppe les cheveux pour leur apporter douceur, souplesse et brillance. Elle offre un effet gainant visible sur la fibre, aide à discipliner les boucles sans les figer et contribue à réduire les frisottis. Les cheveux sont nourris, plus doux au toucher, souples et légers. Les boucles retrouvent de l’éclat et so",
    "claims": [
-    "nourrissant",
-    "reparateur",
-    "brillance",
-    "lissant"
+    "nutrition",
+    "reparation",
+    "anti-frisottis",
+    "definition-boucles",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/huile-boucles.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--apres-shampooing-boucles",
@@ -281,10 +295,11 @@
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0953/0612/1480/files/Photo1_apres-shampooing-boucles.jpg?width=600",
    "image_local": "public/scan/products-cheveux/luxeol/apres-shampooing-boucles.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
     "secs",
+    "fins",
     "boucles"
    ],
    "actifs": [
@@ -296,11 +311,18 @@
    "ingredients": "Aqua, Erythritol, Behenyl Alcohol, Glycerin, Cetearyl Alcohol, Cetearyl Betainate Mesylate, Helianthus Annuus Seed Oil, Sodium Lactate, Persea Gratissima Oil, Xylitylglucoside, Anhydroxylitol, Maltitol, Xylitol, Hydrolyzed Silk, Pelvetia Canaliculata Extract, Parfum, Lactic Acid, Caesalpinia Spinosa Gum, Levulinic Acid, Sodium Benzoate, Sodium Levulinate, Sodium Citrate",
    "description": "Découvrez l’Après-Shampooing Boucles, spécialement formulé pour démêler les cheveux tout en réduisant les nœuds et en prenant soin des longueurs. Sa formule à la texture riche facilite le coiffage des longueurs sans alourdir les cheveux. Elle apporte douceur et souplesse à la fibre capillaire, tout en aidant à maintenir des boucles hydratées, nourries et disciplinées. Les cheveux sont plus doux au toucher, plus brillants et plus faciles à coiffer. Testé et approuvé, il démêle efficacement les ch",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "brillance"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant",
+    "brillance",
+    "demelant",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/apres-shampooing-boucles.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--masque-frises-crepus",
@@ -317,6 +339,7 @@
    "etape": 2,
    "cheveux_cibles": [
     "secs",
+    "fins",
     "boucles",
     "crepus"
    ],
@@ -332,10 +355,15 @@
    "ingredients": "Aqua, Brassica Alcohol, Cocos Nucifera Oil, Brassicamidopropyl Dimethylamine, Butyrospermum Parkii Butter, Glycerin, Lactic Acid, C15-19 Alkane, Crambe Abyssinica Seed Oil, Hydrogenated Castor Oil, Arginine, Mangifera Indica Seed Butter, Panthenol, Parfum, Sodium Benzoate, Potassium Sorbate",
    "description": "Découvrez le Masque Frisés Crépus, spécialement formulé pour les boucles de type 4A à 4C, afin de nourrir intensément et démêler la fibre capillaire. Sa texture riche et crémeuse enveloppe les longueurs et les pointes pour hydrater et nourrir intensément, sans alourdir les cheveux. Elle aide à démêler, rend les cheveux plus doux au toucher et améliore leur souplesse pour des boucles plus belles et mieux définies. Véritable soin capillaire, il prend soin des boucles, les gaine et les sublime, tou",
    "claims": [
-    "hydratant",
-    "nourrissant"
+    "hydratation",
+    "nutrition",
+    "definition-boucles",
+    "texturisant",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/masque-frises-crepus.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--creme-de-soin-frises-crepus",
@@ -352,7 +380,7 @@
    "etape": 3,
    "cheveux_cibles": [
     "secs",
-    "epais",
+    "fins",
     "boucles",
     "crepus"
    ],
@@ -368,11 +396,15 @@
    "ingredients": "Aqua, Cetearyl Alcohol, Glycerin, C15-19 Alkane, Cocos Nucifera Oil, Cetearyl Betainate Mesylate, Sodium Lactate, Arginine, Butyrospermum Parkii Butter, Mangifera Indica Seed Butter, Persea Gratissima Oil, Crambe Abyssinica Seed Oil, Panthenol, Caesalpinia Spinosa Gum, Parfum, Lactic Acid, Sodium Benzoate, Levulinic Acid, Sodium Levulinate",
    "description": "Découvrez la Crème de Soin Frisés Crépus, spécialement formulée pour nourrir intensément la fibre capillaire tout en dessinant et gainant les boucles de type 4A à 4C. Sa formule prend soin des longueurs, hydrate et assouplit la fibre sans alourdir. Elle aide à définir les boucles, à les rendre plus souples et plus rebondies, tout en réduisant les frisottis et en facilitant le coiffage. Véritable soin capillaire, les cheveux paraissent plus doux, plus sains et plus beaux. Les boucles sont définie",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/creme-de-soin-frises-crepus.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--apres-shampooing-frises-crepus",
@@ -385,9 +417,12 @@
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0953/0612/1480/files/Photo1_apres-shampooing-frises-2.jpg?width=600",
    "image_local": "public/scan/products-cheveux/luxeol/apres-shampooing-frises-crepus.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
+    "secs",
+    "fins",
+    "crepus",
     "abimes"
    ],
    "actifs": [
@@ -402,10 +437,16 @@
    "ingredients": "Aqua, Behenyl Alcohol, Glycerin, Cetearyl Alcohol, Cetearyl Betainate Mesylate, Cocos Nucifera Oil, Helianthus Annuus Seed Oil, Sodium Lactate, Butyrospermum Parkii Butter, Crambe Abyssinica Seed Oil, Mangifera Indica Seed Butter, Arginine, Panthenol, Caesalpinia Spinosa Gum, Parfum, Lactic Acid, Levulinic Acid, Sodium Benzoate, Sodium Levulinate",
    "description": "Découvrez l’Après-Shampooing Frisés Crépus, spécialement formulé pour hydrater, démêler en douceur et faciliter le coiffage sans alourdir les cheveux. Sa formule à la texture agréable se répartit facilement sur la fibre capillaire, démêle instantanément et aide à réduire les nœuds*. Elle protège les cheveux de la casse, tout en laissant les longueurs plus souples, plus douces et visiblement plus belles après application. Testé et approuvé, cet après-shampooing facilite le coiffage, hydrate les c",
    "claims": [
-    "hydratant",
-    "reparateur"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "texturisant",
+    "demelant",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/apres-shampooing-frises-crepus.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--shampooing-frises-crepus",
@@ -421,7 +462,9 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "boucles"
+    "secs",
+    "boucles",
+    "crepus"
    ],
    "actifs": [
     "huile de coco",
@@ -433,9 +476,14 @@
    "ingredients": "Aqua, Sodium Cocoyl Isethionate, Glycerin, Sodium Methyl Cocoyl Taurate, Cocamidopropyl Betaine, Erythritol, Glyceryl Stearate Citrate, Decyl Glucoside, Arginine, Behenyl Alcohol, Bentonite, Cocos Nucifera Oil, Butyrospermum Parkii Butter, Crambe Abyssinica Seed Oil, Mangifera Indica Seed Butter, Acacia Senegal Gum, Guar Hydroxypropyltrimonium Chloride, Parfum, Xanthan Gum, Citric Acid, Sodium Benzoate, Potassium Sorbate",
    "description": "Découvrez le Shampooing Frisés Crépus, spécialement formulé pour hydrater intensément la fibre capillaire tout en nettoyant les cheveux en douceur, sans agresser le cuir chevelu. Sa formule à la mousse riche et onctueuse élimine efficacement les résidus de produits coiffants, tout en respectant la nature des boucles. Elle prend soin des longueurs, apporte souplesse et légèreté, pour des cheveux doux, soyeux et des boucles rebondies. Testé et approuvé, le shampooing se rince facilement tout en pr",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "definition-boucles",
+    "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/shampooing-frises-crepus.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--spray-volume",
@@ -460,9 +508,13 @@
    "ingredients": "Aqua, Gluconolactone, Glycerin, Hydrolyzed Vegetable Protein, Tilia Tomentosa Bud Extract, Avena Sativa Kernel Extract, Parfum, Citric Acid, Sodium Hydroxide, Calcium Gluconate, Sodium Benzoate, Potassium Sorbate",
    "description": "Cheveux plats, sans volume dès la racine ? Le Spray Volume Luxéol, ne graisse pas les cheveux, facilite le coiffage et ajoute de la texture aux cheveux. Formulé pour les cheveux plats, en association avec le shampooing et l’après-shampooing Volume, ce protocole apporte deux fois plus de volume aux cheveux, dans 100% des cas testés.* Sa formule contient 98 % d’ingrédients d’origine naturelle, notamment de l’extrait de tilleul argenté et de l'extrait de protéine végétale, pour des cheveux visiblem",
    "claims": [
-    "volume"
+    "volume",
+    "texturisant",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/spray-volume.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--creme-soin-nutrition",
@@ -478,8 +530,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "secs",
-    "epais"
+    "secs"
    ],
    "actifs": [
     "protéines de blé",
@@ -492,10 +543,15 @@
    "ingredients": "Aqua, Glycerin, Cetearyl Alcohol, Brassicamidopropyl Dimethylamine, Cocos Nucifera Oil, Cetyl Alcohol, Butyrospermum Parkii Butter, Caesalpinia Spinosa Gum, Squalane, Hydrolyzed Wheat Protein, Hydrolyzed Corn Protein, Hydrolyzed Soy Protein, Parfum, Glyceryl Heptanoate, Propanediol, Lactic Acid, Sodium Lactate, Caprylhydroxamic Acid, Sodium Benzoate",
    "description": "Découvrez la Crème de Soin Nutrition, spécialement formulée pour nourrir les longueurs et les pointes tout en facilitant le coiffage. Cette crème nourrissante prend soin de la fibre capillaire, dompte les frisottis sans les alourdir. Formulée avec 98 % d’ingrédients d’origine naturelle, sans silicones, elle convient aux cheveux secs à très secs sans sans laisser de résidus. Utilisée avec le Shampooing et le Masque Nutrition, elle aide à révéler des cheveux intensément nourris, protégés du dessèc",
    "claims": [
-    "nourrissant",
-    "lissant"
+    "nutrition",
+    "anti-frisottis",
+    "purifiant",
+    "fixation",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/creme-soin-nutrition.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--masque-nutrition",
@@ -524,9 +580,14 @@
    "ingredients": "Aqua, Cocos Nucifera Oil, Brassicamidopropyl Dimethylamine, Butyrospermum Parkii Butter, Cetearyl Alcohol, Cetyl Alcohol, Diglycerin, Glycerin, Acetyl Tributyl Citrate, Isoamyl Laurate, Lactic Acid, Hydrolyzed Wheat Protein, Hydrolyzed Corn Protein, Hydrolyzed Soy Protein, Squalane, Parfum, Glyceryl Heptanoate, Propanediol, Caprylhydroxamic Acid, Sodium Benzoate, Sodium Lactate, Sodium Gluconate",
    "description": "Découvrez le Masque Nutrition, spécialement formulé pour nourrir la fibre capillaire tout en facilitant le démêlage. Sa texture riche et agréable enveloppe les longueurs et les pointes pour prendre soin des cheveux sans les alourdir. Formulé avec 98 % d’ingrédients d’origine naturelle, sans silicones, il ne graisse pas les cheveux et convient aux cheveux secs à très secs. Utilisé avec le Shampooing et la Crème de soin Nutrition, il aide à révéler des cheveux intensément nourris, gainés et sublim",
    "claims": [
-    "nourrissant"
+    "nutrition",
+    "texturisant",
+    "demelant",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/masque-nutrition.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--shampooing-nutrition",
@@ -553,10 +614,14 @@
    "ingredients": "Aqua, Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Betaine, Glycerin, Inulin, Coco-Glucoside, Sodium Chloride, Cocos Nucifera Water, Hydrogenated Vegetable Oil, Hydrolyzed Wheat Protein, Hydrolyzed Corn Protein, Hydrolyzed Soy Protein, Sodium Methyl",
    "description": "Découvrez le Shampooing Nutrition, spécialement formulé pour nettoyer en douceur tout en nourrissant les cheveux secs. Sa mousse fine et agréable enveloppe les cheveux pour les nourrir sans les assécher. Formulé avec 90 % d’ingrédients d’origine naturelle, sans silicones ni sulfates* Utilisé avec le Masque et la Crème de soin Nutrition, il aide à révéler des cheveux intensément nourris, disciplinés et sublimés jour après jour. La chevelure retrouve douceur, souplesse et brillance. La fibre capil",
    "claims": [
-    "nourrissant",
-    "brillance"
+    "nutrition",
+    "anti-frisottis",
+    "brillance",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/shampooing-nutrition.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--serum-reparateur-moleculaire-voyage",
@@ -572,8 +637,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
-    "lisses",
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -587,11 +651,16 @@
    "ingredients": "Aqua, Brassica Alcohol, Prunus Amygdalus Dulcis Oil, Glycerin, Brassicamidopropyl Dimethylamine, Salvia Hispanica Seed Extract, Helianthus Annuus Seed Oil, Butyrospermum Parkii Butter, Cocos Nucifera Oil, Pinus Pinaster Bark Extract, Rosa Canina Fruit Extract, Lactic Acid, Leuconostoc/Radish Root Ferment Filtrate, Tocopherol, Parfum, Pentylene Glycol, Glyceryl Caprylate, Levulinic Acid, Potassium Sorbate, Sodium Benzoate",
    "description": "Découvrez le Sérum Réparateur Moléculaire Voyage Luxéol issu du protocole (shampooing, masque et sérum) qui répare les cheveux abîmés de l’intérieur comme de l’extérieur. Composé à 99% d’ingrédients d’origine naturelle, ce sérum un véritable soin réparateur qui réduit la casse et réduit les frisottis. Grâce à une double étude ex vivo, il a été démontré que ce protocole restaure +46 % des liaisons internes et lisse les cuticules +64 %*, pour des cheveux plus résistants, doux et éclatants de santé",
    "claims": [
-    "reparateur",
-    "brillance",
-    "lissant"
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/serum-reparateur-moleculaire-voyage.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--masque-reparateur-moleculaire-voyage",
@@ -607,7 +676,7 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
-    "lisses",
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -617,12 +686,18 @@
     "huile de tournesol"
    ],
    "ingredients": "Aqua, Stearyl Alcohol, Cetyl Alcohol, Prunus Amygdalus Dulcis Oil, Glycerin, Salvia Hispanica Seed Extract, Brassicamidopropyl Dimethylamine, Helianthus Annuus Seed Oil, Butyrospermum Parkii Butter, Cocos Nucifera Oil, Pinus Pinaster Bark Extract, Rosa Canina",
-   "description": "Découvrez le Masque Réparateur Moléculaire Voyage Luxéol issu du protocole (shampooing, masque et sérum) qui répare les cheveux abîmés de l’intérieur comme de l’extérieur. Composé à 98 % d’ingrédients d’origine naturelle, ce masque est un véritable soin qui démêle et apporte douceur à la fibre capillaire. Grâce à une double étude ex vivo, il a été démontré que ce protocole restaure +46 % des liaisons internes et lisse les cuticules +64 %*, pour des cheveux doux, éclatants et plus beaux. Enrichi ",
+   "description": "Découvrez le Masque Réparateur Moléculaire Voyage Luxéol issu du protocole (shampooing, masque et sérum) qui répare les cheveux abîmés de l’intérieur comme de l’extérieur. Composé à 98 % d’ingrédients d’origine naturelle, ce masque est un véritable soin qui démêle et apporte douceur à la fibre capillaire. Grâce à une double étude ex vivo, il a été démontré que ce protocole restaure +46 % des liaisons internes et lisse les cuticules +64 %*, pour des cheveux doux, éclatants et plus beaux. Enrichi",
    "claims": [
-    "reparateur",
-    "brillance"
+    "nutrition",
+    "reparation",
+    "anti-frisottis",
+    "brillance",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/masque-reparateur-moleculaire-voyage.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--shampooing-reparateur-moleculaire-voyage",
@@ -638,7 +713,6 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "lisses",
     "abimes"
    ],
    "actifs": [
@@ -650,10 +724,14 @@
    "ingredients": "Aqua, Cocamidopropyl Betaine, Glycerin, Sodium Methyl Cocoyl Taurate, Sodium Chloride, Lauryl Glucoside, Salvia Hispanica Seed Extract, Pinus Pinaster Bark Extract, Hydrolyzed Sweet Almond Protein, Starch Hydroxypropyltrimonium Chloride, Lactic Acid, Caprylyl/Capryl Glucoside, Coconut Acid, Parfum, Sodium Lactate, Urea, Pentylene Glycol, Glyceryl Caprylate, Leuconostoc/Radish Root Ferment Filtrate, p-Anisic Acid, Citric Acid, Levulinic Acid, Sodium Benzoate, Potassium Sorbate",
    "description": "Découvrez le Shampooing Réparateur Moléculaire Voyage Luxéol issu du protocole (shampooing, masque et sérum) qui répare les cheveux abîmés de l’intérieur comme de l’extérieur. Composé à 95 % d’ingrédients d’origine naturelle, le Shampooing Réparateur lisse et gaine le cheveu. Grâce à une double étude ex vivo, il a été démontré que ce protocole restaure les liaisons internes du cheveu de +46 %* pour une structure renforcée, et lisse les cuticules de +64 %*, pour une chevelure plus saine et éclata",
    "claims": [
-    "reparateur",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/shampooing-reparateur-moleculaire-voyage.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--huile-brillance-voyage",
@@ -669,8 +747,7 @@
    "categorie": "huile",
    "etape": 3,
    "cheveux_cibles": [
-    "gras",
-    "lisses"
+    "secs"
    ],
    "actifs": [
     "huile de coco",
@@ -682,9 +759,15 @@
    "ingredients": "C15-19 Alkane, Coco-Caprylate/Caprate, Cocos Nucifera Oil, Macadamia Integrifolia Oil, Simmondsia Chinensis Seed Oil, Ricinus Communis Seed Oil, Parfum, Tocopherol",
    "description": "Découvrez l’Huile Brillance Format Voyage, issue de la Routine Brillance Voyage, conçue pour apporter une brillance miroir à votre chevelure.* Cette huile crée un voile invisible de brillance. Sa texture fluide pénètre rapidement, lisse la fibre et laisse les cheveux souples et ultra lumineux, sans fini gras. Formulée avec 99,5 % d’ingrédients d’origine naturelle, sans silicones. Associé au Shampooing, au Masque et au Soin Brillance Voyage, cette Huile offre une brillance miroir immédiate et dur",
    "claims": [
-    "brillance"
+    "anti-frisottis",
+    "texturisant",
+    "brillance",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/huile-brillance-voyage.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--soin-brillance-voyage",
@@ -701,8 +784,7 @@
    "etape": 3,
    "cheveux_cibles": [
     "secs",
-    "gras",
-    "lisses"
+    "gras"
    ],
    "actifs": [
     "glycérine",
@@ -713,10 +795,16 @@
    "ingredients": "Aqua, Alcohol Denat., C15-19 Alkane, C14-22 Alcohols, Glycerin, Glyceryl Stearate, Xylitylglucoside, Arginine, Erythritol, Macadamia Integrifolia Seed Oil, Pyrus Malus Fruit Extract, Anhydroxylitol, Maltitol, Xylitol, Pelvetia Canaliculata Extract, Cetrimonium Chloride, Polyquaternium-7, Caesalpinia Spinosa Gum, Acacia Senegal Gum, Xanthan Gum, C12-20 Alkyl Glucoside, Maltodextrin, Parfum, Citric Acid, Sodium Citrate, Sodium Benzoate, Potassium Sorbate",
    "description": "Découvrez le Soin Brillance Format Voyage, issu de la Routine Brillance Voyage, conçue pour transformer les cheveux en une chevelure éclatante à l’effet miroir. Sa texture onctueuse enveloppe la fibre sans laisser de film gras. Il nourrit, gaine et lisse les cheveux tout en améliorant la glisse des cheveux pour des cheveux brillants. Formulé avec 98 % d’ingrédients d’origine naturelle, sans silicones. Associé au Shampooing, Masque, et à l'Huile Brillance Voyage, ce Soin offre une brillance miroi",
    "claims": [
-    "nourrissant",
-    "brillance"
+    "nutrition",
+    "anti-frisottis",
+    "texturisant",
+    "brillance",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/soin-brillance-voyage.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--masque-brillance-voyage",
@@ -732,8 +820,7 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
-    "secs",
-    "lisses"
+    "secs"
    ],
    "actifs": [
     "huile de coco",
@@ -746,11 +833,17 @@
    "ingredients": "Aqua, Brassica Alcohol, Brassicamidopropyl Dimethylamine, Glycerin, Cocos Nucifera Oil, Lactic Acid, Xylitylglucoside, Macadamia Integrifolia Seed Oil, Ricinus Communis Seed Oil, Pyrus Malus Fruit Extract, Anhydroxylitol, Hydrogenated Polyfarnesene, Hydrogenated Castor Oil, Pelvetia Canaliculata Extract, Maltitol, Xylitol, Guar Hydroxypropyltrimonium Chloride, C15-19 Alkane, Parfum, Maltodextrin, Sodium Citrate, Sodium Benzoate, Potassium Sorbate",
    "description": "Découvrez le Masque Brillance Format Voyage issu de la Routine Brillance Voyage, conçue pour révéler une brillance miroir instantanée et longue durée*. Sa texture onctueuse nourrit la fibre capillaire, lisse les écailles et améliore la glisse des cheveux, sans les alourdir. Les cheveux sont plus doux, plus souples et intensément hydratés. Formulé avec 98 % d’ingrédients d’origine naturelle, sans silicones. Associé au Shampooing, au Soin et à l'Huile Brillance Voyage, ce masque offre une brillanc",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "brillance"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "texturisant",
+    "brillance",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/masque-brillance-voyage.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--shampooing-brillance-voyage",
@@ -765,7 +858,9 @@
    "image_local": "public/scan/products-cheveux/luxeol/shampooing-brillance-voyage.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "fins"
+   ],
    "actifs": [
     "glycérine",
     "acide citrique",
@@ -774,9 +869,13 @@
    "ingredients": "Aqua, Cocamidopropyl Betaine, Sodium Lauroyl Methyl Isethionate, Glycerin, Sodium Methyl Cocoyl Taurate, Sodium Chloride, Coco-Glucoside, Pyrus Malus Fruit Extract, Xylitylglucoside, Anhydroxylitol, Pelvetia Canaliculata Extract, Maltitol, Xylitol, Betaine, Parfum, Guar Hydroxypropyltrimonium Chloride, Polyquaternium-7, Maltodextrin, Citric Acid, Trisodium Ethylenediamine Disuccinate, Sodium Citrate, Potassium Sorbate, Sodium Benzoate",
    "description": "Découvrez le Shampooing Brillance format Voyage issu de la Routine Brillance Voyage, conçue pour révéler une brillance miroir instantanée et longue durée*. Sa mousse onctueuse nettoie délicatement les cheveux tout en les enveloppant d’un parfum délicat. Il facilite le démêlage, adoucit et respecte le cuir chevelu, sans alourdir ni laisser de sensation rêche. Formulé avec 95 % d’ingrédients d’origine naturelle, sans silicones ni sulfates.* Associé au Masque, au soin et à l'Huile Brillance Voyage,",
    "claims": [
-    "brillance"
+    "brillance",
+    "demelant",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/shampooing-brillance-voyage.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--huile-brillance",
@@ -792,8 +891,7 @@
    "categorie": "huile",
    "etape": 3,
    "cheveux_cibles": [
-    "gras",
-    "lisses"
+    "secs"
    ],
    "actifs": [
     "huile de coco",
@@ -805,9 +903,15 @@
    "ingredients": "C15-19 Alkane, Coco-Caprylate/Caprate, Cocos Nucifera Oil, Macadamia Integrifolia Oil, Simmondsia Chinensis Seed Oil, Ricinus Communis Seed Oil, Parfum, Tocopherol",
    "description": "Découvrez l’Huile Brillance, issue de la Routine Brillance, conçue pour apporter une brillance miroir à votre chevelure.* Cette huile crée un voile invisible de brillance. Sa texture fluide pénètre rapidement, lisse la fibre et laisse les cheveux souples et ultra lumineux, sans fini gras. Formulée avec 99,5 % d’ingrédients d’origine naturelle, sans silicones. Associé au Shampooing, au Masque et au Soin Brillance, cette Huile offre une brillance miroir immédiate et durable, des cheveux sans friso",
    "claims": [
-    "brillance"
+    "anti-frisottis",
+    "texturisant",
+    "brillance",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/huile-brillance.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--soin-brillance",
@@ -824,8 +928,7 @@
    "etape": 3,
    "cheveux_cibles": [
     "secs",
-    "gras",
-    "lisses"
+    "gras"
    ],
    "actifs": [
     "glycérine",
@@ -836,10 +939,15 @@
    "ingredients": "Aqua, Alcohol Denat., C15-19 Alkane, C14-22 Alcohols, Glycerin, Glyceryl Stearate, Xylitylglucoside, Arginine, Erythritol, Macadamia Integrifolia Seed Oil, Pyrus Malus Fruit Extract, Anhydroxylitol, Maltitol, Xylitol, Pelvetia Canaliculata Extract, Cetrimonium Chloride, Polyquaternium-7, Caesalpinia Spinosa Gum, Acacia Senegal Gum, Xanthan Gum, C12-20 Alkyl Glucoside, Maltodextrin, Parfum, Citric Acid, Sodium Citrate, Sodium Benzoate, Potassium Sorbate",
    "description": "Découvrez le Soin Brillance, issu de la Routine Brillance, conçue pour transformer les cheveux en une chevelure éclatante à l’effet miroir*. Sa texture onctueuse enveloppe la fibre sans laisser de film gras. Il nourrit, gaine et lisse les cheveux tout en améliorant la glisse des cheveux pour des cheveux brillants. Formulé avec 98 % d’ingrédients d’origine naturelle, sans silicones. Associé au Shampooing, Masque, et à l'Huile Brillance, ce soin offre une brillance miroir immédiate et durable, pou",
    "claims": [
-    "nourrissant",
-    "brillance"
+    "nutrition",
+    "anti-frisottis",
+    "texturisant",
+    "brillance",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/soin-brillance.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--masque-brillance",
@@ -855,8 +963,7 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
-    "secs",
-    "lisses"
+    "secs"
    ],
    "actifs": [
     "huile de coco",
@@ -869,11 +976,16 @@
    "ingredients": "Aqua, Brassica Alcohol, Brassicamidopropyl Dimethylamine, Glycerin, Cocos Nucifera Oil, Lactic Acid, Xylitylglucoside, Macadamia Integrifolia Seed Oil, Ricinus Communis Seed Oil, Pyrus Malus Fruit Extract, Anhydroxylitol, Hydrogenated Polyfarnesene, Hydrogenated Castor Oil, Pelvetia Canaliculata Extract, Maltitol, Xylitol, Guar Hydroxypropyltrimonium Chloride, C15-19 Alkane, Parfum, Maltodextrin, Sodium Citrate, Sodium Benzoate, Potassium Sorbate",
    "description": "Découvrez le Masque Brillance issu de la Routine Brillance, conçue pour révéler une brillance miroir instantanée et longue durée*. Sa texture onctueuse nourrit la fibre capillaire, lisse les écailles et améliore la glisse des cheveux, sans les alourdir. Les cheveux sont plus doux, plus souples et intensément hydratés. Formulé avec 98 % d’ingrédients d’origine naturelle, sans silicones. Associé au Shampooing, au Soin et à l'Huile Brillance, ce masque offre une brillance miroir immédiate et durabl",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "brillance"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "texturisant",
+    "brillance",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/masque-brillance.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--shampooing-brillance",
@@ -888,7 +1000,9 @@
    "image_local": "public/scan/products-cheveux/luxeol/shampooing-brillance.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "fins"
+   ],
    "actifs": [
     "glycérine",
     "acide citrique",
@@ -897,9 +1011,13 @@
    "ingredients": "Aqua, Cocamidopropyl Betaine, Sodium Lauroyl Methyl Isethionate, Glycerin, Sodium Methyl Cocoyl Taurate, Sodium Chloride, Coco-Glucoside, Pyrus Malus Fruit Extract, Xylitylglucoside, Anhydroxylitol, Pelvetia Canaliculata Extract, Maltitol, Xylitol, Betaine, Parfum, Guar Hydroxypropyltrimonium Chloride, Polyquaternium-7, Maltodextrin, Citric Acid, Trisodium Ethylenediamine Disuccinate, Sodium Citrate, Potassium Sorbate, Sodium Benzoate",
    "description": "Découvrez le Shampooing Brillance issu de la Routine Brillance, conçue pour révéler une brillance miroir instantanée et longue durée*. Sa mousse onctueuse nettoie délicatement les cheveux tout en les enveloppant d’un parfum délicat. Il facilite le démêlage, adoucit et respecte le cuir chevelu, sans alourdir ni laisser de sensation rêche. Formulé avec 95 % d’ingrédients d’origine naturelle, sans silicones ni sulfates.* Associé au Masque, au soin et à l'Huile Brillance, ce Shampooing offre une bri",
    "claims": [
-    "brillance"
+    "brillance",
+    "demelant",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/shampooing-brillance.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--gelee-boucles-voyage",
@@ -924,8 +1042,16 @@
    ],
    "ingredients": "Aqua, Erythritol, Glycerin, Triethyl Citrate, Xylitylglucoside, Persea Gratissima Oil, Anhydroxylitol, Xylitol, Maltitol, Hydrolyzed Silk, Pelvetia Canaliculata Extract, Caesalpinia Spinosa Gum, Sodium Stearoyl Glutamate, Parfum, Polyglyceryl-4 Caprate, Xanthan Gum, Sodium Citrate, Potassium Sorbate, 1,2-Hexanediol, Caprylyl Glycol, Sodium Benzoate",
    "description": "Spécialement formulée pour les cheveux bouclés de type 2C à 3C, cette gelée format voyage fixe les boucles tout en préservant leur souplesse naturelle. Sa formule enrichie avec un actif associant des dérivés de sucre et un extrait d’algue marine et un extrait d’algue marine gaine la fibre capillaire et maintient la forme des boucles sans effet carton. Sa texture fraiche et fondante ne laisse aucun fini gras, ne cartonne pas et ne laisse pas de résidus sur les cheveux. Pour compléter votre gelée,",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "definition-boucles",
+    "texturisant",
+    "purifiant",
+    "anti-gras"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/gelee-boucles-voyage.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--creme-de-soin-boucles-voyage",
@@ -943,7 +1069,6 @@
    "cheveux_cibles": [
     "secs",
     "gras",
-    "epais",
     "boucles"
    ],
    "actifs": [
@@ -955,12 +1080,18 @@
    "ingredients": "Aqua, Glycerin, Cetearyl Alcohol, Dicaprylyl Carbonate, Sodium Lactate, Xylitylglucoside, Persea Gratissima Oil, Pelvetia Canaliculata Extract, Anhydroxylitol, Maltitol, Xylitol, Hydrolyzed Silk, Caesalpinia Spinosa Gum, Tocopherol, Parfum, Lactic Acid, Cetearyl Betainate Mesylate, Sodium Citrate, Sodium Benzoate, Levulinic Acid, Sodium Levulinate",
    "description": "Spécialement formulée pour les cheveux bouclés de type 2C à 3C, cette crème de soin format voyage dessine et gaine les boucles sans effet gras ni alourdir. Sa texture légère hydrate et nourrit la fibre capillaire, limite les frisottis et facilite le coiffage. Enrichie avec un actif associant des dérivés de sucre et un extrait d’algue marine, souplesse et brillance pour des boucles ravivées et rebondies. Pour compléter votre routine, associez-le aux autres produits de la gamme ou adoptez la routi",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant",
     "brillance",
-    "lissant"
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/creme-de-soin-boucles-voyage.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--masque-boucles-voyage",
@@ -977,7 +1108,6 @@
    "etape": 2,
    "cheveux_cibles": [
     "secs",
-    "epais",
     "boucles"
    ],
    "actifs": [
@@ -990,11 +1120,17 @@
    "ingredients": "Aqua, Brassica Alcohol, Glycerin, Brassicamidopropyl Dimethylamine, Dicaprylyl Carbonate, Hydrogenated Castor Oil, Persea Gratissima Oil, Xylitylglucoside, Anhydroxylitol, Maltitol, Xylitol, Hydrolyzed Silk, Pelvetia Canaliculata Extract, Tocopherol, Parfum, Lactic Acid, Sodium Citrate, Sodium Benzoate, Potassium Sorbate",
    "description": "Spécialement formulé pour les cheveux bouclés de type 2C à 3C, ce masque format voyage démêle instantanément tout en nourrissant les cheveux*. Sa texture crémeuse, enrichie avec un actif associant des dérivés de sucre et un extrait d’algue marine gaine la fibre capillaire, limite les frisottis et définit les boucles. Après application, les boucles retrouvent douceur, brillance et vitalité. Pour compléter votre routine, adoptez la routine complète boucle, qui ensemble nettoient, démêlent définiss",
    "claims": [
-    "nourrissant",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant",
     "brillance",
-    "lissant"
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/masque-boucles-voyage.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--shampooing-boucles-voyage",
@@ -1010,7 +1146,6 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "epais",
     "boucles",
     "abimes"
    ],
@@ -1022,11 +1157,16 @@
    "ingredients": "Aqua, Cocamidopropyl Betaine, Sodium Lauroyl Methyl Isethionate, Erythritol, Glycerin, Sodium Methyl Cocoyl Taurate, Sodium Chloride, Pelvetia Canaliculata Extract, Persea Gratissima Oil, Xylitylglucoside, Anhydroxylitol, Maltitol, Xylitol, Hydrolyzed Silk, Xanthan Gum, Sodium Stearoyl Glutamate, Parfum, Sodium Citrate, Citric Acid, Potassium Sorbate, Sodium Benzoate",
    "description": "Spécialement formulé pour les cheveux bouclés de type 2C à 3C, ce shampooing format voyage nettoie en douceur tout en hydratant la fibre capillaire. Sa formule enrichie avec un actif associant des dérivés de sucre et un extrait d’algue marine limite les frisottis et prépare les cheveux au coiffage. Une mousse légère qui laisse les boucles souples, rebondies et parfaitement dessinées. Offrez à vos boucles une routine complète avec la Routine Boucles qui nettoie, démêle, définit et fixe vos cheveu",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "lissant"
+    "hydratation",
+    "reparation",
+    "anti-frisottis",
+    "definition-boucles",
+    "demelant",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/shampooing-boucles-voyage.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--apres-shampooing-violet",
@@ -1039,8 +1179,8 @@
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0953/0612/1480/files/Photo1_apres-shampooing-violet_e38aec44-4553-4272-ac6c-42e6342442dc.jpg?width=600",
    "image_local": "public/scan/products-cheveux/luxeol/apres-shampooing-violet.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
     "colores"
    ],
@@ -1054,9 +1194,14 @@
    "ingredients": "Aqua, Helianthus Annuus Seed Oil, Stearyl Alcohol, Cetyl Alcohol, Brassicamidopropyl Dimethylamine, Glycerin, Viola Odorata Leaf Extract, Butyrospermum Parkii Butter, Parfum, Citric Acid, Lactic Acid, Sodium Benzoate, Potassium Sorbate, CI 60730",
    "description": "L’Après-Shampooing Violet Luxéol, formulé avec 99 % d’ingrédients d’origine naturelle, démêle les cheveux sans les alourdir et prévient l’assèchement. Associé au Shampooing Violet, ils forment un duo qui neutralise les reflets jaunes et cuivrés pour révéler des reflets froids éclatants et une couleur lumineuse.Grâce à leur formule enrichie en pigment violet correcteur, ils neutralisent les reflets jaunes et cuivrés tout en ravivant l’éclat des cheveux blonds, gris ou blancs. Convient dès 10 ans,",
    "claims": [
-    "brillance"
+    "nutrition",
+    "brillance",
+    "anti-jaunissement",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/apres-shampooing-violet.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--shampooing-violet",
@@ -1081,9 +1226,14 @@
    "ingredients": "Aqua, Coco-Glucoside, Decyl Glucoside, Glycerin, Sodium Cocoyl Alaninate, Xanthan Gum, Viola Odorata Leaf Extract, Hydrolyzed Sweet Almond Protein, Parfum, Citric Acid, Sodium Benzoate, Potassium Sorbate, CI 60730",
    "description": "Le Shampooing Violet Luxéol, formulé avec 99 % d’ingrédients d’origine naturelle, nettoie les cheveux en douceur sans graisser. Sa mousse est fine et agréable. En utilisation avec l’après-shampooing de la même gamme, les cheveux sont plus doux, disciplinés et la couleur est lumineuse. Les produits ne laissent pas de résidus.Enrichis en pigment violet correcteur, ils neutralisent les reflets jaunes et cuivrés tout en ravivant l’éclat des cheveux blonds, gris ou blancs. Résultats : une couleur écl",
    "claims": [
-    "brillance"
+    "anti-frisottis",
+    "purifiant",
+    "brillance",
+    "anti-jaunissement"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/shampooing-violet.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--serum-reparateur-moleculaire",
@@ -1099,8 +1249,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
-    "lisses",
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -1114,11 +1263,15 @@
    "ingredients": "Aqua, Brassica Alcohol, Prunus Amygdalus Dulcis Oil, Glycerin, Brassicamidopropyl Dimethylamine, Salvia Hispanica Seed Extract, Helianthus Annuus Seed Oil, Butyrospermum Parkii Butter, Cocos Nucifera Oil, Pinus Pinaster Bark Extract, Rosa Canina Fruit Extract, Lactic Acid, Leuconostoc/Radish Root Ferment Filtrate, Tocopherol, Parfum, Pentylene Glycol, Glyceryl Caprylate, Levulinic Acid, Potassium Sorbate, Sodium Benzoate",
    "description": "Découvrez le Sérum Réparateur Moléculaire Luxéol issu du protocole (shampooing, masque et sérum) qui répare les cheveux abîmés de l’intérieur comme de l’extérieur. Composé à 99% d’ingrédients d’origine naturelle, ce sérum un véritable soin réparateur qui réduit la casse et réduit les frisottis. Grâce à une double étude ex vivo, il a été démontré que ce protocole restaure +46 % des liaisons internes et lisse les cuticules +64 %*, pour des cheveux plus résistants, doux et éclatants de santé. Enric",
    "claims": [
-    "reparateur",
-    "brillance",
-    "lissant"
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/serum-reparateur-moleculaire.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--masque-reparateur-moleculaire",
@@ -1134,7 +1287,7 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
-    "lisses",
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -1146,10 +1299,15 @@
    "ingredients": "Aqua, Stearyl Alcohol, Cetyl Alcohol, Prunus Amygdalus Dulcis Oil, Glycerin, Salvia Hispanica Seed Extract, Brassicamidopropyl Dimethylamine, Helianthus Annuus Seed Oil, Butyrospermum Parkii Butter, Cocos Nucifera Oil, Pinus Pinaster Bark Extract, Rosa Canina",
    "description": "Découvrez le Masque Réparateur Moléculaire Luxéol issu du protocole (shampooing, masque et sérum) qui répare les cheveux abîmés de l’intérieur comme de l’extérieur. Composé à 98 % d’ingrédients d’origine naturelle, ce masque est un véritable soin qui démêle et apporte douceur à la fibre capillaire. Grâce à une double étude ex vivo, il a été démontré que ce protocole restaure +46 % des liaisons internes et lisse les cuticules +64 %*, pour des cheveux doux, éclatants et plus beaux. Enrichi en extr",
    "claims": [
-    "reparateur",
-    "brillance"
+    "nutrition",
+    "reparation",
+    "anti-frisottis",
+    "brillance",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/masque-reparateur-moleculaire.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--shampooing-reparateur-moleculaire",
@@ -1165,7 +1323,6 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "lisses",
     "abimes"
    ],
    "actifs": [
@@ -1177,10 +1334,14 @@
    "ingredients": "Aqua, Cocamidopropyl Betaine, Glycerin, Sodium Methyl Cocoyl Taurate, Sodium Chloride, Lauryl Glucoside, Salvia Hispanica Seed Extract, Pinus Pinaster Bark Extract, Hydrolyzed Sweet Almond Protein, Starch Hydroxypropyltrimonium Chloride, Lactic Acid, Caprylyl/Capryl Glucoside, Coconut Acid, Parfum, Sodium Lactate, Urea, Pentylene Glycol, Glyceryl Caprylate, Leuconostoc/Radish Root Ferment Filtrate, p-Anisic Acid, Citric Acid, Levulinic Acid, Sodium Benzoate, Potassium Sorbate",
    "description": "Découvrez le Shampooing Réparateur Moléculaire Luxéol issu du protocole (shampooing, masque et sérum) qui répare les cheveux abîmés de l’intérieur comme de l’extérieur. Composé à 95 % d’ingrédients d’origine naturelle, le Shampooing Réparateur lisse et gaine le cheveu. Grâce à une double étude ex vivo, il a été démontré que ce protocole restaure les liaisons internes du cheveu de +46 %* pour une structure renforcée, et lisse les cuticules de +64 %*, pour une chevelure plus saine et éclatante. En",
    "claims": [
-    "reparateur",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/shampooing-reparateur-moleculaire.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--masque-antichute",
@@ -1210,9 +1371,13 @@
    "ingredients": "Aqua, Myristyl Alcohol, Hydrogenated Ethylhexyl Olivate, Glycerin, Cetrimonium Chloride, Cocos Nucifera Oil, Oryza Sativa Starch, Triticum Vulgare Germ Oil, Cetearyl Alcohol, Hydrogenated Olive Oil Unsaponifiables, Hydrolyzed Keratin, Panthenol, Saccharum Officinarum Extract, Betaine, Citrus Limon Fruit Extract, Pyrus Malus Fruit Extract, Camellia Sinensis Leaf Extract, Parfum, Leuconostoc/Radish Root Ferment Filtrate, Hexapeptide-11, Caesalpinia Spinosa Gum, Hexylene Glycol, Citric Acid, Gluconolactone, Levulinic Acid, Sodium Benzoate, Sodium Levulinate, Calcium Gluconate",
    "description": "Le Masque Antichute est cliniquement prouvé pour réduire la chute de cheveux de 38%.* Sa formule, enrichie en extrait de kératine, actif reconnu pour son efficacité antichute, rend les cheveux visiblement plus forts. Ce soin rend les cheveux visiblement moins cassants, plus doux et facilite le coiffage. Pour compléter votre routine, adoptez la routine complète Antichute Réactionnelle, composée du shampooing, de l’après-shampooing, du masque et du spray Antichute Réactionnelle.",
    "claims": [
-    "anti-chute"
+    "reparation",
+    "anti-chute",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/masque-antichute.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--spray-thermoprotecteur-voyage",
@@ -1227,7 +1392,10 @@
    "image_local": "public/scan/products-cheveux/luxeol/spray-thermoprotecteur-voyage.jpg",
    "categorie": "protection-thermique",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "fins"
+   ],
    "actifs": [
     "panthénol",
     "acide hyaluronique",
@@ -1238,12 +1406,16 @@
    "ingredients": "Aqua, Polysorbate 20, Sodium Chloride, Glycerin, Arginine, Fructose, Panthenol, Sodium Hyaluronate, Polyporus Umbellatus Extract, Parfum, Xanthan Gum, Pentylene Glycol, Sodium Phytate, Sodium Citrate, Citric Acid, Potassium Sorbate, Sodium Levulinate, Sodium Benzoate, Levulinic Acid",
    "description": "Le Spray Thermoprotecteur Format Voyage protège vos cheveux de la chaleur, même en déplacement.Avec 96 % d’ingrédients d’origine naturelle, il forme un film protecteur léger autour de la fibre capillaire pour limiter les dommages tout en maintenant douceur et brillance. Sa formule à base d’un actif biotechnologique associant saccharides hydratants, acide hyaluronique et extrait de Polyporus umbellatus aide à renforcer la brillance et la tenue du coiffage, sans alourdir les cheveux tout en protég",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "fortifiant",
     "brillance",
-    "protection-thermique",
-    "fortifiant"
+    "protection-chaleur",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/spray-thermoprotecteur-voyage.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--spray-thermoprotecteur",
@@ -1258,7 +1430,10 @@
    "image_local": "public/scan/products-cheveux/luxeol/spray-thermoprotecteur.jpg",
    "categorie": "protection-thermique",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "fins"
+   ],
    "actifs": [
     "panthénol",
     "acide hyaluronique",
@@ -1269,41 +1444,15 @@
    "ingredients": "Aqua, Polysorbate 20, Sodium Chloride, Glycerin, Arginine, Fructose, Panthenol, Sodium Hyaluronate, Polyporus Umbellatus Extract, Parfum, Xanthan Gum, Pentylene Glycol, Sodium Phytate, Sodium Citrate, Citric Acid, Potassium Sorbate, Sodium Levulinate, Sodium Benzoate, Levulinic Acid",
    "description": "Avec 96 % d’ingrédients d’origine naturelle, le Spray Thermoprotecteur Luxéol forme un film protecteur léger autour de la fibre capillaire pour limiter les dommages liés à la chaleur tout en maintenant douceur et brillance. Sa formule à base d’un actif biotechnologique associant saccharides hydratants, acide hyaluronique et extrait de Polyporus umbellatus aide à renforcer la brillance et la tenue du coiffage, sans alourdir les cheveux tout en protégeant les cheveux de la chaleur jusqu’à 230 °C*.",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "fortifiant",
     "brillance",
-    "protection-thermique",
-    "fortifiant"
+    "protection-chaleur",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "luxeol--complement-epaississant",
-   "name": "Complément Alimentaire Épaississant",
-   "brand": "luxeol",
-   "brand_name": "Luxéol",
-   "url": "https://luxeol.com/products/complement-epaississant",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 96.6,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0953/0612/1480/files/Photo1_epaississant.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/luxeol/complement-epaississant.jpg",
-   "categorie": "traitement-chute",
-   "etape": 4,
-   "cheveux_cibles": [
-    "fins",
-    "epais"
-   ],
-   "actifs": [
-    "ortie",
-    "sélénium"
-   ],
-   "ingredients": null,
-   "description": "Envie de cheveux plus épais ?Le Complément Alimentaire Épaississant agit de l’intérieur pour des cheveux plus épais et plus de masse capillaire*. Testé et approuvé par 107 personnes, avec 98 % de satisfaction globale sur le produit.* Sa formule favorise le renforcement des cheveux grâce à la prêle des champs et à l'ortie. Elle contribue au maintien de cheveux normaux grâce à la vitamine B8, au zinc et au sélénium. Résultats : des cheveux plus épais, fournis et plus beaux et une texture plus soye",
-   "claims": [
-    "volume",
-    "fortifiant"
-   ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/spray-thermoprotecteur.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--mousse-epaississante",
@@ -1320,8 +1469,7 @@
    "etape": 3,
    "cheveux_cibles": [
     "gras",
-    "fins",
-    "epais"
+    "fins"
    ],
    "actifs": [
     "protéines de riz",
@@ -1331,10 +1479,14 @@
    "ingredients": "Aqua, Glycerin, Propylene Glycol, Xylitol, Polyquaternium-22, Palmaria Palmata Extract, Hydrolyzed Rice Protein, Arginine, Caprylyl/Capryl Glucoside, Parfum, Glyceryl Caprylate, Pentylene Glycol, Polydextrose, Levulinic Acid, Potassium Sorbate, Sodium Benzoate",
    "description": "Découvrez la mousse Luxéol qui, associée au shampooing et au masque, augmente le diamètre des cheveux de +38 % dès la 1ʳᵉ utilisation, sans les alourdir.*Cette mousse, enrichie en extrait d’algue rouge, à la texture aérienne hydrate et adoucit les cheveux sans effet carton, pour une chevelure plus épaisse. Résultats : des cheveux plus épais, hydratés et faciles à démêler, sans effet gras ni effet carton. Idéale pour sublimer la fibre après le shampooing et le masque Épaississant, elle complète p",
    "claims": [
-    "hydratant",
-    "volume"
+    "hydratation",
+    "volume",
+    "texturisant",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/mousse-epaississante.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--masque-epaississant",
@@ -1350,8 +1502,8 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
-    "fins",
-    "epais"
+    "secs",
+    "fins"
    ],
    "actifs": [
     "acide hyaluronique",
@@ -1365,10 +1517,15 @@
    "ingredients": "Aqua, Stearyl Alcohol, Cetyl Alcohol, Prunus Amygdalus Dulcis Oil, Glycerin, Brassicamidopropyl Dimethylamine, Sodium Hyaluronate, Palmaria Palmata Extract, Hydrolyzed Rice Protein, Arginine, Butyrospermum Parkii Butter, Cocos Nucifera Oil, Hydrolyzed Sweet Almond Protein, Parfum, Lactic Acid, Pentylene Glycol, Levulinic Acid, Glyceryl Caprylate, Sodium Benzoate, Potassium Sorbate",
    "description": "Ce masque à la texture crémeuse augmente le diamètre des cheveux de +42 % dès la 1ʳᵉ utilisation, lorsqu’il est utilisé avec le shampooing et le sérum de la même gamme.* Sa formule, enrichi en extrait d’algue rouge, démêle, apporte souplesse, douceur et légèreté, pour une chevelure plus épaisse, brillante et non alourdie. Résultats : des cheveux plus épais, plus forts, doux dès la première semaine.* Pour des résultats optimaux, utilisez-le 2 à 3 fois par semaine dans le Protocole Coup de Cœur*.",
    "claims": [
+    "nutrition",
+    "volume",
+    "texturisant",
     "brillance",
-    "volume"
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/masque-epaississant.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--apres-shampooing-epaississant",
@@ -1381,11 +1538,10 @@
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0953/0612/1480/files/Photo1_Apres_shampooing-epaississant.jpg?width=600",
    "image_local": "public/scan/products-cheveux/luxeol/apres-shampooing-epaississant.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
-    "fins",
-    "epais"
+    "fins"
    ],
    "actifs": [
     "acide hyaluronique",
@@ -1396,10 +1552,14 @@
    "ingredients": "Aqua, Prunus Amygdalus Dulcis Oil, Arachidyl/Behenyl Alcohol, Glycerin, Arachidyl/Behenyl Betainate Esylate, Palmaria Palmata Extract, Hydrolyzed Rice Protein, Sodium Hyaluronate, Arginine, Caesalpinia Spinosa Gum, Parfum, Pentylene Glycol, Glyceryl Caprylate, Sodium Benzoate, Potassium Sorbate, Levulinic Acid",
    "description": "Découvrez un soin qui démêle et adoucit. Associé au shampooing et au sérum il épaissit vos cheveux de 36% dès la première utilisation.* Sa formule à la texture crémeuse, enrichie en extrait d'algue rouge, enveloppe la fibre capillaire pour lui redonner douceur et brillance, sans l’alourdir. Associé au Shampooing et au Sérum Épaississant, il augmente le diamètre des cheveux de +36 % dès la 1ère utilisation, pour une chevelure visiblement plus épaisse et forte.* Résultats : des cheveux plus épais,",
    "claims": [
+    "volume",
+    "texturisant",
     "brillance",
-    "volume"
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/apres-shampooing-epaississant.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--spray-antichute-reactionnelle",
@@ -1416,7 +1576,6 @@
    "etape": 4,
    "cheveux_cibles": [
     "gras",
-    "epais",
     "abimes",
     "chute"
    ],
@@ -1430,10 +1589,14 @@
    "ingredients": "Aqua, Propylene Glycol, Propanediol, Hydrolyzed Keratin, Glycine Soja Germ Extract, Triticum Vulgare Germ Extract, Scutellaria Baicalensis Root Extract, Arginine, Acetyl Tetrapeptide-3, Trifolium Pratense Flower Extract, Panthenol, Parfum, Butylene Glycol, Lactic Acid, Xanthan Gum, Dextran, Polysorbate 20, Citric Acid, Gluconolactone, Calcium Gluconate, Sodium Benzoate, Potassium Sorbate",
    "description": "Cliniquement prouvé pour réduire la chute de cheveux de 61 %*, ce spray agit dès 1 mois* pour freiner la chute réactionnelle liée au stress, à la fatigue ou aux changements de saison. Résultats : jusqu’à 6250 cheveux sauvés de la phase de chute*, une chevelure visiblement plus résistante, dense et éclatante de santé. Les cheveux sont moins cassants, plus doux et plus épais. Sa brume fine s’applique facilement au quotidien, sans effet gras ni alourdir les racines, avec un parfum doux et agréable.",
    "claims": [
-    "brillance",
-    "anti-chute"
+    "reparation",
+    "fortifiant",
+    "anti-chute",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/spray-antichute-reactionnelle.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--serum-densite",
@@ -1448,7 +1611,10 @@
    "image_local": "public/scan/products-cheveux/luxeol/serum-densite.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "fins"
+   ],
    "actifs": [
     "panthénol",
     "glycérine",
@@ -1457,11 +1623,14 @@
    "ingredients": "Aqua, Caprylyl/Capryl Glucoside, Pisum Sativum Sprout Extract, Zingiber Officinale Root Extract, Ocimum Basilicum Hairy Root Culture Extract, Hydrolyzed Vegetable Protein, Panthenol, Glycerin, Parfum, Alcohol, Carbomer, Sodium Hydroxide, Citric Acid, Phenethyl Alcohol, 1,2-Hexanediol, Sodium Benzoate, Potassium Sorbate",
    "description": "Le Sérum densité est cliniquement prouvé pour augmenter la densité capillaire de 16 041 cheveux en phase de pousse* ! Sa formule à 97 % d’ingrédients d’origine naturelle associe l’extrait de pousse de pois, la protéine végétale hydrolysée et le panthénol, complétés par l’extrait de racine de gingembre et les racines chevelues de basilic. Cette combinaison unique aide à préserver la vitalité des cheveux, tout en apportant visiblement force, hydratation et résistance. Résultat : Des cheveux plus d",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "fortifiant",
     "volume",
-    "fortifiant"
+    "densifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/serum-densite.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--serum-croissance",
@@ -1478,7 +1647,6 @@
    "etape": 4,
    "cheveux_cibles": [
     "secs",
-    "epais",
     "chute"
    ],
    "actifs": [
@@ -1492,84 +1660,13 @@
    "ingredients": "Aqua, Propanediol, Alcohol Denat., Ricinus Communis Seed Oil, Phyllanthus Emblica Fruit Extract, Panax Ginseng Root Extract, Arginine, Panthenol, Biotin, Glycerin, Carbomer, 1,2-Hexanediol, Caprylyl Glycol, Parfum, Xanthan Gum, Sodium Stearoyl Glutamate, Sodium Hydroxide, Maltodextrin, Potassium Sorbate, Sodium Benzoate",
    "description": "Le sérum Croissance, issu du protocole, accélère la croissance de vos cheveux de 60 %, pour des cheveux plus longs de 6 cm en 3 mois !* Enrichie en huile de ricin, arginine, panthénol, biotine et extraits de fruit d'amla et de ginseng, sa formule est d'origine naturelle. Il ne graisse pas le cuir chevelu et limite les frisottis. En l'associant avec le shampooing et le conditionneur sans rinçage croissance, vos cheveux sont visiblement plus nourris, plus forts et retrouvent vitalité. Spécialement",
    "claims": [
-    "nourrissant",
-    "lissant"
+    "nutrition",
+    "anti-frisottis",
+    "croissance"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "luxeol--chute-de-cheveux-reactionnelle",
-   "name": "Chute de Cheveux Réactionnelle",
-   "brand": "luxeol",
-   "brand_name": "Luxéol",
-   "url": "https://luxeol.com/products/chute-de-cheveux-reactionnelle",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 49.8,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0953/0612/1480/files/Photo1_chute-de-cheveux-reactionnelle_label.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/luxeol/chute-de-cheveux-reactionnelle.jpg",
-   "categorie": "traitement-chute",
-   "etape": 4,
-   "cheveux_cibles": [
-    "chute"
-   ],
-   "actifs": [
-    "cystine"
-   ],
-   "ingredients": null,
-   "description": "Problèmes de chute liés au stress, à la fatigue ou aux changements de saisons ? Le complément alimentaire aide à prévenir la chute de cheveux réactionnelle grâce à la Capillaire de Montpellier, tout en agissant sur le stress pouvant être responsable de la chute de cheveux*. Formulé à base de capillaire de Montpellier, d’eschscholtzia, de prêle des champs, de vitamines et minéraux mais aussi de L-cystine et de L-méthionine, il agit également sur le stress, la fatigue et l’activité hormonale.* Pro",
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "luxeol--chute-de-cheveux-progressive",
-   "name": "Chute de Cheveux Progressive",
-   "brand": "luxeol",
-   "brand_name": "Luxéol",
-   "url": "https://luxeol.com/products/chute-de-cheveux-progressive",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 49.8,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0953/0612/1480/files/Photo1_chute-de-cheveux-progressive_label.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/luxeol/chute-de-cheveux-progressive.jpg",
-   "categorie": "traitement-chute",
-   "etape": 4,
-   "cheveux_cibles": [
-    "chute"
-   ],
-   "actifs": [
-    "ortie"
-   ],
-   "ingredients": null,
-   "description": "Chute de cheveux liée à l’âge, cheveux clairsemés ? Le complément alimentaire est conçu pour agir sur la chute de cheveux progressive*. Grâce à une formule à base de plantes, vitamines et minéraux, il contribue à prévenir la chute des cheveux, à fortifier la fibre et à réguler l’activité hormonale.* Pour les cheveux clairsemés, il associe capillaire de Montpellier, ortie, cassis, zinc et vitamines B6 et B8 pour renforcer et limiter les effets du temps sur votre chevelure.* Programme de 3 mois, p",
-   "claims": [
-    "fortifiant"
-   ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "luxeol--pousse-croissance-fortification",
-   "name": "Pousse Croissance & Fortification",
-   "brand": "luxeol",
-   "brand_name": "Luxéol",
-   "url": "https://luxeol.com/products/pousse-croissance-fortification",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 39.8,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0953/0612/1480/files/Photo1_PCF_labels.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/luxeol/pousse-croissance-fortification.jpg",
-   "categorie": "traitement-chute",
-   "etape": 4,
-   "cheveux_cibles": [
-    "chute"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Le complément alimentaire Luxéol Pousse, Croissance & Fortification agit au niveau du bulbe et la fibre capillaire grâce à la roquette et la prêle des champs. Également formulé avec des vitamines et minéraux essentiels, pour des cheveux plus longs, plus denses et plus forts*. Adaptées à tous types de cheveux, cette gélule d'origine végétale est facile à intégrer dans votre routine quotidienne. Il a été testé et approuvé par 33 personnes après 3 mois d’utilisation*. Résultat : des cheveux visible",
-   "claims": [
-    "fortifiant"
-   ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/serum-croissance.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--shampooing-boucles",
@@ -1585,7 +1682,6 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "epais",
     "boucles",
     "abimes"
    ],
@@ -1597,11 +1693,16 @@
    "ingredients": "Aqua, Cocamidopropyl Betaine, Sodium Lauroyl Methyl Isethionate, Erythritol, Glycerin, Sodium Methyl Cocoyl Taurate, Sodium Chloride, Pelvetia Canaliculata Extract, Persea Gratissima Oil, Xylitylglucoside, Anhydroxylitol, Maltitol, Xylitol, Hydrolyzed Silk, Xanthan Gum, Sodium Stearoyl Glutamate, Parfum, Sodium Citrate, Citric Acid, Potassium Sorbate, Sodium Benzoate",
    "description": "Spécialement formulé pour les cheveux bouclés de type 2C à 3C, ce shampooing nettoie en douceur tout en hydratant la fibre capillaire. Sa formule enrichie avec un actif associant des dérivés de sucre et un extrait d’algue marine limite les frisottis et prépare les cheveux au coiffage. Une mousse légère qui laisse les boucles souples, rebondies et parfaitement dessinées. Offrez à vos boucles une routine complète avec la Routine Boucles qui nettoie, démêle, définit et fixe vos cheveux.",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "lissant"
+    "hydratation",
+    "reparation",
+    "anti-frisottis",
+    "definition-boucles",
+    "demelant",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/shampooing-boucles.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--masque-boucles",
@@ -1618,7 +1719,6 @@
    "etape": 2,
    "cheveux_cibles": [
     "secs",
-    "epais",
     "boucles"
    ],
    "actifs": [
@@ -1629,13 +1729,18 @@
     "acide lactique"
    ],
    "ingredients": "Aqua, Brassica Alcohol, Glycerin, Brassicamidopropyl Dimethylamine, Dicaprylyl Carbonate, Hydrogenated Castor Oil, Persea Gratissima Oil, Xylitylglucoside, Anhydroxylitol, Maltitol, Xylitol, Hydrolyzed Silk, Pelvetia Canaliculata Extract, Tocopherol, Parfum, Lactic Acid, Sodium Citrate, Sodium Benzoate, Potassium Sorbate",
-   "description": "Spécialement formulé pour les cheveux bouclés de type 2C à 3C, ce masque démêle instantanément tout en nourrissant les cheveux*. Sa texture crémeuse, enrichie avec un actif associant des dérivés de sucre et un extrait d’algue marine gaine la fibre capillaire, limite les frisottis et définit les boucles. Après application, les boucles retrouvent douceur, brillance et vitalité. Pour compléter votre routine, adoptez la routine complète boucle, qui ensemble nettoient, démêlent définissent et fixent ",
+   "description": "Spécialement formulé pour les cheveux bouclés de type 2C à 3C, ce masque démêle instantanément tout en nourrissant les cheveux*. Sa texture crémeuse, enrichie avec un actif associant des dérivés de sucre et un extrait d’algue marine gaine la fibre capillaire, limite les frisottis et définit les boucles. Après application, les boucles retrouvent douceur, brillance et vitalité. Pour compléter votre routine, adoptez la routine complète boucle, qui ensemble nettoient, démêlent définissent et fixent",
    "claims": [
-    "nourrissant",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant",
     "brillance",
-    "lissant"
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/masque-boucles.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--gelee-boucles",
@@ -1660,8 +1765,15 @@
    ],
    "ingredients": "Aqua, Erythritol, Glycerin, Triethyl Citrate, Xylitylglucoside, Persea Gratissima Oil, Anhydroxylitol, Xylitol, Maltitol, Hydrolyzed Silk, Pelvetia Canaliculata Extract, Caesalpinia Spinosa Gum, Sodium Stearoyl Glutamate, Parfum, Polyglyceryl-4 Caprate, Xanthan Gum, Sodium Citrate, Potassium Sorbate, 1,2-Hexanediol, Caprylyl Glycol, Sodium Benzoate",
    "description": "Spécialement formulée pour les cheveux bouclés de type 2C à 3C, cette gelée fixe les boucles tout en préservant leur souplesse naturelle. Sa formule enrichie avec un actif associant des dérivés de sucre et un extrait d’algue marine gaine la fibre capillaire et maintient la forme des boucles sans effet carton. Sa texture fraiche et fondante ne laisse aucun fini gras, ne cartonne pas et ne laisse pas de résidus sur les cheveux. Pour compléter votre gelée, utilisez-la en complément du Shampooing, d",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "definition-boucles",
+    "texturisant",
+    "purifiant",
+    "anti-gras"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/gelee-boucles.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--creme-de-soin-boucles",
@@ -1679,7 +1791,6 @@
    "cheveux_cibles": [
     "secs",
     "gras",
-    "epais",
     "boucles"
    ],
    "actifs": [
@@ -1689,34 +1800,19 @@
     "acide lactique"
    ],
    "ingredients": "Aqua, Glycerin, Cetearyl Alcohol, Dicaprylyl Carbonate, Sodium Lactate, Xylitylglucoside, Persea Gratissima Oil, Pelvetia Canaliculata Extract, Anhydroxylitol, Maltitol, Xylitol, Hydrolyzed Silk, Caesalpinia Spinosa Gum, Tocopherol, Parfum, Lactic Acid, Cetearyl Betainate Mesylate, Sodium Citrate, Sodium Benzoate, Levulinic Acid, Sodium Levulinate",
-   "description": "Spécialement formulée pour les cheveux bouclés de type 2C à 3C, cette crème de soin dessine et gaine les boucles sans effet gras ni alourdir. Sa texture légère hydrate et nourrit la fibre capillaire, limite les frisottis et facilite le coiffage. Enrichie avec un actif associant des dérivés de sucre et un extrait d’algue marine, elle apporte douceur, souplesse et brillance pour des boucles ravivées et rebondies. Pour compléter votre routine, associez-le aux autres produits de la gamme ou adoptez ",
+   "description": "Spécialement formulée pour les cheveux bouclés de type 2C à 3C, cette crème de soin dessine et gaine les boucles sans effet gras ni alourdir. Sa texture légère hydrate et nourrit la fibre capillaire, limite les frisottis et facilite le coiffage. Enrichie avec un actif associant des dérivés de sucre et un extrait d’algue marine, elle apporte douceur, souplesse et brillance pour des boucles ravivées et rebondies. Pour compléter votre routine, associez-le aux autres produits de la gamme ou adoptez",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant",
     "brillance",
-    "lissant"
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "luxeol--zinc-15",
-   "name": "Zinc 15",
-   "brand": "luxeol",
-   "brand_name": "Luxéol",
-   "url": "https://luxeol.com/products/zinc-15",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 18.83,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0953/0612/1480/files/Photo1_zinc15_72dpi.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/luxeol/zinc-15.jpg",
-   "categorie": "traitement-chute",
-   "etape": 4,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Et si un seul minéral pouvait prendre soin de vos cheveux, de votre peau et de vos ongles au quotidien ? Ce complément alimentaire riche en zinc contribue au maintien de cheveux normaux, d’ongles normaux et d’une peau normale.* Chaque gélule apporte 15 mg de zinc, soit 150 % des apports de référence, un minéral antioxydant qui contribue à protéger les cellules contre le stress oxydatif. Intégrez Zinc 15 dans votre routine quotidienne pour favoriser la santé de vos cheveux, ongles et peau.* Pour ",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/creme-de-soin-boucles.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--traitement-antichute-reactionnelle-3en1",
@@ -1732,6 +1828,8 @@
    "categorie": "traitement-chute",
    "etape": 4,
    "cheveux_cibles": [
+    "fins",
+    "abimes",
     "chute"
    ],
    "actifs": [
@@ -1742,12 +1840,15 @@
    "ingredients": "Aqua, Myristyl Alcohol, Hydrolyzed Keratin, Panthenol, Cetrimonium Chloride, Parfum, Gluconolactone, Calcium Gluconate, Sodium Benzoate, Citric Acid",
    "description": "Problèmes de chute liés au stress, à la fatigue ou aux changements de saisons ? Adoptez le Traitement Antichute Réactionnelle 3 en 1, un protocole cosmétique à l’efficacité cliniquement prouvée pour freiner la chute de cheveux réactionnelle, agir sur la pousse et renforcer la chevelure.* 7845 cheveux freinés en chute, +10 146 cheveux en phase de pousse, +42 % de force capillaire.* Enrichi en kératine, il hydrate visiblement les cheveux et apporte force et vitalité pour une densité augmentée. Rés",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "fortifiant",
     "volume",
-    "anti-chute",
-    "fortifiant"
+    "densifiant",
+    "anti-chute"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/traitement-antichute-reactionnelle-3en1.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--traitement-antichute-progressive-3en1",
@@ -1763,6 +1864,7 @@
    "categorie": "traitement-chute",
    "etape": 4,
    "cheveux_cibles": [
+    "fins",
     "chute"
    ],
    "actifs": [
@@ -1775,11 +1877,14 @@
    "ingredients": "Aqua, Biotin, Isomalt, Malus Domestica Fruit Cell Culture Extract, Potassium Chloride, Potassium Glutathione Isomerized Linoleate, Sodium DNA, Syringa Vulgaris Leaf Cell Extract, Panthenol, Sodium Hyaluronate, Calcium Gluconate, Glycerin, Gluconolactone, Xanthan Gum, Sodium Hydroxide, Parfum, Potassium Sorbate, Sodium Benzoate, Citric Acid",
    "description": "Chute de cheveux liée à l’âge, à l’hérédité, cheveux clairsemés ? Le Traitement Antichute Progressive 3 en 1 est un protocole cosmétique conçu pour diminuer la chute des cheveux et favoriser la pousse, avec une efficacité cliniquement prouvée*. Il permet de sauver 7318 cheveux de la phase de chute et d’augmenter de 9810 le nombre de cheveux existants en phase de pousse*. Sa formule, composée à 98% d’ingrédients d’origine naturelle, apporte également brillance, douceur et hydratation. Résultats d",
    "claims": [
-    "hydratant",
-    "brillance",
-    "anti-chute"
+    "hydratation",
+    "densifiant",
+    "anti-chute",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/traitement-antichute-progressive-3en1.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--soin-ongles-fortifiant",
@@ -1803,9 +1908,13 @@
    "ingredients": "Aqua, Styrene/Acrylates/Ammonium Methacrylate Copolymer, Dipropylene Glycol Dibenzoate, PPG-2 Methyl Ether, Ammonium Acrylates Copolymer, Phenoxyethanol, Aroma, Caprylyl Glycol, Sodium Laureth-12 Sulfate, Sodium Lauryl Sulfate, Hydrolyzed Keratin, Disodium Laureth Sulfosuccinate, Potassium Sorbate, Sodium Benzoate",
    "description": "Des ongles cassants, mous ou abîmés ? Le Soin Ongles Fortifiant Luxéol est un vernis-soin conçu pour renforcer, protéger et améliorer visiblement l’état général des ongles fragiles. Grâce à sa formule enrichie en kératine hydrolysée, ce soin cosmétique aide à réduire la casse et à rendre les ongles fortifiés et moins mous. Facile à appliquer, il s’utilise pendant 4 semaines à raison de deux couches, deux fois par semaine. Résultat : des ongles visiblement fortifiés, en meilleure santé et protégé",
    "claims": [
+    "reparation",
     "fortifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/soin-ongles-fortifiant.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--shampooing-densite",
@@ -1821,6 +1930,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "fins",
     "abimes"
    ],
    "actifs": [
@@ -1832,11 +1942,15 @@
    "ingredients": "Aqua, Glycerin, Propanediol, Sodium Cocoyl Isethionate, Cocamidopropyl Hydroxysultaine, Sodium Methyl Cocoyl Taurate, Sodium Methyl Oleoyl Taurate, Cocamidopropyl Betaine, Decyl Glucoside, Potassium Glutathione Isomerized Linoleate, Sodium DNA, Biotin, Panthenol, Guar Hydroxypropyltrimonium Chloride, Parfum, Coconut Acid, Lauryl Glucoside, Sodium Chloride, Potassium Chloride, Citric Acid, Sodium Benzoate, Potassium Sorbate",
    "description": "Le Shampooing Densité est cliniquement prouvé pour augmenter la densité capillaire de 6561 cheveux en phase de pousse.* Sa formule enrichie en sodium DNA, CLA glutathione et en biotine, fortifie visiblement la fibre capillaire tout en agissant sur la pousse. Résultat : des cheveux visiblement plus denses, plus brillants, moins cassants et plus résistants. Pour compléter votre routine, associez l'après-shampooing et le sérum ou adoptez la routine complète Densité.",
    "claims": [
-    "brillance",
+    "reparation",
+    "fortifiant",
     "volume",
-    "fortifiant"
+    "densifiant",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/shampooing-densite.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--shampooing-keratine",
@@ -1852,7 +1966,6 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "lisses",
     "abimes"
    ],
    "actifs": [
@@ -1864,11 +1977,15 @@
    "ingredients": "Aqua, Cocamidopropyl Betaine, Sodium Lauroyl Methyl Isethionate, Glycerin, Sodium Methyl Cocoyl Taurate, Coco-Glucoside, Sodium Chloride, Hydrolyzed Keratin, Hydrolyzed Wheat Protein, Betaine, Parfum, Citric Acid, Trisodium Ethylenediamine Disuccinate, Sodium Benzoate, Potassium Sorbate",
    "description": "Ce shampooing enrichi en kératine et kératine végétale, intégré à la Routine à la Kératine, renforce visiblement la fibre capillaire, pour des cheveux plus forts, plus lisses et brillants.* Les cheveux sont protégés contre les agressions extérieures, souples, hydratés et moins cassants. Composé à 95% d’ingrédients d’origine naturelle, ce shampooing à la mousse onctueuse, contribue à procurer un pur moment de bien-être !* Pour des résultats optimaux, associez-le au masque kératine.",
    "claims": [
-    "hydratant",
-    "brillance",
-    "fortifiant"
+    "hydratation",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/shampooing-keratine.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--shampooing-epaississant",
@@ -1884,8 +2001,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "fins",
-    "epais"
+    "fins"
    ],
    "actifs": [
     "acide hyaluronique",
@@ -1899,11 +2015,14 @@
    "ingredients": "Aqua, Cocamidopropyl Betaine, Glycerin, Sodium Methyl Cocoyl Taurate, Sodium Chloride, Lauryl Glucoside, Sodium Hyaluronate, Palmaria Palmata Extract, Arginine, Hydrolyzed Sweet Almond Protein, Hydrolyzed Rice Protein, Starch Hydroxypropyltrimonium Chloride, Parfum, Coconut Acid, Phenethyl Alcohol, Glyceryl Caprylate, Lactic Acid, Sodium Lactate, Urea, Citric Acid, Pentylene Glycol, p-Anisic Acid, Levulinic Acid, 1,2-Hexanediol, Sodium Benzoate",
    "description": "Cheveux fins, en manque d'épaisseur ? Ce shampooing est issu du protocole Épaississant composé du shampooing du masque et du sérum, qui apporte une épaisseur à vos cheveux de +42% dès la 1ère utilisation avec un effet durable* Sa formule enrichie en extrait d’algue rouge, acide hyaluronique et protéine de riz hydrolysée hydrate, apporte douceur et facilite le démêlage des cheveux sans les alourdir. Utilisé dans le cadre du Protocole Coup de Coeur, le shampooing contribue à hydrater, renforcer et",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "fortifiant",
     "volume",
-    "fortifiant"
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/shampooing-epaississant.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--shampooing-croissance",
@@ -1919,8 +2038,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "secs",
-    "chute"
+    "secs"
    ],
    "actifs": [
     "panthénol",
@@ -1934,9 +2052,12 @@
    "ingredients": "Aqua, Propanediol, Cocamidopropyl Betaine, Sodium Lauroyl Methyl Isethionate, Sodium Chloride, Betaine, Sodium Methyl Cocoyl Taurate, Coco-Glucoside, Sodium Stearoyl Glutamate, Ricinus Communis Seed Oil, Phyllanthus Emblica Fruit Extract, Panax Ginseng Root Extract, Biotin, Arginine, Panthenol, Glycerin, Parfum, Xanthan Gum, Lauroyl Lysine, Citric Acid, Levulinic Acid, Maltodextrin, Sodium Benzoate, Sodium Levulinate",
    "description": "Le shampooing Croissance, issu du protocole qui accélère la croissance de vos cheveux de 60 %, pour des cheveux, plus longs de 6 cm en 3 mois !* Enrichie en huile de ricin, arginine, panthénol, biotine et extraits de fruit d'amla et de racine de ginseng, sa formule est d'origine naturelle. Sa mousse, légère et agréable, est facile à rincer. En l'associant avec le conditionneur sans rinçage et le sérum croissance, vos cheveux sont visiblement plus nourris, plus forts et retrouvent vitalité. Spéci",
    "claims": [
-    "nourrissant"
+    "nutrition",
+    "croissance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/shampooing-croissance.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--shampooing-cheveux-gras",
@@ -1964,9 +2085,12 @@
    "ingredients": "Aqua, Sodium Laureth Sulfate, Cocamidopropyl Betaine, Decyl Glucoside, Niacinamide, Panthenol, Moringa Oleifera Seed Extract, Glycerin, Parfum, Glycol Distearate, Polyquaternium-10, Laureth-4, PEG-150 Pentaerythrityl Tetrastearate, Zinc PCA, PEG-6 Caprylic/Capric Glycerides, Butylene Glycol, Pentylene Glycol, Sodium Chloride, Citric Acid, Sodium Hydroxide, Disodium Phosphate, Sodium Benzoate, Potassium Sorbate, Benzoic Acid, Hexamethylindanopyran, Citrus Aurantium Peel Oil, Limonene, Linalool",
    "description": "Envie de cheveux légers, purifiés et frais plus longtemps ? Le Shampooing Cheveux Gras est conçu pour nettoyer tout en assainissant le cuir chevelu. Sa formule, à base de niacinamide et d’extrait de Moringa, aide à purifier les cheveux et à retarder l’effet regraissant. Idéal pour les cheveux normaux à gras, il offre une sensation de fraîcheur, pour des cheveux propres, doux et légers au quotidien.",
    "claims": [
-    "purifiant"
+    "purifiant",
+    "anti-gras"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/shampooing-cheveux-gras.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--shampooing-cheveux-et-barbe",
@@ -1994,10 +2118,14 @@
    "ingredients": "Aqua, Sodium Chloride, Cocamidopropyl Betaine, Sodium Methyl Cocoyl Taurate, Lauryl Glucoside, Glycerin, Coconut Acid, Opuntia Ficus-Indica Stem Extract, Panthenol, Citric Acid, Disodium Phosphate, Parfum, Potassium Sorbate, Sodium Benzoate, Tetramethyl Acetyloctahydronaphthalenes, Acetyl Cedrene, Citrus Aurantium Peel Oil, Limonene, Linalool",
    "description": "Envie d’un produit efficace qui nettoie en douceur les cheveux et la barbe ? Le Shampooing Cheveux & Barbe Luxéol combine sensorialité et praticité grâce à sa formule enrichie à 96 % d’ingrédients d’origine naturelle, idéale pour les cheveux et la barbe. Il redonne brillance, douceur et souplesse à la fibre capillaire, tout en disciplinant, nourrissant et éliminant les impuretés de la barbe, sans rougeurs ni démangeaisons. Parfait pour un usage quotidien, il laisse un parfum masculin subtil et u",
    "claims": [
-    "nourrissant",
+    "nutrition",
+    "apaisant-cuir-chevelu",
+    "purifiant",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/shampooing-cheveux-et-barbe.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--shampooing-antipelliculaire",
@@ -2023,10 +2151,12 @@
    "ingredients": "Aqua, Sodium Laureth Sulfate, Cocamidopropyl Betaine, Laureth-3, Piroctone Olamine, Mimosa Tenuiflora Bark Extract, Glycerin, Parfum, Glycol Distearate, Laureth-4, Polyquaternium-10, Sodium Chloride, Citric Acid, Sodium Hydroxide, Sodium Benzoate, Potassium Sorbate, Benzoic Acid, CI 42090, CI 17200",
    "description": "Envie d'agir sur vos pellicules ? Offrez à votre cuir chevelu une solution avec le Shampooing Antipelliculaire. Sa formule cliniquement prouvée à base de Piroctone Olamine et d’extrait d'écorce de mimosa contribue à l'élimination des pellicules existantes tout en prévenant leur réapparition.Jour après jour, les cheveux retrouvent souplesse, brillance et douceur. Idéal pour un usage fréquent, il respecte le cuir chevelu et convient à tous types de cheveux. 86 % des utilisateurs constatent l’élimi",
    "claims": [
-    "brillance",
-    "anti-pellicules"
+    "antipelliculaire",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/shampooing-antipelliculaire.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "luxeol--shampooing-antichute-progressive",
@@ -2056,12 +2186,16 @@
    "ingredients": "Aqua, Sodium Chloride, Cocamidopropyl Betaine, Sodium Methyl Cocoyl Taurate, Lauryl Glucoside, Potassium Glutathione Isomerized Linoleate, Sodium DNA, Yeast Extract, Panthenol, Biotin, Hydrolyzed Sweet Almond Protein, Tocopherol, Glycerin, Coconut Acid, Glyceryl Dioleate, Glyceryl Oleate, Parfum, Maltodextrin, Potassium Chloride, Citric Acid, Sodium Benzoate, Potassium Sorbate",
    "description": "Chute de cheveux liée à l’âge, à l’hérédité, aux cheveux clairsemés ? Ce shampooing est cliniquement prouvé pour réduire la chute de cheveux progressive de 40%.* Il renforce visiblement les cheveux. Sa formule composée à 95% d’ingrédients d’origine naturelle, enrichie en extrait de levure, provitamine B5, vitamine B8, CLA glutathione et le sodium DNA pour sauver 3761 cheveux de la phase de chute*. Les cheveux sont visiblement plus résistants, moins cassants, et gagnent en volume et en brillance.",
    "claims": [
-    "brillance",
+    "reparation",
+    "fortifiant",
     "volume",
+    "densifiant",
     "anti-chute",
-    "fortifiant"
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/shampooing-antichute-progressive.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--shampooing-antichute",
@@ -2077,6 +2211,8 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "fins",
+    "abimes",
     "chute"
    ],
    "actifs": [
@@ -2087,10 +2223,14 @@
    "ingredients": "Aqua, Cocamidopropyl Betaine, Sodium Lauroyl Sarcosinate, Decyl Glucoside, Glycerin, Hydrolyzed Keratin, Hydrolyzed Silk, Disodium Cocoyl Glutamate, Citric Acid, Parfum, Sodium Benzoate, Potassium Sorbate",
    "description": "Le shampooing Antichute est cliniquement prouvé pour réduire la chute de cheveux de 44 %.* Il permet de sauver 5259 cheveux de la phase de chute.* Sa formule, composée à 93% d’ingrédients d’origine naturelle, est enrichie en extrait de kératine, actif reconnu pour son efficacité antichute, apporte force aux cheveux dès la racine. Résultat : Des cheveux visiblement plus résistants, plus volumineux et en meilleure santé. Pour compléter votre routine, adopter la Routine Antichute Réactionnelle In&O",
    "claims": [
+    "fortifiant",
     "volume",
-    "anti-chute"
+    "anti-chute",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/shampooing-antichute.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--serum-epaississant",
@@ -2106,8 +2246,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "fins",
-    "epais"
+    "fins"
    ],
    "actifs": [
     "acide hyaluronique",
@@ -2119,12 +2258,14 @@
    "ingredients": "Aqua, Glycerin, Sodium Hyaluronate, Palmaria Palmata Extract, Arginine, Hydrolyzed Rice Protein, Aloe Barbadensis Leaf Juice Powder, Inulin, Parfum, Pentylene Glycol, Phenethyl Alcohol, Glyceryl Caprylate, Carbomer, Sodium Hydroxide, 1,2-Hexanediol, Levulinic Acid",
    "description": "Cheveux fins, en manque d'épaisseur ? Ce sérum issu du protocole Épaississant Coup de Cœur composé du shampooing, du masque et du sérum, apporte une épaisseur à vos cheveux de +42% dès la 1ère utilisation avec un effet durable* Sa formule enrichie en extrait d’algue rouge, de l’acide hyaluronique, et de la protéine de riz hydrolysée, hydrate, apporte souplesse et légèreté aux cheveux. Les cheveux sont brillants avec moins de frisottis sans être alourdis. Pour des résultats optimaux, optez pour l",
    "claims": [
-    "hydratant",
-    "brillance",
+    "hydratation",
+    "anti-frisottis",
     "volume",
-    "lissant"
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/serum-epaississant.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--masque-densite",
@@ -2139,7 +2280,9 @@
    "image_local": "public/scan/products-cheveux/luxeol/masque-densite.jpg",
    "categorie": "masque",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "fins"
+   ],
    "actifs": [
     "panthénol",
     "biotine",
@@ -2153,10 +2296,13 @@
    "ingredients": "Aqua, Coco-Caprylate/Caprate, Distearoylethyl Dimonium Chloride, Heptyl Undecylenate, Cetearyl Alcohol, Hydroxypropyl Guar, Ricinus Communis Seed Oil, Potassium Glutathione Isomerized Linoleate, Sodium DNA, Biotin, Panthenol, Syringa Vulgaris Leaf Cell Extract, Glycerin, Urea, Tocopherol, Parfum, Hydroxypropyl Guar Hydroxypropyltrimonium Chloride, Starch Hydroxypropyltrimonium Chloride, Sodium Hydroxide, Lactic Acid, Gluconolactone, Sodium Chloride, Sodium Lactate, Calcium Gluconate, Potassium Chloride, Levulinic Acid, Citric Acid, p-Anisic Acid, Potassium Sorbate, Sodium Benzoate",
    "description": "Le Masque Densité est cliniquement prouvé pour augmenter la densité capillaire de 7382 cheveux en phase de pousse*. Sa formule à 97% d’ingrédients d’origine naturelle, enrichie en sodium DNA, CLA glutathione, et en biotine, fortifie la fibre capillaire tout en agissant sur la pousse. Résultat : des cheveux visiblement plus denses, plus forts, et plus résistants. Pour compléter votre routine, associez-le au shampooing et au sérum Densité ou adoptez la routine complète Densité.",
    "claims": [
+    "fortifiant",
     "volume",
-    "fortifiant"
+    "densifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/masque-densite.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--masque-keratine",
@@ -2172,7 +2318,8 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
-    "lisses"
+    "secs",
+    "abimes"
    ],
    "actifs": [
     "kératine",
@@ -2185,33 +2332,16 @@
    "ingredients": "Aqua, Brassica Alcohol, Brassicamidopropyl Dimethylamine, Glycerin, Cocos Nucifera Oil, Hydrogenated Ethylhexyl Olivate, Hydrolyzed Keratin, Hydrolyzed Wheat Protein, Ricinus Communis Seed Oil, Hydrogenated Olive Oil Unsaponifiables, Parfum, Lactic Acid, Sodium Benzoate, Potassium Sorbate",
    "description": "Ce masque est issu de la routine kératine enrichie en kératine et kératine végétale qui renforce visiblement la fibre capillaire, pour des cheveux plus forts, plus lisses et brillants.* Composé de formule d’origine naturelle, la routine Kératine protège contre les agressions extérieures, aide à réduire la casse, et apporte souplesse et hydratation à chaque utilisation. La texture fondante du masque transforme votre routine en un véritable moment de bien être*. Pour compléter votre routine, adopt",
    "claims": [
-    "hydratant",
-    "brillance",
-    "fortifiant"
+    "hydratation",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "texturisant",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "luxeol--levure-de-biere",
-   "name": "Levure de Bière",
-   "brand": "luxeol",
-   "brand_name": "Luxéol",
-   "url": "https://luxeol.com/products/levure-de-biere",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 15.92,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0953/0612/1480/files/Photo1_levure-de-biere_72dpi.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/luxeol/levure-de-biere.jpg",
-   "categorie": "traitement-chute",
-   "etape": 4,
-   "cheveux_cibles": [],
-   "actifs": [
-    "sélénium"
-   ],
-   "ingredients": null,
-   "description": "Luxéol Levure de Bière est un complément alimentaire pour la santé des cheveux, de la peau et des ongles*. Le complément alimentaire apporte du zinc et de la vitamine B8 pour une action cheveu et peau, mais aussi du sélénium pour son action supplémentaire sur les ongles et de la vitamine B3 pour son action spécifique sur la peau. Simple d'utilisation, ce complément alimentaire s'intégrera facilement dans une routine quotidienne.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/masque-keratine.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--huile-seche",
@@ -2238,11 +2368,13 @@
    "ingredients": "Helianthus Annuus Seed Oil, Isopropyl Myristate, Parfum, Argania Spinosa Kernel Oil, Persea Gratissima Oil, Rosa Rubiginosa Seed Oil, Tocopherol, Vanillin, Beta-Caryophyllene, Terpineol",
    "description": "Et si une seule huile révélait toute la beauté de votre peau et de vos cheveux ? L’Huile Sèche Luxéol hydrate la peau et nourrit les cheveux. Grâce à sa formule composée à 92 % d’ingrédients d’origine naturelle, elle associe les bienfaits de l’huile d’argan, de l’huile d’avocat, de l’huile de rose musquée et de l'huile de tournesol. Résultat : une peau plus douce, satinée et protégée du dessèchement, des cheveux brillants, nourris et faciles à coiffer.",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/huile-seche.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "luxeol--huile-de-ricin",
@@ -2266,10 +2398,13 @@
    "ingredients": null,
    "description": "Et si un seul soin pouvait aider à nourrir peau et ongles et également aider à favoriser la pousse des cheveux ? L’Huile de Ricin Luxéol, 100 % d’ingrédients d’origine naturelle, est votre alliée beauté multi-usages. Elle aide à favoriser la pousse des cheveux, à fortifier les ongles et à nourrir la peau. Testée sous contrôle dermatologique et fabriquée en France.",
    "claims": [
-    "nourrissant",
+    "nutrition",
     "fortifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/huile-de-ricin.webp",
+   "image_fond": true,
+   "ciblage_source": "fiche"
   },
   {
    "id": "luxeol--huile-barbe-nutrition",
@@ -2295,82 +2430,13 @@
    "ingredients": "Helianthus Annuus Seed Oil, Coco-Caprylate/Caprate, Sesamum Indicum Seed Oil, Simmondsia Chinensis Seed Oil, Vitis Vinifera Seed Oil, Parfum, Tocopherol, Citrus Limon Peel Oil, Pogostemon Cablin Oil, Citrus Aurantium Flower Oil, Citrus Aurantium Peel Oil, Lavandula Oil/Extract, Coumarin, Citronellol, Pinene, Linalyl Acetate, Limonene, Linalool, Tetramethyl Acetyloctahydronaphthalenes, Amyl Salicylate",
    "description": "Barbe sèche, terne, difficile à coiffer ? Offrez-lui nutrition et éclat avec cette huile soin enrichie en huiles végétales. L’Huile Barbe Nutrition nourrit, adoucit et revitalise la barbe pour une meilleure pousse. Formulée à 99 % d’ingrédients d’origine naturelle, sa texture non grasse pénètre rapidement, ne colle pas et ne laisse pas de résidu. Résultats : une barbe souple, douce, facile à coiffer, au parfum agréable. À utiliser chaque jour pour une barbe plus brillante, plus agréable au touch",
    "claims": [
-    "nourrissant",
+    "nutrition",
+    "texturisant",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "luxeol--gummies-pousse-des-cheveux",
-   "name": "Gummies Pousse des Cheveux",
-   "brand": "luxeol",
-   "brand_name": "Luxéol",
-   "url": "https://luxeol.com/products/gummies-pousse-des-cheveux",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 72.4,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0953/0612/1480/files/Photo1_gummies-pousse_72dpi.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/luxeol/gummies-pousse-des-cheveux.jpg",
-   "categorie": "traitement-chute",
-   "etape": 4,
-   "cheveux_cibles": [],
-   "actifs": [
-    "sélénium"
-   ],
-   "ingredients": null,
-   "description": "Les Gummies Pousse des Cheveux favorisent la pousse capillaire en stimulant le bulbe grâce à la roquette. Enrichis en vitamine B8, zinc, cuivre, sélénium et vitamine B6, ces gummies contribuent au maintien de cheveux normaux, à la pigmentation normale des cheveux*. Formulés sans sucres, avec un gélifiant d’origine végétale, ils offrent un délicieux goût fraise et s’intègrent facilement à votre routine quotidienne. Pour des résultats optimaux, associez-les aux produits cosmétiques de la gamme Den",
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "luxeol--gummies-force-croissance",
-   "name": "Gummies Force & Croissance",
-   "brand": "luxeol",
-   "brand_name": "Luxéol",
-   "url": "https://luxeol.com/products/gummies-force-croissance",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 72.4,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0953/0612/1480/files/Photo1_gummies-force-croissance_label.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/luxeol/gummies-force-croissance.jpg",
-   "categorie": "traitement-chute",
-   "etape": 4,
-   "cheveux_cibles": [
-    "chute"
-   ],
-   "actifs": [
-    "sélénium"
-   ],
-   "ingredients": null,
-   "description": "Favorisez la croissance et la fortification de vos cheveux*. Les Gummies Force & Croissance apportent de la prêle des champs qui améliore l'état des cheveux, favorise la fortification et la croissance des cheveux. Ce complément alimentaire sans sucres goût framboise ne se contente pas de favoriser une chevelure forte*. Il contribue également au maintien d'ongles normaux grâce au zinc et au sélénium. Facile à intégrer dans votre routine quotidienne, prenez deux gummies par jour avant ou après un ",
-   "claims": [
-    "fortifiant"
-   ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "luxeol--gummies-chute-de-cheveux",
-   "name": "Gummies Chute de Cheveux",
-   "brand": "luxeol",
-   "brand_name": "Luxéol",
-   "url": "https://luxeol.com/products/gummies-chute-de-cheveux",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 72.4,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0953/0612/1480/files/Photo1_gummies-chute_72dpi.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/luxeol/gummies-chute-de-cheveux.jpg",
-   "categorie": "traitement-chute",
-   "etape": 4,
-   "cheveux_cibles": [
-    "chute"
-   ],
-   "actifs": [
-    "sélénium"
-   ],
-   "ingredients": null,
-   "description": "Les Gummies Chute de Cheveux contribuent à agir sur la chute de cheveux grâce à la capillaire de Montpellier. Sa formule associe également de la vitamine B6, du zinc, du cuivre et du sélénium, pour soutenir la santé et la pigmentation normales des cheveux*. Sans sucres, avec un arôme naturel de cassis, ces gummies à base de gélifiant d’origine végétale offrent une prise simple et gourmande à intégrer dans votre routine. Pour des résultats optimaux, associez-les aux produits cosmétiques de la gam",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/huile-barbe-nutrition.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--conditionneur-sans-rincage-epaississant",
@@ -2383,12 +2449,11 @@
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0953/0612/1480/files/Photo1_conditionneur-epaississant_label.jpg?width=600",
    "image_local": "public/scan/products-cheveux/luxeol/conditionneur-sans-rincage-epaississant.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
     "gras",
-    "fins",
-    "epais"
+    "fins"
    ],
    "actifs": [
     "acide hyaluronique",
@@ -2400,9 +2465,13 @@
    "ingredients": "Aqua, Glycerin, Xanthan Gum, Sodium Hyaluronate, Palmaria Palmata Extract, Arginine, Hydrolyzed Rice Protein, Sclerotium Gum, Parfum, Phenethyl Alcohol, Pentylene Glycol, Glyceryl Caprylate, Citric Acid, 1,2-Hexanediol, Levulinic Acid",
    "description": "Cheveux fins, en manque d'épaisseur ? Ce conditionneur issu du Protocole Épaississant Cheveux Fins, Gras, apporte une épaisseur à vos cheveux de +35% dès la 1ère utilisation avec un effet durable*. Sa formule, enrichie en extrait d’algue rouge, acide hyaluronique et protéine de riz hydrolysée, facilite le démêlage. Les cheveux sont souples, légers et sublimés. Pour des résultats optimaux, optez pour le protocole Épaississant Cheveux Fins, Gras.",
    "claims": [
-    "volume"
+    "volume",
+    "anti-gras",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/conditionneur-sans-rincage-epaississant.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--conditionneur-sans-rincage-croissance",
@@ -2415,11 +2484,10 @@
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0953/0612/1480/files/Photo1_conditionneur-croissance_label.jpg?width=600",
    "image_local": "public/scan/products-cheveux/luxeol/conditionneur-sans-rincage-croissance.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
-    "secs",
-    "chute"
+    "secs"
    ],
    "actifs": [
     "panthénol",
@@ -2431,11 +2499,15 @@
     "acide lactique"
    ],
    "ingredients": "Aqua, Glycerin, Brassicamidopropyl Dimethylamine, Brassica Alcohol, Hydrogenated Ethylhexyl Olivate, Inulin, Ricinus Communis Seed Oil, Phyllanthus Emblica Fruit Extract, Panax Ginseng Root Extract, Arginine, Panthenol, Biotin, Hydrogenated Olive Oil Unsaponifiables, Parfum, Lactic Acid, Propanediol, Xanthan Gum, Maltodextrin, Levulinic Acid, Sodium Levulinate, Sodium Benzoate",
-   "description": "Le conditionneur Croissance, issu du protocole, accélère la croissance de vos cheveux de 60 %, pour des cheveux plus longs de 6 cm en 3 mois !* Enrichie en huile de ricin, arginine, panthénol, biotine et extraits de fruit d'amla et de racine de ginseng, sa formule est d'origine naturelle. Sa texture crémeuse n’alourdit pas les cheveux. En l'associant avec le shampooing et le sérum croissance, vos cheveux sont visiblement plus nourris, plus forts et retrouvent vitalité. Spécialement formulé pour ",
+   "description": "Le conditionneur Croissance, issu du protocole, accélère la croissance de vos cheveux de 60 %, pour des cheveux plus longs de 6 cm en 3 mois !* Enrichie en huile de ricin, arginine, panthénol, biotine et extraits de fruit d'amla et de racine de ginseng, sa formule est d'origine naturelle. Sa texture crémeuse n’alourdit pas les cheveux. En l'associant avec le shampooing et le sérum croissance, vos cheveux sont visiblement plus nourris, plus forts et retrouvent vitalité. Spécialement formulé pour",
    "claims": [
-    "nourrissant"
+    "nutrition",
+    "texturisant",
+    "croissance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/conditionneur-sans-rincage-croissance.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--conditionneur-avec-rincage-antichute-progressive",
@@ -2451,6 +2523,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "fins",
     "chute"
    ],
    "actifs": [
@@ -2461,37 +2534,13 @@
    "ingredients": "Aqua, Prunus Amygdalus Dulcis Oil, Arachidyl/Behenyl Alcohol, Glycerin, Arachidyl/Behenyl Betainate Esylate, Sodium Lactate, Yeast Extract, Potassium Glutathione Isomerized Linoleate, Sodium DNA, Biotin, Potassium Chloride, Caesalpinia Spinosa Gum, Lactic Acid, Maltodextrin, Parfum, Sodium Benzoate, Potassium Sorbate",
    "description": "Chute de cheveux liée à l’âge, à l’hérédité, aux cheveux clairsemés ? Ce conditionneur est cliniquement prouvé pour réduire la chute de cheveux progressive de 40%.* Il renforce, visiblement, les cheveux clairsemés. Sa formule, composée à 99% d’ingrédients d’origine naturelle, est enrichie en extrait de levure, huile d’amande douce, biotine, CLA glutathione et le sodium DNA, pour sauver 2700 cheveux de la phase de chute.* Il agit dès la racine pour renforcer visiblement les cheveux, tout en les l",
    "claims": [
-    "anti-chute",
-    "fortifiant"
+    "fortifiant",
+    "densifiant",
+    "anti-chute"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "luxeol--complexe-keratine",
-   "name": "Complexe Kératine",
-   "brand": "luxeol",
-   "brand_name": "Luxéol",
-   "url": "https://luxeol.com/products/complexe-keratine",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 96.8,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0953/0612/1480/files/Photo1_complexe-keratine_72dpi.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/luxeol/complexe-keratine.jpg",
-   "categorie": "proteine-reconstruction",
-   "etape": 4,
-   "cheveux_cibles": [
-    "chute"
-   ],
-   "actifs": [
-    "kératine",
-    "acides aminés"
-   ],
-   "ingredients": null,
-   "description": "Ce complément alimentaire composée de kératine, prêle des champs, vitamines, minéraux et d'acides aminés favorisant la croissance et la fortification des cheveux, tout en contribuant au maintien de cheveux et d’ongles normaux.* Composé d’ingrédients sélectionnés, il contribue à protéger les cellules contre le stress oxydatif et contribue à réduire la fatigue pour une fibre capillaire résistante*. Une formule pour des cheveux forts et en bonne santé.* Pour compléter votre routine, associez-le ave",
-   "claims": [
-    "fortifiant"
-   ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/conditionneur-avec-rincage-antichute-progressive.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--coloration-sans-ammoniaque-6g-blond-fonce-dore",
@@ -2520,10 +2569,13 @@
    "ingredients": "Crème colorante : AQUA, CETEARYL ALCOHOL, ETHANOLAMINE, PROPYLENE GLYCOL, CETEARETH-25, CETETH-2, PEG-2 RAPESEEDAMINE, PEG-4 RAPESEEDAMIDE, OXIDIZED CORN OIL, TOLUENE-2,5-DIAMINE SULFATE, SIMMONDSIA CHINENSIS SEED OIL, COCOS NUCIFERA OIL, ZIZIPHUS JOAZEIRO BARK EXTRACT, GARDENIA TAITENSIS FLOWER, 4-CHLORORESORCINOL, P-AMINOPHENOL, SODIUM SULFITE, PROPANEDIOL, 2-METHYLRESORCINOL, PARFUM, POLYQUATERNIUM-22, ASCORBIC ACID, SODIUM HYDROSULFITE, TETRASODIUM EDTA, M-AMINOPHENOL, 4-AMINO-2-HYDROXYTOLUENE, OCTADECYL DI-T-BUTYL-4-HYDROXYHYDROCINNAMATE, ACETIC ACID, PHENYL METHYL PYRAZOLONE, TOCOPHEROL, CITRIC ACID, DIMETHYL PHENETHYL ACETATE",
    "description": "Envie d’une couleur dorée éclatante sans compromis ?La Coloration Permanente Sans Ammoniaque 6G Blond Foncé Doré est conçue pour couvrir 100 % des cheveux blancs tout en respectant votre cuir chevelu*. Elle offre une couleur lumineuse, intense et des reflets naturels, avec une tenue longue durée*. Sa formule, enrichie en huile de noix de coco, huile de graines de jojoba et extrait d'écorce de Ziziphus Joazeiro, nourrit les cheveux tout en révélant leur éclat. Le kit complet contient crème colora",
    "claims": [
-    "nourrissant",
-    "brillance"
+    "nutrition",
+    "brillance",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/coloration-sans-ammoniaque-6g-blond-fonce-dore.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--coloration-sans-ammoniaque-5n-chatain-clair",
@@ -2549,41 +2601,16 @@
     "urée"
    ],
    "ingredients": "Crème colorante : AQUA, CETEARYL ALCOHOL, ETHANOLAMINE, PROPYLENE GLYCOL, CETEARETH-25, CETETH-2, PEG-2 RAPESEEDAMINE, TOLUENE-2,5-DIAMINE SULFATE, PEG-4 RAPESEEDAMIDE, OXIDIZED CORN OIL, SIMMONDSIA CHINENSIS SEED OIL, COCOS NUCIFERA OIL, ZIZIPHUS JOAZEIRO BARK EXTRACT, GARDENIA TAITENSIS FLOWER, 2-METHYLRESORCINOL, SODIUM SULFITE, PROPANEDIOL, PARFUM, 4-CHLORORESORCINOL, POLYQUATERNIUM-22, ASCORBIC ACID, SODIUM HYDROSULFITE, TETRASODIUM EDTA, 2-AMINO-4-HYDROXYETHYLAMINOANISOLE SULFATE, M-AMINOPHENOL, OCTADECYL DI-T-BUTYL-4-HYDROXYHYDROCINNAMATE, ACETIC ACID, P-AMINOPHENOL, PHENYL METHYL PYRAZOLONE, TOCOPHEROL, CITRIC ACID, DIMETHYL PHENETHYL ACETATE",
-   "description": "Envie d’un châtain lumineux sans compromis sur le soin ? La Coloration Permanente Sans Ammoniaque 5N Châtain Clair est formulée pour couvrir 100 % des cheveux blancs tout en respectant votre cuir chevelu*. Elle offre une couleur éclatante, aux reflets naturels et une tenue longue durée.* Sa formule enrichie en huile de noix de coco, huile de graines de jojoba et extrait d'écorce de Ziziphus Joazeiro, nourrit la fibre capillaire et laisse les cheveux souples, brillants et hydraté. Le kit complet ",
+   "description": "Envie d’un châtain lumineux sans compromis sur le soin ? La Coloration Permanente Sans Ammoniaque 5N Châtain Clair est formulée pour couvrir 100 % des cheveux blancs tout en respectant votre cuir chevelu*. Elle offre une couleur éclatante, aux reflets naturels et une tenue longue durée.* Sa formule enrichie en huile de noix de coco, huile de graines de jojoba et extrait d'écorce de Ziziphus Joazeiro, nourrit la fibre capillaire et laisse les cheveux souples, brillants et hydraté. Le kit complet",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "brillance"
+    "hydratation",
+    "nutrition",
+    "brillance",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "luxeol--collagene-2en1",
-   "name": "Collagène 2 en 1",
-   "brand": "luxeol",
-   "brand_name": "Luxéol",
-   "url": "https://luxeol.com/products/collagene-2en1",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 24.43,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0953/0612/1480/files/Photo1_collagene_72dpi.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/luxeol/collagene-2en1.jpg",
-   "categorie": "traitement-chute",
-   "etape": 4,
-   "cheveux_cibles": [
-    "chute"
-   ],
-   "actifs": [
-    "acide hyaluronique",
-    "ortie",
-    "collagène"
-   ],
-   "ingredients": null,
-   "description": "Collagène 2-en-1 Cheveux & Peau soutient la fortification et la croissance des cheveux et améliore l’élasticité de la peau tout en participant à l’amélioration des rides*. Sa formule en poudre à diluer contient 10 g de peptides de collagène marin de type I (faible poids moléculaire < 2000 Da), du hyaluronate de sodium, du coenzyme Q10, de la prêle des champs et de l’ortie, ainsi que les vitamines C, B6 et B8. Sans sucres, sans conservateur, sans colorant. Pour une efficacité renforcée, associez ",
-   "claims": [
-    "fortifiant"
-   ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/coloration-sans-ammoniaque-5n-chatain-clair.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--coloration-sans-ammoniaque-1n-noir-ebene",
@@ -2598,7 +2625,9 @@
    "image_local": "public/scan/products-cheveux/luxeol/coloration-sans-ammoniaque-1n-noir-ebene.jpg",
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "cuir-chevelu-sensible"
+   ],
    "actifs": [
     "huile de coco",
     "huile de jojoba",
@@ -2609,9 +2638,12 @@
    "ingredients": "Crème colorante : Aqua, Cetearyl Alcohol, Propylene Glycol, Ceteareth-25, Ethanolamine, Ceteth-2, Toluene-2,5-Diamine Sulfate, PEG-2 Rapeseedamine, PEG-4 Rapeseedamide, Oxidized Corn Oil, Simmondsia Chinensis Seed Oil, Cocos Nucifera Oil, Ziziphus Joazeiro Bark Extract, Gardenia Taitensis Flower, 4-Chlororesorcinol, 2-Amino-4-Hydroxyethylaminoanisole Sulfate, Sodium Sulfite, Propanediol, N,N-Bis(2-Hydroxyethyl)-p-Phenylenediamine Sulfate, m-Aminophenol, Parfum, Polyquaternium-22, Ascorbic Acid, Sodium Hydrosulfite, Tetrasodium EDTA, 4-Amino-2-Hydroxytoluene, Octadecyl Di-T-Butyl-4-Hydroxyhydrocinnamate, Phenyl Methyl Pyrazolone, Tocopherol, Acetic Acid, Citric Acid, Dimethyl Phenethyl Acetate",
    "description": "Envie d’une couleur intense qui respecte votre cuir chevelu ? La Coloration Permanente Sans Ammoniaque 1N Noir Ébène est conçue pour couvrir 100 % des cheveux blancs tout en respectant le cuir chevelu. Sa formule sans ammoniaque assure une tenue longue durée et laisse vos cheveux souples, brillants pour une couleur éclatante.* Le kit complet inclut crème colorante, enrichie en huile de noix de coco, huile de graines de jojoba et extrait d'écorce de Ziziphus Joazeiro, un lait révélateur, un shamp",
    "claims": [
-    "brillance"
+    "brillance",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/coloration-sans-ammoniaque-1n-noir-ebene.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--cire-coiffante-antichute",
@@ -2628,6 +2660,7 @@
    "etape": 4,
    "cheveux_cibles": [
     "secs",
+    "fins",
     "chute"
    ],
    "actifs": [
@@ -2639,11 +2672,16 @@
    "ingredients": "Aqua, Butyrospermum Parkii Butter, Cetearyl Alcohol, Helianthus Annuus Seed Oil, Hydrolyzed Corn Starch, Caprylic/Capric Triglyceride, Glycerin, PVP, Coco-Glucoside, Ocimum Basilicum Hairy Root Culture Extract, Yeast Extract, Parfum, Gluconolactone, Dehydroxanthan Gum, Maltodextrin, Alcohol, Calcium Gluconate, Sodium Benzoate, Potassium Sorbate, Citric Acid, Sodium Hydroxide, Tetramethyl Acetyloctahydronaphthalenes, Linalyl Acetate, Limonene, Linalool, Citrus Limon Peel Oil, Pogostemon Cablin Oil, Citrus Aurantium Peel Oil, Coumarin, Citronellol, Lavandula Oil/Extract, Pinene, Amyl Salicylate, Pelargonium Graveolens Flower Oil",
    "description": "Offrez à vos cheveux une double action efficace : style & effet antichute. Cette cire d’origine naturelle réduit la chute de cheveux de 33 %, soit 4016 cheveux sauvés, tout en apportant une fixation durable à effet mat naturel.* Sa texture crémeuse permet de sculpter vos coiffures au quotidien sans graisser ni sensibiliser le cuir chevelu. Enrichie en extrait de levure, extrait des racines chevelues de basilic et beurre de karité, elle nourrit, fortifie et protège visiblement la fibre capillaire",
    "claims": [
-    "nourrissant",
+    "nutrition",
+    "fortifiant",
+    "texturisant",
     "anti-chute",
-    "fortifiant"
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/cire-coiffante-antichute.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--apres-shampooing-densite",
@@ -2656,9 +2694,11 @@
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0953/0612/1480/files/Photo1_apres-shampooing-densite.jpg?width=600",
    "image_local": "public/scan/products-cheveux/luxeol/apres-shampooing-densite.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [],
+   "categorie": "apres-shampooing",
+   "etape": 2,
+   "cheveux_cibles": [
+    "fins"
+   ],
    "actifs": [
     "biotine",
     "glycérine",
@@ -2668,11 +2708,14 @@
    "ingredients": "Aqua, Glycerin, Gluconolactone, Sodium DNA, Potassium Glutathione Isomerized Linoleate, Biotin, Syringa Vulgaris Leaf Cell Extract, Xylitylglucoside, Anhydroxylitol, Xylitol, Lauroyl Lysine, Biosaccharide Gum-1, Urea, Levulinic Acid, Sodium Levulinate, Glyceryl Caprylate, p-Anisic Acid, Parfum, Dehydroxanthan Gum, Hydroxypropyl Guar, Hydroxypropyl Guar Hydroxypropyltrimonium Chloride, Starch Hydroxypropyltrimonium Chloride, Sodium Hydroxide, Lactic Acid, Sodium Lactate, Sodium Chloride, Potassium Chloride, Sodium Anisate, Calcium Gluconate, Potassium Sorbate, Sodium Benzoate",
    "description": "L'après-shampooing Densité est cliniquement prouvé pour augmenter la densité capillaire de 7076 cheveux en phase de pousse*. Sa formule à 98% d’ingrédients d’origine naturelle, enrichie en sodium DNA, CLA glutathione, et en biotine, fortifie la fibre capillaire tout en agissant sur la pousse. Résultat : des cheveux visiblement plus denses, plus brillants, et plus résistants. Pour compléter votre routine, associez-le shampooing et le sérum ou adoptez la routine complète Densité.",
    "claims": [
-    "brillance",
+    "fortifiant",
     "volume",
-    "fortifiant"
+    "densifiant",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/apres-shampooing-densite.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "luxeol--apres-shampooing-antichute",
@@ -2685,9 +2728,10 @@
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0953/0612/1480/files/Photo1_apres-shampooing-antichute_label.jpg?width=600",
    "image_local": "public/scan/products-cheveux/luxeol/apres-shampooing-antichute.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
+    "fins",
     "abimes",
     "chute"
    ],
@@ -2700,80 +2744,13 @@
    "ingredients": "Aqua, Myristyl Alcohol, Hydrogenated Ethylhexyl Olivate, Oryza Sativa Starch, Cetrimonium Chloride, Ethylhexyl Palmitate, Hydrolyzed Keratin, Panthenol, Cocos Nucifera Oil, Prunus Armeniaca Fruit Extract, Prunus Persica Fruit Extract, Pyrus Malus Fruit Extract, Acetum, Triticum Vulgare Germ Oil, Hydrogenated Olive Oil Unsaponifiables, Parfum, Cetearyl Alcohol, Citric Acid, Calcium Gluconate, Polysorbate 80, Gluconolactone, Potassium Sorbate, Sodium Benzoate",
    "description": "L'après-shampooing Antichute est cliniquement prouvé pour aider à diminuer la chute des cheveux et renforcer la fibre capillaire. Sa formule, composée à 97% d’ingrédients d’origine naturelle, enrichie en extrait de kératine, actif reconnu pour son efficacité antichute, apporte résistance aux cheveux. Ce soin aide à diminuer la chute des cheveux et les rend visiblement moins cassants, plus doux et en meilleure santé. Pour compléter votre routine, associez le au shampooing et au Spray antichute ré",
    "claims": [
-    "anti-chute",
-    "fortifiant"
+    "reparation",
+    "fortifiant",
+    "anti-chute"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "luxeol--biotine-1000",
-   "name": "Biotine 1000",
-   "brand": "luxeol",
-   "brand_name": "Luxéol",
-   "url": "https://luxeol.com/products/biotine-1000",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 21.52,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0953/0612/1480/files/Photo1_biotine1000.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/luxeol/biotine-1000.jpg",
-   "categorie": "traitement-chute",
-   "etape": 4,
-   "cheveux_cibles": [],
-   "actifs": [
-    "biotine"
-   ],
-   "ingredients": null,
-   "description": "Luxéol Biotine 1000 est un complément alimentaire qui soutient la pousse et la santé des cheveux*.Apportant 1000 µg de biotine par gélule (soit 2000% des apports de référence) qui contribue à maintenir des cheveux normaux et grâce à la roquette, il stimule le bulbe capillaire, favorisant ainsi leur pousse.Idéal pour ceux qui cherchent à compléter leur routine d'un complément alimentaire hautement dosé et sous la forme d'un programme de 3 mois.",
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "luxeol--special-volume",
-   "name": "Spécial Volume",
-   "brand": "luxeol",
-   "brand_name": "Luxéol",
-   "url": "https://luxeol.com/products/special-volume",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 18.32,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0953/0612/1480/files/Photo1_special-volume.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/luxeol/special-volume.jpg",
-   "categorie": "traitement-chute",
-   "etape": 4,
-   "cheveux_cibles": [
-    "fins"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Cheveux plats, sans volume dès la racine ? Complément alimentaire pour le volume des cheveuxLuxéol Spécial Volume est un complément alimentaire à base de L-méthionine et de Keranat®, un ingrédient breveté composé d’extraits de graines de millet et de blé, conçu pour agir sur le volume de vos cheveux. Il convient à tous les types de cheveux et peut s’intégrer dans une routine complète. Pour des résultats optimaux, associez-le au Shampooing et Après-Shampooing Volumateur pour une action combinée. ",
-   "claims": [
-    "volume"
-   ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "luxeol--pigmentation-cheveux-blancs-gris",
-   "name": "Pigmentation Cheveux Blancs & Gris",
-   "brand": "luxeol",
-   "brand_name": "Luxéol",
-   "url": "https://luxeol.com/products/pigmentation-cheveux-blancs-gris",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 15.92,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0953/0612/1480/files/Photo1_pigmentation-cheveux-blancs-cheveux-gris.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/luxeol/pigmentation-cheveux-blancs-gris.jpg",
-   "categorie": "coloration-soin",
-   "etape": 2,
-   "cheveux_cibles": [],
-   "actifs": [
-    "vitamine E"
-   ],
-   "ingredients": null,
-   "description": "Cheveux blancs ou gris qui manquent d’éclat ? Le complément alimentaire, Pigmentation Cheveux Blancs & Gris est conçu pour contribuer à maintenir la pigmentation normale des cheveux grâce au cuivre. Il apporte aussi des antioxydants, la vitamine E, le zinc et le cuivre qui contribuent à protéger les cellules contre le stress oxydatif. Le cassis aide également à prévenir les changements liés à l'âge.",
-   "claims": [
-    "brillance"
-   ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/luxeol/cutout/apres-shampooing-antichute.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

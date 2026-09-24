@@ -1,24 +1,28 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { getPage } from '../lib/i18n/server';
 
-export const metadata: Metadata = {
-  title: 'VYVRE — Diagnostic de peau mesuré, pour les marques de soin',
-  description:
-    'Le seul diagnostic peau avec un prix public. Infrastructure 100% France 🇫🇷, RGPD natif, on-device, zéro upload photo.',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://vyvre.fr'),
-  openGraph: {
-    title: 'VYVRE — Le diagnostic de peau, mesuré',
-    description: 'Widget white-label · Made in France 🇫🇷',
-    url: '/',
-    siteName: 'VYVRE',
-    locale: 'fr_FR',
-    type: 'website',
-  },
-};
+export function generateMetadata(): Metadata {
+  const { t, lang } = getPage();
+  return {
+    title: t('home.meta.title'),
+    description: t('home.meta.desc'),
+    metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL || 'https://vyvre.fr'),
+    openGraph: {
+      title: t('home.meta.title'),
+      description: t('home.meta.desc'),
+      url: '/',
+      siteName: 'VYVRE',
+      locale: lang,
+      type: 'website',
+    },
+  };
+}
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const { htmlLang, dir } = getPage();
   return (
-    <html lang="fr">
+    <html lang={htmlLang} dir={dir}>
       <head>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

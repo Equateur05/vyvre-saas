@@ -1,3 +1,4 @@
+var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind(console):function(){};
 /**
  * VYVRE Scan Engine v10.5.0-HONEST-AGE — Gabor shading + age-honesty fix (neutralized webcam +32y sigmoid & halved CNN offset 12→6 after due-diligence audit)
  * ═══════════════════════════════════════════════════════════════════════════════════════════
@@ -416,7 +417,7 @@
  *     - multiFrame, multiFrameCount, multiFrameIntervalMs : v10.0 multi-frame CNN options.
  *
  *  Activer le CNN dans un POC : ajouter avant vyvre-scan-engine.js :
- *    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.20.0"></script>
+ *    <script src="/scan/vendor/tfjs-4.22.0.min.js"></script>
  *    <script src="vyvre-scan-engine.js" data-vyvre-cnn-model="./models/age-cnn-v1/model.json"></script>
  *
  *  Sans tfjs chargé : l'engine fonctionne quand même (algo v7.7 seul, MAE 13.15y UTKFace).
@@ -1548,7 +1549,7 @@
         const allPixels = cheekPixels.concat(tzonePixels, foreheadPixels);
         const quality = assessFrameQuality(allPixels);
         if (!quality.ok) {
-          console.log(`[vyvre-scan v7] frame ${i} rejected: ${quality.reason}`);
+          VYVRE_LOG(`[vyvre-scan v7] frame ${i} rejected: ${quality.reason}`);
           continue;
         }
 
@@ -1702,21 +1703,21 @@
   // Messages utilisateur (FR / EN)
   const V9_MESSAGES = {
     fr: {
-      NO_FACE:           { title: 'Aucun visage détecté', msg: 'Place ton visage face à la caméra et reste immobile.', icon: 'face' },
-      MULTIPLE_FACES:    { title: 'Plusieurs visages', msg: 'Scan individuel uniquement. Garde un seul visage dans le cadre.', icon: 'people' },
-      FACE_TOO_SMALL:    { title: 'Trop loin', msg: 'Rapproche le téléphone à environ 30 cm de ton visage.', icon: 'zoom' },
-      FACE_TOO_LARGE:    { title: 'Trop près', msg: 'Recule légèrement, ton visage doit tenir dans le cadre.', icon: 'zoom' },
-      OFF_CENTER:        { title: 'Visage décentré', msg: 'Centre ton visage dans le cadre.', icon: 'target' },
-      LOW_LUMINANCE:     { title: 'Éclairage insuffisant', msg: 'Place-toi face à une fenêtre ou allume une lumière.', icon: 'light' },
-      HIGH_LUMINANCE:    { title: 'Trop de lumière', msg: 'Évite le contre-jour direct ou un flash agressif.', icon: 'light' },
-      LOW_VARIANCE:      { title: 'Image floue', msg: 'Stabilise le téléphone. Vérifie aussi que la lentille n\'est pas sale.', icon: 'blur' },
-      OCCLUDED_LANDMARKS:{ title: 'Visage masqué', msg: 'Dégage tes yeux, ton nez et ta bouche. Retire lunettes/main.', icon: 'face' },
-      WRONG_ANGLE:       { title: 'Mauvais angle', msg: 'Regarde droit vers la caméra, visage de face.', icon: 'angle' },
-      INSUFFICIENT_FRAMES: { title: 'Scan interrompu', msg: 'Reste immobile pendant 3 secondes face à la caméra.', icon: 'face' },
+      NO_FACE:           { title: 'Aucun visage détecté', msg: 'Placez votre visage face à la caméra et restez immobile.', icon: 'face' },
+      MULTIPLE_FACES:    { title: 'Plusieurs visages', msg: 'La lecture est individuelle. Gardez un seul visage dans le cadre.', icon: 'people' },
+      FACE_TOO_SMALL:    { title: 'Trop loin', msg: 'Rapprochez l’appareil à environ 30 cm de votre visage.', icon: 'zoom' },
+      FACE_TOO_LARGE:    { title: 'Trop près', msg: 'Reculez légèrement : votre visage doit tenir dans le cadre.', icon: 'zoom' },
+      OFF_CENTER:        { title: 'Visage décentré', msg: 'Centrez votre visage dans le cadre.', icon: 'target' },
+      LOW_LUMINANCE:     { title: 'Éclairage insuffisant', msg: 'Placez-vous face à une fenêtre ou allumez une lumière.', icon: 'light' },
+      HIGH_LUMINANCE:    { title: 'Trop de lumière', msg: 'Évitez le contre-jour direct ou un flash trop puissant.', icon: 'light' },
+      LOW_VARIANCE:      { title: 'Image floue', msg: 'Stabilisez l’appareil et vérifiez que la lentille est propre.', icon: 'blur' },
+      OCCLUDED_LANDMARKS:{ title: 'Visage masqué', msg: 'Découvrez vos yeux, votre nez et votre bouche — retirez lunettes ou main.', icon: 'face' },
+      WRONG_ANGLE:       { title: 'Mauvais angle', msg: 'Regardez droit vers la caméra, le visage de face.', icon: 'angle' },
+      INSUFFICIENT_FRAMES: { title: 'Scan interrompu', msg: 'Restez immobile quelques secondes face à la caméra.', icon: 'face' },
       retryLabel: 'Réessayer',
       cancelLabel: 'Annuler',
       reasonsHeader: 'Conditions à corriger',
-      strictBadge: 'Scan VYVRE — mode honnête'
+      strictBadge: 'VYVRE — Lecture de peau'
     },
     en: {
       NO_FACE:           { title: 'No face detected', msg: 'Place your face in front of the camera and hold still.', icon: 'face' },
@@ -1733,7 +1734,7 @@
       retryLabel: 'Try again',
       cancelLabel: 'Cancel',
       reasonsHeader: 'Conditions to fix',
-      strictBadge: 'VYVRE Scan — honest mode'
+      strictBadge: 'VYVRE — Skin reading'
     }
   };
 
@@ -1827,7 +1828,7 @@
         // Tentative landmarks si modèle chargé (n'arrête pas si absent)
         if (fa.nets.faceLandmark68Net && fa.nets.faceLandmark68Net.params && detected.length === 1) {
           try {
-            const withLm = await fa.detectSingleFace(canvas, tinyOpts).withFaceLandmarks(true);
+            const withLm = await fa.detectSingleFace(canvas, tinyOpts).withFaceLandmarks((fa.nets.faceLandmark68TinyNet && fa.nets.faceLandmark68TinyNet.isLoaded) ? true : false);
             if (withLm && withLm.landmarks) {
               landmarks = withLm.landmarks.positions.length;
               // Estime yaw approximatif : asymétrie nose-eye
@@ -2448,6 +2449,224 @@
   }
 
   // ────────────────────────────────────────────────────────────────────────
+  // v11 AGE RECALIBRATION — monotone, age-dependent de-compression (anchored)
+  // ────────────────────────────────────────────────────────────────────────
+  //
+  // PROBLÈME (ground truth) : le CNN vyvre_age_cnn_v11 (UTKFace) souffre d'un
+  // gros domain-gap sur les visages webcam réels. Il COMPRESSE la plage réelle
+  // 18-80 vers ~24-33 (regression-to-mean). Conséquence mesurée : un vrai 43 ans
+  // (webcam, bonne lumière) ressort CNN ~24 et FINISSAIT affiché à 32 (sous-
+  // estimation ~11y APRÈS toutes les corrections). À l'inverse, une sur-correction
+  // par offset plat (+12 historique) gonflait les jeunes (cas documenté 42→57).
+  //
+  // POURQUOI UNE SEULE COURBE MONOTONE (et pas un offset constant) : l'erreur
+  // n'est PAS un biais constant, c'est une COMPRESSION de plage. Un offset plat
+  // ajoute les mêmes années à un 25 ans et à un 55 ans → structurellement
+  // incapable d'être à la fois sûr-pour-les-jeunes ET assez fort en milieu/senior.
+  // Une fonction monotone, quasi-identité en bas et croissante avec l'âge, peut
+  // décompresser le milieu/senior SANS toucher les jeunes (contrainte dure).
+  //
+  // CALIBRATION (1 ancre solide) : le seul point sol vérifié est «vrai 43 → CNN 24».
+  // En ensemble bonne qualité (poids CNN 0.65, algo 0.35, l'algo v7.7 disant ~44),
+  // le finalBio pré-recal ≈ 0.65×24 + 0.35×44 ≈ 31. On veut afficher ~41-43, donc
+  // bioAge cible ≈ 45 (puis Vierkötter -4 → 41). D'où le nœud (31 → 45). Les nœuds
+  // bas (16→16, 24→24) gardent la pente ~1 sous 28 : les jeunes passent inchangés.
+  // Les nœuds hauts (55→64, 70→75, 85→85) sont à pente sous-unitaire : les seniors
+  // s'étalent sans saturer le clamp [16,85].
+  //
+  // HONNÊTETÉ (load-bearing) : UNE seule ancre ne justifie PAS une précision à
+  // l'année. Le même finalBio brut peut être un vrai 30 ans OU un vrai 43 compressé
+  // (ambiguïté irréductible). C'est pourquoi (a) l'UI doit afficher result.range
+  // (±4y CNN actif, élargi en basse qualité) avec un disclaimer «indicatif, non
+  // médical», et (b) la décompression n'est appliquée QUE quand le CNN a contribué
+  // (cnnApplied), jamais sur le chemin algo-seul déjà calibré. Refinable : chaque
+  // nouveau couple (rawObservé → vrai âge) déplace/insère le nœud le plus proche,
+  // arrays strictement croissants → monotonie garantie. À terme : fit isotone.
+  //
+  // OVERRIDE RUNTIME : si window.VYVRE_AGE_CALIBRATION est une fonction, elle est
+  // utilisée à la place (tuning live sans redéploiement). Elle reçoit (bio, ctx)
+  // où ctx = { cnnAge, algoBio, quality, cnnWeight } et doit retourner un nombre.
+  // ─────────────────────────────────────────────────────────────────────
+  // v11.1 (19/09/2026) — LA COURBE v11 EST DÉSACTIVÉE PAR DÉFAUT.
+  //
+  // Deux raisons mesurées, pas des opinions :
+  //
+  //  1. UNE SEULE ANCRE. Le commentaire v11 ci-dessus le dit lui-même :
+  //     « CALIBRATION (1 ancre solide) : le seul point sol vérifié est
+  //     "vrai 43 → CNN 24" ». Neuf nœuds ont été posés à partir d'un seul
+  //     couple observé. Ce n'est pas une calibration, c'est une extrapolation.
+  //
+  //  2. LA COURBE EST INSTABLE. Le segment [28 → 31] a une pente de 5,00 :
+  //     3 ans d'écart en entrée produisent 15 ans d'écart à l'écran
+  //     (brut 28 → 30 ans affichés ; brut 31 → 45 ans affichés). Or le CNN
+  //     multi-frame mesure lui-même un σ de plusieurs années d'une frame à
+  //     l'autre. Deux scans de la même personne à dix secondes d'intervalle
+  //     pouvaient donc afficher 30 puis 45. Une courbe de correction qui
+  //     amplifie le bruit d'entrée par 5 est pire que pas de correction.
+  //
+  // La table est conservée telle quelle, renommée _DRAFT, pour qu'on puisse
+  // la reprendre le jour où il y aura un vrai jeu de visages d'âges connus.
+  // Tant qu'il n'y en a pas, vyvreAgeRecalibrate() est l'identité.
+  //
+  // POUR RÉACTIVER : soit window.VYVRE_AGE_CALIBRATION (override live, déjà
+  // supporté ci-dessous), soit VYVRE_AGE_RECAL_ENABLED = true après avoir
+  // remplacé les nœuds par un ajustement isotone sur données réelles.
+  // Contrainte dure à respecter : aucune pente de segment > 1,5.
+  const VYVRE_AGE_RECAL_ENABLED = false;                                // v11.1 : off (non validée)
+  const VYVRE_AGE_RECAL_X_DRAFT = [16, 24, 28, 31, 35, 42, 55, 70, 85]; // finalBio brut (nœuds)
+  const VYVRE_AGE_RECAL_Y_DRAFT = [16, 24, 30, 45, 50, 55, 64, 75, 85]; // bioAge décompressé (nœuds)
+
+  function vyvreAgeRecalibrate(bio, ctx) {
+    // Override live (Charles peut ré-écrire la courbe en prod sans redeploy)
+    if (typeof window !== 'undefined' && typeof window.VYVRE_AGE_CALIBRATION === 'function') {
+      try {
+        const o = window.VYVRE_AGE_CALIBRATION(bio, ctx || {});
+        if (typeof o === 'number' && !isNaN(o)) return o;
+      } catch (e) { /* override défaillant → courbe par défaut */ }
+    }
+    if (bio == null || isNaN(bio)) return bio;
+    if (!VYVRE_AGE_RECAL_ENABLED) return bio;   // v11.1 : identité tant que non calibrée
+    const X = VYVRE_AGE_RECAL_X_DRAFT, Y = VYVRE_AGE_RECAL_Y_DRAFT, n = X.length;
+    if (bio <= X[0]) return Y[0] + (bio - X[0]);          // identité pente-1 sous le plancher jeune
+    for (let i = 0; i < n - 1; i++) {
+      if (bio <= X[i + 1]) {
+        const t = (bio - X[i]) / (X[i + 1] - X[i]);
+        return Y[i] + t * (Y[i + 1] - Y[i]);              // interpolation linéaire dans le segment
+      }
+    }
+    return Y[n - 1] + (bio - X[n - 1]) * 0.3;             // pente douce 0.3 au-dessus du nœud haut
+  }
+
+  // ════════════════════════════════════════════════════════════════════════
+  // v11.1 — L'ÂGE EST-IL SEULEMENT LISIBLE ? (garde d'amplitude mesurée)
+  // ════════════════════════════════════════════════════════════════════════
+  //
+  // CE QUI A ÉTÉ MESURÉ (19/09/2026, balayage exhaustif, cf.
+  // vyvre-backups/AGE_RECALIBRATION_2026-09.md) :
+  //
+  //   En parcourant TOUT l'espace des signaux physiquement atteignables
+  //   (ITA° −10→60 = toutes les carnations, σL* 1→20 = toutes les rugosités
+  //   plausibles, L* 35→75, sébum 0→0,6, soit 4 500 combinaisons), l'âge
+  //   renvoyé par le chemin colorimétrique ne sort JAMAIS de 23–33 ans.
+  //   Médiane : 27 ans. Amplitude utile : 10 ans sur une plage cible de 60.
+  //
+  //   Cause : 70 % du composite d'âge (wrinkles 0,40 + firmness 0,30) sont
+  //   deux fonctions de la MÊME variable, |ITA° − 35|, c'est-à-dire la
+  //   distance de la carnation à un ton pivot. C'est une mesure de COULEUR
+  //   de peau, pas d'âge. Et les deux saturent :
+  //     · wrinkles = 109,79 − 0,168·|ITA−35| − 0,679·σL*, plafonné à 95.
+  //       L'offset 109,79 est si haut que le score reste collé à 89–95 quoi
+  //       qu'il arrive. Il faudrait σL* ≈ 76 (physiquement impossible sur une
+  //       joue) pour descendre à 50.
+  //     · firmness = 82 − 0,32·|ITA−35| + 5, soit un PLANCHER DUR à 72,6 :
+  //       aucune peau, à aucun âge, ne peut obtenir moins de 73.
+  //
+  //   Conséquence directe : « 74 ans lue 27 » n'était pas un réglage à
+  //   corriger. 27 est la sortie médiane du moteur POUR TOUT LE MONDE.
+  //
+  // CE QU'ON EN FAIT : tant que l'amplitude atteignable est inférieure à
+  // AGE_MIN_USABLE_SPAN, le moteur REFUSE de publier un chiffre. Il renvoie
+  // point: null et une classe. Un faux âge est pire que pas d'âge.
+  //
+  // Cette garde est auto-mesurée au runtime (ageSpanDiagnostic), pas codée en
+  // dur : le jour où les biomarqueurs seront corrigés et l'amplitude
+  // retrouvée, le chiffre se rallume tout seul — et si quelqu'un re-casse
+  // l'amplitude plus tard, il s'éteint tout seul. C'est le test de
+  // non-régression qui manquait depuis le début.
+
+  const AGE_MIN_USABLE_SPAN = 25;   // ans d'amplitude atteignable minimum pour oser un chiffre
+
+  // Classes honnêtes — c'est le maximum de ce que le moteur peut prétendre
+  // affirmer tant qu'il n'a pas été validé sur des visages d'âges connus.
+  const AGE_CLASS_BOUNDS = [
+    { key: 'jeune',  min: 0,  max: 34, label: 'Peau jeune',  hint: 'moins de 35 ans' },
+    { key: 'adulte', min: 35, max: 54, label: 'Peau adulte', hint: '35 à 55 ans' },
+    { key: 'mature', min: 55, max: 200, label: 'Peau mature', hint: 'plus de 55 ans' }
+  ];
+
+  function ageClassFor(age) {
+    if (age == null || isNaN(age)) {
+      return { key: 'indetermine', label: 'Non déterminé', hint: 'signal insuffisant' };
+    }
+    for (const c of AGE_CLASS_BOUNDS) {
+      if (age >= c.min && age <= c.max) return c;
+    }
+    return AGE_CLASS_BOUNDS[AGE_CLASS_BOUNDS.length - 1];
+  }
+
+  /**
+   * Mesure l'amplitude d'âge réellement atteignable par le chemin
+   * colorimétrique, en balayant l'espace des signaux bruts physiquement
+   * possibles. Aucune image requise : c'est une propriété des formules.
+   *
+   * @param {object} [opts] - { coarse:bool } pour un balayage rapide
+   * @returns {{min:number,max:number,span:number,degenerate:boolean,n:number,median:number}}
+   */
+  function ageSpanDiagnostic(opts) {
+    opts = opts || {};
+    const stepIta = opts.coarse ? 10 : 5;
+    const stepTewl = opts.coarse ? 3 : 1;
+    const ages = [];
+    for (let ita = -10; ita <= 60; ita += stepIta) {
+      for (let t = 1; t <= 20; t += stepTewl) {
+        for (let L = 35; L <= 75; L += 10) {
+          for (let sb = 0; sb <= 0.6; sb += 0.2) {
+            const raw = { ita, L, a: 12, b: 16, MI: 35, EI: 12, tewl: t, sebum: sb, fitz: 0, quality: 95 };
+            let s;
+            try { s = mapToScores(raw); } catch (e) { continue; }
+            if (!s || s.error) continue;
+            const r = estimateAge(
+              { wrinkles: s.wrinkles, firmness: s.firmness, hydration: s.hydration, glow: s.glow, quality: 95 },
+              s.phototype,
+              { __spanProbe: true }   // évite la récursion (cf. estimateAge)
+            );
+            const a = (r && typeof r.rawPerceivedAge === 'number') ? r.rawPerceivedAge
+                    : (r && typeof r.perceivedAge === 'number') ? r.perceivedAge : null;
+            if (a !== null) ages.push(a);
+          }
+        }
+      }
+    }
+    if (!ages.length) {
+      return { min: null, max: null, span: 0, degenerate: true, n: 0, median: null };
+    }
+    ages.sort((a, b) => a - b);
+    const min = ages[0], max = ages[ages.length - 1];
+    return {
+      min, max,
+      span: max - min,
+      degenerate: (max - min) < AGE_MIN_USABLE_SPAN,
+      n: ages.length,
+      median: ages[Math.floor(ages.length / 2)]
+    };
+  }
+
+  // Cache : le balayage est déterministe, on ne le fait qu'une fois par session.
+  let __ageSpanCache = null;
+  // Garde de ré-entrance : ageSpanDiagnostic() appelle mapToScores(), qui rappelle
+  // estimateAge(), qui rappelle ageIsReadable(). Sans ce drapeau on récurse à l'infini.
+  // Pendant la sonde, la garde est neutre (true) : on veut le chiffre brut, pas le refus.
+  let __ageSpanInProgress = false;
+  function ageIsReadable() {
+    if (__ageSpanInProgress) return true;
+    if (__ageSpanCache === null) {
+      __ageSpanInProgress = true;
+      try { __ageSpanCache = ageSpanDiagnostic({ coarse: true }); }
+      catch (e) { __ageSpanCache = { degenerate: true, span: 0, min: null, max: null, n: 0, median: null }; }
+      finally { __ageSpanInProgress = false; }
+      if (__ageSpanCache.degenerate && typeof console !== 'undefined' && console.warn) {
+        console.warn(
+          '[vyvre-scan v11.1] ÂGE NON LISIBLE : amplitude atteignable ' +
+          __ageSpanCache.min + '–' + __ageSpanCache.max + ' ans (' + __ageSpanCache.span +
+          ' ans, minimum requis ' + AGE_MIN_USABLE_SPAN + '). Le moteur ne publiera pas de chiffre — ' +
+          'seulement une classe. Cause : wrinkles et firmness saturent (cf. AGE_RECALIBRATION_2026-09.md).'
+        );
+      }
+    }
+    return !__ageSpanCache.degenerate;
+  }
+
+  // ────────────────────────────────────────────────────────────────────────
   // AGE ESTIMATION v7.7 — BALANCED ANCHORLESS (refonte post-audit UTKFace stratifié)
   // ────────────────────────────────────────────────────────────────────────
   //
@@ -2496,6 +2715,12 @@
   const AGE_WEIGHT_GLOW = 0.15;       // Mizukoshi 2013 glow/sebum
 
   const AGE_CI_SIGMA = 5;             // v7.7: CI ±5y (target sur cohorte interne)
+
+  // v11.1 : largeur de fourchette quand AUCUNE validation sur visages d'âges connus
+  // n'existe. C'est le cas aujourd'hui, pour l'algo comme pour le CNN. ±5 et ±4 ans
+  // étaient des chiffres posés, jamais mesurés. ±10 ans reste optimiste : la seule
+  // erreur réellement observée et écrite dans ce fichier est de 19 ans (vrai 43 → CNN 24).
+  const AGE_CI_SIGMA_UNVALIDATED = 10;
   const AGE_CI_SIGMA_LOW_QUALITY = 8; // v7.7: CI widened si quality < 60
 
   // Plafonds réalistes v7.7 (mapping forcé sur la plage 16-85)
@@ -2826,7 +3051,7 @@
   //
   // Latence mesurée : ~150-400ms par prédiction (CPU classique), ~50-100ms WebGL.
 
-  const CNN_MODEL_URL_DEFAULT = './models/age-cnn-v2/model.json';
+  const CNN_MODEL_URL_DEFAULT = '/scan/models/age-cnn-v2/model.json';
   const CNN_IMG_SIZE = 160;
   const CNN_LOAD_TIMEOUT_MS = 12000;
   let __cnnModel = null;
@@ -2879,7 +3104,7 @@
         );
         const model = await Promise.race([loadPromise, timeoutPromise]);
         __cnnModel = model;
-        console.log('[vyvre-scan v8] CNN age model loaded from', url);
+        VYVRE_LOG('[vyvre-scan v8] CNN age model loaded from', url);
         return model;
       } catch (e) {
         console.warn('[vyvre-scan v8] CNN load failed (' + e.message + ') — falling back to algo');
@@ -2963,12 +3188,14 @@
   const CNN_ENSEMBLE_WEIGHT = 0.15;   // CNN minoritaire 15% (UTKFace biais jeunes) — v10 fallback only
   const ALGO_ENSEMBLE_WEIGHT = 0.85;  // algo dermato Flament/Akdeniz/Chardon dominant — v10 fallback only
   // Correction post-hoc CNN : compense le biais résiduel du modèle (sous-estime les 40+).
-  // v10.5 HONEST-AGE : réduit 12 → 6. Le CNN v11 ré-entraîné a divisé par ~2 le biais
-  // d'origine (résidu mesuré ~-11y sur les seniors, bien moindre sur 30-50). Le +12 flat
-  // sur-corrigeait les visages jeunes/adultes (contribuait à la sur-estimation type 42→57).
-  // 6 reste tracé sur le résidu benchmark réel, pas un nombre magique. Appliqué uniquement
-  // via l'ensemble pondéré par qualité (computeCNNWeight), donc impact effectif ~1-4y.
-  const CNN_AGE_OFFSET = 6;           // v10.5 : années à ajouter au output CNN brut (était 12)
+  // v11 RECALIBRATION : RETIRÉ à 0. Un offset PLAT est structurellement incapable de
+  // corriger une COMPRESSION de plage (il ajoute les mêmes années aux jeunes et aux
+  // seniors → soit il sur-corrige les jeunes type 42→57, soit il sous-corrige les
+  // seniors qui ont besoin de ~+11). Toute la correction est désormais portée par
+  // vyvreAgeRecalibrate() — une courbe monotone, quasi-identité chez les jeunes et
+  // croissante avec l'âge, appliquée au finalBio dans estimateAgeEnsemble. Constante
+  // conservée à 0 (et non supprimée) pour ne pas casser le label de méthode qui la cite.
+  const CNN_AGE_OFFSET = 0;           // v11 : retiré (était 6/12) — remplacé par vyvreAgeRecalibrate
 
   /**
    * v10.0 — Quality-aware dynamic CNN weight.
@@ -3049,10 +3276,19 @@
     //    v10.2-audit-grade : forward options (notamment applyCommercialBias) à estimateAge.
     const algoOut = estimateAge(scores, phototype, options);
 
-    // Si algo a refusé (quality<40), respecter le refus
-    if (algoOut.error) {
+    // Si algo a refusé pour cause de QUALITÉ (quality<40), respecter le refus : il n'y
+    // a rien à mesurer sur cette image, ni pour l'algo ni pour le CNN.
+    if (algoOut.error === 'scan_quality_too_low') {
       return algoOut;
     }
+
+    // v11.1 — L'algo colorimétrique peut aussi refuser pour AMPLITUDE INSUFFISANTE
+    // (age_not_measurable). Ce refus-là ne doit PAS court-circuiter le CNN : le CNN est
+    // un signal indépendant qui, lui, regarde vraiment la texture du visage. On garde
+    // donc la valeur brute de l'algo comme composante de l'ensemble, tout en mémorisant
+    // que seule la contribution CNN peut justifier un affichage.
+    const algoUnreadable = (algoOut.error === 'age_not_measurable');
+    const algoBio = (algoOut.bioAge != null) ? algoOut.bioAge : algoOut.rawBioAge;
 
     // 2. CNN estimate — v10.0 : multi-frame averaging si on a un videoEl
     //    Si source est un HTMLVideoElement → tente multi-frame (réduit variance).
@@ -3085,20 +3321,22 @@
     let finalBio;
     let cnnContribution;
     let method;
+    let cnnApplied = false;   // v11 : true uniquement si le CNN (compressé) a réellement contribué
     if (cnnAge !== null && dynCnnWeight > 0) {
-      // v9.1 : applique correction offset au CNN avant ensemble
+      // v11 : CNN_AGE_OFFSET retiré (=0). La décompression est portée par vyvreAgeRecalibrate ci-dessous.
+      cnnApplied = true;
       const cnnAgeCorrected = cnnAge + CNN_AGE_OFFSET;
-      finalBio = dynCnnWeight * cnnAgeCorrected + dynAlgoWeight * algoOut.bioAge;
+      finalBio = dynCnnWeight * cnnAgeCorrected + dynAlgoWeight * algoBio;
       cnnContribution = dynCnnWeight;
       const mfTag = cnnMultiInfo ? ` [multi-frame n=${cnnMultiInfo.samples.length}, σ=${cnnMultiInfo.std.toFixed(1)}y]` : '';
-      method = `v10.2-cnn-ensemble-qaware (CNN ${cnnAge.toFixed(1)}y+${CNN_AGE_OFFSET}=${cnnAgeCorrected.toFixed(1)}y × ${dynCnnWeight.toFixed(2)} + algo v7.7 ${algoOut.bioAge}y × ${dynAlgoWeight.toFixed(2)}, quality=${quality ?? 'n/a'}, phototype ${phototype})${mfTag}`;
+      method = `v10.2-cnn-ensemble-qaware (CNN ${cnnAge.toFixed(1)}y+${CNN_AGE_OFFSET}=${cnnAgeCorrected.toFixed(1)}y × ${dynCnnWeight.toFixed(2)} + algo v7.7 ${algoBio}y × ${dynAlgoWeight.toFixed(2)}, quality=${quality ?? 'n/a'}, phototype ${phototype})${mfTag}`;
     } else if (cnnAge !== null && dynCnnWeight === 0) {
       // CNN dispo mais qualityScore<50 → on l'écarte
-      finalBio = algoOut.bioAge;
+      finalBio = algoBio;
       cnnContribution = 0;
       method = `v10.2-algo-only-low-quality (CNN ${cnnAge.toFixed(1)}y ignored — quality=${quality} <50, algo v7.7 only, phototype ${phototype})`;
     } else {
-      finalBio = algoOut.bioAge;
+      finalBio = algoBio;
       cnnContribution = 0;
       method = `v10.2-algo-fallback (CNN unavailable, algo v7.7 only, phototype ${phototype})`;
     }
@@ -3113,6 +3351,18 @@
     finalBio = rawBio + webcamDelta;
     method = method.replace(/\)$/, `, +${webcamDelta.toFixed(1)}y webcam-calibration-sigmoid)`);
 
+    // v11 — RECALIBRATION monotone âge-dépendante (corrige la compression de plage du CNN).
+    // Appliquée UNIQUEMENT quand le CNN a contribué (cnnApplied) : c'est lui la source de la
+    // compression. Sur le chemin algo-seul (qualité <50 ou CNN indispo), l'algo v7.7 est déjà
+    // calibré et tracke le vrai âge → on ne le décompresse PAS (sinon double-correction des 30s).
+    if (cnnApplied) {
+      const recalIn = finalBio;
+      finalBio = vyvreAgeRecalibrate(recalIn, {
+        cnnAge, algoBio: algoBio, quality, cnnWeight: dynCnnWeight
+      });
+      method = method.replace(/\)$/, `, recal ${recalIn.toFixed(1)}→${finalBio.toFixed(1)}y v11-decompress)`);
+    }
+
     const finalBioRounded = Math.round(clamp(AGE_DEMO_MIN_BIO, AGE_DEMO_MAX_BIO, finalBio));
 
     // 4. Vierkötter perceived bias (v10.2 strict + optional commercial bias via options)
@@ -3120,27 +3370,81 @@
     const rawPerceived = finalBioRounded + perceptionBias;
     const perceivedAge = Math.round(clamp(AGE_DEMO_MIN_PERCEIVED, AGE_DEMO_MAX_PERCEIVED, rawPerceived));
 
-    // 5. Range : ±4y si CNN actif (gain précision), sinon ±5y comme algo v7.7
-    // v10.0 : quality déjà déclaré ligne ~2036 (réutilisé). Fallback 100 si null.
+    // 5. Range honnête.
+    // v11.1 : l'ancien ±4 ans « gain de précision CNN » n'est étayé par AUCUN jeu de
+    // visages d'âges connus. Aucune mesure d'erreur n'a jamais été faite sur ce CNN en
+    // conditions webcam ; la seule donnée sol citée dans tout le fichier est UN couple
+    // (vrai 43 → CNN 24), soit 19 ans d'erreur. Annoncer ±4 ans sur cette base était
+    // faux. Plancher relevé à ±10 ans tant qu'une validation n'existe pas.
     const qualityForRange = (typeof quality === 'number') ? quality : 100;
-    const baseSigma = cnnAge !== null ? 4 : AGE_CI_SIGMA;
+    const baseSigma = AGE_CI_SIGMA_UNVALIDATED;
     const ciSigma = (qualityForRange < AGE_QUALITY_LOW_THRESHOLD) ? baseSigma + 3 : baseSigma;
     const range = [
       Math.max(AGE_DEMO_MIN_PERCEIVED, perceivedAge - ciSigma),
       Math.min(AGE_DEMO_MAX_PERCEIVED, perceivedAge + ciSigma)
     ];
 
+    // v11.1 — GARDE D'HONNÊTETÉ.
+    // Le chiffre n'est publiable que si un signal qui regarde VRAIMENT le visage a
+    // contribué. Deux cas de refus :
+    //   (a) le CNN n'a pas tourné (tf absent, modèle non chargé, qualité < 50) ET
+    //       l'algo colorimétrique est dégénéré → il ne reste rien à afficher ;
+    //   (b) le CNN a tourné mais n'a jamais été validé → on publie la CLASSE et la
+    //       fourchette, pas un chiffre sec.
+    const cnnContributed = (cnnAge !== null && dynCnnWeight > 0);
+
+    if (!cnnContributed && algoUnreadable) {
+      const clsNone = ageClassFor(null);
+      return {
+        point: null,
+        perceivedAge: null,
+        bioAge: null,
+        range: null,
+        ageReadable: false,
+        ageClass: clsNone.key,
+        ageClassLabel: clsNone.label,
+        ageClassHint: clsNone.hint,
+        ageDisplay: null,
+        ageCalibrated: false,
+        rawPerceivedAge: perceivedAge,
+        rawBioAge: finalBioRounded,
+        method: method + ' [v11.1 REFUS : CNN absent + algo colorimétrique dégénéré]',
+        error: 'age_not_measurable',
+        recommendation:
+          "Aucun signal d'âge exploitable : le CNN n'a pas tourné et l'algo colorimétrique " +
+          "sature (amplitude 23–33 ans pour tout le monde). Ne rien afficher.",
+        confidence: 'none',
+        cnnContribution: 0,
+        cnnAge: null,
+        cnnMultiFrame: cnnMultiInfo,
+        algoBioAge: algoBio,
+        qualityWeightApplied: dynCnnWeight
+      };
+    }
+
+    const cls = ageClassFor(perceivedAge);
     return {
       point: perceivedAge,
       perceivedAge,
       bioAge: finalBioRounded,
       range,
+      ageReadable: true,
+      ageClass: cls.key,
+      ageClassLabel: cls.label,
+      ageClassHint: cls.hint,
+      // v11.1 : fourchette + classe. Jamais un chiffre sec — la précision à l'année
+      // n'est validée par aucun jeu de visages d'âges connus.
+      ageDisplay: range[0] + '–' + range[1] + ' ans',
+      // false tant qu'aucune validation sur visages d'âges connus n'a été faite.
+      // Les UI DOIVENT afficher un avertissement « indicatif » quand c'est false.
+      ageCalibrated: false,
       method,
-      confidence: cnnAge !== null && qualityForRange >= 75 ? 'high' : (qualityForRange < AGE_QUALITY_LOW_THRESHOLD ? 'low' : 'standard'),
+      // v11.1 : plus de 'high'. Sans validation, la confiance maximale est 'low'.
+      confidence: 'low',
       cnnContribution,
       cnnAge: cnnAge !== null ? Math.round(cnnAge) : null,
       cnnMultiFrame: cnnMultiInfo,    // v10.0 — multi-frame stats (samples, std, rejected)
-      algoBioAge: algoOut.bioAge,
+      algoBioAge: algoBio,
       qualityWeightApplied: dynCnnWeight  // v10.0 — pour debug/transparence
     };
   }
@@ -3238,11 +3542,56 @@
       ? `v7.7-balanced-low-quality (anchorless multi-biomarker mapping, composite=${compositeYouth.toFixed(1)}, Vierkötter ${perceptionBias}, phototype ${phototype}, CI ±${ciSigma} widened due to quality ${quality})`
       : `v7.7-balanced (anchorless multi-biomarker: wrinkles×${AGE_WEIGHT_WRINKLES}+firmness×${AGE_WEIGHT_FIRMNESS}+hydration×${AGE_WEIGHT_HYDRATION}+glow×${AGE_WEIGHT_GLOW}, composite=${compositeYouth.toFixed(1)}, Vierkötter ${perceptionBias}, phototype ${phototype}, CI ±${ciSigma})`;
 
+    // ─── Sonde interne (ageSpanDiagnostic) : on rend le chiffre brut et on sort ───
+    // Indispensable pour éviter la récursion ageIsReadable → ageSpanDiagnostic →
+    // estimateAge → ageIsReadable.
+    if (options.__spanProbe) {
+      return { rawPerceivedAge: perceivedAge, rawBioAge: bioAge };
+    }
+
+    // ─── Step 6 (v11.1) : garde d'amplitude — un faux âge est pire que pas d'âge ───
+    // Si le moteur ne peut pas physiquement produire plus de AGE_MIN_USABLE_SPAN
+    // ans d'écart entre la peau la plus jeune et la plus marquée, alors le chiffre
+    // n'est pas une mesure : c'est une constante déguisée. On refuse de le publier.
+    const readable = options.__spanProbe ? true : ageIsReadable();
+    const cls = ageClassFor(readable ? perceivedAge : null);
+
+    if (!readable) {
+      return {
+        point: null,                 // ← REFUS EXPLICITE. Les UI ne doivent rien afficher.
+        perceivedAge: null,
+        bioAge: null,
+        range: null,
+        ageReadable: false,
+        ageClass: cls.key,           // 'indetermine'
+        ageClassLabel: cls.label,
+        ageClassHint: cls.hint,
+        ageDisplay: null,            // ← la chaîne que l'UI doit afficher : rien
+        rawPerceivedAge: perceivedAge,  // conservé pour debug / télémétrie UNIQUEMENT
+        rawBioAge: bioAge,
+        method: methodLabel + ' [v11.1 REFUS : amplitude atteignable ' +
+          (__ageSpanCache ? __ageSpanCache.min + '–' + __ageSpanCache.max + ' ans' : 'nulle') +
+          ', insuffisante pour un chiffre]',
+        error: 'age_not_measurable',
+        recommendation:
+          "Le moteur ne mesure pas l'âge : wrinkles et firmness saturent (voir AGE_RECALIBRATION_2026-09.md). " +
+          "Ne rien afficher, ou afficher la classe une fois le moteur recalibré sur des visages d'âges connus.",
+        confidence: 'none'
+      };
+    }
+
     return {
       point: perceivedAge,    // ← C'est ce que les HTMLs lisent (cellAge)
       perceivedAge,           // alias explicit
       bioAge,                 // brut pour tooltip / /accuracy
       range,
+      ageReadable: true,
+      ageClass: cls.key,
+      ageClassLabel: cls.label,
+      ageClassHint: cls.hint,
+      // v11.1 : on affiche une FOURCHETTE, jamais un chiffre sec — la précision
+      // à l'année n'est validée par aucun jeu de visages d'âges connus.
+      ageDisplay: range[0] + '–' + range[1] + ' ans',
       method: methodLabel,
       confidence: lowQuality ? 'low' : 'standard'
     };
@@ -3350,7 +3699,11 @@
         hydration: 50, wrinkles: 50, pigmentation: 50, pores: 50,
         glow: 50, firmness: 50, redness: 50, sebum: 50,
         phototype: raw.fitz || 3,
-        cellAge: 40, cellAgeRange: [35, 45],
+        // v11.1 : plus de faux age 40 dans le stub de refus qualite.
+        cellAge: null, cellAgeRange: null,
+        ageReadable: false, ageClass: 'indetermine',
+        ageClassLabel: 'Non determine', ageClassHint: 'qualite image insuffisante',
+        ageDisplay: null, ageCalibrated: false,
         globalScore: 50,
         raw,
         references: REFERENCES_FLAT,
@@ -3512,29 +3865,42 @@
 
     // Debug log (visible F12 console pendant démos)
     if (typeof console !== 'undefined' && console.log) {
-      console.log('[ENGINE v7.7-balanced] raw:', {
+      VYVRE_LOG('[ENGINE v7.7-balanced] raw:', {
         ita: raw.ita?.toFixed(1), itaClamped: itaClamped.toFixed(1),
         MI: raw.MI?.toFixed(1), EI: raw.EI?.toFixed(2),
         L: raw.L?.toFixed(1), tewl: raw.tewl?.toFixed(2),
         sebum: raw.sebum?.toFixed(2), phototype, quality: q
       });
-      console.log('[ENGINE v7.7-balanced] scores:', scoresOnly);
-      console.log('[ENGINE v7.7-balanced] age:', ageResult, 'global:', globalScore);
+      VYVRE_LOG('[ENGINE v7.7-balanced] scores:', scoresOnly);
+      VYVRE_LOG('[ENGINE v7.7-balanced] age:', ageResult, 'global:', globalScore);
     }
 
-    // Backward-compat : si estimateAge a renvoyé point=null (quality<40 cas refus),
-    // on remplit cellAge avec un fallback neutre 40 + flag error pour ne pas crasher
-    // les POCs qui lisent scores.cellAge sans check. L'erreur est explicit dans le payload.
-    const cellAge = ageResult.point !== null ? ageResult.point : 40;
-    const cellAgeRange = ageResult.range !== null ? ageResult.range : [35, 45];
+    // v11.1 — LE FALLBACK À 40 EST SUPPRIMÉ.
+    // Avant : quand estimateAge refusait (qualité insuffisante), on remplissait
+    // silencieusement cellAge = 40 « pour ne pas crasher les POCs ». Résultat : un refus
+    // du moteur s'affichait à l'écran comme un âge de 40 ans, indiscernable d'une mesure.
+    // C'est exactement le défaut qu'on corrige : un faux âge est pire que pas d'âge.
+    // cellAge vaut désormais null quand le moteur refuse. Toute UI qui lit cellAge DOIT
+    // tester `result.ageReadable === true` (ou `cellAge != null`) avant d'afficher.
+    const cellAge = (ageResult.point !== null && ageResult.point !== undefined) ? ageResult.point : null;
+    const cellAgeRange = (ageResult.range !== null && ageResult.range !== undefined) ? ageResult.range : null;
 
     const result = {
       // 8 scores (compat v5 API)
       hydration, wrinkles, pigmentation, pores, glow, firmness, redness, sebum,
       // v6/v7 extensions (compat retained)
-      cellAge,                                  // = perceivedAge (label "ÂGE PEAU")
+      cellAge,                                  // = perceivedAge, ou null si le moteur refuse
       cellAgeRange,
       cellAgeMethod: ageResult.method,
+      // v11.1 — contrat d'affichage explicite. Les UI ne doivent PAS recalculer un âge
+      // dans leur coin (trois formules concurrentes coexistaient : moteur, index.html,
+      // DiorScanClient). Elles lisent ageDisplay / ageClassLabel, ou n'affichent rien.
+      ageReadable: ageResult.ageReadable === true,
+      ageClass: ageResult.ageClass || 'indetermine',
+      ageClassLabel: ageResult.ageClassLabel || 'Non déterminé',
+      ageClassHint: ageResult.ageClassHint || 'signal insuffisant',
+      ageDisplay: ageResult.ageDisplay || null,
+      ageCalibrated: ageResult.ageCalibrated === true,
       bioAge: ageResult.bioAge,                 // âge biologique brut (Bazin 2007)
       perceivedAge: ageResult.perceivedAge,     // alias explicit (= cellAge)
       phototype,
@@ -3558,7 +3924,12 @@
     };
 
     // Propagate error/recommendation fields if estimateAge refused (quality < 40)
-    if (ageResult.error) {
+    // v11.1 : un refus d'ÂGE ne doit pas marquer tout le scan en erreur — les 8
+    // biomarqueurs, eux, sont bien mesurés. Le refus d'âge va dans ageError, séparé.
+    if (ageResult.error === 'age_not_measurable') {
+      result.ageError = ageResult.error;
+      result.ageRecommendation = ageResult.recommendation;
+    } else if (ageResult.error) {
       result.error = ageResult.error;
       result.recommendation = ageResult.recommendation;
     }
@@ -3635,7 +4006,7 @@
         updated++;
       }
     }
-    console.log(`[vyvre-scan v7] updated ${updated}/${mapped.length} biomarker bars with real scores`, scores);
+    VYVRE_LOG(`[vyvre-scan v7] updated ${updated}/${mapped.length} biomarker bars with real scores`, scores);
     return updated;
   }
 
@@ -3658,7 +4029,7 @@
           // V9 : pré-scan gate (skipable via ?strict=0 ou opts.skipGate)
           const skipGate = (opts && opts.skipGate) || !v9StrictMode();
           if (!skipGate) {
-            console.log('[vyvre-scan v9] running pre-scan quality gate (3s)...');
+            VYVRE_LOG('[vyvre-scan v9] running pre-scan quality gate (3s)...');
             const gate = await v9PreScanGate(videoEl);
             if (gate.issues.length > 0) {
               console.warn('[vyvre-scan v9] HARD REJECT — issues:',
@@ -3672,9 +4043,9 @@
                 version: 'v10.5.0-honest-age'
               };
             }
-            console.log('[vyvre-scan v9] gate PASSED — proceeding to scan');
+            VYVRE_LOG('[vyvre-scan v9] gate PASSED — proceeding to scan');
           } else {
-            console.log('[vyvre-scan v9] gate SKIPPED (?strict=0 or opts.skipGate)');
+            VYVRE_LOG('[vyvre-scan v9] gate SKIPPED (?strict=0 or opts.skipGate)');
           }
 
           const result = await analyzeMultiFrame(videoEl);
@@ -3720,7 +4091,7 @@
       //
       // Usage :
       //   await VYVRE_SCAN_ENGINE.runRealScanWithFeedback(videoEl, (event) => {
-      //     console.log(event.phase, event);
+      //     VYVRE_LOG(event.phase, event);
       //     // phases : 'positioning' | 'capturing' | 'analyzing' | 'done'
       //   });
       //
@@ -3878,6 +4249,11 @@
       computeCNNWeight,             // v10.0 — quality-aware dynamic weight
       loadCNN,                      // v8.0 — explicit lazy loader
       webcamSmoothingCalibration,   // v10.2-audit-grade — sigmoïde continue (debug/audit)
+      // v11.1 — honnêteté de l'âge
+      ageSpanDiagnostic,            // balaye l'espace des signaux, renvoie l'amplitude atteignable
+      ageIsReadable,                // true seulement si cette amplitude >= AGE_MIN_USABLE_SPAN
+      ageClassFor,                  // age -> { key, label, hint } (jeune / adulte / mature)
+      vyvreAgeRecalibrate,          // courbe de recalibration (identite tant que non validee)
       vierkotterAdjustedBias,
       qualityScore, skinPixelRatio, laplacianVariance,
       computeGlobalScore,
@@ -3914,7 +4290,7 @@
   async function autoBootstrap() {
     const bars = document.querySelectorAll('[data-target]');
     if (!bars.length) {
-      console.log('[vyvre-scan v7] no data-target bars found on this page — engine loaded but idle');
+      VYVRE_LOG('[vyvre-scan v7] no data-target bars found on this page — engine loaded but idle');
       return;
     }
 
@@ -3922,17 +4298,17 @@
       try {
         if (!window.faceapi.nets.tinyFaceDetector.params) {
           await window.faceapi.nets.tinyFaceDetector.loadFromUri(
-            'https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model'
+            '/scan/models/faceapi'
           );
-          console.log('[vyvre-scan v9] face-api tinyFaceDetector model loaded');
+          VYVRE_LOG('[vyvre-scan v9] face-api tinyFaceDetector model loaded');
         }
         // v9 : tente landmark68 pour OCCLUDED_LANDMARKS / WRONG_ANGLE
         if (window.faceapi.nets.faceLandmark68Net && !window.faceapi.nets.faceLandmark68Net.params) {
           try {
             await window.faceapi.nets.faceLandmark68Net.loadFromUri(
-              'https://cdn.jsdelivr.net/npm/@vladmandic/face-api/model'
+              '/scan/models/faceapi'
             );
-            console.log('[vyvre-scan v9] face-api landmark68 model loaded');
+            VYVRE_LOG('[vyvre-scan v9] face-api landmark68 model loaded');
           } catch (e) { /* optional */ }
         }
       } catch (e) {
@@ -3944,17 +4320,17 @@
     // v9 : expose helper global pour POCs custom
     window.vyvreShowRejectUI = v9ShowRejectUI;
     setupAutoIntercept();
-    console.log('[vyvre-scan v10.4.0-gabor-shading] engine ready — strict mode: ' +
+    VYVRE_LOG('[vyvre-scan v10.4.0-gabor-shading] engine ready — strict mode: ' +
       (v9StrictMode() ? 'ON' : 'OFF (?strict=0)') +
       ' — features: quality-aware ensemble + multi-frame CNN + UX feedback + clinical detection + sigmoid webcam calibration + strict Vierkötter + landmark-driven ROI polygons (68-pt dlib) + directional Gabor wrinkle depth (4×3=12 kernels)');
 
     // v8.0 : warm-up CNN en background (non-bloquant). Si tfjs absent, silencieux.
     if (typeof window.tf !== 'undefined') {
       loadCNN().then(m => {
-        if (m) console.log('[vyvre-scan v8] CNN warm-up complete');
+        if (m) VYVRE_LOG('[vyvre-scan v8] CNN warm-up complete');
       }).catch(() => {});
     } else {
-      console.log('[vyvre-scan v8] TensorFlow.js not loaded — engine works algo-only. To enable CNN: <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@4.20.0"></script>');
+      VYVRE_LOG('[vyvre-scan v8] TensorFlow.js not loaded — engine works algo-only. To enable CNN: <script src="/scan/vendor/tfjs-4.22.0.min.js"></script>');
     }
 
     // Auto-run self-tests in console for engine validation (silent if all pass)
@@ -3963,7 +4339,7 @@
       if (!testResult.allPassed) {
         console.error('[vyvre-scan v7] WARNING engine_calibration_warning — ' + testResult.summary);
       } else {
-        console.log('[vyvre-scan v7] ' + testResult.summary);
+        VYVRE_LOG('[vyvre-scan v7] ' + testResult.summary);
       }
     } catch (e) {
       console.warn('[vyvre-scan v7] selfTest could not run:', e.message);
@@ -3993,7 +4369,7 @@
 
           setTimeout(async () => {
             if (scanCompleted) return;
-            console.log('[vyvre-scan v7] auto-triggering real scan on video element...');
+            VYVRE_LOG('[vyvre-scan v7] auto-triggering real scan on video element...');
             try {
               const result = await window.VYVRE_SCAN_ENGINE.runRealScan(video);
               if (result && result.rejected) {
@@ -4175,7 +4551,7 @@
                  Math.abs(got.a - t.expected.a) < t.tol &&
                  Math.abs(got.b - t.expected.b) < t.tol;
       const sym = ok ? '✓' : '✗';
-      console.log(`[${sym}] ${t.name}: L=${got.L.toFixed(2)} a=${got.a.toFixed(2)} b=${got.b.toFixed(2)} (expected L=${t.expected.L} a=${t.expected.a} b=${t.expected.b}, tol=${t.tol})`);
+      VYVRE_LOG(`[${sym}] ${t.name}: L=${got.L.toFixed(2)} a=${got.a.toFixed(2)} b=${got.b.toFixed(2)} (expected L=${t.expected.L} a=${t.expected.a} b=${t.expected.b}, tol=${t.tol})`);
       results.push({ name: t.name, ok });
     }
 
@@ -4218,7 +4594,7 @@
     for (const t of bioTests) {
       const ok = t.check();
       const sym = ok ? '✓' : '✗';
-      console.log(`[${sym}] ${t.name}`);
+      VYVRE_LOG(`[${sym}] ${t.name}`);
       results.push({ name: t.name, ok });
     }
 
@@ -4229,9 +4605,24 @@
     let maeBioSum = 0, maePercSum = 0;
     for (const persona of SELF_TEST_PERSONAS) {
       const signals = { ...persona.signals, quality: 85 };  // quality=85 (above LOW threshold)
-      const ageResult = estimateAge(signals, persona.phototype);
-      const bio = ageResult.bioAge;
-      const perceived = ageResult.perceivedAge;
+      // v11.1 — ATTENTION, CE QUE CE TEST PROUVE ET CE QU'IL NE PROUVE PAS.
+      //
+      // Il teste UNIQUEMENT l'arithmetique du mapping composite -> age. Il
+      // n'a jamais rien prouve sur la justesse du scan, pour une raison
+      // simple : les signaux des personas (wrinkles 15, firmness 20...) sont
+      // INATTEIGNABLES par le vrai pipeline. mapToScores ne peut pas
+      // descendre wrinkles sous ~89 ni firmness sous 73. Le persona
+      // "senior-75" exigerait un sigmaL* de 126 sur une joue, alors que la
+      // valeur reelle tourne autour de 2 a 12 et que le maximum mathematique
+      // est 50. Le "MAE 2,4 ans" annonce depuis v7.7 mesurait donc la
+      // precision du moteur sur des visages qui ne peuvent pas exister.
+      //
+      // On passe par __spanProbe pour recuperer les valeurs brutes, sinon
+      // estimateAge refuse (garde d'amplitude v11.1) et le test echoue pour
+      // une bonne raison mais au mauvais endroit.
+      const ageResult = estimateAge(signals, persona.phototype, { __spanProbe: true });
+      const bio = ageResult.rawBioAge;
+      const perceived = ageResult.rawPerceivedAge;
       const bioOk = bio >= persona.expectedBio[0] && bio <= persona.expectedBio[1];
       const perceivedOk = perceived >= persona.expectedPerc[0] && perceived <= persona.expectedPerc[1];
       const errBio = Math.abs(bio - persona.age);
@@ -4240,16 +4631,89 @@
       maePercSum += errPerc;
       const ok = bioOk && perceivedOk;
       const sym = ok ? '✓' : '✗';
-      console.log(`[${sym}] persona:${persona.name} (age ${persona.age}): bio=${bio} (expected ${persona.expectedBio}, err ±${errBio}), perceived=${perceived} (expected ${persona.expectedPerc}, err ±${errPerc})`);
+      VYVRE_LOG(`[${sym}] persona:${persona.name} (age ${persona.age}): bio=${bio} (expected ${persona.expectedBio}, err ±${errBio}), perceived=${perceived} (expected ${persona.expectedPerc}, err ±${errPerc})`);
       if (!ok) {
-        console.log(`     details: signals=`, persona.signals, 'phototype=', persona.phototype);
+        VYVRE_LOG(`     details: signals=`, persona.signals, 'phototype=', persona.phototype);
       }
-      results.push({ name: 'persona:' + persona.name, ok, bio, perceived, errBio, errPerc });
+      results.push({ name: 'persona-mapping:' + persona.name, ok, bio, perceived, errBio, errPerc, note: 'arithmetique du mapping uniquement — signaux inatteignables par le vrai pipeline' });
     }
     const personaCount = SELF_TEST_PERSONAS.length;
     const maeBio = (maeBioSum / personaCount).toFixed(2);
     const maePerc = (maePercSum / personaCount).toFixed(2);
-    console.log(`[v7.7-balanced] Personas MAE: bioAge=${maeBio}y, perceivedAge=${maePerc}y (target ≤5y)`);
+    VYVRE_LOG(`[v7.7-balanced] Personas MAE: bioAge=${maeBio}y, perceivedAge=${maePerc}y (target ≤5y)`);
+
+    // ─── V11.1 self-tests — HONNETETE DE L'AGE (les tests qui manquaient) ──
+    // Ce sont EUX les tests de non-regression. Les personas ci-dessus ne
+    // regardaient que l'arithmetique ; ceux-ci regardent ce que le moteur
+    // peut reellement produire a partir de signaux physiquement possibles.
+    const v11Tests = [
+      {
+        name: 'v11.1:age-span-mesure',
+        check: () => {
+          // Balaye l'espace atteignable et verifie que le diagnostic est coherent.
+          const d = ageSpanDiagnostic({ coarse: true });
+          return d && typeof d.span === 'number' && d.n > 0 &&
+                 typeof d.degenerate === 'boolean' &&
+                 d.degenerate === (d.span < AGE_MIN_USABLE_SPAN);
+        }
+      },
+      {
+        name: 'v11.1:jamais-de-faux-chiffre',
+        check: () => {
+          // Regle absolue : si l'age n'est pas lisible, AUCUN chiffre ne sort.
+          // C'est la regression qui a produit "74 ans lue 27" et le fallback a 40.
+          const s1 = mapToScores({ ita: 40, L: 62, a: 12, b: 16, MI: 35, EI: 12, tewl: 5, sebum: 0.15, fitz: 0, quality: 95 });
+          if (s1.ageReadable === false && (typeof s1.cellAge === 'number')) return false;
+          // Refus qualite : pas de 40 magique non plus.
+          const s2 = mapToScores({ ita: 40, L: 62, a: 12, b: 16, MI: 35, EI: 12, tewl: 5, sebum: 0.15, fitz: 0, quality: 20 });
+          return s2.cellAge === null;
+        }
+      },
+      {
+        name: 'v11.1:age-monotone-croissant',
+        check: () => {
+          // L'age lu doit CROITRE quand la peau se marque (composite qui baisse).
+          // Non-negociable : une lecture qui rajeunit une peau plus marquee est fausse.
+          let prev = -Infinity;
+          for (let c = 95; c >= 18; c -= 7) {
+            const r = estimateAge({ wrinkles: c, firmness: c, hydration: c, glow: c, quality: 100 }, 2, { __spanProbe: true });
+            if (r.rawPerceivedAge < prev) return false;
+            prev = r.rawPerceivedAge;
+          }
+          return true;
+        }
+      },
+      {
+        name: 'v11.1:recal-sans-saut',
+        check: () => {
+          // La courbe de recalibration ne doit jamais amplifier le bruit d'entree.
+          // La table v11 avait un segment de pente 5 (3 ans d'ecart brut -> 15 ans
+          // a l'ecran). Contrainte : pente <= 1,5 partout, et monotonie stricte.
+          let prev = vyvreAgeRecalibrate(14);
+          for (let b = 15; b <= 90; b++) {
+            const cur = vyvreAgeRecalibrate(b);
+            if (cur < prev) return false;          // monotonie
+            if (cur - prev > 1.5) return false;    // pas de saut
+            prev = cur;
+          }
+          return true;
+        }
+      },
+      {
+        name: 'v11.1:classes-exhaustives',
+        check: () => {
+          return ageClassFor(null).key === 'indetermine' &&
+                 ageClassFor(22).key === 'jeune' &&
+                 ageClassFor(45).key === 'adulte' &&
+                 ageClassFor(74).key === 'mature';
+        }
+      }
+    ];
+    for (const t of v11Tests) {
+      let ok = false;
+      try { ok = !!t.check(); } catch (e) { ok = false; }
+      results.push({ name: t.name, ok });
+    }
 
     // ─── V10.0 self-tests (5 nouveaux tests) ─────────────────────────────
     const v10Tests = [
@@ -4398,10 +4862,10 @@
         ok = t.check();
       } catch (e) {
         ok = false;
-        console.log(`     v10 test error: ${e.message}`);
+        VYVRE_LOG(`     v10 test error: ${e.message}`);
       }
       const sym = ok ? '✓' : '✗';
-      console.log(`[${sym}] ${t.name}`);
+      VYVRE_LOG(`[${sym}] ${t.name}`);
       results.push({ name: t.name, ok });
     }
 
@@ -4552,10 +5016,10 @@
         ok = t.check();
       } catch (e) {
         ok = false;
-        console.log(`     v10.3 test error: ${e.message}`);
+        VYVRE_LOG(`     v10.3 test error: ${e.message}`);
       }
       const sym = ok ? '✓' : '✗';
-      console.log(`[${sym}] ${t.name}`);
+      VYVRE_LOG(`[${sym}] ${t.name}`);
       results.push({ name: t.name, ok });
     }
 
@@ -4732,10 +5196,10 @@
         ok = t.check();
       } catch (e) {
         ok = false;
-        console.log(`     v10.4 test error: ${e.message}`);
+        VYVRE_LOG(`     v10.4 test error: ${e.message}`);
       }
       const sym = ok ? '✓' : '✗';
-      console.log(`[${sym}] ${t.name}`);
+      VYVRE_LOG(`[${sym}] ${t.name}`);
       results.push({ name: t.name, ok });
     }
 
@@ -4753,7 +5217,7 @@
     if (calibrationWarning) {
       console.error(summary);
     } else {
-      console.log(summary);
+      VYVRE_LOG(summary);
     }
 
     return { pass, total, results, allPassed, calibrationWarning, summary };

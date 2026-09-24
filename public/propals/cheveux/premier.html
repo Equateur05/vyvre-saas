@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>vyvre — La premiere tete</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;800&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased}
+html,body{background:#000;color:#eaf6ff;font-family:Inter,sans-serif;font-weight:300;overflow:hidden;height:100%}
+#cv,#gl{position:fixed;inset:0;width:100%;height:100%;display:block}
+#gl{pointer-events:none;z-index:1;left:auto;right:0;width:52%;mix-blend-mode:screen}
+@media(max-width:760px){#gl{width:100%;height:46%;top:14%}}
+video{display:none}
+.hud{position:fixed;inset:0;pointer-events:none;z-index:3}
+.marque{position:absolute;top:28px;left:4vw;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.34em;color:rgba(223,234,242,.6)}
+.note{position:absolute;top:52px;left:4vw;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;color:#ffb38a;opacity:.85}
+.choix{position:absolute;top:20px;right:4vw;display:flex;gap:4px;pointer-events:auto}
+.choix button{all:unset;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+  padding:9px 14px;border:1px solid rgba(223,234,242,.16);color:rgba(223,234,242,.6);background:rgba(0,0,0,.35);backdrop-filter:blur(10px)}
+.choix button.on{color:#000;background:#eaf6ff;border-color:#eaf6ff}
+.phrase{position:absolute;left:4vw;bottom:9vh;max-width:15ch;font-weight:200;font-size:clamp(40px,5.6vw,96px);line-height:.98;letter-spacing:-.03em;transition:opacity .8s}
+.phrase small{display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.3em;color:#7fd8ff;margin-bottom:18px;font-weight:300}
+.aide{position:absolute;left:4vw;bottom:calc(9vh - 42px);font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:#7fd8ff;opacity:0;transition:opacity .6s}
+.aide.on{opacity:1}
+.total{position:absolute;right:4vw;bottom:9vh;font-family:'IBM Plex Mono',monospace;font-weight:300;font-size:clamp(40px,5vw,84px);letter-spacing:-.04em;text-align:right}
+.total i{display:block;font-style:normal;font-size:10px;letter-spacing:.3em;color:rgba(223,234,242,.5);margin-top:8px}
+.debug{position:absolute;left:4vw;top:80px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:#7fd8ff;white-space:pre;opacity:.7}
+body.g3 .total{right:50%;transform:translateX(50%);bottom:auto;top:44%;text-align:center;font-size:clamp(60px,9vw,150px)}
+body.g3 .phrase{display:none}
+
+body.fini .phrase{opacity:0}
+@media(max-width:760px){.choix{top:auto;bottom:14px;left:4vw;right:4vw;justify-content:space-between}.phrase{bottom:16vh}.total{bottom:16vh}}
+</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+</head>
+<body class="g1">
+<video id="vid" playsinline muted autoplay></video>
+<canvas id="cv"></canvas>
+<canvas id="gl"></canvas>
+<div class="hud">
+  <div class="marque">VYVRE · SCAN CHEVEUX</div>
+  <div class="note" id="note"></div>
+  <div class="debug" id="lectureDebug"></div>
+  <div class="choix" id="choix">
+    <button data-g="1">A · Le double</button><button data-g="2">B · Sur vous</button><button data-g="3">C · Les quatre mots</button>
+  </div>
+  <div class="phrase" id="phrase"><small>SCAN CHEVEUX</small>Remplissez vos cheveux de bleu.</div>
+  <div class="aide" id="aide"></div>
+  <div class="total"><span id="pct">0 %</span><i>DE LA CHEVELURE LUE</i></div>
+</div>
+<script type="module">
+/* ==========================================================================
+   LE GUIDAGE SANS ORDRES — trois propales.
+   On ne dit pas « tournez a gauche » : on montre ce qui reste a lire, et la
+   personne tourne d'elle-meme pour le remplir (le principe de Face ID).
+
+   Tout est REEL sur la camera :
+   - l'orientation de la tete : « face_landmarker » de MediaPipe (Google,
+     Apache 2.0), 478 points du visage, lus a chaque image ;
+   - les cheveux : « hair_segmenter », le meme modele que les propales du scan.
+   Une zone ne se remplit que si la tete est dans le bon angle ET que des
+   cheveux sont vraiment vus a ce moment-la.
+
+   ?g=1..3 choisit la propale (touches 1 a 3) · ?demo=1 : une tete fictive
+   tourne toute seule (pour voir sans camera, et c'est ecrit a l'ecran) ·
+   ?debug=1 : les angles lus.
+   ========================================================================== */
+import { FilesetResolver, ImageSegmenter, FaceLandmarker } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/vision_bundle.mjs";
+import * as THREE from 'three';
+import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
+import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
+
+const $ = id => document.getElementById(id);
+const clamp=(v,a,b)=>v<a?a:v>b?b:v, lerp=(a,b,t)=>a+(b-a)*t, sm=t=>{t=clamp(t,0,1);return t*t*(3-2*t)};
+const Q = new URLSearchParams(location.search);
+const DEMO = Q.get('demo') === '1', DEBUG = Q.get('debug') === '1';
+
+/* les quatre zones, nommees par le geste qui les montre */
+const ZONES = ['face','gauche','droite','dessus'];
+const NOMS = { face:'le devant', gauche:'le côté gauche', droite:'le côté droit', dessus:'le dessus' };
+const DUREE_ZONE = { face:1.0, gauche:1.3, droite:1.3, dessus:1.4 };   /* secondes de lecture par zone */
+const Z = { face:0, gauche:0, droite:0, dessus:0 };
+let pose = 'face', vuCheveux = 0, visage = false, yawV = 0, pitchV = 0, finiDepuis = 0, bloqueDepuis = performance.now();
+
+/* ---------------- camera ---------------- */
+const vid = $('vid'); let src = null, miroir = true;
+async function ouvrirSource(){
+  if(!DEMO && !PHOTO){
+    try{
+      const st = await navigator.mediaDevices.getUserMedia({ video:{ facingMode:'user', width:{ideal:1280}, height:{ideal:720} }, audio:false });
+      vid.srcObject = st; await vid.play();
+      await new Promise(r => vid.videoWidth ? r() : vid.onloadedmetadata = r);
+      src = vid; return;
+    }catch(e){}
+  }
+  const img = new Image(); img.src = '/_test_masque/' + (PHOTO || 'p_073') + '.jpg'; await img.decode(); src = img; miroir = false;
+  $('note').textContent = DEMO ? 'DÉMONSTRATION · LA TÊTE TOURNE TOUTE SEULE' : 'CAMÉRA NON AUTORISÉE · DÉMONSTRATION';
+}
+const SW = () => src.videoWidth || src.naturalWidth, SH = () => src.videoHeight || src.naturalHeight;
+const PHOTO = Q.get('photo');   /* ?photo=p_073 : une photo traitee comme la camera (pour verifier le double) */
+const demo = () => DEMO || (src !== vid && !PHOTO);
+
+/* ---------------- lecture : visage + cheveux ---------------- */
+const PW = 256; let PH = 192;
+const petit = document.createElement('canvas'), pctx = petit.getContext('2d');
+const mH = document.createElement('canvas'), mHc = mH.getContext('2d');
+let HAIR, idH, segH, face, dernierVisage = null, tour = 0, dern = 0, pitchRef = null, refN = 0;
+async function ouvrirLecture(){
+  const fs = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm");
+  segH = await ImageSegmenter.createFromOptions(fs, { baseOptions:{ modelAssetPath:"https://storage.googleapis.com/mediapipe-models/image_segmenter/hair_segmenter/float32/latest/hair_segmenter.tflite", delegate:'CPU' },
+    runningMode:'VIDEO', outputConfidenceMasks:true, outputCategoryMask:false });
+  const fo = d => ({ baseOptions:{ modelAssetPath:"https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task", delegate:d },
+    runningMode:'VIDEO', numFaces:1 });
+  try { face = await FaceLandmarker.createFromOptions(fs, fo('GPU')); }
+  catch(e){ try { face = await FaceLandmarker.createFromOptions(fs, fo('CPU')); } catch(e2){ console.warn('visage', e2); } }
+  window.__lecture = { cheveux: !!segH, visage: !!face };
+}
+function tailles(){
+  PH = Math.round(PW * SH() / SW());
+  for(const c of [petit, mH]){ c.width = PW; c.height = PH; }
+  idH = mHc.createImageData(PW, PH); HAIR = new Float32Array(PW*PH);
+  for(let i=0;i<PW*PH;i++){ idH.data[i*4]=idH.data[i*4+1]=idH.data[i*4+2]=255; }
+}
+function lire(now){
+  if(!segH || now - dern < 60) return; dern = now;
+  pctx.save(); if(miroir){ pctx.translate(PW,0); pctx.scale(-1,1); } pctx.drawImage(src,0,0,PW,PH); pctx.restore();
+  try{
+    if(tour++ % 2 === 0){
+      segH.segmentForVideo(petit, now, r => {
+        const cm = r.confidenceMasks; if(!cm) return;
+        const m = (cm[1] || cm[0]).getAsFloat32Array(); let n = 0;
+        /* la barbe et la moustache ne sont pas la chevelure : tout ce qui est
+           sous le nez, entre les deux joues, est retire */
+        let bx0 = -1, bx1 = -1, by0 = PH;
+        if(dernierVisage && !demo()){ const L = dernierVisage; const xa = L[234].x*PW, xb = L[454].x*PW;
+          bx0 = Math.min(xa,xb) - 4; bx1 = Math.max(xa,xb) + 4; by0 = L[2].y*PH; }
+        for(let i=0;i<PW*PH;i++){
+          let v = m[i]; const x = i % PW, y = (i / PW) | 0;
+          if(y > by0 && x > bx0 && x < bx1) v = 0;
+          HAIR[i] = HAIR[i]*.3 + v*.7; idH.data[i*4+3] = sm((HAIR[i]-.45)/.35)*255; if(HAIR[i] > .5) n++;
+        }
+        mHc.putImageData(idH,0,0); vuCheveux = n / (PW*PH);
+        mesurerChevelure();
+        cm.forEach(x => x.close && x.close());
+      });
+    } else if(!demo() && face){
+      const r = face.detectForVideo(petit, now);
+      const L = r.faceLandmarks && r.faceLandmarks[0];
+      if(L) dernierVisage = L;
+      visage = !!L;
+      if(L){
+        /* le lacet : ou est le bout du nez entre les deux joues (image en miroir,
+           donc « a gauche de l'ecran » = vers la gauche de la personne) */
+        const nez = L[1], jg = L[234], jd = L[454], yeux = { y:(L[33].y + L[263].y)/2 }, men = L[152], front = L[10];
+        const lx = Math.min(jg.x, jd.x), rx = Math.max(jg.x, jd.x);
+        yawV = ((nez.x - lx) / (rx - lx || 1) - .5) * 2;          /* -1 .. 1 */
+        const p = (nez.y - yeux.y) / (men.y - front.y || 1);      /* grandit quand on baisse la tete */
+        if(refN < 20 && Math.abs(yawV) < .2){ pitchRef = pitchRef == null ? p : pitchRef*.9 + p*.1; refN++; }
+        pitchV = pitchRef == null ? 0 : (p - pitchRef) / .1;
+      }
+    }
+  }catch(e){}
+}
+
+/* la pose, telle qu'on la lit ; en demo, une tete fictive qui fait le tour */
+function lirePose(now, dt){
+  if(demo()){
+    const t = (now / 1000) % 12;
+    const cible = t < 2 ? 'face' : t < 4.5 ? 'gauche' : t < 7 ? 'droite' : t < 9.5 ? 'dessus' : 'face';
+    const yc = cible === 'gauche' ? -.75 : cible === 'droite' ? .75 : 0, pc = cible === 'dessus' ? 1.4 : 0;
+    yawV = lerp(yawV, yc, 1 - Math.exp(-dt*3)); pitchV = lerp(pitchV, pc, 1 - Math.exp(-dt*3)); visage = true;
+    vuCheveux = Math.max(vuCheveux, .05);
+  }
+  let p = 'face';
+  if(pitchV > 1 || (!visage && vuCheveux > .12)) p = 'dessus';
+  else if(yawV < -.42) p = 'gauche';
+  else if(yawV > .42) p = 'droite';
+  else if(Math.abs(yawV) > .2) p = 'entre';
+  pose = p;
+  /* on ne lit que si des cheveux sont vraiment la */
+  if(p !== 'entre' && vuCheveux > .02 && Z[p] < 1){ Z[p] = Math.min(1, Z[p] + dt / DUREE_ZONE[p]); bloqueDepuis = now; }
+}
+const total = () => ZONES.reduce((a,z) => a + Z[z], 0) / 4;
+const manquante = () => ZONES.find(z => Z[z] < 1);
+
+/* ---------------- toile 2D ---------------- */
+const cv = $('cv'), ctx = cv.getContext('2d'); let W=0, H=0, DPR=1;
+function taille(){ DPR = Math.min(devicePixelRatio||1, 1.25); W = innerWidth; H = innerHeight; cv.width = W*DPR; cv.height = H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0); }
+addEventListener('resize', taille);
+const tmp = document.createElement('canvas'), tx = tmp.getContext('2d');
+function cadre(){ const s = Math.max(W/SW(), H/SH()); const w = SW()*s, h = SH()*s; return { x:(W-w)/2, y:(H-h)/2, w, h }; }
+function peindre(c, r, f){ c.save(); if(f) c.filter = f; if(miroir){ c.translate(r.x + r.w, r.y); c.scale(-1,1); c.drawImage(src,0,0,r.w,r.h); } else c.drawImage(src, r.x, r.y, r.w, r.h); c.restore(); }
+function cheveux(r, couleur, mode){
+  if(tmp.width !== cv.width || tmp.height !== cv.height){ tmp.width = cv.width; tmp.height = cv.height; tx.setTransform(DPR,0,0,DPR,0,0); }
+  tx.save(); tx.setTransform(1,0,0,1,0,0); tx.clearRect(0,0,tmp.width,tmp.height); tx.restore();
+  tx.save(); tx.imageSmoothingQuality = 'high'; tx.drawImage(mH, r.x, r.y, r.w, r.h);
+  tx.globalCompositeOperation = 'source-in'; tx.fillStyle = couleur; tx.fillRect(0,0,W,H); tx.restore();
+  ctx.save(); ctx.globalCompositeOperation = mode || 'color'; ctx.drawImage(tmp, 0, 0, W, H); ctx.restore();
+}
+const BLEU = a => 'rgba(64,170,255,' + a + ')';
+
+/* ==========================================================================
+   A · LE DOUBLE — une tete de points, a droite, qui tourne comme la votre.
+   Ses cheveux sont en quatre zones ; elles passent du gris au bleu quand
+   elles ont ete lues. On tourne pour remplir le gris.
+   ========================================================================== */
+const gl = $('gl');
+const re = new THREE.WebGLRenderer({ canvas:gl, antialias:true, alpha:true }); re.setPixelRatio(Math.min(devicePixelRatio,1.5)); re.setClearColor(0x000000, 0);
+const sc = new THREE.Scene(), cam = new THREE.PerspectiveCamera(30, 1, .1, 50); cam.position.set(0, .15, 7.2);
+const co = new EffectComposer(re); co.addPass(new RenderPass(sc, cam));
+const bloom = new UnrealBloomPass(new THREE.Vector2(512,512), .7, .5, .2); co.addPass(bloom); co.addPass(new OutputPass());
+const tete = new THREE.Group(); sc.add(tete);
+const NPT = 14000, pos = new Float32Array(NPT*3), col = new Float32Array(NPT*3), zon = new Int8Array(NPT), seuil = new Float32Array(NPT);
+function rnd(n){ const s = Math.sin(n*127.1)*43758.5453; return s - Math.floor(s); }
+for(let i=0;i<NPT;i++){
+  /* une tete : ellipsoide, un peu plus haute que large, menton affine */
+  const u = rnd(i)*2-1, a = rnd(i*3.7)*Math.PI*2, s = Math.sqrt(1-u*u);
+  let x = s*Math.cos(a)*.92, y = u*1.18, z = s*Math.sin(a)*1.02;
+  if(y < -.3){ const k = 1 - (-.3 - y)*.45; x *= k; z *= k; }
+  if(z > .5 && Math.abs(x) < .16 && y > -.45 && y < .2) z += .22 * (1 - Math.abs(x)/.16) * (1 - Math.abs(y + .12)/.33);   /* le nez */
+  if(z > .5 && y < .12 && y > -.02 && Math.abs(Math.abs(x) - .32) < .14) z -= .06;                                     /* les orbites */
+  pos[i*3]=x; pos[i*3+1]=y; pos[i*3+2]=z;
+  /* les cheveux : tout le haut et l'arriere, sauf le visage */
+  const visageZ = z > .35 && y < .42 && y > -1.1 && Math.abs(x) < .72;
+  let zz = -1;
+  if(!visageZ && (y > .05 || z < -.1)){
+    if(y > .72 && Math.abs(x) < .55 && z > -.55) zz = 3;           /* dessus */
+    else if(x < -.3 && y > -.7) zz = 2;                              /* montre en tournant vers la droite de l'ecran */
+    else if(x > .3 && y > -.7) zz = 1;                               /* montre en tournant vers la gauche */
+    else if(z > .1) zz = 0;                                          /* devant */
+    else zz = 3 + 1;                                                 /* arriere : jamais lu seul */
+  }
+  if(zz >= 0){ const k = 1.07 + rnd(i*4.4)*.06; pos[i*3]*=k; pos[i*3+1]*=k; pos[i*3+2]*=k; }   /* le volume des cheveux, au-dessus du crane */
+  zon[i] = zz; seuil[i] = rnd(i*9.1);
+}
+const gt = new THREE.BufferGeometry(); gt.setAttribute('position', new THREE.BufferAttribute(pos,3)); gt.setAttribute('color', new THREE.BufferAttribute(col,3));
+tete.add(new THREE.Points(gt, new THREE.PointsMaterial({ size:.018, vertexColors:true, transparent:true, opacity:.95, blending:THREE.AdditiveBlending, depthWrite:false })));
+function couleursTete(t){
+  for(let i=0;i<NPT;i++){
+    const zz = zon[i]; let r, g, b;
+    if(zz < 0){ const k = pos[i*3+2] > .35 ? .22 + .3*Math.max(0,pos[i*3+2]-.35) : .05; r = g = b = k; }   /* exactement la version du 21/09 23h41 */         /* visage : on doit le reconnaitre */
+    else if(zz === 4){ r = g = b = .05; }                                                    /* arriere */
+    else {
+      const lu = Z[ZONES[zz]] > seuil[i], actif = ZONES[zz] === pose && Z[ZONES[zz]] < 1;
+      if(lu){ r = .35; g = .78; b = 1.3; }
+      else { const k = actif ? .45 + .25*Math.sin(t/120 + i) : .26; r = g = b = k; }
+    }
+    col[i*3]=r; col[i*3+1]=g; col[i*3+2]=b;
+  }
+  gt.attributes.color.needsUpdate = true;
+}
+function tailleGL(){ const w = gl.clientWidth || innerWidth, h = gl.clientHeight || innerHeight; re.setSize(w, h, false); co.setSize(w, h); cam.aspect = w/h; cam.updateProjectionMatrix(); }
+addEventListener('resize', tailleGL);
+
+/* ---------------- les trois dessins ---------------- */
+let G = clamp(+(Q.get('g') || 1), 1, 3), T0 = performance.now(), tPrec = T0;
+/* ---------------- LE DOUBLE, fait de VOTRE visage ----------------
+   Le visage : les 478 points lus par la camera, relies par le maillage de
+   MediaPipe (on seme des points le long de chaque arete). Il tourne parce que
+   vous tournez : ce sont vos points, pas une animation.
+   La chevelure : une coque posee sur le crane, a la taille de VOTRE tete
+   (largeur du visage), et au volume de VOS cheveux (hauteur au-dessus du
+   front, largeur sur les cotes, longueur sous le menton), mesures sur le
+   masque cheveux quand vous etes de face. */
+const racine = new THREE.Group(); sc.add(racine);
+const ARETES = FaceLandmarker.FACE_LANDMARKS_TESSELATION || [];
+/* le visage en POINTS SEMES, pas en maillage : on tire des points au hasard
+   sur les aretes, au prorata de leur longueur, avec un leger flou. La forme est
+   la votre ; l'aspect est celui de la premiere tete (poussiere blanche). */
+const NV = 9000, vAr = new Int32Array(NV), vT = new Float32Array(NV), vJ = new Float32Array(NV*3), vB = new Float32Array(NV);
+let semis = false;
+function semer(L){
+  const lg = ARETES.map(a => { const A = P(L[a.start]), B = P(L[a.end]); return Math.hypot(A[0]-B[0], A[1]-B[1], A[2]-B[2]); });
+  const cum = []; let t = 0; for(const x of lg){ t += x; cum.push(t); }
+  for(let i=0;i<NV;i++){
+    const r = rnd(i*7.13) * t; let lo = 0, hi = cum.length - 1;
+    while(lo < hi){ const m = (lo + hi) >> 1; if(cum[m] < r) lo = m + 1; else hi = m; }
+    vAr[i] = lo; vT[i] = rnd(i*3.71);
+    vJ[i*3] = rnd(i*1.9) - .5; vJ[i*3+1] = rnd(i*2.7) - .5; vJ[i*3+2] = rnd(i*4.1) - .5;
+    vB[i] = .14 + .5 * Math.pow(rnd(i*8.3), 2.2);
+  }
+  semis = true;
+}
+const vPos = new Float32Array(NV*3), vCol = new Float32Array(NV*3);
+const gV = new THREE.BufferGeometry(); gV.setAttribute('position', new THREE.BufferAttribute(vPos,3)); gV.setAttribute('color', new THREE.BufferAttribute(vCol,3));
+racine.add(new THREE.Points(gV, new THREE.PointsMaterial({ size:.018, vertexColors:true, transparent:true, opacity:.95, blending:THREE.AdditiveBlending, depthWrite:false })));
+/* la coque des cheveux, en coordonnees de la tete (unite = demi-largeur du visage) */
+const coque = new THREE.Group(); coque.matrixAutoUpdate = false; racine.add(coque);
+const NC = 12000, cBase = new Float32Array(NC*4), cPos = new Float32Array(NC*3), cCol = new Float32Array(NC*3), cZone = new Int8Array(NC), cSeuil = new Float32Array(NC);
+for(let i=0;i<NC;i++){ cBase[i*4] = rnd(i*1.7); cBase[i*4+1] = rnd(i*5.3); cBase[i*4+2] = rnd(i*8.9); cBase[i*4+3] = rnd(i*2.9); cSeuil[i] = rnd(i*9.1); }
+const gC = new THREE.BufferGeometry(); gC.setAttribute('position', new THREE.BufferAttribute(cPos,3)); gC.setAttribute('color', new THREE.BufferAttribute(cCol,3));
+coque.add(new THREE.Points(gC, new THREE.PointsMaterial({ size:.016, vertexColors:true, transparent:true, opacity:.95, blending:THREE.AdditiveBlending, depthWrite:false })));
+/* un crane invisible qui cache les points de l'autre cote : sans lui, l'avant
+   et l'arriere se superposent et on ne lit plus la forme */
+const cache = new THREE.Mesh(new THREE.SphereGeometry(1, 40, 28), new THREE.MeshBasicMaterial({ colorWrite:false }));
+cache.renderOrder = -1; coque.add(cache);
+/* les mesures de la chevelure, lissees ; valeurs de depart = cheveux courts */
+const CH = { haut:1.8, cote:1.2, long:-.6, dens:1, front:1.05, menton:-1.55, frontZ:.9 }, CHc = { haut:1.8, cote:1.2, long:-.6, dens:1, front:1.05, menton:-1.55, frontZ:.9 };
+let coqueFaite = '';
+
+function P(l){ return [ (l.x - .5) * PW, -(l.y - .5) * PH, -l.z * PW ]; }
+const sub = (a,b) => [a[0]-b[0], a[1]-b[1], a[2]-b[2]], nrm = a => { const n = Math.hypot(a[0],a[1],a[2]) || 1; return [a[0]/n, a[1]/n, a[2]/n]; };
+const dot = (a,b) => a[0]*b[0] + a[1]*b[1] + a[2]*b[2], crs = (a,b) => [a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]];
+
+function mesurerChevelure(){
+  const L = dernierVisage; if(!L || Math.abs(yawV) > .38) return;   /* presque de face suffit */
+  /* en pixels du petit cadre (celui du masque) */
+  const a = L[234], b = L[454], cx = (a.x + b.x)/2 * PW, w = Math.abs(b.x - a.x) * PW / 2;
+  if(w < 8) return;
+  const yFront = L[10].y * PH, yMenton = L[152].y * PH, yYeux = (L[33].y + L[263].y)/2 * PH;
+  let haut = PH, bas = 0, cote = 0, dessus = 0, place = 0;
+  for(let y=0;y<PH;y++) for(let x=0;x<PW;x++){
+    const dx = Math.abs(x - cx);
+    /* la calotte attendue : du front a 1,6 largeur au-dessus, sur la largeur du visage */
+    if(dx < w && y < yFront && y > yFront - 1.6*w){ place++; if(HAIR[y*PW + x] >= .5) dessus++; }
+    if(HAIR[y*PW + x] < .5) continue;
+    if(dx < 2.2*w && y < haut) haut = y;
+    if(dx > .75*w && dx < 2.6*w && y > bas) bas = y;
+    if(y > yFront && y < yMenton && dx > cote) cote = dx;
+  }
+  CHc.dens = place ? clamp(dessus / place / .55, .08, 1) : 1;   /* crane rase ou degarni : peu de points */
+  if(haut >= PH){ CHc.haut = 1.72; CHc.cote = 1.12; CHc.long = -.6; return; }
+  CHc.haut = clamp((yYeux - haut) / w, 1.6, 3.6);
+  CHc.cote = clamp(cote / w, 1.1, 3.0);
+  CHc.long = clamp((bas - yMenton) / w, -.6, 4);
+}
+/* LA TETE, AUX VRAIES PROPORTIONS.
+   Unite = demi-largeur du visage (points 234-454, ~7 cm chez l'adulte).
+   Le crane se deduit du visage, comme en anthropometrie : largeur de tete
+   ~1,1, demi-longueur ~1,4 (glabelle-occiput ~19,5 cm), sommet ~1,7 au-dessus
+   de la ligne des yeux. Il est le meme pour tous A L'ECHELLE du visage de
+   chacun ; ce qui change d'une personne a l'autre, c'est son visage (478
+   points) et l'EPAISSEUR de ses cheveux, mesuree sur son masque :
+   au-dessus du crane, sur les cotes, et ce qui tombe sous le menton. */
+const CRANE = { cy:.35, cz:-.45, rx:1.1, ry:1.35, rz:1.42 };   /* cz se recale sur le front de chacun */
+function faireCoque(){
+  const K = CRANE;
+  /* l'avant du crane passe juste derriere le front lu sur le visage */
+  K.cz = clamp(CH.frontZ - .08 - K.rz, -1.1, -.2);
+  const tHaut = clamp(CH.haut - (K.cy + K.ry), .05, 1.8);   /* epaisseur sur le dessus */
+  const tCote = clamp(CH.cote - K.rx, .05, 1.9);            /* epaisseur sur les cotes */
+  const front = CH.front, menton = CH.menton;
+  const longs = CH.long > -.25;                              /* des cheveux sous le menton */
+  const basLong = menton - Math.max(0, CH.long);
+  for(let i=0;i<NC;i++){
+    let x = 0, y = 0, z = 0, ok = false;
+    const tombe = longs && cBase[i*4] < .34;
+    for(let essai=0; essai<8 && !ok; essai++){
+      const u = rnd(i*13.1 + essai*7.7), v = rnd(i*3.3 + essai*5.9), e = rnd(i*6.1 + essai*2.3);
+      if(!tombe){
+        /* une direction sur la sphere, du sommet jusqu'un peu sous les oreilles */
+        const dy = 1 - u*1.32, r = Math.sqrt(Math.max(0, 1 - dy*dy)), th = v*Math.PI*2;
+        const dx = r*Math.cos(th), dz = r*Math.sin(th);
+        const t = lerp(tCote, tHaut, Math.max(0, dy)) * (.25 + .75*e);   /* un volume, pas une peau */
+        x = dx*(K.rx + t); y = K.cy + dy*(K.ry + t); z = K.cz + dz*(K.rz + t);
+        /* le visage reste libre : sous la lisiere du front, devant les tempes */
+        const visage = dz > .2 && y < front && Math.abs(x) < 1.0;
+        /* sous la ligne des oreilles, seulement a l'arriere (la nuque) */
+        const cou = y < -.25 && dz > -.2;
+        ok = !visage && !cou;
+      } else {
+        /* les longueurs : autour de l'arriere et des cotes, de l'oreille au bout mesure */
+        const th = (-.58 + v*1.16) * Math.PI, k = u, yy = lerp(-.1, basLong, k);
+        const fl = 1 + k*.12, t = tCote*(.3 + .7*e);
+        x = Math.sin(th) * (K.rx + t) * fl; z = K.cz - Math.cos(th) * (K.rz*.8 + t) * fl; y = yy;
+        ok = !(z > .15 && Math.abs(x) < 1.0);
+      }
+    }
+    cPos[i*3] = x; cPos[i*3+1] = y; cPos[i*3+2] = z;
+    let zz;
+    if(y > K.cy + K.ry*.7 && Math.abs(x) < .62) zz = 3;
+    else if(x > .5) zz = 1;
+    else if(x < -.5) zz = 2;
+    else if(z > K.cz) zz = 0;
+    else zz = 4;
+    cZone[i] = zz;
+  }
+  gC.attributes.position.needsUpdate = true;
+  /* le crane invisible, qui cache l'autre cote */
+  /* le cache reste DERRIERE le visage : il ne doit jamais en manger un point */
+  cache.scale.set(K.rx*.95, K.ry*.95, K.rz*.72); cache.position.set(0, K.cy, K.cz - K.rz*.2);
+}
+function couleursCoque(t){
+  for(let i=0;i<NC;i++){
+    const zz = cZone[i]; let r, g, b;
+    if(cBase[i*4+3] > CH.dens){ r = g = b = 0; }            /* peu de cheveux : peu de points */
+    else if(zz === 4){ r = g = b = .07; }
+    else {
+      const lu = Z[ZONES[zz]] > cSeuil[i], actif = ZONES[zz] === pose && Z[ZONES[zz]] < 1;
+      if(lu){ r = .35; g = .78; b = 1.3; }
+      else { const k = actif ? .42 + .25*Math.sin(t/120 + i) : .22; r = g = b = k; }
+    }
+    cCol[i*3]=r; cCol[i*3+1]=g; cCol[i*3+2]=b;
+  }
+  gC.attributes.color.needsUpdate = true;
+}
+const mTete = new THREE.Matrix4();
+function majDouble(t){
+  const L = dernierVisage; if(!L) return false;
+  /* le visage : la poussiere de points, posee sur VOS traits */
+  if(!semis) semer(L);
+  const Aw = P(L[234]), Bw = P(L[454]), jit = Math.hypot(Aw[0]-Bw[0], Aw[1]-Bw[1]) * .012;
+  for(let i=0;i<NV;i++){
+    const ar = ARETES[vAr[i]], A = P(L[ar.start]), B = P(L[ar.end]), f = vT[i];
+    vPos[i*3]   = A[0] + (B[0]-A[0])*f + vJ[i*3]*jit;
+    vPos[i*3+1] = A[1] + (B[1]-A[1])*f + vJ[i*3+1]*jit;
+    vPos[i*3+2] = A[2] + (B[2]-A[2])*f + vJ[i*3+2]*jit;
+    vCol[i*3] = vCol[i*3+1] = vCol[i*3+2] = vB[i];
+  }
+  gV.attributes.position.needsUpdate = true; gV.attributes.color.needsUpdate = true;
+  /* le repere de la tete, tire du visage : droite, haut, avant */
+  let A = P(L[234]), B = P(L[454]); if(A[0] > B[0]){ const c = A; A = B; B = c; }
+  const w = Math.hypot(B[0]-A[0], B[1]-A[1], B[2]-A[2]) / 2;
+  const X = nrm(sub(B, A));
+  let Y = sub(P(L[10]), P(L[152])); const d = dot(Y, X); Y = nrm([Y[0]-X[0]*d, Y[1]-X[1]*d, Y[2]-X[2]*d]);
+  const Zv = crs(X, Y);
+  const e1 = P(L[33]), e2 = P(L[263]);
+  const O = [(A[0]+B[0])/2, (e1[1]+e2[1])/2, (A[2]+B[2])/2];
+  mTete.set(X[0]*w, Y[0]*w, Zv[0]*w, O[0],
+            X[1]*w, Y[1]*w, Zv[1]*w, O[1],
+            X[2]*w, Y[2]*w, Zv[2]*w, O[2],
+            0, 0, 0, 1);
+  coque.matrix.copy(mTete); coque.matrixWorldNeedsUpdate = true;
+  const loc = q => { const v = sub(P(q), O); return dot(v, Y) / w; };
+  CHc.front = clamp(loc(L[10]) - .05, .7, 1.5); CHc.menton = clamp(loc(L[152]), -2.2, -1.1);
+  { const v = sub(P(L[10]), O); CHc.frontZ = clamp(dot(v, Zv) / w, .3, 1.4); }
+  /* tout est recentre sur la tete et mis a l'echelle de l'ecran */
+  const C = [O[0] + Zv[0]*w*CRANE.cz + Y[0]*w*.1, O[1] + Zv[1]*w*CRANE.cz + Y[1]*w*.1, O[2] + Zv[2]*w*CRANE.cz + Y[2]*w*.1];
+  const S = .5 / w;
+  racine.scale.setScalar(S); racine.position.set(-C[0]*S + .25, -C[1]*S - .1, -C[2]*S);
+  /* la coque suit les mesures, sans a-coups */
+  let bouge = false;
+  for(const k2 of ['haut','cote','long','dens','front','menton','frontZ']){ const n = CH[k2] + (CHc[k2] - CH[k2]) * .05; if(Math.abs(n - CH[k2]) > .004) bouge = true; CH[k2] = n; }
+  if(bouge || !coqueFaite){ faireCoque(); coqueFaite = 'oui'; }
+  couleursCoque(t);
+  return true;
+}
+
+function dessinA(t, r){
+  peindre(ctx, r, 'grayscale(1) brightness(.2) contrast(1.1)');
+  cheveux(r, BLEU(.9));
+  gl.style.display = 'block';
+  /* LA PREMIERE TETE, celle que Charles a trouvee stylee (21/09, 23h41) : la tete
+     de points dessinee, qui tourne comme la vraie. On ne la remplace plus. */
+  if(false){ racine.visible = true; tete.visible = false; }
+  else {
+    /* pas de visage (demo) : la tete de principe */
+    racine.visible = false; tete.visible = true;
+    tete.position.set(.25, 0, 0);
+    tete.rotation.y += ((yawV * .95) - tete.rotation.y) * .15;
+    tete.rotation.x += ((clamp(pitchV,0,1.4) * .55) - tete.rotation.x) * .15;
+    couleursTete(t);
+  }
+  co.render();
+}
+function bord(cote, force, t){
+  const a = force * (.55 + .45*Math.sin(t/260));
+  let g;
+  if(cote === 'gauche'){ g = ctx.createLinearGradient(0,0,W*.22,0); g.addColorStop(0,BLEU(a)); g.addColorStop(1,BLEU(0)); ctx.fillStyle = g; ctx.fillRect(0,0,W*.22,H); }
+  if(cote === 'droite'){ g = ctx.createLinearGradient(W,0,W*.78,0); g.addColorStop(0,BLEU(a)); g.addColorStop(1,BLEU(0)); ctx.fillStyle = g; ctx.fillRect(W*.78,0,W*.22,H); }
+  if(cote === 'dessus'){ g = ctx.createLinearGradient(0,0,0,H*.28); g.addColorStop(0,BLEU(a)); g.addColorStop(1,BLEU(0)); ctx.fillStyle = g; ctx.fillRect(0,0,W,H*.28); }
+  if(cote === 'face'){ g = ctx.createRadialGradient(W/2,H/2,0,W/2,H/2,H*.6); g.addColorStop(0,BLEU(a*.35)); g.addColorStop(1,BLEU(0)); ctx.fillStyle = g; ctx.fillRect(0,0,W,H); }
+}
+function dessinB(t, r){
+  gl.style.display = 'none';
+  peindre(ctx, r, 'grayscale(1) brightness(.42) contrast(1.1)');
+  /* les cheveux vus maintenant : gris s'ils restent a lire, bleus s'ils le sont */
+  const z = ZONES.includes(pose) ? Z[pose] : 0;
+  cheveux(r, 'rgba(' + Math.round(lerp(150,64,z)) + ',' + Math.round(lerp(160,170,z)) + ',' + Math.round(lerp(175,255,z)) + ',.95)', z > .05 ? 'color' : 'saturation');
+  if(z > .05){ ctx.save(); ctx.globalAlpha = .25*z; cheveux(r, BLEU(1), 'screen'); ctx.restore(); }
+  /* la lumiere au bord : c'est elle qui fait tourner la tete */
+  ctx.save(); ctx.globalCompositeOperation = 'screen';
+  const m = manquante(); if(m && m !== pose) bord(m, .75, t);
+  ctx.restore();
+}
+function dessinC(t, r){
+  gl.style.display = 'none';
+  peindre(ctx, r, 'grayscale(1) brightness(.34) contrast(1.1)');
+  cheveux(r, BLEU(.9));
+  /* quatre mots, chacun sur le bord qu'il designe ; il se remplit quand c'est lu */
+  const fs = Math.min(W, H) * .16;
+  const mots = [
+    { z:'gauche', x: fs*.62,   y: H/2, rot:-Math.PI/2 },
+    { z:'droite', x: W-fs*.62, y: H/2, rot: Math.PI/2 },
+    { z:'dessus', x: W/2,      y: fs*.95, rot:0 },
+    { z:'face',   x: W/2,      y: H - fs*.62, rot:0 }
+  ];
+  ctx.save(); ctx.font = '800 ' + fs + 'px Inter'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  for(const m of mots){
+    const mot = m.z.toUpperCase(), w = ctx.measureText(mot).width, v = Z[m.z], actif = pose === m.z && v < 1;
+    ctx.save(); ctx.translate(m.x, m.y); ctx.rotate(m.rot);
+    ctx.lineWidth = 1.2; ctx.strokeStyle = 'rgba(234,246,255,' + (actif ? .9 : .38) + ')'; ctx.strokeText(mot, 0, 0);
+    ctx.save(); ctx.beginPath(); ctx.rect(-w/2, fs*.5 - fs*v, w, fs*v + 2); ctx.clip();
+    ctx.fillStyle = v >= 1 ? '#eaf6ff' : 'rgba(96,190,255,.95)'; ctx.fillText(mot, 0, 0); ctx.restore();
+    ctx.restore();
+  }
+  ctx.restore();
+}
+
+function choisir(g){
+  G = g; document.body.className = 'g' + g;
+  document.querySelectorAll('#choix button').forEach(b => b.classList.toggle('on', +b.dataset.g === g));
+  history.replaceState(null, '', '?g=' + g + (DEMO ? '&demo=1' : '') + (DEBUG ? '&debug=1' : ''));
+  ZONES.forEach(z => Z[z] = 0); finiDepuis = 0;
+}
+document.querySelectorAll('#choix button').forEach(b => b.onclick = () => choisir(+b.dataset.g));
+addEventListener('keydown', e => { if(e.key >= '1' && e.key <= '3') choisir(+e.key); });
+
+function image(now){
+  requestAnimationFrame(image);
+  if(!src || !HAIR) return;
+  const dt = Math.min(.1, (now - tPrec)/1000); tPrec = now;
+  lire(now); lirePose(now, dt);
+  ctx.save(); ctx.setTransform(1,0,0,1,0,0); ctx.fillStyle = '#000'; ctx.fillRect(0,0,cv.width,cv.height); ctx.restore();
+  const r = cadre();
+  if(G === 1) dessinA(now, r); else if(G === 2) dessinB(now, r); else dessinC(now, r);
+  const tt = total();
+  $('pct').textContent = Math.round(tt*100) + ' %';
+  /* secours : bloque 5 s, on nomme ce qui manque (et seulement a ce moment-la) */
+  const m = manquante();
+  const aide = m && now - bloqueDepuis > 5000;
+  $('aide').classList.toggle('on', !!aide); if(aide) $('aide').textContent = 'Il manque ' + NOMS[m] + '.';
+  if(tt >= 1){
+    if(!finiDepuis){ finiDepuis = now; document.body.classList.add('fini'); $('pct').textContent = 'Lu.'; }
+    else if(now - finiDepuis > 3500){ ZONES.forEach(z => Z[z] = 0); finiDepuis = 0; document.body.classList.remove('fini'); bloqueDepuis = now; }
+  }
+  if(DEBUG) $('lectureDebug').textContent = 'lacet ' + yawV.toFixed(2) + '\ntangage ' + pitchV.toFixed(2) + '\nvisage ' + visage + '\ncheveux ' + (vuCheveux*100).toFixed(1) + ' %\npose ' + pose;
+}
+
+(async function(){
+  taille(); tailleGL();
+  await ouvrirSource(); tailles();
+  await ouvrirLecture();
+  choisir(G); bloqueDepuis = performance.now();
+  requestAnimationFrame(image);
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1808 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>vyvre — Scan Cheveux — Directions artistiques 1 à 5</title>
+<meta name="robots" content="noindex,nofollow">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' fill='%230a0a0b'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@200;300;400;500;600&family=IBM+Plex+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   COQUE — la page de choix
+   ============================================================ */
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{
+  background:#0a0a0b;color:#e7e5e1;
+  font-family:'Inter',-apple-system,BlinkMacSystemFont,'Helvetica Neue',sans-serif;
+  font-weight:300;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  overflow-x:hidden;
+}
+::selection{background:#e7e5e1;color:#0a0a0b}
+.wrap{max-width:1560px;margin:0 auto;padding:clamp(28px,5vw,72px) clamp(18px,4vw,56px) 120px}
+
+.mast{display:flex;align-items:flex-end;justify-content:space-between;gap:32px;flex-wrap:wrap;
+  padding-bottom:26px;border-bottom:1px solid rgba(231,229,225,.14)}
+.mast h1{margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-weight:300;
+  font-size:clamp(30px,5.4vw,62px);line-height:.98;letter-spacing:-.015em}
+.mast h1 em{font-style:italic;opacity:.55}
+.mast .meta{font-size:11px;letter-spacing:.24em;text-transform:uppercase;opacity:.46;line-height:2;text-align:right}
+.lede{max-width:64ch;margin:26px 0 0;font-size:15px;line-height:1.72;opacity:.62;font-weight:300}
+.lede b{font-weight:400;opacity:1;color:#fff}
+
+.grid{margin-top:clamp(34px,5vw,64px);display:grid;gap:clamp(18px,2.4vw,34px);
+  grid-template-columns:repeat(auto-fill,minmax(400px,1fr))}
+@media(max-width:860px){.grid{grid-template-columns:1fr}}
+
+.card{border:0;padding:0;margin:0;background:none;color:inherit;font:inherit;text-align:left;
+  cursor:pointer;display:block;position:relative;isolation:isolate}
+.card .frame{position:relative;width:100%;aspect-ratio:16/10;overflow:hidden;background:#000;
+  border:1px solid rgba(231,229,225,.12);transition:border-color .5s cubic-bezier(.22,.61,.36,1)}
+.card .frame canvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.card .veil{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(0,0,0,0) 52%,rgba(0,0,0,.34) 100%);
+  opacity:0;transition:opacity .6s ease}
+.card:hover .veil,.card:focus-visible .veil{opacity:1}
+.card:hover .frame,.card:focus-visible .frame{border-color:rgba(231,229,225,.34)}
+.card:focus-visible{outline:none}
+.card:focus-visible .frame{box-shadow:0 0 0 2px rgba(231,229,225,.5)}
+.card .open{position:absolute;left:0;bottom:0;padding:14px 18px;font-size:10px;letter-spacing:.3em;
+  text-transform:uppercase;color:#fff;opacity:0;transform:translateY(6px);
+  transition:opacity .5s ease,transform .5s cubic-bezier(.22,.61,.36,1);pointer-events:none}
+.card:hover .open,.card:focus-visible .open{opacity:.92;transform:none}
+.card .lab{display:flex;gap:14px;padding:16px 2px 0}
+.card .idx{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.1em;opacity:.4;padding-top:4px}
+.card h2{margin:0;font-family:'Cormorant Garamond',Georgia,serif;font-weight:400;font-size:26px;
+  letter-spacing:.02em;line-height:1.1}
+.card p{margin:7px 0 0;font-size:13px;line-height:1.6;opacity:.55;max-width:46ch;font-weight:300}
+.foot{margin-top:84px;padding-top:22px;border-top:1px solid rgba(231,229,225,.12);
+  font-size:11px;letter-spacing:.2em;text-transform:uppercase;opacity:.34}
+
+/* ============================================================
+   LECTEUR PLEIN ÉCRAN
+   ============================================================ */
+.player{position:fixed;inset:0;z-index:90;background:#000;opacity:0;pointer-events:none;
+  transition:opacity .5s ease}
+.player.on{opacity:1;pointer-events:auto}
+.player .stagebox{position:absolute;inset:0;overflow:hidden}
+.player .chrome{position:absolute;inset:0;pointer-events:none;z-index:5;
+  color:var(--ink,#fff);mix-blend-mode:var(--chromeblend,normal)}
+.chrome .top{position:absolute;top:0;left:0;right:0;display:flex;flex-direction:column;
+  align-items:flex-start;gap:9px;padding:clamp(16px,2.6vw,34px);max-width:min(52ch,60vw)}
+.chrome .who{display:flex;align-items:baseline;gap:14px}
+.chrome .num{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.14em;opacity:.5}
+.chrome .ttl{font-size:11px;letter-spacing:.34em;text-transform:uppercase;opacity:.82}
+.chrome .parti{font-size:11.5px;line-height:1.6;opacity:0;max-width:44ch;text-align:left;
+  font-weight:300;transition:opacity 1.1s ease}
+.player.intro .chrome .parti{opacity:.52}
+.chrome .bot{position:absolute;left:0;right:0;bottom:0;padding:clamp(14px,2.2vw,28px)}
+.chaps{list-style:none;display:flex;gap:clamp(10px,2.4vw,34px);margin:0;padding:0}
+.chaps li{flex:1;min-width:0;pointer-events:auto;cursor:pointer;position:relative;padding-top:9px;
+  opacity:.3;transition:opacity .45s ease}
+.chaps li.on{opacity:1}
+.chaps li .rail{position:absolute;top:0;left:0;right:0;height:1px;background:currentColor;opacity:.28}
+.chaps li .fill{position:absolute;top:0;left:0;height:1px;background:currentColor;width:0}
+.chaps li .n{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;opacity:.6}
+.chaps li .t{display:block;font-size:10px;letter-spacing:.26em;text-transform:uppercase;margin-top:3px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.xclose{position:absolute;top:clamp(12px,2.2vw,26px);right:clamp(12px,2.2vw,26px);z-index:7;
+  pointer-events:auto;background:none;border:1px solid currentColor;color:var(--ink,#fff);
+  width:40px;height:40px;border-radius:50%;cursor:pointer;opacity:.34;
+  transition:opacity .35s ease,transform .35s ease;display:grid;place-items:center}
+.xclose:hover{opacity:.95;transform:rotate(90deg)}
+.xclose svg{width:13px;height:13px;display:block}
+.player .hint{position:absolute;right:calc(clamp(12px,2.2vw,26px) + 52px);top:clamp(24px,3.2vw,38px);
+  font-size:9px;letter-spacing:.3em;text-transform:uppercase;opacity:0;color:var(--ink,#fff);z-index:6;
+  transition:opacity 1.1s ease}
+.player.intro .hint{opacity:.26}
+
+/* ============================================================
+   MONDE — socle commun aux 5 directions
+   ============================================================ */
+.world{position:absolute;inset:0;overflow:hidden;background:var(--bg,#000);color:var(--ink,#fff)}
+.world canvas.stage{position:absolute;inset:0;width:100%;height:100%;display:block}
+.world .ui{position:absolute;inset:0}
+.pane{position:absolute;inset:0;opacity:0;visibility:hidden;pointer-events:none}
+.pane.on{opacity:1;visibility:visible}
+.pad{position:absolute;inset:0;padding:clamp(56px,8vh,110px) clamp(24px,6vw,110px)}
+.rise{opacity:0;transform:translateY(14px)}
+.pane.on .rise{animation:rise .95s cubic-bezier(.16,.84,.34,1) both}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.fade{opacity:0}
+.pane.on .fade{animation:fade 1.1s ease both}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.wipe{clip-path:inset(0 100% 0 0)}
+.pane.on .wipe{animation:wipe 1.1s cubic-bezier(.66,0,.2,1) both}
+@keyframes wipe{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+.mono{font-family:'IBM Plex Mono',monospace}
+.serif{font-family:'Cormorant Garamond',Georgia,serif}
+.kick{font-size:10px;letter-spacing:.34em;text-transform:uppercase}
+.prodimg{width:100%;height:100%;object-fit:contain;display:block}
+</style>
+<style>
+/* ---------- composants communs (structure) ---------- */
+.q-list{position:absolute;left:clamp(24px,6vw,110px);top:50%;transform:translateY(-50%);
+  width:min(48ch,52vw);display:flex;flex-direction:column;gap:clamp(20px,4.2vh,44px)}
+.q-step{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;opacity:.42;
+  display:block;margin-bottom:10px}
+.q-h{margin:0;font-weight:300;line-height:1.12}
+.opts{display:flex;flex-wrap:wrap;gap:10px 14px;margin-top:16px;list-style:none;padding:0}
+.opt{position:relative;display:inline-block}
+.q.suite{border-top:1px solid currentColor;padding-top:clamp(16px,3vh,30px);
+  border-color:color-mix(in srgb,currentColor 20%,transparent)}
+.q.suite .q-step{opacity:.7}
+
+.frameguide{position:absolute;inset:0;pointer-events:none}
+.scan-copy{position:absolute;left:clamp(24px,6vw,110px);bottom:clamp(74px,12vh,130px);
+  max-width:38ch}
+.scan-copy h3{margin:0 0 10px;font-weight:300}
+.scan-copy p{margin:0;font-size:13px;line-height:1.7;opacity:.6;font-weight:300}
+.poses{list-style:none;margin:22px 0 0;padding:0;display:flex;gap:10px}
+.pose{display:flex;flex-direction:column;gap:6px;padding:9px 14px 10px;min-width:104px;
+  transition:opacity .5s ease,background .5s ease,border-color .5s ease;opacity:.34}
+.pose.on{opacity:1}
+.pose .pn{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.16em;opacity:.7}
+.pose .pt{font-size:11px;letter-spacing:.13em;text-transform:uppercase}
+
+.load{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+.load .big{font-variant-numeric:tabular-nums;line-height:1}
+.load .steps{margin-top:clamp(16px,3vh,34px);height:1.4em;position:relative;width:min(420px,72vw)}
+.load .steps span{position:absolute;inset:0;opacity:0;font-size:11px;letter-spacing:.3em;
+  text-transform:uppercase;transition:opacity .6s ease}
+.load .steps span.on{opacity:.72}
+
+.res{position:absolute;inset:0;display:flex;flex-direction:column;
+  padding:clamp(48px,7vh,92px) clamp(24px,6vw,110px) clamp(62px,9vh,100px);gap:clamp(18px,3.4vh,40px)}
+.res-head{display:flex;align-items:baseline;justify-content:space-between;gap:24px;flex-wrap:wrap}
+.res-head h3{margin:0;font-weight:300;line-height:1}
+.mes{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,1.6vw,26px)}
+.m{position:relative;min-height:74px}
+.m .ml{font-size:10px;letter-spacing:.2em;text-transform:uppercase;opacity:.5;display:block}
+.m .mv{font-variant-numeric:tabular-nums;display:block;margin-top:8px;line-height:1}
+.m .mu{font-size:11px;opacity:.45;margin-left:4px;letter-spacing:.06em}
+.m .bar{position:relative;height:1px;margin-top:14px;background:currentColor;opacity:.2}
+.m .bar i{position:absolute;left:0;top:-1px;height:3px;background:currentColor;width:0;display:block}
+.routine{display:grid;grid-template-columns:repeat(4,1fr);gap:clamp(10px,1.6vw,26px);flex:1;min-height:0}
+.p{display:flex;flex-direction:column;min-height:0;position:relative}
+.p .shot{position:relative;flex:1;min-height:0;display:grid;place-items:center;overflow:hidden}
+.p .shot img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
+.p .pstep{font-family:'IBM Plex Mono',monospace;font-size:9px;letter-spacing:.2em;opacity:.5}
+.p .pbrand{font-size:10px;letter-spacing:.24em;text-transform:uppercase;margin-top:10px;opacity:.72}
+.p .pname{font-size:13px;line-height:1.4;margin-top:5px;opacity:.9;font-weight:300}
+.p .pwhy{font-size:11px;line-height:1.55;margin-top:6px;opacity:.44}
+@media(max-width:900px){
+  .mes{grid-template-columns:repeat(2,1fr)}
+  .routine{grid-template-columns:repeat(2,1fr)}
+  .q-list{width:auto;right:clamp(24px,6vw,110px)}
+}
+@media(max-width:860px){
+  .pad{padding:clamp(40px,7vh,80px) 20px}
+  .q-list{width:auto;right:20px;left:20px;gap:18px}
+  .q-h{font-size:clamp(21px,6.4vw,30px) !important;line-height:1.14}
+  .opts{margin-top:12px;gap:8px 12px}
+  .opt{font-size:11px !important}
+  .scan-copy{left:20px;right:20px;bottom:76px;max-width:none}
+  .scan-copy p{font-size:12px}
+  .poses{gap:7px;margin-top:16px}
+  .pose{min-width:0;flex:1;padding:7px 8px 8px}
+  .pose .pt{font-size:9.5px;letter-spacing:.09em}
+  .res{padding:clamp(38px,6.4vh,70px) 20px 74px;gap:14px}
+  .res-head h3{font-size:clamp(19px,5.6vw,26px) !important}
+  .mes{gap:9px 12px}
+  .m{min-height:50px}
+  .m .ml{font-size:8.5px;letter-spacing:.12em}
+  .m .mv{font-size:clamp(20px,6vw,26px) !important}
+  .m .bar{margin-top:9px}
+  .routine{gap:10px;min-height:0;grid-auto-rows:1fr}
+  .p{min-height:0}
+  .p .pwhy{display:none}
+  .p .pstep{font-size:8px}
+  .p .pbrand{font-size:8.5px;letter-spacing:.16em;margin-top:6px}
+  .p .pname{font-size:11px;margin-top:3px;line-height:1.3}
+  .w2 .p .pname{font-size:12.5px}
+  .w3 .res{padding-bottom:70px}
+  .w3 .p .shot{margin-top:8px}
+  .chrome .top{max-width:74vw;padding:16px}
+  .chrome .parti{font-size:10.5px;max-width:none}
+  .chaps li .t{font-size:8.5px;letter-spacing:.12em}
+  .player .hint{display:none}
+}
+
+/* ============================================================
+   01 — FIBRE DE VERRE
+   ============================================================ */
+.w1{--bg:#000;--ink:#dfeaf2;--acc:#7fd8ff;--acc2:#2b6f96}
+.w1 .q-h{font-size:clamp(24px,3.5vw,46px);letter-spacing:-.01em;color:#f2f7fb}
+.w1 .q-step{color:var(--acc);opacity:.8}
+.w1 .opts{flex-wrap:nowrap}
+@media(max-width:900px){.w1 .opts{flex-wrap:wrap}}
+.w1 .opt{font-size:12px;letter-spacing:.2em;text-transform:uppercase;padding:9px 16px;
+  border:1px solid rgba(223,234,242,.22);color:rgba(223,234,242,.72)}
+.w1 .opt.sel{border-color:var(--acc);color:#fff;
+  box-shadow:0 0 22px rgba(127,216,255,.28),inset 0 0 18px rgba(127,216,255,.1)}
+.w1 .scan-copy h3{font-size:clamp(17px,2vw,24px);letter-spacing:.02em}
+.w1 .pose{border:1px solid rgba(223,234,242,.16)}
+.w1 .pose.on{border-color:var(--acc);background:rgba(127,216,255,.07)}
+.w1 .load .big{font-family:'IBM Plex Mono',monospace;font-size:clamp(52px,10vw,124px);
+  font-weight:300;letter-spacing:-.04em;color:#eaf6ff;text-shadow:0 0 44px rgba(127,216,255,.45)}
+.w1 .load .steps span{color:var(--acc)}
+.w1 .res-head h3{font-size:clamp(20px,2.6vw,34px)}
+.w1 .m .mv{font-family:'IBM Plex Mono',monospace;font-size:clamp(22px,2.8vw,38px);color:#eaf6ff}
+.w1 .m .bar i{background:var(--acc);box-shadow:0 0 12px rgba(127,216,255,.7)}
+.w1 .p .shot{background:radial-gradient(120% 80% at 50% 30%,rgba(43,111,150,.20),rgba(0,0,0,0) 70%)}
+.w1 .p .shot img{-webkit-mask-image:radial-gradient(78% 78% at 50% 48%,#000 52%,transparent 100%);
+  mask-image:radial-gradient(78% 78% at 50% 48%,#000 52%,transparent 100%)}
+.w1 .p::before{content:'';position:absolute;left:0;right:0;bottom:calc(100% - 1px);height:1px;background:none}
+.w1 .p .pbrand{color:var(--acc)}
+
+/* ============================================================
+   02 — ENCRE ET EAU
+   ============================================================ */
+.w2{--bg:#f2efe7;--ink:#171310;--acc:#9b3b2e;--chromeblend:normal}
+.w2 .q-list{width:min(42ch,48vw)}
+.w2 .q-h{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(28px,4.4vw,58px);
+  font-weight:300;letter-spacing:.004em;line-height:1.04}
+.w2 .q-step{letter-spacing:.3em;opacity:.35;text-transform:uppercase}
+.w2 .opts{gap:6px 26px;margin-top:20px}
+.w2 .opt{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(16px,1.7vw,22px);
+  padding-bottom:5px;border-bottom:1px solid rgba(23,19,16,.2);color:rgba(23,19,16,.62)}
+.w2 .opt.sel{color:#171310;border-bottom-color:var(--acc);border-bottom-width:1px}
+.w2 .opt.sel::after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:1px;background:var(--acc)}
+.w2 .scan-copy h3{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(19px,2.2vw,30px)}
+.w2 .pose{padding:0 0 7px;min-width:92px;border-bottom:1px solid rgba(23,19,16,.18)}
+.w2 .pose.on{border-bottom-color:var(--acc)}
+.w2 .load .big{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(60px,12vw,160px);
+  font-weight:300;color:#171310}
+.w2 .load .steps span{letter-spacing:.34em}
+.w2 .res{background:none}
+.w2 .res-head h3{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(22px,3vw,40px)}
+.w2 .mes{border-top:1px solid rgba(23,19,16,.2);padding-top:18px}
+.w2 .m{border-left:1px solid rgba(23,19,16,.14);padding-left:16px}
+.w2 .m:first-child{border-left:0;padding-left:0}
+.w2 .m .mv{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(26px,3.4vw,46px)}
+.w2 .m .bar{opacity:.14}
+.w2 .m .bar i{background:var(--acc);height:1px;top:0}
+.w2 .p{border-top:1px solid rgba(23,19,16,.16);padding-top:12px}
+.w2 .p .shot img{mix-blend-mode:multiply}
+.w2 .p .pbrand{opacity:.55}
+.w2 .p .pname{font-family:'Cormorant Garamond',Georgia,serif;font-size:17px;line-height:1.25}
+
+/* ============================================================
+   03 — ATELIER DE COIFFURE
+   ============================================================ */
+.w3{--bg:#100b07;--ink:#f0e2cd;--acc:#c9a36a;--marb:#e9e3d8}
+.w3 .q-list{width:min(40ch,46vw)}
+.w3 .q-h{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(26px,4vw,52px);font-weight:300;
+  color:#fbf1e0;text-shadow:0 1px 26px rgba(201,163,106,.22)}
+.w3 .q-step{color:var(--acc);letter-spacing:.3em;text-transform:uppercase;opacity:.65}
+.w3 .opt{font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:rgba(240,226,205,.6);
+  padding:0 0 7px;border-bottom:1px solid rgba(201,163,106,.3)}
+.w3 .opt.sel{color:#fff6e6;border-bottom-color:var(--acc)}
+.w3 .opt.sel::before{content:'';position:absolute;left:-14px;top:.46em;width:5px;height:5px;
+  border-radius:50%;background:var(--acc);box-shadow:0 0 12px rgba(201,163,106,.9)}
+.w3 .scan-copy h3{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(19px,2.3vw,30px)}
+.w3 .pose{padding:8px 14px 9px;border:1px solid rgba(201,163,106,.24);border-radius:1px}
+.w3 .pose.on{background:rgba(201,163,106,.12);border-color:rgba(201,163,106,.62)}
+.w3 .load .big{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(58px,11vw,150px);
+  font-weight:300;color:#fdf3e2}
+.w3 .load .steps span{color:var(--acc);letter-spacing:.32em}
+.w3 .res-head h3{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(22px,3vw,40px);color:#fdf3e2}
+.w3 .m .mv{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(26px,3.3vw,44px);color:#fdf3e2}
+.w3 .m .bar i{background:var(--acc)}
+.w3 .routine{gap:clamp(6px,1vw,16px)}
+.w3 .p{padding:0 clamp(6px,.9vw,14px)}
+.w3 .res{padding-bottom:clamp(110px,17vh,190px)}
+.w3 .p{justify-content:flex-end}
+.w3 .p .shot{order:5;flex:1 1 auto;margin-top:14px;align-items:flex-end}
+.w3 .p .shot img{max-height:100%}
+.w3 .p .pstep{order:1;color:var(--acc);opacity:.75}
+.w3 .p .pbrand{order:2;color:var(--acc);margin-top:6px}
+.w3 .p .pname{order:3;color:#f6e9d2}
+.w3 .p .pwhy{order:4;color:#c9b393;opacity:.62}
+
+/* ============================================================
+   04 — LABORATOIRE OPTIQUE
+   ============================================================ */
+.w4{--bg:#f6f7f8;--ink:#0e1114;--acc:#0e1114;--sig:#1c6fd0}
+.w4 .q-list{width:min(46ch,50vw)}
+.w4 .q-h{font-size:clamp(21px,2.9vw,38px);font-weight:300;letter-spacing:-.005em}
+.w4 .q-step{letter-spacing:.2em;opacity:.5}
+.w4 .opts{gap:0;flex-direction:column;margin-top:18px;border-top:1px solid rgba(14,17,20,.16)}
+.w4 .opt{display:flex;align-items:center;gap:14px;width:100%;padding:11px 0 11px 2px;
+  border-bottom:1px solid rgba(14,17,20,.11);font-size:12px;letter-spacing:.13em;text-transform:uppercase;
+  color:rgba(14,17,20,.62)}
+.w4 .opt::before{content:'';width:9px;height:9px;border:1px solid rgba(14,17,20,.4);flex:none}
+.w4 .opt.sel{color:#0e1114}
+.w4 .opt.sel::before{background:var(--sig);border-color:var(--sig);
+  box-shadow:0 0 0 3px rgba(28,111,208,.16)}
+.w4 .scan-copy h3{font-size:clamp(16px,1.9vw,22px);letter-spacing:.02em}
+.w4 .pose{border:1px solid rgba(14,17,20,.2);padding:8px 12px 9px;min-width:110px;background:rgba(255,255,255,.6)}
+.w4 .pose.on{border-color:var(--sig);background:rgba(28,111,208,.07)}
+.w4 .load .big{font-family:'IBM Plex Mono',monospace;font-size:clamp(46px,8.6vw,112px);font-weight:300;
+  letter-spacing:-.03em}
+.w4 .load .steps span{letter-spacing:.24em;opacity:0}
+.w4 .load .steps span.on{opacity:.62}
+.w4 .res{padding-top:clamp(40px,6vh,76px)}
+.w4 .res-head h3{font-size:clamp(18px,2.3vw,28px);letter-spacing:.01em}
+.w4 .mes{border-top:1px solid rgba(14,17,20,.75);padding-top:0}
+.w4 .m{border-right:1px solid rgba(14,17,20,.12);padding:16px 16px 0 0}
+.w4 .m:last-child{border-right:0}
+.w4 .m .mv{font-family:'IBM Plex Mono',monospace;font-size:clamp(22px,2.8vw,36px)}
+.w4 .m .bar{opacity:.18;height:1px}
+.w4 .m .bar i{background:var(--sig);height:2px}
+.w4 .m .tol{font-family:'IBM Plex Mono',monospace;font-size:10px;opacity:.42;margin-left:6px}
+.w4 .p{border-top:1px solid rgba(14,17,20,.75);padding-top:12px}
+.w4 .p .pbrand{color:var(--sig)}
+.w4 .p .pname{font-size:12.5px}
+
+/* ============================================================
+   05 — NUIT MÉTAL
+   ============================================================ */
+.w5{--bg:#06060a;--ink:#e6dcc6;--acc:#d8c08b;--steel:#8e9298}
+.w5 .q-list{width:min(40ch,46vw)}
+.w5 .q-h{font-size:clamp(20px,2.7vw,36px);font-weight:200;letter-spacing:.08em;text-transform:uppercase;
+  line-height:1.3;color:#f3ead6}
+.w5 .q-step{color:var(--acc);letter-spacing:.34em;opacity:.7}
+.w5 .opts{margin-top:18px;gap:0;flex-direction:column}
+.w5 .opt{padding:10px 0;border-bottom:1px solid rgba(216,192,139,.18);width:100%;
+  font-size:12px;letter-spacing:.24em;text-transform:uppercase;color:rgba(230,220,198,.55);
+  display:flex;justify-content:space-between;align-items:center}
+.w5 .opt::after{content:'';width:18px;height:1px;background:rgba(216,192,139,.3);transition:width .5s ease}
+.w5 .opt.sel{color:#fff8e9;border-bottom-color:var(--acc)}
+.w5 .opt.sel::after{width:44px;background:var(--acc);box-shadow:0 0 12px rgba(216,192,139,.7)}
+.w5 .scan-copy h3{font-size:clamp(15px,1.8vw,21px);letter-spacing:.14em;text-transform:uppercase;font-weight:200}
+.w5 .pose{border-bottom:1px solid rgba(216,192,139,.22);padding:0 0 8px;min-width:96px}
+.w5 .pose.on{border-bottom-color:var(--acc)}
+.w5 .load{place-items:center start;padding-left:clamp(24px,9vw,150px)}
+.w5 .load .big{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(58px,11vw,150px);
+  font-weight:300;color:transparent;
+  background:linear-gradient(180deg,#fff6e2 6%,#d8c08b 42%,#6b5c3d 58%,#e9d6ab 92%);
+  -webkit-background-clip:text;background-clip:text}
+.w5 .load .steps span{color:var(--acc);letter-spacing:.36em}
+.w5 .res-head h3{font-size:clamp(16px,2vw,24px);letter-spacing:.24em;text-transform:uppercase;font-weight:200}
+.w5 .m .ml{color:rgba(230,220,198,.45)}
+.w5 .m .mv{font-family:'Cormorant Garamond',Georgia,serif;font-size:clamp(26px,3.3vw,44px);
+  color:#cdb68d;text-shadow:0 1px 0 rgba(255,244,214,.14),0 -1px 1px rgba(0,0,0,.95)}
+.w5 .m .bar i{background:var(--acc);box-shadow:0 0 10px rgba(216,192,139,.55)}
+.w5 .routine{gap:clamp(8px,1.2vw,20px)}
+.w5 .p .shot img{-webkit-mask-image:radial-gradient(74% 74% at 50% 50%,#000 54%,transparent 100%);
+  mask-image:radial-gradient(74% 74% at 50% 50%,#000 54%,transparent 100%)}
+.w5 .p .pbrand{color:var(--acc)}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header class="mast">
+    <h1>Scan Cheveux<br><em>cinq directions</em></h1>
+    <div class="meta">vyvre.fr<br>propales 01 — 05<br>série A</div>
+  </header>
+  <p class="lede">Cinq mondes pour le même parcours. Chaque vignette joue les <b>quatre moments</b> —
+  questions, cadrage sur la chevelure, analyse, résultats — dans sa propre direction, de bout en bout.
+  Cliquez une vignette&nbsp;: elle s'ouvre en plein écran et tourne en boucle.</p>
+
+  <div class="grid" id="grid"></div>
+
+  <p class="foot">Maquettes — produits issus du catalogue réel — aucun tarif affiché</p>
+</main>
+
+<div class="player" id="player" aria-hidden="true">
+  <div class="stagebox" id="stagebox"></div>
+  <div class="chrome" id="chrome">
+    <div class="top">
+      <div class="who"><span class="num" id="cNum">01</span><span class="ttl" id="cTtl"></span></div>
+      <div class="parti" id="cParti"></div>
+    </div>
+    <div class="bot">
+      <ol class="chaps" id="cChaps"></ol>
+    </div>
+  </div>
+  <div class="hint">Échap pour fermer</div>
+  <button class="xclose" id="xclose" aria-label="Fermer">
+    <svg viewBox="0 0 12 12" aria-hidden="true"><path d="M1 1l10 10M11 1L1 11" stroke="currentColor" stroke-width="1.1" fill="none"/></svg>
+  </button>
+</div>
+
+<script>
+/* ==========================================================================
+   OUTILS
+   ========================================================================== */
+const TAU = Math.PI * 2;
+const clamp = (v,a,b) => v < a ? a : v > b ? b : v;
+const lerp  = (a,b,t) => a + (b-a) * t;
+const smooth= t => t*t*(3-2*t);
+const eOut  = t => 1 - Math.pow(1-t, 3);
+const eOut5 = t => 1 - Math.pow(1-t, 5);
+const eIn   = t => t*t*t;
+const eInOut= t => t < .5 ? 4*t*t*t : 1 - Math.pow(-2*t+2, 3)/2;
+const sat   = t => clamp(t,0,1);
+const seg   = (p,a,b) => sat((p-a)/(b-a));
+
+const MOBILE = matchMedia('(max-width: 860px)').matches || (navigator.maxTouchPoints||0) > 1;
+
+function hsh(n){ const s = Math.sin(n*127.1) * 43758.5453; return s - Math.floor(s); }
+function nz(x){ const i = Math.floor(x), f = x - i; return lerp(hsh(i), hsh(i+1), smooth(f)); }
+function fbm(x){ return nz(x)*.55 + nz(x*2.07+11.3)*.29 + nz(x*4.11+29.7)*.16; }
+
+/* --- éclairage anisotrope du cheveu (Kajiya-Kay, deux lobes) --- */
+function lightSetup(lx,ly,lz){
+  const l = Math.hypot(lx,ly,lz)||1; const L=[lx/l,ly/l,lz/l];
+  const hx=L[0], hy=L[1], hz=L[2]+1; const hn=Math.hypot(hx,hy,hz)||1;
+  return { L, H:[hx/hn, hy/hn, hz/hn] };
+}
+/* renvoie [r,g,b] pour une tangente 2D (tx,ty) */
+function hairShade(tx,ty,o,k){
+  const H=o.lit.H, L=o.lit.L;
+  const th = tx*H[0] + ty*H[1];
+  const s1 = Math.pow(Math.max(0, 1-th*th), o.e1*.5);
+  const sh = o.shift, n = Math.hypot(tx,ty,sh)||1;
+  const th2 = (tx*H[0] + ty*H[1] + sh*H[2]) / n;
+  const s2 = Math.pow(Math.max(0, 1-th2*th2), o.e2*.5);
+  const tl = tx*L[0] + ty*L[1];
+  const df = Math.sqrt(Math.max(0, 1-tl*tl));
+  const b=o.base, c1=o.c1, c2=o.c2, kd=o.kd*k, k1=o.k1*k, k2=o.k2*k;
+  return [
+    clamp(b[0]*df*kd + c1[0]*s1*k1 + c2[0]*s2*k2, 0, 255),
+    clamp(b[1]*df*kd + c1[1]*s1*k1 + c2[1]*s2*k2, 0, 255),
+    clamp(b[2]*df*kd + c1[2]*s1*k1 + c2[2]*s2*k2, 0, 255)
+  ];
+}
+/* trace une mèche : dégradé longitudinal calculé sur 5 échantillons */
+function strandPath(ctx, pts){
+  ctx.beginPath(); ctx.moveTo(pts[0].x, pts[0].y);
+  for(let i=1;i<pts.length-1;i++){
+    const mx=(pts[i].x+pts[i+1].x)*.5, my=(pts[i].y+pts[i+1].y)*.5;
+    ctx.quadraticCurveTo(pts[i].x, pts[i].y, mx, my);
+  }
+  ctx.lineTo(pts[pts.length-1].x, pts[pts.length-1].y);
+}
+function drawStrand(ctx, pts, o){
+  const n = pts.length, a = pts[0], b = pts[n-1];
+  const g = ctx.createLinearGradient(a.x, a.y, b.x, b.y);
+  const K = 5;
+  for(let k=0;k<K;k++){
+    const u = k/(K-1);
+    const i = Math.min(n-2, Math.floor(u*(n-1)));
+    let tx = pts[i+1].x-pts[i].x, ty = pts[i+1].y-pts[i].y;
+    const l = Math.hypot(tx,ty)||1; tx/=l; ty/=l;
+    let fall = o.fall ? lerp(o.fall[0], o.fall[1], u) : 1;
+    if(o.shine){ const d=(u-o.shine[0])/o.shine[1]; fall *= 1 + o.shine[2]*Math.exp(-d*d); }
+    const c = hairShade(tx, ty, o, fall);
+    g.addColorStop(u, 'rgba('+(c[0]|0)+','+(c[1]|0)+','+(c[2]|0)+','+(o.a*(o.aFall?lerp(1,o.aFall,u):1)).toFixed(3)+')');
+  }
+  ctx.strokeStyle = g; ctx.lineWidth = o.w; ctx.lineCap = 'round';
+  strandPath(ctx, pts); ctx.stroke();
+}
+
+/* --- grain argentique --- */
+let GRAIN = null;
+function grainTile(){
+  if(GRAIN) return GRAIN;
+  const s = 180, c = document.createElement('canvas'); c.width=c.height=s;
+  const x = c.getContext('2d'), d = x.createImageData(s,s);
+  for(let i=0;i<s*s;i++){
+    const v = 118 + (Math.random()-.5)*150;
+    d.data[i*4]=d.data[i*4+1]=d.data[i*4+2]=v; d.data[i*4+3]=255;
+  }
+  x.putImageData(d,0,0); GRAIN=c; return c;
+}
+function grain(ctx,w,h,amt,mode){
+  const t = grainTile();
+  ctx.save();
+  ctx.globalCompositeOperation = mode || 'overlay';
+  ctx.globalAlpha = amt;
+  const p = ctx.createPattern(t,'repeat');
+  ctx.translate((Math.random()*180)|0, (Math.random()*180)|0);
+  ctx.fillStyle = p; ctx.fillRect(-180,-180,w+360,h+360);
+  ctx.restore();
+}
+function vignette(ctx,w,h,inner,outer,col){
+  const g = ctx.createRadialGradient(w*.5,h*.5,Math.min(w,h)*inner,w*.5,h*.5,Math.max(w,h)*outer);
+  g.addColorStop(0,'rgba(0,0,0,0)'); g.addColorStop(1,col);
+  ctx.fillStyle=g; ctx.fillRect(0,0,w,h);
+}
+function glow(ctx,x,y,r,col,a){
+  const g=ctx.createRadialGradient(x,y,0,x,y,r);
+  g.addColorStop(0,col.replace('%A%',a)); g.addColorStop(.45,col.replace('%A%',a*.34));
+  g.addColorStop(1,col.replace('%A%',0));
+  ctx.fillStyle=g; ctx.beginPath(); ctx.arc(x,y,r,0,TAU); ctx.fill();
+}
+/* silhouette de tête + chevelure, vue de dessus/face, tracé vectoriel */
+function headPath(ctx,cx,cy,r,turn){
+  const sq = 1 - Math.abs(turn)*.34;
+  ctx.beginPath();
+  ctx.ellipse(cx + turn*r*.12, cy, r*.62*sq, r*.80, 0, 0, TAU);
+}
+
+/* ==========================================================================
+   CONTENU — questions, poses, mesures, routine (catalogue réel)
+   ========================================================================== */
+const IMG = 'img/';   /* copies figées du catalogue /scan/products-cheveux/ */
+const DUR = [8000, 7500, 5000, 10000];
+const MOMENTS = ['Questions', 'Cadrage', 'Analyse', 'Résultats'];
+
+const CONTENT = {
+1: {
+  q: [
+    {h:'Vos longueurs, au toucher.', o:['Souples','Rêches','Cassantes'], s:1},
+    {h:'Une heure après le séchage.', o:['Elles brillent','Elles gonflent','Elles retombent'], s:0},
+    {h:'Et la couleur ?', o:['Naturelle','Colorée','Décolorée'], s:2, suite:true}
+  ],
+  scanT:'Cadrage sur la chevelure',
+  scanP:'Reculez jusqu’à faire tenir toute la masse dans le cadre. Le visage n’est pas lu.',
+  poses:[['I','Face'],['II','Trois-quarts'],['III','Nuque']],
+  steps:['Lecture de la fibre','Propagation du signal','Retour des mesures'],
+  resT:'Ce que la fibre a renvoyé',
+  mes:[['Diamètre de fibre','58','µm',.52],['Indice de brillance','0,71','',.71],
+       ['Porosité','34','%',.34],['Homogénéité des pointes','68','%',.68]],
+  rt:'Quatre gestes, dans cet ordre',
+  pr:[
+    ['I','Oribe','Supershine Hydrating Shampoo','oribe--supershine-hydrating-shampoo.jpg','Lave sans décaper, referme l’écaille.'],
+    ['II','Oribe','Supershine Hydrating Conditioner','oribe--supershine-hydrating-conditioner.jpg','Rend le glissé sur les longueurs.'],
+    ['III','Oribe','Mirror Rinse Glass Hair Treatment','oribe--mirror-rinse-glass-hair-treatment.jpg','Un passage par semaine, surface lissée.'],
+    ['IV','Oribe','Supershine Moisturizing Cream','oribe--supershine-moisturizing-cream.jpg','Sans rinçage, tient la lumière jusqu’au soir.']
+  ]
+},
+2: {
+  q: [
+    {h:'Votre cheveu boit-il ?', o:['Vite','Lentement','Jamais'], s:0},
+    {h:'Au réveil, il est', o:['Léger','Lourd','Emmêlé'], s:2},
+    {h:'Et l’eau, chez vous ?', o:['Douce','Calcaire','Je ne sais pas'], s:1, suite:true}
+  ],
+  scanT:'La chevelure entière, rien d’autre',
+  scanP:'Laissez les cheveux libres. Une onde traverse l’image et relève la matière, mèche par mèche.',
+  poses:[['一','Face'],['二','Profil'],['三','Nuque']],
+  steps:['Diffusion','Décantation','Tracé'],
+  resT:'Relevé',
+  mes:[['Douceur au toucher','0,78','',.78],['Rétention d’eau','41','%',.41],
+       ['Frisottis','0,22','',.22],['Légèreté','0,84','',.84]],
+  rt:'Le rituel, en quatre temps',
+  pr:[
+    ['一','Davines','DEDE Shampoo','davines--dede-shampoo.jpg','Lavage délicat, mousse courte.'],
+    ['二','Davines','NOUNOU Hair Mask','davines--nounou-mask.jpg','Dix minutes, une fois la semaine.'],
+    ['三','Davines','OI All In One Milk','davines--oi-all-in-one-milk.jpg','Un lait léger sur cheveux humides.'],
+    ['四','Davines','NOUNOU Oil','davines--nounou-oil.jpg','Deux gouttes, sur les pointes seules.']
+  ]
+},
+3: {
+  q: [
+    {h:'Votre dernier passage au salon.', o:['Ce mois-ci','Il y a six mois','Bien plus'], s:1},
+    {h:'Ce qui vous gêne le plus.', o:['Les pointes','Le volume','La tenue'], s:0},
+    {h:'Le fer, le sèche-cheveux ?', o:['Jamais','Parfois','Tous les jours'], s:2, suite:true}
+  ],
+  scanT:'On cadre la masse, pas le visage',
+  scanP:'Tournez lentement devant le miroir. Le peigne passe, la mèche tombe, la mesure s’écrit.',
+  poses:[['1','Face'],['2','Trois-quarts'],['3','Nuque']],
+  steps:['Relevé au peigne','Comptage des mèches','Écriture'],
+  resT:'Au tableau',
+  mes:[['Densité apparente','141','f/cm²',.63],['Longueur moyenne','38','cm',.72],
+       ['Cassures visibles','12','%',.12],['Reflet','0,66','',.66]],
+  rt:'Sur la tablette',
+  pr:[
+    ['1','Moroccanoil','Hydrating Shampoo','moroccanoil--hydrating-shampoo.jpg','Deux lavages par semaine, eau tiède.'],
+    ['2','Moroccanoil','Hydrating Conditioner','moroccanoil--hydrating-conditioner.jpg','Des longueurs aux pointes, jamais aux racines.'],
+    ['3','Moroccanoil','Intense Hydrating Mask','moroccanoil--intense-hydrating-mask.jpg','Le dimanche, cinq minutes sous serviette chaude.'],
+    ['4','Moroccanoil','Moroccanoil Treatment Original','moroccanoil--moroccanoil-treatment-original.jpg','Une noisette avant le brushing.']
+  ]
+},
+4: {
+  q: [
+    {h:'Fréquence de lavage.', o:['1 × / semaine','3 × / semaine','Quotidien'], s:1},
+    {h:'Traitement chimique subi.', o:['Aucun','Coloration','Décoloration'], s:1},
+    {h:'Exposition thermique.', o:['Nulle','Modérée','Élevée'], s:2, suite:true}
+  ],
+  scanT:'Cadrage — chevelure',
+  scanP:'Trois prises. Lumière polarisée. La zone lue est la masse, jamais le visage.',
+  poses:[['01','Face'],['02','Trois-quarts'],['03','Nuque']],
+  steps:['Acquisition 1 / 3','Polarisation','Franges — calcul'],
+  resT:'Relevés d’instrument',
+  mes:[['Diamètre moyen','61,4','µm',.61,'± 3,2'],['Élasticité','24','%',.24],
+       ['Porosité','29','%',.29],['Réflexion spéculaire','0,58','',.58]],
+  rt:'Protocole — quatre étapes',
+  pr:[
+    ['01','Living Proof','Restore Shampoo','living-proof--restore-shampoo.jpg','Deux lavages hebdomadaires.'],
+    ['02','Living Proof','Restore Conditioner','living-proof--restore-conditioner.jpg','Trois minutes de pose, longueurs.'],
+    ['03','Living Proof','Restore Repair Leave-In','living-proof--restore-repair-leave-in.jpg','Avant coiffage, sur cheveux essorés.'],
+    ['04','Living Proof','Scalp Care Density Serum','living-proof--scalp-care-density-serum.jpg','Une application par jour, cuir chevelu.']
+  ]
+},
+5: {
+  q: [
+    {h:'Votre chevelure, en un mot.', o:['Épaisse','Fine','Indisciplinée'], s:1},
+    {h:'Ce que vous cherchez.', o:['De la lumière','Du poids','De la tenue'], s:0},
+    {h:'Le soir, vous', o:['Attachez','Laissez libre','Protégez'], s:2, suite:true}
+  ],
+  scanT:'Une mèche, puis toute la masse',
+  scanP:'Une lumière rasante tourne autour de vous. Trois positions suffisent.',
+  poses:[['I','Face'],['II','Profil'],['III','Nuque']],
+  steps:['Balayage rasant','Gravure','Écrin'],
+  resT:'Gravé',
+  mes:[['Brillance','0,81','',.81],['Densité','152','f/cm²',.68],
+       ['Alignement cuticulaire','0,74','',.74],['Tenue du volume','6','h',.6]],
+  rt:'L’écrin',
+  pr:[
+    ['I','Oribe','Signature Shampoo','oribe--signature-shampoo.jpg','Lavage court, deux fois la semaine.'],
+    ['II','Oribe','Signature Conditioner','oribe--signature-conditioner.jpg','Longueurs, une minute.'],
+    ['III','Oribe','Signature Moisture Masque','oribe--signature-moisture-masque.jpg','Le rituel du dimanche soir.'],
+    ['IV','Oribe','Gold Lust Nourishing Hair Oil','oribe--gold-lust-nourishing-hair-oil.jpg','Une goutte, cheveux secs, sur les pointes.']
+  ]
+}
+};
+
+const META = [
+  {n:1, cls:'w1', t:'Fibre de verre', p:'Noir absolu. La chevelure devient un faisceau optique : la lumière voyage à l’intérieur des mèches et les mesures remontent la fibre comme des signaux.'},
+  {n:2, cls:'w2', t:'Encre et eau', p:'Fond ivoire. Une goutte d’encre se diffuse dans l’eau et dessine les mèches ; le scan est une onde, les résultats se posent sur un papier japonais.'},
+  {n:3, cls:'w3', t:'Atelier de coiffure', p:'Lumière chaude de salon, miroir, peigne, mèches au ralenti. La mesure s’écrit à la craie, les produits reposent sur le marbre.'},
+  {n:4, cls:'w4', t:'Laboratoire optique', p:'Blanc clinique, lumière polarisée, franges d’interférence sur la fibre. Les mesures sont des relevés d’instrument, la routine un protocole.'},
+  {n:5, cls:'w5', t:'Nuit métal', p:'Obsidienne et champagne. Une mèche en lévitation tourne sous une lumière rasante, les mesures sont gravées dans le métal, les produits dans un écrin.'}
+];
+
+/* ==========================================================================
+   FABRIQUE D'INTERFACE (commune aux cinq mondes, habillée par le CSS)
+   ========================================================================== */
+document.head.insertAdjacentHTML('beforeend', `<style>
+:root{--e:cubic-bezier(.16,.84,.34,1)}
+.q{opacity:0;transform:translateY(16px);transition:opacity .9s var(--e),transform .9s var(--e)}
+.q.vis{opacity:1;transform:none}
+.opt{opacity:.55;transition:opacity .6s ease,color .6s ease,border-color .6s ease,box-shadow .6s ease,background .6s ease}
+.q.vis .opt{opacity:1}
+.scan-copy,.load,.res{opacity:0;transform:translateY(10px);transition:opacity .9s var(--e),transform .9s var(--e)}
+.pane.on .scan-copy,.pane.on .load,.pane.on .res{opacity:1;transform:none}
+.res .rt{opacity:.45;margin-bottom:-8px}
+.m{opacity:0;transform:translateY(12px);transition:opacity .8s var(--e),transform .8s var(--e)}
+.m.vis{opacity:1;transform:none}
+.m .bar i{transition:width 1.15s var(--e)}
+.p{opacity:0;transform:translateY(20px);transition:opacity .95s var(--e),transform .95s var(--e)}
+.p.vis{opacity:1;transform:none}
+.w5 .p .shot{background:linear-gradient(180deg,rgba(255,255,255,.035),rgba(0,0,0,.5));
+  box-shadow:inset 0 1px 0 rgba(216,192,139,.22),inset 0 -18px 38px rgba(0,0,0,.7);
+  border:1px solid rgba(216,192,139,.14)}
+.w3 .p .shot{background:none}
+.w4 .p .shot{background:#fff}
+</style>`);
+
+function fmtNum(target, k){
+  const neg = target.indexOf('-')===0;
+  const s = target.replace(',', '.');
+  const v = parseFloat(s); if(isNaN(v)) return target;
+  const d = (s.split('.')[1]||'').length;
+  return (v*k).toFixed(d).replace('.', ',');
+}
+
+function uiHTML(n){
+  const C = CONTENT[n];
+  const q = C.q.map((x,i)=>`<div class="q${x.suite?' suite':''}" data-i="${i}">
+      <span class="q-step">${x.suite?'Et, dans la foulée':'Question '+(i+1)}</span>
+      <h2 class="q-h">${x.h}</h2>
+      <ul class="opts">${x.o.map((o,j)=>`<li class="opt" data-j="${j}">${o}</li>`).join('')}</ul>
+    </div>`).join('');
+  const poses = C.poses.map(([a,b],i)=>`<li class="pose" data-i="${i}"><span class="pn">${a}</span><span class="pt">${b}</span></li>`).join('');
+  const steps = C.steps.map((s,i)=>`<span data-i="${i}">${s}</span>`).join('');
+  const mes = C.mes.map((m,i)=>`<div class="m" data-i="${i}" data-t="${m[1]}">
+      <span class="ml">${m[0]}</span>
+      <span class="mv">0${m[2]?`<span class="mu">${m[2]}</span>`:''}${m[4]?`<span class="tol">${m[4]}</span>`:''}</span>
+      <div class="bar" data-w="${m[3]}"><i></i></div></div>`).join('');
+  const pr = C.pr.map((p,i)=>`<div class="p" data-i="${i}">
+      <div class="pstep">${p[0]}</div>
+      <div class="shot"><img class="prodshot" src="${IMG}${p[3]}" alt="" decoding="async" onerror="this.style.visibility='hidden'"></div>
+      <div class="pbrand">${p[1]}</div>
+      <div class="pname">${p[2]}</div>
+      <div class="pwhy">${p[4]}</div></div>`).join('');
+  return `<div class="ui">
+    <section class="pane" data-m="0"><div class="pad"><div class="q-list">${q}</div></div></section>
+    <section class="pane" data-m="1"><div class="frameguide"></div>
+      <div class="scan-copy"><h3>${C.scanT}</h3><p>${C.scanP}</p><ul class="poses">${poses}</ul></div>
+    </section>
+    <section class="pane" data-m="2"><div class="load"><div>
+      <div class="big">0</div><div class="steps">${steps}</div></div></div></section>
+    <section class="pane" data-m="3"><div class="res">
+      <div class="res-head"><h3>${C.resT}</h3></div>
+      <div class="mes">${mes}</div>
+      <div class="rt kick">${C.rt}</div>
+      <div class="routine">${pr}</div></div></section>
+  </div>`;
+}
+
+/* met à jour l'interface en fonction du moment et de sa progression */
+function tickUI(D, m, p){
+  if(!D.ui) return;
+  if(m===0){
+    const at = [[.02,.30],[.30,.56],[.60,.86]];
+    D.qs.forEach((el,i)=>{
+      el.classList.toggle('vis', p >= at[i][0]);
+      const sel = CONTENT[D.n].q[i].s;
+      const shown = p >= at[i][1];
+      el.querySelectorAll('.opt').forEach((o,j)=>o.classList.toggle('sel', shown && j===sel));
+    });
+  } else if(m===1){
+    const k = clamp(Math.floor(p*3.15), 0, 2);
+    D.poses.forEach((el,i)=>el.classList.toggle('on', i===k));
+  } else if(m===2){
+    const v = Math.round(eOut(sat(p*1.04))*100);
+    if(D.big.textContent !== String(v)) D.big.textContent = v;
+    const k = clamp(Math.floor(p*3), 0, 2);
+    D.steps.forEach((el,i)=>el.classList.toggle('on', i===k));
+  } else if(m===3){
+    D.ms.forEach((el,i)=>{
+      const t0 = .06 + i*.055, on = p >= t0;
+      el.classList.toggle('vis', on);
+      const k = eOut(seg(p, t0, t0+.30));
+      el.querySelector('.mv').firstChild.nodeValue = fmtNum(el.dataset.t, k);
+      el.querySelector('.bar i').style.width = (parseFloat(el.dataset.w)*100*k).toFixed(1)+'%';
+    });
+    D.ps.forEach((el,i)=>el.classList.toggle('vis', p >= .34 + i*.075));
+  }
+}
+function resetUI(D, m){
+  if(!D.ui) return;
+  if(m===0) D.qs.forEach(el=>{el.classList.remove('vis'); el.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel'));});
+  if(m===2){ D.big.textContent='0'; D.steps.forEach(s=>s.classList.remove('on')); }
+  if(m===3){ D.ms.forEach(el=>{el.classList.remove('vis'); el.querySelector('.bar i').style.width='0%';});
+             D.ps.forEach(el=>el.classList.remove('vis')); }
+}
+
+/* ==========================================================================
+   MONDES — chacun peint ses quatre moments
+   ========================================================================== */
+function offc(S,key,w,h){
+  S._o = S._o || {}; let o = S._o[key];
+  if(!o){ o = {cv:document.createElement('canvas')}; o.ctx = o.cv.getContext('2d'); S._o[key]=o; }
+  w = Math.max(1, w|0); h = Math.max(1, h|0);
+  if(o.cv.width!==w || o.cv.height!==h){ o.cv.width=w; o.cv.height=h; }
+  o.ctx.setTransform(1,0,0,1,0,0); o.ctx.clearRect(0,0,w,h); return o;
+}
+function offcKeep(S,key,w,h){
+  S._o = S._o || {}; let o = S._o[key];
+  w = Math.max(1,w|0); h = Math.max(1,h|0);
+  if(!o){ o = {cv:document.createElement('canvas')}; o.ctx = o.cv.getContext('2d'); S._o[key]=o; o.fresh=true; }
+  else if(o.cv.width!==w || o.cv.height!==h){ o.cv.width=w; o.cv.height=h; o.fresh=true; }
+  else o.fresh=false;
+  return o;
+}
+function brackets(ctx,x,y,w,h,L,col,lw,a){
+  ctx.save(); ctx.strokeStyle=col; ctx.lineWidth=lw; ctx.globalAlpha=a; ctx.beginPath();
+  ctx.moveTo(x,y+L); ctx.lineTo(x,y); ctx.lineTo(x+L,y);
+  ctx.moveTo(x+w-L,y); ctx.lineTo(x+w,y); ctx.lineTo(x+w,y+L);
+  ctx.moveTo(x+w,y+h-L); ctx.lineTo(x+w,y+h); ctx.lineTo(x+w-L,y+h);
+  ctx.moveTo(x+L,y+h); ctx.lineTo(x,y+h); ctx.lineTo(x,y+h-L);
+  ctx.stroke(); ctx.restore();
+}
+function padX(w){ return clamp(w*.06, 24, 110); }
+
+/* --------------------------------------------------------------------------
+   LA CHEVELURE — une masse, pas des fils : mèches groupées, dôme de racines,
+   bande de brillance, deux passes (corps flou + détails nets)
+   -------------------------------------------------------------------------- */
+function makeHair(S, mode){
+  const N  = mode==='thumb' ? 88 : (MOBILE ? 110 : 250);
+  const CL = mode==='thumb' ? 9  : 15;
+  const cl = [];
+  for(let i=0;i<CL;i++) cl.push({ a:(i+.5)/CL*2-1 + (Math.random()-.5)*.05,
+    w:.55+Math.random()*.8, ph:Math.random()*TAU, fr:.6+Math.random()*.8 });
+  S.h=[];
+  for(let i=0;i<N;i++){
+    const c = cl[(Math.random()*CL)|0];
+    const a = clamp(c.a + (Math.random()*2-1)*.085*c.w, -1, 1);
+    S.h.push({ a, c, z:Math.random(),
+      len:.84 + Math.random()*.30 - a*a*.12,
+      w:.32 + Math.pow(Math.random(),2.1)*2.0,
+      seed:Math.random()*130, ph:Math.random()*TAU,
+      fr:.55+Math.random()*1.0, amp:.35+Math.random()*1.25,
+      curl:(Math.random()*2-1), fly:Math.random()<.07 });
+  }
+  S.seg = mode==='thumb' ? 13 : 20;
+  S._pt = new Array(S.seg+1);
+}
+function hairPts(s, t, C, out){
+  const N=C.seg, dome=Math.sqrt(Math.max(0,1-s.a*s.a));
+  const tx = C.cx + s.a*C.R*.50, ty = C.cy - dome*C.R*.42;
+  const L = C.L*s.len;
+  for(let j=0;j<=N;j++){
+    const u=j/N, sp=.26+.74*Math.pow(u,.5);
+    const sway=Math.sin(t*C.sp*s.fr + s.ph + s.c.ph + u*2.1)*C.sway*s.amp*(u*u*.85+.10);
+    const wob=(fbm(s.seed+u*2.4+t*C.dr)-.5)*C.nz*(.16+u);
+    out[j]={ x: tx + s.a*C.R*.66*sp + sway + wob + s.curl*u*u*C.curl,
+             y: ty + L*u };
+  }
+  return out;
+}
+function drawHair(S, ctx, w, h, C, O, mode, each){
+  /* volume sourd derrière les mèches */
+  if(O.body){
+    ctx.save();
+    const g=ctx.createRadialGradient(C.cx, C.cy+C.L*.40, 0, C.cx, C.cy+C.L*.40, C.R*1.5);
+    g.addColorStop(0, O.body[0]); g.addColorStop(.62, O.body[1]); g.addColorStop(1, O.body[2]);
+    ctx.fillStyle=g;
+    ctx.save(); ctx.translate(C.cx, C.cy+C.L*.40); ctx.scale(1, C.L*.60/(C.R*1.5));
+    ctx.translate(-C.cx, -(C.cy+C.L*.40));
+    ctx.beginPath(); ctx.arc(C.cx, C.cy+C.L*.40, C.R*1.5, 0, TAU); ctx.fill(); ctx.restore();
+    ctx.restore();
+  }
+  const bo = offc(S,'body', Math.round(w*.5), Math.round(h*.5));
+  const bx = bo.ctx; bx.scale(.5,.5); bx.lineCap='round';
+  const P = S._pt;
+  for(let i=0;i<S.h.length;i++){
+    const s=S.h[i];
+    hairPts(s,C.t,C,P);
+    const crisp = s.fly || s.z>.66;
+    const o = Object.assign({}, O.st);
+    const zz = s.z;
+    o.w = s.w*(.5+zz*1.2)*C.wk*(crisp?1:1.5);
+    o.a = O.st.a*(.16+.9*zz)*(crisp?1:.85);
+    o.kd = O.st.kd*(.5+.75*zz); o.k1 = O.st.k1*(.30+1.05*zz); o.k2 = O.st.k2*(.3+.9*zz);
+    if(each) each(s,o,P);
+    drawStrand(crisp?ctx:bx, P, o);
+  }
+  bx.setTransform(1,0,0,1,0,0);
+  ctx.save();
+  ctx.globalCompositeOperation = O.add ? 'lighter' : 'source-over';
+  ctx.globalAlpha = O.bodyA==null ? .95 : O.bodyA;
+  ctx.filter = 'blur(' + (mode==='thumb'?2.5:5) + 'px)';
+  ctx.drawImage(bo.cv, 0, 0, w, h);
+  ctx.filter='none'; ctx.restore();
+}
+
+/* --------------------------------------------------------------------------
+   01 — FIBRE DE VERRE
+   -------------------------------------------------------------------------- */
+const W1 = {
+  init(S, mode){ makeHair(S,mode); S.pulse=[]; S.lit=lightSetup(-.52,-.74,.42); },
+  cfg(w,h,m,TH){
+    if(m===0) return {cx:TH?w*.5:w*.68, cy:h*.06, R:TH?w*.26:w*.20, L:h*1.12};
+    if(m===1) return {cx:TH?w*.5:w*.46, cy:h*.10, R:Math.min(TH?w*.30:w*.26,h*.40), L:h*1.02};
+    return {cx:TH?w*.5:w*.78, cy:-h*.04, R:TH?w*.26:w*.20, L:h*1.25};
+  },
+  draw(S, ctx, w, h, m, p, t, mode){
+    ctx.fillStyle='#000'; ctx.fillRect(0,0,w,h);
+    if(m===2){ this.tunnel(S,ctx,w,h,p,t); grain(ctx,w,h,.05,'overlay'); return; }
+    const c = this.cfg(w,h,m,mode==='thumb');
+    const C = { cx:c.cx, cy:c.cy, R:c.R, L:c.L, seg:S.seg, t,
+                sway:w*.020, sp:.00015, dr:.000035, nz:w*.035, curl:w*.035,
+                wk: m===3?.85:1 };
+    const dim = m===3 ? .42 : 1;
+    const O = { st:{ lit:S.lit, base:[22,40,58], c1:[210,244,255], c2:[46,120,170],
+                     e1:110, e2:24, shift:.30, kd:1, k1:1.15, k2:.6, a:.92*dim,
+                     fall:[1,.58], shine:[.34,.19,1.5] },
+                body:['rgba(16,34,52,'+(.50*dim)+')','rgba(8,18,30,'+(.30*dim)+')','rgba(0,0,0,0)'],
+                bodyA:.95*dim, add:false };
+    drawHair(S,ctx,w,h,C,O,mode);
+
+    /* impulsions dans la fibre */
+    const rate = m===1 ? .85 : .30;
+    if(Math.random()<rate){
+      for(let k=0;k<(m===1?3:1);k++) S.pulse.push({i:(Math.random()*S.h.length)|0, u:-.08, v:.008+Math.random()*.010});
+    }
+    ctx.save(); ctx.globalCompositeOperation='lighter';
+    const P=new Array(S.seg+1);
+    for(let k=S.pulse.length-1;k>=0;k--){
+      const q=S.pulse[k]; q.u+=q.v; if(q.u>1.2){ S.pulse.splice(k,1); continue; }
+      const s=S.h[q.i]; if(!s) continue;
+      hairPts(s,t,C,P);
+      const n=P.length-1, a0=clamp(q.u-.16,0,1), a1=clamp(q.u,0,1); if(a1<=a0) continue;
+      const i0=Math.floor(a0*n), i1=Math.min(n, Math.ceil(a1*n));
+      const A=P[i0], B=P[i1];
+      const fade=(.45+.55*s.z)*dim*(1-seg(q.u,.85,1.2));
+      const g=ctx.createLinearGradient(A.x,A.y,B.x,B.y);
+      g.addColorStop(0,'rgba(110,200,255,0)');
+      g.addColorStop(.7,'rgba(170,232,255,'+(.42*fade).toFixed(3)+')');
+      g.addColorStop(1,'rgba(248,254,255,'+(.92*fade).toFixed(3)+')');
+      ctx.strokeStyle=g; ctx.lineWidth=s.w*(.5+s.z)+.45; ctx.lineCap='round';
+      ctx.beginPath(); ctx.moveTo(A.x,A.y);
+      for(let j=i0+1;j<=i1;j++) ctx.lineTo(P[j].x,P[j].y);
+      ctx.stroke();
+      if(s.z>.7 && mode!=='thumb') glow(ctx,B.x,B.y,20,'rgba(150,222,255,%A%)',.13*fade);
+    }
+    ctx.restore();
+
+    if(m===1) this.cadre(S,ctx,w,h,p,C,mode);
+    if(m===3) this.signals(S,ctx,w,h,p);
+    vignette(ctx,w,h,.20,.70,'rgba(0,0,0,.92)');
+    grain(ctx,w,h, mode==='thumb'?.035:.052,'overlay');
+  },
+  cadre(S,ctx,w,h,p,C,mode){
+    const bw=Math.min(w*.52,h*.86), bh=h*.74, bx=C.cx-bw*.5, by=h*.09;
+    brackets(ctx,bx,by,bw,bh,Math.min(34,bw*.09),'#7fd8ff',1,.45);
+    const sw=(p*3.15)%1, y=by+bh*sw;
+    ctx.save(); ctx.globalCompositeOperation='lighter';
+    const g=ctx.createLinearGradient(0,y-46,0,y+2);
+    g.addColorStop(0,'rgba(127,216,255,0)'); g.addColorStop(.75,'rgba(150,226,255,.10)');
+    g.addColorStop(1,'rgba(214,246,255,.30)');
+    ctx.fillStyle=g; ctx.fillRect(bx,y-46,bw,48);
+    ctx.strokeStyle='rgba(226,249,255,.55)'; ctx.lineWidth=.8;
+    ctx.beginPath(); ctx.moveTo(bx,y); ctx.lineTo(bx+bw,y); ctx.stroke();
+    ctx.restore();
+    if(mode!=='thumb'){
+      ctx.save(); ctx.globalAlpha=.42; ctx.fillStyle='#7fd8ff';
+      ctx.font='400 10px "IBM Plex Mono", monospace';
+      ctx.fillText('MASSE — 100 %', bx, by-10);
+      ctx.textAlign='right'; ctx.fillText('VISAGE — IGNORÉ', bx+bw, by-10);
+      ctx.restore();
+    }
+  },
+  signals(S,ctx,w,h,p){
+    const px=padX(w), gw=(w-px*2)/4;
+    ctx.save(); ctx.globalCompositeOperation='lighter';
+    for(let i=0;i<4;i++){
+      const x=px+gw*i+gw*.5, top=h*.30, bot=h*.96;
+      const on=seg(p,.06+i*.055,.40+i*.055);
+      ctx.strokeStyle='rgba(127,216,255,.08)'; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.moveTo(x,bot); ctx.lineTo(x,top); ctx.stroke();
+      const y=lerp(bot,top,eOut(on));
+      const g=ctx.createLinearGradient(0,y,0,y+130);
+      g.addColorStop(0,'rgba(214,246,255,'+(.5*(1-on*.45)).toFixed(3)+')');
+      g.addColorStop(1,'rgba(127,216,255,0)');
+      ctx.strokeStyle=g; ctx.lineWidth=1.4;
+      ctx.beginPath(); ctx.moveTo(x,y); ctx.lineTo(x,y+130); ctx.stroke();
+      if(on>0&&on<1) glow(ctx,x,y,26,'rgba(160,228,255,%A%)',.20);
+    }
+    ctx.restore();
+  },
+  tunnel(S,ctx,w,h,p,t){
+    const cx=w*.5, cy=h*.5, R=Math.hypot(w,h)*.62;
+    ctx.save(); ctx.globalCompositeOperation='lighter';
+    const N=MOBILE?70:150;
+    for(let i=0;i<N;i++){
+      const j=hsh(i*3.3), a=(i/N)*TAU + j*.05;
+      const r0=R*(.14+j*.95);
+      const u=((t*.00042*(.6+j*.9)+j+p*1.4)%1);
+      const rr=lerp(r0,R*.04,eIn(u)), rr2=lerp(r0,R*.04,eIn(clamp(u+.10,0,1)));
+      const x1=cx+Math.cos(a)*rr, y1=cy+Math.sin(a)*rr*.88;
+      const x2=cx+Math.cos(a)*rr2, y2=cy+Math.sin(a)*rr2*.88;
+      const g=ctx.createLinearGradient(x1,y1,x2,y2);
+      const al=(1-u)*.8*(.25+j*.75);
+      g.addColorStop(0,'rgba(80,170,230,0)');
+      g.addColorStop(1,'rgba(234,252,255,'+al.toFixed(3)+')');
+      ctx.strokeStyle=g; ctx.lineWidth=.45+j*1.7;
+      ctx.beginPath(); ctx.moveTo(x1,y1); ctx.lineTo(x2,y2); ctx.stroke();
+    }
+    const core=.10+eIn(p)*.9;
+    glow(ctx,cx,cy,R*(.05+core*.22),'rgba(150,224,255,%A%)',.30+core*.45);
+    glow(ctx,cx,cy,R*(.02+core*.07),'rgba(255,255,255,%A%)',.30+core*.5);
+    ctx.restore();
+    if(p>.90){ ctx.fillStyle='rgba(255,255,255,'+(seg(p,.90,.965)*.8*(1-seg(p,.965,1))).toFixed(3)+')'; ctx.fillRect(0,0,w,h); }
+    vignette(ctx,w,h,.12,.66,'rgba(0,0,0,.94)');
+  }
+};
+
+/* --------------------------------------------------------------------------
+   02 — ENCRE ET EAU
+   -------------------------------------------------------------------------- */
+const W2 = {
+  init(S, mode){ makeHair(S,mode); S.lit=lightSetup(-.4,-.8,.45); },
+  paper(S,w,h){
+    const o=offcKeep(S,'paper',w,h); if(!o.fresh) return o;
+    const x=o.ctx; x.setTransform(1,0,0,1,0,0);
+    x.fillStyle='#f2efe7'; x.fillRect(0,0,w,h);
+    for(let i=0;i<Math.round(w*h/1000);i++){
+      const px=Math.random()*w, py=Math.random()*h, L=2+Math.random()*24, a=Math.random()*.4-.2;
+      x.strokeStyle = Math.random()<.5?'rgba(255,255,255,.55)':'rgba(124,108,86,.09)';
+      x.lineWidth = Math.random()<.85?.6:1.1;
+      x.beginPath(); x.moveTo(px,py); x.lineTo(px+Math.cos(a)*L,py+Math.sin(a)*L); x.stroke();
+    }
+    for(let i=0;i<22;i++){
+      const cx=Math.random()*w, cy=Math.random()*h, r=70+Math.random()*190;
+      const g=x.createRadialGradient(cx,cy,0,cx,cy,r);
+      g.addColorStop(0,'rgba(150,132,106,.04)'); g.addColorStop(1,'rgba(150,132,106,0)');
+      x.fillStyle=g; x.fillRect(0,0,w,h);
+    }
+    return o;
+  },
+  draw(S, ctx, w, h, m, p, t, mode){
+    const iw=Math.round(w*.5), ih=Math.round(h*.5);
+    const ink=offcKeep(S,'ink',iw,ih), ix=ink.ctx;
+    ix.setTransform(1,0,0,1,0,0);
+    if(ink.fresh) ix.clearRect(0,0,iw,ih);
+    ix.globalCompositeOperation='copy'; ix.filter='blur(.7px)'; ix.globalAlpha=1;
+    ix.drawImage(ink.cv,-.6,-.6,iw+1.2,ih+1.2); ix.filter='none';
+    const clearing = m===2 ? lerp(.012,.10,seg(p,.50,1)) : (m===3 ? .030 : (m===1 ? .034 : .016));
+    ix.globalCompositeOperation='destination-out';
+    ix.fillStyle='rgba(0,0,0,'+clearing+')'; ix.fillRect(0,0,iw,ih);
+    ix.globalCompositeOperation='source-over';
+    ix.save(); ix.scale(.5,.5); ix.lineCap='round';
+
+    let c, load=1;
+    const TH = mode==='thumb';
+    if(m===0) c={cx:TH?w*.5:w*.73, cy:h*.04, R:TH?w*.24:w*.17, L:h*1.02};
+    else if(m===1) c={cx:TH?w*.5:w*.52, cy:h*.06, R:Math.min(TH?w*.28:w*.25,h*.38), L:h*1.06};
+    else if(m===2){ c={cx:w*.5, cy:h*.02, R:w*.22, L:h*1.10}; load=1-seg(p,.40,.66); }
+    else c={cx:TH?w*.5:w*.97, cy:h*.02, R:TH?w*.24:w*.11, L:h*.98};
+    const C={cx:c.cx, cy:c.cy, R:c.R, L:c.L, seg:S.seg, t,
+             sway:w*.022, sp:.00013, dr:.00003, nz:w*.038, curl:w*.038, wk:1};
+
+    if(m===0 && p<.34){
+      const dp=seg(p,.02,.24), y=lerp(-h*.08, C.cy+C.L*.10, eIn(dp));
+      ix.fillStyle='rgba(12,9,7,.92)';
+      ix.beginPath(); ix.ellipse(C.cx, y, 6.5*(1-dp*.3), 10*(1+dp*.5),0,0,TAU); ix.fill();
+      if(p>=.22){ const b=seg(p,.22,.34); ix.globalAlpha=(1-b)*.55;
+        ix.beginPath(); ix.arc(C.cx, C.cy+C.L*.10, 8+b*130,0,TAU); ix.fill(); ix.globalAlpha=1; }
+    }
+    /* l'encre suit les mèches */
+    const form = m===0 ? sat(p*2.0) : 1;
+    const spread = m===2 ? (1+seg(p,0,.42)*3.2)*(1-seg(p,.46,.74)) : 1;
+    const P=new Array(S.seg+1);
+    const step = mode==='thumb' ? 3 : 1;
+    for(let i=0;i<S.h.length;i+=step){
+      const s=S.h[i];
+      hairPts(s,t,C,P);
+      const a=(.020+.055*s.z)*form*load*(m===1?.78:1);
+      if(a<=0.001) continue;
+      const jx=(fbm(s.seed*3.1+t*.00018)-.5)*(6+40*(1-form))*spread;
+      const jy=(fbm(s.seed*5.9+t*.00014)-.5)*6*spread;
+      ix.save(); ix.translate(jx,jy);
+      ix.strokeStyle='rgba(16,12,9,'+a.toFixed(4)+')';
+      ix.lineWidth=(s.w*(.6+s.z*1.4)+1.1)*(1+spread*.8);
+      strandPath(ix,P); ix.stroke();
+      if(s.z>.55){
+        ix.strokeStyle='rgba(16,12,9,'+(a*.55).toFixed(4)+')';
+        ix.lineWidth=(s.w*.5+.4); ix.translate(2.4,0); strandPath(ix,P); ix.stroke();
+      }
+      ix.restore();
+    }
+    if(m===2 && p>.48) this.brush(ix,w,h,seg(p,.48,.94));
+    ix.restore();
+
+    const pap=this.paper(S,w,h);
+    ctx.drawImage(pap.cv,0,0);
+    ctx.save(); ctx.globalAlpha = m===3?.32:.96;
+    ctx.drawImage(ink.cv,0,0,w,h); ctx.restore();
+
+    /* quelques mèches nettes, à l'encre sèche */
+    if(m!==2 || p<.48){
+      const O={ lit:S.lit, base:[52,40,31], c1:[168,148,124], c2:[96,78,60],
+                e1:64, e2:16, shift:.3, kd:1, k1:.5, k2:.3, a:.34*load*(m===3?.5:1),
+                fall:[1,.45], shine:[.36,.2,.9] };
+      for(let i=0;i<S.h.length;i++){
+        const s=S.h[i]; if(s.z<.72 && !s.fly) continue;
+        hairPts(s,t,C,P);
+        const o=Object.assign({},O); o.w=s.w*.5*(mode==='thumb'?.7:1);
+        drawStrand(ctx,P,o);
+      }
+    }
+    if(m===1) this.onde(ctx,ink,w,h,p,C);
+    if(m===3) this.seal(ctx,w,h,p);
+    vignette(ctx,w,h,.32,.82,'rgba(124,108,86,.13)');
+    grain(ctx,w,h, mode==='thumb'?.028:.042,'multiply');
+  },
+  onde(ctx,ink,w,h,p,C){
+    const bw=Math.min(w*.52,h*.92), bx=C.cx-bw*.5, by=h*.08, bh=h*.76;
+    brackets(ctx,bx,by,bw,bh,Math.min(28,bw*.06),'#171310',.8,.26);
+    const sw=(p*3.15)%1, y=by+bh*sw, amp=15;
+    ctx.save();
+    ctx.beginPath(); ctx.rect(0,y-amp,w,amp*2); ctx.clip();
+    ctx.globalAlpha=.42;
+    ctx.drawImage(ink.cv, 0, (y-amp)*.5, ink.cv.width, amp, 0, y-amp*1.30, w, amp*2.25);
+    ctx.restore();
+    ctx.save();
+    const g=ctx.createLinearGradient(0,y-amp,0,y+amp);
+    g.addColorStop(0,'rgba(242,239,231,0)'); g.addColorStop(.34,'rgba(255,255,255,.50)');
+    g.addColorStop(.50,'rgba(255,255,255,.16)');
+    g.addColorStop(.60,'rgba(23,19,16,.05)'); g.addColorStop(1,'rgba(242,239,231,0)');
+    ctx.fillStyle=g; ctx.fillRect(0,y-amp,w,amp*2);
+    ctx.strokeStyle='rgba(155,59,46,.38)'; ctx.lineWidth=.7;
+    ctx.beginPath(); ctx.moveTo(bx-30,y); ctx.lineTo(bx+bw+30,y); ctx.stroke();
+    ctx.restore();
+  },
+  brush(ix,w,h,k){
+    const N=64, px=padX(w), x0=px*.7, x1=w-px*.7, yc=h*.56;
+    const A=[],B=[], upto=Math.max(2,Math.round(N*k));
+    const yy=u=>yc+Math.sin(u*2.5+.4)*h*.11+Math.sin(u*6.8)*h*.011;
+    for(let i=0;i<=upto;i++){
+      const u=i/N, x=lerp(x0,x1,u), y=yy(u);
+      const wd=(9+62*Math.sin(Math.PI*Math.pow(u,.78)))*(1-u*.34);
+      const dx=(x1-x0)/N, dy=yy(u+1/N)-y, l=Math.hypot(dx,dy)||1;
+      A.push({x:x-dy/l*wd*.5, y:y+dx/l*wd*.5});
+      B.push({x:x+dy/l*wd*.5, y:y-dx/l*wd*.5});
+    }
+    ix.save(); ix.fillStyle='rgba(12,9,7,.17)';
+    ix.beginPath(); ix.moveTo(A[0].x,A[0].y);
+    for(let i=1;i<A.length;i++) ix.lineTo(A[i].x,A[i].y);
+    for(let i=B.length-1;i>=0;i--) ix.lineTo(B[i].x,B[i].y);
+    ix.closePath(); ix.fill(); ix.fill(); ix.fill(); ix.restore();
+  },
+  seal(ctx,w,h,p){
+    const a=eOut(seg(p,.60,.76))*(1-seg(p,.985,1)); if(a<=0) return;
+    const s=44, x=w-padX(w)-s, y=h*.115;
+    ctx.save(); ctx.globalAlpha=a*.85; ctx.translate(x,y); ctx.rotate(-.04);
+    ctx.fillStyle='#9b3b2e'; ctx.fillRect(0,0,s,s);
+    ctx.globalCompositeOperation='destination-out'; ctx.fillStyle='#000';
+    ctx.fillRect(s*.20,s*.22,s*.60,3.5); ctx.fillRect(s*.20,s*.46,s*.60,3.5);
+    ctx.fillRect(s*.46,s*.22,3.5,s*.56); ctx.fillRect(s*.20,s*.70,s*.60,3.5);
+    ctx.restore();
+  }
+};
+
+/* --------------------------------------------------------------------------
+   03 — ATELIER DE COIFFURE
+   -------------------------------------------------------------------------- */
+function chalk(ctx, pts, wdt, a){
+  ctx.save(); ctx.globalCompositeOperation='lighter';
+  for(let i=0;i<pts.length-1;i++){
+    const A=pts[i],B=pts[i+1], d=Math.hypot(B.x-A.x,B.y-A.y), n=Math.max(2,Math.round(d/1.4));
+    for(let k=0;k<n;k++){
+      const u=k/n, x=lerp(A.x,B.x,u), y=lerp(A.y,B.y,u);
+      ctx.fillStyle='rgba(255,250,240,'+(a*(.35+Math.random()*.65)).toFixed(3)+')';
+      ctx.fillRect(x+(Math.random()-.5)*wdt, y+(Math.random()-.5)*wdt, Math.random()<.8?1:1.7, Math.random()<.8?1:1.7);
+    }
+  }
+  ctx.restore();
+}
+const W3 = {
+  init(S, mode){ makeHair(S,mode); S.fall=[]; S.lit=lightSetup(.58,-.62,.5); },
+  mirror(w,h,m,TH){
+    if(TH) return {x:w*.07,y:h*.05,mw:w*.86,mh:h*.90};
+    if(m===0) return {x:w*.42,y:h*.06,mw:w*.52,mh:h*.88};
+    if(m===3) return {x:w*.05,y:-h*.10,mw:w*.90,mh:h*.60};
+    return {x:w*.08,y:h*.05,mw:w*.84,mh:h*.90};
+  },
+  marble(S,w,h){
+    const o=offcKeep(S,'marb',Math.max(1,w|0),Math.max(1,Math.round(h*.62)));
+    if(!o.fresh) return o;
+    const x=o.ctx, H=o.cv.height, W=o.cv.width; x.setTransform(1,0,0,1,0,0);
+    const g=x.createLinearGradient(0,0,0,H);
+    g.addColorStop(0,'#f2ead9'); g.addColorStop(.10,'#e8dfcc'); g.addColorStop(1,'#cfc4ad');
+    x.fillStyle=g; x.fillRect(0,0,W,H);
+    for(let i=0;i<24;i++){
+      let yy=Math.random()*H; x.beginPath(); x.moveTo(-20,yy);
+      for(let px=0;px<W+40;px+=44){ yy+=(Math.random()-.5)*24; x.lineTo(px,yy); }
+      x.strokeStyle=Math.random()<.5?'rgba(142,124,98,.16)':'rgba(255,252,244,.42)';
+      x.lineWidth=Math.random()*1.7+.3; x.stroke();
+    }
+    for(let i=0;i<Math.round(W*H/2400);i++){
+      x.fillStyle='rgba(120,104,80,'+(Math.random()*.045).toFixed(3)+')';
+      x.fillRect(Math.random()*W, Math.random()*H,1,1);
+    }
+    return o;
+  },
+  draw(S, ctx, w, h, m, p, t, mode){
+    ctx.fillStyle='#0d0906'; ctx.fillRect(0,0,w,h);
+    let g=ctx.createRadialGradient(w*.12,h*.06,0,w*.12,h*.06,Math.max(w,h));
+    g.addColorStop(0,'rgba(198,132,62,.28)'); g.addColorStop(.45,'rgba(96,58,26,.10)'); g.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=g; ctx.fillRect(0,0,w,h);
+    const M=this.mirror(w,h,m,mode==='thumb');
+
+    ctx.save();
+    ctx.beginPath(); ctx.rect(M.x,M.y,M.mw,M.mh); ctx.clip();
+    g=ctx.createLinearGradient(M.x,M.y,M.x+M.mw*.35,M.y+M.mh);
+    g.addColorStop(0,'#2a1d13'); g.addColorStop(.5,'#1a110a'); g.addColorStop(1,'#100a06');
+    ctx.fillStyle=g; ctx.fillRect(M.x,M.y,M.mw,M.mh);
+
+    const C={ cx:M.x+M.mw*(m===0?.56:.5), cy:M.y+M.mh*(m===3?.02:.06),
+              R:Math.min(M.mw*.27,M.mh*.34), L:M.mh*(m===3?.9:1.06), seg:S.seg, t,
+              sway:w*.018, sp:.00011, dr:.000028, nz:w*.032, curl:w*.032, wk:1 };
+    const dim = m===3?.5:1;
+    const O={ st:{ lit:S.lit, base:[58,34,18], c1:[255,226,176], c2:[196,116,52],
+                   e1:52, e2:13, shift:.34, kd:1, k1:1.15, k2:.8, a:.92*dim,
+                   fall:[1,.52], shine:[.32,.2,1.7] },
+              body:['rgba(48,28,14,'+(.55*dim)+')','rgba(22,12,6,'+(.32*dim)+')','rgba(0,0,0,0)'],
+              bodyA:.95*dim };
+    drawHair(S,ctx,w,h,C,O,mode);
+
+    if(m===1){
+      const cy=M.y+M.mh*(((p*2.1)%1)*1.05-.02);
+      this.comb(ctx, C.cx - C.R*.25, cy, Math.min(M.mw*.28, 260));
+      if(Math.random()<.65) S.fall.push({x:C.cx+(Math.random()-.5)*C.R*1.4, y:cy,
+        v:.010+Math.random()*.016, ph:Math.random()*TAU, L:h*(.09+Math.random()*.13),
+        w:.5+Math.random()*1.3, rot:(Math.random()-.5)*.45});
+    }
+    if(m===2 && Math.random()<1) S.fall.push({x:M.x+M.mw*Math.random(), y:M.y-h*.06,
+      v:.008+Math.random()*.016, ph:Math.random()*TAU, L:h*(.10+Math.random()*.18),
+      w:.5+Math.random()*1.5, rot:(Math.random()-.5)*.6});
+    const P=[];
+    for(let i=S.fall.length-1;i>=0;i--){
+      const f=S.fall[i]; f.y+=f.v*h*.055; f.ph+=.006;
+      if(f.y>M.y+M.mh+h*.25 || (m!==1&&m!==2)){ S.fall.splice(i,1); continue; }
+      P.length=0; const NN=10;
+      for(let j=0;j<=NN;j++){ const u=j/NN;
+        P.push({x:f.x+Math.sin(f.ph+u*3.2)*16*u+f.rot*u*u*44, y:f.y+f.L*u}); }
+      const o=Object.assign({},O.st); o.w=f.w; o.a=.55; o.fall=[1,.25];
+      drawStrand(ctx,P,o);
+    }
+    ctx.restore();
+
+    /* cadre + ampoules sur le cadre */
+    ctx.save();
+    ctx.strokeStyle='rgba(201,163,106,.5)'; ctx.lineWidth=1.2; ctx.strokeRect(M.x,M.y,M.mw,M.mh);
+    const fg=ctx.createLinearGradient(0,M.y-22,0,M.y);
+    fg.addColorStop(0,'rgba(64,44,26,.9)'); fg.addColorStop(1,'rgba(30,20,12,.9)');
+    ctx.fillStyle=fg; ctx.fillRect(M.x-8,M.y-22,M.mw+16,22);
+    ctx.restore();
+    const nb=7;
+    for(let i=0;i<nb;i++){
+      const bx=M.x+M.mw*((i+.5)/nb), by=M.y-11;
+      const fl=.84+.16*Math.sin(t*.0019+i*2.1);
+      glow(ctx,bx,by,Math.min(w,h)*.16,'rgba(255,192,112,%A%)',.13*fl);
+      glow(ctx,bx,by,Math.min(w,h)*.022,'rgba(255,244,222,%A%)',.72*fl);
+    }
+    if(m===1) this.chalkPose(ctx,M,p);
+    if(m===2) this.chalkArc(ctx,w,h,p);
+    if(m===3){ this.shelf(S,ctx,w,h,p); this.chalkMes(S,ctx,w,h,p); }
+    vignette(ctx,w,h,.24,.74,'rgba(8,4,2,.90)');
+    grain(ctx,w,h, mode==='thumb'?.04:.058,'overlay');
+  },
+  comb(ctx,cx,cy,cw){
+    const th=cw*.30;
+    ctx.save(); ctx.translate(cx,cy); ctx.rotate(-.13);
+    /* ombre portée dans la masse */
+    ctx.fillStyle='rgba(8,4,2,.55)';
+    ctx.fillRect(-cw*.5+6,-th*.16,cw,th*1.15);
+    /* dents */
+    const n=30;
+    for(let i=0;i<n;i++){
+      const x=-cw*.5+cw*(i+.5)/n;
+      const g=ctx.createLinearGradient(0,0,0,th);
+      g.addColorStop(0,'#e8d3ad'); g.addColorStop(.5,'#8d7048'); g.addColorStop(1,'#241a11');
+      ctx.fillStyle=g;
+      ctx.beginPath(); ctx.moveTo(x-1.5,0); ctx.lineTo(x+1.5,0);
+      ctx.lineTo(x+.5,th); ctx.lineTo(x-.5,th); ctx.closePath(); ctx.fill();
+    }
+    /* dos du peigne */
+    const g=ctx.createLinearGradient(0,-th*.34,0,2);
+    g.addColorStop(0,'#fbefd6'); g.addColorStop(.42,'#b3946a'); g.addColorStop(1,'#2b2016');
+    ctx.fillStyle=g;
+    ctx.beginPath(); ctx.moveTo(-cw*.5,0); ctx.lineTo(cw*.5,0);
+    ctx.quadraticCurveTo(cw*.52,-th*.34, cw*.42,-th*.34);
+    ctx.lineTo(-cw*.42,-th*.34); ctx.quadraticCurveTo(-cw*.52,-th*.34,-cw*.5,0);
+    ctx.closePath(); ctx.fill();
+    const gg=ctx.createLinearGradient(-cw*.5,0,cw*.5,0);
+    gg.addColorStop(0,'rgba(255,234,196,0)'); gg.addColorStop(.42,'rgba(255,244,216,.85)'); gg.addColorStop(1,'rgba(255,234,196,0)');
+    ctx.fillStyle=gg; ctx.fillRect(-cw*.46,-th*.30,cw*.92,1.8);
+    ctx.restore();
+    glow(ctx,cx,cy,cw*.52,'rgba(255,206,140,%A%)',.12);
+  },
+  chalkPose(ctx,M,p){
+    const k=clamp(Math.floor(p*3.15),0,2);
+    const cx=M.x+M.mw*.5, cy=M.y+M.mh*.22, r=M.mh*.16, a0=[-.4,.3,1.0][k], pts=[];
+    for(let i=0;i<=26;i++){ const a=a0-.85+(i/26)*1.7; pts.push({x:cx+Math.cos(a)*r*1.6, y:cy+Math.sin(a)*r}); }
+    chalk(ctx,pts,1.3,.42);
+    const e=pts[pts.length-1], e2=pts[pts.length-3], ax=Math.atan2(e.y-e2.y,e.x-e2.x);
+    chalk(ctx,[e,{x:e.x-Math.cos(ax-.5)*16,y:e.y-Math.sin(ax-.5)*16}],1.1,.44);
+    chalk(ctx,[e,{x:e.x-Math.cos(ax+.5)*16,y:e.y-Math.sin(ax+.5)*16}],1.1,.44);
+  },
+  chalkArc(ctx,w,h,p){
+    const cx=w*.5, cy=h*.46, r=Math.min(w,h)*.24, pts=[], n=Math.max(2,Math.round(p*92));
+    for(let i=0;i<=n;i++){ const a=-Math.PI*.5+(i/92)*TAU; pts.push({x:cx+Math.cos(a)*r,y:cy+Math.sin(a)*r}); }
+    chalk(ctx,pts,1.7,.30);
+  },
+  chalkMes(S,ctx,w,h,p){
+    const px=padX(w), gw=(w-px*2)/4, y=Math.round(S.mesY||h*.315)-2;
+    for(let i=0;i<4;i++){
+      const k=eOut(seg(p,.10+i*.055,.36+i*.055)); if(k<=0) continue;
+      chalk(ctx,[{x:px+gw*i,y:y},{x:px+gw*i+gw*.80*k,y:y+(Math.random()-.5)*1.3}],1.5,.40);
+    }
+    const k2=eOut(seg(p,.42,.62));
+    if(k2>0){
+      const cx=px+gw*1.5, cy=y-h*.055, rx=gw*.44, ry=h*.05, pts=[], n=Math.max(2,Math.round(k2*40));
+      for(let i=0;i<=n;i++){ const a=(i/40)*TAU-.6; pts.push({x:cx+Math.cos(a)*rx,y:cy+Math.sin(a)*ry}); }
+      chalk(ctx,pts,1.6,.30);
+    }
+  },
+  shelf(S,ctx,w,h,p){
+    const mb=this.marble(S,w,h), st=S.shotTop||h*.60, sb=S.shelf||h*.78,
+          y0=Math.round(st+(sb-st)*.745);
+    ctx.save();
+    ctx.drawImage(mb.cv,0,y0);
+    let g=ctx.createLinearGradient(0,y0,0,y0+30);
+    g.addColorStop(0,'rgba(255,240,212,.6)'); g.addColorStop(1,'rgba(255,240,212,0)');
+    ctx.fillStyle=g; ctx.fillRect(0,y0,w,30);
+    ctx.fillStyle='rgba(30,18,8,.30)'; ctx.fillRect(0,y0-2.5,w,2.5);
+    ctx.fillStyle='rgba(201,163,106,.55)'; ctx.fillRect(0,y0-3.5,w,1);
+    const px=padX(w), gw=(w-px*2)/4;
+    for(let i=0;i<4;i++){
+      const k=eOut(seg(p,.34+i*.075,.62+i*.075)); if(k<=0) continue;
+      const cx=px+gw*i+gw*.5, cy=y0+8;
+      const rg=ctx.createRadialGradient(cx,cy,0,cx,cy,gw*.30);
+      rg.addColorStop(0,'rgba(58,36,18,'+(.34*k).toFixed(3)+')'); rg.addColorStop(1,'rgba(58,36,18,0)');
+      ctx.fillStyle=rg; ctx.save(); ctx.translate(cx,cy); ctx.scale(1,.20); ctx.translate(-cx,-cy);
+      ctx.beginPath(); ctx.arc(cx,cy,gw*.30,0,TAU); ctx.fill(); ctx.restore();
+    }
+    g=ctx.createRadialGradient(w*.18,y0-h*.06,0,w*.18,y0,Math.max(w,h)*.75);
+    g.addColorStop(0,'rgba(255,198,122,.15)'); g.addColorStop(1,'rgba(255,198,122,0)');
+    ctx.fillStyle=g; ctx.fillRect(0,y0,w,h-y0);
+    ctx.restore();
+  }
+};
+
+/* --------------------------------------------------------------------------
+   04 — LABORATOIRE OPTIQUE
+   -------------------------------------------------------------------------- */
+const W4 = {
+  init(S, mode){ S.mode=mode; },
+  grid(ctx,w,h,a){
+    const step=Math.max(28,Math.min(w,h)/22);
+    ctx.save(); ctx.strokeStyle='rgba(14,17,20,'+a+')'; ctx.lineWidth=1; ctx.beginPath();
+    for(let x=step;x<w;x+=step){ ctx.moveTo(Math.round(x)+.5,0); ctx.lineTo(Math.round(x)+.5,h); }
+    for(let y=step;y<h;y+=step){ ctx.moveTo(0,Math.round(y)+.5); ctx.lineTo(w,Math.round(y)+.5); }
+    ctx.stroke();
+    ctx.strokeStyle='rgba(14,17,20,'+(a*3.6)+')'; ctx.beginPath();
+    for(let x=0;x<w;x+=step/5){ ctx.moveTo(x+.5,0); ctx.lineTo(x+.5,(Math.abs(x%step)<.5)?12:6); }
+    ctx.stroke(); ctx.restore();
+  },
+  fringe(ctx,x,y,fw,fh,ph,amt){
+    const g=ctx.createLinearGradient(x,0,x+fw,0), N=48;
+    for(let i=0;i<=N;i++){
+      const u=i/N, s=Math.sin(u*24+ph), s2=Math.sin(u*24+ph+2.1), s3=Math.sin(u*24+ph+4.2);
+      g.addColorStop(u,'rgba('+((128+120*s)|0)+','+((128+120*s2)|0)+','+((128+120*s3)|0)+','+
+        (amt*(.28+.3*Math.sin(u*3.1+ph*.3))).toFixed(3)+')');
+    }
+    ctx.save(); ctx.globalCompositeOperation='screen'; ctx.fillStyle=g; ctx.fillRect(x,y,fw,fh); ctx.restore();
+  },
+  fiber(ctx,x,y,fw,fh,ph,amt){
+    if(fw<2) return;
+    const g=ctx.createLinearGradient(0,y,0,y+fh);
+    g.addColorStop(0,'#cfd4d8'); g.addColorStop(.18,'#98a0a7'); g.addColorStop(.34,'#f6f9fb');
+    g.addColorStop(.52,'#b6bdc3'); g.addColorStop(.8,'#6c737a'); g.addColorStop(1,'#a8afb5');
+    ctx.fillStyle=g; ctx.fillRect(x,y,fw,fh);
+    this.fringe(ctx,x,y,fw,fh,ph,amt);
+    ctx.save(); ctx.globalAlpha=.28; ctx.strokeStyle='#0e1114'; ctx.lineWidth=1;
+    ctx.strokeRect(x+.5,y+.5,fw-1,fh-1);
+    ctx.globalAlpha=.14; ctx.beginPath();
+    for(let sx=x;sx<x+fw;sx+=Math.max(13,fw/36)){ ctx.moveTo(sx,y); ctx.lineTo(sx+fh*.44,y+fh); }
+    ctx.stroke(); ctx.restore();
+  },
+  reticle(ctx,cx,cy,r,a,lab){
+    ctx.save(); ctx.strokeStyle='rgba(14,17,20,'+a+')'; ctx.lineWidth=1;
+    ctx.beginPath(); ctx.arc(cx,cy,r,0,TAU); ctx.stroke();
+    ctx.beginPath(); ctx.arc(cx,cy,r*.42,0,TAU); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(cx-r*1.5,cy); ctx.lineTo(cx-r*.16,cy); ctx.moveTo(cx+r*.16,cy); ctx.lineTo(cx+r*1.5,cy);
+    ctx.moveTo(cx,cy-r*1.5); ctx.lineTo(cx,cy-r*.16); ctx.moveTo(cx,cy+r*.16); ctx.lineTo(cx,cy+r*1.5);
+    ctx.stroke();
+    ctx.beginPath();
+    for(let i=0;i<40;i++){ const ang=i/40*TAU, L=(i%5===0)?8:4;
+      ctx.moveTo(cx+Math.cos(ang)*r,cy+Math.sin(ang)*r);
+      ctx.lineTo(cx+Math.cos(ang)*(r+L),cy+Math.sin(ang)*(r+L)); }
+    ctx.stroke();
+    if(lab){ ctx.fillStyle='rgba(14,17,20,'+(a*1.2)+')'; ctx.font='500 10px "IBM Plex Mono", monospace';
+      ctx.fillText(lab,cx+r*1.05,cy-r*1.05); }
+    ctx.restore();
+  },
+  dim(ctx,x0,y0,x1,y1,txt,a){
+    ctx.save(); ctx.strokeStyle='rgba(28,111,208,'+a+')'; ctx.fillStyle='rgba(28,111,208,'+a+')';
+    ctx.lineWidth=1; ctx.beginPath(); ctx.moveTo(x0,y0); ctx.lineTo(x1,y1);
+    const ang=Math.atan2(y1-y0,x1-x0), A=7;
+    ctx.moveTo(x0,y0); ctx.lineTo(x0+Math.cos(ang+.35)*A,y0+Math.sin(ang+.35)*A);
+    ctx.moveTo(x0,y0); ctx.lineTo(x0+Math.cos(ang-.35)*A,y0+Math.sin(ang-.35)*A);
+    ctx.moveTo(x1,y1); ctx.lineTo(x1-Math.cos(ang+.35)*A,y1-Math.sin(ang+.35)*A);
+    ctx.moveTo(x1,y1); ctx.lineTo(x1-Math.cos(ang-.35)*A,y1-Math.sin(ang-.35)*A);
+    ctx.stroke();
+    if(txt){ ctx.font='400 10px "IBM Plex Mono", monospace'; ctx.textAlign='center';
+      ctx.fillStyle='#f6f7f8'; ctx.fillRect((x0+x1)/2-26,(y0+y1)/2-16,52,12);
+      ctx.fillStyle='rgba(28,111,208,'+a+')'; ctx.fillText(txt,(x0+x1)/2,(y0+y1)/2-6); }
+    ctx.restore();
+  },
+  /* le sujet au trait : face, profil, nuque — jamais une tête générique */
+  subject(ctx,cx,cy,r,pose,a,t){
+    ctx.save(); ctx.lineWidth=1; ctx.strokeStyle='rgba(14,17,20,'+a+')';
+    const M=(x,y)=>ctx.moveTo(cx+x*r,cy+y*r), L=(x,y)=>ctx.lineTo(cx+x*r,cy+y*r),
+          B=(a1,b1,a2,b2,a3,b3)=>ctx.bezierCurveTo(cx+a1*r,cy+b1*r,cx+a2*r,cy+b2*r,cx+a3*r,cy+b3*r);
+    if(pose===0){
+      ctx.beginPath(); ctx.ellipse(cx,cy+r*.02,r*.42,r*.56,0,0,TAU); ctx.stroke();
+      ctx.beginPath(); ctx.ellipse(cx,cy-r*.10,r*.40,r*.40,0,Math.PI*1.06,Math.PI*1.94); ctx.stroke();
+      ctx.beginPath(); M(-.40,.30); B(-.30,.52,-.16,.62,0,.62); B(.16,.62,.30,.52,.40,.30); ctx.stroke();
+    } else if(pose===1){
+      ctx.beginPath();
+      M(-.20,-.96);
+      B(.26,-.99,.54,-.74,.54,-.46);
+      B(.54,-.34,.50,-.31,.52,-.27);
+      B(.60,-.18,.79,-.03,.76,.04);
+      B(.74,.10,.60,.08,.56,.12);
+      B(.63,.17,.62,.23,.55,.27);
+      B(.59,.34,.55,.45,.41,.53);
+      B(.28,.61,.08,.63,-.08,.60);
+      ctx.stroke();
+      ctx.beginPath(); ctx.ellipse(cx-r*.16,cy+r*.06,r*.07,r*.11,-.3,0,TAU); ctx.stroke();
+    } else {
+      ctx.beginPath(); ctx.ellipse(cx,cy-r*.04,r*.46,r*.54,0,Math.PI*.04,Math.PI*.96); ctx.stroke();
+      ctx.beginPath(); M(-.22,.60); B(-.12,.74,.12,.74,.22,.60); ctx.stroke();
+    }
+    /* enveloppe de la masse capillaire */
+    const hw = pose===0 ? .96 : (pose===1 ? .92 : 1.06);
+    const off = pose===1 ? -.18 : 0;
+    const hr = pose===1 ? .30 : hw;
+    ctx.strokeStyle='rgba(14,17,20,'+(a*1.6)+')'; ctx.lineWidth=1.1;
+    ctx.beginPath();
+    M(off-hw, 1.34);
+    B(off-hw*1.10,.10, off-hw*.72,-1.04, off+(pose===1?.10:0),-1.04);
+    if(pose===1){ B(off+hr*.95,-1.02, off+hr*1.30,-.56, off+hr*.72,-.08); }
+    else { B(off+hr*.90,-1.04, off+hr*1.30,.10, off+hr*1.05,1.34); }
+    ctx.stroke();
+    /* mèches, au trait fin */
+    ctx.save(); ctx.globalAlpha=a*.6; ctx.lineWidth=.7; ctx.beginPath();
+    const n=24;
+    for(let i=0;i<=n;i++){
+      const u=i/n, xs=lerp(-1,1,u), ax=Math.abs(xs);
+      if(pose===0 && ax<.34) continue;          /* on ne hachure pas le visage */
+      if(pose===1 && xs>.18) continue;          /* de profil, la masse reste derrière */
+      const ty=-.96+ax*ax*.42;
+      const end = pose===1 && xs>-.10 ? .62 : 1.30;
+      ctx.moveTo(cx+(off+xs*hw*.46)*r, cy+ty*r);
+      ctx.quadraticCurveTo(cx+(off+xs*hw*.92)*r, cy+.22*r,
+        cx+(off+xs*hw*(.98+Math.sin(u*9+t*.0004)*.035))*r, cy+end*r);
+    }
+    ctx.stroke(); ctx.restore();
+    ctx.restore();
+  },
+  draw(S, ctx, w, h, m, p, t, mode){
+    ctx.fillStyle='#f6f7f8'; ctx.fillRect(0,0,w,h);
+    this.grid(ctx,w,h, m===1?.05:.035);
+    const ph=t*.0016, px=padX(w);
+    ctx.font='400 10px "IBM Plex Mono", monospace';
+    const TH = mode==='thumb';
+    if(m===0){
+      const cx=TH?w*.5:w*.76, cy=h*.48, r=Math.min(w,h)*.20;
+      this.subject(ctx,cx,cy,r,1,.26,t);
+      this.reticle(ctx,cx,cy-r*.2,r*.55,.13,null);
+      this.fiber(ctx,cx-r*1.5,cy+r*1.62,r*3,22,ph,.45);
+      this.dim(ctx,cx-r*1.5,cy+r*1.62+36,cx+r*1.5,cy+r*1.62+36,TH?null:'61,4 µm',.55);
+    }
+    else if(m===1){
+      const bw=Math.min(w-px*2,h*.95), bx=w*.5-bw*.5, by=h*.09, bh=h*.62;
+      const k=clamp(Math.floor(p*3.15),0,2);
+      brackets(ctx,bx,by,bw,bh,Math.min(34,bw*.07),'rgba(14,17,20,.6)',1,.9);
+      const cx=bx+bw*.5, cy=by+bh*.46, r=bh*.34;
+      this.subject(ctx,cx,cy,r,k,.42,t);
+      ctx.save();
+      ctx.strokeStyle='rgba(28,111,208,.85)'; ctx.lineWidth=1.1; ctx.setLineDash([6,4]);
+      const zx=cx-r*1.06, zy=cy-r*1.04, zw=r*2.12, zh=r*2.42;
+      ctx.strokeRect(zx,zy,zw,zh); ctx.setLineDash([]);
+      ctx.fillStyle='rgba(28,111,208,.05)'; ctx.fillRect(zx,zy,zw,zh);
+      if(!TH){
+        ctx.fillStyle='rgba(28,111,208,.9)';
+        ctx.fillText('ZONE LUE — MASSE CAPILLAIRE',zx,zy-8);
+        ctx.textAlign='right'; ctx.fillStyle='rgba(14,17,20,.45)';
+        ctx.fillText('VISAGE — NON ENREGISTRÉ',zx+zw,zy-8);
+      }
+      ctx.restore();
+      this.dim(ctx,zx,zy+zh+18,zx+zw,zy+zh+18,TH?null:'Ø 172 mm',.7);
+      const sy=by+bh*((p*3.15)%1);
+      ctx.save(); ctx.strokeStyle='rgba(28,111,208,.75)'; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.moveTo(bx,sy); ctx.lineTo(bx+bw,sy); ctx.stroke();
+      const g=ctx.createLinearGradient(0,sy-34,0,sy);
+      g.addColorStop(0,'rgba(28,111,208,0)'); g.addColorStop(1,'rgba(28,111,208,.13)');
+      ctx.fillStyle=g; ctx.fillRect(bx,sy-34,bw,34);
+      if(!TH){ ctx.fillStyle='rgba(28,111,208,.9)'; ctx.fillText('PRISE 0'+(k+1)+' / 03',bx,sy-8); }
+      ctx.restore();
+      const fw=Math.min(340,w*.28), fx=w-px-fw, fy=by+bh+h*.05;
+      this.fiber(ctx,fx,fy,fw,24,ph,.62);
+      this.reticle(ctx,fx+fw*.5,fy+12,32,.2,TH?null:'×400');
+    }
+    else if(m===2){
+      const gx=px, gw=w-px*2, gy=h*.26, gh=h*.42;
+      ctx.save(); ctx.strokeStyle='rgba(14,17,20,.38)'; ctx.lineWidth=1;
+      ctx.strokeRect(gx+.5,gy+.5,gw,gh);
+      ctx.strokeStyle='rgba(14,17,20,.1)';
+      ctx.beginPath();
+      for(let i=1;i<6;i++){ ctx.moveTo(gx,gy+gh*i/6); ctx.lineTo(gx+gw,gy+gh*i/6); }
+      for(let i=1;i<10;i++){ ctx.moveTo(gx+gw*i/10,gy); ctx.lineTo(gx+gw*i/10,gy+gh); }
+      ctx.stroke(); ctx.restore();
+      const cols=['rgba(28,111,208,.95)','rgba(14,17,20,.5)','rgba(196,86,40,.7)'];
+      const fy=u=>c=>gy+gh*(.5-.36*Math.sin(u*4.6+c*1.5)*Math.exp(-u*.7)-.08*fbm(u*9+c*20));
+      for(let c=0;c<3;c++){
+        const kk=sat((p-c*.10)*1.5); if(kk<=0) continue;
+        ctx.save(); ctx.strokeStyle=cols[c]; ctx.lineWidth=c===0?1.7:1; ctx.beginPath();
+        const N=120, upto=Math.round(N*kk);
+        for(let i=0;i<=upto;i++){ const u=i/N, x=gx+gw*u, y=fy(u)(c); i?ctx.lineTo(x,y):ctx.moveTo(x,y); }
+        ctx.stroke();
+        if(kk<1){ const u=upto/N; ctx.fillStyle=cols[c];
+          ctx.beginPath(); ctx.arc(gx+gw*u,fy(u)(c),2.8,0,TAU); ctx.fill(); }
+        ctx.restore();
+      }
+      this.fiber(ctx,gx,gy-h*.11,gw,20,ph*2,.78);
+      ctx.save(); ctx.strokeStyle='rgba(28,111,208,.45)'; ctx.lineWidth=1;
+      const hx=gx+gw*eOut(p); ctx.beginPath(); ctx.moveTo(hx,gy-h*.13); ctx.lineTo(hx,gy+gh+12); ctx.stroke();
+      ctx.restore();
+    }
+    else {
+      ctx.save(); ctx.strokeStyle='rgba(14,17,20,.16)'; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.moveTo(px,h*.40); ctx.lineTo(w-px,h*.40); ctx.stroke();
+      ctx.beginPath();
+      for(let x=px;x<=w-px;x+=(w-2*px)/48){ ctx.moveTo(x,h*.40); ctx.lineTo(x,h*.40-5); }
+      ctx.stroke(); ctx.restore();
+      const gw=(w-px*2)/4;
+      for(let i=0;i<4;i++){
+        const kk=eOut(seg(p,.10+i*.055,.44+i*.055)); if(kk<=0) continue;
+        ctx.save(); ctx.strokeStyle='rgba(28,111,208,.42)'; ctx.lineWidth=1; ctx.beginPath();
+        const x0=px+gw*i, ww=gw*.78, y0=h*.372, hh=h*.045, N=40, upto=Math.round(N*kk);
+        for(let j=0;j<=upto;j++){ const u=j/N;
+          ctx.lineTo(x0+ww*u, y0-hh*(.4+.5*fbm(u*6+i*13)+.22*Math.sin(u*9+i))); }
+        ctx.stroke(); ctx.restore();
+      }
+      this.fiber(ctx,px,h*.088,(w-px*2)*eOut(seg(p,.06,.40)),11,ph,.5);
+      this.subject(ctx,w-px-h*.11,h*.255,h*.075,2,.10,t);
+    }
+    vignette(ctx,w,h,.42,.9,'rgba(14,17,20,.10)');
+    grain(ctx,w,h, mode==='thumb'?.022:.03,'multiply');
+  }
+};
+
+/* --------------------------------------------------------------------------
+   05 — NUIT MÉTAL
+   -------------------------------------------------------------------------- */
+const W5 = {
+  init(S, mode){
+    const N = mode==='thumb' ? 80 : (MOBILE ? 100 : 210);
+    S.st=[];
+    for(let i=0;i<N;i++){
+      const r=Math.pow(Math.random(),.45);
+      S.st.push({ a0:Math.random()*TAU, r:.18+r*.82,
+        twist:(.55+Math.random()*.55)*(Math.random()<.5?-1:1),
+        w:.3+Math.pow(Math.random(),1.9)*1.9, seed:Math.random()*60,
+        len:.72+Math.random()*.4, amp:.3+Math.random()*1.0, ph:Math.random()*TAU,
+        top:Math.random()*.05 });
+    }
+    S.seg = mode==='thumb'?14:20;
+    S.order=S.st.map((_,i)=>i);
+  },
+  lock(S, ctx, cx, cy, R, L, rot, lit, alpha, mode, wk){
+    const O={ lit, base:[36,32,28], c1:[255,247,226], c2:[203,170,108],
+              e1:80, e2:20, shift:.3, kd:.9, k1:1.1, k2:.9, a:1,
+              fall:[1,.40], shine:[.30,.20,1.8] };
+    const N=S.seg;
+    for(let i=0;i<S.st.length;i++){
+      const s=S.st[i]; let zs=0; const pts=[];
+      for(let j=0;j<=N;j++){
+        const u=j/N;
+        const ang=s.a0+rot+u*s.twist*.55;
+        const rr=R*s.r*(.10+.95*Math.sin(Math.pow(u,.78)*Math.PI*.80))*(1+Math.sin(u*3.6+s.ph)*.05*s.amp);
+        const z=Math.sin(ang), pz=1/(1-z*.24); zs+=z;
+        pts.push({ x:cx+Math.cos(ang)*rr*pz + Math.sin(u*2.1)*R*.34,
+                   y:cy-L*.5+s.top*L*.04+L*s.len*u*pz*.94 });
+      }
+      s._pts=pts; s._z=zs/(N+1);
+    }
+    S.order.sort((a,b)=>S.st[a]._z-S.st[b]._z);
+    for(let k=0;k<S.order.length;k++){
+      const s=S.st[S.order[k]], d=(s._z+1)*.5, o=Object.assign({},O);
+      o.w=s.w*(.5+d*1.25)*(wk||1)*(mode==='thumb'?.8:1);
+      o.a=alpha*(.16+.9*d);
+      o.kd=.5+.8*d; o.k1=.28+1.05*d; o.k2=.26+.85*d;
+      drawStrand(ctx,s._pts,o);
+    }
+  },
+  plate(ctx,x,y,pw,ph,sweep,a){
+    ctx.save();
+    const g=ctx.createLinearGradient(x,y,x,y+ph);
+    g.addColorStop(0,'rgba(62,60,57,'+a+')'); g.addColorStop(.42,'rgba(27,26,25,'+a+')');
+    g.addColorStop(.56,'rgba(40,38,36,'+a+')'); g.addColorStop(1,'rgba(15,14,14,'+a+')');
+    ctx.fillStyle=g; ctx.fillRect(x,y,pw,ph);
+    ctx.globalAlpha=a*.5; ctx.beginPath();
+    for(let yy=y;yy<y+ph;yy+=2){ ctx.moveTo(x,yy+.5); ctx.lineTo(x+pw,yy+.5); }
+    ctx.strokeStyle='rgba(255,255,255,.035)'; ctx.lineWidth=1; ctx.stroke();
+    if(sweep>=0 && sweep<=1){
+      const sx=x+pw*sweep;
+      const sg=ctx.createLinearGradient(sx-pw*.24,0,sx+pw*.24,0);
+      sg.addColorStop(0,'rgba(216,192,139,0)'); sg.addColorStop(.5,'rgba(255,240,206,'+(.20*a)+')');
+      sg.addColorStop(1,'rgba(216,192,139,0)');
+      ctx.globalAlpha=1; ctx.fillStyle=sg; ctx.fillRect(x,y,pw,ph);
+    }
+    ctx.globalAlpha=a; ctx.strokeStyle='rgba(216,192,139,.32)'; ctx.lineWidth=1;
+    ctx.strokeRect(x+.5,y+.5,pw-1,ph-1);
+    ctx.restore();
+  },
+  draw(S, ctx, w, h, m, p, t, mode){
+    ctx.fillStyle='#06060a'; ctx.fillRect(0,0,w,h);
+    let g=ctx.createRadialGradient(w*.5,h*.40,0,w*.5,h*.40,Math.max(w,h)*.72);
+    g.addColorStop(0,'rgba(62,53,36,.32)'); g.addColorStop(.55,'rgba(24,20,14,.13)'); g.addColorStop(1,'rgba(0,0,0,0)');
+    ctx.fillStyle=g; ctx.fillRect(0,0,w,h);
+    const slow=t*.00016;
+    let cx,cy,R,L,alpha,rot,lang;
+    const TH=mode==='thumb';
+    if(m===0){ cx=TH?w*.5:w*.74; cy=h*.50; R=Math.min(w,h)*.085; L=h*.60; alpha=1; rot=slow; lang=-.95; }
+    else if(m===1){ cx=w*.50; cy=h*.44; R=Math.min(w,h)*.135; L=h*.74; alpha=1;
+      rot=slow*1.3; lang=-Math.PI*.92+((p*3.15)%1)*Math.PI*1.15; }
+    else if(m===2){ cx=w*.5; cy=h*.40; R=Math.min(w,h)*(.10+eOut(p)*.045); L=h*.70; alpha=1;
+      rot=slow*(1.3+p*8); lang=-Math.PI*.5+p*TAU; }
+    else { cx=TH?w*.5:w*.94; cy=h*.38; R=Math.min(w,h)*(TH?.10:.06); L=h*.42; alpha=.30; rot=slow; lang=-1.0; }
+    const lit=lightSetup(Math.cos(lang), Math.sin(lang)*.55-.5, .30);
+
+    ctx.save(); ctx.translate(0,(cy+L*.5)*2); ctx.scale(1,-1);
+    this.lock(S,ctx,cx,cy,R,L,rot,lit,alpha*.14,mode,1); ctx.restore();
+    ctx.save(); ctx.globalCompositeOperation='destination-out';
+    const fg=ctx.createLinearGradient(0,cy+L*.5,0,h);
+    fg.addColorStop(0,'rgba(0,0,0,.3)'); fg.addColorStop(.5,'rgba(0,0,0,.92)'); fg.addColorStop(1,'rgba(0,0,0,1)');
+    ctx.fillStyle=fg; ctx.fillRect(0,cy+L*.5,w,h-(cy+L*.5)); ctx.restore();
+
+    this.lock(S,ctx,cx,cy,R,L,rot,lit,alpha,mode,1);
+
+    if(m===1||m===2){
+      ctx.save(); ctx.globalCompositeOperation='lighter';
+      glow(ctx, cx+Math.cos(lang)*R*2.6, cy+Math.sin(lang)*R*1.2, Math.min(w,h)*.34,'rgba(216,192,139,%A%)',.09);
+      ctx.restore();
+    }
+    if(m===1){
+      const px=padX(w), bw=Math.min(w*.46,h*.78), bx=w*.5-bw*.5, by=h*.07, bh=h*.70;
+      brackets(ctx,bx,by,bw,bh,Math.min(28,bw*.07),'rgba(216,192,139,.9)',1,.45);
+    }
+    if(m===2){
+      const px=padX(w), py=h*.70;
+      this.plate(ctx,px,py,w-px*2,h*.15,p,.92);
+      ctx.save(); ctx.strokeStyle='rgba(216,192,139,.55)'; ctx.lineWidth=1;
+      const n=Math.round(p*26);
+      for(let i=0;i<n;i++){ const x=px+18+i*((w-px*2-36)/26);
+        ctx.beginPath(); ctx.moveTo(x,py+h*.05); ctx.lineTo(x,py+h*.05+((i%4)?8:16)); ctx.stroke(); }
+      ctx.restore();
+      if(p>.92){ ctx.fillStyle='rgba(255,243,218,'+(seg(p,.92,.97)*.45*(1-seg(p,.97,1))).toFixed(3)+')'; ctx.fillRect(0,0,w,h); }
+    }
+    if(m===3){
+      const px=padX(w);
+      const pt=h*.15, pb=Math.min(h*.42, Math.round((S.mesY||h*.38)+16));
+      this.plate(ctx,px,pt,w-px*2,Math.max(60,pb-pt),(p*1.25)%1.5,.94);
+      const vy=Math.round((S.shotTop||h*.455)-18);
+      const vg=ctx.createLinearGradient(0,vy,0,h);
+      vg.addColorStop(0,'rgba(20,17,19,.92)'); vg.addColorStop(1,'rgba(6,6,9,.96)');
+      ctx.fillStyle=vg; ctx.fillRect(0,vy,w,h-vy);
+      ctx.save(); ctx.strokeStyle='rgba(216,192,139,.24)'; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.moveTo(px,vy+.5); ctx.lineTo(w-px,vy+.5); ctx.stroke(); ctx.restore();
+      const gg=ctx.createRadialGradient(w*.5,vy+(h-vy)*.3,0,w*.5,vy,(h-vy)*1.5);
+      gg.addColorStop(0,'rgba(216,192,139,.09)'); gg.addColorStop(1,'rgba(216,192,139,0)');
+      ctx.fillStyle=gg; ctx.fillRect(0,vy,w,h-vy);
+    }
+    vignette(ctx,w,h,.20,.70,'rgba(0,0,0,.94)');
+    grain(ctx,w,h, mode==='thumb'?.032:.048,'overlay');
+  }
+};
+
+const WORLDS = {1:W1, 2:W2, 3:W3, 4:W4, 5:W5};
+
+/* ==========================================================================
+   LECTEUR — vignettes, plein écran, boucle des quatre moments
+   ========================================================================== */
+const INK = ['#dfeaf2','#171310','#f0e2cd','#0e1114','#e6dcc6'];
+const DURT = [3200, 3200, 2600, 3600];
+const CYC  = DUR.reduce((a,b)=>a+b,0);
+const CYCT = DURT.reduce((a,b)=>a+b,0);
+
+function makeWorld(n, host, mode){
+  const el = document.createElement('div');
+  el.className = 'world ' + META[n-1].cls;
+  if(mode==='full') el.innerHTML = uiHTML(n);
+  const cv = document.createElement('canvas'); cv.className='stage';
+  el.insertBefore(cv, el.firstChild);
+  host.appendChild(el);
+  const D = { n, el, cv, ctx: cv.getContext('2d', {alpha:false}), mode, S:{}, w:0, h:0, m:-1 };
+  if(mode==='full'){
+    D.ui    = el.querySelector('.ui');
+    D.panes = Array.from(el.querySelectorAll('.pane'));
+    D.qs    = Array.from(el.querySelectorAll('.q'));
+    D.poses = Array.from(el.querySelectorAll('.pose'));
+    D.big   = el.querySelector('.load .big');
+    D.steps = Array.from(el.querySelectorAll('.steps span'));
+    D.ms    = Array.from(el.querySelectorAll('.m'));
+    D.ps    = Array.from(el.querySelectorAll('.p'));
+    D.mes   = el.querySelector('.mes');
+  }
+  D.resize = ()=>{
+    const r = host.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio||1, mode==='thumb' ? 1.2 : (MOBILE?2:2));
+    const w = Math.max(2, Math.round(r.width)), h = Math.max(2, Math.round(r.height));
+    if(w===D.w && h===D.h && D.dpr===dpr) return;
+    D.w=w; D.h=h; D.dpr=dpr;
+    cv.width = Math.round(w*dpr); cv.height = Math.round(h*dpr);
+    cv.style.width = w+'px'; cv.style.height = h+'px';
+    D.ctx.setTransform(dpr,0,0,dpr,0,0);
+    D.S._o = null;
+  };
+  WORLDS[n].init(D.S, mode);
+  D.resize();
+  if(window.ResizeObserver){ D.ro = new ResizeObserver(()=>D.resize()); D.ro.observe(host); }
+  return D;
+}
+function splitTime(e, durs){
+  let m=0, acc=0;
+  for(let i=0;i<durs.length;i++){ if(e < acc+durs[i]){ m=i; break; } acc+=durs[i]; m=i; }
+  return { m, p: clamp((e-acc)/durs[m], 0, 1) };
+}
+function drawWorld(D, m, p, t){
+  if(D.w<2||D.h<2) D.resize();
+  if(D.m !== m){
+    D.m = m;
+    if(D.mode==='full'){
+      D.panes.forEach(x => x.classList.toggle('on', +x.dataset.m === m));
+      resetUI(D, m);
+    }
+  }
+  tickUI(D, m, p);
+  if(D.mode==='full' && m===3 && D.ps.length){
+    const er = D.el.getBoundingClientRect();
+    const sh = D.ps[D.ps.length-1].querySelector('.shot').getBoundingClientRect();
+    const sh0 = D.ps[0].querySelector('.shot').getBoundingClientRect();
+    const me = D.mes ? D.mes.getBoundingClientRect() : null;
+    if(sh.height>4){ D.S.shelf = sh.bottom-er.top; D.S.shotTop = sh0.top-er.top; }
+    if(me) D.S.mesY = me.bottom-er.top;
+  }
+  WORLDS[D.n].draw(D.S, D.ctx, D.w, D.h, m, p, t, D.mode);
+}
+
+/* --- vignettes --- */
+const gridEl = document.getElementById('grid');
+const thumbs = [];
+META.forEach((M, i) => {
+  const b = document.createElement('button');
+  b.className='card'; b.type='button';
+  b.innerHTML = `<div class="frame"><div class="veil"></div><div class="open">Ouvrir en plein écran</div></div>
+    <div class="lab"><span class="idx">0${M.n}</span><div><h2>${M.t}</h2><p>${M.p}</p></div></div>`;
+  gridEl.appendChild(b);
+  const host = b.querySelector('.frame');
+  const D = makeWorld(M.n, host, 'thumb');
+  const th = { D, host, vis:true, off: i*4200, tick:0 };
+  thumbs.push(th);
+  b.addEventListener('click', ()=>openPlayer(M.n));
+});
+if(window.IntersectionObserver){
+  const io = new IntersectionObserver(es=>es.forEach(e=>{
+    const th = thumbs.find(x => x.host === e.target || x.host.contains(e.target));
+    if(th) th.vis = e.isIntersecting;
+  }), {rootMargin:'120px'});
+  thumbs.forEach(th=>io.observe(th.host));
+}
+
+/* --- lecteur --- */
+const playerEl = document.getElementById('player');
+const stagebox = document.getElementById('stagebox');
+const chapsEl  = document.getElementById('cChaps');
+chapsEl.innerHTML = MOMENTS.map((x,i)=>`<li data-i="${i}"><span class="rail"></span><span class="fill"></span>
+  <span class="n">0${i+1}</span><span class="t">${x}</span></li>`).join('');
+const chapLis = Array.from(chapsEl.children);
+chapLis.forEach(li => li.addEventListener('click', ()=>{
+  if(!P) return;
+  let acc=0; for(let i=0;i<+li.dataset.i;i++) acc+=DUR[i];
+  P.t0 = performance.now() - acc;
+}));
+let P = null;
+function openPlayer(n){
+  if(P) closePlayer();
+  P = { n, D: makeWorld(n, stagebox, 'full'), t0: performance.now() };
+  playerEl.style.setProperty('--ink', INK[n-1]);
+  document.getElementById('cNum').textContent = '0'+n;
+  document.getElementById('cTtl').textContent = META[n-1].t;
+  document.getElementById('cParti').textContent = META[n-1].p;
+  playerEl.classList.add('on'); playerEl.setAttribute('aria-hidden','false');
+  document.documentElement.style.overflow='hidden';
+}
+function closePlayer(){
+  if(!P) return;
+  if(P.D.ro) P.D.ro.disconnect();
+  P.D.el.remove(); P = null;
+  playerEl.classList.remove('on'); playerEl.setAttribute('aria-hidden','true');
+  document.documentElement.style.overflow='';
+}
+document.getElementById('xclose').addEventListener('click', closePlayer);
+addEventListener('keydown', e=>{
+  if(e.key==='Escape') closePlayer();
+  if(!P && /^[1-5]$/.test(e.key)) openPlayer(+e.key);
+});
+
+/* --- boucle --- */
+let frame = 0;
+function loop(now){
+  requestAnimationFrame(loop);
+  frame++;
+  if(P){
+    const e = (now - P.t0) % CYC;
+    const s = splitTime(e, DUR);
+    drawWorld(P.D, s.m, s.p, now);
+    const intro = s.m===0 && s.p<.40;
+    if(playerEl.classList.contains('intro') !== intro) playerEl.classList.toggle('intro', intro);
+    for(let i=0;i<4;i++){
+      const li = chapLis[i]; const on = i===s.m;
+      if(li.classList.contains('on') !== on) li.classList.toggle('on', on);
+      li.querySelector('.fill').style.width = (i<s.m?100:(on? s.p*100 : 0)) + '%';
+    }
+    return;
+  }
+  if(frame % 2) return;                      /* vignettes : 30 i/s, moteur au repos */
+  for(const th of thumbs){
+    if(!th.vis) continue;
+    const e = (now + th.off) % CYCT;
+    const s = splitTime(e, DURT);
+    drawWorld(th.D, s.m, s.p, now);
+  }
+}
+requestAnimationFrame(loop);
+addEventListener('resize', ()=>{ thumbs.forEach(t=>t.D.resize()); if(P) P.D.resize(); });
+</script>
+</body>
+</html>

@@ -18,9 +18,11 @@
    "cheveux_cibles": [],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>Soin multi-bénéfices pour cheveux normaux à sensibilisés.</p>",
+   "description": "Soin multi-bénéfices pour cheveux normaux à sensibilisés.",
    "claims": [],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/huile-10-en-1-sans-rincage.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "loreal-professionnel--masque-dore-restructurant-instantane",
@@ -41,12 +43,14 @@
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>Répare en profondeur et nourrit la fibre dévitalisée.<br> Toucher léger, délicat.</p>",
+   "description": "Répare en profondeur et nourrit la fibre dévitalisée. Toucher léger, délicat.",
    "claims": [
-    "nourrissant",
-    "reparateur"
+    "nutrition",
+    "reparation"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/masque-dore-restructurant-instantane.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "loreal-professionnel--masque-restructurant-instantane",
@@ -67,11 +71,14 @@
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>Transforme intensément les cheveux secs et abîmés.*<br> Les cheveux sont plus doux et plus brillants. *<br><br> <i>*Test instrumental routine complète</i></p>",
+   "description": "Transforme intensément les cheveux secs et abîmés.* Les cheveux sont plus doux et plus brillants. * *Test instrumental routine complète",
    "claims": [
+    "reparation",
     "brillance"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/masque-restructurant-instantane.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--shampoing-restructurant-instantane",
@@ -92,13 +99,15 @@
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>Offrez un soin de qualit&eacute; professionnelle &agrave; vos cheveux. Cass&eacute;s, ab&icirc;m&eacute;s, dess&eacute;ch&eacute;s, ils r&eacute;clament une hydratation intense et une nutrition adapt&eacute;e. Le shampoing professionnel Absolut Repair, &agrave; base de prot&eacute;ine de quinoa dor&eacute;, redonne de la vitalit&eacute; et r&eacute;pare les cheveux secs et ab&icirc;m&eacute;s, sans les alourdir. Sa formule hydratante agit au c&oelig;ur de la fibre capillaire d&egrave;s les pr",
+   "description": "Offrez un soin de qualité professionnelle à vos cheveux. Cassés, abîmés, desséchés, ils réclament une hydratation intense et une nutrition adaptée. Le shampoing professionnel Absolut Repair, à base de protéine de quinoa doré, redonne de la vitalité et répare les cheveux secs et abîmés, sans les alourdir. Sa formule hydratante agit au cœur de la fibre capillaire dès les pr",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "reparateur"
+    "hydratation",
+    "nutrition",
+    "reparation"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/shampoing-restructurant-instantane.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "loreal-professionnel--huile-bi-phase-reparatrice",
@@ -116,13 +125,17 @@
    "cheveux_cibles": [
     "abimes"
    ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "<p>Lorsque le cheveu est ab&icirc;m&eacute;, sa structure mol&eacute;culaire compos&eacute;e de peptides est atteinte. Les cheveux ab&icirc;m&eacute;s deviennent caoutchouteux, et perdent leur mouvement. La plupart des peptides sont trop gros pour &ecirc;tre r&eacute;inject&eacute;s, rendant les dommages presque irr&eacute;versibles. </p> <p>Pour la premi&egrave;re fois, la Recherche Avanc&eacute;e L'Or&eacute;al a r&eacute;ussi &agrave; d&eacute;composer les peptides, pour r&eacute;injecter leu",
-   "claims": [
-    "reparateur"
+   "actifs": [
+    "peptides"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "ingredients": null,
+   "description": "Lorsque le cheveu est abîmé, sa structure moléculaire composée de peptides est atteinte. Les cheveux abîmés deviennent caoutchouteux, et perdent leur mouvement. La plupart des peptides sont trop gros pour être réinjectés, rendant les dommages presque irréversibles. Pour la première fois, la Recherche Avancée L'Oréal a réussi à décomposer les peptides, pour réinjecter leu",
+   "claims": [
+    "reparation"
+   ],
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/huile-bi-phase-reparatrice.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "loreal-professionnel--masque-concentre-professionnel",
@@ -137,14 +150,23 @@
    "image_local": "public/scan/products-cheveux/loreal-professionnel/masque-concentre-professionnel.jpg",
    "categorie": "masque",
    "etape": 2,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "<p><span style=\"background-color: #ffffff; color: #1a1f26;\">Lorsque le cheveu est ab&icirc;m&eacute;, sa structure mol&eacute;culaire compos&eacute;e de peptides est atteinte. La plupart des peptides sont trop volumineux pour p&eacute;n&eacute;trer au c&oelig;ur de la fibre capillaire, rendant les dommages presque irr&eacute;versibles.</span></p> <p><span style=\"background-color: #ffffff; color: #1a1f26;\">Pour la premi&egrave;re fois, la Recherche Avanc&eacute;e L'Or&eacute;al a r&eacute;ussi &a",
-   "claims": [
-    "volume"
+   "cheveux_cibles": [
+    "fins",
+    "abimes"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "actifs": [
+    "peptides"
+   ],
+   "ingredients": null,
+   "description": "Lorsque le cheveu est abîmé, sa structure moléculaire composée de peptides est atteinte. La plupart des peptides sont trop volumineux pour pénétrer au cœur de la fibre capillaire, rendant les dommages presque irréversibles. Pour la première fois, la Recherche Avancée L'Oréal a réussi &a",
+   "claims": [
+    "reparation",
+    "volume",
+    "brillance"
+   ],
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/masque-concentre-professionnel.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--masque-reparateur-sans-rincage",
@@ -157,42 +179,22 @@
    "price_source": null,
    "image_source_url": "https://www.lorealprofessionnel.fr/-/media/master/fr/product-and-ranges-assets/arm/arm5.png",
    "image_local": "public/scan/products-cheveux/loreal-professionnel/masque-reparateur-sans-rincage.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
+   "categorie": "masque",
+   "etape": 2,
    "cheveux_cibles": [
     "abimes"
    ],
-   "actifs": [],
+   "actifs": [
+    "peptides"
+   ],
    "ingredients": null,
-   "description": "<p>Lorsque le cheveu est ab&icirc;m&eacute;, sa structure mol&eacute;culaire compos&eacute;e de peptides est atteinte. La plupart des peptides sont trop gros pour &ecirc;tre r&eacute;inject&eacute;s, rendant les dommages presque irr&eacute;versibles. </p> <p>Pour la premi&egrave;re fois, la Recherche Avanc&eacute;e L'Or&eacute;al a r&eacute;ussi &agrave; d&eacute;composer les peptides, pour r&eacute;injecter leurs composants s&eacute;paremment &agrave; l'int&eacute;rieur de la fibre&sup1;. Une f",
+   "description": "Lorsque le cheveu est abîmé, sa structure moléculaire composée de peptides est atteinte. La plupart des peptides sont trop gros pour être réinjectés, rendant les dommages presque irréversibles. Pour la première fois, la Recherche Avancée L'Oréal a réussi à décomposer les peptides, pour réinjecter leurs composants séparemment à l'intérieur de la fibre¹. Une f",
    "claims": [
-    "reparateur"
+    "reparation"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
-  },
-  {
-   "id": "loreal-professionnel--recharge-shampoing-reparateur-moleculaire",
-   "name": "Recharge Shampoing réparateur moléculaire",
-   "brand": "loreal-professionnel",
-   "brand_name": "L'Oréal Professionnel",
-   "url": "https://www.lorealprofessionnel.fr/soin-du-cheveu/absolut-repair-molecular/refill-shampoing-reparateur",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": "https://www.lorealprofessionnel.fr/-/media/master/fr/product-and-ranges-assets/arm/refill-shampoing-arm.png",
-   "image_local": "public/scan/products-cheveux/loreal-professionnel/recharge-shampoing-reparateur-moleculaire.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [
-    "abimes"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "<p>Lorsque le cheveu est ab&icirc;m&eacute;, sa structure mol&eacute;culaire compos&eacute;e de peptides est atteinte. La plupart des peptides sont trop gros pour &ecirc;tre r&eacute;inject&eacute;s, rendant les dommages presque irr&eacute;versibles. </p> <p>Pour la premi&egrave;re fois, la Recherche Avanc&eacute;e L'Or&eacute;al a r&eacute;ussi &agrave; d&eacute;composer les peptides, pour r&eacute;injecter leurs composants s&eacute;paremment &agrave; l'int&eacute;rieur de la fibre&sup2;. Une f",
-   "claims": [
-    "reparateur"
-   ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/masque-reparateur-sans-rincage.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "loreal-professionnel--serum-reparateur-a-rincer",
@@ -210,13 +212,18 @@
    "cheveux_cibles": [
     "abimes"
    ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "<p>Lorsque le cheveu est ab&icirc;m&eacute;, sa structure mol&eacute;culaire compos&eacute;e de peptides est atteinte. La plupart des peptides sont trop gros pour &ecirc;tre r&eacute;inject&eacute;s, rendant les dommages presque irr&eacute;versibles. </p> <p>Pour la premi&egrave;re fois, la Recherche Avanc&eacute;e L'Or&eacute;al a r&eacute;ussi &agrave; d&eacute;composer les peptides, pour r&eacute;injecter leurs composants s&eacute;paremment &agrave; l'int&eacute;rieur de la fibre&sup1;. Une f",
-   "claims": [
-    "reparateur"
+   "actifs": [
+    "peptides"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "ingredients": null,
+   "description": "Lorsque le cheveu est abîmé, sa structure moléculaire composée de peptides est atteinte. La plupart des peptides sont trop gros pour être réinjectés, rendant les dommages presque irréversibles. Pour la première fois, la Recherche Avancée L'Oréal a réussi à décomposer les peptides, pour réinjecter leurs composants séparemment à l'intérieur de la fibre¹. Une f",
+   "claims": [
+    "reparation"
+   ],
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/serum-reparateur-a-rincer.webp",
+   "image_fond": true,
+   "ciblage_source": "fiche"
   },
   {
    "id": "loreal-professionnel--shampoing-reparateur-moleculaire-sans-sulfate",
@@ -234,13 +241,18 @@
    "cheveux_cibles": [
     "abimes"
    ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "<p>Lorsque le cheveu est ab&icirc;m&eacute;, sa structure mol&eacute;culaire compos&eacute;e de peptides est atteinte. La plupart des peptides sont trop gros pour &ecirc;tre r&eacute;inject&eacute;s, rendant les dommages presque irr&eacute;versibles. </p> <p>Pour la premi&egrave;re fois, la Recherche Avanc&eacute;e L'Or&eacute;al a r&eacute;ussi &agrave; d&eacute;composer les peptides, pour r&eacute;injecter leurs composants s&eacute;paremment &agrave; l'int&eacute;rieur de la fibre&sup1;. Une f",
-   "claims": [
-    "reparateur"
+   "actifs": [
+    "peptides"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "ingredients": null,
+   "description": "Lorsque le cheveu est abîmé, sa structure moléculaire composée de peptides est atteinte. La plupart des peptides sont trop gros pour être réinjectés, rendant les dommages presque irréversibles. Pour la première fois, la Recherche Avancée L'Oréal a réussi à décomposer les peptides, pour réinjecter leurs composants séparemment à l'intérieur de la fibre¹. Une f",
+   "claims": [
+    "reparation",
+    "sans-sulfate"
+   ],
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/shampoing-reparateur-moleculaire-sans-sulfate.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--exclusivite-salon-concentre-restaurateur-et-illuminateur",
@@ -255,14 +267,20 @@
    "image_local": "public/scan/products-cheveux/loreal-professionnel/exclusivite-salon-concentre-restaurateur-et-illuminateur.jpg",
    "categorie": "autre-cheveux",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "abimes"
+   ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>Enrichi en Complexe Gluco-polyphénol.<br> Utilisation possible à chaque visite en salon.<br> La fibre est plus résistante pour éviter la casse.<br> Les cheveux sont instantanément plus brillants, doux et forts.</p>",
+   "description": "Enrichi en Complexe Gluco-polyphénol. Utilisation possible à chaque visite en salon. La fibre est plus résistante pour éviter la casse. Les cheveux sont instantanément plus brillants, doux et forts.",
    "claims": [
+    "reparation",
+    "fortifiant",
     "brillance"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/exclusivite-salon-concentre-restaurateur-et-illuminateur.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--masque-nutritif-et-illuminateur",
@@ -282,12 +300,14 @@
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>Nourrit en douceur. <br> Redonne brillance et éclat.</p>",
+   "description": "Nourrit en douceur. Redonne brillance et éclat.",
    "claims": [
-    "nourrissant",
+    "nutrition",
     "brillance"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/masque-nutritif-et-illuminateur.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "loreal-professionnel--shampoing-restaurateur-illuminateur",
@@ -302,14 +322,18 @@
    "image_local": "public/scan/products-cheveux/loreal-professionnel/shampoing-restaurateur-illuminateur.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "fins"
+   ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>Lave sans alourdir.<br> Réhausse la brillance.</p>",
+   "description": "Lave sans alourdir. Réhausse la brillance.",
    "claims": [
     "brillance"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/shampoing-restaurateur-illuminateur.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--soin-correcteur-anti-jaunissement",
@@ -329,11 +353,14 @@
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>Crème correctrice anti-jaunissement pour les blonds et les mèches 7 à 10.</p>",
+   "description": "Crème correctrice anti-jaunissement pour les blonds et les mèches 7 à 10.",
    "claims": [
-    "protection-couleur"
+    "protection-couleur",
+    "anti-jaunissement"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/soin-correcteur-anti-jaunissement.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--creme-en-gelee-activatrice-de-definition",
@@ -349,18 +376,21 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
-    "boucles"
+    "boucles",
+    "crepus"
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p> Le soin Activateur de Définition sans Rinçage avec Protection Thermique Curl Expression est conçu pour coiffer et définir les cheveux bouclés à crépus. Il active les boucles pour 12 fois plus de définition et 3 fois plus d’hydratation*. Elles sont parfaitement définies de la racine jusqu’aux pointes, sans frisottis. Il protège également les cheveux de la chaleur jusqu’à 230°C*. <br><br> <em style=\"font-size: 11px; color: #a9a9a9; font-style: normal; line-height: 15px; display: inline-block;\"",
+   "description": "Le soin Activateur de Définition sans Rinçage avec Protection Thermique Curl Expression est conçu pour coiffer et définir les cheveux bouclés à crépus. Il active les boucles pour 12 fois plus de définition et 3 fois plus d’hydratation*. Elles sont parfaitement définies de la racine jusqu’aux pointes, sans frisottis. Il protège également les cheveux de la chaleur jusqu’à 230°C*. <em style=\"font-size: 11px; color: #a9a9a9; font-style: normal; line-height: 15px; display: inline-block;\"",
    "claims": [
-    "hydratant",
-    "lissant",
-    "definition-boucles"
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles",
+    "protection-chaleur"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/creme-en-gelee-activatrice-de-definition.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--creme-en-mousse-10-en-1",
@@ -376,15 +406,20 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "boucles"
+    "boucles",
+    "crepus"
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>En un seul geste, vos cheveux bouclés à crépus profitent des 10 bienfaits de cette Crème-en-mousse Curl Expression, dont des boucles 11 fois mieux définies* et une hydratation 2 fois plus intense*. Sans résidus, les cheveux restent souples et légers, faciles à coiffer. <br><br> <em style=\"font-size: 11px; color: #a9a9a9; font-style: normal; line-height: 15px; display: inline-block;\">*Tests instrumentaux.</em></p>",
+   "description": "En un seul geste, vos cheveux bouclés à crépus profitent des 10 bienfaits de cette Crème-en-mousse Curl Expression, dont des boucles 11 fois mieux définies* et une hydratation 2 fois plus intense*. Sans résidus, les cheveux restent souples et légers, faciles à coiffer. *Tests instrumentaux.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "definition-boucles",
+    "purifiant"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/creme-en-mousse-10-en-1.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--creme-hydratante-intensive-longue-duree",
@@ -401,17 +436,22 @@
    "etape": 3,
    "cheveux_cibles": [
     "secs",
-    "boucles"
+    "boucles",
+    "crepus"
    ],
    "actifs": [
     "urée"
    ],
    "ingredients": null,
-   "description": "<p>Le Soin Hydratant Intensif Longue Durée sans Rinçage est conçu pour définir les cheveux bouclés à crépus. Il hydrate intensément toutes les boucles, même les plus sèches et déshydratées, pour une chevelure durablement douce et soyeuse et 2 fois plus hydratée après 24h*. Il offre en plus une protection contre la chaleur jusqu’à 230°C*. <br><br> <em style=\"font-size: 11px; color: #a9a9a9; font-style: normal; line-height: 15px; display: inline-block;\">*Tests instrumentaux.</em></p>",
+   "description": "Le Soin Hydratant Intensif Longue Durée sans Rinçage est conçu pour définir les cheveux bouclés à crépus. Il hydrate intensément toutes les boucles, même les plus sèches et déshydratées, pour une chevelure durablement douce et soyeuse et 2 fois plus hydratée après 24h*. Il offre en plus une protection contre la chaleur jusqu’à 230°C*. *Tests instrumentaux.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "definition-boucles",
+    "protection-chaleur"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/creme-hydratante-intensive-longue-duree.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--creme-lavante-hydratation-intense",
@@ -427,15 +467,20 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "boucles"
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>Le Shampoing-Cr&egrave;me Hydratation Intense Curl Expression lave en douceur les cheveux boucl&eacute;s pour une hydratation longue dur&eacute;e non alourdissante*. Les boucles sont faciles &agrave; d&eacute;m&ecirc;ler*, les cheveux sont pleins de vitalit&eacute;. <br> <br> <em style=\"font-size: 11px; color: #a9a9a9; font-style: normal; line-height: 15px; display: inline-block;\">*Tests instrumentaux : Cr&egrave;me Lavante Hydratation Intense + Masque Riche Hydratant Intensif.</em></p>",
+   "description": "Le Shampoing-Crème Hydratation Intense Curl Expression lave en douceur les cheveux bouclés pour une hydratation longue durée non alourdissante*. Les boucles sont faciles à démêler*, les cheveux sont pleins de vitalité. *Tests instrumentaux : Crème Lavante Hydratation Intense + Masque Riche Hydratant Intensif.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "definition-boucles",
+    "demelant"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/creme-lavante-hydratation-intense.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--eau-de-soin-ravivatrice-de-boucles",
@@ -451,17 +496,19 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
-    "boucles"
+    "boucles",
+    "crepus"
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>Ce soin Ravivateur de Boucles Curl Expression est conçu pour raviver les cheveux bouclés à crépus. Il réveille instantanément les boucles pour 6 fois plus de définition et offre une protection anti-frisottis pendant 48h*. <br><br> <em style=\"font-size: 11px; color: #a9a9a9; font-style: normal; line-height: 15px; display: inline-block;\">*Test instrumental.</em></p>",
+   "description": "Ce soin Ravivateur de Boucles Curl Expression est conçu pour raviver les cheveux bouclés à crépus. Il réveille instantanément les boucles pour 6 fois plus de définition et offre une protection anti-frisottis pendant 48h*. *Test instrumental.",
    "claims": [
-    "lissant",
+    "anti-frisottis",
     "definition-boucles"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/eau-de-soin-ravivatrice-de-boucles.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--gelee-lavante-anti-residus",
@@ -477,15 +524,21 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "boucles"
+    "secs",
+    "boucles",
+    "crepus"
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>La Gelée Lavante Anti-Résidus Curl Expression est conçue pour laver les cheveux bouclés à crépus. Elle élimine en douceur les impuretés accumulées durant la journée et les résidus tout en hydratant* la fibre capillaire. <br> <br> <em style=\"font-size: 11px; color: #a9a9a9; font-style: normal; line-height: 15px; display: inline-block;\">*Test instrumental : Gelée Lavante Anti-Résidus + Crème Lavante Hydratation Intense + Masque Hydratant Intensif Riche.</em></p>",
+   "description": "La Gelée Lavante Anti-Résidus Curl Expression est conçue pour laver les cheveux bouclés à crépus. Elle élimine en douceur les impuretés accumulées durant la journée et les résidus tout en hydratant* la fibre capillaire. *Test instrumental : Gelée Lavante Anti-Résidus + Crème Lavante Hydratation Intense + Masque Hydratant Intensif Riche.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "definition-boucles",
+    "purifiant"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/gelee-lavante-anti-residus.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--masque-hydratant-intensif",
@@ -501,18 +554,24 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
-    "epais",
-    "boucles"
+    "secs",
+    "boucles",
+    "crepus"
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>Le Masque Hydratant Intensif Curl Expression est conçu pour prendre soin des cheveux bouclés à crépus. Il hydrate intensément et pré-démêle* les cheveux pour un résultat fluide et un toucher naturel. Les cheveux sont 2 fois plus brillants** et les frisottis sont contrôlés. <br><br> <em style=\"font-size: 11px; color: #a9a9a9; font-style: normal; line-height: 15px; display: inline-block;\">*Tests instrumentaux : Gelée Lavante Anti-Résidus + Masque Hydratant Intensif. **Test instrumental.</em></p",
+   "description": "Le Masque Hydratant Intensif Curl Expression est conçu pour prendre soin des cheveux bouclés à crépus. Il hydrate intensément et pré-démêle* les cheveux pour un résultat fluide et un toucher naturel. Les cheveux sont 2 fois plus brillants** et les frisottis sont contrôlés. *Tests instrumentaux : Gelée Lavante Anti-Résidus + Masque Hydratant Intensif. **Test instrumental.</p",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles",
+    "purifiant",
     "brillance",
-    "lissant"
+    "demelant"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/masque-hydratant-intensif.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--masque-riche-hydratant-intensif",
@@ -528,16 +587,22 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
-    "boucles"
+    "secs",
+    "boucles",
+    "crepus"
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>Le Masque Riche Hydratant Intensif Curl Expression est conçu pour prendre soin des cheveux bouclés à crépus. Il hydrate intensément et pré-démêle les cheveux pour un toucher soyeux et enrobé. Les cheveux sont instantanément brillants et sont deux fois plus hydratés*. <br><br> <em style=\"font-size: 11px; color: #a9a9a9; font-style: normal; line-height: 15px; display: inline-block;\">*Tests instrumentaux : Crème Lavante Hydratation Intense + Masque Riche Hydratant Intensif.</em></p>",
+   "description": "Le Masque Riche Hydratant Intensif Curl Expression est conçu pour prendre soin des cheveux bouclés à crépus. Il hydrate intensément et pré-démêle les cheveux pour un toucher soyeux et enrobé. Les cheveux sont instantanément brillants et sont deux fois plus hydratés*. *Tests instrumentaux : Crème Lavante Hydratation Intense + Masque Riche Hydratant Intensif.",
    "claims": [
-    "hydratant",
-    "brillance"
+    "hydratation",
+    "definition-boucles",
+    "brillance",
+    "demelant"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/masque-riche-hydratant-intensif.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--soin-transformatif-lissant",
@@ -553,18 +618,20 @@
    "categorie": "proteine-reconstruction",
    "etape": 4,
    "cheveux_cibles": [
-    "epais",
-    "lisses"
+    "abimes"
    ],
    "actifs": [
     "kératine"
    ],
    "ingredients": null,
-   "description": "<p>Le Soin Transformatif Lissant est formul&eacute; &agrave; base de Keratin Alpha Shaper et de cha&icirc;nes d'acides amin&eacute;s. Ce soin remod&egrave;le les cheveux pour obtenir 2 semaines d'anti-frisottis&sup1; et de douceur&sup1;. Utiliser la routine compl&egrave;te pour un coiffage quotidien 3x plus rapide&sup2;.<br> <br> 70% des femmes d&eacute;clarent que leurs cheveux n&rsquo;ont jamais &eacute;t&eacute; aussi lisses&sup1;. 73% des femmes d&eacute;clarent que leurs cheveux n&rsquo;ont",
+   "description": "Le Soin Transformatif Lissant est formulé à base de Keratin Alpha Shaper et de chaînes d'acides aminés. Ce soin remodèle les cheveux pour obtenir 2 semaines d'anti-frisottis¹ et de douceur¹. Utiliser la routine complète pour un coiffage quotidien 3x plus rapide². 70% des femmes déclarent que leurs cheveux n’ont jamais été aussi lisses¹. 73% des femmes déclarent que leurs cheveux n’ont",
    "claims": [
-    "lissant"
+    "anti-frisottis",
+    "fixation"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/soin-transformatif-lissant.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--masque-disciplinant",
@@ -582,21 +649,24 @@
    "cheveux_cibles": [
     "secs",
     "fins",
-    "epais"
+    "abimes"
    ],
    "actifs": [
     "kératine"
    ],
    "ingredients": null,
-   "description": "<p>Le Masque Disciplinant est formul&eacute; &agrave; base de Keratin Alpha Shaper et de cha&icirc;nes d'acides amin&eacute;s.<br> <br> Ce masque professionnel &agrave; la texture riche nourrit en profondeur tout en remodelant et lissant la k&eacute;ratine du cheveu. Il adoucit et hydrate les cheveux, leur apportant une brillance instantan&eacute;e et un contr&ocirc;le du volume et des frisottis.<br> <br> Utiliser la routine compl&egrave;te pour 2 semaines d'anti-frisottis&sup1; et de douceur po",
+   "description": "Le Masque Disciplinant est formulé à base de Keratin Alpha Shaper et de chaînes d'acides aminés. Ce masque professionnel à la texture riche nourrit en profondeur tout en remodelant et lissant la kératine du cheveu. Il adoucit et hydrate les cheveux, leur apportant une brillance instantanée et un contrôle du volume et des frisottis. Utiliser la routine complète pour 2 semaines d'anti-frisottis¹ et de douceur po",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "brillance",
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
     "volume",
-    "lissant"
+    "texturisant",
+    "brillance"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/masque-disciplinant.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--shampoing-disciplinant",
@@ -613,20 +683,24 @@
    "etape": 1,
    "cheveux_cibles": [
     "fins",
-    "epais"
+    "abimes"
    ],
    "actifs": [
     "kératine"
    ],
    "ingredients": null,
-   "description": "<p>Le Shampoing Disciplinant sans sulfate est formul&eacute; &agrave; base de Keratin Alpha Shaper et de cha&icirc;nes d'acides amin&eacute;s.<br> <br> Ce shampoing &agrave; la texture onctueuse nettoie la fibre en douceur tout en lissant et en renfor&ccedil;ant la k&eacute;ratine des cheveux.<br> Il adoucit et hydrate les cheveux, leur apportant une brillance instantan&eacute;e et un contr&ocirc;le du volume et des frisottis&sup2;.</p> <p><span style=\"font-size: 11px; line-height: 15px; display",
+   "description": "Le Shampoing Disciplinant sans sulfate est formulé à base de Keratin Alpha Shaper et de chaînes d'acides aminés. Ce shampoing à la texture onctueuse nettoie la fibre en douceur tout en lissant et en renforçant la kératine des cheveux. Il adoucit et hydrate les cheveux, leur apportant une brillance instantanée et un contrôle du volume et des frisottis². <span style=\"font-size: 11px; line-height: 15px; display",
    "claims": [
-    "hydratant",
-    "brillance",
+    "hydratation",
+    "anti-frisottis",
     "volume",
-    "lissant"
+    "texturisant",
+    "brillance",
+    "sans-sulfate"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/shampoing-disciplinant.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--serum-lisse-miroir",
@@ -638,24 +712,27 @@
    "price_eur": null,
    "price_source": null,
    "image_source_url": "https://www.lorealprofessionnel.fr/-/media/master/fr/products/packshotphoto/hair-care/keratin-alpha-sleek/lp-kas-2026-serum-50ml-packshot.png",
-   "image_local": null,
+   "image_local": "public/scan/products-cheveux/loreal-professionnel/serum-lisse-miroir.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
     "fins",
-    "epais",
-    "lisses"
+    "abimes"
    ],
    "actifs": [
     "kératine"
    ],
    "ingredients": null,
-   "description": "<p>S&eacute;rum capillaire professionnel formul&eacute; avec 5% de Keratin Sealer qui scelle la k&eacute;ratine des cheveux <b>pour un lissage longue dur&eacute;e</b>, un contr&ocirc;le des frisottis et du volume jusqu&rsquo;&agrave; 10 lavages&sup1;.<br> <br> Il prot&egrave;ge contre <b>l&rsquo;humidit&eacute;</b> (jusqu&rsquo;&agrave; 80% d&rsquo;humidit&eacute; dans l&rsquo;air)&sup1;.<br> Protection thermique jusqu&rsquo;&agrave; 230&deg;C&sup1;. La routine permet d&rsquo;obtenir 2 semaines ",
+   "description": "Sérum capillaire professionnel formulé avec 5% de Keratin Sealer qui scelle la kératine des cheveux pour un lissage longue durée, un contrôle des frisottis et du volume jusqu’à 10 lavages¹. Il protège contre l’humidité (jusqu’à 80% d’humidité dans l’air)¹. Protection thermique jusqu’à 230°C¹. La routine permet d’obtenir 2 semaines",
    "claims": [
+    "anti-frisottis",
     "volume",
-    "lissant"
+    "brillance",
+    "protection-chaleur"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/serum-lisse-miroir.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--creme-haute-protection-sans-rincage",
@@ -670,14 +747,21 @@
    "image_local": "public/scan/products-cheveux/loreal-professionnel/creme-haute-protection-sans-rincage.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "abimes"
+   ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p> Lavage après lavage, le métal pénètre à l'intérieur de vos cheveux. <br> Il crée un risque de casse et impacte la qualité de votre couleur. <br> Concentrée à 1% en Glicoamine, la crème haute protection sans rinçage élimine le métal* et protège la fibre du dépôt de particules, pour empêcher la casse & la couleur de virer. <br> Intensément hydraté et renforcé, le cheveu est protégé contre l'impact des UV, l'oxydation, le brossage et la chaleur jusqu'à 230 °C. <br> <br> <em style=\"font-size: 11",
+   "description": "Lavage après lavage, le métal pénètre à l'intérieur de vos cheveux. Il crée un risque de casse et impacte la qualité de votre couleur. Concentrée à 1% en Glicoamine, la crème haute protection sans rinçage élimine le métal* et protège la fibre du dépôt de particules, pour empêcher la casse & la couleur de virer. Intensément hydraté et renforcé, le cheveu est protégé contre l'impact des UV, l'oxydation, le brossage et la chaleur jusqu'à 230 °C. <em style=\"font-size: 11",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "reparation",
+    "fortifiant"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/creme-haute-protection-sans-rincage.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--shampoing-anti-metal",
@@ -692,12 +776,20 @@
    "image_local": "public/scan/products-cheveux/loreal-professionnel/shampoing-anti-metal.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "abimes"
+   ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>Lavage apr&egrave;s lavage, le m&eacute;tal pr&eacute;sent dans l&rsquo;eau p&eacute;n&egrave;tre &agrave; l&rsquo;int&eacute;rieur de vos cheveux. Il cr&eacute;e de la casse et impacte la qualit&eacute; de votre couleur. Enrichie en Glicoamine, la cr&egrave;me lavante anti-m&eacute;tal nettoie en douceur la fibre et &eacute;limine l&rsquo;accumulation de particules de m&eacute;tal, telles que le cuivre. Sans sulfate, sa texture riche et cr&eacute;meuse se transforme en une mousse onctueuse. ",
-   "claims": [],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "description": "Lavage après lavage, le métal présent dans l’eau pénètre à l’intérieur de vos cheveux. Il crée de la casse et impacte la qualité de votre couleur. Enrichie en Glicoamine, la crème lavante anti-métal nettoie en douceur la fibre et élimine l’accumulation de particules de métal, telles que le cuivre. Sans sulfate, sa texture riche et crémeuse se transforme en une mousse onctueuse.",
+   "claims": [
+    "reparation",
+    "texturisant",
+    "sans-sulfate"
+   ],
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/shampoing-anti-metal.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--huile-concentree-protectrice",
@@ -713,16 +805,22 @@
    "categorie": "huile",
    "etape": 3,
    "cheveux_cibles": [
-    "secs"
+    "secs",
+    "abimes"
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p> Lavage après lavage, le métal présent dans l’eau pénètre à l’intérieur de vos cheveux. Il crée de la casse et impacte la qualité de votre couleur. <br> Enrichie en Glicoamine, cette huile concentrée protège le cheveu du dépôt de particules. </br> Sa texture riche et concentrée est instantanément absorbée par la fibre sans l'alourdir. La couleur est intense et plus brillante. Les cheveux sont nourris et plus forts. <br> Protège de la chaleur jusqu'à 230°C. </p>",
+   "description": "Lavage après lavage, le métal présent dans l’eau pénètre à l’intérieur de vos cheveux. Il crée de la casse et impacte la qualité de votre couleur. Enrichie en Glicoamine, cette huile concentrée protège le cheveu du dépôt de particules. Sa texture riche et concentrée est instantanément absorbée par la fibre sans l'alourdir. La couleur est intense et plus brillante. Les cheveux sont nourris et plus forts. Protège de la chaleur jusqu'à 230°C.",
    "claims": [
-    "nourrissant",
-    "brillance"
+    "nutrition",
+    "reparation",
+    "texturisant",
+    "brillance",
+    "protection-chaleur"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/huile-concentree-protectrice.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--masque-protecteur",
@@ -738,15 +836,20 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
-    "secs"
+    "secs",
+    "abimes"
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p> Lavage apr&egrave;s lavage, le m&eacute;tal pr&eacute;sent dans l&rsquo;eau p&eacute;n&egrave;tre &agrave; l&rsquo;int&eacute;rieur de vos cheveux. Il cr&eacute;e de la casse et impacte la qualit&eacute; de votre couleur.<br> <br> Enrichi en Glicoamine, le masque protecteur prot&egrave;ge la fibre du d&eacute;p&ocirc;t de particules en la rendant moins perm&eacute;able. <br> Il nourrit intens&eacute;ment les cheveux sans les alourdir gr&acirc;ce &agrave; sa texture cr&egrave;me l&eacute;g&eg",
+   "description": "Lavage après lavage, le métal présent dans l’eau pénètre à l’intérieur de vos cheveux. Il crée de la casse et impacte la qualité de votre couleur. Enrichi en Glicoamine, le masque protecteur protège la fibre du dépôt de particules en la rendant moins perméable. Il nourrit intensément les cheveux sans les alourdir grâce à sa texture crème lég&eg",
    "claims": [
-    "nourrissant"
+    "nutrition",
+    "reparation",
+    "texturisant"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/masque-protecteur.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--pre-shampoing-combleur-et-anti-porosite",
@@ -761,12 +864,18 @@
    "image_local": "public/scan/products-cheveux/loreal-professionnel/pre-shampoing-combleur-et-anti-porosite.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "abimes"
+   ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>Lavage apr&egrave;s lavage, le m&eacute;tal pr&eacute;sent dans l'eau p&eacute;n&egrave;tre &agrave; l&rsquo;int&eacute;rieur de la fibre. C'est l'une des causes majeures de casse du cheveu. Mais saviez-vous que les cheveux poreux ont un risque de casse plus &eacute;lev&eacute; ? En effet, ils absorbent 2x plus d&rsquo;eau et donc de m&eacute;tal, menant &agrave; des risques plus &eacute;lev&eacute;s de casse du cheveu. Concentr&eacute; avec 2% de Glicofiller, le Pr&eacute;-Shampoing pr&eacut",
-   "claims": [],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "description": "Lavage après lavage, le métal présent dans l'eau pénètre à l’intérieur de la fibre. C'est l'une des causes majeures de casse du cheveu. Mais saviez-vous que les cheveux poreux ont un risque de casse plus élevé ? En effet, ils absorbent 2x plus d’eau et donc de métal, menant à des risques plus élevés de casse du cheveu. Concentré avec 2% de Glicofiller, le Pré-Shampoing pr&eacut",
+   "claims": [
+    "reparation"
+   ],
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/pre-shampoing-combleur-et-anti-porosite.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--exclusivite-salon-pre-traitement-neutralisateur-anti-metal",
@@ -779,16 +888,21 @@
    "price_source": null,
    "image_source_url": "https://www.lorealprofessionnel.fr/-/media/master/fr/product-and-ranges-assets/metal-detox/md5.png",
    "image_local": "public/scan/products-cheveux/loreal-professionnel/exclusivite-salon-pre-traitement-neutralisateur-anti-metal.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
+   "categorie": "coloration-soin",
+   "etape": 2,
    "cheveux_cibles": [
-    "colores"
+    "colores",
+    "abimes"
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p> Le métal présent à l'intérieur de nos cheveux peut entraîner un risque de casse et une couleur irrégulière lors d'un service de coloration, balayage ou décoloration. <br> Le pré-traitement neutralisateur anti-métal neutralise le métal à l'intérieur de la fibre et protège les cheveux avant la réalisation d'un service de coloration, balayage et décoloration. </br> Grâce à sa formule brevetée, il pénètre à l'intérieur de la fibre et permet d'obtenir des résultats impressionnants : le résultat c",
-   "claims": [],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "description": "Le métal présent à l'intérieur de nos cheveux peut entraîner un risque de casse et une couleur irrégulière lors d'un service de coloration, balayage ou décoloration. Le pré-traitement neutralisateur anti-métal neutralise le métal à l'intérieur de la fibre et protège les cheveux avant la réalisation d'un service de coloration, balayage et décoloration. Grâce à sa formule brevetée, il pénètre à l'intérieur de la fibre et permet d'obtenir des résultats impressionnants : le résultat c",
+   "claims": [
+    "reparation"
+   ],
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/exclusivite-salon-pre-traitement-neutralisateur-anti-metal.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--exclusivite-salon-prolonger-concentre-combleur-de-pointes",
@@ -804,16 +918,17 @@
    "categorie": "autre-cheveux",
    "etape": 3,
    "cheveux_cibles": [
-    "fins",
-    "epais"
+    "fins"
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>Utilisation possible à chaque visite en salon. <br>La fibre est épaissie, les pointes sont comblées et plus fortes.</p>",
+   "description": "Utilisation possible à chaque visite en salon. La fibre est épaissie, les pointes sont comblées et plus fortes.",
    "claims": [
     "volume"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/exclusivite-salon-prolonger-concentre-combleur-de-pointes.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--creme-10-en-1-sans-rincage",
@@ -831,9 +946,13 @@
    "cheveux_cibles": [],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>Protection contre la chaleur jusqu’à 230 °C</p>",
-   "claims": [],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "description": "Protection contre la chaleur jusqu’à 230 °C",
+   "claims": [
+    "protection-chaleur"
+   ],
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/creme-10-en-1-sans-rincage.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--masque-renovateur-de-longueurs",
@@ -851,11 +970,14 @@
    "cheveux_cibles": [],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>Restaure les longueurs et comble les pointes.* <br>Les cheveux sont renforcés et plus brillants.*<br><br> <p><i>*Test instrumental routine complète</i></p>",
+   "description": "Restaure les longueurs et comble les pointes.* Les cheveux sont renforcés et plus brillants.* *Test instrumental routine complète",
    "claims": [
+    "fortifiant",
     "brillance"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/masque-renovateur-de-longueurs.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--prolonger-concentre-unidose",
@@ -871,16 +993,17 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "fins",
-    "epais"
+    "fins"
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>Unidose – En remplacement du masque 1 fois par semaine.<br><br> Épaississement de la fibre après la 1ère application*.</p> <p><i>*Test instrumental après application de shampooing + Concentré combleur</i></p>",
+   "description": "Unidose – En remplacement du masque 1 fois par semaine. Épaississement de la fibre après la 1ère application*. *Test instrumental après application de shampooing + Concentré combleur",
    "claims": [
     "volume"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/prolonger-concentre-unidose.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--shampoing-renovateur-de-longueurs",
@@ -898,298 +1021,13 @@
    "cheveux_cibles": [],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>Restauration instantanée de la fibre.* <br>Les cheveux sont plus forts et plus brillants sur toute la longueur.*<br><br> <i>*Test instrumental routine complète</i></p>",
+   "description": "Restauration instantanée de la fibre.* Les cheveux sont plus forts et plus brillants sur toute la longueur.* *Test instrumental routine complète",
    "claims": [
     "brillance"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
-  },
-  {
-   "id": "loreal-professionnel--anti-frisottis-soin-du-cheveu",
-   "name": "Anti-frisottis - Soin du cheveu",
-   "brand": "loreal-professionnel",
-   "brand_name": "L'Oréal Professionnel",
-   "url": "https://www.lorealprofessionnel.fr/soin-du-cheveu/results/anti-frisottis",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": null,
-   "image_local": null,
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [
-    "epais",
-    "boucles"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "L'Oréal Professionnel | Soin du cheveu - results - anti frissotis - L'expression de vos boucles,version professionnelle - Serie Expert - Boucles",
-   "claims": [
-    "lissant"
-   ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
-  },
-  {
-   "id": "loreal-professionnel--cheveux-gris-conserve-l-eclat",
-   "name": "Cheveux Gris - Conserve l'éclat",
-   "brand": "loreal-professionnel",
-   "brand_name": "L'Oréal Professionnel",
-   "url": "https://www.lorealprofessionnel.fr/soin-du-cheveu/results/cheveux-gris",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": null,
-   "image_local": null,
-   "categorie": "coloration-soin",
-   "etape": 2,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Sublimez vos cheveux gris avec la gamme Silver. Sa formule neutralise les reflets jaunes indésirables et révèle une couleur pure, lumineuse et éclatante.",
-   "claims": [
-    "brillance"
-   ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
-  },
-  {
-   "id": "loreal-professionnel--definition-des-boucles-soin-expert",
-   "name": "Définition des Boucles Soin Expert",
-   "brand": "loreal-professionnel",
-   "brand_name": "L'Oréal Professionnel",
-   "url": "https://www.lorealprofessionnel.fr/soin-du-cheveu/results/definition-des-boucles",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": null,
-   "image_local": null,
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [
-    "epais",
-    "boucles"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Éliminez les frisottis et définissez vos boucles avec nos résultats experts. Obtenez une discipline totale de la fibre pour une chevelure soyeuse et maîtrisée.",
-   "claims": [
-    "lissant",
-    "definition-boucles"
-   ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
-  },
-  {
-   "id": "loreal-professionnel--densite-des-cheveux-soin-du-cheveu",
-   "name": "Densité des cheveux - Soin du cheveu",
-   "brand": "loreal-professionnel",
-   "brand_name": "L'Oréal Professionnel",
-   "url": "https://www.lorealprofessionnel.fr/soin-du-cheveu/results/densit%C3%A9-des-cheveux",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": null,
-   "image_local": null,
-   "categorie": "serum-cuir-chevelu",
-   "etape": 4,
-   "cheveux_cibles": [
-    "fins"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Découvrez les soins densité de L'Oréal Professionnel pour cheveux affinés. Utilisez les gammes Homme, Scalp Advanced et Volumetry pour un volume incroyable.",
-   "claims": [
-    "volume"
-   ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
-  },
-  {
-   "id": "loreal-professionnel--discipline-cheveux-sans-frisottis",
-   "name": "Discipline - Cheveux sans frisottis",
-   "brand": "loreal-professionnel",
-   "brand_name": "L'Oréal Professionnel",
-   "url": "https://www.lorealprofessionnel.fr/soin-du-cheveu/results/discipline",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": null,
-   "image_local": null,
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [
-    "epais"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Discipline- Soin du cheveu par L'Oréal Professionnel. Retrouvez la gamme complète anti frisottis pour tous types de cheveux",
-   "claims": [
-    "lissant"
-   ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
-  },
-  {
-   "id": "loreal-professionnel--illuminer-soin-serie-expert",
-   "name": "Illuminer - Soin - Serie Expert",
-   "brand": "loreal-professionnel",
-   "brand_name": "L'Oréal Professionnel",
-   "url": "https://www.lorealprofessionnel.fr/soin-du-cheveu/results/illuminer",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": null,
-   "image_local": null,
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "L'Oréal Professionnel | Soin du cheveu - results - illuminer - Découvrez les produits L'Oréal Professionnel qui vont révéler toute la brillance de vos cheveux.",
-   "claims": [
-    "brillance"
-   ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
-  },
-  {
-   "id": "loreal-professionnel--nutrition-cheveux-en-meilleure-sante",
-   "name": "Nutrition - Cheveux en meilleure santé",
-   "brand": "loreal-professionnel",
-   "brand_name": "L'Oréal Professionnel",
-   "url": "https://www.lorealprofessionnel.fr/soin-du-cheveu/results/nutrition",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": null,
-   "image_local": null,
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [
-    "secs"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "L'Oréal Professionnel | Nutrition - Soin du cheveu par L'Oréal Professionnel. Retrouvez la gamme complète Nutrition pour tous types de cheveux.",
-   "claims": [
-    "nourrissant"
-   ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
-  },
-  {
-   "id": "loreal-professionnel--protection-des-cheveux-colores-par-l-oreal-professionnel",
-   "name": "Protection des cheveux colorés par L'Oréal Professionnel",
-   "brand": "loreal-professionnel",
-   "brand_name": "L'Oréal Professionnel",
-   "url": "https://www.lorealprofessionnel.fr/soin-du-cheveu/results/protection-de-la-couleur",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": null,
-   "image_local": null,
-   "categorie": "coloration-soin",
-   "etape": 2,
-   "cheveux_cibles": [
-    "colores"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Protégez vos cheveux colorés avec Vitamino A-OX et Shine Blond. Préservez l'éclat et l'intensité de votre couleur tout en apportant une brillance miroir.",
-   "claims": [
-    "brillance"
-   ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
-  },
-  {
-   "id": "loreal-professionnel--traitement-du-cuir-chevelu-serie-expert",
-   "name": "Traitement du cuir chevelu - Serie Expert",
-   "brand": "loreal-professionnel",
-   "brand_name": "L'Oréal Professionnel",
-   "url": "https://www.lorealprofessionnel.fr/soin-du-cheveu/results/protection-du-cuir-chevelu-",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": null,
-   "image_local": null,
-   "categorie": "serum-cuir-chevelu",
-   "etape": 4,
-   "cheveux_cibles": [
-    "cuir-chevelu-sensible"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Offrez un soin expert à votre cuir chevelu avec Scalp Advanced. Des soins dermo-professionnels pour purifier, apaiser et revitaliser votre cuir chevelu.",
-   "claims": [
-    "apaisant",
-    "purifiant"
-   ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
-  },
-  {
-   "id": "loreal-professionnel--protection-solaire-serie-expert",
-   "name": "Protection solaire - Serie Expert",
-   "brand": "loreal-professionnel",
-   "brand_name": "L'Oréal Professionnel",
-   "url": "https://www.lorealprofessionnel.fr/soin-du-cheveu/results/protection-solaire",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": null,
-   "image_local": null,
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Protégez vos cheveux des rayons UV et du sel avec nos soins solaires. Préservez l'hydratation et l'éclat de votre chevelure pendant toute la saison estivale.",
-   "claims": [
-    "hydratant",
-    "brillance"
-   ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
-  },
-  {
-   "id": "loreal-professionnel--reparation-soin-du-cheveux-serie-expert",
-   "name": "Réparation - Soin du cheveux - Serie Expert",
-   "brand": "loreal-professionnel",
-   "brand_name": "L'Oréal Professionnel",
-   "url": "https://www.lorealprofessionnel.fr/soin-du-cheveu/results/r%C3%A9paration",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": null,
-   "image_local": null,
-   "categorie": "proteine-reconstruction",
-   "etape": 4,
-   "cheveux_cibles": [
-    "abimes"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Réparez vos cheveux avec la gamme Soin Réparer de L'Oréal Professionnel. Reconstruisez la fibre capillaire pour retrouver une douceur et une force absolues.",
-   "claims": [
-    "reparateur"
-   ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
-  },
-  {
-   "id": "loreal-professionnel--volume-cheveux-trop-plats-ou-trop-fins",
-   "name": "Volume - Cheveux trop plats ou trop fins",
-   "brand": "loreal-professionnel",
-   "brand_name": "L'Oréal Professionnel",
-   "url": "https://www.lorealprofessionnel.fr/soin-du-cheveu/results/volume",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": null,
-   "image_local": null,
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [
-    "fins"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Boostez instantanément le volume des cheveux fins. Nos soins dédiés répondent aux besoins spécifiques de votre fibre pour une légèreté et un corps durable.",
-   "claims": [
-    "volume"
-   ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/shampoing-renovateur-de-longueurs.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "loreal-professionnel--aminexil-advanced-programme-activateur-anti-chute",
@@ -1200,11 +1038,12 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": null,
    "price_source": null,
-   "image_source_url": null,
-   "image_local": null,
+   "image_source_url": "https://www.lorealprofessionnel.fr/-/media/master/fr/products/packshotphoto/hair-care/scalp/ap4.png",
+   "image_local": "public/scan/products-cheveux/loreal-professionnel/aminexil-advanced-programme-activateur-anti-chute.jpg",
    "categorie": "traitement-chute",
    "etape": 4,
    "cheveux_cibles": [
+    "fins",
     "chute"
    ],
    "actifs": [
@@ -1215,7 +1054,9 @@
    "claims": [
     "anti-chute"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/aminexil-advanced-programme-activateur-anti-chute.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "loreal-professionnel--argile-2-en-1-purifiante-anti-gras",
@@ -1235,36 +1076,14 @@
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>La production excessive de sébum peut saturer le cuir chevelu qui devient gras, cet excès de sébum est ensuite transféré aux cheveux de la racine vers la pointe. <br> C'est un cercle vicieux et vous voulez en sortir.</p>",
+   "description": "La production excessive de sébum peut saturer le cuir chevelu qui devient gras, cet excès de sébum est ensuite transféré aux cheveux de la racine vers la pointe. C'est un cercle vicieux et vous voulez en sortir.",
    "claims": [
-    "purifiant"
+    "purifiant",
+    "anti-gras"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
-  },
-  {
-   "id": "loreal-professionnel--recharge-shampoing-dermo-regulateur-anti-inconfort",
-   "name": "Recharge Shampoing dermo-régulateur Anti-inconfort",
-   "brand": "loreal-professionnel",
-   "brand_name": "L'Oréal Professionnel",
-   "url": "https://www.lorealprofessionnel.fr/soin-du-cheveu/scalp-advanced/refill-shampoing-dermo-regulateur-anti-inconfort",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": "https://www.lorealprofessionnel.fr/-/media/master/fr/product-and-ranges-assets/scalp-advanced/refill-sa.png",
-   "image_local": "public/scan/products-cheveux/loreal-professionnel/recharge-shampoing-dermo-regulateur-anti-inconfort.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [
-    "cuir-chevelu-sensible"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "<p style=\"color: #333333; margin: 0in;\">Le Shampoing Dermo-R&eacute;gulateur Anti-Inconfort Scalp Advanced de L&rsquo;Or&eacute;al Professionnel a &eacute;t&eacute; formul&eacute; pour les cuirs chevelus sensibles sujets aux d&eacute;mangeaisons. Il va donc hydrater les cheveux et apaiser les inconforts du cuir chevelu pour vous &eacute;pargner cette d&eacute;sagr&eacute;able sensation.</p> <p style=\"color: #333333; margin: 0in;\">Les inconforts du cuir chevelu peuvent &ecirc;tre caus&eacute;s pa",
-   "claims": [
-    "hydratant",
-    "apaisant"
-   ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/argile-2-en-1-purifiante-anti-gras.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--serum-densifiant",
@@ -1280,16 +1099,20 @@
    "categorie": "traitement-chute",
    "etape": 4,
    "cheveux_cibles": [
+    "fins",
     "chute"
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>La perte de densité capillaire ne se déclenche pas du jour au lendemain. Chez les hommes, par exemple, elle se fait progressivement au niveau des tempes ou au milieu de la tête. C’est un cercle vicieux et vous voulez en sortir. Ce sérum densifiant cheveux est une solution pour vous aider à avoir des cheveux en apparence plus denses. </p>",
+   "description": "La perte de densité capillaire ne se déclenche pas du jour au lendemain. Chez les hommes, par exemple, elle se fait progressivement au niveau des tempes ou au milieu de la tête. C’est un cercle vicieux et vous voulez en sortir. Ce sérum densifiant cheveux est une solution pour vous aider à avoir des cheveux en apparence plus denses.",
    "claims": [
     "volume",
+    "densifiant",
     "anti-chute"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/serum-densifiant.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--shampoing-densifiant",
@@ -1305,16 +1128,20 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "fins",
     "chute"
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>La perte de densité capillaire ne se déclenche pas du jour au lendemain. Chez les hommes, par exemple, elle se fait progressivement au niveau des tempes ou au milieu de la tête. C’est un cercle vicieux et vous voulez en sortir. Ce shampoing densifiant cheveux est une solution pour vous aider à avoir des cheveux en apparence plus denses. </p>",
+   "description": "La perte de densité capillaire ne se déclenche pas du jour au lendemain. Chez les hommes, par exemple, elle se fait progressivement au niveau des tempes ou au milieu de la tête. C’est un cercle vicieux et vous voulez en sortir. Ce shampoing densifiant cheveux est une solution pour vous aider à avoir des cheveux en apparence plus denses.",
    "claims": [
     "volume",
+    "densifiant",
     "anti-chute"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/shampoing-densifiant.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--shampoing-dermo-clarifiant-anti-pelliculaire",
@@ -1336,11 +1163,15 @@
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>Les pellicules se caractérisent par une augmentation de la desquamation naturelle du cuir chevelu, entraînant une accumulation visible de squames secs ou gras.</p>",
+   "description": "Les pellicules se caractérisent par une augmentation de la desquamation naturelle du cuir chevelu, entraînant une accumulation visible de squames secs ou gras.",
    "claims": [
-    "anti-pellicules"
+    "antipelliculaire",
+    "purifiant",
+    "anti-gras"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/shampoing-dermo-clarifiant-anti-pelliculaire.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--shampoing-dermo-purifiant-anti-gras",
@@ -1360,11 +1191,15 @@
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p> La pollution, le stress et une mauvaise alimentation favorisent l'exc&egrave;s du s&eacute;bum qui peut saturer le cuir chevelu. Cet exc&egrave;s de s&eacute;bum est ensuite transf&eacute;r&eacute; aux cheveux de la racine vers la pointe cr&eacute;ant cet effet gras. Le shampoing dermo-purifiant Scalp Advanced va venir att&eacute;nuer ce ph&eacute;nom&egrave;ne.&nbsp;</p>",
+   "description": "La pollution, le stress et une mauvaise alimentation favorisent l'excès du sébum qui peut saturer le cuir chevelu. Cet excès de sébum est ensuite transféré aux cheveux de la racine vers la pointe créant cet effet gras. Le shampoing dermo-purifiant Scalp Advanced va venir atténuer ce phénomène.",
    "claims": [
-    "purifiant"
+    "purifiant",
+    "anti-gras",
+    "anti-pollution"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/shampoing-dermo-purifiant-anti-gras.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--serum-activateur-anti-chute-fortifiant",
@@ -1376,20 +1211,23 @@
    "price_eur": null,
    "price_source": null,
    "image_source_url": "https://www.lorealprofessionnel.fr/-/media/master/fr/lancements/2023/c1/pdp-scalp/sa3.png",
-   "image_local": null,
+   "image_local": "public/scan/products-cheveux/loreal-professionnel/serum-activateur-anti-chute-fortifiant.jpg",
    "categorie": "traitement-chute",
    "etape": 4,
    "cheveux_cibles": [
+    "fins",
     "chute"
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p> Diverses causes peuvent être à l’origine d’une chute de cheveux. Chez les hommes, il s’agit souvent d’un héritage génétique ou d’hormones masculines qui accélèrent le cycle de vie des cheveux. Chez les femmes, cela peut également être hormonal, lié au stress ou causé par d’autres facteurs. C’est un cercle vicieux et vous voulez en sortir. Ce traitement anti-chute de cheveux peut être une solution adaptée.</p>",
+   "description": "Diverses causes peuvent être à l’origine d’une chute de cheveux. Chez les hommes, il s’agit souvent d’un héritage génétique ou d’hormones masculines qui accélèrent le cycle de vie des cheveux. Chez les femmes, cela peut également être hormonal, lié au stress ou causé par d’autres facteurs. C’est un cercle vicieux et vous voulez en sortir. Ce traitement anti-chute de cheveux peut être une solution adaptée.",
    "claims": [
-    "anti-chute",
-    "fortifiant"
+    "fortifiant",
+    "anti-chute"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/serum-activateur-anti-chute-fortifiant.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "loreal-professionnel--traitement-apaisant-intense-anti-inconfort",
@@ -1410,11 +1248,14 @@
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>L'oxydation du sébum et les micro-fissures présentes sur la surface du cuir chevelu peuvent créer des sensations de démengeaisons, picotements et brûlures. C'est un cercle vicieux et vous voulez en sortir.</p>",
+   "description": "L'oxydation du sébum et les micro-fissures présentes sur la surface du cuir chevelu peuvent créer des sensations de démengeaisons, picotements et brûlures. C'est un cercle vicieux et vous voulez en sortir.",
    "claims": [
-    "apaisant"
+    "apaisant-cuir-chevelu",
+    "anti-gras"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/traitement-apaisant-intense-anti-inconfort.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--sensi-balance-soin-du-cheveu-serie-expert",
@@ -1425,8 +1266,8 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": null,
    "price_source": null,
-   "image_source_url": null,
-   "image_local": null,
+   "image_source_url": "https://www.lorealprofessionnel.fr/-/media/master/fr/product-and-ranges-assets/sensi-balance/sb.png",
+   "image_local": "public/scan/products-cheveux/loreal-professionnel/sensi-balance-soin-du-cheveu-serie-expert.jpg",
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
@@ -1436,9 +1277,11 @@
    "ingredients": null,
    "description": "L'Oréal Professionnel | Sensi balance 2021 - shampoing dermo protecteur apaisant, réduit les inconforts du cuir chevelu. Formule lavante douce.",
    "claims": [
-    "apaisant"
+    "apaisant-cuir-chevelu"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/sensi-balance-soin-du-cheveu-serie-expert.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "loreal-professionnel--shampoing-dejaunissant",
@@ -1456,11 +1299,13 @@
    "cheveux_cibles": [],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>Con&ccedil;u pour toutes les natures de cheveux, le Shampoing Silver embellit les teintes grises et blanches &agrave; la perfection. Ses pigments violets aident &agrave; &eacute;liminer les reflets jaunes ou cuivr&eacute;s non voulus, pr&eacute;servant et sublimant ainsi les cheveux, plus radieux que jamais.&nbsp;</p> <p>Enrichi en magn&eacute;sium ac&eacute;tate, le Shampoing Silver de L'Or&eacute;al Professionnel offre plus de brillance. Le cheveu retrouve sa l&eacute;g&egrave;ret&eacute; e",
+   "description": "Conçu pour toutes les natures de cheveux, le Shampoing Silver embellit les teintes grises et blanches à la perfection. Ses pigments violets aident à éliminer les reflets jaunes ou cuivrés non voulus, préservant et sublimant ainsi les cheveux, plus radieux que jamais. Enrichi en magnésium acétate, le Shampoing Silver de L'Oréal Professionnel offre plus de brillance. Le cheveu retrouve sa légèreté e",
    "claims": [
     "brillance"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/shampoing-dejaunissant.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "loreal-professionnel--lait-10-en-1-sans-rincage",
@@ -1478,11 +1323,13 @@
    "cheveux_cibles": [],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>Referme les écailles.<br> Booste la brillance.<br> Fixe la couleur.</p>",
+   "description": "Referme les écailles. Booste la brillance. Fixe la couleur.",
    "claims": [
     "brillance"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/lait-10-en-1-sans-rincage.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "loreal-professionnel--masque-fixateur-de-couleur",
@@ -1499,16 +1346,21 @@
    "etape": 2,
    "cheveux_cibles": [
     "secs",
+    "fins",
     "abimes"
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>Protection et réparation intenses sans alourdir. Le cheveu est renforcé, nourri et doux. <br>Texture gelée.</p>",
+   "description": "Protection et réparation intenses sans alourdir. Le cheveu est renforcé, nourri et doux. Texture gelée.",
    "claims": [
-    "nourrissant",
-    "reparateur"
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "texturisant"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/masque-fixateur-de-couleur.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--shampoing-fixateur-de-couleur",
@@ -1524,16 +1376,21 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "colores",
     "abimes",
     "chute"
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p style=\"margin: 0in;\">En manque d'&eacute;clat, fragilis&eacute;s, vos cheveux color&eacute;s n&eacute;cessitent des soins en permanence. Le shampoing Vitamino Color de L'Or&eacute;al Professionnel est compos&eacute; de Resveratrol, un puissant antioxydant au pouvoir redensifiant. Cet actif prot&egrave;ge &agrave; la fois la couleur et la fibre capillaire des cheveux color&eacute;s, m&eacute;ch&eacute;s pour que votre couleur reste &eacute;clatante plus longtemps et que vos cheveux soient plus",
+   "description": "En manque d'éclat, fragilisés, vos cheveux colorés nécessitent des soins en permanence. Le shampoing Vitamino Color de L'Oréal Professionnel est composé de Resveratrol, un puissant antioxydant au pouvoir redensifiant. Cet actif protège à la fois la couleur et la fibre capillaire des cheveux colorés, méchés pour que votre couleur reste éclatante plus longtemps et que vos cheveux soient plus",
    "claims": [
-    "anti-chute"
+    "densifiant",
+    "anti-chute",
+    "brillance"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/shampoing-fixateur-de-couleur.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--concentre-fixateur-de-brillance",
@@ -1549,16 +1406,19 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "colores",
     "abimes"
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p style=\"margin: 0in;\">En manque d'&eacute;clat, fragilis&eacute;s, vos cheveux color&eacute;s n&eacute;cessitent des soins en permanence. </p> <p style=\"margin: 0in;\">Enrichi en Resveratrol, ce soin renforce la fibre pour une protection optimale permettant une brillance intense et durable des cheveux color&eacute;s. La fibre est incroyablement l&eacute;g&egrave;re, soyeuse et baign&eacute;e de lumi&egrave;re.</p>",
+   "description": "En manque d'éclat, fragilisés, vos cheveux colorés nécessitent des soins en permanence. Enrichi en Resveratrol, ce soin renforce la fibre pour une protection optimale permettant une brillance intense et durable des cheveux colorés. La fibre est incroyablement légère, soyeuse et baignée de lumière.",
    "claims": [
-    "brillance",
-    "fortifiant"
+    "fortifiant",
+    "brillance"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/concentre-fixateur-de-brillance.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--soin-concentre-fixateur-du-spectre-coloriel",
@@ -1574,13 +1434,17 @@
    "categorie": "autre-cheveux",
    "etape": 3,
    "cheveux_cibles": [],
-   "actifs": [],
+   "actifs": [
+    "acide citrique"
+   ],
    "ingredients": null,
-   "description": "<p>Le Soin Vitamino Color Spectrum de L'Or&eacute;al Professionnel est formul&eacute; avec de l'Acide F&eacute;rulique + 2,5% d'Acide Citrique. Les formules aident &agrave; garder les colorants &agrave; l'int&eacute;rieur de la fibre et pr&eacute;server la couleur intense du premier jour jusqu'&agrave; 100 jours&sup1;.</p> <p>Le r&eacute;sultat sur les 5 dimensions de la&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; couleur&sup2; : </p> <p>1. Brillance : une brillance ultra intense. 2. Saturation : u",
+   "description": "Le Soin Vitamino Color Spectrum de L'Oréal Professionnel est formulé avec de l'Acide Férulique + 2,5% d'Acide Citrique. Les formules aident à garder les colorants à l'intérieur de la fibre et préserver la couleur intense du premier jour jusqu'à 100 jours¹. Le résultat sur les 5 dimensions de la couleur² : 1. Brillance : une brillance ultra intense. 2. Saturation : u",
    "claims": [
     "brillance"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/soin-concentre-fixateur-du-spectre-coloriel.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "loreal-professionnel--masque-fixateur-du-spectre-coloriel",
@@ -1595,37 +1459,20 @@
    "image_local": "public/scan/products-cheveux/loreal-professionnel/masque-fixateur-du-spectre-coloriel.jpg",
    "categorie": "masque",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "epais"
+   ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p><span style=\"background-color: #ffffff; color: #1a1f26;\"><em>Prim&eacute; aux Victoires de la Beaut&eacute; 2025-2026, cat&eacute;gorie Top Innovation.</em>&nbsp;<br> <br> Masque riche et cr&eacute;meux con&ccedil;u pour les cheveux &eacute;pais, offrant une brillance miroir instantan&eacute;e, de l&rsquo;hydratation et de la douceur, avec des r&eacute;sultats durables jusqu&rsquo;&agrave; 72 heures.</span></p> <p><span style=\"background-color: #ffffff; color: #1a1f26;\">Le Masque Vitamino Col",
+   "description": "Primé aux Victoires de la Beauté 2025-2026, catégorie Top Innovation. Masque riche et crémeux conçu pour les cheveux épais, offrant une brillance miroir instantanée, de l’hydratation et de la douceur, avec des résultats durables jusqu’à 72 heures. Le Masque Vitamino Col",
    "claims": [
-    "hydratant",
+    "hydratation",
     "brillance"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
-  },
-  {
-   "id": "loreal-professionnel--recharge-shampoing-fixateur-du-spectre-coloriel",
-   "name": "Recharge Shampoing Fixateur du Spectre Coloriel",
-   "brand": "loreal-professionnel",
-   "brand_name": "L'Oréal Professionnel",
-   "url": "https://www.lorealprofessionnel.fr/soin-du-cheveu/vitamino-color-spectrum/refill-shampoing-protecteur",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": "https://www.lorealprofessionnel.fr/-/media/master/product-and-ranges-assets/hair-care/vitamino-color-spectrum/refill-vcs.png",
-   "image_local": "public/scan/products-cheveux/loreal-professionnel/recharge-shampoing-fixateur-du-spectre-coloriel.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "<p>Le Shampoing Vitamino Color Spectrum est formul&eacute; avec de l'acide f&eacute;rulique et de l'acide citrique. La routine aide &agrave; garder les colorants au sein de la fibre pour une couleur intense du premier jour pr&eacute;serv&eacute;e jusqu'&agrave; 100 jours&sup1;.</p> <p>Le r&eacute;sultat sur les 5 dimensions de la&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; couleur&sup2; : </p> <p>1. Brillance : une brillance ultra intense. 2. Saturation : une couleur riche et vibrante. 3. Contraste : une ",
-   "claims": [
-    "brillance"
-   ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/masque-fixateur-du-spectre-coloriel.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--shampoing-neutralisant-bleu",
@@ -1643,9 +1490,13 @@
    "cheveux_cibles": [],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>Le Shampoing Neutralisant Bleu Vitamino Color Spectrum neutralise instantan&eacute;ment les reflets orang&eacute;s ind&eacute;sirables des cheveux ch&acirc;tain &agrave; ch&acirc;tain clair. Le shampoing est formul&eacute; avec des colorants bleus et des agents de soin. La routine aide &agrave; garder les colorants dans la fibre pour une couleur intense du premier jour jusqu'&agrave; 100 jours&sup1;. </p> <p>Le r&eacute;sultat sur les 5 dimensions de la&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp",
-   "claims": [],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "description": "Le Shampoing Neutralisant Bleu Vitamino Color Spectrum neutralise instantanément les reflets orangés indésirables des cheveux châtain à châtain clair. Le shampoing est formulé avec des colorants bleus et des agents de soin. La routine aide à garder les colorants dans la fibre pour une couleur intense du premier jour jusqu'à 100 jours¹. Le résultat sur les 5 dimensions de la",
+   "claims": [
+    "anti-jaunissement"
+   ],
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/shampoing-neutralisant-bleu.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--shampoing-neutralisant-vert",
@@ -1663,9 +1514,11 @@
    "cheveux_cibles": [],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>Le Shampoing Neutralisant Vert Vitamino Color Spectrum neutralise instantan&eacute;ment les reflets rouges ind&eacute;sirables des cheveux ch&acirc;tain fonc&eacute; &agrave; bruns. Le shampoing est formul&eacute; avec des colorants verts et des agents de soin. La routine aide &agrave; garder les colorants dans la fibre pour une couleur intense du premier jour jusqu'&agrave; 100 jours&sup1;. </p> <p>Le r&eacute;sultat sur les 5 dimensions de la&nbsp; &nbsp; &nbsp; couleur&sup2; : </p> <p>1. B",
+   "description": "Le Shampoing Neutralisant Vert Vitamino Color Spectrum neutralise instantanément les reflets rouges indésirables des cheveux châtain foncé à bruns. Le shampoing est formulé avec des colorants verts et des agents de soin. La routine aide à garder les colorants dans la fibre pour une couleur intense du premier jour jusqu'à 100 jours¹. Le résultat sur les 5 dimensions de la couleur² : 1. B",
    "claims": [],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/shampoing-neutralisant-vert.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "loreal-professionnel--shampoing-neutralisant-violet",
@@ -1685,11 +1538,14 @@
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>Le Shampoing Neutralisant Violet Vitamino Color Spectrum neutralise instantan&eacute;ment les reflets jaunes ind&eacute;sirables des cheveux blonds. Le shampoing est formul&eacute; avec des colorants violets et des agents de soin. La routine aide &agrave; garder les colorants dans la fibre pour une couleur intense du premier jour jusqu'&agrave; 100 jours&sup1;. </p> <p>Le r&eacute;sultat sur les 5 dimensions de la&nbsp; &nbsp; &nbsp; couleur&sup2; : </p> <p>1. Brillance : une brillance ultra ",
+   "description": "Le Shampoing Neutralisant Violet Vitamino Color Spectrum neutralise instantanément les reflets jaunes indésirables des cheveux blonds. Le shampoing est formulé avec des colorants violets et des agents de soin. La routine aide à garder les colorants dans la fibre pour une couleur intense du premier jour jusqu'à 100 jours¹. Le résultat sur les 5 dimensions de la couleur² : 1. Brillance : une brillance ultra",
    "claims": [
-    "brillance"
+    "brillance",
+    "anti-jaunissement"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/shampoing-neutralisant-violet.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--serum-brillance-miroir",
@@ -1701,287 +1557,19 @@
    "price_eur": null,
    "price_source": null,
    "image_source_url": "https://www.lorealprofessionnel.fr/-/media/master/product-and-ranges-assets/hair-care/vitamino-color-spectrum/serum-vcs3.png",
-   "image_local": null,
+   "image_local": "public/scan/products-cheveux/loreal-professionnel/serum-brillance-miroir.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>Lorsque le S&eacute;rum Brillance Miroir Vitamino Color Spectrum de L'Or&eacute;al Professionnel est enrichi de 5% d'Alpha-Silane. Il fournit une brillance instantan&eacute;e et des r&eacute;sultats durables jusqu'&agrave; 10 lavages&sup1;.&nbsp;</p> <p>Formul&eacute; sans eau, l'Alpha-Silane est un ingr&eacute;dient de soin actif qui cr&eacute;e une couche protectrice &agrave; la surface de la fibre capillaire lorsqu'il est activ&eacute; par la chaleur.</p> <p><span style=\"font-size: 11px; c",
+   "description": "Lorsque le Sérum Brillance Miroir Vitamino Color Spectrum de L'Oréal Professionnel est enrichi de 5% d'Alpha-Silane. Il fournit une brillance instantanée et des résultats durables jusqu'à 10 lavages¹. Formulé sans eau, l'Alpha-Silane est un ingrédient de soin actif qui crée une couche protectrice à la surface de la fibre capillaire lorsqu'il est activé par la chaleur. <span style=\"font-size: 11px; c",
    "claims": [
     "brillance"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
-  },
-  {
-   "id": "loreal-professionnel--airlight-pro",
-   "name": "AirLight Pro",
-   "brand": "loreal-professionnel",
-   "brand_name": "L'Oréal Professionnel",
-   "url": "https://www.lorealprofessionnel.fr/styling/airlight-pro/airlight-pro",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": "https://www.lorealprofessionnel.fr/-/media/master/fr/product-and-ranges-assets/airlight-pro/alp_sans_mc.png",
-   "image_local": "public/scan/products-cheveux/loreal-professionnel/airlight-pro.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "<p><strong>R&Eacute;ALISEZ TOUS TYPES DE COIFFURE, SUR TOUS TYPES DE CHEVEUX</strong><br> D&eacute;couvrez AirLight Pro, le 1er s&egrave;che-cheveux &agrave; lumi&egrave;re infrarouge de L&rsquo;Or&eacute;al Professionnel pour s&eacute;cher avec la vitesse de la lumi&egrave;re. <br> Co-d&eacute;velopp&eacute; par des pros de la coiffure et Zuvi, des experts de la tech.</p> <p><strong>[VOS LOOKS PR<strong>&Eacute;</strong>F<strong>&Eacute;</strong>R<strong>&Eacute;</strong>S, POUR TOUS TYPES DE C",
-   "claims": [],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
-  },
-  {
-   "id": "loreal-professionnel--anti-frisottis-styling-durable",
-   "name": "Anti-frisottis - Styling - Durable",
-   "brand": "loreal-professionnel",
-   "brand_name": "L'Oréal Professionnel",
-   "url": "https://www.lorealprofessionnel.fr/styling/results/anti-frisottis",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": null,
-   "image_local": null,
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [
-    "epais",
-    "lisses"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Disciplinez vos cheveux avec la gamme anti-frisottis L'Oréal Professionnel. Obtenez un fini lisse, maîtrisé et durable, même en cas d’humidité extrême.",
-   "claims": [
-    "lissant"
-   ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
-  },
-  {
-   "id": "loreal-professionnel--beach-effect",
-   "name": "Beach Effect",
-   "brand": "loreal-professionnel",
-   "brand_name": "L'Oréal Professionnel",
-   "url": "https://www.lorealprofessionnel.fr/styling/results/beach-effect",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": null,
-   "image_local": null,
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Effet Plage - Styling par L'Oréal Professionnel. Retrouvez la gamme complète Effet Plage pour tous types de cheveux : Beach Waves perm, Wild Stylers.",
-   "claims": [],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
-  },
-  {
-   "id": "loreal-professionnel--brillance-soin-eclat-styling",
-   "name": "Brillance - Soin - Éclat - Styling",
-   "brand": "loreal-professionnel",
-   "brand_name": "L'Oréal Professionnel",
-   "url": "https://www.lorealprofessionnel.fr/styling/results/brillance",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": null,
-   "image_local": null,
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Boostez la luminosité de votre chevelure avec notre gamme brillance. Des soins de styling conçus pour lisser la fibre et révéler un éclat spectaculaire.",
-   "claims": [
-    "brillance"
-   ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
-  },
-  {
-   "id": "loreal-professionnel--wet-effect-effet-mouille-wet-look",
-   "name": "Wet Effect - Effet mouillé - Wet Look",
-   "brand": "loreal-professionnel",
-   "brand_name": "L'Oréal Professionnel",
-   "url": "https://www.lorealprofessionnel.fr/styling/results/effet-mouill%C3%A9",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": null,
-   "image_local": null,
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Effet mouillé - Styling parL'Oréal Professionnel. Retrouvez la gamme complète Effet Mouillé pour tous types de cheveux : Tecni Art et Wet Domination.",
-   "claims": [],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
-  },
-  {
-   "id": "loreal-professionnel--fixation-styling-spray-ou-laque",
-   "name": "Fixation - Styling - Spray ou Laque",
-   "brand": "loreal-professionnel",
-   "brand_name": "L'Oréal Professionnel",
-   "url": "https://www.lorealprofessionnel.fr/styling/results/fixation",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": null,
-   "image_local": null,
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "L'Oréal Professionnel | Fixation - Styling par L'Oréal Professionnel. Retrouvez la gamme complète fixation pour tous types de cheveux .",
-   "claims": [],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
-  },
-  {
-   "id": "loreal-professionnel--straightening-styling-outils-chauffants",
-   "name": "Straightening - Styling - Outils chauffants",
-   "brand": "loreal-professionnel",
-   "brand_name": "L'Oréal Professionnel",
-   "url": "https://www.lorealprofessionnel.fr/styling/results/lissage",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": null,
-   "image_local": null,
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [
-    "epais",
-    "lisses"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Découvrez la gamme Lissage L'Oréal Professionnel avec SteamPod pour des cheveux lisses, brillants et protégés durablement contre les frisottis et l’humidité.",
-   "claims": [
-    "brillance",
-    "lissant"
-   ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
-  },
-  {
-   "id": "loreal-professionnel--nutrition-nourrissants-styling",
-   "name": "Nutrition - Nourrissants - Styling",
-   "brand": "loreal-professionnel",
-   "brand_name": "L'Oréal Professionnel",
-   "url": "https://www.lorealprofessionnel.fr/styling/results/nourishing",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": null,
-   "image_local": null,
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [
-    "secs"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Nutrition - Styling par L'Oréal Professionnel. Retrouvez la gamme complète de produits nourissants pour tous types de cheveux : Tecni.Art, Dual Stylers.",
-   "claims": [
-    "nourrissant"
-   ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
-  },
-  {
-   "id": "loreal-professionnel--texture-coiffage-produits-professionnels",
-   "name": "Texture Coiffage Produits Professionnels",
-   "brand": "loreal-professionnel",
-   "brand_name": "L'Oréal Professionnel",
-   "url": "https://www.lorealprofessionnel.fr/styling/results/texturiser",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": null,
-   "image_local": null,
-   "categorie": "coloration-soin",
-   "etape": 2,
-   "cheveux_cibles": [
-    "colores"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Maîtrisez l'art de la couleur avec nos conseils experts. Tendances blondes, nuances vibrantes et techniques de pros : trouvez votre coloration idéale maintenant.",
-   "claims": [],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
-  },
-  {
-   "id": "loreal-professionnel--gamme-thermo-protectrice-styling",
-   "name": "Gamme Thermo-Protectrice - Styling",
-   "brand": "loreal-professionnel",
-   "brand_name": "L'Oréal Professionnel",
-   "url": "https://www.lorealprofessionnel.fr/styling/results/thermo-protection",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": null,
-   "image_local": null,
-   "categorie": "protection-thermique",
-   "etape": 3,
-   "cheveux_cibles": [
-    "boucles"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Sublimez votre coiffure sans compromettre la santé de vos cheveux. Notre gamme thermo-protectrice crée un bouclier contre la chaleur pour une fibre préservée.",
-   "claims": [
-    "protection-thermique"
-   ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
-  },
-  {
-   "id": "loreal-professionnel--toucher-soyeux-doux-legers-et-hydratez",
-   "name": "Toucher soyeux - doux - légers & hydratez",
-   "brand": "loreal-professionnel",
-   "brand_name": "L'Oréal Professionnel",
-   "url": "https://www.lorealprofessionnel.fr/styling/results/toucher-soyeux",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": null,
-   "image_local": null,
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Toucher soyeux - Styling par L'Oréal Professionnel. Retrouvez la gamme toucher soyeux pour tous types de cheveux : Dual Stylers et Tecni Art.",
-   "claims": [
-    "hydratant"
-   ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
-  },
-  {
-   "id": "loreal-professionnel--volume-cheveux-fins-normaux-et-epais",
-   "name": "Volume - Cheveux fins, normaux & épais",
-   "brand": "loreal-professionnel",
-   "brand_name": "L'Oréal Professionnel",
-   "url": "https://www.lorealprofessionnel.fr/styling/results/volume",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": null,
-   "image_local": null,
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [
-    "fins",
-    "epais"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Créez un volume aérien et durable avec nos produits volumisants. Offrez à vos coiffures un fini plus dense, une légèreté incroyable et une tenue impeccable.",
-   "claims": [
-    "volume"
-   ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/serum-brillance-miroir.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "loreal-professionnel--flex-blowdry-creme-multi-benefices",
@@ -1993,19 +1581,19 @@
    "price_eur": null,
    "price_source": null,
    "image_source_url": "https://www.lorealprofessionnel.fr/-/media/master/fr/product-and-ranges-assets/tecni-art-renovation/flex-blowdry/flex-blowdry-png-vf-(1).png",
-   "image_local": null,
+   "image_local": "public/scan/products-cheveux/loreal-professionnel/flex-blowdry-creme-multi-benefices.jpg",
    "categorie": "protection-thermique",
    "etape": 3,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>La cr&egrave;me&nbsp;multi-b&eacute;n&eacute;fices Flex Blowdry est sp&eacute;cialement con&ccedil;ue pour offrir une protection sup&eacute;rieure et une <strong>long&eacute;vit&eacute; exceptionnelle aux brushings</strong>. Enrichie en prot&eacute;ines v&eacute;g&eacute;tales, la formule professionnelle assure des styles qui durent jusqu'&agrave; 4 jours et jusqu'&agrave; 96 heures de protection anti-frisottis, mais prot&egrave;ge &eacute;galement les cheveux jusqu'&agrave; 230&deg;C lors du",
+   "description": "La crème multi-bénéfices Flex Blowdry est spécialement conçue pour offrir une protection supérieure et une longévité exceptionnelle aux brushings. Enrichie en protéines végétales, la formule professionnelle assure des styles qui durent jusqu'à 4 jours et jusqu'à 96 heures de protection anti-frisottis, mais protège également les cheveux jusqu'à 230°C lors du",
    "claims": [
-    "lissant"
+    "anti-frisottis"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/flex-blowdry-creme-multi-benefices.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--flex-depolish-creme-destructurante",
@@ -2017,7 +1605,7 @@
    "price_eur": null,
    "price_source": null,
    "image_source_url": "https://www.lorealprofessionnel.fr/-/media/master/fr/product-and-ranges-assets/tecni-art-renovation/flex-depolish/flex-depolish1.png",
-   "image_local": null,
+   "image_local": "public/scan/products-cheveux/loreal-professionnel/flex-depolish-creme-destructurante.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
@@ -2025,9 +1613,13 @@
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>Flex Depolish de L'Or&eacute;al Professionnel est une p&acirc;te modulable et d&eacute;structurante. Le must-have pour d&eacute;construire et matifier les cheveux pour un look brut et d&eacute;coiff&eacute;, que vous pouvez remodeler sans fin.</p>",
-   "claims": [],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "description": "Flex Depolish de L'Oréal Professionnel est une pâte modulable et déstructurante. Le must-have pour déconstruire et matifier les cheveux pour un look brut et décoiffé, que vous pouvez remodeler sans fin.",
+   "claims": [
+    "brillance"
+   ],
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/flex-depolish-creme-destructurante.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--fix-max-gel-sculptant",
@@ -2042,14 +1634,19 @@
    "image_local": "public/scan/products-cheveux/loreal-professionnel/fix-max-gel-sculptant.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "colores"
+   ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>Le gel sculptant Tecni.art Fix Max permet d'obtenir une ma&icirc;trise totale de cheveux. Vous pouvez aussi l'utiliser de mani&egrave;re plus localis&eacute;e pour d&eacute;finir des m&egrave;ches individuelles. Gel <strong>non collant</strong> et ne laisse <strong>pas de r&eacute;sidus</strong> sur votre cuir chevelu. </p> <p>Vos cheveux sont <strong>doux</strong> et <strong>brillants</strong>. </p>",
+   "description": "Le gel sculptant Tecni.art Fix Max permet d'obtenir une maîtrise totale de cheveux. Vous pouvez aussi l'utiliser de manière plus localisée pour définir des mèches individuelles. Gel non collant et ne laisse pas de résidus sur votre cuir chevelu. Vos cheveux sont doux et brillants.",
    "claims": [
+    "purifiant",
     "brillance"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/fix-max-gel-sculptant.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--volume-extra-full-mousse-fixation-longue-tenue",
@@ -2069,11 +1666,15 @@
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p style=\"margin: 0in;\">La mousse Tecni Art Volume Extra Full de L'Or&eacute;al Professionnel vous aide &agrave; cr&eacute;er du volume suppl&eacute;mentaire en offrant une tenue optimale, sans alourdir les cheveux.</p> <p style=\"margin: 0in;\"> <strong>S&eacute;chages XL, cheveux volumineux, queues de cheval &eacute;paisses et tresses</strong>.</p>",
+   "description": "La mousse Tecni Art Volume Extra Full de L'Oréal Professionnel vous aide à créer du volume supplémentaire en offrant une tenue optimale, sans alourdir les cheveux. Séchages XL, cheveux volumineux, queues de cheval épaisses et tresses.",
    "claims": [
-    "volume"
+    "volume",
+    "brillance",
+    "fixation"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/volume-extra-full-mousse-fixation-longue-tenue.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--fix-paste-pate-de-coiffage-forte-tenue",
@@ -2085,15 +1686,19 @@
    "price_eur": null,
    "price_source": null,
    "image_source_url": "https://www.lorealprofessionnel.fr/-/media/master/fr/product-and-ranges-assets/tecni-art-renovation/fix-paste/fix-paste5.png",
-   "image_local": null,
+   "image_local": "public/scan/products-cheveux/loreal-professionnel/fix-paste-pate-de-coiffage-forte-tenue.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [],
    "actifs": [],
    "ingredients": null,
-   "description": "<p style=\"margin: 0in;\">La p&acirc;te de coiffage professionnelle <strong>Fix Paste</strong> promet des looks bruts avec un fini mat.&nbsp;</p> <p style=\"margin: 0in;\">Cette p&acirc;te est remodelable et permet une fixation extr&ecirc;me &agrave; utiliser sur l'ensemble de la chevelure ou pour d&eacute;finir des sections.</p>",
-   "claims": [],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "description": "La pâte de coiffage professionnelle Fix Paste promet des looks bruts avec un fini mat. Cette pâte est remodelable et permet une fixation extrême à utiliser sur l'ensemble de la chevelure ou pour définir des sections.",
+   "claims": [
+    "fixation"
+   ],
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/fix-paste-pate-de-coiffage-forte-tenue.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--flex-web-pate-texture-sculptee",
@@ -2105,20 +1710,27 @@
    "price_eur": null,
    "price_source": null,
    "image_source_url": "https://www.lorealprofessionnel.fr/-/media/master/fr/product-and-ranges-assets/tecni-art-renovation/flex-web/flex-web5.png",
-   "image_local": null,
-   "categorie": "autre-cheveux",
+   "image_local": "public/scan/products-cheveux/loreal-professionnel/flex-web-pate-texture-sculptee.jpg",
+   "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
     "boucles",
+    "crepus",
     "lisses"
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>La p&acirc;te sculptante &eacute;volutive Flex Web de la gamme Tecni.art vous aide &agrave; donner vie &agrave; des <strong>looks modulables &agrave; l'infini</strong>. Avec cette p&acirc;te coiffante &agrave;&nbsp; tenue super forte offrant un effet naturel et brillant, vous laissez parler votre cr&eacute;ativit&eacute;. </p> <p>Id&eacute;ale pour les cheveux courts, mi-longs ou longs de toute nature (fris&eacute;e, cr&eacute;pue, lisse ou encore ondul&eacute;e), la p&acirc;te coiffante perm",
+   "description": "La pâte sculptante évolutive Flex Web de la gamme Tecni.art vous aide à donner vie à des looks modulables à l'infini. Avec cette pâte coiffante à tenue super forte offrant un effet naturel et brillant, vous laissez parler votre créativité. Idéale pour les cheveux courts, mi-longs ou longs de toute nature (frisée, crépue, lisse ou encore ondulée), la pâte coiffante perm",
    "claims": [
-    "brillance"
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant",
+    "brillance",
+    "fixation"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/flex-web-pate-texture-sculptee.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--flex-waves-spray-ondulations-texturisees",
@@ -2139,11 +1751,15 @@
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>Le spray <strong>Flex Waves</strong>&nbsp;promet des ondulations texturis&eacute;es effet <strong>retour de plage</strong>, facile &agrave; travailler <strong>non r&ecirc;che</strong>. Le must-have pour remodeler les cheveux en continu, un effet <strong>volumisant</strong>, et un fini doux au toucher.</p>",
+   "description": "Le spray Flex Waves promet des ondulations texturisées effet retour de plage, facile à travailler non rêche. Le must-have pour remodeler les cheveux en continu, un effet volumisant, et un fini doux au toucher.",
    "claims": [
-    "volume"
+    "definition-boucles",
+    "volume",
+    "texturisant"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/flex-waves-spray-ondulations-texturisees.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--fix-anti-frizz-spray-fixation-anti-humidite",
@@ -2158,16 +1774,18 @@
    "image_local": "public/scan/products-cheveux/loreal-professionnel/fix-anti-frizz-spray-fixation-anti-humidite.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>Le spray&nbsp;<strong>Fix&nbsp;</strong><strong>Anti-Frizz</strong>&nbsp;offre une protection anti-humidit&eacute; et surtout anti-frisottis &agrave; vos cheveux.&nbsp;</p> <p>Ce spray agit comme une v&eacute;ritable&nbsp;<strong>barri&egrave;re anti-statique</strong>&nbsp;pour une&nbsp;<strong>protection anti-frisottis</strong>&nbsp;longue dur&eacute;e m&ecirc;me dans des conditions climatiques extr&ecirc;mes.&nbsp;</p> <p>Il est aussi&nbsp;<strong>sans r&eacute;sidus&nbsp;</strong>et s'adap",
+   "description": "Le spray Fix Anti-Frizz offre une protection anti-humidité et surtout anti-frisottis à vos cheveux. Ce spray agit comme une véritable barrière anti-statique pour une protection anti-frisottis longue durée même dans des conditions climatiques extrêmes. Il est aussi sans résidus et s'adap",
    "claims": [
-    "lissant"
+    "anti-frisottis",
+    "purifiant",
+    "fixation"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/fix-anti-frizz-spray-fixation-anti-humidite.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "loreal-professionnel--flex-pli-spray-thermo-modelant",
@@ -2187,34 +1805,17 @@
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "<p>Le spray Flex Pli de L'Or&eacute;al Professionnel est un <strong>spray thermo-modelant</strong>, activ&eacute; par la chaleur, qui donne de la forme et de la m&eacute;moire aux cheveux. Flex Pli peut &ecirc;tre utilis&eacute; comme appr&ecirc;t de coiffage, pour cr&eacute;er des boucles dynamiques et des coiffures ondul&eacute;es. Il apporte <strong>corps</strong> et <strong>discipline</strong>, tout en conservant une <strong>texture douce</strong> et une <strong>finition naturelle</strong>.<",
+   "description": "Le spray Flex Pli de L'Oréal Professionnel est un spray thermo-modelant, activé par la chaleur, qui donne de la forme et de la mémoire aux cheveux. Flex Pli peut être utilisé comme apprêt de coiffage, pour créer des boucles dynamiques et des coiffures ondulées. Il apporte corps et discipline, tout en conservant une texture douce et une finition naturelle.<",
    "claims": [
-    "lissant",
-    "protection-thermique"
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant",
+    "protection-chaleur",
+    "fixation"
    ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
-  },
-  {
-   "id": "loreal-professionnel--recharge-fix-design-spray-fixation-et-finition",
-   "name": "Recharge Fix Design - Spray fixation & finition",
-   "brand": "loreal-professionnel",
-   "brand_name": "L'Oréal Professionnel",
-   "url": "https://www.lorealprofessionnel.fr/styling/tecni,-d-,art/spray-recharge-fix-design",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": "https://www.lorealprofessionnel.fr/-/media/master/fr/product-and-ranges-assets/tecni-art-renovation/recharge-fix-design/recharge5.png",
-   "image_local": "public/scan/products-cheveux/loreal-professionnel/recharge-fix-design-spray-fixation-et-finition.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "<p>Le spray coiffant localis&eacute; <strong>Fix Design</strong> permet une fixation extr&ecirc;mement forte mais mall&eacute;able de vos cheveux, m&egrave;che &agrave; m&egrave;che ou au global, sans aucun r&eacute;sidu visible avec une finition <strong>naturelle</strong> et <strong>brillante</strong>. </p> <p>Un soin de styling professionnel pour toutes les envies de looks. Il fixe votre coiffure dans la dur&eacute;e <strong>sans aucun r&eacute;sidu visible</strong>. </p> <p>Le mouvement natur",
-   "claims": [
-    "brillance"
-   ],
-   "source": "sitemap lorealprofessionnel.fr + fiche"
+   "source": "sitemap lorealprofessionnel.fr + fiche",
+   "cutout_url": "public/scan/products-cheveux/loreal-professionnel/cutout/flex-pli-spray-thermo-modelant.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

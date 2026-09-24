@@ -1,69 +1,72 @@
 /**
  * VYVRE — /accuracy
  *
- * Page méthodologie publique (v7.0 HONEST). Aligne marketing avec ce que
- * fait vraiment l'engine. Distinction explicite entre :
+ * Page méthodologie publique (v7.0). Distinction explicite entre :
  *   - 5 sources appliquées dans les formules (Chardon, Takiwaki, Stamatas,
  *     Mizukoshi, Vierkötter)
- *   - 4 sources référencées en roadmap fin 2026 (Bazin détaillé, Diridollou
- *     full coefficients, Flament 2023 coefficients, Akdeniz numériques)
+ *   - 4 sources référencées en feuille de route fin 2026 (Bazin, Diridollou,
+ *     Flament 2023, Akdeniz)
  *
- * Indispensable pour défendre le pitch face à un DPO cosméto ou un dermato
- * consultant. Refonte mai 2026 suite à l'audit interne v6.2.
+ * Douze langues, choisies côté serveur (lib/i18n). Ne se traduisent jamais :
+ * les noms d'auteurs, les titres d'articles, les noms de revues, les noms de
+ * normes et les extraits de code — ce sont des références citables.
  */
 
+import type { Metadata } from 'next';
 import Link from 'next/link';
-import SiteHeader from '../SiteHeader';
 import Script from 'next/script';
+import SiteHeader from '../SiteHeader';
+import { getPage } from '../../lib/i18n/server';
+import type { T } from '../../lib/i18n';
 
-export const metadata = {
-  title: 'Méthodologie & Précision · VYVRE',
-  description:
-    'Sources peer-reviewed (5 appliquées, 4 en roadmap), méthode de calcul, intervalles de confiance, limitations. La transparence scientifique derrière le moteur VYVRE v7.0.',
-};
+export function generateMetadata(): Metadata {
+  const { t } = getPage();
+  return { title: t('acc.meta.title'), description: t('acc.meta.desc') };
+}
 
 export default function AccuracyPage() {
+  const { t } = getPage();
+
   return (
     <>
       <Script src="/vyvre-mini-lattice.js" strategy="afterInteractive" />
 
       <main className="min-h-screen flex flex-col">
-        {/* ===== Header ===== */}
         <SiteHeader />
 
         {/* ===== Hero ===== */}
         <section className="px-8 py-24 md:py-32">
           <div className="max-w-4xl mx-auto text-center flex flex-col items-center gap-8">
             <div className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
-              Méthodologie · Sources · Limites
+              {t('acc.hero.eyebrow')}
             </div>
             <h1 className="font-sans text-5xl md:text-7xl font-thin leading-[1.02] -tracking-[0.025em]">
-              La science<br />
-              <em className="not-italic text-text/55 font-extralight">derrière le scan.</em>
+              {t('acc.hero.h1a')}<br />
+              <em className="not-italic text-text/55 font-extralight">{t('acc.hero.h1b')}</em>
             </h1>
             <p className="text-base md:text-lg text-text/65 leading-relaxed max-w-2xl font-extralight">
-              Huit mesures lues depuis l'image. Ici : les sources scientifiques, la méthode de calcul, les intervalles de confiance et les limites du moteur.
+              {t('acc.hero.p')}
             </p>
             <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-text/45 mt-4">
-              Précision estimée ±5 ans bioAge · ±4 ans perceivedAge (95% CI · cohorte interne n=12)<br/>
-              Validation externe n=100 prévue fin 2026 · refonte mai 2026 suite audit interne
+              {t('acc.hero.note1')}<br />
+              {t('acc.hero.note2')}
             </div>
           </div>
         </section>
 
-        {/* ===== Sources peer-reviewed (APPLIQUÉES) ===== */}
+        {/* ===== Sources appliquées ===== */}
         <section className="px-8 py-24 border-t border-line">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16 flex flex-col items-center gap-4">
               <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
-                01 · Bibliographie · Sources appliquées
+                {t('acc.s1.eyebrow')}
               </span>
               <h2 className="font-sans text-4xl md:text-5xl font-thin leading-[1.05] -tracking-[0.022em]">
-                5 sources peer-reviewed<br />
-                <em className="not-italic text-text/55 font-extralight">activement appliquées.</em>
+                {t('acc.s1.h2a')}<br />
+                <em className="not-italic text-text/55 font-extralight">{t('acc.s1.h2b')}</em>
               </h2>
               <p className="text-sm text-text/55 max-w-2xl font-extralight mt-2 leading-relaxed">
-                Ces 5 sources sont directement utilisées dans les formules de calcul du moteur (cf. <code className="font-mono text-xs text-accent">vyvre-scan-engine.js</code>, fonction <code className="font-mono text-xs text-accent">mapToScores</code> et <code className="font-mono text-xs text-accent">estimateAge</code>). Chaque biomarker est traçable à un papier scientifique indexé sur PubMed.
+                {t('acc.s1.p1')} <code className="font-mono text-xs text-accent">vyvre-scan-engine.js</code>{t('acc.s1.p2')} <code className="font-mono text-xs text-accent">mapToScores</code> {t('acc.s1.p3')} <code className="font-mono text-xs text-accent">estimateAge</code>{t('acc.s1.p4')}
               </p>
             </div>
 
@@ -73,93 +76,97 @@ export default function AccuracyPage() {
                 year="1991"
                 title="Skin colour typology and suntanning pathways"
                 journal="Int J Cosmet Sci"
-                contribution="ITA° (Individual Typology Angle) — base de la détection automatique du phototype Fitzpatrick I-VI"
+                contribution={t('acc.src1.c')}
               />
               <Source
                 authors="Takiwaki H"
                 year="1998"
                 title="Measurement of skin color: practical application and theoretical considerations"
                 journal="J Med Invest"
-                contribution="Melanin Index (MI) et Erythema Index (EI) — quantification de la pigmentation et de la rougeur"
+                contribution={t('acc.src2.c')}
               />
               <Source
                 authors="Stamatas GN, Zmudzka BZ, Kollias N, Beer JZ"
                 year="2011"
                 title="Non-invasive measurements of skin pigmentation in situ"
                 journal="Pigment Cell Res"
-                contribution="Proxy TEWL (Trans-Epidermal Water Loss) via σL* → indices hydratation et pores. Régression Table 3."
+                contribution={t('acc.src3.c')}
               />
               <Source
                 authors="Mizukoshi K, Akamatsu H"
                 year="2013"
                 title="The investigation of the skin characteristics of the face: glossiness"
                 journal="Skin Res Technol"
-                contribution="Specular highlights → éclat / sébum. Détection des reflets spéculaires sur le visage"
+                contribution={t('acc.src4.c')}
               />
               <Source
                 authors="Vierkötter A, Krutmann J"
                 year="2012"
                 title="Environmental influences on skin aging and ethnic-specific manifestations"
                 journal="Dermato-Endocrinology"
-                contribution="Bias d'âge perçu vs âge biologique (cohorte caucasienne ~1700 sujets). v7 : bias age-dependent (-2 à -6 ans selon âge bio), pas phototype-specific."
+                contribution={t('acc.src5.c')}
               />
             </div>
 
             <p className="text-xs text-text/45 font-mono tracking-[0.1em] uppercase text-center mt-12 max-w-3xl mx-auto leading-relaxed">
-              Moteur v7 — refonte mai 2026<br/>
-              Sources appliquées vérifiables ligne par ligne dans <span className="text-accent">vyvre-scan-engine.js</span>
+              {t('acc.s1.foot1')}<br />
+              {t('acc.s1.foot2')} <span className="text-accent vy-ltr">vyvre-scan-engine.js</span>
             </p>
           </div>
         </section>
 
-        {/* ===== Sources peer-reviewed (RÉFÉRENCÉES — roadmap fin 2026) ===== */}
+        {/* ===== Sources référencées — feuille de route ===== */}
         <section className="px-8 py-24 border-t border-line">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16 flex flex-col items-center gap-4">
               <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
-                02 · Bibliographie · Roadmap fin 2026
+                {t('acc.s2.eyebrow')}
               </span>
               <h2 className="font-sans text-4xl md:text-5xl font-thin leading-[1.05] -tracking-[0.022em]">
-                4 sources référencées<br />
-                <em className="not-italic text-text/55 font-extralight">pas encore pleinement appliquées.</em>
+                {t('acc.s2.h2a')}<br />
+                <em className="not-italic text-text/55 font-extralight">{t('acc.s2.h2b')}</em>
               </h2>
               <p className="text-sm text-text/55 max-w-2xl font-extralight mt-2 leading-relaxed">
-                Ces sources sont citées pour transparence et roadmap publique. Leurs coefficients complets ne sont pas encore intégrés dans les formules — extraction et validation prévues fin 2026 avec partenaire dermato.
+                {t('acc.s2.p')}
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <SourceRoadmap
+                t={t}
                 authors="Bazin R, Doublet E"
                 year="2007"
                 title="Skin Aging Atlas, Volume 1: Caucasian Type"
                 journal="Éditions Med'com"
-                applied="Anchor age 40 (médiane cohorte adulte) + corrélation r=0.78 rides périorbitaires↔âge"
-                roadmap="Extraction images → grade morphologique 0-5 (Bazin scoring) non encore implémentée. Prévue fin 2026."
+                applied={t('acc.rm1.a')}
+                roadmap={t('acc.rm1.r')}
               />
               <SourceRoadmap
+                t={t}
                 authors="Diridollou S, de Rigal J, Querleux B"
                 year="2007"
                 title="Comparative study of skin aging between four ethnic groups"
                 journal="Int J Dermatol"
-                applied="Ajustement modeste -4% à -8% sur bioAge pour phototypes IV-VI"
-                roadmap="Coefficients phototype-specific complets pour wrinkles/firmness/pigmentation non encore extraits."
+                applied={t('acc.rm2.a')}
+                roadmap={t('acc.rm2.r')}
               />
               <SourceRoadmap
+                t={t}
                 authors="Flament F, Bazin R, Qiu H"
                 year="2023"
                 title="Skin aging characterization in Chinese, Indian, and Caucasian women"
                 journal="Int J Cosmet Sci"
-                applied="Cité pour contexte multi-ethnique"
-                roadmap="Coefficients spécifiques non encore extraits. Validation cohorte multi-ethnique prévue fin 2026."
+                applied={t('acc.rm3.a')}
+                roadmap={t('acc.rm3.r')}
               />
               <SourceRoadmap
+                t={t}
                 authors="Akdeniz M, Gabriel S, Lichterfeld-Kottner A"
                 year="2018"
                 title="Transepidermal water loss in healthy adults: meta-analysis"
                 journal="Br J Dermatol"
-                applied="Normes cliniques TEWL référencées (sain ≤15 g/m²/h, compromis ≥25)"
-                roadmap="Le pipeline numérique σL*→TEWL suit Stamatas 2011 (et non Akdeniz). Cross-validation prévue."
+                applied={t('acc.rm4.a')}
+                roadmap={t('acc.rm4.r')}
               />
             </div>
           </div>
@@ -170,38 +177,26 @@ export default function AccuracyPage() {
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-10 flex flex-col items-center gap-4">
               <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
-                Benchmark public · UTKFace · 26 mai 2026
+                {t('acc.bench.eyebrow')}
               </span>
               <h2 className="font-sans text-4xl md:text-5xl font-thin leading-[1.05] -tracking-[0.022em]">
-                Comparé publiquement<br />
-                <em className="not-italic text-text/55 font-extralight">contre 3 leaders open-source.</em>
+                {t('acc.bench.h2a')}<br />
+                <em className="not-italic text-text/55 font-extralight">{t('acc.bench.h2b')}</em>
               </h2>
               <p className="text-sm text-text/55 max-w-2xl font-extralight leading-relaxed mt-2">
-                VYVRE v7.0 testé sur 300 visages publics UTKFace (stratifiés 18-80 ans) aux côtés de DeepFace, InsightFace et OpenCV DNN. Verdict honnête publié, code reproductible, 5 scripts, 4 min runtime.
+                {t('acc.bench.p')}
               </p>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-8">
-              <div className="v6-soft px-5 py-5 flex flex-col gap-1 text-center">
-                <div className="font-mono text-[10px] tracking-[0.25em] uppercase text-accent">30-44 (target)</div>
-                <div className="text-2xl font-thin text-text">5.75y</div>
-                <div className="text-[10px] text-text/55 font-mono">MAE — bat OpenCV (8.66y)</div>
-              </div>
-              <div className="v6-soft px-5 py-5 flex flex-col gap-1 text-center">
-                <div className="font-mono text-[10px] tracking-[0.25em] uppercase text-accent">Overall (18-80)</div>
-                <div className="text-2xl font-thin text-text">12.89y</div>
-                <div className="text-[10px] text-text/55 font-mono">MAE — derrière deep nets</div>
-              </div>
-              <div className="v6-soft px-5 py-5 flex flex-col gap-1 text-center">
-                <div className="font-mono text-[10px] tracking-[0.25em] uppercase text-accent">Biais signé</div>
-                <div className="text-2xl font-thin text-text">-0.71y</div>
-                <div className="text-[10px] text-text/55 font-mono">Le plus neutre des 4 moteurs</div>
-              </div>
+              <BenchCard label={t('acc.bench.k1.l')} value={`5.75 ${t('acc.var.unitYears')}`} note={t('acc.bench.k1.n')} />
+              <BenchCard label={t('acc.bench.k2.l')} value={`12.89 ${t('acc.var.unitYears')}`} note={t('acc.bench.k2.n')} />
+              <BenchCard label={t('acc.bench.k3.l')} value={`-0.71 ${t('acc.var.unitYears')}`} note={t('acc.bench.k3.n')} />
             </div>
 
             <div className="text-center">
               <Link href="/accuracy/benchmark" className="btn-primary inline-block">
-                Voir le benchmark complet →
+                {t('acc.bench.cta')}
               </Link>
             </div>
           </div>
@@ -212,20 +207,20 @@ export default function AccuracyPage() {
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-12 flex flex-col items-center gap-4">
               <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
-                03 · Standards colorimétriques (fondations)
+                {t('acc.s3.eyebrow')}
               </span>
               <p className="text-sm text-text/55 max-w-2xl font-extralight mt-2 leading-relaxed">
-                Standards normatifs sous-jacents — pas des "papers peer-reviewed" mais des spécifications techniques actives dans le pipeline.
+                {t('acc.s3.p')}
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 text-xs text-text/65 font-extralight leading-relaxed">
-              <div className="v6-soft px-5 py-4"><span className="text-accent font-mono">IEC 61966-2-1</span> sRGB color space (gamma decode)</div>
-              <div className="v6-soft px-5 py-4"><span className="text-accent font-mono">ITU-R BT.709-6</span> Rec. 709 RGB primaries</div>
-              <div className="v6-soft px-5 py-4"><span className="text-accent font-mono">CIE 015:2004</span> XYZ → L*a*b* conversion</div>
-              <div className="v6-soft px-5 py-4"><span className="text-accent font-mono">Del Bino 2013</span> Fitzpatrick ITA° boundaries</div>
-              <div className="v6-soft px-5 py-4"><span className="text-accent font-mono">Hsu 2002</span> YCbCr skin pixel detection</div>
-              <div className="v6-soft px-5 py-4"><span className="text-accent font-mono">Pertuz 2013</span> Laplacian sharpness measure</div>
-              <div className="v6-soft px-5 py-4 md:col-span-2 lg:col-span-3"><span className="text-accent font-mono">Nkengne 2008</span> Firmness ↔ perceived age correlation (corrélation r=0.65 ITA° distance ↔ fermeté perçue)</div>
+              <div className="v6-soft px-5 py-4"><span className="text-accent font-mono vy-ltr">IEC 61966-2-1</span> {t('acc.s3.std1')}</div>
+              <div className="v6-soft px-5 py-4"><span className="text-accent font-mono vy-ltr">ITU-R BT.709-6</span> {t('acc.s3.std2')}</div>
+              <div className="v6-soft px-5 py-4"><span className="text-accent font-mono vy-ltr">CIE 015:2004</span> {t('acc.s3.std3')}</div>
+              <div className="v6-soft px-5 py-4"><span className="text-accent font-mono vy-ltr">Del Bino 2013</span> {t('acc.s3.std4')}</div>
+              <div className="v6-soft px-5 py-4"><span className="text-accent font-mono vy-ltr">Hsu 2002</span> {t('acc.s3.std5')}</div>
+              <div className="v6-soft px-5 py-4"><span className="text-accent font-mono vy-ltr">Pertuz 2013</span> {t('acc.s3.std6')}</div>
+              <div className="v6-soft px-5 py-4 md:col-span-2 lg:col-span-3"><span className="text-accent font-mono vy-ltr">Nkengne 2008</span> {t('acc.s3.std7')}</div>
             </div>
           </div>
         </section>
@@ -235,364 +230,300 @@ export default function AccuracyPage() {
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16 flex flex-col items-center gap-4">
               <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
-                04 · Pipeline
+                {t('acc.s4.eyebrow')}
               </span>
               <h2 className="font-sans text-4xl md:text-5xl font-thin leading-[1.05] -tracking-[0.022em]">
-                Méthode de calcul.
+                {t('acc.s4.h2')}
               </h2>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              <MethodStep
-                num="01"
-                title="Capture image"
-                desc="Webcam standard (≥720p). Moins de 10 secondes de capture, 8 images retenues. Détection visage via face-api.js (68 repères). Crop zone faciale + correction lumière."
-              />
-              <MethodStep
-                num="02"
-                title="Conversion colorimétrique"
-                desc="Pipeline sRGB → XYZ → CIE L*a*b* (IEC 61966-2-1, CIE 015:2004). Validation self-test sur 6 couleurs de référence à chaque scan. Précision pixel-exacte."
-              />
-              <MethodStep
-                num="03"
-                title="Extraction signaux"
-                desc="ITA° + Melanin Index + Erythema Index + TEWL proxy + Specular ratio. 4 zones faciales analysées (front, joues L/R, zone T)."
-              />
-              <MethodStep
-                num="04"
-                title="Mapping biomarkers"
-                desc="Chaque signal brut converti en score 0-100 via formules peer-reviewed (citations ci-dessus). Constantes nommées avec citation source ou flag ⚠️ empirique."
-              />
-              <MethodStep
-                num="05"
-                title="Détection phototype"
-                desc="Classification automatique Fitzpatrick I-VI via ITA° (Chardon 1991). Clamps de pigmentation adaptés au phototype pour éviter le biais peau foncée."
-              />
-              <MethodStep
-                num="06"
-                title="Estimation âge + CI"
-                desc="Formule single-biomarker (rides périorbitaires dominantes, Bazin 2007). Bias d'âge perçu age-dependent (Vierkötter 2012). CI ±5 ans (95% cohorte interne n=12)."
-              />
+              <MethodStep num="01" title={t('acc.st1.t')} desc={t('acc.st1.d')} />
+              <MethodStep num="02" title={t('acc.st2.t')} desc={t('acc.st2.d')} />
+              <MethodStep num="03" title={t('acc.st3.t')} desc={t('acc.st3.d')} />
+              <MethodStep num="04" title={t('acc.st4.t')} desc={t('acc.st4.d')} />
+              <MethodStep num="05" title={t('acc.st5.t')} desc={t('acc.st5.d')} />
+              <MethodStep num="06" title={t('acc.st6.t')} desc={t('acc.st6.d')} />
             </div>
           </div>
         </section>
 
-        {/* ===== Âge peau vs Âge biologique ===== */}
+        {/* ===== Âge peau / âge biologique ===== */}
         <section className="px-8 py-24 border-t border-line">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-12 flex flex-col items-center gap-4">
               <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
-                05 · Âge peau · Méthode v7
+                {t('acc.s5.eyebrow')}
               </span>
               <h2 className="font-sans text-4xl md:text-5xl font-thin leading-[1.05] -tracking-[0.022em]">
-                Âge peau perçu<br />
-                <em className="not-italic text-text/55 font-extralight">vs âge biologique brut.</em>
+                {t('acc.s5.h2a')}<br />
+                <em className="not-italic text-text/55 font-extralight">{t('acc.s5.h2b')}</em>
               </h2>
               <p className="text-sm text-text/65 max-w-2xl font-extralight mt-2 leading-relaxed">
-                Deux nombres sont calculés, un seul est affiché. Voici pourquoi.
+                {t('acc.s5.p')}
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
               <div className="v6 px-8 py-10 flex flex-col gap-4 h-full">
                 <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-accent">
-                  Affiché — Âge peau
+                  {t('acc.age.l.tag')}
                 </div>
                 <h3 className="font-sans text-2xl md:text-3xl font-thin leading-[1.15] -tracking-[0.02em]">
-                  Âge perçu visuellement
+                  {t('acc.age.l.h3')}
                 </h3>
                 <p className="text-sm text-text/65 leading-relaxed font-extralight">
-                  Âge moyen perçu socialement par un observateur humain. Calibré sur Vierkötter & Krutmann 2012 (cohorte caucasienne ~1700 sujets) avec un bias <span className="text-text">age-dependent</span> :
+                  {t('acc.age.l.p')} <span className="text-text">{t('acc.age.l.pEm')}</span> :
                 </p>
-                <ul className="text-xs text-text/55 leading-relaxed font-extralight font-mono pl-4 space-y-1">
-                  <li>&lt; 30 ans bio → −2 ans</li>
-                  <li>30-45 ans bio → −4 ans</li>
-                  <li>45-60 ans bio → −5 ans</li>
-                  <li>60+ ans bio → −5 à −6 ans</li>
+                <ul className="text-xs text-text/55 leading-relaxed font-extralight font-mono pl-4 space-y-1 vy-ltr-list">
+                  <li>{t('acc.age.l.li1')}</li>
+                  <li>{t('acc.age.l.li2')}</li>
+                  <li>{t('acc.age.l.li3')}</li>
+                  <li>{t('acc.age.l.li4')}</li>
                 </ul>
                 <p className="text-xs text-text/45 leading-relaxed font-extralight">
-                  v7 retire le mapping phototype-specific de v6 (qui n'était PAS dans la source originale). Le phototype influence l'âge biologique (Diridollou), pas la perception sociale.
+                  {t('acc.age.l.note')}
                 </p>
               </div>
 
               <div className="v6-soft px-8 py-10 flex flex-col gap-4 h-full">
                 <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-text/55">
-                  Interne — Âge biologique
+                  {t('acc.age.r.tag')}
                 </div>
                 <h3 className="font-sans text-2xl md:text-3xl font-thin leading-[1.15] -tracking-[0.02em]">
-                  Âge biologique brut
+                  {t('acc.age.r.h3')}
                 </h3>
                 <p className="text-sm text-text/65 leading-relaxed font-extralight">
-                  Estimation directe de l'état physique de la peau via le score wrinkles dominant (rides périorbitaires, Bazin 2007). Corrélation r=0.78 avec âge chronologique en photos studio.
+                  {t('acc.age.r.p')}
                 </p>
                 <p className="text-xs text-text/45 leading-relaxed font-extralight">
-                  Formule v7 : <code className="font-mono text-[10px]">bioAge = 40 + (50 − wrinkles) × 0.85 × 0.85 × phototypeAdjust</code>. Le facteur 0.85 (pénalité webcam JPEG) est une compensation empirique honnête, validation cohort large planifiée fin 2026.
+                  {t('acc.age.r.note1')}{' '}
+                  <code className="font-mono text-[10px]">bioAge = 40 + (50 − wrinkles) × 0.85 × 0.85 × phototypeAdjust</code>. {t('acc.age.r.note2')}
                 </p>
               </div>
             </div>
 
             <div className="v6-soft px-8 py-6 mt-4 text-center">
               <p className="text-sm text-text/65 font-extralight leading-relaxed">
-                Précision estimée : <span className="text-text">±5 ans bioAge</span>, <span className="text-text">±4 ans perceivedAge</span> (95% CI sur cohorte interne n=12)
+                {t('acc.age.prec1')} <span className="text-text">{t('acc.age.prec.bio')}</span>, <span className="text-text">{t('acc.age.prec.perc')}</span> {t('acc.age.prec2')}
               </p>
               <p className="text-xs text-text/45 font-mono tracking-[0.1em] uppercase mt-2">
-                Validation externe n=100 prévue fin 2026
+                {t('acc.age.prec3')}
               </p>
             </div>
           </div>
         </section>
 
-        {/* ===== Quality-aware behavior v7 (refus de scan dégradé) ===== */}
+        {/* ===== Comportement selon la qualité ===== */}
         <section className="px-8 py-24 border-t border-line">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16 flex flex-col items-center gap-4">
               <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
-                06 · Comportement quality-aware v7
+                {t('acc.s6.eyebrow')}
               </span>
               <h2 className="font-sans text-4xl md:text-5xl font-thin leading-[1.05] -tracking-[0.022em]">
-                3 niveaux de confiance.<br />
-                <em className="not-italic text-text/55 font-extralight">Pas de hack flatteur.</em>
+                {t('acc.s6.h2a')}<br />
+                <em className="not-italic text-text/55 font-extralight">{t('acc.s6.h2b')}</em>
               </h2>
               <p className="text-sm text-text/55 max-w-2xl font-extralight mt-2 leading-relaxed">
-                v7 retire le hack v6.2 qui rajeunissait artificiellement les scans dégradés (paradoxe « moins le moteur voit, plus il flatte »). À la place, 3 niveaux explicites de confiance.
+                {t('acc.s6.p')}
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <div className="v6-soft px-7 py-8 flex flex-col gap-3 h-full border-l-2 border-red-400/50">
-                <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-red-400/80">Quality &lt; 40</div>
-                <h3 className="font-sans text-xl font-thin leading-[1.2]">Refus du scan</h3>
-                <p className="text-sm text-text/65 leading-relaxed font-extralight">Aucune estimation publiée. Message <code className="font-mono text-xs text-accent">scan_quality_too_low</code> avec recommandation de refaire dans une meilleure lumière. Le point estimate N'EST PAS calculé.</p>
+                <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-red-400/80 vy-ltr">{t('acc.q1.tag')}</div>
+                <h3 className="font-sans text-xl font-thin leading-[1.2]">{t('acc.q1.h3')}</h3>
+                <p className="text-sm text-text/65 leading-relaxed font-extralight">
+                  {t('acc.q1.p1')} <code className="font-mono text-xs text-accent">scan_quality_too_low</code> {t('acc.q1.p2')}
+                </p>
               </div>
 
               <div className="v6-soft px-7 py-8 flex flex-col gap-3 h-full border-l-2 border-amber-400/50">
-                <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-amber-400/80">40 ≤ Quality &lt; 60</div>
-                <h3 className="font-sans text-xl font-thin leading-[1.2]">Faible confiance</h3>
-                <p className="text-sm text-text/65 leading-relaxed font-extralight">Estimation best-effort publiée mais flag <code className="font-mono text-xs text-accent">confidence: 'low'</code>. CI élargi à ±7 ans (vs ±5 standard). Le point estimate reste honnête, pas shifté.</p>
+                <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-amber-400/80 vy-ltr">{t('acc.q2.tag')}</div>
+                <h3 className="font-sans text-xl font-thin leading-[1.2]">{t('acc.q2.h3')}</h3>
+                <p className="text-sm text-text/65 leading-relaxed font-extralight">
+                  {t('acc.q2.p1')} <code className="font-mono text-xs text-accent">confidence: &apos;low&apos;</code>{t('acc.q2.p2')}
+                </p>
               </div>
 
               <div className="v6-soft px-7 py-8 flex flex-col gap-3 h-full border-l-2 border-emerald-400/50">
-                <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-emerald-400/80">Quality ≥ 60</div>
-                <h3 className="font-sans text-xl font-thin leading-[1.2]">Standard</h3>
-                <p className="text-sm text-text/65 leading-relaxed font-extralight">Estimation standard avec <code className="font-mono text-xs text-accent">confidence: 'standard'</code>. CI ±5 ans (95% sur cohorte interne n=12). Comportement nominal pour webcam HD bien éclairée.</p>
+                <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-emerald-400/80 vy-ltr">{t('acc.q3.tag')}</div>
+                <h3 className="font-sans text-xl font-thin leading-[1.2]">{t('acc.q3.h3')}</h3>
+                <p className="text-sm text-text/65 leading-relaxed font-extralight">
+                  {t('acc.q3.p1')} <code className="font-mono text-xs text-accent">confidence: &apos;standard&apos;</code>{t('acc.q3.p2')}
+                </p>
               </div>
             </div>
 
             <p className="text-xs text-text/45 font-mono tracking-[0.1em] uppercase text-center mt-12 max-w-3xl mx-auto leading-relaxed">
-              Hack v6.2 retiré : −5 ans sur scan pourri (quality &lt; 45)<br/>
-              v7 élargit le range plutôt que de shifter le point estimate (préfère l'honnêteté à la flatterie)
+              {t('acc.s6.foot1')}<br />
+              {t('acc.s6.foot2')}
             </p>
           </div>
         </section>
 
-        {/* ===== Variance test ===== */}
+        {/* ===== Variance ===== */}
         <section className="px-8 py-24 border-t border-line">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16 flex flex-col items-center gap-4">
               <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
-                07 · Tests de variance
+                {t('acc.s7.eyebrow')}
               </span>
               <h2 className="font-sans text-4xl md:text-5xl font-thin leading-[1.05] -tracking-[0.022em]">
-                Reproductibilité.
+                {t('acc.s7.h2')}
               </h2>
               <p className="text-sm text-text/55 max-w-2xl font-extralight mt-2">
-                Test : même sujet scanné 10 fois dans 10 conditions lumière différentes. Mesure de l'écart-type des scores. Cohorte interne n=12.
+                {t('acc.s7.p')}
               </p>
             </div>
 
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              <VarianceCard biomarker="Rides" sigma="±6" unit="pts/100" />
-              <VarianceCard biomarker="Fermeté" sigma="±7" unit="pts/100" />
-              <VarianceCard biomarker="Pigmentation" sigma="±4" unit="pts/100" />
-              <VarianceCard biomarker="Hydratation" sigma="±8" unit="pts/100" />
-              <VarianceCard biomarker="Éclat" sigma="±9" unit="pts/100" />
-              <VarianceCard biomarker="Pores" sigma="±7" unit="pts/100" />
-              <VarianceCard biomarker="Rougeur" sigma="±3" unit="pts/100" />
-              <VarianceCard biomarker="Âge perçu" sigma="±4" unit="ans" />
+              <VarianceCard biomarker={t('acc.var1')} sigma="±6" unit={t('acc.var.unitPts')} />
+              <VarianceCard biomarker={t('acc.var2')} sigma="±7" unit={t('acc.var.unitPts')} />
+              <VarianceCard biomarker={t('acc.var3')} sigma="±4" unit={t('acc.var.unitPts')} />
+              <VarianceCard biomarker={t('acc.var4')} sigma="±8" unit={t('acc.var.unitPts')} />
+              <VarianceCard biomarker={t('acc.var5')} sigma="±9" unit={t('acc.var.unitPts')} />
+              <VarianceCard biomarker={t('acc.var6')} sigma="±7" unit={t('acc.var.unitPts')} />
+              <VarianceCard biomarker={t('acc.var7')} sigma="±3" unit={t('acc.var.unitPts')} />
+              <VarianceCard biomarker={t('acc.var8')} sigma="±4" unit={t('acc.var.unitYears')} />
             </div>
 
             <p className="text-xs text-text/45 font-mono tracking-[0.1em] uppercase text-center mt-12 max-w-3xl mx-auto leading-relaxed">
-              Cohort interne · n=12 sujets phototype I-IV · 10 scans/sujet · lumière variable · webcam HD 720p<br/>
-              Phototype V-VI : extrapolation Diridollou 2007 — validation cohorte dédiée prévue fin 2026<br/>
-              <span className="text-text">Validation externe n=100 prévue fin 2026</span>
+              {t('acc.s7.foot1')}<br />
+              {t('acc.s7.foot2')}<br />
+              <span className="text-text">{t('acc.s7.foot3')}</span>
             </p>
           </div>
         </section>
 
-        {/* ===== Roadmap fin 2026 ===== */}
+        {/* ===== Feuille de route ===== */}
         <section className="px-8 py-24 border-t border-line">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16 flex flex-col items-center gap-4">
               <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
-                08 · Roadmap validation
+                {t('acc.s8.eyebrow')}
               </span>
               <h2 className="font-sans text-4xl md:text-5xl font-thin leading-[1.05] -tracking-[0.022em]">
-                Ce qu'on s'engage<br />
-                <em className="not-italic text-text/55 font-extralight">à valider.</em>
+                {t('acc.s8.h2a')}<br />
+                <em className="not-italic text-text/55 font-extralight">{t('acc.s8.h2b')}</em>
               </h2>
             </div>
 
             <div className="space-y-4">
-              <RoadmapItem
-                quarter="fin 2026"
-                title="Validation cohorte externe n=100"
-                body="Recrutement n=100 sujets variés (20-75 ans, phototypes I-VI). Mesure ICC vs Visia/Antera de référence. Publication méthodologique."
-              />
-              <RoadmapItem
-                quarter="fin 2026"
-                title="Bazin 0-5 grade morphologique"
-                body="Extraction depuis images du grade morphologique Bazin (atlas vol.1 chap. 4) — actuellement seul l'anchor age 40 et la corrélation r=0.78 sont utilisés. Implémentation détection profondeur rides + classification 0-5."
-              />
-              <RoadmapItem
-                quarter="Q4 2026"
-                title="Coefficients phototype-specific (Diridollou + Flament)"
-                body="Extraction des coefficients de Diridollou 2007 et Flament 2023 pour wrinkles/firmness/pigmentation par phototype. Actuellement v7 applique un ajustement modeste -4% à -8% sur bioAge phototypes IV-VI ; objectif : full mapping phototype-specific aux coefficients sources."
-              />
-              <RoadmapItem
-                quarter="Q4 2026"
-                title="Publication peer-reviewed"
-                body="Soumission d'un papier méthodologique décrivant le pipeline VYVRE (webcam consumer → biomarqueurs CIE LAB → estimation âge) avec validation cohorte n=100. Cible : Int J Cosmet Sci ou Skin Res Technol."
-              />
+              <RoadmapItem quarter={t('acc.q.late2026')} title={t('acc.rd1.t')} body={t('acc.rd1.b')} />
+              <RoadmapItem quarter={t('acc.q.late2026')} title={t('acc.rd2.t')} body={t('acc.rd2.b')} />
+              <RoadmapItem quarter={t('acc.q.q42026')} title={t('acc.rd3.t')} body={t('acc.rd3.b')} />
+              <RoadmapItem quarter={t('acc.q.q42026')} title={t('acc.rd4.t')} body={t('acc.rd4.b')} />
             </div>
           </div>
         </section>
 
-        {/* ===== Limitations honnêtes ===== */}
+        {/* ===== Limites ===== */}
         <section className="px-8 py-24 border-t border-line">
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-16 flex flex-col items-center gap-4">
               <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
-                09 · Limitations
+                {t('acc.s9.eyebrow')}
               </span>
               <h2 className="font-sans text-4xl md:text-5xl font-thin leading-[1.05] -tracking-[0.022em]">
-                Ce que VYVRE<br />
-                <em className="not-italic text-text/55 font-extralight">ne fait pas.</em>
+                {t('acc.s9.h2a')}<br />
+                <em className="not-italic text-text/55 font-extralight">{t('acc.s9.h2b')}</em>
               </h2>
               <p className="text-sm text-text/55 max-w-2xl font-extralight mt-2">
-                Nous préférons être radicalement honnêtes sur ce que le moteur ne mesure pas, plutôt que vendre du rêve.
+                {t('acc.s9.p')}
               </p>
             </div>
 
             <div className="space-y-4">
-              <Limitation
-                title="VYVRE n'est pas un dispositif médical"
-                body="Le moteur ne pose aucun diagnostic médical. Il ne détecte pas les pathologies dermatologiques (cancer cutané, mélanome, dermatite, psoriasis, etc.). Pour toute préoccupation médicale, consultez un dermatologue."
-              />
-              <Limitation
-                title="Webcam standard ≠ scanner pro Visia/Antera"
-                body="Un scanner dermato pro utilise lumière polarisée, UV-fluorescence et capteur 3D. VYVRE s'appuie sur une webcam standard et une lumière non-contrôlée. Variance ±8% (vs ±2% en cabinet dermato pro)."
-              />
-              <Limitation
-                title="Pas de détection 3D des rides"
-                body="La profondeur réelle des rides nécessite un capteur stéréoscopique. VYVRE estime la sévérité via l'analyse colorimétrique des ombres (proxy 2D). Bon pour les rides marquées, moins précis pour les ridules naissantes."
-              />
-              <Limitation
-                title="Hyperpigmentation profonde non détectée"
-                body="Les taches pigmentaires sous-épidermiques (mélasma profond, taches actiniques anciennes) ne sont pas visibles en lumière visible. Il faut une caméra UV-fluorescente (non incluse)."
-              />
-              <Limitation
-                title="Phototype V-VI : extrapolation honnête"
-                body="La cohorte interne n=12 contient principalement phototypes I-IV. Les ajustements pour V-VI sont extrapolés des données de Diridollou 2007 (-4% à -8% sur bioAge). Validation cohorte dédiée prévue fin 2026."
-              />
-              <Limitation
-                title="Maquillage, lunettes, masque"
-                body="Le moteur détecte ces obstructions et baisse le score de qualité. Si la qualité est trop faible (&lt;40), le scan est refusé. Entre 40-60, le scan est publié avec un flag explicite confidence=low + range élargi."
-              />
-              <Limitation
-                title="Cohorte interne n=12 est petite — on l'assume"
-                body="Les coefficients empiriques (pénalité webcam JPEG, range CI) sont calibrés sur n=12 sujets. C'est une « focus group », pas une « cohorte clinique ». Validation externe n=100 explicite dans la roadmap fin 2026."
-              />
+              <Limitation title={t('acc.lim1.t')} body={t('acc.lim1.b')} />
+              <Limitation title={t('acc.lim2.t')} body={t('acc.lim2.b')} />
+              <Limitation title={t('acc.lim3.t')} body={t('acc.lim3.b')} />
+              <Limitation title={t('acc.lim4.t')} body={t('acc.lim4.b')} />
+              <Limitation title={t('acc.lim5.t')} body={t('acc.lim5.b')} />
+              <Limitation title={t('acc.lim6.t')} body={t('acc.lim6.b')} />
+              <Limitation title={t('acc.lim7.t')} body={t('acc.lim7.b')} />
             </div>
           </div>
         </section>
 
-        {/* ===== Conditions cliniques (module bonus v1) ===== */}
+        {/* ===== Module conditions cutanées ===== */}
         <section className="px-8 py-24 border-t border-line">
           <div className="max-w-5xl mx-auto">
             <div className="text-center mb-16 flex flex-col items-center gap-4">
               <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
-                10 · Module bonus · Conditions cliniques (v1 indicatif)
+                {t('acc.s10.eyebrow')}
               </span>
               <h2 className="font-sans text-4xl md:text-5xl font-thin leading-[1.05] -tracking-[0.022em]">
-                Détection visuelle de 4 conditions<br />
-                <em className="not-italic text-text/55 font-extralight">indicatives, jamais médicales.</em>
+                {t('acc.s10.h2a')}<br />
+                <em className="not-italic text-text/55 font-extralight">{t('acc.s10.h2b')}</em>
               </h2>
               <p className="text-sm text-text/55 max-w-2xl font-extralight mt-2 leading-relaxed">
-                Module séparé <code className="font-mono text-xs text-accent">vyvre-conditions-engine.js</code> (v1.0.0-heuristic) — chargement optionnel sur n'importe quel POC. Détecte par heuristiques image 4 conditions visuelles fréquentes et propose une routine cosmétique non-prescription ciblée. <strong className="text-text">Ce module ne pose aucun diagnostic médical.</strong>
+                {t('acc.s10.p1')} <code className="font-mono text-xs text-accent">vyvre-conditions-engine.js</code> {t('acc.s10.p2')} <strong className="text-text">{t('acc.s10.p3')}</strong>
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
               <Source
-                authors="Module · Acné (Tan 2018)"
+                authors={`${t('acc.cond1.a')} (Tan 2018)`}
                 year="v1"
-                title="Focal a* CIELAB erythema + texture L* variance"
-                journal="Sensitivity ~70 % · Specificity ~75 % (synth. cohort n=12)"
-                contribution="Détection de pixels érythémateux focaux concentrés en spots discrets sur zone T (front, nez, menton). Sortie : probability + severity {minimal, low, medium, high}."
+                title={t('acc.cond1.t')}
+                journal={`${t('acc.cond.sens')} ~70 % · ${t('acc.cond.spec')} ~75 % (${t('acc.cond.cohort')})`}
+                contribution={t('acc.cond1.c')}
               />
               <Source
-                authors="Module · Rosacée (Sandoval-Pillajo 2020)"
+                authors={`${t('acc.cond2.a')} (Sandoval-Pillajo 2020)`}
                 year="v1"
-                title="Excès médian a* joues+nez vs baseline + symétrie bilatérale"
-                journal="Sensitivity ~65 % · Specificity ~70 % (synth. cohort n=12)"
-                contribution="Érythème persistant et bilatéral sur joues + nez. La symétrie inter-joues pondère le score (rosacée = bilatérale)."
+                title={t('acc.cond2.t')}
+                journal={`${t('acc.cond.sens')} ~65 % · ${t('acc.cond.spec')} ~70 % (${t('acc.cond.cohort')})`}
+                contribution={t('acc.cond2.c')}
               />
               <Source
-                authors="Module · Mélasma (heuristic)"
+                authors={t('acc.cond3.a')}
                 year="v1"
-                title="ΔL* front & lèvre sup. vs top-quartile L* joues + Δb* (mélanine)"
-                journal="Sensitivity ~55 % · Specificity ~70 % (synth. cohort n=12)"
-                contribution="Hyperpigmentation symétrique centrofaciale (front, lèvre supérieure, pommettes). Distingue mélasma diffus de spots discrets."
+                title={t('acc.cond3.t')}
+                journal={`${t('acc.cond.sens')} ~55 % · ${t('acc.cond.spec')} ~70 % (${t('acc.cond.cohort')})`}
+                contribution={t('acc.cond3.c')}
               />
               <Source
-                authors="Module · Lentigos (Pandey 2019)"
+                authors={`${t('acc.cond4.a')} (Pandey 2019)`}
                 year="v1"
-                title="Blob detection (size 5-200 px², compactness ≥ 0.45)"
-                journal="Sensitivity ~60 % · Specificity ~75 % (synth. cohort n=12)"
-                contribution="Spots pigmentaires isolés, contours nets, sur joues + front. Compte de blobs qualifiés rapporté à la surface peau (densité / 1000 pixels)."
+                title={t('acc.cond4.t')}
+                journal={`${t('acc.cond.sens')} ~60 % · ${t('acc.cond.spec')} ~75 % (${t('acc.cond.cohort')})`}
+                contribution={t('acc.cond4.c')}
               />
             </div>
 
             <div className="v6-soft px-8 py-7">
               <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-accent mb-4">
-                Pourquoi heuristiques et pas CNN ISIC ?
+                {t('acc.s10.why.t')}
               </div>
               <ul className="text-sm text-text/65 leading-relaxed font-extralight space-y-2">
-                <li>→ Les datasets ISIC / DermNet contiennent des images <em>cliniques</em> en gros plan, lumière polarisée, ROI lésionnelle ciblée. Distribution très éloignée d'une webcam consumer à 50 cm sous lumière non contrôlée — un CNN entraîné dessus transférerait mal sans fine-tune cohorte VYVRE dédiée.</li>
-                <li>→ Les heuristiques restent <em>auditables ligne par ligne</em>, ce qu'un CNN black-box n'est pas. Compatible avec les exigences d'explicabilité des grandes maisons (Chanel, Dior, L'Oréal R&D).</li>
-                <li>→ Pas de modèle à télécharger (0 MB), pas de GPU requis, fonctionne sur tous navigateurs en moins de 200 ms.</li>
-                <li>→ Architecture stable : une v2 future peut substituer un CNN derrière la même API <code className="font-mono text-xs text-accent">detectConditions()</code> sans casser les POCs intégrants.</li>
+                <li>→ {t('acc.s10.why1')}</li>
+                <li>→ {t('acc.s10.why2')}</li>
+                <li>→ {t('acc.s10.why3')}</li>
+                <li>→ {t('acc.s10.why4a')} <code className="font-mono text-xs text-accent">detectConditions()</code> {t('acc.s10.why4b')}</li>
               </ul>
             </div>
 
             <div className="mt-8 v6-soft px-8 py-7 border-l-4 border-accent">
               <div className="font-mono text-[10px] tracking-[0.3em] uppercase text-accent mb-3">
-                Disclaimer médical (obligatoire sur tout affichage)
+                {t('acc.s10.disc.t')}
               </div>
               <p className="text-sm text-text/75 leading-relaxed font-extralight italic">
-                Ce module n'est pas un dispositif médical. Il ne pose aucun diagnostic. Les probabilités retournées sont des indicateurs de « zones d'attention » pour recommander une routine cosmétique ciblée. Pour toute préoccupation cutanée réelle, consultez un dermatologue.
+                {t('acc.s10.disc.b')}
               </p>
-              <p className="text-xs text-text/45 font-mono tracking-[0.1em] uppercase mt-4">
+              <p className="text-xs text-text/45 font-mono tracking-[0.1em] uppercase mt-4 vy-ltr">
                 Indicative detection. NOT a medical diagnosis. Consult a dermatologist for clinical assessment.
               </p>
             </div>
 
             <div className="flex flex-wrap items-center justify-center gap-4 mt-10">
-              <a
-                href="https://vyvre-demos.web.app/CONDITIONS_DEMO.html"
-                target="_blank"
-                rel="noopener"
-                className="btn-primary"
-              >
-                Voir la démo Conditions →
+              <a href="https://vyvre-demos.web.app/CONDITIONS_DEMO.html" target="_blank" rel="noopener" className="btn-primary">
+                {t('acc.s10.cta1')}
               </a>
-              <a
-                href="https://vyvre-demos.web.app/vyvre-conditions-engine.js"
-                target="_blank"
-                rel="noopener"
-                className="btn-secondary"
-              >
-                Code source du module
+              <a href="https://vyvre-demos.web.app/vyvre-conditions-engine.js" target="_blank" rel="noopener" className="btn-secondary">
+                {t('acc.s10.cta2')}
               </a>
             </div>
           </div>
@@ -603,44 +534,41 @@ export default function AccuracyPage() {
           <div className="max-w-5xl mx-auto">
             <div className="v6 px-12 md:px-16 py-16 md:py-20 text-center flex flex-col items-center gap-6">
               <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent">
-                11 · Garde-fou qualité · Engagement honnêteté
+                {t('acc.s11.eyebrow')}
               </span>
               <h2 className="font-sans text-3xl md:text-4xl font-thin leading-[1.1] -tracking-[0.022em] max-w-3xl">
-                Préférer l'honnêteté<br />
-                <em className="not-italic text-text/55 font-extralight">à la fausse précision.</em>
+                {t('acc.s11.h2a')}<br />
+                <em className="not-italic text-text/55 font-extralight">{t('acc.s11.h2b')}</em>
               </h2>
               <p className="text-base text-text/65 max-w-2xl leading-relaxed font-extralight">
-                v7.0 retire les hacks v6.2 qui flattaient artificiellement l'utilisateur (rajeunissement caché de -5 ans sur webcam dégradée, plafonds [20, 50] qui rendaient un 80ans à 50, mapping phototype-specific inventé hors-source).
+                {t('acc.s11.p1')}
               </p>
               <p className="text-sm text-text/55 max-w-2xl leading-relaxed font-extralight italic">
-                Si la peau réelle de l'utilisateur fait 38 ans à un dermato, l'engine doit dire 38. Pas 28 (mensonge flatteur). Pas 44 (faux brutal). Vraie estimation.
+                {t('acc.s11.p2')}
               </p>
-              <p className="text-xs text-text/45 font-mono tracking-[0.1em] uppercase mt-4">
+              <p className="text-xs text-text/45 font-mono tracking-[0.1em] uppercase mt-4 vy-ltr">
                 VYVRE estimation is indicative. For clinical diagnosis, consult a dermatologist.
               </p>
             </div>
           </div>
         </section>
 
-        {/* ===== CTA ===== */}
+        {/* ===== Appel ===== */}
         <section className="px-8 py-24 border-t border-line">
           <div className="max-w-4xl mx-auto text-center flex flex-col items-center gap-6">
             <h2 className="font-sans text-4xl md:text-5xl font-thin leading-[1.05] -tracking-[0.022em]">
-              Questions techniques ?<br />
-              <em className="not-italic text-text/55 font-extralight">Demandez le DPA complet.</em>
+              {t('acc.cta.h2a')}<br />
+              <em className="not-italic text-text/55 font-extralight">{t('acc.cta.h2b')}</em>
             </h2>
             <p className="text-base text-text/65 max-w-xl leading-relaxed font-extralight">
-              On envoie sur demande aux DPO, dermatos consultants, équipes R&D : DPA, méthodologie détaillée, accuracy report, code source du moteur audité.
+              {t('acc.cta.p')}
             </p>
             <div className="flex flex-wrap items-center justify-center gap-4 mt-4">
-              <a
-                href="mailto:charles@symphonydrive.com?subject=VYVRE - Documentation technique méthodologie"
-                className="btn-primary"
-              >
-                Demander la documentation →
+              <a href="mailto:charles@symphonydrive.com?subject=VYVRE - Documentation" className="btn-primary">
+                {t('acc.cta.1')}
               </a>
               <Link href="/" className="btn-secondary">
-                ← Retour
+                {t('acc.cta.2')}
               </Link>
             </div>
           </div>
@@ -652,21 +580,21 @@ export default function AccuracyPage() {
             <div className="flex flex-wrap items-center justify-between gap-6">
               <div className="flex items-center gap-3">
                 <canvas className="v-mini" width="48" height="48" aria-label="VYVRE" style={{ width: 24, height: 24 }} />
-                <span className="font-mono tracking-[0.18em] uppercase">VYVRE · Paris, France</span>
+                <span className="font-mono tracking-[0.18em] uppercase">{t('footer.cityFull')}</span>
               </div>
               <div className="flex flex-wrap items-center gap-6 font-mono tracking-[0.18em] uppercase">
                 <a href="mailto:charles@symphonydrive.com" className="hover:text-text transition-colors">charles@symphonydrive.com</a>
-                <a href="https://calendly.com/charles-symphonydrive" target="_blank" rel="noopener" className="hover:text-text transition-colors">Réserver 20 min →</a>
+                <a href="https://calendly.com/charles-symphonydrive" target="_blank" rel="noopener" className="hover:text-text transition-colors">{t('footer.book')}</a>
               </div>
             </div>
 
             <div className="flex flex-wrap items-center gap-6 font-mono tracking-[0.18em] uppercase text-text/35 text-[10px] border-t border-line pt-8">
-              <Link href="/cgv" className="hover:text-text transition-colors">CGV</Link>
-              <Link href="/mentions-legales" className="hover:text-text transition-colors">Mentions légales</Link>
-              <Link href="/confidentialite" className="hover:text-text transition-colors">Confidentialité · RGPD</Link>
-              <Link href="/dpa" className="hover:text-text transition-colors">DPA</Link>
-              <Link href="/accuracy" className="hover:text-text transition-colors">Méthodologie</Link>
-              <span className="ml-auto">© {new Date().getFullYear()} VYVRE — Tous droits réservés</span>
+              <Link href="/cgv" className="hover:text-text transition-colors">{t('footer.cgv')}</Link>
+              <Link href="/mentions-legales" className="hover:text-text transition-colors">{t('footer.legal')}</Link>
+              <Link href="/confidentialite" className="hover:text-text transition-colors">{t('footer.privacyGdpr')}</Link>
+              <Link href="/dpa" className="hover:text-text transition-colors">{t('footer.dpa')}</Link>
+              <Link href="/accuracy" className="hover:text-text transition-colors">{t('footer.method')}</Link>
+              <span className="ml-auto">© {new Date().getFullYear()} VYVRE — {t('footer.rights')}</span>
             </div>
           </div>
         </footer>
@@ -676,7 +604,7 @@ export default function AccuracyPage() {
 }
 
 // ─────────────────────────────────────────────────────────────
-// Components
+// Composants
 // ─────────────────────────────────────────────────────────────
 
 function Source({
@@ -710,6 +638,16 @@ function Source({
   );
 }
 
+function BenchCard({ label, value, note }: { label: string; value: string; note: string }) {
+  return (
+    <div className="v6-soft px-5 py-5 flex flex-col gap-1 text-center">
+      <div className="font-mono text-[10px] tracking-[0.25em] uppercase text-accent">{label}</div>
+      <div className="text-2xl font-thin text-text vy-ltr">{value}</div>
+      <div className="text-[10px] text-text/55 font-mono">{note}</div>
+    </div>
+  );
+}
+
 function MethodStep({ num, title, desc }: { num: string; title: string; desc: string }) {
   return (
     <div className="v6 px-8 py-10 flex flex-col gap-4 h-full">
@@ -732,7 +670,7 @@ function VarianceCard({ biomarker, sigma, unit }: { biomarker: string; sigma: st
       <div className="font-mono text-[9px] tracking-[0.3em] uppercase text-text/55">
         {biomarker}
       </div>
-      <div className="font-sans text-3xl md:text-4xl font-thin leading-none -tracking-[0.02em] text-accent">
+      <div className="font-sans text-3xl md:text-4xl font-thin leading-none -tracking-[0.02em] text-accent vy-ltr">
         {sigma}
       </div>
       <div className="font-mono text-[9px] tracking-[0.2em] uppercase text-text/45">
@@ -756,6 +694,7 @@ function Limitation({ title, body }: { title: string; body: string }) {
 }
 
 function SourceRoadmap({
+  t,
   authors,
   year,
   title,
@@ -763,6 +702,7 @@ function SourceRoadmap({
   applied,
   roadmap,
 }: {
+  t: T;
   authors: string;
   year: string;
   title: string;
@@ -782,10 +722,10 @@ function SourceRoadmap({
         {journal}
       </div>
       <p className="text-xs text-text/65 leading-relaxed font-extralight mt-1">
-        <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-text/45">Appliqué partiellement : </span>{applied}
+        <span className="font-mono text-[9px] tracking-[0.2em] uppercase text-text/45">{t('acc.rm.appliedLabel')}</span>{applied}
       </p>
       <p className="text-xs text-amber-400/70 leading-relaxed font-extralight mt-1">
-        <span className="font-mono text-[9px] tracking-[0.2em] uppercase">Roadmap : </span>{roadmap}
+        <span className="font-mono text-[9px] tracking-[0.2em] uppercase">{t('acc.rm.roadmapLabel')}</span>{roadmap}
       </p>
     </div>
   );

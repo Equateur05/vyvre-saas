@@ -15,8 +15,24 @@ export interface ScanScores {
   pigmentation: number;
   firmness: number;
   quality?: number;
-  // le moteur peut ajouter d'autres clés (cellAge, perceivedAge, globalScore…)
-  [key: string]: number | undefined;
+  /**
+   * v11.1 — contrat d'affichage de l'âge. Le moteur décide seul s'il est lisible.
+   * Aucune UI ne doit recalculer un âge dans son coin : on lit `ageDisplay`
+   * quand `ageReadable` vaut true, sinon on n'affiche pas de chiffre.
+   */
+  ageReadable?: boolean;
+  /** fourchette prête à afficher, ex. « 32–41 ans » ; null quand l'image ne permet pas de la lire */
+  ageDisplay?: string | null;
+  ageClass?: string;
+  ageClassLabel?: string;
+  ageClassHint?: string;
+  /** âge ponctuel — null quand le moteur refuse. Ne pas afficher seul. */
+  cellAge?: number | null;
+  cellAgeRange?: [number, number] | null;
+  cellAgeMethod?: string;
+  confidence?: number;
+  // le moteur peut ajouter d'autres clés (perceivedAge, globalScore…)
+  [key: string]: number | string | boolean | null | undefined | [number, number];
 }
 
 export interface ClinicalConditions {

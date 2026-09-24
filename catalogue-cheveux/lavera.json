@@ -27,32 +27,14 @@
    ],
    "ingredients": "Hydrogenated Jojoba Oil, Caprylic/Capric Triglyceride, Simmondsia Chinensis (Jojoba) Seed Oil*, Hydrogenated Vegetable Oil, Butyrospermum Parkii (Shea Butter)*, Canola Oil, Copernicia Cerifera (Carnauba) Wax*, Glyceryl Caprylate, Euphorbia Cerifera (Candelilla) Wax, Tocopherol, Helianthus Annuus (Sunflower) Seed Oil, Ascorbyl Palmitate, [+/- Mica (CI 77019), Iron Oxide (CI 77491), Iron Oxide (CI 77492), Iron Oxide (CI 77499), Titanium Dioxide (CI 77891)]",
    "description": "Des sourcils naturellement beaux et définis : le crayon à sourcils lavera est votre allié pour des sourcils parfaitement définis et visiblement plus fournis. Sa mine fine permet de dessiner des traits ultra-fins à effet poil, pour remplir, modeler et définir les sourcils avec précision, selon vos envies. Sa texture douce, enrichie en huile de jojoba bio et en beurre de karité bio, glisse délicatement sur la peau sans tirer, pour une application agréable et confortable. Le résultat reste impeccab",
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "lavera--tripeptide-plump-lipstick-116750",
-   "name": "Tripeptide Plump Lipstick",
-   "brand": "lavera",
-   "brand_name": "Lavera",
-   "url": "https://www.lavera.fr/products/tripeptide-plump-lipstick-116750",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 13.9,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0968/4962/5427/files/cf42f26be12a0a5a57654dab9566645b4b51c6ea_116750_hero.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/lavera/tripeptide-plump-lipstick-116750.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
-   "cheveux_cibles": [],
-   "actifs": [
-    "acide hyaluronique"
-   ],
-   "ingredients": null,
-   "description": "Un glow à emporter pour des lèvres naturellement plus pulpeuses : le rouge à lèvres repulpant aux tripeptides de lavera associe soin et fini glowy dans une texture baume légère et fondante qui glisse sans effort sur les lèvres. Sa formule aérienne procure une sensation de douceur et de souplesse, sans coller. Son éclat brillant offre un glow irrésistible et met en valeur la couleur naturelle des lèvres, convenant à toutes les carnations. Les tripeptides, l’acide hyaluronique et le squalane laiss",
    "claims": [
-    "brillance"
+    "nutrition",
+    "texturisant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/lavera/cutout/eyebrow-pencil-blonde-02-116209.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "lavera--calm-comfort-rich-cream-116706",
@@ -85,10 +67,14 @@
    "ingredients": "Water (Aqua), Simmondsia Chinensis (Jojoba) Seed Oil*, Helianthus Annuus Hybrid Oil*, Aloe Barbadensis Leaf Juice*, Caprylic/Capric Triglyceride, Pentylene Glycol, Glycerin, Caprylic/Capric/Myristic/Stearic Triglyceride, Lanolin, Magnesium Sulfate, Panthenol, Butyrospermum Parkii (Shea) Butter*, Cera Alba*, Theobroma Cacao (Cocoa) Seed Butter*, Withania Somnifera (Winter-Cherry) Root Extract*, Panax Ginseng (Asian Ginseng) Root Extract*, Eucalyptus Globulus (Eucalyptus) Leaf Extract*, Centella Asiatica Leaf Vesicles, Zanthoxylum Alatum Fruit Extract, Helianthus Annuus (Sunflower) Seed Oil, Polyglyceryl-4 Diisostearate/Polyhydroxystearate/Sebacate, Polyglyceryl-3 Oleate, Diisostearoyl Polyglyceryl-3 Dimer Dilinoleate, Hydrogenated Vegetable Oil, Tocopherol, Butylene Glycol, Lecithin, Citric Acid, Sodium Hydroxide, Fragrance (Parfum)**, Linalool**, Terpineol**, Citrus Aurantium Bergamia (Bergamot) Peel Oil**, Limonene**, Linalyl Acetate**, Eugenol**, Pinene**, Cananga Odorata Oil/Extract**, Pelargonium Graveolens (Sweet Scented Geranium) Flower Oil** * ingred",
    "description": "Panthénol, CICA-Exosome, Ashwagandha bio - 4 Actions : Apaise - Nourrit – Régénère – Protège - VISAGE & CORPS - Testé sous contrôle dermatologique - Formule riche à texture fondante - Absorption rapide sans effet gras - Parfum floral, en harmonie avec la peau et les sens - 0 % Alcool - Idéale comme base de maquillage Un soin qui comprend ce dont votre peau a vraiment besoin Enrichie d'actifs botaniques, sa formule offre à la peau stressée exactement ce qu'elle réclame : une détente immédiate, un",
    "claims": [
-    "nourrissant",
-    "apaisant"
+    "nutrition",
+    "texturisant",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/lavera/cutout/calm-comfort-rich-cream-116706.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "lavera--tonique-capillaire-revitalize-boost-116374",
@@ -104,6 +90,7 @@
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
    "cheveux_cibles": [
+    "fins",
     "chute"
    ],
    "actifs": [
@@ -113,10 +100,15 @@
    "ingredients": null,
    "description": "Mon soin douceur pour les cheveux Redonnez vitalité et densité à vos cheveux avec le Tonique Capillaire Revitalize & Boost. Sa formule associe la caféine naturelle, qui stimule le cuir chevelu et favorise la croissance, au collagène végétal, reconnu pour renforcer la structure capillaire et améliorer la souplesse de la fibre. Jour après jour, la chevelure gagne en force, en densité et retrouve toute sa vitalité. Naturellement La caféine naturelle est reconnue pour favoriser la croissance des che",
    "claims": [
+    "fortifiant",
     "volume",
-    "fortifiant"
+    "densifiant",
+    "croissance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/lavera/cutout/tonique-capillaire-revitalize-boost-116374.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "lavera--tonique-capillaire-anti-pelliculaire-116371",
@@ -130,8 +122,9 @@
    "image_source_url": "https://cdn.shopify.com/s/files/1/0968/4962/5427/files/774aa3c7431cde96b70eb16eb46b4e27a0f6b166_116371_hero.jpg?width=600",
    "image_local": "public/scan/products-cheveux/lavera/tonique-capillaire-anti-pelliculaire-116371.jpg",
    "categorie": "anti-pellicules",
-   "etape": 1,
+   "etape": 4,
    "cheveux_cibles": [
+    "gras",
     "pellicules",
     "cuir-chevelu-sensible"
    ],
@@ -147,11 +140,14 @@
    "ingredients": "Water (Aqua), Alcohol** denat., Aloe Barbadensis Leaf Juice*, Triethyl Citrate, Glycerin, Salvia Officinalis (Sage) Leaf Extract*, Rosmarinus Officinalis (Rosemary) Leaf Extract*, Camellia Sinensis (Tea) Leaf Extract*, Urtica Dioica (Nettle) Leaf Extract*, Hamamelis Virginiana (Witch Hazel) Leaf Extract*, Propanediol Caprylate, Panthenol, Lactic Acid, Levulinic Acid, Sodium Levulinate, Sodium Hydroxide, Fragrance (Parfum)***, Citrus Limon (Lemon) Peel Oil***, Limonene***, Linalyl Acetate***, Linalool***, Eucalyptus Globulus Oil***, Lavandula Oil/Extract***, Pinene***, Citronellol***, Juniperus Virginiana (Eastern Red Cedar) Oil***, Camphor***, Beta-Caryophyllene***, Citral***, Terpineol***, Geranyl Acetate***, Alpha-Terpinene***, Terpinolene***, Carvone***, Geraniol*** * aus kontrolliert biologischem Anbau ** hergestellt aus",
    "description": "Mon soin douceur pour les cheveux Prenez soin de votre cuir chevelu en douceur avec le Tonique Anti-Pelliculaire. Sa formule associe le panthénol, aux vertus hydratantes et apaisantes, à l’actif Crinipan®1 pour cibler efficacement les pellicules et prévenir leur réapparition. Le panthénol hydrate et apporte un confort immédiat, tandis que le Crinipan® agit pour retrouver un cuir chevelu sain et apaisé. Jour après jour, le cuir chevelu retrouve équilibre et bien-être. Naturellement Crinipan® rédu",
    "claims": [
-    "hydratant",
-    "apaisant",
-    "anti-pellicules"
+    "hydratation",
+    "antipelliculaire",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/lavera/cutout/tonique-capillaire-anti-pelliculaire-116371.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "lavera--spray-sans-rinage-smooth-silk-116368",
@@ -167,8 +163,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
-    "lisses"
+    "fins"
    ],
    "actifs": [
     "protéines de blé",
@@ -185,11 +180,16 @@
    "ingredients": "Water (Aqua), Aloe Barbadensis Leaf Juice*, Alcohol** denat., Dodecane, Dicaprylyl Ether, Helianthus Annuus Hybrid Oil*, Triheptanoin, Pentylene Glycol, Ginkgo Biloba (Ginkgo) Leaf Extract*, Opuntia Ficus-Indica (Prickly Pear) Flower Extract*, Hibiscus Sabdariffa (Red Sorrel) Flower Extract*, Arginine, Inulin, Betaine, Helianthus Annuus (Sunflower) Seed Oil, Levulinic Acid, Glycerin, Isoamyl Laurate, Lactic Acid, Sodium Levulinate, Hydrolyzed Corn Protein, Tocopherol, Hydrolyzed Wheat Protein, Hydrolyzed Soy Protein, Glucose, Fructose, Sucrose, Lactobacillus Ferment, Fragrance (Parfum)***, Citronellol***, Linalyl Acetate***, Linalool***, Citrus Aurantium Bergamia (Bergamot) Peel Oil***, Limonene***, Pinene***, Pogostemon Cablin (Patchouli) Oil***, Citrus Limon (Lemon) Peel Oil***, Eucalyptus Globulus Oil***, Turpentine***, Benzyl Salicylate***, Lavandula Oil/Extract***, Pelargonium Graveolens (Sweet Scented Geranium) Flower Oil***, Vanillin***, Terpineol***, Juniperus Virginiana (Eastern Red Cedar) Oil***, Geranyl Acetate***, Beta-Caryophyllene***, Geraniol***, Menthol***, Santalum Album (Sandalwood) Oil*** * aus kontrolliert biologischem An",
    "description": "Mon soin douceur pour les cheveux Prenez soin de vos cheveux à tout moment grâce au Spray sans rinçage Smooth & Silk. Ce soin enveloppe les cheveux d’hydratation et de souplesse, tout en disciplinant les frisottis. La figue de Barbarie bio hydrate et assouplit la chevelure, tandis que l’arginine lisse la fibre et facilite le démêlage, sans alourdir. Sa texture légère s’utilise à tout moment de la journée pour rafraîchir et sublimer vos cheveux, leur offrant un éclat naturel et soyeux. Pour des c",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "anti-frisottis",
+    "texturisant",
     "brillance",
-    "lissant"
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/lavera/cutout/spray-sans-rinage-smooth-silk-116368.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "lavera--aprs-shampooing-basis-sensitive-hydrate-care-116356",
@@ -202,9 +202,12 @@
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0968/4962/5427/files/3595e2621f2012d4a503b16d25a74d035cddcc01_116356_hero.jpg?width=600",
    "image_local": "public/scan/products-cheveux/lavera/aprs-shampooing-basis-sensitive-hydrate-care-116356.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [],
+   "categorie": "apres-shampooing",
+   "etape": 2,
+   "cheveux_cibles": [
+    "secs",
+    "cuir-chevelu-sensible"
+   ],
    "actifs": [
     "acide hyaluronique",
     "aloe vera",
@@ -214,10 +217,14 @@
    "ingredients": "Water (Aqua), Aloe Barbadensis Leaf Juice*, Alcohol** denat., Cetearyl Alcohol, Distearoylethyl Dimonium Chloride, Isoamyl Laurate, Glycine Soja (Soybean) Oil*, Cucumis Sativus (Cucumber) Fruit Extract*, Melissa Officinalis (Lemon Balm) Leaf Extract*, Sodium Hyaluronate, Glycerin, Glyceryl Undecylenate, Lecithin, Levulinic Acid, Sodium Levulinate, Behenyl Alcohol, Lactic Acid, Fragrance (Parfum)***, Limonene***, Citrus Aurantium Peel Oil***, Linalool***, Citrus Limon (Lemon) Peel Oil***, Linalyl Acetate***, Pinene***, Citronellol***, Citrus Aurantium Bergamia (Bergamot) Peel Oil***, Geraniol***, Citral***, Lavandula Oil/Extract*** * aus kontrolliert biologischem Anbau ** he",
    "description": "Soin démêlant hydratant Soin hydratant naturel pour vos cheveux : l’aloe vera bio et l’acide hyaluronique s’associent pour une hydratation intense et délicate. L’aloe vera bio hydrate les longueurs tout en leur apportant douceur et souplesse. L’acide hyaluronique renforce l’hydratation des longueurs et protège durablement de la sécheresse. Utilisé quotidiennement, il offre un véritable bain d’hydratation à vos cheveux. Naturellement L’aloe Vera bio est reconnue pour ses propriétés hydratantes su",
    "claims": [
-    "hydratant",
-    "fortifiant"
+    "hydratation",
+    "fortifiant",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/lavera/cutout/aprs-shampooing-basis-sensitive-hydrate-care-116356.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "lavera--shampooing-soin-revitalize-boost-116365",
@@ -233,6 +240,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "fins",
     "chute"
    ],
    "actifs": [
@@ -240,12 +248,17 @@
     "collagène"
    ],
    "ingredients": null,
-   "description": "Mon soin douceur pour les cheveux Redonnez de la vitalité à vos cheveux en perte de densité avec le Shampooing Revitalize & Boost. Sa formule associe la caféine naturelle, qui stimule le cuir chevelu et favorise la croissance des cheveux, au collagène végétal, reconnu pour renforcer la structure capillaire et améliorer la souplesse de la fibre. Jour après jour, les cheveux paraissent plus denses, plus forts et pleins de vitalité. Naturellement La caféine naturelle est reconnue pour favoriser la ",
+   "description": "Mon soin douceur pour les cheveux Redonnez de la vitalité à vos cheveux en perte de densité avec le Shampooing Revitalize & Boost. Sa formule associe la caféine naturelle, qui stimule le cuir chevelu et favorise la croissance des cheveux, au collagène végétal, reconnu pour renforcer la structure capillaire et améliorer la souplesse de la fibre. Jour après jour, les cheveux paraissent plus denses, plus forts et pleins de vitalité. Naturellement La caféine naturelle est reconnue pour favoriser la",
    "claims": [
+    "fortifiant",
     "volume",
-    "fortifiant"
+    "densifiant",
+    "croissance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/lavera/cutout/shampooing-soin-revitalize-boost-116365.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "lavera--aprs-shampooing-repair-protect-116359",
@@ -258,8 +271,8 @@
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0968/4962/5427/files/e581a18e1a1fa4b7c2da951ab13b931aa60a2589_116359_hero.jpg?width=600",
    "image_local": "public/scan/products-cheveux/lavera/aprs-shampooing-repair-protect-116359.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
     "secs",
     "abimes"
@@ -275,12 +288,16 @@
    "ingredients": "Water (Aqua), Aloe Barbadensis Leaf Juice*, Alcohol** denat., Cetearyl Alcohol, Distearoylethyl Dimonium Chloride, Isoamyl Laurate, Glycine Soja (Soybean) Oil*, Argania Spinosa (Argan) Kernel Oil*, Chenopodium Quinoa Seed Extract*, Avena Sativa (Oat) Seed Extract*, Prunus Amygdalus Dulcis (Sweet Almond) Seed Extract*, Pisum Sativum (Pea) Peptide, Glycerin, Lecithin, Glyceryl Undecylenate, Levulinic Acid, Sodium Levulinate, Behenyl Alcohol, Hydrolyzed Corn Protein, Hydrolyzed Wheat Protein, Hydrolyzed Soy Protein, Lactobacillus Ferment, Lactic Acid, Fragrance (Parfum)***, Benzyl Salicylate***, Linalool*** * aus kontrolliert biologischem Anbau ** hergestellt aus",
    "description": "Soin démêlant nourrissant Offrez à vos cheveux abîmés un soin régénérant : l'après-Shampooing lavera Repair & Protect allie la douceur de l'huile d'argan bio aux bienfaits fortifiants des peptides. L'huile d'argan bio procure une sensation de douceur agréable. Les peptides aident à renforcer la structure capillaire et confèrent aux cheveux un éclat naturel. Jour après jour, vos cheveux retrouvent toute leur douceur, leur souplesse et leur brillance. Naturellement L’huile d’argan bio nourrit et p",
    "claims": [
-    "nourrissant",
-    "reparateur",
+    "nutrition",
+    "reparation",
+    "fortifiant",
     "brillance",
-    "fortifiant"
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/lavera/cutout/aprs-shampooing-repair-protect-116359.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "lavera--shampooing-soin-anti-pelliculaire-116362",
@@ -311,11 +328,14 @@
    "ingredients": "Water (Aqua), Aloe Barbadensis Leaf Juice*, Sodium Coco-Sulfate, Coco-Glucoside, Glycerin, Cocamidopropyl Betaine, Lauryl Glucoside, Rosmarinus Officinalis (Rosemary) Leaf Extract*, Betula Alba Leaf Extract*, Propanediol Caprylate, Panthenol, Sea Salt (Maris Sal), Tocopherol, Helianthus Annuus (Sunflower) Seed Oil, Citric Acid, Cetearyl Alcohol, Sodium Cetearyl Sulfate, Levulinic Acid, Tridecane, Sodium Levulinate, Betaine, Guar Hydroxypropyltrimonium Chloride, Sodium Anisate, Undecane, Sodium Sulfate, Sodium Chloride, Fragrance (Parfum)**, Citrus Limon (Lemon) Peel Oil**, Limonene**, Linalyl Acetate**, Linalool**, Eucalyptus Globulus Oil**, Lavandula Oil/Extract**, Pinene**, Citronellol**, Juniperus Virginiana (Eastern Red Cedar) Oil**, Camphor** * aus kontrolliert biologischem Anbau ** natürlichen Urspr",
    "description": "Mon soin douceur pour les cheveux Prenez soin de votre cuir chevelu en douceur avec le Shampooing Anti-Pelliculaire. Sa formule associe le panthénol, aux vertus hydratantes et apaisantes, à l'actif Crinipan®1 pour cibler efficacement les pellicules et prévenir leur réapparition. Le panthénol apaise le cuir chevelu et soulage les démangeaisons, tandis que le Crinipan® agit pour éliminer les pellicules et prévenir leur réapparition. Sa formule nettoie en douceur et révèle des cheveux libérés des p",
    "claims": [
-    "hydratant",
-    "apaisant",
-    "anti-pellicules"
+    "hydratation",
+    "antipelliculaire",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/lavera/cutout/shampooing-soin-anti-pelliculaire-116362.webp",
+   "image_fond": true,
+   "ciblage_source": "fiche"
   },
   {
    "id": "lavera--shampooing-soin-color-shine-116350",
@@ -344,9 +364,13 @@
    "ingredients": "Water (Aqua), Aloe Barbadensis Leaf Juice*, Sodium Coco-Sulfate, Glycerin, Cocamidopropyl Betaine, Lauryl Glucoside, Sea Salt (Maris Sal), Citric Acid, Vaccinium Macrocarpon (Cranberry) Fruit Extract*, Aronia Melanocarpa Fruit Extract*, Hibiscus Sabdariffa (Red Sorrel) Flower Extract*, Lycium Barbarum (Goji Berry) Fruit Extract*, Prunus Persica (Peach) Kernel Oil, Pisum Sativum (Pea) Peptide, Helianthus Annuus (Sunflower) Seed Oil, Tocopherol, Betaine, Levulinic Acid, Cetearyl Alcohol, PCA Glyceryl Oleate, Guar Hydroxypropyltrimonium Chloride, Sodium Levulinate, Sodium Cetearyl Sulfate, Sodium Anisate, Tridecane, Coco-Glucoside, Undecane, Sodium Sulfate, Lactobacillus Ferment, Sodium Chloride, Fragrance (Parfum)**, Terpineol**, Limonene**, Linalool**, Linalyl Acetate**, Benzyl Salicylate**, Pinene**, Citronellol** * aus kontrolliert biologischem Anbau ** natürlichen U",
    "description": "Mon soin douceur pour les cheveux Sublimez l'éclat de vos cheveux colorés avec le Shampooing Color & Shine. Ce soin associe l'Hibiscus bio, reconnu pour ses vertus adoucissantes, à la Baie de Goji bio, précieuse source d'antioxydants naturels. L'Hibiscus bio enveloppe la chevelure de douceur et de souplesse, tandis que la Baie de Goji bio protège la couleur et aide à préserver son intensité. Sa formule douce et efficace nettoie en douceur et révèle des cheveux visiblement plus lumineux, brillant",
    "claims": [
-    "brillance"
+    "brillance",
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/lavera/cutout/shampooing-soin-color-shine-116350.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "lavera--shampooing-soin-repair-protect-116347",
@@ -363,7 +387,6 @@
    "etape": 1,
    "cheveux_cibles": [
     "secs",
-    "lisses",
     "abimes"
    ],
    "actifs": [
@@ -379,12 +402,16 @@
    "ingredients": "Water (Aqua), Aloe Barbadensis Leaf Juice*, Sodium Coco-Sulfate, Glycerin, Cocamidopropyl Betaine, Lauryl Glucoside, Sea Salt (Maris Sal), Citric Acid, Argania Spinosa (Argan) Kernel Oil*, Avena Sativa (Oat) Seed Extract*, Chenopodium Quinoa Seed Extract*, Pisum Sativum (Pea) Peptide, Hydrolyzed Corn Protein, Hydrolyzed Wheat Protein, Hydrolyzed Soy Protein, Betaine, Levulinic Acid, Cetearyl Alcohol, Guar Hydroxypropyltrimonium Chloride, PCA Glyceryl Oleate, Sodium Levulinate, Sodium Cetearyl Sulfate, Sodium Anisate, Tridecane, Coco-Glucoside, Undecane, Sodium Sulfate, Lactobacillus Ferment, Sodium Chloride, Tocopherol, Helianthus Annuus (Sunflower) Seed Oil, Fragrance (Parfum)**, Benzyl Salicylate**, Linalool**, Citrus Aurantium Peel Oil**, Limonene**, Vanillin** * aus kontrolliert biologischem Anbau ** natürlichen Ursp",
    "description": "Mon soin douceur pour les cheveux Offrez à vos cheveux abîmés un soin régénérant grâce au Shampooing Repair & Protect. Sa formule associe l’huile d’Argan bio, aux propriétés nourrissantes, et des peptides fortifiants qui revitalisent la fibre capillaire. Les cheveux retrouvent souplesse, douceur et brillance, jour après jour. Naturellement L’huile d’argan bio nourrit et prend soin des cheveux en profondeur Les peptides régénèrent les cheveux abîmés Réparateur Lisse la fibre capillaire et apporte",
    "claims": [
-    "nourrissant",
-    "reparateur",
-    "brillance",
-    "fortifiant"
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/lavera/cutout/shampooing-soin-repair-protect-116347.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "lavera--shampooing-soin-fresh-clear-116353",
@@ -415,9 +442,13 @@
    "ingredients": "Water (Aqua), Aloe Barbadensis Leaf Juice*, Sodium Coco-Sulfate, Cocamidopropyl Betaine, Lauryl Glucoside, Sea Salt (Maris Sal), Citric Acid, Mentha Piperita (Peppermint) Leaf Extract*, Hamamelis Virginiana (Witch Hazel) Leaf Extract*, Camellia Sinensis (Tea) Leaf Extract*, Lactic Acid, Glycerin, Levulinic Acid, Sodium Levulinate, Guar Hydroxypropyltrimonium Chloride, Sodium Anisate, PCA Glyceryl Oleate, Fragrance (Parfum)**, Linalool**, Citrus Limon (Lemon) Peel Oil**, Limonene**, Juniperus Virginiana (Eastern Red Cedar) Oil**, Pinene**, Lavandula Oil/Extract** * aus kontrolliert biologischem Anbau ** nat",
    "description": "Mon soin douceur pour les cheveux Retrouvez des cheveux légers et un cuir chevelu purifié avec le Shampooing Fresh & Clear. Sa formule associe la menthe bio, aux vertus vivifiantes, et les AHA d’origine naturelle, qui aident à éliminer l’excès de sébum tout en douceur.La menthe bio purifie et rafraîchit le cuir chevelu, tandis que les AHA éliminent en douceur les impuretés et les résidus accumulés à la racine. Pour des cheveux propres, légers et un cuir chevelu sain, jour après jour. Naturelleme",
    "claims": [
-    "purifiant"
+    "purifiant",
+    "anti-gras"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/lavera/cutout/shampooing-soin-fresh-clear-116353.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "lavera--shampooing-soin-volume-lift-116344",
@@ -434,7 +465,7 @@
    "etape": 1,
    "cheveux_cibles": [
     "fins",
-    "chute"
+    "abimes"
    ],
    "actifs": [
     "kératine",
@@ -450,10 +481,14 @@
    "ingredients": "Water (Aqua), Aloe Barbadensis Leaf Juice*, Sodium Coco-Sulfate, Glycerin, Cocamidopropyl Betaine, Lauryl Glucoside, Sea Salt (Maris Sal), Citric Acid, Camellia Sinensis (Tea) Leaf Extract*, Sasa Kurilensis Leaf/Stem Extract*, Gossypium Hirsutum (Cotton) Extract*, Humulus Lupulus (Hops) Extract*, Hydrolyzed Corn Protein, Hydrolyzed Wheat Protein, Hydrolyzed Soy Protein, Tocopherol, Helianthus Annuus (Sunflower) Seed Oil, Betaine, Levulinic Acid, Cetearyl Alcohol, Sodium Levulinate, Sodium Cetearyl Sulfate, Guar Hydroxypropyltrimonium Chloride, Sodium Anisate, Tridecane, Coco-Glucoside, Undecane, Lactobacillus Ferment, Sodium Sulfate, Sodium Chloride, Fragrance (Parfum)**, Citronellol**, Limonene**, Linalyl Acetate** * aus kontrolliert biologischem Anbau ** natürlich",
    "description": "Mon soin douceur pour les cheveux Redonnez du volume à vos cheveux fins avec le Shampooing Volume & Lift. Sa formule allie le Matcha bio, aux propriétés protectrices, à la Kératine végétale pour fortifier la fibre capillaire. Le Matcha bio préserve la vitalité des cheveux et apporte légèreté, tandis que la Kératine végétale booste le volume sans alourdir. Vos cheveux retrouvent douceur, énergie et un volume naturel, jour après jour. Naturellement Le matcha bio favorise la croissance naturelle de",
    "claims": [
+    "fortifiant",
     "volume",
-    "fortifiant"
+    "croissance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/lavera/cutout/shampooing-soin-volume-lift-116344.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "lavera--shampooing-soin-basis-sensitive-hydrate-care-116341",
@@ -469,6 +504,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -483,70 +519,14 @@
    "ingredients": "Water (Aqua), Aloe Barbadensis Leaf Juice*, Sodium Coco-Sulfate, Glycerin, Cocamidopropyl Betaine, Lauryl Glucoside, Citric Acid, Cucumis Sativus (Cucumber) Fruit Extract*, Melissa Officinalis (Lemon Balm) Leaf Extract*, Sodium Hyaluronate, Helianthus Annuus (Sunflower) Seed Oil, Tocopherol, Sea Salt (Maris Sal), Levulinic Acid, Cetearyl Alcohol, PCA Glyceryl Oleate, Betaine, Sodium Levulinate, Sodium Cetearyl Sulfate, Sodium Anisate, Guar Hydroxypropyltrimonium Chloride, Arginine, Tridecane, Coco-Glucoside, Undecane, Sodium Sulfate, Sodium Chloride, Fragrance (Parfum)**, Limonene**, Citrus Aurantium Peel Oil**, Linalool**, Citrus Limon (Lemon) Peel Oil**, Linalyl Acetate**, Pinene**, Citronellol**, Citrus Aurantium Bergamia (Bergamot) Peel Oil**, Geraniol**, Citral**, Lavandula Oil/Extract** * aus kontrolliert biologischem Anbau ** na",
    "description": "Mon soin douceur pour les cheveux Offrez à vos cheveux une hydratation naturelle avec le Shampooing basis sensitive Hydrate & Care grâce à l’Aloe Vera bio et à l’Acide Hyaluronique. Leurs actions nettoient en douceur et rendent les cheveux propres et hydratés. L’Aloe Vera bio, reconnue pour ses vertus apaisantes, aide à maintenir le confort du cuir chevelu tout en l’hydratant. L’Acide Hyaluronique renforce l’hydratation de la fibre capillaire et protège durablement de la sécheresse. Pour des che",
    "claims": [
-    "hydratant",
-    "apaisant",
-    "fortifiant"
+    "hydratation",
+    "fortifiant",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "lavera--melting-glow-lipstick-glazed-honey-02-116231",
-   "name": "Melting Glow Lipstick -Glazed Honey 02",
-   "brand": "lavera",
-   "brand_name": "Lavera",
-   "url": "https://www.lavera.fr/products/melting-glow-lipstick-glazed-honey-02-116231",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 11.9,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0968/4962/5427/files/981d146535f7ef3bfc54ec735b06ce108be95092_116231_hero.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/lavera/melting-glow-lipstick-glazed-honey-02-116231.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
-   "cheveux_cibles": [
-    "secs"
-   ],
-   "actifs": [
-    "acide hyaluronique",
-    "miel"
-   ],
-   "ingredients": null,
-   "description": "Le rouge à lèvres lavera Melting Glow Lipstick révèle des lèvres lumineuses et éclatantes, alliant soin intense et fini velouté. Sa texture fondante unique glisse sur les lèvres tout en légèreté, sans coller ni alourdir, pour un confort exceptionnel. Grâce à sa formule soin, les lèvres sont protégées de la déshydratation et hydratées toute la journée. Enrichi en huile de grenade bio, acide hyaluronique naturel et extrait de cerise bio, ce rouge à lèvres nourrit intensément pour des lèvres douces",
-   "claims": [
-    "hydratant",
-    "nourrissant",
-    "brillance"
-   ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "lavera--brow-control-hazel-02-114369",
-   "name": "Brow Control -Hazel 02",
-   "brand": "lavera",
-   "brand_name": "Lavera",
-   "url": "https://www.lavera.fr/products/brow-control-hazel-02-114369",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 8.6,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0968/4962/5427/files/e941a03ea23e1839d89dbeed0c8ab372bad7be6d_4021457656820_EyeBrowGel_02_hero.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/lavera/brow-control-hazel-02-114369.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [
-    "huile d'argan",
-    "aloe vera",
-    "glycérine",
-    "acides aminés",
-    "vitamine E",
-    "huile de tournesol",
-    "acide lactique"
-   ],
-   "ingredients": "Water (Aqua), Sucrose*, Alcohol* denat., Galactoarabinan, Xanthan Gum, Argania Spinosa Kernel Oil*, Aloe Barbadensis Leaf Juice Powder*, Levulinic Acid, Lactic Acid, Glycerin, Sodium Levulinate, Pullulan, Arginine, Tocopherol, Helianthus Annuus (Sunflower) Seed Oil*, Ascorbyl Palmitate, Fragrance (Parfum)**, Citronellol**, Limonene**",
-   "description": "Le Brow Control de lavera discipline les sourcils à la perfection et assure une tenue sans faute. Pour un look soigné qui tient tout au long de la journée. La brosse de haute qualité enrobe chaque poil à l’aide de la texture légère à séchage rapide, sans laisser d’excédent collant. Le Brow Control de lavera peut également être utilisé par-dessus la poudre ou le crayon à sourcils, sans migrer. La teinte « Hazel » confère un effet plus fourni aux sourcils. - Vegan - Sans silicones - Sans huiles mi",
-   "claims": [
-    "lissant"
-   ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/lavera/cutout/shampooing-soin-basis-sensitive-hydrate-care-116341.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "lavera--multi-balm-sunrise-ros-04-114647",
@@ -568,9 +548,13 @@
    "ingredients": null,
    "description": "Que ce soit sur les yeux, les lèvres ou les joues, le Multi Balm de lavera confère une couleur intense et un éclat frais. La texture fondante de ce baume multi-usages s’estompe facilement et se porte avec une sensation de légèreté tout au long de la journée. Il s’applique facilement, pénètre en douceur et se module au gré des envies pour obtenir l’intensité colorielle souhaitée. Sa texture crémeuse composée de carotte bio, de vitamine E et de matcha bio confère à la peau une douceur soyeuse. Grâ",
    "claims": [
+    "texturisant",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/lavera/cutout/multi-balm-sunrise-ros-04-114647.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "lavera--multi-balm-sundown-gold-03-114646",
@@ -592,9 +576,13 @@
    "ingredients": null,
    "description": "Que ce soit sur les yeux, les lèvres ou les joues, le Multi Balm de lavera confère une couleur intense et un éclat frais. La texture fondante de ce baume multi-usages s’estompe facilement et se porte avec une sensation de légèreté tout au long de la journée. Il s’applique facilement, pénètre en douceur et se module au gré des envies pour obtenir l’intensité colorielle souhaitée. Sa texture crémeuse composée de carotte bio, de vitamine E et de matcha bio confère à la peau une douceur soyeuse. Grâ",
    "claims": [
+    "texturisant",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/lavera/cutout/multi-balm-sundown-gold-03-114646.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "lavera--multi-balm-cloudy-pink-02-114645",
@@ -616,39 +604,13 @@
    "ingredients": null,
    "description": "Que ce soit sur les yeux, les lèvres ou les joues, le Multi Balm de lavera confère une couleur intense et un éclat frais. La texture fondante de ce baume multi-usages s’estompe facilement et se porte avec une sensation de légèreté tout au long de la journée. Il s’applique facilement, pénètre en douceur et se module au gré des envies pour obtenir l’intensité colorielle souhaitée. Sa texture crémeuse composée de carotte bio, de vitamine E et de matcha bio confère à la peau une douceur soyeuse. Grâ",
    "claims": [
+    "texturisant",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "lavera--brow-control-transparent-01-114368",
-   "name": "Brow Control -Transparent 01",
-   "brand": "lavera",
-   "brand_name": "Lavera",
-   "url": "https://www.lavera.fr/products/brow-control-transparent-01-114368",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 8.6,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0968/4962/5427/files/8e36cbb34cffecf93434cf9291d4f4bc0b8e21c5_4021457656813_EyeBrowGel_01_hero.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/lavera/brow-control-transparent-01-114368.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [
-    "huile d'argan",
-    "aloe vera",
-    "glycérine",
-    "acides aminés",
-    "vitamine E",
-    "huile de tournesol",
-    "acide lactique"
-   ],
-   "ingredients": "Water (Aqua), Sucrose*, Alcohol* denat., Galactoarabinan, Xanthan Gum, Argania Spinosa Kernel Oil*, Aloe Barbadensis Leaf Juice Powder*, Levulinic Acid, Lactic Acid, Glycerin, Sodium Levulinate, Pullulan, Arginine, Tocopherol, Helianthus Annuus (Sunflower) Seed Oil*, Ascorbyl Palmitate, Fragrance (Parfum)**, Citronellol**, Limonene**",
-   "description": "Le Brow Control de lavera discipline les sourcils à la perfection et assure une tenue sans faute. Pour un look soigné qui tient tout au long de la journée. La brosse de haute qualité enrobe chaque poil à l’aide de la texture légère à séchage rapide, sans laisser d’excédent collant. Le Brow Control de lavera peut également être utilisé par-dessus la poudre ou le crayon à sourcils, sans migrer. Pour des sourcils encore plus fournis, disponible dans la teinte « Hazel » également. - Vegan - Sans sil",
-   "claims": [
-    "lissant"
-   ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/lavera/cutout/multi-balm-cloudy-pink-02-114645.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "lavera--multi-balm-sunset-red-01-114644",
@@ -670,9 +632,13 @@
    "ingredients": null,
    "description": "Que ce soit sur les yeux, les lèvres ou les joues, le Multi Balm de lavera confère une couleur intense et un éclat frais. La texture fondante de ce baume multi-usages s’estompe facilement et se porte avec une sensation de légèreté tout au long de la journée. Il s’applique facilement, pénètre en douceur et se module au gré des envies pour obtenir l’intensité colorielle souhaitée. Sa texture crémeuse composée de carotte bio, de vitamine E et de matcha bio confère à la peau une douceur soyeuse. Grâ",
    "claims": [
+    "texturisant",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/lavera/cutout/multi-balm-sunset-red-01-114644.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "lavera--shampooing-solide-basis-sensitive-hydratation-soin-114047",
@@ -703,11 +669,14 @@
    "ingredients": "Water (Aqua), Oryza Sativa (Rice) Powder*, Citric Acid, Simmondsia Chinensis (Jojoba) Seed Oil*, Aloe Barbadensis Leaf Juice Powder*, Hamamelis Virginiana (Witch Hazel) Leaf Extract*, Melissa Officinalis (Lemon Balm) Leaf Extract*, Theobroma Cacao (Cocoa) Seed Butter*, Butyrospermum Parkii (Shea) Butter*, Glycine Soja (Soybean) Oil*, Olea Europaea (Olive) Fruit Oil*, Sodium Citrate, Guar Hydroxypropyltrimonium Chloride, Tocopherol, Helianthus Annuus (Sunflower) Seed Oil, Fragrance (Parfum)**, Limonene**, Linalool**, Linalyl Acetate**, Citrus Aurantium Bergamia (Bergamot) Peel Oil**, Citronellol**, Lavandula Oil/Extract**, Pinene**, Terpineol**, Santalol** * from organic agriculture ** from natural origin 99 % n",
    "description": "Notre formule minutieusement équilibrée à base d’aloe vera bio et de jojoba bio hydrate intensément vos cheveux et répond exactement aux besoins du cuir chevelu sensible. L´illustration correspond aux dimensions réelles du produit. L’aloe vera bio est connue pour son action hydratante et apaisante. Le jojoba bio est connu pour ses vertus adoucissantes et nourrissantes.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "apaisant"
+    "hydratation",
+    "nutrition",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/lavera/cutout/shampooing-solide-basis-sensitive-hydratation-soin-114047.webp",
+   "image_fond": true,
+   "ciblage_source": "fiche"
   },
   {
    "id": "lavera--aprs-shampooing-rparation-soin-profond-114040",
@@ -720,8 +689,8 @@
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0968/4962/5427/files/7983f1a4d3ee4ed4af4f47cd3d27b597147268fe_114040_hero.jpg?width=600",
    "image_local": "public/scan/products-cheveux/lavera/aprs-shampooing-rparation-soin-profond-114040.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
     "secs",
     "abimes"
@@ -736,10 +705,15 @@
    "ingredients": "Water (Aqua), Alcohol** denat., Cetearyl Alcohol, Isoamyl Laurate, Distearoylethyl Dimonium Chloride, Macadamia Integrifolia Seed Oil*, Argania Spinosa Kernel Oil*, Aloe Barbadensis Leaf Juice Powder*, Prunus Amygdalus Dulcis (Sweet Almond) Seed Extract*, Chenopodium Quinoa Seed Extract*, Glyceryl Undecylenate, Levulinic Acid, Glycerin, Sodium Levulinate, Guar Hydroxypropyltrimonium Chloride, Lactic Acid, Lecithin, Behenyl Alcohol, Fragrance (Parfum)***, Benzyl Alcohol***, Limonene*** * ingredients from organic farming ** made using organic",
    "description": "Découvrez la sensation d’un soin capillaire naturel et efficace : Notre formule minutieusement équilibrée à base d’huile de macadamia bio et d’huile d’argan bio répond exactement aux besoins des cheveux secs et abîmés. Elle nourrit intensément vos cheveux des racines aux pointes et aide à les réparer efficacement même s’ils sont très fragilisés. - Souplesse naturelle - Démêlage ultra-facile - Sensation agréable de cheveux soignés - sans silicone L’huile de macadamia bio est réputée pour ses vert",
    "claims": [
-    "nourrissant",
-    "reparateur"
+    "nutrition",
+    "reparation",
+    "demelant",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/lavera/cutout/aprs-shampooing-rparation-soin-profond-114040.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "lavera--aprs-shampooing-clat-couleur-soin-114039",
@@ -752,8 +726,8 @@
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0968/4962/5427/files/8a48f3492d373780a8384c846dd753b715b9c9c2_114039_hero.jpg?width=600",
    "image_local": "public/scan/products-cheveux/lavera/aprs-shampooing-clat-couleur-soin-114039.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
     "colores"
    ],
@@ -765,9 +739,14 @@
    "ingredients": "Water (Aqua), Alcohol** denat., Cetearyl Alcohol, Isoamyl Laurate, Distearoylethyl Dimonium Chloride, Vitis Vinifera (Grape) Seed Oil*, Punica Granatum Fruit Extract*, Aloe Barbadensis Leaf Juice Powder*, Lycium Barbarum Fruit Extract*, Vaccinium Macrocarpon (Cranberry) Fruit Extract*, Glyceryl Undecylenate, Pisum Sativum (Pea) Peptide, Levulinic Acid, Glycerin, Sodium Levulinate, Guar Hydroxypropyltrimonium Chloride, Lactobacillus Ferment, Lecithin, Lactic Acid, Behenyl Alcohol, Fragrance (Parfum)***, Limonene***, Linalool***, Benzyl Salicylate*** * ingredients from organic farming ** made usin",
    "description": "Découvrez la sensation d’un soin capillaire naturel et efficace : Notre formule minutieusement équilibrée à base de grenade bio et d’huile de pépin de raisin bio répond exactement aux besoins des cheveux colorés et sans éclat, pour leur offrir soin et brillance naturelle. - Souplesse naturelle - Démêlage ultra-facile - Sensation agréable de cheveux soignés - sans silicone La grenade bio est utilisée pour les soins capillaires afin de préserver l’éclat des cheveux colorés. L’huile de pépin de rai",
    "claims": [
-    "brillance"
+    "brillance",
+    "demelant",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/lavera/cutout/aprs-shampooing-clat-couleur-soin-114039.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "lavera--basis-sensitive-aprs-shampooing-hydratation-soin-114038",
@@ -780,8 +759,8 @@
    "price_source": "site officiel EUR",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0968/4962/5427/files/8189c4bcb3d3c06abe9767d735889480454b4c78_114038_hero.jpg?width=600",
    "image_local": "public/scan/products-cheveux/lavera/basis-sensitive-aprs-shampooing-hydratation-soin-114038.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [
     "secs",
     "cuir-chevelu-sensible"
@@ -795,11 +774,16 @@
    "ingredients": "Water (Aqua), Alcohol** denat., Cetearyl Alcohol, Isoamyl Laurate, Distearoylethyl Dimonium Chloride, Simmondsia Chinensis (Jojoba) Seed Oil*, Aloe Barbadensis Leaf Juice Powder*, Melissa Officinalis Leaf Extract*, Hamamelis Virginiana (Witch Hazel) Leaf Extract*, Levulinic Acid, Glycerin, Sodium Levulinate, Guar Hydroxypropyltrimonium Chloride, Lactic Acid, Lecithin, Glyceryl Undecylenate, Behenyl Alcohol, Fragrance (Parfum)***, Limonene***, Linalool***, Citronellol***, Geraniol***, Citral*** * ingredients from organic farming ** made using organic i",
    "description": "Découvrez la sensation d’un soin capillaire naturel et efficace : Notre formule minutieusement équilibrée à base d’aloe vera bio et de jojoba bio hydrate intensément vos cheveux et les aide à retrouver douceur et souplesse. - Souplesse naturelle - Démêlage ultra-facile - Sensation agréable de cheveux soignés - sans silicone L’aloe vera bio est connue pour son action hydratante et apaisante. Le jojoba bio est connu pour ses vertus adoucissantes et nourrissantes. Nos promesses : Formules biodégrad",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "apaisant"
+    "hydratation",
+    "nutrition",
+    "apaisant-cuir-chevelu",
+    "demelant",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/lavera/cutout/basis-sensitive-aprs-shampooing-hydratation-soin-114038.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "lavera--shampooing-soin-clat-couleur-soin-114027",
@@ -826,11 +810,16 @@
     "acide lactique"
    ],
    "ingredients": "Water (Aqua), Sodium Coco-Sulfate, Cocamidopropyl Betaine, Decyl Glucoside, Sea Salt (Maris Sal), Citric Acid, Vitis Vinifera (Grape) Seed Oil*, Punica Granatum Fruit Extract*, Aloe Barbadensis Leaf Juice Powder*, Lycium Barbarum Fruit Extract*, Vaccinium Macrocarpon (Cranberry) Fruit Extract*, Glyceryl Undecylenate, Levulinic Acid, Cetearyl Alcohol, Guar Hydroxypropyltrimonium Chloride, PCA Glyceryl Oleate, Sodium Levulinate, Glycerin, Sodium Cetearyl Sulfate, Alcohol** denat., Pisum Sativum (Pea) Peptide, Tridecane, Lactic Acid, Coco-Glucoside, Undecane, Sodium Sulfate, Lactobacillus Ferment, Sodium Chloride, Tocopherol, Helianthus Annuus (Sunflower) Seed Oil, Fragrance (Parfum)***, Limonene***, Linalool***, Benzyl Salicylate*** * ingredients from organic farming ** made usin",
-   "description": "Découvrez la sensation d’un soin capillaire naturel et efficace : Notre formule minutieusement équilibrée à base de grenade bio et d’huile de pépin de raisin bio répond exactement aux besoins des cheveux colorés et sans éclat, pour leur offrir soin et brillance naturelle. - Mousse douce et naturelle - Démêlage ultra-facile - Sensation agréable de cheveux soignés - sans silicone La grenade bio est utilisée pour les soins capillaires afin de préserver l’éclat des cheveux colorés. L’huile de pépin ",
+   "description": "Découvrez la sensation d’un soin capillaire naturel et efficace : Notre formule minutieusement équilibrée à base de grenade bio et d’huile de pépin de raisin bio répond exactement aux besoins des cheveux colorés et sans éclat, pour leur offrir soin et brillance naturelle. - Mousse douce et naturelle - Démêlage ultra-facile - Sensation agréable de cheveux soignés - sans silicone La grenade bio est utilisée pour les soins capillaires afin de préserver l’éclat des cheveux colorés. L’huile de pépin",
    "claims": [
-    "brillance"
+    "brillance",
+    "demelant",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/lavera/cutout/shampooing-soin-clat-couleur-soin-114027.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "lavera--basis-sensitive-shampooing-soin-hydratation-114025",
@@ -861,11 +850,16 @@
    "ingredients": "Water (Aqua), Sodium Coco-Sulfate, Cocamidopropyl Betaine, Decyl Glucoside, Sea Salt (Maris Sal), Citric Acid, Simmondsia Chinensis (Jojoba) Seed Oil*, Aloe Barbadensis Leaf Juice Powder*, Melissa Officinalis Leaf Extract*, Hamamelis Virginiana (Witch Hazel) Leaf Extract*, Alcohol** denat., Glyceryl Undecylenate, Glycerin, Levulinic Acid, Cetearyl Alcohol, PCA Glyceryl Oleate, Sodium Levulinate, Sodium Cetearyl Sulfate, Guar Hydroxypropyltrimonium Chloride, Tridecane, Lactic Acid, Coco-Glucoside, Undecane, Sodium Sulfate, Sodium Chloride, Tocopherol, Helianthus Annuus (Sunflower) Seed Oil, Fragrance (Parfum)***, Limonene***, Linalool***, Citronellol***, Geraniol***, Citral*** * ingredients from organic farming ** made using organic i",
    "description": "Découvrez la sensation d’un soin capillaire naturel et efficace : Notre formule minutieusement équilibrée à base d’aloe vera bio et de jojoba bio hydrate intensément vos cheveux et répond exactement aux besoins du cuir chevelu sensible. - Mousse douce et naturelle - Démêlage ultra-facile - Sensation agréable de cheveux soignés - sans silicone L’aloe vera bio est connue pour son action hydratante et apaisante. Le jojoba bio est connu pour ses vertus adoucissantes et nourrissantes. Nos promesses :",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "apaisant"
+    "hydratation",
+    "nutrition",
+    "apaisant-cuir-chevelu",
+    "demelant",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/lavera/cutout/basis-sensitive-shampooing-soin-hydratation-114025.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "lavera--shampooing-soin-famille-114026",
@@ -891,170 +885,14 @@
    ],
    "ingredients": "Water (Aqua), Sodium Coco-Sulfate, Sea Salt (Maris Sal), Cocamidopropyl Betaine, Decyl Glucoside, Citric Acid, Pyrus Malus (Apple) Fruit Extract*, Avena Sativa (Oat) Straw Extract*, Cucumis Sativus (Cucumber) Fruit Extract*, Aloe Barbadensis Leaf Juice Powder*, Vitis Vinifera (Grape) Fruit Extract*, Glyceryl Undecylenate, Levulinic Acid, Cetearyl Alcohol, PCA Glyceryl Oleate, Glycerin, Sodium Levulinate, Sodium Cetearyl Sulfate, Alcohol** denat., Guar Hydroxypropyltrimonium Chloride, Tridecane, Lactic Acid, Coco-Glucoside, Undecane, Sodium Sulfate, Sodium Chloride, Tocopherol, Helianthus Annuus (Sunflower) Seed Oil, Fragrance (Parfum)*** * ingredients from organic farming ** made usi",
    "description": "Découvrez la sensation d’un soin capillaire naturel et efficace : Notre formule minutieusement équilibrée à base de pomme bio et d’avoine bio est conçue spécialement pour le lavage des cheveux en douceur. Elle nettoie et prend soin des cheveux et du cuir chevelu. - Mousse douce et naturelle - Démêlage ultra-facile - Sensation agréable de cheveux soignés - sans silicone La pomme bio a non seulement bon goût mais aussi un parfum agréable, pour une sensation de fraîcheur fruitée. L’avoine bio est r",
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "lavera--cream-glow-lipstick-pink-universe-08-113932",
-   "name": "Cream Glow Lipstick -Pink Universe 08",
-   "brand": "lavera",
-   "brand_name": "Lavera",
-   "url": "https://www.lavera.fr/products/cream-glow-lipstick-pink-universe-08-113932",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 13.1,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0968/4962/5427/files/c460d0428f6dc7c17432bbe77e191c5c97b2b2d1_113932_hero.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/lavera/cream-glow-lipstick-pink-universe-08-113932.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [
-    "secs"
-   ],
-   "actifs": [
-    "beurre de karité"
-   ],
-   "ingredients": "Water (Aqua), Fragrance (Parfum)**, Citronellol**, Limonene**, Geraniol**, Linalool**, Benzyl Alcohol**, Eugenol**, Citral**",
-   "description": "Le Cream Glow Lipstick de lavera offre aux lèvres une couleur intense dans un irrésistible fini satiné brillant. Facile à appliquer, le rouge à lèvres confère aux lèvres un éclat instantané. Sa formule innovante séduit par sa texture fondante et son grand confort. Jusqu’à 6 h de tenue, sans migrer. Grâce à des ingrédients nourrissants tels que le beurre de karité bio et le beurre de cacao bio, les lèvres sont protégées durablement du dessèchement. Disponible dans 8 teintes fantastiques. - Sans g",
    "claims": [
-    "nourrissant",
-    "brillance"
+    "demelant",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "lavera--cream-glow-lipstick-watermelon-07-113931",
-   "name": "Cream Glow Lipstick -Watermelon 07",
-   "brand": "lavera",
-   "brand_name": "Lavera",
-   "url": "https://www.lavera.fr/products/cream-glow-lipstick-watermelon-07-113931",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 13.1,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0968/4962/5427/files/c373843b912026ea5576926178976c962650df15_113931_hero.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/lavera/cream-glow-lipstick-watermelon-07-113931.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [
-    "secs"
-   ],
-   "actifs": [
-    "beurre de karité"
-   ],
-   "ingredients": "Water (Aqua), Fragrance (Parfum)**, Citronellol**, Limonene**, Geraniol**, Linalool**, Benzyl Alcohol**, Eugenol**, Citral**",
-   "description": "Le Cream Glow Lipstick de lavera offre aux lèvres une couleur intense dans un irrésistible fini satiné brillant. Facile à appliquer, le rouge à lèvres confère aux lèvres un éclat instantané. Sa formule innovante séduit par sa texture fondante et son grand confort. Jusqu’à 6 h de tenue, sans migrer. Grâce à des ingrédients nourrissants tels que le beurre de karité bio et le beurre de cacao bio, les lèvres sont protégées durablement du dessèchement. Disponible dans 8 teintes fantastiques. - Sans g",
-   "claims": [
-    "nourrissant",
-    "brillance"
-   ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "lavera--cream-glow-lipstick-pink-grapefruit-05-113929",
-   "name": "Cream Glow Lipstick -Pink Grapefruit 05",
-   "brand": "lavera",
-   "brand_name": "Lavera",
-   "url": "https://www.lavera.fr/products/cream-glow-lipstick-pink-grapefruit-05-113929",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 13.1,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0968/4962/5427/files/67c708eef4764dcfbc67be0b51ac8da6c5b67675_113929_hero.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/lavera/cream-glow-lipstick-pink-grapefruit-05-113929.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [
-    "secs"
-   ],
-   "actifs": [
-    "beurre de karité"
-   ],
-   "ingredients": "Water (Aqua), Fragrance (Parfum)**, Citronellol**, Limonene**, Geraniol**, Linalool**, Benzyl Alcohol**, Eugenol**, Citral**",
-   "description": "Le Cream Glow Lipstick de lavera offre aux lèvres une couleur intense dans un irrésistible fini satiné brillant. Facile à appliquer, le rouge à lèvres confère aux lèvres un éclat instantané. Sa formule innovante séduit par sa texture fondante et son grand confort. Jusqu’à 6 h de tenue, sans migrer. Grâce à des ingrédients nourrissants tels que le beurre de karité bio et le beurre de cacao bio, les lèvres sont protégées durablement du dessèchement. Disponible dans 8 teintes fantastiques. - Vegan ",
-   "claims": [
-    "nourrissant",
-    "brillance"
-   ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "lavera--cream-glow-lipstick-golden-ochre-06-113930",
-   "name": "Cream Glow Lipstick -Golden Ochre 06",
-   "brand": "lavera",
-   "brand_name": "Lavera",
-   "url": "https://www.lavera.fr/products/cream-glow-lipstick-golden-ochre-06-113930",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 13.1,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0968/4962/5427/files/291245f51e124a3c1b585e889b1937b95fcdc833_113930_hero.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/lavera/cream-glow-lipstick-golden-ochre-06-113930.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [
-    "secs"
-   ],
-   "actifs": [
-    "beurre de karité"
-   ],
-   "ingredients": "Water (Aqua), Fragrance (Parfum)**, Citronellol**, Limonene**, Geraniol**, Linalool**, Benzyl Alcohol**, Eugenol**, Citral**",
-   "description": "Le Cream Glow Lipstick de lavera offre aux lèvres une couleur intense dans un irrésistible fini satiné brillant. Facile à appliquer, le rouge à lèvres confère aux lèvres un éclat instantané. Sa formule innovante séduit par sa texture fondante et son grand confort. Jusqu’à 6 h de tenue, sans migrer. Grâce à des ingrédients nourrissants d’origine naturelle tels que le beurre de karité bio et le beurre de cacao bio, les lèvres sont protégées durablement du dessèchement. Disponible dans 8 teintes fa",
-   "claims": [
-    "nourrissant",
-    "brillance"
-   ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "lavera--cream-glow-lipstick-peony-03-113927",
-   "name": "Cream Glow Lipstick -Peony 03",
-   "brand": "lavera",
-   "brand_name": "Lavera",
-   "url": "https://www.lavera.fr/products/cream-glow-lipstick-peony-03-113927",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 13.1,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0968/4962/5427/files/949018dd232df37328fc535f51ce39abf5b3756a_113927_hero.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/lavera/cream-glow-lipstick-peony-03-113927.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [
-    "secs"
-   ],
-   "actifs": [
-    "beurre de karité"
-   ],
-   "ingredients": "Water (Aqua), Fragrance (Parfum)**, Citronellol**, Limonene**, Geraniol**, Linalool**, Benzyl Alcohol**, Eugenol**, Citral**",
-   "description": "Le Cream Glow Lipstick de lavera offre aux lèvres une couleur intense dans un irrésistible fini satiné brillant. Facile à appliquer, le rouge à lèvres confère aux lèvres un éclat instantané. Sa formule innovante séduit par sa texture fondante et son grand confort. Jusqu’à 6 h de tenue, sans migrer. Grâce à des ingrédients nourrissants tels que le beurre de karité bio et le beurre de cacao bio, les lèvres sont protégées durablement du dessèchement. Disponible dans 8 teintes fantastiques. - Vegan ",
-   "claims": [
-    "nourrissant",
-    "brillance"
-   ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "lavera--cream-glow-lipstick-retro-rose-02-113926",
-   "name": "Cream Glow Lipstick -Retro Rose 02",
-   "brand": "lavera",
-   "brand_name": "Lavera",
-   "url": "https://www.lavera.fr/products/cream-glow-lipstick-retro-rose-02-113926",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 13.1,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0968/4962/5427/files/7e666cba1dca2769e712c7bc49687008aed842eb_113926_hero.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/lavera/cream-glow-lipstick-retro-rose-02-113926.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [
-    "secs"
-   ],
-   "actifs": [
-    "beurre de karité"
-   ],
-   "ingredients": "Water (Aqua), Fragrance (Parfum)**, Citronellol**, Limonene**, Geraniol**, Linalool**, Benzyl Alcohol**, Eugenol**, Citral**",
-   "description": "Le Cream Glow Lipstick de lavera offre aux lèvres une couleur intense dans un irrésistible fini satiné brillant. Facile à appliquer, le rouge à lèvres confère aux lèvres un éclat instantané. Sa formule innovante séduit par sa texture fondante et son grand confort. Jusqu’à 6 h de tenue, sans migrer. Grâce à des ingrédients nourrissants tels que le beurre de karité bio et le beurre de cacao bio, les lèvres sont protégées durablement du dessèchement. Disponible dans 8 teintes fantastiques. - Vegan ",
-   "claims": [
-    "nourrissant",
-    "brillance"
-   ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/lavera/cutout/shampooing-soin-famille-114026.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "lavera--soft-lipliner-red-03-108379",
@@ -1075,8 +913,14 @@
    ],
    "ingredients": null,
    "description": "Le Soft Lipliner vient compléter la gamme des rouges à lèvres de lavera. Ce crayon à contour est idéal pour définir le contour des lèvres et permet d'apporter de légères corrections à la forme des lèvres. De longue tenue, sa texture crémeuse et fondante contient de la précieuse huile de jojoba bio pour protéger la peau particulièrement délicate des lèvres. Quatre nuances pour quatre gammes de couleur Testé sous contrôle dermatologique.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "texturisant",
+    "fixation"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/lavera/cutout/soft-lipliner-red-03-108379.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "lavera--soft-eyeliner-white-06-113257",
@@ -1097,8 +941,15 @@
    ],
    "ingredients": null,
    "description": "Le Soft Eyeliner végan offre une texture tendre pour une application confortable et des couleurs intenses et longue tenue. Sa formule fondante à base d'huile de jojoba permet de dessiner un trait précis et net ainsi que de délicats ombrages. Crayon taillable. - Sans silicones - Sans huile minéral - Sans mircroplastiques - Testé sous contrôle dermatologique et ophtalmologique ; compatible avec le port de lentilles de contact",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "texturisant",
+    "fixation",
+    "sans-silicone"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/lavera/cutout/soft-eyeliner-white-06-113257.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "lavera--soft-eyeliner-green-05-113256",
@@ -1119,8 +970,15 @@
    ],
    "ingredients": null,
    "description": "Le Soft Eyeliner végan offre une texture tendre pour une application confortable et des couleurs intenses et longue tenue. Sa formule fondante à base d'huile de jojoba permet de dessiner un trait précis et net ainsi que de délicats ombrages. Crayon taillable. - Sans silicones - Sans huile minéral - Sans mircroplastiques - Testé sous contrôle dermatologique et ophtalmologique ; compatible avec le port de lentilles de contact",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "texturisant",
+    "fixation",
+    "sans-silicone"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/lavera/cutout/soft-eyeliner-green-05-113256.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "lavera--soft-eyeliner-blue-04-113255",
@@ -1141,8 +999,15 @@
    ],
    "ingredients": null,
    "description": "Le Soft Eyeliner végan offre une texture tendre pour une application confortable et des couleurs intenses et longue tenue. Sa formule fondante à base d'huile de jojoba permet de dessiner un trait précis et net ainsi que de délicats ombrages. Crayon taillable. - Sans silicones - Sans huile minéral - Sans mircroplastiques - Testé sous contrôle dermatologique et ophtalmologique ; compatible avec le port de lentilles de contact",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "texturisant",
+    "fixation",
+    "sans-silicone"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/lavera/cutout/soft-eyeliner-blue-04-113255.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "lavera--soft-eyeliner-grey-03-113254",
@@ -1163,8 +1028,15 @@
    ],
    "ingredients": null,
    "description": "Le Soft Eyeliner végan offre une texture tendre pour une application confortable et des couleurs intenses et longue tenue. Sa formule fondante à base d'huile de jojoba permet de dessiner un trait précis et net ainsi que de délicats ombrages. Crayon taillable. - Sans silicones - Sans huile minéral - Sans mircroplastiques - Testé sous contrôle dermatologique et ophtalmologique ; compatible avec le port de lentilles de contact",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "texturisant",
+    "fixation",
+    "sans-silicone"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/lavera/cutout/soft-eyeliner-grey-03-113254.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "lavera--soft-eyeliner-brown-02-113253",
@@ -1185,8 +1057,15 @@
    ],
    "ingredients": null,
    "description": "Le Soft Eyeliner végan offre une texture tendre pour une application confortable et des couleurs intenses et longue tenue. Sa formule fondante à base d'huile de jojoba permet de dessiner un trait précis et net ainsi que de délicats ombrages. Crayon taillable. - Sans silicones - Sans huile minéral - Sans mircroplastiques - Testé sous contrôle dermatologique et ophtalmologique ; compatible avec le port de lentilles de contact",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "texturisant",
+    "fixation",
+    "sans-silicone"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/lavera/cutout/soft-eyeliner-brown-02-113253.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "lavera--soft-eyeliner-black-01-113252",
@@ -1207,98 +1086,15 @@
    ],
    "ingredients": null,
    "description": "Le Soft Eyeliner végan offre une texture tendre pour une application confortable et des couleurs intenses et longue tenue. Sa formule fondante à base d'huile de jojoba permet de dessiner un trait précis et net ainsi que de délicats ombrages. Crayon taillable. - Sans silicones - Sans huile minéral - Sans mircroplastiques - Testé sous contrôle dermatologique et ophtalmologique ; compatible avec le port de lentilles de contact",
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "lavera--cream-glow-lipstick-camellia-rose-11-115906",
-   "name": "Cream Glow Lipstick -Camellia Rose 11",
-   "brand": "lavera",
-   "brand_name": "Lavera",
-   "url": "https://www.lavera.fr/products/cream-glow-lipstick-camellia-rose-11-115906",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 13.1,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0968/4962/5427/files/9739ba3fc3b3c99bdfb6fd5130282029c4cd6d62_115906_hero.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/lavera/cream-glow-lipstick-camellia-rose-11-115906.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [
-    "secs"
-   ],
-   "actifs": [
-    "beurre de karité",
-    "menthol"
-   ],
-   "ingredients": "Water (Aqua), Iron Oxide (CI 77499), Citronellol**, Limonene**, Geraniol**, Linalool**, Benzyl Alcohol**, Eugenol**, Citral**, Rose Flower Oil/Extract**, Geranyl Acetate**, Citrus Limon (Lemon) Peel Oil**, Linalyl Acetate**, Citrus Aurantium Peel Oil**, Vanillin**, Citrus Aurantium Bergamia (Bergamot) Peel Oil**, Terpineol**, Pinene**, Pelargonium Graveolens (Sweet Scented Geranium) Flower Oil**, Mentha Piperita (Peppermint) Oil**, Santalol**, Beta-Caryophyllene** * ingredients from certified organic agriculture",
-   "description": "Le Cream Glow Lipstick de lavera offre aux lèvres une couleur intense dans un irrésistible fini satiné brillant. Facile à appliquer, le rouge à lèvres confère aux lèvres un éclat instantané. Sa formule innovante séduit par sa texture fondante et son grand confort. Jusqu’à 6 h de tenue, sans migrer. Grâce à des ingrédients nourrissants tels que le beurre de karité bio et le beurre de cacao bio, les lèvres sont protégées durablement du dessèchement. Disponible dans 8 teintes fantastiques. - Sans g",
    "claims": [
-    "nourrissant",
-    "brillance"
+    "texturisant",
+    "fixation",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "lavera--cream-glow-lipstick-berry-red-10-115905",
-   "name": "Cream Glow Lipstick -Berry Red 10",
-   "brand": "lavera",
-   "brand_name": "Lavera",
-   "url": "https://www.lavera.fr/products/cream-glow-lipstick-berry-red-10-115905",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 13.1,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0968/4962/5427/files/401ddcba14fadeeb494ad067c2dc4d48566f1eb8_115905_hero.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/lavera/cream-glow-lipstick-berry-red-10-115905.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [
-    "secs"
-   ],
-   "actifs": [
-    "beurre de karité",
-    "huile de ricin",
-    "vitamine E",
-    "huile de tournesol",
-    "menthol"
-   ],
-   "ingredients": "Ricinus Communis (Castor) Seed Oil*, Zinc Oxide (CI 77947), Carmine (CI 75470), Caprylic/Capric Triglyceride, Oryza Sativa (Rice) Bran Wax, Euphorbia Cerifera (Candelilla) Wax, Helianthus Annuus (Sunflower) Seed Wax, Fragrance (Parfum)**, Butyrospermum Parkii (Shea) Butter*, Theobroma Cacao (Cocoa) Seed Butter*, Glycine Soja (Soybean) Oil*, Rosa Damascena (Damask Rose) Flower Extract*, Tocopherol, Helianthus Annuus (Sunflower) Seed Oil, Maltodextrin, Citronellol**, Limonene**, Geranyl Acetate**, Citrus Limon (Lemon) Peel Oil**, Linalyl Acetate**, Citrus Aurantium Peel Oil**, Vanillin**, Geraniol**, Citrus Aurantium Bergamia (Bergamot) Peel Oil**, Linalool**, Terpineol**, Pinene**, Pelargonium Graveolens (Sweet Scented Geranium) Flower Oil**, Eugenol**, Mentha Piperita (Peppermint) Oil**, Benzyl Alcohol**, Citral**, Santalol**, Beta-Caryophyllene**, Rose Flower Oil/Extract**",
-   "description": "Le Cream Glow Lipstick de lavera offre aux lèvres une couleur intense dans un irrésistible fini satiné brillant. Facile à appliquer, le rouge à lèvres confère aux lèvres un éclat instantané. Sa formule innovante séduit par sa texture fondante et son grand confort. Jusqu’à 6 h de tenue, sans migrer. Grâce à des ingrédients nourrissants tels que le beurre de karité bio et le beurre de cacao bio, les lèvres sont protégées durablement du dessèchement. Disponible dans 8 teintes fantastiques. - Sans g",
-   "claims": [
-    "nourrissant",
-    "brillance"
-   ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "lavera--cream-glow-lipstick-wild-rose-09-115904",
-   "name": "Cream Glow Lipstick -Wild Rose 09",
-   "brand": "lavera",
-   "brand_name": "Lavera",
-   "url": "https://www.lavera.fr/products/cream-glow-lipstick-wild-rose-09-115904",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 13.1,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0968/4962/5427/files/f2b95ef58f0efa62b6ccc2261b83d5c7256c886c_115904_hero.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/lavera/cream-glow-lipstick-wild-rose-09-115904.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [
-    "secs"
-   ],
-   "actifs": [
-    "beurre de karité",
-    "huile de ricin",
-    "vitamine E",
-    "huile de tournesol",
-    "menthol"
-   ],
-   "ingredients": "Ricinus Communis (Castor) Seed Oil*, Hydrogenated Canola Oil, Rhus Verniciflua (Varnish Tree) Peel Wax, Euphorbia Cerifera (Candelilla) Wax, Oryza Sativa (Rice) Bran Wax, Fragrance (Parfum)**, Butyrospermum Parkii (Shea) Butter*, Theobroma Cacao (Cocoa) Seed Butter*, Glycine Soja (Soybean) Oil*, Rosa Damascena (Damask Rose) Flower Extract*, Tocopherol, Helianthus Annuus (Sunflower) Seed Oil, Maltodextrin, Citronellol**, Limonene**, Geranyl Acetate**, Citrus Limon (Lemon) Peel Oil**, Linalyl Acetate**, Citrus Aurantium Peel Oil**, Vanillin**, Geraniol**, Citrus Aurantium Bergamia (Bergamot) Peel Oil**, Linalool**, Terpineol**, Pinene**, Pelargonium Graveolens (Sweet Scented Geranium) Flower Oil**, Eugenol**, Benzyl Alcohol**, Mentha Piperita (Peppermint) Oil**, Citral**, Santalol**, Beta-Caryophyllene**, Rose Flower Oil/Extract**, [+/- Carmine (CI 75470), Iron Oxide (CI 77492), Iron Oxide (CI 77499), Titanium Dioxide (CI 77891)]",
-   "description": "Le Cream Glow Lipstick de lavera offre aux lèvres une couleur intense dans un irrésistible fini satiné brillant. Facile à appliquer, le rouge à lèvres confère aux lèvres un éclat instantané. Sa formule innovante séduit par sa texture fondante et son grand confort. Jusqu’à 6 h de tenue, sans migrer. Grâce à des ingrédients nourrissants tels que le beurre de karité bio et le beurre de cacao bio, les lèvres sont protégées durablement du dessèchement. Disponible dans 8 teintes fantastiques. - Sans g",
-   "claims": [
-    "nourrissant",
-    "brillance"
-   ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/lavera/cutout/soft-eyeliner-black-01-113252.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   }
  ]
 }

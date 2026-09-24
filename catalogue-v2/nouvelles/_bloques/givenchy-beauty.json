@@ -1,7 +1,131 @@
 {
  "brand": "givenchy-beauty",
- "raison": "Akamai Bot Manager renvoie une page de défi comportemental (sec-if-cpt) après ~5 requêtes depuis le 17/09 ; fiches non vérifiées, donc non retenues. Aucune tentative de contournement du défi.",
- "products": [
+ "brand_name": "Givenchy Beauty",
+ "date": "2026-09-19",
+ "raison": "www.givenchybeauty.com repond 403 Access Denied (Akamai) sur tout : accueil FR, accueil international, categorie soin, fiches produit, sitemap.xml, sitemap_index.xml et meme le sitemap-global.xml que son propre robots.txt declare. Seul /robots.txt passe (200). L'hote mobile officiel m.givenchybeauty.com sert encore le contenu du site FR mais avec le statut HTTP 410 Gone sur l'accueil, et 403 sur les fiches produit testees : la regle 3 (HTTP 200 sur la fiche) ne peut donc pas etre satisfaite, aucune fiche n'a ete retenue par cette voie. Les domaines givenchybeauty.de et givenchybeauty.it repondent 200 mais ce sont des faux sites 'outlet' sous WordPress (titre : 'Givenchy Make Up, Parfum Sale In Outlet Deutschland'), pas des sites LVMH : ecartes. givenchybeauty.com.cn est un nom de domaine a vendre. www.givenchy.com (la maison) est accessible (200) mais son sitemap FR ne contient que de la mode : aucune page beaute ni soin. Aucun revendeur, aucun contournement de l'anti-robot. Consequence : aucun produit ajoute ; les 3 produits deja presents dans catalogue-v2/nouvelles/givenchy-beauty.json sont laisses intacts.",
+ "urls_testees": [
+  {
+   "url": "https://www.givenchybeauty.com/fr/fr/",
+   "statut": 403,
+   "note": "site officiel FR - Access Denied Akamai"
+  },
+  {
+   "url": "https://www.givenchybeauty.com/robots.txt",
+   "statut": 200,
+   "note": "seule URL qui passe ; declare un sitemap global inaccessible"
+  },
+  {
+   "url": "https://www.givenchybeauty.com/sitemap.xml",
+   "statut": 403,
+   "note": ""
+  },
+  {
+   "url": "https://www.givenchybeauty.com/sitemap_index.xml",
+   "statut": 403,
+   "note": ""
+  },
+  {
+   "url": "https://www.givenchybeauty.com/int/en/sitemap-global.xml",
+   "statut": 403,
+   "note": "sitemap declare dans robots.txt"
+  },
+  {
+   "url": "https://www.givenchybeauty.com/int/en/",
+   "statut": 403,
+   "note": "site officiel international"
+  },
+  {
+   "url": "https://www.givenchybeauty.com/fr/fr/soin/",
+   "statut": 403,
+   "note": "categorie soin"
+  },
+  {
+   "url": "https://www.givenchybeauty.com/s/givenchy-beauty-fr/dw/shop/v21_3/site",
+   "statut": 403,
+   "note": "endpoint JSON public Salesforce Commerce (OCAPI) du site officiel"
+  },
+  {
+   "url": "https://m.givenchybeauty.com/",
+   "statut": 403,
+   "note": "sous-domaine mobile officiel"
+  },
+  {
+   "url": "https://m.givenchybeauty.com/fr/fr/",
+   "statut": 410,
+   "note": "sert le contenu FR mais statut 410 Gone : ne satisfait pas la regle 3 (200 exige)"
+  },
+  {
+   "url": "https://m.givenchybeauty.com/fr/fr/p/le-soin-noir-creme-F30100117.html",
+   "statut": 403,
+   "note": "fiche produit sur l'hote mobile : bloquee"
+  },
+  {
+   "url": "https://www.givenchybeauty.fr/",
+   "statut": 0,
+   "note": "connexion refusee (port 443 ferme)"
+  },
+  {
+   "url": "https://www.givenchybeauty.es/",
+   "statut": 0,
+   "note": "connexion refusee (port 443 ferme)"
+  },
+  {
+   "url": "https://www.givenchybeauty.de/",
+   "statut": 200,
+   "note": "PAS officiel : faux site 'outlet' WordPress - ecarte"
+  },
+  {
+   "url": "https://www.givenchybeauty.it/",
+   "statut": 200,
+   "note": "PAS officiel : faux site 'outlet' WordPress - ecarte"
+  },
+  {
+   "url": "https://www.parfumsgivenchy.com/",
+   "statut": 0,
+   "note": "connexion refusee"
+  },
+  {
+   "url": "https://www.givenchybeauty.cn/",
+   "statut": 0,
+   "note": "echec TLS ; en http : 403"
+  },
+  {
+   "url": "http://www.givenchybeauty.com.cn/",
+   "statut": 200,
+   "note": "PAS officiel : page de vente de nom de domaine"
+  },
+  {
+   "url": "https://www.givenchy.com/fr/fr-FR/",
+   "statut": 200,
+   "note": "maison Givenchy accessible, redirige vers /fr/fr/homepage"
+  },
+  {
+   "url": "https://www.givenchy.com/robots.txt",
+   "statut": 200,
+   "note": "declare https://www.givenchy.com/sitemap.xml"
+  },
+  {
+   "url": "https://www.givenchy.com/sitemap.xml",
+   "statut": 200,
+   "note": "12 sitemaps, un seul en francais"
+  },
+  {
+   "url": "https://www.givenchy.com/sitemap-pages-fr-fr-1.xml",
+   "statut": 200,
+   "note": "1808 URL, 100 % mode (femme/homme/sacs/chaussures) : aucune page beaute ni soin"
+  },
+  {
+   "url": "givenchybeauty.co.uk / givenchybeauty.jp / givenchybeauty.eu / beauty.givenchy.com / shop.givenchybeauty.com / api.givenchybeauty.com / media.givenchybeauty.com",
+   "statut": "NXDOMAIN",
+   "note": "domaines et sous-domaines candidats inexistants (verification DNS)"
+  },
+  {
+   "url": "givenchybeauty.kr / givenchy-parfums.com / parfumsgivenchy.fr",
+   "statut": "redirection",
+   "note": "ferme de redirection LVMH 185.16.44.132 vers le site bloque"
+  }
+ ],
+ "produits_candidats_non_verifies_du_17_09": [
   {
    "url_candidate": "https://www.givenchybeauty.com/fr/fr/p/le-soin-noir-huile-perfectrice-F30100180.html",
    "name_hint": "le soin noir huile perfectrice"

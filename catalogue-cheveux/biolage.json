@@ -16,17 +16,20 @@
    "categorie": "huile",
    "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "fins"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "Discover our weightless All-In-One Multi-Benefit Styling Oil, infused and micro-dosed with filtered moringa oil. Nourish, detangle, and tame frizz for all hair types – your path to smoothness, shine, and manageability.",
    "claims": [
-    "nourrissant",
+    "nutrition",
+    "anti-frisottis",
     "brillance",
-    "lissant"
+    "demelant"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/all-in-one-multi-benefit-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--all-in-one-multi-benefit-spray",
@@ -42,7 +45,6 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
     "abimes"
    ],
    "actifs": [
@@ -51,11 +53,16 @@
    "ingredients": null,
    "description": "All-In-One leave-in spray infused and micro-dosed with coconut oil for lightweight hydration, smoothness, shine, and frizz control. Protects against heat damage, seals split ends, and detangles for manageable, silky-soft hair.",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "reparation",
+    "anti-frisottis",
     "brillance",
-    "lissant"
+    "protection-chaleur",
+    "demelant"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/all-in-one-multi-benefit-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--color-last-acidic-milk-rinse",
@@ -70,16 +77,17 @@
    "image_local": "public/scan/products-cheveux/biolage/color-last-acidic-milk-rinse.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [],
    "ingredients": null,
    "description": "Color Last Acidic pH Rinse is a professional-only treatment formulated to enhance color vibrancy while rebalancing hair’s pH, sealing, smoothing and softening.",
    "claims": [
-    "lissant"
+    "anti-frisottis",
+    "protection-couleur"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/color-last-acidic-milk-rinse.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--color-last-conditioner-for-color-treated-hair",
@@ -94,12 +102,18 @@
    "image_local": "public/scan/products-cheveux/biolage/color-last-conditioner-for-color-treated-hair.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "colores"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "Shop Color Last Conditioner, specifically formulated for color-treated hair, to help prevent color fade for up to 4 weeks*! Buy online or find a salon.",
-   "claims": [],
-   "source": "sitemap biolage.com + fiche"
+   "claims": [
+    "protection-couleur"
+   ],
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/color-last-conditioner-for-color-treated-hair.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--color-last-purple-shampoo",
@@ -119,9 +133,12 @@
    "ingredients": null,
    "description": "Color Last Purple Shampoo is infused with micro-dosed violet pigments, to enhance the color’s dimension, neutralize warm and brassy tones, and add shine.",
    "claims": [
-    "brillance"
+    "brillance",
+    "anti-jaunissement"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/color-last-purple-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--color-last-shampoo-for-color-treated-hair",
@@ -136,14 +153,19 @@
    "image_local": "public/scan/products-cheveux/biolage/color-last-shampoo-for-color-treated-hair.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "colores"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "Shop Color Last Shampoo to cleanse your hair, protect your color and add shine. Buy online or find a salon today.",
    "claims": [
-    "brillance"
+    "brillance",
+    "protection-couleur"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/color-last-shampoo-for-color-treated-hair.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--cool-mint-balancing-shampoo",
@@ -164,8 +186,12 @@
    "actifs": [],
    "ingredients": null,
    "description": "Discover Cool Mint Shampoo, a refreshing formula designed for oily scalps. Experience a tingly sensation as it balances and cleanses, leaving your scalp revitalized and your hair feeling healthy.",
-   "claims": [],
-   "source": "sitemap biolage.com + fiche"
+   "claims": [
+    "anti-gras"
+   ],
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/cool-mint-balancing-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--full-rescue-conditioner",
@@ -181,19 +207,27 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "fins",
+    "abimes",
     "chute"
    ],
    "actifs": [
     "niacinamide"
    ],
    "ingredients": null,
-   "description": "Detangle and densify hair for reduced breakage. Infused and micro-dosed with steam-distilled rosemary oil and triple-purified niacinamide, this conditioner delivers instant density &amp; supreme strength to weak, fine strands.",
+   "description": "Detangle and densify hair for reduced breakage. Infused and micro-dosed with steam-distilled rosemary oil and triple-purified niacinamide, this conditioner delivers instant density & supreme strength to weak, fine strands.",
    "claims": [
+    "reparation",
+    "fortifiant",
     "volume",
+    "densifiant",
+    "anti-chute",
     "purifiant",
-    "anti-chute"
+    "demelant"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/full-rescue-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--full-rescue-densifying-leave-in-spray",
@@ -210,20 +244,24 @@
    "etape": 3,
    "cheveux_cibles": [
     "fins",
-    "epais",
+    "abimes",
     "chute"
    ],
    "actifs": [
     "niacinamide"
    ],
    "ingredients": null,
-   "description": "Experience denser, fuller strands with Full Rescue Densifying Leave-In Spray. Infused and micro-dosed with steam-distilled rosemary oil and triple-purified niacinamide, it instantly thickens hair without weighing it down. Controls frizz, detangles &amp; supports a healthy scalp.",
+   "description": "Experience denser, fuller strands with Full Rescue Densifying Leave-In Spray. Infused and micro-dosed with steam-distilled rosemary oil and triple-purified niacinamide, it instantly thickens hair without weighing it down. Controls frizz, detangles & supports a healthy scalp.",
    "claims": [
+    "anti-frisottis",
     "volume",
+    "anti-chute",
     "purifiant",
-    "anti-chute"
+    "demelant"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/full-rescue-densifying-leave-in-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--full-rescue-invigorating-scalp-serum",
@@ -239,6 +277,8 @@
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
    "cheveux_cibles": [
+    "fins",
+    "abimes",
     "chute"
    ],
    "actifs": [
@@ -247,9 +287,13 @@
    "ingredients": null,
    "description": "Fortify thinning hair with Full Rescue Invigorating Scalp Serum. Infused and micro-dosed with steam-distilled rosemary oil and triple-purified niacinamide, it supports scalp health and strand strength, improving visible hair quality and thickness.",
    "claims": [
+    "fortifiant",
+    "densifiant",
     "purifiant"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/full-rescue-invigorating-scalp-serum.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--full-rescue-restorative-mask",
@@ -265,6 +309,8 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
+    "fins",
+    "abimes",
     "chute"
    ],
    "actifs": [
@@ -273,11 +319,16 @@
    "ingredients": null,
    "description": "Discover Full Rescue Restorative Mask, infused and micro-dosed with steam-distilled rosemary oil and triple-purified niacinamide. This lightweight, silicone-free mask densifies thin hair, leaving it soft, smooth, and fuller-looking from root to tip.",
    "claims": [
-    "lissant",
+    "anti-frisottis",
+    "volume",
+    "densifiant",
+    "anti-chute",
     "purifiant",
-    "anti-chute"
+    "sans-silicone"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/full-rescue-restorative-mask.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--full-rescue-shampoo",
@@ -292,17 +343,25 @@
    "image_local": "public/scan/products-cheveux/biolage/full-rescue-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "gras",
+    "fins",
+    "abimes"
+   ],
    "actifs": [
     "niacinamide"
    ],
    "ingredients": null,
    "description": "Full Rescue Shampoo instantly fortifies thin, falling hair. Infused and micro-dosed with steam-distilled rosemary oil and triple-purified niacinamide, it strengthens hair, creates fullness, and protects the scalp for healthy hair growth.",
    "claims": [
-    "purifiant",
-    "fortifiant"
+    "fortifiant",
+    "volume",
+    "croissance",
+    "purifiant"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/full-rescue-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--hydra-source-conditioning-balm",
@@ -317,16 +376,20 @@
    "image_local": "public/scan/products-cheveux/biolage/hydra-source-conditioning-balm.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "acide hyaluronique"
    ],
    "ingredients": null,
-   "description": "Hydra Source Conditioning Balm is infused with fermented aloe and micro-filtered hyaluronic acid, delivering 6x more hydration after one use.* *Hydra Source Shampoo, Conditioning Balm &amp; Daily Leave-In Tonic vs. non-conditioning shampoo",
+   "description": "Hydra Source Conditioning Balm is infused with fermented aloe and micro-filtered hyaluronic acid, delivering 6x more hydration after one use.* *Hydra Source Shampoo, Conditioning Balm & Daily Leave-In Tonic vs. non-conditioning shampoo",
    "claims": [
-    "hydratant"
+    "hydratation"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/hydra-source-conditioning-balm.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "biolage--hydra-source-leave-in-cream",
@@ -341,18 +404,19 @@
    "image_local": "public/scan/products-cheveux/biolage/hydra-source-leave-in-cream.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [
     "acide hyaluronique"
    ],
    "ingredients": null,
-   "description": "Hydra Source Leave-In Cream is infused with fermented aloe and micro-filtered hyaluronic acid for smooth, shiny &amp; frizz-free hair.",
+   "description": "Hydra Source Leave-In Cream is infused with fermented aloe and micro-filtered hyaluronic acid for smooth, shiny & frizz-free hair.",
    "claims": [
-    "lissant"
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/hydra-source-leave-in-cream.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--hydra-source-daily-leave-in-tonic",
@@ -367,19 +431,21 @@
    "image_local": "public/scan/products-cheveux/biolage/hydra-source-daily-leave-in-tonic.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [
     "acide hyaluronique"
    ],
    "ingredients": null,
    "description": "Hydra Source Daily Leave-In Tonic is infused with fermented aloe and micro-filtered hyaluronic acid to condition, detangle, renew shine, instantly hydrating and reducing frizz.",
    "claims": [
-    "hydratant",
-    "brillance"
+    "hydratation",
+    "anti-frisottis",
+    "brillance",
+    "demelant"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/hydra-source-daily-leave-in-tonic.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--hydra-source-detangling-solution",
@@ -394,16 +460,21 @@
    "image_local": "public/scan/products-cheveux/biolage/hydra-source-detangling-solution.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "acide hyaluronique"
    ],
    "ingredients": null,
    "description": "Hydra Source Detangling Solution is infused with fermented aloe and micro-filtered hyaluronic acid, providing 6x more hydration after one use.* *Hydra Source Shampoo and Detangling Solution vs. non-conditioning shampoo",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "demelant"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/hydra-source-detangling-solution.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--hydra-source-moisture-method-scalp-et-hair-serum",
@@ -418,7 +489,9 @@
    "image_local": "public/scan/products-cheveux/biolage/hydra-source-moisture-method-scalp-et-hair-serum.jpg",
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "acide hyaluronique",
     "aloe vera"
@@ -426,10 +499,12 @@
    "ingredients": null,
    "description": "Hydra Source Moisture Method Serum is an ultra-lightweight water based formula infused and micro-dosed with a hydrating concentrate of micro-filtered aloe vera and fermented hyaluronic acid to instantly nourish the scalp and provides long lasting hydration to hair.",
    "claims": [
-    "hydratant",
-    "nourrissant"
+    "hydratation",
+    "nutrition"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/hydra-source-moisture-method-scalp-et-hair-serum.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "biolage--hydra-source-shampoo",
@@ -444,16 +519,20 @@
    "image_local": "public/scan/products-cheveux/biolage/hydra-source-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "acide hyaluronique"
    ],
    "ingredients": null,
    "description": "Hydra Source Shampoo is infused with fermented aloe and micro-filtered hyaluronic acid, providing 6x more hydration after one use.* *Hydra Source Shampoo, Conditioning Balm and Leave-In Tonic vs. non-conditioning shampoo",
    "claims": [
-    "hydratant"
+    "hydratation"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/hydra-source-shampoo.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "biolage--scalp-sync-anti-dandruff-shampoo",
@@ -478,9 +557,12 @@
    "ingredients": null,
    "description": "Fight dandruff with Scalp Sync Anti-Dandruff Shampoo, infused & micro-dosed with zinc pyrithione to eliminate flakes, relieve irritation, and restore scalp & hair health.",
    "claims": [
-    "anti-pellicules"
+    "antipelliculaire",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/scalp-sync-anti-dandruff-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--scalp-sync-calming-shampoo",
@@ -496,6 +578,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "fins",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -504,9 +587,12 @@
    "ingredients": null,
    "description": "Scalp Sync Calming Shampoo gently cleanses and calms sensitive scalps with weightless hydration. Infused and micro-dosed with a fermented tea blend and filtered glycolic acid, it reduces scalp irritation and itchiness.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/scalp-sync-calming-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--scalp-sync-clarifying-shampoo",
@@ -522,6 +608,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "gras",
     "fins"
    ],
    "actifs": [
@@ -530,11 +617,13 @@
    "ingredients": null,
    "description": "Experience a deep yet gentle cleanse. Scalp Sync Clarifying Shampoo, infused & micro-dosed with fermented tea & filtered glycolic acid, removes up to 100% of scalp residue without drying, restoring volume & shine.",
    "claims": [
-    "brillance",
     "volume",
-    "purifiant"
+    "purifiant",
+    "brillance"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/scalp-sync-clarifying-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--scalp-sync-oil-balancing-serum",
@@ -555,8 +644,12 @@
    "actifs": [],
    "ingredients": null,
    "description": "Scalp Sync Oil Balancing Serum absorbs scalp oil, keeps hair strand oil-free between washes, and leaves scalp feeling fresh for up to 48 hours. With micro-dosed fermented tea blend, it reduces scalp irritation and itchiness.",
-   "claims": [],
-   "source": "sitemap biolage.com + fiche"
+   "claims": [
+    "apaisant-cuir-chevelu"
+   ],
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/scalp-sync-oil-balancing-serum.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--scalp-sync-purifying-concentrate",
@@ -571,14 +664,20 @@
    "image_local": "public/scan/products-cheveux/biolage/scalp-sync-purifying-concentrate.jpg",
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "cuir-chevelu-sensible"
+   ],
    "actifs": [
     "AHA"
    ],
    "ingredients": null,
    "description": "Discover Scalp Sync Purifying Concentrate, micro-dosed with fermented tea and filtered glycolic acid. It gently exfoliates, removes impurities and balances the scalp. For a refreshed scalp, start your routine with this treatment.",
-   "claims": [],
-   "source": "sitemap biolage.com + fiche"
+   "claims": [
+    "purifiant"
+   ],
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/scalp-sync-purifying-concentrate.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--scalp-sync-universal-conditioner",
@@ -593,16 +692,20 @@
    "image_local": "public/scan/products-cheveux/biolage/scalp-sync-universal-conditioner.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "AHA"
    ],
    "ingredients": null,
    "description": "Discover Scalp Sync Universal Conditioner, infused and micro-dosed with fermented tea and glycolic acid for lightweight conditioning and a balanced scalp. Nourishes hair from root to tip.",
    "claims": [
-    "nourrissant"
+    "nutrition"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/scalp-sync-universal-conditioner.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "biolage--smooth-proof-conditioner",
@@ -617,19 +720,20 @@
    "image_local": "public/scan/products-cheveux/biolage/smooth-proof-conditioner.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [
     "glycérine"
    ],
    "ingredients": null,
-   "description": "Discover Smooth Proof Conditioner for frizz-free, nourished hair. Infused and micro-dosed with cold-pressed camellia oil &amp; filtered glycerin, it instantly detangles, smooths &amp; tames frizz. Perfect for frizzy hair.",
+   "description": "Discover Smooth Proof Conditioner for frizz-free, nourished hair. Infused and micro-dosed with cold-pressed camellia oil & filtered glycerin, it instantly detangles, smooths & tames frizz. Perfect for frizzy hair.",
    "claims": [
-    "nourrissant",
-    "lissant"
+    "nutrition",
+    "anti-frisottis",
+    "demelant"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/smooth-proof-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--smooth-proof-leave-in-cream",
@@ -645,18 +749,20 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "fins"
    ],
    "actifs": [
     "glycérine"
    ],
    "ingredients": null,
-   "description": "Smooth Proof Leave-In Cream is infused and micro-dosed with cold-pressed camellia oil &amp; filtered glycerin&nbsp;to control frizz, static, and flyaways, providing smoothness and shine without weighing hair down.",
+   "description": "Smooth Proof Leave-In Cream is infused and micro-dosed with cold-pressed camellia oil & filtered glycerin to control frizz, static, and flyaways, providing smoothness and shine without weighing hair down.",
    "claims": [
-    "brillance",
-    "lissant"
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/smooth-proof-leave-in-cream.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--smooth-proof-serum",
@@ -671,19 +777,19 @@
    "image_local": "public/scan/products-cheveux/biolage/smooth-proof-serum.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [
     "glycérine"
    ],
    "ingredients": null,
-   "description": "Tame frizz and enhance shine with Smooth Proof Serum. Infused and micro-dosed with cold-pressed camellia oil &amp; filtered glycerin, providing 24-hour frizz control and a protective layer against humidity, leaving hair soft, sleek, and radiant.",
+   "description": "Tame frizz and enhance shine with Smooth Proof Serum. Infused and micro-dosed with cold-pressed camellia oil & filtered glycerin, providing 24-hour frizz control and a protective layer against humidity, leaving hair soft, sleek, and radiant.",
    "claims": [
-    "brillance",
-    "lissant"
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/smooth-proof-serum.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--smooth-proof-shampoo",
@@ -698,19 +804,19 @@
    "image_local": "public/scan/products-cheveux/biolage/smooth-proof-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [
     "glycérine"
    ],
    "ingredients": null,
-   "description": "Tame your frizzy hair with our Smooth Proof Shampoo, infused and micro-dosed with cold-pressed camellia oil &amp; filtered glycerin. This nourishing shampoo gently cleanses and instantly nourishes, leaving your hair smooth, sleek, and manageable.",
+   "description": "Tame your frizzy hair with our Smooth Proof Shampoo, infused and micro-dosed with cold-pressed camellia oil & filtered glycerin. This nourishing shampoo gently cleanses and instantly nourishes, leaving your hair smooth, sleek, and manageable.",
    "claims": [
-    "nourrissant",
-    "lissant"
+    "nutrition",
+    "anti-frisottis"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/smooth-proof-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--strength-recovery-conditioner",
@@ -728,9 +834,13 @@
    "cheveux_cibles": [],
    "actifs": [],
    "ingredients": null,
-   "description": "Infused and&nbsp;micro-dosed with distilled olive squalane and vegan proteins for hair that&rsquo;s stronger after just one use. With every wash, hair is softer and more manageable.",
-   "claims": [],
-   "source": "sitemap biolage.com + fiche"
+   "description": "Infused and micro-dosed with distilled olive squalane and vegan proteins for hair that’s stronger after just one use. With every wash, hair is softer and more manageable.",
+   "claims": [
+    "fortifiant"
+   ],
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/strength-recovery-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--strength-recovery-deep-treatment-mask",
@@ -745,16 +855,20 @@
    "image_local": "public/scan/products-cheveux/biolage/strength-recovery-deep-treatment-mask.jpg",
    "categorie": "masque",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [],
    "ingredients": null,
-   "description": "Infused and&nbsp;micro-dosed with distilled olive squalane and vegan proteins to protect, strengthen, and nourish your hair, leaving it smoother and stronger.",
+   "description": "Infused and micro-dosed with distilled olive squalane and vegan proteins to protect, strengthen, and nourish your hair, leaving it smoother and stronger.",
    "claims": [
-    "nourrissant",
-    "lissant",
-    "fortifiant"
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/strength-recovery-deep-treatment-mask.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--strength-recovery-repairing-spray",
@@ -774,13 +888,16 @@
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "Infused and micro-dosed with distilled olive squalane and vegan proteins, the Strength Recovery Repairing Spray strengthens damaged hair, protects against heat &amp; breakage. Experience stronger, smoother, softer hair with reduced split ends.",
+   "description": "Infused and micro-dosed with distilled olive squalane and vegan proteins, the Strength Recovery Repairing Spray strengthens damaged hair, protects against heat & breakage. Experience stronger, smoother, softer hair with reduced split ends.",
    "claims": [
-    "reparateur",
-    "lissant",
-    "fortifiant"
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "protection-chaleur"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/strength-recovery-repairing-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--strength-recovery-shampoo",
@@ -799,8 +916,13 @@
    "actifs": [],
    "ingredients": null,
    "description": "Infused and micro-dosed with distilled olive squalane and vegan proteins, this shampoo gently cleanses and detangles for 3x stronger hair after one use. *Strength Recovery Shampoo and Conditioner vs. non-conditioning shampoo",
-   "claims": [],
-   "source": "sitemap biolage.com + fiche"
+   "claims": [
+    "fortifiant",
+    "demelant"
+   ],
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/strength-recovery-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--bodifying-mousse",
@@ -816,19 +938,24 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "fins"
+    "fins",
+    "colores"
    ],
    "actifs": [
     "huile de ricin",
     "acide citrique"
    ],
    "ingredients": "Aqua / water / eau, isobutane, propane, polyquaternium-11, polyquaternium-4, peg-40 hydrogenated castor oil, peg-6 cocamide, phenoxyethanol, parfum / fragrance, tetrasodium edta, peg-11 methyl ether dimethicone, limonene, ethylhexyl methoxycinnamate, hexyl cinnamal, coumarin, linalool, benzyl alcohol, ppg-5-buteth-5, amyl cinnamal, hydroxycitronellal, alpha-isomethyl ionone, geraniol, isoeugenol, benzyl benzoate, cinnamyl alcohol, citronellol, agave tequilana leaf extract, citric acid",
-   "description": "Enhances hair with bouncy volume and lift, providing a medium-hold, long-lasting style while maintaining the hair&rsquo;s natural softness and shine. Suitable for all hair types including color-treated hair.",
+   "description": "Enhances hair with bouncy volume and lift, providing a medium-hold, long-lasting style while maintaining the hair’s natural softness and shine. Suitable for all hair types including color-treated hair.",
    "claims": [
+    "volume",
     "brillance",
-    "volume"
+    "protection-couleur",
+    "fixation"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/bodifying-mousse.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--complete-control-hairspray",
@@ -844,17 +971,19 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "fins",
-    "epais"
+    "fins"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "Get touchable control with Complete Control Hairspray. This medium-hold hairspray adds natural-looking body, volume, and anti-frizz control. Quick-drying, brushable, and residue-free, it’s perfect for all hair types.",
    "claims": [
+    "anti-frisottis",
     "volume",
-    "lissant"
+    "fixation"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/complete-control-hairspray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--curl-defining-elixir",
@@ -870,19 +999,24 @@
    "categorie": "huile",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "boucles"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "Define your curls with Curl Defining Elixir. This texturizing gel provides medium hold and long-lasting frizz control that enhances shine and natural movement. Get nourished, moisturized, and defined curls without stiffness.",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant",
     "brillance",
-    "definition-boucles"
+    "fixation"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/curl-defining-elixir.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--finishing-spritz-hairspray",
@@ -897,14 +1031,17 @@
    "image_local": "public/scan/products-cheveux/biolage/finishing-spritz-hairspray.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [],
    "ingredients": null,
    "description": "Get Biolage Finishing Spritz for a non-aerosol, non-sticky, firm hold that maintains your hair's natural movement. Enjoy frizz control and achieve gravity-defying styles with this cruelty-free, vegan formula.",
-   "claims": [],
-   "source": "sitemap biolage.com + fiche"
+   "claims": [
+    "anti-frisottis",
+    "fixation"
+   ],
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/finishing-spritz-hairspray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--freeze-fix",
@@ -919,17 +1056,19 @@
    "image_local": "public/scan/products-cheveux/biolage/freeze-fix.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [],
    "ingredients": null,
    "description": "This fast-drying, anti-frizz hairspray delivers supreme shine without the sticky or stiff feeling. For styles that demand control, this humidity-resistant hairspray will keep your locks in place, no matter the weather.",
    "claims": [
+    "fortifiant",
+    "anti-frisottis",
     "brillance",
-    "lissant"
+    "fixation"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/freeze-fix.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--smooth-shine-milk",
@@ -945,19 +1084,21 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
     "abimes"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "Get the ultimate smoothness with smooth Shine Milk. This lightweight mist provides a flexible hold, smooths hair, and prevents frizz with a glossy finish. Repairs damage, increases shine, and retains moisture.",
    "claims": [
-    "hydratant",
-    "reparateur",
+    "hydratation",
+    "reparation",
+    "anti-frisottis",
     "brillance",
-    "lissant"
+    "fixation"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/smooth-shine-milk.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--styling-gelee",
@@ -973,15 +1114,21 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "fins",
+    "colores"
    ],
    "actifs": [],
    "ingredients": null,
-   "description": "Tame your mane with Biolage Styling Gel&eacute;e. This lightweight, cruelty-free gel provides medium hold without weighing hair down, taming frizz, and adding radiant shine. For all hair types, including color-treated hair.",
+   "description": "Tame your mane with Biolage Styling Gelée. This lightweight, cruelty-free gel provides medium hold without weighing hair down, taming frizz, and adding radiant shine. For all hair types, including color-treated hair.",
    "claims": [
-    "brillance"
+    "anti-frisottis",
+    "brillance",
+    "protection-couleur",
+    "fixation"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/styling-gelee.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--thermal-setting-spray",
@@ -999,12 +1146,15 @@
    "cheveux_cibles": [],
    "actifs": [],
    "ingredients": null,
-   "description": "Get sleek tresses with Biolage Thermal Setting Spray. This protective medium-hold spray provides heat protection up to 450&deg;F, sets hair for a smooth finish without sticking to hot tools. Perfect for all hair types.",
+   "description": "Get sleek tresses with Biolage Thermal Setting Spray. This protective medium-hold spray provides heat protection up to 450°F, sets hair for a smooth finish without sticking to hot tools. Perfect for all hair types.",
    "claims": [
-    "lissant",
-    "protection-thermique"
+    "anti-frisottis",
+    "protection-chaleur",
+    "fixation"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/thermal-setting-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--ultra-hydra-source-conditioner",
@@ -1026,11 +1176,15 @@
     "acide salicylique"
    ],
    "ingredients": null,
-   "description": "Ultra Hydra Source Conditioner is infused with micro-dosed cold-pressed Cupua&ccedil;u butter and filtered salicylic acid, helping to reduce buildup so very dry hair can receive the deepest levels of moisture.",
+   "description": "Ultra Hydra Source Conditioner is infused with micro-dosed cold-pressed Cupuaçu butter and filtered salicylic acid, helping to reduce buildup so very dry hair can receive the deepest levels of moisture.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "purifiant"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/ultra-hydra-source-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--ultra-hydra-source-leave-in-cream",
@@ -1050,11 +1204,14 @@
     "acide salicylique"
    ],
    "ingredients": null,
-   "description": "Ultra Hydra Source Leave-In Cream is infused with micro-dosed cold-pressed Cupua&ccedil;u butter and filtered salicylic acid, enhancing manageability and shape retention while leaving hair feeling silky-smooth and touchably soft.",
+   "description": "Ultra Hydra Source Leave-In Cream is infused with micro-dosed cold-pressed Cupuaçu butter and filtered salicylic acid, enhancing manageability and shape retention while leaving hair feeling silky-smooth and touchably soft.",
    "claims": [
-    "lissant"
+    "nutrition",
+    "anti-frisottis"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/ultra-hydra-source-leave-in-cream.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--ultra-hydra-source-deep-treatment-mask",
@@ -1069,16 +1226,21 @@
    "image_local": "public/scan/products-cheveux/biolage/ultra-hydra-source-deep-treatment-mask.jpg",
    "categorie": "masque",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "epais"
+   ],
    "actifs": [
     "acide salicylique"
    ],
    "ingredients": null,
-   "description": "Ultra Hydra Source Deep Treatment Mask is infused with micro-dosed cold-pressed Cupua&ccedil;u butter and filtered salicylic acid, bringing a dose of deep nourishment to thick or coarse hair, leaving strands feeling supremely soft and touchable.",
+   "description": "Ultra Hydra Source Deep Treatment Mask is infused with micro-dosed cold-pressed Cupuaçu butter and filtered salicylic acid, bringing a dose of deep nourishment to thick or coarse hair, leaving strands feeling supremely soft and touchable.",
    "claims": [
-    "nourrissant"
+    "nutrition"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/ultra-hydra-source-deep-treatment-mask.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "biolage--ultra-hydra-source-shampoo",
@@ -1098,9 +1260,13 @@
     "acide salicylique"
    ],
    "ingredients": null,
-   "description": "Ultra Hydra Source Shampoo is infused with micro-dosed cold-pressed Cupua&ccedil;u butter and filtered salicylic acid to gently cleanse, leaving hair looking and feeling incredibly soft and supple.",
-   "claims": [],
-   "source": "sitemap biolage.com + fiche"
+   "description": "Ultra Hydra Source Shampoo is infused with micro-dosed cold-pressed Cupuaçu butter and filtered salicylic acid to gently cleanse, leaving hair looking and feeling incredibly soft and supple.",
+   "claims": [
+    "nutrition"
+   ],
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/ultra-hydra-source-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--volume-boost-conditioner",
@@ -1122,10 +1288,13 @@
    "ingredients": null,
    "description": "Volume Boost Conditioner is infused with a micro-dosed concentrate of soy protein and polymers. This formula weightlessly moisturizes and detangles hair while infusing volume and lift.",
    "claims": [
-    "hydratant",
-    "volume"
+    "hydratation",
+    "volume",
+    "demelant"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/volume-boost-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--volume-boost-root-lift-spray",
@@ -1147,9 +1316,12 @@
    "ingredients": null,
    "description": "Volume Boost Root Lift Spray is infused with micro-dosed soy protein and polymers to add immediate long-lasting volume and lift, with touchable hold to maintain natural movement on both short and long hair.",
    "claims": [
-    "volume"
+    "volume",
+    "fixation"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/volume-boost-root-lift-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "biolage--volume-boost-shampoo",
@@ -1171,10 +1343,12 @@
    "ingredients": null,
    "description": "Volume Boost Shampoo is infused with micro-dosed soy protein and polymers. This plumping formula delivers gentle cleansing and long-lasting volume to fine strands while maintaining fine hair’s natural softness and shine.",
    "claims": [
-    "brillance",
-    "volume"
+    "volume",
+    "brillance"
    ],
-   "source": "sitemap biolage.com + fiche"
+   "source": "sitemap biolage.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/biolage/cutout/volume-boost-shampoo.webp",
+   "ciblage_source": "fiche"
   }
  ]
 }

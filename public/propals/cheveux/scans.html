@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>vyvre — Le scan, quatre propales</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;600;800&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased}
+html,body{background:#000;color:#eaf6ff;font-family:Inter,sans-serif;font-weight:300;overflow:hidden;height:100%}
+#cv,#gl{position:fixed;inset:0;width:100%;height:100%;display:block}
+#gl{display:none}
+video,#src{display:none}
+.hud{position:fixed;inset:0;pointer-events:none;z-index:3}
+.marque{position:absolute;top:28px;left:4vw;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.34em;color:rgba(223,234,242,.6)}
+.choix{position:absolute;top:20px;right:4vw;display:flex;gap:4px;pointer-events:auto}
+.choix button{all:unset;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;
+  padding:9px 14px;border:1px solid rgba(223,234,242,.16);color:rgba(223,234,242,.6);background:rgba(0,0,0,.35);backdrop-filter:blur(10px)}
+.choix button.on{color:#000;background:#eaf6ff;border-color:#eaf6ff}
+.consigne{position:absolute;left:4vw;right:4vw;bottom:9vh}
+.consigne .n{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.32em;color:#7fd8ff;margin-bottom:18px}
+.consigne h1{font-weight:200;font-size:clamp(44px,7.4vw,128px);line-height:.96;letter-spacing:-.035em;max-width:14ch}
+.consigne h1 span{display:inline-block;opacity:0;transform:translateY(.35em);filter:blur(8px);transition:opacity .7s cubic-bezier(.2,.7,.1,1),transform .9s cubic-bezier(.2,.7,.1,1),filter .7s}
+.consigne h1 span.on{opacity:1;transform:none;filter:none}
+.consigne p{margin-top:20px;font-size:clamp(15px,1.3vw,20px);opacity:.62;max-width:40ch}
+.tenue{margin-top:30px;height:2px;background:rgba(223,234,242,.14);position:relative;max-width:560px}
+.tenue i{position:absolute;inset:0;background:#eaf6ff;transform-origin:left;transform:scaleX(0);box-shadow:0 0 18px #7fd8ff}
+.poses{position:absolute;right:4vw;bottom:9vh;display:flex;flex-direction:column;gap:10px;text-align:right;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.26em;text-transform:uppercase}
+.poses div{opacity:.25;transition:opacity .6s}.poses div.on{opacity:1;color:#7fd8ff}.poses div.fait{opacity:.55}
+.note{position:absolute;top:62px;left:4vw;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;color:#ffb38a;opacity:.8}
+body.s2 .consigne h1,body.s2 .consigne p{display:none}
+@media(max-width:760px){.poses{display:none}.choix{top:auto;bottom:14px;left:4vw;right:4vw;justify-content:space-between}.consigne{bottom:12vh}}
+</style>
+<script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
+</head>
+<body>
+<video id="vid" playsinline muted autoplay></video>
+<canvas id="cv"></canvas>
+<canvas id="gl"></canvas>
+<div class="hud">
+  <div class="marque">VYVRE · SCAN CHEVEUX</div>
+  <div class="note" id="note"></div>
+  <div class="choix" id="choix">
+    <button data-s="1">01 Balayage</button><button data-s="2">02 Silhouette</button>
+    <button data-s="3">03 Fibre</button><button data-s="4">04 Relief</button>
+  </div>
+  <div class="consigne">
+    <div class="n" id="num">POSE 1 / 4</div>
+    <h1 id="titre"></h1>
+    <p id="sous"></p>
+    <div class="tenue"><i id="tenue"></i></div>
+  </div>
+  <div class="poses" id="poses"></div>
+</div>
+<script type="module">
+/* ==========================================================================
+   QUATRE PROPALES DU MOMENT DU SCAN — sur la VRAIE camera.
+   Les cheveux et la personne sont reperes pour de vrai, image par image,
+   par deux modeles MediaPipe (Google, Apache 2.0). Rien n'est simule,
+   sauf l'enchainement des poses (4 s chacune) : dans le produit, c'est le
+   moteur qui dira quand la pose est tenue.
+   ?s=1..4 choisit la propale ; touches 1 a 4 aussi.
+   ========================================================================== */
+import { FilesetResolver, ImageSegmenter } from "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/vision_bundle.mjs";
+
+const $ = id => document.getElementById(id);
+const clamp=(v,a,b)=>v<a?a:v>b?b:v, lerp=(a,b,t)=>a+(b-a)*t, sm=t=>{t=clamp(t,0,1);return t*t*(3-2*t)};
+
+const POSES = [
+  { mot:'FACE',   t:'De face.',                  s:'Regardez l’objectif. Ne bougez plus.' },
+  { mot:'GAUCHE', t:'Tournez la tête à gauche.', s:'Doucement, jusqu’au profil.' },
+  { mot:'DROITE', t:'Maintenant, à droite.',     s:'Le profil entier, l’oreille visible.' },
+  { mot:'DESSUS', t:'Baissez la tête.',          s:'Montrez le dessus du crâne.' }
+];
+const POSE_MS = 4200;
+
+/* ---------------- la source : camera, ou portrait d'essai ---------------- */
+const vid = $('vid');
+let src = null, miroir = true;
+async function ouvrirSource(){
+  try{
+    const st = await navigator.mediaDevices.getUserMedia({ video:{ facingMode:'user', width:{ideal:1280}, height:{ideal:720} }, audio:false });
+    vid.srcObject = st; await vid.play();
+    await new Promise(r => vid.videoWidth ? r() : vid.onloadedmetadata = r);
+    src = vid;
+  }catch(e){
+    const img = new Image(); img.src = '/_test_masque/p_073.jpg';
+    await img.decode(); src = img; miroir = false;
+    $('note').textContent = 'CAMÉRA NON AUTORISÉE · PORTRAIT D’ESSAI';
+  }
+}
+const SW = () => src.videoWidth || src.naturalWidth, SH = () => src.videoHeight || src.naturalHeight;
+
+/* ---------------- la lecture : masque cheveux + masque personne ---------------- */
+const PW = 256; let PH = 192;
+const petit = document.createElement('canvas'), pctx = petit.getContext('2d', { willReadFrequently:true });
+const mH = document.createElement('canvas'), mHc = mH.getContext('2d');   /* cheveux */
+const mP = document.createElement('canvas'), mPc = mP.getContext('2d');   /* personne */
+let HAIR = null, PERS = null, GRIS = null, idH, idP, segH, segP, lu = 0, dernH = 0, dernP = 0, tour = 0;
+
+/* deux modeles legers plutot qu'un lourd : « hair_segmenter » (les cheveux)
+   et « selfie_segmenter » (la personne), ~35 ms chacun. On les fait tourner a
+   tour de role, quelques fois par seconde : l'image, elle, reste a 60 i/s. */
+async function ouvrirLecture(){
+  const fs = await FilesetResolver.forVisionTasks("https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.14/wasm");
+  const B = "https://storage.googleapis.com/mediapipe-models/image_segmenter/";
+  const o = url => ({ baseOptions:{ modelAssetPath:B+url, delegate:'CPU' }, runningMode:'VIDEO', outputConfidenceMasks:true, outputCategoryMask:false });
+  segH = await ImageSegmenter.createFromOptions(fs, o("hair_segmenter/float32/latest/hair_segmenter.tflite"));
+  segP = await ImageSegmenter.createFromOptions(fs, o("selfie_segmenter/float16/latest/selfie_segmenter.tflite"));
+}
+function tailles(){
+  PH = Math.round(PW * SH() / SW());
+  for(const c of [petit, mH, mP]){ c.width = PW; c.height = PH; }
+  idH = mHc.createImageData(PW, PH); idP = mPc.createImageData(PW, PH);
+  HAIR = new Float32Array(PW*PH); PERS = new Float32Array(PW*PH); GRIS = new Float32Array(PW*PH);
+  for(let i=0;i<PW*PH;i++){ idH.data[i*4]=idH.data[i*4+1]=idH.data[i*4+2]=255; idP.data[i*4]=idP.data[i*4+1]=idP.data[i*4+2]=255; }
+}
+/* a l'ecran, le masque est franc : sous 0,45 de confiance rien, au-dessus de
+   0,8 tout. Sans ce seuil, les faibles valeurs du fond s'additionnaient et
+   bleuissaient le pull et le decor. */
+function versMasque(src, dst, id, c, k){
+  for(let i=0;i<PW*PH;i++){ dst[i] = dst[i]*(1-k) + src[i]*k; id.data[i*4+3] = sm((dst[i]-.45)/.35)*255; }
+  c.putImageData(id,0,0);
+}
+function lire(now){
+  if(!segH || now - Math.max(dernH, dernP) < 70) return;
+  const hair = (tour++ % 2) === 0, seg = hair ? segH : segP;
+  pctx.save(); if(miroir){ pctx.translate(PW,0); pctx.scale(-1,1); }
+  pctx.drawImage(src, 0, 0, PW, PH); pctx.restore();
+  try{
+    seg.segmentForVideo(petit, now, r => {
+      const cm = r.confidenceMasks; if(!cm || !cm.length) return;
+      const m = (hair ? (cm[1] || cm[0]) : cm[0]).getAsFloat32Array();
+      if(hair){ versMasque(m, HAIR, idH, mHc, .7); dernH = now; }
+      else {
+        versMasque(m, PERS, idP, mPc, .7); dernP = now;
+        const pix = pctx.getImageData(0,0,PW,PH).data;
+        for(let i=0;i<PW*PH;i++) GRIS[i] = (pix[i*4]*.3 + pix[i*4+1]*.59 + pix[i*4+2]*.11) / 255;
+      }
+      cm.forEach(x => x.close && x.close());
+      lu++;
+    });
+  }catch(e){}
+}
+
+/* ---------------- la toile ---------------- */
+const cv = $('cv'), ctx = cv.getContext('2d');
+let W=0, H=0, DPR=1;
+const couches = {};
+function couche(nom){ let c = couches[nom]; if(!c){ c = document.createElement('canvas'); c.x = c.getContext('2d'); couches[nom] = c; }
+  if(c.width !== cv.width || c.height !== cv.height){ c.width = cv.width; c.height = cv.height; c.x.setTransform(DPR,0,0,DPR,0,0); } return c; }
+function taille(){ DPR = Math.min(devicePixelRatio||1, 1.25); W = innerWidth; H = innerHeight;
+  cv.width = W*DPR; cv.height = H*DPR; ctx.setTransform(DPR,0,0,DPR,0,0); }
+addEventListener('resize', taille);
+/* l'image couvre l'ecran, comme un plein cadre de cinema */
+function cadre(){ const s = Math.max(W/SW(), H/SH()); const w = SW()*s, h = SH()*s; return { x:(W-w)/2, y:(H-h)/2, w, h }; }
+function peindreSource(c, r, filtre){
+  c.save(); if(filtre) c.filter = filtre;
+  if(miroir){ c.translate(r.x + r.w, r.y); c.scale(-1,1); c.drawImage(src, 0, 0, r.w, r.h); }
+  else c.drawImage(src, r.x, r.y, r.w, r.h);
+  c.restore();
+}
+function masque(c, m, r){ c.save(); c.imageSmoothingEnabled = true; c.imageSmoothingQuality = 'high'; c.drawImage(m, r.x, r.y, r.w, r.h); c.restore(); }
+/* un halo sans filtre de flou (trop lent en plein ecran) : l'image reduite
+   au 1/12 puis agrandie, lissage active */
+const petitHalo = document.createElement('canvas'), phx = petitHalo.getContext('2d');
+function halo(c, a){
+  const w = Math.max(1, W/12|0), h = Math.max(1, H/12|0);
+  if(petitHalo.width !== w || petitHalo.height !== h){ petitHalo.width = w; petitHalo.height = h; }
+  phx.clearRect(0,0,w,h); phx.drawImage(c, 0, 0, w, h);
+  ctx.save(); ctx.globalAlpha = a; ctx.imageSmoothingQuality = 'high'; ctx.drawImage(petitHalo, 0, 0, W, H); ctx.restore();
+}
+function effacer(c){ c.save(); c.setTransform(1,0,0,1,0,0); c.clearRect(0,0,c.canvas.width,c.canvas.height); c.restore(); }
+
+/* ==========================================================================
+   01 · LE BALAYAGE — un plan de lumiere descend sur la personne ; tout ce
+   qu'il touche de cheveux reste allume. La chevelure se remplit de bleu,
+   passage apres passage.
+   ========================================================================== */
+const S1 = {
+  draw(t, r){
+    peindreSource(ctx, r, 'grayscale(1) brightness(.42) contrast(1.15)');
+    const acc = couche('acc'), tmp = couche('tmp');
+    /* la memoire s'eteint lentement */
+    acc.x.save(); acc.x.globalCompositeOperation = 'destination-out'; acc.x.fillStyle = 'rgba(0,0,0,.035)'; acc.x.fillRect(0,0,W,H); acc.x.restore();
+    const per = 2600, u = (t % per) / per, y = lerp(-80, H + 80, sm(u));
+    /* ce que la bande eclaire, c'est le masque cheveux, et lui seul */
+    effacer(tmp.x); masque(tmp.x, mH, r);
+    tmp.x.save(); tmp.x.globalCompositeOperation = 'source-in';
+    /* la bande couvre tout le chemin depuis l'image precedente : pas de stries
+       quand l'ordinateur rame */
+    const y0 = (S1.py != null && S1.py < y) ? S1.py : y; S1.py = y;
+    const g = tmp.x.createLinearGradient(0, y0-90, 0, y+8);
+    g.addColorStop(0,'rgba(40,140,255,0)'); g.addColorStop(.25,'rgba(50,150,255,.6)'); g.addColorStop(.85,'rgba(80,185,255,.85)'); g.addColorStop(.95,'rgba(215,245,255,1)'); g.addColorStop(1,'rgba(215,245,255,0)');
+    tmp.x.fillStyle = g; tmp.x.fillRect(0,0,W,H); tmp.x.restore();
+    acc.x.save(); acc.x.globalCompositeOperation = 'lighten'; acc.x.drawImage(tmp, 0, 0, W, H); acc.x.restore();   /* le max, jamais la somme : pas de blanc brule */
+    /* 'color' teinte sans effacer la matiere des meches ; un peu d'ecran par-dessus pour la lueur */
+    ctx.save(); ctx.globalCompositeOperation = 'color'; ctx.drawImage(acc, 0, 0, W, H);
+    ctx.globalCompositeOperation = 'screen'; ctx.globalAlpha = .28; ctx.drawImage(acc, 0, 0, W, H); ctx.globalAlpha = 1; ctx.drawImage(tmp, 0, 0, W, H); ctx.restore();
+    /* le plan lui-meme */
+    ctx.save(); ctx.globalCompositeOperation = 'lighter';
+    const h = ctx.createLinearGradient(0, y-160, 0, y+2);
+    h.addColorStop(0,'rgba(127,216,255,0)'); h.addColorStop(1,'rgba(127,216,255,.16)');
+    ctx.fillStyle = h; ctx.fillRect(0, y-160, W, 162);
+    ctx.fillStyle = 'rgba(240,252,255,.95)'; ctx.fillRect(0, y, W, 1.2);
+    ctx.fillStyle = 'rgba(127,216,255,.35)'; ctx.fillRect(0, y-3, W, 7); ctx.restore();
+    /* ce que le plan releve, a sa hauteur */
+    let n = 0; const ry = clamp(Math.round((y - r.y) / r.h * PH), 0, PH-1);
+    for(let x=0;x<PW;x++) n += HAIR[ry*PW + x] > .5 ? 1 : 0;
+    ctx.save(); ctx.font = '400 11px "IBM Plex Mono", monospace'; ctx.fillStyle = 'rgba(223,244,255,.8)'; ctx.textAlign = 'right';
+    ctx.fillText('LIGNE ' + String(ry).padStart(3,'0') + '   ·   FIBRE ' + (n/PW*100).toFixed(1) + ' %', W - W*.04, y - 12);
+    ctx.restore();
+  }
+};
+
+/* ==========================================================================
+   02 · LA SILHOUETTE — la consigne en lettres geantes, DERRIERE la personne.
+   La tete passe devant le mot ; les cheveux, eux, s'allument.
+   ========================================================================== */
+const S2 = {
+  draw(t, r, pose, k){
+    peindreSource(ctx, r, 'saturate(.55) brightness(.62) contrast(1.08)');
+    /* le mot */
+    const mot = POSES[pose].mot, ent = sm(k / .12);
+    let fs = H * .44; ctx.font = '800 ' + fs + 'px Inter';
+    const lw = ctx.measureText(mot).width; if(lw > W * .94){ fs *= W * .94 / lw; ctx.font = '800 ' + fs + 'px Inter'; }
+    ctx.save(); ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.globalAlpha = ent; ctx.fillStyle = '#eaf6ff';
+    ctx.fillText(mot, W/2, H*.46 + (1-ent)*60);
+    ctx.restore();
+    /* la personne repasse devant */
+    const per = couche('per'); effacer(per.x);
+    peindreSource(per.x, r, 'saturate(.55) brightness(.72) contrast(1.08)');
+    per.x.save(); per.x.globalCompositeOperation = 'destination-in'; masque(per.x, mP, r); per.x.restore();
+    ctx.drawImage(per, 0, 0, W, H);
+    /* les cheveux s'allument, en respirant */
+    const ch = couche('ch'); effacer(ch.x); masque(ch.x, mH, r);
+    ch.x.save(); ch.x.globalCompositeOperation = 'source-in'; ch.x.fillStyle = 'rgba(70,175,255,' + (.42 + .12*Math.sin(t/420)).toFixed(3) + ')'; ch.x.fillRect(0,0,W,H); ch.x.restore();
+    ctx.save(); ctx.globalCompositeOperation = 'screen'; ctx.drawImage(ch, 0, 0, W, H);
+    halo(ch, .6); ctx.restore();
+    /* sous le mot, la phrase entiere */
+    ctx.save(); ctx.textAlign = 'center'; ctx.font = '300 ' + clamp(W*.018, 15, 24) + 'px Inter'; ctx.fillStyle = 'rgba(234,246,255,.85)';
+    ctx.globalAlpha = ent; ctx.fillText(POSES[pose].s, W/2, H*.46 + fs*.48); ctx.restore();
+  }
+};
+
+/* ==========================================================================
+   03 · LA FIBRE — la chevelure redessinee par la lumiere : des milliers de
+   traits qui suivent le vrai sens des meches, lu dans l'image (tenseur de
+   structure). Le reste s'eteint.
+   ========================================================================== */
+const S3 = {
+  ang: null, n: 0, P: null,
+  orient(){
+    const w = PW, h = PH, A = this.ang || (this.ang = new Float32Array(w*h));
+    const jxx = new Float32Array(w*h), jyy = new Float32Array(w*h), jxy = new Float32Array(w*h);
+    for(let y=1;y<h-1;y++) for(let x=1;x<w-1;x++){
+      const i = y*w + x, G = GRIS;
+      const gx = G[i-w+1]+2*G[i+1]+G[i+w+1]-G[i-w-1]-2*G[i-1]-G[i+w-1];
+      const gy = G[i+w-1]+2*G[i+w]+G[i+w+1]-G[i-w-1]-2*G[i-w]-G[i-w+1];
+      jxx[i]=gx*gx; jyy[i]=gy*gy; jxy[i]=gx*gy;
+    }
+    const R = 4;
+    for(let y=R;y<h-R;y+=1) for(let x=R;x<w-R;x+=1){
+      let a=0,b=0,c=0;
+      for(let dy=-R;dy<=R;dy+=2) for(let dx=-R;dx<=R;dx+=2){ const j=(y+dy)*w+x+dx; a+=jxx[j]; b+=jyy[j]; c+=jxy[j]; }
+      A[y*w+x] = .5*Math.atan2(2*c, a-b) + Math.PI/2;   /* le long de la meche */
+    }
+  },
+  nait(p){
+    for(let e=0;e<30;e++){ const x = Math.random()*PW, y = Math.random()*PH;
+      if(HAIR[(y|0)*PW + (x|0)] > .6){ p.x=x; p.y=y; p.vx=0; p.vy=0; p.v=40+Math.random()*80; p.b=.3+Math.random()*.7; return; } }
+    p.v = 0;
+  },
+  draw(t, r){
+    if(!HAIR) return;
+    if(this.n++ % 4 === 0) this.orient();
+    if(!this.P){ this.P = []; for(let i=0;i<4200;i++){ const p={}; this.nait(p); this.P.push(p); } }
+    peindreSource(ctx, r, 'grayscale(1) brightness(.16) contrast(1.2)');
+    const tr = couche('tr');
+    tr.x.save(); tr.x.globalCompositeOperation = 'destination-out'; tr.x.fillStyle = 'rgba(0,0,0,.075)'; tr.x.fillRect(0,0,W,H); tr.x.restore();
+    const kx = r.w / PW, ky = r.h / PH;
+    const paq = [[],[],[],[]];
+    for(const p of this.P){
+      if(p.v <= 0){ this.nait(p); continue; }
+      const i = (p.y|0)*PW + (p.x|0), a = this.ang[i] || 0;
+      let dx = Math.cos(a), dy = Math.sin(a);
+      if(dx*p.vx + dy*p.vy < 0){ dx = -dx; dy = -dy; }      /* garde son sens */
+      if(p.vx === 0 && p.vy === 0 && dy < 0){ dx = -dx; dy = -dy; }  /* on part vers les pointes */
+      const nx = p.x + dx*.9, ny = p.y + dy*.9;
+      paq[Math.min(3, p.b*4|0)].push(r.x + p.x*kx, r.y + p.y*ky, r.x + nx*kx, r.y + ny*ky);
+      p.vx = dx; p.vy = dy; p.x = nx; p.y = ny; p.v--;
+      if(p.x<1||p.y<1||p.x>=PW-1||p.y>=PH-1||HAIR[(p.y|0)*PW+(p.x|0)] < .35) p.v = 0;
+    }
+    tr.x.save(); tr.x.globalCompositeOperation = 'lighter'; tr.x.lineCap = 'round';
+    paq.forEach((L, q) => {
+      tr.x.strokeStyle = 'rgba(150,220,255,' + (.14 + q*.12).toFixed(2) + ')'; tr.x.lineWidth = .7 + q*.35;
+      tr.x.beginPath(); for(let j=0;j<L.length;j+=4){ tr.x.moveTo(L[j],L[j+1]); tr.x.lineTo(L[j+2],L[j+3]); } tr.x.stroke();
+    });
+    tr.x.restore();
+    ctx.save(); ctx.globalCompositeOperation = 'lighter'; ctx.drawImage(tr, 0, 0, W, H);
+    halo(tr, .8); ctx.restore();
+  }
+};
+
+/* ==========================================================================
+   04 · LE RELIEF — la personne devient un nuage de 27 000 points en
+   profondeur, qui tourne lentement ; les cheveux sont les points lumineux.
+   ========================================================================== */
+const S4 = {
+  pret: false,
+  async monter(){
+    if(this.pret) return;
+    const THREE = await import('three');
+    const { EffectComposer } = await import('three/addons/postprocessing/EffectComposer.js');
+    const { RenderPass } = await import('three/addons/postprocessing/RenderPass.js');
+    const { UnrealBloomPass } = await import('three/addons/postprocessing/UnrealBloomPass.js');
+    const { OutputPass } = await import('three/addons/postprocessing/OutputPass.js');
+    const gl = $('gl');
+    const re = new THREE.WebGLRenderer({ canvas:gl, antialias:true }); re.setPixelRatio(Math.min(devicePixelRatio,1.25)); re.setSize(innerWidth, innerHeight);
+    const sc = new THREE.Scene(), cam = new THREE.PerspectiveCamera(38, innerWidth/innerHeight, .1, 100);
+    const co = new EffectComposer(re); co.addPass(new RenderPass(sc, cam));
+    co.addPass(new UnrealBloomPass(new THREE.Vector2(innerWidth, innerHeight), .8, .5, .25)); co.addPass(new OutputPass());
+    addEventListener('resize', () => { re.setSize(innerWidth, innerHeight); co.setSize(innerWidth, innerHeight); cam.aspect = innerWidth/innerHeight; cam.updateProjectionMatrix(); });
+    const GW = 192, GH = Math.round(192 * PH / PW), N = GW*GH;
+    const pos = new Float32Array(N*3), col = new Float32Array(N*3);
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.BufferAttribute(pos,3)); g.setAttribute('color', new THREE.BufferAttribute(col,3));
+    const pts = new THREE.Points(g, new THREE.PointsMaterial({ size:.028, vertexColors:true, transparent:true, opacity:.95, blending:THREE.AdditiveBlending, depthWrite:false }));
+    sc.add(pts);
+    Object.assign(this, { THREE, re, sc, cam, co, g, pos, col, GW, GH, pret:true });
+  },
+  draw(t){
+    if(!this.pret || !HAIR) return;
+    const { GW, GH, pos, col } = this, larg = 6.4, haut = larg * GH / GW;
+    for(let gy=0; gy<GH; gy++) for(let gx=0; gx<GW; gx++){
+      const i = gy*GW + gx, sx = Math.min(PW-1, gx*PW/GW|0), sy = Math.min(PH-1, gy*PH/GH|0), j = sy*PW + sx;
+      const h = HAIR[j], p = PERS[j], l = GRIS[j];
+      pos[i*3] = (gx/GW - .5) * larg; pos[i*3+1] = (.5 - gy/GH) * haut;
+      pos[i*3+2] = p*1.6 + p*l*.5 + h*.35 - (1-p)*.6;
+      const b = (1-p) * .05 + p * (1-h) * (.12 + l*.5);
+      col[i*3]   = b + h*.30; col[i*3+1] = b + h*.72; col[i*3+2] = b + h*1.0;
+    }
+    this.g.attributes.position.needsUpdate = true; this.g.attributes.color.needsUpdate = true;
+    const a = Math.sin(t/2600) * .55;
+    this.cam.position.set(Math.sin(a)*8.2, .3 + Math.sin(t/3700)*.4, Math.cos(a)*8.2); this.cam.lookAt(0, 0, .6);
+    this.co.render();
+  }
+};
+
+/* ---------------- le parcours des poses ---------------- */
+let S = +(new URLSearchParams(location.search).get('s') || 1), T0 = performance.now(), poseAff = -1;
+function choisir(s){
+  S = s; document.body.className = 's' + s;
+  document.querySelectorAll('#choix button').forEach(b => b.classList.toggle('on', +b.dataset.s === s));
+  $('gl').style.display = s === 4 ? 'block' : 'none'; cv.style.display = s === 4 ? 'none' : 'block';
+  for(const k in couches) effacer(couches[k].x);
+  S3.P = null;
+  if(s === 4) S4.monter();
+  T0 = performance.now(); poseAff = -1;
+  history.replaceState(null, '', '?s=' + s);
+}
+document.querySelectorAll('#choix button').forEach(b => b.onclick = () => choisir(+b.dataset.s));
+addEventListener('keydown', e => { if(e.key >= '1' && e.key <= '4') choisir(+e.key); });
+$('poses').innerHTML = POSES.map(p => '<div>' + p.mot + '</div>').join('');
+
+function ecrireConsigne(i){
+  $('num').textContent = 'POSE ' + (i+1) + ' / 4';
+  $('titre').innerHTML = POSES[i].t.split(' ').map(m => '<span>' + m + '</span>').join(' ');
+  $('sous').textContent = POSES[i].s;
+  [...$('titre').children].forEach((s, k) => setTimeout(() => s.classList.add('on'), 60 + k*90));
+  [...$('poses').children].forEach((d, k) => { d.classList.toggle('on', k === i); d.classList.toggle('fait', k < i); });
+}
+
+function image(now){
+  requestAnimationFrame(image);
+  if(!src || !HAIR) return;
+  lire(now);
+  const e = (now - T0) % (POSE_MS * 4), pose = Math.floor(e / POSE_MS), k = (e % POSE_MS) / POSE_MS;
+  if(pose !== poseAff){ poseAff = pose; ecrireConsigne(pose); }
+  $('tenue').style.transform = 'scaleX(' + sm(clamp((k - .25) / .7, 0, 1)).toFixed(3) + ')';
+  if(S === 4){ S4.draw(now); return; }
+  ctx.save(); ctx.setTransform(1,0,0,1,0,0); ctx.fillStyle = '#000'; ctx.fillRect(0,0,cv.width,cv.height); ctx.restore();
+  const r = cadre();
+  if(S === 1) S1.draw(now, r);
+  else if(S === 2) S2.draw(now, r, pose, k);
+  else S3.draw(now, r);
+}
+
+(async function(){
+  taille();
+  $('titre').innerHTML = '<span class="on">Préparation…</span>';
+  await ouvrirSource(); tailles();
+  await ouvrirLecture();
+  choisir(clamp(S,1,4));
+  requestAnimationFrame(image);
+})();
+</script>
+</body>
+</html>

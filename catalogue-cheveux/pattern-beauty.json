@@ -3,28 +3,6 @@
  "brand_name": "Pattern Beauty",
  "products": [
   {
-   "id": "pattern-beauty--palo-santo-hair-mist",
-   "name": "Palo Santo Hair Mist",
-   "brand": "pattern-beauty",
-   "brand_name": "Pattern Beauty",
-   "url": "https://patternbeauty.com/products/palo-santo-hair-mist",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 20.24,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0149/4794/2500/files/PATTERN_ECOMM_PDP_2026_PSMist_ONPINK.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/pattern-beauty/palo-santo-hair-mist.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [
-    "boucles"
-   ],
-   "actifs": [],
-   "ingredients": "Ingredients: Alcohol Denat., Aqua/Water/Eau, Parfum (Fragrance), t-Butyl Alcohol, Polycitronellol, Zinc Ricinoleate, Dipropylene Glycol, Trisodium Dicarboxymethyl Alaninate, Denatonium Benzoate, Hexyl cinnamal, Tetramethyl acetyloctahydronaphthalenes, Amyl cinnamal, Linalool, Hydroxycitronellal, Citronellol, Linalyl Acetate, Limonene, Dimethyl Phenethyl Acetate, Citrus Limon Peel Oil, Juniperus Virginiana Oil, Geraniol, Geranyl Acetate, Pogostemon Cablin Oil, Pinene, Citrus Aurantium Peel Oil, Lavandula Oil/Extract, Eugenia Carophyllus Oil, Eugenol, Pelargonium Graveolens Flower Oil, Coumarin, Cinnamyl alcohol, Hexamethylindanopyran, Rose Ketones, Beta- Caryophyllene, Citral, Alpha-Isomethyl Ionone",
-   "description": "A lightweight hair fragrance mist with our woodsy, subtle Palo Santo scent that refreshes curls between wash days. *Excluded from the sale",
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
    "id": "pattern-beauty--flat-iron",
    "name": "Vibrating Flat Iron",
    "brand": "pattern-beauty",
@@ -42,9 +20,11 @@
    "ingredients": null,
    "description": "A Vibrating Flat Iron with ceramic-coated plates for smooth, silky styles with effortless glide, fewer passes & customizable control. *Excluded from the sale",
    "claims": [
-    "lissant"
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/flat-iron.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--detox-shampoo",
@@ -60,6 +40,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "gras",
     "boucles",
     "cuir-chevelu-sensible"
    ],
@@ -76,10 +57,13 @@
    "ingredients": "Water/Aqua/Eau, Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Betaine, Glycerin, Hamamelis Virginiana (Witch Hazel) Water, Sodium Chloride, Pyrus Malus (Apple) Fruit Extract, Rosmarinus Officinalis (Rosemary) Leaf Oil, Aloe Barbadensis Leaf Juice, Sea Silt Extract/Maris Limus Extract/Extrait de limon marin, Illite, Kaolin, Niacinamide, Lavandula Oil/Extract, Panthenol, Phenoxyethanol, Alcohol, Citric Acid, Polyquaternium-10, Sodium Gluconate, Potassium Sorbate, Caprylyl/Capryl Glucoside, Zinc PCA, Montmorillonite, Menthol, Benzyl Alcohol, Pinene",
    "description": "Detoxify & reset curls with a deep-cleansing shampoo that lifts buildup, hard water minerals & chlorine without stripping moisture. *Excluded from the sale",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "definition-boucles",
     "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/detox-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--blow-out-primer",
@@ -110,9 +94,13 @@
    "ingredients": "Water/Aqua/Eau, Sucrose, Hydrogenated Ethylhexyl Olivate, Cetearyl Alcohol, Glycerin, Cocos Nucifera (Coconut) Oil, Polyporus Umbellatus (Mushroom) Extract, Solanum Tuberosum (Potato) Pulp Extract, Sodium PCA, Sodium Lactate, Aspartic Acid, Arginine, PCA, Serine, Valine, Isoleucine, Proline, Threonine, C9-12 Alkane, Histidine, Phenylalanine, Squalane, Furcellaria Lumbricalis Extract, Panthenol, Polyglyceryl-10 Pentahydroxystearate, Helianthus Annuus (Sunflower) Seed Extract, Glycine, Alanine, Olea Europaea (Olive) Leaf Extract,Camellia Sinensis Leaf Extract, Cyclodextrin, Argania Spinosa Kernel Oil, Citrullus Lanatus (Watermelon) Seed Oil, Phenoxyethanol, Sodium Stearoyl Lactylate, Cetrimonium Chloride, Pentylene Glycol, Fructose, Sodium Citrate, Sodium Hyaluronate, Potassium Sorbate, Hydrogenated Olive Oil Unsaponifiables, Guar Hydroxypropyltrimonium Chloride, Sodium Gluconate, Citric Acid, Coco-Caprylate/Caprate, Cyamopsis Tetragonoloba (Guar) Gum, Xanthan Gum, Fragrance (Parfum), Amyl Cinnamal, Benzyl Benzoate, Hexamethylindanopyran, Hexyl Cinnamal, Hydroxycitronellal, Linalool, Tetramethyl Acetyloctahydronaphthalenes",
    "description": "Blow Out Primer is a lightweight heat-protecting cream that preps, detangles & softens hair for smoother, touchable blowouts & silk presses. *Excluded from the sale",
    "claims": [
-    "lissant"
+    "anti-frisottis",
+    "protection-chaleur",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/blow-out-primer.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--vip-bundle",
@@ -128,17 +116,22 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "boucles"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "Includes: Mini Radiant Body Trio, Juicy Hydration Duo & Mini Leave-In Conditioner Discovery Set Hydration for every curl & every inch of skin. Treat yourself to a complete hydration ritual from wash day to body care. Discover PATTERN's bestselling Leave-In Conditioner in three signature scents—Original, Palo Santo & Indigo Rain—with the Mini Leave-In Conditioner Discovery Set. Each mini delivers 7X more moisture, soft curl definition & effortless detangling, making it easy to nourish curls wheth",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "definition-boucles"
+    "hydratation",
+    "nutrition",
+    "definition-boucles",
+    "brillance",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/vip-bundle.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--indigo-rain-styling-custard",
@@ -153,7 +146,11 @@
    "image_local": "public/scan/products-cheveux/pattern-beauty/indigo-rain-styling-custard.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "boucles",
+    "crepus"
+   ],
    "actifs": [
     "huile de coco",
     "huile de ricin",
@@ -167,10 +164,13 @@
    "ingredients": "Water/Aqua/Eau, Glycerin, Cetearyl Alcohol, Aloe Barbadensis Leaf Extract, Cocos Nucifera (Coconut) Oil, Behentrimonium Methosulfate, Wheat Amino Acids, Benzyl Alcohol, Hydrolyzed Silk, Caryodendron Orinocense Seed Oil, Cocos Nucifera (Coconut) Fruit Extract, Rosmarinus Officinalis (Rosemary) Leaf Extract, Helianthus Annuus (Sunflower) Seed Oil, PEG-40 Hydrogenated Castor Oil, PEG-60 Hydrogenated Castor Oil, Cetrimonium Chloride, Citric Acid, Hydroxyethylcellulose, Guar Hydroxypropyltrimonium Chloride, Ethylhexylglycerin, Disodium EDTA, Potassium Sorbate, Sodium Benzoate, Phenethyl Alcohol, Caprylyl Glycol, Polysorbate 60, Phenoxyethanol, Disodium Phosphate, Sodium Phosphate, Sodium Sulfite, Fragrance/Parfum, Benzyl Benzoate, Hexyl Cinnamal, Amyl Cinnamal, Hydroxycitronellal, Linalool, Citronellol, Limonene",
    "description": "A lightweight & super slippy styling custard that provides hold, soft definition & shine. Great for ponytails, braid-outs & Bantu knots.",
    "claims": [
+    "definition-boucles",
     "brillance",
-    "definition-boucles"
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/indigo-rain-styling-custard.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--indigo-rain-leave-in-conditioner",
@@ -183,9 +183,10 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0149/4794/2500/files/IRLICPDP.jpg?width=600",
    "image_local": "public/scan/products-cheveux/pattern-beauty/indigo-rain-leave-in-conditioner.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -203,10 +204,14 @@
    "ingredients": "Water/Aqua/Eau, Cetearyl Alcohol, Behentrimonium Methosulfate, Butylene Glycol, Caprylic/Capric Triglyceride, Biotin, Persea Gratissima (Avocado) Oil, Melaleuca Alternifolia (Tea Tree) Leaf Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Argania Spinosa Kernel Oil, Cocos Nucifera (Coconut) Oil, Olea Europaea (Olive) Fruit Oil, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Aloe Barbadensis Leaf Extract, Ricinus Communis (Castor) Seed Oil, Butyrospermum Parkii (Shea) Butter, Glycerin, Honey/Mel/Miel, Panthenol, Tocopherol, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Amodimethicone, Polyquaternium-37, Propylene Glycol Dicaprylate/Dicaprate, Cetrimonium Chloride, Trideceth-15, Trideceth-3, PPG-1 Trideceth-6, C11-13 Isoalkane, Citric Acid, Ethylhexylglycerin, Phenoxyethanol, Aminomethyl Propanol, Potassium Sorbate, Fragrance/Parfum, Benzyl Benzoate, Hexyl Cinnamal, Amyl Cinnamal, Hydroxycitronellal, Linalool, Citronellol, Limonene, Coumarin",
    "description": "With a fresh & bright scent, our Leave-In Conditioner seals in moisture, helps detangle & adds extra hydration while giving soft curl definition.",
    "claims": [
-    "hydratant",
-    "definition-boucles"
+    "hydratation",
+    "nutrition",
+    "definition-boucles",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/indigo-rain-leave-in-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--indigo-rain-strong-hold-gel",
@@ -221,7 +226,9 @@
    "image_local": "public/scan/products-cheveux/pattern-beauty/indigo-rain-strong-hold-gel.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "huile d'argan",
     "huile de ricin",
@@ -233,9 +240,12 @@
    "ingredients": "Water/Aqua/Eau, Propylene Glycol, PVP, Polyquaternium-37, Glycerin, VP/VA Copolymer, Polysorbate 20, Tetrasodium EDTA, Chondrus Crispus Extract, Argania Spinosa Kernel Oil, Ricinus Communis (Castor) Seed Oil, Salvia Hispanica Seed Oil, Aloe Barbadensis Leaf Juice, Linum Usitatissimum (Linseed) Seed Oil, Caryodendron Orinocense Seed Oil, Phenoxyethanol, Hydroxyacetophenone, Rice Oil Glycereth-8 Esters, Babassu Oil Glycereth-8 Esters, Disodium EDTA, Fragrance/Parfum, Aminomethyl Propanol, Hydrolyzed Vegetable Protein, Potassium Sorbate, Citric Acid, Sodium Benzoate, Isopropyl Alcohol, Chlorphenesin, Benzyl Benzoate, Hexyl Cinnamal, Amyl Cinnamal, Hydroxycitronellal, Linalool, Citronellol",
    "description": "A fresh & bright Strong Hold Gel that provides long-lasting hold without breaking or drying hair & nourishes hair while creating a slick look.",
    "claims": [
-    "nourrissant"
+    "nutrition",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/indigo-rain-strong-hold-gel.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--luxe-beauty-carryall",
@@ -255,7 +265,9 @@
    "ingredients": null,
    "description": "A sleek, vegan leather carryall bag with six protective pockets—perfect for storing your dryer, attachments & styling tools.",
    "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/luxe-beauty-carryall.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "pattern-beauty--repair360-leave-in-foam",
@@ -285,10 +297,14 @@
    "ingredients": "Aqua/Water/Eau, Polysorbate 20, Hydroxypropylgluconamide, Polyquaternium-68, Glycerin, Pentylene Glycol, Biotinoyl Tripeptide-1, Glycine, Alanine, Tartaric Acid, Arginine, Serine, Valine, Isoleucine, Proline, Threonine, Lactic Acid, Hydroxypropylammonium Gluconate, Argania Spinosa Kernel Oil, Ricinus Communis (Castor) Seed Oil, Hydrolyzed Yeast Protein, Cocamidopropyl Betaine, Cetrimonium Chloride, Polyquaternium-11, Sodium Lactate, Sodium Benzoate, Polyquaternium-73, Sodium PCA, Aspartic Acid, PCA, Ethylhexylglycerin, Phenoxyethanol, Panthenol, Histidine, Phenylalanine, Potassium Sorbate, Parfum (Fragrance), Benzyl Alcohol, Citronellol, Limonene, Geraniol, Linalool, Citrus Limon Peel Oil, Pelargonium Graveolens Flower Oil",
    "description": "Repair360® Leave-In Foam is a lightweight foam that rebuilds damaged strands from the inside out. Boosted by Repair360®, Vegan Protein, & Amino Acids, it supports strength & shine while providing thermal protection up to 450°F.",
    "claims": [
-    "reparateur",
-    "brillance"
+    "reparation",
+    "fortifiant",
+    "brillance",
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/repair360-leave-in-foam.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--scalp-scrub",
@@ -304,6 +320,7 @@
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
    "cheveux_cibles": [
+    "secs",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -313,9 +330,12 @@
    "ingredients": "Sodium Chloride, Sodium C14-16 Olefin Sulfonate, Aqua (Water/Eau), Glycerin, Aloe Barbadensis Leaf, Cucumis Sativus (Cucumber) Extract, Trigonella Foenum-Graecum (Fenugreek) Seed Extract, Zingiber Officinale (Ginger) Root Extract, Caprylyl Glycol, Hexylene Glycol, Xanthan Gum, Phenoxyethanol, Parfum (Fragrance), Lavandula Oil/Extract, Linalool",
    "description": "A gentle scalp exfoliator with Pink Himalayan Sea Salt, Cucumber & Aloe Vera that removes buildup, soothes dryness & itching.",
    "claims": [
-    "apaisant"
+    "apaisant-cuir-chevelu",
+    "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/scalp-scrub.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--palo-santo-curl-gel",
@@ -331,6 +351,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -346,9 +367,12 @@
    "ingredients": "Water/Aqua/Eau, Glycerin, Cetearyl Alcohol, Aloe Barbadensis Leaf Extract, Cocos Nucifera (Coconut) Oil, Behentrimonium Methosulfate, Wheat Amino Acids, Benzyl Alcohol, Hydrolyzed Silk, Caryodendron Orinocense Seed Oil, Cocos Nucifera (Coconut) Fruit Extract, Rosmarinus Officinalis (Rosemary) Leaf Extract, Helianthus Annuus (Sunflower) Seed Oil, PEG-40 Hydrogenated Castor Oil, PEG-60 Hydrogenated Castor Oil, Cetrimonium Chloride, Citric Acid, Hydroxyethylcellulose, Guar Hydroxypropyltrimonium Chloride, Ethylhexylglycerin, Disodium EDTA, Potassium Sorbate, Sodium Benzoate, Phenethyl Alcohol, Caprylyl Glycol, Polysorbate 60, Phenoxyethanol, Disodium Phosphate, Sodium Phosphate, Sodium Sulfite, Fragrance/Parfum, Hexyl Cinnamal, Amyl Cinnamal, Dimethyl Phenethyl Acetate, Geraniol, Hydroxycitronellal, Juniperus Virginiana Oil, Linalyl Acetate, Pinene, Pogostemon Cablin Oil, Tetramethyl Acetyloctahydronaphthalenes, Citrus Limon (Lemon) Peel Oil, Citrus Aurantium Peel Oil, Geranyl Acetate, Linalool, Citronellol, Limonene",
    "description": "A bestselling non-drying curl gel with Aloe Vera, Coconut & Cacay Oil that defines & nourishes curls without flakiness.",
    "claims": [
-    "nourrissant"
+    "nutrition",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/palo-santo-curl-gel.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--palo-santo-hydration-shampoo",
@@ -364,6 +388,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -381,34 +406,13 @@
    "ingredients": "Water/Aqua/Eau, Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Betaine, Propanediol, Glycol Distearate, Biotin, Aloe Barbadensis Leaf Juice, Argania Spinosa Kernel Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Melaleuca Alternifolia (Tea Tree) Leaf Oil, Persea Gratissima (Avocado) Oil, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Cocos Nucifera (Coconut) Oil, Honey/Mel/Miel, Olea Europaea (Olive) Fruit Oil, Ricinus Communis (Castor) Seed Oil, Butyrospermum Parkii (Shea) Butter, Glycine Soja (Soybean) Sterols, Lauryl Lactyl Lactate, PEG-150 Distearate, Phospholipids, Hydroxyacetophenone, Glycine Soja (Soybean) Oil, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Guar Hydroxypropyltrimonium Chloride, Citric Acid, Disodium EDTA, Hydroxyethylcellulose, Glycolipids, Sodium Benzoate, Amodimethicone, Potassium Sorbate, Phenoxyethanol, Fragrance/Parfum",
    "description": "A gentle Hydration Shampoo with Shea Butter, Aloe, Honey & Coconut Oil that cleanses without stripping—leaving curls soft & hydrated.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "pattern-beauty--tortoise-hair-clip",
-   "name": "Tortoise Hair Clip",
-   "brand": "pattern-beauty",
-   "brand_name": "Pattern Beauty",
-   "url": "https://patternbeauty.com/products/tortoise-hair-clip",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 12.88,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0149/4794/2500/files/HairClip_Tortoise_1Front00006_6b31aaee-242c-4f02-9486-3f6be9effc42.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/pattern-beauty/tortoise-hair-clip.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [
-    "gras",
-    "epais",
-    "boucles",
-    "crepus"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Durable acetate Tortoise Hair Clip designed for curly, coily & tight textures—perfect for styling, sectioning & securing thick hair with ease & style.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/palo-santo-hydration-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--hair-steamer",
@@ -425,38 +429,22 @@
    "etape": 2,
    "cheveux_cibles": [
     "fins",
-    "boucles"
+    "boucles",
+    "abimes"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "A Hair Steamer that delivers deep hydration, opens cuticles & helps protect against breakage—while adding volume, stretch & detangling curls.",
    "claims": [
-    "hydratant",
-    "volume"
+    "hydratation",
+    "reparation",
+    "definition-boucles",
+    "volume",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "pattern-beauty--sectioning-clips",
-   "name": "Sectioning Clips (4pcs)",
-   "brand": "pattern-beauty",
-   "brand_name": "Pattern Beauty",
-   "url": "https://patternbeauty.com/products/sectioning-clips",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 11.04,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0149/4794/2500/files/10_Group_Sectioning_Clips_0029_V2_Overall_FINAL_OnYellow_2000x_bb4263ae-1c67-4e11-afc6-7fd01e0ce2be.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/pattern-beauty/sectioning-clips.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Sturdy Sectioning Clips that securely hold, separate & grip while being smooth on natural hair.",
-   "claims": [
-    "lissant"
-   ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/hair-steamer.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--palo-santo-styling-cream",
@@ -472,7 +460,9 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "boucles"
+    "secs",
+    "boucles",
+    "abimes"
    ],
    "actifs": [
     "protéines de blé",
@@ -488,10 +478,16 @@
    "ingredients": "Aqua (Water/Eau), Butyrospermum Parkii (Shea) Butter, Cetearyl Alcohol, Glycerin, Ceteareth-20, PEG-40 Hydrogenated Castor Oil, Cocos Nucifera (Coconut) Oil, PEG-120 Methyl Glucose Dioleate, Theobroma Cacao (Cocoa) Seed Butter, Potassium Sorbate, Rosmarinus Officinalis (Rosemary) Leaf Extract, Helianthus Annuus (Sunflower) Seed Oil, Caryodendron Orinocense Seed Oil, Cocos Nucifera (Coconut) Fruit Extract, Prunus Amygdalus Dulcis (Sweet Almond) Oil, PEG-60 Hydrogenated Castor Oil, Aloe Barbadensis Leaf Extract, Hydrolyzed Wheat Protein, Ethylhexylglycerin, Caprylyl Glycol, Polysorbate 60, Citric Acid, Phenoxyethanol, Hydroxyethylcellulose, Disodium EDTA, Disodium Phosphate, Sodium Phosphate, Sodium Benzoate, Benzyl Alcohol, Phenethyl Alcohol, Sodium Sulfite, Fragrance (Parfum), Hexyl Cinnamal, Amyl Cinnamal, Hydroxycitronellal, Geraniol, Linalool, Citronellol, Limonene",
    "description": "A curl-defining cream with Shea Butter, Cacay & Sweet Almond Oil that nourishes, prevents breakage, provides superior moisture & a soft hold.",
    "claims": [
-    "hydratant",
-    "nourrissant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "definition-boucles",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/palo-santo-styling-cream.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--palo-santo-curl-mousse",
@@ -519,10 +515,13 @@
    "ingredients": "Water/Aqua/Eau, PVP, Polyquaternium-11, Cocamidopropyl Betaine, Polyglyceryl-4 Caprate, Polyglyceryl-6 Caprylate, Althaea Officinalis Root Extract, Glycerin, Ricinus Communis (Castor) Seed Oil, Argania Spinosa Kernel Oil, Caprylic/Capric Triglyceride, Biotin, Sodium Chloride, C12-18 Fatty Acids, Cocamidopropyl Dimethylamine, Sodium Glycolate, Sodium Benzoate, Benzyl Alcohol, Phenoxyethanol, Ethylhexylglycerin, Fragrance (Parfum), Benzyl Alcohol, Amyl Cinnamal, Hexyl Cinnamal, Hydroxycitronellal, Linalool, Citronellol, Limonene, Geraniol",
    "description": "A weightless curl-defining mousse with Marshmallow Root & Castor Oil that adds volume, shine & softness.",
    "claims": [
-    "brillance",
-    "volume"
+    "definition-boucles",
+    "volume",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/palo-santo-curl-mousse.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--palo-santo-medium-conditioner",
@@ -538,6 +537,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -555,9 +555,13 @@
    "ingredients": "Aqua (Water, Eau), Cetearyl Alcohol, Glycol Distearate, Steartrimonium Chloride, Cocoglucosides Hydroxypropyltrimonium Chloride, Sodium Chloride, Citric Acid, Butyrospermum Parkii (Shea) Butter, Cetrimonium Chloride, Amodimethicone, Biotin, Argania Spinosa Kernel Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Cocos Nucifera (Coconut) Oil, Persea Gratissima (Avocado) Oil, Melaleuca Alternifolia (Tea Tree) Leaf Oil, Mel (Honey, Miel), Olea Europaea (Olive) Fruit Oil, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Ricinus Communis (Castor) Seed Oil, Aloe Barbadensis Leaf Juice, Copernicia Cerifera (Carnauba) Wax/Copernicia Cerifera Cera/Cire de carnauba, Ethylhexylglycerin, Panthenol, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Tocopherol, Trideceth-15, Trideceth-3, Isopropyl Alcohol, Disodium EDTA, Polyquaternium-37, Propylene Glycol Dicaprylate/Dicaprate, PPG-1 Trideceth-6, C11-13 Isoparaffin, Potassium Sorbate, Phenoxyethanol, Parfum (Fragrance)",
    "description": "An award-winning, moisture-rich conditioner with Jojoba & Olive Oils that hydrates, adds slip & defines curls.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/palo-santo-medium-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--palo-santo-leave-in-conditioner",
@@ -570,10 +574,10 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0149/4794/2500/files/Pattern_ps_leavein_jumbo1.jpg?width=600",
    "image_local": "public/scan/products-cheveux/pattern-beauty/palo-santo-leave-in-conditioner.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -591,9 +595,14 @@
    "ingredients": "Aqua/Water/Eau, Cetearyl Alcohol, Behentrimonium Methosulfate, Caprylic/Capric Triglyceride, Butylene Glycol, Biotin, Panthenol, Simmondsia Chinensis (Jojoba) Seed Oil, Ricinus Communis (Castor) Seed Oil, Persea Gratissima (Avocado) Oil, Olea Europaea (Olive) Fruit Oil, Melaleuca Alternifolia (Tea Tree) Leaf Oil, Mel/Honey/Miel, Cocos Nucifera (Coconut) Oil, Argania Spinosa Kernel Oil, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Butyrospermum Parkii (Shea) Butter, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Aloe Barbadensis Leaf Extract, Tocopherol, Polyquaternium-37, Propylene Glycol Dicaprylate/Dicaprate, Ethylhexylglycerin, Trideceth-3, Trideceth-12, Cetrimonium Chloride, Amodimethicone, Fragrance (Parfum), PPG-1 Trideceth-6, Glycerin, Aminomethyl Propanol, Phenoxyethanol, Citric Acid, Potassium Sorbate, C11-13 Isoparaffin, Linalool, Amyl Cinnamal, Hydroxycitronellal, Citronellol, Limonene, Hexyl Cinnamal",
    "description": "A bestselling leave-in conditioner infused with Aloe, Honey & Jojoba Oil that hydrates, defines curls & tames frizz.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/palo-santo-leave-in-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--spoontula",
@@ -614,33 +623,12 @@
    "actifs": [],
    "ingredients": null,
    "description": "A half-spoon, half-spatula Spoontula designed to scoop every last drop of your favorite products—from hair masks to jumbo Curl Gel.",
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "pattern-beauty--luxe-hair-clip-trio",
-   "name": "Caramella Hair Clip",
-   "brand": "pattern-beauty",
-   "brand_name": "Pattern Beauty",
-   "url": "https://patternbeauty.com/products/luxe-hair-clip-trio",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 11.04,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0149/4794/2500/files/HairClip_Caramella_1_Front_00007_copy.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/pattern-beauty/luxe-hair-clip-trio.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [
-    "gras",
-    "epais",
-    "boucles",
-    "crepus"
+   "claims": [
+    "definition-boucles"
    ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Durable acetate Hair Clips designed for curly, coily & tight textures—perfect for styling, sectioning & securing thick hair with ease & style.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/spoontula.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--bounce-back-pre-poo",
@@ -668,9 +656,13 @@
    "ingredients": "Aqua/Water/Eau, Glycerin, Propylene Glycol, Sorbitan Oleate Decylglucoside Crosspolymer, Astrocaryum Murumuru Seed Butter, Simmondsia Chinensis (Jojoba) Seed Oil, Hydrolyzed Vegetable Protein, Hibiscus Sabdariffa Flower Extract, Avena Sativa (Oat) Bran Extract, Menthol, Stearalkonium Chloride, Dimethyl Stearamine, Sodium Benzoate, Potassium Sorbate, Cetyl Alcohol, Stearyl Alcohol, Benzyl Benzoate, Sodium Chloride, Alcohol, Benzyl Alcohol, Fragrance (Parfum), Hexyl Cinnamal, Panthenol, Amyl Cinnamal, Hydroxycitronellal, Linalool",
    "description": "A pre-poo treatment with Murumuru Butter, Oat & Hibiscus Extracts that nourish & restores bounce to curls after heat styling or straightening.",
    "claims": [
-    "nourrissant"
+    "nutrition",
+    "definition-boucles",
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/bounce-back-pre-poo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--deep-scalp-detox",
@@ -685,7 +677,10 @@
    "image_local": "public/scan/products-cheveux/pattern-beauty/deep-scalp-detox.jpg",
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "gras",
+    "crepus"
+   ],
    "actifs": [
     "glycérine",
     "acide citrique",
@@ -696,7 +691,9 @@
    "claims": [
     "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/deep-scalp-detox.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--moisture-milk",
@@ -712,6 +709,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -723,9 +721,13 @@
    "ingredients": "Aqua (Water/Eau), Glycerin, Cetearyl Alcohol, C12-15 Alkyl Benzoate, Cocos Nucifera (Coconut) Oil, Behentrimonium Methosulfate, Sesamum Indicum (Sesame) Seed Oil, Agave Rigida (Sisal) Extract, Chondrus Crispus Extract, Phyllanthus Emblica Fruit Extract, Panthenol, Glyceryl Stearate SE, Polyquaternium-37, Hydroxypropyl Bis-Hydroxyethyldimonium Chloride, Benzyl Alcohol, Polysorbate 60, Hydroxyethylcellulose, Pentylene Glycol, Ethylhexylglycerin, Phenoxyethanol, Disodium Phosphate, Sodium Phosphate, Parfum (Fragrance), Amyl Cinnamal, Benzyl Benzoate, Citronellol, Coumarin, Limonene, Hexyl Cinnamal, Hydroxycitronellal, Linalool",
    "description": "An award-winning lightweight cream with Amla Oil, Irish Moss & Agave Nectar that penetrates the hair shaft to deliver real, lasting hydration without weight, so your curls stay soft, defined, & shiny on day one & day four.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "definition-boucles",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/moisture-milk.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--medium-conditioner",
@@ -741,6 +743,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -758,9 +761,13 @@
    "ingredients": "Water/Aqua/Eau, Cetearyl Alcohol, Glycol Distearate, Amodimethicone, Steartrimonium Chloride, Cocoglucosides Hydroxypropyltrimonium Chloride, Sodium Chloride, Citric Acid, Butyrospermum Parkii (Shea) Butter, Cetrimonium Chloride, Biotin, Argania Spinosa Kernel Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Cocos Nucifera (Coconut) Oil, Persea Gratissima (Avocado) Oil, Melaleuca Alternifolia (Tea Tree) Leaf Oil, Honey/Mel/Miel, Olea Europaea (Olive) Fruit Oil, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Ricinus Communis (Castor) Seed Oil, Aloe Barbadensis Leaf Juice, Copernicia Cerifera (Carnauba) Wax/Copernicia Cerifera Cera/Cire de carnauba, Tocopherol, Isopropyl Alcohol, Ethylhexylglycerin, Panthenol, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Tocopherol, Trideceth-12, Trideceth-3, Disodium EDTA, Polyquaternium-37, Propylene Glycol Dicaprylate/Dicaprate, PPG-1 Trideceth-6, C11-13 Isoparaffin, Potassium Sorbate, Phenoxyethanol, Fragrance/Parfum, Benzyl Benzoate",
    "description": "An award-winning, moisture-rich conditioner with Jojoba & Olive Oils that hydrates, adds slip & defines curls.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/medium-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--heat-protectant",
@@ -782,11 +789,15 @@
    "ingredients": null,
    "description": "A lightweight, silky Heat Protectant that shields curls from damage while adding shine & nourishment.",
    "claims": [
-    "nourrissant",
+    "nutrition",
+    "definition-boucles",
     "brillance",
-    "protection-thermique"
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/heat-protectant.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--shine-spray",
@@ -810,10 +821,14 @@
    "ingredients": null,
    "description": "An ultra-lightweight Shine Spray with Castor Oil & Plumeria Extract that adds luminous, soft shine to curls while nourishing & protecting against humidity.",
    "claims": [
-    "nourrissant",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/shine-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--edge-control",
@@ -828,7 +843,9 @@
    "image_local": "public/scan/products-cheveux/pattern-beauty/edge-control.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "pellicules"
+   ],
    "actifs": [
     "panthénol",
     "huile de ricin",
@@ -840,10 +857,14 @@
    "ingredients": "Water/Aqua/Eau, Ceteareth-25, PEG-7 Glyceryl Cocoate, VP/VA Copolymer, Glycerin, Beeswax (Cera Alba), PEG-40 Hydrogenated Castor Oil, Mangifera Indica (Mango) Seed Butter, Caryodendron Orinocense Seed Oil, Cucumis Sativus (Cucumber) Fruit Extract, Aloe Barbadensis Leaf Extract, Camellia Sinensis Leaf Extract, Panthenol, Ethylhexylglycerin, Sodium Bisulfite, Laurtrimonium Chloride, Citric Acid, Glycereth-2 Cocoate, Benzoic Acid, Potassium Sorbate, Sodium Benzoate, Phenoxyethanol, Sodium Sulfite, Fragrance/ Parfum, Benzyl Benzoate, Hexyl Cinnamal, Amyl Cinnamal, Hydroxycitronellal, Linalool, Citronellol, Limonene, Coumarin, Geraniol, Red 33 (CI 17200), Yellow 5 (CI 19140)",
    "description": "A long-lasting Edge Control with Beeswax & Mango Seed Butter that smooths edges, strengthens hair & provides a flake-free hold.",
    "claims": [
-    "lissant",
-    "fortifiant"
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/edge-control.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--detangling-nectar",
@@ -869,10 +890,14 @@
    "ingredients": "Aqua/Water/Eau, Glycerin, Aloe Barbadensis Leaf Extract, Chondrus Crispus Extract, Vitis Vinifera (Grape) Seed Oil, Caprylic/Capric Triglyceride, Polyglyceryl-4 Caprate, Polyglyceryl-6 Caprylate, Polyquaternium-10, Hydroxyethylcellulose, Polysorbate 60, Cetrimonium Chloride, Disodium Phosphate, Benzyl Alcohol, Potassium Sorbate, Sodium Benzoate, Sodium PCA, Sodium Phosphate, Sodium Sulfite, Citric Acid, Ethylhexylglycerin, Fragrance (Parfum), Phenoxyethanol",
    "description": "#1 detangler for curly hair formulated with Sea Moss, Aloe & Grapeseed Oil that loosens knots, adds slip, moisture & shine.",
    "claims": [
-    "hydratant",
-    "brillance"
+    "hydratation",
+    "definition-boucles",
+    "brillance",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/detangling-nectar.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--curl-mousse",
@@ -900,10 +925,13 @@
    "ingredients": "Water/Aqua/Eau, Polyquaternium-11, PVP, Cocamidopropyl Betaine, Althaea Officinalis Root Extract, Glycerin, Ricinus Communis (Castor) Seed Oil, Argania Spinosa Kernel Oil, Caprylic/Capric Triglyceride, Biotin, Polyglyceryl-4 Caprate, Polyglyceryl-6 Caprylate, Sodium Chloride, C12-18 Acid Triglyceride, Cocamidopropyl Dimethylamine, Sodium Glycolate, Sodium Benzoate, Benzyl Alcohol, Ethylhexylglycerin, Fragrance/Parfum, Benzyl Benzoate, Hexyl Cinnamal, Amyl Cinnamal, Hydroxycitronellal, Linalool, Citronellol, Limonene, Coumarin, Geraniol",
    "description": "A weightless curl-defining mousse with Marshmallow Root & Castor Oil that adds volume, shine & softness.",
    "claims": [
-    "brillance",
-    "volume"
+    "definition-boucles",
+    "volume",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/curl-mousse.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--breakage-barrier-mask",
@@ -919,7 +947,8 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
-    "boucles"
+    "boucles",
+    "abimes"
    ],
    "actifs": [
     "huile de ricin",
@@ -931,10 +960,15 @@
    "ingredients": "Water/Aqua/Eau, Glycerin, PEG-40 Hydrogenated Castor Oil, Hydroxypropyl Starch Phosphate, Camellia Sinensis Leaf Extract, Honey/Mel/Miel, Hydroxyethylcellulose, Citric Acid, Sodium Chloride, Sodium Hydroxide, Sodium Acetate, Propylene Glycol, Polyquaternium-37, Guar Hydroxypropyltrimonium Chloride, Cetrimonium Chloride, Cellulose, Potassium Sorbate, Phenoxyethanol, Fragrance/Parfum, Isopropyl Alcohol, Limonene, Geraniol, Linalool, Citronellol, Yellow 6 (CI 15985), Blue 1 (CI 42090)",
    "description": "A nutrient-rich hair mask with White Tea & Manuka Honey that strengthens, restores moisture & reduces breakage—leaving curls softer & more resilient.",
    "claims": [
-    "hydratant",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/breakage-barrier-mask.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--styling-custard",
@@ -949,7 +983,9 @@
    "image_local": "public/scan/products-cheveux/pattern-beauty/styling-custard.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "panthénol",
     "glycérine",
@@ -958,10 +994,12 @@
    "ingredients": "Water/Aqua/Eau, Glycerin, Polyquaternium-37, Polysorbate 20, Polyquaternium-11, Methyl Gluceth-10, Linum Usitatissimum (Linseed) Seed Oil, Chamomilla Recutita (Matricaria) Extract, Chondrus Crispus Extract, Agave Rigida (Sisal) Extract, Panthenol, Phenoxyethanol, Fragrance/Parfum, Ethylhexylglycerin, Benzyl Benzoate, Hexyl Cinnamal, Amyl Cinnamal, Hydroxycitronellal, Linalool, Citronellol, Limonene, Coumarin, Caramel",
    "description": "A lightweight, slippy custard with Flaxseed Oil, Agave, Irish Moss & Chamomile that defines, hydrates & adds shine.",
    "claims": [
-    "hydratant",
+    "hydratation",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/styling-custard.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "pattern-beauty--scalp-serum",
@@ -976,7 +1014,10 @@
    "image_local": "public/scan/products-cheveux/pattern-beauty/scalp-serum.jpg",
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "cuir-chevelu-sensible"
+   ],
    "actifs": [
     "panthénol",
     "niacinamide",
@@ -990,10 +1031,12 @@
    "ingredients": "Water/Aqua/Eau, Glycerin, Polysorbate 20, Propanediol, Aloe Barbadensis Leaf Juice, Mentha Piperita (Peppermint) Oil, Citric Acid, Ricinus Communis (Castor) Seed Oil, Rosmarinus Officinalis (Rosemary) Leaf Oil, Lavandula Angustifolia (Lavender) Oil, Lavandula Hybrida Oil, Mentha Arvensis Leaf Oil, Serenoa Serrulata Fruit Extract, Taraxacum Officinale (Dandelion) Extract, Panthenol, Sodium Citrate, Triethyl Citrate, Carrageenan, Niacinamide, Xanthan Gum, Benzoic Acid, Chlorphenesin, Sorbic Acid, Ethylhexylglycerin, Phenoxyethanol, Linalool, Limonene",
    "description": "A tingly, hydrating scalp serum with Peppermint, Rosemary & Lavender Oils that soothes roots, moisturizes & refreshes the scalp.",
    "claims": [
-    "hydratant",
-    "apaisant"
+    "hydratation",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/scalp-serum.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "pattern-beauty--treatment-mask",
@@ -1023,10 +1066,13 @@
    "ingredients": "Water/Aqua/Eau, Polyquaternium-37, Cetrimonium Chloride, Glycerin, Saccharomyces/Rice Ferment Filtrate, Hydrolyzed Rice Protein, Butylene Glycol, Hibiscus Esculentus Seed Extract, Caesalpinia Spinosa Fruit Pod Extract, Moringa Oleifera Seed Extract, Helianthus Annuus (Sunflower) Sprout Extract, Sodium Benzoate, Disodium Phosphate, Citric Acid, Behentrimonium Chloride, Hydrogenated Castor Oil/Sebacic Acid Copolymer, Panthenol, Dicaprylyl Carbonate, Quaternium-80, Isopropyl Alcohol, Propylene Glycol, Chlorphenesin, Lauryl Glucoside, Aminomethyl Propanol, Ethylhexylglycerin, Potassium Sorbate, Tetrasodium EDTA, Fragrance/Parfum, Limonene, Geraniol, Phenoxyethanol",
    "description": "A strengthening hair mask with Rice Water Ferment & Moringa Seed Extract that adds slip, elongates, defines & provides moisture to dry hair.",
    "claims": [
-    "hydratant",
+    "hydratation",
     "fortifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/treatment-mask.webp",
+   "image_fond": true,
+   "ciblage_source": "fiche"
   },
   {
    "id": "pattern-beauty--lightweight-conditioner",
@@ -1042,6 +1088,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "fins",
     "boucles"
    ],
    "actifs": [
@@ -1056,33 +1103,13 @@
    "ingredients": "Water/Aqua/Eau, Cetearyl Alcohol, Glycerin, Behentrimonium Chloride, Cocos Nucifera (Coconut) Oil, Dipropylene Glycol, Biotin, Chondrus Crispus, Rosmarinus Officinalis (Rosemary) Leaf Extract, Aloe Barbadensis Leaf Juice, Cocos Nucifera (Coconut) Fruit Powder, Phytol, Panthenol, Ethylhexylglycerin, Citric Acid, Polyquaternium-10, Stearalkonium Chloride, Isomalt, Stearyl Alcohol, Cetyl Hydroxyethylcellulose, Cetrimonium Chloride, Maltodextrin, Sodium Starch Octenylsuccinate, Sodium Benzoate, Potassium Sorbate, Phenoxyethanol, Fragrance/Parfum, Benzyl Benzoate, Hexyl Cinnamal, Amyl Cinnamal, Hydroxycitronellal, Linalool",
    "description": "A weightless conditioner ideal for fine or thin curly hair with Coconut Oil, Irish Moss & Biotin that detangles, hydrates & doubles as a co-wash.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "definition-boucles",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "pattern-beauty--spray-bottle",
-   "name": "Juicy & Joyful Mist Spray Bottle",
-   "brand": "pattern-beauty",
-   "brand_name": "Pattern Beauty",
-   "url": "https://patternbeauty.com/products/spray-bottle",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 13.8,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0149/4794/2500/files/YELLOW_pattern_retail_pdp_resize_MistBottle_2000x2000_300dpi_copy.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/pattern-beauty/spray-bottle.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [
-    "boucles"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "A refillable, eco-friendly mist spray bottle with continuous fine mist technology—perfect for hydrating curls with water or your favorite PATTERN hair cocktails.",
-   "claims": [
-    "hydratant"
-   ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/lightweight-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--styling-cream",
@@ -1098,7 +1125,9 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "boucles"
+    "secs",
+    "boucles",
+    "abimes"
    ],
    "actifs": [
     "protéines de blé",
@@ -1114,10 +1143,15 @@
    "ingredients": "Water/Aqua/Eau, Butyrospermum Parkii (Shea) Butter, Cetearyl Alcohol, Glycerin, Ceteareth-20, PEG-40 Hydrogenated Castor Oil, Cocos Nucifera (Coconut) Oil, PEG-120 Methyl Glucose Dioleate, Theobroma Cacao (Cocoa) Seed Butter, Potassium Carbonate, Rosmarinus Officinalis (Rosemary) Leaf Extract, Helianthus Annuus (Sunflower) Seed Oil, Caryodendron Orinocense Seed Oil, Cocos Nucifera (Coconut) Fruit Extract, Prunus Amygdalus Dulcis (Sweet Almond) Oil, PEG-60 Hydrogenated Castor Oil, Aloe Barbadensis Leaf Extract, Hydrolyzed Wheat Protein, Ethylhexylglycerin, Caprylyl Glycol, Polysorbate 60, Citric Acid, Phenoxyethanol, Hydroxyethylcellulose, Disodium EDTA, Disodium Phosphate, Sodium Phosphate, Sodium Benzoate, Benzyl Alcohol, Phenethyl Alcohol, Potassium Sorbate, Sodium Sulfite, Fragrance/Parfum, Benzyl Benzoate, Hexyl Cinnamal, Amyl Cinnamal, Hydroxycitronellal, Linalool, Citronellol, Limonene, Coumarin",
    "description": "A curl-defining cream with Shea Butter, Cacay & Sweet Almond Oil that nourishes, prevents breakage, provides superior moisture & a soft hold.",
    "claims": [
-    "hydratant",
-    "nourrissant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "definition-boucles",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/styling-cream.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--strong-hold-gel",
@@ -1132,7 +1166,9 @@
    "image_local": "public/scan/products-cheveux/pattern-beauty/strong-hold-gel.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "huile d'argan",
     "huile de ricin",
@@ -1144,9 +1180,12 @@
    "ingredients": "Water/Aqua/Eau, Propylene Glycol, PVP, Polyquaternium-37, Glycerin, VP/VA Copolymer, Polysorbate 20, Tetrasodium EDTA, Chondrus Crispus Extract, Argania Spinosa Kernel Oil, Ricinus Communis (Castor) Seed Oil, Salvia Hispanica Seed Oil, Aloe Barbadensis Leaf Juice, Linum Usitatissimum (Linseed) Seed Oil, Caryodendron Orinocense Seed Oil, Phenoxyethanol, Hydroxyacetophenone, Rice Oil Glycereth-8 Esters, Babassu Oil Glycereth-8 Esters, Disodium EDTA, Fragrance/Parfum, Aminomethyl Propanol, Hydrolyzed Vegetable Protein, Potassium Sorbate, Citric Acid, Sodium Benzoate, Isopropyl Alcohol, Chlorphenesin, Benzyl Benzoate, Hexyl Cinnamal, Amyl Cinnamal, Hydroxycitronellal, Linalool, Citronellol",
    "description": "A flexible, nourishing gel with Sea Moss, Aloe & Chia Seeds that delivers long-lasting hold & a sleek look without drying hair.",
    "claims": [
-    "nourrissant"
+    "nutrition",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/strong-hold-gel.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--hydrating-mist",
@@ -1162,6 +1201,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -1175,30 +1215,13 @@
    "ingredients": "Water/Aqua/Eau, Glycerin, Polysorbate 20, Humulus Lupulus (Hops) Extract, Caryodendron Orinocense Seed Oil, Cocos Nucifera (Coconut) Fruit Water, Butyrospermum Parkii (Shea) Butter, Cocos Nucifera (Coconut) Oil, Carthamus Tinctorius (Safflower) Seed Oil, Cocos Nucifera (Coconut) Fruit Juice, Persea Gratissima (Avocado) Oil, Aloe Barbadensis Leaf Juice, Phospholipids, Cetrimonium Chloride, Citric Acid, Saccharum Officinarum (Sugarcane) Extract, Tocopheryl Acetate, Caprylyl/Capryl Glucoside, Glyceryl Stearate, Sodium Acrylate/Sodium Acryloyldimethyl Taurate Copolymer, Cetearyl Alcohol, Polyisobutene, Ethylhexylglycerin, Polyurethane-14, AMP-Acrylates Copolymer, Ceteth-10 Phosphate, Aminomethyl Propanol, Disodium EDTA, Tetrasodium Glutamate Diacetate, Propanediol, Sorbitan Oleate, Glyceryl Stearate SE, Dicetyl Phosphate, Stearic Acid, Potassium Stearate, Caprylic/Capric Triglyceride, Sodium Stearoyl Lactylate, Glyceryl Caprylate, Glyceryl Undecylenate, Polyglyceryl-10 Dioleate, Polyglyceryl-10 Oleate, Phenoxyethanol, Potassium Sorbate, Fragrance/Parfum, Benzyl Benzoate, Hexyl Cinnamal, Amyl Cinnamal, Hydroxycitronellal, Linalool, Citronellol, Limonene, Coumarin",
    "description": "A refreshing mist with Aloe, Avocado & Coconut Oil that revitalizes, adds moisture & works alone or layered with styling products. Optimized for easier spraying — with the nourishing benefits curls & coils know & love.",
    "claims": [
-    "hydratant",
-    "nourrissant"
+    "hydratation",
+    "nutrition",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "pattern-beauty--edge-tool",
-   "name": "Edge Tool",
-   "brand": "pattern-beauty",
-   "brand_name": "Pattern Beauty",
-   "url": "https://patternbeauty.com/products/edge-tool",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 12.88,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0149/4794/2500/files/PATTERN_Edge_Tool_yellow.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/pattern-beauty/edge-tool.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "A premium 3-in-1 Edge Tool with durable vegan bristles that perfects sleek edges with effortless swoops & swirls.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/hydrating-mist.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--curl-gel",
@@ -1214,6 +1237,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -1229,9 +1253,12 @@
    "ingredients": "Water/Aqua/Eau, Glycerin, Cetearyl Alcohol, Aloe Barbadensis Leaf Extract, Cocos Nucifera (Coconut) Oil, Behentrimonium Methosulfate, Wheat Amino Acids, Benzyl Alcohol, Hydrolyzed Silk, Caryodendron Orinocense Seed Oil, Cocos Nucifera (Coconut) Fruit Extract, Rosmarinus Officinalis (Rosemary) Leaf Extract, Helianthus Annuus (Sunflower) Seed Oil, PEG-40 Hydrogenated Castor Oil, PEG-60 Hydrogenated Castor Oil, Cetrimonium Chloride, Citric Acid, Hydroxyethylcellulose, Guar Hydroxypropyltrimonium Chloride, Ethylhexylglycerin, Disodium EDTA, Potassium Sorbate, Sodium Benzoate, Phenethyl Alcohol, Caprylyl Glycol, Polysorbate 60, Phenoxyethanol, Disodium Phosphate, Sodium Phosphate, Sodium Sulfite, Fragrance/Parfum, Benzyl Benzoate, Hexyl Cinnamal, Amyl Cinnamal, Hydroxycitronellal, Linalool, Citronellol, Limonene",
    "description": "A bestselling non-drying curl gel with Aloe Vera, Coconut & Cacay Oil that defines & nourishes curls without flakiness.",
    "claims": [
-    "nourrissant"
+    "nutrition",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/curl-gel.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--cleansing-shampoo",
@@ -1246,7 +1273,9 @@
    "image_local": "public/scan/products-cheveux/pattern-beauty/cleansing-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "panthénol",
     "huile de coco",
@@ -1262,10 +1291,13 @@
    "ingredients": "Water/Aqua/Eau, Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Betaine, Glycerin, Sodium Chloride, Polysorbate 20, Aloe Barbadensis Leaf Extract, Butyrospermum Parkii (Shea) Butter, Caryodendron Orinocense Seed Oil, Cocos Nucifera (Coconut) Fruit Extract, Cocos Nucifera (Coconut) Oil, Helianthus Annuus (Sunflower) Seed Oil, Rosmarinus Officinalis (Rosemary) Leaf Extract, Cucumis Sativus (Cucumber) Fruit Extract, Camellia Sinensis Leaf Extract, Panthenol, Caprylyl Glycol, Ethylhexylglycerin, Citric Acid, Cocamidopropyl Dimethylamine, PEG-60 Hydrogenated Castor Oil, PEG-120 Methyl Glucose Dioleate, Guar Hydroxypropyltrimonium Chloride, Disodium EDTA, Decyl Glucoside, Polyquaternium-10, C12-18 Acid Triglyceride, Sodium Glycolate, Potassium Sorbate, Sodium Sulfite, Phenoxyethanol, Sodium Benzoate, Phenethyl Alcohol, Fragrance/Parfum",
    "description": "A clarifying shampoo with Matcha Green Tea, Aloe & Panthenol that removes buildup, strengthens hair & revitalizes the scalp without stripping natural oils.",
    "claims": [
-    "purifiant",
-    "fortifiant"
+    "nutrition",
+    "fortifiant",
+    "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/cleansing-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--leave-in",
@@ -1278,11 +1310,12 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0149/4794/2500/files/RT_LeaveInConditioner9.8oz_Cement_Yellow_copy.jpg?width=600",
    "image_local": "public/scan/products-cheveux/pattern-beauty/leave-in.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
     "secs",
-    "boucles"
+    "boucles",
+    "abimes"
    ],
    "actifs": [
     "panthénol",
@@ -1299,10 +1332,14 @@
    "ingredients": "Water/Aqua/Eau, Cetearyl Alcohol, Behentrimonium Methosulfate, Butylene Glycol, Caprylic/Capric Triglyceride, Biotin, Persea Gratissima (Avocado) Oil, Melaleuca Alternifolia (Tea Tree) Leaf Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Argania Spinosa Kernel Oil, Cocos Nucifera (Coconut) Oil, Olea Europaea (Olive) Fruit Oil, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Aloe Barbadensis Leaf Extract, Ricinus Communis (Castor) Seed Oil, Butyrospermum Parkii (Shea) Butter, Glycerin, Honey/Mel/Miel, Panthenol, Tocopherol, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Amodimethicone, Polyquaternium-37, Propylene Glycol Dicaprylate/Dicaprate, Cetrimonium Chloride, Trideceth-15, Trideceth-3, PPG-1 Trideceth-6, C11-13 Isoalkane, Citric Acid, Ethylhexylglycerin, Phenoxyethanol, Aminomethyl Propanol, Potassium Sorbate, Fragrance/Parfum, Benzyl Benzoate, Hexyl Cinnamal, Amyl Cinnamal, Hydroxycitronellal, Linalool, Citronellol, Limonene, Coumarin",
    "description": "Our #1 bestseller seals in moisture & adds extra hydration to wet or dry hair. Keep your inches with 2X less breakage & double the curl definition.",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "nutrition",
+    "reparation",
     "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/leave-in.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--jojoba-oil",
@@ -1317,16 +1354,22 @@
    "image_local": "public/scan/products-cheveux/pattern-beauty/jojoba-oil.jpg",
    "categorie": "huile",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "abimes",
+    "cuir-chevelu-sensible"
+   ],
    "actifs": [
     "huile de jojoba"
    ],
    "ingredients": "Carthamus Tinctorius (Safflower) Seed Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Rosa Canina Seed Oil, Lavandula Hybrida Oil, Hydrogenated Olive Oil Unsaponifiables, Hydrogenated Ethylhexyl Olivate, Linalool, Limonene",
    "description": "A lightweight, residue-free hair oil with Safflower, Olive, Lavender & Jojoba Oils that reduces breakage & soothes the scalp & hair shaft.",
    "claims": [
-    "apaisant"
+    "reparation",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/jojoba-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--intensive-conditioner",
@@ -1342,7 +1385,9 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "boucles"
+    "secs",
+    "boucles",
+    "abimes"
    ],
    "actifs": [
     "beurre de karité",
@@ -1355,9 +1400,14 @@
    "ingredients": "Water/Aqua/Eau, Cetearyl Alcohol, Butyrospermum Parkii (Shea) Butter, Persea Gratissima (Avocado) Oil, Behentrimonium Methosulfate, Carthamus Tinctorius (Safflower) Seed Oil, Ethylhexyl Palmitate, PEG-8 Beeswax, Palmitic Acid, Stearic Acid, Glycerin, Jojoba Esters, Cetyl Alcohol, Tocopherol, Acacia Decurrens Extract, Helianthus Annuus (Sunflower) Seed Wax, Polyquaternium-37, Polyquaternium-10, Ethylhexylglycerin, Polyglycerin-3, Vegetable Oil/Olus/Huile végétale, Tetrasodium EDTA, Isopropyl Alcohol, Phenoxyethanol, Fragrance/Parfum, Benzyl Benzoate",
    "description": "An ultra-hydrating conditioner with Avocado, Shea & Safflower Oils that restores curl patterns, protects against breakage & doubles as a deep conditioning mask.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/intensive-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--heavy-conditioner",
@@ -1372,7 +1422,9 @@
    "image_local": "public/scan/products-cheveux/pattern-beauty/heavy-conditioner.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "beurre de karité",
     "huile de jojoba",
@@ -1384,9 +1436,13 @@
    "ingredients": "Water/Aqua/Eau, Cetearyl Alcohol, Butyrospermum Parkii (Shea) Butter, Persea Gratissima (Avocado) Oil, Cetyl Alcohol, Ethylhexyl Palmitate, PEG-8 Beeswax, Palmitic Acid, Stearic Acid, Glycerin, Behentrimonium Methosulfate, Jojoba Esters, Carthamus Tinctorius (Safflower) Seed Oil, Helianthus Annuus (Sunflower) Seed Wax, Tocopherol, Acacia Decurrens Extract, Polyquaternium-10, Polyquaternium-37, Propylene Glycol Dicaprylate/Dicaprate, Ethylhexylglycerin, Polyglycerin-3, Vegetable Oil/Olus/Huile végétale, PPG-1 Trideceth-6, Phenoxyethanol, Fragrance/Parfum, Benzyl Benzoate",
    "description": "A super-rich conditioner with Avocado, Shea & Safflower Oils that delivers PATTERN’s signature slip for easy detangling & intense hydration.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/heavy-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "pattern-beauty--hydration-shampoo",
@@ -1402,6 +1458,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -1419,9 +1476,13 @@
    "ingredients": "Aqua (Water, Eau), Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Betaine, Propanediol, Glycol Distearate, Argania Spinosa Kernel Oil, Cocos Nucifera (Coconut) Oil, Mel (Honey, Miel), Melaleuca Alternifolia (Tea Tree) Leaf Oil, Olea Europaea (Olive) Fruit Oil, Biotin, Persea Gratissima (Avocado) Oil, Ricinus Communis (Castor) Seed Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Butyrospermum Parkii (Shea) Butter, Aloe Barbadensis Leaf Juice, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Glycine Soja (Soybean) Oil, Glycine Soja (Soybean) Sterols, Glycolipids, Glycerin, Phospholipids, Amodimethicone, Guar Hydroxypropyltrimonium Chloride, Hydroxyethylcellulose, Lauryl Lactyl Lactate, Hydroxyacetophenone, PEG-150 Distearate, Parfum (Fragrance), Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Celluose, Phenoxyethanol, Citric Acid, PEG-150 Stearate, Disodium EDTA, PEG-1M, Stearic Acid, Sodium Hydroxide, Sodium Acetate, Potassium Sorbate, Sodium Benzoate, Linalool",
    "description": "A creamy, moisturizing shampoo with Aloe Vera, Coconut Oil & Honey that gently cleanses without stripping—leaving curls soft, hydrated.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/pattern-beauty/cutout/hydration-shampoo.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

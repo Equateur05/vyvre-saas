@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>vyvre — Scan cheveux · quatre chargements</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{--acc:#7fd8ff;--e:cubic-bezier(.16,1,.3,1)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased}
+html,body{background:#000;color:#eaf6ff;font-family:Inter,-apple-system,sans-serif;font-weight:300}
+.planche{max-width:1400px;margin:0 auto;padding:54px 4vw 80px}
+.hd{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:14px}
+.hd h1{font-weight:200;font-size:clamp(34px,4.8vw,64px);letter-spacing:-.03em;line-height:1}
+.hd .m{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.28em;color:rgba(223,234,242,.4);text-align:right;line-height:2}
+.intro{max-width:70ch;color:rgba(223,234,242,.6);font-size:15px;line-height:1.7;margin:18px 0 40px}
+.grille{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+@media(max-width:900px){.grille{grid-template-columns:1fr}}
+.c{position:relative;border:1px solid rgba(127,216,255,.16);overflow:hidden;cursor:pointer;background:#000;transition:border-color .5s,transform .7s var(--e)}
+.c:hover{border-color:rgba(127,216,255,.5);transform:translateY(-3px)}
+.c canvas{display:block;width:100%;aspect-ratio:16/10}
+.c .bd{position:absolute;left:0;right:0;bottom:0;padding:18px 22px;background:linear-gradient(0deg,rgba(0,0,0,.92),transparent)}
+.c .n{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.3em;color:var(--acc)}
+.c h2{font-weight:200;font-size:26px;letter-spacing:-.01em;margin:6px 0 4px}
+.c p{font-size:13px;line-height:1.55;color:rgba(223,234,242,.55);max-width:60ch}
+.fs{position:fixed;inset:0;z-index:50;background:#000;display:none}
+.fs.on{display:block}
+.fs canvas{position:absolute;inset:0;width:100%;height:100%}
+.fs .x{position:absolute;top:22px;right:22px;z-index:5;width:44px;height:44px;border-radius:50%;border:1px solid rgba(223,234,242,.2);background:rgba(0,0,0,.5);color:#fff;font-size:18px;cursor:pointer}
+.fs .nm{position:absolute;top:30px;left:30px;z-index:5;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.3em;color:rgba(223,234,242,.6)}
+.rel{position:absolute;left:50%;bottom:9vh;transform:translateX(-50%);z-index:4;width:min(560px,86vw)}
+.rel div{display:flex;justify-content:space-between;align-items:baseline;padding:9px 0;border-bottom:1px solid rgba(223,234,242,.1);opacity:.18;transition:opacity .7s}
+.rel div.on{opacity:.6}.rel div.lu{opacity:1}
+.rel span{font-weight:200;font-size:17px}
+.rel b{font-family:'IBM Plex Mono',monospace;font-weight:300;font-size:14px;color:rgba(223,234,242,.3)}
+.rel div.lu b{color:#eaf6ff;text-shadow:0 0 18px rgba(127,216,255,.7)}
+.etat{position:absolute;left:50%;bottom:calc(9vh + 200px);transform:translateX(-50%);z-index:4;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.34em;text-transform:uppercase;color:rgba(223,234,242,.75);white-space:nowrap}
+.bar{position:absolute;left:50%;bottom:6vh;transform:translateX(-50%);z-index:4;width:min(320px,60vw);height:1px;background:rgba(223,234,242,.14)}
+.bar i{position:absolute;inset:0;background:var(--acc);transform-origin:left;box-shadow:0 0 12px var(--acc)}
+.voile{position:absolute;left:50%;bottom:4vh;transform:translateX(-50%);z-index:3;width:min(760px,96vw);height:330px;pointer-events:none;
+  background:radial-gradient(55% 60% at 50% 60%,rgba(0,0,0,.9),rgba(0,0,0,.55) 55%,transparent 80%)}
+</style>
+</head>
+<body>
+<div class="planche">
+  <header class="hd"><h1>Quatre chargements</h1><div class="m">vyvre.fr · scan cheveux<br>univers fibre de verre<br>21 sept. 2026</div></header>
+  <p class="intro">Les huit secondes et demie pendant lesquelles le moteur lit vraiment vos images. Chacun raconte ce qui se passe réellement dans le calcul — et les valeurs ne s’écrivent qu’à la fin, quand elles existent. Cliquez pour voir en plein écran.</p>
+  <div class="grille" id="g"></div>
+</div>
+<div class="fs" id="fs">
+  <canvas id="cv"></canvas>
+  <div class="nm" id="nm"></div>
+  <button class="x" id="x">&times;</button>
+  <div class="voile"></div>
+  <div class="etat" id="etat" style="display:none"></div>
+  <div class="rel" id="rel"></div>
+  <div class="bar"><i id="bar"></i></div>
+</div>
+<script>
+'use strict';
+const $=i=>document.getElementById(i);
+const TAU=Math.PI*2, clamp=(v,a,b)=>v<a?a:v>b?b:v, lerp=(a,b,t)=>a+(b-a)*t;
+const sm=t=>{t=clamp(t,0,1);return t*t*(3-2*t)}, eo=t=>1-Math.pow(1-clamp(t,0,1),3), ei=t=>Math.pow(clamp(t,0,1),3);
+const seg=(p,a,b)=>clamp((p-a)/(b-a),0,1);
+const h=n=>{const s=Math.sin(n*127.1)*43758.5453;return s-Math.floor(s)};
+const DUREE=8600;
+const MES=[['La boucle','62 / 100'],['La couleur','Foncé'],['La prise','78 / 100'],['La routine','4 gestes']];
+function glow(g,x,y,r,rgb,a){const gr=g.createRadialGradient(x,y,0,x,y,r);gr.addColorStop(0,'rgba('+rgb+','+a+')');gr.addColorStop(1,'rgba('+rgb+',0)');g.fillStyle=gr;g.fillRect(x-r,y-r,r*2,r*2);}
+function mono(g,t,x,y,s,a,al){g.save();g.font='300 '+s+'px "IBM Plex Mono",monospace';g.fillStyle='rgba(223,240,255,'+a+')';g.textAlign=al||'left';g.textBaseline='middle';g.fillText(t,x,y);g.restore();}
+/* ===== les quatre chargements ===== */
+function fond(g,W,H){ g.fillStyle='#000'; g.fillRect(0,0,W,H); }
+
+/* 01 · L'EQUATION — les formules du moteur s'ecrivent a la lumiere, puis
+   s'effondrent en un seul fil lumineux : la fibre */
+const FORM=['L* = 116 · f(Y/Yn) − 16','a* = 500 · [ f(X/Xn) − f(Y/Yn) ]','b* = 200 · [ f(Y/Yn) − f(Z/Zn) ]',
+  'ITA° = arctan( (L* − 50) / b* ) · 180/π','ΔE = √( ΔL*² + Δa*² + Δb*² )','J = Σ w · ∇I ∇Iᵀ',
+  'θ = ½ · atan2( 2Jxy , Jxx − Jyy )','κ = |x′y″ − y′x″| / (x′² + y′²)^3/2'];
+function equation(g,W,H,p,t){
+  fond(g,W,H);
+  const cx=W/2, top=H*.12, lh=Math.min(H*.075,56), s=Math.min(W,H)/900;
+  const chute=seg(p,.66,.9);
+  FORM.forEach((f,i)=>{
+    const a=seg(p,.03+i*.07,.14+i*.07); if(a<=0) return;
+    const n=Math.floor(f.length*eo(a));
+    const y0=top+i*lh, y=lerp(y0,H*.46,ei(chute)), sc=lerp(1,.2,ei(chute));
+    g.save(); g.translate(cx,y); g.scale(sc,sc);
+    g.font='300 '+Math.round(30*s)+'px "IBM Plex Mono",monospace'; g.textAlign='center'; g.textBaseline='middle';
+    const txt=f.slice(0,n), tw=g.measureText(f).width;
+    g.shadowColor='rgba(127,216,255,.8)'; g.shadowBlur=18*s;
+    g.fillStyle='rgba(223,242,255,'+(.9*(1-chute*.8))+')'; g.fillText(txt,0,0);
+    if(n<f.length){ const x=-tw/2+g.measureText(txt).width+4; g.fillStyle='#fff'; g.fillRect(x,-14*s,2,28*s); }
+    g.restore();
+  });
+  const fil=seg(p,.78,1);
+  if(fil>0){
+    const y=H*.46, w=W*.82*eo(fil);
+    const gr=g.createLinearGradient(cx-w/2,0,cx+w/2,0);
+    gr.addColorStop(0,'rgba(127,216,255,0)'); gr.addColorStop(.5,'rgba(240,252,255,1)'); gr.addColorStop(1,'rgba(127,216,255,0)');
+    g.fillStyle=gr; g.fillRect(cx-w/2,y-1.5,w,3);
+    glow(g,cx,y,220*eo(fil),'127,216,255',.35*fil);
+    for(let i=0;i<60;i++){ const u=h(i*3.1), x=cx-w/2+u*w, a=Math.abs(Math.sin(t*3+i));
+      g.fillStyle='rgba(220,245,255,'+(a*.8*fil)+')'; g.fillRect(x,y-1,2,2); }
+  }
+}
+
+/* 02 · LA COUPE — une seule fibre, en tres gros plan ; un anneau de lecture
+   la parcourt, les ecailles se revelent sous lui, les mesures s'accrochent */
+function coupe(g,W,H,p,t){
+  fond(g,W,H);
+  const y=H*.44, R=Math.min(H*.13,120), x0=-W*.1, x1=W*1.1;
+  // le cylindre
+  const gr=g.createLinearGradient(0,y-R,0,y+R);
+  gr.addColorStop(0,'rgba(20,50,80,.0)'); gr.addColorStop(.18,'rgba(60,130,190,.55)'); gr.addColorStop(.32,'rgba(210,240,255,.95)');
+  gr.addColorStop(.5,'rgba(80,150,210,.7)'); gr.addColorStop(.82,'rgba(20,60,100,.6)'); gr.addColorStop(1,'rgba(0,0,0,0)');
+  g.fillStyle=gr; g.fillRect(x0,y-R,x1-x0,R*2);
+  // l'anneau de lecture
+  const ax=lerp(W*.06,W*.94,sm(seg(p,.05,.9)));
+  // les ecailles, seulement la ou l'anneau est passe
+  g.save(); g.beginPath(); g.rect(0,y-R,ax,R*2); g.clip();
+  g.strokeStyle='rgba(230,248,255,.45)'; g.lineWidth=1.2;
+  for(let x=-40;x<W+40;x+=Math.max(14,R*.22)){
+    g.beginPath();
+    for(let k=-1;k<=1.001;k+=.1){ const yy=y+k*R*.92, xx=x+Math.cos(k*1.4)*R*.18; if(k===-1) g.moveTo(xx,yy); else g.lineTo(xx,yy); }
+    g.stroke();
+  }
+  g.restore();
+  g.save(); g.strokeStyle='rgba(240,252,255,.95)'; g.lineWidth=2; g.shadowColor='rgba(127,216,255,1)'; g.shadowBlur=24;
+  g.beginPath(); g.ellipse(ax,y,R*.28,R*1.12,0,0,TAU); g.stroke(); g.restore();
+  glow(g,ax,y,R*2.4,'127,216,255',.28);
+  // les reperes de mesure
+  const LAB=[['ORIENTATION',.22],['COULEUR L*a*b*',.44],['NETTETÉ',.63],['COURBURE',.8]];
+  LAB.forEach(([l,u],i)=>{ const a=seg(p,u,u+.08); if(a<=0) return; const x=lerp(W*.06,W*.94,u);
+    const up=i%2===0, yy=up?y-R*1.9:y+R*1.9;
+    g.strokeStyle='rgba(127,216,255,'+(.5*a)+')'; g.lineWidth=1; g.beginPath(); g.moveTo(x,up?y-R:y+R); g.lineTo(x,yy); g.stroke();
+    g.fillStyle='rgba(127,216,255,'+a+')'; g.beginPath(); g.arc(x,up?y-R:y+R,3,0,TAU); g.fill();
+    mono(g,l,x+8,yy+(up?-6:10),Math.max(11,W*.009),.85*a); });
+  mono(g,'≈ '+(Math.round(80-40*sm(p)))+' µm',W*.06,y+R*2.9,Math.max(12,W*.01),.5);
+}
+
+/* 03 · LE SPECTRE — un faisceau blanc traverse la meche et se decompose sur un
+   capteur ; les bandes montent puis se figent : c'est la couleur mesuree */
+function spectre(g,W,H,p,t){
+  fond(g,W,H);
+  const y=H*.40, xm=W*.36, xs=W*.66;
+  const entre=sm(seg(p,.02,.2));
+  g.strokeStyle='rgba(255,255,255,'+(.9*entre)+')'; g.lineWidth=3; g.shadowColor='#fff'; g.shadowBlur=14;
+  g.beginPath(); g.moveTo(0,y); g.lineTo(xm*entre,y); g.stroke(); g.shadowBlur=0;
+  // la meche : un faisceau de fibres verticales
+  for(let i=0;i<22;i++){ const x=xm-30+i*3+Math.sin(t+i)*1.5; g.strokeStyle='rgba('+(120+i*3)+','+(170+i*2)+',230,'+(.25+.5*h(i))+')';
+    g.lineWidth=1.3; g.beginPath(); g.moveTo(x,y-H*.26); g.lineTo(x+Math.sin(i)*8,y+H*.26); g.stroke(); }
+  // la decomposition
+  const ouv=sm(seg(p,.18,.55));
+  const N=90;
+  for(let i=0;i<N;i++){ const u=i/(N-1), hue=275-u*255;
+    const yy=lerp(y,y-H*.24+u*H*.48,ouv);
+    g.strokeStyle='hsla('+hue+',95%,64%,'+(.55*ouv)+')'; g.lineWidth=2;
+    g.beginPath(); g.moveTo(xm+6,y); g.lineTo(xs,yy); g.stroke(); }
+  // le capteur et l'histogramme
+  g.fillStyle='rgba(223,234,242,.08)'; g.fillRect(xs,y-H*.27,6,H*.54);
+  const fige=sm(seg(p,.55,.9));
+  for(let i=0;i<N;i++){ const u=i/(N-1), hue=275-u*255;
+    const pic=Math.exp(-Math.pow((u-.72)*5.5,2))*.9+Math.exp(-Math.pow((u-.35)*9,2))*.35;
+    const bruit=.25+.5*Math.abs(Math.sin(t*4+i*.7));
+    const L=W*.26*lerp(bruit*ouv,pic,fige);
+    g.fillStyle='hsla('+hue+',90%,62%,'+(.75*ouv)+')'; g.fillRect(xs+10,y-H*.24+u*H*.48,L,H*.48/N+.6); }
+  if(fige>.5){ mono(g,'L* 28   a* 6   b* 11',xs+10,y+H*.31,Math.max(13,W*.011),(fige-.5)*2); }
+}
+
+/* 04 · L'HELICE — les fibres convergent en double helice ; chaque mesure
+   allume un barreau, et l'helice tourne de plus en plus lentement */
+function helice(g,W,H,p,t){
+  fond(g,W,H);
+  const cx=W/2, top=H*.08, bot=H*.62, A=Math.min(W*.12,150);
+  const forme=eo(seg(p,0,.35)), NP=70;
+  const rot=t*1.4*(1-sm(seg(p,.8,1))*.8);
+  const pts=[[],[]];
+  for(let i=0;i<NP;i++){ const u=i/(NP-1), y=lerp(top,bot,u);
+    for(const b of [0,1]){ const ph=rot+u*TAU*2.2+b*Math.PI;
+      const hx=cx+Math.sin(ph)*A, z=Math.cos(ph);
+      const sx=cx+(h(i*7+b)-.5)*W*1.4, sy=H*(h(i*3+b*11)-.2)*1.3;
+      pts[b].push([lerp(sx,hx,forme),lerp(sy,y,forme),z]); } }
+  // barreaux
+  for(let i=0;i<NP;i+=3){ const a=pts[0][i], b=pts[1][i];
+    const on=seg(p,.35+i/NP*.5,.4+i/NP*.5);
+    const z=(a[2]+b[2])/2;
+    g.strokeStyle=on>0?'rgba(210,245,255,'+(.25+.7*on)*(.5+.5*(z+1)/2)+')':'rgba(90,160,220,'+(.2*forme)+')';
+    g.lineWidth=on>0?2:1; g.beginPath(); g.moveTo(a[0],a[1]); g.lineTo(b[0],b[1]); g.stroke();
+    if(on>.5) glow(g,(a[0]+b[0])/2,(a[1]+b[1])/2,26,'127,216,255',.25*on); }
+  for(const b of [0,1]){ const s=pts[b];
+    for(let i=0;i<s.length-1;i++){ const z=(s[i][2]+1)/2; g.strokeStyle='rgba(150,220,255,'+(.3+.7*z)*forme+')'; g.lineWidth=2+2*z;
+      g.beginPath(); g.moveTo(s[i][0],s[i][1]); g.lineTo(s[i+1][0],s[i+1][1]); g.stroke(); } }
+}
+
+const DIR=[
+ {n:'01 · L’ÉQUATION',t:'L’équation',p:'Les formules que le moteur calcule vraiment s’écrivent à la lumière, ligne après ligne — puis s’effondrent en un seul fil : la fibre.',f:equation},
+ {n:'02 · LA COUPE',t:'La coupe',p:'Une seule fibre en très gros plan. Un anneau de lecture la parcourt, les écailles apparaissent derrière lui, les mesures s’y accrochent.',f:coupe},
+ {n:'03 · LE SPECTRE',t:'Le spectre',p:'Un faisceau blanc traverse la mèche et se décompose sur un capteur. Les bandes s’agitent, puis se figent : c’est votre couleur, en L*a*b*.',f:spectre},
+ {n:'04 · L’HÉLICE',t:'L’hélice',p:'Les fibres convergent en double hélice. Chaque mesure allume un barreau, et l’hélice ralentit jusqu’à se poser.',f:helice}
+];
+const ETATS=['On entre dans la fibre','Lecture de la cuticule','Couleur en L*a*b*','Composition de la routine'];
+
+/* vignettes */
+const V=[];
+DIR.forEach((d,i)=>{ const c=document.createElement('div'); c.className='c';
+  c.innerHTML='<canvas></canvas><div class="bd"><div class="n">'+d.n+'</div><h2>'+d.t+'</h2><p>'+d.p+'</p></div>';
+  c.onclick=()=>ouvrir(i); $('g').appendChild(c); V.push({cv:c.querySelector('canvas'),d}); });
+let FS=null, T0=performance.now(), K0=0;
+function ouvrir(i){ FS=DIR[i]; K0=performance.now(); $('nm').textContent=FS.n; $('fs').classList.add('on');
+  $('rel').innerHTML=MES.map(m=>'<div><span>'+m[0]+'</span><b>—</b></div>').join(''); }
+$('x').onclick=()=>{ FS=null; $('fs').classList.remove('on'); };
+addEventListener('keydown',e=>{ if(e.key==='Escape'){ FS=null; $('fs').classList.remove('on'); } });
+function taille(cv){ const r=Math.min(devicePixelRatio||1,2), W=cv.clientWidth, H=cv.clientHeight;
+  if(cv.width!==Math.round(W*r)){ cv.width=Math.round(W*r); cv.height=Math.round(H*r); }
+  const g=cv.getContext('2d'); g.setTransform(r,0,0,r,0,0); return {g,W,H}; }
+function boucle(now){
+  requestAnimationFrame(boucle);
+  const t=(now-T0)/1000;
+  if(FS){
+    const {g,W,H}=taille($('cv'));
+    const e=(now-K0)%(DUREE+1800), p=clamp(e/DUREE,0,1);
+    FS.f(g,W,H,p,t);
+    $('bar').style.transform='scaleX('+p.toFixed(3)+')';
+    $('etat').textContent=ETATS[Math.min(3,Math.floor(p*4))];
+    [...$('rel').children].forEach((d,i)=>{ d.classList.toggle('on',p>(i+1)*.2); const fin=p>=.97;
+      d.classList.toggle('lu',fin); d.querySelector('b').textContent=fin?MES[i][1]:'—'; });
+    return;
+  }
+  V.forEach((v,i)=>{ const {g,W,H}=taille(v.cv); const p=((t*1000+i*1900)%(DUREE+1200))/DUREE; v.d.f(g,W,H,clamp(p,0,1),t); });
+}
+requestAnimationFrame(boucle);
+
+</script>
+</body>
+</html>

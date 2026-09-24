@@ -16,6 +16,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -26,10 +27,13 @@
    "ingredients": "WATER (AQUA), CETEARYL ALCOHOL, BEHENTRIMONIUM CHLORIDE, DISTEARYLDIMONIUM CHLORIDE, GLYCERIN, HYDROXYPROPYLTRIMONIUM HONEY, CITRULLUS LANATUS (WATERMELON SEED) OIL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, QUATERNIUM-80, HYDROXYETHYLCELLULOSE, FRAGRANCE (PARFUM), PHENOXYETHANOL, ETHYLHEXYLGLYCERIN",
    "description": "Performance meets purity for zero compromises — only restored strands after every condition. Naturals Protect & Nourish Conditioner is consciously formulated with 98% naturally derived ingredients to bring dry, damaged hair back from the brink. Infused with a restorative blend of Royal Honey & Kalahari Melon, this extra gentle formula delivers moisture-binding hydration to revive dry or damaged locks, helping to protect against future breakage.",
    "claims": [
-    "hydratant",
-    "nourrissant"
+    "hydratation",
+    "nutrition",
+    "reparation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/royal-honey-and-kalahari-desert-melon-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--royal-honey-and-kalahari-desert-melon-shampoo",
@@ -45,6 +49,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -55,11 +60,14 @@
    "ingredients": "WATER (AQUA), SODIUM LAUROYL SARCOSINATE, SODIUM COCOYL ISETHIONATE, COCAMIDOPROPYL HYDROXYSULTAINE, COCAMIDE DIPA, PEG-120 METHYL GLUCOSE DIOLEATE, HYDROXYPROPYLTRIMONIUM HONEY, CITRULLUS LANATUS (WATERMELON) SEED OIL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, POLYQUATERNIUM-10, QUATERNIUM-80, TETRASODIUM GLUTAMATE DIACETATE, FRAGRANCE (PARFUM), PHENOXYETHANOL, ETHYLHEXYLGLYCERIN, CITRIC ACID",
    "description": "Performance meets purity for zero compromises — only restored strands after every cleanse. Naturals Protect & Nourish Shampoo is consciously formulated with 98% naturally derived ingredients to bring dry, damaged hair back from the brink. Infused with a restorative blend of Royal Honey & Kalahari Melon, this extra gentle formula locks in moisture while cleansing to revive dry, damaged strands, help protect from future breakage, and deliver an instant shine.",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
+    "reparation",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/royal-honey-and-kalahari-desert-melon-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--curl-talk-clean-slate-daily-shampoo",
@@ -82,8 +90,14 @@
    ],
    "ingredients": "Water (Aqua) (Eau), Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Hydroxysultaine, Propanediol, PPG-2 Hydroxyethyl Cocamide, PEG-150 Distearate, Sodium Polyitaconate, Sapindus Mukurossi Fruit Extract, Polyquaternium-10, Glycol Distearate, Tetrasodium Glutamate Diacetate, Ethylhexylglycerin, Phenoxyethanol, Sodium Citrate, Citric Acid, Fragrance (Parfum), Linalool, Hexyl Cinnamal, Limonene, Amyl Cinnamal, Citrus Aurantium Peel Oil, Geraniol",
    "description": "Not Your Mother’s Curl Talk® Clean Slate Daily Shampoo is hard on buildup but soft on your strands. Its sulfate surfactant-free, silicone-free formula gently washes away product buildup, minerals from hard water, and impurities without stripping hair for fresh, reset curls that are full of life.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "definition-boucles",
+    "purifiant",
+    "sans-silicone"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/curl-talk-clean-slate-daily-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--curl-talk-clean-slate-daily-conditioner",
@@ -109,9 +123,15 @@
    "ingredients": "Water (Aqua) (Eau), Cetearyl Alcohol, Cetyl Alcohol, Propanediol, Caprylic/Capric Triglyceride, Quaternium-91, Stearalkonium Chloride, Myristyl Myristate, Behentrimonium Chloride, Mauritia Flexuosa Fruit Oil, Persea Gratissima (Avocado) Oil, Ricinus Communis (Castor) Seed Oil, Hydrogenated Ethylhexyl Olivate, Hydrogenated Olive Oil Unsaponifiables, Propylene Glycol, Hydroxyethylcellulose, Polysorbate 60, Tetrasodium Glutamate Diacetate, Ethylhexylglycerin, Phenoxyethanol, Disodium Phosphate, Sodium Phosphate, Citric Acid, Fragrance (Parfum), Linalool, Hexyl Cinnamal, Limonene, Amyl Cinnamal, Citrus Aurantium Peel Oil, Geraniol",
    "description": "Not Your Mother’s Curl Talk® Clean Slate Daily Conditioner is Step #2 of your curl reset. This silicone-free, paraben-free formula helps detangle, define, and hydrate your hair with a soft, lightweight finish. The result? Soft, silky, bouncy curls that are up for anything.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "definition-boucles",
+    "demelant",
+    "sans-silicone",
+    "sans-paraben"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/curl-talk-clean-slate-daily-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--curl-talk-hydrating-lightweight-oil",
@@ -127,7 +147,7 @@
    "categorie": "huile",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -141,11 +161,14 @@
    "ingredients": "Vitis Vinifera (Grape) Seed Oil, Oryza Sativa (Rice) Bran Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Hydrogenated Ethylhexyl Olivate, Undecane, Helianthus Annuus (Sunflower) Seed Extract, Ricinus Communis (Castor) Seed Oil, Argania Spinosa Kernel Oil, Mauritia Flexuosa Fruit Oil, Citrullus Lanatus (Watermelon) Seed Oil, Persea Gratissima (Avocado) Oil, Castor Oil Propanediol Esters, Hydrogenated Olive Oil Unsaponifiables, Tocopherol, Squalane, Tocopheryl Acetate, Glycine Soja (Soybean) Oil, Coco-Caprylate/Caprate, Tridecane, C9-12 Alkane, Fragrance (Parfum), Limonene, Citrus Aurantium Peel Oil, Tetramethyl Acetyloctahydronaphthalenes, Benzyl Alcohol, Vanillin, Hydroxycitronellal, Linalool, Citrus Limon (Lemon) Peel Oil, Coumarin, Pinene, Benzaldehyde",
    "description": "Not Your Mother’s Curl Talk® Hydrating Oil is here to take your curls from frizzy to silky, instantly. Formulated with rice bran and jojoba oils, this non-greasy formula instantly hydrates dry curls and helps tame frizz for soft, healthy-looking hair that shines. Permission to smooth, granted.",
    "claims": [
-    "hydratant",
-    "brillance",
-    "lissant"
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/curl-talk-hydrating-lightweight-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--curl-talk-overnight-serum",
@@ -161,7 +184,6 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
     "boucles",
     "abimes"
    ],
@@ -173,10 +195,14 @@
    "ingredients": "Water (Aqua) (Eau), C13-15 Alkane, Cetearyl Alcohol, Isopentyldiol, Glycerin, Behentrimonium Chloride, Trehalose, Arginine, Rice Amino Acids, Pullulan, Caesalpinia Spinosa Gum, Propanediol, Hydroxypropyl Guar, Polyglyceryl-10 Pentahydroxystearate, Ceteareth-20, Coceth-7, Sorbitan Isostearate, Acrylamidopropyltrimonium Chloride/Acrylates Copolymer, Isohexadecane, Isopropyl Alcohol, Ethylhexylglycerin, Phenoxyethanol, Benzyl Alcohol, Sodium Benzoate, Potassium Sorbate, Lactic Acid, Fragrance (Parfum), Linalool, Limonene, Tetramethyl Acetyloctahydronaphthalenes, Citronellol, Hydroxycitronellal, Citrus Limon (Lemon) Peel Oil, Linalyl Acetate, Geranyl Acetate, Vanillin, Terpineol, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Pinene, Rose Ketones",
    "description": "Not Your Mother’s Curl Talk® Overnight Sleep Serum delivers the beauty sleep your strands deserve. Powered by our curl repair complex, this serum helps tame frizz, seal split ends, and lock in moisture for soft, defined curls. Just apply, sleep, and wake up with the hydrated hair of your dreams.",
    "claims": [
-    "hydratant",
-    "reparateur"
+    "hydratation",
+    "reparation",
+    "anti-frisottis",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/curl-talk-overnight-serum.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--all-eyes-on-me-in-shower-gloss",
@@ -192,6 +218,7 @@
    "categorie": "coloration-soin",
    "etape": 2,
    "cheveux_cibles": [
+    "colores",
     "abimes"
    ],
    "actifs": [
@@ -203,10 +230,14 @@
    "ingredients": "Water (Aqua) (Eau), Cetearyl Alcohol, Amodimethicone, Acrylamidopropyltrimonium Chloride/Acrylates Copolymer, Behentrimonium Chloride, Diphenylsiloxy Phenyl Trimethicone, Propanediol, Quaternium-98, Argania Spinosa Kernel Oil, Squalane, Hydrolyzed Vegetable Protein, Helianthus Annuus (Sunflower) Seed Extract, Cyamopsis Tetragonoloba (Guar) Gum, Ceteareth-20, Glycolic Acid, Coceth-7, Hydroxyethylcellulose, Polysorbate 60, Isopropyl Alcohol, Butylene Glycol, Sorbitan Isostearate, Isohexadecane, Tetrasodium Glutamate Diacetate, Ethylhexylglycerin, Phenoxyethanol, Sodium Benzoate, Sodium Hydroxide, Disodium Phosphate, Sodium Phosphate, Lactic Acid, Fragrance (Parfum), Tetramethyl Acetyloctahydronaphthalenes",
    "description": "Not Your Mother’s All Eyes On® Me In-Shower Gloss is your new must-dew for glossy, silky-soft strands that shine. Crafted for all hair types, this paraben-free formula helps glossify hair and smooth split ends with a soft, lightweight finish. So get ready: Your hair’s glassy glow-up starts now.",
    "claims": [
+    "reparation",
+    "anti-frisottis",
     "brillance",
-    "lissant"
+    "sans-paraben"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/all-eyes-on-me-in-shower-gloss.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--all-eyes-on-me-glossy-shine-protect-spray",
@@ -222,7 +253,7 @@
    "categorie": "coloration-soin",
    "etape": 2,
    "cheveux_cibles": [
-    "epais"
+    "colores"
    ],
    "actifs": [
     "huile d'argan",
@@ -232,10 +263,13 @@
    "ingredients": "Water (Aqua) (Eau), Cetearyl Alcohol, Propanediol, Dipropylene Glycol, Diphenylsiloxy Phenyl Trimethicone, Behentrimonium Chloride, Polysilicone-29, Argania Spinosa Kernel Oil, Squalane, Helianthus Annuus (Sunflower) Seed Extract, Butylene Glycol, Polysorbate 20, Ceteareth-20, Isopropyl Alcohol, Tetrasodium Glutamate Diacetate, Ethylhexylglycerin, Phenoxyethanol, Citric Acid, Fragrance (Parfum), Tetramethyl Acetyloctahydronaphthalenes, Alpha-Isomethyl Ionone, Vanillin, Limonene, Linalyl Acetate, Linalool, Citrus Aurantium Bergamia (Bergamot) Peel Oil",
    "description": "Not Your Mother’s All Eyes On Me® Glossy Shine + Protect Spray is your new go-to for the glossy blowout of your dreams. Infused with lightweight oils + shine boosting polymers, this multitasking mist helps smooth frizz and deliver instant shine, all while defending hair from heat up to 450°F.",
    "claims": [
+    "anti-frisottis",
     "brillance",
-    "lissant"
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/all-eyes-on-me-glossy-shine-protect-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--curl-talk-deep-hydration-mask",
@@ -251,6 +285,7 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -262,9 +297,12 @@
    "ingredients": "Water (Aqua) (Eau), Stearyl Alcohol, Propanediol, Cetyl Alcohol, C10-14 Alkyl Polypropanediol-3 Myristate, Cetearyl Alcohol, Behentrimonium Chloride, Ricinus Communis (Castor) Seed Oil, Cetrimonium Chloride, Persea Gratissima (Avocado) Oil, Rice Amino Acids, Mauritia Flexuosa Fruit Oil, Polyglyceryl-10 Pentahydroxystearate, Hydroxyethylcellulose, Polysorbate 60, Isopropyl Alcohol, Tetrasodium Glutamate Diacetate, Ethylhexylglycerin, Phenoxyethanol, Benzyl Alcohol, Sodium Benzoate, Potassium Sorbate, Disodium Phosphate, Sodium Phosphate, Citric Acid, Fragrance (Parfum), Linalool, Limonene, Tetramethyl Acetyloctahydronaphthalenes, Citronellol",
    "description": "Not Your Mother’s Curl Talk® Hydration Mask is like a hydration vacation for super parched strands. Powered by rice amino acids and a superfood oil blend, this hydrating mask melts into hair to deliver targeted moisture without added weight for soft, bouncy, and defined curls in a matter of minutes.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/curl-talk-deep-hydration-mask.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--curl-talk-bond-building-leave-in-treatment",
@@ -280,7 +318,6 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
     "boucles",
     "abimes"
    ],
@@ -293,9 +330,15 @@
    "ingredients": "Water (Aqua) (Eau), Cetearyl Alcohol, Quaternium-98, PPG-3 Benzyl Ether Ethylhexanoate, Isopentyldiol, Dioctyldodecyl Dodecanedioate, Ceteareth-20, Hydroxypropylammonium Gluconate, Hydroxypropylgluconamide, Rice Amino Acids, Persea Gratissima (Avocado) Oil, Ricinus Communis (Castor) Seed Oil, Mauritia Flexuosa Fruit Oil, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Tetrasodium Glutamate Diacetate, Phenoxyethanol, Ethylhexylglycerin, Benzyl Alcohol, Sodium Benzoate, Potassium Sorbate, Tartaric Acid, Lactic Acid, Fragrance (Parfum), Limonene, Linalool, Citronellol, Tetramethyl Acetyloctahydronaphthalenes, Citrus Limon (Lemon) Peel Oil, Hydroxycitronellal, Linalyl Acetate, Geranyl Acetate, Terpineol, Vanillin, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Pinene, Rose Ketones",
    "description": "The leave-in that locks-in essential moisture and strength for damaged curls. Curl Talk Bond Building Leave-In Treatment is a lightweight spray that controls frizz up to 48 hours and helps build strength over time to protect against breakage, leaving curls soft on the outside and strong on the inside.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/curl-talk-bond-building-leave-in-treatment.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--curl-talk-strengthening-volume-foam",
@@ -312,7 +355,8 @@
    "etape": 3,
    "cheveux_cibles": [
     "fins",
-    "boucles"
+    "boucles",
+    "abimes"
    ],
    "actifs": [
     "biotine",
@@ -322,10 +366,15 @@
    "ingredients": "Water (Aqua) (Eau), Propanediol, Polysorbate 20, Maltodextrin/VP Copolymer, Sodium Polyitaconate, PVP, Hydrolyzed Rice Protein, Amaranthus Caudatus Seed Extract, Biotin, Cocamidopropyl Hydroxysultaine, Tetrasodium Glutamate Diacetate, Phenoxyethanol, Ethylhexylglycerin, Benzyl Alcohol, Sodium Benzoate, Potassium Sorbate, Citric Acid, Fragrance (Parfum), Limonene, Linalool, Citronellol, Tetramethyl Acetyloctahydronaphthalenes, Citrus Limon (Lemon) Peel Oil, Hydroxycitronellal, Linalyl Acetate, Geranyl Acetate, Terpineol, Vanillin, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Pinene",
    "description": "You’ll do a double take when you see the instant volume that Curl Talk Strengthening Volume Foam delivers to thin, fine curls. Its weightless texture leaves them fuller and bouncier—never stiff or crunchy—while biotins and rice protein build strength behind-the-scenes to reduce breakage over time.",
    "claims": [
+    "reparation",
+    "fortifiant",
+    "definition-boucles",
     "volume",
-    "fortifiant"
+    "texturisant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/curl-talk-strengthening-volume-foam.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--curl-talk-instant-lift-root-spray",
@@ -341,6 +390,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "fins",
     "boucles"
    ],
@@ -352,9 +402,13 @@
    "ingredients": "Water (Aqua) (Eau), Propanediol, Sodium Polyitaconate, PVP, Polysorbate 20, Maltodextrin/VP Copolymer, Hydrolyzed Rice Protein, Amaranthus Caudatus Seed Extract, Biotin, Tetrasodium Glutamate Diacetate, Phenoxyethanol, Ethylhexylglycerin, Benzyl Alcohol, Sodium Benzoate, Potassium Sorbate, Citric Acid, Fragrance (Parfum), Limonene, Linalool, Citronellol, Tetramethyl Acetyloctahydronaphthalenes, Citrus Limon (Lemon) Peel Oil, Hydroxycitronellal, Linalyl Acetate, Geranyl Acetate, Terpineol, Vanillin, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Pinene",
    "description": "Bring flat curls back to life with Curl Talk Root Lift Spray. The weightless formula and targeted application lets you add instant, visible volume at the root with a soft, lasting hold that never leaves crunch, residue or dryness, so your curls stay flexible as your roots rise.",
    "claims": [
-    "volume"
+    "definition-boucles",
+    "volume",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/curl-talk-instant-lift-root-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--clean-freak-advanced-dry-shampoo",
@@ -367,8 +421,8 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0517/1868/4866/files/13820_NYM_CleanFreak_Advanced_DryShampoo_1_1.jpg?width=600",
    "image_local": "public/scan/products-cheveux/not-your-mothers/clean-freak-advanced-dry-shampoo.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
     "gras"
    ],
@@ -378,8 +432,13 @@
    ],
    "ingredients": "Butane, Hydrofluorocarbon 152a, Alcohol Denat., Oryza Sativa (Rice) Starch, Bambusa Arundinacea Stem Powder, Disteardimonium Hectorite, Tetraselmis Suecica Extract, Cetrimonium Chloride, Glycerin, Mannitol, Water (Aqua) (Eau), Fragrance (Parfum), Citronellol, Linalool, Tetramethyl Acetyloctahydronaphthalenes, Limonene, Linalyl Acetate, Amyl Salicylate, Coumarin, Citrus Aurantium Amara (Bitter Orange) Peel Oil",
    "description": "Clean Freak Advanced Dry Shampoo is the refresh that keeps up. Made for oily, unbalanced scalps, it instantly absorbs excess oil while helping rebalance scalp oil over time. With rice starch, mineral clay, bamboo silica, and microalgae, it leaves hair soft and clean with no white cast or buildup. Finished with a peach-sandalwood scent for a just-washed vibe that lasts.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "purifiant",
+    "anti-gras"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/clean-freak-advanced-dry-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--all-eyes-on-me-frizz-defense-hair-oil",
@@ -395,7 +454,7 @@
    "categorie": "huile",
    "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "fins"
    ],
    "actifs": [
     "huile d'argan",
@@ -405,9 +464,11 @@
    "ingredients": "Cyclopentasiloxane, Dimethiconol, C13-15 Alkane, Fragrance (Parfum), Dioctyldodecyl Dodecanedioate, Argania Spinosa Kernel Oil, Helianthus Annuus (Sunflower) Seed Oil, Squalane, Tocopherol, Tetramethyl Acetyloctahydronaphthalenes, Benzyl Benzoate, Alpha-Isomethyl Ionone, Limonene, Vanillin, Linalyl Acetate, Linalool, Rose Ketones",
    "description": "Styling is always smooth with All Eyes On Me Frizz Defense Hair Oil. From 72-hour frizz defense, to protection from 450°F heat, humidity, and UV exposure, this weightless, non-greasy oil leaves every style smoother, softer, shinier and healthier—whether you’re air-drying or heat-styling.",
    "claims": [
-    "lissant"
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/all-eyes-on-me-frizz-defense-hair-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--all-eyes-on-me-all-day-hold-hairspray",
@@ -429,8 +490,15 @@
    ],
    "ingredients": "Alcohol Denat., Water (Aqua) (Eau), Acrylates Copolymer, PEG-12 Dimethicone, Panthenol, Argania Spinosa Kernel Oil, Squalane, Rubus Idaeus (Raspberry) Seed Oil, Fragrance (Parfum), Aminomethyl Propanol, Alpha-Isomethyl-Ionone, Tetramethyl Acetyloctahydronaphthalenes, Vanillin",
    "description": "All Eyes On Me All-Day Hold Hairspray is the 24-hour, humidity resistant max hold you need, with the flexibility and natural movement for the sleek fly-away free style you need. The non-aerosol, fast-drying, fine-mist formula is made with argan oil and squalane for a never stiff or crunchy, soft and shiny finish.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "fortifiant",
+    "anti-frisottis",
+    "brillance",
+    "fixation"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/all-eyes-on-me-all-day-hold-hairspray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--aura-boost-thickening-conditioner",
@@ -447,6 +515,7 @@
    "etape": 2,
    "cheveux_cibles": [
     "fins",
+    "abimes",
     "chute"
    ],
    "actifs": [
@@ -458,11 +527,15 @@
    "ingredients": "Water (Aqua) (Eau), Cetearyl Alcohol, Cetyl Alcohol, Stearamidopropyl Dimethylamine, Glycerin, Dioctyldodecyl Dodecanedioate, Amaranthus Caudatus Seed Extract, Camellia Sinensis Leaf Extract, Rosmarinus Officinalis (Rosemary) Flower Extract, Magnesium PCA, Propylene Glycol, Quaternium-80, Cetrimonium Chloride, Hydroxyethylcellulose, Propanediol, Polysorbate 60, Sodium Phosphate, Disodium Phosphate, Tetrasodium Glutamate Diacetate, Ethylhexylglycerin, Phenoxyethanol, Sodium Benzoate, Lactic Acid, Fragrance (Parfum), Tetramethyl Acetyloctahydronaphthalenes",
    "description": "Have a hair-is-always-full perspective with aura boost Thickening Conditioner. The nourishing conditioner boosts volume and thickness for fine or thinning hair, without adding weight, as green tea extract, peptides, and magnesium help strengthen to reduce breakage for fuller, softer, stronger strands.",
    "claims": [
-    "nourrissant",
+    "nutrition",
+    "reparation",
+    "fortifiant",
     "volume",
-    "fortifiant"
+    "densifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/aura-boost-thickening-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--aura-boost-thickening-shampoo",
@@ -489,9 +562,12 @@
    "ingredients": "Water (Aqua) (Eau), Sodium Cocoyl Isethionate, Sodium Lauroyl Methyl Isethionate, Cocamidopropyl Hydroxysultaine, Glycerin, PEG-150 Distearate, Polyquaternium-10, Amaranthus Caudatus Seed Extract, Camellia Sinensis Leaf Extract, Rosmarinus Officinalis (Rosemary) Flower Extract, Magnesium PCA, Propanediol, Glycol Distearate, Trisodium Ethylenediamine Disuccinate, Hydroxypropyl Guar Hydroxypropyltrimonium Chloride, Tetrasodium Glutamate Diacetate, Ethylhexylglycerin, Phenoxyethanol, Sodium Benzoate, Citric Acid, Fragrance (Parfum), Tetramethyl Acetyloctahydronaphthalenes",
    "description": "More is more when it comes to the volume and strength that aura boost Thickening Shampoo delivers to stressed strands. The creamy lather gently cleanses and thickens hair, but never strips, as green tea extract, peptides, and magnesium help support stronger strands for full, soft, healthier looking locks with every wash.",
    "claims": [
+    "fortifiant",
     "volume"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/aura-boost-thickening-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--aura-boost-hydrate-conditioner",
@@ -506,7 +582,10 @@
    "image_local": "public/scan/products-cheveux/not-your-mothers/aura-boost-hydrate-conditioner.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "abimes"
+   ],
    "actifs": [
     "aloe vera",
     "glycérine",
@@ -516,12 +595,15 @@
    "ingredients": "Water (Aqua) (Eau), Cetearyl Alcohol, Cetyl Alcohol, Behentrimonium Chloride, Dioctyldodecyl Dodecanedioate, Isopentyldiol, Stearalkonium Chloride, Aloe Barbadensis Leaf Juice, Avena Sativa (Oat) Peptide, Rosmarinus Officinalis (Rosemary) Flower Extract, Magnesium PCA, Glycerin, 1,2-Hexanediol, Propylene Glycol, Quaternium-80, Hydroxyethylcellulose, Ceteareth-20, Caprylyl Glycol, Polysorbate 60, Isopropyl Alcohol, Sodium Phosphate, Disodium Phosphate, Tetrasodium Glutamate Diacetate, Ethylhexylglycerin, Phenoxyethanol, Benzoic Acid, Potassium Sorbate, Sodium Benzoate, Citric Acid, Fragrance (Parfum), Tetramethyl Acetyloctahydronaphthalenes, Linalyl Acetate, Limonene, Linalool",
    "description": "Look and feel alive with aura boost Hydrate Conditioner’s fortifying complex of aloe, peptides, and magnesium that smooths and hydrates, while strengthening to reduce breakage. All of the nourishment, none of the build up, and a grounding apple wood scent gives your hair and energy a healthy glow up.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "lissant",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/aura-boost-hydrate-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--aura-boost-hydrate-shampoo",
@@ -536,7 +618,9 @@
    "image_local": "public/scan/products-cheveux/not-your-mothers/aura-boost-hydrate-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "aloe vera",
     "glycérine",
@@ -546,11 +630,14 @@
    "ingredients": "Water (Aqua) (Eau), Sodium Cocoyl Isethionate, Sodium Lauroyl Methyl Isethionate, Cocamidopropyl Hydroxysultaine, Glycol Distearate, PEG-150 Distearate, Isopentyldiol, Polyquaternium-10, Aloe Barbadensis Leaf Juice, Avena Sativa (Oat) Peptide, Rosmarinus Officinalis (Rosemary) Flower Extract, Magnesium PCA, Glycerin, 1,2-Hexanediol, Propylene Glycol, Caprylyl Glycol, Quaternium-80, Trisodium Ethylenediamine Disuccinate, Hydroxypropyl Guar Hydroxypropyltrimonium Chloride, Tetrasodium Glutamate Diacetate, Ethylhexylglycerin, Phenoxyethanol, Benzoic Acid, Potassium Sorbate, Sodium Benzoate, Citric Acid, Fragrance (Parfum), Tetramethyl Acetyloctahydronaphthalenes, Linalyl Acetate, Limonene, Linalool",
    "description": "Lean on aura boost Hydrate Shampoo for the softness and strength you and your hair deserve. The nourishing, non-stripping cleanse releases what you don’t need to invite in what you do for softer, smoother, stronger hair supported by aloe, peptides and magnesium, with a grounding apple wood scent.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/aura-boost-hydrate-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--aura-boost-anti-frizz-conditioner",
@@ -566,7 +653,8 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "epais"
+    "secs",
+    "abimes"
    ],
    "actifs": [
     "panthénol",
@@ -578,12 +666,15 @@
    "ingredients": "Water (Aqua) (Eau), Cetearyl Alcohol, Cetyl Alcohol, Behentrimonium Chloride, Dioctyldodecyl Dodecanedioate, Isopentyldiol, Stearalkonium Chloride, Crambe Abyssinica Seed Oil, Pisum Sativum (Pea) Seed Extract, Hydrolyzed Quinoa, Panthenol, Sodium Hyaluronate, Rosmarinus Officinalis (Rosemary) Flower Extract, Magnesium PCA, Glycerin, 1,2-Hexanediol, Propylene Glycol, Quaternium-80, Hydroxyethylcellulose, Cetrimonium Chloride, Ceteareth-20, Polysorbate 60, Isopropyl Alcohol, Sodium Phosphate, Disodium Phosphate, Tetrasodium Glutamate Diacetate, Ethylhexylglycerin, Phenoxyethanol, Potassium Sorbate, Sodium Benzoate, Citric Acid, Fragrance (Parfum), Tetramethyl Acetyloctahydronaphthalenes, Benzyl Alcohol, Benzyl Benzoate",
    "description": "For looks that look like you have-it-all-together: aura boost Anti-Frizz Conditioner. Both hydrating and nourishing, it smooths stressed strands without added weight as it helps strengthen to reduce breakage. The only thing more comforting than softer, shinier hair is its coconut pistachio scent.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "lissant",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/aura-boost-anti-frizz-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--aura-boost-anti-frizz-shampoo",
@@ -599,7 +690,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "epais"
+    "abimes"
    ],
    "actifs": [
     "panthénol",
@@ -611,11 +702,14 @@
    "ingredients": "Water (Aqua) (Eau), Sodium Cocoyl Isethionate, Sodium Lauroyl Methyl Isethionate, Cocamidopropyl Hydroxysultaine, Glycol Distearate, PEG-150 Distearate, Isopentyldiol, Polyquaternium-10, Crambe Abyssinica Seed Oil, Pisum Sativum (Pea) Seed Extract, Hydrolyzed Quinoa, Panthenol, Sodium Hyaluronate, Rosmarinus Officinalis (Rosemary) Flower Extract, Magnesium PCA, Glycerin, 1,2-Hexanediol, Propylene Glycol, Quaternium-80, Trisodium Ethylenediamine Disuccinate, Hydroxypropyl Guar Hydroxypropyltrimonium Chloride, Tetrasodium Glutamate Diacetate, Ethylhexylglycerin, Phenoxyethanol, Potassium Sorbate, Sodium Benzoate, Citric Acid, Fragrance (Parfum), Tetramethyl Acetyloctahydronaphthalenes, Benzyl Alcohol, Benzyl Benzoate",
    "description": "From sleek looks to smooth days, aura boost Anti-Frizz Shampoo keeps it all under control. It helps to tame frizz and flyaways as its fortifying complex brings moisture into balance and helps strengthen strands to reduce breakage for softer, healthier hair with a comforting coconut pistachio scent.",
    "claims": [
-    "hydratant",
-    "lissant",
-    "fortifiant"
+    "hydratation",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/aura-boost-anti-frizz-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--aura-boost-restore-conditioner",
@@ -630,7 +724,10 @@
    "image_local": "public/scan/products-cheveux/not-your-mothers/aura-boost-restore-conditioner.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "abimes"
+   ],
    "actifs": [
     "glycérine",
     "acides aminés",
@@ -640,9 +737,13 @@
    "ingredients": "Water (Aqua) (Eau), Cetearyl Alcohol, Cetyl Alcohol, Behentrimonium Chloride, Dioctyldodecyl Dodecanedioate, Isopentyldiol, Stearalkonium Chloride, Hydrolyzed Lupine Protein, Hydrolyzed Moringa Oleifera Seed Extract, Rosmarinus Officinalis (Rosemary) Flower Extract, Magnesium PCA, Glycerin, 1,2-Hexanediol, Propylene Glycol, Quaternium-80, Hydroxyethylcellulose, Cetrimonium Chloride, Ceteareth-20, Caprylyl Glycol, Polysorbate 60, Isopropyl Alcohol, Sodium Phosphate, Disodium Phosphate, Tetrasodium Glutamate Diacetate, Ethylhexylglycerin, Phenoxyethanol, Benzoic Acid, Sodium Benzoate, Citric Acid, Fragrance (Parfum), Tetramethyl Acetyloctahydronaphthalenes, Juniperus Virginiana Oil, Coumarin",
    "description": "It’s stronger days ahead for stressed strands with aura boost Restore Conditioner. It helps nourish, softens, and eases styling without added weight, while amino acids, peptides, and magnesium help reinforce the hair fiber to reduce breakage and restore strength. You’re more resilient with every rebuild.",
    "claims": [
-    "nourrissant"
+    "nutrition",
+    "reparation",
+    "fortifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/aura-boost-restore-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--aura-boost-restore-shampoo",
@@ -668,8 +769,13 @@
    ],
    "ingredients": "Water (Aqua) (Eau), Sodium Cocoyl Isethionate, Sodium Lauroyl Methyl Isethionate, Cocamidopropyl Hydroxysultaine, Glycol Distearate, PEG-150 Distearate, Isopentyldiol, Polyquaternium-10, Hydrolyzed Lupine Protein, Hydrolyzed Moringa Oleifera Seed Extract, Rosmarinus Officinalis (Rosemary) Flower Extract, Magnesium PCA, Glycerin, Quaternium-80, Propylene Glycol, 1,2-Hexanediol, Trisodium Ethylenediamine Disuccinate, Hydroxypropyl Guar Hydroxypropyltrimonium Chloride, Caprylyl Glycol, Tetrasodium Glutamate Diacetate, Ethylhexylglycerin, Phenoxyethanol, Benzoic Acid, Sodium Benzoate, Citric Acid, Fragrance (Parfum), Tetramethyl Acetyloctahydronaphthalenes, Juniperus Virginiana Oil, Coumarin",
    "description": "Come back with stronger, healthier hair after washing with aura boost Restore Shampoo. The gentle, non-stripping cleanse is powered by amino acids, peptides, and magnesium to reinforce hair fibers, so breakage-prone, damaged hair can get a refresh and a reset back to softer, more resilient strands.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "reparation",
+    "fortifiant"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/aura-boost-restore-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--curl-talk-strengthening-oil",
@@ -685,7 +791,6 @@
    "categorie": "huile",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
     "boucles",
     "abimes"
    ],
@@ -701,13 +806,16 @@
    "ingredients": "Vitis Vinifera (Grape) Seed Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Hydrogenated Ethylhexyl Olivate, Undecane, Tridecane, Helianthus Annuus (Sunflower) Seed Extract, Persea Gratissima (Avocado) Oil, Argania Spinosa Kernel Oil, Mauritia Flexuosa Fruit Oil, Citrullus Lanatus (Watermelon) Seed Oil, Ricinus Communis (Castor) Seed Oil, Squalane, Biotin, Tocopheryl Acetate, Hydrogenated Olive Oil Unsaponifiables, Castor Oil Propanediol Esters, Coco-Caprylate/Caprate, Tocopherol, C9-12 Alkane, Fragrance (Parfum), Linalool, Limonene, Tetramethyl Acetyloctahydronaphthalenes, Citronellol, Hydroxycitronellal, Linalyl Acetate, Geranyl Acetate, Terpineol, Vanillin, Pinene, Citrus Aurantium Bergamia (Bergamot) Peel Oil",
    "description": "Get stronger curls every time you style with Curl Talk Strengthening Oil’s lightweight, nourishing formula. It repairs stressed out curls to protect from breakage and frizz and scrunches out the crunch, adding definition, shine, and UV defense for healthier hair.",
    "claims": [
-    "nourrissant",
-    "reparateur",
-    "brillance",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
     "definition-boucles",
-    "fortifiant"
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/curl-talk-strengthening-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--beach-babe-texturizing-foam",
@@ -723,7 +831,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "boucles"
    ],
    "actifs": [
     "aloe vera",
@@ -734,9 +842,15 @@
    "ingredients": "Water (Aqua) (Eau), PVP, Polysorbate 20, Cocamidopropyl Hydroxysultaine, Polyimide-1, Maltodextrin/VP Copolymer, Macrocystis Pyrifera (Kelp) Extract, Aloe Barbadensis Leaf Juice, Helianthus Annuus (Sunflower) Seed Extract, Glycerin, Butylene Glycol, Isopentyldiol, Tetrasodium Glutamate Diacetate, Ethylhexylglycerin, Phenoxyethanol, Potassium Sorbate, Sodium Benzoate, Citric Acid, Fragrance (Parfum), Coumarin, Benzaldehyde, Vanillin",
    "description": "Step into soft, tousled texture with Beach Babe Foam. Its ultra-light, no-salt added formula conditions as it styles, creating crunch-free, touchable waves with more shine and less frizz. And with UV defense and a light hold you can say goodbye to stiff styles and sun damage to hair.",
    "claims": [
-    "brillance"
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant",
+    "brillance",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/beach-babe-texturizing-foam.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--clean-freak-dark-hair-dry-shampoo-powder",
@@ -749,16 +863,20 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0517/1868/4866/files/13193_NYM_CleanFreak_Dark_PowderDryShampoo_1.jpg?width=600",
    "image_local": "public/scan/products-cheveux/not-your-mothers/clean-freak-dark-hair-dry-shampoo-powder.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [],
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "gras"
+   ],
    "actifs": [
     "glycérine"
    ],
    "ingredients": "Tapioca Starch, Oryza Sativa (Rice) Starch, Magnesium Stearate, Silica Dimethyl Silylate, Water (Aqua) (Eau), Tetraselmis Suecica Extract, Mannitol, Glycerin, Dimethicone, Cetrimonium Chloride, Phenoxyethanol, Ethylhexylglycerin, Fragrance (Parfum), Benzyl Alcohol, Cananga Odorata Oil/Extract, Coumarin, Linalool, Tetramethyl Acetyloctahydronaphthalenes, Vanillin, Iron Oxides (CI 77491, CI 77492, CI 77499)",
    "description": "This tinted, non-aerosol dry shampoo effortlessly blends into any shade of dark hair to instantly absorb oil for a refresh that leaves locks soft and clean. Clean Freak Dark Dry Shampoo Powder keeps absorbing oil after you apply too, for even longer-lasting freshness.",
    "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/clean-freak-dark-hair-dry-shampoo-powder.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--beach-babe-texturizing-dry-shampoo-powder",
@@ -771,16 +889,22 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0517/1868/4866/files/13194_NYM_BeachBabe_PowderDryShampoo_1.jpg?width=600",
    "image_local": "public/scan/products-cheveux/not-your-mothers/beach-babe-texturizing-dry-shampoo-powder.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [],
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "gras"
+   ],
    "actifs": [
     "glycérine"
    ],
    "ingredients": "TAPIOCA STARCH, ORYZA SATIVA (RICE) STARCH, MAGNESIUM STEARATE, SILICA DIMETHYL SILYLATE, WATER (AQUA) (EAU), FRAGRANCE (PARFUM), TETRASELMIS SUECICA EXTRACT, MANNITOL, GLYCERIN, PHENOXYETHANOL, ETHLYHEXYLGLYCERIN, AMYL CINNAMAL, BENZALDEHYDE, COUMARIN, HEXYL CINNAMAL, HYDROXYCITRONELLAL, LIMONENE, LINALOOL, VANILLIN",
    "description": "Beach Babe Dry Shampoo Powder effortlessly blends in to instantly absorb oil and add soft, touchable texture. It keeps absorbing oil after you apply too, for longer-lasting freshness. With no chalky residue and mess-free application, you’ll want this refresh to stay around.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "texturisant"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/beach-babe-texturizing-dry-shampoo-powder.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--all-eyes-on-me-instant-de-frizz-spray",
@@ -796,7 +920,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "fins"
    ],
    "actifs": [
     "huile d'argan",
@@ -807,10 +931,12 @@
    "ingredients": "HYDROFLUOROCARBON 152A, ALCOHOL DENAT., ISOHEXADECANE, ISODODECANE, PPG-5-CETETH-20, DIISOPROPYL SEBACATE, PROPYLENE GLYCOL DIBENZOATE, ARGANIA SPINOSA KERNEL OIL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, AMARANTHUS CAUDATUS SEED EXTRACT, SQUALANE, TOCOPHEROL, ETHYL MACADAMIATE, OLEYL ALCOHOL, ISOPROPYL LAUROYL SARCOSINATE, LINOLEAMIDOPROPYL DIMETHYLAMINE DIMER DILINOLEATE, C13-15 ALKANE, ETHYLHEXYL METHOXYCINNAMATE, WATER (AQUA) (EAU), MALIC ACID, BHT, SODIUM BENZOATE, FRAGRANCE (PARFUM), BENZYL BENZOATE, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, ALPHA-ISOMETHYL IONONE, LINALYL ACETATE, VANILLIN",
    "description": "This weightless, on-demand frizz fix shields hair from humidity to keep it smooth all day. All Eyes On Me Instant De-Frizz Spray is ultra-fine to instantly smooth and shine without weight. From final touches and touch-ups, to between washes, forgetting frizz has never been so easy.",
    "claims": [
-    "brillance",
-    "lissant"
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/all-eyes-on-me-instant-de-frizz-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--beat-the-heat-protecting-heat-spray",
@@ -836,9 +962,11 @@
    "ingredients": "Water (Aqua) (Eau), Cyclopentasiloxane, Cetearyl Alcohol, Isopentyldiol, Behentrimonium Chloride, Ceteareth-20, Punica Granatum Fruit Extract, Helianthus Annuus (Sunflower) Seed Extract, Glycerin, Butylene Glycol, Dimethicone, Dimethiconol, Dimethicone/Vinyl Dimethicone Crosspolymer, PEG-10 Dimethicone, Fragrance (Parfum), Hexyl Cinnamal, Linalool, Hydroxycitronellal, Citronellol, Limonene, Tetrasodium Glutamate Diacetate, Phenoxyethanol, Ethylhexylglycerin, Citric Acid",
    "description": "Heat can’t kill your vibe. Not Your Mother’s 450-degree heat and UV protectant spray works on wet and dry hair to defend against damage from hot tools and the environment. It doesn’t matter if you’re starting a fresh style or reviving one because this lightweight, non-sticky heat protection spray has your hair covered.",
    "claims": [
-    "protection-thermique"
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/beat-the-heat-protecting-heat-spray.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "not-your-mothers--all-eyes-on-me-3-in-1-styling-cream",
@@ -853,9 +981,7 @@
    "image_local": "public/scan/products-cheveux/not-your-mothers/all-eyes-on-me-3-in-1-styling-cream.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [
     "huile d'argan",
     "glycérine",
@@ -868,10 +994,13 @@
    "ingredients": "Water (Aqua) (Eau), Cetearyl Alcohol, Glycerin, Ethyl Macadamiate, Propanediol, Glyceryl Stearate, PEG-100 Stearate, Capryloyl Glycerin/Sebacic Acid Copolymer, Polyester-11, Behentrimonium Chloride, VP/VA Copolymer, Squalane, Argania Spinosa Kernel Oil, Linum Usitatissimum (Linseed) Seed Extract, Salvia Hispanica Seed Extract, Helianthus Annuus (Sunflower) Seed Extract, Tocopherol, Diheptyl Succinate, Xylitol, Caprylic Acid, Butylene Glycol, Malic Acid, Hydroxyethylcellulose, Polysorbate 60, Isopropyl Alcohol, Tetrasodium Glutamate Diacetate, Ethylhexylglycerin, Phenoxyethanol, Benzyl Alcohol, Sodium Phosphate, Disodium Phosphate, Citric Acid, Fragrance (Parfum), Alpha-Isomethyl Ionone, Limonene, Linalool",
    "description": "Get unlimited styles with a single hair styling cream. Not Your Mother’s 3-in-1 Styling Cream does it all as a blow dry primer, air dry cream and smoothing styler. This anti-frizz formula hydrates, smooths flyaways, and protects from heat and UV rays for softer, smoother, touchable hair no matter your style.",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "anti-frisottis",
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/all-eyes-on-me-3-in-1-styling-cream.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--beach-babe-texturizing-dry-finish-spray",
@@ -887,7 +1016,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "secs"
+    "secs",
+    "boucles"
    ],
    "actifs": [
     "glycérine"
@@ -895,9 +1025,13 @@
    "ingredients": "Hydrofluorocarbon 152a, Dimethyl Ether, Alcohol Denat., VP/VA Copolymer, Zeolite, Glycerin, Ethylhexyl Methoxycinnamate, Acetyl Triethyl Citrate, PEG/PPG-17/18 Dimethicone, BHT, Fragrance (Parfum), Coumarin, Vanillin",
    "description": "Add instant, buildable texture to dry hair for lived-in waves that work their way from the sand to city streets. Not Your Mother’s Beach Babe Texturizing Dry Finish Spray has a lightweight hold to deliver long-lasting, effortless beachy definition with a matte—never crunchy or sticky—finish.",
    "claims": [
-    "definition-boucles"
+    "definition-boucles",
+    "texturisant",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/beach-babe-texturizing-dry-finish-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--clean-freak-refreshing-dry-shampoo-powder",
@@ -910,14 +1044,20 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0517/1868/4866/files/13192_NYM_CleanFreak_PowderDryShampoo_1.jpg?width=600",
    "image_local": "public/scan/products-cheveux/not-your-mothers/clean-freak-refreshing-dry-shampoo-powder.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [],
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "gras"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "Skip the wash and extend your style with this staple. Not Your Mother's Clean Freak Dry Shampoo Powder absorbs excess oil without leaving any visible residue, while the mess-free pump application leaves you with only instantly cleaner, softer hair.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "anti-gras"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/clean-freak-refreshing-dry-shampoo-powder.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--clean-freak-3-in-1-dry-shampoo",
@@ -930,11 +1070,10 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0517/1868/4866/files/13813_NYM_CleanFreak_3-in-1_DryShampoo_1.jpg?width=600",
    "image_local": "public/scan/products-cheveux/not-your-mothers/clean-freak-3-in-1-dry-shampoo.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
-    "gras",
-    "epais"
+    "gras"
    ],
    "actifs": [
     "acide hyaluronique"
@@ -942,9 +1081,12 @@
    "ingredients": "Isobutane, Hydrofluorocarbon 152a, Alcohol Denat., Oryza Sativa (Rice) Starch, PEG-12 Dimethicone, Ethylhexyl Methoxycinnamate, Sodium Hyaluronate, Squalane, Distearyldimonium Chloride, Cetrimonium Chloride, Isoamyl Laurate, Fragrance (Parfum), Hexyl Cinnamal, Alpha-Isomethyl Ionone, Limonene",
    "description": "Battling oily roots AND frizz in between wash days? Meet the ultimate style-saver for an instant root-to-tip refresh. Not Your Mothers Clean Freak 3-in-1 Dry Shampoo uses natural rice starches to absorb oil, and squalane and hyaluronic acid to condition for cleaner, smoother hair in one go.",
    "claims": [
-    "lissant"
+    "anti-frisottis",
+    "anti-gras"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/clean-freak-3-in-1-dry-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--curl-talk-frizz-control-moisturizing-lotion",
@@ -960,7 +1102,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "boucles",
     "abimes"
    ],
@@ -976,9 +1118,14 @@
    "ingredients": "Water (Aqua) (Eau), Cetearyl Alcohol, Glycerin, Ethyl Macadamiate, Propanediol, Limnanthes Alba (Meadowfoam) Seed Oil, Sclerocarya Birrea Seed Oil, Persea Gratissima (Avocado) Oil, Mauritia Flexuosa Fruit Oil, Ricinus Communis (Castor) Seed Oil, Tocopherol, Polyquaternium-7, Behentrimonium Chloride, Polyester-11, Capryloyl Glycerin/Sebacic Acid Copolymer, Diheptyl Succinate, Hydroxyethylcellulose, Glyceryl Stearate, PEG-100 Stearate, Isopropyl Alcohol, Polysorbate 60, Tetrasodium Glutamate Diacetate, Ethylhexylglycerin, Phenoxyethanol, Sodium Benzoate, Disodium Phosphate, Sodium Phosphate, Malic Acid, Citric Acid, Fragrance (Parfum), Linalool, Limonene, Hydroxycitronellal, Citronellol",
    "description": "Dry, frizzy curls, drink up. Curl Talk Frizz Control Moisturizing Lotion is light enough to penetrate the hair’s cuticle and rich enough to meet all your moisture needs. Control frizz, fight humidity, and seal split ends without the weight or grease so you can swap frizz for soft, defined curls.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "reparation",
+    "anti-frisottis",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/curl-talk-frizz-control-moisturizing-lotion.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--curl-talk-defining-spray-gel",
@@ -995,8 +1142,8 @@
    "etape": 3,
    "cheveux_cibles": [
     "fins",
-    "epais",
-    "boucles"
+    "boucles",
+    "abimes"
    ],
    "actifs": [
     "kératine",
@@ -1006,10 +1153,13 @@
    "ingredients": "Water (Aqua) (Eau), PVP, Polysorbate 20, Keratin Amino Acids, Oryza Sativa (Rice) Extract, Acyl Coenzyme A Desaturase, Isopentyldiol, Lactobacillus/Tomato Fruit Ferment Extract, Leuconostoc/Radish Root Ferment Filtrate, Tetrasodium Glutamate Diacetate, Ethylhexylglycerin, Phenoxyethanol, Citric Acid, Fragrance (Parfum), Linalool, Limonene, Hydroxycitronellal, Citronellol",
    "description": "Curl definition you want in the easy, lightweight application you need. Curl Talk Defining Spray Gel defies logic by effortlessly building definition, adding volume, and controlling frizz without ever adding weight to waves and curls. Light on curls, strong on definition, big on bounce.",
    "claims": [
-    "volume",
-    "definition-boucles"
+    "anti-frisottis",
+    "definition-boucles",
+    "volume"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/curl-talk-defining-spray-gel.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--kinky-moves-defining-cream",
@@ -1034,10 +1184,12 @@
    "ingredients": "Water, Polyacrylamide, Polyquaternium-10, Fragrance, C13-14 Isoparaffin, Jasminum Officinale (Jasmine) Flower Extract, Vitis Vinifera (Grape) Seed Extract, Tocopherol, Amodimethicone, Cetrimonium Chloride, Trideceth-12, Phenyl Trimethicone, PG-Hydroxyethylcellulose Cocodimonium Chloride, Polyquaternium-11, Laureth-7, Tetrasodium EDTA, Butylene Glycol, Benzyl Alcohol, Ethylhexylglycerin",
    "description": "Not Your Mother’s Kinky Moves™ Curl Defining Hair Cream works to bring out the beauty of your natural curls by instantly adding moisture and definition to reveal hair that’s at its best. We never mess with a good thing, we enhance it.",
    "claims": [
-    "hydratant",
+    "hydratation",
     "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/kinky-moves-defining-cream.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "not-your-mothers--clean-freak-dark-tint-dry-shampoo",
@@ -1050,14 +1202,20 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0517/1868/4866/files/13821_NYM_CleanFreak_Dark_DryShampoo_12oz_1_6aa5317e-7365-4471-811f-25dd0852552b.jpg?width=600",
    "image_local": "public/scan/products-cheveux/not-your-mothers/clean-freak-dark-tint-dry-shampoo.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [],
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "gras"
+   ],
    "actifs": [],
    "ingredients": "Isobutane, Hydrofluorocarbon 152A, Oryza Sativa (Rice) Starch, Alcohol Denat., Hordeum Vulgare Seed Flour (Farine De Drêche), Distearyldimonium Chloride, Cetrimonium Chloride, Fragrance (Parfum), Linalool, Benzyl Alcohol, Iron Oxides (CI 77499, CI 77492, CI 77491)",
    "description": "Embrace your dark side with Not Your Mother’s Clean Freak Dark Hair Dry Shampoo. The aluminum-free dry shampoo extends your style by instantly absorbing excess oil for that freshly washed look and feel, while its hint of color complements dark hair tones so it blends in effortlessly.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "anti-gras"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/clean-freak-dark-tint-dry-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--all-eyes-on-me-3-in-1-wax-stick",
@@ -1072,7 +1230,10 @@
    "image_local": "public/scan/products-cheveux/not-your-mothers/all-eyes-on-me-3-in-1-wax-stick.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "pellicules"
+   ],
    "actifs": [
     "huile d'argan",
     "huile de ricin",
@@ -1081,9 +1242,12 @@
    "ingredients": "Ricinus Communis (Castor) Seed Oil, Beeswax, Euphorbia Cerifera (Candelilla) Wax, Hydrogenated Castor Oil, Myrica Cerifera (Bayberry) Fruit Wax, Sorbitan Stearate, Fragrance (Parfum), Ethylhexyl Olivate, Squalane, Argania Spinosa Kernel Oil, Rubus Idaeus Seed Oil, Tocopherol, Citral, Geraniol, Hexyl Cinnamal, Limonene, Linalool, Alpha-Isomethyl Ionone",
    "description": "Effortlessly create slicked back styles with Not Your Mother’s 3-in-1 Hair Wax Stick. This hydrating, long-lasting, no-flake hair styling wax stick is formulated with skincare-inspired ingredients like Argan Oil, Squalane and Raspberry Oil for a formula that glides on to effortlessly tame flyaways, lock in style and provide UV hair protection.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/all-eyes-on-me-3-in-1-wax-stick.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--clean-freak-unscented-dry-shampoo",
@@ -1096,14 +1260,20 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0517/1868/4866/files/13029_NYM_CleanFreak_Unscented_DS_1.jpg?width=600",
    "image_local": "public/scan/products-cheveux/not-your-mothers/clean-freak-unscented-dry-shampoo.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [],
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "gras"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "Refresh hair instantly with Not Your Mother’s Unscented Clean Freak Refreshing Dry Shampoo. The aluminum-free formula delivers instant oil absorption for a refresh that will leave your locks feeling soft and clean as freshly washed in a matter of minutes. No Fragrance, no water necessary, no white residue, no powdery buildup and no time wasted—ever.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "purifiant"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/clean-freak-unscented-dry-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--plump-for-joy-volumizing-hairspray",
@@ -1127,10 +1297,14 @@
    "ingredients": "Alcohol Denat., Hydrofluorocarbon 152a, Water/Aqua/Eau, VA/Crotonates/Vinyl Neodecanoate Copolymer, Octylacrylamide/Acrylates/Butylaminoethyl Methacrylate Copolymer, Citrus Aurantium Dulcis (Orange) Fruit Extract, Mangifera Indica (Mango) Fruit Extract, Panax Ginseng Root Extract, Aminomethyl Propanol, Panthenol, Acetyl Triethyl Citrate, PEG/PPG-17/18 Dimethicone, PPG-3 Methyl Ether, Propanediol, Fragrance/Parfum, Limonene, Linalool, Amyl Cinnamal",
    "description": "Get the lasting lift you've been looking for with Not Your Mother’s volumizing hairspray. Its maximum-hold and long-lasting humidity resistance make it the ultimate final touch for maintaining volume and style. It’s also fast-drying and flake free, so it does its job without ever getting in the way.",
    "claims": [
+    "fortifiant",
+    "anti-frisottis",
     "volume",
-    "fortifiant"
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/plump-for-joy-volumizing-hairspray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--tahitian-gardenia-and-mango-butter-shampoo",
@@ -1146,7 +1320,6 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "epais",
     "boucles"
    ],
    "actifs": [
@@ -1157,9 +1330,13 @@
    "ingredients": "WATER (AQUA)(EAU), SODIUM COCOYL ISETHIONATE, SODIUM LAUROYL METHYL ISETHIONATE, COCAMIDOPROPYL HYDROXYSULTAINE, PEG-120 METHYL GLUCOSE DIOLEATE, GLYCOL DISTEARATE, POLYQUATERNIUM-10, QUATERNIUM-80, MANGIFERA INDICA (MANGO) SEED BUTTER, GARDENIA TAHITENSIS FLOWER EXTRACT, GLYCERIN, TETRASODIUM GLUTAMATE DIACETATE, FRAGRANCE (PARFUM), LINALOOL, HEXYL CINNAMAL, COUMARIN, PHENOXYETHANOL, ETHYLHEXYLGLYCERIN, CITRIC ACID",
    "description": "Performance meets purity for zero compromises — only defined curls with every cleanse. Naturals Curl Defining Tahitian Gardenia & Mango Butter Shampoo is consciously formulated with 98% naturally derived ingredients to gently cleanse while enhancing curls and taming frizz with a rich lather.",
    "claims": [
+    "nutrition",
+    "anti-frisottis",
     "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/tahitian-gardenia-and-mango-butter-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--curl-talk-defining-gel-custard",
@@ -1175,7 +1352,6 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
     "boucles"
    ],
    "actifs": [
@@ -1187,11 +1363,15 @@
    "ingredients": "Water (Aqua) (Eau), Glycerin, Maltodextrin/VP Copolymer, PVP, Hydroxyethylcellulose, Polysorbate 20, Carrageenan, Xanthan Gum, Persea Gratissima (Avocado) Oil, Mauritia Flexuosa Fruit Oil, Sclerocarya Birrea Seed Oil, Tocopherol, Fragrance (Parfum), Citronellol, Hydroxycitronellal, Limonene, Linalool, Phenoxyethanol, Ethylhexylglycerin, Caprylyl Glycol, Caramel",
    "description": "The Not Your Mother's moisture rich curl defining gel custard extends the length of your curls, while fighting frizz and adding shine for maximum definition and bounce. All of this in a long-lasting firm, flake-free hold.",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles",
     "brillance",
-    "definition-boucles"
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/curl-talk-defining-gel-custard.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--kids-daily-care-2-in-1-shampoo-conditioner",
@@ -1204,18 +1384,24 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0517/1868/4866/files/14307_NYM_Kids_DailyCare_2in1_1.jpg?width=600",
    "image_local": "public/scan/products-cheveux/not-your-mothers/kids-daily-care-2-in-1-shampoo-conditioner.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [],
+   "categorie": "apres-shampooing",
+   "etape": 2,
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "acide citrique"
    ],
    "ingredients": "Water (Aqua) (Eau), Sodium Lauroyl Methyl Isethionate, Sodium Cocoyl Isethionate, Cocamidopropyl Hydroxysultaine, Propanediol, Glycol Distearate, PEG-120 Methyl Glucose Dioleate, Polyquaternium-10, Hydroxypropyl Guar Hydroxypropyltrimonium Chloride, Pyrus Malus (Apple) Fruit Extract, Fragrance (Parfum), Phenoxyethanol, Ethlhexylglycerin, Citric Acid",
    "description": "More care for their hair and more time to spare with Not Your Mother’s 2-in-1 kids shampoo and conditioner. It gently cleanses to remove dirt and environmental pollutants from the scalp and hair, while delivering essential moisture to help unlock tangles and knots. The dermatologist-tested, tear-free formula is made with 98% naturally derived ingredients.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "anti-pollution",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/kids-daily-care-2-in-1-shampoo-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--kids-daily-care-3-in-1-detangler",
@@ -1230,16 +1416,17 @@
    "image_local": "public/scan/products-cheveux/not-your-mothers/kids-daily-care-3-in-1-detangler.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [],
    "ingredients": "Water (Aqua), Cetearyl Alcohol, Propanediol, Cetrimonium Chloride, Ceteareth-20, Behentrimonium Chloride, PPG- 3 Benzyl Ether Ethylhexanoate, Pyrus Malus (Apple) Fruit Extract, Fragrance (Parfum), Phenoxyethanol, Ethylhexylglycerin",
    "description": "It’s less ouch and more wow with Not Your Mother’s KIDS 3-in-1 detangler spray that effortlessly detangles, conditions and tames frizz for silkier, smoother and happier hair. This dermatologist tested , tear-free formula is made with 98% naturally derived ingredients for a gentle experience that delivers real results.",
    "claims": [
-    "lissant"
+    "anti-frisottis",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/kids-daily-care-3-in-1-detangler.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--all-eyes-on-me-10-in-1-hair-perfector",
@@ -1255,7 +1442,7 @@
    "categorie": "proteine-reconstruction",
    "etape": 4,
    "cheveux_cibles": [
-    "epais"
+    "abimes"
    ],
    "actifs": [
     "glycérine",
@@ -1264,9 +1451,13 @@
    "ingredients": "Water (Aqua), Cyclopentasiloxane, Cetearyl Alcohol, Isopentyldiol, Behentrimonium Chloride, Quaternium-80, Glycerin, Punica Granatum Fruit Extract, Hydrolyzed Vegetable Protein, Salvia Hispanica Seed Extract, Trehalose, Xylitol, Caprylyl/Capryl Glucoside, Ethyl Linoleate, Ethyl Oleate, Sorbitan Oleate, Polyquaternium-37, Sodium Phosphate, Dimethicone, Dimethiconol, Dimethicone/Vinyl Dimethicone Crosspolymer, PEG-10 Dimethicone, Tetrasodium Glutamate Diacetate, Fragrance (Parfum), Phenoxyethanol, Ethylhexylglycerin, Citric Acid",
    "description": "So many hair needs, so little time. With just a quick spritz of Not Your Mother’s All Eyes On Me™ 10-in-1 Hair Perfector you’ve already managed to control frizz, detangle, moisturize, and protect your hair from 450°F heat. Now you can simplify your routine without sacrificing what you need.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "anti-frisottis",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/all-eyes-on-me-10-in-1-hair-perfector.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--way-to-grow-leave-in-conditioner",
@@ -1279,9 +1470,11 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0517/1868/4866/files/13024_NYM_WayToGrow_LeaveIn_DTC_1_345b17b9-4aef-4268-bdcd-48e436e51eca.jpg?width=600",
    "image_local": "public/scan/products-cheveux/not-your-mothers/way-to-grow-leave-in-conditioner.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
-   "cheveux_cibles": [],
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "abimes"
+   ],
    "actifs": [
     "kératine",
     "biotine",
@@ -1290,8 +1483,13 @@
    ],
    "ingredients": "Water (Aqua), Butylene Glycol, Cetearyl Alcohol, Cetyl Triethylmonium Dimethicone PEG-8 Succinate, Quaternium-91, Hydrolyzed Keratin, Apigenin, Oleanolic Acid, Biotinoyl Tripeptide-1, Behentrimonium Chloride, Myristyl Myristate, PPG-26-Buteth-26, PEG-40 Hydrogenated Castor Oil, Phenoxyethanol, Ethylhexylglycerin, Fragrance (Parfum), Citric Acid",
    "description": "Strong is the new healthy. Not Your Mother’s Way to Grow Long & Strong Leave-In Conditioner leaves hair stronger with less breakage and is a master at detangling.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "reparation",
+    "demelant"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/way-to-grow-leave-in-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--plump-for-joy-volumizing-mousse",
@@ -1306,7 +1504,9 @@
    "image_local": "public/scan/products-cheveux/not-your-mothers/plump-for-joy-volumizing-mousse.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "fins"
+   ],
    "actifs": [
     "panthénol",
     "glycérine",
@@ -1315,11 +1515,14 @@
    "ingredients": "Water/Aqua/Eau, Isobutane, Polyquaternium-11, PVP, Propane, Stearyl Alcohol, Ethyl Macadamiate, Dipropylene Glycol, Polysilicone-29, Steareth-21, PEG-12 Dimethicone, Citrus Aurantium Dulcis (Orange) Fruit Extract, Mangifera Indica (Mango) Fruit Extract, Panax Ginseng Root Extract, Glycerin, Cocamidopropyl Hydroxysultaine, Polysorbate 80, Phenethyl Alcohol, Caprylhydroxamic Acid, Panthenol, Propanediol, Fragrance (Parfum), Limonene, Linalool, Amyl Cinnamal, Hydroxycitronellal",
    "description": "Set your hair’s style up for success with Not Your Mother’s medium-hold, Volumizing Mousse. As it adds instant body and shine from root to tip, this multi-tasking, weightless formula makes for touchable locks that are never sticky or crunchy while added heat protection means you can get straight to styling.",
    "claims": [
-    "brillance",
     "volume",
-    "protection-thermique"
+    "brillance",
+    "protection-chaleur",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/plump-for-joy-volumizing-mousse.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--tough-love-bonding-treatment",
@@ -1332,8 +1535,8 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0517/1868/4866/files/13174_NYM_ToughLove_Treatment_1.jpg?width=600",
    "image_local": "public/scan/products-cheveux/not-your-mothers/tough-love-bonding-treatment.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
+   "categorie": "proteine-reconstruction",
+   "etape": 4,
    "cheveux_cibles": [
     "abimes"
    ],
@@ -1344,11 +1547,13 @@
    "ingredients": "Water (Aqua) (Eau), Cetearyl Alcohol, Butylene Glycol, Bis-4-PCA Dimethicone, Behentrimonium Chloride, Caprylic/Capric Triglyceride, Glycerin, Cetrimonium Chloride, Ceteareth-20, Disodium PEG-12 Dimethicone Sulfosuccinate, Acrylamidopropyltrimonium Chloride/Acrylates Copolymer, Caesalpinia Spinosa Gum, Isohexadecane, Coceth-7, Isopropyl Alcohol, Fragrance (Parfum), Hexyl Cinnamal, Aminomethyl Propanol, Phenoxyethanol, Ethylhexylglycerin, Lactic Acid",
    "description": "Instantly strengthen & repair hair bonds in one use. Not Your Mother's Tough Love Intense Bonding Treatment delivers the highest concentration of Active Bonding Technology to protect bonds from initial breakage & repair broken hair bonds from severe damage. Hair will be softer, smoother & bouncier.",
    "claims": [
-    "reparateur",
-    "lissant",
-    "fortifiant"
+    "reparation",
+    "fortifiant",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/tough-love-bonding-treatment.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "not-your-mothers--nym-kids-curly-care-moisturizing-conditioner",
@@ -1364,6 +1569,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -1372,9 +1578,12 @@
    "ingredients": "Water (Aqua), Cetearyl Alcohol, Cetyl Alcohol, Stearamidopropyl Dimethylamine, Caprylic Capric Triglyceride, Propanediol, Mangifera Indica (Mango) Seed Butter, Cetrimonium Chloride, Lactic Acid, Hydroxyethylcellulose, Tetrasodium Glutamate Diacetate, Fragrance (Parfum), Phenoxyethanol, Ethylhexylglycerin",
    "description": "Give their curls a boost of hydration with Not Your Mother’s KIDS Curly Care Moisturizing Conditioner, a gentle, tear-free formula that delivers lightweight hydration while enhancing and defining the natural shape of curls. They’ll look forward to wash days, you’ll look forward to bouncier, healthier hair.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/nym-kids-curly-care-moisturizing-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--nym-kids-curly-care-detangler-spray",
@@ -1390,17 +1599,20 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "epais",
     "boucles"
    ],
    "actifs": [],
    "ingredients": "Water (Aqua), Propanediol, PPG-3 Benzyl Ether Ethylhexanoate, Cetearyl Alcohol, Cetrimonium Chloride, Ceteareth-20, Behentrimonium Chloride, Mangifera Indica (Mango) Seed Butter, Fragrance (Parfum), Phenoxyethanol, Ethylhexylglycerin",
    "description": "Make curls so easy to comb through with Not Your Mother’s KIDS Curly Care Detangler Spray. It hydrates and keeps frizz at bay for curls that are shinier and smoother, with a dermatology-tested, tear-free formula made just for kids. Tear-free curl care? You got it.",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/nym-kids-curly-care-detangler-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--nym-kids-curly-care-moisturizing-shampoo",
@@ -1416,6 +1628,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -1424,9 +1637,12 @@
    "ingredients": "Water (Aqua), Sodium Lauroyl Methyl Isethionate, Sodium Cocoyl Isethionate, Cocamidopropyl Hydroxysultaine, Glycol Distearate, Propanediol, PEG-120 Methyl Glucose Dioleate, Polyquaternium-10, Mangifera Indica (Mango) Seed Butter, Fragrance (Parfum), Phenoxyethanol, Ethylhexylglycerin, Citric Acid",
    "description": "Make wash days worry-free with Not Your Mother’s KIDS Curly Care Moisturizing Shampoo. The gentle, tear-free formula is created for kids, working to cleanse and refresh without stripping hair of moisture, leaving behind shinier, more manageable curls.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/nym-kids-curly-care-moisturizing-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--bond-building-mask",
@@ -1442,6 +1658,7 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "boucles",
     "abimes"
    ],
@@ -1454,9 +1671,15 @@
    "ingredients": "Water (Aqua), Cetearyl Alcohol, Cetyl Alcohol, Behentrimonium Chloride, Hydrogenated Castor Oil, Propanediol, Stearalkonium Chloride, Heptyl Undecylenate, Caprylic/Capric Triglyceride, Hydroxypropylgluconamide, Hydroxypropylammonium Gluconate, Aspergillus Ferment, Arginine, Rice Amino Acids, Persea Gratissima (Avocado) Oil, Mauritia Flexuosa Fruit Oil, Sclerocarya Birrea Seed Oil, Cetrimonium Chloride, Hydroxyethylcellulose, Tetrasodium Glutamate Diacetate, Fragrance (Parfum), Phenoxyethanol, Ethylhexylglycerin",
    "description": "Your curls are about to make their comeback with Not Your Mother’s Curl Talk Bond Building Mask, a long-lasting, silicone-free hair mask that helps to deliver even damaged curls to their most vibrant state. It seals in essential moisture to add strength and defend against breakage so you can see, and feel, visibly shinier, softer, healthier curls.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "reparation",
+    "fortifiant",
+    "definition-boucles",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/bond-building-mask.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--bond-building-shampoo",
@@ -1472,7 +1695,6 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "epais",
     "boucles",
     "abimes"
    ],
@@ -1486,11 +1708,15 @@
    "ingredients": "Water (Aqua), Sodium Lauroyl Sarcosinate, Sodium Cocoyl Isethionate, Cocamidopropyl Hydroxysultaine, Glycol Distearate, PEG-150 Distearate, Propanediol, Hydroxypropylgluconamide, Hydroxypropylammonium Gluconate, Aspergillus Ferment, Arginine, Rice Amino Acids, Persea Gratissima (Avocado) Oil, Mauritia Flexuosa Fruit Oil, Sclerocarya Birrea Seed Oil, Polyquaternium-10, Hydroxypropyl Guar Hydroxypropyltrimonium Chloride, Tocopherol, Tetrasodium Glutamate Diacetate, Fragrance (Parfum), Phenoxyethanol, Ethylhexylglycerin, Citric Acid",
    "description": "Keep your curls healthy with Not Your Mother’s Curl Talk Bond Building Shampoo, a silicone-free shampoo that gives you a gentle cleanse while delivering bond repair power to help strengthen your strands from root to tip. Ready for less breakage, less frizz and more curl definition?",
    "claims": [
-    "reparateur",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
     "definition-boucles",
-    "fortifiant"
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/bond-building-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--bond-building-conditioner",
@@ -1506,7 +1732,6 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "epais",
     "boucles",
     "abimes"
    ],
@@ -1518,12 +1743,17 @@
    "ingredients": "Water (Aqua), Cetearyl Alcohol, Cetyl Alcohol, Behentrimonium Chloride, Propanediol, Stearalkonium Chloride, Caprylic/Capric Triglyceride, Hydroxypropylgluconamide, Hydroxypropylammonium Gluconate, Aspergillus Ferment, Arginine, Rice Amino Acids, Persea Gratissima (Avocado) Oil, Mauritia Flexuosa Fruit Oil, Sclerocarya Birrea Seed Oil, Cetrimonium Chloride, Hydroxyethylcellulose, Tetrasodium Glutamate Diacetate, Fragrance (Parfum), Phenoxyethanol, Ethylhexylglycerin",
    "description": "Enhance the health of your curls with Not Your Mother’s Curl Talk Bond Building Conditioner, a silicone-free conditioner that gives you deep hydration and moisture retention while delivering bond repair power for less breakage, fewer split ends, and controlled frizz. You know what that means: curls with more definition, shine and strength.",
    "claims": [
-    "hydratant",
-    "reparateur",
+    "hydratation",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
     "brillance",
-    "definition-boucles"
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/bond-building-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--original-dry-shampoo",
@@ -1536,14 +1766,20 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0517/1868/4866/files/13009_NYM_CleanFreak_Original_DS_1.jpg?width=600",
    "image_local": "public/scan/products-cheveux/not-your-mothers/original-dry-shampoo.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [],
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "gras"
+   ],
    "actifs": [],
    "ingredients": "Isobutane, Hydrofluorocarbon 152A, Alcohol Denat., Oryza Sativa (Rice) Starch, Hordeum Vulgare Seed Flour, Silica, Isopropyl Myristate, Magnesium Stearate, Fragrance (Parfum)",
    "description": "Skip the wash, and enjoy the refresh with Not Your Mother’s Clean Freak Refreshing Dry Shampoo. The aluminum-free formula delivers instant oil absorption for a refresh that will leave your locks feeling soft and clean as freshly washed with a citrus scent in a matter of minutes. No water necessary, no white residue, no powdery buildup and no time wasted—ever.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "purifiant"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/original-dry-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--beach-babe-texturizing-sea-salt-spray",
@@ -1560,7 +1796,8 @@
    "etape": 3,
    "cheveux_cibles": [
     "secs",
-    "boucles"
+    "boucles",
+    "colores"
    ],
    "actifs": [
     "huile de tournesol",
@@ -1568,8 +1805,14 @@
    ],
    "ingredients": "Water (Aqua) (Eau), Sea Salt (Maris Sal) (Sel Marin), Polysorbate 20, Macrocystis Pyrifera (Kelp) Extract, Helianthus Annuus (Sunflower) Seed Extract, Dimethicone PEG-8 Meadowfoamate, Butylene Glycol, Propylene Glycol, Benzyl Alcohol, Citric Acid, Phenoxyethanol, Sodium Benzoate, Fragrance (Parfum), Coumarin",
    "description": "Not Your Mother's Beach Babe Texturizing Sea Salt Spray creates tousled, textured beach waves with natural-looking separation, body, and a matte finish on wet or dry hair. Formulated with Dead Sea salt and kelp extract (Macrocystis Pyrifera) for texture and wave formation, plus sunflower seed extract for UV protection against daily sun damage. Lightweight, non-crunchy finish suitable for all hair types including fine, straight, wavy, and color-treated hair. Tropical vanilla coconut scent.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "definition-boucles",
+    "texturisant",
+    "protection-couleur"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/beach-babe-texturizing-sea-salt-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--beach-babe-dry-shampoo",
@@ -1582,14 +1825,20 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0517/1868/4866/files/13050_NYM_BeachBabe_DS_1_94ccceb7-3b5f-4ae6-941f-69e55af694c7.jpg?width=600",
    "image_local": "public/scan/products-cheveux/not-your-mothers/beach-babe-dry-shampoo.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [],
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "gras"
+   ],
    "actifs": [],
    "ingredients": "Isobutane, Hydrofluorocarbon 152A, Alcohol Denat., Oryza Sativa (Rice) Starch, Hordeum Vulgare Seed Flour (Farine De Drêche), Distearyldimonium Chloride, Cetrimonium Chloride, Fragrance (Parfum), Vanillin, Coumarin",
    "description": "Refresh hair instantly with Not Your Mother’s Beach Babe Dry Shampoo. The aluminum-free formula delivers instant oil absorption for that care-free, tousled look that will leave your locks feeling soft and clean as freshly washed with a toasted coconut scent in a matter of minutes. No water necessary, no white residue, no powdery buildup and no time wasted—ever.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "purifiant"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/beach-babe-dry-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--blonde-moment-purple-shampoo",
@@ -1618,10 +1867,13 @@
    "ingredients": "Water (Aqua), Sodium Lauroyl Sarcosinate, Sodium Cocoyl Isethionate, Cocamidopropyl Hydroxysultaine, Glycol Distearate, PEG-150 Distearate, Propanediol, Itaconic acid, Arginine, Panthenol, Linum Usitatissimum (Linseed) Seed Extract, Salvia Hispanica Seed Extract, Polyglyceryl-10 Laurate, Hydrolyzed Quinoa, Helianthus Annuus (Sunflower) Seed Extract, Polyquaternium-10, Hydroxypropyl Guar Hydroxypropyltrimonium Chloride, Tetrasodium Glutamate Diacetate, Butylene Glycol, Fragrance (Parfum), Phenoxyethanol, Ethylhexylglycerin, Citric Acid, Ext. D&C Violet 2 (CI 60730)",
    "description": "Wash your way to brighter & stronger lightened toned locks with Not Your Mother's Blonde Moment Tone & Repair Purple Shampoo. This dual action purple shampoo packs intense toning power with bond repairing benefits and added hydration to keep your lightened tones cooler & stronger.",
    "claims": [
-    "hydratant",
-    "reparateur"
+    "hydratation",
+    "reparation",
+    "anti-jaunissement"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/blonde-moment-purple-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--blonde-moment-purple-conditioner",
@@ -1649,10 +1901,13 @@
    "ingredients": "Water (Aqua), Cetearyl Alcohol, Cetyl Alcohol, Behentrimonium Chloride, Stearalkonium Chloride, Caprylic/Capric Triglyceride, Propanediol, Itaconic acid, Arginine, Panthenol, Linum Usitatissimum (Linseed) Seed Extract, Salvia Hispanica Seed Extract, Polyglyceryl-10 Laurate, Cetrimonium Chloride, Hydrolyzed Quinoa, Helianthus Annuus (Sunflower) Seed Extract, Hydroxyethylcellulose, Tetrasodium Glutamate Diacetate, Butylene Glycol, Fragrance (Parfum), Phenoxyethanol, Ethylhexylglycerin, Ext. D&C Violet 2 (CI 60730)",
    "description": "Maintain brighter, stronger, softer lightened tones with Not Your Mother's Blonde Moment Tone & Repair Purple Conditioner. This dual action purple conditioner gently tones and maintains brass-free hair with pastel violet pigments while Bonding Technology repairs and strengthens. All you're left with is visibly vibrant, stronger hair on the regular.",
    "claims": [
-    "reparateur",
-    "fortifiant"
+    "reparation",
+    "fortifiant",
+    "anti-jaunissement"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/blonde-moment-purple-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--clean-freak-tapioca-dry-shampoo",
@@ -1665,14 +1920,20 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0517/1868/4866/files/13048_NYM_CleanFreak_Tapioca_DS_1.jpg?width=600",
    "image_local": "public/scan/products-cheveux/not-your-mothers/clean-freak-tapioca-dry-shampoo.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [],
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "gras"
+   ],
    "actifs": [],
    "ingredients": "Isobutane, Hydrofluorocarbon 152A, Alcohol Denat., Oryza Sativa (Rice) Starch, Hordeum Vulgare Seed Flour, Tapioca Starch, Polymethylsilsesquioxane, Silica, Isopropyl Myristate, Magnesium Stearate, Fragrance (Parfum)",
    "description": "Refresh hair instantly with Not Your Mother’s Clean Freak Tapioca Dry Shampoo. The aluminum-free formula delivers instant oil absorption for a refresh that will leave your locks feeling soft and clean as freshly washed with a warm sugar scent in a matter of minutes. No water necessary, no white residue, no powdery buildup and no time wasted—ever.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "purifiant"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/clean-freak-tapioca-dry-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--curl-talk-sculpting-gel",
@@ -1688,8 +1949,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
-    "boucles"
+    "boucles",
+    "abimes"
    ],
    "actifs": [
     "kératine",
@@ -1699,8 +1960,13 @@
    ],
    "ingredients": "WATER (AQUA), GLYCERIN, VP/VA COPOLYMER, PROPANEDIOL, PVP, PEG-40 HYDROGENATED CASTOR OIL, LACTOBACILLUS/ TOMATO FRUIT FERMENT EXTRACT, ORYZA SATIVA (RICE) EXTRACT, KERATIN AMINO ACIDS, LEUCONOSTOC/RADISH ROOT FERMENT FILTRATE, ACYL COENZYME A DESATURASE, CARBOMER, FRAGRANCE (PARFUM), DISODIUM EDTA, PHENOXYETHANOL, ETHYLHEXYLGLYCERIN, SODIUM HYDROXIDE",
    "description": "Can you guess what’s firm, flexible and flake-free? It’s your curly hair, after styling with Not Your Mother’s Curl Talk Frizz Control Sculpting Gel. Now you can enjoy the best of both worlds: highly defined curls that still have their natural movement. It’s a beautiful thing.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "anti-frisottis",
+    "definition-boucles"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/curl-talk-sculpting-gel.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--curl-talk-3-in-1-conditioner",
@@ -1716,8 +1982,8 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "epais",
-    "boucles"
+    "boucles",
+    "abimes"
    ],
    "actifs": [
     "kératine",
@@ -1728,9 +1994,14 @@
    "ingredients": "WATER (AQUA) (EAU), CETEARYL ALCOHOL, CETYL ALCOHOL, BUTYROSPERMUM PARKII (SHEA) BUTTER, QUATERNIUM-91, SHEA BUTTER ETHYL ESTERS, STEARALKONIUM CHLORIDE, BEHENTRIMONIUM CHLORIDE, MYRISTYL MYRISTATE, LACTOBACILLUS/TOMATO FRUIT FERMENT EXTRACT, ORYZA SATIVA (RICE) EXTRACT, KERATIN AMINO ACIDS, LEUCONOSTOC/RADISH ROOT FERMENT FILTRATE, ACYL COENZYME A DESATURASE, HYDROXYETHYLCELLULOSE, DISODIUM EDTA, PHENOXYETHANOL, ETHYLHEXYLGLYCERIN, CITRIC ACID, FRAGRANCE (PARFUM), LINALOOL, LIMONENE",
    "description": "Quench your curls your way with this conditioner that seals in moisture, tames frizz and restores elasticity. Whether you use Curl Talk 3-in-1 Conditioner as a leave-in, rinse out or co-wash, your curls will be hydrated and more defined.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/curl-talk-3-in-1-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--curl-talk-refreshing-foam",
@@ -1746,8 +2017,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
-    "boucles"
+    "boucles",
+    "abimes"
    ],
    "actifs": [
     "kératine",
@@ -1757,8 +2028,14 @@
    ],
    "ingredients": "WATER (AQUA), MALTODEXTRIN/VP COPOLYMER, SODIUM LAUROYL SARCOSINATE, POLYSORBATE-20, ALOE BARBADENSIS LEAF JUICE, LACTOBACILLUS/TOMATO FRUIT FERMENT EXTRACT, ORYZA SATIVA (RICE) EXTRACT, KERATIN AMINO ACIDS, ACYL COENZYME A DESATURASE, PHENOXYETHANOL, FRAGRANCE (PARFUM), HYDROXYETHYLCELLULOSE, ETHYLHEXYLGLYCERIN, CITRIC ACID",
    "description": "Your curls work hard for you. So, give them a boost they’ll be grateful for with Not Your Mother’s Curl Talk Refreshing Curl Foam. This lightweight anti frizz styling foam redefines your curls, creating a flexible hold for a long-lasting shape that never hinders your hair’s natural movement.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "anti-frisottis",
+    "definition-boucles",
+    "fixation"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/curl-talk-refreshing-foam.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--curl-talk-activating-mousse",
@@ -1779,8 +2056,14 @@
    "actifs": [],
    "ingredients": "WATER (AQUA), POLYQUATERNIUM-46, ISOBUTANE, PROPANE, PROPYLENE GLYCOL, CETRIMONIUM CHLORIDE, SODIUM LAUROYL SARCOSINATE, OLETH-20, PHENOXYETHANOL, CAPRYLYL GLYCOL, ETHYLHEXYLGLYCERIN, HEXYLENE GLYCOL, BENZOPHENONE-4, FRAGRANCE (PARFUM), LINALOOL, CITRONELLOL, HYDROXYCITRONELLAL",
    "description": "Is that you curls? Not Your Mother’s Curl Talk Activating Mousse is every curl girl’s go-to for achieving that perfect balance of having defined curls with a light and touchable hold. Plus, this hair mousse provides long lasting protection against humidity will have your curly hair thriving in any environment you put them in.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "anti-frisottis",
+    "definition-boucles",
+    "fixation"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/curl-talk-activating-mousse.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--curl-talk-flash-freeze-gel",
@@ -1796,8 +2079,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
-    "boucles"
+    "boucles",
+    "abimes"
    ],
    "actifs": [
     "kératine",
@@ -1807,10 +2090,14 @@
    "ingredients": "Water (Aqua) (Eau), Polyquaternium-69, PVP, Acrylates/Steareth-20 Methacrylate Crosspolymer, Phenoxyethanol, Glycerin, Keratin Amino Acids, Oryza Sativa (Rice) Extract, Lactobacillus/Tomato Fruit Ferment Extract, Leuconostoc/Radish Root Ferment Filtrate, Acyl Coenzyme A Desaturase, Fragrance (Parfum), Sodium Hydroxide, Tetrasodium EDTA, Ethylhexylglycerin, Sodium Lauryl Sulfate, Sorbic Acid, Butylene Glycol, Iodopropynyl Butylcarbamate, Sodium Benzoate, Citronellol, Limonene, Hydroxycitronellal, Linalool",
    "description": "Hit freeze on your favorite styles with an extra strong hold that hydrates and controls frizz for healthy definition that lasts. Curl Talk Lasting Definition Flash Freeze Gel will leave you with touchable, crunch-free curls that stay locked in all day long.",
    "claims": [
-    "hydratant",
-    "definition-boucles"
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/curl-talk-flash-freeze-gel.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--tahitian-gardenia-and-mango-butter-conditioner",
@@ -1836,10 +2123,13 @@
    "ingredients": "WATER (AQUA)(EAU), CETEARYL ALCOHOL, DISTEARYLDIMONIUM CHLORIDE, BEHENTRIMONIUM CHLORIDE, GLYCERIN, QUATERNIUM-80, MANGIFERA INDICA (MANGO) SEED BUTTER, GARDENIA TAHITENSIS FLOWER EXTRACT, PPG-3 BENZYL ETHER ETHYLHEXANOATE, HYDROXYETHYLCELLULOSE, FRAGRANCE (PARFUM), LINALOOL, HEXYL CINNAMAL, COUMARIN, PHENOXYETHANOL, ETHYLHEXYLGLYCERIN, CITRIC ACID",
    "description": "Performance meets purity for zero compromises — only defined curls with every condition. Naturals Curl Defining Tahitian Gardenia & Mango Butter Conditioner is consciously formulated with 98% naturally derived ingredients to nourish and define curls while instantly detangling with superior slip.",
    "claims": [
-    "nourrissant",
-    "definition-boucles"
+    "nutrition",
+    "definition-boucles",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/tahitian-gardenia-and-mango-butter-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--matcha-green-tea-and-apple-blossom-conditioner",
@@ -1864,12 +2154,15 @@
    "ingredients": "WATER (AQUA), CETEARYL ALCOHOL, BEHENTRIMONIUM CHLORIDE, DISTEARYLDIMONIUM CHLORIDE, GLYCERIN, QUATERNIUM-80, HYDROGENATED VEGETABLE OIL, PRUNUS AMYGDALUS DULCIS (ALMOND) OIL, CAMELLIA SINENSIS LEAF POWDER, MALUS DOMESTICA FRUIT EXTRACT, LEUCONOSTOC/RADISH ROOT FERMENT FILTRATE, HYDROXYETHYLCELLULOSE, FRAGRANCE (PARFUM), PHENOXYETHANOL, ETHYLHEXYLGLYCERIN",
    "description": "Performance meets purity for zero compromises — only balanced, healthy hair with every condition. Naturals Ultimate Nutrition Conditioner is consciously formulated with 98% naturally derived ingredients to replenish hair on the daily. Fortified with an antioxidant-rich blend of Matcha Green Tea & Apple Blossom, this extra gentle formula restores hair with nutrient-rich moisture to help protect hair from daily aggressors. Plus, its lightweight moisture easily detangles to instantly soften, smooth",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "lissant",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/matcha-green-tea-and-apple-blossom-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--matcha-green-tea-and-apple-blossom-shampoo",
@@ -1894,11 +2187,14 @@
    "ingredients": "WATER (AQUA)(EAU), SODIUM COCOYL ISETHIONATE, SODIUM LAUROYL METHYL ISETHIONATE, COCAMIDOPROPYL HYDROXYSULTAINE, PEG-120 METHYL GLUCOSE DIOLEATE, POLYQUATERNIUM-10, CAMELLIA SINENSIS LEAF EXTRACT, MALUS DOMESTICA FRUIT EXTRACT, LEUCONOSTOC/RADISH ROOT FERMENT FILTRATE, TETRASODIUM GLUTAMATE DIACETATE, FRAGRANCE (PARFUM), LINALOOL, PHENOXYETHANOL, ETHYLHEXYLGLYCERIN, CITRIC ACID",
    "description": "Performance meets purity for zero compromises — only balanced, healthy hair with every cleanse. Naturals Ultimate Nutrition Shampoo is consciously formulated with 98% naturally derived ingredients to rebalance hair on the daily. Fortified with an antioxidant-rich blend of Matcha Green Tea & Apple Blossom, this extra gentle formula removes impurities without stripping hair and infuses nutrient-rich moisture back into every strand for shiny, balanced, and healthy hair that’s protected against dail",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/matcha-green-tea-and-apple-blossom-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--plump-for-joy-thickening-hair-lifter",
@@ -1920,11 +2216,13 @@
    "ingredients": "Water (Aqua) (Eau), AMP-Acrylates/Allyl Methacrylate Copolymer, Polysorbate 20, Polyimide-1, VP/VA Copolymer, Panax Ginseng Root Extract, Mangifera Indica (Mango) Fruit Extract, Citrus Aurantium Dulcis (Orange) Fruit Extract, Propanediol, Sodium Methoxy PEG-16 Maleate/Styrene Sulfonate Copolymer, Tetrasodium Glutamate Diacetate, Ethylhexylglycerin, Phenoxyethanol, Potassium Sorbate, Fragrance (Parfum), Hexyl Cinnamal, Citral, Amyl Cinnamal, Hydroxycitronellal, Limonene, Linalool",
    "description": "This lightweight, long-lasting lift gives root-to-tip volume and thickness for a fine-to-full hair transformation. Plump for Joy Thickening Hair Lifter Spray multi-tasks, adding softness, shine and heat protection–without weight or stickiness–to leave you with thicker, fuller hair.",
    "claims": [
-    "brillance",
     "volume",
-    "protection-thermique"
+    "brillance",
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/plump-for-joy-thickening-hair-lifter.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "not-your-mothers--way-to-grow-conditioner",
@@ -1940,7 +2238,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "epais"
+    "abimes"
    ],
    "actifs": [
     "kératine",
@@ -1952,10 +2250,12 @@
    "ingredients": "WATER (AQUA), CETEARYL ALCOHOL, STEARYL ALCOHOL, CETRIMONIUM BROMIDE, ETHYLHEXYL PALMITATE, FRAGRANCE (PARFUM), HYDROLYZED KERATIN, PANTHENOL, BIOTIN, STEARALKONIUM CHLORIDE, PEG-40 CASTOR OIL, DIMETHICONE, DIMETHICONOL, TETRASODIUM EDTA, PHENOXYETHANOL, ETHYLHEXYLGLYCERIN, CITRIC ACID",
    "description": "Hello, healthy hair. Not Your Mother’s Way to Grow Long & Strong Conditioner moisturizes and hydrates from root to tip without ever weighing it down. Plus, it helps to combat unwanted frizz for locks that look and feel smoother.",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/way-to-grow-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "not-your-mothers--way-to-grow-shampoo",
@@ -1970,7 +2270,9 @@
    "image_local": "public/scan/products-cheveux/not-your-mothers/way-to-grow-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "abimes"
+   ],
    "actifs": [
     "kératine",
     "panthénol",
@@ -1980,7 +2282,9 @@
    "ingredients": "WATER (AQUA), SODIUM LAUROYL METHYL ISETHIONATE, SODIUM COCOYL ISETHIONATE, COCAMIDOPROPYL BETAINE, GLYCOL DISTEARATE, PEG-150 DISTEARATE, GLYCERETH-26, FRAGRANCE (PARFUM), HYDROLYZED KERATIN, PANTHENOL, BIOTIN, POLYQUATERNIUM-10, DISODIUM EDTA, PHENOXYETHANOL, ETHYLHEXYLGLYCERIN, CITRIC ACID",
    "description": "Let’s breathe some life into that hair. Your first step: Way to Grow Long & Strong Shampoo. It’s a gentle shampoo that leaves your locks softer, shinier and feeling healthier.",
    "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/not-your-mothers/cutout/way-to-grow-shampoo.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

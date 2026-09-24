@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>vyvre — Scan cheveux · 3 parcours finaux + scans et chargements hors du commun</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,500&family=JetBrains+Mono:wght@300;400&family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --fs:'Inter',-apple-system,sans-serif;
+  --fd:'JetBrains Mono',monospace;
+  --fp:'Playfair Display',Georgia,serif;
+  --ker:#e8d2a8; --ker-hi:#FFF3DA;
+  --line:rgba(255,255,255,.14);
+  --t2:rgba(255,255,255,.62); --t3:rgba(255,255,255,.38);
+  --e1:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased}
+html,body{background:#05060a;color:#fff;font-family:var(--fs);font-weight:300}
+body{min-height:100dvh;padding:44px 4vw 90px}
+a{color:inherit}
+
+/* ---------- en-tete ---------- */
+.hd{max-width:1280px;margin:0 auto 40px;display:flex;align-items:flex-end;justify-content:space-between;gap:30px;flex-wrap:wrap}
+.hd h1{font-family:var(--fp);font-weight:400;font-size:clamp(30px,4vw,52px);line-height:1.04;letter-spacing:-.01em}
+.hd h1 em{display:block;font-style:italic;font-size:.62em;color:var(--t2);margin-top:8px}
+.hd .meta{font-family:var(--fd);font-size:9.5px;letter-spacing:.26em;text-transform:uppercase;color:var(--t3);text-align:right;line-height:2}
+.intro{max-width:1280px;margin:0 auto 46px;color:var(--t2);font-size:14.5px;line-height:1.65;max-width:min(78ch,1280px)}
+.intro b{font-weight:400;color:#fff}
+
+/* ---------- sections ---------- */
+.sec{max-width:1280px;margin:0 auto 62px}
+.sech{display:flex;align-items:baseline;gap:18px;margin-bottom:22px}
+.sech b{font-family:var(--fd);font-size:9.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--ker)}
+.sech h2{font-family:var(--fp);font-weight:400;font-size:clamp(19px,2.2vw,27px);letter-spacing:-.005em}
+.sech i{flex:1;height:1px;background:var(--line);font-style:normal}
+.sech em{font-style:normal;font-family:var(--fd);font-size:9px;letter-spacing:.22em;color:var(--t3);text-transform:uppercase}
+
+.grid{display:grid;gap:18px}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g5{grid-template-columns:repeat(5,1fr)}
+@media (max-width:1080px){.g5{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:860px){.g3,.g5{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:560px){.g3,.g5{grid-template-columns:1fr}}
+
+.card{position:relative;border:1px solid var(--line);border-radius:18px;overflow:hidden;
+  background:#07080d;cursor:pointer;transition:border-color .45s,transform .6s var(--e1)}
+.card:hover{border-color:rgba(232,210,168,.42);transform:translateY(-3px)}
+.card canvas{display:block;width:100%;aspect-ratio:4/3;background:#04050a}
+.card.tall canvas{aspect-ratio:3/4}
+.card .lg{position:absolute;top:12px;left:14px;font-family:var(--fd);font-size:8.5px;
+  letter-spacing:.26em;text-transform:uppercase;color:rgba(255,255,255,.55);z-index:2;
+  text-shadow:0 1px 10px #000}
+.card .bd{padding:14px 16px 16px;border-top:1px solid var(--line)}
+.card .bd h3{font-family:var(--fp);font-weight:400;font-size:17px;letter-spacing:-.005em;margin-bottom:5px}
+.card .bd p{font-size:12.5px;line-height:1.5;color:var(--t3)}
+.card .mm{display:flex;gap:6px;margin-top:11px;flex-wrap:wrap}
+.card .mm span{font-family:var(--fd);font-size:8px;letter-spacing:.18em;text-transform:uppercase;
+  padding:4px 8px;border:1px solid rgba(255,255,255,.12);border-radius:2px;color:var(--t3)}
+
+/* ---------- plein ecran ---------- */
+.fs{position:fixed;inset:0;z-index:90;background:#03040a;display:none}
+.fs.on{display:block}
+.fs canvas{position:absolute;inset:0;width:100%;height:100%}
+.fs .cl{position:absolute;top:20px;right:20px;z-index:4;width:42px;height:42px;border-radius:50%;
+  border:1px solid var(--line);background:rgba(8,9,14,.6);color:#fff;cursor:pointer;
+  backdrop-filter:blur(18px);font-size:17px;line-height:1}
+.fs .ti{position:absolute;top:24px;left:24px;z-index:4;font-family:var(--fd);font-size:9.5px;
+  letter-spacing:.26em;text-transform:uppercase;color:rgba(255,255,255,.6)}
+.fs .mo{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);z-index:4;display:flex;gap:2px}
+.fs .mo button{font-family:var(--fd);font-size:9px;letter-spacing:.2em;text-transform:uppercase;
+  padding:9px 15px;border:1px solid rgba(255,255,255,.14);background:rgba(8,9,14,.55);
+  color:rgba(255,255,255,.45);cursor:pointer;backdrop-filter:blur(16px)}
+.fs .mo button.on{color:#fff;border-color:var(--ker);background:rgba(232,210,168,.12)}
+.fs .nt{position:absolute;bottom:22px;right:24px;z-index:4;max-width:34ch;text-align:right;
+  font-size:11.5px;line-height:1.5;color:var(--t3)}
+@media (max-width:640px){ .fs .nt{display:none} .fs .mo button{padding:8px 11px;font-size:8px} }
+
+.foot{max-width:1280px;margin:0 auto;padding-top:26px;border-top:1px solid var(--line);
+  font-family:var(--fd);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--t3);line-height:2.1}
+</style>
+</head>
+<body>
+
+<header class="hd">
+  <h1>Trois parcours finaux<em>et ce qu&rsquo;on peut faire de plus fort sur le scan et le chargement</em></h1>
+  <div class="meta">vyvre.fr<br>scan cheveux &middot; s&eacute;rie C<br>20 sept. 2026</div>
+</header>
+
+<p class="intro">
+  Les trois premiers assemblent ce que vous avez retenu : <b>les carr&eacute;s du questionnaire</b> (08 Radiographie),
+  <b>la fibre</b> (01 Fibre de verre) et <b>la soie</b> (06 Vent et soie). Ils jouent les quatre moments en boucle.
+  Ensuite viennent cinq scans et cinq chargements qui vont plus loin, &agrave; prendre isol&eacute;ment&nbsp;:
+  chacun se branche sur n&rsquo;importe lequel des trois parcours.
+  Tous les chiffres montr&eacute;s sont ceux que le moteur sait lire &mdash; la boucle et la couleur.
+  Aucun prix, aucun diagnostic.
+</p>
+
+<section class="sec">
+  <div class="sech"><b>A</b><h2>Trois parcours complets</h2><i></i><em>questions &middot; scan &middot; analyse &middot; r&eacute;sultats</em></div>
+  <div class="grid g3" id="gridF"></div>
+</section>
+
+<section class="sec">
+  <div class="sech"><b>B</b><h2>Cinq scans hors du commun</h2><i></i><em>le moment o&ugrave; la cam&eacute;ra lit</em></div>
+  <div class="grid g5" id="gridS"></div>
+</section>
+
+<section class="sec">
+  <div class="sech"><b>C</b><h2>Cinq chargements hors du commun</h2><i></i><em>les huit secondes qui font tenir</em></div>
+  <div class="grid g5" id="gridL"></div>
+</section>
+
+<div class="foot">
+  Espace ou fl&egrave;ches pour changer de moment &middot; &Eacute;chap pour fermer<br>
+  Mesures optiques &agrave; vis&eacute;e cosm&eacute;tique &middot; aucun diagnostic &middot; aucun prix affich&eacute;
+</div>
+
+<div class="fs" id="fs">
+  <canvas id="fscv"></canvas>
+  <div class="ti" id="fsti"></div>
+  <button class="cl" id="fscl">&times;</button>
+  <div class="mo" id="fsmo"></div>
+  <div class="nt" id="fsnt"></div>
+</div>
+
+<script>
+/* =========================================================================
+   Un seul moteur : chaque scene est une fonction (g, W, H, t, m) qui peint
+   une image. Les vignettes tournent au ralenti et seulement quand elles sont
+   a l'ecran ; le plein ecran tourne a la vraie cadence.
+   ========================================================================= */
+'use strict';
+var KER = '#e8d2a8', KERH = '#FFF3DA', ENCRE = '#05060a';
+function lerp(a,b,k){ return a+(b-a)*k; }
+function clamp(v,a,b){ return v<a?a:(v>b?b:v); }
+function ease(k){ return k<0?0:(k>1?1:k*k*(3-2*k)); }
+function hash(n){ var s=Math.sin(n*127.1)*43758.5453; return s-Math.floor(s); }
+
+/* ---------- typographie dessinee ---------- */
+function mono(g,txt,x,y,taille,alpha,esp){
+  g.save(); g.font='400 '+taille+'px "JetBrains Mono",monospace';
+  g.fillStyle='rgba(255,255,255,'+alpha+')'; g.textBaseline='middle';
+  esp=esp||taille*0.22; var X=x;
+  for(var i=0;i<txt.length;i++){ g.fillText(txt[i],X,y); X+=g.measureText(txt[i]).width+esp; }
+  g.restore(); return X-x;
+}
+function monoL(g,txt,taille,esp){
+  g.save(); g.font='400 '+taille+'px "JetBrains Mono",monospace';
+  esp=esp||taille*0.22; var L=0;
+  for(var i=0;i<txt.length;i++) L+=g.measureText(txt[i]).width+esp;
+  g.restore(); return L-esp;
+}
+function serif(g,txt,x,y,taille,alpha,ital){
+  g.save(); g.font=(ital?'italic ':'')+'400 '+taille+'px "Playfair Display",Georgia,serif';
+  g.fillStyle='rgba(255,255,255,'+alpha+')'; g.textAlign='center'; g.textBaseline='middle';
+  g.fillText(txt,x,y); g.restore();
+}
+function sans(g,txt,x,y,taille,alpha,poids,align){
+  g.save(); g.font=(poids||200)+' '+taille+'px Inter,sans-serif';
+  g.fillStyle='rgba(255,255,255,'+alpha+')'; g.textAlign=align||'center'; g.textBaseline='middle';
+  g.fillText(txt,x,y); g.restore();
+}
+
+/* ---------- la matiere : des meches ---------- */
+function meches(g,W,H,t,o){
+  o=o||{}; var n=o.n||26, amp=o.amp||1, chaud=o.chaud===undefined?1:o.chaud;
+  var vit=o.vit||1, ep=o.ep||1;
+  g.save(); g.lineCap='round';
+  for(var i=0;i<n;i++){
+    var s=hash(i*3.7), s2=hash(i*8.1);
+    var x0=(i+0.5)/n*W + (s-0.5)*W/n*0.8;
+    var lar=(0.6+s2*1.7)*ep*(W/n)*0.34;
+    var ph=s*6.28+t*0.22*vit;
+    g.beginPath();
+    for(var y=-6;y<=H+6;y+=7){
+      var k=y/H;
+      var x=x0 + Math.sin(ph+k*3.1+s2*2)*W*0.035*amp + Math.sin(ph*0.6+k*7.2)*W*0.012*amp;
+      if(y<0) g.moveTo(x,y); else g.lineTo(x,y);
+    }
+    var lum=0.06+0.34*Math.pow(hash(i*13.3),1.7);
+    var gr=g.createLinearGradient(0,0,0,H);
+    var c1='rgba('+Math.round(lerp(190,235,chaud))+','+Math.round(lerp(190,214,chaud))+','+Math.round(lerp(198,176,chaud))+',';
+    gr.addColorStop(0,c1+(lum*0.35).toFixed(3)+')');
+    gr.addColorStop(0.42,c1+lum.toFixed(3)+')');
+    gr.addColorStop(1,c1+(lum*0.2).toFixed(3)+')');
+    g.strokeStyle=gr; g.lineWidth=lar; g.stroke();
+  }
+  g.restore();
+}
+/* le reflet qui descend la longueur */
+function reflet(g,W,H,y,ep,force){
+  var gr=g.createLinearGradient(0,y-ep,0,y+ep);
+  gr.addColorStop(0,'rgba(255,243,218,0)');
+  gr.addColorStop(.46,'rgba(255,243,218,'+(0.16*force)+')');
+  gr.addColorStop(.5,'rgba(255,255,255,'+(0.52*force)+')');
+  gr.addColorStop(.56,'rgba(232,210,168,'+(0.14*force)+')');
+  gr.addColorStop(1,'rgba(232,210,168,0)');
+  g.fillStyle=gr; g.fillRect(0,y-ep,W,ep*2);
+}
+/* silhouette de tete, en creux */
+function tete(g,W,H,cx,cy,R,rot){
+  g.beginPath();
+  for(var a=0;a<=6.30;a+=0.09){
+    var rr=R*(1.26+0.13*Math.sin(a*3+rot*2)-0.28*Math.max(0,Math.cos(a)));
+    var x=cx+Math.sin(a)*rr*(1-Math.abs(rot)*0.2)+rot*R*0.42;
+    var y=cy-Math.cos(a)*rr;
+    if(a===0) g.moveTo(x,y); else g.lineTo(x,y);
+  }
+  g.closePath();
+}
+
+/* =========================================================================
+   LES QUATRE MOMENTS, en briques reutilisables
+   ========================================================================= */
+
+/* --- 1. LES QUESTIONS : les carres --- */
+var QUESTIONS = [
+  { n:'01', q:'Ce qui vous gêne le plus', o:['SECS','GRAS VITE','ILS TOMBENT','PELLICULES','ILS CASSENT','AUCUNE'], sel:0 },
+  { n:'02', q:'Vos cheveux sont',        o:['NATURELS','COLORÉS OU DÉCOLORÉS'], sel:0 },
+  { n:'03', q:'Les longueurs ou les pointes ?', o:['LES LONGUEURS','LES POINTES'], sel:1 }
+];
+function momentQuestions(g,W,H,t,style){
+  /* boite de composition fixe : 760 x 820. On la fait tenir en entier, sinon
+     les lignes se chevauchent des que la vignette est plus basse que large. */
+  var ech=Math.min(W/790,H/840);
+  g.save(); g.translate(W/2,H/2); g.scale(ech,ech); g.translate(-380,-410);
+  var apparu=Math.min(3, Math.floor(t*0.62)%5);
+  serif(g,'Ce que la caméra',380,54,40,0.95,true);
+  serif(g,'ne peut pas voir.',380,104,40,0.95,true);
+  mono(g,'DEUX QUESTIONS, UNE DE SUITE',380-monoL(g,'DEUX QUESTIONS, UNE DE SUITE',9.5)/2,150,9.5,0.3);
+  var y=226;
+  for(var i=0;i<QUESTIONS.length;i++){
+    var Q=QUESTIONS[i];
+    var vis=clamp((t*0.62%5)-i*0.55,0,1);
+    if(i===2 && (t*0.62%5)<1.5) vis=0;
+    if(vis<=0.02){ y+=132; continue; }
+    g.save(); g.globalAlpha=ease(vis);
+    mono(g,Q.n,380-monoL(g,Q.n,9.5)/2,y,9.5,0.45);
+    sans(g,Q.q,380,y+30,19,0.92,200);
+    /* les carres */
+    var pad=17, ecart=8, hh=36, taille=10.5;
+    var lignes=[[]],lg=0;
+    for(var j=0;j<Q.o.length;j++){
+      var lw=monoL(g,Q.o[j],taille,taille*0.18)+pad*2;
+      if(lg+lw+ecart>660 && lignes[lignes.length-1].length){ lignes.push([]); lg=0; }
+      lignes[lignes.length-1].push({txt:Q.o[j],w:lw,i:j}); lg+=lw+ecart;
+    }
+    var yy=y+62;
+    for(var L=0;L<lignes.length;L++){
+      var tot=0; for(var k=0;k<lignes[L].length;k++) tot+=lignes[L][k].w+ecart; tot-=ecart;
+      var xx=380-tot/2;
+      for(var k2=0;k2<lignes[L].length;k2++){
+        var c=lignes[L][k2], on=(c.i===Q.sel);
+        g.beginPath(); g.rect(xx,yy-hh/2,c.w,hh);
+        g.fillStyle=on?'rgba(232,210,168,.12)':'rgba(255,255,255,.035)'; g.fill();
+        if(on){ g.shadowColor='rgba(232,210,168,.55)'; g.shadowBlur=22; }
+        g.strokeStyle=on?KER:'rgba(232,210,168,.22)'; g.lineWidth=1; g.stroke();
+        g.shadowBlur=0;
+        mono(g,c.txt,xx+pad,yy,taille,on?1:0.6,taille*0.18);
+        xx+=c.w+ecart;
+      }
+      yy+=hh+ecart;
+    }
+    g.restore();
+    y+=62+ (lignes.length*(hh+ecart)) + 34;
+  }
+  g.restore();
+}
+
+/* --- 4. LES RESULTATS : quatre mesures, quatre gestes --- */
+var MESURES=[
+  ['LA BOUCLE','62','/100','mesuré sur vos images'],
+  ['LA COULEUR','FONCÉ','','L*a*b* sur la masse'],
+  ['LA PRISE','78','/100','qualité des images'],
+  ['LA ROUTINE','4','gestes','dans cet ordre']
+];
+var PRODUITS=[
+  ['I','LAVAGE','Shampooing doux',null],
+  ['II','SOIN','Après-shampooing',null],
+  ['III','TRAITEMENT','Masque hebdomadaire',null],
+  ['IV','SANS RINÇAGE','Lait de longueurs',null]
+];
+/* On va chercher quatre vraies fiches du catalogue cheveux, avec leur
+   detourage : une propale de resultats qui montre des flacons inventes ne
+   prouve rien. Si le catalogue ne repond pas, on garde les silhouettes. */
+(function(){
+  var ETAPES=[1,2,4,3];
+  fetch('/scan/catalogue-cheveux/all.json').then(function(r){ return r.json(); }).then(function(j){
+    var tout=j.products||[];
+    for(var e=0;e<4;e++){
+      /* image_fond = le detourage a echoue et le fichier garde son fond : sur
+         une plaque sombre ca fait une vignette blanche au milieu des autres. */
+      var lot=tout.filter(function(x){ return x.etape===ETAPES[e] && x.cutout_url && !x.image_fond; });
+      if(!lot.length) continue;
+      var p=lot[Math.floor(hash(e*17.3+3)*lot.length)];
+      PRODUITS[e][2]=p.name;
+      PRODUITS[e][4]=p.brand_name||'';
+      var im=new Image();
+      im.onload=(function(k,img){ return function(){ PRODUITS[k][3]=img; }; })(e,im);
+      im.src=String(p.cutout_url).replace(/^public\//,'/');
+    }
+  }).catch(function(){});
+})();
+function momentResultats(g,W,H,t,style){
+  var m=W<620?1:0;
+  var pad=W*0.06, av=clamp((t%6)/1.1,0,1);
+  mono(g,'LECTURE TERMINÉE',pad,H*0.10,9.5,0.4);
+  g.save(); g.font='400 '+(W*0.045)+'px "Playfair Display",Georgia,serif';
+  g.fillStyle='rgba(255,255,255,.96)'; g.textBaseline='middle';
+  g.fillText(style===2?'Ce que la coupe a montré':'Ce que la fibre a renvoyé',pad,H*0.175);
+  g.restore();
+  /* quatre mesures en ligne */
+  var cols=m?2:4, cw=(W-pad*2)/cols, y0=H*(m?0.30:0.33);
+  for(var i=0;i<4;i++){
+    var a=ease(clamp((av-0.1-i*0.09)*4,0,1));
+    if(a<=0.01) continue;
+    var cx=pad+(i%cols)*cw, cy=y0+Math.floor(i/cols)*H*0.15;
+    g.save(); g.globalAlpha=a;
+    mono(g,MESURES[i][0],cx,cy,8.5,0.5);
+    g.font='200 '+(W*(m?0.075:0.055))+'px Inter,sans-serif';
+    g.fillStyle='rgba(255,255,255,.97)'; g.textBaseline='alphabetic'; g.textAlign='left';
+    g.shadowColor='rgba(255,243,218,.35)'; g.shadowBlur=26;
+    g.fillText(MESURES[i][1],cx,cy+W*(m?0.075:0.055)*0.82); g.shadowBlur=0;
+    var lw=g.measureText(MESURES[i][1]).width;
+    if(MESURES[i][2]){ g.font='300 '+(W*0.016)+'px Inter,sans-serif'; g.fillStyle='rgba(255,255,255,.45)';
+      g.fillText(MESURES[i][2],cx+lw+7,cy+W*(m?0.075:0.055)*0.8); }
+    mono(g,MESURES[i][3],cx,cy+W*(m?0.10:0.075)+12,8,0.3);
+    g.strokeStyle='rgba(255,255,255,.12)'; g.beginPath();
+    g.moveTo(cx,cy+W*(m?0.11:0.085)+22); g.lineTo(cx+cw-24,cy+W*(m?0.11:0.085)+22); g.stroke();
+    g.restore();
+  }
+  /* quatre gestes */
+  var yP=H*(m?0.62:0.58);
+  mono(g,'QUATRE GESTES, DANS CET ORDRE',pad,yP,9,0.35);
+  var pw=(W-pad*2-18*3)/4, ph=H*(m?0.2:0.28);
+  for(var j=0;j<4;j++){
+    var a2=ease(clamp((av-0.45-j*0.08)*4,0,1)); if(a2<=0.01) continue;
+    var x=pad+j*(pw+18), yy=yP+22;
+    g.save(); g.globalAlpha=a2;
+    /* La plaque de la serie A : un fond de studio eclaire, pas un rectangle
+       gris. C'est ce qui donnait sa tenue a la planche « Fibre de verre ». */
+    var gr;
+    if(style===0){
+      gr=g.createRadialGradient(x+pw*0.5,yy+ph*0.34,ph*0.04,x+pw*0.5,yy+ph*0.5,ph*0.78);
+      gr.addColorStop(0,'rgba(196,214,236,.30)');
+      gr.addColorStop(.55,'rgba(70,92,124,.20)');
+      gr.addColorStop(1,'rgba(14,20,32,.55)');
+    } else if(style===1){
+      gr=g.createLinearGradient(x,yy,x,yy+ph);
+      gr.addColorStop(0,'rgba(255,243,218,.16)'); gr.addColorStop(1,'rgba(60,50,38,.25)');
+    } else {
+      gr=g.createLinearGradient(x,yy,x,yy+ph);
+      gr.addColorStop(0,'rgba(150,200,255,.10)'); gr.addColorStop(1,'rgba(10,18,32,.5)');
+    }
+    g.fillStyle=gr; g.fillRect(x,yy,pw,ph);
+    /* le sol : une ombre portee sous le flacon */
+    var so=g.createLinearGradient(x,yy+ph*0.74,x,yy+ph*0.9);
+    so.addColorStop(0,'rgba(0,0,0,0)'); so.addColorStop(1,'rgba(0,0,0,.38)');
+    g.fillStyle=so; g.fillRect(x,yy+ph*0.74,pw,ph*0.16);
+    g.strokeStyle='rgba(255,255,255,.1)'; g.strokeRect(x+.5,yy+.5,pw-1,ph-1);
+    /* le produit : le vrai detourage quand il est charge, sinon une silhouette */
+    var img=PRODUITS[j][3];
+    if(img && img.naturalWidth){
+      var dispo=Math.min(pw*0.7,ph*0.56);
+      g.drawImage(img,x+pw/2-dispo/2,yy+ph*0.13,dispo,dispo);
+    } else {
+      var bw=pw*0.26, bh=ph*0.52, bx=x+pw/2-bw/2, by=yy+ph*0.22;
+      var gb=g.createLinearGradient(bx,by,bx+bw,by);
+      gb.addColorStop(0,'rgba(255,243,218,.10)'); gb.addColorStop(.45,'rgba(255,243,218,.42)');
+      gb.addColorStop(1,'rgba(232,210,168,.10)');
+      g.fillStyle=gb; g.fillRect(bx,by,bw,bh);
+      g.fillRect(bx+bw*0.34,by-bh*0.13,bw*0.32,bh*0.13);
+    }
+    mono(g,PRODUITS[j][0],x+12,yy+16,8.5,0.55);
+    mono(g,PRODUITS[j][1],x+12,yy+ph-44,8,0.4);
+    if(PRODUITS[j][4]) mono(g,String(PRODUITS[j][4]).toUpperCase(),x+12,yy+ph-30,7.5,0.45);
+    g.save(); g.font='300 '+Math.max(10,W*0.0125)+'px Inter,sans-serif';
+    g.fillStyle='rgba(255,255,255,.82)'; g.textAlign='left'; g.textBaseline='middle';
+    var nom=String(PRODUITS[j][2]||''), max=pw-24;
+    while(nom.length>4 && g.measureText(nom).width>max) nom=nom.slice(0,-1);
+    if(nom!==PRODUITS[j][2]) nom=nom.replace(/\s+\S*$/,'')+'…';
+    g.fillText(nom,x+12,yy+ph-14); g.restore();
+    g.restore();
+  }
+}
+
+/* --- 2. LE SCAN, trois ecritures --- */
+function cadrePortrait(g,W,H){
+  var pw=Math.min(W*0.52,H*0.72), ph=pw*1.28;
+  return { x:W/2-pw/2, y:H/2-ph/2, w:pw, h:ph };
+}
+function coins(g,r,c,L){
+  g.strokeStyle=c||'rgba(255,243,218,.6)'; g.lineWidth=1.2; L=L||18;
+  var p=[[r.x,r.y,1,1],[r.x+r.w,r.y,-1,1],[r.x,r.y+r.h,1,-1],[r.x+r.w,r.y+r.h,-1,-1]];
+  for(var i=0;i<4;i++){ var q=p[i]; g.beginPath();
+    g.moveTo(q[0]+q[2]*L,q[1]); g.lineTo(q[0],q[1]); g.lineTo(q[0],q[1]+q[3]*L); g.stroke(); }
+}
+function momentScan(g,W,H,t,style){
+  if(style===0) scanDescente(g,W,H,t);
+  else if(style===1) scanSoie(g,W,H,t);
+  else scanCoupe(g,W,H,t);
+}
+
+/* F1 — LA DESCENTE : la camera, un voile, et un faisceau qui ne traverse que
+   les cheveux. Champagne, portrait vertical, la consigne posee sur l'image. */
+function scanDescente(g,W,H,t){
+  var r=cadrePortrait(g,W,H);
+  var cx=r.x+r.w/2, cy=r.y+r.h*0.5, R=r.w*0.34;
+  g.save(); g.beginPath(); g.rect(r.x,r.y,r.w,r.h); g.clip();
+  g.fillStyle='#080910'; g.fillRect(r.x,r.y,r.w,r.h);
+  g.save(); g.translate(r.x,r.y); meches(g,r.w,r.h,t,{n:24,amp:0.65,ep:1.05,chaud:1}); g.restore();
+  g.save(); g.beginPath(); g.rect(r.x,r.y,r.w,r.h); tete(g,r.w,r.h,cx,cy,R,0); g.clip('evenodd');
+  g.fillStyle='rgba(4,5,10,.70)'; g.fillRect(r.x,r.y,r.w,r.h); g.restore();
+  g.save(); tete(g,r.w,r.h,cx,cy,R,0); g.clip();
+  reflet(g,W,H,cy-R*1.3+((t*0.42)%1)*R*2.7,R*0.12,1);
+  for(var i=0;i<40;i++){
+    var s=hash(i*4.7), a=hash(i*9.1)*6.29, rr=R*(0.35+0.85*s);
+    var px=cx+Math.sin(a)*rr*0.95, py=cy-Math.cos(a)*rr*1.05;
+    var pul=0.35+0.4*Math.abs(Math.sin(t*1.2+i));
+    g.fillStyle='rgba(255,246,228,'+pul.toFixed(3)+')'; g.fillRect(px,py,1.5,1.5);
+  }
+  g.restore();
+  g.save(); tete(g,r.w,r.h,cx,cy,R,0);
+  g.strokeStyle='rgba(255,246,228,.85)'; g.lineWidth=1.1;
+  g.setLineDash([2,4]); g.lineDashOffset=-t*22; g.stroke(); g.restore();
+  g.save(); g.beginPath(); g.ellipse(cx,cy+R*0.24,R*0.5,R*0.68,0,0,6.29);
+  g.strokeStyle='rgba(255,255,255,.09)'; g.setLineDash([3,5]); g.stroke(); g.restore();
+  g.restore();
+  coins(g,r,'rgba(255,243,218,.6)',Math.min(22,r.w*0.07));
+  consigneSur(g,r,t,'rgba(6,7,11,.72)','rgba(255,255,255,.14)');
+  jauges(g,r,W,'rgba(255,243,218,1)');
+}
+
+/* F2 — LA SOIE : pas de cadre photo. La chevelure EST l'ecran, en rubans qui
+   ondulent ; la lecture passe comme une lumiere sur l'etoffe. */
+function scanSoie(g,W,H,t){
+  g.save();
+  var gr=g.createLinearGradient(0,0,0,H);
+  gr.addColorStop(0,'#0b0a0c'); gr.addColorStop(1,'#07070a');
+  g.fillStyle=gr; g.fillRect(0,0,W,H);
+  for(var i=0;i<9;i++){
+    var ph=t*0.42+i*0.78, ep=H*(0.05+0.055*hash(i*3.1));
+    g.beginPath();
+    for(var x=-10;x<=W+10;x+=9){
+      var y=H*(0.18+i*0.082)+Math.sin(x*0.0052+ph)*H*0.085+Math.sin(x*0.0131+ph*1.7)*H*0.028;
+      if(x<0) g.moveTo(x,y); else g.lineTo(x,y);
+    }
+    for(var x2=W+10;x2>=-10;x2-=9){
+      var y2=H*(0.18+i*0.082)+Math.sin(x2*0.0052+ph)*H*0.085+Math.sin(x2*0.0131+ph*1.7)*H*0.028+ep;
+      g.lineTo(x2,y2);
+    }
+    g.closePath();
+    var lum=0.05+0.20*Math.pow(hash(i*7.7),1.3);
+    var gs=g.createLinearGradient(0,H*(0.18+i*0.082),0,H*(0.18+i*0.082)+ep);
+    gs.addColorStop(0,'rgba(255,243,218,'+(lum*1.5).toFixed(3)+')');
+    gs.addColorStop(.5,'rgba(232,210,168,'+(lum*0.5).toFixed(3)+')');
+    gs.addColorStop(1,'rgba(120,102,80,'+(lum*0.25).toFixed(3)+')');
+    g.fillStyle=gs; g.fill();
+  }
+  /* la lecture : une bande de lumiere qui balaye l etoffe */
+  var bx=((t*0.18)%1)*W*1.3-W*0.15;
+  var gb=g.createLinearGradient(bx-W*0.1,0,bx+W*0.1,0);
+  gb.addColorStop(0,'rgba(255,243,218,0)');
+  gb.addColorStop(.5,'rgba(255,255,255,.16)');
+  gb.addColorStop(1,'rgba(255,243,218,0)');
+  g.fillStyle=gb; g.fillRect(bx-W*0.1,0,W*0.2,H);
+  /* les points de lecture, poses sur l etoffe */
+  for(var k=0;k<26;k++){
+    var s2=hash(k*5.3), px=s2*W, py=H*(0.2+0.62*hash(k*2.9));
+    var d=Math.abs(px-bx)/(W*0.12);
+    if(d>1) continue;
+    var al=(1-d)*0.9;
+    g.save(); g.shadowColor='rgba(255,243,218,.9)'; g.shadowBlur=14*al;
+    g.fillStyle='rgba(255,255,255,'+al.toFixed(3)+')';
+    g.beginPath(); g.arc(px,py,1.8,0,6.29); g.fill(); g.restore();
+  }
+  g.restore();
+  var poses=['FACE À LA CAMÉRA','TOURNEZ À GAUCHE','TOURNEZ À DROITE','LE DESSUS','MONTREZ LA RAIE'];
+  var pi=Math.floor(t*0.4)%poses.length;
+  serif(g,poses[pi],W/2,H*0.5,Math.min(W*0.055,40),0.95,true);
+  mono(g,'POSE '+(pi+1)+' SUR 5',W/2-monoL(g,'POSE '+(pi+1)+' SUR 5',9)/2,H*0.5-Math.min(W*0.055,40)*0.85,9,0.45);
+  mono(g,'LA LECTURE PASSE SUR L’ÉTOFFE',22,H-24,9,0.4);
+}
+
+/* F3 — LA COUPE : froid, instrumental. Une grille, des tranches numerotees,
+   des valeurs qui s affichent a droite comme sur un appareil. */
+function scanCoupe(g,W,H,t){
+  g.fillStyle='#04060d'; g.fillRect(0,0,W,H);
+  g.strokeStyle='rgba(120,175,235,.07)'; g.lineWidth=1;
+  for(var x=0;x<W;x+=Math.max(26,W/34)){ g.beginPath(); g.moveTo(x,0); g.lineTo(x,H); g.stroke(); }
+  for(var y=0;y<H;y+=Math.max(26,W/34)){ g.beginPath(); g.moveTo(0,y); g.lineTo(W,y); g.stroke(); }
+  var cx=W*0.38, cy=H*0.52, R=Math.min(W*0.2,H*0.3);
+  g.save(); g.translate(cx,cy);
+  g.save(); g.globalAlpha=.5; g.translate(-cx,-cy);
+  g.save(); tete(g,W,H,cx,cy,R,0); g.clip(); g.translate(cx-R*1.6,cy-R*1.6);
+  meches(g,R*3.2,R*3.2,t*0.6,{n:14,amp:0.4,chaud:0.15});
+  g.restore(); g.restore();
+  g.restore();
+  /* les tranches */
+  var NT=11;
+  for(var k=0;k<NT;k++){
+    var ty=cy-R*1.3+(k/(NT-1))*R*2.6;
+    var act=Math.floor((t*0.9)%NT)===k;
+    g.save(); tete(g,W,H,cx,cy,R,0); g.clip();
+    g.strokeStyle=act?'rgba(190,230,255,.95)':'rgba(140,195,245,.20)';
+    g.lineWidth=act?1.8:1;
+    if(act){ g.shadowColor='rgba(140,200,255,.8)'; g.shadowBlur=14; }
+    g.beginPath(); g.moveTo(0,ty); g.lineTo(W,ty); g.stroke(); g.restore();
+    if(act){
+      g.strokeStyle='rgba(140,195,245,.35)'; g.lineWidth=1;
+      g.beginPath(); g.moveTo(cx+R*1.15,ty); g.lineTo(W*0.63,ty); g.stroke();
+      var lbl='TRANCHE '+(k<9?'0':'')+(k+1);
+      if(W*0.64+monoL(g,lbl,8.5)<W*0.69) mono(g,lbl,W*0.64,ty,8.5,0.8);
+    }
+  }
+  g.save(); tete(g,W,H,cx,cy,R,0);
+  g.strokeStyle='rgba(170,215,255,.75)'; g.lineWidth=1.2; g.stroke(); g.restore();
+  /* colonne d appareil */
+  var qx=W*0.70, qs=[['MASSE RETENUE','99%'],['NETTETÉ','100%'],['LUMIÈRE','89%'],['DANS LE CADRE','84%']];
+  var tv=Math.max(15,Math.min(W*0.026,26));   /* taille de la valeur */
+  var pasQ=tv+24;                              /* jamais moins que la valeur + le libelle */
+  var totQ=4*pasQ, qy0=H/2-totQ/2+10;
+  mono(g,'LECTURE',qx,qy0-26,9,0.45);
+  g.strokeStyle='rgba(140,195,245,.2)'; g.beginPath();
+  g.moveTo(qx,qy0-16); g.lineTo(Math.min(W-20,qx+150),qy0-16); g.stroke();
+  for(var q=0;q<4;q++){
+    var qy=qy0+q*pasQ;
+    mono(g,qs[q][0],qx,qy,8,0.4);
+    g.save(); g.font='200 '+tv+'px Inter,sans-serif';
+    g.fillStyle='rgba(210,235,255,.95)'; g.textAlign='left'; g.textBaseline='middle';
+    g.fillText(qs[q][1],qx,qy+tv*0.82); g.restore();
+  }
+  var poses=['FACE','GAUCHE','DROITE','DESSUS','RAIE'];
+  var pi2=Math.floor(t*0.4)%5;
+  mono(g,'POSE '+(pi2+1)+'/5 · '+poses[pi2],22,H-24,9,0.55);
+}
+
+/* briques partagees par les scans */
+function consigneSur(g,r,t,fond,bord){
+  var poses=['FACE À LA CAMÉRA','TOURNEZ À GAUCHE','TOURNEZ À DROITE','LE DESSUS','MONTREZ LA RAIE'];
+  var desc=['Toute la masse dans le cadre','On lit les longueurs et le côté','L’autre côté, pour comparer','Penchez la tête vers l’objectif','De près, la raie au centre'];
+  var pi=Math.floor(t*0.4)%poses.length;
+  var bw=Math.min(r.w*0.9,330), bx=r.x+r.w/2-bw/2, by=r.y+r.h-70;
+  g.fillStyle=fond; g.fillRect(bx,by,bw,54);
+  g.strokeStyle=bord; g.strokeRect(bx+.5,by+.5,bw-1,53);
+  mono(g,(pi+1)+' / 5',bx+14,by+15,8,0.5);
+  sans(g,poses[pi],bx+14,by+31,13.5,0.95,300,'left');
+  sans(g,desc[pi],bx+14,by+45,10.5,0.5,300,'left');
+}
+function jauges(g,r,W,c){
+  if(W<=620) return;
+  var qx=r.x+r.w+30, qs=[['CHEVELURE TROUVÉE',0.99],['NETTETÉ',1],['LUMIÈRE',0.89],['CHEVEUX DANS LE CADRE',0.84]];
+  for(var q=0;q<4;q++){
+    var qy=r.y+34+q*46;
+    mono(g,qs[q][0],qx,qy,8.5,0.45);
+    var bwq=Math.min(180,W-qx-30); if(bwq<40) return;
+    g.fillStyle='rgba(255,255,255,.1)'; g.fillRect(qx,qy+13,bwq,1);
+    g.fillStyle=c; g.fillRect(qx,qy+13,bwq*qs[q][1],1);
+    mono(g,Math.round(qs[q][1]*100)+'%',qx+bwq+10,qy,8.5,0.7);
+  }
+}
+
+/* --- 3. LE CHARGEMENT, trois ecritures --- */
+var RELEVES=[['La boucle','62 / 100'],['La couleur','Foncé'],['La prise','78 / 100'],['La routine','4 · 4']];
+function echelleTxt(k){
+  var m=0.03*Math.pow(1e-6/0.03,clamp(k,0,1));
+  if(m>=0.01) return '≈ '+(m*100).toFixed(1)+' cm';
+  if(m>=1e-3) return '≈ '+(m*1000).toFixed(1)+' mm';
+  return '≈ '+Math.round(m*1e6)+' µm';
+}
+function momentChargement(g,W,H,t,style){
+  if(style===1){ chargeMetierSoie(g,W,H,t); return; }
+  if(style===2){ chargeCoupe(g,W,H,t); return; }
+  var k=(t%8.6)/8.6;
+  var sw=Math.min(W*0.82,H*1.2), sh=sw*0.56;
+  var sx=W/2-sw/2, sy=H*0.13;
+  g.save(); g.beginPath(); g.rect(sx,sy,sw,sh); g.clip();
+  g.fillStyle='#06070d'; g.fillRect(sx,sy,sw,sh);
+  g.save(); g.translate(sx,sy);
+  if(style===0){
+    var zoom=1+k*9;
+    meches(g,sw,sh,t*1.2,{n:Math.max(4,Math.round(22/Math.sqrt(zoom))),amp:0.5/zoom,ep:zoom*0.9,chaud:1});
+    /* les ecailles apparaissent quand on est assez pres */
+    if(k>0.45){
+      var a=clamp((k-0.45)*4,0,1);
+      g.globalAlpha=a*0.5; g.strokeStyle='rgba(255,243,218,.5)'; g.lineWidth=1;
+      for(var y=0;y<sh;y+=Math.max(7,26-k*18)){ g.beginPath();
+        for(var x=0;x<=sw;x+=10) g.lineTo(x,y+Math.sin(x*0.05+t)*2.5); g.stroke(); }
+      g.globalAlpha=1;
+    }
+  } else if(style===1){
+    for(var i=0;i<5;i++){
+      var ph=t*0.6+i*1.1;
+      g.beginPath();
+      for(var x2=0;x2<=sw;x2+=8){
+        var y2=sh*0.5+Math.sin(x2*0.006+ph)*sh*0.3+Math.sin(x2*0.017+ph*1.6)*sh*0.09;
+        if(x2===0) g.moveTo(x2,y2); else g.lineTo(x2,y2);
+      }
+      g.lineTo(sw,sh); g.lineTo(0,sh); g.closePath();
+      g.fillStyle='rgba(255,243,218,'+(0.035+0.03*i).toFixed(3)+')'; g.fill();
+    }
+    reflet(g,sw,sh,sh*(0.2+0.6*((t*0.25)%1)),sh*0.1,0.9);
+  } else {
+    var R2=Math.min(sw,sh)*0.34*(0.55+k*0.8), cx2=sw/2, cy2=sh/2;
+    g.save(); g.translate(cx2,cy2);
+    for(var c2=0;c2<5;c2++){
+      var rr=R2*(1-c2*0.17);
+      g.beginPath(); g.ellipse(0,0,rr,rr*0.94,0,0,6.29);
+      g.strokeStyle='rgba(170,215,255,'+(0.5-c2*0.08).toFixed(3)+')'; g.lineWidth=1.1; g.stroke();
+      g.fillStyle='rgba(120,180,255,'+(0.03+c2*0.012).toFixed(3)+')'; g.fill();
+    }
+    for(var s3=0;s3<26;s3++){
+      var aa=s3/26*6.29+t*0.1;
+      g.beginPath(); g.moveTo(Math.cos(aa)*R2*0.84,Math.sin(aa)*R2*0.8);
+      g.lineTo(Math.cos(aa)*R2,Math.sin(aa)*R2*0.94);
+      g.strokeStyle='rgba(200,230,255,.28)'; g.stroke();
+    }
+    g.restore();
+  }
+  g.restore();
+  g.restore();
+  g.strokeStyle='rgba(255,255,255,.12)'; g.strokeRect(sx+.5,sy+.5,sw-1,sh-1);
+  mono(g,style===0?echelleTxt(k):(style===1?'LUMIÈRE, LE LONG DE LA LONGUEUR':'COUPE TRANSVERSALE'),sx+18,sy+sh-22,9,0.55);
+  mono(g,'ILLUSTRATION PENDANT LA LECTURE',sx+sw-monoL(g,'ILLUSTRATION PENDANT LA LECTURE',8)-18,sy+sh-22,8,0.28);
+  /* les releves : le libelle s'allume, la valeur n'arrive qu'a la fin */
+  var ry=sy+sh+34, rw=Math.min(sw,520), rx=W/2-rw/2;
+  for(var i2=0;i2<4;i2++){
+    var allume=k>(i2+1)*0.2, fini=k>0.93;
+    g.save(); g.globalAlpha=allume?(fini?1:0.55):0.18;
+    sans(g,RELEVES[i2][0],rx,ry+i2*26,14,0.95,200,'left');
+    var val=fini?RELEVES[i2][1]:'—';
+    g.save(); g.font='400 13px "JetBrains Mono",monospace';
+    g.fillStyle=fini?KERH:'rgba(255,255,255,.35)'; g.textAlign='right'; g.textBaseline='middle';
+    if(fini){ g.shadowColor='rgba(255,243,218,.5)'; g.shadowBlur=16; }
+    g.fillText(val,rx+rw,ry+i2*26); g.restore();
+    g.strokeStyle='rgba(255,255,255,.07)'; g.beginPath();
+    g.moveTo(rx+130,ry+i2*26+9); g.lineTo(rx+rw-70,ry+i2*26+9); g.stroke();
+    g.restore();
+  }
+  var bx2=W/2-110;
+  g.fillStyle='rgba(255,255,255,.12)'; g.fillRect(bx2,ry+4*26+22,220,1);
+  g.fillStyle=KERH; g.fillRect(bx2,ry+4*26+22,220*k,1);
+}
+
+/* le chargement de F2 : l etoffe, et les mots qui se posent dessus */
+function chargeMetierSoie(g,W,H,t){
+  var k=(t%8.6)/8.6;
+  var gr=g.createLinearGradient(0,0,0,H);
+  gr.addColorStop(0,'#0b0a0c'); gr.addColorStop(1,'#060609');
+  g.fillStyle=gr; g.fillRect(0,0,W,H);
+  for(var i=0;i<12;i++){
+    var ph=t*0.34+i*0.62, ep=H*(0.045+0.05*hash(i*2.3));
+    var y0=H*(0.06+i*0.075);
+    g.beginPath();
+    for(var x=-10;x<=W+10;x+=8){
+      var y=y0+Math.sin(x*0.0046+ph)*H*0.07+Math.sin(x*0.0118+ph*1.5)*H*0.022;
+      if(x<0) g.moveTo(x,y); else g.lineTo(x,y);
+    }
+    for(var x2=W+10;x2>=-10;x2-=8){
+      var y2=y0+Math.sin(x2*0.0046+ph)*H*0.07+Math.sin(x2*0.0118+ph*1.5)*H*0.022+ep;
+      g.lineTo(x2,y2);
+    }
+    g.closePath();
+    var lum=0.04+0.18*Math.pow(hash(i*6.1),1.2);
+    var gs=g.createLinearGradient(0,y0,0,y0+ep);
+    gs.addColorStop(0,'rgba(255,243,218,'+(lum*1.6).toFixed(3)+')');
+    gs.addColorStop(1,'rgba(110,94,74,'+(lum*0.3).toFixed(3)+')');
+    g.fillStyle=gs; g.fill();
+  }
+  var bx=((t*0.22)%1)*W*1.3-W*0.15;
+  var gb=g.createLinearGradient(bx-W*0.09,0,bx+W*0.09,0);
+  gb.addColorStop(0,'rgba(255,243,218,0)'); gb.addColorStop(.5,'rgba(255,255,255,.2)');
+  gb.addColorStop(1,'rgba(255,243,218,0)');
+  g.fillStyle=gb; g.fillRect(bx-W*0.09,0,W*0.18,H);
+  var fini=k>0.93;
+  var rw=Math.min(W*0.62,520), rx=W/2-rw/2, ry=H*0.34;
+  for(var r=0;r<4;r++){
+    var on=k>(r+1)*0.2;
+    g.save(); g.globalAlpha=on?(fini?1:0.6):0.16;
+    g.fillStyle='rgba(6,7,11,.5)'; g.fillRect(rx-14,ry+r*34-15,rw+28,30);
+    sans(g,RELEVES[r][0],rx,ry+r*34,15,0.95,200,'left');
+    g.save(); g.font='400 13px "JetBrains Mono",monospace';
+    g.fillStyle=fini?KERH:'rgba(255,255,255,.32)'; g.textAlign='right'; g.textBaseline='middle';
+    if(fini){ g.shadowColor='rgba(255,243,218,.6)'; g.shadowBlur=18; }
+    g.fillText(fini?RELEVES[r][1]:'—',rx+rw,ry+r*34); g.restore();
+    g.restore();
+  }
+  mono(g,'LA LUMIÈRE DESCEND LA LONGUEUR',22,H-24,9,0.4);
+  g.fillStyle='rgba(255,255,255,.12)'; g.fillRect(W/2-110,H*0.86,220,1);
+  g.fillStyle=KERH; g.fillRect(W/2-110,H*0.86,220*k,1);
+}
+
+/* =========================================================================
+   B. CINQ SCANS HORS DU COMMUN
+   ========================================================================= */
+function scanFil(g,W,H,t){
+  /* un seul cheveu, isole, mesure au pied a coulisse */
+  g.fillStyle='#05060c'; g.fillRect(0,0,W,H);
+  g.save(); g.globalAlpha=.35; meches(g,W,H,t*0.4,{n:16,amp:0.5,ep:.7}); g.restore();
+  var cx=W/2, ep=Math.max(3,W*0.016)*(1+0.12*Math.sin(t*1.4));
+  var gr=g.createLinearGradient(cx-ep,0,cx+ep,0);
+  gr.addColorStop(0,'rgba(120,100,78,.2)'); gr.addColorStop(.32,'rgba(255,243,218,.85)');
+  gr.addColorStop(.5,'rgba(255,255,255,1)'); gr.addColorStop(.72,'rgba(232,210,168,.55)');
+  gr.addColorStop(1,'rgba(120,100,78,.15)');
+  g.save(); g.beginPath();
+  for(var y=-4;y<=H+4;y+=6){ var x=cx+Math.sin(y*0.012+t*0.5)*W*0.03; if(y<0) g.moveTo(x,y); else g.lineTo(x,y); }
+  g.strokeStyle=gr; g.lineWidth=ep*2; g.lineCap='round'; g.stroke(); g.restore();
+  /* le pied a coulisse */
+  var my=H*0.5+Math.sin(t*0.6)*H*0.18, mx=cx+Math.sin(my*0.012+t*0.5)*W*0.03;
+  g.strokeStyle='rgba(255,243,218,.85)'; g.lineWidth=1;
+  g.beginPath(); g.moveTo(mx-ep-28,my); g.lineTo(mx-ep,my); g.moveTo(mx+ep,my); g.lineTo(mx+ep+28,my); g.stroke();
+  g.beginPath(); g.moveTo(mx-ep,my-9); g.lineTo(mx-ep,my+9); g.moveTo(mx+ep,my-9); g.lineTo(mx+ep,my+9); g.stroke();
+  mono(g,'ÉCART MESURÉ',mx+ep+36,my-9,8.5,0.5);
+  mono(g,'NON PUBLIÉ · PAS DE VÉRITÉ TERRAIN',mx+ep+36,my+7,8,0.28);
+  mono(g,'UN FIL, ISOLÉ',22,H-24,9,0.45);
+}
+function scanMaree(g,W,H,t){
+  g.fillStyle='#05060c'; g.fillRect(0,0,W,H);
+  var cx=W/2, cy=H*0.54, R=Math.min(W,H)*0.3;
+  g.save(); meches(g,W,H,t*0.5,{n:20,amp:0.6,ep:1}); g.restore();
+  g.save(); g.beginPath(); g.rect(0,0,W,H); tete(g,W,H,cx,cy,R,0); g.clip('evenodd');
+  g.fillStyle='rgba(4,5,10,.72)'; g.fillRect(0,0,W,H); g.restore();
+  var niv=cy+R*1.4-((t*0.35)%1)*R*3;
+  g.save(); tete(g,W,H,cx,cy,R,0); g.clip();
+  var gm=g.createLinearGradient(0,niv,0,niv+R*1.6);
+  gm.addColorStop(0,'rgba(255,255,255,.9)'); gm.addColorStop(.06,'rgba(255,243,218,.30)');
+  gm.addColorStop(1,'rgba(232,210,168,.04)');
+  g.fillStyle=gm; g.fillRect(0,niv,W,H-niv);
+  g.restore();
+  g.save(); tete(g,W,H,cx,cy,R,0);
+  g.strokeStyle='rgba(255,246,228,.8)'; g.lineWidth=1.1; g.setLineDash([2,4]); g.lineDashOffset=-t*20; g.stroke(); g.restore();
+  mono(g,'LA MARÉE MONTE SUR LA MASSE',22,H-24,9,0.45);
+}
+function scanVent(g,W,H,t){
+  g.fillStyle='#05060c'; g.fillRect(0,0,W,H);
+  var cx=W/2, cy=H*0.54, R=Math.min(W,H)*0.3;
+  g.save(); g.globalAlpha=.5; meches(g,W,H,t*0.4,{n:18,amp:0.6}); g.restore();
+  g.save(); tete(g,W,H,cx,cy,R,0); g.clip();
+  for(var i=0;i<230;i++){
+    var s=hash(i*2.1), s2=hash(i*5.3);
+    var vie=((t*0.28+s)%1);
+    var a0=(s2-0.5)*2.6;
+    var x=cx+Math.sin(a0)*R*(0.2+1.1*vie)*1.1;
+    var y=cy-Math.cos(a0)*R*(0.2+1.25*vie);
+    var al=Math.sin(vie*3.1416)*0.85;
+    g.fillStyle='rgba(255,246,228,'+al.toFixed(3)+')';
+    g.fillRect(x,y,1.6,1.6);
+  }
+  g.restore();
+  g.save(); tete(g,W,H,cx,cy,R,0); g.strokeStyle='rgba(255,243,218,.35)'; g.stroke(); g.restore();
+  mono(g,'LE FLUX SUIT L’ORIENTATION DES MÈCHES',22,H-24,9,0.45);
+}
+function scanEcho(g,W,H,t){
+  g.fillStyle='#05060c'; g.fillRect(0,0,W,H);
+  var cx=W/2, cy=H*0.54, R=Math.min(W,H)*0.3;
+  g.save(); g.globalAlpha=.42; meches(g,W,H,t*0.35,{n:18,amp:0.5}); g.restore();
+  g.save(); tete(g,W,H,cx,cy,R,0); g.clip();
+  for(var k=0;k<4;k++){
+    var ph=((t*0.42+k*0.25)%1);
+    var rr=ph*R*2.4;
+    g.beginPath(); g.ellipse(cx,cy-R*0.9,rr,rr*0.8,0,0,6.29);
+    g.strokeStyle='rgba(255,246,228,'+((1-ph)*0.55).toFixed(3)+')';
+    g.lineWidth=1+(1-ph)*2.2; g.stroke();
+  }
+  g.restore();
+  g.save(); tete(g,W,H,cx,cy,R,0); g.strokeStyle='rgba(255,243,218,.45)'; g.setLineDash([2,4]); g.stroke(); g.restore();
+  g.fillStyle=KERH; g.beginPath(); g.arc(cx,cy-R*0.9,2.6,0,6.29); g.fill();
+  mono(g,'DEPUIS LE SOMMET, PAR ONDES',22,H-24,9,0.45);
+}
+function scanCourbes(g,W,H,t){
+  g.fillStyle='#05060c'; g.fillRect(0,0,W,H);
+  var cx=W/2, cy=H*0.54, R=Math.min(W,H)*0.3;
+  g.save(); tete(g,W,H,cx,cy,R*1.15,0); g.clip();
+  for(var n=0;n<14;n++){
+    var f=n/14;
+    g.beginPath();
+    for(var a=0;a<=6.30;a+=0.08){
+      var br=R*(1.26+0.13*Math.sin(a*3)-0.28*Math.max(0,Math.cos(a)))*(1-f*0.85);
+      var wob=Math.sin(a*6+n*1.7+t*0.5)*R*0.02*(1-f);
+      var x=cx+Math.sin(a)*(br+wob), y=cy-Math.cos(a)*(br+wob);
+      if(a===0) g.moveTo(x,y); else g.lineTo(x,y);
+    }
+    g.closePath();
+    var lum=0.10+0.42*Math.pow(1-f,1.6)*(0.6+0.4*Math.sin(t*0.9-n*0.5));
+    g.strokeStyle='rgba(255,246,228,'+lum.toFixed(3)+')'; g.lineWidth=1; g.stroke();
+  }
+  g.restore();
+  mono(g,'COURBES DE NIVEAU DE LA MASSE',22,H-24,9,0.45);
+}
+
+/* =========================================================================
+   C. CINQ CHARGEMENTS HORS DU COMMUN
+   ========================================================================= */
+function chargeDescente(g,W,H,t){ g.fillStyle=ENCRE; g.fillRect(0,0,W,H); momentChargement(g,W,H,t,0); }
+function chargeMetier(g,W,H,t){
+  g.fillStyle='#05060c'; g.fillRect(0,0,W,H);
+  var k=(t%8.6)/8.6, n=22, marge=W*0.14;
+  /* la chaine */
+  for(var i=0;i<n;i++){
+    var x=marge+i/(n-1)*(W-marge*2);
+    g.strokeStyle='rgba(255,243,218,.12)'; g.beginPath();
+    g.moveTo(x,H*0.16); g.lineTo(x,H*0.72); g.stroke();
+  }
+  /* la trame qui se tisse, ligne apres ligne */
+  var lignes=Math.floor(k*16);
+  for(var L=0;L<=lignes;L++){
+    var y=H*0.18+L/16*(H*0.52);
+    var av=L<lignes?1:((k*16)%1);
+    g.beginPath();
+    for(var j=0;j<n;j++){
+      var x2=marge+j/(n-1)*(W-marge*2);
+      if(x2>marge+av*(W-marge*2)) break;
+      var yy=y+((j+L)%2?1:-1)*3.2;
+      if(j===0) g.moveTo(x2,yy); else g.lineTo(x2,yy);
+    }
+    g.strokeStyle='rgba(255,246,228,'+(0.22+0.5*(L===lignes?1:0.3)).toFixed(3)+')';
+    g.lineWidth=1.6; g.stroke();
+  }
+  mono(g,'CHAQUE PASSE EST UNE MESURE',marge,H*0.80,9,0.5);
+  var fini=k>0.93;
+  for(var r=0;r<4;r++){
+    g.save(); g.globalAlpha=k>(r+1)*0.2?(fini?1:0.5):0.15;
+    sans(g,RELEVES[r][0],marge,H*0.84+r*20,13,0.9,200,'left');
+    g.save(); g.font='400 12px "JetBrains Mono",monospace';
+    g.fillStyle=fini?KERH:'rgba(255,255,255,.3)'; g.textAlign='right'; g.textBaseline='middle';
+    g.fillText(fini?RELEVES[r][1]:'—',W-marge,H*0.84+r*20); g.restore(); g.restore();
+  }
+}
+function chargeCoupe(g,W,H,t){
+  g.fillStyle='#04060c'; g.fillRect(0,0,W,H);
+  var k=(t%8.6)/8.6, R=Math.min(W,H)*0.26*(0.5+k*0.95), cx=W/2, cy=H*0.42;
+  g.save(); g.translate(cx,cy);
+  /* medulla, cortex, cuticule */
+  var couches=[[1,'rgba(170,215,255,.10)','rgba(170,215,255,.55)'],
+               [0.72,'rgba(140,190,255,.07)','rgba(150,200,255,.4)'],
+               [0.34,'rgba(255,243,218,.10)','rgba(255,243,218,.5)']];
+  for(var c=0;c<3;c++){
+    g.beginPath(); g.ellipse(0,0,R*couches[c][0],R*couches[c][0]*0.93,0,0,6.29);
+    g.fillStyle=couches[c][1]; g.fill();
+    g.strokeStyle=couches[c][2]; g.lineWidth=1.2; g.stroke();
+  }
+  /* les ecailles, en couronne */
+  for(var s=0;s<34;s++){
+    var a=s/34*6.29+t*0.06;
+    g.beginPath(); g.moveTo(Math.cos(a)*R*0.9,Math.sin(a)*R*0.86);
+    g.lineTo(Math.cos(a)*R*1.06,Math.sin(a)*R*0.99);
+    g.strokeStyle='rgba(210,235,255,'+(0.2+0.3*Math.abs(Math.sin(t*1.1+s))).toFixed(3)+')'; g.stroke();
+  }
+  g.restore();
+  /* les legendes qui se posent */
+  var lg=[['CUTICULE',0.16],['CORTEX',0.42],['MÉDULLA',0.68]];
+  for(var i=0;i<3;i++){
+    if(k<lg[i][1]) continue;
+    var a2=clamp((k-lg[i][1])*6,0,1);
+    g.save(); g.globalAlpha=a2;
+    var yy=cy-R*0.7+i*R*0.62;
+    g.strokeStyle='rgba(255,255,255,.2)'; g.beginPath();
+    g.moveTo(cx+R*0.5,yy); g.lineTo(cx+R*1.5,yy); g.stroke();
+    mono(g,lg[i][0],cx+R*1.5+10,yy,9,0.7); g.restore();
+  }
+  mono(g,'ILLUSTRATION · LA COUPE N’EST PAS MESURÉE',22,H-24,8,0.3);
+}
+function chargeConstellation(g,W,H,t){
+  g.fillStyle='#04050b'; g.fillRect(0,0,W,H);
+  var k=(t%8.6)/8.6;
+  for(var i=0;i<130;i++){
+    var s=hash(i*3.3);
+    g.fillStyle='rgba(255,255,255,'+(0.04+0.14*hash(i*7.1)).toFixed(3)+')';
+    g.fillRect(hash(i*1.7)*W,s*H,1.2,1.2);
+  }
+  var P=[[0.28,0.34],[0.62,0.26],[0.74,0.62],[0.36,0.7]];
+  for(var j=0;j<4;j++){
+    var on=k>(j+1)*0.2;
+    var x=P[j][0]*W, y=P[j][1]*H;
+    if(j>0 && k>(j+1)*0.2){
+      var px=P[j-1][0]*W, py=P[j-1][1]*H;
+      var av=clamp((k-(j+1)*0.2)*7,0,1);
+      g.strokeStyle='rgba(255,243,218,.30)'; g.lineWidth=1;
+      g.beginPath(); g.moveTo(px,py); g.lineTo(lerp(px,x,av),lerp(py,y,av)); g.stroke();
+    }
+    if(!on) continue;
+    var pul=0.6+0.4*Math.sin(t*2+j);
+    g.save(); g.shadowColor='rgba(255,243,218,.9)'; g.shadowBlur=22*pul;
+    g.fillStyle=KERH; g.beginPath(); g.arc(x,y,2.6+pul,0,6.29); g.fill(); g.restore();
+    sans(g,RELEVES[j][0],x+14,y-8,13,0.92,200,'left');
+    g.save(); g.font='400 12px "JetBrains Mono",monospace';
+    g.fillStyle=k>0.93?KERH:'rgba(255,255,255,.3)'; g.textAlign='left'; g.textBaseline='middle';
+    g.fillText(k>0.93?RELEVES[j][1]:'—',x+14,y+9); g.restore();
+  }
+  mono(g,'CHAQUE POINT S’ALLUME QUAND LA MESURE TOMBE',22,H-24,9,0.4);
+}
+function chargeSpectre(g,W,H,t){
+  g.fillStyle='#04050b'; g.fillRect(0,0,W,H);
+  var k=(t%8.6)/8.6, cx=W*0.2, cy=H*0.5;
+  /* le faisceau entre */
+  g.strokeStyle='rgba(255,255,255,.8)'; g.lineWidth=2;
+  g.beginPath(); g.moveTo(0,cy); g.lineTo(cx,cy); g.stroke();
+  /* le prisme */
+  g.beginPath(); g.moveTo(cx,cy-40); g.lineTo(cx+46,cy+26); g.lineTo(cx-2,cy+26); g.closePath();
+  g.strokeStyle='rgba(255,243,218,.5)'; g.lineWidth=1; g.stroke();
+  g.fillStyle='rgba(255,243,218,.05)'; g.fill();
+  /* les bandes : une par mesure */
+  for(var i=0;i<4;i++){
+    var on=k>(i+1)*0.2; if(!on) continue;
+    var av=clamp((k-(i+1)*0.2)*5,0,1);
+    var y=cy-46+i*34, x1=cx+46, x2=lerp(x1,W*0.78,av);
+    var gr=g.createLinearGradient(x1,0,x2,0);
+    gr.addColorStop(0,'rgba(255,255,255,.85)');
+    gr.addColorStop(1,'rgba(232,210,168,.12)');
+    g.strokeStyle=gr; g.lineWidth=2.4; g.beginPath(); g.moveTo(x1,cy); g.lineTo(x2,y); g.stroke();
+    if(av>0.9){
+      sans(g,RELEVES[i][0],x2+12,y,13,0.92,200,'left');
+      g.save(); g.font='400 12px "JetBrains Mono",monospace';
+      g.fillStyle=k>0.93?KERH:'rgba(255,255,255,.3)'; g.textAlign='left'; g.textBaseline='middle';
+      g.fillText(k>0.93?RELEVES[i][1]:'—',x2+12,y+17); g.restore();
+    }
+  }
+  mono(g,'LA LUMIÈRE SE SÉPARE EN CE QU’ON SAIT LIRE',22,H-24,9,0.4);
+}
+
+/* =========================================================================
+   LE CATALOGUE DES PROPALES
+   ========================================================================= */
+var MOMENTS=['QUESTIONS','SCAN','ANALYSE','RÉSULTATS'];
+function parcours(style){
+  return function(g,W,H,t,m){
+    g.fillStyle=ENCRE; g.fillRect(0,0,W,H);
+    g.save(); g.globalAlpha=0.5; meches(g,W,H,t*0.25,{n:13,amp:0.5,ep:1.4,chaud:style===2?0.25:1}); g.restore();
+    g.fillStyle='rgba(5,6,10,.72)'; g.fillRect(0,0,W,H);
+    if(m===0) momentQuestions(g,W,H,t,style);
+    else if(m===1) momentScan(g,W,H,t,style);
+    else if(m===2) momentChargement(g,W,H,t,style);
+    else momentResultats(g,W,H,t,style);
+  };
+}
+var FINAUX=[
+  { id:'F1', nom:'LA DESCENTE', titre:'La descente',
+    txt:'Les carrés, puis la caméra lit la masse, puis on tombe dans la fibre du centimètre au micron. Les quatre mesures atterrissent là où la descente s’arrête.',
+    mots:['carrés 08','fibre 01','résultats 01'], draw:parcours(0) },
+  { id:'F2', nom:'LA SOIE', titre:'La soie',
+    txt:'Même questionnaire, mais tout le reste ondule : la chevelure se dessine en rubans, le chargement est une étoffe traversée par la lumière.',
+    mots:['carrés 08','soie 06','résultats 01'], draw:parcours(1) },
+  { id:'F3', nom:'LA COUPE', titre:'La coupe',
+    txt:'La version froide et technique : des tranches traversent la tête pendant le scan, puis la fibre s’ouvre en coupe. Le plus proche d’un instrument.',
+    mots:['carrés 08','radiographie 08','résultats 01'], draw:parcours(2) }
+];
+var SCANS=[
+  { id:'S1', nom:'LE FIL TENDU', titre:'Le fil tendu',
+    txt:'Un seul cheveu occupe l’écran. Le pied à coulisse se pose dessus et dit franchement qu’il ne publie pas ce chiffre.', draw:scanFil },
+  { id:'S2', nom:'LA MARÉE', titre:'La marée',
+    txt:'Le masque monte sur la chevelure comme une eau qui gagne. Ce qui n’est pas cheveu reste dans le noir.', draw:scanMaree },
+  { id:'S3', nom:'LE VENT', titre:'Le vent',
+    txt:'Des milliers de grains suivent l’orientation locale des mèches. On voit la mesure se faire, pas une décoration.', draw:scanVent },
+  { id:'S4', nom:'L’ÉCHO', titre:'L’écho',
+    txt:'Des ondes partent du sommet du crâne et se propagent dans la masse. Le geste à faire devient une impulsion.', draw:scanEcho },
+  { id:'S5', nom:'LES COURBES', titre:'Les courbes de niveau',
+    txt:'La chevelure devient une carte : quatorze courbes emboîtées, comme un relief. Très lisible, très signé.', draw:scanCourbes }
+];
+var CHARGES=[
+  { id:'L1', nom:'LA DESCENTE', titre:'La descente',
+    txt:'Du centimètre au micron en huit secondes et demie, les écailles apparaissent à mi-chemin. C’est celle qui est déjà branchée.', draw:chargeDescente },
+  { id:'L2', nom:'LE MÉTIER', titre:'Le métier à tisser',
+    txt:'Chaque passe de la navette est une mesure. À la fin, l’étoffe est complète et les valeurs s’écrivent.', draw:chargeMetier },
+  { id:'L3', nom:'LA COUPE', titre:'La coupe de fibre',
+    txt:'La fibre s’ouvre : cuticule, cortex, médulla. Les légendes se posent une à une. Dit clairement que c’est une illustration.', draw:chargeCoupe },
+  { id:'L4', nom:'LA CONSTELLATION', titre:'La constellation',
+    txt:'Quatre points s’allument dans le noir et se relient. Chaque point est une mesure qui vient de tomber.', draw:chargeConstellation },
+  { id:'L5', nom:'LE SPECTRE', titre:'Le spectre',
+    txt:'Un faisceau entre dans un prisme et ne ressort qu’en quatre bandes : exactement ce que le moteur sait lire.', draw:chargeSpectre }
+];
+
+/* =========================================================================
+   RENDU DES VIGNETTES + PLEIN ECRAN
+   ========================================================================= */
+var vignettes=[];
+function carte(hote,p,tall,moments){
+  var d=document.createElement('div'); d.className='card'+(tall?' tall':'');
+  d.innerHTML='<span class="lg">'+p.id+' &middot; '+p.nom+'</span><canvas></canvas>'+
+    '<div class="bd"><h3>'+p.titre+'</h3><p>'+p.txt+'</p>'+
+    (p.mots?'<div class="mm"><span>'+p.mots.join('</span><span>')+'</span></div>':'')+'</div>';
+  hote.appendChild(d);
+  var cv=d.querySelector('canvas');
+  vignettes.push({ cv:cv, p:p, moments:moments, el:d });
+  d.onclick=function(){ ouvrir(p,moments); };
+  return d;
+}
+var gF=document.getElementById('gridF'), gS=document.getElementById('gridS'), gL=document.getElementById('gridL');
+FINAUX.forEach(function(p){ carte(gF,p,false,4); });
+SCANS.forEach(function(p){ carte(gS,p,true,1); });
+CHARGES.forEach(function(p){ carte(gL,p,true,1); });
+
+function dim(cv){
+  var dpr=Math.min(window.devicePixelRatio||1,2);
+  var W=cv.clientWidth, H=cv.clientHeight;
+  if(!W||!H) return null;
+  if(cv.width!==Math.round(W*dpr)){ cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr); }
+  var g=cv.getContext('2d'); g.setTransform(dpr,0,0,dpr,0,0);
+  return { g:g, W:W, H:H };
+}
+var visible={};
+if('IntersectionObserver' in window){
+  var io=new IntersectionObserver(function(es){ es.forEach(function(e){ visible[e.target.dataset.k]=e.isIntersecting; }); },{rootMargin:'120px'});
+  vignettes.forEach(function(v,i){ v.el.dataset.k=i; io.observe(v.el); });
+} else vignettes.forEach(function(v,i){ v.el.dataset.k=i; visible[i]=true; });
+
+var t0=performance.now();
+function boucle(){
+  requestAnimationFrame(boucle);
+  var t=(performance.now()-t0)/1000;
+  for(var i=0;i<vignettes.length;i++){
+    if(visible[i]===false) continue;
+    var v=vignettes[i], d=dim(v.cv); if(!d) continue;
+    var m=v.moments>1 ? Math.floor((t/6)%4) : 0;
+    /* Les scenes sont composees pour un plein ecran. Dans une vignette, on ne
+       redessine pas une version « petite » : on rend la MEME image dans un
+       espace virtuel de 900 de large, puis on la reduit. Sinon les libelles
+       debordent de la carte — ce qui arrivait sur les cinq chargements. */
+    var sc=d.W/900;
+    d.g.save(); d.g.scale(sc,sc);
+    try{ v.p.draw(d.g,900,d.H/sc,t,m); }catch(e){}
+    d.g.restore();
+  }
+  if(FS && FS.on && FS.p){
+    var d2=dim(FS.cv); if(d2){ try{ FS.p.draw(d2.g,d2.W,d2.H,t,FS.m); }catch(e){} }
+  }
+}
+
+/* ---------- plein ecran ---------- */
+var FS={on:false,p:null,m:0,cv:document.getElementById('fscv')};
+var fsEl=document.getElementById('fs'), fsTi=document.getElementById('fsti'),
+    fsMo=document.getElementById('fsmo'), fsNt=document.getElementById('fsnt');
+function peindreMoments(){
+  fsMo.innerHTML='';
+  if(FS.moments<=1) return;
+  MOMENTS.forEach(function(nm,i){
+    var b=document.createElement('button'); b.textContent=(i+1<10?'0':'')+(i+1)+' · '+nm;
+    if(i===FS.m) b.className='on';
+    b.onclick=function(e){ e.stopPropagation(); FS.m=i; peindreMoments(); };
+    fsMo.appendChild(b);
+  });
+}
+function ouvrir(p,moments){
+  FS.on=true; FS.p=p; FS.m=0; FS.moments=moments;
+  fsTi.textContent=p.id+' · '+p.nom;
+  fsNt.textContent=p.txt;
+  fsEl.classList.add('on'); peindreMoments();
+}
+function fermer(){ FS.on=false; fsEl.classList.remove('on'); }
+document.getElementById('fscl').onclick=function(e){ e.stopPropagation(); fermer(); };
+fsEl.onclick=function(e){ if(e.target===fsEl||e.target===FS.cv){ if(FS.moments>1){ FS.m=(FS.m+1)%4; peindreMoments(); } } };
+document.addEventListener('keydown',function(e){
+  if(!FS.on) return;
+  if(e.key==='Escape') fermer();
+  else if(e.key===' '||e.key==='ArrowRight'){ e.preventDefault(); if(FS.moments>1){ FS.m=(FS.m+1)%4; peindreMoments(); } }
+  else if(e.key==='ArrowLeft'){ e.preventDefault(); if(FS.moments>1){ FS.m=(FS.m+3)%4; peindreMoments(); } }
+});
+
+/* ---------- parcours joue de A a Z ----------
+   ?p=F1|F2|F3 ouvre directement le plein ecran et deroule les quatre moments
+   dans l'ordre, en boucle : questions, scan, analyse, resultats. C'est la
+   seule facon de juger un parcours — une vignette ne dit rien du rythme. */
+(function auto(){
+  var q=new URLSearchParams(location.search), id=(q.get('p')||'').toUpperCase();
+  if(!id) return;
+  var p=FINAUX.filter(function(x){ return x.id===id; })[0]; if(!p) return;
+  var DUREES=[8000,9000,10000,11000];   /* questions, scan, analyse, resultats */
+  ouvrir(p,4);
+  var etape=0;
+  (function suite(){
+    setTimeout(function(){
+      if(!FS.on) return;
+      etape=(etape+1)%4; FS.m=etape; peindreMoments(); suite();
+    }, DUREES[etape]);
+  })();
+  /* un fil de progression discret, pour savoir ou on en est */
+  var fil=document.createElement('div');
+  fil.style.cssText='position:fixed;left:0;top:0;height:2px;z-index:95;width:0;'+
+    'background:linear-gradient(90deg,rgba(232,210,168,.5),#FFF3DA);box-shadow:0 0 12px rgba(255,243,218,.6)';
+  document.body.appendChild(fil);
+  var t0f=performance.now();
+  (function ff(){
+    requestAnimationFrame(ff);
+    var tot=DUREES.reduce(function(a,b){return a+b;},0);
+    var k=((performance.now()-t0f)%tot)/tot;
+    fil.style.width=(k*100).toFixed(2)+'%';
+  })();
+})();
+
+/* On ne demarre qu'ici : lancee plus haut, la boucle touchait FS avant sa
+   declaration, l'exception coupait la fin du script et le plein ecran ne
+   s'ouvrait jamais. */
+boucle();
+</script>
+</body>
+</html>

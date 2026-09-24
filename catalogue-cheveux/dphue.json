@@ -3,66 +3,6 @@
  "brand_name": "dpHUE",
  "products": [
   {
-   "id": "dphue--styling-clips",
-   "name": "Styling Clips",
-   "brand": "dphue",
-   "brand_name": "dpHUE",
-   "url": "https://dphue.com/products/styling-clips",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0509/2573/files/GWP-Hair-Clips.png?width=600",
-   "image_local": "public/scan/products-cheveux/dphue/styling-clips.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Elevate your hair routine with dpHUE’s durable, non-slip hair clips designed for all hair types. Perfect for sectioning, coloring, or styling, these professional-grade clips provide a strong hold and easy control without tugging or slipping. Comes with a sleek dpHUE pouch for convenient storage.",
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "dphue--stadium-bag",
-   "name": "Stadium Bag",
-   "brand": "dphue",
-   "brand_name": "dpHUE",
-   "url": "https://dphue.com/products/stadium-bag",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 23.0,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0509/2573/files/Stadium-Bag.png?width=600",
-   "image_local": "public/scan/products-cheveux/dphue/stadium-bag.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Your haircare routine, ready to go. This clear Hair Essentials Bag keeps your go-to products visible, organized, and always within reach. Perfect for storing dry shampoo, styling must-haves, and on-the-go touch-ups. Stadium-approved and event-ready, it meets most venue requirements for concerts, games, and festivals while making security checks quick and easy. Lightweight, durable, and easy to clean, it’s designed to carry your hair essentials wherever you go, so you can refresh, restyle, and st",
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "dphue--camo-keychain-holder",
-   "name": "Camo+ Keychain Holder",
-   "brand": "dphue",
-   "brand_name": "dpHUE",
-   "url": "https://dphue.com/products/camo-keychain-holder",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 13.8,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0509/2573/files/Camo-Plus_silicon-sleeve.png?width=600",
-   "image_local": "public/scan/products-cheveux/dphue/camo-keychain-holder.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Take your hair touch-ups on the go. This keychain holder keeps your Camo+ Tinted Dry Shampoo Powder within reach for quick root refreshes, gray coverage, and oil absorption anytime, anywhere. Clip it onto your keys or bag so your go-to fix is always handy. Perfect for post-gym, in-between washes, or last-minute plans.",
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
    "id": "dphue--color-camo",
    "name": "Camo+ Tinted Dry Shampoo Powder",
    "brand": "dphue",
@@ -73,14 +13,22 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0509/2573/files/Camo-Plus_sheer.png?width=600",
    "image_local": "public/scan/products-cheveux/dphue/color-camo.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [],
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "gras",
+    "colores"
+   ],
    "actifs": [],
    "ingredients": "Camo+ Sheer: Tapioca Starch, Oryza Sativa (Rice) Starch, Silica Silylate, Fragrance (Parfum), Polymethylsilsesquioxane, Ethylhexylglycerin, Sodium Benzoate, Sodium Dehydroacetate, Phenoxyethanol, Tetramethyl Acetyloctahydronaphthalenes, Limonene, Linalyl Acetate, Linalool, Acetyl Cedrene, Lavandula Hybrida Oil, Coumarin, Vanillin, Hexyl Cinnamal, Hexamethylindanopyran",
    "description": "Your go-to for extending wash day on any hair color. Camo+ Tinted Dry Shampoo Powder blends grays, fills sparse areas, absorbs oil, and lifts at the roots for fuller-looking hair. The tone-on-tone pigments deliver a natural finish that seamlessly blends with your color—never chalky, never flat. Available in 7 shades plus Sheer, this vegan, sulfate-free formula leaves no white cast and applies effortlessly with a precise puff applicator.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "volume",
+    "sans-sulfate"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/dphue/cutout/color-camo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "dphue--apple-cider-vinegar-wonderwork-leave-in-conditioner",
@@ -93,11 +41,9 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0509/2573/files/2025_Dot-Com_ACV-Innovation_Leave-In.png?width=600",
    "image_local": "public/scan/products-cheveux/dphue/apple-cider-vinegar-wonderwork-leave-in-conditioner.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [],
    "actifs": [
     "AHA",
     "huile de ricin",
@@ -108,11 +54,15 @@
    "ingredients": "WATER/AQUA/EAU, BUTYLENE GLYCOL, ISODODECANE, DIPROPYLENE GLYCOL, AMODIMETHICONE, POLYQUATERNIUM-37, APPLE CIDER VINEGAR, VITIS VINIFERA (GRAPE) SEED EXTRACT, TOCOPHEROL, PROPYLENE GLYCOL DICAPRYLATE/DICAPRATE, POLYSILICONE-29, SILICONE QUATERNIUM-18, GLYCERIN, TRIDECETH-6, GLYCOLIC ACID, PPG-1 TRIDECETH-6, ALCOHOL, C11-13 ISOALKANE, TRIDECETH-12, CITRIC ACID, TETRASODIUM GLUTAMATE DIACETATE, ETHYLHEXYLGLYCERIN, PHENOXYETHANOL, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, PEG-40 HYDROGENATED CASTOR OIL, FRAGRANCE/PARFUM, LIMONENE, LINALYL ACETATE, LINALOOL, ACETYL CEDRENE, COUMARIN, LAVANDULA HYBRIDA OIL. POLYQUATERNIUM-10, BEHENTRIMONIUM CHLORIDE, BIS-4-PCA DIMETHICONE, BUTYLENE GLYCOL,CETRIMONIUM CHLORIDE, ISOPROPYL ALCOHOL, AMINOMETHYL PROPANOL, CITRIC ACID, TETRASODIUM GLUTAMATE DIACETATE, ETHYLHEXYLGLYCERIN, PHENOXYETHANOL, SODIUM BENZOATE, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, DISODIUMPEG-12 DIMETHICONE SULFOSUCCINATE, FRAGRANCE/PARFUM, LIMONENE, LINALYL ACETATE, LINALOOL, ACETYL CEDRENE,COUMARIN, LAVANDULA HYBRIDA OIL. FAQ What",
    "description": "A lightweight, no-rinse mist that primes, protects, and nourishes. Infused with Apple Cider Vinegar to boost shine and defend against heat and styling. Use after showers or before heat tools to smooth frizz and improve manageability—perfect for busy routines. Benefits Healthier-Looking Shine: Adds luster while maintaining scalp balance. Damage Prevention: Helps minimize heat and styling damage for stronger hair over time. Convenience & Ease: Quick application saves time, leaving hair soft and ma",
    "claims": [
-    "nourrissant",
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
     "brillance",
-    "lissant"
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/dphue/cutout/apple-cider-vinegar-wonderwork-leave-in-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "dphue--travel-apple-cider-vinegar-hair-masque",
@@ -128,16 +78,22 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
+    "fins",
+    "colores",
     "abimes"
    ],
-   "actifs": [],
+   "actifs": [
+    "vinaigre de cidre"
+   ],
    "ingredients": null,
    "description": "Apple Cider Vinegar Hair Masque deeply conditions and intelligently repairs hair, restoring the condition of the hair’s cuticle. Made for all hair colors and hair types, smart proteins specifically target and attach themselves to the most damaged areas of the hair's surface, without weighing hair down. The formula acts as a progressive treatment, improving hair’s condition with each successive use. Use as needed. This luxurious, nourishing masque is made with craft-produced Apple Cider Vinegar a",
    "claims": [
-    "nourrissant",
-    "reparateur"
+    "nutrition",
+    "reparation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/dphue/cutout/travel-apple-cider-vinegar-hair-masque.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "dphue--travel-apple-cider-vinegar-scalp-scrub",
@@ -152,12 +108,22 @@
    "image_local": "public/scan/products-cheveux/dphue/travel-apple-cider-vinegar-scalp-scrub.jpg",
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "colores",
+    "cuir-chevelu-sensible"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "dpHUE is changing the way people take care of their hair color between salon visits. Color Safe, Paraben Free, SLS & SLES Sulphate Free, Leaping Bunny Certified",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "purifiant",
+    "protection-couleur",
+    "sans-sulfate",
+    "sans-paraben"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/dphue/cutout/travel-apple-cider-vinegar-scalp-scrub.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "dphue--gloss-toning-purple",
@@ -173,15 +139,19 @@
    "categorie": "coloration-soin",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "colores"
    ],
    "actifs": [],
    "ingredients": "Water/Aqua/Eau, Propylene Glycol, Cetearyl Alcohol, Behentrimonium Chloride, Dimethicone, Polyquaternium-10, Acid Violet 43, Phenoxyethanol, Ethylhexylglycerin, Fragrance/Parfum, Tetramethyl Acetyloctahydronaphthalenes, Limonene, Linalyl Acetate. FAQ What is a toner",
    "description": "Gloss+ Toning, where perfectly toned meets ultra conditioned. In under 5 minutes, easily neutralize brassiness to enhance shine and leave hair feeling soft with one simple treatment. Available in Purple for blondes and Green for dark brunettes. Deep conditioning formula works in 3 to 5 minutes maximum for optimal toning effect. -For hair that is blonde, highlighted or silver: use Purple to neutralize brassy yellow tones. -For dark brown hair: use Green to neutralize brassy red tones.-Suitable on",
    "claims": [
-    "brillance"
+    "brillance",
+    "anti-jaunissement"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/dphue/cutout/gloss-toning-purple.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "dphue--color-dream-color-kit",
@@ -205,10 +175,12 @@
    "ingredients": "Water/Aqua/Eau, Hydrogen Peroxide, Cetearyl Alcohol, Ceteareth-20, Lauryl Alcohol, Di-C12-15 Alketh-4 Phosphate, Myristyl Alcohol, Ceteth-2, Cetrimonium Chloride, Tetrasodium EDTA, Tetrasodium Pyrophosphate, Oxyquinoline Sulfate, Phosphoric Acid. Cool Blonde : Water/Aqua/Eau, Ceteth-150, Stearyl Alcohol, Propylene Glycol, Aminomethyl Propanol, Rapeseedamidopropyl Ethyldimonium Ethosulfate, Ceteth-20, Cetyl Alcohol, Caprylic/Capric Triglyceride, Arginine, Maltitol, Xylitol, Inula Crithmoide Flower/Leaf Extract, Pelvetia Canaliculata Extract, Xylitylglucoside, Anhydroxylitol, Propanediol, Dipropylene Glycol, Sodium Erythorbate, Quaternium-96, Toluene-2,5-Diamine Sulfate, 2,4-Diaminophenoxyethanol HCl, 4-Amino-2-Hydroxytoluene, Sodium Sulfite, Disodium EDTA, Ethylhexylglycerin, Phenoxyethanol, Sodium Benzoate, Fragrance/Parfum, Limonene, Linalool. Golden Blonde: Water/Aqua/Eau, Ceteth-50, Propylene Glycol, Cetyl Alcohol, Ceteth-20, Aminomethyl Propanol, Rapeseedamidopropyl Ethyldimonium Ethosulfate, Fragrance/Parfum, Arginine, Dipropylene Glycol, Sodium Isoascorbate, Quaternium-96, Sodium Sulfite, Disodium EDTA, Propanediol, Caprylic/Capric Trigylcerides, Inula Crithmoide Flower/leaf Extract, Xylitylglucoside, Anhydroxylitol, Maltitol, Xylitol, Pelvetia Canaliculata Extract, P-aminophenol, M-aminophenol, Hydroxyethyl-3,4-methylenedioxyaniline HCL, Phenoxyethanol, Sodium Benzoate, Ethylhexylglycerin, Coumarin, Hexyl Cinnamal, Limonene, Linalool. Dark Brown : Water/Aqua/Eau, Ceteth-150, Stearyl Alcohol, Propylene Glycol, Aminomethyl Propanol, Rapeseedamidopropyl Ethyldimonium Ethosulfate, Toluene-2,5-Diamine Sulfate, Ceteth-20, Cetyl Alcohol, Caprylic/Capric Triglyceride, Arginine, Maltitol, Xylitol, Inula Crithmoide Flower/Leaf Extract, Pelvetia Canaliculata Extract, Xylitylglucoside, Anhydroxylitol, Propanediol, Dipropylene Glycol, Sodium Erythorbate, Quaternium-96, Hydroxyethyl-3,4-Methylenedioxyaniline HCl, p-Aminophenol, 4-Amino-2-Hydroxytoluene, 2-Amino-3-Hydroxypyridine, m-Aminophenol, Phenyl Methyl Pyrazolone, N,N-Bis(2-Hydroxyethyl)-p-Phenylenediamine Sulfate, 1-Naphthol, Sodium Sulfite, Disodium EDTA, Ethylhexylglycerin, Phenoxyethanol, Sodium Benzoate",
    "description": "Surreal dimension and shine. Ammonia-free, zero lift demi-permanent hair color that lasts up to 16 shampoos. Enhance color, boost shine and create dimension. Available in 8 natural shades. Enhance your current hue. Not meant for drastic color changes. This demi-permanent at-home hair color is virtually fail-proof. In just 20 minutes, achieve the hair color of your dreams that feels soft, nourished and conditioned. Highlights? Revive and tone your highs and lows. Virgin hair? Enhance your natural",
    "claims": [
-    "nourrissant",
+    "nutrition",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/dphue/cutout/color-dream-color-kit.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "dphue--apple-cider-vinegar-exfoliating-scalp-detox",
@@ -224,6 +196,8 @@
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
    "cheveux_cibles": [
+    "gras",
+    "chute",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -236,10 +210,16 @@
    "ingredients": "Water/Aqua/Eau, Propanediol, Glycerin, Polysorbate 20, Acetyl Tetrapeptide-3, Bromelain, Papain, Hydroxyethyl Acrylate/Sodium Acryloyldimethyl Taurate Copolymer, Phenoxyethanol, Acrylates/C10-30 Alkyl Acrylate Crosspolymer, Apple Cider Vinegar, Isohexadecane, Maltodextrin, Menthol, Salicylic Acid, Sodium Hydroxide, Niacinamide, Ethylhexylglycerin, Polysorbate 60, Sorbitan Isosterate, Tetrasodium Glutamate Diacetate, Sodium Hyaluronate, Sodium Benzoate, Sodium Metabisulfite, Butylene Glycol, Dextran, Trifolium Pratense (Clover) Flower Extract. FAQ",
    "description": "Keep your scalp balanced and clean with this scrub-free scalp detox. It uses the power of apple cider vinegar, salicylic acid, and fruit enzymes to gently dissolve product buildup and excess oil, keeping the scalp balanced and fresh as it encourages long-term scalp health. Red clover flower extract helps reduce irritation and shedding by anchoring the hair follicles, while menthol helps stimulate circulation to promote healthy hair growth. Niacinamide nourishes + protects from environmental stre",
    "claims": [
-    "nourrissant",
-    "purifiant"
+    "nutrition",
+    "anti-chute",
+    "croissance",
+    "apaisant-cuir-chevelu",
+    "purifiant",
+    "anti-gras"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/dphue/cutout/apple-cider-vinegar-exfoliating-scalp-detox.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "dphue--glossy-glaze",
@@ -255,7 +235,8 @@
    "categorie": "coloration-soin",
    "etape": 2,
    "cheveux_cibles": [
-    "epais"
+    "secs",
+    "colores"
    ],
    "actifs": [
     "céramides"
@@ -263,12 +244,14 @@
    "ingredients": "Water/Aqua/Eau, Isopentyldiol, Lauryl Alcohol, Behentrimonium Chloride, Di-C12-15 Alketh-4 Phosphate, Cetyl Alcohol, Fragrance/Parfum, Phenoxyethanol, Cetrimonium Chloride, Myristyl Alcohol, Steardimonium Hydroxypropyl Panthenyl PEG-7 Dimethicone Phosphate Chlo",
    "description": "Glossy, glowy, luminous hair in less than 2 minutes. Commitment free. Available in 6 shades. Not meant for drastic color changes. The 2-minute, in-shower conditioning glaze creates instant color dimension with a supernatural glow, smoothing frizz and moisturizing hair. Featuring 3D Sheer Pigment Technology, it creates a subtle tint that lasts up to 3 washes. Mullein flower extract protects against UV rays and adds shine, while ceramides nourish and upcycled sugar cane and lemon zest add unbeatab",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "brillance",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/dphue/cutout/glossy-glaze.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "dphue--gloss-plus",
@@ -290,10 +273,12 @@
    "ingredients": "Water/Aqua/Eau, Cetearyl Alcohol, Propylene Glycol, Behentrimonium Chloride, Dimethicone, Polyquaternium-10, Triethanolamine, Parfum (Fragrance), Disodium EDTA, Phenoxyethanol, Ethylhexylglycerin. Gloss+ Strawberry - Water/Aqua/Eau, Cetearyl Alcohol, Propylene Glycol, Behentrimonium Chloride, Dimethicone, Polyquaternium-10, Triethanolamine, Parfum (Fragrance), Disodium EDTA, Phenoxyethanol, Ethylhexylglycerin, Basic Blue 99, Basic Red 76, Basic Brown 17, Basic Brown 16, Basic Red 51, Basic Yellow 87. Gloss+ Copper - Water/Aqua/Eau, Cetearyl Alcohol, Propylene Glycol, Behentrimonium Chloride, Dimethicone, Polyquaternium-10, Triethanolamine, Parfum (Fragrance), Disodium EDTA, Phenoxyethanol, Ethylhexylglycerin, Basic Blue 99, Basic Red 76, Basic Brown 17, Basic Brown 16, Basic Yellow 57. Gloss+ Auburn - Water/Aqua/Eau, Cetearyl Alcohol, Propylene Glycol, Behentrimonium Chloride, Dimethicone, Polyquaternium-10, Triethanolamine, Parfum (Fragrance), Disodium EDTA, Phenoxyethanol, Ethylhexylglycerin, Basic Blue 99, Basic Red 76, Basic Brown 17, Basic Brown 16, Basic Yellow 57. Gloss+ Light Blonde - Water/Aqua/Eau, Cetearyl Alcohol, Propylene Glycol, Behentrimonium Chloride, Dimethicone, Polyquaternium-10, Triethanolamine, Parfum (Fragrance), Disodium EDTA, Phenoxyethanol, Ethylhexylglycerin, Basic Blue 99, Basic Brown 17. Gloss+ Medium Blonde - Water/Aqua/Eau, Cetearyl Alcohol, Propylene Glycol, Behentrimonium Chloride, Dimethicone, Polyquaternium-10, Triethanolamine, Parfum (Fragrance), Disodium EDTA, Phenoxyethanol, Ethylhexylglycerin, Basic Blue 99, Basic Red 76, Basic Brown 17, Basic Brown 16, Acid Violet 43 (Ext. D&C Violet 2), Basic Yellow 57. Gloss+ Dark Blonde - Water/Aqua/Eau, Cetearyl Alcohol, Propylene Glycol, Behentrimonium Chloride, Dimethicone, Polyquaternium-10, Triethanolamine, Parfum (Fragrance), Disodium EDTA, Phenoxyethanol, Ethylhexylglycerin, Basic Blue 99, Basic Red 76, Basic Brown 17, Basic Brown 16, Acid Violet 43 (Ext. D&C Violet2 ), Basic Yellow 57. Gloss+ Light Brown - Water/Aqua/Eau, Cetearyl Alcohol, Propylene Glycol, Behentrimonium Chloride, Dimethicone, Polyquaternium-10, Triethanolamine, Parfum (Fragrance), Disodium EDTA",
    "description": "Enhance your color, shine, and softness in one easy-to-apply treatment. Available in 18 pigmented shades and one sheer hue, each application of Gloss+ temporarily boosts color as it deposits pigments, illuminates shine and infuses strands with deep moisture. No mixing, no mess, and no harsh peroxide or ammonia — just soft, shiny, multi-dimensional hair color. Lasts up to 8 washes. *Gloss+ is not formulated to permanently cover gray. Need help finding your shade? Use our Gloss+ and Glossy Glaze S",
    "claims": [
-    "hydratant",
+    "hydratation",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/dphue/cutout/gloss-plus.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "dphue--color-fresh-thermal-protection-spray",
@@ -309,7 +294,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -318,11 +303,15 @@
    "ingredients": "Aqua/Water/Eau, Dicaprylyl Carbonate, Vinyl Caprolactam/VP/Dimethylaminoethyl Methacrylate Copolymer, Propylene Glycol Dibenzoate, Fragrance (Parfum), Cinnamidopropyltrimonium Chloride, Limonene, Linalool, Coumarin, Tocopherol. FAQ Do the products in",
    "description": "Heat styling can cause color fading and extreme dryness. Protect your strands from hot tools like blow dryers, flat irons, and curling irons with our unique formula. It has a built-in humidity shield to fight frizz, smoothing and hydrating as it boosts shine and guards against color fading and heat damage up to 450 degrees.",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles",
     "brillance",
-    "lissant"
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/dphue/cutout/color-fresh-thermal-protection-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "dphue--color-fresh-texturizing-powder",
@@ -337,14 +326,22 @@
    "image_local": "public/scan/products-cheveux/dphue/color-fresh-texturizing-powder.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "fins",
+    "colores"
+   ],
    "actifs": [],
    "ingredients": "Aqua/Water/Eau, Phenoxyethanol, Fragrance/Parfum, Limonene, Linalool, Coumarin. FAQ Do the products in d",
    "description": "Add instant fullness and lift to your hair with this color-safe texturizing powder. Hair is fuller, thicker, and more voluminous, but is still moveable and soft. Plus, the translucent formula won’t leave behind any chalky residue on strands.",
    "claims": [
-    "volume"
+    "volume",
+    "texturisant",
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/dphue/cutout/color-fresh-texturizing-powder.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "dphue--color-fresh-texturizing-spray",
@@ -368,9 +365,13 @@
    "ingredients": "Aqua/Water/Eau, PEG/PPG-17/18 Dimethicone, Triethyl Citrate, Glycerin, Fragrance (Parfum), PEG-12 Dimethicone, Cinnamidopropyltrimonium Chloride, Limonene, Linalool. FAQ What is the di",
    "description": "Build up your body and add soft texture and volume with this triple-action refreshing styler. It provides body, texture, and hold, while also protecting hair against color dulling and fading caused by UV light. 2022 Health Beauty Award",
    "claims": [
-    "volume"
+    "volume",
+    "texturisant",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/dphue/cutout/color-fresh-texturizing-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "dphue--color-fresh-blow-dry-creme",
@@ -385,7 +386,11 @@
    "image_local": "public/scan/products-cheveux/dphue/color-fresh-blow-dry-creme.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "fins",
+    "abimes"
+   ],
    "actifs": [
     "panthénol",
     "huile d'argan",
@@ -398,11 +403,14 @@
    "ingredients": "Aqua/Water/Eau, Ethyl Macadamiate, Neopentyl Glycol Diheptanoate, Butylene Glycol, Hydroxyethyl Acrylate/Sodium Acryloyldimethyl Taurate Copolymer, Squalane, PPG-3 Benzyl Ether Myristate, Benzyl Alcohol, Rice Amino Acids, Potassium Sorbate, Sodium Benzoate, Fragrance (Parfum), Maltooligosyl Glucoside, Ethylhexylglycerin, Argania Spinosa Kernel Oil, Shea Butter Ethyl Esters, Hydrogenated Starch Hydrolysate, Cinnamidopropyltrimonium Chloride, Panthenol, Polysorbate 60, Citric Acid, Tocopherol, Coumarin. FAQ What is the differen",
    "description": "Formulated with Argan Oil and Liquid Shea Butter, this protective heat styler helps you perfect your blow-out and prevent damage and color fading. It provides hydration and shine in a lightweight formula that won’t weigh hair down, creating high heat, and humidity protection for a smooth and shiny blow-out, every time. 2022 SheFinds Best New Beauty Awards",
    "claims": [
-    "hydratant",
-    "brillance",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/dphue/cutout/color-fresh-blow-dry-creme.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "dphue--apple-cider-vinegar-hair-rinse-lite",
@@ -417,7 +425,9 @@
    "image_local": "public/scan/products-cheveux/dphue/apple-cider-vinegar-hair-rinse-lite.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "fins"
+   ],
    "actifs": [
     "huile d'argan",
     "aloe vera",
@@ -431,7 +441,9 @@
    "claims": [
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/dphue/cutout/apple-cider-vinegar-hair-rinse-lite.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "dphue--color-fresh-oil-therapy",
@@ -448,7 +460,8 @@
    "etape": 3,
    "cheveux_cibles": [
     "secs",
-    "epais"
+    "fins",
+    "colores"
    ],
    "actifs": [
     "huile d'argan",
@@ -457,10 +470,14 @@
    "ingredients": "Argan Oil Boosts moisture and shine. Liquid Shea Butter Prevents breakage. Vitamins A & E Moisturizes hair and promotes healthy hair growth. Full Ingredients: Cyclopentasiloxane, Dimethicone, Butyrospermum Parkii (Shea) Butter, Argania Spinosa Kernel Oil, Tocopheryl Acetate, Retinyl Palmitate, Ethylhexyl Methoxycinnamate, Parfum (Fragrance), Benzyl Alcohol, Coumarin, Limonene, Linalool",
    "description": "Be a smooth operator with this luxurious hair oil. The fast-absorbing, weightless formula can be used on wet or dry hair and is clear, so it won’t tint hair color. Use it on damp hair to speed up dry time and smooth hair as it protects strands from heat damage caused by hot tools. On dry hair, apply on mid-lengths to ends to tame frizz and flyaways, add shine, and help prevent UV color fading.",
    "claims": [
+    "nutrition",
+    "anti-frisottis",
     "brillance",
-    "lissant"
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/dphue/cutout/color-fresh-oil-therapy.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "dphue--apple-cider-vinegar-scalp-scrub",
@@ -476,6 +493,7 @@
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
    "cheveux_cibles": [
+    "gras",
     "pellicules"
    ],
    "actifs": [
@@ -487,9 +505,14 @@
    "ingredients": "Water/Aqua/Eau, Apple Cider Vinegar, Glyceryl Stearate, PEG-100 Stearate, Lauroyl/Myristoyl Methyl Glucamide, Coco-Betaine, Sodium Methyl Cocoyl Taurate, Glycerin, Persea Gratissima (Avocado) Oil, Linoleamidopropyl PG-Dimonium Chloride Phosphate Dimethicone, Rapeseedamidopropyl Ethyldimonium Ethosulfate, Aloe Barbadensis Leaf Juice, Quaternium-96, Dipropylene Glycol, Propanediol, Steareth-100, Steareth-2, Mannan, Xanthan Gum, Polyquaternium-70, Hydroxypropyl Methylcellulose, Sodium Benzoate, Potassium Sorbate, Lactic Acid. FAQ What is so great ab",
    "description": "Help remove build-up, excess oil, impurities, dandruff, and dead skin with this gentle scalp exfoliator. Made with Apple Cider Vinegar and Pink Himalayan Salt, it gently scrubs away dirt and debris without disturbing the pH balance of your skin and hair, helping to encourage optimal scalp health and hair growth.",
    "claims": [
-    "anti-pellicules"
+    "croissance",
+    "antipelliculaire",
+    "purifiant",
+    "anti-gras"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/dphue/cutout/apple-cider-vinegar-scalp-scrub.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "dphue--apple-cider-vinegar-hair-rinse",
@@ -518,7 +541,9 @@
    "claims": [
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/dphue/cutout/apple-cider-vinegar-hair-rinse.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "dphue--apple-cider-vinegar-hair-masque",
@@ -534,6 +559,7 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
+    "colores",
     "abimes"
    ],
    "actifs": [
@@ -548,11 +574,14 @@
    "ingredients": "Aqua/Water/Eau, Cetearyl Alcohol, Stearyl Alcohol, Heptyl Undecylate, Apple Cider Vinegar, Diheptyl Succinate, Capryloyl Glycerin/ Sebacic Acid Copolymer, Quaternium-91, Behentrimonium Chloride, Myristyl Myristate, Cetrimonium Chloride, Rosa Canina Fruit Oil, Cocos Nucifera (Coconut) Oil, Persea Gratissima (Avocado) Oil, Laurdimonium Hydroxypropyl Hydrolyzed Keratin, Butylene Glycol, Helianthus Annuus (Sunflower) Seed Extract, Panthenol(Vitamin B5/Vitamine B5), Hydroxyethylcellulose, Fragrance (Parfum), Sodium Benzoate, Potassium Sorbate, Citric Acid. FAQ What does the ACV M",
    "description": "A restorative mask for dry, damaged hair that helps strengthen and close the hair cuticle, this innovative mask deeply conditions hair with a lightweight formula that won’t make hair feel heavy or look flat. Made with smart proteins and essential fatty acids, it helps seal the hair cuticle to protect hair color from fading and increase shine as it helps repair and delivers vital nutrients. Hair is softer, stronger, and shinier with every use.",
    "claims": [
-    "reparateur",
-    "brillance",
-    "fortifiant"
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/dphue/cutout/apple-cider-vinegar-hair-masque.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

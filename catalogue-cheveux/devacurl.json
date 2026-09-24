@@ -11,18 +11,22 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": 25.76,
    "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "DevaCurl/Curlbond_Cleanser_12oz_2000x2000_Site",
-   "image_local": null,
-   "categorie": "autre-cheveux",
-   "etape": 3,
+   "image_source_url": "https://res.cloudinary.com/devacurl/image/upload/f_auto,q_auto,w_600/v1/DevaCurl/Curlbond_Cleanser_12oz_2000x2000_Site",
+   "image_local": "public/scan/products-cheveux/devacurl/curlbondtm-cleanser-12-oz.jpg",
+   "categorie": "shampooing",
+   "etape": 1,
    "cheveux_cibles": [
     "boucles"
    ],
    "actifs": [],
    "ingredients": null,
    "description": null,
-   "claims": [],
-   "source": "sitemap devacurl.com/us + fiche"
+   "claims": [
+    "definition-boucles"
+   ],
+   "source": "sitemap devacurl.com/us + fiche",
+   "cutout_url": "public/scan/products-cheveux/devacurl/cutout/curlbondtm-cleanser-12-oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "devacurl--curlheightstm-cleanser-12-oz",
@@ -33,18 +37,22 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": 25.76,
    "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "DevaCurl/CurlHeights_Cleanser_12oz_2000x2000_Site",
-   "image_local": null,
-   "categorie": "autre-cheveux",
-   "etape": 3,
+   "image_source_url": "https://res.cloudinary.com/devacurl/image/upload/f_auto,q_auto,w_600/v1/DevaCurl/CurlHeights_Cleanser_12oz_2000x2000_Site",
+   "image_local": "public/scan/products-cheveux/devacurl/curlheightstm-cleanser-12-oz.jpg",
+   "categorie": "shampooing",
+   "etape": 1,
    "cheveux_cibles": [
     "boucles"
    ],
    "actifs": [],
    "ingredients": null,
    "description": null,
-   "claims": [],
-   "source": "sitemap devacurl.com/us + fiche"
+   "claims": [
+    "definition-boucles"
+   ],
+   "source": "sitemap devacurl.com/us + fiche",
+   "cutout_url": "public/scan/products-cheveux/devacurl/cutout/curlheightstm-cleanser-12-oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "devacurl--low-poo-original-12-oz",
@@ -55,8 +63,8 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": 25.76,
    "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "DevaCurl/Low_Poo_Original_12oz_2000x2000_Site",
-   "image_local": null,
+   "image_source_url": "https://res.cloudinary.com/devacurl/image/upload/f_auto,q_auto,w_600/v1/DevaCurl/Low_Poo_Original_12oz_2000x2000_Site",
+   "image_local": "public/scan/products-cheveux/devacurl/low-poo-original-12-oz.jpg",
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [],
@@ -70,7 +78,9 @@
    "ingredients": "AQUA/WATER/EAU, GLYCERIN, COCAMIDOPROPYL BETAINE, ALOE BARBADENSIS LEAF JUICE, CITRIC ACID, COCO-BETAINE, DISODIUM EDTA, DISODIUM PHOSPHATE, ETHYLHEXYLGLYCERIN, HYDROXYETHYLCELLULOSE, PEG-40 HYDROGENATED CASTOR OIL, PEG-7 GLYCERYL COCOATE, POLYQUATERNIUM-10, POLYQUATERNIUM-39, POLYQUATERNIUM-7, POLYSORBATE 60, SODIUM PHOSPHATE, SORBITOL, TOCOPHEROL, PHENOXYETHANOL, POTASSIUM SORBATE, SODIUM BENZOATE, PARFUM/FRAGRANCE, ALPHA-ISOMETHYL IONONE, BENZYL BENZOATE, GERANIOL, LINALOOL",
    "description": null,
    "claims": [],
-   "source": "sitemap devacurl.com/us + fiche"
+   "source": "sitemap devacurl.com/us + fiche",
+   "cutout_url": "public/scan/products-cheveux/devacurl/cutout/low-poo-original-12-oz.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "devacurl--no-poo-decadence-12-oz",
@@ -81,18 +91,22 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": 25.76,
    "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "DevaCurl/No_Poo_Decadence_12oz_2000x2000_Site",
-   "image_local": null,
+   "image_source_url": "https://res.cloudinary.com/devacurl/image/upload/f_auto,q_auto,w_600/v1/DevaCurl/No_Poo_Decadence_12oz_2000x2000_Site",
+   "image_local": "public/scan/products-cheveux/devacurl/no-poo-decadence-12-oz.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "Non-Lathering Cleanser for Ultra-Rich Moisture",
    "claims": [
-    "hydratant"
+    "hydratation"
    ],
-   "source": "sitemap devacurl.com/us + fiche"
+   "source": "sitemap devacurl.com/us + fiche",
+   "cutout_url": "public/scan/products-cheveux/devacurl/cutout/no-poo-decadence-12-oz.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "devacurl--no-poo-original-12-oz",
@@ -103,8 +117,8 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": 25.76,
    "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "DevaCurl/No_Poo_Original_12oz_2000x2000_Site",
-   "image_local": null,
+   "image_source_url": "https://res.cloudinary.com/devacurl/image/upload/f_auto,q_auto,w_600/v1/DevaCurl/No_Poo_Original_12oz_2000x2000_Site",
+   "image_local": "public/scan/products-cheveux/devacurl/no-poo-original-12-oz.jpg",
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [],
@@ -112,7 +126,9 @@
    "ingredients": null,
    "description": null,
    "claims": [],
-   "source": "sitemap devacurl.com/us + fiche"
+   "source": "sitemap devacurl.com/us + fiche",
+   "cutout_url": "public/scan/products-cheveux/devacurl/cutout/no-poo-original-12-oz.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "devacurl--curlheightstm-conditioner-12-oz",
@@ -123,8 +139,8 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": 25.76,
    "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "DevaCurl/CurlHeights_Conditioner_12oz_2000x2000_Site",
-   "image_local": null,
+   "image_source_url": "https://res.cloudinary.com/devacurl/image/upload/f_auto,q_auto,w_600/v1/DevaCurl/CurlHeights_Conditioner_12oz_2000x2000_Site",
+   "image_local": "public/scan/products-cheveux/devacurl/curlheightstm-conditioner-12-oz.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
@@ -133,8 +149,12 @@
    "actifs": [],
    "ingredients": null,
    "description": null,
-   "claims": [],
-   "source": "sitemap devacurl.com/us + fiche"
+   "claims": [
+    "definition-boucles"
+   ],
+   "source": "sitemap devacurl.com/us + fiche",
+   "cutout_url": "public/scan/products-cheveux/devacurl/cutout/curlheightstm-conditioner-12-oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "devacurl--curlbondtm-conditioner-12-oz",
@@ -145,8 +165,8 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": 25.76,
    "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "DevaCurl/Curlbond_Conditioner_12oz_2000x2000_Site",
-   "image_local": null,
+   "image_source_url": "https://res.cloudinary.com/devacurl/image/upload/f_auto,q_auto,w_600/v1/DevaCurl/Curlbond_Conditioner_12oz_2000x2000_Site",
+   "image_local": "public/scan/products-cheveux/devacurl/curlbondtm-conditioner-12-oz.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
@@ -155,8 +175,12 @@
    "actifs": [],
    "ingredients": null,
    "description": null,
-   "claims": [],
-   "source": "sitemap devacurl.com/us + fiche"
+   "claims": [
+    "definition-boucles"
+   ],
+   "source": "sitemap devacurl.com/us + fiche",
+   "cutout_url": "public/scan/products-cheveux/devacurl/cutout/curlbondtm-conditioner-12-oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "devacurl--leave-in-decadence-7-6-oz",
@@ -167,8 +191,8 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": 25.76,
    "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "DevaCurl/Deva_GS_Leave-In_Decadence_8oz_NEW",
-   "image_local": null,
+   "image_source_url": "https://res.cloudinary.com/devacurl/image/upload/DevaCurl/Deva_GS_Leave-In_Decadence_8oz_NEW",
+   "image_local": "public/scan/products-cheveux/devacurl/leave-in-decadence-7-6-oz.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [],
@@ -176,7 +200,12 @@
    "ingredients": null,
    "description": null,
    "claims": [],
-   "source": "sitemap devacurl.com/us + fiche"
+   "source": "sitemap devacurl.com/us + fiche",
+   "cutout_url": null,
+   "image_fond": true,
+   "image_provenance": "page produit https://www.devacurl.com/us/products/conditioners/leave-decadence",
+   "image_reparee_le": "2026-09-23",
+   "ciblage_source": "fiche"
   },
   {
    "id": "devacurl--mist-of-wonderstm-leave-in-10-oz",
@@ -187,8 +216,8 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": 33.12,
    "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "DevaCurl/pdp_MOW-bottle-shadow2_2000x2000",
-   "image_local": null,
+   "image_source_url": "https://res.cloudinary.com/devacurl/image/upload/f_auto,q_auto,w_600/v1/DevaCurl/mistofwonders_Model1_1126x1500_Zoe",
+   "image_local": "public/scan/products-cheveux/devacurl/mist-of-wonderstm-leave-in-10-oz.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [],
@@ -196,7 +225,9 @@
    "ingredients": null,
    "description": null,
    "claims": [],
-   "source": "sitemap devacurl.com/us + fiche"
+   "source": "sitemap devacurl.com/us + fiche",
+   "cutout_url": "public/scan/products-cheveux/devacurl/cutout/mist-of-wonderstm-leave-in-10-oz.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "devacurl--one-condition-decadence-12-oz",
@@ -207,8 +238,8 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": 25.76,
    "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "DevaCurl/One_Condition_Decadence_12oz_2000x2000_Site",
-   "image_local": null,
+   "image_source_url": "https://res.cloudinary.com/devacurl/image/upload/f_auto,q_auto,w_600/v1/DevaCurl/One_Condition_Decadence_12oz_2000x2000_Site",
+   "image_local": "public/scan/products-cheveux/devacurl/one-condition-decadence-12-oz.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [],
@@ -216,7 +247,9 @@
    "ingredients": null,
    "description": null,
    "claims": [],
-   "source": "sitemap devacurl.com/us + fiche"
+   "source": "sitemap devacurl.com/us + fiche",
+   "cutout_url": "public/scan/products-cheveux/devacurl/cutout/one-condition-decadence-12-oz.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "devacurl--one-condition-delight-12-oz",
@@ -227,8 +260,8 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": 29.44,
    "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "DevaCurl/Deva_GS_One_Condition_Delight_12oz_NEW",
-   "image_local": null,
+   "image_source_url": "https://res.cloudinary.com/devacurl/image/upload/f_auto,q_auto,w_600/v1/DevaCurl/Deva_GS_One_Condition_Delight_12oz_NEW",
+   "image_local": "public/scan/products-cheveux/devacurl/one-condition-delight-12-oz.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [],
@@ -241,7 +274,9 @@
    "ingredients": "AQUA/WATER/EAU, CETEARYL ALCOHOL, BEHENTRIMONIUM CHLORIDE, GLYCERIN, GLYCOL DISTEARATE, ALOE BARBADENSIS LEAF JUICE, CETRIMONIUM CHLORIDE, CETYL ESTERS, CITRIC ACID, ETHYLHEXYLGLYCERIN, HYDROXYPROPYL STARCH PHOSPHATE, ISOPROPYL ALCOHOL, POLYQUATERNIUM-39, SORBITOL, TOCOPHEROL, PHENOXYETHANOL, POTASSIUM SORBATE, SODIUM BENZOATE, PARFUM/FRAGRANCE, BENZYL BENZOATE, LINALOOL",
    "description": null,
    "claims": [],
-   "source": "sitemap devacurl.com/us + fiche"
+   "source": "sitemap devacurl.com/us + fiche",
+   "cutout_url": "public/scan/products-cheveux/devacurl/cutout/one-condition-delight-12-oz.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "devacurl--one-condition-original-12-oz",
@@ -252,8 +287,8 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": 25.76,
    "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "DevaCurl/One_Condition_Original_12oz_2000x2000_Site",
-   "image_local": null,
+   "image_source_url": "https://res.cloudinary.com/devacurl/image/upload/f_auto,q_auto,w_600/v1/DevaCurl/One_Condition_Original_12oz_2000x2000_Site",
+   "image_local": "public/scan/products-cheveux/devacurl/one-condition-original-12-oz.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [],
@@ -261,7 +296,9 @@
    "ingredients": null,
    "description": null,
    "claims": [],
-   "source": "sitemap devacurl.com/us + fiche"
+   "source": "sitemap devacurl.com/us + fiche",
+   "cutout_url": "public/scan/products-cheveux/devacurl/cutout/one-condition-original-12-oz.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "devacurl--curlheightstm-cream-6-oz",
@@ -272,8 +309,8 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": 26.68,
    "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "DevaCurl/CurlHeights_Cream_6oz_2000x2000_Site",
-   "image_local": null,
+   "image_source_url": "https://res.cloudinary.com/devacurl/image/upload/f_auto,q_auto,w_600/v1/DevaCurl/CurlHeights_Cream_6oz_2000x2000_Site",
+   "image_local": "public/scan/products-cheveux/devacurl/curlheightstm-cream-6-oz.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
@@ -282,8 +319,12 @@
    "actifs": [],
    "ingredients": null,
    "description": null,
-   "claims": [],
-   "source": "sitemap devacurl.com/us + fiche"
+   "claims": [
+    "definition-boucles"
+   ],
+   "source": "sitemap devacurl.com/us + fiche",
+   "cutout_url": "public/scan/products-cheveux/devacurl/cutout/curlheightstm-cream-6-oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "devacurl--flexible-hold-hairspray-10-oz",
@@ -294,16 +335,20 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": 25.76,
    "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "DevaCurl/Flexible_Hold_Hairspray_10oz_2000x2000_Site",
-   "image_local": null,
+   "image_source_url": "https://res.cloudinary.com/devacurl/image/upload/f_auto,q_auto,w_600/v1/DevaCurl/Flexible_Hold_Hairspray_10oz_2000x2000_Site",
+   "image_local": "public/scan/products-cheveux/devacurl/flexible-hold-hairspray-10-oz.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [],
    "actifs": [],
    "ingredients": null,
    "description": null,
-   "claims": [],
-   "source": "sitemap devacurl.com/us + fiche"
+   "claims": [
+    "fixation"
+   ],
+   "source": "sitemap devacurl.com/us + fiche",
+   "cutout_url": "public/scan/products-cheveux/devacurl/cutout/flexible-hold-hairspray-10-oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "devacurl--fragrance-free-et-hypoallergenic-supercreamtm-5-1-oz",
@@ -314,8 +359,8 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": 31.28,
    "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "DevaCurl/Deva_GS_SuperCream_new",
-   "image_local": null,
+   "image_source_url": "https://res.cloudinary.com/devacurl/image/upload/f_auto,q_auto,w_600/v1/DevaCurl/pdp-good-stuff_091422-holiday-jumbos_styling-cream_1500x1499",
+   "image_local": "public/scan/products-cheveux/devacurl/fragrance-free-et-hypoallergenic-supercreamtm-5-1-oz.jpg",
    "categorie": "autre-cheveux",
    "etape": 3,
    "cheveux_cibles": [],
@@ -323,7 +368,9 @@
    "ingredients": null,
    "description": null,
    "claims": [],
-   "source": "sitemap devacurl.com/us + fiche"
+   "source": "sitemap devacurl.com/us + fiche",
+   "cutout_url": "public/scan/products-cheveux/devacurl/cutout/fragrance-free-et-hypoallergenic-supercreamtm-5-1-oz.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "devacurl--frizz-fighting-volumizing-foam-8-oz",
@@ -334,20 +381,23 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": 26.68,
    "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "DevaCurl/Frizz_Fighting_Volumizing_Foam_8oz_2000x2000_Site",
-   "image_local": null,
+   "image_source_url": "https://res.cloudinary.com/devacurl/image/upload/f_auto,q_auto,w_600/v1/DevaCurl/Frizz_Fighting_Volumizing_Foam_8oz_2000x2000_Site",
+   "image_local": "public/scan/products-cheveux/devacurl/frizz-fighting-volumizing-foam-8-oz.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais"
+    "fins"
    ],
    "actifs": [],
    "ingredients": null,
    "description": null,
    "claims": [
+    "anti-frisottis",
     "volume"
    ],
-   "source": "sitemap devacurl.com/us + fiche"
+   "source": "sitemap devacurl.com/us + fiche",
+   "cutout_url": "public/scan/products-cheveux/devacurl/cutout/frizz-fighting-volumizing-foam-8-oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "devacurl--light-defining-gel-12-oz",
@@ -358,8 +408,8 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": 25.76,
    "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "DevaCurl/Deva_GS_Light_Defining_Gel_12oz_NEW",
-   "image_local": null,
+   "image_source_url": "https://res.cloudinary.com/devacurl/image/upload/f_auto,q_auto,w_600/v1/DevaCurl/Deva_GS_Light_Defining_Gel_12oz_NEW",
+   "image_local": "public/scan/products-cheveux/devacurl/light-defining-gel-12-oz.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [],
@@ -367,7 +417,9 @@
    "ingredients": null,
    "description": null,
    "claims": [],
-   "source": "sitemap devacurl.com/us + fiche"
+   "source": "sitemap devacurl.com/us + fiche",
+   "cutout_url": "public/scan/products-cheveux/devacurl/cutout/light-defining-gel-12-oz.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "devacurl--limited-edition-styling-cream-17-75-oz",
@@ -378,8 +430,8 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": 57.04,
    "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "DevaCurl/pdp_holiday_styling-cream_2000x2000-2",
-   "image_local": null,
+   "image_source_url": "https://res.cloudinary.com/devacurl/image/upload/f_auto,q_auto,w_600/v1/DevaCurl/Deva_GS_Melt_Into_Moisture_17-75oz_NEW",
+   "image_local": "public/scan/products-cheveux/devacurl/limited-edition-styling-cream-17-75-oz.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [],
@@ -387,7 +439,10 @@
    "ingredients": null,
    "description": null,
    "claims": [],
-   "source": "sitemap devacurl.com/us + fiche"
+   "source": "sitemap devacurl.com/us + fiche",
+   "cutout_url": "public/scan/products-cheveux/devacurl/cutout/limited-edition-styling-cream-17-75-oz.webp",
+   "image_fond": true,
+   "ciblage_source": "fiche"
   },
   {
    "id": "devacurl--limited-edition-supercreamtm-17-75-oz",
@@ -398,8 +453,8 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": 57.04,
    "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "DevaCurl/pdp_holiday_supercream_2000x2000-2",
-   "image_local": null,
+   "image_source_url": "https://res.cloudinary.com/devacurl/image/upload/DevaCurl/pdp_holiday_supercream_2000x2000-2",
+   "image_local": "public/scan/products-cheveux/devacurl/limited-edition-supercreamtm-17-75-oz.jpg",
    "categorie": "autre-cheveux",
    "etape": 3,
    "cheveux_cibles": [],
@@ -407,7 +462,12 @@
    "ingredients": null,
    "description": null,
    "claims": [],
-   "source": "sitemap devacurl.com/us + fiche"
+   "source": "sitemap devacurl.com/us + fiche",
+   "cutout_url": null,
+   "image_fond": true,
+   "image_provenance": "page produit https://www.devacurl.com/us/products/stylers/limited-edition-supercream",
+   "image_reparee_le": "2026-09-23",
+   "ciblage_source": "fiche"
   },
   {
    "id": "devacurl--plumping-primer-5-oz",
@@ -418,16 +478,22 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": 22.08,
    "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "DevaCurl/Plumping_Primer_5oz_2000x2000_Site",
-   "image_local": null,
+   "image_source_url": "https://res.cloudinary.com/devacurl/image/upload/f_auto,q_auto,w_600/v1/DevaCurl/Plumping_Primer_5oz_2000x2000_Site",
+   "image_local": "public/scan/products-cheveux/devacurl/plumping-primer-5-oz.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "fins"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": null,
-   "claims": [],
-   "source": "sitemap devacurl.com/us + fiche"
+   "claims": [
+    "volume"
+   ],
+   "source": "sitemap devacurl.com/us + fiche",
+   "cutout_url": "public/scan/products-cheveux/devacurl/cutout/plumping-primer-5-oz.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "devacurl--quench-n-define-geltm-12-oz",
@@ -438,8 +504,8 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": 25.76,
    "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "DevaCurl/QuenchN_Define_Gel_12oz_Correct_TM_Placement_2000x2000_Site",
-   "image_local": null,
+   "image_source_url": "https://res.cloudinary.com/devacurl/image/upload/f_auto,q_auto,w_600/v1/DevaCurl/QuenchN_Define_Gel_12oz_Correct_TM_Placement_2000x2000_Site",
+   "image_local": "public/scan/products-cheveux/devacurl/quench-n-define-geltm-12-oz.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [],
@@ -453,7 +519,9 @@
    "ingredients": "Aqua (Water, Eau), Glycerin, Oleth-20, Polyquaternium-10, Polyquaternium-4, Phenoxyethanol, Panthenol, Parfum (Fragrance), Sodium Gluconate, Linum Usitatissimum (Linseed) Seed Oil, Ethylhexylglycerin, Propylene Glycol, Aminomethyl Propanol, Chondrus Crispus Extract, Bambusa Vulgaris Extract, Caulerpa Lentillifera Extract, Citric Acid, Sodium Benzoate, Limonene, Citrus Aurantium Peel Oil, Vanillin, TetramethylAcetyloctahydronaphthalenes, Linalool, Benzyl Alcohol",
    "description": null,
    "claims": [],
-   "source": "sitemap devacurl.com/us + fiche"
+   "source": "sitemap devacurl.com/us + fiche",
+   "cutout_url": "public/scan/products-cheveux/devacurl/cutout/quench-n-define-geltm-12-oz.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "devacurl--quench-n-stretch-creamtm-12-oz",
@@ -464,8 +532,8 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": 26.68,
    "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "DevaCurl/devacurl_quenchn-cream-product-new_2000x2000",
-   "image_local": null,
+   "image_source_url": "https://res.cloudinary.com/devacurl/image/upload/f_auto,q_auto,w_600/v1/DevaCurl/QuenchN_Define_Gel_12oz_Correct_TM_Placement_2000x2000_Site",
+   "image_local": "public/scan/products-cheveux/devacurl/quench-n-stretch-creamtm-12-oz.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [],
@@ -477,7 +545,9 @@
    "ingredients": "AQUA (WATER,EAU), CETEARYL ALCOHOL, GLYCINE SOJA (SOYBEAN) OIL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, GLYCERIN, BEHENTRIMONIUM METHOSULFATE, ISOPENTYLDIOL, ETHYLHEXYL OLIVATE, HELIANTHUS ANNUSS (SUNFLOWER) SEED WAX, PHENOXYETHANOL, PARFUM (FRAGRANCE), HYDROLYZED CORN STARCH, HYDROXYPROPYL GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, TETRASODIUM GLUTAMATE DIACETATE, CITRIC ACID, ETHYLHEXYLGLYCERIN, ORBIGNYA OLEIFERA SEED OIL, MANGIFERA INDICA (MANGO) SEED BUTTER, SQUALANE, GUAR HYDROXYPROPYLTRIMONIUM CHLORIDE, METHOXYCINNAMIDOPROPYL BEHENDIMONIUM CHLORIDE, CHONDRUS CRISPUS EXTRACT, CAULERPA LENTILLIFERA EXTRACT, ALTHAEA OFFICINALIS ROOT EXTRACT, SODIUM BENZOATE, LIMONENE, CITRUS AURANTIUM PEEL OIL, VANILLIN, TETRAMETHYL ACETYLOCTAHYDRONAPHTHALENES, LINALOOL, BENZYL ALCOHOL, COUMARIN, CITRUS LIMON (LEMON) PEEL OIL",
    "description": null,
    "claims": [],
-   "source": "sitemap devacurl.com/us + fiche"
+   "source": "sitemap devacurl.com/us + fiche",
+   "cutout_url": "public/scan/products-cheveux/devacurl/cutout/quench-n-stretch-creamtm-12-oz.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "devacurl--ultra-defining-gel-12-oz",
@@ -488,8 +558,8 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": 25.76,
    "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "DevaCurl/Ultra_Defining_Gel_12oz_2000x2000_Site",
-   "image_local": null,
+   "image_source_url": "https://res.cloudinary.com/devacurl/image/upload/f_auto,q_auto,w_600/v1/DevaCurl/Ultra_Defining_Gel_12oz_2000x2000_Site",
+   "image_local": "public/scan/products-cheveux/devacurl/ultra-defining-gel-12-oz.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [],
@@ -497,7 +567,9 @@
    "ingredients": null,
    "description": null,
    "claims": [],
-   "source": "sitemap devacurl.com/us + fiche"
+   "source": "sitemap devacurl.com/us + fiche",
+   "cutout_url": "public/scan/products-cheveux/devacurl/cutout/ultra-defining-gel-12-oz.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "devacurl--wash-day-wonder-12-oz",
@@ -508,58 +580,18 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": 26.68,
    "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "DevaCurl/Wash_Day_Wonder_12oz_2000x2000_Site",
-   "image_local": null,
-   "categorie": "autre-cheveux",
-   "etape": 3,
+   "image_source_url": "https://res.cloudinary.com/devacurl/image/upload/f_auto,q_auto,w_600/v1/DevaCurl/Wash_Day_Wonder_12oz_2000x2000_Site",
+   "image_local": "public/scan/products-cheveux/devacurl/wash-day-wonder-12-oz.jpg",
+   "categorie": "shampooing",
+   "etape": 1,
    "cheveux_cibles": [],
    "actifs": [],
    "ingredients": null,
    "description": null,
    "claims": [],
-   "source": "sitemap devacurl.com/us + fiche"
-  },
-  {
-   "id": "devacurl--devadryer-devafuser-one-size",
-   "name": "DevaDryer® + DevaFuser®, one size",
-   "brand": "devacurl",
-   "brand_name": "DevaCurl",
-   "url": "https://www.devacurl.com/us/products/tools/devadryer-and-devafuser",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 137.08,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "DevaCurl/pdp_devadryer-fuser_nozzle_2000x2000",
-   "image_local": null,
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [
-    "boucles"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Featuring Curl Flexible Alternating Ionic Technology",
-   "claims": [],
-   "source": "sitemap devacurl.com/us + fiche"
-  },
-  {
-   "id": "devacurl--twist-and-turns-fabric-wrap-one-size",
-   "name": "Twist and Turns Fabric Wrap, one size",
-   "brand": "devacurl",
-   "brand_name": "DevaCurl",
-   "url": "https://www.devacurl.com/us/products/tools/unwrp-twist-turns-fabric-wrap",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 34.96,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "DevaCurl/pdp_holiday_kits_pp",
-   "image_local": null,
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": null,
-   "claims": [],
-   "source": "sitemap devacurl.com/us + fiche"
+   "source": "sitemap devacurl.com/us + fiche",
+   "cutout_url": "public/scan/products-cheveux/devacurl/cutout/wash-day-wonder-12-oz.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "devacurl--melt-into-moisture-8-oz",
@@ -570,18 +602,22 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": 36.8,
    "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "DevaCurl/Melt_Into_Moisture_8oz_2000x2000_Site",
-   "image_local": null,
+   "image_source_url": "https://res.cloudinary.com/devacurl/image/upload/f_auto,q_auto,w_600/v1/DevaCurl/Melt_Into_Moisture_8oz_2000x2000_Site",
+   "image_local": "public/scan/products-cheveux/devacurl/melt-into-moisture-8-oz.jpg",
    "categorie": "autre-cheveux",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": null,
    "claims": [
-    "hydratant"
+    "hydratation"
    ],
-   "source": "sitemap devacurl.com/us + fiche"
+   "source": "sitemap devacurl.com/us + fiche",
+   "cutout_url": "public/scan/products-cheveux/devacurl/cutout/melt-into-moisture-8-oz.webp",
+   "ciblage_source": "fiche"
   }
  ]
 }

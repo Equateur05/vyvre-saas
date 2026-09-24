@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>vyvre — Scan cheveux · série D · spectromètre, carte, microscope</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,400;1,500&family=JetBrains+Mono:wght@300;400;500&family=Inter:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+:root{--fs:'Inter',-apple-system,sans-serif;--fd:'JetBrains Mono',monospace;--fp:'Playfair Display',Georgia,serif;--e1:cubic-bezier(.16,1,.3,1)}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased}
+html,body{background:#030407;color:#fff;font-family:var(--fs);font-weight:300;overflow-x:hidden}
+body{min-height:100dvh}
+
+/* ---------- la planche ---------- */
+.planche{padding:52px 4vw 80px;max-width:1360px;margin:0 auto}
+.hd{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;flex-wrap:wrap;margin-bottom:34px}
+.hd h1{font-family:var(--fp);font-weight:400;font-size:clamp(32px,4.6vw,60px);line-height:1;letter-spacing:-.015em}
+.hd h1 em{display:block;font-style:italic;font-size:.5em;color:rgba(255,255,255,.55);margin-top:10px}
+.hd .m{font-family:var(--fd);font-size:9.5px;letter-spacing:.28em;text-transform:uppercase;color:rgba(255,255,255,.36);text-align:right;line-height:2}
+.intro{max-width:74ch;color:rgba(255,255,255,.62);font-size:15px;line-height:1.7;margin-bottom:42px}
+.intro b{color:#fff;font-weight:400}
+.cartes{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media (max-width:1000px){.cartes{grid-template-columns:1fr}}
+.carte{border:1px solid rgba(255,255,255,.12);border-radius:22px;overflow:hidden;cursor:pointer;
+  background:#05060b;transition:transform .7s var(--e1),border-color .5s}
+.carte:hover{transform:translateY(-4px)}
+.carte canvas{display:block;width:100%;aspect-ratio:4/5}
+.carte .bd{padding:18px 20px 22px;border-top:1px solid rgba(255,255,255,.1)}
+.carte .n{font-family:var(--fd);font-size:9px;letter-spacing:.3em;color:rgba(255,255,255,.45)}
+.carte h2{font-family:var(--fp);font-weight:400;font-size:24px;margin:8px 0 8px}
+.carte p{font-size:13px;line-height:1.6;color:rgba(255,255,255,.58)}
+.carte .go{margin-top:16px;font-family:var(--fd);font-size:9.5px;letter-spacing:.24em;text-transform:uppercase}
+.c1{border-color:rgba(160,120,255,.3)} .c1 .go{color:#C7B2FF}
+.c2{border-color:rgba(120,230,190,.28)} .c2 .go{color:#8FF0CC}
+.c3{border-color:rgba(255,214,150,.28)} .c3 .go{color:#FFD99A}
+
+/* ---------- le plein ecran : un vrai parcours, clique par clique ---------- */
+.scene{position:fixed;inset:0;z-index:50;display:none;background:#030407}
+.scene.on{display:block}
+.scene canvas{position:absolute;inset:0;width:100%;height:100%}
+.ui{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;pointer-events:none}
+.ui > *{pointer-events:auto}
+.barre{display:flex;justify-content:space-between;align-items:center;padding:22px 26px}
+.barre .nom{font-family:var(--fd);font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.62)}
+.barre button{width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.18);
+  background:rgba(8,9,14,.5);color:#fff;font-size:18px;cursor:pointer;backdrop-filter:blur(14px)}
+.etapes{position:absolute;left:50%;bottom:24px;transform:translateX(-50%);display:flex;gap:2px;z-index:4}
+.etapes button{font-family:var(--fd);font-size:9px;letter-spacing:.2em;text-transform:uppercase;padding:10px 15px;
+  border:1px solid rgba(255,255,255,.14);background:rgba(6,7,12,.6);color:rgba(255,255,255,.42);cursor:pointer;backdrop-filter:blur(12px)}
+.etapes button.on{color:#fff;border-color:var(--acc);box-shadow:inset 0 -2px 0 var(--acc)}
+
+/* la zone de jeu : questions et resultats sont de vrais elements HTML,
+   cliquables — on ne fait pas semblant avec un dessin */
+.jeu{flex:1;display:grid;place-items:center;padding:0 5vw 90px;position:relative}
+.bloc{width:min(900px,100%);text-align:center;display:none}
+.bloc.on{display:block;animation:entre .8s var(--e1) both}
+@keyframes entre{from{opacity:0;transform:translateY(24px);filter:blur(10px)}to{opacity:1;transform:none;filter:blur(0)}}
+.kick{font-family:var(--fd);font-size:10px;letter-spacing:.34em;text-transform:uppercase;color:var(--acc)}
+.q{font-family:var(--fp);font-style:italic;font-weight:400;font-size:clamp(32px,5.2vw,68px);line-height:1.06;
+  letter-spacing:-.012em;margin:18px auto 40px;max-width:18ch}
+.opts{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:820px;margin:0 auto}
+.opt{font-family:var(--fd);font-size:12px;letter-spacing:.2em;text-transform:uppercase;padding:18px 28px;min-width:160px;
+  border:1px solid rgba(255,255,255,.2);background:rgba(8,10,16,.45);color:rgba(255,255,255,.78);cursor:pointer;
+  backdrop-filter:blur(16px);transition:all .35s var(--e1)}
+.opt:hover{border-color:var(--acc);color:#fff;transform:translateY(-2px)}
+.opt.sel{border-color:var(--acc);color:#fff;background:var(--acc-bg);box-shadow:0 0 30px var(--acc-glow),inset 0 0 20px var(--acc-bg)}
+.prog{width:min(300px,60vw);height:1px;background:rgba(255,255,255,.14);margin:0 auto 28px;position:relative}
+.prog i{position:absolute;inset:0;background:var(--acc);transform-origin:left;box-shadow:0 0 12px var(--acc);transition:transform .7s var(--e1)}
+
+.consigne{position:absolute;left:50%;bottom:92px;transform:translateX(-50%);text-align:center;
+  padding:16px 26px;border:1px solid rgba(255,255,255,.14);background:rgba(6,7,12,.62);backdrop-filter:blur(20px);min-width:min(420px,86vw)}
+.consigne .p{font-family:var(--fd);font-size:9px;letter-spacing:.3em;color:var(--acc)}
+.consigne b{display:block;font-weight:300;font-size:22px;margin-top:6px}
+.consigne em{display:block;font-style:normal;font-size:13px;color:rgba(255,255,255,.55);margin-top:5px}
+.consigne .t{height:2px;background:rgba(255,255,255,.1);margin-top:14px;position:relative;overflow:hidden}
+.consigne .t i{position:absolute;inset:0;background:var(--acc);transform-origin:left;box-shadow:0 0 10px var(--acc)}
+
+.res .titre{font-family:var(--fp);font-weight:400;font-size:clamp(30px,4.6vw,58px);margin:14px 0 38px}
+.band{display:grid;grid-template-columns:repeat(4,1fr);text-align:left;gap:0;margin-bottom:38px}
+.band div{padding:0 18px 16px 0;border-bottom:1px solid rgba(255,255,255,.14)}
+.band b{display:block;font-family:var(--fd);font-size:9px;letter-spacing:.26em;text-transform:uppercase;color:rgba(255,255,255,.45)}
+.band em{display:block;font-style:normal;font-weight:200;font-size:clamp(34px,4.4vw,58px);line-height:1.05;margin-top:10px;text-shadow:0 0 30px var(--acc-glow)}
+.band em u{text-decoration:none;font-size:.34em;opacity:.45;margin-left:4px}
+.band i{display:block;font-style:normal;font-family:var(--fd);font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.32);margin-top:10px}
+.gestes{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;text-align:left}
+.g{border:1px solid rgba(255,255,255,.12);background:rgba(8,10,16,.5);backdrop-filter:blur(14px)}
+.g .img{aspect-ratio:1/1;display:grid;place-items:center;background:var(--plaque)}
+.g .img img{width:74%;height:74%;object-fit:contain;filter:drop-shadow(0 18px 22px rgba(0,0,0,.55))}
+.g .tx{padding:12px 14px 14px}
+.g .tx small{font-family:var(--fd);font-size:8.5px;letter-spacing:.22em;color:var(--acc)}
+.g .tx strong{display:block;font-weight:300;font-size:13.5px;margin-top:5px;line-height:1.35;min-height:36px}
+.g .tx span{display:block;font-family:var(--fd);font-size:8px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.38);margin-top:6px}
+@media (max-width:760px){.band,.gestes{grid-template-columns:repeat(2,1fr)}.band{gap:18px 0}}
+
+.suivant{margin-top:34px;font-family:var(--fd);font-size:10px;letter-spacing:.26em;text-transform:uppercase;
+  padding:16px 30px;border:1px solid var(--acc);color:#fff;background:var(--acc-bg);cursor:pointer}
+.releves{display:grid;gap:10px;width:min(520px,90vw);margin:26px auto 0;text-align:left}
+.releves div{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:6px;opacity:.22;transition:opacity .6s}
+.releves div.on{opacity:.62}.releves div.lu{opacity:1}
+.releves span{font-weight:200;font-size:16px}
+.releves b{font-family:var(--fd);font-weight:400;font-size:13px;color:rgba(255,255,255,.35)}
+.releves div.lu b{color:var(--acc);text-shadow:0 0 16px var(--acc-glow)}
+.echelle{font-family:var(--fd);font-size:11px;letter-spacing:.2em;color:var(--acc);margin-top:14px}
+</style>
+</head>
+<body>
+
+<div class="planche">
+  <header class="hd">
+    <h1>Série D<em>spectromètre, carte, microscope</em></h1>
+    <div class="m">vyvre.fr · scan cheveux<br>trois parcours de A à Z<br>21 sept. 2026</div>
+  </header>
+  <p class="intro">
+    Trois parcours complets, et <b>cliquables pour de vrai</b> : vous répondez aux questions, le scan vous guide, la lecture tourne, les résultats arrivent.
+    Chaque écriture a une idée derrière — <b>ce que l'instrument montre, c'est ce qu'il mesure</b>. Les chiffres affichés sont ceux que le moteur sait lire, et les produits viennent du catalogue.
+  </p>
+  <div class="cartes" id="cartes"></div>
+</div>
+
+<div class="scene" id="scene">
+  <canvas id="cv"></canvas>
+  <div class="ui">
+    <div class="barre"><span class="nom" id="nom"></span><button id="fermer" aria-label="Fermer">&times;</button></div>
+    <div class="jeu" id="jeu"></div>
+  </div>
+  <div class="etapes" id="etapes"></div>
+</div>
+
+<script>
+'use strict';
+function $(i){ return document.getElementById(i); }
+function clamp(v,a,b){ return v<a?a:(v>b?b:v); }
+function lerp(a,b,k){ return a+(b-a)*k; }
+function ease(k){ k=clamp(k,0,1); return k*k*(3-2*k); }
+function hash(n){ var s=Math.sin(n*127.1)*43758.5453; return s-Math.floor(s); }
+function mono(g,t,x,y,sz,a,col,al){ g.save(); g.font='400 '+sz+'px "JetBrains Mono",monospace';
+  g.fillStyle=col||('rgba(255,255,255,'+a+')'); g.textAlign=al||'left'; g.textBaseline='middle'; g.fillText(t,x,y); g.restore(); }
+/* =========================================================================
+   LES DONNEES DU PARCOURS — les memes que le vrai scan
+   ========================================================================= */
+var QUESTIONS = [
+  { k:'QUESTION 01', q:'Ce qui vous gêne le plus', o:['Secs','Regraissent vite','Chute','Pellicules','Cassants','Rien de particulier'] },
+  { k:'QUESTION 02', q:'Vos cheveux sont',          o:['Naturels','Colorés ou décolorés'] },
+  { k:'QUESTION 03', q:'Les longueurs ou les pointes ?', o:['Les longueurs','Les pointes'] }
+];
+var POSES = [
+  ['1 / 4','Tenez-vous de face','Toute la masse dans le cadre. Ne bougez plus.'],
+  ['2 / 4','De profil, côté gauche','Tournez doucement la tête.'],
+  ['3 / 4','De profil, côté droit','Et de l’autre côté.'],
+  ['4 / 4','Montrez le dessus du crâne','Penchez la tête vers l’objectif.']
+];
+var MESURES = [
+  ['La boucle','62','/100','orientation des mèches'],
+  ['La couleur','Foncé','','L*a*b* sur la masse'],
+  ['La prise','78','/100','qualité de l’image'],
+  ['La routine','4','gestes','dans cet ordre']
+];
+var GESTES = [['I · LAVAGE',1],['II · SOIN',2],['III · SANS RINÇAGE',3],['IV · TRAITEMENT',4]];
+var PRODUITS = [null,null,null,null];
+
+/* quatre vraies fiches, detourees, sans fond d'origine ni image douteuse */
+fetch('/scan/catalogue-cheveux/all.json').then(function(r){ return r.json(); }).then(function(j){
+  var t = j.products || [];
+  GESTES.forEach(function(ge, i){
+    var lot = t.filter(function(p){ return p.etape === ge[1] && p.cutout_url && !p.image_fond && !p.image_incertaine && !p.image_absente; });
+    if(!lot.length) return;
+    var p = lot[Math.floor(hash(i*31.7+5)*lot.length)];
+    PRODUITS[i] = { nom:p.name, marque:p.brand_name||'', img:String(p.cutout_url).replace(/^public\//,'/') };
+  });
+}).catch(function(){});
+
+/* =========================================================================
+   TROIS INSTRUMENTS — chacun dessine son fond pour chaque moment.
+   m : 0 questions, 1 scan, 2 lecture, 3 resultats ; k : progression 0..1
+   ========================================================================= */
+var DIRECTIONS = [
+{
+  id:'spectro', n:'01 · LE SPECTROMÈTRE', titre:'Le spectromètre',
+  txt:'La couleur de vos cheveux décomposée en lumière. Pendant le scan, un vrai histogramme L*a*b* se construit en direct ; la lecture replie le spectre en quatre raies.',
+  acc:'#B79BFF', accBg:'rgba(150,110,255,.16)', accGlow:'rgba(150,110,255,.45)', plaque:'radial-gradient(90% 90% at 50% 20%,rgba(170,140,255,.22),rgba(18,12,40,.6))',
+  cls:'c1',
+  fond:function(g,W,H,t,m,k){
+    g.fillStyle='#05040c'; g.fillRect(0,0,W,H);
+    /* le prisme de fond : bandes qui ondulent */
+    var nb=64;
+    for(var i=0;i<nb;i++){
+      var f=i/nb, hue=250-f*230;
+      var x=f*W, w=W/nb+1;
+      var h=H*(0.18+0.5*Math.pow(Math.sin(f*6.2+t*0.6)*0.5+0.5,2)*(m===1?1:0.6));
+      if(m===2){ var pic=Math.exp(-Math.pow((f-[0.18,0.42,0.63,0.84][Math.floor(k*4)%4])*14,2)); h=H*(0.06+0.62*pic*ease(k*1.3)); }
+      var gr=g.createLinearGradient(0,H,0,H-h);
+      gr.addColorStop(0,'hsla('+hue+',90%,62%,0)');
+      gr.addColorStop(1,'hsla('+hue+',90%,70%,'+(m===0?0.10:0.26)+')');
+      g.fillStyle=gr; g.fillRect(x,H-h,w,h);
+    }
+    if(m===1){
+      /* le visage mis de cote, la chevelure lue */
+      var cx=W/2, cy=H*0.46, R=Math.min(W,H)*0.2;
+      g.save(); g.beginPath(); g.ellipse(cx,cy-R*0.35,R*1.25,R*1.1,0,Math.PI,0); g.clip();
+      for(var y=cy-R*1.5;y<cy;y+=3){
+        var hy=250-((y-(cy-R*1.5))/(R*1.5))*200;
+        g.strokeStyle='hsla('+hy+',80%,70%,.35)'; g.beginPath(); g.moveTo(cx-R*1.3,y); g.lineTo(cx+R*1.3,y); g.stroke();
+      }
+      var yb=cy-R*1.5+((t*0.5)%1)*R*1.5;
+      g.fillStyle='rgba(255,255,255,.75)'; g.fillRect(cx-R*1.3,yb,R*2.6,1.5);
+      g.restore();
+      g.strokeStyle='rgba(255,255,255,.14)'; g.setLineDash([3,5]);
+      g.beginPath(); g.ellipse(cx,cy+R*0.35,R*0.6,R*0.8,0,0,Math.PI*2); g.stroke(); g.setLineDash([]);
+      mono(g,'L*  a*  b*',W*0.06,H*0.1,10,.6,'#C7B2FF');
+      for(var b2=0;b2<3;b2++){ var v=0.3+0.5*Math.abs(Math.sin(t*0.8+b2*1.7));
+        g.fillStyle='rgba(199,178,255,.14)'; g.fillRect(W*0.06,H*0.14+b2*18,120,6);
+        g.fillStyle='#C7B2FF'; g.fillRect(W*0.06,H*0.14+b2*18,120*v,6); }
+    }
+  }
+},
+{
+  id:'carte', n:'02 · LA CARTE', titre:'La carte',
+  txt:'Votre chevelure devient un relief. Les courbes de niveau suivent la masse de cheveux, jamais le visage ; les quatre mesures se posent comme des repères sur la carte.',
+  acc:'#7FEBC4', accBg:'rgba(80,220,170,.14)', accGlow:'rgba(80,220,170,.42)', plaque:'radial-gradient(90% 90% at 50% 20%,rgba(120,230,190,.20),rgba(6,30,24,.62))',
+  cls:'c2',
+  fond:function(g,W,H,t,m,k){
+    g.fillStyle='#030a08'; g.fillRect(0,0,W,H);
+    g.strokeStyle='rgba(127,235,196,.05)';
+    for(var x=0;x<W;x+=46){ g.beginPath(); g.moveTo(x,0); g.lineTo(x,H); g.stroke(); }
+    for(var y=0;y<H;y+=46){ g.beginPath(); g.moveTo(0,y); g.lineTo(W,y); g.stroke(); }
+    var cx=W/2, cy=H*(m===1?0.46:0.5), R=Math.min(W,H)*(m===2?0.16+0.2*ease(k):0.24);
+    var nb=m===2?Math.floor(4+k*16):16;
+    for(var n=0;n<nb;n++){
+      var f=n/16;
+      g.beginPath();
+      for(var a=0;a<=6.3;a+=0.07){
+        var br=R*(1.3+0.16*Math.sin(a*3+n*0.4)-0.3*Math.max(0,Math.cos(a)))*(1-f*0.86);
+        var wob=Math.sin(a*5+n*1.3+t*0.4)*R*0.03*(1-f);
+        var xx=cx+Math.sin(a)*(br+wob), yy=cy-Math.cos(a)*(br+wob)*1.05;
+        if(a===0) g.moveTo(xx,yy); else g.lineTo(xx,yy);
+      }
+      g.closePath();
+      var lum=0.1+0.5*Math.pow(1-f,1.4)*(0.6+0.4*Math.sin(t*0.9-n*0.45));
+      g.strokeStyle='rgba(127,235,196,'+lum.toFixed(3)+')'; g.lineWidth=n%4===0?1.4:0.8; g.stroke();
+    }
+    if(m===1){
+      var ang=(t*0.6)%(Math.PI*2);
+      g.save(); g.translate(cx,cy);
+      var gr=g.createRadialGradient(0,0,0,0,0,R*1.5);
+      gr.addColorStop(0,'rgba(127,235,196,.0)'); gr.addColorStop(1,'rgba(127,235,196,.16)');
+      g.fillStyle=gr; g.beginPath(); g.moveTo(0,0); g.arc(0,0,R*1.5,ang,ang+0.5); g.closePath(); g.fill();
+      g.restore();
+      mono(g,'ALT. RELATIVE',W*0.06,H*0.1,10,.6,'#8FF0CC');
+    }
+    if(m===3){
+      var P=[[-0.9,-0.6],[0.7,-0.8],[0.9,0.4],[-0.6,0.6]];
+      P.forEach(function(p,i){ var x=cx+p[0]*R*1.1, y=cy+p[1]*R*1.1;
+        g.fillStyle='#7FEBC4'; g.beginPath(); g.arc(x,y,3.2,0,6.3); g.fill();
+        g.strokeStyle='rgba(127,235,196,.4)'; g.beginPath(); g.arc(x,y,9+3*Math.sin(t*2+i),0,6.3); g.stroke(); });
+    }
+  }
+},
+{
+  id:'micro', n:'03 · LE MICROSCOPE', titre:'Le microscope',
+  txt:'Un viseur d’instrument, réticule et mise au point. Le scan fait le point sur la chevelure ; la lecture descend du centimètre au micron, jusqu’aux écailles de la fibre.',
+  acc:'#FFD48A', accBg:'rgba(255,200,120,.14)', accGlow:'rgba(255,200,120,.42)', plaque:'radial-gradient(90% 90% at 50% 20%,rgba(255,220,160,.22),rgba(40,26,8,.6))',
+  cls:'c3',
+  fond:function(g,W,H,t,m,k){
+    g.fillStyle='#070503'; g.fillRect(0,0,W,H);
+    var cx=W/2, cy=H*0.46, R=Math.min(W,H)*0.34;
+    /* le champ du microscope */
+    g.save(); g.beginPath(); g.arc(cx,cy,R,0,6.3); g.clip();
+    var gr=g.createRadialGradient(cx,cy,0,cx,cy,R);
+    gr.addColorStop(0,'#2a1f10'); gr.addColorStop(1,'#0d0905'); g.fillStyle=gr; g.fillRect(cx-R,cy-R,R*2,R*2);
+    var zoom=m===2?1+k*14:(m===1?1.4:1);
+    var nf=Math.max(3,Math.round(16/Math.sqrt(zoom)));
+    for(var i=0;i<nf;i++){
+      var s=hash(i*3.3), x0=cx-R+(i+0.5)/nf*R*2, lar=(R*2/nf)*0.36*(0.7+s*0.6);
+      g.beginPath();
+      for(var y=cy-R;y<=cy+R;y+=6){ var x=x0+Math.sin(y*0.012/zoom+s*6+t*0.3)*R*0.06; if(y===cy-R) g.moveTo(x,y); else g.lineTo(x,y); }
+      var lum=0.25+0.45*s;
+      g.strokeStyle='rgba(255,'+Math.round(200+40*s)+','+Math.round(140+60*s)+','+lum.toFixed(2)+')';
+      g.lineWidth=lar; g.lineCap='round'; g.stroke();
+      if(zoom>5){ g.strokeStyle='rgba(255,236,200,'+(0.25*clamp((zoom-5)/4,0,1)).toFixed(2)+')'; g.lineWidth=1;
+        for(var yy=cy-R;yy<cy+R;yy+=Math.max(6,22-zoom)){ g.beginPath(); g.moveTo(x0-lar/2,yy); g.lineTo(x0+lar/2,yy+3); g.stroke(); } }
+    }
+    /* la mise au point : flou qui se resorbe */
+    if(m===1){ var fl=0.5+0.5*Math.sin(t*1.3); g.fillStyle='rgba(13,9,5,'+(0.35*fl).toFixed(2)+')'; g.fillRect(cx-R,cy-R,R*2,R*2); }
+    g.restore();
+    /* le reticule */
+    g.strokeStyle='rgba(255,212,138,.55)'; g.lineWidth=1;
+    g.beginPath(); g.arc(cx,cy,R,0,6.3); g.stroke();
+    g.beginPath(); g.moveTo(cx-R,cy); g.lineTo(cx+R,cy); g.moveTo(cx,cy-R); g.lineTo(cx,cy+R); g.stroke();
+    for(var tk=-10;tk<=10;tk++){ var l=tk%5===0?10:5; g.beginPath(); g.moveTo(cx+tk*R/10,cy-l); g.lineTo(cx+tk*R/10,cy+l); g.stroke(); }
+    g.beginPath(); g.arc(cx,cy,R*0.3,0,6.3); g.stroke();
+    if(m===1){ var fr=R*(1.05+0.03*Math.sin(t*2)); g.setLineDash([2,6]); g.beginPath(); g.arc(cx,cy,fr,0,6.3); g.stroke(); g.setLineDash([]);
+      mono(g,'MISE AU POINT',cx+R+18,cy-8,10,.7,'#FFD99A'); mono(g,Math.round(60+35*(0.5+0.5*Math.sin(t*1.3)))+' %',cx+R+18,cy+10,12,.9,'#FFD99A'); }
+  }
+}];
+
+/* =========================================================================
+   LA SCENE PLEIN ECRAN — un vrai parcours
+   ========================================================================= */
+var D=null, M=0, T0=performance.now(), KT=0, RQ=null, choix=[], qi=0, poseI=0, tenue=0;
+var cv=$('cv'), g=cv.getContext('2d');
+function taille(){ var r=Math.min(window.devicePixelRatio||1,2); cv.width=innerWidth*r; cv.height=innerHeight*r; g.setTransform(r,0,0,r,0,0); }
+addEventListener('resize', taille);
+
+function ouvrir(i){
+  D=DIRECTIONS[i]; choix=[]; qi=0; poseI=0; tenue=0;
+  var st=$('scene').style;
+  st.setProperty('--acc',D.acc); st.setProperty('--acc-bg',D.accBg); st.setProperty('--acc-glow',D.accGlow); st.setProperty('--plaque',D.plaque);
+  $('nom').textContent=D.n;
+  $('scene').classList.add('on'); taille(); aller(0);
+}
+function fermer(){ $('scene').classList.remove('on'); D=null; }
+$('fermer').onclick=fermer;
+addEventListener('keydown',function(e){ if(!D) return; if(e.key==='Escape') fermer();
+  if(e.key==='ArrowRight') aller(Math.min(3,M+1)); if(e.key==='ArrowLeft') aller(Math.max(0,M-1)); });
+
+function etapes(){
+  var h=''; ['Questions','Scan','Lecture','Résultats'].forEach(function(n,i){
+    h+='<button class="'+(i===M?'on':'')+'" data-i="'+i+'">0'+(i+1)+' · '+n+'</button>'; });
+  $('etapes').innerHTML=h;
+  Array.prototype.forEach.call($('etapes').children,function(b){ b.onclick=function(){ aller(+b.dataset.i); }; });
+}
+function aller(m){
+  M=m; KT=performance.now(); etapes();
+  if(m===0){ qi=0; choix=[]; question(); }
+  if(m===1){ poseI=0; tenue=0; scan(); }
+  if(m===2){ lecture(); }
+  if(m===3){ resultats(); }
+}
+/* --- 1. questions : une a la fois, cliquables --- */
+function question(){
+  var Q=QUESTIONS[qi];
+  $('jeu').innerHTML='<div class="bloc on"><div class="prog"><i style="transform:scaleX('+((qi+1)/3)+')"></i></div>'+
+    '<div class="kick">'+Q.k+' · '+(qi+1)+' / 3</div><div class="q">'+Q.q+'</div><div class="opts">'+
+    Q.o.map(function(o){ return '<button class="opt">'+o+'</button>'; }).join('')+'</div></div>';
+  Array.prototype.forEach.call($('jeu').querySelectorAll('.opt'),function(b){
+    b.onclick=function(){
+      Array.prototype.forEach.call($('jeu').querySelectorAll('.opt'),function(x){ x.classList.remove('sel'); });
+      b.classList.add('sel'); choix[qi]=b.textContent;
+      setTimeout(function(){ if(qi<2){ qi++; question(); } else aller(1); }, 520);
+    };
+  });
+}
+/* --- 2. scan : quatre consignes, la capture part toute seule --- */
+function scan(){
+  var P=POSES[poseI];
+  $('jeu').innerHTML='<div class="consigne"><div class="p">POSE '+P[0]+'</div><b>'+P[1]+'</b><em>'+P[2]+'</em><div class="t"><i id="tn" style="transform:scaleX(0)"></i></div></div>';
+  tenue=performance.now();
+}
+/* --- 3. lecture : les valeurs n'arrivent qu'a la fin --- */
+function lecture(){
+  $('jeu').innerHTML='<div class="bloc on"><div class="kick">LECTURE EN COURS</div>'+
+    '<div class="releves" id="rel">'+MESURES.map(function(x){ return '<div><span>'+x[0]+'</span><b>—</b></div>'; }).join('')+'</div>'+
+    '<div class="echelle" id="ech"></div></div>';
+}
+/* --- 4. resultats : quatre chiffres, quatre vrais produits --- */
+function resultats(){
+  var band=MESURES.map(function(x){ return '<div><b>'+x[0]+'</b><em>'+x[1]+(x[2]?'<u>'+x[2]+'</u>':'')+'</em><i>'+x[3]+'</i></div>'; }).join('');
+  var ges=GESTES.map(function(ge,i){ var p=PRODUITS[i];
+    return '<div class="g"><div class="img">'+(p?'<img src="'+p.img+'" alt="">':'')+'</div><div class="tx"><small>'+ge[0]+'</small><strong>'+
+      (p?p.nom:'—')+'</strong><span>'+(p?p.marque:'')+'</span></div></div>'; }).join('');
+  $('jeu').innerHTML='<div class="bloc on res"><div class="kick">LECTURE TERMINÉE</div><div class="titre">Ce que l’instrument a lu</div>'+
+    '<div class="band">'+band+'</div><div class="gestes">'+ges+'</div>'+
+    '<button class="suivant" id="recom">Recommencer le parcours</button></div>';
+  $('recom').onclick=function(){ aller(0); };
+}
+
+function boucle(){
+  requestAnimationFrame(boucle);
+  var t=(performance.now()-T0)/1000;
+  if(D){
+    var k=clamp((performance.now()-KT)/8600,0,1);
+    D.fond(g,innerWidth,innerHeight,t,M,k);
+    if(M===1){
+      var el=$('tn'); if(el){ var p=clamp((performance.now()-tenue)/1800,0,1); el.style.transform='scaleX('+p.toFixed(3)+')';
+        if(p>=1){ if(poseI<3){ poseI++; scan(); } else aller(2); } }
+    }
+    if(M===2){
+      var rel=$('rel'); if(rel){ Array.prototype.forEach.call(rel.children,function(d,i){
+        d.classList.toggle('on',k>(i+1)*0.2); if(k>0.95){ d.classList.add('lu'); d.querySelector('b').textContent=MESURES[i][1]+(MESURES[i][2]?' '+MESURES[i][2]:''); } }); }
+      var ech=$('ech'); if(ech){ var mm=0.03*Math.pow(1e-6/0.03,k);
+        ech.textContent= D.id==='micro' ? ('≈ '+(mm>=1e-3?(mm*1000).toFixed(1)+' mm':Math.round(mm*1e6)+' µm')) : (D.id==='carte'?'COUCHES '+Math.floor(4+k*16)+' / 20':'RAIES '+Math.min(4,Math.floor(k*4)+1)+' / 4'); }
+      if(k>=1 && performance.now()-KT>9800) aller(3);
+    }
+  }
+  vignettes(t);
+}
+
+/* ---------- les vignettes de la planche ---------- */
+var VIG=[];
+DIRECTIONS.forEach(function(d,i){
+  var c=document.createElement('div'); c.className='carte '+d.cls;
+  c.innerHTML='<canvas></canvas><div class="bd"><div class="n">'+d.n+'</div><h2>'+d.titre+'</h2><p>'+d.txt+'</p><div class="go">Essayer ce parcours de A à Z →</div></div>';
+  c.onclick=function(){ ouvrir(i); };
+  $('cartes').appendChild(c); VIG.push({ cv:c.querySelector('canvas'), d:d });
+});
+function vignettes(t){
+  if(D) return;
+  VIG.forEach(function(v,i){
+    var c=v.cv, r=Math.min(window.devicePixelRatio||1,2), W=c.clientWidth, H=c.clientHeight; if(!W) return;
+    if(c.width!==Math.round(W*r)){ c.width=Math.round(W*r); c.height=Math.round(H*r); }
+    var x=c.getContext('2d'); x.setTransform(r,0,0,r,0,0);
+    var m=Math.floor((t/4+i*0.7)%4), k=((t/4+i*0.7)%1);
+    v.d.fond(x,W,H,t,m,k);
+    mono(x,['QUESTIONS','SCAN','LECTURE','RÉSULTATS'][m],16,H-18,9,.55);
+  });
+}
+boucle();
+
+</script>
+</body>
+</html>

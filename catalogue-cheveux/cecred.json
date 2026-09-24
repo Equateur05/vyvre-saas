@@ -3,36 +3,6 @@
  "brand_name": "Cécred",
  "products": [
   {
-   "id": "cecred--restoring-hair-and-edge-drops-xl",
-   "name": "Restoring Hair & Edge Drops XL",
-   "brand": "cecred",
-   "brand_name": "Cécred",
-   "url": "https://cecred.com/products/restoring-hair-and-edge-drops-xl",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 114.95,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0705/9842/6922/files/Cecred_PDP_RHED_XL_01_2048x2048_3857d9a2-f4ee-4f41-aebd-a1dee8899345.png?width=600",
-   "image_local": "public/scan/products-cheveux/cecred/restoring-hair-and-edge-drops-xl.jpg",
-   "categorie": "serum-cuir-chevelu",
-   "etape": 4,
-   "cheveux_cibles": [],
-   "actifs": [
-    "kératine",
-    "panthénol",
-    "biotine",
-    "glycérine",
-    "miel",
-    "menthol",
-    "acide citrique"
-   ],
-   "ingredients": "Water/Eau/Aqua, Propandiol, Butylene Glycol, Glycerin, Acetyl Tetrapeptide-3, Biotinoyl Tripeptide-1, Lactobacillus/Honey/Keratin Ferment, Saccharomyces/Rice Ferment Filtrate, Nicotiana Benthamiana Octapeptide-30 sh-Oligopeptide-2, Mentha Piperita (Peppermint) Leaf Extract, Biotin, Nicotiana Benthamiana Hexapeptide-40 sh-Polypeptide-9, Nicotiana Benthamiana Hexapeptide-40 sh-Polypeptide-86, Rosa Centifolia Flower Extract, Panthenol, Trifolium Pratense (Clover) Flower Extract, Zingiber Officinale (Ginger) Root Extract, Melia Azadirachta Leaf Extract, Melia Azadirachta Flower Extract, Coccinia Indica Fruit Extract, Corallina Officinalis Extract, Leuconostoc/Radish Root Ferment Filtrate, Dextran, Sodium Phytate, Fragrance/Parfum, Citric Acid, Potassium Sorbate, Ethylhexylglycerin, Phenoxyethanol, Linalool",
-   "description": "Our viral density serum, now 2x bigger. Get double the drops and 12% savings with our limited-edition Restoring Hair & Edge Drops XL. This award-winning scalp serum is clinically tested to visibly boost hair density by 1.5x* and restore fuller-looking hair and edges without buildup. Due to high demand of this limited release, limit of 2 per customer.",
-   "claims": [
-    "volume"
-   ],
-   "source": "products.json + fiche produit"
-  },
-  {
    "id": "cecred--restoring-lash-and-brow-builder",
    "name": "Restoring Lash & Brow Builder",
    "brand": "cecred",
@@ -45,7 +15,10 @@
    "image_local": "public/scan/products-cheveux/cecred/restoring-lash-and-brow-builder.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "abimes",
+    "cuir-chevelu-sensible"
+   ],
    "actifs": [
     "kératine",
     "panthénol",
@@ -57,8 +30,12 @@
    ],
    "ingredients": "Water/Eau/Aqua, Propanediol, Butylene Glycol, Glycerin, Acetyl Tetrapeptide-3, Biotinoyl Tripeptide-1, Lactobacillus/Honey/Keratin Ferment, Saccharomyces/Rice Ferment Filtrate, Nicotiana Benthamiana Octapeptide-30 sh-Oligopeptide-2, Biotin, Nicotiana Benthamiana Hexapeptide-40 sh-Polypeptide-9, Nicotiana Benthamiana Hexapeptide-40 sh-Polypeptide-86, Rosa Centifolia Flower Extract, Panthenol, Trifolium Pratense (Clover) Flower Extract, Allantoin, Xanthan Gum, Dextran, Caprylyl Glycol, Sodium Phytate, Citric Acid, Hexylene Glycol, Potassium Sorbate, Ethylhexylglycerin, Phenoxyethanol, 1,2-Hexanediol",
    "description": "Get thick. This daily lash & brow serum is tested to deliver 1.4x visibly thicker, denser lashes & brows after 45 days*.Formulated without prostaglandins or prostaglandin analogues. 4mL.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "volume"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/cecred/cutout/restoring-lash-and-brow-builder.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "cecred--scalp-refreshing-spray",
@@ -73,7 +50,10 @@
    "image_local": "public/scan/products-cheveux/cecred/scalp-refreshing-spray.jpg",
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "crepus",
+    "cuir-chevelu-sensible"
+   ],
    "actifs": [
     "glycérine",
     "céramides",
@@ -84,32 +64,12 @@
    ],
    "ingredients": "Water/Aqua/Eau, Polysorbate 80, Propanediol, Menthol, Camphor, Honey/Mel/Miel, Ceramide NP, Mentha Piperita (Peppermint) Oil, Glycerin, Lactobacillus/Salix Purpurea Bark Ferment Extract, Rosmarinus Officinalis (Rosemary) Leaf Oil, Solidago Virgaurea (Goldenrod) Extract, Hydrastis Canadensis (Goldenseal) Root Extract, Eucalyptus Globulus Leaf Oil, Eugenia Caryophyllus (Clove) Leaf Oil, Melaleuca Alternifolia (Tea Tree) Leaf Oil, Menthyl Nicotinate, Citrus Aurantium Amara (Bitter Orange) Flower Extract, Rosa Centifolia Flower Extract, Pelargonium Graveolens Flower Oil, Cetrimonium Chloride, Lavandula Oil/Extract, Citrus Aurantium Peel Oil, Fragrance (Parfum), Phenoxyethanol, Potassium Sorbate, Sodium Benzoate, Phenethyl Alcohol, Citric Acid, Limonene, Linalool, Coumarin, Citronellol, Alpha-Isomethyl Ionone, Hydroxycitronellal, Benzyl Salicylate, Linalyl Acetate, Pogostemon Cablin Oil, Tetramethyl Acetyloctahydronaphthalenes, Trimethylcyclopentenyl Methylisopentenol, Vanillin",
    "description": "Instant clean for the days in between. This innovative, no-rinse spray cleanses and refreshes the scalp and hair with a custom targeted nozzle, breaking down hard buildup and dead skin while neutralizing odor without disturbing your extensions or protective style.",
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "cecred--ritual-shaking-vessel",
-   "name": "Ritual Shaking Vessel",
-   "brand": "cecred",
-   "brand_name": "Cécred",
-   "url": "https://cecred.com/products/ritual-shaking-vessel",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 24.95,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0705/9842/6922/files/PDP-Carousel-Ritual-Shaking-Vessel-Hero-Shot.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/cecred/ritual-shaking-vessel.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
-   "cheveux_cibles": [
-    "abimes"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Designed for easily mixing our Fermented Rice & Rose Protein Powder with water, this bottle allows for easy preparation and application of our fortifying rinse treatment.",
    "claims": [
-    "reparateur"
+    "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/cecred/cutout/scalp-refreshing-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "cecred--heat-activated-silk-glaze",
@@ -124,9 +84,7 @@
    "image_local": "public/scan/products-cheveux/cecred/heat-activated-silk-glaze.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [
     "panthénol",
     "huile de jojoba",
@@ -139,8 +97,12 @@
    ],
    "ingredients": "Water/Aqua/Eau, Glycerin, Polyglyceryl-6 Caprylate, Polyglyceryl-4 Caprate, Caprylyl/Capryl Glucoside, Olea Europaea (Olive) Leaf Extract, Hydrolyzed Silk, Zymomonas Ferment Extract, Honey Extract/Mel/Extract De Miel, Citrullus Lanatus (Watermelon) Seed Oil, Schinziophyton Rautanenii Kernel Oil, Ximenia Americana Seed Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Aloe Barbadensis Leaf Juice, Panthenol, Polyquaternium-68, Polyquaternium-11, Guar Hydroxypropyltrimonium Chloride, Cyamopsis Tetragonoloba (Guar) Gum, Xanthan Gum, Pentylene Glycol, Ethylhexylglycerin, Tocopherol, Cyclodextrin, Potassium Sorbate, Sodium Benzoate, Citric Acid, Phytic Acid, Phenoxyethanol, Fragrance/Parfum, Benzyl Alcohol, Linalool, Lavandula Oil/Extract, Alpha-Isomethyl Ionone, Citronellol, Coumarin, Alcohol, Linalyl Acetate, Pinene, Tetramethyl Acetyloctahydronaphthalenes, Trimethylcyclopentenyl Methylisopentenol, Vanillin",
    "description": "Create sleek, glass-like styles faster with fewer heat passes while controlling frizz and humidity for silky, touchably soft hair. With 450°F/232°C heat & humidity protection.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "anti-frisottis"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/cecred/cutout/heat-activated-silk-glaze.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "cecred--strong-hold-gel",
@@ -155,9 +117,7 @@
    "image_local": "public/scan/products-cheveux/cecred/strong-hold-gel.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [
     "huile de ricin",
     "glycérine",
@@ -168,8 +128,13 @@
    ],
    "ingredients": "Water/Eau/Aqua, Alcohol Denat., Polyquaternium-69, Polysorbate 20, Vinyl Caprolactam/VP/Dimethylaminoethyl Methacrylate Copolymer, PVP, Citrullus Lanatus (Watermelon) Seed Oil, Schinziophyton Rautanenii Kernel Oil, Ximenia Americana Seed Oil, Honey Extract/Mel/Extrait De Miel, Zymomonas Ferment Extract, Olea Europaea (Olive) Leaf Extract, Ricinus Communis (Castor) Seed Oil, Glycerin, Cyamposis Tetragonoloba (Guar) Gum, Xanthan Gum, Tocopherol, Carbomer, Sorbitol, Aminomethyl Propanol, Pentylene Glycol, Cyclodextrin, Citric Acid, Phytic Acid, Fragrance/Parfum, Phenoxyethanol, Ethylhexylglycerin, Linalool, Lavandula Oil/Extract, Alpha-Isomethyl Ionone, Myristica Fragrans (Nutmeg) Kernel Oil, Cedrus Deodara Wood Oil, Citronellol, Coumarin, Alcohol, Linalyl Acetate, Pinene, Tetramethyl Acetyloctahydronaphthalenes, Trimethylcyclopentenyl Methylisopentenol, Vanillin",
    "description": "Hold up—for 24 hours. A firm yet flexible gel with all-day, 24-hour hold and frizz control*, made for optimal hair health. This non-flaking gel is perfect for creating any sleek and defined look. With 450°F/232°C heat & humidity protection.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "anti-frisottis",
+    "fixation"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/cecred/cutout/strong-hold-gel.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "cecred--thermal-shield-mist",
@@ -184,9 +149,7 @@
    "image_local": "public/scan/products-cheveux/cecred/thermal-shield-mist.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [
     "panthénol",
     "glycérine",
@@ -198,9 +161,14 @@
    "ingredients": "Water/Eau/Aqua, Olea Europaea (Olive) Leaf Extract, Saccharomyces Cerevisiae Extract, Leuconostoc/Radish Root Ferment Filtrate, Citrullus Lanatus (Watermelon) Seed Oil, Schinziophyton Rautanenii Kernel Oil, Ximenia Americana Seed Oil, Zymomonas Ferment Extract, Honey Extract/Mel/Extrait De Miel, Panthenol, Amaranthus Caudatus Seed Extract, Guar Hydroxypropyltrimonium Chloride, Glycerin, Sodium Sunflowerseedate, Cyamopsis Tetragonoloba (Guar) Gum, Xanthan Gum, Maltodextrin, Tocopherol, Pentylene Glycol, Cyclodextrin, Phytic Acid, Citric Acid, Fragrance/Parfum, Phenoxyethanol, Ethylhexylglycerin, Sodium Benzoate, Alpha-Isomethyl Ionone, Citronellol, Linalool",
    "description": "Protect hair from heat up to 450°F, humidity, and pollution while leaving it smooth, shiny and frizz-controlled for 24 hours with this lightweight mist.",
    "claims": [
-    "lissant"
+    "anti-frisottis",
+    "brillance",
+    "protection-chaleur",
+    "anti-pollution"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/cecred/cutout/thermal-shield-mist.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "cecred--reconstructing-treatment-mask-max-size",
@@ -216,6 +184,7 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
+    "colores",
     "abimes"
    ],
    "actifs": [
@@ -233,10 +202,14 @@
    "ingredients": "Water/Eau/Aqua, Cetearyl Alcohol, Glycine Soja (Soybean) Oil, Lactobacillus/Honey/Keratin Ferment, Glycerin, Hydrolyzed Rice Protein, Hippophae Rhamnoides Fruit Oil, Cetrimonium Chloride, Potassium Palmitoyl Hydrolyzed Wheat Protein, Adansonia Digitata Seed Oil, Moringa Oleifera Seed Oil, Nigella Sativa Seed Oil, Olea Europaea (Olive) Fruit Oil, Squalane, Citrullus Lanatus (Watermelon) Seed Oil, Argania Spinosa Kernel Oil, Helianthus Annuus (Sunflower) Seed Extract, Oryza Sativa (Rice) Bran Oil, Polyquaternium-10, Behentrimonium Methosulfate, C9-12 Alkane, Stearalkonium Chloride, Hydroxyethylcellulose, Phytic Acid, Citric Acid, Coco-Caprylate/Caprate, Iron Oxide (CI 77491), Titanium Dioxide (CI 77891), Caramel, Mica, Fragrance (Parfum), Potassium Sorbate, Phenoxyethanol, Sodium Acetate, Cellulose, Sodium Benzoate, Linalool",
    "description": "Stop breakage in its tracks. Powered by our patent-pending Bioactive Keratin Ferment, this treatment is clinically-tested to reduce damage, increase strength, and improve shine after 1 use.* Dermatologist-tested for safety. Safe for color-treated hair. Salon-tested for all hair types & textures. Available for ground shipping only.",
    "claims": [
-    "reparateur",
-    "brillance"
+    "reparation",
+    "fortifiant",
+    "brillance",
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/cecred/cutout/reconstructing-treatment-mask-max-size.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "cecred--hydrating-shampoo-max-size",
@@ -251,7 +224,11 @@
    "image_local": "public/scan/products-cheveux/cecred/hydrating-shampoo-max-size.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "colores",
+    "abimes"
+   ],
    "actifs": [
     "kératine",
     "huile d'argan",
@@ -267,10 +244,13 @@
    "ingredients": "Water/Eau/Aqua, Sodium Lauroyl Methyl Isethionate, Glycerin, Cocamidopropyl Betaine, Polyquaternium-7, Polyquaternium-10, Glycol Distearate, Hydrolyzed Rice Protein, Lactobacillus/Honey/Keratin Ferment, Olea Europaea (Olive) Fruit Oil, Moringa Oleifera Seed Oil, Adansonia Digitata Seed Oil, Nigella Sativa Seed Oil, Argania Spinosa Kernel Oil, Rosmarinus Officinalis (Rosemary) Leaf Oil, Sodium Hyaluronate, Hyssopus Officinalis Extract, Coco-Glucoside, Glyceryl Oleate, Guar Hydroxypropyltrimonium Chloride, Hydrolyzed Hyaluronic Acid, Eclipta Prostrata Extract, Hibiscus Rosa-Sinensis Flower Extract, Chlorella Ferment, Tremella Fuciformis Polysaccharide, Caramel, Sodium Phytate, 1,2-Hexanediol, Hydroxyethylcellulose, Fragrance (Parfum), Ethylhexylglycerin, Phenoxyethanol, Trisodium Ethylenediamine Disuccinate, Sodium Benzoate, Sodium Phosphate, Citric Acid, Tocopherol, Hydrogenated Palm Glycerides Citrate, Disodium Phosphate, Polysorbate 60, Benzyl Alcohol, Potassium Sorbate, Lactic Acid, Linalool",
    "description": "Our luxurious, hyaluronic acid-infused shampoo goes deep on hydration, leaving your hair nourished, manageable, and strong. Dermatologist-tested for safety. Safe for color-treated hair. Salon-tested for all hair types & textures. Available for ground shipping only.",
    "claims": [
-    "hydratant",
-    "nourrissant"
+    "hydratation",
+    "nutrition",
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/cecred/cutout/hydrating-shampoo-max-size.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "cecred--moisturizing-deep-conditioner-max-size",
@@ -285,7 +265,11 @@
    "image_local": "public/scan/products-cheveux/cecred/moisturizing-deep-conditioner-max-size.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "colores",
+    "abimes"
+   ],
    "actifs": [
     "kératine",
     "huile d'argan",
@@ -301,9 +285,13 @@
    "ingredients": "Water/Eau/Aqua, Cetearyl Alcohol, Propanediol, Hydrogenated Ethylhexyl Olivate, Butyrospermum Parkii (Shea) Butter, Behentrimonium Chloride, Lactobacillus/Honey/Keratin Ferment, Astrocaryum Murumuru Seed Butter, Olea Europaea (Olive) Fruit Oil, Sodium Hyaluronate, Squalane, Adansonia Digitata Seed Oil, Argania Spinosa Kernel Oil, Boswellia Carterii Resin Extract, Hyssopus Officinalis Leaf Oil, Moringa Oleifera Seed Oil, Nigella Sativa Seed Oil, Orbignya Speciosa Kernel Oil, Citrullus Lanatus (Watermelon) Seed Oil, Hydrogenated Olive Oil Unsaponifiables, Helianthus Annuus (Sunflower) Seed Extract, C9-12 Alkane, Cetrimonium Chloride, Polyquaternium-10, Stearalkonium Chloride, Cetyl Hydroxyethylcellulose, Phytic Acid, Caramel, Coco-Caprylate/Caprate, Citric Acid, Fragrance (Parfum), Potassium Sorbate, Phenoxyethanol, Dipropylene Glycol, Stearyl Alcohol, Silica Dimethyl Silylate, Hydrated Silica, Monosodium Phosphate, Disodium Phosphate, Tocopherol, Linalool",
    "description": "Sink your hair into major moisture. The ultra-rich Moisturizing Deep Conditioner is infused with our African oil blend and shea butter to moisturize, soften, and improve manageability. Dermatologist-tested for safety. Safe for color-treated hair. Salon-tested for all hair types & textures. Available for ground shipping only.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/cecred/cutout/moisturizing-deep-conditioner-max-size.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "cecred--hydrating-conditioner-32-fl-oz-pro",
@@ -318,7 +306,12 @@
    "image_local": "public/scan/products-cheveux/cecred/hydrating-conditioner-32-fl-oz-pro.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "fins",
+    "colores",
+    "abimes"
+   ],
    "actifs": [
     "kératine",
     "panthénol",
@@ -334,10 +327,16 @@
    "ingredients": "Water/Eau/Aqua, Cetearyl Alcohol, Propanediol, Hydrogenated Ethylhexyl Olivate, Behentrimonium Chloride, Butyrospermum Parkii (Shea) Butter, Ricinus Communis (Castor) Seed Oil, Dipropylene Glycol, Cetrimonium Chloride, Cocos Nucifera (Coconut) Oil, Polyquaternium-10, Lactobacillus/Honey/Keratin Ferment, Olea Europaea (Olive) Fruit Oil, Moringa Oleifera Seed Oil, Adansonia Digitata Seed Oil, Nigella Sativa Seed Oil, Orbignya Speciosa Kernel Oil, Astrocaryum Murumuru Seed Butter, Panthenol, Arginine, Aspartic Acid, PCA, Alanine, Glycine, Histidine, Isoleucine, Phenylalanine, Proline, Serine, Threonine, Valine, Sodium PCA, Copernicia Cerifera (Carnauba) Wax/Cera Carnauba/Cire de carnauba, Stearalkonium Chloride, Hydrogenated Olive Oil Unsaponifiables, Hydrogenated Castor Oil, Guar Hydroxypropyltrimonium Chloride, Stearyl Alcohol, Tocopherol, PVP, Maltodextrin/VP Copolymer,Sodium Gluconate, Sodium Lactate, Caramel, Fragrance/Parfum, Citric Acid, Potassium Sorbate, Ethylhexylglycerin, Phenoxyethanol, Linalool",
    "description": "Give your hair high-slip moisture in 1 minute. Our concentrated yet weightless conditioner instantly hydrates and detangles, leaving hair soft, smooth, and shiny. Dermatologist-tested for safety. Safe for color-treated hair. Salon-tested for all hair types & textures. Available for ground shipping only.",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "brillance",
+    "protection-couleur",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/cecred/cutout/hydrating-conditioner-32-fl-oz-pro.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "cecred--clarifying-shampoo-scalp-scrub-max-size",
@@ -352,7 +351,11 @@
    "image_local": "public/scan/products-cheveux/cecred/clarifying-shampoo-scalp-scrub-max-size.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "gras",
+    "colores",
+    "abimes"
+   ],
    "actifs": [
     "kératine",
     "niacinamide",
@@ -368,29 +371,12 @@
    "ingredients": "Water/Eau/Aqua, Sodium C14-16 Olefin Sulfonate, Microcrystalline Cellulose, Cocamidopropyl Hydroxysultaine, Sodium Cocoyl Isethionate, Acrylates Copolymer, Glycerin, Lactobacillus/Salix Purpurea Bark Ferment Extract, Melaleuca Alternifolia (Tea Tree) Leaf Oil, Olea Europaea (Olive) Fruit Oil, Mentha Piperita (Peppermint) Oil, Niacinamide, Sodium Gluconate, Lactobacillus/Honey/Keratin Ferment, Citrus Limon (Lemon) Peel Oil, Rosmarinus Officinalis (Rosemary) Leaf Oil, Montmorillonite, Menthoxypropanediol, Glycol Distearate, Polyquaternium-7, Citric Acid, Hydroxyacetophenone, Sodium Hydroxide, Ethylhexylglycerin, Potassium Sorbate, Phenoxyethanol, Tocopherol, Lactic Acid, Sodium Benzoate, Tetrasodium EDTA, Limonene",
    "description": "Start your double cleanse with a scalp-renewing scrub. Our Clarifying Shampoo & Scalp Scrub combines a balance of exfoliants, fermented purple willow bark, and tea tree oil to remove buildup and residue from hair and scalp for a game-changing deep clean. Dermatologist-tested for safety. Safe for color-treated hair. Salon-tested for all hair types & textures. Available for ground shipping only.",
    "claims": [
-    "purifiant"
+    "purifiant",
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "cecred--nameplate-necklace",
-   "name": "Nameplate Necklace",
-   "brand": "cecred",
-   "brand_name": "Cécred",
-   "url": "https://cecred.com/products/nameplate-necklace",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 116.95,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0705/9842/6922/files/20250129_CECRED_Necklace_Oyelola_0025_2048x2048_1.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/cecred/nameplate-necklace.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Cécred in your hair. Cécred on your neck. Our exclusive necklace is here and ready to celebrate.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/cecred/cutout/clarifying-shampoo-scalp-scrub-max-size.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "cecred--hair-scalp-balm",
@@ -405,7 +391,11 @@
    "image_local": "public/scan/products-cheveux/cecred/hair-scalp-balm.jpg",
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "crepus",
+    "cuir-chevelu-sensible"
+   ],
    "actifs": [
     "huile d'argan",
     "huile de coco",
@@ -421,11 +411,13 @@
    "ingredients": "Carthamus Tinctorius (Safflower) Seed Oil, Cocos Nucifera (Coconut) Oil, Microcrystalline Wax/Cera Microcristallina/Cire Microcristalline, C12-18 Alkanoyl Glycerin/Sebacic Acid Copolymer, Helianthus Annuus (Sunflower) Seed Wax, Honey/Mel/Miel, Ceramide NP, Adansonia Digitata Seed Oil, Moringa Oleifera Seed Oil, Nigella Sativa Seed Oil, Crambe Abyssinica Seed Oil, Mentha Piperita (Peppermint) Oil, Lactobacillus/Salix Purpurea Bark Ferment Extract, Rosmarinus Officinalis (Rosemary) Leaf Oil, Solidago Canadensis Flower/Leaf/Stem Oil, Hydrastis Canadensis (Goldenseal) Root Extract, Eucalyptus Globulus Leaf Oil, Eugenia Caryophyllus (Clove) Bud Oil, Melaleuca Alternifolia (Tea Tree) Leaf Oil, Taraxacum Officinale (Dandelion) Extract, Serenoa Serrulata Fruit Extract, Ricinus Communis (Castor) Seed Oil, Argania Spinosa Kernel Oil, Olea Europaea (Olive) Fruit Oil, Lavandula Oil/Extract, Cupressus Sempervirens Branch/Leaf Oil, Glycine Soja (Soybean) Oil, Bisabolol, Tocopherol, Glycerin, Phytosphingosine, Citrus Aurantium Peel Oil, Fragrance (Parfum), Hydrogenated Lecithin, Limonene, Linalool, Coumarin, Citronellol, Alpha-Isomethyl Ionone, Hydroxycitronellal, Benzyl Salicylate, Linalyl Acetate, Pogostemon Cablin Oil, Tetramethyl Acetyloctahydronaphthalenes, Trimethylcyclopentenyl Methylisopentenol, Vanillin",
    "description": "A salve that saves. A rich balm-to-oil salve that soothes a dry scalp while locking in lasting moisture and shine for textured hair and protective styles.",
    "claims": [
-    "hydratant",
-    "brillance",
-    "apaisant"
+    "hydratation",
+    "apaisant-cuir-chevelu",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/cecred/cutout/hair-scalp-balm.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "cecred--detangling-spray",
@@ -440,7 +432,9 @@
    "image_local": "public/scan/products-cheveux/cecred/detangling-spray.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "abimes"
+   ],
    "actifs": [
     "kératine",
     "aloe vera",
@@ -453,8 +447,13 @@
    ],
    "ingredients": "Water/Aqua/Eau, Propanediol, Aloe Barbadensis Leaf Juice, Hydrogenated Ethylhexyl Olivate, Cetearyl Alcohol, Behentrimonium Chloride, Honey/Mel/Miel, Ceramide NP, Ulmus Fulva Bark Extract, Hydrogenated Olive Oil Unsaponifiables, Polyquaternium-10, Glycerin, Lactobacillus/Salix Purpurea Bark Ferment Extract, Rosmarinus Officinalis (Rosemary) Leaf Oil, Solidago Virgaurea (Goldenrod) Extract, Hydrastis Canadensis (Goldenseal) Root Extract, Eucalyptus Globulus Leaf Oil, Eugenia Caryophyllus (Clove) Leaf Oil, Melaleuca Alternifolia (Tea Tree) Leaf Oil, Citrus Aurantium Amara (Bitter Orange) Flower Extract, Rosa Centifolia Flower Extract, Helianthus Annuus (Sunflower) Seed Oil, Pelargonium Graveolens Flower Oil, Lactobacillus/Honey/Keratin Ferment, Cetrimonium Chloride, Dipropylene Glycol, Sodium Stearoyl Lactylate, Hydroxyethylcellulose, Sodium Acetate, Cellulose, Fragrance (Parfum), Phenoxyethanol, Potassium Sorbate, Sodium Benzoate, Phenethyl Alcohol, Isopropyl Alcohol, Citric Acid, Benzyl Salicylate, Linalool, Linalyl Acetate, Tetramethyl Acetyloctahydronaphthalenes, Vanillin",
    "description": "Cécred Detangling Spray helps all hair types detangle up to 2x faster*, helps to prevent breakage, and delivers lightweight slip and softness for easier take downs and wash days.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "reparation",
+    "demelant"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/cecred/cutout/detangling-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "cecred--oil-ritual",
@@ -469,7 +468,11 @@
    "image_local": "public/scan/products-cheveux/cecred/oil-ritual.jpg",
    "categorie": "huile",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "colores",
+    "abimes"
+   ],
    "actifs": [
     "kératine",
     "huile d'argan",
@@ -485,10 +488,13 @@
    "ingredients": "Carthamus Tinctorius (Safflower) Seed Oil, Caprylic/Capric Triglyceride, Ricinus Communis (Castor) Seed Oil, Helianthus Annuus (Sunflower) Seed Oil, Glycine Soja (Soybean) Oil, Cocos Nucifera (Coconut) Oil, Argania Spinosa Kernel Oil, Linum Usitatissimum (Linseed) Seed Oil, Olea Europaea (Olive) Fruit Oil, Leptospermum Scoparium Branch/Leaf Oil, Nigella Sativa Seed Oil, Phyllanthus Emblica Fruit Extract, Honey Extract/Mel/Extrait de miel, Lactobacillus/Salix Purpurea Bark Ferment Extract, Rosmarinus Officinalis (Rosemary) Leaf Oil, Hydrastis Canadensis (Goldenseal) Root Extract, Eucalyptus Globulus Leaf Oil, Eugenia Caryophyllus (Clove) Oil, Melaleuca Alternifolia (Tea Tree) Leaf Oil, Citrus Aurantium Bergamia (Bergamot) Fruit Oil, Lactobacillus/Honey/Keratin Ferment, Adansonia Digitata Seed Oil, Moringa Oleifera Seed Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Mentha Piperita (Peppermint) Oil, Menthol, Glycerin, Lavandula Angustifolia (Lavender) Oil, Sesamum Indicum (Sesame) Seed Oil, Water/Aqua/Eau, Solidago Canadensis Flower/Leaf/Stem Extract, Fragrance (Parfum), Tocopheryl Acetate, Lactic Acid, Benzyl Salicylate, Linalool, Linalyl Acetate, Tetramethyl Acetyloctahydronaphthalenes, Vanillin",
    "description": "Dry, dehydrated hair? Our oil treatment, which can be used at room temp or heated, delivers deep moisturization to the hair and scalp, enhancing shine and softness Dermatologist-tested for safety. Safe for color-treated hair. Salon-tested for all hair types & textures.",
    "claims": [
-    "hydratant",
-    "brillance"
+    "hydratation",
+    "brillance",
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/cecred/cutout/oil-ritual.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "cecred--detoxifying-shampoo",
@@ -503,7 +509,11 @@
    "image_local": "public/scan/products-cheveux/cecred/detoxifying-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "gras",
+    "colores",
+    "abimes"
+   ],
    "actifs": [
     "kératine",
     "glycérine",
@@ -514,9 +524,13 @@
    "ingredients": "Water/Aqua/Eau, Sodium C14-16 Olefin Sulfonate, Polyacrylate-33, Sodium Lauroyl Sarcosinate, Polyquaternium-113, Honey/Mel/Miel, Polyquaternium-10, Glycerin, Menthol, Lactobacillus/Salix Purpurea Bark Ferment Extract, Rosmarinus Officinalis (Rosemary) Leaf Oil, Solidago Virgaurea (Goldenrod) Extract, Hydrastis Canadensis (Goldenseal) Root Extract, Eucalyptus Globulus Leaf Oil, Eugenia Caryophyllus (Clove) Leaf Oil, Melaleuca Alternifolia (Tea Tree) Leaf Oil, Menthyl Nicotinate, Citrus Aurantium Amara (Bitter Orange) Flower Extract, Rosa Centifolia Flower Extract, Calophyllum Inophyllum Seed Oil, Pelargonium Graveolens Flower Oil, Lactobacillus/Honey/Keratin Ferment, Menthone Glycerin Acetal, Caprylyl Glycol, Sodium Metabisulfite, Phytic Acid, Fragrance (Parfum), Phenoxyethanol, Potassium Sorbate, Sodium Benzoate, Sodium Hydroxide, Phenethyl Alcohol, Ext. Violet 2 (CI 60730), Benzyl Salicylate, Linalool, Linalyl Acetate, Tetramethyl Acetyloctahydronaphthalenes, Vanillin",
    "description": "Tough on buildup. Gentle on your hair and scalp. Our super-strength, non-stripping shampoo removes extreme oil, dirt, and buildup in 1 wash. Dermatologist-tested for safety. Safe for color-treated hair. Salon-tested for all hair types & textures.",
    "claims": [
-    "purifiant"
+    "fortifiant",
+    "purifiant",
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/cecred/cutout/detoxifying-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "cecred--reconstructing-treatment-mask",
@@ -549,10 +563,13 @@
    "ingredients": "Water/Eau/Aqua, Cetearyl Alcohol, Glycine Soja (Soybean) Oil, Lactobacillus/Honey/Keratin Ferment, Glycerin, Hydrolyzed Rice Protein, Hippophae Rhamnoides Fruit Oil, Cetrimonium Chloride, Potassium Palmitoyl Hydrolyzed Wheat Protein, Adansonia Digitata Seed Oil, Moringa Oleifera Seed Oil, Nigella Sativa Seed Oil, Olea Europaea (Olive) Fruit Oil, Squalane, Citrullus Lanatus (Watermelon) Seed Oil, Argania Spinosa Kernel Oil, Helianthus Annuus (Sunflower) Seed Extract, Oryza Sativa (Rice) Bran Oil, Polyquaternium-10, Behentrimonium Methosulfate, C9-12 Alkane, Stearalkonium Chloride, Hydroxyethylcellulose, Phytic Acid, Citric Acid, Coco-Caprylate/Caprate, Iron Oxide (CI 77491), Titanium Dioxide (CI 77891), Caramel, Mica, Fragrance (Parfum), Potassium Sorbate, Phenoxyethanol, Sodium Acetate, Cellulose, Sodium Benzoate, Linalool",
    "description": "Hair repair in a jar. Lab tested to repair damage and reduce breakage by 2x**, this Reconstructing Treatment Mask reduces damage, increases visible strength, and improves shine after 1 use.*",
    "claims": [
-    "reparateur",
+    "reparation",
+    "fortifiant",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/cecred/cutout/reconstructing-treatment-mask.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "cecred--restoring-hair-edge-drops",
@@ -567,7 +584,10 @@
    "image_local": "public/scan/products-cheveux/cecred/restoring-hair-edge-drops.jpg",
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "fins",
+    "abimes"
+   ],
    "actifs": [
     "kératine",
     "panthénol",
@@ -580,9 +600,12 @@
    "ingredients": "Water/Eau/Aqua, Propandiol, Butylene Glycol, Glycerin, Acetyl Tetrapeptide-3, Biotinoyl Tripeptide-1, Lactobacillus/Honey/Keratin Ferment, Saccharomyces/Rice Ferment Filtrate, Nicotiana Benthamiana Octapeptide-30 sh-Oligopeptide-2, Mentha Piperita (Peppermint) Leaf Extract, Biotin, Nicotiana Benthamiana Hexapeptide-40 sh-Polypeptide-9, Nicotiana Benthamiana Hexapeptide-40 sh-Polypeptide-86, Rosa Centifolia Flower Extract, Panthenol, Trifolium Pratense (Clover) Flower Extract, Zingiber Officinale (Ginger) Root Extract, Melia Azadirachta Leaf Extract, Melia Azadirachta Flower Extract, Coccinia Indica Fruit Extract, Corallina Officinalis Extract, Leuconostoc/Radish Root Ferment Filtrate, Dextran, Sodium Phytate, Fragrance/Parfum, Citric Acid, Potassium Sorbate, Ethylhexylglycerin, Phenoxyethanol, and Linalool",
    "description": "Clinically tested to visibly boost hair density by 1.5x* and restore fuller-looking hair and edges. Cécred Edge Drops™ is a lightweight scalp serum that supports healthier, thicker-looking hair. Due to high demand limit of 5 per customer.",
    "claims": [
-    "volume"
+    "volume",
+    "densifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/cecred/cutout/restoring-hair-edge-drops.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "cecred--moisturizing-deep-conditioner",
@@ -597,7 +620,11 @@
    "image_local": "public/scan/products-cheveux/cecred/moisturizing-deep-conditioner.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "colores",
+    "abimes"
+   ],
    "actifs": [
     "kératine",
     "huile d'argan",
@@ -611,11 +638,15 @@
     "huile d'olive"
    ],
    "ingredients": "Water/Eau/Aqua, Cetearyl Alcohol, Propanediol, Hydrogenated Ethylhexyl Olivate, Butyrospermum Parkii (Shea) Butter, Behentrimonium Chloride, Lactobacillus/Honey/Keratin Ferment, Astrocaryum Murumuru Seed Butter, Olea Europaea (Olive) Fruit Oil, Sodium Hyaluronate, Squalane, Adansonia Digitata Seed Oil, Argania Spinosa Kernel Oil, Boswellia Carterii Resin Extract, Hyssopus Officinalis Leaf Oil, Moringa Oleifera Seed Oil, Nigella Sativa Seed Oil, Orbignya Speciosa Kernel Oil, Citrullus Lanatus (Watermelon) Seed Oil, Hydrogenated Olive Oil Unsaponifiables, Helianthus Annuus (Sunflower) Seed Extract, C9-12 Alkane, Cetrimonium Chloride, Polyquaternium-10, Stearalkonium Chloride, Cetyl Hydroxyethylcellulose, Phytic Acid, Caramel, Coco-Caprylate/Caprate, Citric Acid, Fragrance (Parfum), Potassium Sorbate, Phenoxyethanol, Dipropylene Glycol, Stearyl Alcohol, Silica Dimethyl Silylate, Hydrated Silica, Monosodium Phosphate, Disodium Phosphate, Tocopherol, Linalool",
-   "description": "Bring dehydrated and dull hair back to life. This ultra-rich formula is infused with our African oil blend and shea butter to moisturize, soften, and improve manageability. Dermatologist-tested for safety. Safe for color-treated hair. Salon-tested for all hair types &amp; textures.",
+   "description": "Bring dehydrated and dull hair back to life. This ultra-rich formula is infused with our African oil blend and shea butter to moisturize, soften, and improve manageability. Dermatologist-tested for safety. Safe for color-treated hair. Salon-tested for all hair types & textures.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/cecred/cutout/moisturizing-deep-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "cecred--moisture-sealing-lotion",
@@ -630,7 +661,11 @@
    "image_local": "public/scan/products-cheveux/cecred/moisture-sealing-lotion.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "colores",
+    "abimes"
+   ],
    "actifs": [
     "kératine",
     "panthénol",
@@ -644,12 +679,17 @@
     "huile de nigelle"
    ],
    "ingredients": "Water/Aqua/Eau, Glycerin, Cetearyl Alcohol, Hydrogenated Ethylhexyl Olivate, Behentrimonium Chloride, Butyrospermum Parkii (Shea) Butter, C12-15 Alkyl Benzoate, Glyceryl Stearate, Glycol Stearate, Lactobacillus/Honey/Keratin Ferment, Hydrogenated Olive Oil Unsaponifiables, Hydroxypropyl Bis-Hydroxyethyldimonium Chloride, Polyquaternium- 4, Helianthus Annuus (Sunflower) Seed Extract, C9-12 Alkane, Squalane, Argania Spinosa Kernel Oil, Adansonia Digitata (Baobab) Seed Oil, Nigella Sativa Seed Oil, Citrullus Lanatus (Watermelon) Seed Oil, Moringa Oleifera Seed Oil, Boswellia Carterii (Frankincense) Oil, Hyssopus Officinalis (Hyssop) Extract, Coco-Caprylate/Caprate, Hydroxyethylcellulose, Hibiscus Rosa-Sinensis Flower Extract, Chlorella Ferment, Tremella Fuciformis Polysaccharide, Panthenol, Olea Europaea (Olive) Fruit Oil, Sodium Laneth-40 Maleate/Styrene Sulfonate Copolymer, Fragrance (Parfum), Caramel, 1,2-Hexanediol, Ethylhexylglycerin, Phenoxyethanol, Pentylene Glycol, Benzyl Alcohol, Potassium Sorbate, Disodium Phosphate, Sodium Phosphate, Polysorbate 60, Alcohol, Linalool, Limonene, Coumarin, Citronellol, Alpha-Isomethyl Ionone",
-   "description": "This multitasker does it all: seals, smooths, and styles with a light hold. Dermatologist-tested for safety. Safe for color-treated hair. Salon-tested for all hair types &amp; textures.",
+   "description": "This multitasker does it all: seals, smooths, and styles with a light hold. Dermatologist-tested for safety. Safe for color-treated hair. Salon-tested for all hair types & textures.",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "protection-couleur",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/cecred/cutout/moisture-sealing-lotion.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "cecred--nourishing-hair-oil",
@@ -664,7 +704,11 @@
    "image_local": "public/scan/products-cheveux/cecred/nourishing-hair-oil.jpg",
    "categorie": "huile",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "colores",
+    "abimes"
+   ],
    "actifs": [
     "kératine",
     "huile d'argan",
@@ -678,13 +722,16 @@
     "huile d'olive"
    ],
    "ingredients": "Helianthus Annuus (Sunflower) Seed Oil, Isopropyl Myristate, Cocos Nucifera (Coconut) Oil, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Ricinus Communis (Castor) Seed Oil, Moringa Oleifera Seed Oil, Adansonia Digitata (Baobab) Seed Oil, Olea Europaea (Olive) Fruit Oil, Argania Spinosa Kernel Oil, Hippophae Rhamnoides (Sea Buckthorn) Fruit Oil, Nigella Sativa Seed Oil, Linum Usitatissimum (Linseed) Seed Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Eclipta Prostrata Extract, Melia Azadirachta (Neem) Leaf Extract, Squalane, Citrullus Lanatus (Watermelon) Seed Oil, Lactobacillus/Honey/Keratin Ferment, Hyssopus Officinalis (Hyssop) Extract, Helianthus Annuus (Sunflower) Seed Extract, C9-12 Alkane, Coco-Caprylate/Caprate, Glycerin, Tocopheryl Acetate, Fragrance (Parfum), Water/Eau/Aqua, Phenoxyethanol, Linalool, Coumarin, Citronellol, Alpha-Isomethyl Ionone",
-   "description": "This blend of 13 oils and plant-based extracts seals in moisture and adds a soft, natural shine—all without silicone fillers. Dermatologist-tested for safety. Safe for color-treated hair. Salon-tested for all hair types &amp; textures.",
+   "description": "This blend of 13 oils and plant-based extracts seals in moisture and adds a soft, natural shine—all without silicone fillers. Dermatologist-tested for safety. Safe for color-treated hair. Salon-tested for all hair types & textures.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "brillance"
+    "hydratation",
+    "nutrition",
+    "brillance",
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/cecred/cutout/nourishing-hair-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "cecred--fermented-rice-and-rose-protein-ritual",
@@ -699,7 +746,10 @@
    "image_local": "public/scan/products-cheveux/cecred/fermented-rice-and-rose-protein-ritual.jpg",
    "categorie": "proteine-reconstruction",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "abimes",
+    "chute"
+   ],
    "actifs": [
     "huile d'argan",
     "biotine",
@@ -715,9 +765,15 @@
    "ingredients": "Rice powder: Maltodextrin, Oryza Sativa (Rice) Powder, Hydrolyzed Rice Protein, Avena Sativa (Oat) Kernel Flour, Camellia Sinensis Leaf Extract, Inositol, Rosa Rugosa Flower Extract, Inulin, Honey/Mel/Miel, Lactobacillus/Rice Ferment, Biotin, Zingiber Officinale (Ginger) Root Extract, Citrus Junos Peel Oil, Olea Europaea (Olive) Leaf Extract, Aspartic Acid, Alanine, Threonine, Valine, Arginine, Isoleucine, Phenylalanine, Proline, Glycine, Histidine, Serine, Maltitol, Naringin, Water/Eau/Aqua, Fragrance (Parfum), Citral, Limonene, Linalool, Hydroxycitronellal, Citronellol, Geraniol, Farnesol Silk rinse:Water/Eau/Aqua, Propanediol, Hydrogenated Ethylhexyl Olivate, Cetearyl Alcohol, Glycine Soja (Soybean) Oil, Glycerin, Honey/Mel/Miel, Hippophae Rhamnoides Fruit Oil, Adansonia Digitata Seed Oil, Moringa Oleifera Seed Oil, Olea Europaea (Olive) Fruit Oil, Nigella Sativa Seed Oil, Argania Spinosa Kernel Oil, Citrullus Lanatus (Watermelon) Seed Oil, Squalane, Helianthus Annuus (Sunflower) Seed Extract, C9-12 Alkane, Behentrimonium Methosulfate, Stearalkonium Chloride, Guar Hydroxypropyltrimonium Chloride, Coco-Caprylate/Caprate, Caesalpinia Spinosa Gum, Hydrogenated Olive Oil Unsaponifiables, Citric Acid, Phytic Acid, Caramel, Fragrance (Parfum), Potassium Sorbate, Phenoxyethanol, Linalool",
    "description": "The Fermented Rice & Rose Protein Ritual is a patent-pending, two-step protein treatment for all hair types experiencing shedding, breakage, or heat damage. Powered by fermented rice, amino acids, and biotin, it makes hair 3x more resistant to breakage,* improving length retention while revealing hair that is 2x shinier,* smoother, and silkier.",
    "claims": [
-    "lissant"
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "anti-chute",
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/cecred/cutout/fermented-rice-and-rose-protein-ritual.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "cecred--hydrating-conditioner",
@@ -732,7 +788,11 @@
    "image_local": "public/scan/products-cheveux/cecred/hydrating-conditioner.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "fins",
+    "abimes"
+   ],
    "actifs": [
     "kératine",
     "panthénol",
@@ -748,10 +808,15 @@
    "ingredients": "Water/Eau/Aqua, Cetearyl Alcohol, Propanediol, Hydrogenated Ethylhexyl Olivate, Behentrimonium Chloride, Butyrospermum Parkii (Shea) Butter, Ricinus Communis (Castor) Seed Oil, Dipropylene Glycol, Cetrimonium Chloride, Cocos Nucifera (Coconut) Oil, Polyquaternium-10, Lactobacillus/Honey/Keratin Ferment, Olea Europaea (Olive) Fruit Oil, Moringa Oleifera Seed Oil, Adansonia Digitata Seed Oil, Nigella Sativa Seed Oil, Orbignya Speciosa Kernel Oil, Astrocaryum Murumuru Seed Butter, Panthenol, Arginine, Aspartic Acid, PCA, Alanine, Glycine, Histidine, Isoleucine, Phenylalanine, Proline, Serine, Threonine, Valine, Sodium PCA, Copernicia Cerifera (Carnauba) Wax/Cera Carnauba/Cire de carnauba, Stearalkonium Chloride, Hydrogenated Olive Oil Unsaponifiables, Hydrogenated Castor Oil, Guar Hydroxypropyltrimonium Chloride, Stearyl Alcohol, Tocopherol, PVP, Maltodextrin/VP Copolymer,Sodium Gluconate, Sodium Lactate, Caramel, Fragrance/Parfum, Citric Acid, Potassium Sorbate, Ethylhexylglycerin, Phenoxyethanol, Linalool",
    "description": "Lightweight yet deeply hydrating, Cécred Hydrating Conditioner instantly detangles hair in 1 minute while leaving hair soft, smooth, and shiny without weighing it down.",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "brillance",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/cecred/cutout/hydrating-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "cecred--clarifying-shampoo-scalp-scrub",
@@ -766,7 +831,10 @@
    "image_local": "public/scan/products-cheveux/cecred/clarifying-shampoo-scalp-scrub.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "gras",
+    "abimes"
+   ],
    "actifs": [
     "kératine",
     "niacinamide",
@@ -784,27 +852,9 @@
    "claims": [
     "purifiant"
    ],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "cecred--cosmetic-bag",
-   "name": "Cosmetics Bag",
-   "brand": "cecred",
-   "brand_name": "Cécred",
-   "url": "https://cecred.com/products/cosmetic-bag",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 26.95,
-   "price_source": "site officiel EUR",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0705/9842/6922/files/Cosmetics-Bag_Side.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/cecred/cosmetic-bag.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Keep your essentials organized with the Cécred hair product bag. This cruelty-free vegan leather bag is perfect for travel or everyday.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/cecred/cutout/clarifying-shampoo-scalp-scrub.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "cecred--hydrating-shampoo",
@@ -819,7 +869,10 @@
    "image_local": "public/scan/products-cheveux/cecred/hydrating-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "abimes"
+   ],
    "actifs": [
     "kératine",
     "panthénol",
@@ -835,11 +888,14 @@
    "ingredients": "Water/Eau/Aqua, Cetearyl Alcohol, Propanediol, Hydrogenated Ethylhexyl Olivate, Behentrimonium Chloride, Butyrospermum Parkii (Shea) Butter, Ricinus Communis (Castor) Seed Oil, Dipropylene Glycol, Cetrimonium Chloride, Cocos Nucifera (Coconut) Oil, Polyquaternium-10, Lactobacillus/Honey/Keratin Ferment, Olea Europaea (Olive) Fruit Oil, Moringa Oleifera Seed Oil, Adansonia Digitata Seed Oil, Nigella Sativa Seed Oil, Orbignya Speciosa Kernel Oil, Astrocaryum Murumuru Seed Butter, Panthenol, Arginine, Aspartic Acid, PCA, Alanine, Glycine, Histidine, Isoleucine, Phenylalanine, Proline, Serine, Threonine, Valine, Sodium PCA, Copernicia Cerifera (Carnauba) Wax/Cera Carnauba/Cire de carnauba, Stearalkonium Chloride, Hydrogenated Olive Oil Unsaponifiables, Hydrogenated Castor Oil, Guar Hydroxypropyltrimonium Chloride, Stearyl Alcohol, Tocopherol, PVP, Maltodextrin/VP Copolymer,Sodium Gluconate, Sodium Lactate, Caramel, Fragrance/Parfum, Citric Acid, Potassium Sorbate, Ethylhexylglycerin, Phenoxyethanol, Linalool",
    "description": "Deeply hydrate and strengthen all hair types with this high-slip, luxurious, hyaluronic acid-infused shampoo that cleanses gently while preserving softness and shine.",
    "claims": [
-    "hydratant",
-    "brillance",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/cecred/cutout/hydrating-shampoo.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

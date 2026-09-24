@@ -11,116 +11,285 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": 14.72,
    "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0419/3248/8863/files/DesignRetouch.png?width=600",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0419/3248/8863/files/DesignRetouch.png?v=1778794492",
    "image_local": "public/scan/products-cheveux/bread-beauty-supply/slick-hold-gel.jpg",
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "secs",
+    "epais",
+    "boucles",
+    "crepus",
+    "lisses"
+   ],
+   "actifs": [
+    "glycérine",
+    "panthénol",
+    "vitamine E",
+    "miel"
+   ],
+   "ingredients": "Water (Aqua), Ceteareth-25, Copernicia Cerifera (Carnauba) Wax, PEG-7 Glyceryl Cocoate, PEG-40 Hydrogenated Castor Oil, Mel (Honey), Glycerin, Oleth-20, Fragrance (Parfum), Phenoxyethanol, Tocopheryl Acetate (Vitamin E), Panthenol (Vitamin B5), Carica Papaya Fruit Extract (Papaya), Averrhoa Carambola Fruit Extract (Starfruit), Passiflora Incarnata Fruit Extract (Passionflower), Actinidia Chinensis (Kiwi) Fruit Extract, Garcinia Mangostana Extract (Mangosteen), Ananas Sativus (Pineapple) Fruit Extract, Punica Granatum (Pomegranate) Extract, Litchi Chinensis Fruit (Lychee) Extract, Zizyphus Jujuba (Jujube) Fruit Extract, Psidium Guajava Fruit (Guava) Extract, Ethylhexylglycerin, Sodium Benzoate, Red 33 (CI 17200). can slick-hold gel be used on damp hair? - + yes! but we recommend applying on dry hair for the strongest hold how we compare Bread Others 🫧clean ingredients ✨40+ beauty awards 🤝🏽black owned 💕woman owned + operated 🐇vegan and cruelty free Shop About Contact Daily Bread Bermuda Contest T&C's Instagram Tik Tok Pinterest YouTube",
+   "description": "firm, long-lasting hold you need for perfectly sleek styles designed for dense, coily, and coarse hair, this maximum-hold formula smooths and sets edges effortlessly—whether applied wet or dry. Stay flawless all day. this gel withstands any weather without flaking or feeling sticky, keeping your style locked in place.",
+   "claims": [
+    "anti-frisottis",
+    "definition-boucles",
+    "anti-gras",
+    "fixation"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/bread-beauty-supply/cutout/slick-hold-gel.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "bread-beauty-supply--hair-wash",
+   "name": "Hair-Wash Milky Hair Cleanser",
+   "brand": "bread-beauty-supply",
+   "brand_name": "Bread Beauty Supply",
+   "url": "https://breadbeautysupply.com/products/hair-wash",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 18.4,
+   "price_source": "converti USD x0.92 le 19/09",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0419/3248/8863/files/hair-wash_pdp_1.png?v=1722948995",
+   "image_local": "public/scan/products-cheveux/bread-beauty-supply/hair-wash.jpg",
+   "categorie": "shampooing",
+   "etape": 1,
+   "cheveux_cibles": [
+    "secs",
+    "fins",
+    "boucles",
+    "crepus"
+   ],
+   "actifs": [
+    "glycérine",
+    "aloe vera",
+    "huile de coco",
+    "huile d'argan",
+    "huile d'avocat"
+   ],
+   "ingredients": "Aqua (Water), Decyl Glucoside, Glycerin, Aloe Barbadensis Leaf Juice, Glyceryl Stearate, Sodium Lauroyl Lactylate, Cocos Nucifera (Coconut) Oil, Cetrimonium Chloride, Persea Gratissima (Avocado) Oil, Cetearyl Alcohol, Cetyl Alcohol, Quaternium-80, Argania Spinosa Kernel Oil, Parfum (Fragrance), Caprylyl Glycol, Phenoxyethanol, Guar Hydroxypropyltrimonium Chloride, Lavandula Angustifolia (Lavender) Oil, Benzyl Benzoate, Citral, Limonene, Linalool it hair-wash a co-wash, or a shampoo? - + it's a first-of-it's kind cleanser, that's the perfect hybrid of a co-wash and shampoo. ultra hydrating / moisturizing (like a co-wash) but thoroughly cleansing, like a normal shampoo. is hair-wash strong enough to be used alone? - + yep ~ while it's super gentle, it contains enough cleansing agents to make it an effective, every wash shampoo. how we compare Bread Others 🫧clean ingredients ✨40+ beauty awards 🤝🏽black owned 💕woman owned + operated 🐇vegan and cruelty free Shop About Contact Daily Bread Bermuda Contest T&C's Instagram Tik Tok Pinterest YouTube",
+   "description": "The ultimate hair-helper for girls with curls. hair-wash replaces traditional, super foamy sulphate laden shampoo with a soft, semi-sudsing alternative to gently wash away dirt build-up. It’s specifically formulated with aloe vera and argan oil to work its gentle, but effective, magic on hair that is thick, curly, coily, afro-textured, or generally dry and dehydrated - and it smells like a fruitloop milkshake.",
+   "claims": [
+    "hydratation",
+    "definition-boucles",
+    "volume",
+    "texturisant",
+    "purifiant",
+    "anti-gras"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/bread-beauty-supply/cutout/hair-wash.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "bread-beauty-supply--hair-mask",
+   "name": "Hair-Mask Deep Conditioner",
+   "brand": "bread-beauty-supply",
+   "brand_name": "Bread Beauty Supply",
+   "url": "https://breadbeautysupply.com/products/hair-mask",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 25.76,
+   "price_source": "converti USD x0.92 le 19/09",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0419/3248/8863/files/hair-mask_pdp_1.png?v=1722949460",
+   "image_local": "public/scan/products-cheveux/bread-beauty-supply/hair-mask.jpg",
+   "categorie": "masque",
+   "etape": 2,
+   "cheveux_cibles": [
+    "secs"
+   ],
+   "actifs": [
+    "glycérine",
+    "vitamine E",
+    "huile de tournesol",
+    "beurre de karité",
+    "acide lactique",
+    "protéines de blé"
+   ],
+   "ingredients": "Aqua (Water), Cetearyl Alcohol, Polyglycerol Esters of Fatty Acids, Behentrimonium Methosulfate, Butyrospermum Parkii (Shea) Butter, Stearamidopropyl Dimethylamine, Helianthus Annuus (Sunflower) Seed Oil, Glycerin, Phenoxyethanol, Isoamyl Laurate, Hydrolyzed Wheat Protein, Lactic Acid, Parfum (Fragrance), Tocopheryl Acetate, Guar Hydroxypropyltrimonium Chloride, Xanthan Gum, Terminalia Ferdinandiana Fruit Extract, Daucus Carota Sativa (Carrot) Seed Oil, Borago Officinalis Seed Oil how long do I keep hair-mask on? - + we recommend leaving on for 5-10 minutes, then add water to gently detangle with fingers (or detangling comb). can I use hair-mask as a conditioner? - + yes! hair-mask is designed primarily as an intensive mask, but also works great as a conditioner - especially if you have dry or limp curls. will hair-mask weigh down fine curls? - + hair-mask is intensely moisturizing, but won't weigh down your curls. make sure to thoroughly wash out product once finished. can I use hair-mask as a leave-in treatment? - + we suggest rinsing hair-mask after use - but, hair-cream is a great alternative for a high moisture leave-in treatment. how we compare Bread Others 🫧clean ingredients ✨40+ beauty awards 🤝🏽black owned 💕woman owned + operated 🐇vegan and cruelty free Shop About Contact Daily Bread Bermuda Contest T&C's Instagram Tik Tok Pinterest YouTube",
+   "description": "a gulp of water for your strands . hair-mask is a silicone-free mask that cushions hair in cloud-like softness, with moisturizing superfruits for shine and smoothness. Cushions hair in cloud-like softness, with moisturizing superfruits like Australian Kakadu Plum, and Starflower Oil for shine and smoothness.",
+   "claims": [
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "brillance",
+    "sans-silicone"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/bread-beauty-supply/cutout/hair-mask.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "bread-beauty-supply--hair-foam",
+   "name": "hair-foam",
+   "brand": "bread-beauty-supply",
+   "brand_name": "Bread Beauty Supply",
+   "url": "https://breadbeautysupply.com/products/hair-foam",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 23.92,
+   "price_source": "converti USD x0.92 le 19/09",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0419/3248/8863/files/hair-foam_PDP_1.png?v=1722940307",
+   "image_local": "public/scan/products-cheveux/bread-beauty-supply/hair-foam.jpg",
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "abimes"
+   ],
+   "actifs": [
+    "glycérine",
+    "panthénol",
+    "vitamine E",
+    "acides aminés",
+    "kératine",
+    "arginine"
+   ],
+   "ingredients": "Water (Aqua), Propanediol, Glycerin, Polyquaternium-55, Phenethyl Alcohol, Cocamidopropyl Hydroxysultaine, Panthenol, Sodium Chloride, Sodium Phytate, Ethylhexulglucerin, Aspergillus Ferment, Phenoxyethanol, Caprylyl Glycol, Arginine, Yeast Amino Acids, Tetrasodium, Glutamate Diacetate, Wheat Amino Acids, Cocamidopropyl Dimethylamine, Arginine HCL, Serine, Threonine, Lactobacillus Ferment, Benzyl Alcohol, Potassium Sorbate, Sodium Benzoate, Tocopherol, Sodium Hydroxide. does hair-foam work on coily/textured/type 4 hair? - + yes! hair-foam defines every curl and coil. our founder, Maeva is a 4C girlie, and specifically formulated hair-foam to work on her tight textured hair. I see hair-foam contains keratin + silk - is it still vegan? - + yep, still vegan. we use ~biomimetic~ silk and keratin, that mimics the structure of the real deal, but is plant derived. science! Is hair-foam fragrance free? - + yes, hair-foam is fragrance free. you might notice a slight jasmine smell, but it's all natural and a by product of the formulation. how we compare Bread Others 🫧clean ingredients ✨40+ beauty awards 🤝🏽black owned 💕woman owned + operated 🐇vegan and cruelty free Shop About Contact Daily Bread Bermuda Contest T&C's Instagram Tik Tok Pinterest YouTube",
+   "description": "this is not your middle school mousse. h air-foam is a one step styler that repairs while you wear for ultra soft, cloud like definition and swishable hold. w ith a botanically sourced formula, featuring Biomimetic Silk Proteins, Vegan Keratin, and TeraBond Amino Acids, hair-foam delivers all the hold without the stick or crunch.",
+   "claims": [
+    "reparation",
+    "definition-boucles",
+    "fixation"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/bread-beauty-supply/cutout/hair-foam.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "bread-beauty-supply--hair-gel",
+   "name": "hair-gel",
+   "brand": "bread-beauty-supply",
+   "brand_name": "Bread Beauty Supply",
+   "url": "https://breadbeautysupply.com/products/hair-gel",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 23.92,
+   "price_source": "converti USD x0.92 le 19/09",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0419/3248/8863/files/hair-gel_PDP_1.png?v=1722940533",
+   "image_local": "public/scan/products-cheveux/bread-beauty-supply/hair-gel.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
     "gras",
     "boucles",
     "crepus",
-    "cuir-chevelu-sensible"
+    "lisses"
    ],
    "actifs": [
-    "panthénol",
-    "huile de ricin",
     "glycérine",
-    "miel"
+    "acide citrique",
+    "vitamine E",
+    "huile de lin"
    ],
-   "ingredients": "Water (Aqua), Ceteareth-25, Copernicia Cerifera (Carnauba) Wax, PEG-7 Glyceryl Cocoate, PEG-40 Hydrogenated Castor Oil, Mel (Honey), Glycerin, Oleth-20, Fragrance (Parfum), Phenoxyethanol, Tocopheryl Acetate (Vitamin E), Panthenol (Vitamin B5), Carica Papaya Fruit Extract (Papaya), Averrhoa Carambola Fruit Extract (Starfruit), Passiflora Incarnata Fruit Extract (Passionflower), Actinidia Chinensis (Kiwi) Fruit Extract, Garcinia Mangostana Extract (Mangosteen), Ananas Sativus (Pineapple) Fruit Extract, Punica Granatum (Pomegranate) Extract, Litchi Chinensis Fruit (Lychee) Extract, Zizyphus Jujuba (Jujube) Fruit Extract, Psidium Guajava Fruit (Guava) Extract, Ethylhexylglycerin, Sodium Benzoate, Red 33 (CI 17200)",
-   "description": "firm, long-lasting hold you need for perfectly sleek styles designed for dense, coily, and coarse hair, this maximum-hold formula smooths and sets edges effortlessly—whether applied wet or dry. Stay flawless all day. this gel withstands any weather without flaking or feeling sticky, keeping your style locked in place.",
+   "ingredients": "Water, Glycerin, Sucrose, PVP, Carbomer, Phenoxyethanol, Sorbitan Oleate Decylglucoside Crosspolymer, Linum Usitatissimum (Linseed) Seed Extract, Pyrus Malus (Apple) Fruit Extract, Maltodextrin/VP Copolymer, Salvia Hispanica Seed Extract, Caprylyl/Capryl Glucoside, Potassium Hydroxide, Potassium Sorbate, Fragrance, Ethylhexylglycerin, Sodium Chloride, Sodium Phytate, Sodium Cocoyl Glutamate, Benzyl Alcohol, Caprylic Acid, Xylitol, Polyglyceryl-6 Oleate, Citric Acid, Glyceryl Caprylate, Algin, Maltodextrin, Annatto*, Sodium Surfactin, Gardenia Florida Fruit Extract, Tocopherol, Betaine, Guar Hydroxypropyltrimonium Chloride, Chondrus Crispus Extract, Citrus Junos Fruit Extract, Humulus Lupulus (Hops) Extract, Porphyridium Cruentum Extract, Tamarindus Indica Extract, Tremella Fuciformis, Sporocarp Extract, Sodium Benzoate. can you use hair-gel for slick-backs? - + yes will this be strong enough to hold coily hair? - + yes! hair-gel is designed for coily, curly and wavy hair - it's botanical, so you can add without fear of damage or crunch. why are botanical gels better? - + your products should work for your hair, not against it. standard gels contain corrosive chemicals that strip moisture - creating dry, brittle and breakage prone hair. but botanical gels - like hair-gel - are reparative, light-weight gels that effectively style while treating your hair over time. how we compare Bread Others 🫧clean ingredients ✨40+ beauty awards 🤝🏽black owned 💕woman owned + operated 🐇vegan and cruelty free Shop About Contact Daily Bread Bermuda Contest T&C's Instagram Tik Tok Pinterest YouTube",
+   "description": "defined, glassy, slick-backs and curls without the crunch. hair-gel is a water-based, botanical styling gel for a multitude of curl types and styles. our non-flaking and non-sticky formula works to smooth the surface of hair while providing curls and coily hair with definition and glassy shine.",
    "claims": [
-    "lissant"
+    "anti-frisottis",
+    "definition-boucles",
+    "anti-gras",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/bread-beauty-supply/cutout/hair-gel.webp",
+   "ciblage_source": "deduit"
   },
   {
-   "id": "bread-beauty-supply--bread-puff-mint",
-   "name": "bread-puff: mint",
+   "id": "bread-beauty-supply--clear-wash",
+   "name": "clear-wash",
    "brand": "bread-beauty-supply",
    "brand_name": "Bread Beauty Supply",
-   "url": "https://breadbeautysupply.com/products/bread-puff-mint",
+   "url": "https://breadbeautysupply.com/products/clear-wash",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 14.72,
+   "price_eur": 22.08,
    "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0419/3248/8863/products/webassets_10.png?width=600",
-   "image_local": "public/scan/products-cheveux/bread-beauty-supply/bread-puff-mint.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "bread-puff: an elastic band encased in puffy fabric - better known as a scrunchie or a chou-chou. Extra stretchy elastic for all the hair. Use to wear your hair up, or put on your wrist as an accessory. Made from satin hand wash in cold water to refresh your puff",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0419/3248/8863/files/clear-wash_pdp_1.png?v=1722941439",
+   "image_local": "public/scan/products-cheveux/bread-beauty-supply/clear-wash.jpg",
+   "categorie": "shampooing",
+   "etape": 1,
+   "cheveux_cibles": [
+    "gras"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "acides aminés",
+    "huile d'argan",
+    "romarin",
+    "menthol",
+    "arginine"
+   ],
+   "ingredients": "Water, Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Hydroxysultaine, Cetrimonium Chloride, Polyquaternium-10, Menthol, Menthyl Lactate, Phytosterols, Argania Spinosa Kernel Oil, Salvia Officinalis (Sage) Leaf Extract, Rosmarinus Officinalis (Rosemary) Leaf Extract, Eucalyptus Leaf Extract, Vaccinium Myrtillus Fruit/Leaf Extract, Zingiber Officinale (Ginger) Root Extract, Glycerin, Sodium PCA, Sodium Lactate, Arginine, Aspartic Acid, PCA, Glycine, Alanine, Serine, Valine, Proline, Threonine, Isoleucine, Histidine, Phenylalanine, Phenoxyethanol, Ethylhexylglycerin, Citric Acid, Red 33 (CI 17200) how often should I use clear-wash? - + clear-wash is designed for intermittent clarifying - meaning, whenever your hair needs an extra deep clean. could be weekly, or monthly - it just depends on your hair type. clear-wash is especially helpful post-protective style, after salt water / chlorine exposure, or after lots of styling product usage. is clear-wash color safe? - + yes! clear-wash is color safe, and may even brighten your color by clarifying your hair of impurities. is clear-wash fragrance free? - + yes! clear-wash is fragrance free. how we compare Bread Others 🫧clean ingredients ✨40+ beauty awards 🤝🏽black owned 💕woman owned + operated 🐇vegan and cruelty free Shop About Contact Daily Bread Bermuda Contest T&C's Instagram Tik Tok Pinterest YouTube",
+   "description": "like a clean-slate for your hair clear-wash is a fragrance-free, foaming, clarifying rosemary shampoo designed to reset your scalp and strands.",
+   "claims": [
+    "purifiant"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/bread-beauty-supply/cutout/clear-wash.webp",
+   "ciblage_source": "fiche"
   },
   {
-   "id": "bread-beauty-supply--puffy-traveler",
-   "name": "puffy traveler",
+   "id": "bread-beauty-supply--baby-soft",
+   "name": "baby-soft",
    "brand": "bread-beauty-supply",
    "brand_name": "Bread Beauty Supply",
-   "url": "https://breadbeautysupply.com/products/puffy-traveler",
+   "url": "https://breadbeautysupply.com/products/baby-soft",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 18.4,
+   "price_eur": 22.08,
    "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0419/3248/8863/files/puffy-traveler_pdp_1.png?width=600",
-   "image_local": "public/scan/products-cheveux/bread-beauty-supply/puffy-traveler.jpg",
-   "categorie": "autre-cheveux",
-   "etape": 3,
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0419/3248/8863/files/baby-soft_pdp_1.png?v=1722941587",
+   "image_local": "public/scan/products-cheveux/bread-beauty-supply/baby-soft.jpg",
+   "categorie": "apres-shampooing",
+   "etape": 2,
    "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "the ultimate cosmetic bag puffy-traveler fits your entire travel beauty lineup (even the hairdryer) while keeping everything protected with a padded exterior.",
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "bread-beauty-supply--scalp-thingytm-scalp-stimulator-massager",
-   "name": "scalp-thingy™",
-   "brand": "bread-beauty-supply",
-   "brand_name": "Bread Beauty Supply",
-   "url": "https://breadbeautysupply.com/products/scalp-thingy%E2%84%A2-scalp-stimulator-massager",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 16.56,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0419/3248/8863/files/scalp-thingy_pdp_1.png?width=600",
-   "image_local": null,
-   "categorie": "serum-cuir-chevelu",
-   "etape": 4,
-   "cheveux_cibles": [],
-   "actifs": [],
-   "ingredients": null,
-   "description": "like your fingers, 2.0 scalp-thingy is your super-cute, 100% silicone scalp-stimulator and massager.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "huile de tournesol",
+    "acides aminés",
+    "céramides"
+   ],
+   "ingredients": "Water, Cetearyl Alcohol, Behentrimonium Methosulfate, Cetyl Alcohol, Guar Hydroxypropyltrimonium Chloride. Caprylic/Capric Triglyceride, Phenoxyethanol, Glycerin, Citric Acid, Potassium Sorbate, Fragrance, Ethylhexylglycerin, Sodium Gluconate, Ceramide NP, Magnesium Chloride, Melaleuca Alternifolia (Tea Tree) Leaf Oil, Helianthus Annuus (Sunflower) Seed Oil, Citrus australasica Fruit Extract, Davidsonia Jerseyana Fruit Extract, Wheat Amino Acids, Laminaria Saccharina Extract, Sodium Benzoate, Citrus Lanatus (Watermelon) Fruit Extract, Zingiber Officinale (Ginger) Root Extract is baby-soft detangling enough for 4C hair? - + yes ~ baby-soft was specifically designed to be ultra-high slip, detangling even the densest, knottiest of hair. perfect for every curl and coil. how often can I use baby-soft? - + baby-soft is your go to, every wash conditioner. it's light enough for daily use, while still hydrating for lasting moisture. how we compare Bread Others 🫧clean ingredients ✨40+ beauty awards 🤝🏽black owned 💕woman owned + operated 🐇vegan and cruelty free Shop About Contact Daily Bread Bermuda Contest T&C's Instagram Tik Tok Pinterest YouTube",
+   "description": "wash day made silky smooth . baby-soft is a high-slip, ultra soft, every day, ceramide detangling conditioner. expect seamless detangling and high shine, use after use.",
+   "claims": [
+    "anti-frisottis",
+    "brillance",
+    "demelant"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/bread-beauty-supply/cutout/baby-soft.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "bread-beauty-supply--hair-body-oil",
-   "name": "everyday gloss",
+   "name": "Everyday Gloss Hair + Body Oil",
    "brand": "bread-beauty-supply",
    "brand_name": "Bread Beauty Supply",
    "url": "https://breadbeautysupply.com/products/hair-body-oil",
    "url_verifiee_le": "2026-09-19",
    "price_eur": 18.4,
    "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0419/3248/8863/files/hair-oil_PDP_1.png?width=600",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/0419/3248/8863/files/hair-oil_PDP_1.png?v=1722941273",
    "image_local": "public/scan/products-cheveux/bread-beauty-supply/hair-body-oil.jpg",
-   "categorie": "coloration-soin",
-   "etape": 2,
+   "categorie": "huile",
+   "etape": 3,
    "cheveux_cibles": [
+    "secs",
+    "gras",
+    "fins",
     "colores"
    ],
    "actifs": [
+    "huile de ricin",
+    "acides aminés",
     "huile d'argan",
-    "huile de ricin"
+    "protéines de soja"
    ],
-   "ingredients": "Glycine Soja (Soybean) Oil, Carthamus Tinctorius (Safflower) Seed Oil, Caprylic/Capric Triglyceride, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Ricinus Communis (Castor) Seed Oil, Argania Spinosa Kernel Oil, Parfum(Fragrance), Terminalia Ferdinandiana Seed Oil, Benzyl Benzoate, Linalool",
-   "description": "like a lipgloss, but for your hair & body. A scented oil blend for everyday, multi-way use on your hair and body that leaves skin and strands glossy and hydrated.Key Benefits: - Hydrates and softens skinHighlighted Ingredients: -Kakadu Plum Oil: Contains vitamin C for ultimate skin and scalp health-Safflower Oil: Coats hair and skin for deep hydrationWhat Else You Need To Know:-One oil, many ways, designed to leave your hair and body visibly glossy, this oil is non greasy and coats your skin and",
+   "ingredients": "Glycine Soja (Soybean) Oil, Carthamus Tinctorius (Safflower) Seed Oil, Caprylic/Capric Triglyceride, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Ricinus Communis (Castor) Seed Oil, Argania Spinosa Kernel Oil, Parfum(Fragrance), Terminalia Ferdinandiana Seed Oil, Benzyl Benzoate, Linalool how much hair-oil should I use as a styler? - + for that signature glossy look, dab a few drops of hair oil into your palms and rub together then zhuzz through your mid-lengths to ends. hair-oil is super lightweight, but a little goes a long way. how do I use hair-oil as a pre-wash treatment? - + hair-oil is a great hydration intensifier when used as a pre-wash (or slugging) treatment. before washday, saturate your hair (with a focus on ends) with hair-oil. let it sit for a few hours, then proceed with washday as usual. we recommend using a clarifying shampoo - like clear-wash - to break away any excess oil during your wash. is hair-oil silicone free? - + yes ~ hair-oil, like all our products, is silicone free how we compare Bread Others 🫧clean ingredients ✨40+ beauty awards 🤝🏽black owned 💕woman owned + operated 🐇vegan and cruelty free Shop About Contact Daily Bread Bermuda Contest T&C's Instagram Tik Tok Pinterest YouTube",
+   "description": "like a lipgloss, but for your hair & body . A scented oil blend for everyday, multi-way use on your hair and body that leaves skin and strands glossy and hydrated. Key Benefits: - Hydrates and softens skin Highlighted Ingredients: -Kakadu Plum Oil: Contains vitamin C for ultimate skin and scalp health -Safflower Oil: Coats hair and skin for deep hydration What Else You Need To Know: -One oil, many ways, designed to leave your hair and body visibly glossy, this oil is non greasy and coats your sk",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "volume",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/bread-beauty-supply/cutout/hair-body-oil.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

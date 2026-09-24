@@ -16,6 +16,7 @@
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
    "cheveux_cibles": [
+    "secs",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -32,8 +33,12 @@
    ],
    "ingredients": "Isopropyl Myristate, Prunus Amygdalus (Sweet Almond) Oil, Caprylic/Capric Triglyceride, Persea Gratissima (Avocado) Oil, Mentha Piperita (Peppermint) Oil, Rosmarinus Officinalis (Rosemary) Leaf Oil, Cocos Nucifera (Coconut) Oil, Argania Spinosa (Argan) Kernel Oil, Carthamus Tinctorius (Safflower) Seed Oil, Crambe Abyssinica (Abyssinian) Seed Oil, Sesamum Indicum (Sesame) Seed Oil, Hamamelis Virginiana (Witch Hazel) Bark/Leaf/Twig Extract, Aloe Barbadensis Leaf Extract, PEG-40 Hydrogenated Castor Oil, Vaccinium Myrtillus (Bilberry) Fruit/Leaf Extract, Saccharum Officinarum (Sugar Cane) Extract, Chamomilla Recutita (Matricaria) Flower Extract, Citrus Aurantium Dulcis (Orange) Fruit Extract, Citrus Limon (Lemon) Fruit Extract, Acer Saccharum (Sugar Maple) Extract, Zingiber Officinale (Ginger) Root Oil, Apium Graveolens (Celery) Seed Extract, Biotin, Tocopherol Acetate (Vitamin E), Menthol, Glycerin, Propylene Glycol, Fragrance (Parfum)",
    "description": "Mielle's Rosemary Mint Scalp & Edge Cleansing Oil is a non-greasy, no-rinse cleansing oil formula, powered by rosemary, mint, biotin, and witch hazel helps dissolve product buildup without stripping the hair in-between wash days. Easily remove edge gel build-up and other impurities from the hairline and scalp without reversion. Clean, prep, and re-lay your edges so you can prolong your wash day.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "purifiant"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/rosemary-mint-scalp-edge-cleansing-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--pomegranate-honey-curl-smoothie",
@@ -61,10 +66,16 @@
    "ingredients": "Water (Aqua, Eau), Glycerin, Pectin, Hydrolyzed Corn Starch, Polysorbate-20, Xanthan Gum, Hydroxyethylcellulose, Carrageenan, Fragrance (Parfum), Orbignya Oleifera (Babassu) Oil, Mauritia Flexuosa (Buriti) Fruit Oil, Copaiferi Officinalis (Balsam Copaiba) Resin, Astrocaryum Murumuru Seed Butter, Cocos Nucifera (Coconut) Oil, Punica Granatum (Pomegranate) Extract, Honey (Mel, Miel), Persea Gratissima (Avocado) Oil, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate",
    "description": "Your hair is your crowning glory. Show off those beautiful curly locks with Mielle’s Pomegranate & Honey Curl Smoothie. This delightful curl smoothie provides mega-moisture and strength through wholesome ingredients like pomegranate extract, honey, and babassu oil, and it is super easy to use. Simply apply the smoothie to your hair from root to tip, making sure to give a little extra attention to problem areas, and then style. It restores life to damaged hair and it smells absolutely amazing! So",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/pomegranate-honey-curl-smoothie.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--rice-water-clay-masque-bonus-size",
@@ -79,7 +90,10 @@
    "image_local": "public/scan/products-cheveux/mielle/rice-water-clay-masque-bonus-size.jpg",
    "categorie": "masque",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "gras"
+   ],
    "actifs": [
     "panthénol",
     "beurre de karité",
@@ -95,10 +109,13 @@
    "ingredients": "Water (Aqua, Eau), Cetearyl Alcohol, Behentrimonium Methosulfate, Aloe Barbadensis Leaf Juice, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Helianthus Annuus (Sunflower) Seed Oil, Olea Europaea (Olive) Fruit Oil, Polysorbate-20, Cetrimonium Chloride, Oryza Sativa (Rice) Bran Water, Brassica Campestris (Rapeseed) Seed Oil, Citrus Junos Peel Extract, Polyglyceryl-3 Diisostearate, Glyceryl Stearate, Butyrospermum Parkii (Shea) Butter, Panthenol, Tocopheryl Acetate, Honey, Ricinus Communis (Castor) Seed Oil, Macadamia Ternifolia Seed Oil, Sesamum Indicum (Sesame) Seed Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Chamomile Flower Extract, Comfrey Leaves Extract, Horsetail Grass Extract, Nettle Leaves Extract, Rosemary Leaves Extract, Hops Extract, Neutral Henna Extract, Vegetable Glycerin, Mentha Piperita (Peppermint) Oil, Rosemarinus Officinalis (Rosemary) Leaf Oil, Kaolin, Illite, Fragrance (Parfum), Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate",
    "description": "Designed to detoxify by removing impurities while depositing moisture back into the hair and skin. Ingredients such as rice water and yuzu hydrate both hair and body.",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "nutrition",
     "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/rice-water-clay-masque-bonus-size.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--pomegranate-honey-curl-sculpting-custard",
@@ -114,7 +131,9 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "boucles"
+    "secs",
+    "boucles",
+    "crepus"
    ],
    "actifs": [
     "huile de coco",
@@ -125,12 +144,15 @@
    "ingredients": "Water (Aqua, Eau), Glycerin, Pectin, Hydrolyzed Corn Starch, Polysorbate-20, Xanthan Gum, Hydroxyethylcellulose, Carrageenan, Fragrance (Parfum), Orbignya Oleifera (Babassu) Oil, Mauritia Flexuosa (Buriti) Fruit Oil, Copaiferi Officinalis (Balsam Copaiba) Resin, Astrocaryum Murumuru Seed Butter, Cocos Nucifera (Coconut) Oil, Punica Granatum (Pomegranate) Extract, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Honey (Mel, Miel), Persea Gratissima (Avocado) Oil, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate",
    "description": "If you're struggling with dry, thirsty Type 4 curls, our Pomegranate & Honey Coil Sculpting Custard is a breath of fresh air. Crafted to deliver deep definition without crunch or flaking, this thick, great-smelling formula hydrates and shapes your curls for a soft, flexible feel that lasts. Infused with Pomegranate, Honey, and other nourishing ingredients, this custard provides the moisture, shine, and definition your coils have been craving.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "brillance",
-    "definition-boucles"
+    "hydratation",
+    "nutrition",
+    "definition-boucles",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/pomegranate-honey-curl-sculpting-custard.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--mielle-lavender-lychee-scalp-soothing-conditioner",
@@ -146,6 +168,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "pellicules",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -155,9 +178,11 @@
    "ingredients": "Active ingredient: Pyrithione zinc 0.5% Inactive ingredients: Water, Stearyl Alcohol, Dimethicone, Behentrimonium Chloride, Cetyl Alcohol, Fragrance, Phenoxyethanol, Benzyl Alcohol, Niacinamide, Litchi Chinensis Fruit Extract, Lavandula Angustifolia (Lavender) Flower Extract, Methylchloroisothiazolinone, Methylisothiazolinone",
    "description": null,
    "claims": [
-    "apaisant"
+    "apaisant-cuir-chevelu"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/mielle-lavender-lychee-scalp-soothing-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--mielle-lavender-lychee-scalp-moisturizing-shampoo",
@@ -173,6 +198,8 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
+    "pellicules",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -183,9 +210,11 @@
    "ingredients": "Active Ingredient: Pyrithione Zinc 1% Inactive Ingredients: Water, Lauramidopropyl Betaine, Sodium Cocoyl Isethionate, Sodium Lauroyl Sarcosinate, Fragrance, Dimethiconol, Sodium Chloride, Sodium Citrate, Acrylates Copolymer, TEA-Dodecylbenzenesulfonate, Polyquaternium-10, Sodium Benzoate, Citric Acid, Laureth-23, Sodium Salicylate, Niacinamide, Litchi Chinensis Fruit Extract, Lavandula Angustifolia (Lavender) Flower Extract",
    "description": null,
    "claims": [
-    "hydratant"
+    "hydratation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/mielle-lavender-lychee-scalp-moisturizing-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--mielle-lavender-lychee-scalp-soothing-daily-refresher",
@@ -201,6 +230,7 @@
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
    "cheveux_cibles": [
+    "chute",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -214,9 +244,11 @@
    "ingredients": "Water, niacinamide, PEG-40 hydrogenated castor oil, phenoxyethanol, caffeine, fragrance, bis-PEG/PPG-16/16 PEG/PPG-16/16 dimethicone, glycerin, benzyl alcohol, menthol, acrylates/C10-30 alkyl acrylate crosspolymer, panthenol, tetrahydroxypropyl ethylenediamine, ethylhexylglycerin, litchi chinensis fruit extract, mentha arvensis leaf/stem oil, mentha piperita (peppermint) flower/leaf/stem oil, lavandula angustifolia (lavender) flower extract",
    "description": null,
    "claims": [
-    "apaisant"
+    "apaisant-cuir-chevelu"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/mielle-lavender-lychee-scalp-soothing-daily-refresher.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--mielle-lavender-lychee-daily-scalp-moisturizing-lotion",
@@ -232,6 +264,7 @@
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
    "cheveux_cibles": [
+    "secs",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -245,9 +278,11 @@
    "ingredients": "Water, Cetyl Alcohol, Propanediol, PPG-3 Benzyl Ether Myristate, Aloe Barbadensis Leaf Juice, Capryloyl Glycerin/Sebacic Acid Copolymer, Behentrimonium Chloride, Phenoxyethanol, Stearyl Alcohol, Fragrance, Diheptyl Succinate, Panthenol, Hydroxyethylcellulose, Betaine, Menthol, Cetrimonium Chloride, Isopropyl Alcohol, Benzoic Acid, Litchi Chinensis Fruit Extract, Aminomethyl Propanol, Honey, Ethylhexylglycerin, Glycereth-2 Cocoate, Lavandula Angustifolia (Lavender) Flower Extract, Niacinamide, Chamomilla Recutita (Matricaria) Flower Extract, Avena Sativa (Oat) Seed Extract",
    "description": null,
    "claims": [
-    "hydratant"
+    "hydratation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/mielle-lavender-lychee-daily-scalp-moisturizing-lotion.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--mielle-lavender-lychee-scalp-hair-build-up-remover",
@@ -262,12 +297,16 @@
    "image_local": "public/scan/products-cheveux/mielle/mielle-lavender-lychee-scalp-hair-build-up-remover.jpg",
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "cuir-chevelu-sensible"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": null,
    "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/mielle-lavender-lychee-scalp-hair-build-up-remover.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "mielle--babassu-mint-deep-conditioner",
@@ -283,6 +322,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "crepus",
     "abimes"
    ],
    "actifs": [
@@ -297,10 +337,14 @@
    "ingredients": "Water, Cetyl Alcohol, Squalane, Behentrimonium Methosulfate, Fragrance, Glycerin, Butylene Glycol, Phenoxyethanol, Caprylic/Capric Triglyceride, Polycitronellol, Polyquaternium-37, Hydroxypropylgluconamide, Hydroxypropylammonium Gluconate, Behentrimonium Chloride, Propylene Glycol Dicaprylate/Dicaprate, Cetrimonium Chloride, Guar Hydroxypropyltrimonium Chloride, Benzoic Acid, Simmondsia Chinensis (Jojoba) Seed Oil, Hydrolyzed Wheat Protein, Polycitronellol Acetate, Aminomethyl Propanol, Ppg-1 Trideceth-6, Undecane, Glycereth-2 Cocoate, Ethylhexylglycerin, Crambe Abyssinica Seed Oil, Ricinus Communis (Castor) Seed Oil, Helianthus Annuus (Sunflower) Seed Oil, Citric Acid, Tridecane, Mentha Piperita (Peppermint) Oil, Euterpe Oleracea Fruit Oil, Orbignya Oleifera Seed Oil, Tartaric Acid, Benzyl Alcohol, Sodium Benzoate, Potassium Sorbate.​ ​",
    "description": "Experience the second step in our simple, proven damage repair regimen. Our Babassu & Mint Deep Conditioner was developed to restore the protein and moisture balance for those with dry, damaged hair. This formula infuses strands with protein and moisture to help repair physical damage from protective styles, detangling, and brushing, leaving hair replenished and revived.",
    "claims": [
-    "hydratant",
-    "reparateur"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/babassu-mint-deep-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--babassu-mint-damage-repair-leave-in-conditioner",
@@ -313,10 +357,9 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0763/8199/files/Packshot_Mielle_SHAseal_BabMint_LeaveInCond_6oz_En_80835617_2048px.jpg?width=600",
    "image_local": "public/scan/products-cheveux/mielle/babassu-mint-damage-repair-leave-in-conditioner.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
-    "epais",
     "abimes"
    ],
    "actifs": [
@@ -330,11 +373,14 @@
    "ingredients": "Water, Glycerin, Cetearyl Alcohol, Behentrimonium Chloride, Lauryl Lactyl Lactate, Isostearyl Isostearate, Aloe Barbadensis Leaf Juice, Phenoxyethanol, Fragrance, Panthenol, Squalane, Hydroxypropylgluconamide, Hydroxypropylammonium Gluconate, Cetrimonium Chloride, Benzoic Acid, Aminomethyl Propanol, Glycereth-2 Cocoate, Ethylhexylglycerin, Mentha Piperita (Peppermint) Oil, Euterpe Oleracea Fruit Oil, Hydrolyzed Wheat Protein, Orbignya Oleifera Seed Oil, Tartaric Acid, Benzyl Alcohol, Citric Acid, Sodium Benzoate, Potassium Sorbate.​",
    "description": "This intense, reparative leave-in conditioner is a must-have for anyone looking to transform damaged hair. As a key \"protect\" step in our damage repair regimen, this formula lays the foundation for smoother, longer-lasting styles by infusing hair with lightweight hydration. The continuous sprayer makes application effortless, helping to detangle, tame frizz, and prepare hair for damage-free styling with results you can see in just one use.",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "lissant"
+    "hydratation",
+    "reparation",
+    "anti-frisottis",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/babassu-mint-damage-repair-leave-in-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--babassu-mint-damage-repair-bond-treatment",
@@ -364,9 +410,12 @@
    "ingredients": "Water, Cetyl Alcohol, C13-15 Alkane, Behentrimonium Methosulfate, Fragrance, Glycerin, Butylene Glycol, Phenoxyethanol, Caprylic/Capric Triglyceride, Polycitronellol, Polyquaternium-37, Hydroxypropylgluconamide, Behentrimonium Chloride, Propylene Glycol Dicaprylate/Dicaprate, Cetrimonium Chloride, Guar Hydroxypropyltrimonium Chloride, Benzoic Acid, Simmondsia Chinensis (Jojoba) Seed Oil, Hydrolyzed Wheat Protein, Polycitronellol Acetate, Aminomethyl Propanol, Ppg-1 Trideceth-6, Undecane, Glycereth-2 Cocoate, Ethylhexylglycerin, Crambe Abyssinica Seed Oil, Ricinus Communis (Castor) Seed Oil, Helianthus Annuus (Sunflower) Seed Oil, Citric Acid, Tridecane, Mentha Piperita (Peppermint) Oil, Euterpe Oleracea Fruit Oil, Orbignya Oleifera Seed Oil, Tartaric Acid, Benzyl Alcohol, Sodium Benzoate, Potassium Sorbate.​",
    "description": "Experience the \"treat\" phase of our simple, proven damage repair regimen. The Babassu and Mint Damage Repair Bond Treatment is formulated to address internal hair damage often caused by relaxers, heat styling, and color treatments. This rinse-out treatment works to repair and rebuild the internal bonds of your hair, promoting stronger, healthier results you can see after just one use.",
    "claims": [
-    "reparateur"
+    "reparation",
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/babassu-mint-damage-repair-bond-treatment.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--ts-babassu-mint-damage-repair-shampoo",
@@ -399,9 +448,12 @@
    "ingredients": "Water, Cocamidopropyl Hydroxysultaine, Sodium Methyl 2-Sulfolaurate, Glycerin, Fragrance, Phenoxyethanol, Cetyl Betaine, Disodium 2-Sulfolaurate, Glycol Distearate, Sodium Chloride, Guar Hydroxypropyltrimonium Chloride, Starch Hydroxypropyltrimonium Chloride, Menthol, Polycitronellol, Lauryl Betaine, Benzoic Acid, Simmondsia Chinensis (Jojoba) Seed Oil, Myristyl Betaine, Polyquaternium-7, Polycitronellol Acetate, Panthenol, Olea Europaea (Olive) Fruit Oil, Disodium Edta, Undecane, Glycereth-2 Cocoate, Ethylhexylglycerin, Crambe Abyssinica Seed Oil, Ricinus Communis (Castor) Seed Oil, Helianthus Annuus (Sunflower) Seed Oil, Tridecane, Citric Acid, Mentha Piperita (Peppermint) Oil, Hydrolyzed Wheat Protein, Rosmarinus Officinalis (Rosemary) Leaf Oil, Melaleuca Alternifolia (Tea Tree) Leaf Oil, Orbignya Oleifera Seed Oil*, Sodium Hydroxide, Euterpe Oleracea Fruit Oil, Tocopherol, Olus Oil.​ *Babassu Oil​",
    "description": "Mielle Babassu & Mint Damage Repair Shampoo gently cleanses, removes product build-up and preps hair for repair. Formulated to soften and minimize further damage during the cleansing process.",
    "claims": [
-    "reparateur"
+    "reparation",
+    "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/ts-babassu-mint-damage-repair-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--brazilian-curly-cocktail-curl-cream",
@@ -417,8 +469,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
-    "boucles"
+    "boucles",
+    "abimes"
    ],
    "actifs": [
     "kératine",
@@ -430,10 +482,13 @@
    "ingredients": "Water (Aqua, Eau), Glycerine, Olea Europaea (Olive) Fruit Oil, Prunus Amygadalus Dulcis (Sweet Almond) Oil, Glyceryl Stearate, Acetylated, Lanolin, Water (Aqua, Eau), Vp/va Copolymer, Hydrogenated Vegetable Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Canola Oil, Peg-8 Dilaurate Crambe Abyssinica (Abysinnian Oil), Seed Oil, Coco-glucoside, Potassium Sorbate, Organic Orgignya Oleifera (Babassu) Oil, Organic mauritia Flexuosa (Buriti) Fruit Oil, Organic Copaiferi Officinalis (Balsam Copaiba) Resin, Organic Astrocaryum Murumuru Seed Butter, Ranthenol, Theobroma Cacao (Cocoa) Seed Butter, Triticum Vulgare (Wheat) Germ Oil, Keratin Amino Acids, Ceteareth-20, Socium Borate, Stearyl Alcohol, Glyceryl Oleate, Fragrance (Parfum), Carbomer, Limonene, Glycine Soja (Soybean) Oil, Zea Mays (Corn) Oil, Silica",
    "description": "Every curly girl's dream is to have soft, defined, frizz-free curls, and this curl cream is your new essential styler. Powered by a blend of Brazilian oils like Babassu, Buriti, Copaiba, and Muru Muru, this special formula helps your hair absorb and lock in moisture. It provides the enhanced curl definition you want along with the deep hydration your hair needs.",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "anti-frisottis",
     "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/brazilian-curly-cocktail-curl-cream.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--kalahari-melon-aloe-vera-deep-hydration-weightless-oil",
@@ -448,17 +503,23 @@
    "image_local": "public/scan/products-cheveux/mielle/kalahari-melon-aloe-vera-deep-hydration-weightless-oil.jpg",
    "categorie": "huile",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "fins"
+   ],
    "actifs": [
     "aloe vera"
    ],
    "ingredients": null,
    "description": "This lightweight finishing oil is your secret to brilliant shine without weighing your hair down. Designed to seal in moisture and provide long-lasting hydration, it’s the perfect final touch for polished, healthy-looking hair. Light on product but heavy on results, this oil transforms hair to silky, touchable softness with just a few drops.",
    "claims": [
-    "hydratant",
+    "hydratation",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/kalahari-melon-aloe-vera-deep-hydration-weightless-oil.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--kalahari-melon-aloe-vera-deep-hydration-multi-tasking-leave-in-conditioner",
@@ -471,9 +532,10 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0763/8199/files/B0DX87HVYB.MAIN.jpg?width=600",
    "image_local": "public/scan/products-cheveux/mielle/kalahari-melon-aloe-vera-deep-hydration-multi-tasking-leave-in-conditioner.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -488,10 +550,14 @@
    "ingredients": "Water, Cetearyl Alcohol, Glycerin, Behentrimonium Chloride, Lauryl Lactyl Lactate, Isostearyl Isostearate, Aloe Barbadensis Leaf Juice, Phenoxyethanol, Fragrance, Squalane, Panthenol, Cetrimonium Chloride, Benzoic Acid, Citrullus Lanatus (Watermelon) Seed Oil, Aminomethyl Propanol, Glycereth-2 Cocoate, Ethylhexylglycerin, Linum Usitatissimum (Linseed) Seed Oil, Hyaluronic Acid, Honey, Cocos Nucifera (Coconut) Liquid Endosperm, Leuconostoc/Radish Root Ferment Lysate Filtrate, Althaea Officinalis Root Extract, Ulmus Fulva Bark Extract. *Coconut Water",
    "description": "This versatile leave-in conditioner does it all. Its continuous spray delivers even coverage, infusing every strand with hydration to smooth knots, revive curls, and create an extended-stay moisture barrier. Whether you're prepping for a new style or giving your curls a midday refresh, this 3-in-1 multitasker simplifies your routine, ensuring your hair stays soft, hydrated, and ready for anything.",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/kalahari-melon-aloe-vera-deep-hydration-multi-tasking-leave-in-conditioner.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--kalahari-melon-aloe-vera-deep-hydration-curl-forming-glaze",
@@ -507,6 +573,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -522,11 +589,15 @@
    "ingredients": "Water, Glycerin, Hydrolyzed Corn Starch, Propanediol, Xanthan Gum, Honey, Carbomer, Phenoxyethanol, Fragrance, Aloe Barbadensis Leaf Juice, Aminomethyl Propanol, Benzoic Acid, Panthenol, Hydrolyzed Wheat Protein, Glycereth-2 Cocoate, Ethylhexylglycerin, Hyaluronic Acid, Citrullus Lanatus (Watermelon) Seed Oil, Linum Usitatissimum (Linseed) Seed Oil, Cocos Nucifera (Coconut) Liquid Endosperm*, Squalane, Leuconostoc/Radish Root Ferment Lysate Filtrate, Althaea Officinalis Root Extract, Ulmus Fulva Bark Extract. * Coconut Water",
    "description": "This luscious crème-gel styler is your answer to beautifully defined curls. With a formula that enhances your natural pattern, it delivers lasting moisture, flexible hold, and a boost of shine. Perfect for curl definition that lasts, it leaves your hair soft, hydrated, and oh so defined.",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "definition-boucles",
     "brillance",
-    "definition-boucles"
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/kalahari-melon-aloe-vera-deep-hydration-curl-forming-glaze.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--kalahari-melon-aloe-vera-deep-hydration-deep-conditioner",
@@ -541,7 +612,10 @@
    "image_local": "public/scan/products-cheveux/mielle/kalahari-melon-aloe-vera-deep-hydration-deep-conditioner.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "abimes"
+   ],
    "actifs": [
     "panthénol",
     "acide hyaluronique",
@@ -557,10 +631,13 @@
    "ingredients": "Water, Glycerin, Olea Europaea (Olive) Fruit Oil, Butylene Glycol, Cetyl Alcohol, Cocos Nucifera (Coconut) Oil, Stearyl Alcohol, Behentrimonium Chloride, Helianthus Annuus (Sunflower) Seed Oil, Polycitronellol, Phenoxyethanol, Fragrance, Panthenol, Citrullus Lanatus (Watermelon) Seed Oil, Polyquaternium-37, Aloe Barbadensis Leaf Juice, Guar Hydroxypropyltrimonium Chloride, Propylene Glycol Dicaprylate/Dicaprate, Simmondsia Chinensis (Jojoba) Seed Oil, Cetrimonium Chloride, Capryloyl Glycerin/Sebacic Acid Copolymer, Diheptyl Succinate, Polycitronellol Acetate, Polyquaternium-7, Undecane, Squalane, Linum Usitatissimum (Linseed) Seed Oil, Ethylhexylglycerin, Crambe Abyssinica Seed Oil, Ricinus Communis (Castor) Seed Oil, Citric Acid, PPG-1 Trideceth-6, Aminomethyl Propanol, Tridecane, Hyaluronic Acid, Honey, Cocos Nucifera (Coconut) Liquid Endosperm*, Leuconostoc/Radish Root Ferment Lysate Filtrate, Althaea Officinalis Root Extract, Ulmus Fulva Bark Extract, Olus Oil. *Coconut Water",
    "description": "This fast-acting deep conditioner is your moisture boost in a bottle. In just two minutes, this moisture-rich, decadent formula penetrates deeply to infuse each strand with intense hydration, transforming dry, brittle hair into soft, manageable locks. Perfect for when you need quick but intensive care, it leaves your hair smooth, revitalized, and easy to style.",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/kalahari-melon-aloe-vera-deep-hydration-deep-conditioner.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--kalahari-melon-aloe-deep-hydration-shampoo",
@@ -575,7 +652,10 @@
    "image_local": "public/scan/products-cheveux/mielle/kalahari-melon-aloe-deep-hydration-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "gras"
+   ],
    "actifs": [
     "acide hyaluronique",
     "huile de coco",
@@ -591,11 +671,15 @@
    "ingredients": "Water, Cocamidopropyl Hydroxysultaine, Sodium Methyl 2-Sulfolaurate, Glycerin, Cetyl Betaine, Aloe Barbadensis Leaf Juice, Fragrance, Phenoxyethanol, Disodium 2-Sulfolaurate, Glycol Distearate, Disodium EDTA, Guar Hydroxypropyltrimonium Chloride, Starch Hydroxypropyltrimonium Chloride, Sodium Chloride, Lauryl Betaine, Polycitronellol, Benzoic Acid, Myristyl Betaine, Simmondsia Chinensis (Jojoba) Seed Oil, Polyquaternium-7, Polycitronellol Acetate, Glycereth-2 Cocoate, Ethylhexylglycerin, Undecane, Crambe Abyssinica Seed Oil, Ricinus Communis (Castor) Seed Oil, Helianthus Annuus (Sunflower) Seed Oil, Tridecane, Citric Acid, Sodium Hydroxide, Hyaluronic Acid, Honey, Citrullus Lanatus (Watermelon) Seed Oil, Linum Usitatissimum (Linseed) Seed Oil, Cocos Nucifera (Coconut) Liquid Endosperm*, Sodium Benzoate, Potassium Sorbate, Leuconostoc/Radish Root Ferment Lysate Filtrate, Althaea Officinalis Root Extract, Ulmus Fulva Bark Extract. *Coconut Water",
    "description": "This sulfate-free shampoo is your reset button for strands in need of care. Designed to gently clarify without stripping, it removes buildup while infusing hair with moisture-rich hydration. From the first lather, this nourishing formula refreshes and preps your hair for effortless styling, leaving it clean, soft, and ready for your next look.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "purifiant"
+    "hydratation",
+    "nutrition",
+    "purifiant",
+    "sans-sulfate"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/kalahari-melon-aloe-deep-hydration-shampoo.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--avocado-tamanu-anti-frizz-mousse",
@@ -611,7 +695,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "fins",
     "boucles"
    ],
    "actifs": [
@@ -624,10 +708,15 @@
    "ingredients": "Water, Polysorbate 20, Pvp, Methyl Gluceth-20, Oleth-20, Cocamidopropyl Hydroxysultaine, Propylene Glycol, Phenoxyethanol, Fragrance, Polyquaternium-55, Quaternium-75, Benzoic Acid, Glycereth-2 Cocoate, Ethylhexylglycerin, Aminomethyl Propanol, Aloe Barbadensis Leaf Juice, Silk Amino Acids, Tocopheryl Acetate, Disodium Edta, Panthenol, Persea Gratissima (Avocado) Oil, Calophyllum Tacamahaca Seed Oil, Olus Oil",
    "description": "Avocado & Tamanu Anti-Frizz Mousse is a weightless, alcohol free formula made to define, mold, and hold textured hair. This rich, conditioning mousse provides curl-clumping definition and style sculpting without leaving the hair crunchy. Leaves all hair textures, wigs, and weaves soft, shiny, and moveable. Use for long lasting curls that remain frizz-free for days.",
    "claims": [
-    "lissant",
-    "definition-boucles"
+    "anti-frisottis",
+    "definition-boucles",
+    "brillance",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/avocado-tamanu-anti-frizz-mousse.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--rosemary-mint-clarifying-sugar-scalp-scrub",
@@ -642,7 +731,9 @@
    "image_local": "public/scan/products-cheveux/mielle/rosemary-mint-clarifying-sugar-scalp-scrub.jpg",
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "gras"
+   ],
    "actifs": [
     "biotine",
     "beurre de karité",
@@ -652,9 +743,14 @@
    "ingredients": "Sucrose, Sorbitol, Sodium Methyl 2-Sulfolaurate, Disodium 2-Sulfolaurate, Cocamidopropyl Betaine, Water (Aqua, Eau), Glycine Soja (Soybean) Oil, Glyceryl Caprylate/Caprate, Rosmarinus Officinalis (Rosemary) Leaf Oil, Mentha Piperita (Peppermint) Oil, Biotin, Butyrospermum Parkii (Shea) Butter, Fragrance (Parfum), Phenoxyethanol, Ethylhexylglycerin",
    "description": "Start your routine with a refreshed, revitalized scalp. Our Clarifying Sugar Scalp Scrub was developed as a multi-use pre-shampoo treatment to gently exfoliate and remove excess oil, impurities, and stubborn product buildup. Using gentle sugar granules, this non-drying formula invigorates the scalp, creating the optimal foundation for your wash day to support longer, healthier-looking hair.",
    "claims": [
-    "purifiant"
+    "nutrition",
+    "purifiant",
+    "anti-gras"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/rosemary-mint-clarifying-sugar-scalp-scrub.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--rosemary-mint-pomade-to-oil-scalp-hair-quencher",
@@ -670,7 +766,9 @@
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
    "cheveux_cibles": [
-    "boucles"
+    "secs",
+    "boucles",
+    "crepus"
    ],
    "actifs": [
     "huile d'argan",
@@ -681,11 +779,15 @@
    "ingredients": "Prunus Amygdalus Dulcis (Sweet Almond) Oil, Carthamus Tinctorius (Safflower) Seed Oil, Cera Alba (Beeswax), Zea Mays (Corn) Oil, Theobroma Cacao (Cocoa) Seed Butter, Rosmarinus Officinalis (Rosemary) Leaf Oil, Mentha Piperita (Peppermint) Oil, Argania Spinosa (Argan) Kernel Oil, Orbignya Oleifera (Babassu) Seed Oil, Moringa Oleifera Seed Oil, Vitis Vinifera (Grape) Seed Oil, Schinziophyton Rautanenii (Mongongo) Kernel Oil, Biotin, Oenothera Biennis (Evening Primrose) Oil, Plukenetia Volubilis (Sacha Inchi) Seed Oil, Fragrance (Parfum)",
    "description": "Mielle's Rosemary Mint Pomade-to-Oil Scalp & Hair Quencher is a conditioning hairdress that transforms from a pomade to an oil. It quenches the scalp, moisturizes dry, thirsty hair, and helps protect against dryness. This hairdress smoothes flyaways and adds shine for soft, manageable hair. For curly, thermally straightened and protective styles.",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles",
     "brillance",
-    "lissant"
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/rosemary-mint-pomade-to-oil-scalp-hair-quencher.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--rosemary-mint-light-scalp-hair-strengthening-oil",
@@ -700,19 +802,25 @@
    "image_local": "public/scan/products-cheveux/mielle/rosemary-mint-light-scalp-hair-strengthening-oil.jpg",
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "fins"
+   ],
    "actifs": [
     "biotine"
    ],
    "ingredients": null,
    "description": "Experience the benefits of our original strengthening oil in a new, lightweight formula. Our Rosemary Mint Light Scalp & Hair Strengthening Oil is infused with Biotin and a nourishing blend of Rosemary and Mint to invigorate the scalp and help encourage healthier, stronger, longer-looking hair. This formula is designed to deliver weightless moisture and amazing shine, making it ideal for low porosity hair, silk presses, and daily use.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "brillance",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/rosemary-mint-light-scalp-hair-strengthening-oil.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--avocado-tamanu-leave-in-conditioner",
@@ -725,11 +833,9 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0763/8199/files/Packshot_c66bea77-7520-4620-babe-f2f1acbad1bd.jpg?width=600",
    "image_local": "public/scan/products-cheveux/mielle/avocado-tamanu-leave-in-conditioner.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [],
    "actifs": [
     "panthénol",
     "huile de coco",
@@ -741,9 +847,14 @@
    "ingredients": "Water (Aqua, Eau), Persea Gratissima (Avocado) Oil, Cetearyl Alcohol, Behentrimonium Chloride, Propylene Glycol, Cetrimonium Chloride, Calophyllum Inophyllum (Tamanu) Seed Oil, Vitis Vinifera (Grape) Seed Oil, Curcuma Longa (Turmeric) Root Extract, Helianthus Annuus (Sunflower) Seed Oil, Cocos Nucifera (Coconut) Oil, Olea Europaea (Olive) Fruit Oil, Panthenol, Citric Acid, Sodium Benzoate, Potassium Sorbate, Fragrance (Parfum), Anthocyanins",
    "description": "Avocado & Tamanu Anti-Frizz Slip & Seal Leave-In Conditioner smoothes the surface of the hair providing instant detangling and slip. Seals cuticles in place and leaves hair soft and shiny with a layer of protection against frizz.",
    "claims": [
-    "lissant"
+    "anti-frisottis",
+    "brillance",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/avocado-tamanu-leave-in-conditioner.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--avocado-tamanu-anti-frizz-shampoo",
@@ -758,9 +869,7 @@
    "image_local": "public/scan/products-cheveux/mielle/avocado-tamanu-anti-frizz-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [
     "acide citrique",
     "huile d'avocat"
@@ -768,10 +877,13 @@
    "ingredients": "Water (Aqua, Eau), Cocamidopropyl Betaine, Sodium Methyl 2-Sulfolaurate, Disodium 2-Sulfolaurate, Cocoamide MIPA, PEG-150 Distearate, Polyquaternium-10, Tetrasodium Glutamate Diacetate, Persea Gratissima (Avocado) Oil, Calophyllum Inophyllum (Tamanu) Seed Oil, Curcuma Longa (Turmeric) Root Extract, Chlorphenesin, Citric Acid, Fragrance (Parfum), Anthocyanins",
    "description": "Avocado & Tamanu Anti-Frizz Shampoo replenishes moisture and gives the hair a clean slate as it gently removes residue from the hair and scalp. Leaves hair feeling soft, smooth and prepped for frizz free styling.",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/avocado-tamanu-anti-frizz-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--avocado-tamanu-anti-frizz-curl-perfector",
@@ -787,9 +899,9 @@
    "categorie": "proteine-reconstruction",
    "etape": 4,
    "cheveux_cibles": [
-    "epais",
     "boucles",
-    "colores"
+    "colores",
+    "abimes"
    ],
    "actifs": [
     "panthénol",
@@ -800,10 +912,15 @@
    "ingredients": "Water (Aqua, Eau), Persea Gratissima (Avocado) Oil, Caprylic/Capric Triglyceride, Behentrimonium Methosulfate, Cetearyl Alcohol, Cetyl Alcohol, Butylene Glycol, PVP, Aloe Barbadensis Leaf Juice (Decolorized), Calophyllum Inophyllum (Tamanu) Seed Oil, Butyrospermum Parkii (Shea) Butter, Moringa Oleifera Seed Oil, Curcuma Longa (Turmeric) Root Extract, Panthenol, Cetrimonium Chloride, Polyquaternium-7, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate, Fragrance (Parfum), Anthocyanins",
    "description": "Avocado & Tamanu Anti-Frizz Curl Perfector smoothes and seals the hair to reduce frizz* and adds a layer of protection against frizz while providing long lasting curl definition. Leaves curls soft, shiny and beautiful. *Helps reduce frizz when used as a system.",
    "claims": [
-    "lissant",
-    "definition-boucles"
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/avocado-tamanu-anti-frizz-curl-perfector.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--avocado-tamanu-anti-frizz-conditioner",
@@ -819,7 +936,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "colores"
    ],
    "actifs": [
@@ -833,10 +950,14 @@
    "ingredients": "Water(Aqua, Eau), Cetearyl Alcohol, Olea Europaea (Olive) Fruit Oil, Cocos Nucifera (Coconut) Oil, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Cetrimonium Chloride, Caprylic/Capric Triglyceride, Behentrimonium Methosulfate, Sesamum Indicum (Sesame) Seed Oil, Persea Gratissima (Avocado) Oil, Behentrimonium Chloride, Aloe Barbadensis Leaf Juice (Decolorized), Calophylium Inophyllum (Tamanu) Seed Oil, Butyrospermum Parkii (Shea) Butter, Curcuma Longa (Turmeric) Root Extract, Panthenol, Cetearyl Olivate, Sorbitan Olivate, PPG-3 Benzyl Ether Myristate, Isostearyl Isostearate, Quaternium-80, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate, Fragrance(Parfum), Anthocyanins",
    "description": "Avocado & Tamanu Anti-Frizz Conditioner nourishes and smoothes the surface of the hair for increased manageability and easier detangling. Leaves hair feeling softer, shinier and prepped for frizz free styling.",
    "claims": [
-    "nourrissant",
-    "lissant"
+    "nutrition",
+    "anti-frisottis",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/avocado-tamanu-anti-frizz-conditioner.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--rice-water-aloe-vera-braid-scalp-moisturizer",
@@ -852,7 +973,10 @@
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
    "cheveux_cibles": [
-    "colores"
+    "secs",
+    "crepus",
+    "colores",
+    "abimes"
    ],
    "actifs": [
     "kératine",
@@ -866,9 +990,13 @@
    "ingredients": "Water (Aqua, Eau), Aloe Barbadensis Leaf Juice (Decolorized), Cetearyl Alcohol, Propanediol, Oryza Sativa (Rice) Extract, Oryza Sativa (Rice) Bran Extract, Cetrimonium Chloride, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Rosmarinus Officinialis (Rosemary) Leaf Extract, Helianthus Annuus (Sunflower) Extract, Keratin Amino Acids, Argania Spinosa Kernel Oil, Lactobacillus/Tomato Fruit Ferment Extract, Squalane, C13-15 Alkane, Acyl Coenzyme A Desaturase, PVP, Tocopherol, Glycereth-2 Cocoate, Ethylhexylglycerin",
    "description": "Our Rice Water & Aloe Vera Braid & Scalp Moisturizer is a lightweight, non-greasy spray that instantly absorbs into braids and scalp to moisturize and deeply condition braid styles without buildup. Helps maintain proper moisture levels to preserve the health of the hair and scalp throughout the duration of the protective style and reduces breakage during “take down”. Also, great for twists and locs.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "reparation",
+    "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/rice-water-aloe-vera-braid-scalp-moisturizer.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--rosemary-mint-strengthening-conditioner",
@@ -883,7 +1011,11 @@
    "image_local": "public/scan/products-cheveux/mielle/rosemary-mint-strengthening-conditioner.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "fins",
+    "abimes"
+   ],
    "actifs": [
     "panthénol",
     "biotine",
@@ -899,11 +1031,17 @@
    "ingredients": "Water, Cetearyl Alcohol, Polyquaternium-7, Caprylic/Capric Triglyceride, Behentrimonium Chloride, C12-15 Alkyl Benzoate, Fragrance (Parfum), Persea Gratissima (Avocado) Oil, PPG-3 Myristyl Ether, Biotin, Butyrospermum Parkii (Shea) Butter, Cocos Nucifera (Coconut) Oil, Rosmarinus Officinalis (Rosemary) Leaf Oil, Mentha Piperita (Peppermint) Oil, Olea Europaea (Olive) Fruit Oil, Panthenol, Behentrimonium Methosulfate, Diheptyl Succinate Capryloyl Glycerin/Sebacic Acid Copolymer, Cetyl Alcohol, C10-40 Isoalkylamidopropylethyldimonium Ethosulfate, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate, Disodium EDTA, Tocopherol",
    "description": "Lock in the perfect balance of strength and moisture with a conditioner developed to revitalize and protect. Our Biotin-infused formula restores vitality to dry, brittle hair, instantly softens to ease detangling, and offers a refreshing experience that invigorates the scalp. It's the ideal second step for promoting fuller, healthier-looking hair and incredible shine.",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "volume",
     "brillance",
-    "fortifiant"
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/rosemary-mint-strengthening-conditioner.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--pomegranate-honey-maximum-hold-gel-styler",
@@ -919,7 +1057,6 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
     "boucles"
    ],
    "actifs": [
@@ -929,9 +1066,13 @@
    "ingredients": "Water (Aqua, Eau), Polysorbate 20, Carbomer, Glycerin, Punica Granatum (Pomegranate) Seed Oil, Honey, VP/VA Copolymer, Aminomethyl Propanol, Disodium EDTA, Benzoic Acid, Glycereth-2 Cocoate, Ethylhexylglycerin, Phenoxyethanol, Fragrance",
    "description": "Our Maximum Hold Gel Styler is the perfect multi-purpose gel for natural hair styling. Use to smooth and set sleek, frizz-free top knots, ponytails and pineapple styles. Perfect for defining, clumping and elongating wash & go styles for maximum curl control.",
    "claims": [
-    "lissant"
+    "anti-frisottis",
+    "definition-boucles",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/pomegranate-honey-maximum-hold-gel-styler.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--rice-water-aloe-deep-conditioner",
@@ -947,7 +1088,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -956,10 +1097,15 @@
    "ingredients": null,
    "description": "Give your dry or damaged hair a boost of rice water, yuzu and aloe vera. These ingredients help reduce spilt ends, frizz and breakage. Hydrate and protect your hair by adding nourishment to each strand hair is left feeling shiny and silky.",
    "claims": [
-    "hydratant",
-    "nourrissant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/rice-water-aloe-deep-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--rosemary-mint-strengthening-leave-in-conditioner",
@@ -972,9 +1118,12 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0763/8199/files/Main-Images-Swatches-Leave-In_Conditioner.jpg?width=600",
    "image_local": "public/scan/products-cheveux/mielle/rosemary-mint-strengthening-leave-in-conditioner.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
-   "cheveux_cibles": [],
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "secs",
+    "abimes"
+   ],
    "actifs": [
     "biotine",
     "glycérine",
@@ -986,12 +1135,15 @@
    "ingredients": "Water, Glycerin, Behentrimonium Methosulfate, Cetearyl Alcohol, Stearyl Alcohol, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Cetyl Alcohol, Triethyl Citrate, Olea Europaea (Olive) Fruit Oil, Fragrance, Biotin, Persea Gratissima (Avocado) Oil, Sesamum Indicum (Sesame) Seed Oil, Ceteareth-20, Rosmarinus Officinalis (Rosemary) Leaf Oil, Zingiber Officinale (Ginger) Root Oil, Mentha Piperita (Peppermint) Oil, Propylene Glycol, Chamomilla Recutita (Matricaria) Flower Extract, Vaccinium Myrtillus Fruit/Leaf Extract, Saccharum Officinarum (Sugar Cane) Extract, Citrus Aurantium Dulcis (Orange) Fruit Extract, Citrus Limon (Lemon) Fruit Extract, Acer Saccharum (Sugar Maple) Extract, Phenoxyethanol, Caprylyl Glycol, Polysorbate 20",
    "description": "Give your hair the hydration and protection it craves with a leave-in conditioner developed to meet its needs. Infused with Biotin, Rosemary, and other nourishing oils, this lightweight formula hydrates, locks in moisture, and strengthens brittle strands from root to tip. It leaves all hair types and textures feeling soft and silky with an amazing shine, all without being weighed down.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "brillance",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/rosemary-mint-strengthening-leave-in-conditioner.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--rice-water-hair-split-end-therapy",
@@ -1007,6 +1159,7 @@
    "categorie": "autre-cheveux",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -1019,10 +1172,13 @@
    "ingredients": "Water (Aqua, Eau), Hydrolyzed Collagen, Hydrogenated Castor Oil/Sebacic Acid Copolymer, Polyquaternium-6, Oryza Sativa (Rice) Bran Water, Brassica Campestris (Rapeseed) Seed Oil, Citrus Junos Peel Extract, Polyglyceryl-3 Diisostearate, Hydroxyethylcellulose, Oleth-20, Adansonia Digitata (Baobab) Seed Oil, Rosmarinus Officinalis (Rosemary) Leaf Oil, Cocos Nucifera (Coconut) Oil, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Vitis Vinifera (Grape) Seed Oil, Disodium EDTA, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate, Fragrance (Parfum)",
    "description": "Ingredients such as rice water and yuzu both assist with nourishing hair and works to prevent future damage. Light enough to be used daily. This lightweight product is designed to strengthen against split ends.",
    "claims": [
-    "nourrissant",
+    "nutrition",
+    "reparation",
     "fortifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/rice-water-hair-split-end-therapy.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--pomegranate-honey-curl-defining-mousse-with-hold",
@@ -1038,7 +1194,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "boucles"
+    "boucles",
+    "crepus"
    ],
    "actifs": [
     "panthénol",
@@ -1053,10 +1210,14 @@
    "ingredients": "Water (Aqua, Eau), Decyl Glucoside, Polyquaternium-55, Polysorbate 20, PVP, Methyl Gluceth-20, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate, Oleth-20, Honey, Aloe Barbadensis (Aloe Vera) Leaf Juice, Punica Granatum (Pomegranate) Fruit Extract, Punica Granatum Seed Oil, Pyrus Malus (Apple) Fruit Extract, Simmondsia Chinensis (Jojoba) Seed Oil, Orbignya Oleifera Seed Oil, Butyrospermum Parkii (Shea) Butter, Silk Amino Acids, Panthenol, Quaternium-75, Disodium EDTA, Tocopheryl Acetate, Citric Acid, Fragrance (Parfum)",
    "description": "The Pomegranate & Honey Curl Defining Mousse not only smells amazing but is the perfect hold for Type 4 hair. Infused with key essential oils such as Shea Butter, Pomegranate, Honey, Apple, Aloe, and Jojoba Oil for added moisture and hydration.",
    "claims": [
-    "hydratant",
-    "definition-boucles"
+    "hydratation",
+    "nutrition",
+    "definition-boucles",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/pomegranate-honey-curl-defining-mousse-with-hold.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--pomegranate-hold-blend-super-hold-edge-gel",
@@ -1071,7 +1232,9 @@
    "image_local": "public/scan/products-cheveux/mielle/pomegranate-hold-blend-super-hold-edge-gel.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "crepus"
+   ],
    "actifs": [
     "protéines de blé",
     "huile de ricin",
@@ -1082,8 +1245,12 @@
    ],
    "ingredients": "Water (Aqua, Eau), Ceteareth-25, Glycerin, PEG-40 Hydrogenated Castor Oil, Honey, Aloe Barbadensis Leaf Juice, Methyl Gluceth-10, Fragrance (Parfum), Oleth-2, Punica Granatum Fruit Extract, Saccharum Officinarum (Sugar Cane) Extract, Citrus Limon (Lemon) Fruit Extract, Betaine, Hexylene Glycol, Pyrus Malus (Apple) Fruit Extract, Camellia Sinensis Leaf Extract, Hexapeptide-11, Polydimethylsiloxane, Octyldodeceth-20, Oryza Sativa (Rice Bran) Wax, Lavandula Angustifolia Flower Wax, Hydrolyzed Wheat Protein, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate",
    "description": "Flawless edges are here! Mielle has the perfect hold for the Type 4 naturalista. This gel not only smells amazing but has maximum hold and long-lasting wear. Great for ponytails, up-dos and unruly edges.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "fixation"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/pomegranate-hold-blend-super-hold-edge-gel.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--rice-water-shine-mist",
@@ -1110,10 +1277,14 @@
    "ingredients": "Water (Aqua, Eau), Glycerin, PEG-12 Dimethicone, Polysorbate-20, Dimethicone PEG-8 Meadofoamate, Polysorbate 20, Oryza Sativa (Rice) Bran Water, Panthenol, Silanetriol, Acrylamidopropyltrimonium Chloride, Cetrimonium Chloride, Cocos Nucifera (Coconut) Oil, Argania Spinosa Kernel Oil, Brassica Campestris (Rapeseed) Seed Oil, Citrus Junos Peel Extract, Polyglyceryl-3 Diisostearate, Fragrance (Parfum), Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate, Sodium Benzoate",
    "description": "The Rice Water Shine Mist is perfect for re-hydrating and refreshing curls. Rice water and yuzu are the perfect combination for added shine and hydration. This lightweight mist not only adds shine but also hydrates and aids in preventing flyaways.",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/rice-water-shine-mist.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--rice-water-hair-moisturizing-milk",
@@ -1128,7 +1299,9 @@
    "image_local": "public/scan/products-cheveux/mielle/rice-water-hair-moisturizing-milk.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "huile de coco",
     "huile de ricin",
@@ -1138,10 +1311,12 @@
    "ingredients": "Water (Aqua, Eau), Cocos Nucifera (Coconut) Oil, Sorbitol, Isopropyl Myristate, Cetearyl Alcohol, Sodium Stearyl Sulfate, Cyclopentasiloxane, Glyceryl Stearate SE, Olea Europaea (Olive) Fruit Oil, Stearic Acid, Carthamus Tinctorius (Safflower) Seed Oil, Ricinus Communis (Castor) Seed Oil, Oryza Sativa (Rice) Bran Water, Brassica Campestris (Rapeseed) Seed Oil, Citrus Junos Peel Extract, Polyglyceryl-3 Diisostearate, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate, Diheptyl Succinate, Capryloyl Glycerin/Sebacic Acid Copolymer, Xanthan Gum, Aminomethyl Propanol, BHT, Disodium EDTA, Hydrolyzed Milk Protein, Fragrance (Parfum)",
    "description": "Infused with key ingredients such as safflower oil, rice water for hair, yuzu, castor oil and coconut oil to strengthen and lock in moisture. This daily moisturizer is the perfect solution for bringing life back to dry thirsty hair.",
    "claims": [
-    "hydratant",
+    "hydratation",
     "fortifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/rice-water-hair-moisturizing-milk.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "mielle--rice-water-hydrating-shampoo",
@@ -1157,6 +1332,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
     "abimes"
    ],
    "actifs": [
@@ -1165,11 +1341,14 @@
    "ingredients": "Water (Aqua, Eau), Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Betaine, Cocamidopropylamine Oxide, Fragrance (Parfum), Oryza Sativa (Rice) Bran Water, Brassica Campestris (Rapeseed) Seed Oil, Citrus Junos Peel Extract, Polyglyceryl-3 Diisostearate, Hydrolyzed Oat Protein, Polyquaternium 10, Sodium Chloride, Citric Acid, Disodium EDTA, PEG-75 Lanolin PEG-150 Distearate, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate, Propanediol",
    "description": "Ingredients such as rice water and yuzu strengthen the hair but also adds shine and helps reduce split ends. This shampoo not only smells amazing but will give your hair the boost it needs and deserves.",
    "claims": [
-    "hydratant",
-    "brillance",
-    "fortifiant"
+    "hydratation",
+    "reparation",
+    "fortifiant",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/rice-water-hydrating-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--rosemary-mint-strengthening-hair-masque",
@@ -1185,6 +1364,7 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "colores"
    ],
    "actifs": [
@@ -1202,11 +1382,13 @@
    "ingredients": "Water (Aqua, Eau), Behentrimonium Methosulfate, Cetearyl Alcohol, Aloe Barbadensis Leaf Juice (Decolorized), Prunus Amygdalus Dulcis (Sweet Almond) Oil, Helianthus Annuus (Sunflower) Seed Oil, Olea Europaea (Olive) Fruit Oil, Copernicia Cerifera (Carnauba) Wax, Polysorbate-20, Macadamia Integrifolia Seed Oil, Glyceryl Stearate, Butyrospermum Parkii (Shea) Butter, Tocopheryl Acetate, *Orbignya Oleifera (Babassu) Seed Oil, *Zingiber Officinale (Ginger) Root Oil, *Cocos Nucifera (Coconut) Oil, Panthenol, Phytantriol, Mentha Piperita Oil, Rosmarinus Officinalis (Rosemary) Leaf Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Ricinus Communis (Castor) Seed Oil, Equisetum Arvense (Horsetail Grass) Extract, Lawsonia Inermis (Henna) Extract, Rosmarinus Officinalis (Rosemary) Leaves Extract, Anthemis Nobilis (Chamomile) Flower Extract, Symphytum Officinale (Comfrey Leaves) Extract, Humulus Lupulus (Hops) Extract, Urtica Dioica (Nettle) Extract, Honey, Biotin, Cetrimonium Chloride, Sesamum Indicum (Sesame) Seed Oil, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate",
    "description": "Give your hair the extra love it deserves with our Rosemary Mint Strengthening Hair Masque. This nutrient-rich, restorative formula is made to offer deep moisture and healthy strength for dry, thirsty tresses. With natural and certified organic ingredients like rosemary, honey, and coconut oil, this masque provides the hydration and nourishment your hair has been craving.",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
     "fortifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/rosemary-mint-strengthening-hair-masque.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--rosemary-mint-strengthening-shampoo",
@@ -1221,7 +1403,11 @@
    "image_local": "public/scan/products-cheveux/mielle/rosemary-mint-strengthening-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "gras",
+    "abimes"
+   ],
    "actifs": [
     "panthénol",
     "biotine",
@@ -1235,10 +1421,13 @@
    "ingredients": "Water (Aqua, Eau), Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Betaine, Polyquaternium-7, Cocamide MIPA, Glycol Stearate, Polyquaternium-10, Panthenol, Propylene Glycol, Mentha Piperita (Peppermint) Oil, Rosmarinus Officinalis (Rosemary) Leaf Oil, Disodium EDTA, Phytantriol, *Orbignya Oleifera (Babassu) Seed Oil, *Zingiber Officinale (Ginger) Root Oil, *Cocos Nucifera (Coconut) Oil, Equisetum Arvense (Horsetail Grass) Extract, Lawsonia Inermis (Henna) Extract, Rosmarinus Officinalis (Rosemary) Leaves Extract, Anthemis Nobilis (Chamomile) Flower Extract, Symphytum Officinale (Comfrey) Leaves Extract, Humulus Lupulus (Hops) Extract, Urtica Dioica (Nettle) Extract, Honey, Biotin, Ricinus Communis (Castor) Seed Oil, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate, Fragrance (Parfum) *Certified Organic Ingredient",
    "description": "Bring weak or brittle hair back from the brink with a shampoo designed to gently cleanse while providing key nutrients. With hair-strengthening Biotin and certified organic ingredients like coconut and babassu seed oil, this formula delivers intense moisture and unrivaled slip to all hair types. Enjoy the rich lather and invigorating scent as you set the foundation for healthier, stronger-looking hair.",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "nutrition",
     "fortifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/rosemary-mint-strengthening-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--rosemary-mint-hair-strengthening-edge-gel",
@@ -1253,7 +1442,10 @@
    "image_local": "public/scan/products-cheveux/mielle/rosemary-mint-hair-strengthening-edge-gel.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "gras"
+   ],
    "actifs": [
     "biotine",
     "huile de coco",
@@ -1268,11 +1460,14 @@
    "ingredients": "Water (Aqua, Eau), Ceteareth-25, Glycerin, PEG-7 Glyceryl Cocoate, PEG-40 Hydrogenated Castor Oil, Propylene Glycol, Ethylhexylglycerin, Olea Europaea (Olive) Fruit Oil, Mentha Piperita (Peppermint) Oil, Rosmarinus Officinalis (Rosemary) Leaf Oil, Equisetum Arvense (Horsetail Grass) Extract, *Orbignya Oleifera (Babassu) Seed Oil, *Zingiber Officinale (Ginger) Root Oil, *Cocos Nucifera (Coconut) Oil, Honey, Biotin, Lawsonia Inermis (Henna) Extract, Rosmarinus Officinalis (Rosemary) Leaves Extract, Humulus Lupulus (Hops) Extract, Urtica Dioica (Nettle) Extract, Phenoxyethanol, Anthemis Nobilis (Chamomile) Flower Extract, Symphytum Officinale (Comfrey) Leaves Extract, Benzoic Acid, Glycereth-2- Cocoate, Fragrance (Parfum)",
    "description": "Your edges can be delicate. Shape and smooth them how you like while infusing them with strength and important nutrients with our Rosemary Mint Strengthening Edge Gel. This nutrient-rich formula provides the strong hold your styles need and the nourishment your hair has been craving. With Biotin and a blend of essential oils, you get sleek, nourished edges with a healthy hold and an invigorating scent.",
    "claims": [
-    "nourrissant",
-    "lissant",
-    "fortifiant"
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/rosemary-mint-hair-strengthening-edge-gel.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--pomegranate-honey-moisturizing-and-detangling-shampoo",
@@ -1287,7 +1482,10 @@
    "image_local": "public/scan/products-cheveux/mielle/pomegranate-honey-moisturizing-and-detangling-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "crepus"
+   ],
    "actifs": [
     "panthénol",
     "protéines de soie",
@@ -1299,9 +1497,13 @@
    "ingredients": "Water (Aqua, Eau), Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Betaine, Polyquaternium-7, Disodium Cocoamphodipropionate, Cocamide Mea, Glycol Stearate, Disodium Lauryl Sulfosuccinate, Fragrance, Honey, Peg-150 Distearate, Panthenol, Hydrolyzed Wheat Protein, Punica Granatum (Pomegranate) Seed Oil, Euterpe Oleracea Fruit Extract, Glycerin, Silk Protein, Orbignya Oleifera (Babassu) Oil, Mauritia Flexuosa (Buriti) Fruit Oil, Copaiferi Officinalis (Balsam Copaiba), Astrocaryum Murumuru Seed Butter, Sodium Chloride, Citric Acid, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate",
    "description": "Tackle wash day with a Type 4 hair product made just for you. Mielle’s Pomegranate & Honey Moisturizing and Detangling Shampoo uses ingredients like honey and babassu oil to lift dirt and oil from your hair while preserving much needed moisture. This shampoo works into a luxurious lather and has an amazing scent. Nothing works better at loosening tangles and adding slip.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/pomegranate-honey-moisturizing-and-detangling-shampoo.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--pomegranate-honey-moisturizing-and-detangling-conditioner",
@@ -1317,7 +1519,9 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "boucles",
+    "crepus",
     "abimes"
    ],
    "actifs": [
@@ -1328,11 +1532,17 @@
    "ingredients": "Water (Aqua, Eau), Prunus Amygdalus Dulcis (Sweet Almond) Oil, Cyclopentasiloxane, Cetearyl Alcohol, Behentrimonium Methosulfate, Cocos Nucifera (Coconut) Oil, Stearalkonium Chloride,Fragrance, Honey, Glycerin, Euterpe Oleracea Fruit Extract, Punica Granatum (Pomegranate) Seed Oil, Orbignya Oleifera (Babassu) Oil, Mauritia Flexuosa (Buriti) Fruit Oil, Copaiferi Officinalis (Balsam Copaiba), Astrocaryum Murumuru Seed Butter, Disodium Edta, Aminomethyl Propanol, Phenoxyethanol, Benzoic Acid, Ethylhexyl Glycerin, Glycereth-2 Cocoate",
    "description": "Imagine a conditioner that understands the needs of thick, curly Type 4 hair. Our Pomegranate & Honey Conditioner delivers intense hydration to strengthen and protect, while offering superior slip to melt away knots and tangles. Formulated to deeply moisturize and nourish, it locks in moisture to help reduce breakage and split ends, leaving your hair feeling silky soft and easy to manage from wash day to styling.",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "definition-boucles",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/pomegranate-honey-moisturizing-and-detangling-conditioner.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--rosemary-mint-oil",
@@ -1348,18 +1558,22 @@
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
    "cheveux_cibles": [
-    "epais",
-    "abimes"
+    "crepus",
+    "abimes",
+    "cuir-chevelu-sensible"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "Our Rosemary Mint Scalp and Hair Oil is a nutrient-rich, intensive formula meant to help you address your hair concerns. From nourishing hair follicles, smoothing split ends and help with dry scalp, this hair oil uses essential oils to provide the care your hair deserves. Use it on protective styles, including braids and weaves, and enjoy its fresh, invigorating scent during your next hot oil treatment. Award Winner: 2023 Glamour Beauty & Wellness",
    "claims": [
-    "nourrissant",
-    "lissant",
-    "fortifiant"
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/rosemary-mint-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--pomegranate-honey-twisting-souffle",
@@ -1375,6 +1589,9 @@
    "categorie": "autre-cheveux",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
+    "boucles",
+    "crepus",
     "colores"
    ],
    "actifs": [
@@ -1390,12 +1607,15 @@
    "ingredients": "Water (Aqua, Eau), Behentrimonium Methosulfate, Cetearyl Alcohol, Aloe Barbadensis Leaf Juice (Decolorized), Prunus Amygdalus Dulcis (Sweet Almond) Oil, Olea Europaea (Olive) Fruit Oil, Sesamum Indicum (Sesame) Seed Oil, Helianthus Annuus Seed Oil, Polysorbate-20, Orbignya Oleifera (Babassu) Oil, Mauritia Flexuosa (Buriti) Fruit Oil, Copaiferi Officinalis (Balsam Copaiba) Resin, Astrocaryum Murumuru Seed Butter, Macadamia Integrifolia Seed Oil, Glyceryl Stearate, Butyrospermum Parkii (Shea) Butter, Punica Granatum (Pomegranate) Extract, Tocopheryl Acetate, Fragrance (Parfum), Honey (Mel, Miel), Simmondsia Chinensis (Jojoba) Seed Oil, Ricinus Communis (Castor) Seed Oil, Cetrimonium Chloride, Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate",
    "description": "Be good to yourself. Bring home Mielle’s Pomegranate & Honey Twisting Souffle for your next twist-out, braid out, or bantu knots, and enjoy intense hydration and exceptional shine! Made with the purest of ingredients including pomegranate extract, honey, and essential oils, this deliciously whipped formula provides the perfect combination of nourishment and definition that you need for beautiful, healthy styling. Award Winner: 2022 Allure Best of Beauty Awards",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "brillance",
-    "definition-boucles"
+    "hydratation",
+    "nutrition",
+    "definition-boucles",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/pomegranate-honey-twisting-souffle.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--pomegranate-honey-leave-in-conditioner",
@@ -1408,11 +1628,11 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0763/8199/files/Packshot_908ea048-61e8-457a-8fdf-6ce889427d44.jpg?width=600",
    "image_local": "public/scan/products-cheveux/mielle/pomegranate-honey-leave-in-conditioner.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
-    "epais",
-    "boucles"
+    "boucles",
+    "crepus"
    ],
    "actifs": [
     "glycérine",
@@ -1423,11 +1643,15 @@
    "ingredients": "Water (Aqua, Eau), Behentrimonium Methosulfate, Cetyl Alcohol, Butylene Glycol, Cetyl Alcohol, Glycerin, Orbignya Oleifera (Babassu) Oil, Mauritia Flexuosa (Buriti) Fruit Oil, Copaiferi Officinalis (Balsam Copaiba) Resin, Astrocaryum Murumuru Seed Butter, Vaccinium Myrtillus Fruit Extract, Saccharum Officinarum (Sugar Cane) Extract, Acer Saccharinum (Sugar Maple) Extract, Citrus Aurantium Dulcis (Orange) Fruit Extract, Citrus Medica Limonum Citrus Medica Limonum (Lemon) Fruit Extract, Punica Granatum (Pomegranate) Extract, Betaine, Hexylene Glycol, Honey (Mel, Miel), Pyrus Malus (Apple) Fruit Extract, Camellia Sinensis Leaf Extract, Hexapeptide-11, Citric Acid, Fragrance (Parfum), Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate",
    "description": "If you have Type 4 hair, you know that easy detangling and lasting moisture are non-negotiable. Our Pomegranate & Honey Leave-In Conditioner was made especially for you, acting as the perfect moisturizing primer and detangler before you style. This lightweight formula locks in moisture using a blend of babassu oil and citrus extracts, smoothing the cuticle to help create the optimal foundation for deeper, longer-lasting curl definition.",
    "claims": [
-    "hydratant",
-    "lissant",
-    "definition-boucles"
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/pomegranate-honey-leave-in-conditioner.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--honey-ginger-styling-gel",
@@ -1443,7 +1667,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -1456,11 +1680,16 @@
    "ingredients": "Aqua (Water), *Glycerin, *Honey, *Aloe Barbadensis Leaf Juice, Acrylates Copolymer, *Cocos Nucifera (Coconut) Oil, *Orbignya Oleifera (Babassu) Seed Oil, *Butyrospermum Parkii (Shea Butter), Maltodextrin/VP Copolymer, Althea Offinalis (Marshmallow) Root Extract, Pectin, Parfum (Fragrance), Zingiber Offinale (Ginger) Root Oil*, Carbomer, Xanthan Gum, Dehydroacetic Acid, Benzyl Alcohol",
    "description": "Achieve the styles you love while encouraging healthier, stronger hair with Mielle’s Honey and Ginger Styling Gel. Our formula is made with ingredients, including honey, ginger, aloe extract, and babassu oil. These ingredients nourish your hair while delivering manageable hold. Get curl definition, smooth edges, and frizz reduction for your everyday routine without worrying about product build-up or damaging chemicals.",
    "claims": [
-    "nourrissant",
-    "lissant",
-    "definition-boucles"
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
+    "purifiant",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/honey-ginger-styling-gel.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--thermal-heat-protectant-spray-w-mongongo-oil",
@@ -1475,9 +1704,7 @@
    "image_local": "public/scan/products-cheveux/mielle/thermal-heat-protectant-spray-w-mongongo-oil.jpg",
    "categorie": "protection-thermique",
    "etape": 3,
-   "cheveux_cibles": [
-    "epais"
-   ],
+   "cheveux_cibles": [],
    "actifs": [
     "huile d'argan",
     "protéines de blé",
@@ -1486,10 +1713,13 @@
    "ingredients": "Water (Aqua, Eau), Cetearyl Alcohol, Polysorbate 60, Amodimethicone, Cetrimonium, Chloride, Trideceth-12, Glycerin,Propylene Glycol, Peg-12 Dimethicone, Polysorbate-20, PVP, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Plukenetia Volubilis (Sacha Inchi) Seed Oil, Argania Spinosa (Argan) Kernel Oil, chinziophyton Rautanenii (Mongongo) Kernel Oil, Vitis Vinifera (Grape) Seed Oil, Disodium EDTA, Tocopheryl, Acetate, Cyclopentasiloxane, Dimethiconol, Hydrolyzed Wheat Protein, Fragrance (Parfum), Phenoxyethanol, Benzoic Acid, Ethylhexylglycerin, Glycereth-2 Cocoate",
    "description": "If heat is a key element in creating your favorite styles, then you need Mielle’s Mongongo Oil Thermal & Heat Protectant Spray. Almond, argan, sacha inchi, and mongongo oils blend together to make this protective hair spray the ultimate solution for eliminating frizz and adding shine. From blow drying to flat ironing, your hair will be able to handle it all! So if you love high-heat styles, then Mongongo Oil Thermal & Heat Protectant Spray is a must for your hair care routine. Order yours today!",
    "claims": [
+    "anti-frisottis",
     "brillance",
-    "protection-thermique"
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/thermal-heat-protectant-spray-w-mongongo-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "mielle--avocado-moisturizing-hair-milk",
@@ -1505,6 +1735,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
+    "gras",
     "colores"
    ],
    "actifs": [
@@ -1520,10 +1752,13 @@
    "ingredients": "Aqua (water), Aloe Barbadensis Leave Juice * (Decolorized), Glycerin, Persea Gratissima (Organic Avocado) oil, Behentromonium Methosulfate, Cetyl Alcohol, Caprylic/Capric Triglycerides, Cetyl Esters, Cetearyl Alcohol, Phenoxyethanol, Butyrospermum Parkii (Shea) Butter, Polyquaternium-7, Fragrance (Parfum), Hydroxpropyltrimonium Honey, Panthenol, Oryza Sativa (Rice) Bran Oil, Simmondsia Chinensis *(Organic Jojoba) Seed Oil, Hydroloyzed Wheat Protein, *Achiellea Millefolium(Yarrow) Extract, *Urtica Dioica(Nettle) Leaf Extract, *Salvia Officinalis (Sage) Extract, *Equisetum Arvense (Horsetail) Extract, *Lavandula Angustifolia( Lavendar) Flower/Leaf/Stem Extract, Benzoic Acid, Ethylhexylglycerine, Glyereth-2 Cocoate *CERTIFIED ORGANIC INGREDIENTS",
    "description": "Our Avocado Moisturizing Hair Milk can offer important hydration to dry, thirsty hair. Infused with a blend of extracted botanicals, you can finally breathe easy knowing you’ve found a product that is both safe and effective. Use this product as a daily moisturizer to encourage length retention or soften and smooth your hair for better manageability and beautiful styles.",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/mielle/cutout/avocado-moisturizing-hair-milk.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

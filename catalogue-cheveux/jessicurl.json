@@ -9,48 +9,394 @@
    "brand_name": "Jessicurl",
    "url": "https://jessicurl.com/products/clarifying-shampoo",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 16.51,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/2722/9300/files/CS-N3_1.jpg?width=600",
+   "price_eur": 17.95,
+   "price_source": "site officiel EUR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/2722/9300/files/CS-N3_1.jpg?v=1718132467",
    "image_local": "public/scan/products-cheveux/jessicurl/clarifying-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "gras",
+    "boucles"
+   ],
+   "actifs": [
+    "glycérine",
+    "acide citrique",
+    "panthénol"
+   ],
+   "ingredients": "Aqua (water), Disodium Laureth Sulfosuccinate, Sodium Cocoyl Isethionate, Cocamidopropyl Betaine, Sodium Methyl Cocoyl Taurate, PEG 150 Pentaerythrityl Tetrastearate, Benzyl Alcohol, Polyquaternium-4, Dipotassium Glycyrrhizate, Sodium Phytate, Panthenol, Sodium PCA, Butylene Gycol, Limonium Gerberi Extract, Glycerin, Epilobium Angustifolium Flower/ Leaf/ Stem Extract, Citric Acid, Diglycerin, Polyglyeryl-2 Laurate",
+   "description": "Clarifying Shampoo is a gentle yet highly effective cleanser. Eliminating product build up, it resets your routine and offers a clean slate. Without drying out your curls, it leaves your hair and scalp refreshed, improving the effectiveness of your styling routine.",
+   "claims": [
+    "definition-boucles",
+    "purifiant"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/jessicurl/cutout/clarifying-shampoo.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "jessicurl--gentle-lather-shampoo",
+   "name": "Gentle Lather Shampoo",
+   "brand": "jessicurl",
+   "brand_name": "Jessicurl",
+   "url": "https://jessicurl.com/products/gentle-lather-shampoo",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 17.95,
+   "price_source": "site officiel EUR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/2722/9300/files/GL-N3_BS_Med.png?v=1743193371",
+   "image_local": "public/scan/products-cheveux/jessicurl/gentle-lather-shampoo.jpg",
+   "categorie": "shampooing",
+   "etape": 1,
+   "cheveux_cibles": [
+    "secs",
+    "fins",
+    "lisses",
+    "colores"
+   ],
+   "actifs": [
+    "panthénol"
+   ],
+   "ingredients": "Aqua (Water), Decyl Glucoside, Sodium Cocoyl Isethionate, Cocamidopropyl Betaine, Lavandula Officinalis (Lavender) Flower Oil, Citrus Sinensis (Sweet Orange) Peel Oil Expressed, Citrus Paradisi (Grapefruit) Peel Oil, C12-15 Alkyl Benzoate, Guar Hydroxypropyltrimonium Chloride, PEG-150 Pentaerythrityl Tetrastearate, Panthenol, Sodium Chloride, Phenoxyethanol, Benzoic Acid, Dehydroacetic Acid, Limonene, Linalool, Citral",
+   "description": "Gentle Lather Shampoo is a light lather cleanser that will clean your hair without stripping out the moisture. We use only the most gentle cleansing agents available to create a mild, creamy lather that leaves hair clean, soft and shiny. If you have fine hair that gets weighed down easily, you’ll especially love this cleanser because there are no added oils or moisturizers. It is safe for color-treated hair, protein free and is a great cleanser for straight hair as well!",
+   "claims": [
+    "hydratation",
+    "brillance",
+    "protection-couleur"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/jessicurl/cutout/gentle-lather-shampoo.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "jessicurl--hair-cleansing-cream",
+   "name": "Hair Cleansing Cream",
+   "brand": "jessicurl",
+   "brand_name": "Jessicurl",
+   "url": "https://jessicurl.com/products/hair-cleansing-cream",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 17.95,
+   "price_source": "site officiel EUR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/2722/9300/files/HC-N3.jpg?v=1696008392",
+   "image_local": "public/scan/products-cheveux/jessicurl/hair-cleansing-cream.jpg",
+   "categorie": "shampooing",
+   "etape": 1,
+   "cheveux_cibles": [
+    "secs",
+    "fins",
+    "colores"
+   ],
+   "actifs": [
+    "glycérine",
+    "huile d'avocat"
+   ],
+   "ingredients": "Aqua (Water), Decyl Glucoside, Sodium Cocoyl Isethionate, Glycerin, Cocamidopropyl Betaine, Persea Gratissima (Avocado) Oil, Lavandula Officinalis (Lavender) Flower Oil, Citrus Sinensis (Sweet Orange) Peel Oil Expressed, Citrus Paradisi (Grapefruit) Peel Oil, Guar Hydroxypropyltrimonium Chloride, Behentrimonium Methosulfate, Cetearyl Alcohol, C12-15 Alkyl Benzoate, PEG-150 Pentaerythrityl Tetrastearate, Sodium Chloride, Phenoxyethanol, Benzoic Acid, Dehydroacetic Acid, Limonene, Linalool, Citral",
+   "description": "Hair Cleansing Cream is a gentle moisturizing cleanser that is best suited for thicker, drier hair types that need more moisture. It doesn’t create tons of lather, but will clean your hair and leave it quite soft. It is protein free and safe for color-treated hair.",
+   "claims": [
+    "hydratation",
+    "volume",
+    "protection-couleur"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/jessicurl/cutout/hair-cleansing-cream.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "jessicurl--aloeba-daily-conditioner",
+   "name": "Aloeba Daily Conditioner",
+   "brand": "jessicurl",
+   "brand_name": "Jessicurl",
+   "url": "https://jessicurl.com/products/aloeba-daily-conditioner",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 17.95,
+   "price_source": "site officiel EUR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/2722/9300/products/AL-N3.jpg?v=1695747423",
+   "image_local": "public/scan/products-cheveux/jessicurl/aloeba-daily-conditioner.jpg",
+   "categorie": "apres-shampooing",
+   "etape": 2,
+   "cheveux_cibles": [
+    "gras",
+    "fins",
+    "lisses"
+   ],
+   "actifs": [
+    "aloe vera",
+    "huile de jojoba",
+    "romarin",
+    "huile d'avocat",
+    "ortie"
+   ],
+   "ingredients": "Aqua (Water), Cetearyl Alcohol, Cocos Nucifera (Coconut) Oil, Equisetum Arvense (Horsetail) Extract, Mentha Piperita (Peppermint) Leaf Extract, Rosmarinus Officinalis (Rosemary) Flower/Leaf/Stem Extract, Simmondsia Chinensis (Jojoba) Seed Oil, Persea Gratissima (Avocado) Oil, Laurus Nobilis (Bay Laurel) Leaf Extract, Ocimum Basilicum (Basil) Leaf Extract, Urtica Dioica (Nettle) Leaf Extract, Aloe Barbadensis (Aloe Vera) Leaf Juice Powder, Althea Officinalis (Marshmallow) Root Extract, Arctium Lappa (Burdock) Root Extract, Origanum Vulgare (Oregano) Leaf Extract, Cymbopogon Flexuosus (Lemongrass) Extract, Thymus Vulgaris (Thyme) Leaf Extract, Salvia Officinalis (Sage) Leaf Extract, Hydrolyzed Oat Flour, Behentrimonium Methosulfate, Parfum (Fragrance), Cinnamal, Citral, Coumarin, Eugenol, Geraniol, Citronellol, Limonene, Linalool, Benzoic Acid, Dehydroacetic Acid, Phenoxyethanol Citrus Lavender INGREDIENTS: Aqua (Water), Cetearyl Alcohol, Cocos Nucifera (Coconut) Oil, Equisetum Arvense (Horsetail) Extract, Mentha Piperita (Peppermint) Leaf Extract, Rosmarinus Officinalis (Rosemary) Flower/Leaf/Stem Extract, Simmondsia Chinensis (Jojoba) Seed Oil, Persea Gratissima (Avocado) Oil, Laurus Nobilis (Bay Laurel) Leaf Extract, Ocimum Basilicum (Basil) Leaf Extract, Urtica Dioica (Nettle) Leaf Extract, Aloe Barbadensis (Aloe Vera) Leaf Juice Powder, Althea Officinalis (Marshmallow) Root Extract, Arctium Lappa (Burdock) Root Extract, Origanum Vulgare (Oregano) Leaf Extract, Cymbopogon Flexuosus (Lemongrass) Extract, Thymus Vulgaris (Thyme) Leaf Extract, Salvia Officinalis (Sage) Leaf Extract, Hydrolyzed Oat Flour, Behentrimonium Methosulfate, Lavandula Officinalis (Lavender) Flower Oil, Citrus",
+   "description": "Aloeba Daily Conditioner is a lightweight conditioner for fine hair that uses jojoba, coconut, and avocado oils, along with aloe vera to moisturize the hair without being too heavy. It is also best used as a leave-in for fine hair, as all of our conditioners have been dual formulated as rinse-out and leave-in conditioners. The added benefit of hydrolyzed oat protein and a variety of herbs and spices make this a truly fabulous conditioner, that is great for use on straight hair as well. Fun Fact:",
+   "claims": [
+    "hydratation"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/jessicurl/cutout/aloeba-daily-conditioner.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "jessicurl--too-shea-extra-moisturizing-conditioner",
+   "name": "Too Shea! Extra Moisturizing Conditioner",
+   "brand": "jessicurl",
+   "brand_name": "Jessicurl",
+   "url": "https://jessicurl.com/products/too-shea-extra-moisturizing-conditioner",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 17.95,
+   "price_source": "site officiel EUR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/2722/9300/files/TS-N3_BS_Med.png?v=1743193702",
+   "image_local": "public/scan/products-cheveux/jessicurl/too-shea-extra-moisturizing-conditioner.jpg",
+   "categorie": "apres-shampooing",
+   "etape": 2,
+   "cheveux_cibles": [
+    "secs",
+    "gras",
+    "fins",
+    "epais",
+    "boucles",
+    "crepus"
+   ],
+   "actifs": [
+    "aloe vera",
+    "beurre de karité",
+    "huile de jojoba",
+    "romarin",
+    "huile d'avocat",
+    "ortie"
+   ],
+   "ingredients": "Aqua (Water), Cetearyl Alcohol, Butyrospermum Parkii (Shea Butter), Simmondsia Chinensis (Jojoba) Seed Oil, Persea Gratissima (Avocado) Oil, Behentrimonium Methosulfate, Aloe Barbadensis (Aloe Vera) Leaf Juice Powder, Lecithin, Hydrolyzed Oat Flour, Equisetum Arvense (Horsetail) Extract, Mentha Piperita (Peppermint) Leaf Extract, Rosmarinus Officinalis (Rosemary) Flower/ Leaf/Stem Extract, Laurus Nobilis (Bay Laurel) Leaf Extract, Ocimum Basilicum (Basil) Leaf Extract, Urtica Dioica (Nettle) Leaf Extract, Arctium Lappa (Burdock) Root Extract, Althea Officinalis (Marshmallow) Root Extract, Origanum Vulgare (Oregano) Leaf Extract, Cymbopogon Flexuosus (Lemongrass) Extract, Thymus Vulgaris (Thyme) Leaf Extract, Salvia Officinalis (Sage) Leaf Extract, Parfum (Fragrance), Cinnamal, Citral, Coumarin, Eugenol, Geraniol, Citronellol, Limonene, Linalool, Benzoic Acid, Dehydroacetic Acid, Phenoxyethanol Citrus Lavender INGREDIENTS: Aqua (Water), Cetearyl Alcohol, Butyrospermum Parkii (Shea Butter), Simmondsia Chinensis (Jojoba) Seed Oil, Persea Gratissima (Avocado) Oil, Behentrimonium Methosulfate, Aloe Barbadensis (Aloe Vera) Leaf Juice Powder, Lecithin, Hydrolyzed Oat Flour, Equisetum Arvense (Horsetail) Extract, Mentha Piperita (Peppermint) Leaf Extract, Rosmarinus Officinalis (Rosemary) Flower/Leaf/Stem Extract, Laurus Nobilis (Bay Laurel) Leaf Extract, Ocimum Basilicum (Basil) Leaf Extract, Urtica Dioica (Nettle) Leaf Extract, Arctium Lappa (Burdock) Root Extract, Althea Officinalis (Marshmallow) Root Extract, Origanum Vulgare (Oregano) Leaf Extract, Cymbopogon Flexuosus (Lemongrass) Extract, Thymus Vulgaris (Thyme) Leaf Extract, Salvia Officinalis (Sage) Leaf Extract, Lav",
+   "description": "Too Shea! Extra Moisturizing Conditioner is our medium weight conditioner for medium and thick (coarse) textured hair. It contains shea butter (hence the adorable name), jojoba oil, avocado oil, hydrolyzed oat protein and tons of lovely herbs and spices that are all great for hair and scalp health. Together they combine to make a thick, moisturizing conditioner that isn’t too heavy and not at all greasy. It makes your curls so soft you’ll have a hard time keeping your hands out of them (but do t",
+   "claims": [
+    "hydratation",
+    "nutrition",
+    "definition-boucles",
+    "volume",
+    "texturisant"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/jessicurl/cutout/too-shea-extra-moisturizing-conditioner.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "jessicurl--deep-treatment",
+   "name": "Deep Conditioning Treatment",
+   "brand": "jessicurl",
+   "brand_name": "Jessicurl",
+   "url": "https://jessicurl.com/products/deep-treatment",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 17.95,
+   "price_source": "site officiel EUR",
+   "image_source_url": "https://jessicurl.com/cdn/shop/products/DT-N2.jpg?v=1748905032&width=1200",
+   "image_local": "public/scan/products-cheveux/jessicurl/deep-treatment.jpg",
+   "categorie": "masque",
+   "etape": 2,
+   "cheveux_cibles": [
+    "secs",
+    "gras",
+    "fins",
+    "epais",
+    "boucles",
+    "crepus"
+   ],
+   "actifs": [
+    "aloe vera",
+    "beurre de karité",
+    "romarin",
+    "huile d'avocat",
+    "ortie",
+    "beurre de cacao"
+   ],
+   "ingredients": "Aqua (Water), Cetearyl Alcohol, Butyrospermum Parkii (Shea Butter), Persea Gratissima (Avocado) Oil, Theobroma Cacao (Cocoa) Seed Butter, Behentrimonium Methosulfate, Aloe Barbadensis (Aloe Vera) Leaf Juice Powder, Equisetum Arvense (Horsetail) Extract, Mentha Piperita (Peppermint) Leaf Extract, Rosmarinus Officinalis (Rosemary) Flower/Leaf/Stem Extract, Laurus Nobilis (Bay Laurel) Leaf Extract, Ocimum Basilicum (Basil) Leaf Extract, Urtica Dioica (Nettle) Leaf Extract, Arctium Lappa (Burdock) Root Extract, Althea Officinalis (Marshmallow) Root Extract, Origanum Vulgare (Oregano) Leaf Extract, Cymbopogon Flexuosus (Lemongrass) Extract, Thymus Vulgaris (Thyme) Leaf Extract, Salvia Officinalis (Sage) Leaf Extract, Parfum (Fragrance), Lecithin, Cinnamal, Citral, Coumarin, Eugenol, Geraniol, Citronellol, Limonene, Linalool, Benzoic Acid, Dehydroacetic Acid, Phenoxyethanol Citrus Lavender INGREDIENTS: Aqua (Water), Cetearyl Alcohol, Butyrospermum Parkii (Shea Butter), Persea Gratissima (Avocado) Oil, Theobroma Cacao (Cocoa) Seed Butter, Behentrimonium Methosulfate, Aloe Barbadensis (Aloe Vera) Leaf Juice Powder, Equisetum Arvense (Horsetail) Extract, Mentha Piperita (Peppermint) Leaf Extract, Rosmarinus Officinalis (Rosemary) Flower/Leaf/Stem Extract, Laurus Nobilis (Bay Laurel) Leaf Extract, Ocimum Basilicum (Basil) Leaf Extract, Urtica Dioica (Nettle) Leaf Extract, Arctium Lappa (Burdock) Root Extract, Althea Officinalis (Marshmallow) Root Extract, Origanum Vulgare (Oregano) Leaf Extract, Cymbopogon Flexuosus (Lemongrass) Extract, Thymus Vulgaris (Thyme) Leaf Extract, Salvia Officinalis (Sage) Leaf Extract, Lecithin, Lavandula Officinalis (Lavender) Flower Oil, Citrus Sinensis (Sweet Orange) Pee",
+   "description": "Deep Conditioning Treatment is our heaviest moisturizing conditioner and can be used as a daily conditioner for thick (coarse) textured hair and as a deep treatment conditioner for medium textured hair that needs extra moisture. This curly hair care product with our herbal blend for hair health is a sensation. It’s thick. It’s rich. It’s insanely moisturizing. And best of all, it doesn’t build up and is protein free. It really is the ideal formula for restoring moisture to dry, thirsty curls! Fu",
+   "claims": [
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "definition-boucles",
+    "volume",
+    "texturisant"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "image_fond": true,
+   "image_provenance": "page produit https://jessicurl.com/products/deep-treatment",
+   "image_reparee_le": "2026-09-23",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "jessicurl--stimulating-scalp-massage-oil",
+   "name": "Stimulating Scalp Massage Oil",
+   "brand": "jessicurl",
+   "brand_name": "Jessicurl",
+   "url": "https://jessicurl.com/products/stimulating-scalp-massage-oil",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 11.95,
+   "price_source": "site officiel EUR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/2722/9300/files/SMO-N2.jpg?v=1725573456",
+   "image_local": "public/scan/products-cheveux/jessicurl/stimulating-scalp-massage-oil.jpg",
+   "categorie": "serum-cuir-chevelu",
+   "etape": 4,
+   "cheveux_cibles": [
+    "gras",
+    "chute"
+   ],
+   "actifs": [
+    "romarin",
+    "huile d'avocat",
+    "huile d'olive",
+    "ortie"
+   ],
+   "ingredients": "Cocos Nucifera (Coconut) Oil, Persea Gratissima (Avocado) Oil, Olea Europaea (Olive) Fruit Oil, Mentha Piperita (Peppermint) Oil, Eucalyptus Globulus (Eucalyptus) Oil, Rosemarinus Officinalis (Rosemary) Oil, Lavandula Officinalis (Lavender) Flower Oil, Juniperus Virginiana (Cedarwood) Oil, Salvia Sclarea (Clary Sage) Oil, Equisetum Arvense (Horsetail) Extract, Mentha Piperita (Peppermint) Leaf Extract, Rosmarinus Officinalis (Rosemary) Flower/Leaf/Stem Extract, Laurus Nobilis (Bay Laurel) Leaf Extract, Ocimum Basilicum (Basil) Leaf Extract, Urtica Dioica (Nettle) Leaf Extract, Arctium Lappa (Burdock) Root Extract, Althea Officinalis (Marshmallow) Root Extract, Origanum Vulgare (Oregano) Leaf Extract, Cymbopogon Flexuosus (Lemongrass) Extract, Thymus Vulgaris (Thyme) Leaf Extract, Salvia Officinalis (Sage) Leaf Extract, Cinnamal, Citral, Eugenol, Geraniol, Citronellol, Limonene, Linalool",
+   "description": "This is a lovely blend of vitamin and antioxidant rich oils, herbs and essential oils. Each contain an ingredient that is known for aiding in scalp and hair health and has scalp stimulating properties. While it won’t re-grow hair, it can promote a healthy scalp which encourages hair follicle growth and will aide in the reduction of hair loss. The essential oils included will impart a lovely tingling sensation on your scalp.",
+   "claims": [
+    "anti-chute",
+    "croissance"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/jessicurl/cutout/stimulating-scalp-massage-oil.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "jessicurl--oil-blend-for-softer-hair",
+   "name": "Oil Blend",
+   "brand": "jessicurl",
+   "brand_name": "Jessicurl",
+   "url": "https://jessicurl.com/products/oil-blend-for-softer-hair",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 11.95,
+   "price_source": "site officiel EUR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/2722/9300/files/OB-N2.jpg?v=1696008473",
+   "image_local": "public/scan/products-cheveux/jessicurl/oil-blend-for-softer-hair.jpg",
+   "categorie": "huile",
+   "etape": 3,
+   "cheveux_cibles": [
+    "secs",
+    "boucles",
+    "lisses",
+    "abimes"
+   ],
+   "actifs": [
+    "huile de coco",
+    "huile de jojoba",
+    "huile d'avocat"
+   ],
+   "ingredients": "Persea Gratissima (Avocado) Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Cocos Nucifera (Coconut) Oil, Lavandula Officinalis (Lavender) Flower Oil, Citrus Sinensis (Sweet Orange) Peel Oil Expressed, Citrus Paradisi (Grapefruit) Peel Oil, Geraniol, Limonene, Linalool",
+   "description": "This simple blend of moisturizing oils will add softness and shine to any hair and curl type. Our Oil Blend uses oils that are easily absorbed into the hair, sealing in hydration, strengthening the hair strand, helping to tame frizz and protecting from environmental damage. We think you’ll find that the ratio is lovely – not super heavy but enough that you know you’ve put some groovy oils in your curls.",
+   "claims": [
+    "hydratation",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
+    "brillance"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/jessicurl/cutout/oil-blend-for-softer-hair.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "jessicurl--spiralicious-styling-gel",
+   "name": "Spiralicious Styling Gel",
+   "brand": "jessicurl",
+   "brand_name": "Jessicurl",
+   "url": "https://jessicurl.com/products/spiralicious-styling-gel",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 17.95,
+   "price_source": "site officiel EUR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/2722/9300/files/SG-N3_BS_Med.png?v=1743193486",
+   "image_local": "public/scan/products-cheveux/jessicurl/spiralicious-styling-gel.jpg",
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "fins",
+    "epais",
     "boucles"
    ],
    "actifs": [
     "panthénol",
-    "glycérine",
-    "acide citrique"
+    "huile de jojoba"
    ],
-   "ingredients": "Aqua (water), Disodium Laureth Sulfosuccinate, Sodium Cocoyl Isethionate, Cocamidopropyl Betaine, Sodium Methyl Cocoyl Taurate, PEG 150 Pentaerythrityl Tetrastearate, Benzyl Alcohol, Polyquaternium-4, Dipotassium Glycyrrhizate, Sodium Phytate, Panthenol, Sodium PCA, Butylene Gycol, Limonium Gerberi Extract, Glycerin, Epilobium Angustifolium Flower/ Leaf/ Stem Extract, Citric Acid, Diglycerin, Polyglyeryl-2 Laurate URL Copy lin",
-   "description": "Clarifying Shampoo is a gentle yet highly effective cleanser. Eliminating product build up, it resets your routine and offers a clean slate. Without drying out your curls, it leaves your hair and scalp refreshed, improving the effectiveness of your styling routine.",
+   "ingredients": "Aqua (Water), Polyquaternium-69, Hydroxyethylcellulose, Simmondsia Chinensis (Jojoba) Seed Oil, Polyquaternium-11, Panthenol, C12-15 Alkyl Benzoate, Alcohol Denat., Phenoxyethanol, Ethylhexylglycerin, Limonene, Linalool, Citral",
+   "description": "Spiralicious Styling Gel is our stronger hold gel for medium and thick (coarse) textured curls. It provides long lasting hold & definition and is protein free.. No ramen-noodle curls here! One of the best parts about this gel is the frizz control. If you want curl enhancement and currently use Rockin’ Ringlets Styling Potion, you’ll find that the two work really well together. If you’re not looking for curl enhancement, Spiralicious will provide you with fabulous hold, frizz control and definiti",
    "claims": [
-    "purifiant"
+    "anti-frisottis",
+    "definition-boucles",
+    "volume",
+    "texturisant",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/jessicurl/cutout/spiralicious-styling-gel.webp",
+   "ciblage_source": "deduit"
   },
   {
-   "id": "jessicurl--jessicurl-com-gift-certificate-1",
-   "name": "Jessicurl.com Gift Certificate",
+   "id": "jessicurl--rockin-ringlets-styling-potion",
+   "name": "Rockin' Ringlets Styling Potion",
    "brand": "jessicurl",
    "brand_name": "Jessicurl",
-   "url": "https://jessicurl.com/products/jessicurl-com-gift-certificate-1",
+   "url": "https://jessicurl.com/products/rockin-ringlets-styling-potion",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 12.02,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/2722/9300/products/GiftCardImage.png?width=600",
-   "image_local": "public/scan/products-cheveux/jessicurl/jessicurl-com-gift-certificate-1.jpg",
-   "categorie": "autre-cheveux",
+   "price_eur": 17.95,
+   "price_source": "site officiel EUR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/2722/9300/files/RR-N3.jpg?v=1696008700",
+   "image_local": "public/scan/products-cheveux/jessicurl/rockin-ringlets-styling-potion.jpg",
+   "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "boucles"
+    "fins",
+    "epais",
+    "boucles",
+    "crepus",
+    "colores"
    ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "If you have someone in your life who loves Jessicurl or who you know would love it, make their day by giving them a Gift Card for Jessicurl.com! *Gift Cards are emailed to buyer after purchase.",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "actifs": [
+    "glycérine",
+    "aloe vera",
+    "huile de jojoba",
+    "huile de lin"
+   ],
+   "ingredients": "Aqua (Water), Linum Usitatissimum (Linseed/ Flaxseed Extract), Glycerin, Simmondsia Chinensis (Jojoba) Seed Oil, Aloe Barbadensis (Aloe Vera) Leaf Juice Powder, Magnesium Sulfate, Lavandula Officinalis (Lavender) Flower Oil, Citrus Sinensis (Sweet Orange) Peel Oil Expressed, Citrus Paradisi (Grapefruit) Peel Oil, Benzoic Acid, Dehydroacetic Acid, Phenoxyethanol, Limonene, Linalool",
+   "description": "Rockin’ Ringlets Styling Potion is a powerful curl enhancer that will boost waves into curls and make your ringlets rock! It is formulated for medium and thick (coarse) textured hair. It has a thin consistency and light-to-medium hold so it won’t give you ramen noodle hair, but it helps control frizz while allowing your hair to stay touchably soft. Please note that Rockin' Ringlets is made with natural flaxseed and has a lovely caramel color.",
+   "claims": [
+    "anti-frisottis",
+    "definition-boucles",
+    "volume",
+    "texturisant",
+    "fixation"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/jessicurl/cutout/rockin-ringlets-styling-potion.webp",
+   "ciblage_source": "deduit"
+  },
+  {
+   "id": "jessicurl--confident-coils-styling-solution",
+   "name": "Confident Coils Styling Solution",
+   "brand": "jessicurl",
+   "brand_name": "Jessicurl",
+   "url": "https://jessicurl.com/products/confident-coils-styling-solution",
+   "url_verifiee_le": "2026-09-19",
+   "price_eur": 17.95,
+   "price_source": "site officiel EUR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/2722/9300/products/CC-N3.jpg?v=1696006626",
+   "image_local": "public/scan/products-cheveux/jessicurl/confident-coils-styling-solution.jpg",
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
+   "cheveux_cibles": [
+    "fins",
+    "boucles",
+    "crepus"
+   ],
+   "actifs": [
+    "aloe vera",
+    "huile de jojoba"
+   ],
+   "ingredients": "Aqua (Water), VP/VA Copolymer, Polyimide-1, C12-15 Alkyl Benzoate, Simmondsia Chinensis (Jojoba) Seed Oil, Cetearyl Alcohol, Polysorbate 60, Aloe Barbadensis (Aloe Vera) Leaf Juice, Magnesium Sulfate, Lavandula Officinalis (Lavender) Flower Oil, Citrus Sinensis (Sweet Orange) Peel Oil Expressed, Citrus Paradisi (Grapefruit) Peel Oil, Guar Hydroxypropyltrimonium Chloride, Dehydroxanthan Gum, Phenoxyethanol, Ethylhexlglycerin, Limonene, Linalool, Citral",
+   "description": "Confident Coils Styling Solution is our creamy, medium hold styler for fine and medium textured hair. It has some curl enhancement, but can be used with Jessicurl Gelebration Spray or Rockin’ Ringlets Styling Potion for extra curl enhancement or alone to give tighter curls definition and hold. It’s a luscious, creamy styling product that is protein free, with a consistency thin enough to make it easy to distribute through even the tightest coils and curls.",
+   "claims": [
+    "definition-boucles",
+    "texturisant",
+    "fixation"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/jessicurl/cutout/confident-coils-styling-solution.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "jessicurl--gelebration-spray",
@@ -59,9 +405,9 @@
    "brand_name": "Jessicurl",
    "url": "https://jessicurl.com/products/gelebration-spray",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 16.51,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/2722/9300/files/GS-N3_b6d823e4-a8a6-4029-8e24-70535e355dda.jpg?width=600",
+   "price_eur": 17.95,
+   "price_source": "site officiel EUR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/2722/9300/files/GS-N3_b6d823e4-a8a6-4029-8e24-70535e355dda.jpg?v=1719433569",
    "image_local": "public/scan/products-cheveux/jessicurl/gelebration-spray.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
@@ -70,15 +416,20 @@
     "boucles"
    ],
    "actifs": [
-    "huile de jojoba",
-    "aloe vera",
     "glycérine",
+    "aloe vera",
+    "huile de jojoba",
     "huile de lin"
    ],
-   "ingredients": "Aqua (Water), Linum Usitatissimum (Linseed/Flaxseed Extract), Glycerin, Simmondsia Chinensis (Jojoba) Seed Oil, Aloe Barbadensis (Aloe Vera) Leaf Juice Powder, Magnesium Sulfate, Benzoic Acid, Dehydroacetic Acid, Phenoxyethanol Island Fantasy INGREDIENTS: Aqua (Water), Linum Usitatissimum (Linseed/Flaxseed Extract), Glycerin, Simmondsia Chinensis (Jojoba) Seed Oil, Aloe Barbadensis (Aloe Vera) Leaf Juice Powder, Magnesium Sulfate, Parfum (Fragrance), Benzoic Acid, Dehydroacetic Acid, Phenoxyethanol, Coumarin, Limonene Citrus Lavender INGREDIENTS: Aqua (Water), Linum Usitatissimum (Linseed/Flaxseed Extract), Glycerin, Simmondsia Chinensis (Jojoba) Seed Oil, Aloe Barbadensis (Aloe Vera) Leaf Juice Powder, Magnesium Sulfate, Lavandula Officinalis (Lavender) Flower Oil, Citrus Sinensis (Sweet Orange) Peel Oil Expressed, Citrus Paradisi (Grapefruit) Peel Oil, Benzoic Acid, Dehydroacetic Acid, Phenoxyethanol, Limonene, Linalool URL Copy link",
+   "ingredients": "Aqua (Water), Linum Usitatissimum (Linseed/Flaxseed Extract), Glycerin, Simmondsia Chinensis (Jojoba) Seed Oil, Aloe Barbadensis (Aloe Vera) Leaf Juice Powder, Magnesium Sulfate, Lavandula Officinalis (Lavender) Flower Oil, Citrus Sinensis (Sweet Orange) Peel Oil Expressed, Citrus Paradisi (Grapefruit) Peel Oil, Benzoic Acid, Dehydroacetic Acid, Phenoxyethanol, Limonene, Linalool",
    "description": "Gelebration Spray is our curl enhancer styler for fine hair. Many curlies have fine hair that gets weighed down easily, but still need a curl enhancer to give them an added boost. Gelebration Spray is just that curl enhancer. You might notice that it has the same ingredients as our popular Rockin' Ringlets Styling Potion. That is because for some very fine-haired curlies, Rockin’ Ringlets can be too heavy. Gelebration Spray, on the other hand, is just the right amount of enhancement and hold for",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "definition-boucles",
+    "fixation"
+   ],
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/jessicurl/cutout/gelebration-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "jessicurl--awe-inspiraling-spray",
@@ -87,26 +438,32 @@
    "brand_name": "Jessicurl",
    "url": "https://jessicurl.com/products/awe-inspiraling-spray",
    "url_verifiee_le": "2026-09-19",
-   "price_eur": 16.51,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/2722/9300/files/AW-N3_66d02d51-c4dc-4362-b85d-61638de833e0.jpg?width=600",
+   "price_eur": 17.95,
+   "price_source": "site officiel EUR",
+   "image_source_url": "https://cdn.shopify.com/s/files/1/2722/9300/files/AW-N3_66d02d51-c4dc-4362-b85d-61638de833e0.jpg?v=1719433419",
    "image_local": "public/scan/products-cheveux/jessicurl/awe-inspiraling-spray.jpg",
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "boucles"
    ],
    "actifs": [
-    "huile de jojoba",
+    "glycérine",
     "aloe vera",
-    "glycérine"
+    "huile de jojoba"
    ],
-   "ingredients": "Aqua (Water), Glycerin, Magnesium Sulfate, Aloe Barbadensis (Aloe Vera) Leaf Juice, Simmondsia Chinensis (Jojoba) Seed Oil, Phenoxyethanol, Ethylhexlglycerin Island Fantasy INGREDIENTS: Aqua (Water), Glycerin, Magnesium Sulfate, Aloe Barbadensis (Aloe Vera) Leaf Juice, Simmondsia Chinensis (Jojoba) Seed Oil, Parfum (Fragrance), Phenoxyethanol, Ethylhexlglycerin, Limonene, Coumarin, Linalool, Citrus Aurantium Peel Oil, Vanillin, Pipene Citrus Lavender INGREDIENTS: Aqua (Water), Glycerin, Magnesium Sulfate, Aloe Barbadensis (Aloe Vera) Leaf Juice, Simmondsia Chinensis (Jojoba) Seed Oil, Lavandula Officinalis (Lavender) Flower Oil, Citrus Sinensis (Sweet Orange) Peel Oil Expressed, Citrus Paradisi (Grapefruit) Peel Oil, Phenoxyethanol, Ethylhexlglycerin, Limonene, Linalool, Citral URL Copy link",
-   "description": "Awe Inspiraling Refresher Spray is our mid-day and next day curl refresher that revives curls! It provides hydration, moisture and curl enhancement. It revitalizes your curls by re-activating the styling products that are already in your hair without adding ingredients that provide hold.As a result, you’ll get the revitalized curls that you seek without stickiness or product build-up.",
+   "ingredients": "Aqua (Water), Glycerin, Magnesium Sulfate, Aloe Barbadensis (Aloe Vera) Leaf Juice, Simmondsia Chinensis (Jojoba) Seed Oil, Lavandula Officinalis (Lavender) Flower Oil, Citrus Sinensis (Sweet Orange) Peel Oil Expressed, Citrus Paradisi (Grapefruit) Peel Oil, Phenoxyethanol, Ethylhexlglycerin, Limonene, Linalool, Citral",
+   "description": "Awe Inspiraling Refresher Spray is our mid-day and next day curl refresher that revives curls! It provides hydration, moisture and curl enhancement. It revitalizes your curls by re-activating the styling products that are already in your hair without adding ingredients that provide hold. As a result, you’ll get the revitalized curls that you seek without stickiness or product build-up.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "definition-boucles",
+    "purifiant",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit officielle (GET 200 verifie)",
+   "cutout_url": "public/scan/products-cheveux/jessicurl/cutout/awe-inspiraling-spray.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

@@ -4,16 +4,19 @@
  * Template B2B SaaS standard. Toujours faire valider par un avocat avant signature.
  */
 
-import Link from 'next/link';
+import type { Metadata } from 'next';
 import SiteHeader from '../SiteHeader';
 import Script from 'next/script';
+import { LegalFooter, LegalNotice, LegalUpdated } from '../LegalChrome';
+import { getPage } from '../../lib/i18n/server';
 
-export const metadata = {
-  title: 'DPA · Data Processing Agreement · VYVRE',
-  description: 'Accord de traitement des données (article 28 RGPD) entre VYVRE et les clients B2B.',
-};
+export function generateMetadata(): Metadata {
+  const { t } = getPage();
+  return { title: t('dpa.meta.title'), description: t('dpa.meta.desc') };
+}
 
 export default function DPAPage() {
+  const { t } = getPage();
   return (
     <>
       <Script src="/vyvre-mini-lattice.js" strategy="afterInteractive" />
@@ -23,23 +26,25 @@ export default function DPAPage() {
         <section className="px-8 py-24 md:py-32">
           <div className="max-w-3xl mx-auto">
             <div className="font-mono text-[10px] tracking-[0.4em] uppercase text-accent mb-4">
-              Article 28 RGPD · Sous-traitant
+              {t('dpa.eyebrow')}
             </div>
             <h1 className="font-sans text-5xl md:text-6xl font-thin leading-[1.05] -tracking-[0.025em] mb-8">
-              Data Processing<br />
-              <em className="not-italic text-text/55 font-extralight">Agreement.</em>
+              {t('dpa.h1a')}<br />
+              <em className="not-italic text-text/55 font-extralight">{t('dpa.h1b')}</em>
             </h1>
+
+            <LegalNotice />
 
             <div className="v6-soft px-6 py-5 mb-12 text-sm text-text/75 font-extralight leading-relaxed">
               <p><strong className="font-medium text-text">Note importante :</strong> ce DPA est un résumé public des principaux engagements. Le document contractuel complet, signé et conforme à la jurisprudence EDPB la plus récente, est disponible sur simple demande à <a href="mailto:charles@symphonydrive.com?subject=DPA - Document signé" className="text-accent hover:opacity-80">charles@symphonydrive.com</a>. Il est obligatoirement signé avant toute mise en production chez un Client B2B.</p>
             </div>
 
-            <Block title="1. Parties">
+            <Block title={t('dpa.b1')}>
               <p><strong className="font-medium text-text">Responsable de traitement</strong> : le Client B2B (marque cosmétique) utilisant VYVRE Business sur son site.</p>
               <p className="mt-3"><strong className="font-medium text-text">Sous-traitant</strong> : Symphony Drive SAS, éditrice de VYVRE.</p>
             </Block>
 
-            <Block title="2. Objet du traitement">
+            <Block title={t('dpa.b2')}>
               <p>Le sous-traitant fournit au responsable de traitement un service de diagnostic de peau par mesure optique, incluant :</p>
               <ul className="list-disc pl-5 mt-2 space-y-1">
                 <li>Analyse colorimétrique d'images webcam</li>
@@ -50,7 +55,7 @@ export default function DPAPage() {
               </ul>
             </Block>
 
-            <Block title="3. Catégories de données traitées">
+            <Block title={t('dpa.b3')}>
               <p>Le sous-traitant traite, pour le compte du responsable de traitement :</p>
               <ul className="list-disc pl-5 mt-2 space-y-1">
                 <li><strong className="font-medium">Images du visage</strong> de l'utilisateur final (donnée biométrique au sens de l'article 9 RGPD) — <span className="text-text">traitement éphémère en mémoire vive uniquement, jamais persistées</span></li>
@@ -60,11 +65,11 @@ export default function DPAPage() {
               </ul>
             </Block>
 
-            <Block title="4. Catégories de personnes concernées">
+            <Block title={t('dpa.b4')}>
               <p>Les visiteurs et clients du site e-commerce du responsable de traitement qui choisissent volontairement d'utiliser le scanner peau VYVRE.</p>
             </Block>
 
-            <Block title="5. Durée du traitement">
+            <Block title={t('dpa.b5')}>
               <ul className="list-disc pl-5 mt-2 space-y-1">
                 <li>Images : durée du scan uniquement (typiquement &lt;100ms)</li>
                 <li>Scores agrégés : 30 jours (puis suppression automatique)</li>
@@ -73,7 +78,7 @@ export default function DPAPage() {
               <p className="mt-3">Le présent DPA prend effet à la signature du contrat principal et reste en vigueur pendant toute la durée de la relation contractuelle.</p>
             </Block>
 
-            <Block title="6. Obligations du sous-traitant">
+            <Block title={t('dpa.b6')}>
               <p>Symphony Drive SAS s'engage à :</p>
               <ul className="list-disc pl-5 mt-2 space-y-1">
                 <li>Traiter les données uniquement sur instruction documentée du responsable de traitement</li>
@@ -87,7 +92,7 @@ export default function DPAPage() {
               </ul>
             </Block>
 
-            <Block title="7. Mesures de sécurité (article 32 RGPD)">
+            <Block title={t('dpa.b7')}>
               <p>Symphony Drive SAS met en œuvre les mesures techniques suivantes :</p>
               <ul className="list-disc pl-5 mt-2 space-y-1">
                 <li><strong className="font-medium">Chiffrement en transit</strong> : TLS 1.3 sur toutes les communications</li>
@@ -101,7 +106,7 @@ export default function DPAPage() {
               </ul>
             </Block>
 
-            <Block title="8. Sous-traitants ultérieurs">
+            <Block title={t('dpa.b8')}>
               <p>Symphony Drive SAS a recours aux sous-traitants ultérieurs suivants, listés au moment de la signature :</p>
               <div className="overflow-x-auto mt-2">
                 <table className="w-full text-sm">
@@ -144,17 +149,17 @@ export default function DPAPage() {
               <p className="mt-4">Toute modification de cette liste sera notifiée au responsable de traitement avec un préavis de 30 jours, permettant l'exercice d'un droit d'opposition motivé.</p>
             </Block>
 
-            <Block title="9. Transferts hors UE">
+            <Block title={t('dpa.b9')}>
               <p><strong className="font-medium text-text">Aucun transfert de données personnelles hors de l'Union européenne n'est effectué dans le cadre du service VYVRE.</strong></p>
               <p className="mt-3">Les sous-traitants ultérieurs basés aux USA (Vercel, Google Cloud) traitent les données exclusivement via leurs régions européennes (Paris). Stripe applique des Clauses Contractuelles Types (CCT) approuvées par la Commission européenne pour ses traitements transfrontaliers minimaux.</p>
             </Block>
 
-            <Block title="10. Audit et contrôle">
+            <Block title={t('dpa.b10')}>
               <p>Le responsable de traitement dispose d'un droit d'audit annuel des mesures techniques et organisationnelles mises en place par le sous-traitant, sur préavis de 30 jours et à ses frais.</p>
               <p className="mt-3">Symphony Drive SAS fournit annuellement un rapport d'audit interne synthétique sur demande.</p>
             </Block>
 
-            <Block title="11. Notification de violation de données">
+            <Block title={t('dpa.b11')}>
               <p>En cas de violation de données personnelles, Symphony Drive SAS s'engage à notifier le responsable de traitement dans un délai maximal de <strong className="font-medium text-text">48 heures</strong> après en avoir pris connaissance, avec :</p>
               <ul className="list-disc pl-5 mt-2 space-y-1">
                 <li>Description de la nature de la violation</li>
@@ -164,7 +169,7 @@ export default function DPAPage() {
               </ul>
             </Block>
 
-            <Block title="12. Restitution / suppression des données">
+            <Block title={t('dpa.b12')}>
               <p>En fin de contrat, le responsable de traitement peut demander :</p>
               <ul className="list-disc pl-5 mt-2 space-y-1">
                 <li>L'export complet de ses données dans un format structuré (JSON, CSV) sous 15 jours</li>
@@ -172,9 +177,7 @@ export default function DPAPage() {
               </ul>
             </Block>
 
-            <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-text/45 mt-16 pt-8 border-t border-line">
-              Version 1.0 — Dernière mise à jour : {new Date().toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}
-            </p>
+            <LegalUpdated version />
 
             <div className="v6-soft px-6 py-5 mt-8 text-sm text-text/75 font-extralight leading-relaxed">
               <p>Pour obtenir le DPA contractuel signé, contactez : <a href="mailto:charles@symphonydrive.com?subject=DPA - Demande de signature" className="text-accent hover:opacity-80">charles@symphonydrive.com</a></p>
@@ -182,7 +185,7 @@ export default function DPAPage() {
           </div>
         </section>
 
-        <LegalFooter />
+        <LegalFooter current="dpa" />
       </main>
     </>
   );
@@ -197,17 +200,3 @@ function Block({ title, children }: { title: string; children: React.ReactNode }
   );
 }
 
-function LegalFooter() {
-  return (
-    <footer className="px-8 py-16 border-t border-line text-xs text-text/45 mt-auto">
-      <div className="max-w-6xl mx-auto flex flex-wrap items-center gap-6 font-mono tracking-[0.18em] uppercase text-text/35 text-[10px]">
-        <Link href="/accuracy" className="hover:text-text">Méthodologie</Link>
-        <Link href="/cgv" className="hover:text-text">CGV</Link>
-        <Link href="/mentions-legales" className="hover:text-text">Mentions légales</Link>
-        <Link href="/confidentialite" className="hover:text-text">Confidentialité · RGPD</Link>
-        <Link href="/dpa" className="text-text">DPA</Link>
-        <a href="mailto:charles@symphonydrive.com" className="hover:text-text ml-auto">charles@symphonydrive.com</a>
-      </div>
-    </footer>
-  );
-}

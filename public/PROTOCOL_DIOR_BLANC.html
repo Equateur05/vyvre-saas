@@ -1011,18 +1011,23 @@ html,body{background:#f7f7f5 !important;color:#15140f !important}
   const BRAND = 'dior';
   const params = new URLSearchParams(location.search);
   const scoreNum = parseInt(params.get('score') || localStorage.getItem('vyvre_score') || '0', 10);
-  const ageNum   = parseInt(params.get('age')   || localStorage.getItem('vyvre_age')   || '0', 10);
+  // v11.1 — le moteur ne publie plus un age unique mais une fourchette, et rien
+  // du tout quand l'image ne permet pas de la lire. On n'invente aucun chiffre ici.
+  const ageRaw   = params.get('age_display') || localStorage.getItem('vyvre_age_display') || '';
+  const ageBorne = (ageRaw.match(/\d+/g) || []).slice(0, 2);
+  const ageTxt   = ageBorne.length === 2 ? (ageBorne[0] + '\u2013' + ageBorne[1]) : '';
   const hydNum   = parseInt(params.get('hyd')   || localStorage.getItem('vyvre_hyd')   || '0', 10);
   let scanScores = null;
   const encoded = params.get('scores');
   if (encoded) { try { scanScores = JSON.parse(atob(encoded)); } catch(_) {} }
   if (!scanScores) { try { scanScores = JSON.parse(localStorage.getItem('vyvre_scan_scores') || 'null'); } catch(_) {} }
   document.getElementById('recap-score').textContent = scoreNum > 0 ? scoreNum : '—';
-  document.getElementById('recap-age').textContent   = ageNum   > 0 ? ageNum + ' ans' : '—';
+  document.getElementById('recap-age').textContent   = ageTxt ? ageTxt + ' ans' : '—';
   document.getElementById('recap-hyd').textContent   = hydNum   > 0 ? hydNum + ' %' : '—';
   document.getElementById('meta-score').textContent  = scoreNum > 0 ? scoreNum : '—';
-  document.getElementById('meta-age').textContent    = ageNum   > 0 ? (ageNum + ' ans') : '—';
-  console.log('[PROTOCOL] scan loaded:', { scoreNum, ageNum, hydNum, scanScores });
+  document.getElementById('meta-age').textContent    = ageTxt ? (ageTxt + ' ans') : '—';
+  try { var _cr = document.querySelector('#recap-age + .ci-range'); if (_cr) _cr.style.display = 'none'; } catch(_) {}
+  console.log('[PROTOCOL] scan loaded:', { scoreNum, ageTxt, hydNum, scanScores });
 
   const answers = { 0:null, 1:null, 2:null, 3:null };
   let currentStep = 0;

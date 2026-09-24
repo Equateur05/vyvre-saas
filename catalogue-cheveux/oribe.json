@@ -30,9 +30,16 @@
     "huile d'olive"
    ],
    "ingredients": "Aqua/Water/Eau, Heptyl Undecylenate, Propanediol, Aspergillus Ferment, Cetyl Alcohol, Stearyl Alcohol, Hydrogenated Castor Oil/Sebacic Acid Copolymer, Salvia Hispanica Seed Extract, Phenoxyethanol, Cetrimonium Chloride, Glycerin, Guar Hydroxypropyltrimonium Chloride, Sclerotium Gum, Arginine, Sucrose Distearate, Hydroxypropylammonium Gluconate, Hydroxypropylgluconamide, Sucrose Stearate, Sodium Hydroxide, Hydrolyzed Moringa Oleifera Seed Extract, Synthetic Wax, Carthamus Tinctorius (Safflower) Seed Oil, Mangifera Indica (Mango) Seed Butter, Olea Europaea (Olive) Fruit Oil, Vitis Vinifera (Grape) Seed Oil, Ethylhexylglycerin, Quaternium-95, Hydrolyzed Vegetable Protein, Beta-Sitosterol, Hexylene Glycol, Hydroxyethyl Behenamidopropyl Dimonium Chloride, Citrullus Lanatus (Watermelon) Seed Oil, Trisodium Ethylenediamine Disuccinate, Leuconostoc/Radish Root Ferment Filtrate, Lactobacillus/Arundinaria Gigantea Leaf Ferment Filtrate, Malic Acid, Sodium PCA, Sodium Benzoate, Sodium Lactate, Litchi Chinensis Fruit Extract, Aspartic Acid, Tartaric Acid, PCA, Leontopodium Alpinum Flower/Leaf Extract, Benzyl Alcohol, Glycine, Alanine, BHT, Serine, Valine, Potassium Sorbate, Isoleucine, Proline, Threonine, Sodium Hyaluronate, Histidine, Phenylalanine, Tocopherol, Citric Acid, Parfum/Fragrance, Tetramethyl Acetyloctahydronaphthalenes, Hexamethylindanopyran, Limonene, Citrus Limon (Lemon) Peel Oil, Hexyl Cinnamal, Citrus Aurantium Peel Oil, Pinene, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Citral, Linalyl Acetate, Linalool, Rose Ketones. 9322",
-   "description": "Strong science. Stronger bonds. Bonding redefined. Powered by encapsulated, time-release technology. This one-of-a-kind serum doesn’t stop to infuse hair with powerful actives to restore inner strength. Our Holistic Rebonding Complex and eleven amino acids work deep within the fiber to help replenish all three types of broken bonds –– hydrogen, ionic, and disulfide. For all hair types. Specially formulated to restore hair with weakened bonds from bleaching, coloring, and heat styling. Ideal for ",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "description": "Strong science. Stronger bonds. Bonding redefined. Powered by encapsulated, time-release technology. This one-of-a-kind serum doesn’t stop to infuse hair with powerful actives to restore inner strength. Our Holistic Rebonding Complex and eleven amino acids work deep within the fiber to help replenish all three types of broken bonds –– hydrogen, ionic, and disulfide. For all hair types. Specially formulated to restore hair with weakened bonds from bleaching, coloring, and heat styling. Ideal for",
+   "claims": [
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "protection-chaleur"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/hair-alchemy-bond-building-elixir.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--supershine-smoothing-wax-stick",
@@ -48,7 +55,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -63,11 +70,14 @@
    "ingredients": "Ricinus Communis (Castor) Seed Oil, Caprylic/Capric Triglyceride, Hydrogenated Castor Oil, Ozokerite, Diisostearyl Malate, Sorbitan Stearate, Phenoxyethanol, Parfum/Fragrance, Simmondsia Chinensis (Jojoba) Seed Oil, Quaternium-95, Allanblackia Stuhlmannii Seed Butter, Butyrospermum Parkii (Shea) Butter, Citrullus Lanatus (Watermelon) Seed Oil, Glycerin, Rosmarinus Officinalis (Rosemary) Leaf Extract, Propanediol, Aqua/Water/Eau, Litchi Chinensis Fruit Extract, Vaccinium Macrocarpon (Cranberry) Seed Oil, Leontopodium Alpinum Flower/Leaf Extract, Vaccinium Macrocarpon (Cranberry) Fruit Extract, Citric Acid, Pentylene Glycol, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Glyceryl Caprylate, Tocopherol, Tetramethyl Acetyloctahydronaphthalenes, Hexamethylindanopyran, Limonene, Citrus Limon (Lemon) Peel Oil, Hexyl Cinnamal, Citrus Aurantium Peel Oil, Pinene, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Citral, Linalyl Acetate, Linalool, Rose Ketones",
    "description": "Silkening in a stick. Designed for seamless styling, this buildable wax glides into hair, providing flexible hold and all-day control. Castor seed oil combines with Supershine’s cranberry complex to deliver nourishment while smoothing and refining to impart a radiant, polished shine. The result is sleek, sculpted perfection. Provides long-lasting, flexible hold. Delivers styling control without stiffness or flakiness. Smoothes hair while taming frizz and flyaways for a sleek, polished finish. Im",
    "claims": [
-    "nourrissant",
+    "nutrition",
+    "anti-frisottis",
     "brillance",
-    "lissant"
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/supershine-smoothing-wax-stick.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--eternal-curls-deep-treatment-masque",
@@ -83,7 +93,7 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
-    "gras",
+    "secs",
     "epais",
     "boucles",
     "crepus",
@@ -101,11 +111,18 @@
    "ingredients": "Aqua/Water/Eau, C15-19 Alkane, Cetearyl Alcohol, Cetyl Alcohol, Behentrimonium Chloride, Glyceryl Stearate SE, Cocos Nucifera (Coconut) Oil, Glycol Distearate, Phenoxyethanol, Cetrimonium Chloride, Isopropyl Alcohol, Parfum/Fragrance, Stearamidopropyl Dimethylamine, Butyrospermum Parkii (Shea) Butter, Shorea Stenoptera Seed Butter, Polyquaternium-113, Mangifera Indica (Mango) Seed Butter, Benzyl Alcohol, Theobroma Grandiflorum Seed Butter, Astrocaryum Murumuru Seed Butter, Benzoic Acid, Quaternium-95, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Theobroma Cacao (Cocoa) Seed Butter, Ethylhexylglycerin, Glycerin, Propanediol, Hydrolyzed Vegetable Protein, Citric Acid, Hydrolyzed Adansonia Digitata Seed Extract, Citrullus Lanatus (Watermelon) Seed Oil, Litchi Chinensis Fruit Extract, Stearic Acid, Caprylyl Glycol, Leontopodium Alpinum Flower/Leaf Extract, Sodium Metabisulfite, Tocopherol, Sodium Benzoate, Potassium Sorbate, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Sodium Hydroxide, Tetramethyl Acetyloctahydronaphthalenes, Hexamethylindanopyran, Citrus Limon (Lemon) Peel Oil, Citrus Aurantium Peel Oil, Pinene, Limonene, Hexyl Cinnamal",
    "description": "Treat your curls right. Our ultimate moisturizing masque, with coconut and almond oils, quenches thirsty curls and prevents breakage while repairing damage. Hair is left silky, hydrated and healthier than ever. For those with curly, coily or thick hair in need of intense moisture and strength. Curl Types: 2-4. Helps prevent breakage Seals the cuticle to repair damage and split ends Deeply conditions to detangle and restore elasticity Intensely hydrates to smooth, soften and help fight frizz Sili",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
+    "anti-gras",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/eternal-curls-deep-treatment-masque.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--eternal-curls-cleansing-creme",
@@ -118,13 +135,14 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0738/6084/1787/files/402706-0.jpg?width=600",
    "image_local": "public/scan/products-cheveux/oribe/eternal-curls-cleansing-creme.jpg",
-   "categorie": "soin-sans-rinçage",
-   "etape": 3,
+   "categorie": "shampooing",
+   "etape": 1,
    "cheveux_cibles": [
-    "gras",
+    "secs",
     "epais",
     "boucles",
     "crepus",
+    "chute",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -141,11 +159,18 @@
    "ingredients": "Aqua/Water/Eau, Cetearyl Alcohol, Cetyl Alcohol, Behentrimonium Chloride, Isododecane, Stearamidopropyl Dimethylamine, Glycerin, Propanediol, Hydrogenated Ethylhexyl Olivate, Phenoxyethanol, Caprylyl Glycol, Ceteareth-20, Guar Hydroxypropyltrimonium Chloride, Parfum/Fragrance, Isopropyl Alcohol, Menthone Glycerin Acetal, Polyquaternium-113, Benzyl Alcohol, Hydrogenated Olive Oil Unsaponifiables, Chlorphenesin, Panthenol, Benzoic Acid, Sorbic Acid, Sodium Phytate, Oryza Sativa (Rice) Bran Extract, Quaternium-95, Caffeine, Cocos Nucifera (Coconut) Oil, Theobroma Cacao (Cocoa) Seed Butter, Astrocaryum Murumuru Seed Butter, Mangifera Indica (Mango) Seed Butter, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Ethylhexylglycerin, Hydrolyzed Vegetable Protein, Helianthus Annuus (Sunflower) Extract, Citric Acid, Citrullus Lanatus (Watermelon) Seed Oil, Citrus Aurantium Dulcis (Orange) Flower Extract, Citrus Limon (Lemon) Fruit Extract, Litchi Chinensis Fruit Extract, Lactic Acid, Tocopherol, Rosmarinus Officinalis (Rosemary) Leaf Extract, Mentha Aquatica Leaf Extract, Leontopodium Alpinum Flower/Leaf Extract, Sodium Metabisulfite, Sodium Benzoate, Cynara Scolymus (Artichoke) Leaf Extract, Gluconolactone, Disodium Succinate, Saccharomyces Lysate, 1,2-Hexanediol, Calcium Gluconate, Valine, Threonine, Glutamic Acid, Glycine, Tetramethyl Acetyloctahydronaphthalenes, Hexamethylindanopyran, Citrus Limon (Lemon) Peel Oil, Citrus Aurantium Peel Oil, Pinene, Limonene, Hexyl Cinnamal",
    "description": "Cleanse without getting into a lather. This non-foaming conditioning formula is rich in purifying oils, citrus fruit extracts and refreshing water-mint essence to gently clean strands and energize the scalp while protecting color, calming frizz and restoring moisture. For those with curly, coily or thick hair in need of intense moisture and strength. Curl Types: 2-4. Detangles, moisturizes and smoothes hair Non-foaming formula gently removes dirt, oil and buildup Leaves scalp balanced and soothe",
    "claims": [
-    "hydratant",
-    "lissant",
-    "apaisant"
+    "hydratation",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
+    "apaisant-cuir-chevelu",
+    "purifiant",
+    "anti-gras",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/eternal-curls-cleansing-creme.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--eternal-curls-polish-protect-oil",
@@ -161,8 +186,7 @@
    "categorie": "huile",
    "etape": 3,
    "cheveux_cibles": [
-    "gras",
-    "epais",
+    "secs",
     "boucles",
     "crepus"
    ],
@@ -180,13 +204,17 @@
    "ingredients": "Vitis Vinifera (Grape) Seed Oil, Olea Europaea (Olive) Fruit Oil, Ricinus Communis (Castor) Seed Oil, Helianthus Annuus (Sunflower) Seed Oil, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Carthamus Tinctorius (Safflower) Seed Oil, Cocos Nucifera (Coconut) Oil, Limnanthes Alba (Meadowfoam) Seed Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Argania Spinosa Kernel Oil, Prunus Armeniaca (Apricot) Kernel Oil, Persea Gratissima (Avocado) Oil, Parfum/Fragrance, Citrus Limon (Lemon) Peel Oil, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Tocopherol, Citrullus Lanatus (Watermelon) Seed Oil, Ribes Nigrum (Black Currant) Seed Oil, Aqua/Water/Eau, Jasminum Officinale (Jasmine) Oil, Citric Acid, Hexamethylindanopyran, Tetramethyl Acetyloctahydronaphthalenes, Limonene, Hexyl Cinnamal, Juniperus Virginiana Oil, Pinene, Linalyl Acetate, Citral, Linalool, Geranyl Acetate, Rose Ketones",
    "description": "Indulge curls and coils with a curated blend of 17 deeply nourishing and silkening botanical oils including castor seed, apricot, and coconut. Rich in antioxidants and essential fatty acids, this protective elixir locks in moisture while softening and smoothing for polished shine. Curl Types: 2-4. Intensely nourishes with a blend of natural oils. Replenishes and softens wavy, curly, and coily strands while smoothing away frizz. Improves strength of strands and enhances curl definition. Forms a p",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "brillance",
-    "lissant",
-    "definition-boucles"
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
+    "anti-gras",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/eternal-curls-polish-protect-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--eternal-curls-intense-conditioner",
@@ -202,7 +230,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "gras",
+    "secs",
     "epais",
     "boucles",
     "crepus",
@@ -222,12 +250,20 @@
    "ingredients": "Aqua/Water/Eau, Cetearyl Alcohol, Behentrimonium Chloride, Amodimethicone, Cetyl Alcohol, Hydrogenated Ethylhexyl Olivate, Cetyl Esters, Dimethicone, Isododecane, Propanediol, Phenoxyethanol, Isopropyl Alcohol, Stearamine Oxide, Guar Hydroxypropyltrimonium Chloride, Ceteareth-20, Ethylhexylglycerin, Parfum/Fragrance, Hydrogenated Olive Oil Unsaponifiables, Polyquaternium-113, Butyrospermum Parkii (Shea) Butter, Panthenol, Cetyl Hydroxyethylcellulose, Sodium Phytate, Caprylyl Glycol, Quaternium-95, Theobroma Cacao (Cocoa) Seed Butter, Astrocaryum Murumuru Seed Butter, Mangifera Indica (Mango) Seed Butter, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Oryza Sativa (Rice) Bran Extract, Glycerin, Polysilicone-15, Shorea Stenoptera Seed Butter, Hydrolyzed Vegetable Protein, Helianthus Annuus (Sunflower) Extract, Citric Acid, Citrullus Lanatus (Watermelon) Seed Oil, Litchi Chinensis Fruit Extract, Tocopherol, Rosmarinus Officinalis (Rosemary) Leaf Extract, Hydrated Silica, Leontopodium Alpinum Flower/Leaf Extract, Disodium Phosphate, Silica Dimethyl Silylate, Sodium Metabisulfite, Sodium Benzoate, Sodium Phosphate, Cystine Bis-PG-Propyl Silanetriol, Potassium Sorbate, Sodium Hydroxide, Hexamethylindanopyran, Tetramethyl Acetyloctahydronaphthalenes, Citrus Limon (Lemon) Peel Oil, Juniperus Virginiana Oil, Pinene, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Linalyl Acetate, Limonene, Hexyl Cinnamal",
    "description": "This deeper-than-deep conditioner instantly and intensely treats curly, coily and thick locks for damage repair and effortless detangling. Hair becomes ultra-soft, ultra-silky and smoother than ever. Now that's intense. For those with curly, coily or thick hair in need of intense moisture and strength. Curl Types: 2-4. Leaves hair ultra-soft, shiny, smooth and sleek Deeply conditions and adds an intense moisture Nourishes and repairs damage caused by thermal and chemical processing and the dryin",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "reparateur",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
+    "anti-gras",
+    "brillance",
+    "protection-chaleur",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/eternal-curls-intense-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--eternal-curls-moisturizing-shampoo",
@@ -243,6 +279,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
     "gras",
     "epais",
     "boucles",
@@ -264,11 +301,17 @@
    "ingredients": "Aqua/Water/Eau, Sodium Cocoyl Isethionate, Sodium Lauroyl Methyl Isethionate, Lauryl Glucoside, Glycerin, Acrylates/Beheneth-25 Methacrylate Copolymer, Propanediol, Polyglyceryl-3 Laurate, Phenoxyethanol, Amodimethicone, Glycol Distearate, Pentylene Glycol, Ethylhexylglycerin, Polyester-11, Parfum/Fragrance, Guar Hydroxypropyltrimonium Chloride, Divinyldimethicone/Dimethicone Copolymer, Sodium Benzoate, Benzyl Alcohol, Panthenol, Chlorphenesin, Hydroxypropyl Methylcellulose Stearoxy Ether, Trisodium Ethylenediamine Disuccinate, Polyquaternium-7, Potassium Sorbate, Sodium Phytate, Panthenyl Hydroxypropyl Steardimonium Chloride, Quaternium-95, Simmondsia Chinensis (Jojoba) Seed Oil, Cetrimonium Chloride, Trideceth-15, Trideceth-3, Caprylyl Glycol, Hexylene Glycol, Hydrolyzed Vegetable Protein, Polyquaternium-113, Potassium Hydroxide, Fumaric Acid, Rosmarinus Officinalis (Rosemary) Leaf Extract, C12-13 Alketh-23, C12-13 Alketh-3, Galactoarabinan, Hydrolyzed Rice Protein, Citric Acid, Citrullus Lanatus (Watermelon) Seed Oil, Litchi Chinensis Fruit Extract, Salvia Hispanica Seed Extract, Maltodextrin, Trehalose, Xylitol, Sodium PCA, Sodium Lactate, Camellia Sinensis Leaf Extract, Stearic Acid, Adansonia Digitata Seed Extract, Amaranthus Caudatus Seed Extract, Arginine, Leontopodium Alpinum Flower/Leaf Extract, Aspartic Acid, Sodium Phosphate, PCA, Glycine, Alanine, Serine, Valine, Caesalpinia Spinosa Fruit Extract, Isoleucine, Proline, Threonine, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Sodium Metabisulfite, Histidine, Phenylalanine, Helianthus Annuus (Sunflower) Sprout Extract, Sorbeth-230 Tetraoleate, Sorbitan Laurate, Decyl Glucoside, Hexamethylindanopyran, Tetramethyl Acetyloctahydronaphthalenes, Citrus Limon (Lemon) Peel Oil, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Hexyl Cinnamal, Limonene, Linalool",
    "description": "Gently cleanse while adding hydration. Curly, coily hair gets instant moisture gratification, leaving it smooth, sleek and nourished. For those with curly, coily or thick hair in need of intense moisture and strength. Curl Types: 2-4. A nourishing cleanser that adds intense moisture Leaves hair smooth, sleek, and polished Improves manageability for curly, coily, and thick hair",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
+    "anti-gras",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/eternal-curls-moisturizing-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--gold-lust-restorative-night-creme-for-hair",
@@ -285,6 +328,7 @@
    "etape": 3,
    "cheveux_cibles": [
     "abimes",
+    "chute",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -300,11 +344,15 @@
    "ingredients": "Aqua/Water/Eau, Cetearyl Alcohol, Quaternium-91, Heptyl Undecylenate, Hydrogenated Castor Oil/Sebacic Acid Copolymer, Niacinamide, Salvia Hispanica Seed Extract, Olea Europaea (Olive) Fruit Oil, Phenoxyethanol, Parfum/Fragrance, Capryloyl Glycerin/Sebacic Acid Copolymer, Caffeine, Diheptyl Succinate, Myristyl Myristate, Guar Hydroxypropyltrimonium Chloride, Behentrimonium Chloride, Panthenol, Citric Acid, Quaternium-95, Tripeptide-29, Ethylhexylglycerin, Hydrolyzed Lupine Protein, Leontopodium Alpinum Flower/Leaf Extract, Litchi Chinensis Fruit Extract, Propanediol, Eucalyptus Globulus Oil, 1,2-Hexanediol, Citrullus Lanatus (Watermelon) Seed Oil, Tocopheryl Acetate, Biotin, Benzoic Acid, Sodium Benzoate, Hexyl Cinnamal, Limonene, Linalool, Citral",
    "description": "A restorative night crème for your hair. Powerful biomimetic lupine flower peptides and revitalizing eucalyptus extract harmonize in this leave-in nightly ritual to deeply repair and restore the hair while enveloping the senses in a soothing, tranquil aura. Hair is transformed into ultra-soft, silky locks with a youthful shine. Awaken to hair that is revitalized with every dawn. Intensely repairs even extremely damaged hair, leaving hair healthy, shiny and more youthful looking Transforms and re",
    "claims": [
-    "reparateur",
+    "reparation",
+    "apaisant-cuir-chevelu",
     "brillance",
-    "apaisant"
+    "anti-age"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/gold-lust-restorative-night-creme-for-hair.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--serene-scalp-densifying-treatment-spray",
@@ -338,11 +386,14 @@
    "ingredients": "Aqua/Water/Eau, Butylene Glycol, Dimethyl Isosorbide, Polysorbate 20, AMP-Acrylates/Allyl Methacrylate Copolymer, Niacinamide, Panthenol, Sodium PCA, Allantoin, Hamamelis Virginiana (Witch Hazel) Water, Mentha Piperita (Peppermint) Oil, Glycerin, Trisodium Ethylenediamine Disuccinate, Citric Acid, Dipotassium Glycyrrhizate, Sodium Lactate, Dextran, Arginine, Aspartic Acid, PCA, Acetyl Tetrapeptide-3, Trifolium Pratense (Clover) Flower Extract, Sodium Benzoate, Phenoxyethanol, Glycine, Alanine, Pisum Sativum (Pea) Sprout Extract, Serine, Valine, Potassium Sorbate, Arctium Majus Root Extract, Arnica Montana Flower Extract, Ascorbic Acid, Calendula Officinalis Flower Extract, Chamomilla Recutita (Matricaria) Flower Extract, Citrus Limon (Lemon) Peel Extract, Hedera Helix (Ivy) Leaf Extract, Isoleucine, Lamium Album Extract, Nasturtium Officinale Extract, Pinus Sylvestris Bud Extract, Proline, Rosmarinus Officinalis (Rosemary) Leaf Extract, Salvia Officinalis (Sage) Leaf Extract, Threonine, Biotin, Tocopheryl Acetate, Tropaeolum Majus Flower Extract, Histidine, Phenylalanine, Benzoic Acid, Chlorphenesin, Sodium Dehydroacetate, Limonene",
    "description": "High-density at your fingertips. Our powerful treatment for thinning hair is proven to leave hair feeling thicker, fuller and healthier. The ultra-lightweight formula instantly plumps hair at the root while creating denser-looking strands over the course of three months. Promotes fuller, thicker, healthier looking hair Energizes, hydrates, refreshes and balances scalp Adds volume, body and density Provides antioxidant protection against free radical damage and the elements Fragrance-free Formerl",
    "claims": [
-    "hydratant",
+    "hydratation",
     "volume",
+    "densifiant",
     "anti-chute"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/serene-scalp-densifying-treatment-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--serene-scalp-densifying-conditioner",
@@ -371,13 +422,17 @@
     "acide citrique"
    ],
    "ingredients": "Aqua/Water/Eau, Behentrimonium Chloride, Propanediol, Cetearyl Alcohol, Cetyl Alcohol, C15-19 Alkane, Glyceryl Stearate SE, Isoamyl Laurate, Phenoxyethanol, Isopropyl Alcohol, Guar Hydroxypropyltrimonium Chloride, Polyquaternium-113, Glycerin, Caprylyl Glycol, Potassium Sorbate, Butylene Glycol, Quaternium-95, Isomalt, Oryza Sativa (Rice) Bran Extract, Helianthus Annuus (Sunflower) Extract, Citric Acid, Citrullus Lanatus (Watermelon) Seed Oil, Litchi Chinensis Fruit Extract, Rosmarinus Officinalis (Rosemary) Leaf Extract, Tocopherol, Leontopodium Alpinum Flower/Leaf Extract, Sodium Metabisulfite, Glycine, Larix Europaea Wood Extract, Pisum Sativum (Pea) Sprout Extract, Dextran, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Camellia Sinensis Leaf Extract, Zinc Chloride, Acetyl Tetrapeptide-3, Trifolium Pratense (Clover) Flower Extract, Sodium Hydroxide, Parfum/Fragrance, Tetramethyl Acetyloctahydronaphthalenes, Hexamethylindanopyran, Limonene, Citrus Limon (Lemon) Peel Oil, Hexyl Cinnamal, Citrus Aurantium Peel Oil, Pinene",
-   "description": "Developed in collaboration with a board-certified trichologist, our densifying conditioner for thinning hair is proven to increase hair fullness while weightlessly nourishing and detangling strands. Formulated with a bioactive blend of pea sprout extract, red clover extract and a biomimetic peptide, this conditioning milk stimulates the scalp, reduces shedding, and preserves hair integrity. Achieve thicker, healthier-looking hair over the course of three months. Adds volume, body and density to ",
+   "description": "Developed in collaboration with a board-certified trichologist, our densifying conditioner for thinning hair is proven to increase hair fullness while weightlessly nourishing and detangling strands. Formulated with a bioactive blend of pea sprout extract, red clover extract and a biomimetic peptide, this conditioning milk stimulates the scalp, reduces shedding, and preserves hair integrity. Achieve thicker, healthier-looking hair over the course of three months. Adds volume, body and density to",
    "claims": [
-    "nourrissant",
+    "nutrition",
     "volume",
-    "anti-chute"
+    "densifiant",
+    "anti-chute",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/serene-scalp-densifying-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--serene-scalp-densifying-shampoo",
@@ -406,12 +461,15 @@
     "acide citrique"
    ],
    "ingredients": "Aqua/Water/Eau, Sodium Cocoyl Isethionate, Decyl Glucoside, Sodium Lauroyl Methyl Isethionate, Cocamide MIPA, Acrylates Crosspolymer-4, Glycerin, Heptyl Glucoside, Propanediol, Polyester-37, Phenoxyethanol, Guar Hydroxypropyltrimonium Chloride, Caprylyl Glycol, Sodium Phytate, Trisodium Ethylenediamine Disuccinate, Quaternium-95, Sodium Benzoate, Oryza Sativa (Rice) Bran Extract, Butylene Glycol, Isomalt, Polyquaternium-113, Helianthus Annuus (Sunflower) Extract, Citrullus Lanatus (Watermelon) Seed Oil, Litchi Chinensis Fruit Extract, Rosmarinus Officinalis (Rosemary) Leaf Extract, Tocopherol, Leontopodium Alpinum Flower/Leaf Extract, Sodium Metabisulfite, Glycine, Larix Europaea Wood Extract, Pisum Sativum (Pea) Sprout Extract, Citric Acid, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Dextran, Camellia Sinensis Leaf Extract, Zinc Chloride, Acetyl Tetrapeptide-3, Trifolium Pratense (Clover) Flower Extract, Sodium Hydroxide, Sorbeth-230 Tetraoleate, Sorbitan Laurate, Parfum/Fragrance, Tetramethyl Acetyloctahydronaphthalenes, Hexamethylindanopyran, Limonene, Citrus Limon (Lemon) Peel Oil, Hexyl Cinnamal, Citrus Aurantium Peel Oil, Pinene",
-   "description": "Developed in collaboration with a board-certified trichologist, our shampoo for thinning hair is proven to plump and densify strands for thicker, fuller, healthier-looking hair over the course of three months. Formulated with a bioactive blend of pea sprout extract, red clover extract and a biomimetic peptide, this gentle cleanser stimulates the scalp, reduces shedding, and preserves hair integrity. Gently cleanses scalp and hair Adds volume, body and density to thinning hair Increases fullness ",
+   "description": "Developed in collaboration with a board-certified trichologist, our shampoo for thinning hair is proven to plump and densify strands for thicker, fuller, healthier-looking hair over the course of three months. Formulated with a bioactive blend of pea sprout extract, red clover extract and a biomimetic peptide, this gentle cleanser stimulates the scalp, reduces shedding, and preserves hair integrity. Gently cleanses scalp and hair Adds volume, body and density to thinning hair Increases fullness",
    "claims": [
     "volume",
+    "densifiant",
     "anti-chute"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/serene-scalp-densifying-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--supershine-hydrating-shampoo",
@@ -427,6 +485,8 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
+    "fins",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -440,12 +500,14 @@
    "ingredients": "Aqua/Water/Eau, Sodium Cocoyl Isethionate, Sodium Lauroyl Methyl Isethionate, Cocamide MIPA, Dimethicone, Propanediol, Polyglyceryl-3 Laurate, Sodium Lauroyl Sarcosinate, Pentylene Glycol, Glycerin, Acrylates/Beheneth-25 Methacrylate Copolymer, Glycol Distearate, Sodium Lauroamphoacetate, Amodimethicone, Sodium PCA, Guar Hydroxypropyltrimonium Chloride, Sorbeth-230 Tetraoleate, Divinyldimethicone/Dimethicone Copolymer, Caprylyl Glycol, Sodium Benzoate, Chlorphenesin, Polyquaternium-113, Trisodium Ethylenediamine Disuccinate, Ethylhexylglycerin, Polyquaternium-7, Sodium Phytate, Quaternium-95, Decyl Glucoside, Panthenol, Vaccinium Macrocarpon (Cranberry) Fruit Extract, Simmondsia Chinensis (Jojoba) Seed Oil, Laureth-23, Laureth-4, Cetrimonium Chloride, Dimethiconol, Trideceth-15, Trideceth-3, Sorbitan Laurate, Hydrolyzed Vegetable Protein, Lauryl Glucoside, Phenoxyethanol, Fumaric Acid, Rosmarinus Officinalis (Rosemary) Leaf Extract, C12-13 Alketh-23, C12-13 Alketh-3, Salicylic Acid, Citrullus Lanatus (Watermelon) Seed Oil, Litchi Chinensis Fruit Extract, Vaccinium Macrocarpon (Cranberry) Seed Oil, Stearic Acid, Leontopodium Alpinum Flower/Leaf Extract, Acetic Acid, Glyceryl Caprylate, Sodium Metabisulfite, Citric Acid, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Potassium Hydroxide, Parfum/Fragrance, Hexamethylindanopyran, Tetramethyl Acetyloctahydronaphthalenes, Hexyl Cinnamal, Citrus Limon (Lemon) Peel Oil, Limonene, Linalool, Citrus Aurantium Bergamia (Bergamot) Peel Oil",
    "description": "Lather in luxury. This illuminating shampoo richly hydrates and smoothes, transforming dull strands into glossy locks. So brilliant. Gently cleanses while maintaining hair’s natural oils Amplifies shine for radiant, glossy locks Optimally hydrates hair without weighing it down Softens and smoothes strands for enhanced shine and brilliance Nourishes hair and protects it from moisture loss",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "brillance",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/supershine-hydrating-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--supershine-hydrating-conditioner",
@@ -461,6 +523,8 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
+    "fins",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -478,12 +542,14 @@
    "ingredients": "Aqua/Water/Eau, Cetearyl Alcohol, Behentrimonium Chloride, Dimethicone, Cetyl Alcohol, Stearamidopropyl Dimethylamine, Hydrogenated Ethylhexyl Olivate, Amodimethicone, Isododecane, Cetyl Esters, Propanediol, Phenoxyethanol, Isopropyl Alcohol, Guar Hydroxypropyltrimonium Chloride, Ethylhexylglycerin, Polysorbate 60, Hydrogenated Olive Oil Unsaponifiables, Dimethiconol, Cetyl Hydroxyethylcellulose, Benzyl Alcohol, Chlorphenesin, Butyrospermum Parkii (Shea) Butter, Caprylyl Glycol, Polyquaternium-113, Glycerin, Sodium Benzoate, Panthenol, Sorbic Acid, Cetrimonium Chloride, Trideceth-12, Sodium Phytate, Quaternium-95, Vaccinium Macrocarpon (Cranberry) Fruit Extract, Simmondsia Chinensis (Jojoba) Seed Oil, Vaccinium Macrocarpon (Cranberry) Seed Oil, Hydrolyzed Vegetable Protein, Citric Acid, Rosmarinus Officinalis (Rosemary) Leaf Extract, Adansonia Digitata Seed Oil, Aleurites Moluccanus Seed Oil, Citrullus Lanatus (Watermelon) Seed Oil, Litchi Chinensis Fruit Extract, Sclerocarya Birrea Seed Oil, Pentylene Glycol, Hydrated Silica, Hydrogenated Vegetable Oil, Persea Gratissima (Avocado) Oil, Disodium Phosphate, Silica Dimethyl Silylate, Sodium Phosphate, Glyceryl Caprylate, Sodium Metabisulfite, Leontopodium Alpinum Flower/Leaf Extract, Tocopherol, Rheum Rhaponticum Root Extract, Oryza Sativa (Rice) Seed Protein, Phytic Acid, Oryza Sativa (Rice) Extract, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Gluconolactone, Glycine Soja (Soybean) Oil, Calcium Gluconate, Sodium Hydroxide, Parfum/Fragrance, Hexamethylindanopyran, Tetramethyl Acetyloctahydronaphthalenes, Hexyl Cinnamal, Citrus Limon (Lemon) Peel Oil, Limonene, Linalool, Citrus Aurantium Bergamia (Bergamot) Peel Oil",
    "description": "This illuminating conditioner imparts strands with multi-dimensional shine and intensely hydrates for hair that is soft, smooth, and beaming with brilliance. Now go dazzle them. Amplifies shine for radiant, glossy locks Locks in hydration without weighing hair down Softens, smoothes and silkens strands while improving combability Nourishes hair and protects it from moisture loss",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "brillance",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/supershine-hydrating-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--mirror-rinse-glass-hair-treatment",
@@ -499,6 +565,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "fins",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -508,11 +575,14 @@
    "ingredients": "Glycerin, Alcohol Denat., Aqua/Water/Eau, Myristyl Alcohol, Ethylhexylglycerin, Parfum/Fragrance, Dipropylene Glycol, Cetrimonium Chloride, Behentrimonium Chloride, Polysilicone-29, Quaternium-95, Caprylic/Capric Triglyceride, Propanediol, Citrullus Lanatus (Watermelon) Seed Oil, Litchi Chinensis Fruit Extract, Leontopodium Alpinum Flower/Leaf Extract, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Citric Acid, Phenoxyethanol, Hexamethylindanopyran, Tetramethyl Acetyloctahydronaphthalenes, Hexyl Cinnamal, Citrus Limon (Lemon) Peel Oil, Limonene, Linalool, Citrus Aurantium Bergamia (Bergamot) Peel Oil",
    "description": "Shine your brightest. This deeply hydrating and illuminating glass hair treatment leaves strands silky soft and ultra-glossy. The weightless, conditioning essence smoothes the cuticle, creating vibrant reflective shine for a mirror-like finish. True brilliance awaits. Immediately delivers luminous, glossy shine Provides weightless hydration and conditioning Smoothes the cuticle, creating an optimal surface for light reflection Intensely softens and detangles Brings lackluster locks back to life",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "anti-frisottis",
     "brillance",
-    "lissant"
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/mirror-rinse-glass-hair-treatment.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--hair-alchemy-fortifying-treatment-serum",
@@ -528,6 +598,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "abimes",
+    "chute",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -545,9 +617,13 @@
    "ingredients": "Aqua/Water/Eau, Pentylene Glycol, Dimethicone, Salvia Hispanica Seed Extract, PPG-3 Benzyl Ether Myristate, Cetyl Alcohol, Dimethiconol Meadowfoamate, Brassica Alcohol, Parfum/Fragrance, Polyquaternium-37, Guar Hydroxypropyltrimonium Chloride, Behentrimonium Chloride, Caprylyl Methicone, Benzyl Alcohol, Brassicyl Valinate Esylate, Glycerin, Panthenol, Chlorphenesin, Sodium Benzoate, Calcium Gluconate, Trehalose, Xylitol, Butylene Glycol, Hydrolyzed Rice Protein, Citric Acid, Polyquaternium-73, Caprylyl/Capryl Glucoside, Isopropyl Alcohol, Oryza Sativa (Rice) Bran Extract, Panthenyl Hydroxypropyl Steardimonium Chloride, Quaternium-95, Tetrasodium Glutamate Diacetate, Ethyl Linoleate, Ceramide NP, Ethyl Oleate, Sorbitan Oleate, Leuconostoc/Radish Root Ferment Filtrate, Sodium PCA, Cinnamidopropyltrimonium Chloride, Arctium Lappa Root Extract, Hedera Helix (Ivy) Extract, Sodium Lactate, Trigonella Foenum-Graecum Seed Extract, Propanediol, Sodium Phosphate, Lactobacillus/Arundinaria Gigantea Leaf Ferment Filtrate, Arginine, Helianthus Annuus (Sunflower) Extract, Aspartic Acid, PCA, Litchi Chinensis Fruit Extract, Citrullus Lanatus (Watermelon) Seed Oil, Phenoxyethanol, Caprylic Acid, Galactoarabinan, Tocopherol, Rosmarinus Officinalis (Rosemary) Leaf Extract, Leontopodium Alpinum Extract, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Glycine, Alanine, Potassium Sorbate, Sodium Acetylated Hyaluronate, Camellia Sinensis Leaf Extract, Sodium Hyaluronate, Serine, Valine, Ethylhexylglycerin, Gossypium Herbaceum (Cotton) Seed Extract, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Sodium Hyaluronate Crosspolymer, Sodium Hydroxide, Isoleucine, Proline, Threonine, Nigella Sativa Seed Extract, Hydrolyzed Sodium Hyaluronate, Histidine, Phenylalanine, Caprylyl Glycol, Disodium EDTA, Potassium Hydroxide, Hexamethylindanopyran, Tetramethyl Acetyloctahydronaphthalenes, Citrus Limon (Lemon) Peel Oil, Limonene, Hexyl Cinnamal, Juniperus Virginiana Oil, Pinene, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Linalyl Acetate, Citral, Linalool, Geranyl Acetate, Rose Ketones, Beta-Caryophyllene",
    "description": "Discover hair’s ultimate strength. This treatment elixir combines our curative blend of chia seed, bio-fermented bamboo leaf and plant-based protein with phytoceramides and cotton seed extract to shield and fortify fragile strands. The sheer, fast-absorbing serum creates a protective veil around each hair fiber to improve tensile strength and elasticity while preventing breakage by strengthening from within to encourage length. Imagine invincible hair. Prevents breakage and hair fall caused by b",
    "claims": [
-    "fortifiant"
+    "reparation",
+    "fortifiant",
+    "anti-chute"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/hair-alchemy-fortifying-treatment-serum.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--hair-alchemy-heatless-styling-balm",
@@ -563,7 +639,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "boucles",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -578,11 +654,15 @@
    "ingredients": "Aqua/Water/Eau, Cicer Arietinum Seed Extract, Coconut Alkanes, Salvia Hispanica Seed Extract, Cetearyl Alcohol, Polyglyceryl-3 Methylglucose Distearate, C15-19 Alkane, Phenoxyethanol, Brassicamidopropyl Dimethylamine, Polyquaternium-37, Parfum/Fragrance, Sclerotium Gum, Behentrimonium Chloride, Citric Acid, Guar Hydroxypropyltrimonium Chloride, Diheptyl Succinate, Caprylyl Glycol, Ethylhexylglycerin, Panthenol, Lentinus Edodes Mycelium Extract, Capryloyl Glycerin/Sebacic Acid Copolymer, Glycerin, Coco-Caprylate/Caprate, Quaternium-95, Hydrolyzed Vegetable Protein, Benzyl Alcohol, Lactobacillus/Tomato Fruit Ferment Extract, Sodium Hydroxide, Yeast Amino Acids, Oryza Sativa (Rice) Extract, Leuconostoc/Radish Root Ferment Filtrate, Propanediol, Tetrasodium Glutamate Diacetate, Lactobacillus/Arundinaria Gigantea Leaf Ferment Filtrate, Lactobacillus Ferment, Camellia Sinensis Leaf Extract, Rosmarinus Officinalis (Rosemary) Extract, Litchi Chinensis Fruit Extract, Citrullus Lanatus (Watermelon) Seed Oil, Acyl Coenzyme A Desaturase, Ilex Paraguariensis Leaf Extract, Galactoarabinan, Xylitol, Trehalose, Leontopodium Alpinum Flower/Leaf Extract, Sodium Benzoate, Sodium Phosphate, Tocopherol, Potassium Sorbate, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Hexyl Cinnamal, Limonene, Linalool",
    "description": "Style au naturel. This lightweight balm, formulated for fine-to-medium strands, defines heatless styles and air-dried waves alike. Our Curative Blend strengthens fragile hair while fermented yerba mate extract adds a healthy, glossy shine. Hair is left fortified, frizz-free, and touchably soft. Creates lasting styles without the need for heat Leaves hair defined and polished with touchably-soft hold Imparts a healthy shine while smoothing frizz and flyaways Strengthens fragile, weak hair to prev",
    "claims": [
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
     "brillance",
-    "lissant",
-    "fortifiant"
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/hair-alchemy-heatless-styling-balm.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--gold-lust-dry-heat-protection-spray",
@@ -599,8 +679,8 @@
    "etape": 3,
    "cheveux_cibles": [
     "secs",
-    "epais",
     "abimes",
+    "chute",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -618,12 +698,16 @@
    "ingredients": "Isobutane, Alcohol Denat., Diisopropyl Adipate, Butane, Ethyl Macadamiate, Parfum/Fragrance, Silicone Quaternium-3, Glycereth-12, Panthenyl Ethyl Ether, Trideceth-12, Aqua/Water/Eau, Quaternium-91, Cetearyl Alcohol, Cetrimonium Chloride, Panthenol, Cetrimonium Methosulfate, Phytantriol, Quaternium-95, Simmondsia Chinensis (Jojoba) Seed Oil, Glycerin, Rosmarinus Officinalis (Rosemary) Leaf Extract, Tribehenin, Propanediol, Argania Spinosa Kernel Oil, Biotin, Caffeine, Citrullus Lanatus (Watermelon) Seed Oil, Niacinamide, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Macadamia Integrifolia Seed Oil, Brassica Campestris/Aleurites Fordi Oil Copolymer, Carthamus Tinctorius (Safflower) Seed Oil, Oryza Sativa (Rice) Bran Extract, Cocos Nucifera (Coconut) Fruit Extract, Hypnea Musciformis Extract, Hydrolyzed Vegetable Protein, Tocopherol, Litchi Chinensis Fruit Extract, Vitis Vinifera (Grape) Seed Extract, Helianthus Annuus (Sunflower) Seed Extract, Gelidiella Acerosa Extract, Malic Acid, Camellia Sinensis Leaf Extract, Sodium Carrageenan, Leontopodium Alpinum Flower/Leaf Extract, Hydrolyzed Rice Protein, Phenoxyethanol, Galactoarabinan, Salvia Hispanica Seed Extract, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Citric Acid, Potassium Sorbate, Sodium Benzoate, Trehalose, Xylitol, Caprylyl Glycol, Sodium Phosphate, Ethylhexylglycerin, Tocopheryl Acetate, Sorbic Acid, Ethyl Linoleate, Ethyl Oleate, Polyquaternium-37, Sorbitan Oleate, Benzyl Alcohol, Caprylic Acid, Caprylyl/Capryl Glucoside, Hexamethylindanopyran, Tetramethyl Acetyloctahydronaphthalenes, Citrus Limon (Lemon) Peel Oil, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Pinene, Linalyl Acetate, Hexyl Cinnamal, Limonene, Linalool, Citral",
    "description": "Protect your hair from hot tools while repairing it to its softest, healthiest prime. This multi-tasking, dry conditioning spray repairs, nourishes and shields damaged strands up to 450°F / 232°C. Hair is instantly silky soft with a frizz-free finish. Provides 450°F / 232°C heat protection Repairs, conditions and nourishes damaged strands Intensely softens and adds silkiness to dry hair Smoothes flyaways and frizz for a polished finish Revitalizes hair to an ultra-healthy, youthful state",
    "claims": [
-    "nourrissant",
-    "reparateur",
-    "lissant",
-    "protection-thermique"
+    "nutrition",
+    "reparation",
+    "anti-frisottis",
+    "brillance",
+    "protection-chaleur",
+    "anti-age"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/gold-lust-dry-heat-protection-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--bright-blonde-radiance-repair-treatment",
@@ -639,6 +723,7 @@
    "categorie": "proteine-reconstruction",
    "etape": 4,
    "cheveux_cibles": [
+    "secs",
     "colores",
     "abimes",
     "cuir-chevelu-sensible"
@@ -658,12 +743,14 @@
    "ingredients": "Aqua/Water/Eau, Cetearyl Alcohol, Glycerin, Isoamyl Laurate, Propanediol, Cocos Nucifera (Coconut) Oil, Squalane, Stearamidopropyl Dimethylamine, Behentrimonium Chloride, Butyrospermum Parkii (Shea) Butter, Brassica Alcohol, Phenoxyethanol, Polyquaternium-6, Cetrimonium Chloride, Parfum/Fragrance, Guar Hydroxypropyltrimonium Chloride, Ethylhexylglycerin, Hydrogenated Castor Oil/Sebacic Acid Copolymer, Brassicyl Valinate Esylate, Cetyl Hydroxyethylcellulose, Panthenol, Sodium Benzoate, Potassium Sorbate, Caprylyl Glycol, Polyquaternium-37, Calcium Gluconate, Sodium Phytate, Dicaprylyl Carbonate, Oryza Sativa (Rice) Bran Extract, Sodium Dilauramidoglutamide Lysine, Sodium PCA, Quaternium-95, Cinnamidopropyltrimonium Chloride, Sodium Lactate, Arginine, Citric Acid, Aspartic Acid, Helianthus Annuus (Sunflower) Extract, PCA, Chamomilla Recutita (Matricaria) Flower Extract, Citrus Limon (Lemon) Fruit Extract, Crocus Sativus Flower Extract, Curcuma Longa (Turmeric) Root Extract, Citrullus Lanatus (Watermelon) Seed Oil, Hydrolyzed Vegetable Protein, Lavandula Angustifolia (Lavender) Flower Extract, Litchi Chinensis Fruit Extract, Zingiber Officinale (Ginger) Root Extract, Butylene Glycol, Hydrolyzed Quinoa, Lauryl Glucoside, Hydrated Silica, Rosmarinus Officinalis (Rosemary) Leaf Extract, Tocopherol, Acrylates/Stearyl Methacrylate Copolymer, Glycine, Alanine, Galactoarabinan, Sorbitan Oleate, Salvia Hispanica Seed Extract, Disodium Phosphate, Serine, Silica Dimethyl Silylate, Trehalose, Xylitol, Leontopodium Alpinum Flower/Leaf Extract, Cynara Scolymus (Artichoke) Leaf Extract, Sodium Phosphate, Valine, Oryza Sativa (Rice) Seed Protein, Camellia Sinensis Leaf Extract, Gluconolactone, Isoleucine, Phytic Acid, Proline, Threonine, Oryza Sativa (Rice) Extract, Histidine, Phenylalanine, Benzyl Alcohol, Pisum Sativum (Pea) Extract, Moringa Oleifera Seed Oil, Olea Europaea (Olive) Fruit Oil, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Litchi Chinensis Pericarp Extract, Sodium Hydroxide, Hexyl Cinnamal, Limonene, Linalool, CI 60730 (Ext. Violet 2), CI 17200 (Red 33)",
    "description": "Stay bright with our restorative silkening treatment specially formulated for blondes. This supercharged concentrate instantly tones with violet pigments to eliminate brassiness and brighten strands. Formulated with a blend of rich oils and lavender extract, hair is left repaired, nourished and ultra-soft. Instantly tones brassiness and brightens strands Increases elasticity and softens dry, brittle hair Treats existing damage and helps prevent future damage Nourishes, hydrates, and adds shine N",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "reparateur",
+    "hydratation",
+    "nutrition",
+    "reparation",
     "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/bright-blonde-radiance-repair-treatment.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--flash-form-finishing-spray-wax",
@@ -679,6 +766,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "fins",
+    "boucles",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -691,10 +780,16 @@
    "ingredients": "Hydrofluorocarbon 152a, Dimethyl Ether, Alcohol Denat., Glycerin, VP/VA Copolymer, PVP, Silicone Quaternium-3, Parfum/Fragrance, Trideceth-12, Quaternium-95, Aqua/Water/Eau, Propanediol, Cera Microcristallina/Microcrystalline Wax/Cire Microcristalline, Panthenol, Hydrolyzed Vegetable Protein, Hydrolyzed Soy Protein, Hydrolyzed Rice Protein, Citrullus Lanatus (Watermelon) Seed Oil, Litchi Chinensis Fruit Extract, Leontopodium Alpinum Flower/Leaf Extract, Phenoxyethanol, Potassium Sorbate, Benzyl Alcohol, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Sodium Benzoate, Citric Acid, Hexamethylindanopyran, Tetramethyl Acetyloctahydronaphthalenes, Citrus Limon (Lemon) Peel Oil, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Pinene, Linalyl Acetate, Hexyl Cinnamal, Limonene, Linalool",
    "description": "Create weightless, buildable texture with control and lasting hold. This ultra-fine wax mist adds style, separation and sheen to short cuts and long lengths. Hydrates and conditions while styling Creates airy, buildable texture and definition Tames fluffy hair Adds light sheen Humidity-resistant Non-greasy",
    "claims": [
-    "hydratant",
-    "definition-boucles"
+    "hydratation",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/flash-form-finishing-spray-wax.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--dry-texturizing-spray",
@@ -721,10 +816,13 @@
    "ingredients": "Hydrofluorocarbon 152a, Dimethyl Ether, SD Alcohol 40-B (Alcohol Denat.), VP/VA Copolymer, Zeolite, Quaternium-95, Aqua/Water/Eau, Glycerin, Acetyl Triethyl Citrate, Propanediol, PEG/PPG-17/18 Dimethicone, Citrullus Lanatus (Watermelon) Seed Oil, Actinidia Chinensis (Kiwi) Fruit Extract, Aloe Barbadensis Leaf Extract, Hedychium Coronarium Root Extract, Mangifera Indica (Mango) Seed Butter, Litchi Chinensis Fruit Extract, Phenoxyethanol, Leontopodium Alpinum Flower/Leaf Extract, Citric Acid, Potassium Sorbate, Sodium Benzoate, Parfum/Fragrance, Hexamethylindanopyran, Tetramethyl Acetyloctahydronaphthalenes, Hexyl Cinnamal, Citrus Limon (Lemon) Peel Oil, Limonene, Linalool, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Pinene, Linalyl Acetate",
    "description": "Instant glamour and unprecedented magnetism in a bottle. The ultimate texturizing spray for tousled texture, incredible volume, and signature style—designed by legendary hair stylist Oribe Canales to put editorial expertise and backstage-speed styling in your hands. It effortlessly amplifies hair with texturizing and volumizing zeolite crystallines, while a nourishing Oribe Signature Complex helps defend and protect hair from damage. Infused with transportive notes of solar Calabrian bergamot, s",
    "claims": [
-    "nourrissant",
-    "volume"
+    "nutrition",
+    "volume",
+    "texturisant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/dry-texturizing-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--curl-control-silkening-creme",
@@ -740,7 +838,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "boucles",
     "cuir-chevelu-sensible"
    ],
@@ -758,12 +856,16 @@
    "ingredients": "Aqua/Water/Eau, Dimethicone, Cetearyl Alcohol, Propanediol, Stearamidopropyl Dimethylamine, Behentrimonium Methosulfate, Phenoxyethanol, Hydroxyethylcellulose, Polyquaternium-37, Palmitamidopropyltrimonium Chloride, Simmondsia Chinensis (Jojoba) Seed Oil, Polyquaternium-73, Parfum/Fragrance, PVP, Propylene Glycol, Citric Acid, Panthenol, Quaternium-95, Argania Spinosa Kernel Oil, Ethylhexylglycerin, Glycerin, Sodium Benzoate, Amodimethicone, Sodium PCA, Sodium Lactate, Citrullus Lanatus (Watermelon) Seed Oil, Litchi Chinensis Fruit Extract, Tocopheryl Acetate, Arginine, C11-15 Alketh-7, Aspartic Acid, PCA, Disodium Phosphate, Leontopodium Alpinum Flower/Leaf Extract, Polysorbate 60, C12-16 Alketh-9, Trideceth-12, Hydrolyzed Vegetable Protein, Glycine, Alanine, Cocos Nucifera (Coconut) Oil, Persea Gratissima (Avocado) Oil, Prunus Armeniaca (Apricot) Kernel Oil, Tocopherol, Serine, Sodium Phosphate, Valine, Isoleucine, Proline, Threonine, Histidine, Phenylalanine, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Hexamethylindanopyran, Tetramethyl Acetyloctahydronaphthalenes, Hexyl Cinnamal, Citrus Limon (Lemon) Peel Oil, Limonene, Linalool, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Pinene, Linalyl Acetate, Citral",
    "description": "Offering the perfect balance of hold and moisture, this silk-light crème glides through hair to style and nourish with ultra-hydrating avocado, apricot and coconut oils. Curls and waves are given instant, touchable definition, with all-day frizz-control and support. For those who want to hydrate and control their curls. Curl Types: 2-3. Satin finish Defines and shapes curls, balancing hold and moisture Locks in hydration for ultra-soft curls with touchable definition Protects, strengthens and fi",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
     "definition-boucles",
-    "fortifiant"
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/curl-control-silkening-creme.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--gold-lust-dry-shampoo",
@@ -776,10 +878,12 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0738/6084/1787/files/400100-0_37666575-4a85-40a1-a72e-2fe1f0604c3c.jpg?width=600",
    "image_local": "public/scan/products-cheveux/oribe/gold-lust-dry-shampoo.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
+    "gras",
     "abimes",
+    "chute",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -793,12 +897,17 @@
    "ingredients": "Hydrofluorocarbon 152a, Butane, Alcohol Denat., Aluminum Starch Octenylsuccinate, Isobutane, Aqua/Water/Eau, Parfum/Fragrance, Isopropyl Myristate, Crambe Abyssinica Seed Oil, Quaternium-95, Neopentyl Glycol Diheptanoate, Niacinamide, Stearalkonium Hectorite, Isododecane, Caffeine, Citrullus Lanatus (Watermelon) Seed Oil, Propylene Carbonate, Propanediol, Oryza Sativa (Rice) Hull Powder, Glycerin, Butylene Glycol, Polyquaternium-59, Backhousia Citriodora Leaf Extract, Helianthus Annuus (Sunflower) Seed Extract, Chamomilla Recutita (Matricaria) Flower Extract, Commiphora Myrrha Resin Extract, Lavandula Angustifolia (Lavender) Flower Extract, Biotin, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Phenoxyethanol, Hydrolyzed Vegetable Protein, Litchi Chinensis Fruit Extract, Leontopodium Alpinum Flower/Leaf Extract, Citric Acid, Potassium Sorbate, Sodium Benzoate, Hexyl Cinnamal, Limonene, Linalool, Citral, Citrus Limon (Lemon) Peel Oil, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Hexamethylindanopyran, Tetramethyl Acetyloctahydronaphthalenes",
    "description": "Instantly clean. Extend your blowout and prevent damage with our transformative dry shampoo. Absorbs product buildup, oil, and impurities with translucent powders while soothing scalp and restoring strength and softness. Fragrance-retention technology means our signature scent stays with you all day. Translucent powders instantly absorb dirt and oil from hair and scalp Hair is soft, smooth and touchable Does not add texture, grip or weight Nourishes and fortifies dry, damaged hair Maintains hair",
    "claims": [
-    "nourrissant",
-    "lissant",
-    "apaisant",
-    "fortifiant"
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "texturisant",
+    "apaisant-cuir-chevelu",
+    "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/gold-lust-dry-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--impermeable-anti-humidity-spray",
@@ -814,7 +923,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "fins",
     "boucles",
     "cuir-chevelu-sensible"
    ],
@@ -825,8 +934,15 @@
    ],
    "ingredients": "Hydrofluorocarbon 152a, SD Alcohol 40-B (Alcohol Denat.), Butane, Acrylates/Octylacrylamide Copolymer, Isobutane, Isostearyl Alcohol, Neopentyl Glycol Diheptanoate, Isododecane, Aqua/Water/Eau, Quaternium-95, Propanediol, Benzoic Acid, Citrullus Lanatus (Watermelon) Seed Oil, Panthenol, Tocopheryl Acetate, Glycerin, Litchi Chinensis Fruit Extract, Leontopodium Alpinum Extract, Phenoxyethanol, Citric Acid, Potassium Sorbate, Sodium Benzoate, Parfum/Fragrance, Hexamethylindanopyran, Tetramethyl Acetyloctahydronaphthalenes, Hexyl Cinnamal, Citrus Limon (Lemon) Peel Oil, Limonene, Linalool, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Pinene, Linalyl Acetate",
    "description": "This anti-humidity finishing spray shields hair from frizz on the sultriest of days (and nights), protecting sleek blowouts and perfect curls alike. Miami-tested. Miami-tested anti-humidity shield Finishes styles with light hold Adds weightless texture",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant",
+    "fixation"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/impermeable-anti-humidity-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--conditioner-for-magnificent-volume",
@@ -854,10 +970,12 @@
    "ingredients": "Aqua/Water/Eau, Cetearyl Alcohol, Cetyl Alcohol, Stearyl Alcohol, Behentrimonium Chloride, Isododecane, Phenoxyethanol, Parfum/Fragrance, Stearamine Oxide, Guar Hydroxypropyltrimonium Chloride, C11-13 Isoalkane, Glycerin, Amodimethicone, Isohexadecane, Dimethiconol, Cetrimonium Chloride, Methoxy PEG/PPG-7/3 Aminopropyl Dimethicone, Hydroxyethylcellulose, Isopropyl Alcohol, Dimethicone, Panthenol, Tetrasodium EDTA, Caprylyl Glycol, Propylene Glycol, Quaternium-80, Hydrogenated Ethylhexyl Olivate, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, BHT, Cyperus Esculentus Root Oil, Polysilicone-15, Butylene Glycol, Hydrogenated Olive Oil Unsaponifiables, Citrullus Lanatus (Watermelon) Seed Oil, Serenoa Serrulata Fruit Extract, Moringa Oleifera Seed Oil, Cystine Bis-PG-Propyl Silanetriol, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Hydrolyzed Vegetable Protein, Citric Acid, Hydrolyzed Lupine Protein, Disodium Phosphate, Polysorbate 60, Leontopodium Alpinum Flower/Leaf Extract, Potassium Sorbate, Ethylhexylglycerin, Sodium Benzoate, Disodium EDTA, Litchi Chinensis Pericarp Extract, Sodium Phosphate, Moringa Oleifera Seed Extract, Tocopheryl Acetate, Limonene, Hexyl Cinnamal",
    "description": "Because everyone needs a little largesse. Body-building polymers wash in truly uplifting volume and thickness, while rare botanical extracts leave hair full, lush, strong and easy to love. Gel crème formula delivers feather-light conditioning Fortifies and strengthens",
    "claims": [
-    "volume",
-    "fortifiant"
+    "fortifiant",
+    "volume"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/conditioner-for-magnificent-volume.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "oribe--signature-free-styler-working-hair-spray",
@@ -883,8 +1001,12 @@
    ],
    "ingredients": "Hydrofluorocarbon 152a, SD Alcohol 40-B (Alcohol Denat.), Dimethyl Ether, Aqua/Water/Eau, Polyurethane-14, Parfum/Fragrance, AMP-Acrylates Copolymer, PVP, Glycerin, Quaternium-95, Acetyl Triethyl Citrate, Aleurites Moluccanus Seed Oil, Propanediol, Aminomethyl Propanol, Panthenol, Tocopheryl Acetate, Panax Ginseng Root Extract, Hydrogenated Cottonseed Oil, Tocopherol, Ascorbyl Palmitate, Citrullus Lanatus (Watermelon) Seed Oil, Litchi Chinensis Fruit Extract, Leontopodium Alpinum Flower/Leaf Extract, Phenoxyethanol, Citric Acid, Hexyl Cinnamal, Limonene, Linalool",
    "description": "The stylist's tool of choice, this ultra-fine, ultra-dry mist can be layered, styled, and reworked to perfection. Spray over finished looks for light, brushable hold with a touchable, satin finish. Can be layered for stronger hold Ultra-dry, satin finish Brushable working hairspray Provides light hold with workable control",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "fixation"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/signature-free-styler-working-hair-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--gold-lust-transformative-masque",
@@ -900,6 +1022,8 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
+    "chute",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -917,10 +1041,14 @@
    "ingredients": "Aqua/Water/Eau, Cetearyl Alcohol, Behentrimonium Chloride, Cetyl Alcohol, Dimethicone, Stearamidopropyl Dimethylamine, Cetyl Esters, Amodimethicone, Glycerin, Propanediol, Phenoxyethanol, Hydrogenated Ethylhexyl Olivate, Caprylyl Glycol, Isopropyl Alcohol, Guar Hydroxypropyltrimonium Chloride, Stearyl Alcohol, Butyrospermum Parkii (Shea) Butter, Ethylhexylglycerin, Parfum/Fragrance, Cetrimonium Chloride, Polysorbate 60, Benzyl Alcohol, Panthenol, Hydrogenated Olive Oil Unsaponifiables, Potassium Sorbate, Chlorphenesin, Sodium Benzoate, Disodium EDTA, C11-15 Alketh-7, Laureth-9, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, BHT, Trideceth-12, Trideceth-15, Trideceth-3, Polysilicone-15, Jojoba Esters, Quaternium-95, Hexylene Glycol, Citric Acid, Acetic Acid, Adansonia Digitata Seed Oil, Argania Spinosa Kernel Oil, Caffeine, Citrullus Lanatus (Watermelon) Seed Oil, Moringa Oleifera Seed Oil, Butylene Glycol, Vegetable Amino Acids, Camellia Sinensis Leaf Extract, Chondrus Crispus Extract, Citrus Limon (Lemon) Fruit Extract, Jasminum Officinale (Jasmine) Flower Extract, Ribes Nigrum (Black Currant) Fruit Extract, Cystine Bis-PG-Propyl Silanetriol, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Hydrolyzed Vegetable Protein, Niacinamide, Santalum Album (Sandalwood) Extract, Alcohol, Leontopodium Alpinum Flower/Leaf Extract, Tocopherol, Cupressus Sempervirens Seed Extract, Oryza Sativa (Rice) Seed Protein, Phytic Acid, Oryza Sativa (Rice) Extract, Gluconolactone, Biotin, Litchi Chinensis Pericarp Extract, Moringa Oleifera Seed Extract, Disodium Phosphate, Tocopheryl Acetate, Calcium Gluconate, Hexamethylindanopyran, Tetramethyl Acetyloctahydronaphthalenes, Citrus Limon (Lemon) Peel Oil, Limonene, Hexyl Cinnamal, Juniperus Virginiana Oil, Pinene, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Linalyl Acetate",
    "description": "This truly modern remedy penetrates to rebuild each fiber with curative white tea, baobab, jasmine and our bio-restorative complex, improving elasticity and fortifying hair to rediscover its softness, body and inner brilliance. Restore overworked hair to its prime with each dose. Provides intense nourishment and conditioning Rebuilds and fortifies each fiber Strengthens the cuticle and fills in weak spots Improves elasticity for ageless hair Restores overworked hair to a youthful state Adds soft",
    "claims": [
-    "nourrissant",
-    "fortifiant"
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-age"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/gold-lust-transformative-masque.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--hair-alchemy-resilience-conditioner",
@@ -936,6 +1064,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "abimes",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -953,11 +1082,14 @@
    "ingredients": "Aqua/Water/Eau, Cetyl Alcohol, Behentrimonium Chloride, Glycerin, Parfum/Fragrance, Amodimethicone, Cetyl Esters, Cocos Nucifera (Coconut) Oil, Brassica Alcohol, Phenoxyethanol, Isopropyl Alcohol, Polyquaternium-67, Guar Hydroxypropyltrimonium Chloride, Silicone Quaternium-3, Chlorphenesin, Brassicyl Valinate Esylate, Polyquaternium-37, Sodium Benzoate, Dimethiconol Meadowfoamate, Trideceth-12, Panthenol, Butylene Glycol, Hydrolyzed Rice Protein, Oryza Sativa (Rice) Bran Extract, Lactic Acid, Salvia Hispanica Seed Extract, Tetrasodium Glutamate Diacetate, Calcium Gluconate, Polyquaternium-73, Panthenyl Hydroxypropyl Steardimonium Chloride, Cetrimonium Chloride, Dimethicone, Quaternium-95, Cinnamidopropyltrimonium Chloride, Arctium Lappa Root Extract, Hedera Helix (Ivy) Extract, Trigonella Foenum-Graecum Seed Extract, Helianthus Annuus (Sunflower) Extract, Polysilicone-15, Sodium PCA, Sodium Acetate, Propanediol, Sodium Lactate, Lactobacillus/Arundinaria Gigantea Leaf Ferment Filtrate, Litchi Chinensis Fruit Extract, Citrullus Lanatus (Watermelon) Seed Oil, Arginine, Tocopherol, Rosmarinus Officinalis (Rosemary) Leaf Extract, Galactoarabinan, Aspartic Acid, PCA, Trehalose, Xylitol, Leontopodium Alpinum Extract, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Leuconostoc/Radish Root Ferment Filtrate, Potassium Sorbate, Camellia Sinensis Leaf Extract, Sodium Hydroxide, Glycine, Sodium Phosphate, Alanine, Pentylene Glycol, Serine, Valine, Isoleucine, Proline, Threonine, Eclipta Prostrata Extract, Lonicera Japonica (Honeysuckle) Flower Extract, Citric Acid, Sodium Acetylated Hyaluronate, Caprylyl Glycol, Sodium Hyaluronate, Histidine, Phenylalanine, Ethylhexylglycerin, Disodium EDTA, Sodium Hyaluronate Crosspolymer, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Hydrolyzed Sodium Hyaluronate, Polyurethane-39, Hexamethylindanopyran, Tetramethyl Acetyloctahydronaphthalenes, Citrus Limon (Lemon) Peel Oil, Limonene, Hexyl Cinnamal, Juniperus Virginiana Oil, Pinene, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Linalyl Acetate",
    "description": "Give hair a dose of strength, softness and vitality with this indulgently conditioning hair therapy. Our curative blend of chia seed, bio-fermented bamboo leaf and plant-based protein create a protective shield around strands to improve hair’s structural integrity and prevent breakage. A multi-action hyaluronic acid complex rehydrates from within to deliver a surge of moisture and increase elasticity. The result: smooth, strong, ultra-resilient hair. Reinforces and strengthens hair from the insi",
    "claims": [
-    "hydratant",
-    "lissant",
-    "fortifiant"
+    "hydratation",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/hair-alchemy-resilience-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--serene-scalp-oil-control-treatment-mist",
@@ -974,6 +1106,7 @@
    "etape": 4,
    "cheveux_cibles": [
     "gras",
+    "fins",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -991,9 +1124,14 @@
    "ingredients": "Aqua/Water/Eau, Propanediol, Glycerin, Shea Butter Glycereth-8 Esters, Polyglyceryl-4 Caprate, Polyglyceryl-6 Caprylate, Phenoxyethanol, Potassium Sorbate, Panthenol, Caprylyl Glycol, Chlorphenesin, Polyglyceryl-6 Laurate, Neopentyl Glycol Diheptanoate, Xanthan Gum, Lauryl Glucoside, Myristyl Glucoside, Sodium Phytate, C15-19 Alkane, Epilobium Fleischeri Extract, Quaternium-95, Sarcosine, Cinnamidopropyltrimonium Chloride, Oryza Sativa (Rice) Bran Extract, Alpha-Glucan Oligosaccharide, Mannitol, Dipropylene Glycol, Calendula Officinalis Flower Extract, Mentha Piperita (Peppermint) Oil, Zingiber Officinale (Ginger) Root Extract, Hydrolyzed Quinoa, Galactoarabinan, Helianthus Annuus (Sunflower) Seed Extract, Citrullus Lanatus (Watermelon) Seed Oil, Hydrolyzed Vegetable Protein, Litchi Chinensis Fruit Extract, Salvia Hispanica Seed Extract, Tetraselmis Suecica Extract, Trehalose, Xylitol, Sodium Benzoate, Citric Acid, Camellia Sinensis Leaf Extract, Rosmarinus Officinalis (Rosemary) Extract, Tocopherol, Leontopodium Alpinum Extract, Lactic Acid, Oryza Sativa (Rice) Seed Protein, Epilobium Angustifolium Flower/Leaf/Stem Extract, Sodium Phosphate, Phytic Acid, Oryza Sativa (Rice) Extract, Gluconolactone, Benzyl Alcohol, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Sodium Metabisulfite, Calcium Gluconate, Sodium Hydroxide",
    "description": "Prolong the pause between washes with this scalp-mattifying mist. Green marine algae and a sugar-derived prebiotic control sebum to balance and support a healthy scalp microbiome while protecting against environmental pollutants. Serenity achieved. Mattifies scalp to control and reduce sebum Prolongs styles and extends time between washing Balances and supports a healthy scalp microbiome Detoxifies and protects against environmental pollutants Sheer, lightweight formula won’t weigh hair down Fra",
    "claims": [
-    "purifiant"
+    "nutrition",
+    "purifiant",
+    "anti-gras",
+    "anti-pollution"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/serene-scalp-oil-control-treatment-mist.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--imperial-blowout-transformative-styling-creme",
@@ -1009,6 +1147,10 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
+    "fins",
+    "abimes",
+    "chute",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -1026,14 +1168,19 @@
    "ingredients": "Aqua/Water/Eau, Caprylyl Methicone, Cetyl Alcohol, Glyceryl Stearate SE, Silica, Glycerin, Glyceryl Stearate, PEG-100 Stearate, Ceresin, Phenoxyethanol, Caprylyl Glycol, Parfum/Fragrance, Xanthan Gum, Silicone Quaternium-3, Quaternium-95, Ethylhexylglycerin, Hexylene Glycol, Tocopheryl Acetate, Ethylhexyl Methoxycinnamate, Trideceth-12, Sodium PCA, Aloe Barbadensis Leaf Juice, Propanediol, Adansonia Digitata Seed Oil, Argania Spinosa Kernel Oil, Biotin, Caffeine, Citrullus Lanatus (Watermelon) Seed Oil, Citrus Aurantium Bergamia (Bergamot) Fruit Oil, Litchi Chinensis Fruit Extract, Niacinamide, Passiflora Edulis Seed Oil, Ribes Nigrum (Black Currant) Seed Oil, Santalum Album (Sandalwood) Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Butyrospermum Parkii (Shea) Butter, Macadamia Integrifolia Seed Oil, Butylene Glycol, Leontopodium Alpinum Flower/Leaf Extract, Camellia Sinensis Leaf Extract, Citrullus Lanatus (Watermelon) Fruit Extract, Chondrus Crispus Extract, Cupressus Sempervirens Cone Extract, Jasminum Officinale (Jasmine) Extract, Citric Acid, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, BHT, Chlorphenesin, Glycine, Benzoic Acid, Sorbic Acid, Serine, Glutamic Acid, Aspartic Acid, Leucine, Chenopodium Quinoa Seed Extract, Daucus Carota Sativa (Carrot) Root Extract, Glycine Max (Soybean) Seed Extract, Oryza Sativa (Rice) Extract, Panax Ginseng Root Extract, Tocopherol, Alanine, Lysine, Arginine, Tyrosine, Phenylalanine, Proline, Threonine, Valine, Isoleucine, Histidine, Tetramethyl Acetyloctahydronaphthalenes, Hexamethylindanopyran, Citrus Limon (Lemon) Peel Oil, Citrus Aurantium Peel Oil, Pinene, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Linalyl Acetate, Rose Ketones, Limonene, Hexyl Cinnamal, Citral, Linalool",
    "description": "Our transformative blowout crème, formulated with skincare technology, creates a full, flawless, iconic Oribe blowout that lasts for days while styling in strength, density, softness and shine. This ultra-nourishing formula smoothes away signs of damage and aging for hair that looks and feels healthier and younger after just one use. Softens while adding density and body Provides heat protection and helps prevent breakage Evolves through three phases: cream to oil, which moisturizes, followed by",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "brillance",
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
     "volume",
-    "lissant",
-    "protection-thermique"
+    "densifiant",
+    "brillance",
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/imperial-blowout-transformative-styling-creme.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--bright-blonde-essential-priming-serum",
@@ -1068,13 +1215,16 @@
    "ingredients": "Aqua/Water/Eau, Pentylene Glycol, Polyquaternium-37, Dicaprylyl Carbonate, Glycerin, Dipropylene Glycol, Polyglyceryl-6 Stearate, Hydrogenated Ethylhexyl Olivate, Parfum/Fragrance, Polysilicone-29, Polyquaternium-16, Dimethicone, Hydroxypropyl Guar Hydroxypropyltrimonium Chloride, Chlorphenesin, Sodium Benzoate, Citrus Limon (Lemon) Peel Extract, Synthetic Fluorphlogopite, Disodium EDTA, Lauryl Glucoside, Hydrolyzed Hyaluronic Acid, Polyglyceryl-6 Behenate, Salvia Hispanica Seed Extract, Sorbitan Oleate, Chamomilla Recutita (Matricaria) Flower Extract, Trehalose, Caprylyl/Capryl Glucoside, Xylitol, Butylene Glycol, Zingiber Officinale (Ginger) Root Extract, Citric Acid, Quaternium-95, Phenoxyethanol, Ethyl Linoleate, Glycolic Acid, Ethyl Oleate, Lactic Acid, Hydrolyzed Verbascum Thapsus Flower, Hydrogenated Olive Oil Unsaponifiables, Leuconostoc/Radish Root Ferment Filtrate, Sodium Hyaluronate, Propanediol, Sodium Phosphate, Benzyl Alcohol, Citrullus Lanatus (Watermelon) Seed Oil, Oryza Sativa (Rice) Bran Extract, Potassium Sorbate, Litchi Chinensis Fruit Extract, Caprylic Acid, Tocopherol, Pentaerythrityl Tetra-Di-T-Butyl Hydroxyhydrocinnamate, Lavandula Angustifolia (Lavender) Flower Extract, Opuntia Tuna Fruit Extract, Viola Odorata Flower Extract, Alcohol, Helianthus Annuus (Sunflower) Extract, Leontopodium Alpinum Extract, Tin Oxide, BHT, Rosmarinus Officinalis (Rosemary) Leaf Extract, Aminomethyl Propanol, Hexyl Cinnamal, Limonene, Linalool, CI 77891 (Titanium Dioxide), CI 60730 (Ext. Violet 2)",
    "description": "An essential first step when caring for blonde hair. Specially formulated with violet and pearlized pigments, our brightening serum tones and eliminates brassiness while replenishing moisture and protecting up to 450°F. Hair is left restored, touchably soft and lit from within. Brightens, tones and eliminates brassiness Provides 450°F heat protection Helps to repair and strengthen over-processed, brittle hair Replenishes lost moisture to hydrate and restore softness to dry hair Smoothes the cuti",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "lissant",
-    "protection-thermique",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/bright-blonde-essential-priming-serum.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--curl-gelee-for-shine-definition",
@@ -1090,7 +1240,9 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "boucles",
+    "abimes",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -1103,13 +1255,19 @@
    "ingredients": "Aqua/Water/Eau, Glycerin, Polysorbate 20, Phenoxyethanol, PVP, Carbomer, Parfum/Fragrance, Aminomethyl Propanol, Xanthan Gum, Maltodextrin/VP Copolymer, Ethylhexylglycerin, Panthenol, Tocopheryl Acetate, Benzophenone-4, Astrocaryum Murumuru Seed Butter, Mangifera Indica (Mango) Seed Butter, Melia Azadirachta Seed Oil, Persea Gratissima (Avocado) Butter, Prunus Armeniaca (Apricot) Kernel Oil, Theobroma Cacao (Cocoa) Seed Butter, Macadamia Integrifolia Seed Oil, Tocopherol, Butylene Glycol, Litchi Chinensis Pericarp Extract, Citrullus Lanatus (Watermelon) Fruit Extract, Leontopodium Alpinum Flower/Leaf Extract, Hexamethylindanopyran, Tetramethyl Acetyloctahydronaphthalenes, Citrus Limon (Lemon) Peel Oil, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Pinene, Linalyl Acetate, Hexyl Cinnamal, Limonene, Linalool, Citral",
    "description": "This silky, hydrating curl jelly defines, shapes and styles, making coils more manageable. Macadamia, neem and apricot oils moisturize and detangle strands. The result: ultra-shiny, smooth, defined curls. For those who want to hydrate and define their curls and coils. Curl Types: 3-4. Highly conditioning formula provides slip and detangling while styling Smoothes and defines curls without the crunch Nourishes and softens hair to help prevent breakage Silicone-free Provides medium hold with a hig",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "anti-frisottis",
+    "definition-boucles",
     "brillance",
-    "lissant",
-    "definition-boucles"
+    "demelant",
+    "fixation",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/curl-gelee-for-shine-definition.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--gold-lust-nourishing-hair-oil",
@@ -1125,6 +1283,8 @@
    "categorie": "huile",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
+    "colores",
     "abimes",
     "cuir-chevelu-sensible"
    ],
@@ -1137,12 +1297,15 @@
    "ingredients": "Isododecane, Coconut Alkanes, Dimethicone, Caprylic/Capric Triglyceride, Crambe Abyssinica Seed Oil, Coco-Caprylate/Caprate, Limnanthes Alba (Meadowfoam) Seed Oil, Butyrospermum Parkii (Shea) Butter, Argania Spinosa Kernel Oil, Tocopherol, Parfum/Fragrance, Orbignya Speciosa Kernel Oil, Polysilicone-15, Astrocaryum Murumuru Seed Butter, Citrus Limon (Lemon) Peel Oil, Santalum Album (Sandalwood) Wood Extract, Olea Europaea (Olive) Fruit Oil, Citrullus Lanatus (Watermelon) Seed Oil, Ribes Nigrum (Black Currant) Seed Oil, Jasminum Officinale (Jasmine) Oil, Leontopodium Alpinum Flower/Leaf Extract, Litchi Chinensis Fruit Extract, Tocopheryl Acetate, Hexyl Cinnamal, Limonene, Linalool, Citral, Hexamethylindanopyran, Tetramethyl Acetyloctahydronaphthalenes, Citrus Aurantium Bergamia (Bergamot) Peel Oil",
    "description": "This luxuriously light oil absorbs instantly to restore hair to its prime. Infused with a rich blend of jasmine, edelweiss flower, lychee, sandalwood, cassis and argan extracts, each protective drop penetrates the hair to deeply condition, strengthen and smooth – imparting intense nourishment and incredible shine. Works wonders on dry, damaged and color-treated hair…Liquid gold. Luxurious lightweight oil Penetrates the hair shaft to restore, strengthen and condition damaged locks Provides heat p",
    "claims": [
-    "nourrissant",
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
     "brillance",
-    "lissant",
-    "fortifiant"
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/gold-lust-nourishing-hair-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--signature-shampoo",
@@ -1158,6 +1321,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "fins",
     "abimes",
     "cuir-chevelu-sensible"
    ],
@@ -1173,9 +1337,12 @@
    "ingredients": "Aqua/Water/Eau, Sodium Lauroyl Methyl Isethionate, Sodium Cocoyl Isethionate, Sodium Lauroyl Sarcosinate, Capryloyl/Caproyl Methyl Glucamide, Cocamide MIPA, Lauroyl/Myristoyl Methyl Glucamide, Acrylates Crosspolymer-4, Polyglyceryl-3 Laurate, Polysorbate 20, Sorbeth-230 Tetraoleate, Sodium Lauroamphoacetate, Pentylene Glycol, Propanediol, Parfum/Fragrance, Hydroxyacetophenone, Sodium Benzoate, Caprylyl Glycol, Decyl Glucoside, Trisodium Ethylenediamine Disuccinate, Ethylhexylglycerin, Panthenol, Disodium EDTA, Sorbitan Laurate, Polyquaternium-7, Glycerin, BHT, Butylene Glycol, Coconut Oil Glycereth-8 Esters, Rice Oil Glycereth-8 Esters, Citrullus Lanatus (Watermelon) Seed Oil, Prunus Amygdalus Dulcis (Sweet Almond) Protein, Helianthus Annuus (Sunflower) Seed Extract, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Hydrolyzed Jojoba Protein, Hydrolyzed Rice Protein, Phenoxyethanol, Leontopodium Alpinum Flower/Leaf Extract, Oryza Sativa (Rice) Seed Protein, Hydrolyzed Vegetable Protein, Kaempferia Galanga Root Extract, Phytic Acid, Oryza Sativa (Rice) Extract, Quaternium-95, Cinnamidopropyltrimonium Chloride, Potassium Sorbate, Gluconolactone, Litchi Chinensis Pericarp Extract, Moringa Oleifera Seed Extract, Citric Acid, Disodium Phosphate, Potassium Benzoate, Tetrasodium EDTA, Calcium Gluconate, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Sodium Hydroxide, Tetramethyl Acetyloctahydronaphthalenes, Hexamethylindanopyran, Citrus Limon (Lemon) Peel Oil, Citrus Aurantium Peel Oil, Pinene, Limonene, Hexyl Cinnamal",
    "description": "Every morning should start with a little indulgence, such as this rich daily cleanser, custom-blended from the most exclusive ingredients to silken, detangle and protect. Prepare your hair for glamour. Weightless Rich, daily cleanser Repairs and protects",
    "claims": [
-    "reparateur"
+    "reparation",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/signature-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--conditioner-for-beautiful-color",
@@ -1191,6 +1358,8 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
+    "colores",
     "abimes",
     "cuir-chevelu-sensible"
    ],
@@ -1205,12 +1374,16 @@
    "ingredients": "Aqua/Water/Eau, Cetearyl Alcohol, Cetyl Alcohol, Isododecane, Stearyl Alcohol, Stearamidopropyl Dimethylamine, Dimethicone, Caprylyl Glycol, Phenoxyethanol, Behentrimonium Methosulfate, Glycerin, C11-13 Isoalkane, Parfum/Fragrance, Cetyl Esters, Cetrimonium Chloride, Dimethiconol, Isohexadecane, Chlorphenesin, Hydroxyethylcellulose, Dipropylene Glycol, Polysilicone-19, Benzophenone-4, Sorbic Acid, Panthenol, Phytantriol, Disodium EDTA, Octyldodecanol, Cinnamidopropyltrimonium Chloride, Prunus Amygdalus Dulcis (Sweet Almond) Protein, Butylene Glycol, Hydrogenated Coco-Glycerides, Citric Acid, Hydrolyzed Jojoba Protein, Helianthus Annuus (Sunflower) Seed Extract, Hydrolyzed Rice Protein, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Pentylene Glycol, Hydrolyzed Vegetable Protein, Phospholipids, Kaempferia Galanga Root Extract, Disodium Phosphate, Polysorbate 60, Leontopodium Alpinum Flower/Leaf Extract, Citrullus Lanatus (Watermelon) Fruit Extract, Potassium Sorbate, Sodium Benzoate, Leuconostoc/Radish Root Ferment Filtrate, Sodium Phosphate, Tocopheryl Acetate, Citrulline, Litchi Chinensis Pericarp Extract, Moringa Oleifera Seed Extract, Ascorbyl Palmitate, Ethylhexylglycerin, Retinyl Palmitate, Hexamethylindanopyran, Tetramethyl Acetyloctahydronaphthalenes, Citrus Limon (Lemon) Peel Oil, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Hexyl Cinnamal, Limonene, Linalool",
    "description": "This rich, restorative conditioner extends the life of your dye while soothing over-processed, color-treated hair (you know who you are). Enhanced environmental protection keeps color-sapping UV rays at bay. Offers intense moisture and repair Fortifies over-processed and chemically-treated hair Restorative moisturizers target damaged areas first Preserves color and enhances vibrancy Protects hair against color fading caused by UV damage and environmental pollutants",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "apaisant",
-    "fortifiant"
+    "hydratation",
+    "reparation",
+    "fortifiant",
+    "apaisant-cuir-chevelu",
+    "protection-couleur",
+    "anti-pollution"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/conditioner-for-beautiful-color.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--balm-dor-heat-styling-shield",
@@ -1226,8 +1399,10 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
+    "fins",
     "boucles",
+    "chute",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -1245,12 +1420,18 @@
    "ingredients": "Aqua/Water/Eau, Polyquaternium-37, Caprylic/Capric Triglyceride, Steareth-20, Phenyl Trimethicone, Parfum/Fragrance, Phenoxyethanol, Dimethicone, Glyceryl Stearate, Bis-Cetearyl Amodimethicone, Polyquaternium-46, Myristyl Myristate, Panthenol, Polyquaternium-11, Chlorphenesin, Ethylhexylglycerin, Quaternium-95, Sodium Phytate, Dimethiconol, Propanediol, Ceteareth-25, Ceteareth-7, Sodium PCA, Sodium Lactate, Glycerin, Caprylyl Glycol, Arginine, Citric Acid, Aspartic Acid, Butyrospermum Parkii (Shea) Butter, Citrullus Lanatus (Watermelon) Seed Oil, Helianthus Annuus (Sunflower) Seed Oil, PCA, Polysorbate 20, Phenylpropanol, Glycine, Glycolic Acid, Alanine, Camellia Sinensis Leaf Extract, Litchi Chinensis Fruit Extract, Serine, Valine, Caffeine, Isoleucine, Proline, Threonine, Leontopodium Alpinum Flower/Leaf Extract, Chondrus Crispus Extract, Histidine, Phenylalanine, Acacia Seyal Gum Extract, Ascorbic Acid, Tocopheryl Acetate, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Tocopherol, Potassium Sorbate, Adansonia Digitata Seed Extract, Cupressus Sempervirens Seed Extract, Jasminum Officinale (Jasmine) Flower/Leaf Extract, Ribes Nigrum (Black Currant) Fruit Extract, Citrus Limon (Lemon) Peel Extract, Argania Spinosa Kernel Extract, Santalum Album (Sandalwood) Extract, Biotin, Niacinamide, Hexyl Cinnamal, Limonene, Linalool, Citral",
    "description": "Shield your hair from thermal damage. This superlight styler with heat-activated polymer technology and cassis and sandalwood extracts protects and nourishes fragile strands, sealing in sleekness and radiant shine while you blow-dry, straighten or curl. Shields fragile strands from heat damage Leaves hair looking ultra-sleek and shiny Fights frizz, flyaways and wiry greys Makes hair easier to style and manage Age-defying formula restores hair's strength and density Provides 450°F heat protection",
    "claims": [
-    "nourrissant",
-    "brillance",
+    "nutrition",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
     "volume",
-    "protection-thermique"
+    "densifiant",
+    "brillance",
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/balm-dor-heat-styling-shield.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--hair-alchemy-resilience-shampoo",
@@ -1266,6 +1447,8 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "abimes",
+    "chute",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -1283,10 +1466,14 @@
    "ingredients": "Aqua/Water/Eau, Sodium Cocoyl Isethionate, Sodium Lauroyl Methyl Isethionate, Caprylyl/Capryl Glucoside, Sodium C14-16 Olefin Sulfonate, Sodium Cocoyl Glycinate, Parfum/Fragrance, Disodium Cocoamphodipropionate, Lauramidopropyl Betaine, Acrylates Crosspolymer-4, Coconut Acid, Sorbeth-230 Tetraoleate, Citric Acid, Phenoxyethanol, Polyquaternium-73, Hydroxyacetophenone, Sodium Isethionate, Linoleamidopropyl PG-Dimonium Chloride Phosphate, Silicone Quaternium-22, Chlorphenesin, Sodium Methyl Isethionate, Sodium Cocoyl Glutamate, Glycol Stearate, Polyquaternium-67, Decyl Glucoside, Lauric Acid, Propylene Glycol, Potassium Hydroxide, Panthenol, Sodium Sulfate, Dipropylene Glycol, Polyglyceryl-3 Caprate, Tetrasodium Glutamate Diacetate, Glyceryl Caprylate, Polyglyceryl-6 Oleate, Sorbitan Laurate, Oryza Sativa (Rice) Bran Extract, Glycerin, Glycol Distearate, Salvia Hispanica Seed Extract, Sodium Laurate, Cocamidopropyl Betaine, Quaternium-95, Cinnamidopropyltrimonium Chloride, Sodium Benzoate, Sodium Surfactin, Helianthus Annuus (Sunflower) Extract, Sodium PCA, Propanediol, Sodium Lactate, Lactobacillus/Arundinaria Gigantea Leaf Ferment Filtrate, Litchi Chinensis Fruit Extract , Palmitamidopropyltrimonium Chloride, Sodium Hydroxide, Arginine, Butylene Glycol, Hydrolyzed Rice Protein, Galactoarabinan, Tocopheryl Acetate, Aspartic Acid, Rosmarinus Officinalis (Rosemary) Leaf Extract, Tocopherol, Sodium Acetate, PCA, Trehalose, Xylitol, Leontopodium Alpinum Extract, Panthenyl Hydroxypropyl Steardimonium Chloride, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Camellia Sinensis Leaf Extract, Leuconostoc/Radish Root Ferment Filtrate, Arctium Lappa Root Extract, Hedera Helix (Ivy) Extract, Trigonella Foenum-Graecum Seed Extract, Glycine, Sodium Phosphate, Alanine, Citrullus Lanatus (Watermelon) Seed Oil, Dimethiconol Meadowfoamate, Isopropyl Alcohol, Pentylene Glycol, Serine, Valine, Isoleucine, Proline, Threonine, Potassium Sorbate, Eclipta Prostrata Extract, Lonicera Japonica (Honeysuckle) Flower Extract, Sodium Acetylated Hyaluronate, Caprylyl Glycol, Sodium Hyaluronate, Histidine, Phenylalanine, Ethylhexylglycerin, Disodium EDTA, Sodium Hyaluronate Crosspolymer",
    "description": "Strengthen fragile, weak hair with this protective and ultra-nourishing cleanser. Our curative blend of chia seed, bio-fermented bamboo leaf and plant-based protein penetrates the hair cortex to build strength from within while forming a scaffold around each hair fiber to reinforce strands. A floral blend of daisy and honeysuckle extracts helps to lengthen locks by strengthening hair from the root and fortifying brittle ends. Reveal hair’s supernatural strength. Prevents breakage and hair fall c",
    "claims": [
-    "nourrissant",
-    "fortifiant"
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-chute"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/hair-alchemy-resilience-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--airbrush-root-touchup-spray",
@@ -1313,7 +1500,10 @@
    "ingredients": "Isobutane, Hydrofluorocarbon 152a, Alcohol Denat., Dimethylimidazolidinone Rice Starch, Parfum/Fragrance, Butane, Aluminum Starch Octenylsuccinate, Isopropyl Palmitate, Isopropyl Myristate, Quaternium-95, Aqua/Water/Eau, Neopentyl Glycol Diheptanoate, Acrylates Copolymer, Isododecane, Magnesium Carbonate, Propanediol, VP/VA Copolymer, Cetrimonium Chloride, Glycerin, Citrullus Lanatus (Watermelon) Seed Oil, Panthenol, Zeolite, Litchi Chinensis Fruit Extract, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Leontopodium Alpinum Flower/Leaf Extract, Citric Acid, Phenoxyethanol, Hexyl Cinnamal, Limonene, Linalool, CI 77019 (Mica), CI 77163 (Bismuth Oxychloride), CI 77492 (Iron Oxides), CI 77499 (Iron Oxides), CI 77491 (Iron Oxides)",
    "description": "Instantly cover greys and roots or revive highlights between appointments. Microfine pigments blend seamlessly with your natural shade when—and where—you need it. The quick-drying powder formula also absorbs dirt and oil to refresh hair. Quick drying powder formula applies easily and absorbs dirt and oil to refresh hair Pigments blend seamlessly with your shade for natural looking coverage Instantly covers greys and roots",
    "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/airbrush-root-touchup-spray.webp",
+   "image_fond": true,
+   "ciblage_source": "fiche"
   },
   {
    "id": "oribe--shampoo-for-beautiful-color",
@@ -1329,6 +1519,8 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
+    "colores",
     "abimes",
     "cuir-chevelu-sensible"
    ],
@@ -1345,11 +1537,14 @@
    "ingredients": "Aqua/Water/Eau, Sodium Lauroyl Methyl Isethionate, Lauryl Glucoside, Disodium Cocoamphodipropionate, Sodium Cocoyl Isethionate, Propanediol, Sodium Lauroyl Sarcosinate, Parfum/Fragrance, Acrylates/Beheneth-25 Methacrylate Copolymer, Glycol Distearate, Pentylene Glycol, Amodimethicone, Dimethicone, Guar Hydroxypropyltrimonium Chloride, Coconut Acid, Hydroxyacetophenone, Caprylyl Glycol, Sodium Isethionate, Chlorphenesin, Panthenol, Polyquaternium-7, Trisodium Ethylenediamine Disuccinate, C11-15 Alketh-7, Laureth-9, Glycerin, Ethylhexylglycerin, Sodium Phytate, Sodium Benzoate, Trideceth-12, Simmondsia Chinensis (Jojoba) Seed Oil, Oryza Sativa (Rice) Bran Extract, Phenoxyethanol, Quaternium-95, Acetic Acid, Rosmarinus Officinalis (Rosemary) Leaf Extract, Helianthus Annuus (Sunflower) Extract, Citrullus Lanatus (Watermelon) Seed Oil, Rice Oil Glycereth-8 Esters, Hydrolyzed Adansonia Digitata Seed Extract, Stearic Acid, Tocopherol, Leontopodium Alpinum Flower/Leaf Extract, Litchi Chinensis Fruit Extract, Hydrolyzed Vegetable Protein, Kaempferia Galanga Root Extract, Cinnamidopropyltrimonium Chloride, Ethylhexyl Methoxycinnamate, Oryza Sativa (Rice) Seed Protein, Phytic Acid, Benzyl Alcohol, Oryza Sativa (Rice) Extract, Citric Acid, Gluconolactone, Potassium Sorbate, Ethylhexyl Salicylate, Butyl Methoxydibenzoylmethane, Moringa Oleifera Seed Extract, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Disodium Phosphate, Calcium Gluconate, Sodium Hydroxide, Decyl Glucoside, Sorbeth-230 Tetraoleate, Sorbitan Laurate, Hexamethylindanopyran, Tetramethyl Acetyloctahydronaphthalenes, Hexyl Cinnamal, Citrus Limon (Lemon) Peel Oil, Limonene, Linalool, Citrus Aurantium Bergamia (Bergamot) Peel Oil",
    "description": "An ultra-gentle cleanser for ultra-beautiful color. Extend the bright, happy life of your dye with high-tech ingredients that target damaged areas for intense moisture treatment and protect your hue from the elements. Preserves color Protects against the color-depleting effects of environmental pollutants and the sun Gentle cleanser Fortifies over-processed and chemically-treated hair",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "fortifiant",
     "protection-couleur",
-    "fortifiant"
+    "anti-pollution"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/shampoo-for-beautiful-color.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--serene-scalp-soothing-leave-on-treatment",
@@ -1383,11 +1578,14 @@
    "ingredients": "Aqua/Water/Eau, SD Alcohol 40-B (Alcohol Denat.), Carbomer, Propylheptyl Caprylate, Butylene Glycol, Aminomethyl Propanol, Epilobium Angustifolium Flower/Leaf/Stem Extract, Saccharum Officinarum (Sugarcane) Extract, Mentha Piperita (Peppermint) Oil, Mentha Piperita (Peppermint) Leaf Extract, Vaccinium Myrtillus Fruit Extract, Aloe Barbadensis Leaf Juice, Leontopodium Alpinum Extract, Citrullus Lanatus (Watermelon) Fruit Extract, Litchi Chinensis Fruit Extract, Biotin, Niacinamide, Panthenol, Tocopheryl Acetate, Menthyl Lactate, Citrus Aurantium Dulcis (Orange) Fruit Extract, Citrus Limon (Lemon) Fruit Extract, Hydrolyzed Verbascum Thapsus Flower, Acer Saccharum (Sugar Maple) Extract, Cucumis Sativus (Cucumber) Fruit Extract, Chamomilla Recutita (Matricaria) Flower Extract, Rosmarinus Officinalis (Rosemary) Leaf Extract, Pisum Sativum (Pea) Sprout Extract, Polysilicone-15, Polysorbate 20, Glycerin, Allantoin, Salicylic Acid, Ascorbic Acid, Disodium EDTA, Tetrasodium EDTA, Citric Acid, Ethylhexylglycerin, Phenoxyethanol, Sodium Benzoate, Potassium Benzoate, Potassium Sorbate",
    "description": "Instant relief. This lightweight and fast-absorbing, leave-on treatment removes loose dandruff flakes while cooling mint and calming chamomile soothe and balance the scalp. Soothes and calms the scalp Removes loose dandruff flakes Maintains healthy moisture balance of scalp and hair Creates an optimal environment for healthy hair Fast-absorbing Fragrance-free",
    "claims": [
-    "hydratant",
-    "apaisant",
-    "anti-pellicules"
+    "hydratation",
+    "antipelliculaire",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/serene-scalp-soothing-leave-on-treatment.webp",
+   "image_fond": true,
+   "ciblage_source": "fiche"
   },
   {
    "id": "oribe--signature-moisture-masque",
@@ -1403,6 +1601,7 @@
    "categorie": "masque",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "epais",
     "cuir-chevelu-sensible"
    ],
@@ -1421,10 +1620,12 @@
    "ingredients": "Aqua/Water/Eau, Cetearyl Alcohol, Dimethicone, Cetyl Alcohol, Stearyl Alcohol, PPG-3 Benzyl Ether Myristate, Hydrogenated Coco-Glycerides, Cetyl Esters, Isododecane, Isohexadecane, Glycerin, Quaternium-91, Behentrimonium Methosulfate, Phenoxyethanol, Stearalkonium Chloride, Helianthus Annuus (Sunflower) Seed Oil, Parfum/Fragrance, Cetrimonium Methosulfate, Panthenol, Hydroxyethylcellulose, Cetrimonium Chloride, Chlorphenesin, Dimethiconol, Sorbic Acid, Alcohol, Caprylyl Glycol, Trisodium EDTA, Butylene Glycol, Macadamia Ternifolia Seed Oil, Octyldodecanol, Cinnamidopropyltrimonium Chloride, Trisiloxane, Dimethyl Stearamine, Irvingia Gabonensis Kernel Butter, Helianthus Annuus (Sunflower) Seed Extract, Citric Acid, Hydrolyzed Jojoba Protein, Hydrolyzed Rice Protein, Styrax Benzoin Resin Extract, Wheat Amino Acids, Cystine Bis-PG-Propyl Silanetriol, Lecithin, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Disodium Phosphate, Polysorbate 60, Hydrolyzed Vegetable Protein, Kaempferia Galanga Root Extract, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Leontopodium Alpinum Flower/Leaf Extract, Potassium Sorbate, Tocopherol, Sodium Benzoate, Potassium Benzoate, Arachidyl Propionate, Ascorbyl Palmitate, PPG-26-Buteth-26, Retinyl Palmitate, Sodium Phosphate, PEG-40 Hydrogenated Castor Oil, Ethyl Linolenate, Disodium EDTA, Ethylhexylglycerin, Litchi Chinensis Pericarp Extract, Moringa Oleifera Seed Extract, Tetrasodium EDTA, Ethyl Linoleate, Ethyl Oleate, Apigenin, Tocopheryl Acetate, Citrullus Lanatus (Watermelon) Fruit Extract, Oleanolic Acid, Biotinoyl Tripeptide-1, Citrulline, Sodium Hydroxide, Tetramethyl Acetyloctahydronaphthalenes, Hexamethylindanopyran, Citrus Limon (Lemon) Peel Oil, Citrus Aurantium Peel Oil, Pinene, Limonene, Hexyl Cinnamal",
    "description": "A super-rich indulgence—for you and your hair. This crème de la crème deep-hydrating masque transforms even the driest, most over-it hair, leaving it supremely soft and irresistibly touchable. Thick hair may splurge daily; others will love as a weekly soak. Leaves hair soft, smooth and irresistibly touchable Super-rich, deep hydrating masque",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "anti-frisottis"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/signature-moisture-masque.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--supershine-moisturizing-cream",
@@ -1440,6 +1641,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "epais",
     "abimes",
     "cuir-chevelu-sensible"
@@ -1456,11 +1658,16 @@
    "ingredients": "Aqua/Water/Eau, Dimethicone, C15-19 Alkane, Acrylamide/Sodium Acryloyldimethyltaurate Copolymer, Propanediol, Phenyl Trimethicone, Dimethiconol, Isohexadecane, Oleth-10, Brassica Campestris/Aleurites Fordi Oil Copolymer, Glycerin, Polysorbate 80, Chlorphenesin, Vaccinium Macrocarpon (Cranberry) Seed Oil, Panthenol, Sorbic Acid, Sodium Phytate, Sorbitan Oleate, Quaternium-95, Hydrolyzed Vegetable Protein, Oryza Sativa (Rice) Bran Extract, Vaccinium Macrocarpon (Cranberry) Fruit Extract, Helianthus Annuus (Sunflower) Extract, Oryza Sativa (Rice) Seed Protein, Citrullus Lanatus (Watermelon) Seed Oil, Litchi Chinensis Fruit Extract, Phytic Acid, Maltodextrin, Oryza Sativa (Rice) Extract, Galactoarabinan, Tocopherol, Gluconolactone, Rosmarinus Officinalis (Rosemary) Leaf Extract, Salvia Hispanica Seed Extract, Sodium Benzoate, Trehalose, Xylitol, Leontopodium Alpinum Flower/Leaf Extract, Pentylene Glycol, Camellia Sinensis Leaf Extract, Sodium Phosphate, Glyceryl Caprylate, Phenoxyethanol, Caesalpinia Spinosa Fruit Extract, Citric Acid, Caprylyl Glycol, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Helianthus Annuus (Sunflower) Sprout Extract, Calcium Gluconate, Parfum/Fragrance, Hexamethylindanopyran, Benzyl Benzoate, Citrus Limon (Lemon) Peel Oil, Limonene, Tetramethyl Acetyloctahydronaphthalenes, Linalool, Hexyl Cinnamal, Linalyl Acetate, Citrus Aurantium Peel Oil, Pinene, Citral, Rose Ketones",
    "description": "A luxe reinvention of leave-in conditioner, this supreme cream satisfies the thirstiest hair, calming frizz, elevating shine and restoring hair to supernatural softness. Especially designed for medium-to-thick hair. Provides conditioning with heat protection Sleekens split ends and tames frizz High-gloss, leave-in conditioner that evens out moisture level in hair 450°F / 232°C heat protection",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "reparation",
+    "anti-frisottis",
+    "apaisant-cuir-chevelu",
     "brillance",
-    "protection-thermique"
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/supershine-moisturizing-cream.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--bright-blonde-conditioner-for-beautiful-color",
@@ -1476,7 +1683,9 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
     "colores",
+    "abimes",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -1493,11 +1702,16 @@
    "ingredients": "Aqua/Water/Eau, Cetearyl Alcohol, Behentrimonium Chloride, Cetyl Alcohol, Amodimethicone, Hydrogenated Ethylhexyl Olivate, Parfum/Fragrance, Cetyl Esters, Isododecane, Propanediol, Phenoxyethanol, Isopropyl Alcohol, Stearamine Oxide, Guar Hydroxypropyltrimonium Chloride, Polysorbate 60, Hydrogenated Olive Oil Unsaponifiables, Hydroxyethylcellulose, Butyrospermum Parkii (Shea) Butter, Chlorphenesin, Panthenol, Glycerin, Disodium EDTA, Caprylyl Glycol, Laureth-9, C11-15 Alketh-7, Cetrimonium Chloride, Trideceth-15, Trideceth-3, Simmondsia Chinensis (Jojoba) Seed Oil, Trideceth-12, Polysilicone-15, Jojoba Esters, Quaternium-95, Acetic Acid, Citric Acid, Rosmarinus Officinalis (Rosemary) Leaf Extract, Adansonia Digitata Seed Oil, Citrullus Lanatus (Watermelon) Seed Oil, Moringa Oleifera Seed Oil, Prunus Domestica Seed Oil, Chamomilla Recutita (Matricaria) Flower Extract, Citrus Limon (Lemon) Fruit Extract, Lavandula Angustifolia (Lavender) Flower Extract, Litchi Chinensis Fruit Extract, Zingiber Officinale (Ginger) Root Extract, Cystine Bis-PG-Propyl Silanetriol, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Hydrolyzed Vegetable Protein, Disodium Phosphate, Leontopodium Alpinum Flower/Leaf Extract, Oryza Sativa (Rice) Seed Protein, Sodium Benzoate, Lecithin, Phytic Acid, Potassium Sorbate, Oryza Sativa (Rice) Extract, Sodium Phosphate, Ethylhexylglycerin, Gluconolactone, Moringa Oleifera Seed Extract, Hydrolyzed Linseed Extract, Pisum Sativum (Pea) Extract, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Tocopherol, Lepidium Sativum Sprout Extract, Tocopheryl Acetate, Calcium Gluconate, Sodium Hydroxide, Hexyl Cinnamal, Limonene, Linalool, CI 60730 (Ext. Violet 2)",
    "description": "Restore brightness and shine to blonde hair. This deeply nourishing violet conditioner corrects brassiness and yellow tones while imparting strength, softness and sheen for hair that is truly enlightened. Moisturizes and restores elasticity Easily detangles to help prevent breakage Visibly brightens and eliminates brassiness Can be used daily to brighten and tone blonde hair",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "brillance"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "brillance",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/bright-blonde-conditioner-for-beautiful-color.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--swept-up-volume-powder-spray",
@@ -1525,9 +1739,13 @@
    "ingredients": "Aqua/Water/Eau, Silica Silylate, Silica Dimethicone Silylate, Polysorbate 20, Aloe Barbadensis Leaf Extract, Sodium Benzoate, VP/VA Copolymer, Citric Acid, Parfum/Fragrance, Glycerin, Chlorphenesin, Litchi Chinensis Fruit Extract, Leontopodium Alpinum Flower/Leaf Extract, Citrullus Lanatus (Watermelon) Fruit Extract, Panax Ginseng Root Extract, Serenoa Serrulata Fruit Extract, Tapioca Starch, Xylitol, Phenoxyethanol, Potassium Sorbate, Hydrolyzed Adansonia Digitata Seed Extract, Hydrolyzed Quinoa, Benzyl Alcohol, Caprylyl Glycol, Butylene Glycol, Hexylene Glycol, Tetramethyl Acetyloctahydronaphthalenes, Hexamethylindanopyran, Citrus Limon (Lemon) Peel Oil, Pinene, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Citrus Aurantium Peel Oil, Limonene, Hexyl Cinnamal",
    "description": "Reach new heights. Our texturizing root-lift powder instantly adds buildable grip and style. The zero-mess sprayer creates amplified updos and dramatic volume. Adds weightless volume and lift from the roots Innovative package makes a traditionally messy loose powder easy to use Semi-matte finish Instantly adds grip and texture for styling and control",
    "claims": [
-    "volume"
+    "volume",
+    "texturisant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/swept-up-volume-powder-spray.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--gold-lust-repair-restore-shampoo",
@@ -1543,7 +1761,9 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
     "abimes",
+    "chute",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -1561,10 +1781,16 @@
    "ingredients": "Aqua/Water/Eau, Sodium Cocoyl Isethionate, Sodium Lauroyl Methyl Isethionate, Cocamide MIPA, Sodium Lauroyl Sarcosinate, Capryloyl/Caproyl Methyl Glucamide, Dimethicone, Lauroyl/Myristoyl Methyl Glucamide, Acrylates Crosspolymer-4, Glycerin, Sodium Lauroyl Lactylate, Sodium Lauroamphoacetate, Amodimethicone, Pentylene Glycol, Propanediol, Parfum/Fragrance, Hydroxyacetophenone, Caprylyl Glycol, Guar Hydroxypropyltrimonium Chloride, Sodium Benzoate, Trisodium Ethylenediamine Disuccinate, Ethylhexylglycerin, Polyquaternium-7, Disodium EDTA, Laureth-23, Laureth-4, Panthenol, BHT, Rice Oil Glycereth-8 Esters, Shea Butter Glycereth-8 Esters, Cetrimonium Chloride, Trideceth-15, Trideceth-3, Synthetic Fluorphlogopite, Silicone Quaternium-22, Phenoxyethanol, Hexylene Glycol, Salicylic Acid, Quaternium-95, Fumaric Acid, Caffeine, Citrullus Lanatus (Watermelon) Seed Oil, Dipropylene Glycol, Polyglyceryl-3 Caprate, Butylene Glycol, Cocamidopropyl Betaine, Vegetable Amino Acids, Chondrus Crispus Extract, Citrus Limon (Lemon) Fruit Extract, Jasminum Officinale (Jasmine) Flower Extract, Ribes Nigrum (Black Currant) Fruit Extract, Cystine Bis-PG-Propyl Silanetriol, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Hydrolyzed Vegetable Protein, Niacinamide, Palmitamidopropyltrimonium Chloride, Propylene Glycol, Santalum Album (Sandalwood) Extract, Citric Acid, Alcohol, Leontopodium Alpinum Flower/Leaf Extract, Tin Oxide, Potassium Sorbate, Cupressus Sempervirens Seed Extract, Oryza Sativa (Rice) Seed Protein, Camellia Sinensis Leaf Extract, Phytic Acid, Oryza Sativa (Rice) Extract, Gluconolactone, Adansonia Digitata Seed Oil, Argania Spinosa Kernel Oil, Biotin, Butyrospermum Parkii (Shea) Butter, Litchi Chinensis Pericarp Extract, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Calcium Gluconate, Decyl Glucoside, Sodium Hydroxide, Sorbeth-230 Tetraoleate, Sorbitan Laurate, Hexamethylindanopyran, Tetramethyl Acetyloctahydronaphthalenes, Citrus Limon (Lemon) Peel Oil, Juniperus Virginiana Oil, Pinene, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Limonene, Hexyl Cinnamal, CI 77891 (Titanium Dioxide)",
    "description": "Reawaken your hair to its glossiest, healthiest prime. This rejuvenating cleanser combines centuries-old healing oils and extracts—cypress and argan—with our revolutionary bio-restorative complex to balance the scalp and reinforce the inner strength of each strand. Reinforces the inner strength of each strand Rejuvenates hair so it appears more youthful and healthy Gently cleanses hair Restores moisture Protects hair from damage",
    "claims": [
-    "hydratant",
-    "reparateur"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "brillance",
+    "anti-age"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/gold-lust-repair-restore-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--thick-dry-finishing-spray",
@@ -1591,10 +1817,14 @@
    "ingredients": "Hydrofluorocarbon 152a, SD Alcohol 40-B (Alcohol Denat.), Butane, Acrylates/Octylacrylamide Copolymer, Isobutane, Parfum/Fragrance, Tapioca Starch, Neopentyl Glycol Diheptanoate, Boron Nitride, Aqua/Water/Eau, Isododecane, Quaternium-95, Propanediol, Panthenol, Citrullus Lanatus (Watermelon) Seed Oil, Tocopheryl Acetate, Benzoic Acid, Zeolite, Glycerin, Litchi Chinensis Fruit Extract, Leontopodium Alpinum Flower/Leaf Extract, Phenoxyethanol, Citric Acid, Hexyl Cinnamal, Limonene, Linalool",
    "description": "Plump up the volume with this high-density finishing spray that inflates hair for extra thickness and lushness. Oribe’s secret for hair that is big, beautiful, beyond luxurious. Lightweight moisturizers prevent hair from looking dry and dull Creates voluptuous, bombshell hair Adds density and dry hold without stickiness Extends the life of your blowout Thickens the hair shaft from roots to ends",
    "claims": [
-    "hydratant",
-    "volume"
+    "hydratation",
+    "volume",
+    "densifiant",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/thick-dry-finishing-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--superfine-strong-hair-spray",
@@ -1620,9 +1850,12 @@
    "ingredients": "SD Alcohol 40-B (Alcohol Denat.), Hydrofluorocarbon 152a, Aqua/Water/Eau, Octylacrylamide/Acrylates/Butylaminoethyl Methacrylate Copolymer, Aminomethyl Propanol, Parfum/Fragrance, Glycerin, Quaternium-95, Panthenol, Propanediol, Citrullus Lanatus (Watermelon) Seed Oil, Hydrolyzed Vegetable Protein, Benzoic Acid, Litchi Chinensis Fruit Extract, Leontopodium Alpinum Flower/Leaf Extract, Sodium Benzoate, Phenoxyethanol, Citric Acid, Hexyl Cinnamal, Limonene, Linalool",
    "description": "Superfine’s super strong sibling takes hair spray to the next level, locking in must-hold styles with lustrous, natural shine. Sheer, strong hold, high-performance finishing spray Lightly scented hair perfume Super fine spray pattern for ease of application",
    "claims": [
-    "brillance"
+    "brillance",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/superfine-strong-hair-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--gold-lust-repair-restore-conditioner",
@@ -1638,8 +1871,10 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "epais",
+    "secs",
+    "fins",
     "abimes",
+    "chute",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -1657,11 +1892,16 @@
    "ingredients": "Aqua/Water/Eau, Cetearyl Alcohol, Behentrimonium Chloride, Dimethicone, Cetyl Alcohol, Stearamidopropyl Dimethylamine, Amodimethicone, Hydrogenated Ethylhexyl Olivate, Cetyl Esters, Propanediol, Isopropyl Alcohol, Phenoxyethanol, Caprylyl Glycol, Polysorbate 60, Guar Hydroxypropyltrimonium Chloride, Ethylhexylglycerin, Butyrospermum Parkii (Shea) Butter, Parfum/Fragrance, Hydrogenated Olive Oil Unsaponifiables, Benzyl Alcohol, Hydroxyethylcellulose, Dimethiconol, Potassium Sorbate, Chlorphenesin, Sodium Benzoate, Panthenol, Glycerin, Disodium EDTA, C11-15 Alketh-7, Laureth-9, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, BHT, Cetrimonium Chloride, Trideceth-12, Trideceth-15, Trideceth-3, Polysilicone-15, Jojoba Esters, Quaternium-95, Hexylene Glycol, Acetic Acid, Citric Acid, Adansonia Digitata Seed Oil, Argania Spinosa Kernel Oil, Caffeine, Citrullus Lanatus (Watermelon) Seed Oil, Moringa Oleifera Seed Oil, Butylene Glycol, Vegetable Amino Acids, Camellia Sinensis Leaf Extract, Chondrus Crispus Extract, Citrus Limon (Lemon) Fruit Extract, Jasminum Officinale (Jasmine) Flower Extract, Ribes Nigrum (Black Currant) Fruit Extract, Cystine Bis-PG-Propyl Silanetriol, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Hydrolyzed Vegetable Protein, Niacinamide, Santalum Album (Sandalwood) Wood Extract, Disodium Phosphate, Alcohol, Leontopodium Alpinum Flower/Leaf Extract, Cupressus Sempervirens Seed Extract, Oryza Sativa (Rice) Seed Protein, Phytic Acid, Oryza Sativa (Rice) Extract, Sodium Phosphate, Gluconolactone, Biotin, Litchi Chinensis Pericarp Extract, Moringa Oleifera Seed Extract, Tocopherol, Tocopheryl Acetate, Calcium Gluconate, Sodium Hydroxide, Hexamethylindanopyran, Tetramethyl Acetyloctahydronaphthalenes, Citrus Limon (Lemon) Peel Oil, Limonene, Hexyl Cinnamal, Juniperus Virginiana Oil, Pinene, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Linalyl Acetate",
    "description": "Discover the fountain of youth for soft, shiny, ageless hair. Blending time-honored oils and extracts – cypress and argan – with our revolutionary bio-restorative complex, this ultra-hydrating conditioner softens and revitalizes, smoothing each cuticle to undo the damage of time (and style). Helps reduce split ends Smoothes each cuticle for ultra-soft hair Moisturizes and restores hair to a youthful state without weighing it down Protects against future damage Reverses damage by sealing in moist",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "anti-frisottis",
+    "brillance",
+    "anti-age"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/gold-lust-repair-restore-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--superfine-hair-spray",
@@ -1688,9 +1928,13 @@
    "ingredients": "SD Alcohol 40-B (Alcohol Denat.), Hydrofluorocarbon 152a, Octylacrylamide/Acrylates/Butylaminoethyl Methacrylate Copolymer, Aqua/Water/Eau, Ethoxydiglycol, Aminomethyl Propanol, Glycerin, PVP, Quaternium-95, Acetyl Triethyl Citrate, Octyldodecyl Ricinoleate, Propanediol, Panthenol, Citrullus Lanatus (Watermelon) Seed Oil, Hydrolyzed Vegetable Protein, Benzoic Acid, Sodium Benzoate, Litchi Chinensis Fruit Extract, Leontopodium Alpinum Flower/Leaf Extract, Phenoxyethanol, Citric Acid, Parfum/Fragrance, Hexamethylindanopyran, Tetramethyl Acetyloctahydronaphthalenes, Hexyl Cinnamal, Citrus Limon (Lemon) Peel Oil, Limonene, Linalool, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Pinene, Linalyl Acetate",
    "description": "A sheer, modern hairspray with medium hold. Oribe designed Superfine to bring new technology to old-style glamour, resulting in flexible, shiny-soft control. The exclusive ultra-dry finish won't dampen or dull smooth styles. Sheer high-performance finishing spray Lightly scented hair perfume Super fine spray pattern for ease of application",
    "claims": [
-    "lissant"
+    "anti-frisottis",
+    "brillance",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/superfine-hair-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--maximista-thickening-spray",
@@ -1717,9 +1961,12 @@
    "description": "Bigger is better. This thermal-protective body-builder helps you expand to your absolute fullest with enduring lift and hold. Creates lasting lift with medium hold Provides heat protection Builds exaggerated volume and thickness",
    "claims": [
     "volume",
-    "protection-thermique"
+    "protection-chaleur",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/maximista-thickening-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--bright-blonde-shampoo-for-beautiful-color",
@@ -1748,7 +1995,9 @@
    "ingredients": "Aqua/Water/Eau, Sodium Lauroyl Methyl Isethionate, Sodium Cocoyl Isethionate, Cocamide MIPA, Sodium Lauroyl Sarcosinate, Glycerin, Capryloyl/Caproyl Methyl Glucamide, Lauroyl/Myristoyl Methyl Glucamide, Dimethicone, Acrylates/Beheneth-25 Methacrylate Copolymer, Polyglyceryl-3 Laurate, Glycol Distearate, Pentylene Glycol, Propylene Glycol, Amodimethicone, Parfum/Fragrance, Sodium Lauroamphoacetate, Coconut Acid, Palmitamidopropyltrimonium Chloride, Sodium Isethionate, Divinyldimethicone/Dimethicone Copolymer, Guar Hydroxypropyltrimonium Chloride, Hydroxyacetophenone, Sodium Benzoate, Benzoic Acid, Trisodium Ethylenediamine Disuccinate, Disodium EDTA, Panthenol, Polyquaternium-7, Cetrimonium Chloride, Trideceth-12, Laureth-23, Laureth-4, Rice Oil Glycereth-8 Esters, Sunflower Seed Oil Glycereth-8 Esters, Quaternium-95, Sorbitol, Silicone Quaternium-22, Citric Acid, C12-13 Alketh-23, C12-13 Alketh-3, Salicylic Acid, Propanediol, Citrullus Lanatus (Watermelon) Seed Oil, Dipropylene Glycol, Polyglyceryl-3 Caprate, Stearic Acid, Cocamidopropyl Betaine, Phenoxyethanol, Chamomilla Recutita (Matricaria) Flower Extract, Citrus Limon (Lemon) Fruit Extract, Lavandula Angustifolia (Lavender) Flower Extract, Litchi Chinensis Fruit Extract, Zingiber Officinale (Ginger) Root Extract, Cystine Bis-PG-Propyl Silanetriol, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Oryza Sativa (Rice) Seed Protein, Hydrolyzed Vegetable Protein, Phytic Acid, Leontopodium Alpinum Flower/Leaf Extract, Oryza Sativa (Rice) Extract, Gluconolactone, Potassium Sorbate, Ethylhexylglycerin, Moringa Oleifera Seed Extract, Hydrolyzed Linseed Extract, Pisum Sativum (Pea) Extract, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Disodium Phosphate, Lecithin, Calcium Gluconate, Lepidium Sativum Sprout Extract, Hexyl Cinnamal, Limonene, Linalool, CI 60730 (Ext. Violet 2)",
    "description": "Immediately illuminate blonde and silver hair. This revitalizing violet shampoo corrects brassiness and yellow tones while brightening natural highlights for hair that is healthier, shinier, lit from within. Gently cleanses Visibly brightens and eliminates brassiness Can be used daily to brighten and tone blonde hair",
    "claims": [],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/bright-blonde-shampoo-for-beautiful-color.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "oribe--apres-beach-wave-and-shine-spray",
@@ -1776,11 +2025,16 @@
    "ingredients": "Hydrofluorocarbon 152a, Butane, SD Alcohol 40-B (Alcohol Denat.), Isohexadecane, Propanediol, VP/VA Copolymer, Isobutane, Parfum/Fragrance, Glycerin, Quaternium-95, Vaccinium Macrocarpon (Cranberry) Fruit Extract, Vaccinium Macrocarpon (Cranberry) Seed Oil, Panthenol, Aqua/Water/Eau, Carthamus Tinctorius (Safflower) Seed Oil, Pentylene Glycol, Hydrolyzed Vegetable Protein, Calendula Officinalis Flower Extract, Citrullus Lanatus (Watermelon) Seed Oil, Glyceryl Caprylate, Litchi Chinensis Fruit Extract, Leontopodium Alpinum Flower/Leaf Extract, Sodium Benzoate, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Citric Acid, Phenoxyethanol, Hexyl Cinnamal, Limonene, Linalool",
    "description": "Attention island-hoppers and champagne-poppers: Get beach-to-bombshell hair—tousled, touchable waves with sun-kissed shine—without the salty stiffness. Our moisturizing glamour spray uses rich extracts and exotic oils for lush repair and sultry texture. Year-round, beach-inspired waves without salty stiffness Adds moisture and shine Specially designed nozzle sprays into the hair to create wavy, piecey texture Light hold",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "brillance"
+    "hydratation",
+    "reparation",
+    "definition-boucles",
+    "texturisant",
+    "brillance",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/apres-beach-wave-and-shine-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--the-cleanse-clarifying-shampoo",
@@ -1796,6 +2050,7 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
+    "gras",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -1808,9 +2063,12 @@
    "ingredients": "Aqua/Water/Eau, Sodium Cocoyl Isethionate, Laureth-5 Carboxylic Acid, Isopentane, Volcanic Ash, Sodium Lauroyl Lactylate, Lauryl Glucoside, Amodimethicone, Glycereth-26, Parfum/Fragrance, Coconut Acid, Acrylates Copolymer, Glycol Distearate, Phenoxyethanol, Sodium Isethionate, Isobutane, Polyquaternium-10, Xanthan Gum, Potassium Sorbate, Silicone Quaternium-3, Sodium Hydroxide, Trideceth-12, Disodium EDTA, Polyquaternium-59, Glycerin, Sodium Acetate , Sodium Chloride, Butylene Glycol, Panthenol, Isopropyl Alcohol, Sodium PCA, Sodium Lactate, Arginine, Aspartic Acid, PCA, Camellia Sinensis Leaf Extract, Citrullus Lanatus (Watermelon) Fruit Extract, Eucalyptus Globulus Leaf Extract, Litchi Chinensis Fruit Extract, Carica Papaya (Papaya) Fruit Extract, Macrocystis Pyrifera (Kelp) Extract, Leontopodium Alpinum Flower/Leaf Extract, Glycine, Alanine, Serine, Valine, Isoleucine, Proline, Threonine, Styrax Benzoin Resin Extract, Histidine, Phenylalanine, Citric Acid, Sodium Benzoate, Chlorphenesin, Benzoic Acid, Sorbic Acid, Limonene, Hexyl Cinnamal",
    "description": "Go deep, purifying hair and scalp without stripping their essence. Volcanic ash powers this detoxifying mousse, which polishes away dirt, oil, and product buildup. Hair is restored, with a new inner glow. New approach to clarifying that uses skincare exfoliants Preps hair for treatments and processing Clarifies by polishing away dirt, oil and product buildup Removes mineral buildup from hard water and chlorine Aerosol mousse transforms into a creamy lather to deeply cleanse without stripping",
    "claims": [
-    "purifiant"
+    "purifiant",
+    "brillance"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/the-cleanse-clarifying-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--supershine-light-moisturizing-cream",
@@ -1826,7 +2084,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "abimes",
     "cuir-chevelu-sensible"
    ],
@@ -1842,11 +2100,16 @@
    "ingredients": "Aqua/Water/Eau, Dimethicone, Isododecane, C15-19 Alkane, Hydrogenated Polydecene, Propanediol, Phenyl Trimethicone, Acrylamide/Sodium Acryloyldimethyltaurate Copolymer, Dimethiconol, Parfum/Fragrance, Isohexadecane, Oleth-10, Brassica Campestris/Aleurites Fordi Oil Copolymer, Glycerin, Benzyl Alcohol, Chlorphenesin, Vaccinium Macrocarpon (Cranberry) Seed Oil, Panthenol, Polysorbate 80, Sodium Phytate, Quaternium-95, Hydrolyzed Vegetable Protein, Oryza Sativa (Rice) Bran Extract, Sorbic Acid, Sorbitan Oleate, Vaccinium Macrocarpon (Cranberry) Fruit Extract, Helianthus Annuus (Sunflower) Extract, Oryza Sativa (Rice) Seed Protein, Citrullus Lanatus (Watermelon) Seed Oil, Litchi Chinensis Fruit Extract, Phytic Acid, Maltodextrin, Oryza Sativa (Rice) Extract, Galactoarabinan, Tocopherol, Gluconolactone, Rosmarinus Officinalis (Rosemary) Leaf Extract, Salvia Hispanica Seed Extract, Sodium Benzoate, Trehalose, Xylitol, Leontopodium Alpinum Flower/Leaf Extract, Disiloxane, Trisiloxane, Pentylene Glycol, Camellia Sinensis Leaf Extract, Sodium Phosphate, Glyceryl Caprylate, Phenoxyethanol, Caesalpinia Spinosa Fruit Extract, Citric Acid, Caprylyl Glycol, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Helianthus Annuus (Sunflower) Sprout Extract, Calcium Gluconate, Benzyl Benzoate, Limonene, Linalool, Hexyl Cinnamal, Citral",
    "description": "A luxe reinvention of leave-in conditioner, this lightweight moisturizing cream satisfies thirsty hair, calming frizz, elevating shine and restoring hair to supernatural softness. Especially designed for fine-to-medium hair. High-gloss, leave-in conditioner that evens out moisture level in hair Provides lightweight conditioning with heat protection Sleekens split ends and tames frizz 450°F / 232°C heat protection",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "reparation",
+    "anti-frisottis",
+    "apaisant-cuir-chevelu",
     "brillance",
-    "protection-thermique"
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/supershine-light-moisturizing-cream.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--silverati-shampoo",
@@ -1878,7 +2141,9 @@
    "claims": [
     "fortifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/silverati-shampoo.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "oribe--matte-waves-texture-lotion",
@@ -1895,6 +2160,7 @@
    "etape": 3,
    "cheveux_cibles": [
     "secs",
+    "boucles",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -1906,32 +2172,14 @@
    ],
    "ingredients": "Aqua/Water/Eau, Magnesium Sulfate, Glycerin, Caprylic/Capric Triglyceride, Polyacrylate Crosspolymer-6, Propanediol, Parfum/Fragrance, Polyacrylate-13, Phenoxyethanol, Sclerotium Gum, VP/Methacrylamide/Vinyl Imidazole Copolymer, Polyisobutene, Caprylyl Glycol, Chlorphenesin, PEG-12 Dimethicone, Ethylhexylglycerin, Glycine Soja (Soybean) Seed Extract, Hexylene Glycol, Disodium EDTA, Panthenol, PEG-12 Allyl Ether, Polysorbate 20, Sorbitan Isostearate, PEG-12, Potassium Hydroxide, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Butylene Glycol, Polysilicone-15, Polymnia Sonchifolia Root Juice, Helianthus Annuus (Sunflower) Seed Extract, Citrullus Lanatus (Watermelon) Fruit Extract, Litchi Chinensis Fruit Extract, Biosaccharide Gum-1, Potassium Sorbate, Tocopherol, Citric Acid, Sodium Benzoate, Xanthan Gum, Leontopodium Alpinum Extract, Bertholletia Excelsa Seed Extract, Passiflora Incarnata Flower Extract, Theobroma Grandiflorum Fruit Extract, Limonene, Hexyl Cinnamal, Citral, Linalool",
    "description": "Get salt-spray waves, sans dryness. This medium-hold lotion coaxes matte-textured pieciness out of even the finest hair, adding grip to styles and a beachy allure. Ideal for creating starchy, matte texture and adding grip for styling Distributes easily throughout the hair Won't dry hair out Matte finish with medium hold Lightweight lotion encourages \"salt-spray\" waves without dryness",
-   "claims": [],
-   "source": "products.json + fiche produit"
-  },
-  {
-   "id": "oribe--italian-resin-hair-pick",
-   "name": "Italian Resin Hair Pick",
-   "brand": "oribe",
-   "brand_name": "Oribe",
-   "url": "https://www.oribe.com/products/italian-resin-hair-pick",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": 46.0,
-   "price_source": "converti USD x0.92 le 19/09",
-   "image_source_url": "https://cdn.shopify.com/s/files/1/0738/6084/1787/products/1200Wx1200H-402063.jpg?width=600",
-   "image_local": "public/scan/products-cheveux/oribe/italian-resin-hair-pick.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
-   "cheveux_cibles": [
-    "fins"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Our Hair Pick is artisanally crafted with custom-designed Italian resin and finished by hand. It features rounded tips for easy detangling and styling while creating shape and volume. Made of custom-designed Italian cellulose acetate resin Finished by hand Made in Italy",
    "claims": [
-    "volume"
+    "definition-boucles",
+    "texturisant",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/matte-waves-texture-lotion.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--silverati-conditioner",
@@ -1947,6 +2195,8 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
+    "abimes",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -1964,11 +2214,16 @@
    "ingredients": "Aqua/Water/Eau, Behentrimonium Chloride, Cetearyl Alcohol, Glyceryl Stearate, PEG-100 Stearate, Stearamidopropyl Dimethylamine, Amodimethicone, Hydrogenated Ethylhexyl Olivate, Cetyl Esters, Isododecane, Cetyl Alcohol, Phenoxyethanol, Propanediol, Parfum/Fragrance, Isopropyl Alcohol, Magnesium Aluminum Silicate, Hydrogenated Olive Oil Unsaponifiables, Hydroxyethylcellulose, Guar Hydroxypropyltrimonium Chloride, Polyquaternium-37, Butyrospermum Parkii (Shea) Butter, Panthenol, Tin Oxide, Propylene Glycol Dicaprylate/Dicaprate, Disodium EDTA, Glycerin, Ethylhexylglycerin, C11-15 Alketh-7, Laureth-9, Polysilicone-15, Simmondsia Chinensis (Jojoba) Seed Oil, Trideceth-12, Jojoba Esters, Trideceth-10, Quaternium-91, Cetrimonium Chloride, PPG-1 Trideceth-6, Cetrimonium Methosulfate, Citric Acid, Acetic Acid, Rosmarinus Officinalis (Rosemary) Leaf Extract, Sodium Acetate, Adansonia Digitata Seed Oil, Citrullus Lanatus (Watermelon) Seed Oil, Moringa Oleifera Seed Oil, Prunus Domestica Seed Oil, Helianthus Annuus (Sunflower) Seed Oil, Quaternium-95, Cellulose, Lavandula Angustifolia (Lavender) Flower Extract, Litchi Chinensis Fruit Extract, Malva Sylvestris (Mallow) Flower Extract, Cystine Bis-PG-Propyl Silanetriol, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Hydrolyzed Vegetable Protein, Leontopodium Alpinum Flower/Leaf Extract, Abies Pectinata Leaf Extract, Oryza Sativa (Rice) Seed Protein, Sodium Benzoate, Lecithin, Phytic Acid, Potassium Sorbate, Oryza Sativa (Rice) Extract, Tocopherol, Gluconolactone, Moringa Oleifera Seed Extract, Hydrolyzed Linseed Extract, Pisum Sativum (Pea) Extract, Disodium Phosphate, Lepidium Sativum Sprout Extract, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Tocopheryl Acetate, Calcium Gluconate, Sodium Hydroxide, Hexyl Cinnamal, Limonene, Linalool, Mica, CI 77891 (Titanium Dioxide), CI 77499 (Iron Oxides)",
    "description": "Find the silver lining. Specially formulated for grey and white strands, our brightening, intensely-hydrating conditioner banishes dullness and yellow tones while restoring youthfulness, elasticity and shine. Brightens grey, silver and cool strands while eliminating yellow tones Conditions dry, aging hair Restores elasticity and flexibility to brittle strands Smoothes hair for easy detangling Adds vibrancy and shine",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
     "brillance",
-    "lissant"
+    "demelant",
+    "anti-age"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/silverati-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--bright-blonde-sun-lightening-mist",
@@ -1984,6 +2239,8 @@
    "categorie": "coloration-soin",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
+    "fins",
     "colores",
     "cuir-chevelu-sensible"
    ],
@@ -2000,11 +2257,14 @@
    "ingredients": "Aqua/Water/Eau, Propanediol, Pentylene Glycol, PPG-5-Ceteth-20, Glycerin, Dipropylene Glycol, Parfum/Fragrance, Polysilicone-29, Sodium Benzoate, Citrus Limon (Lemon) Peel Extract, Cetrimonium Chloride, Disodium EDTA, Lactic Acid, Cinnamidopropyltrimonium Chloride, Chamomilla Recutita (Matricaria) Flower Extract, Butylene Glycol, Zingiber Officinale (Ginger) Root Extract, Leuconostoc/Radish Root Ferment Filtrate, Hydroxypropyl Guar Hydroxypropyltrimonium Chloride, Glycolic Acid, Potassium Sorbate, Hydrolyzed Verbascum Thapsus Flower, Cocos Nucifera Water/Cocos Nucifera (Coconut) Liquid Endosperm, Litchi Chinensis Fruit Extract, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Leontopodium Alpinum Extract, Carica Papaya (Papaya) Fruit Extract, Gardenia Taitensis Flower Extract, Hibiscus Sabdariffa Flower Extract, Citrullus Lanatus (Watermelon) Seed Oil, Phenoxyethanol, Citric Acid, BHT, Aloe Barbadensis Leaf Extract, Arctostaphylos Uva-Ursi Leaf Extract, Camellia Sinensis Leaf Extract, Citrus Grandis (Grapefruit) Seed Extract, Echinacea Angustifolia Extract, Glycyrrhiza Glabra (Licorice) Root Extract, Panax Ginseng Root Extract, Spirulina Platensis Extract, Tapioca Starch, Potassium Hydroxide, Hexyl Cinnamal, Limonene, Linalool",
    "description": "Extend your vacation and gradually lighten your blonde hues with the heat of the sun (or your dryer). Our peroxide-free spray is formulated with a natural blend of lemon and chamomile to illuminate highlights while imparting weightless moisture and UV protection. It's beach hair, but better. Gradually brightens, illuminates and enhances color-treated or highlighted blonde hues Imparts lightweight moisture and nourishment Adds shine and reflective luminosity Protects from damage and dryness cause",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "brillance"
+    "hydratation",
+    "nutrition",
+    "brillance",
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/bright-blonde-sun-lightening-mist.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--serene-scalp-oil-control-dry-shampoo-powder",
@@ -2017,8 +2277,8 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0738/6084/1787/files/402146_0_667857ef-86b5-4c94-8381-e06f9d125f69.jpg?width=600",
    "image_local": "public/scan/products-cheveux/oribe/serene-scalp-oil-control-dry-shampoo-powder.jpg",
-   "categorie": "shampooing",
-   "etape": 1,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
     "gras",
     "cuir-chevelu-sensible"
@@ -2031,8 +2291,14 @@
    ],
    "ingredients": "Zea Mays (Corn) Starch, Tapioca Starch, Oryza Sativa (Rice) Starch, Kaolin, Polysilicone-1 Crosspolymer, Parfum/Fragrance, Silica, Aqua/Water/Eau, Menthyl Lactate, Potassium Sorbate, Capryloyl Glycine, Glycerin, Hexylene Glycol, Citrullus Lanatus (Watermelon) Seed Oil, Olea Europaea (Olive) Fruit Oil, Propanediol, Maltodextrin, Xylitylglucoside, Epilobium Angustifolium Flower/Leaf/Stem Extract, Epilobium Fleischeri Extract, Leontopodium Alpinum Flower/Leaf Extract, Litchi Chinensis Fruit Extract, Hydrolyzed Rhodophyceae Extract, Annona Cherimola Fruit Extract, Mangifera Indica (Mango) Leaf Extract, Phenoxyethanol, Quercus Robur Bark Extract, Sodium Citrate, Caesalpinia Spinosa Fruit Pod Extract, Caprylic Acid, Tocopheryl Acetate, Helianthus Annuus (Sunflower) Sprout Extract, Phenylpropanol, Sodium Dehydroacetate, Citric Acid, Hexyl Cinnamal, Limonene, Linalool",
    "description": "Extend time between washes and reset your scalp. Our ultra-absorbing, silkening dry shampoo powder mattifies the scalp and reduces excess sebum. A specialty starch blend and kaolin clay absorb oil, dirt and product buildup while mango leaf extract helps support a healthy scalp microbiome. Intensely absorbs oil, dirt and product buildup Visibly reduces the appearance of oil making hair appear “just washed” Regulates and prevents excess sebum and oil Extends time between washing while leaving hair",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "purifiant",
+    "anti-gras"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/serene-scalp-oil-control-dry-shampoo-powder.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--serene-scalp-oil-control-shampoo",
@@ -2064,8 +2330,12 @@
    ],
    "ingredients": "Aqua/Water/Eau, Sodium Cocoyl Isethionate, Coco-Glucoside, Sodium Lauroyl Methyl Isethionate, Decyl Glucoside, Propanediol, Acrylates Crosspolymer-4, Glycerin, Phenoxyethanol, Polyester-37, Coconut Acid, Guar Hydroxypropyltrimonium Chloride, Parfum/Fragrance, Ethylhexylglycerin, Polyglyceryl-4 Caprate, Polyglyceryl-6 Caprylate, Triheptanoin, Coco-Caprylate/Caprate, Alpha-Glucan Oligosaccharide, Sodium Benzoate, PANTHENOL, Caprylyl Glycol, Polyquaternium-7, Trisodium Ethylenediamine Disuccinate, Potassium Sorbate, Sodium Isethionate, Sodium Phytate, Oryza Sativa (Rice) Bran Extract, Dilinoleic Acid/Butanediol Copolymer, Quaternium-95, Sarcosine, Cinnamidopropyltrimonium Chloride, Helianthus Annuus (Sunflower) Extract, Hydrolyzed Quinoa, Citrullus Lanatus (Watermelon) Seed Oil, Hydrolyzed Vegetable Protein, Litchi Chinensis Fruit Extract, Maltodextrin, Tocopherol, Rosmarinus Officinalis (Rosemary) Leaf Extract, Castor Oil/IPDI Copolymer, Galactoarabinan, Mannitol, Salvia Hispanica Seed Extract, Trehalose, Xylitol, Leontopodium Alpinum Flower/Leaf Extract, Oryza Sativa (Rice) Seed Protein, Camellia Sinensis Leaf Extract, Epilobium Angustifolium Flower/Leaf/Stem Extract, Phytic Acid, Oryza Sativa (Rice) Extract, Sodium Phosphate, Gluconolactone, Tetraselmis Suecica Extract, Benzyl Alcohol, Lactic Acid, Caesalpinia Spinosa Fruit Extract, Citric Acid, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Helianthus Annuus (Sunflower) Sprout Extract, Sodium Metabisulfite, Calcium Gluconate, Disteareth-75 IPDI, Sodium Hydroxide, Benzyl Benzoate, Limonene, Linalool, Hexyl Cinnamal",
    "description": "Extend the time (and serenity) between washes. This purifying shampoo gently cleanses, using a blend of green marine algae and a sugar-derived prebiotic to reduce and control oil while rebalancing scalp’s microbiome. Gently cleanses while regulating excess oil Reduces and controls sebum on hair and scalp Prolongs styles and extends time between washing Balances and supports a healthy scalp microbiome",
-   "claims": [],
-   "source": "products.json + fiche produit"
+   "claims": [
+    "anti-gras"
+   ],
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/serene-scalp-oil-control-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--serene-scalp-exfoliating-scrub",
@@ -2081,6 +2351,7 @@
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
    "cheveux_cibles": [
+    "chute",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -2097,10 +2368,12 @@
    "ingredients": "Aqua/Water/Eau, Lauryl Methacrylate/Glycol Dimethacrylate Crosspolymer, Acrylates Copolymer, Glycerin, Dimethicone, Disodium Laureth Sulfosuccinate, Sodium Lauroyl Sarcosinate, Cocamidopropyl Betaine, Phenoxyethanol, Sodium Lauryl Glucose Carboxylate, Potassium Hydroxide, Lauryl Glucoside, PEG-9 Cocoate, Sodium PCA, Parfum/Fragrance, Guar Hydroxypropyltrimonium Chloride, Linoleamidopropyl PG-Dimonium Chloride Phosphate, C12-16 Alketh-9, Chlorphenesin, Propylene Glycol, Butylene Glycol, Silicone Quaternium-22, Sodium Benzoate, Ethylhexylglycerin, Laureth-3, Vaccinium Myrtillus Fruit Extract, Sodium Sulfate, Sodium Citrate, Quaternium-95, Dipropylene Glycol, Polyglyceryl-3 Caprate, Tetrasodium EDTA, Saccharum Officinarum (Sugarcane) Extract, Synthetic Fluorphlogopite, Mentha Piperita (Peppermint) Oil, PEG/PPG-18/18 Dimethicone, Glycolic Acid, Propanediol, Epilobium Angustifolium Flower/Leaf/Stem Extract, Citrus Aurantium Dulcis (Orange) Fruit Extract, Citrus Limon (Lemon) Fruit Extract, Sorbic Acid, Benzoic Acid, Caffeine, Citrullus Lanatus (Watermelon) Seed Oil, Litchi Chinensis Fruit Extract, Acer Saccharum (Sugar Maple) Extract, Palmitamidopropyltrimonium Chloride, Polysorbate 20, Sodium Sulfite, Citric Acid, Tocopheryl Acetate, Leontopodium Alpinum Flower/Leaf Extract, Malachite Extract, Sodium Hydroxide, Sodium Metabisulfite, Hypericum Perforatum Flower/Leaf/Stem Extract, Anthemis Nobilis Flower Extract, Calendula Officinalis Flower Extract, Centaurea Cyanus Flower Extract, Chamomilla Recutita (Matricaria) Flower Extract, Tilia Cordata Flower Extract, Tin Oxide, Acacia Seyal Gum Extract, Ascorbic Acid, Panthenol, Tocopherol, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Potassium Sorbate, Biotin, Niacinamide, Hexamethylindanopyran, Tetramethyl Acetyloctahydronaphthalenes, Citrus Limon (Lemon) Peel Oil, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Hexyl Cinnamal, Limonene, Linalool, CI 77891 (Titanium Dioxide)",
    "description": "Reveal the secret to a healthy scalp. This powerful scrub, formulated to be gentle on scalp and hair, exfoliates with serum-based beads to remove oil, dirt and product buildup while a blend of alpha hydroxy acid and fruit extracts cleanse pores and nourish hair. Scalp is left primed and deeply purified. A unique blend of physical and chemical exfoliants gently removes dead skin, oil, dirt and product buildup on the scalp Cleanses and detoxifies pores to purify the scalp Reveals optimal environme",
    "claims": [
-    "nourrissant",
+    "nutrition",
     "purifiant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/serene-scalp-exfoliating-scrub.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--serene-scalp-balancing-shampoo",
@@ -2116,6 +2389,8 @@
    "categorie": "anti-pellicules",
    "etape": 1,
    "cheveux_cibles": [
+    "secs",
+    "colores",
     "pellicules",
     "cuir-chevelu-sensible"
    ],
@@ -2132,11 +2407,14 @@
    "ingredients": "Active Ingredients: Salicylic Acid 2.0% Inactive Ingredients: Aqua/Water/Eau, Sodium C14-16 Olefin Sulfonate, Cocamidopropyl Betaine, Glycerin, Disodium Laureth Sulfosuccinate, Acrylates/Beheneth-25 Methacrylate Copolymer, Parfum/Fragrance, Sodium Lauroyl Sarcosinate, Phenoxyethanol, Capryloyl/Caproyl Methyl Glucamide, Polysorbate 20, Sorbeth-230 Tetraoleate, PEG-9 Cocoate, Guar Hydroxypropyltrimonium Chloride, Bis-Cetearyl Amodimethicone, Linoleamidopropyl PG-Dimonium Chloride Phosphate, Silicone Quaternium-22, Potassium Hydroxide, Propylene Glycol, Cetyl Triethylmonium Dimethicone PEG-8 Succinate, Chlorphenesin, C12-16 Alketh-9, Laureth-3, Decyl Glucoside, Quaternium-95, Dipropylene Glycol, Polyglyceryl-3 Caprate, Sodium Sulfate, Tetrasodium EDTA, Vaccinium Myrtillus Fruit Extract, Synthetic Fluorphlogopite, Sorbitan Laurate, Sodium Hydroxide, Propanediol, Sodium PCA, Saccharum Officinarum (Sugarcane) Extract, Ceteareth-25, Ceteareth-7, Benzoic Acid, Citrullus Lanatus (Watermelon) Seed Oil, Palmitamidopropyltrimonium Chloride, Citric Acid, Citrus Aurantium Dulcis (Orange) Flower Extract, Citrus Limon (Lemon) Fruit Extract, Caprylyl Glycol, Tocopheryl Acetate, Sodium Sulfite, Acer Saccharum (Sugar Maple) Extract, Hydrolyzed Quinoa, Litchi Chinensis Fruit Extract, Glycolic Acid, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Sodium Lactate, Arginine, Leontopodium Alpinum Flower/Leaf Extract, Sodium Coco PG-Dimonium Chloride Phosphate, Hexylene Glycol, Aspartic Acid, PCA, Butylene Glycol, Tin Oxide, Acacia Seyal Gum Extract, Pisum Sativum (Pea) Sprout Extract, Sodium Benzoate, Ascorbic Acid, Panthenol, Potassium Sorbate, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Glycine, Alanine, Disodium EDTA, Serine, Valine, Isoleucine, Proline, Threonine, Histidine, Phenylalanine, Ethylhexylglycerin, Biotin, Niacinamide, Hexyl Cinnamal, Limonene, Linalool, CI 77891 (Titanium Dioxide)",
    "description": "Do away with dandruff. This gentle treatment cleanser, formulated with salicylic acid, relieves and prevents dandruff while soothing dry, itchy, irritated scalp. The result: healthy, hydrated hair with no trace of flakes. Gently cleanses hair while soothing scalp itchiness and irritation Hair and scalp are refreshed Safe for color-treated hair Maintains healthy moisture balance of scalp and hair Eliminates dandruff flakes Relieves dryness and reduces redness",
    "claims": [
-    "hydratant",
-    "apaisant",
-    "anti-pellicules"
+    "hydratation",
+    "antipelliculaire",
+    "apaisant-cuir-chevelu",
+    "protection-couleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/serene-scalp-balancing-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--featherbalm-weightless-styler",
@@ -2152,6 +2430,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "fins",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -2162,11 +2441,17 @@
    "ingredients": "Aqua/Water/Eau, Disiloxane, Dimethicone, Acrylates Copolymer, Glycerin, Caprylyl Methicone, Phenyl Trimethicone, Propanediol, Polyglyceryl-6 Caprylate, Phenoxyethanol, Parfum/Fragrance, Polyglyceryl-4 Caprate, Dimethiconol, C13-15 Alkane, Trimethylsiloxysilicate, Dimethicone/Vinyl Dimethicone Crosspolymer, Vaccinium Macrocarpon (Cranberry) Fruit Extract, Xanthan Gum, Oryza Sativa (Rice) Bran Oil, Passiflora Edulis Seed Oil, Caprylyl Glycol, Sodium Hydroxide, Quaternium-95, Vaccinium Macrocarpon (Cranberry) Seed Oil, Ethylhexylglycerin, Hydrolyzed Vegetable Protein, Citrullus Lanatus (Watermelon) Seed Oil, Euterpe Oleracea Fruit Oil, Pentylene Glycol, Litchi Chinensis Fruit Extract, C11-15 Alketh-7, Trimethylsiloxyamodimethicone, Leontopodium Alpinum Flower/Leaf Extract, C12-16 Alketh-9, Trideceth-12, Glyceryl Caprylate, Sodium Benzoate, Citric Acid, Tocopherol, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Limonene, Hexyl Cinnamal, Citral, Linalool",
    "description": "Style, shine and weightless control. Specially developed for finer hair textures, this ultra-light balm smoothes and hydrates while imparting a hint of hold to blowouts, air-dried textures and finished styles that need a little polish. Can be used as a blowout lotion, light texturizer or finisher Adds a touch of styling hold and hydration without weighing hair down Detangles, smoothes and adds shine to strands",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "anti-frisottis",
+    "texturisant",
     "brillance",
-    "lissant"
+    "demelant",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/featherbalm-weightless-styler.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--run-through-detangling-primer",
@@ -2182,6 +2467,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "abimes",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -2196,11 +2482,16 @@
    "ingredients": "Aqua/Water/Eau, Cetearyl Alcohol, Glycerin, Silicone Quaternium-8, Parfum/Fragrance, Phenoxyethanol, Behentrimonium Chloride, Trideceth-10, Coco-Caprylate/Caprate, Vaccinium Macrocarpon (Cranberry) Fruit Extract, Cetrimonium Chloride, Potassium Sorbate, Quaternium-95, Cocos Nucifera (Coconut) Oil, Prunus Armeniaca (Apricot) Kernel Oil, Punica Granatum Seed Oil, Vaccinium Macrocarpon (Cranberry) Seed Oil, Tetrasodium Glutamate Diacetate, Propanediol, Pentylene Glycol, Glycolic Acid, Galactoarabinan, Salvia Hispanica Seed Extract, Citrullus Lanatus (Watermelon) Seed Oil, Trehalose, Xylitol, Sodium PCA, Sodium Lactate, Glyceryl Caprylate, Arginine, Oryza Sativa (Rice) Seed Protein, Aspartic Acid, Camellia Sinensis Leaf Extract, Panthenol, PCA, Litchi Chinensis Fruit Extract, Phytic Acid, Oryza Sativa (Rice) Extract, Sodium Phosphate, Gluconolactone, Leontopodium Alpinum Flower/Leaf Extract, Glycine, Sodium Hydroxide, Alanine, Serine, Valine, Sodium Benzoate, Caprylyl Glycol, Isoleucine, Proline, Threonine, Histidine, Phenylalanine, Citric Acid, Calcium Gluconate, Limonene, Hexyl Cinnamal, Citral, Linalool",
    "description": "Instant gratification: This lightweight conditioning detangler primes hair for immediate glide-through combing, leaving strands silky soft and incredibly touchable. Our cuticle-sealing formula protects hair from damage caused by heat styling and comb-resistant knots. Conditions, hydrates and softens hair Seals the cuticle to even out porosity and boost shine Protects from breakage and improves hair health Provides heat protection Primes hair for styling Immediately detangles unruly knots",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "reparation",
+    "fortifiant",
     "brillance",
-    "protection-thermique"
+    "protection-chaleur",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/run-through-detangling-primer.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--run-through-detangling-shampoo",
@@ -2232,11 +2523,15 @@
    "ingredients": "Aqua/Water/Eau, Sodium Cocoyl Isethionate, Sodium Lauroyl Methyl Isethionate, Lauryl Glucoside, Isoamyl Laurate, Shea Butter Polyglyceryl-4 Esters, Acrylates Copolymer, Coconut Acid, Ethylhexylglycerin, Glycol Distearate, Glycerin, Phenoxyethanol, Parfum/Fragrance, Propanediol, Guar Hydroxypropyltrimonium Chloride, Sodium Isethionate, Vaccinium Macrocarpon (Cranberry) Fruit Extract, Decyl Glucoside, Dicaprylyl Ether, Sodium Benzoate, Benzyl Alcohol, Chlorphenesin, Hydroxypropyl Methylcellulose Stearoxy Ether, Trisodium Ethylenediamine Disuccinate, Panthenol, Glyceryl Oleate, Polyquaternium-113, Polyquaternium-7, Potassium Sorbate, Sodium Phytate, Quaternium-95, Oryza Sativa (Rice) Bran Extract, Potassium Hydroxide, Citric Acid, Pentylene Glycol, Lactobacillus/Eriodictyon Californicum Ferment Extract, Helianthus Annuus (Sunflower) Extract, Benzoic Acid, Citrullus Lanatus (Watermelon) Seed Oil, Hydrolyzed Vegetable Protein, Litchi Chinensis Fruit Extract, Vaccinium Macrocarpon (Cranberry) Seed Oil, Maltodextrin, Galactoarabinan, Tocopherol, Rosmarinus Officinalis (Rosemary) Leaf Extract, Salvia Hispanica Seed Extract, Stearic Acid, Glyceryl Caprylate, Trehalose, Xylitol, Leontopodium Alpinum Flower/Leaf Extract, Caprylyl Glycol, Camellia Sinensis Leaf Extract, Amylopectin, Phospholipids, Sodium Phosphate, Camellia Sinensis Seed Oil, Sodium Metabisulfite, Leuconostoc/Radish Root Ferment Filtrate, Lithothamnion Calcareum Extract, Lactic Acid, Caesalpinia Spinosa Fruit Extract, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Helianthus Annuus (Sunflower) Sprout Extract, Xanthan Gum, Disteareth-75 IPDI, Limonene, Hexyl Cinnamal",
    "description": "For all hair types and textures that tend to tangle, this softening shampoo adds slip and lightweight moisture for effortless combing and styling. Hair is left looking so glossy and healthy you'll want to run your fingers through it. And now you can. Gently cleanses hair without drying or stripping Hydrates and softens strands to instantly detangle Smoothes the cuticle to improve combability and prevent knots Adds glossy shine to leave hair looking visibly healthier Can be used with any Oribe co",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
     "brillance",
-    "lissant"
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/run-through-detangling-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--curl-shaping-mousse",
@@ -2252,7 +2547,6 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
     "boucles",
     "cuir-chevelu-sensible"
    ],
@@ -2268,11 +2562,17 @@
    "ingredients": "Aqua/Water/Eau, PEG-12 Dimethicone, Isobutane, Propane, PEG-40 Hydrogenated Castor Oil, VP/VA Copolymer, Butylene Glycol, Phenoxyethanol, Decyl Glucoside, Polyquaternium-4, Stearyl Alcohol, Laureth-4, Parfum/Fragrance, Acrylates Copolymer, Polyquaternium-11, Laureth-23, Oleth-20, Cetyl Alcohol, Aminomethyl Propanol, Polyquaternium-10, Panthenol, Glycerin, Hydrolyzed Amaranth Protein, Silicone Quaternium-3, Polyquaternium-59, Olus/Vegetable Oil/Huile Végétale, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Trideceth-12, Helianthus Annuus (Sunflower) Seed Extract, PG-Hydroxyethylcellulose Cocodimonium Chloride, Wheat Amino Acids, Silicone Quaternium-16, Citrullus Lanatus (Watermelon) Fruit Extract, Litchi Chinensis Fruit Extract, Salix Nigra (Willow) Bark Extract, Leontopodium Alpinum Flower/Leaf Extract, Undeceth-11, Benzyl Alcohol, Butyloctanol, Undeceth-5, Citric Acid, Amber Extract, Tocopherol, Potassium Sorbate, Sodium Benzoate, Disodium EDTA, Iodopropynyl Butylcarbamate, Hexamethylindanopyran, Tetramethyl Acetyloctahydronaphthalenes, Citrus Limon (Lemon) Peel Oil, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Pinene, Linalyl Acetate, Hexyl Cinnamal, Limonene, Linalool, Citral",
    "description": "This call to curls locks in locks while leaving them supple and shiny—never stiff. Sealed-in moisture and hydrating frizz resistance are the light-as-air pièce de résistance. Curl Types: 2-3. Shapes, defines and holds curls Adds body and bounce Prevents frizz and provides humidity resistance and heat protection",
    "claims": [
-    "hydratant",
-    "protection-thermique",
-    "fortifiant"
+    "hydratation",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
+    "volume",
+    "brillance",
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/curl-shaping-mousse.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--styling-butter-curl-enhancing-creme",
@@ -2288,10 +2588,10 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "gras",
-    "epais",
+    "secs",
     "boucles",
     "crepus",
+    "abimes",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -2307,11 +2607,19 @@
    "ingredients": "Aqua/Water/Eau, Glycerin, Cetearyl Alcohol, Isoamyl Laurate, Propanediol, Cetyl Esters, Behentrimonium Chloride, Hydrogenated Ethylhexyl Olivate, Phenoxyethanol, Polyquaternium-10, Cetrimonium Chloride, Hydroxypropyl Guar Hydroxypropyltrimonium Chloride, Butyrospermum Parkii (Shea) Butter, Parfum/Fragrance, Hydrogenated Olive Oil Unsaponifiables, Sodium PCA, Quaternium-95, Ethylhexylglycerin, Xanthan Gum, PG-Hydroxyethylcellulose Cocodimonium Chloride, Hydrolyzed Vegetable Protein, Astrocaryum Murumuru Seed Butter, Citrullus Lanatus (Watermelon) Seed Oil, Litchi Chinensis Fruit Extract, Mangifera Indica (Mango) Seed Butter, Theobroma Grandiflorum Seed Butter, Theobroma Cacao (Cocoa) Seed Butter, Cocos Nucifera (Coconut) Fruit Extract, Leontopodium Alpinum Flower/Leaf Extract, Olea Europaea (Olive) Fruit Oil, Persea Gratissima (Avocado) Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Tocopherol, Citric Acid, Sodium Benzoate, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Hexamethylindanopyran, Tetramethyl Acetyloctahydronaphthalenes, Citrus Limon (Lemon) Peel Oil, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Pinene, Linalyl Acetate, Rose Ketones, Hexyl Cinnamal, Limonene, Linalool, Citral",
    "description": "Style richly. This deeply nourishing crème instantly melts into hair and defines coily curls. A blend of shea butter and avocado oil hydrates hair to protect from breakage and control frizz. Strength, softness and hold are at your fingertips. For those who want to hydrate and define their curls and coils. Curl Types: 3-4. Instantly absorbs into hair to define and soften curls Strengthens and restores elasticity to help protect from breakage Silicone-free Provides medium hold with a natural finis",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
+    "anti-gras",
+    "fixation",
+    "sans-silicone"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/styling-butter-curl-enhancing-creme.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--priming-lotion-leave-in-conditioning-detangler",
@@ -2324,10 +2632,11 @@
    "price_source": "converti USD x0.92 le 19/09",
    "image_source_url": "https://cdn.shopify.com/s/files/1/0738/6084/1787/products/1200Wx1200H-400728_dea772f4-c262-4fa5-b060-d0de8b00dc21.jpg?width=600",
    "image_local": "public/scan/products-cheveux/oribe/priming-lotion-leave-in-conditioning-detangler.jpg",
-   "categorie": "apres-shampooing",
-   "etape": 2,
+   "categorie": "soin-sans-rinçage",
+   "etape": 3,
    "cheveux_cibles": [
     "boucles",
+    "abimes",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -2341,10 +2650,15 @@
    "ingredients": "Aqua/Water/Eau, Glycerin, Cetearyl Alcohol, Isoamyl Laurate, Propanediol, Quaternium-91, Myristyl Myristate, Phenoxyethanol, Behentrimonium Chloride, Parfum/Fragrance, PPG-3 Benzyl Ether Myristate, Polyquaternium-37, Potassium Sorbate, Sodium PCA, Quaternium-95, Citric Acid, Hydrolyzed Vegetable Protein, Sodium Lactate, Astrocaryum Murumuru Seed Butter, Citrullus Lanatus (Watermelon) Seed Oil, Mangifera Indica (Mango) Seed Butter, Theobroma Grandiflorum Seed Butter, Theobroma Cacao (Cocoa) Seed Butter, Arginine, Aspartic Acid, PCA, Litchi Chinensis Fruit Extract, Glycine, Alanine, Olea Europaea (Olive) Fruit Oil, Persea Gratissima (Avocado) Oil, Simmondsia Chinensis (Jojoba) Seed Oil, Serine, Leontopodium Alpinum Flower/Leaf Extract, Valine, Isoleucine, Proline, Threonine, Sodium Benzoate, Histidine, Phenylalanine, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Tetramethyl Acetyloctahydronaphthalenes, Hexamethylindanopyran, Limonene, Citrus Limon (Lemon) Peel Oil, Hexyl Cinnamal, Citrus Aurantium Peel Oil, Pinene, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Citral, Linalyl Acetate, Linalool, Rose Ketones",
    "description": "Ease your routine. This silky, leave-in conditioning lotion instantly detangles to ease combing and prevent breakage. Our ultra-hydrating formula, with cupuacu and mango seed butters, moisturize and smooth strands for healthy, beautiful curls that are prepped for styling. For those who need instant detangling and rich moisture. Curl types: 2-4. High level of slip aids in combing to prevent breakage Instantly detangles to improve manageability Smoothes the cuticle for a soft, touchable finish Sil",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "reparation",
+    "anti-frisottis",
+    "definition-boucles",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/priming-lotion-leave-in-conditioning-detangler.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--grandiose-hair-plumping-mousse",
@@ -2375,12 +2689,14 @@
    "ingredients": "Aqua/Water/Eau, VP/VA Copolymer, Isobutane, Propane, Cetearyl Alcohol, PEG-40 Hydrogenated Castor Oil, Oleth-20, Phenoxyethanol, Polyquaternium-4, Parfum/Fragrance, Laureth-4, Sodium C14-16 Olefin Sulfonate, Stearyl Alcohol, Quaternium-95, Cetrimonium Bromide, Panthenol, Ethylhexylglycerin, Glycerin, Silicone Quaternium-3, Propanediol, Trideceth-12, Citrullus Lanatus (Watermelon) Seed Oil, Helianthus Annuus (Sunflower) Seed Oil, Litchi Chinensis Fruit Extract, Tocopheryl Acetate, Sodium Hydroxide, Leontopodium Alpinum Flower/Leaf Extract, Cetyl Alcohol, Polyurethane-14, AMP-Acrylates Copolymer, Tocopherol, Citric Acid, Aminomethyl Propanol, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Amber Extract, Potassium Sorbate, Sodium Benzoate, Tetrasodium Glutamate Diacetate, Hexamethylindanopyran, Tetramethyl Acetyloctahydronaphthalenes, Citrus Limon (Lemon) Peel Oil, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Pinene, Linalyl Acetate, Hexyl Cinnamal, Limonene, Linalool, Citral",
    "description": "Each luxe pouf gives hair an exaggerated sense of body and structure, without the slightest hint of crunch. All-day memory leaves styles supremely soft yet set, for hair that's thicker, fuller, larger than life. Plumps the hair shaft to add volume and thickness Makes hair big, yet soft and touchable Provides heat protection and helps repair and strengthen hair",
    "claims": [
-    "reparateur",
+    "reparation",
+    "fortifiant",
     "volume",
-    "protection-thermique",
-    "fortifiant"
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/grandiose-hair-plumping-mousse.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "oribe--shampoo-for-magnificent-volume",
@@ -2409,11 +2725,13 @@
    "ingredients": "Aqua/Water/Eau, Sodium Lauroyl Methyl Isethionate, Sodium Lauroyl Sarcosinate, Sodium Cocoyl Isethionate, Lauroyl/Myristoyl Methyl Glucamide, Acrylates Crosspolymer-4, Polyglyceryl-3 Laurate, Polysorbate 20, Parfum/Fragrance, Sorbeth-230 Tetraoleate, Capryloyl/Caproyl Methyl Glucamide, Sodium Lauroamphoacetate, Pentylene Glycol, Propanediol, Silicone Quaternium-8, Coconut Acid, Trideceth-10, Cocamide MIPA, Caprylyl Glycol, Propylene Glycol, Hydroxyacetophenone, Decyl Glucoside, Sodium Benzoate, Sodium Isethionate, Trisodium Ethylenediamine Disuccinate, Panthenol, Ethylhexylglycerin, Sorbitan Laurate, Sodium Phytate, BHT, Rice Oil Glycereth-8 Esters, Quaternium-95, Cinnamidopropyltrimonium Chloride, Glycerin, Citric Acid, Sorbic Acid, Sorbitol, Maltodextrin, Galactoarabinan, Hydrolyzed Vegetable Protein, Salvia Hispanica Seed Extract, Trehalose, Xylitol, Camellia Sinensis Leaf Extract, Alcohol, Oryza Sativa (Rice) Seed Protein, Sodium Phosphate, Citrullus Lanatus (Watermelon) Seed Oil, Phytic Acid, Oryza Sativa (Rice) Extract, Gluconolactone, Caesalpinia Spinosa Fruit Extract, Serenoa Serrulata Fruit Extract, Butylene Glycol, Helianthus Annuus (Sunflower) Sprout Extract, Pentaerythrityl Tetra-Di-T-Butyl Hydroxyhydrocinnamate, Hydrolyzed Lupine Protein, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Disteareth-75 IPDI, Leontopodium Alpinum Extract, Phenoxyethanol, Calcium Gluconate, Sodium Hydroxide, Potassium Sorbate, Disodium EDTA, Litchi Chinensis Pericarp Extract, Moringa Oleifera Seed Extract, Disodium Phosphate, Hexamethylindanopyran, Tetramethyl Acetyloctahydronaphthalenes, Citrus Limon (Lemon) Peel Oil, Limonene, Hexyl Cinnamal, Juniperus Virginiana Oil, Pinene, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Linalyl Acetate",
    "description": "Because everyone needs a little largesse. Body-building polymers wash in truly uplifting volume and thickness, while rare botanical extracts leave hair full, lush, strong and easy to love. High-tech polymers plump the hair shaft Adds weightless moisture Helps to fortify and strengthen hair",
    "claims": [
-    "hydratant",
-    "volume",
-    "fortifiant"
+    "hydratation",
+    "fortifiant",
+    "volume"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/shampoo-for-magnificent-volume.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "oribe--mystify-restyling-spray",
@@ -2429,6 +2747,9 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
+    "abimes",
+    "chute",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -2446,12 +2767,17 @@
    "ingredients": "Aqua/Water/Eau, Glycerin, Bis-Cetearyl Amodimethicone, Oleth-20, Cetyl Triethylmonium Dimethicone PEG-8 Succinate, PEG-12 Dimethicone, Sorbitan Oleate Decylglucoside Crosspolymer, Hydroxypropyltrimonium Hydrolyzed Corn Starch, PEG-8 Dimethicone, Chlorphenesin, Cetylpyridinium Chloride, Dimethicone PEG-8 Meadowfoamate, PEG-12 Allyl Ether, Potassium Sorbate, Citric Acid, Cetrimonium Bromide, PEG-12, Ceteareth-7, Silicone Quaternium-22, Ceteareth-25, Phenoxyethanol, Trisodium Ethylenediamine Disuccinate, Dipropylene Glycol, Polyglyceryl-3 Caprate, Caffeine, Persea Gratissima (Avocado) Oil, Caprylyl Glycol, Aminomethyl Propanol, Lactic Acid, Cocamidopropyl Betaine, Polysorbate 20, Cinnamidopropyltrimonium Chloride, Glycolic Acid, Sodium Coco PG-Dimonium Chloride Phosphate, Hexylene Glycol, Litchi Chinensis Fruit Extract, Palmitamidopropyltrimonium Chloride, Propylene Glycol, Sodium PCA, Sodium Lactate, Citrullus Lanatus (Watermelon) Seed Oil, Arginine, Leontopodium Alpinum Extract, Aspartic Acid, PCA, Acacia Seyal Gum Extract, Ascorbic Acid, Panthenol, Tocopheryl Acetate, Glycine, Alanine, Serine, Valine, Isoleucine, Proline, Threonine, Sodium Benzoate, Histidine, Phenylalanine, Biotin, Niacinamide, Parfum/Fragrance, Hexamethylindanopyran, Tetramethyl Acetyloctahydronaphthalenes, Hexyl Cinnamal, Citrus Limon (Lemon) Peel Oil, Limonene, Linalool, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Pinene, Linalyl Acetate",
    "description": "Prolong your style while protecting your strands. This hydrating spray reactivates yesterday’s products to restyle while nourishing, strengthening and shielding against thermal damage. Refreshes the life of a style from the day before Strengthens and protects hair to help prevent breakage Provides 450°F heat protection Offers light styling hold to reactivate product already in the hair Lightly hydrates & detangles making restyling more manageable",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "protection-thermique",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "protection-chaleur",
+    "demelant",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/mystify-restyling-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--invisible-defense-universal-protection-spray",
@@ -2467,7 +2793,9 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
+    "fins",
+    "chute",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -2485,11 +2813,15 @@
    "ingredients": "Aqua/Water/Eau, Dipropylene Glycol, Pentylene Glycol, Polysilicone-29, Cetyl Triethylmonium Dimethicone PEG-8 Succinate, Silicone Quaternium-18, Polyglyceryl-4 Caprate, Polyglyceryl-6 Caprylate, Cinnamidopropyltrimonium Chloride, Chlorphenesin, Parfum/Fragrance, Sodium Benzoate, Disodium EDTA, Trideceth-12, Trideceth-6, Glycolic Acid, Citric Acid, Glycerin, Isopropyl Alcohol, Phenoxyethanol, Galactoarabinan, Salvia Hispanica Seed Extract, Trehalose, Xylitol, Caffeine, Caprylyl Glycol, Oryza Sativa (Rice) Bran Extract, Polysorbate 20, Panthenol, Camellia Sinensis Leaf Extract, Hydrolyzed Verbascum Thapsus Flower, Litchi Chinensis Fruit Extract, Sodium Coco PG-Dimonium Chloride Phosphate, Hexylene Glycol, Sodium Phosphate, BHT, Helianthus Annuus (Sunflower) Extract, Leontopodium Alpinum Extract, Citrullus Lanatus (Watermelon) Seed Oil, Acacia Seyal Gum Extract, Rosmarinus Officinalis (Rosemary) Leaf Extract, Tocopherol, Malachite Extract, Ascorbic Acid, Tocopheryl Acetate, Potassium Sorbate, Potassium Hydroxide, Biotin, Niacinamide, Hexyl Cinnamal, Limonene, Linalool",
    "description": "Your daily dose of universal protection. This weightless mist shields hair from thermal damage up to 450°F, UV rays and pollution while imparting gentle moisture. Say goodbye to dryness, color fading, and frizz. Protects against dryness and color fading caused by UV rays Detoxifies and protects from environmental pollution Provides 450°F heat protection Helps prevent frizz Adds light moisture without weighing hair down",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "anti-frisottis",
     "purifiant",
-    "protection-thermique"
+    "protection-chaleur",
+    "anti-pollution"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/invisible-defense-universal-protection-spray.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--rough-luxury-soft-molding-paste",
@@ -2505,6 +2837,8 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "boucles",
+    "abimes",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -2519,11 +2853,16 @@
    "ingredients": "Aqua/Water/Eau, Lanolin Cera/Lanolin Wax/Cire de Lanoline, PVP, Cetearyl Alcohol, Tribehenin, PEG-8 Beeswax, Glycerin, Ceteareth-25, Neopentyl Glycol Dicaprylate/Dicaprate, Tridecyl Stearate, PEG-40 Castor Oil, Butylene Glycol, PEG-12 Dimethicone, Tridecyl Trimellitate, Caprylyl Glycol, Acrylates/C10-30 Alkyl Acrylate Crosspolymer, Ethylhexylglycerin, Ethylhexyl Methoxycinnamate, Hexylene Glycol, Panthenol, Tetrasodium EDTA, Polyquaternium-59, Sodium Hydroxide, Cocodimonium Hydroxypropyl Hydrolyzed Keratin, Silicone Quaternium-3, Helianthus Annuus (Sunflower) Seed Extract, Citrullus Lanatus (Watermelon) Fruit Extract, Leontopodium Alpinum Flower/Leaf Extract, Litchi Chinensis Fruit Extract, Trideceth-12, Wheat Amino Acids, Tocopheryl Acetate, Styrax Benzoin Resin Extract, Citric Acid, Phenoxyethanol, Sodium Benzoate, Potassium Sorbate, Parfum/Fragrance, BHT, Benzyl Benzoate, Citral, Hexyl Cinnamal, Limonene, Linalool",
    "description": "An ultra-pliable molding paste that smoothly slips through hair before taking hold for definition, texture and shine. Lends a soft touch to short cuts and long layers alike. Moldable paste wax Medium hold with memory and soft shine Adds definition and flexible control",
    "claims": [
+    "anti-frisottis",
+    "definition-boucles",
+    "texturisant",
     "brillance",
-    "lissant",
-    "definition-boucles"
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/rough-luxury-soft-molding-paste.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--fiber-groom-elastic-texture-paste",
@@ -2539,6 +2878,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -2554,10 +2894,16 @@
    "ingredients": "Aqua/Water/Eau, Butylene Glycol, Glyceryl Stearate SE, Stearyl Alcohol, C30-45 Alkyl Methicone, Isopropyl Palmitate, Glycine Soja (Soybean) Oil, VP/VA Copolymer, Bis-Diglyceryl Polyacyladipate-2, Myristyl Myristate, PEG-25 Hydrogenated Castor Oil, Glyceryl Stearate, PEG-100 Stearate, Butyrospermum Parkii (Shea) Butter, Ozokerite, Bis-PEG-18 Methyl Ether Dimethyl Silane, Parfum/Fragrance, Phenoxyethanol, Myristyl Laurate, Dimethicone, PEG-90M, Caprylyl Glycol, C30-45 Olefin, Carbomer, Tetrahydroxypropyl Ethylenediamine, Quaternium-95, Ethylhexylglycerin, Hexylene Glycol, Glycerin, Prunus Amygdalus Dulcis (Sweet Almond) Oil, Sesamum Indicum (Sesame) Seed Oil, Macadamia Integrifolia Seed Oil, Propanediol, Citrullus Lanatus (Watermelon) Seed Oil, Litchi Chinensis Fruit Extract, Ascorbyl Palmitate, Silicone Quaternium-3, Polyquaternium-59, Silica, Leontopodium Alpinum Flower/Leaf Extract, Trideceth-12, Helianthus Annuus (Sunflower) Seed Extract, Wheat Amino Acids, BHT, Citric Acid, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Tocopherol, Disodium EDTA, Potassium Sorbate, Hexyl Cinnamal, Limonene, Linalool, Citral",
    "description": "This new-age fiber paste fuses silken strands with next-generation polymers to create an airy blend of bounce, separation and elastic hold. Perfect for short or long hair. Rub between palms. Run through hair. Style with abandon. Easy-to-distribute, unique elastic texture paste Creates separation and bounce with light, pliable hold Conditioning and moisturizing with subtle shine",
    "claims": [
-    "hydratant",
-    "brillance"
+    "hydratation",
+    "nutrition",
+    "texturisant",
+    "brillance",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/fiber-groom-elastic-texture-paste.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--royal-blowout-heat-styling-spray",
@@ -2586,14 +2932,16 @@
    "ingredients": "Trisiloxane, Phenyl Trimethicone, Isododecane, Bis-Hydroxyethoxypropyl Dimethicone, Bis-Hydroxy/Methoxy Amodimethicone, Caprylyl Methicone, Parfum/Fragrance, Polysilicone-15, Ethylhexylglycerin, PPG-3 Benzyl Ether Myristate, Silicone Quaternium-22, Citrullus Lanatus (Watermelon) Seed Oil, Caprylic/Capric Triglyceride, PPG-3 Myristyl Ether, Argania Spinosa Kernel Oil, Persea Gratissima (Avocado) Oil, Rosa Canina Fruit Oil, Leontopodium Alpinum Flower/Leaf Extract, Litchi Chinensis Pericarp Extract, Oryza Sativa (Rice) Bran Extract, Helianthus Annuus (Sunflower) Extract, Tocopherol, Rosmarinus Officinalis (Rosemary) Leaf Extract, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Hexadecanolactone, Benzyl Benzoate, Tetramethyl Acetyloctahydronaphthalenes, Citrus Aurantium Peel Oil, Limonene, Hexyl Cinnamal, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Linalool, Pinene, Linalyl Acetate, Citral, Rose Ketones, Terpineol",
    "description": "For the ultimate blowout. This sleekening mist smoothes even the worst-behaved tresses while speeding dry time. It also repairs split ends, nourishes, softens and strengthens the hair, giving it healthy body and shine. A sleekening blowout spray with 450°F / 232°C heat protection Adds incredible softness and shine Speeds dry time for a smooth, natural finish Helps seal split ends",
    "claims": [
-    "nourrissant",
-    "reparateur",
+    "nutrition",
+    "reparation",
+    "fortifiant",
+    "anti-frisottis",
     "brillance",
-    "lissant",
-    "protection-thermique",
-    "fortifiant"
+    "protection-chaleur"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/royal-blowout-heat-styling-spray.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "oribe--rock-hard-gel",
@@ -2609,6 +2957,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "secs",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -2623,11 +2972,15 @@
    "ingredients": "Aqua/Water/Eau, Propylene Glycol, Polyacrylate-2 Crosspolymer, Aminomethyl Propanol, Butyrospermum Parkii (Shea) Butter, Argania Spinosa Kernel Oil, Parfum/Fragrance, Polyacrylamide, Phenoxyethanol, Hydroxypropyl Guar, Octyldodecyl Ricinoleate, C13-14 Isoalkane, Acrylates/C10-30 Alkyl Acrylate Crosspolymer, Caprylyl Glycol, Quaternium-95, Dimethicone PEG-8 Meadowfoamate, Ethylhexylglycerin, Hexylene Glycol, Ethylhexyl Methoxycinnamate, Laureth-7, Polyquaternium-59, Glycerin, Disodium EDTA, Sodium Hydroxide, Butylene Glycol, Propanediol, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Hydrolyzed Soy Protein, Citrullus Lanatus (Watermelon) Seed Oil, Litchi Chinensis Fruit Extract, Tocopheryl Acetate, Leontopodium Alpinum Flower/Leaf Extract, Potassium Sorbate, Citric Acid, PPG-26-Buteth-26, PEG-40 Hydrogenated Castor Oil, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, BHT, Apigenin, Oleanolic Acid, Biotinoyl Tripeptide-1, Hexyl Cinnamal, Limonene, Linalool, Citral",
    "description": "A modern cream gel for intense hold, architectural styling and shine. Hair does exactly what it's told whether spiked or slicked and stays that way. Enriched with light-reflecting particles and hair-strengthening compounds. A modern, cream gel that moisturizes with intense hold Sets quickly to a lacquer finish for architectural styles Maintains softness and pliability when worked through or blown out",
    "claims": [
-    "hydratant",
+    "hydratation",
+    "nutrition",
+    "fortifiant",
     "brillance",
-    "fortifiant"
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/rock-hard-gel.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--gel-serum",
@@ -2655,11 +3008,14 @@
    "ingredients": "Aqua/Water/Eau, Butylene Glycol, PPG-26-Buteth-26, Acrylic Acid/VP Crosspolymer, PEG-40 Hydrogenated Castor Oil, Glycerin, Phenoxyethanol, Creatine, Panthenol, VP/Acrylates/Lauryl Methacrylate Copolymer, Parfum/Fragrance, Chlorphenesin, Ethylhexylglycerin, Sodium Hydroxide, Polyquaternium-11, Calcium Sodium Borosilicate, Disodium EDTA, Polysilicone-15, Propanediol, Hydroxypropylgluconamide, Caprylyl Glycol, Hydrolyzed Verbascum Thapsus Flower, Citrullus Lanatus (Watermelon) Fruit Extract, Litchi Chinensis Fruit Extract, Hydroxypropylammonium Gluconate, Leontopodium Alpinum Extract , Buddleja Officinalis Flower Extract, Tin Oxide, Acacia Seyal Gum Extract, Tocopherol, Sodium Benzoate, Tartaric Acid, Citric Acid, Potassium Sorbate, Benzyl Alcohol, Limonene, Hexyl Cinnamal, Citral, CI 77891 (Titanium Dioxide), CI 77491 (Iron Oxides)",
    "description": "Forget what you know about gel. This magical, gold-flecked potion with active moisturizing agents brings sophisticated hold with shine rather than stiffness. Gorgeous. Great for polished blowouts or shiny wet looks Provides heat protection Luxe reinvention of gel: gel for flexible hold, serum for moisture and natural luster",
    "claims": [
-    "hydratant",
+    "hydratation",
     "brillance",
-    "protection-thermique"
+    "protection-chaleur",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/gel-serum.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--creme-for-style",
@@ -2675,7 +3031,6 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
     "boucles",
     "lisses"
    ],
@@ -2689,10 +3044,15 @@
    "ingredients": "Aqua/Water/Eau, Cetearyl Alcohol, Glyceryl Stearate, PEG-100 Stearate, Dimethicone, Phenyl Trimethicone, Polyquaternium-55, Behentrimonium Methosulfate, Olealkonium Chloride, Glycerin, Polyquaternium-7, Lavandula Angustifolia (Lavender) Flower Extract, Geranium Maculatum Extract, Camellia Sinensis Leaf Extract, Chamomilla Recutita (Matricaria) Flower Extract, Panthenol, Hydrolyzed Soy Protein, Hydrolyzed Wheat Protein, Triticum Vulgare (Wheat) Starch, Dihydroxypropyl PEG-5 Linoleammonium Chloride, Polyquaternium-11, Benzophenone-3, PEG-12 Dimethicone, Polyquaternium-16, Parfum/Fragrance, Tocopheryl Acetate, Stearalkonium Chloride, Guar Hydroxypropyltrimonium Chloride, Phenoxyethanol, Chlorphenesin, Citral, Hexyl Cinnamal, Limonene, Linalool, Benzyl Benzoate",
    "description": "Superior style and substantial shine are a quarter-size dollop away. This stylists’ staple offers firm yet flexible all-day hold and tames frizz with rich moisturizers. Loves curly and straight hair equally. Adds flexible hold with all-day memory Great for short hairstyles and long lengths Conditions and softens hair",
    "claims": [
-    "hydratant",
-    "brillance"
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles",
+    "brillance",
+    "fixation"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/creme-for-style.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--foundation-mist",
@@ -2708,6 +3068,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
+    "fins",
     "cuir-chevelu-sensible"
    ],
    "actifs": [
@@ -2718,9 +3079,15 @@
    "ingredients": "Aqua/Water/Eau, VP/VA Copolymer, Aloe Barbadensis (Aloe Vera) Leaf Juice, Glyceryl Stearate, SD Alcohol 40-B (Alcohol Denat.), PPG-1-PEG-9 Lauryl Glycol Ether, Leontopodium Alpinum (Edelweiss) Extract, Litchi Chinensis (Lychee) Fruit Extract, Citrullus Lanatus (Watermelon) Fruit Extract, Hydrolyzed Wheat Protein, Triticum Vulgare (Wheat) Starch, Caprylic/Capric Triglyceride, PEG-12 Dimethicone, PEG-40 Castor Oil, Acrylates/Beheneth-25 Methacrylate Copolymer, VP/Acrylates/Lauryl Methacrylate Copolymer, Styrene/VP Copolymer, PVP, Benzophenone-3, Aminomethyl Propanol, Benzyl Alcohol, Dehydroacetic Acid, Parfum/Fragrance, Hexyl Cinnamal, Benzyl Benzoate, Citral, Limonene, Linalool",
    "description": "A weightless way to prime hair for styling, as well as revitalize your look. This nutrient-rich conditioning spray builds in shine and detangles, all while providing anti-static thermal protection and improving the health of the hair. A versatile product that can be used as a primer or cutting lotion Weightless formula that provides anti-static benefits High levels of proteins, emollients and conditioning agents add shine and softness",
    "claims": [
-    "brillance"
+    "nutrition",
+    "anti-frisottis",
+    "brillance",
+    "protection-chaleur",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/foundation-mist.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--signature-conditioner",
@@ -2736,6 +3103,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "fins",
     "abimes",
     "cuir-chevelu-sensible"
    ],
@@ -2751,11 +3119,15 @@
    "ingredients": "Aqua/Water/Eau, Cetearyl Alcohol, Cetyl Alcohol, C15-19 Alkane, Stearyl Alcohol, Stearamidopropyl Dimethylamine, Dimethicone, Isododecane, Caprylyl Glycol, Phenoxyethanol, Behentrimonium Methosulfate, Steareth-2, Steareth-21, Glycerin, Parfum/Fragrance, Cetyl Esters, Cetrimonium Chloride, Chlorphenesin, Hydroxyethylcellulose, Dimethiconol, Sorbic Acid, Benzophenone-4, Panthenol, Macadamia Ternifolia Seed Oil, Disodium EDTA, Cinnamidopropyltrimonium Chloride, Prunus Amygdalus Dulcis (Sweet Almond) Protein, Citrullus Lanatus (Watermelon) Seed Oil, Butylene Glycol, Citric Acid, Hydrolyzed Jojoba Protein, Hydrolyzed Rice Protein, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Pentylene Glycol, Hydrolyzed Vegetable Protein, Phospholipids, Kaempferia Galanga Root Extract, Disodium Phosphate, Polysorbate 60, Leontopodium Alpinum Flower/Leaf Extract, Ascorbyl Palmitate, Tocopherol, Potassium Sorbate, Sodium Benzoate, Leuconostoc/Radish Root Ferment Filtrate, Sodium Phosphate, Tocopheryl Acetate, Litchi Chinensis Pericarp Extract, Moringa Oleifera Seed Extract, Ethylhexylglycerin, Retinyl Palmitate, Sodium Hydroxide, Hexamethylindanopyran, Tetramethyl Acetyloctahydronaphthalenes, Citrus Limon (Lemon) Peel Oil, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Hexyl Cinnamal, Limonene, Linalool",
    "description": "Oribe spared nothing in crafting this restorative daily moisturizer. Hydrating polymers revive youthful shine for lustrous, healthy locks and detangle for ease of combing throughout the day. Conditioner just got luxurious. Enjoy. Repairs and protects Intense, but weightless High-performance conditioner",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "brillance"
+    "hydratation",
+    "reparation",
+    "brillance",
+    "demelant",
+    "anti-age"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/signature-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "oribe--serene-scalp-balancing-conditioner",
@@ -2771,6 +3143,8 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "secs",
+    "chute",
     "pellicules",
     "cuir-chevelu-sensible"
    ],
@@ -2788,13 +3162,16 @@
    "ingredients": "Aqua/Water/Eau, Behentrimonium Chloride, Butylene Glycol, Cetyl Alcohol, Cetyl Esters, Caprylic/Capric Triglyceride, Dimethicone, Stearyl Alcohol, Stearamidopropyl Dimethylamine, Hydrogenated Ethylhexyl Olivate, Cetrimonium Chloride, Amodimethicone, Isopropyl Alcohol, Butyrospermum Parkii (Shea) Butter, Parfum/Fragrance, Citric Acid, Polyurethane-39, Sodium Dehydroacetate, Chlorphenesin, Guar Hydroxypropyltrimonium Chloride, Hydroxyethylcellulose, Benzoic Acid, Quaternium-95, Glycerin, Trideceth-12, Panthenol, Hydrogenated Olive Oil Unsaponifiables, Trisodium Ethylenediamine Disuccinate, Propanediol, Polysilicone-15, Caffeine, Litchi Chinensis Fruit Extract, Sodium Benzoate, Phenoxyethanol, Polysorbate 20, Leontopodium Alpinum Flower/Leaf Extract, Caprylyl Glycol, Hydrolyzed Quinoa, Citrullus Lanatus (Watermelon) Fruit Extract, Hydrolyzed Vegetable Protein PG-Propyl Silanetriol, Sodium PCA, Sodium Lactate, Arginine, Disodium Phosphate, Polysorbate 60, Aspartic Acid, PCA, Acacia Seyal Gum Extract, Ascorbic Acid, Tocopheryl Acetate, Potassium Sorbate, Pentaerythrityl Tetra-di-t-butyl Hydroxyhydrocinnamate, Glycine, Alanine, Disodium EDTA, Sodium Phosphate, Serine, Valine, Isoleucine, Proline, Threonine, Histidine, Phenylalanine, Ethylhexylglycerin, Tocopherol, Biotin, Niacinamide, Hexamethylindanopyran, Tetramethyl Acetyloctahydronaphthalenes, Citrus Limon (Lemon) Peel Oil, Citrus Aurantium Bergamia (Bergamot) Peel Oil, Hexyl Cinnamal, Limonene, Linalool",
    "description": "This calming conditioner balances it all, deeply hydrating and soothing the scalp while removing loose dandruff flakes. Our ultra-nourishing formula quenches parched strands and unwinds tangles, revealing softer, silkier hair. Maintains healthy moisture balance Hydrates scalp and hair Soothes and calms the scalp Detangles hair while strengthening and restoring elasticity Leaves hair silky soft",
    "claims": [
-    "hydratant",
-    "nourrissant",
-    "apaisant",
-    "anti-pellicules",
-    "fortifiant"
+    "hydratation",
+    "nutrition",
+    "fortifiant",
+    "antipelliculaire",
+    "apaisant-cuir-chevelu",
+    "demelant"
    ],
-   "source": "products.json + fiche produit"
+   "source": "products.json + fiche produit",
+   "cutout_url": "public/scan/products-cheveux/oribe/cutout/serene-scalp-balancing-conditioner.webp",
+   "ciblage_source": "deduit"
   }
  ]
 }

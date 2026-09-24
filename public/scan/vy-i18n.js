@@ -27,7 +27,7 @@
   var KEY = 'vyvre-lang';
   /* chiffres du catalogue : valeurs de repli, ecrasees par VY.chiffres() des que le
      catalogue reellement servi a repondu. Formatees selon la langue affichee. */
-  var NUM = { p: 5883, b: 147 };
+  var NUM = { p: 5926, b: 146 };
   var BASE = '/scan/i18n/';
 
   /* ---------- etat ---------- */
@@ -116,7 +116,7 @@
     if (loading[c]) { loading[c].push(cb); return; }
     loading[c] = [cb];
     var s = d.createElement('script');
-    s.src = BASE + c + '.js?v=1';
+    s.src = BASE + c + '.js?v=9';
     s.onload = s.onerror = function () {
       var q = loading[c] || []; loading[c] = null;
       for (var i = 0; i < q.length; i++) q[i]();
@@ -162,7 +162,12 @@
     '[dir="rtl"] #vy-lang{left:16px;right:auto}' +
     '#vy-lang>button{padding:9px 14px;font-size:9px;letter-spacing:.2em}' +
     '#vy-lang ul,[dir="rtl"] #vy-lang ul{top:auto;bottom:calc(100% + 10px);left:0;right:auto;min-width:158px;max-height:56vh}' +
-    '#vy-lang ul{transform:translateY(6px)}#vy-lang.on ul{transform:translateY(0)}}' +
+    '#vy-lang ul{transform:translateY(6px)}#vy-lang.on ul{transform:translateY(0)}' +
+    /* elle flotte au-dessus du texte : pendant qu'on fait defiler, elle s'efface,
+       et revient des que le doigt s'arrete. Sinon elle masque une ligne sur deux
+       des resultats (constate sur le scan cheveux, section « vous nous avez dit »). */
+    '#vy-lang.vy-lang-file{opacity:0;pointer-events:none;transform:translateY(10px)}' +
+    '#vy-lang{transition:opacity .22s ease,transform .22s ease}}' +
     /* droite a gauche : on protege la mise en page sans la retourner */
     '[dir="rtl"] .vyvre-v6 .v6lbl{right:auto;left:28px}' +
     '[dir="rtl"] .vyvre-v6 .v6grid>#vyvre-product-row::before{left:auto;right:20px}' +
@@ -242,6 +247,22 @@
       }
     }
     placer();
+
+    /* On ecoute en capture : le scan cheveux fait defiler un conteneur interne
+       (.view.scrolls), pas la fenetre, et un listener sur window n'y verrait rien. */
+    var fileTimer = null;
+    function auDefilement() {
+      if (!mq.matches || !picker) return;
+      if (picker.classList.contains('on')) return;   // menu ouvert : on ne le derobe pas
+      picker.classList.add('vy-lang-file');
+      if (fileTimer) clearTimeout(fileTimer);
+      fileTimer = setTimeout(function () {
+        if (picker) picker.classList.remove('vy-lang-file');
+      }, 650);
+    }
+    d.addEventListener('scroll', auDefilement, { passive: true, capture: true });
+    w.addEventListener('scroll', auDefilement, { passive: true });
+
     w.addEventListener('resize', function () { close(); placer(); }, { passive: true });
     if (mq.addEventListener) mq.addEventListener('change', function () { close(); placer(); });
     else if (mq.addListener) mq.addListener(function () { close(); placer(); });

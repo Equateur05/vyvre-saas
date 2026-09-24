@@ -3,32 +3,6 @@
  "brand_name": "Maui Moisture",
  "products": [
   {
-   "id": "maui-moisture--products-for-coily-hair-maui-moisture",
-   "name": "Products for Coily Hair",
-   "brand": "maui-moisture",
-   "brand_name": "Maui Moisture",
-   "url": "https://www.mauimoisture.com/products/coils",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": null,
-   "image_local": null,
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [
-    "gras",
-    "boucles",
-    "crepus"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Discover Maui Moisture® products for Coily Hair. Shampoos, Conditioners, Stylers and Treatments to add bounce to your coils",
-   "claims": [
-    "hydratant"
-   ],
-   "source": "sitemap mauimoisture.com + fiche"
-  },
-  {
    "id": "maui-moisture--curl-quench-coconut-oil-conditioner",
    "name": "Curl Quench + Coconut Oil Conditioner",
    "brand": "maui-moisture",
@@ -42,7 +16,6 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "epais",
     "boucles"
    ],
    "actifs": [
@@ -51,9 +24,16 @@
    "ingredients": null,
    "description": "Moisture Level: IntenseRich coconut oil is blended into this creamy conditioner along with papaya butter and plumeria extract. It helps detangle, defrizz and define your curls, while enhancing softness and body for shiny, bouncy curls, coils or waves.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "brillance",
+    "demelant"
    ],
-   "source": "sitemap mauimoisture.com + fiche"
+   "source": "sitemap mauimoisture.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/maui-moisture/cutout/curl-quench-coconut-oil-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "maui-moisture--curl-quench-coconut-oil-curl-smoothie",
@@ -69,7 +49,6 @@
    "categorie": "huile",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
     "boucles"
    ],
    "actifs": [
@@ -78,10 +57,17 @@
    "ingredients": null,
    "description": "Moisture Level: IntenseRich coconut oil is blended into this creamy curl smoothie along with papaya butter and plumeria extract. It helps detangle defrizz and define your curls, while enhancing softness and body for shiny, bouncy curls, coils or waves. Our creamiest formula, used to define and amplify thick curls.",
    "claims": [
-    "hydratant",
-    "lissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "brillance",
+    "demelant"
    ],
-   "source": "sitemap mauimoisture.com + fiche"
+   "source": "sitemap mauimoisture.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/maui-moisture/cutout/curl-quench-coconut-oil-curl-smoothie.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "maui-moisture--curl-quench-coconut-oil-shampoo",
@@ -97,7 +83,6 @@
    "categorie": "shampooing",
    "etape": 1,
    "cheveux_cibles": [
-    "epais",
     "boucles"
    ],
    "actifs": [
@@ -106,33 +91,16 @@
    "ingredients": null,
    "description": "Moisture Level: IntenseRich coconut oil is blended into this creamy gentle shampoo along with papaya butter and plumeria extract. It helps detangle, defrizz and define your curls while enhancing softness and body for shiny, bouncy curls, coils or waves.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "brillance",
+    "demelant"
    ],
-   "source": "sitemap mauimoisture.com + fiche"
-  },
-  {
-   "id": "maui-moisture--products-for-curly-hair-maui-moisture",
-   "name": "Products for Curly Hair",
-   "brand": "maui-moisture",
-   "brand_name": "Maui Moisture",
-   "url": "https://www.mauimoisture.com/products/curls",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": null,
-   "image_local": null,
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [
-    "boucles"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Discover Maui Moisture® products for Curly Hair. Shampoos, Conditioners, Stylers and Treatments to keep your curls hydrated and healthy",
-   "claims": [
-    "hydratant"
-   ],
-   "source": "sitemap mauimoisture.com + fiche"
+   "source": "sitemap mauimoisture.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/maui-moisture/cutout/curl-quench-coconut-oil-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "maui-moisture--lightweight-curls-flaxseed-conditioner",
@@ -148,6 +116,7 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
+    "fins",
     "boucles"
    ],
    "actifs": [
@@ -156,9 +125,13 @@
    "ingredients": null,
    "description": "Moisture Level: LightGive your coils a refresh with this lightweight conditioner with aloe vera, flaxseed oil and coconut water. This vegan, silicone-free conditioner invigorates curls without weighing them down.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "definition-boucles",
+    "sans-silicone"
    ],
-   "source": "sitemap mauimoisture.com + fiche"
+   "source": "sitemap mauimoisture.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/maui-moisture/cutout/lightweight-curls-flaxseed-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "maui-moisture--lightweight-curls-flaxseed-shampoo",
@@ -175,7 +148,6 @@
    "etape": 1,
    "cheveux_cibles": [
     "fins",
-    "epais",
     "boucles"
    ],
    "actifs": [
@@ -184,10 +156,15 @@
    "ingredients": null,
    "description": "Moisture Level: LightMaui Moisture Lightweight Curls + Flaxseed Shampoo starts with 100% aloe vera and is infused with flaxseed oil, coconut water and citrus oil to give your coils a healthy looking glow with every use. This vegan, silicone-free shampoo adds just the right amount of lightweight moisture to your locks so they can look and feel fresh while keeping frizz at bay and your volume intact.",
    "claims": [
-    "hydratant",
-    "volume"
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles",
+    "volume",
+    "sans-silicone"
    ],
-   "source": "sitemap mauimoisture.com + fiche"
+   "source": "sitemap mauimoisture.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/maui-moisture/cutout/lightweight-curls-flaxseed-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "maui-moisture--heal-et-hydrate-shea-butter-conditioner",
@@ -202,7 +179,9 @@
    "image_local": "public/scan/products-cheveux/maui-moisture/heal-et-hydrate-shea-butter-conditioner.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "beurre de karité",
     "huile de macadamia"
@@ -210,10 +189,12 @@
    "ingredients": null,
    "description": "Creamy shea butter is whipped into this hydrating conditioner blend along with rich coconut and macadamia oils help deeply quench, nourish, and soften strands to get your hair back to looking healthy.",
    "claims": [
-    "hydratant",
-    "nourrissant"
+    "hydratation",
+    "nutrition"
    ],
-   "source": "sitemap mauimoisture.com + fiche"
+   "source": "sitemap mauimoisture.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/maui-moisture/cutout/heal-et-hydrate-shea-butter-conditioner.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "maui-moisture--heal-et-hydrate-shea-butter-hair-mask",
@@ -228,7 +209,9 @@
    "image_local": "public/scan/products-cheveux/maui-moisture/heal-et-hydrate-shea-butter-hair-mask.jpg",
    "categorie": "masque",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "beurre de karité",
     "huile de macadamia"
@@ -236,10 +219,13 @@
    "ingredients": null,
    "description": "Moisture Level: IntenseCreamy shea butter is whipped into this hydrating mask blend along with rich coconut and macadamia oils help deeply quench, nourish, and soften strands to get your hair back to looking healthy. If your hair is feeling extra dry, use as a leave in treatment on wet hair to deeply condition strands.",
    "claims": [
-    "hydratant",
-    "nourrissant"
+    "hydratation",
+    "nutrition"
    ],
-   "source": "sitemap mauimoisture.com + fiche"
+   "source": "sitemap mauimoisture.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/maui-moisture/cutout/heal-et-hydrate-shea-butter-hair-mask.webp",
+   "image_fond": true,
+   "ciblage_source": "fiche"
   },
   {
    "id": "maui-moisture--frizz-free-shea-butter-leave-in-conditioning-mist",
@@ -255,7 +241,7 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "secs",
     "boucles"
    ],
    "actifs": [
@@ -264,9 +250,16 @@
    "ingredients": null,
    "description": "Moisture Level: IntenseHelp keep frizz at bay with Maui Moisture Frizz-Free + Shea Butter Leave-in Conditioning Mist. This easy-to-use mist helps protect from heat while defining your curls to enhance their natural beauty.",
    "claims": [
-    "hydratant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles",
+    "protection-chaleur"
    ],
-   "source": "sitemap mauimoisture.com + fiche"
+   "source": "sitemap mauimoisture.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/maui-moisture/cutout/frizz-free-shea-butter-leave-in-conditioning-mist.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "maui-moisture--heal-et-hydrate-shea-butter-shampoo",
@@ -281,7 +274,9 @@
    "image_local": "public/scan/products-cheveux/maui-moisture/heal-et-hydrate-shea-butter-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs"
+   ],
    "actifs": [
     "beurre de karité",
     "huile de macadamia"
@@ -289,10 +284,12 @@
    "ingredients": null,
    "description": "Moisture Level: IntenseCreamy shea butter is whipped into this hydrating shampoo blend along with rich coconut and macadamia oils help deeply quench, nourish, and soften strands to get your hair back to looking healthy.",
    "claims": [
-    "hydratant",
-    "nourrissant"
+    "hydratation",
+    "nutrition"
    ],
-   "source": "sitemap mauimoisture.com + fiche"
+   "source": "sitemap mauimoisture.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/maui-moisture/cutout/heal-et-hydrate-shea-butter-shampoo.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "maui-moisture--nourish-et-moisture-coconut-milk-conditioner",
@@ -307,16 +304,21 @@
    "image_local": "public/scan/products-cheveux/maui-moisture/nourish-et-moisture-coconut-milk-conditioner.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "fins"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "Moisture Level: MediumWeightless coconut milk infuses this light and creamy conditioner blend along with sheer guava oil and mango butter. Use this lightweight blend daily without fear of built-up and give your hair a healthy glow and shine!",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
     "brillance"
    ],
-   "source": "sitemap mauimoisture.com + fiche"
+   "source": "sitemap mauimoisture.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/maui-moisture/cutout/nourish-et-moisture-coconut-milk-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "maui-moisture--flexible-hold-coconut-milk-curl-foam-mousse",
@@ -332,17 +334,22 @@
    "categorie": "soin-sans-rinçage",
    "etape": 3,
    "cheveux_cibles": [
-    "epais",
+    "fins",
     "boucles"
    ],
    "actifs": [],
    "ingredients": null,
    "description": "Moisture Level: MediumEnhance your natural curls with Maui Moisture Flexible Hold + Coconut Milk Curl Foam Mousse. This lightweight, no-crunch mousse helps moisturize, volumize and de-frizz while keeping curls intact.",
    "claims": [
-    "hydratant",
-    "volume"
+    "hydratation",
+    "anti-frisottis",
+    "definition-boucles",
+    "volume",
+    "fixation"
    ],
-   "source": "sitemap mauimoisture.com + fiche"
+   "source": "sitemap mauimoisture.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/maui-moisture/cutout/flexible-hold-coconut-milk-curl-foam-mousse.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "maui-moisture--nourish-et-moisture-coconut-milk-shampoo",
@@ -357,16 +364,21 @@
    "image_local": "public/scan/products-cheveux/maui-moisture/nourish-et-moisture-coconut-milk-shampoo.jpg",
    "categorie": "shampooing",
    "etape": 1,
-   "cheveux_cibles": [],
+   "cheveux_cibles": [
+    "secs",
+    "fins"
+   ],
    "actifs": [],
    "ingredients": null,
    "description": "Moisture Level: MediumWeightless coconut milk infuses this light and creamy shampoo along with sheer guava oil and mango butter. Use this lightweight blend daily without fear of built-up and give your hair a healthy glow and shine!",
    "claims": [
-    "hydratant",
-    "nourrissant",
+    "hydratation",
+    "nutrition",
     "brillance"
    ],
-   "source": "sitemap mauimoisture.com + fiche"
+   "source": "sitemap mauimoisture.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/maui-moisture/cutout/nourish-et-moisture-coconut-milk-shampoo.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "maui-moisture--scalp-care-rejuvenating-conditioner",
@@ -382,7 +394,8 @@
    "categorie": "apres-shampooing",
    "etape": 2,
    "cheveux_cibles": [
-    "boucles"
+    "boucles",
+    "cuir-chevelu-sensible"
    ],
    "actifs": [
     "panthénol",
@@ -391,10 +404,13 @@
    "ingredients": null,
    "description": "Moisture Level: MediumSoothes your scalp & rapidly softens your curly hair. This rejuvenating conditioner features a unique blend of Vitamin E, Pro-Vitamin B5 & Aloe Vera that leaves strands moisturized, soothes scalp & conditions for hair that is up to 50x times softer*!*when used with Maui Moisture shampoo",
    "claims": [
-    "hydratant",
-    "apaisant"
+    "hydratation",
+    "definition-boucles",
+    "apaisant-cuir-chevelu"
    ],
-   "source": "sitemap mauimoisture.com + fiche"
+   "source": "sitemap mauimoisture.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/maui-moisture/cutout/scalp-care-rejuvenating-conditioner.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "maui-moisture--scalp-care-soothe-et-strengthen-serum-with-rosemary-oil",
@@ -410,8 +426,9 @@
    "categorie": "serum-cuir-chevelu",
    "etape": 4,
    "cheveux_cibles": [
-    "epais",
-    "boucles"
+    "secs",
+    "boucles",
+    "cuir-chevelu-sensible"
    ],
    "actifs": [
     "aloe vera"
@@ -419,12 +436,16 @@
    "ingredients": null,
    "description": "Moisture Level: MediumHelps prevent scalp dryness & strengthen your curls to 2x stronger hair*. This soothe & strengthen scalp care hair serum with rosemary oil features a unique blend of aloe vera & coconut water to help enhance hair shine & provide 48-hour frizz control.*vs non-conditioning shampoo alone",
    "claims": [
-    "hydratant",
-    "brillance",
-    "apaisant",
-    "fortifiant"
+    "hydratation",
+    "fortifiant",
+    "anti-frisottis",
+    "definition-boucles",
+    "apaisant-cuir-chevelu",
+    "brillance"
    ],
-   "source": "sitemap mauimoisture.com + fiche"
+   "source": "sitemap mauimoisture.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/maui-moisture/cutout/scalp-care-soothe-et-strengthen-serum-with-rosemary-oil.webp",
+   "ciblage_source": "deduit"
   },
   {
    "id": "maui-moisture--frizz-free-shea-butter-hair-et-scalp-milk",
@@ -441,8 +462,8 @@
    "etape": 4,
    "cheveux_cibles": [
     "secs",
-    "epais",
-    "boucles"
+    "boucles",
+    "cuir-chevelu-sensible"
    ],
    "actifs": [
     "huile de coco",
@@ -452,34 +473,15 @@
    "ingredients": null,
    "description": "Moisture Level: IntenseInfusing blends of shea butter and conditioning ingredients, Maui Shea Butter Hair & Scalp Milk Treatment deeply quenches and nourishes your scalp and strands to help your hair look healthier. Made with 100% aloe as the first ingredient, and a hydrating blend infused with shea butter, coconut oil and macadamia oil, this dry scalp treatment can be used as a rinse-off or leave-in conditioner for curly hair. This deep conditioner for dry hair contains a moisture rich formula,",
    "claims": [
-    "hydratant",
-    "nourrissant"
+    "hydratation",
+    "nutrition",
+    "anti-frisottis",
+    "definition-boucles"
    ],
-   "source": "sitemap mauimoisture.com + fiche"
-  },
-  {
-   "id": "maui-moisture--products-for-straight-and-wavy-hair-maui-moisture",
-   "name": "Products for Straight and Wavy Hair",
-   "brand": "maui-moisture",
-   "brand_name": "Maui Moisture",
-   "url": "https://www.mauimoisture.com/products/straight_wavy",
-   "url_verifiee_le": "2026-09-19",
-   "price_eur": null,
-   "price_source": null,
-   "image_source_url": null,
-   "image_local": null,
-   "categorie": "shampooing",
-   "etape": 1,
-   "cheveux_cibles": [
-    "boucles"
-   ],
-   "actifs": [],
-   "ingredients": null,
-   "description": "Discover Maui Moisture® products for Straight and Wavy Hair. Shampoos, Conditioners, Stylers and Treatments for your hair type",
-   "claims": [
-    "hydratant"
-   ],
-   "source": "sitemap mauimoisture.com + fiche"
+   "source": "sitemap mauimoisture.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/maui-moisture/cutout/frizz-free-shea-butter-hair-et-scalp-milk.webp",
+   "image_fond": true,
+   "ciblage_source": "deduit"
   },
   {
    "id": "maui-moisture--thicken-et-restore-bamboo-fiber-conditioner",
@@ -504,12 +506,14 @@
    "ingredients": null,
    "description": "Moisture Level: MediumExotic bamboo fibers are infused into this fortifying, rich conditioner blend with castor oil and neem oil to help strengthen and repair over-styled, damaged hair. It helps to renew and soften treated, natural or transitioning hair types and encourage healthy-looking glow.",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "volume",
-    "fortifiant"
+    "hydratation",
+    "reparation",
+    "fortifiant",
+    "volume"
    ],
-   "source": "sitemap mauimoisture.com + fiche"
+   "source": "sitemap mauimoisture.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/maui-moisture/cutout/thicken-et-restore-bamboo-fiber-conditioner.webp",
+   "ciblage_source": "fiche"
   },
   {
    "id": "maui-moisture--thicken-et-restore-bamboo-fiber-shampoo",
@@ -534,12 +538,14 @@
    "ingredients": null,
    "description": "Moisture Level: MediumExotic bamboo fibers are infused into this fortifying, shampoo blend with castor oil and neem oil to help strengthen and repair over-styled, damaged hair. It helps to renew and soften treated, natural or transitioning hair types and encourage healthy-looking glow.",
    "claims": [
-    "hydratant",
-    "reparateur",
-    "volume",
-    "fortifiant"
+    "hydratation",
+    "reparation",
+    "fortifiant",
+    "volume"
    ],
-   "source": "sitemap mauimoisture.com + fiche"
+   "source": "sitemap mauimoisture.com + fiche",
+   "cutout_url": "public/scan/products-cheveux/maui-moisture/cutout/thicken-et-restore-bamboo-fiber-shampoo.webp",
+   "ciblage_source": "fiche"
   }
  ]
 }

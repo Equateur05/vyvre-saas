@@ -78,16 +78,103 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
   }
 
   // ─────────────────────────────────────────────────────────────────────
+  // Langue — tout passe par le moteur maison /scan/vy-i18n.js (VY.t).
+  // Le francais reste ecrit ici : si le moteur n'est pas charge (vieille page,
+  // fichier de langue en echec), l'encart s'affiche quand meme, en francais.
+  // ─────────────────────────────────────────────────────────────────────
+  const FR = {
+    'sv.kick': 'Suivi',
+    'sv.emptyTitle': 'Suivez votre progression',
+    'sv.emptyBody': 'Revenez pour un nouveau scan et visualisez l\u2019évolution de votre peau dans le temps.',
+    'sv.history': 'Voir l\u2019historique',
+    'sv.historyFull': 'Voir l\u2019historique complet',
+    'sv.title': 'Votre parcours peau',
+    'sv.evo': 'Évolution',
+    'sv.last': '{k} derniers scans',
+    'sv.days': 'jours',
+    'sv.up': 'Peau améliorée de +{d} points en {j} jours.',
+    'sv.down': 'Score en baisse de {d} points en {j} jours.',
+    'sv.flat': 'Peau stable (Δ {d}) sur {j} jours.',
+    'sv.global': 'Score global',
+    'sv.cellAge': 'Âge cellulaire',
+    'sv.hydration': 'Hydratation',
+    'sv.hTitle': 'Historique des scans',
+    'sv.hEmpty': 'Aucun scan encore — votre historique apparaîtra ici.',
+    'sv.close': 'Fermer',
+    'sv.export': 'Exporter JSON',
+    'sv.clear': 'Tout effacer',
+    'sv.clearAsk': 'Effacer tout l\u2019historique ? Action irréversible.',
+    'sv.compare': 'Comparer',
+    'sv.pick': 'Sélectionnez 2 scans pour comparer',
+    'sv.delta': 'Δ du premier au dernier',
+    'sv.metric': 'Mesure',
+    'sv.score': 'Score',
+    'sv.age': 'Ancienneté',
+    'c.wrinkles': 'Ridules',
+    'c.firmness': 'Fermeté',
+    'c.glow': 'Éclat',
+    'c.redness': 'Apaisement'
+  };
+
+  function T(key, vars) {
+    var s = null;
+    try { if (window.VY && typeof VY.t === 'function') { s = VY.t(key, vars); if (s === key) s = null; } } catch (_) { s = null; }
+    if (s === null) {
+      s = FR[key];
+      if (s === undefined) return key;
+      if (vars) s = s.replace(/\{(\w+)\}/g, function (m, k) { return vars[k] === undefined ? m : vars[k]; });
+    }
+    return s;
+  }
+
+  // ─────────────────────────────────────────────────────────────────────
+  // Age cellulaire — on ne l'affiche QUE si le moteur le declare fiable.
+  // Le moteur publie scores.confidence : 'high' | 'standard' | 'low' | 'none'.
+  // Absent (vieille entree, score derive des pixels) = pas fiable : rien.
+  // ─────────────────────────────────────────────────────────────────────
+  function ageOf(entry) {
+    if (!entry || !entry.scores) return null;
+    const v = entry.scores.cellAge;
+    if (v == null) return null;
+    const c = entry.scores.confidence;
+    if (c !== 'high' && c !== 'standard') return null;
+    return v;
+  }
+
+  // ─────────────────────────────────────────────────────────────────────
   // Brand detection (best-effort heuristic for current POC)
   // ─────────────────────────────────────────────────────────────────────
+  function slugBrand(v) {
+    return String(v).toLowerCase().trim().replace(/_/g, '-').replace(/[^a-z0-9-]/g, '');
+  }
+
   function detectBrand() {
-    const url = (window.location && window.location.pathname) || '';
-    const title = (document.title || '').toLowerCase();
-    const m = url.match(/VYVRE_([A-Z0-9_]+)/i) || url.match(/\/([a-z]+)\.html?$/i);
-    if (m) return m[1].toLowerCase().replace(/_/g, '-');
-    if (window.VYVRE_BRAND) return String(window.VYVRE_BRAND).toLowerCase();
-    // Fallback : first 40 chars of title
-    return title.slice(0, 40) || 'unknown';
+    const path = (window.location && window.location.pathname) || '';
+    const search = (window.location && window.location.search) || '';
+
+    // 1. La marque posee par la page elle-meme (marque blanche : /m/<marque>).
+    const declared = window.VYVRE_MARQUE || window.VYVRE_BRAND;
+    if (declared) { const s = slugBrand(declared); if (s) return s; }
+
+    // 2. L'adresse courante : /m/<marque>, /m/<marque>/protocol, /m/<marque>/cheveux.
+    let m = path.match(/\/m\/([a-z0-9][a-z0-9-]*)/i);
+    if (m) { const s = slugBrand(m[1]); if (s) return s; }
+
+    // 3. Le parametre ?b= / ?brand= (les pages servies par reecriture le recoivent).
+    try {
+      const q = new URLSearchParams(search);
+      const b = q.get('b') || q.get('brand');
+      if (b) { const s = slugBrand(b); if (s) return s; }
+    } catch (_) {}
+
+    // 4. Compatibilite anciennes pages : VYVRE_<MARQUE>.html puis <marque>.html.
+    m = path.match(/VYVRE_([A-Z0-9_-]+)/i);
+    if (m) { const s = slugBrand(m[1]); if (s) return s; }
+    m = path.match(/\/([a-z0-9-]+)\.html?$/i);
+    if (m && !/^(index|scan|protocol)$/i.test(m[1])) { const s = slugBrand(m[1]); if (s) return s; }
+
+    // 5. Le scan de la maison : ce n'est pas une marque inconnue, c'est le notre.
+    return 'vyvre';
   }
 
   // ─────────────────────────────────────────────────────────────────────
@@ -108,7 +195,10 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
       sebum: numOrNull(s.sebum),
       pigmentation: numOrNull(s.pigmentation),
       globalScore: numOrNull(s.globalScore),
-      confidence: numOrNull(s.confidence),
+      /* le moteur publie une chaine ('high'|'standard'|'low'|'none') : la passer
+         dans numOrNull la detruisait, et l'age passait pour fiable par defaut. */
+      confidence: (typeof s.confidence === 'string') ? s.confidence : numOrNull(s.confidence),
+      cellAgeMethod: (typeof s.cellAgeMethod === 'string') ? s.cellAgeMethod : null,
       quality: numOrNull(s.quality)
     };
   }
@@ -263,65 +353,64 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
   }
 
   function renderEmptyEvolution(opts) {
-    const lang = opts.lang || (document.documentElement.lang || 'fr').slice(0, 2);
-    const txt = lang === 'en'
-      ? { title: 'Track your progress', body: 'Come back for another scan to see your skin\'s evolution over time.', cta: 'View history' }
-      : { title: 'Suivez votre progression', body: 'Revenez pour un nouveau scan et visualisez l\'évolution de votre peau dans le temps.', cta: 'Voir l\'historique' };
     return `
       <div class="vyvre-tracker-empty" style="padding:32px;border:1px solid rgba(255,255,255,0.08);border-radius:24px;text-align:center;background:rgba(255,255,255,0.02);margin:24px 0;">
-        <div style="font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.4);margin-bottom:12px;font-family:'JetBrains Mono',monospace;">Tracking</div>
-        <div style="font-size:24px;font-weight:300;color:#FFF;margin-bottom:10px;">${txt.title}</div>
-        <div style="font-size:14px;color:rgba(255,255,255,0.5);max-width:380px;margin:0 auto 18px;line-height:1.5;">${txt.body}</div>
-        <button data-vyvre-history-btn style="background:transparent;border:1px solid rgba(255,255,255,0.2);color:#FFF;padding:10px 24px;border-radius:24px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;">${txt.cta} (1)</button>
+        <div data-i18n="sv.kick" style="font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:rgba(255,255,255,0.55);margin-bottom:12px;font-family:'JetBrains Mono',monospace;">${T('sv.kick')}</div>
+        <div data-i18n="sv.emptyTitle" style="font-size:24px;font-weight:300;color:#FFF;margin-bottom:10px;">${T('sv.emptyTitle')}</div>
+        <div data-i18n="sv.emptyBody" style="font-size:14px;color:rgba(255,255,255,0.62);max-width:380px;margin:0 auto 18px;line-height:1.5;">${T('sv.emptyBody')}</div>
+        <button data-vyvre-history-btn style="background:transparent;border:1px solid rgba(255,255,255,0.2);color:#FFF;padding:10px 24px;border-radius:24px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;"><span data-i18n="sv.history">${T('sv.history')}</span> (1)</button>
       </div>
     `;
   }
 
   function renderEvolutionHTML(entries, delta, opts) {
-    const lang = opts.lang || (document.documentElement.lang || 'fr').slice(0, 2);
-    const txt = lang === 'en'
-      ? { title: 'Your skin journey', subTitle: 'Last ' + entries.length + ' scans', deltaTitle: 'Evolution', daysAgo: 'days', improved: 'improved', stable: 'stable', changed: 'changed', cta: 'View full history', cellAge: 'Cell Age', hydration: 'Hydration', global: 'Global Score' }
-      : { title: 'Votre parcours peau', subTitle: 'Derniers ' + entries.length + ' scans', deltaTitle: 'Évolution', daysAgo: 'jours', improved: 'améliorée', stable: 'stable', changed: 'modifiée', cta: 'Voir l\'historique complet', cellAge: 'Âge cellulaire', hydration: 'Hydratation', global: 'Score global' };
-
+    const latest = entries[entries.length - 1];
     const scores = entries.map(e => e.scores.globalScore).filter(v => v != null);
-    const ages = entries.map(e => e.scores.cellAge).filter(v => v != null);
+    /* age cellulaire : seules les lectures declarees fiables entrent ici */
+    const ages = entries.map(ageOf).filter(v => v != null);
     const sparkScores = sparkline(scores, '#FFFFFF', 'score');
     const sparkAges = sparkline(ages, '#C9A961', 'age');
 
-    const deltaScore = delta.score;
-    const deltaAge = delta.age;
-    const deltaHydration = delta.hydration;
+    const first = entries[0];
+    const ageFirst = ageOf(first), ageLast = ageOf(latest);
+    const deltaAge = (ageFirst != null && ageLast != null) ? Math.round((ageLast - ageFirst) * 100) / 100 : null;
 
-    const verdict = describeVerdict(delta, txt);
+    const verdict = describeVerdict(delta);
+
+    const cells = [
+      trackerMetricCell(T('sv.global'), scores[scores.length - 1], delta.score, sparkScores)
+    ];
+    /* l'age ne s'affiche pas du tout tant que le moteur ne le declare pas fiable */
+    if (ageLast != null) cells.push(trackerMetricCell(T('sv.cellAge'), ageLast, deltaAge, sparkAges, true));
+    cells.push(trackerMetricCell(T('sv.hydration'), latest.scores.hydration, delta.hydration,
+      sparkline(entries.map(e => e.scores.hydration).filter(v => v != null), '#7AC9DA', 'hyd')));
 
     return `
       <div class="vyvre-tracker-card" style="padding:40px 32px;border:1px solid rgba(255,255,255,0.08);border-radius:28px;background:rgba(255,255,255,0.02);margin:32px 0;">
         <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:24px;margin-bottom:32px;">
           <div>
-            <div style="font-size:10px;letter-spacing:0.35em;text-transform:uppercase;color:rgba(255,255,255,0.5);font-family:'JetBrains Mono',monospace;margin-bottom:8px;">${txt.deltaTitle}</div>
-            <div style="font-size:28px;font-weight:200;color:#FFF;letter-spacing:-0.02em;">${txt.title}</div>
-            <div style="font-size:12px;color:rgba(255,255,255,0.4);margin-top:6px;font-family:'JetBrains Mono',monospace;">${txt.subTitle} · ${delta.days} ${txt.daysAgo}</div>
+            <div data-i18n="sv.evo" style="font-size:10px;letter-spacing:0.35em;text-transform:uppercase;color:rgba(255,255,255,0.6);font-family:'JetBrains Mono',monospace;margin-bottom:8px;">${T('sv.evo')}</div>
+            <div data-i18n="sv.title" style="font-size:28px;font-weight:200;color:#FFF;letter-spacing:-0.02em;">${T('sv.title')}</div>
+            <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-top:6px;font-family:'JetBrains Mono',monospace;">${T('sv.last', { k: entries.length })} · ${delta.days} ${T('sv.days')}</div>
           </div>
-          <button data-vyvre-history-btn style="background:transparent;border:1px solid rgba(255,255,255,0.2);color:#FFF;padding:10px 22px;border-radius:24px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;cursor:pointer;white-space:nowrap;">${txt.cta} (${entries.length})</button>
+          <button data-vyvre-history-btn style="background:transparent;border:1px solid rgba(255,255,255,0.2);color:#FFF;padding:10px 22px;border-radius:24px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.25em;text-transform:uppercase;cursor:pointer;white-space:nowrap;"><span data-i18n="sv.historyFull">${T('sv.historyFull')}</span> (${entries.length})</button>
         </div>
 
         <div style="font-size:clamp(18px,2vw,24px);font-weight:200;color:#FFF;margin-bottom:36px;letter-spacing:-0.01em;line-height:1.4;">${verdict}</div>
 
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;">
-          ${trackerMetricCell(txt.global, scores[scores.length - 1], deltaScore, sparkScores)}
-          ${trackerMetricCell(txt.cellAge, ages[ages.length - 1], deltaAge, sparkAges, true)}
-          ${trackerMetricCell(txt.hydration, entries[entries.length - 1].scores.hydration, deltaHydration, sparkline(entries.map(e => e.scores.hydration).filter(v => v != null), '#7AC9DA', 'hyd'))}
+          ${cells.join('')}
         </div>
       </div>
     `;
   }
 
-  function describeVerdict(delta, txt) {
+  function describeVerdict(delta) {
     const d = delta.score;
     if (d == null) return '';
-    if (d > 3) return `${capitalize(txt.improved)} +${Math.abs(d)} points en ${delta.days} ${txt.daysAgo}.`;
-    if (d < -3) return `Score en baisse de ${Math.abs(d)} points en ${delta.days} ${txt.daysAgo}.`;
-    return `Peau ${txt.stable} (Δ ${d > 0 ? '+' : ''}${d}) sur ${delta.days} ${txt.daysAgo}.`;
+    if (d > 3) return T('sv.up', { d: Math.abs(d), j: delta.days });
+    if (d < -3) return T('sv.down', { d: Math.abs(d), j: delta.days });
+    return T('sv.flat', { d: (d > 0 ? '+' : '') + d, j: delta.days });
   }
 
   function capitalize(s) { return s ? s.charAt(0).toUpperCase() + s.slice(1) : s; }
@@ -377,10 +466,13 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
   // ─────────────────────────────────────────────────────────────────────
   function renderHistoryModal(opts) {
     opts = opts || {};
-    const lang = opts.lang || (document.documentElement.lang || 'fr').slice(0, 2);
-    const txt = lang === 'en'
-      ? { title: 'Scan history', empty: 'No scans yet — your history will appear here.', close: 'Close', export: 'Export JSON', clear: 'Clear all', compare: 'Compare', selected: 'Select 2 to compare', delta: 'Δ from first → last', cellAge: 'Cell Age', global: 'Global', hydration: 'Hydration', ageScan: 'Age' }
-      : { title: 'Historique des scans', empty: 'Aucun scan encore — votre historique apparaîtra ici.', close: 'Fermer', export: 'Exporter JSON', clear: 'Tout effacer', compare: 'Comparer', selected: 'Sélectionnez 2 scans pour comparer', delta: 'Δ du premier au dernier', cellAge: 'Âge cellulaire', global: 'Score', hydration: 'Hydratation', ageScan: 'Ancienneté' };
+    const txt = {
+      title: T('sv.hTitle'), empty: T('sv.hEmpty'), close: T('sv.close'),
+      export: T('sv.export'), clear: T('sv.clear'), compare: T('sv.compare'),
+      selected: T('sv.pick'), delta: T('sv.delta'), cellAge: T('sv.cellAge'),
+      global: T('sv.score'), hydration: T('sv.hydration'), ageScan: T('sv.age'),
+      metric: T('sv.metric')
+    };
 
     // Remove any prior modal
     const existing = document.getElementById('vyvre-tracker-modal');
@@ -393,7 +485,7 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
 
     modal.innerHTML = `
       <div style="background:#0A0A0C;border:1px solid rgba(255,255,255,0.1);border-radius:28px;max-width:920px;width:100%;padding:40px;color:#FFF;position:relative;">
-        <button data-vyvre-close style="position:absolute;top:24px;right:24px;background:transparent;border:1px solid rgba(255,255,255,0.2);color:#FFF;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:18px;line-height:1;">×</button>
+        <button data-vyvre-close aria-label="${txt.close}" title="${txt.close}" style="position:absolute;top:24px;right:24px;background:transparent;border:1px solid rgba(255,255,255,0.2);color:#FFF;width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:18px;line-height:1;">×</button>
         <div style="font-size:10px;letter-spacing:0.35em;text-transform:uppercase;color:rgba(255,255,255,0.5);font-family:'JetBrains Mono',monospace;margin-bottom:10px;">VYVRE</div>
         <h2 style="font-size:32px;font-weight:200;letter-spacing:-0.02em;margin-bottom:24px;color:#FFF;">${txt.title}</h2>
         ${entries.length === 0 ? `<div style="padding:60px 0;text-align:center;color:rgba(255,255,255,0.4);font-size:14px;">${txt.empty}</div>` : ''}
@@ -426,7 +518,7 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
 
     const clearBtn = modal.querySelector('[data-vyvre-clear]');
     if (clearBtn) clearBtn.addEventListener('click', () => {
-      if (confirm(lang === 'en' ? 'Erase all scan history? This cannot be undone.' : 'Effacer tout l\'historique ? Action irréversible.')) {
+      if (confirm(T('sv.clearAsk'))) {
         const removed = clear();
         VYVRE_LOG('[vyvre-tracker] cleared', removed, 'entries');
         modal.remove();
@@ -468,37 +560,35 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
 
   function renderHistoryList(entries, txt) {
     const sorted = entries.slice().sort((a, b) => b.timestamp - a.timestamp);
+    const cell = (label, value) => `
+          <div style="text-align:right;">
+            <div style="font-size:10px;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.2em;font-family:'JetBrains Mono',monospace;">${label}</div>
+            <div style="font-size:18px;color:#FFF;font-weight:300;">${value}</div>
+          </div>`;
     const rows = sorted.map(e => {
       const date = new Date(e.timestamp);
       const dateStr = date.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
       const timeStr = date.toLocaleTimeString(undefined, { hour: '2-digit', minute: '2-digit' });
       const score = e.scores.globalScore != null ? Math.round(e.scores.globalScore) : '--';
-      const age = e.scores.cellAge != null ? Math.round(e.scores.cellAge) : '--';
+      const age = ageOf(e);
       const hyd = e.scores.hydration != null ? Math.round(e.scores.hydration) : '--';
       const brand = e.brand ? e.brand.replace(/[-_]/g, ' ') : '';
+      /* l'age cellulaire ne parait pas du tout quand la lecture n'est pas fiable */
+      const mesures = [cell(txt.global, score)];
+      if (age != null) mesures.push(cell(txt.cellAge, Math.round(age)));
+      mesures.push(cell(txt.hydration, hyd));
       return `
-        <div data-vyvre-row="${e.scanId}" style="display:grid;grid-template-columns:auto 1fr auto auto auto;gap:16px;align-items:center;padding:16px 18px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:14px;margin-bottom:8px;cursor:pointer;transition:background 0.2s,border-color 0.2s;">
-          ${e.photoCropped ? `<img src="${e.photoCropped}" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:1px solid rgba(255,255,255,0.1);">` : `<div style="width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;font-size:14px;color:rgba(255,255,255,0.4);">${brand.charAt(0).toUpperCase()}</div>`}
+        <div data-vyvre-row="${e.scanId}" style="display:grid;grid-template-columns:auto 1fr repeat(${mesures.length},auto);gap:16px;align-items:center;padding:16px 18px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:14px;margin-bottom:8px;cursor:pointer;transition:background 0.2s,border-color 0.2s;">
+          ${e.photoCropped ? `<img src="${e.photoCropped}" alt="" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:1px solid rgba(255,255,255,0.1);">` : `<div style="width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;font-size:14px;color:rgba(255,255,255,0.6);">${brand.charAt(0).toUpperCase()}</div>`}
           <div>
             <div style="font-size:14px;color:#FFF;font-weight:400;">${dateStr} · ${timeStr}</div>
-            <div style="font-size:11px;color:rgba(255,255,255,0.45);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.1em;margin-top:2px;">${brand}</div>
+            <div style="font-size:11px;color:rgba(255,255,255,0.6);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.1em;margin-top:2px;">${brand}</div>
           </div>
-          <div style="text-align:right;">
-            <div style="font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.2em;font-family:'JetBrains Mono',monospace;">${txt.global}</div>
-            <div style="font-size:18px;color:#FFF;font-weight:300;">${score}</div>
-          </div>
-          <div style="text-align:right;">
-            <div style="font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.2em;font-family:'JetBrains Mono',monospace;">${txt.cellAge}</div>
-            <div style="font-size:18px;color:#FFF;font-weight:300;">${age}</div>
-          </div>
-          <div style="text-align:right;">
-            <div style="font-size:10px;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.2em;font-family:'JetBrains Mono',monospace;">${txt.hydration}</div>
-            <div style="font-size:18px;color:#FFF;font-weight:300;">${hyd}</div>
-          </div>
+          ${mesures.join('')}
         </div>
       `;
     }).join('');
-    const helper = `<div style="font-size:11px;color:rgba(255,255,255,0.4);margin-bottom:14px;font-family:'JetBrains Mono',monospace;letter-spacing:0.05em;">${txt.selected}</div>`;
+    const helper = `<div style="font-size:11px;color:rgba(255,255,255,0.6);margin-bottom:14px;font-family:'JetBrains Mono',monospace;letter-spacing:0.05em;">${txt.selected}</div>`;
     return helper + rows;
   }
 
@@ -514,7 +604,7 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
         else color = d > 0 ? '#7DD3A0' : '#E89B9B';
       }
       return `<tr>
-        <td style="padding:10px 0;color:rgba(255,255,255,0.6);font-size:13px;">${label}</td>
+        <td style="padding:10px 0;color:rgba(255,255,255,0.72);font-size:13px;">${label}</td>
         <td style="padding:10px 0;color:#FFF;text-align:right;font-family:'JetBrains Mono',monospace;font-size:14px;">${Math.round(va)}</td>
         <td style="padding:10px 0;color:#FFF;text-align:right;font-family:'JetBrains Mono',monospace;font-size:14px;">${Math.round(vb)}</td>
         <td style="padding:10px 0;text-align:right;color:${color};font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:500;">${d != null ? (d > 0 ? '+' : '') + Math.round(d * 10) / 10 : '--'}</td>
@@ -528,20 +618,20 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
         <table style="width:100%;border-collapse:collapse;">
           <thead>
             <tr style="border-bottom:1px solid rgba(255,255,255,0.1);">
-              <th style="padding:8px 0;text-align:left;font-size:11px;color:rgba(255,255,255,0.5);font-weight:400;text-transform:uppercase;letter-spacing:0.15em;">Metric</th>
-              <th style="padding:8px 0;text-align:right;font-size:11px;color:rgba(255,255,255,0.5);font-weight:400;">${dateA}</th>
-              <th style="padding:8px 0;text-align:right;font-size:11px;color:rgba(255,255,255,0.5);font-weight:400;">${dateB}</th>
-              <th style="padding:8px 0;text-align:right;font-size:11px;color:rgba(255,255,255,0.5);font-weight:400;">Δ ${delta.days}j</th>
+              <th style="padding:8px 0;text-align:left;font-size:11px;color:rgba(255,255,255,0.62);font-weight:400;text-transform:uppercase;letter-spacing:0.15em;">${txt.metric}</th>
+              <th style="padding:8px 0;text-align:right;font-size:11px;color:rgba(255,255,255,0.62);font-weight:400;">${dateA}</th>
+              <th style="padding:8px 0;text-align:right;font-size:11px;color:rgba(255,255,255,0.62);font-weight:400;">${dateB}</th>
+              <th style="padding:8px 0;text-align:right;font-size:11px;color:rgba(255,255,255,0.62);font-weight:400;">Δ ${delta.days} ${T('sv.days')}</th>
             </tr>
           </thead>
           <tbody>
             ${cmpRow(txt.global, a.scores.globalScore, b.scores.globalScore, 'score')}
-            ${cmpRow(txt.cellAge, a.scores.cellAge, b.scores.cellAge, 'age', true)}
+            ${cmpRow(txt.cellAge, ageOf(a), ageOf(b), 'age', true)}
             ${cmpRow(txt.hydration, a.scores.hydration, b.scores.hydration, 'hydration')}
-            ${cmpRow('Wrinkles', a.scores.wrinkles, b.scores.wrinkles, 'wrinkles')}
-            ${cmpRow('Firmness', a.scores.firmness, b.scores.firmness, 'firmness')}
-            ${cmpRow('Glow', a.scores.glow, b.scores.glow, 'glow')}
-            ${cmpRow('Redness', a.scores.redness, b.scores.redness, 'redness', true)}
+            ${cmpRow(T('c.wrinkles'), a.scores.wrinkles, b.scores.wrinkles, 'wrinkles')}
+            ${cmpRow(T('c.firmness'), a.scores.firmness, b.scores.firmness, 'firmness')}
+            ${cmpRow(T('c.glow'), a.scores.glow, b.scores.glow, 'glow')}
+            ${cmpRow(T('c.redness'), a.scores.redness, b.scores.redness, 'redness', true)}
           </tbody>
         </table>
       </div>
@@ -625,6 +715,16 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
     _normaliseScores: normaliseScores,
     _readStore: readStore
   };
+
+  // La langue peut changer apres le scan : l'encart de suivi se repeint.
+  document.addEventListener('vy:lang', () => {
+    try {
+      const slot = document.querySelector('[data-vyvre-tracker-slot]');
+      if (slot) renderEvolution(slot, {});
+      const modal = document.getElementById('vyvre-tracker-modal');
+      if (modal) { modal.remove(); renderHistoryModal({}); }
+    } catch (_) {}
+  });
 
   // Auto-hook engine events
   window.addEventListener('vyvre:scan-complete', (e) => {
