@@ -3799,28 +3799,34 @@ var PROMESSE_MOT = { hydratation:'hydrate', brillance:'fait briller', nutrition:
   'anti-chute':'freine la chute', croissance:'soutient la pousse', densifiant:'densifie',
   'anti-pollution':'protège de la pollution', antipelliculaire:'lutte contre les pellicules',
   'anti-jaunissement':'neutralise les reflets jaunes', 'sans-paraben':'sans paraben', 'anti-age':'anti-âge' };
+/* la ponctuation n'est pas la meme partout : le japonais et le chinois ecrivent
+   « 、 » et « 。 » sans espace, l'arabe « ، ». On les prend dans le dictionnaire. */
 function listeFr(t){
   if(!t.length) return '';
+  var sep = T('hcx.sep') || ', ', esp = (T('hcx.esp') === '' ? '' : (T('hcx.esp') || ' '));
   if(t.length === 1) return t[0];
-  return t.slice(0, -1).join(', ') + ' ' + T('hcp.et') + ' ' + t[t.length-1];
+  return t.slice(0, -1).join(sep) + esp + T('hcp.et') + esp + t[t.length-1];
 }
 /* la phrase du produit : ce qu'il fait, pour qui. Les mots forts sont en gras. */
 function phraseProduit(p, f){
-  var pr = (f.claims || p.claims || []).map(function(c){ return PROMESSE_MOT[c]; }).filter(Boolean).slice(0, 3);
-  var ci = (f.cheveux_cibles || p.cheveux_cibles || []).map(function(c){ return CIBLE_MOT[c]; }).filter(Boolean).slice(0, 2);
+  /* 25/09 — les mots viennent des dictionnaires : sinon la phrase restait en
+     francais dans les onze autres langues. Le francais sert de repli. */
+  var pr = (f.claims || p.claims || []).map(function(c){ return T('hcw.' + c) || PROMESSE_MOT[c]; }).filter(Boolean).slice(0, 3);
+  var ci = (f.cheveux_cibles || p.cheveux_cibles || []).map(function(c){ return T('hct.' + c) || CIBLE_MOT[c]; }).filter(Boolean).slice(0, 2);
   var bout = [];
   if(pr.length) bout.push(listeFr(pr.map(function(x){ return '<b>' + esc(x) + '</b>'; })));
-  if(ci.length) bout.push(T('hcd.pour') + ' ' + listeFr(ci.map(function(x){ return '<b>' + esc(x) + '</b>'; })));
+  var espM = (T('hcx.esp') === '' ? '' : (T('hcx.esp') || ' '));
+  if(ci.length) bout.push(T('hcd.pour') + espM + listeFr(ci.map(function(x){ return '<b>' + esc(x) + '</b>'; })));
   if(!bout.length){
     /* rien de sûr dans la fiche : on garde le texte de la marque s'il est dans la bonne langue */
     var d = String((f.description || p.description || '')).trim();
     if(d && (VY.lang !== 'fr' || (MOTS_FR.test(d) && !MOTS_ANGLAIS.test(d)))) return esc(d.slice(0, 220));
     return '';
   }
-  var ph = bout.join('. ');
+  var ph = bout.join((T('hcx.fin') || '.') + (T('hcx.esp') === '' ? '' : ' '));
   /* la majuscule tombait sur le chevron de la balise, pas sur la lettre */
   ph = ph.replace(/([a-zà-ÿ])/, function(c){ return c.toUpperCase(); });
-  return ph + '.';
+  return ph + (T('hcx.fin') || '.');
 }
 
 /* le detail, produit par produit : « LA SALLE ».
