@@ -122,3 +122,14 @@ alter table public.hair_products
   add column if not exists image_incertaine boolean not null default false,
   add column if not exists cutout_url       text,
   add column if not exists ciblage_source   text;
+
+-- 24/09/2026 — colonne medicament : le catalogue marque `medicament: true` les
+-- fiches qui sont des medicaments (Minoxidil...) pour que le moteur les ecarte
+-- des routines. Sans la colonne, l'information restait dans le JSON et ne
+-- montait pas en base.
+alter table public.hair_products
+  add column if not exists medicament boolean not null default false;
+
+comment on column public.hair_products.medicament is 'Vrai si la fiche est un medicament (minoxidil, finasteride, ketoconazole...) : ne doit jamais entrer dans une routine de soin.';
+
+create index if not exists hair_products_medicament_idx on public.hair_products (medicament);

@@ -36,10 +36,12 @@ body.g3 .phrase{display:none}
 
 body.fini .phrase{opacity:0}
 @media(max-width:760px){.choix{top:auto;bottom:14px;left:4vw;right:4vw;justify-content:space-between}.phrase{bottom:16vh}.total{bottom:16vh}}
+/* la toile du double en points ne sert que sous ?tete=1 */
+body.encre #gl{display:none}
 </style>
 <script type="importmap">{"imports":{"three":"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js","three/addons/":"https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"}}</script>
 </head>
-<body class="g1">
+<body class="encre">
 <video id="vid" playsinline muted autoplay></video>
 <canvas id="cv"></canvas>
 <canvas id="gl"></canvas>
@@ -53,27 +55,47 @@ body.fini .phrase{opacity:0}
 </div>
 <script type="module">
 /* ==========================================================================
-   LE GUIDAGE SANS ORDRES — trois propales.
+   LE SCAN CHEVEUX — GUIDAGE SANS ORDRES, MISE EN SCENE « ENCRE QUI COULE ».
    On ne dit pas « tournez a gauche » : on montre ce qui reste a lire, et la
    personne tourne d'elle-meme pour le remplir (le principe de Face ID).
 
    Tout est REEL sur la camera :
    - l'orientation de la tete : « face_landmarker » de MediaPipe (Google,
      Apache 2.0), 478 points du visage, lus a chaque image ;
-   - les cheveux : « hair_segmenter », le meme modele que les propales du scan.
+   - les cheveux : « hair_segmenter », le meme modele que le reste du scan.
    Une zone ne se remplit que si la tete est dans le bon angle ET que des
-   cheveux sont vraiment vus a ce moment-la.
+   cheveux sont vraiment vus a ce moment-la. Huit images gardees par cote,
+   avec les quatre conditions (angle, cheveux vus, immobilite, nettete) ; la
+   plus nette de chaque cote part au moteur, accompagnee de SON masque de
+   cheveux, par postMessage « vyvre-scan-fini ». Aucune photo de la personne
+   n'est montree a l'ecran.
 
-   ?g=1..3 choisit la propale (touches 1 a 3) · ?demo=1 : une tete fictive
-   tourne toute seule (pour voir sans camera, et c'est ecrit a l'ecran) ·
-   ?debug=1 : les angles lus.
+   24/09 — CE QUI A CHANGE, ET RIEN D'AUTRE : LE DESSIN.
+   La tete en points (le « double » en three.js, a droite de l'ecran) est
+   retiree : Charles a refuse toutes les versions de double du visage. A sa
+   place, la mise en scene retenue parmi les dix propales — ENCRE QUI COULE
+   (propals/cheveux/scanA.html?p=1). Elle reste dans le bleu de la marque,
+   elle montre l'avancement SANS montrer un second visage, et c'est la plus
+   rapide : 45 images par seconde contre 36 pour l'ancienne page.
+   La chaine de lecture au-dessus n'a pas bouge d'une ligne : memes modeles,
+   memes conditions, memes phrases de guidage, memes douze langues, memes
+   replis (camera refusee, visage jamais vu), meme masque envoye au moteur.
+
+   LA PORTE DE SORTIE — ?tete=1
+   Si Charles change d'avis, ?tete=1 rend l'ancienne tete en points, telle
+   quelle (et ?tete=1&g=2 ou &g=3 les deux autres dessins de l'epoque).
+   three.js n'est plus importe au chargement : il n'est telecharge QUE sous
+   ?tete=1 (import dynamique dans monterTete()). La page par defaut ne
+   demande plus rien au CDN — l'importmap ne reste dans le <head> que pour
+   cette porte de sortie.
+   Le parametre se lit aussi sur la page parente : ouvrir /cheveux/?tete=1
+   suffit, l'iframe le reprend (index.html n'a pas ete touche).
+
+   ?demo=1 : une tete fictive tourne toute seule (pour voir sans camera, et
+   c'est ecrit a l'ecran) · ?photo=p_232 : une photo traitee comme la camera ·
+   ?debug=1 : les angles lus et le cout du dessin en millisecondes.
    ========================================================================== */
 import { FilesetResolver, ImageSegmenter, FaceLandmarker } from "/cheveux/vendor/mediapipe/vision_bundle.mjs";
-import * as THREE from 'three';
-import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
-import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
-import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
-import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 
 const $ = id => document.getElementById(id);
 
@@ -176,7 +198,7 @@ function lire(now){
           HAIR[i] = HAIR[i]*.3 + v*.7; idH.data[i*4+3] = sm((HAIR[i]-.45)/.35)*255; if(HAIR[i] > .5) n++;
         }
         mHc.putImageData(idH,0,0); vuCheveux = n / (PW*PH);
-        mesurerChevelure();
+        apresLecture();
         cm.forEach(x => x.close && x.close());
       });
     } else if(!demo() && face){
@@ -332,521 +354,887 @@ function cheveux(r, couleur, mode){
 const BLEU = a => 'rgba(64,170,255,' + a + ')';
 
 /* ==========================================================================
-   A · LE DOUBLE — une tete de points, a droite, qui tourne comme la votre.
-   Ses cheveux sont en quatre zones ; elles passent du gris au bleu quand
-   elles ont ete lues. On tourne pour remplir le gris.
+   LE DESSIN — « ENCRE QUI COULE » (propale 1 de scanA.html, reprise mot pour
+   mot). Le masque nourrit un ecoulement : chaque grain nait sur un vrai pixel
+   de cheveux, suit le sens des meches (tenseur de structure), retombe et sort
+   par le bas. A mesure qu'un cote est lu, son encre CESSE de couler et se fige
+   en bleu profond ; le depot en bas de l'ecran, lui, EST le pourcentage.
+   Rien ici ne mesure quoi que ce soit : tout est deja mesure au-dessus.
    ========================================================================== */
-const gl = $('gl');
-const re = new THREE.WebGLRenderer({ canvas:gl, antialias:true, alpha:true }); re.setPixelRatio(Math.min(devicePixelRatio,1.5)); re.setClearColor(0x000000, 0);
-const sc = new THREE.Scene(), cam = new THREE.PerspectiveCamera(30, 1, .1, 50); cam.position.set(0, .15, 7.2);
-const co = new EffectComposer(re); co.addPass(new RenderPass(sc, cam));
-const bloom = new UnrealBloomPass(new THREE.Vector2(512,512), .7, .5, .2); co.addPass(bloom); co.addPass(new OutputPass());
-const tete = new THREE.Group(); sc.add(tete);
-const NPT = 14000, pos = new Float32Array(NPT*3), col = new Float32Array(NPT*3), zon = new Int8Array(NPT), seuil = new Float32Array(NPT);
-function rnd(n){ const s = Math.sin(n*127.1)*43758.5453; return s - Math.floor(s); }
-for(let i=0;i<NPT;i++){
-  /* une tete : ellipsoide, un peu plus haute que large, menton affine */
-  const u = rnd(i)*2-1, a = rnd(i*3.7)*Math.PI*2, s = Math.sqrt(1-u*u);
-  let x = s*Math.cos(a)*.92, y = u*1.18, z = s*Math.sin(a)*1.02;
-  if(y < -.3){ const k = 1 - (-.3 - y)*.45; x *= k; z *= k; }
-  if(z > .5 && Math.abs(x) < .16 && y > -.45 && y < .2) z += .22 * (1 - Math.abs(x)/.16) * (1 - Math.abs(y + .12)/.33);   /* le nez */
-  if(z > .5 && y < .12 && y > -.02 && Math.abs(Math.abs(x) - .32) < .14) z -= .06;                                     /* les orbites */
-  pos[i*3]=x; pos[i*3+1]=y; pos[i*3+2]=z;
-  /* les cheveux : tout le haut et l'arriere, sauf le visage */
-  const visageZ = z > .35 && y < .42 && y > -1.1 && Math.abs(x) < .72;
-  let zz = -1;
-  if(!visageZ && (y > .05 || z < -.1)){
-    if(y > .72 && Math.abs(x) < .55 && z > -.55) zz = 3;           /* dessus */
-    else if(x < -.3 && y > -.7) zz = 2;                              /* montre en tournant vers la droite de l'ecran */
-    else if(x > .3 && y > -.7) zz = 1;                               /* montre en tournant vers la gauche */
-    else if(z > .1) zz = 0;                                          /* devant */
-    else zz = 3 + 1;                                                 /* arriere : jamais lu seul */
-  }
-  if(zz >= 0){ const k = 1.07 + rnd(i*4.4)*.06; pos[i*3]*=k; pos[i*3+1]*=k; pos[i*3+2]*=k; }   /* le volume des cheveux, au-dessus du crane */
-  zon[i] = zz; seuil[i] = rnd(i*9.1);
-}
-const gt = new THREE.BufferGeometry(); gt.setAttribute('position', new THREE.BufferAttribute(pos,3)); gt.setAttribute('color', new THREE.BufferAttribute(col,3));
-tete.add(new THREE.Points(gt, new THREE.PointsMaterial({ size:.018, vertexColors:true, transparent:true, opacity:.95, blending:THREE.AdditiveBlending, depthWrite:false })));
-function couleursTete(t){
-  for(let i=0;i<NPT;i++){
-    const zz = zon[i]; let r, g, b;
-    if(zz < 0){ const k = pos[i*3+2] > .35 ? .22 + .3*Math.max(0,pos[i*3+2]-.35) : .05; r = g = b = k; }   /* exactement la version du 21/09 23h41 */         /* visage : on doit le reconnaitre */
-    else if(zz === 4){ r = g = b = .05; }                                                    /* arriere */
-    else {
-      const lu = Z[ZONES[zz]] > seuil[i], actif = ZONES[zz] === pose && Z[ZONES[zz]] < 1;
-      if(lu){ r = .35; g = .78; b = 1.3; }
-      else { const k = actif ? .45 + .25*Math.sin(t/120 + i) : .26; r = g = b = k; }
-    }
-    col[i*3]=r; col[i*3+1]=g; col[i*3+2]=b;
-  }
-  gt.attributes.color.needsUpdate = true;
-}
-function tailleGL(){ const w = gl.clientWidth || innerWidth, h = gl.clientHeight || innerHeight; re.setSize(w, h, false); co.setSize(w, h); cam.aspect = w/h; cam.updateProjectionMatrix(); }
-addEventListener('resize', tailleGL);
-
-/* ---------------- les trois dessins ---------------- */
-let G = clamp(+(Q.get('g') || 1), 1, 3), T0 = performance.now(), tPrec = T0;
-/* ---------------- LE DOUBLE, DESSINE D'APRES VOTRE TETE ----------------
-   23/09 — premiere version : un ellipsoide de principe, le meme pour tout le
-   monde (« on dirait un Playmobil »). Deuxieme : la bonne forme, mais un
-   ballon rond autour d'un visage plat et un halo de poussiere en guise de
-   cheveux. Celle-ci DESSINE :
-   - le crane est serre sur l'anatomie : largeur de tete = largeur des
-     pommettes, sommet juste au-dessus de la ligne de cheveux MESUREE, et la
-     silhouette du volume est celle du masque de cheveux, direction par
-     direction : le contour du double et celui de la tete se superposent ;
-   - le visage a du relief : chaque point est eclaire par la normale de son
-     triangle, et les aretes vives du maillage (dos du nez, arcades,
-     pommettes, levres, machoire) recoivent plus de points et plus de lumiere.
-     De trois quarts, on lit le profil du nez ;
-   - les cheveux sont des MECHES : des segments qui partent du front, passent
-     sur le crane et tombent derriere et sur les cotes — le sens ou les cheveux
-     poussent. Leur longueur est celle que le masque a mesuree a cet endroit :
-     une coupe ras donne un duvet colle au crane, un volume donne de longues
-     meches. Une coiffure, pas un nuage.
-   Rien d'autre ne bouge : memes couleurs, meme passage au bleu par zone, et
-   14 000 sommets en tout comme la tete de principe. Tout est construit dans
-   LE REPERE DE LA TETE (unite = demi-largeur du visage) et pose dans l'image
-   par la matrice mTete : le double tourne parce que la tete tourne. */
-const racine = new THREE.Group(); sc.add(racine);
-const corps = new THREE.Group(); corps.matrixAutoUpdate = false; racine.add(corps);
-
-function P(l){ return [ (l.x - .5) * PW, -(l.y - .5) * PH, -l.z * PW ]; }
-const sub = (a,b) => [a[0]-b[0], a[1]-b[1], a[2]-b[2]], nrm = a => { const n = Math.hypot(a[0],a[1],a[2]) || 1; return [a[0]/n, a[1]/n, a[2]/n]; };
-const dot = (a,b) => a[0]*b[0] + a[1]*b[1] + a[2]*b[2], crs = (a,b) => [a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]];
-
-/* le maillage : les triangles se deduisent des aretes (trois points relies
-   deux a deux). Les yeux et la bouche sont des trous dans ce maillage ; on y
-   seme quand meme un peu de poussiere, sinon le double a des orbites vides. */
-const ARETES = FaceLandmarker.FACE_LANDMARKS_TESSELATION || [];
-const TRIS = (function(){
-  const vois = new Map(), add = (a,b) => { if(!vois.has(a)) vois.set(a, new Set()); vois.get(a).add(b); };
-  ARETES.forEach(e => { add(e.start, e.end); add(e.end, e.start); });
-  const vu = new Set(), out = [];
-  ARETES.forEach(e => { const A = vois.get(e.start), B = vois.get(e.end); if(!A || !B) return;
-    for(const c of A){ if(!B.has(c)) continue; const k = [e.start, e.end, c].sort((x,y) => x-y).join(','); if(vu.has(k)) continue; vu.add(k); out.push(e.start, e.end, c); } });
-  return out;
+let T0 = performance.now(), tPrec = T0, msDessin = 0;
+/* la porte de sortie, lue une fois : sur cette page ou sur la page parente */
+const TETE = (function(){
+  if(Q.get('tete') === '1') return true;
+  try{ if(parent !== window && new URLSearchParams(parent.location.search).get('tete') === '1') return true; }catch(e){}
+  return false;
 })();
-function anneau(con){ const s = new Set(); (con || []).forEach(c => { s.add(c.start); s.add(c.end); }); return [...s]; }
-const TROUS = [FaceLandmarker.FACE_LANDMARKS_LEFT_EYE, FaceLandmarker.FACE_LANDMARKS_RIGHT_EYE, FaceLandmarker.FACE_LANDMARKS_LIPS]
-  .map(anneau).filter(z => z.length > 2);
+let hookMasqueTete = null, dessinTete = null;
+/* le seul point ou la lecture touche au dessin : a chaque nouveau masque */
+function apresLecture(){ if(TETE){ if(hookMasqueTete) hookMasqueTete(); } else apresMasque(); }
 
-/* LE MEME NOMBRE DE SOMMETS QU'AVANT : 8 800 points de visage + 2 600 meches
-   a deux bouts = 14 000, exactement la tete de principe (une seule des deux
-   est affichee a la fois). Des meches longues et peu nombreuses dessinent une
-   coiffure ; des meches courtes et serrees ne font qu'une fourrure. */
-const NV = 8800, NM = 2600;
-/* le centre approximatif de la tete : il sert a retourner les normales du
-   maillage vers l'exterieur */
-const CTR = [0, .25, -.5];
+/* ---------------- les voiles : la personne reste en couleur ----------------
+   On n'assombrit QUE la ou du texte doit rester lisible : le bas (la phrase et
+   le pourcentage) et une bande en haut (la marque et le selecteur). */
+/* UN SEUL VOILE, PAS DEUX. Chaque remplissage plein cadre se paie ; le haut
+   (la marque, le selecteur) et le bas (la phrase, le pourcentage) tiennent
+   dans un seul degrade. */
+function voiles(haut, bas){
+  const g = ctx.createLinearGradient(0, 0, 0, H);
+  g.addColorStop(0, 'rgba(0,0,0,'+haut+')');
+  g.addColorStop(.20, 'rgba(0,0,0,0)');
+  g.addColorStop(.50, 'rgba(0,0,0,0)');
+  g.addColorStop(.80, 'rgba(0,0,0,'+(bas*.50)+')');
+  g.addColorStop(1, 'rgba(0,0,0,'+bas+')');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, W, H);
+}
+function vignette(a, r0){
+  const g = ctx.createRadialGradient(W*.5, H*.42, Math.min(W,H)*(r0 || .16), W*.5, H*.42, Math.max(W,H)*.56);
+  g.addColorStop(0,'rgba(0,0,0,0)'); g.addColorStop(.30,'rgba(0,0,0,'+(a*.30)+')');
+  g.addColorStop(.58,'rgba(0,0,0,'+(a*.74)+')'); g.addColorStop(.82,'rgba(0,0,0,'+(a*.94)+')');
+  g.addColorStop(1,'rgba(0,0,0,'+a+')');
+  ctx.fillStyle = g; ctx.fillRect(0,0,W,H);
+}
 
-/* ---- le visage ----
-   chaque point retient son triangle et ses trois poids : il suit les traits
-   image apres image, expression comprise. vRid dit si son triangle est sur une
-   arete vive du visage (le dos du nez, les levres) ou sur une surface plate. */
-const vI = new Int32Array(NV*3), vW = new Float32Array(NV*3), vJ = new Float32Array(NV*3), vRid = new Float32Array(NV);
-const vPos = new Float32Array(NV*3), vCol = new Float32Array(NV*3);
-let semis = false;
-function semer(Ll){
-  const nT = TRIS.length / 3, tn = new Float32Array(nT*3);
-  const somme = new Float32Array(478*3), compte = new Float32Array(478), ridV = new Float32Array(478);
-  for(let k=0;k<nT;k++){
-    const a = TRIS[k*3], b = TRIS[k*3+1], c = TRIS[k*3+2];
-    const u = [Ll[b*3]-Ll[a*3], Ll[b*3+1]-Ll[a*3+1], Ll[b*3+2]-Ll[a*3+2]];
-    const v = [Ll[c*3]-Ll[a*3], Ll[c*3+1]-Ll[a*3+1], Ll[c*3+2]-Ll[a*3+2]];
-    let n = crs(u, v); const nl = Math.hypot(n[0],n[1],n[2]) || 1; n = [n[0]/nl, n[1]/nl, n[2]/nl];
-    /* le maillage n'a pas d'endroit ni d'envers : on tourne la normale vers
-       l'exterieur de la tete */
-    const g = [(Ll[a*3]+Ll[b*3]+Ll[c*3])/3 - CTR[0], (Ll[a*3+1]+Ll[b*3+1]+Ll[c*3+1])/3 - CTR[1], (Ll[a*3+2]+Ll[b*3+2]+Ll[c*3+2])/3 - CTR[2]];
-    if(dot(n, g) < 0){ n = [-n[0], -n[1], -n[2]]; }
-    tn[k*3] = n[0]; tn[k*3+1] = n[1]; tn[k*3+2] = n[2];
-    for(const s of [a,b,c]){ somme[s*3] += n[0]; somme[s*3+1] += n[1]; somme[s*3+2] += n[2]; compte[s]++; }
+
+/* ==========================================================================
+   CE QU'ON DEDUIT DU MASQUE, A CHAQUE NOUVELLE LECTURE (8 fois par seconde).
+   Trois choses, et rien de plus : la boite des cheveux, la part de chaque
+   cote dans chaque pixel, et — pour l'or seulement — le sens des meches.
+   ========================================================================== */
+const REP = { cx:128, w:40, yFront:70 };
+const BOITE = { x0:0, x1:0, y0:0, y1:0, ok:false };
+let ZW = null, DIRX = null, DIRY = null, COH = null, NBUF = 0, GRAINES = [], versionMasque = 0;
+let Jxx = null, Jyy = null, Jxy = null, Kxx = null, Kyy = null, Kxy = null, GRIS = null;
+
+function allouer(n){
+  if(NBUF === n) return;
+  NBUF = n;
+  ZW = new Uint8Array(n*4);                                   /* la part des 4 cotes, par pixel */
+  DIRX = new Float32Array(n); DIRY = new Float32Array(n); COH = new Float32Array(n);
+  GRIS = new Float32Array(n);
+  Jxx = new Float32Array(n); Jyy = new Float32Array(n); Jxy = new Float32Array(n);
+  Kxx = new Float32Array(n); Kyy = new Float32Array(n); Kxy = new Float32Array(n);
+}
+
+/* appelee juste apres que HAIR a ete remis a jour */
+function apresMasque(){
+  const n = PW*PH; allouer(n);
+  let x0 = PW, x1 = 0, y0 = PH, y1 = 0, k = 0;
+  for(let y=0;y<PH;y++){ const o = y*PW;
+    for(let x=0;x<PW;x++) if(HAIR[o+x] > .5){ k++; if(x<x0)x0=x; if(x>x1)x1=x; if(y<y0)y0=y; if(y>y1)y1=y; }
   }
-  /* une arete vive : les triangles voisins ne regardent pas dans le meme sens */
-  for(let i=0;i<478;i++){ const c = compte[i] || 1; ridV[i] = clamp(1 - Math.hypot(somme[i*3], somme[i*3+1], somme[i*3+2]) / c, 0, 1); }
-  /* on seme au prorata de l'AIRE, mais on charge les aretes vives : c'est la
-     ou se dessine le visage */
-  const cum = []; let t = 0;
-  for(let k=0;k<nT;k++){
-    const a = TRIS[k*3], b = TRIS[k*3+1], c = TRIS[k*3+2];
-    const u = [Ll[b*3]-Ll[a*3], Ll[b*3+1]-Ll[a*3+1], Ll[b*3+2]-Ll[a*3+2]];
-    const v = [Ll[c*3]-Ll[a*3], Ll[c*3+1]-Ll[a*3+1], Ll[c*3+2]-Ll[a*3+2]];
-    const n = crs(u, v), aire = Math.hypot(n[0],n[1],n[2]) / 2;
-    t += aire * (1 + 1.3*(ridV[a] + ridV[b] + ridV[c])/3); cum.push(t);
+  BOITE.ok = k > 80;
+  if(BOITE.ok){ BOITE.x0=x0; BOITE.x1=x1; BOITE.y0=y0; BOITE.y1=y1; }
+  /* les reperes : le visage s'il vient d'etre lu, sinon la boite des cheveux
+     (demo, contre-jour) — de cette facon le dessin ne s'effondre jamais */
+  const L = dernierVisage;
+  if(L && performance.now() - dernierVisageT < 2500){
+    REP.cx = (L[234].x + L[454].x)/2 * PW;
+    REP.w = Math.max(10, Math.abs(L[454].x - L[234].x) * PW / 2);
+    REP.yFront = L[10].y * PH;
+  } else if(BOITE.ok){
+    REP.cx = (x0+x1)/2; REP.w = Math.max(10, (x1-x0)*.40); REP.yFront = y0 + (y1-y0)*.40;
   }
-  for(let i=0;i<NV;i++){
-    let u = rnd(i*3.71), v = rnd(i*8.17); if(u + v > 1){ u = 1 - u; v = 1 - v; }
-    if(TROUS.length && rnd(i*5.55) < .08){
-      /* paupieres closes, levres jointes : un eventail de points dans le trou */
-      const z = TROUS[Math.floor(rnd(i*6.6) * TROUS.length)];
-      vI[i*3]   = z[Math.floor(rnd(i*1.1)*z.length)];
-      vI[i*3+1] = z[Math.floor(rnd(i*2.2)*z.length)];
-      vI[i*3+2] = z[Math.floor(rnd(i*3.3)*z.length)];
-    } else {
-      const r = rnd(i*7.13) * t; let lo = 0, hi = cum.length - 1;
-      while(lo < hi){ const m = (lo + hi) >> 1; if(cum[m] < r) lo = m + 1; else hi = m; }
-      vI[i*3] = TRIS[lo*3]; vI[i*3+1] = TRIS[lo*3+1]; vI[i*3+2] = TRIS[lo*3+2];
+  parts();
+  tenseur();                  /* l'encre coule le long des meches */
+  graines();
+  versionMasque++;
+}
+
+/* LA PART DE CHAQUE COTE DANS CHAQUE PIXEL.
+   Un pixel n'appartient pas a un cote : il en montre plusieurs, plus ou moins.
+   On lui donne donc quatre poids, doux, dont la somme fait 1 — sans quoi le
+   figeage dessinerait des frontieres droites en travers de la chevelure.
+   Le cote « gauche » (la personne tourne vers SA gauche) devoile la masse qui
+   part vers la DROITE de l'ecran : c'est le miroir, et c'est deja la
+   convention du reste du parcours. */
+function parts(){
+  const cx = REP.cx, w = REP.w, yf = REP.yFront;
+  for(let y=0;y<PH;y++){
+    const dy = (yf - y) / Math.max(6, w*.85);
+    const haut = sm((dy - .05) / .55);
+    for(let x=0;x<PW;x++){
+      const i = y*PW + x, j = i*4;
+      const dx = (x - cx) / w;
+      const g = sm((dx - .12)/.42) * (1 - haut*.72);
+      const d = sm((-dx - .12)/.42) * (1 - haut*.72);
+      const de = haut * (1 - .5*sm((Math.abs(dx) - .85)/.5));
+      let f = 1 - clamp(g + d + de, 0, 1); if(f < 0) f = 0;
+      const s = (f + g + d + de) || 1;
+      ZW[j] = (f/s)*255; ZW[j+1] = (g/s)*255; ZW[j+2] = (d/s)*255; ZW[j+3] = (de/s)*255;
     }
-    vRid[i] = (ridV[vI[i*3]] + ridV[vI[i*3+1]] + ridV[vI[i*3+2]]) / 3;
-    vW[i*3] = 1 - u - v; vW[i*3+1] = u; vW[i*3+2] = v;
-    vJ[i*3] = rnd(i*1.9) - .5; vJ[i*3+1] = rnd(i*2.7) - .5; vJ[i*3+2] = rnd(i*4.1) - .5;
   }
-  semis = true;
 }
-const gV = new THREE.BufferGeometry(); gV.setAttribute('position', new THREE.BufferAttribute(vPos,3)); gV.setAttribute('color', new THREE.BufferAttribute(vCol,3));
-corps.add(new THREE.Points(gV, new THREE.PointsMaterial({ size:.018, vertexColors:true, transparent:true, opacity:.95, blending:THREE.AdditiveBlending, depthWrite:false })));
-
-/* ---- les meches ----
-   un segment par meche : la racine sur le crane, la pointe plus bas. */
-const mBase = new Float32Array(NM*4), mPos = new Float32Array(NM*6), mNor = new Float32Array(NM*3);
-const mCol = new Float32Array(NM*6), mZone = new Int8Array(NM), mSeuil = new Float32Array(NM);
-for(let i=0;i<NM;i++){ mBase[i*4] = rnd(i*1.7); mBase[i*4+1] = rnd(i*5.3); mBase[i*4+2] = rnd(i*8.9); mBase[i*4+3] = rnd(i*2.9); mSeuil[i] = rnd(i*9.1); }
-const gM = new THREE.BufferGeometry(); gM.setAttribute('position', new THREE.BufferAttribute(mPos,3)); gM.setAttribute('color', new THREE.BufferAttribute(mCol,3));
-corps.add(new THREE.LineSegments(gM, new THREE.LineBasicMaterial({ vertexColors:true, transparent:true, opacity:.95, blending:THREE.AdditiveBlending, depthWrite:false })));
-
-/* les mesures de la chevelure, lissees ; valeurs de depart = cheveux courts */
-const CH = { haut:1.8, cote:1.2, long:-.6, dens:1, front:1.05, menton:-1.55, frontZ:.9, large:1 }, CHc = Object.assign({}, CH);
-/* LE PROFIL DE LA CHEVELURE : le rayon du masque de cheveux, direction par
-   direction, autour du centre de la tete. C'est LUI la silhouette du double :
-   une coupe au carre, une raie sur le cote, un afro haut ne donnent plus le
-   meme contour. */
-const NA = 48, CYP = .35;   /* CYP : l'origine du profil, au-dessus de la ligne des yeux */
-const SIL = new Float32Array(NA), SILc = new Float32Array(NA);
-let silPret = false;
-const rayonCrane = a => 1 / Math.hypot(Math.cos(a)/1.02, Math.sin(a)/1.22);
-function profil(a){
-  if(!silPret) return null;
-  const f = ((a + Math.PI) / (2*Math.PI)) * NA, i = Math.floor(f), g = f - i;
-  return lerp(SIL[((i % NA) + NA) % NA], SIL[((i+1) % NA + NA) % NA], g);
+/* combien de ce pixel a deja ete lu : 0 = encore liquide, 1 = fige */
+function froid(i){
+  const j = i*4;
+  return (ZW[j]*Z.face + ZW[j+1]*Z.gauche + ZW[j+2]*Z.droite + ZW[j+3]*Z.dessus) / 255;
 }
 
-function mesurerChevelure(){
-  const L = dernierVisage; if(!L || Math.abs(yawV) > .38) return;   /* presque de face suffit */
-  /* en pixels du petit cadre (celui du masque) */
-  const a = L[234], b = L[454], cx = (a.x + b.x)/2 * PW, w = Math.abs(b.x - a.x) * PW / 2;
-  if(w < 8) return;
-  const yFront = L[10].y * PH, yMenton = L[152].y * PH, yYeux = (L[33].y + L[263].y)/2 * PH;
-  const cyImg = yYeux - CYP*w;                                  /* le centre du profil, dans l'image */
-  let haut = PH, bas = 0, cote = 0, dessus = 0, place = 0;
-  for(let k=0;k<NA;k++) SILc[k] = 0;
-  for(let y=0;y<PH;y++) for(let x=0;x<PW;x++){
-    const dx = Math.abs(x - cx);
-    /* la calotte attendue : du front a 1,6 largeur au-dessus, sur la largeur du visage */
-    if(dx < w && y < yFront && y > yFront - 1.6*w){ place++; if(HAIR[y*PW + x] >= .5) dessus++; }
-    if(HAIR[y*PW + x] < .5) continue;
-    if(dx < 2.2*w && y < haut) haut = y;
-    if(dx > .75*w && dx < 2.6*w && y > bas) bas = y;
-    if(y > yFront && y < yMenton && dx > cote) cote = dx;
-    /* le profil : le plus loin qu'aillent les cheveux dans cette direction */
-    const ux = (x - cx)/w, uy = -(y - cyImg)/w, r = Math.hypot(ux, uy);
-    if(r > .3 && r < 4.2){ let k = Math.floor(((Math.atan2(uy, ux) + Math.PI) / (2*Math.PI)) * NA); k = ((k % NA) + NA) % NA; if(r > SILc[k]) SILc[k] = r; }
+/* LE SENS DES MECHES, PAR TENSEUR DE STRUCTURE.
+   Sobel sur l'image en gris, puis on moyenne les produits des gradients sur un
+   petit voisinage (flou en croix, separable). La direction propre dominante est
+   celle du GRADIENT ; une meche court perpendiculairement a son gradient, donc
+   on tourne de 90 degres. La coherence dit si l'endroit a vraiment un sens
+   (une meche) ou pas (une masse plate) : les reflets n'y coulent qu'a peine. */
+const R_TENS = 3;
+function tenseur(){
+  if(!BOITE.ok) return;
+  /* on ne calcule QUE sur la boite des cheveux, un peu elargie : le decor n'a
+     pas de meches, et le tenseur sur toute l'image coutait quatre images par
+     seconde pour rien. */
+  const M = R_TENS + 2;
+  const x0 = Math.max(1, BOITE.x0 - M), x1 = Math.min(PW-2, BOITE.x1 + M);
+  const y0 = Math.max(1, BOITE.y0 - M), y1 = Math.min(PH-2, BOITE.y1 + M);
+  const d = pctx.getImageData(x0, y0, x1-x0+1, y1-y0+1).data, lw = x1-x0+1;
+  for(let y=y0;y<=y1;y++){ const o = (y-y0)*lw;
+    for(let x=x0;x<=x1;x++){ const j = (o + x-x0)*4;
+      GRIS[y*PW+x] = (d[j]*.30 + d[j+1]*.59 + d[j+2]*.11) / 255; } }
+  for(let y=y0+1;y<y1;y++) for(let x=x0+1;x<x1;x++){
+    const i = y*PW + x;
+    const gx = (GRIS[i+1-PW] + 2*GRIS[i+1] + GRIS[i+1+PW]) - (GRIS[i-1-PW] + 2*GRIS[i-1] + GRIS[i-1+PW]);
+    const gy = (GRIS[i+PW-1] + 2*GRIS[i+PW] + GRIS[i+PW+1]) - (GRIS[i-PW-1] + 2*GRIS[i-PW] + GRIS[i-PW+1]);
+    Jxx[i] = gx*gx; Jyy[i] = gy*gy; Jxy[i] = gx*gy;
   }
-  CHc.dens = place ? clamp(dessus / place / .55, .08, 1) : 1;   /* crane rase ou degarni : peu de points */
-  /* une direction sans cheveux garde le rayon du crane : epaisseur nulle */
-  for(let k=0;k<NA;k++){ const ang = -Math.PI + (k + .5)*2*Math.PI/NA; if(SILc[k] < .3) SILc[k] = rayonCrane(ang); }
-  /* on lisse le tour, puis dans le temps : la silhouette ne doit pas trembler */
-  const liss = new Float32Array(NA);
-  for(let k=0;k<NA;k++) liss[k] = (SILc[(k+NA-1)%NA] + 2*SILc[k] + SILc[(k+1)%NA]) / 4;
-  for(let k=0;k<NA;k++) SIL[k] = silPret ? SIL[k] + (liss[k] - SIL[k]) * .25 : liss[k];
-  silPret = true;
-  if(haut >= PH){ CHc.haut = 1.62; CHc.cote = 1.1; CHc.long = -.6; return; }
-  CHc.haut = clamp((yYeux - haut) / w, 1.45, 3.6);
-  CHc.cote = clamp(cote / w, 1.02, 3.0);
-  CHc.long = clamp((bas - yMenton) / w, -.6, 4);
+  const R = R_TENS;
+  for(let y=y0+1;y<y1;y++) for(let x=x0+1+R;x<x1-R;x++){
+    const i = y*PW + x; let a=0,b=0,c=0;
+    for(let k=-R;k<=R;k++){ const q = i+k; a += Jxx[q]; b += Jyy[q]; c += Jxy[q]; }
+    Kxx[i]=a; Kyy[i]=b; Kxy[i]=c;
+  }
+  for(let y=y0+1+R;y<y1-R;y++) for(let x=x0+1+R;x<x1-R;x++){
+    const i = y*PW + x;
+    if(HAIR[i] < .35){ COH[i] = 0; continue; }                 /* pas de cheveux : rien a orienter */
+    let a=0,b=0,c=0;
+    for(let k=-R;k<=R;k++){ const q = i+k*PW; a += Kxx[q]; b += Kyy[q]; c += Kxy[q]; }
+    const th = .5 * Math.atan2(2*c, a - b);                    /* le gradient */
+    DIRX[i] = -Math.sin(th); DIRY[i] = Math.cos(th);           /* la meche : 90 degres de plus */
+    const tr = a + b;
+    COH[i] = tr > 1e-6 ? clamp(Math.hypot(a-b, 2*c) / tr, 0, 1) : 0;
+  }
 }
 
-/* LE CRANE, SERRE SUR L'ANATOMIE.
-   Unite = demi-largeur du visage (points 234-454, la largeur bizygomatique).
-   Largeur de tete = cette largeur-la, a 2 % pres : une tete n'est pas plus
-   large que ses pommettes.
-   Longueur : 1,26 fois la demi-largeur (tete de 19,5 cm pour 15,5 cm de
-   large) ; l'avant se cale juste derriere le front lu, donc l'arriere tombe
-   sur la nuque et ne la depasse pas.
-   Sommet : JUSTE SOUS la ligne de cheveux mesuree, jamais au-dessus. */
-const CRANE = { cy:.3, cz:-.4, rx:1.02, ry:1.2, rz:1.28 };
-let ECHELLE = .84;          /* combien vaut une demi-largeur de visage a l'ecran */
-let mechesFaites = false;
-function faireMeches(){
-  const K = CRANE;
-  K.rx = clamp(CH.large * 1.02, .95, 1.18);
-  const sommet = clamp(Math.min(CH.haut - .14, -CH.menton * .95), 1.12, 1.52), bas = -.9;
-  K.ry = (sommet - bas) / 2; K.cy = sommet - K.ry;
-  K.rz = K.rx * 1.26;
-  K.cz = clamp(CH.frontZ - .10 - K.rz, -1.0, -.15);
-  const moyen = clamp(CH.cote - K.rx, .03, 1.6);               /* epaisseur quand le masque ne dit rien */
-  const front = CH.front, menton = CH.menton;
-  const longs = CH.long > -.25;                                 /* des cheveux sous le menton */
-  const basLong = menton - clamp(CH.long, 0, 1.9);              /* la chevelure longue s'arrete au cadre */
-  /* la source de la pousse, juste au-dessus du front : les cheveux partent du
-     visage et vont vers l'arriere, ils ne lui tombent pas dessus */
-  const C0 = [0, CH.front + .55, K.cz + K.rz*1.05];
-  let etX = K.rx, etY = Math.max(sommet - .1, .1 - menton);
-  for(let i=0;i<NM;i++){
-    let x = 0, y = 0, z = 0, dx = 0, dy = 1, dz = 0, ep = moyen, ok = false;
-    const tombe = longs && mBase[i*4] < .22;
-    for(let essai=0; essai<6 && !ok; essai++){
-      const u = rnd(i*13.1 + essai*7.7), v = rnd(i*3.3 + essai*5.9), e = rnd(i*6.1 + essai*2.3);
-      if(!tombe){
-        /* une direction sur la sphere, du sommet jusqu'un peu sous les oreilles */
-        const yy = 1 - u*1.34, rr = Math.sqrt(Math.max(0, 1 - yy*yy)), th = v*Math.PI*2;
-        dy = yy; dx = rr*Math.cos(th); dz = rr*Math.sin(th);
-        const sx = dx*K.rx, sy = K.cy + dy*K.ry, sz = K.cz + dz*K.rz;
-        /* L'EPAISSEUR VIENT DU MASQUE : de face et de cote, le bout de la meche
-           tombe exactement sur le contour mesure ; vers l'avant et l'arriere, ou
-           la photo ne dit rien, on garde l'epaisseur moyenne. */
-        const rp = profil(Math.atan2(sy - CYP, sx));
-        if(rp !== null){
-          const ra = Math.hypot(sx, sy - CYP) || 1e-6, vu = Math.pow(Math.hypot(dx, dy), 1.4);
-          ep = lerp(moyen, clamp(rp - ra, .02, 2.6), vu);
-        } else ep = moyen;
-        const dans = ep * (.22 + .62*Math.pow(e, .8));          /* ou la meche sort de la masse */
-        x = sx + dx*dans; y = sy + dy*dans; z = sz + dz*dans;
-        /* le visage reste libre : sous la lisiere du front, devant les tempes */
-        const visage = dz > .2 && y < front && Math.abs(x) < 1.0;
-        /* sous la ligne des oreilles, seulement a l'arriere (la nuque) */
-        const cou = y < -.22 && dz > -.2;
-        ok = !visage && !cou;
-      } else {
-        /* les longueurs : autour de l'arriere et des cotes, de l'oreille au bout mesure */
-        const th = (-.58 + v*1.16) * Math.PI, k = u, yy = lerp(-.1, basLong, k);
-        const fl = 1 + k*.1; ep = moyen*(.4 + .6*e);
-        dx = Math.sin(th); dz = -Math.cos(th); dy = 0;
-        x = dx * (K.rx + ep) * fl; z = K.cz + dz * (K.rz*.85 + ep) * fl; y = yy;
-        ok = !(z > .15 && Math.abs(x) < 1.0);
-      }
-    }
-    /* LA DIRECTION DE POUSSE : elle part du front, passe sur le crane et
-       descend derriere et sur les cotes — c'est le sens dans lequel les cheveux
-       poussent. Plaquee sur le crane, puis de plus en plus verticale a mesure
-       qu'on descend. Une meche, pas un grain. */
-    let nx = dx, ny = dy, nz = dz; const nl = Math.hypot(nx,ny,nz) || 1; nx/=nl; ny/=nl; nz/=nl;
-    let gx = x - C0[0], gy = y - C0[1], gz = z - C0[2];
-    let gn = gx*nx + gy*ny + gz*nz; gx -= nx*gn; gy -= ny*gn; gz -= nz*gn;
-    let gl = Math.hypot(gx, gy, gz);
-    if(gl < .05){ gx = nx; gy = 0; gz = nz; gl = Math.hypot(gx, gy, gz) || 1; }   /* pile au sommet : on rayonne */
-    gx/=gl; gy/=gl; gz/=gl;
-    const chute = tombe ? 1 : sm((K.cy + .75 - y) / 1.1);
-    gx = lerp(gx, 0, chute); gy = lerp(gy, -1, chute); gz = lerp(gz, 0, chute);
-    /* la meche ne part jamais vers l'exterieur, la pesanteur la couche (surtout
-       pres du sommet, sinon la couronne rayonne a l'horizontale et fait un
-       soleil), et un peu de biais l'empeche d'etre un rideau de traits paralleles */
-    gn = gx*nx + gy*ny + gz*nz; if(gn > 0){ gx -= nx*gn; gy -= ny*gn; gz -= nz*gn; }
-    const biais = (mBase[i*4+2] - .5) * .7;
-    gx += -nz*biais; gz += nx*biais;
-    gy -= .55 + .7*Math.max(0, ny);
-    gl = Math.hypot(gx, gy, gz) || 1; gx/=gl; gy/=gl; gz/=gl;
-    /* LA LONGUEUR DE LA MECHE EST CELLE QUE LE MASQUE A MESUREE a cet endroit :
-       une coupe ras donne un duvet colle au crane, un volume donne de longues
-       meches. C'est ce qui empeche tout le monde d'avoir la meme coiffure. */
-    let lg = tombe ? (.22 + .22*mBase[i*4+1]) * (.5 + .5*clamp(CH.long, 0, 2))
-                   : clamp((.05 + .95*ep) * (.55 + .9*mBase[i*4+1]), .045, .62);
-    /* UNE MECHE NE TOMBE PAS DEVANT LE VISAGE : si sa pointe passait sous la
-       lisiere du front, on la coupe a la lisiere — sans cela toute la tete
-       porte une frange et on ne voit plus les traits. Et cette lisiere n'est
-       pas une ligne droite : elle remonte aux tempes et ondule un peu, sinon le
-       double porte un bol. */
-    const lis = front + .16*Math.min(1, x*x) + (mBase[i*4+2] - .5)*.13;
-    if(gy < -.02 && z > .15 && Math.abs(x) < 1.15 && y > lis) lg = Math.min(lg, (y - lis) / -gy);
-    mPos[i*6] = x; mPos[i*6+1] = y; mPos[i*6+2] = z;
-    mPos[i*6+3] = x + gx*lg; mPos[i*6+4] = y + gy*lg; mPos[i*6+5] = z + gz*lg;
-    mNor[i*3] = nx; mNor[i*3+1] = ny; mNor[i*3+2] = nz;
-    if(!tombe){ if(Math.abs(x) > etX) etX = Math.abs(x); if(Math.abs(y - .1) > etY) etY = Math.abs(y - .1); }
-    let zz;
-    if(y > K.cy + K.ry*.7 && Math.abs(x) < .62) zz = 3;
-    else if(x > .5) zz = 1;
-    else if(x < -.5) zz = 2;
-    else if(z > K.cz) zz = 0;
-    else zz = 4;
-    mZone[i] = zz;
-  }
-  gM.attributes.position.needsUpdate = true;
-  /* la tete tient toujours dans son coin d'ecran, quelle que soit la coiffure */
-  ECHELLE = clamp(Math.min(1.26 / etX, 1.72 / etY), .62, .9);
+/* quelques milliers de points ou il y a vraiment des cheveux : c'est la que
+   naissent l'encre et l'or (jamais dans le decor) */
+function graines(){
+  GRAINES.length = 0;
+  for(let y=0;y<PH;y+=2) for(let x=0;x<PW;x+=2){ const i = y*PW+x; if(HAIR[i] > .55) GRAINES.push(i); }
 }
-/* LES COULEURS : celles du 21/09, au point pres. Cheveux gris tant que la zone
-   n'est pas lue, bleus des qu'elle l'est, arriere presque eteint. Deux
-   modulations, et rien d'autre : la pointe de la meche est plus legere que sa
-   racine, et l'autre cote du crane s'assombrit — sinon l'avant et l'arriere se
-   superposent et la coiffure ne se lit plus. */
-const VUE = [0, 0, 1];
-function couleursMeches(t){
-  for(let i=0;i<NM;i++){
-    const zz = mZone[i]; let r, g, b;
-    if(mBase[i*4+3] > CH.dens){ r = g = b = 0; }            /* peu de cheveux : peu de meches */
-    else if(zz === 4){ r = g = b = .05; }                                                    /* arriere */
-    else {
-      const lu = Z[ZONES[zz]] > mSeuil[i], actif = ZONES[zz] === pose && Z[ZONES[zz]] < 1;
-      if(lu){ r = .35; g = .78; b = 1.3; }
-      else { const k = actif ? .45 + .25*Math.sin(t/120 + i) : .26; r = g = b = k; }
-    }
-    const f = .22 + .78*sm((mNor[i*3]*VUE[0] + mNor[i*3+1]*VUE[1] + mNor[i*3+2]*VUE[2] + .22) / .55);
-    const a = f, c = f*.42;
-    mCol[i*6]=r*a; mCol[i*6+1]=g*a; mCol[i*6+2]=b*a;
-    mCol[i*6+3]=r*c; mCol[i*6+4]=g*c; mCol[i*6+5]=b*c;
+const auHasard = () => GRAINES.length ? GRAINES[(Math.random()*GRAINES.length)|0] : -1;
+
+/* DESSINER DEUX MILLE FILETS SANS DEUX MILLE APPELS AU PINCEAU.
+   Premiere mesure : 17 images par seconde sur l'or. Un beginPath()/stroke()
+   par grain coutait, a lui seul, plus que la lecture MediaPipe. On range donc
+   les segments dans des seaux — deux familles de couleur, huit tranches
+   d'opacite — et on ne trace que seize fois par image. */
+const N_SEAU = 8, SEAUX = [[], []];
+for(const f of SEAUX) for(let i=0;i<N_SEAU;i++) f.push([]);
+function seauxVides(){ for(const f of SEAUX) for(const s of f) s.length = 0; }
+function seau(fam, a, x0, y0, x1, y1){
+  let k = (a*N_SEAU)|0; if(k < 0) k = 0; if(k > N_SEAU-1) k = N_SEAU-1;
+  const s = SEAUX[fam][k]; s.push(x0, y0, x1, y1);
+}
+function seauxTracer(c, couleurs, largeurs){
+  for(let f=0;f<2;f++) for(let k=0;k<N_SEAU;k++){
+    const s = SEAUX[f][k]; if(!s.length) continue;
+    c.globalAlpha = (k + .5) / N_SEAU;
+    c.strokeStyle = couleurs[f]; c.lineWidth = largeurs[f];
+    c.beginPath();
+    for(let i=0;i<s.length;i+=4){ c.moveTo(s[i], s[i+1]); c.lineTo(s[i+2], s[i+3]); }
+    c.stroke();
   }
-  gM.attributes.color.needsUpdate = true;
+  c.globalAlpha = 1;
 }
 
-/* le visage, replie dans le repere de la tete */
-const Lloc = new Float32Array(478*3);
-const mTete = new THREE.Matrix4();
-/* la lumiere du double : une cle haute a gauche, fixe a l'ecran. C'est elle qui
-   fait sortir le nez, les arcades et les pommettes. */
-const CLE = nrm([-.5, .42, .76]), CLEl = [0, 0, 1];
-let dernCoque = 0;
-function majDouble(t, now){
-  const L = dernierVisage; if(!L) return false;
-  /* le repere de la tete, tire du visage : droite, haut, avant */
-  let A = P(L[234]), B = P(L[454]); if(A[0] > B[0]){ const c = A; A = B; B = c; }
-  const w = Math.hypot(B[0]-A[0], B[1]-A[1], B[2]-A[2]) / 2;
-  if(!(w > 1)) return false;
-  const X = nrm(sub(B, A));
-  let Y = sub(P(L[10]), P(L[152])); const d = dot(Y, X); Y = nrm([Y[0]-X[0]*d, Y[1]-X[1]*d, Y[2]-X[2]*d]);
-  const Zv = crs(X, Y);
-  const e1 = P(L[33]), e2 = P(L[263]);
-  const O = [(A[0]+B[0])/2, (e1[1]+e2[1])/2, (A[2]+B[2])/2];
-  /* les 478 points, en unites de demi-largeur de visage */
-  let large = 1;
-  for(let i=0;i<478;i++){
-    const q = sub(P(L[i]), O);
-    const lx = dot(q, X)/w, ly = dot(q, Y)/w, lz = dot(q, Zv)/w;
-    Lloc[i*3] = lx; Lloc[i*3+1] = ly; Lloc[i*3+2] = lz;
-    if(Math.abs(lx) > large) large = Math.abs(lx);
-  }
-  if(!semis) semer(Lloc);
-  /* l'oeil et la lumiere, vus depuis la tete */
-  VUE[0] = X[2]; VUE[1] = Y[2]; VUE[2] = Zv[2];
-  CLEl[0] = dot(X, CLE); CLEl[1] = dot(Y, CLE); CLEl[2] = dot(Zv, CLE);
-  /* LE VISAGE DESSINE : la normale du triangle donne l'ombre, le bord donne le
-     trait (c'est lui qui dessine le profil du nez de trois quarts), l'arete
-     vive donne l'accent. La rampe reste celle du 21/09 : du gris sombre au gris
-     clair, rien d'autre. */
-  for(let i=0;i<NV;i++){
-    const a = vI[i*3]*3, b = vI[i*3+1]*3, c = vI[i*3+2]*3, wa = vW[i*3], wb = vW[i*3+1], wc = vW[i*3+2];
-    const x = Lloc[a]*wa + Lloc[b]*wb + Lloc[c]*wc + vJ[i*3]*.018;
-    const y = Lloc[a+1]*wa + Lloc[b+1]*wb + Lloc[c+1]*wc + vJ[i*3+1]*.018;
-    const z = Lloc[a+2]*wa + Lloc[b+2]*wb + Lloc[c+2]*wc + vJ[i*3+2]*.018;
-    vPos[i*3] = x; vPos[i*3+1] = y; vPos[i*3+2] = z;
-    let nx = (Lloc[b+1]-Lloc[a+1])*(Lloc[c+2]-Lloc[a+2]) - (Lloc[b+2]-Lloc[a+2])*(Lloc[c+1]-Lloc[a+1]);
-    let ny = (Lloc[b+2]-Lloc[a+2])*(Lloc[c]-Lloc[a])   - (Lloc[b]-Lloc[a])*(Lloc[c+2]-Lloc[a+2]);
-    let nz = (Lloc[b]-Lloc[a])*(Lloc[c+1]-Lloc[a+1])   - (Lloc[b+1]-Lloc[a+1])*(Lloc[c]-Lloc[a]);
-    const nl = Math.hypot(nx, ny, nz) || 1; nx/=nl; ny/=nl; nz/=nl;
-    if(nx*(x-CTR[0]) + ny*(y-CTR[1]) + nz*(z-CTR[2]) < 0){ nx=-nx; ny=-ny; nz=-nz; }
-    const lam = Math.max(0, nx*CLEl[0] + ny*CLEl[1] + nz*CLEl[2]);
-    const face = nx*VUE[0] + ny*VUE[1] + nz*VUE[2];
-    const e0 = 1 - Math.abs(face), bord = e0*e0*e0;               /* le trait du bord : le profil du nez */
-    const vers = .30 + .70*sm((face + .04) / .34);                 /* l'autre joue s'efface */
-    const k = clamp((.09 + .68*lam*lam + .45*bord + .75*vRid[i]*(.35 + .65*lam)) * vers, .03, .98);
-    vCol[i*3] = vCol[i*3+1] = vCol[i*3+2] = k;
-  }
-  gV.attributes.position.needsUpdate = true; gV.attributes.color.needsUpdate = true;
-  /* les mesures que le crane attend : largeur, front, menton, avancee du front */
-  CHc.large = clamp(large, .95, 1.18);
-  CHc.front = clamp(Lloc[10*3+1] - .05, .7, 1.5);
-  CHc.menton = clamp(Lloc[152*3+1], -2.2, -1.1);
-  CHc.frontZ = clamp(Lloc[10*3+2], .3, 1.4);
-  /* la coiffure suit les mesures, sans a-coups */
-  let bouge = false;
-  for(const k2 of ['haut','cote','long','dens','front','menton','frontZ','large']){
-    const n = CH[k2] + (CHc[k2] - CH[k2]) * .08; if(Math.abs(n - CH[k2]) > .004) bouge = true; CH[k2] = n;
-  }
-  if(!mechesFaites || (bouge && now - dernCoque > 160)){ faireMeches(); mechesFaites = true; dernCoque = now; }
-  couleursMeches(t);
-  /* la tete se pose dans l'image : la matrice porte l'orientation ET l'echelle */
-  mTete.set(X[0]*w, Y[0]*w, Zv[0]*w, O[0],
-            X[1]*w, Y[1]*w, Zv[1]*w, O[1],
-            X[2]*w, Y[2]*w, Zv[2]*w, O[2],
-            0, 0, 0, 1);
-  corps.matrix.copy(mTete); corps.matrixWorldNeedsUpdate = true;
-  /* tout est recentre sur le volume de la tete et mis a l'echelle de l'ecran,
-     a la place exacte de l'ancienne tete de principe */
-  const S = ECHELLE / w, cy = .1, cz = -.35;
-  const C = [O[0] + Y[0]*w*cy + Zv[0]*w*cz, O[1] + Y[1]*w*cy + Zv[1]*w*cz, O[2] + Y[2]*w*cy + Zv[2]*w*cz];
-  racine.scale.setScalar(S); racine.position.set(.25 - C[0]*S, -C[1]*S, -C[2]*S);
-  /* ?debug=1 : les mesures de la tete, pour les relire au banc d'essai */
-  if(DEBUG) window.__dbl = { w, ECHELLE, CRANE:Object.assign({}, CRANE), CH:Object.assign({}, CH), SIL:[].slice.call(SIL) };
-  return true;
-}
+/* du petit cadre vers l'ecran */
+let RC = { x:0, y:0, w:1, h:1 };
+const EX = x => RC.x + (x / PW) * RC.w, EY = y => RC.y + (y / PH) * RC.h;
+const ES = () => RC.w / PW;
 
-function dessinA(t, r){
-  /* 23/09 — on ne passe plus la personne en noir et blanc : lumiere naturelle,
-     a peine posee. Seule la moitie droite est assombrie, pour que la tete en
-     points reste lisible par-dessus. */
-  peindre(ctx, r, 'saturate(1) brightness(.82) contrast(1.04)');
-  const vd = ctx.createLinearGradient(W*.30, 0, W, 0);
-  vd.addColorStop(0, 'rgba(0,0,0,0)'); vd.addColorStop(.45, 'rgba(0,0,0,.82)'); vd.addColorStop(1, 'rgba(0,0,0,.95)');
-  ctx.fillStyle = vd; ctx.fillRect(W*.30, 0, W*.70, H);
-  /* le texte du bas reste lisible meme sur une piece claire */
-  const vb = ctx.createLinearGradient(0, H*.55, 0, H);
-  vb.addColorStop(0, 'rgba(0,0,0,0)'); vb.addColorStop(1, 'rgba(0,0,0,.85)');
-  ctx.fillStyle = vb; ctx.fillRect(0, H*.55, W*.62, H*.45);
-  cheveux(r, BLEU(.9));
-  gl.style.display = 'block';
-  /* Le style est celui du 21/09, 23h41 (la tete que Charles a trouvee stylee) ;
-     seule la FORME a change.
-     LA TETE, C'EST LA VOTRE : tant que le visage a ete lu il y a moins d'une
-     seconde et demie, le double est bati sur vos 478 points. Sinon (demo,
-     visage jamais trouve, contre-jour) on retombe sur la tete de principe,
-     dans le meme style. */
-  const reel = (t - dernierVisageT < 1500) && majDouble(t, t);
-  racine.visible = reel; tete.visible = !reel;
-  if(!reel){
-    tete.position.set(.25, 0, 0);
-    tete.rotation.y += ((yawV * .95) - tete.rotation.y) * .15;
-    tete.rotation.x += ((clamp(pitchV,0,1.4) * .55) - tete.rotation.x) * .15;
-    couleursTete(t);
+/* une toile de trainees, a demi-definition : c'est elle qui donne la matiere
+   (encre ou or) sans couter une image pleine a chaque fois */
+const tr1 = document.createElement('canvas'), t1 = tr1.getContext('2d');
+function tailleTrainee(){ const w = Math.round(W*.5), h = Math.round(H*.5); if(tr1.width !== w){ tr1.width = w; tr1.height = h; } }
+function effacerTrainee(){ t1.setTransform(1,0,0,1,0,0); t1.clearRect(0,0,tr1.width,tr1.height); }
+const TX = x => (EX(x) / W) * tr1.width, TY = y => (EY(y) / H) * tr1.height;
+
+/* ==========================================================================
+   1 · ENCRE — VOS CHEVEUX SONT UNE ENCRE VIVANTE.
+   Le masque nourrit un ecoulement : chaque grain suit le contour de la
+   chevelure (la tangente au gradient du masque), retombe, et sort par le bas
+   en filets. Ce n'est pas un decor pose a cote : sans cheveux vus, il ne coule
+   rien. A mesure qu'un cote est lu, son encre CESSE de couler et se fige : le
+   bleu profond se pose, le bord devient net, et le liquide ne repart plus de
+   la. A la fin la tete entiere est une encre seche, nette, bleu nuit.
+   ========================================================================== */
+const N_GRAIN = 1050;   /* mesure : au-dela, l'encre ne gagne plus rien a l'oeil et coute des images */
+const GR = { x:new Float32Array(N_GRAIN), y:new Float32Array(N_GRAIN), px:new Float32Array(N_GRAIN),
+             py:new Float32Array(N_GRAIN), vx:new Float32Array(N_GRAIN), vy:new Float32Array(N_GRAIN),
+             v:new Float32Array(N_GRAIN), e:new Float32Array(N_GRAIN) };
+function naitre(i){
+  const g = auHasard();
+  if(g < 0){ GR.v[i] = 0; return; }
+  GR.x[i] = (g % PW) + Math.random() - .5; GR.y[i] = ((g / PW)|0) + Math.random() - .5;
+  GR.px[i] = GR.x[i]; GR.py[i] = GR.y[i];
+  GR.vx[i] = 0; GR.vy[i] = 0; GR.v[i] = .6 + Math.random()*.8; GR.e[i] = .35 + Math.random()*.65;
+}
+function encreVide(){ for(let i=0;i<N_GRAIN;i++) GR.v[i] = 0; effacerTrainee(); FLAQUE.h = 0; }
+const FLAQUE = { h:0 };
+const encreCv = document.createElement('canvas'), ec = encreCv.getContext('2d');
+let encreId = null, encreVersion = -1, encreZ = -1;
+
+/* L'ENCRE SECHE. Elle ne recouvre pas la chevelure d'un aplat : elle la TEINT.
+   Le bleu prend la teinte (mode « color » : la luminosite reste celle des
+   cheveux, donc les meches restent des meches), puis un passage en « multiply »
+   l'epaissit jusqu'au bleu nuit, et un liseré clair en « screen » redonne au
+   bord la nettete de l'encre seche. Trois passages, pas un aplat. */
+const rimCv = document.createElement('canvas'), rc2 = rimCv.getContext('2d');
+let rimId = null;
+/* Le bord du masque monte de 256 px a 1 400 : sans adoucissement il fait des
+   marches d'escalier. On floute UNE fois, a la taille du masque (ou un pixel
+   ne coute rien), au lieu de trois fois plein cadre : la premiere version
+   tombait a 17 images par seconde rien que pour cela. */
+const douxCv = document.createElement('canvas'), dc = douxCv.getContext('2d');
+const rimDouxCv = document.createElement('canvas'), rdc = rimDouxCv.getContext('2d');
+function adoucir(){
+  for(const c of [douxCv, rimDouxCv]) if(c.width !== PW || c.height !== PH){ c.width = PW; c.height = PH; }
+  dc.setTransform(1,0,0,1,0,0); dc.clearRect(0,0,PW,PH); dc.filter = 'blur(.85px)'; dc.drawImage(encreCv,0,0); dc.filter = 'none';
+  rdc.setTransform(1,0,0,1,0,0); rdc.clearRect(0,0,PW,PH); rdc.filter = 'blur(1.15px)'; rdc.drawImage(rimCv,0,0); rdc.filter = 'none';
+}
+function encreFigee(){
+  if(!ZW) return;
+  const n = PW*PH, tt = Z.face + Z.gauche + Z.droite + Z.dessus;
+  if(encreVersion === versionMasque && Math.abs(encreZ - tt) < 1e-4) return;
+  encreVersion = versionMasque; encreZ = tt;
+  if(encreCv.width !== PW || encreCv.height !== PH){
+    encreCv.width = rimCv.width = PW; encreCv.height = rimCv.height = PH;
+    encreId = ec.createImageData(PW, PH); rimId = rc2.createImageData(PW, PH);
   }
-  co.render();
+  const D = encreId.data, Rd = rimId.data;
+  for(let i=0;i<n;i++){
+    const j = i*4, h = HAIR[i];
+    if(h < .26){ D[j+3] = 0; Rd[j+3] = 0; continue; }
+    const f = froid(i);
+    if(f < .02){ D[j+3] = 0; Rd[j+3] = 0; continue; }
+    const dedans = sm((h - .44)/.14);
+    const bord = sm((h - .34)/.11) * (1 - sm((h - .56)/.13));
+    /* un bleu d'encre, pas un bleu de perruque : le mode « color » prend la
+       saturation de CETTE couleur telle quelle, donc elle est deja rabattue */
+    D[j] = 74; D[j+1] = 108; D[j+2] = 206;
+    D[j+3] = clamp(dedans * f * 255, 0, 255);
+    Rd[j] = 120; Rd[j+1] = 186; Rd[j+2] = 250;
+    Rd[j+3] = clamp((bord*1.0 + dedans*.14) * f * f * 215, 0, 255);
+  }
+  ec.putImageData(encreId, 0, 0); rc2.putImageData(rimId, 0, 0);
+  adoucir();
 }
-function bord(cote, force, t){
-  const a = force * (.55 + .45*Math.sin(t/260));
-  let g;
-  if(cote === 'gauche'){ g = ctx.createLinearGradient(0,0,W*.22,0); g.addColorStop(0,BLEU(a)); g.addColorStop(1,BLEU(0)); ctx.fillStyle = g; ctx.fillRect(0,0,W*.22,H); }
-  if(cote === 'droite'){ g = ctx.createLinearGradient(W,0,W*.78,0); g.addColorStop(0,BLEU(a)); g.addColorStop(1,BLEU(0)); ctx.fillStyle = g; ctx.fillRect(W*.78,0,W*.22,H); }
-  if(cote === 'dessus'){ g = ctx.createLinearGradient(0,0,0,H*.28); g.addColorStop(0,BLEU(a)); g.addColorStop(1,BLEU(0)); ctx.fillStyle = g; ctx.fillRect(0,0,W,H*.28); }
-  if(cote === 'face'){ g = ctx.createRadialGradient(W/2,H/2,0,W/2,H/2,H*.6); g.addColorStop(0,BLEU(a*.35)); g.addColorStop(1,BLEU(0)); ctx.fillStyle = g; ctx.fillRect(0,0,W,H); }
-}
-function dessinB(t, r){
-  gl.style.display = 'none';
-  peindre(ctx, r, 'grayscale(1) brightness(.42) contrast(1.1)');
-  /* les cheveux vus maintenant : gris s'ils restent a lire, bleus s'ils le sont */
-  const z = ZONES.includes(pose) ? Z[pose] : 0;
-  cheveux(r, 'rgba(' + Math.round(lerp(150,64,z)) + ',' + Math.round(lerp(160,170,z)) + ',' + Math.round(lerp(175,255,z)) + ',.95)', z > .05 ? 'color' : 'saturation');
-  if(z > .05){ ctx.save(); ctx.globalAlpha = .25*z; cheveux(r, BLEU(1), 'screen'); ctx.restore(); }
-  /* la lumiere au bord : c'est elle qui fait tourner la tete */
-  ctx.save(); ctx.globalCompositeOperation = 'screen';
-  const m = manquante(); if(m && m !== pose) bord(m, .75, t);
+function dessin1(t, dt){
+  peindre(ctx, RC, 'saturate(1.04) brightness(.58) contrast(1.08)');
+  vignette(.94, .13); voiles(.55, .90);
+
+  /* L'ECOULEMENT. Dans la chevelure, l'encre suit le SENS DES MECHES (tenseur
+     de structure) melange a la tangente du bord ; dehors, elle tombe. */
+  tailleTrainee();
+  t1.setTransform(1,0,0,1,0,0);
+  t1.globalCompositeOperation = 'destination-out';
+  t1.fillStyle = 'rgba(0,0,0,.075)'; t1.fillRect(0,0,tr1.width,tr1.height);
+  t1.globalCompositeOperation = 'lighter'; t1.lineCap = 'round';
+  seauxVides();
+  for(let i=0;i<N_GRAIN;i++){
+    if(GR.v[i] <= 0){ if(Math.random() < .3) naitre(i); continue; }
+    let x = GR.x[i], y = GR.y[i];
+    const xi = x|0, yi = y|0;
+    if(xi < 1 || xi > PW-2 || yi < 1 || yi > PH-2){ GR.v[i] = 0; continue; }
+    const k = yi*PW + xi, h = HAIR[k], dedans = h > .42;
+    const f = froid(k);
+    if(f > .5 && dedans){ GR.v[i] -= dt*2.2; if(GR.v[i] <= 0) continue; }
+    /* le sens de la meche, remis vers le bas */
+    let mx = DIRX[k], my = DIRY[k]; if(my < 0){ mx = -mx; my = -my; }
+    const co = COH[k];
+    /* la tangente au bord du masque : l'encre epouse la silhouette */
+    const gx = HAIR[k+1] - HAIR[k-1], gy = HAIR[k+PW] - HAIR[k-PW];
+    let tx = gy, ty = -gx; if(ty < 0){ tx = -tx; ty = -ty; }
+    let dx, dy2;
+    if(dedans){ const p = .35 + .55*co; dx = mx*p + tx*(1-p)*1.6; dy2 = my*p + ty*(1-p)*1.6 + .30; }
+    else { dx = tx*.5 + Math.sin(y*.19 + t*.0011 + i*.7)*.13; dy2 = 1.25; }
+    const nn = Math.hypot(dx, dy2) || 1; dx /= nn; dy2 /= nn;
+    const vit = (dedans ? 20 + 24*co : 34) * dt;
+    GR.px[i] = x; GR.py[i] = y;
+    x += dx*vit*GR.v[i]; y += dy2*vit*GR.v[i];
+    GR.x[i] = x; GR.y[i] = y;
+    GR.v[i] -= dt*(dedans ? .10 : .30);
+    if(y > PH-1){ GR.v[i] = 0; continue; }
+    const a = clamp(GR.e[i] * GR.v[i] * (dedans ? (.16 + .26*co) : .24) * (1 - f*.85), 0, 1);
+    if(a < .02) continue;
+    seau(dedans ? 0 : 1, a, TX(GR.px[i]), TY(GR.py[i]), TX(x), TY(y));
+  }
+  const lg1 = (tr1.width/W) * ES();
+  seauxTracer(t1, ['rgba(92,168,240,1)', 'rgba(56,126,214,1)'], [1.2*lg1 + .45, .85*lg1 + .35]);
+  ctx.save(); ctx.globalCompositeOperation = 'screen'; ctx.globalAlpha = .78;
+  ctx.drawImage(tr1, 0, 0, W, H); ctx.restore();
+
+  /* l'encre seche : teinte, epaisseur, puis le bord net */
+  encreFigee();
+  ctx.save();
+  ctx.globalCompositeOperation = 'multiply'; ctx.drawImage(douxCv, RC.x, RC.y, RC.w, RC.h);
+  ctx.globalCompositeOperation = 'screen';   ctx.drawImage(rimDouxCv, RC.x, RC.y, RC.w, RC.h);
   ctx.restore();
-}
-function dessinC(t, r){
-  gl.style.display = 'none';
-  peindre(ctx, r, 'grayscale(1) brightness(.34) contrast(1.1)');
-  cheveux(r, BLEU(.9));
-  /* quatre mots, chacun sur le bord qu'il designe ; il se remplit quand c'est lu */
-  const fs = Math.min(W, H) * .16;
-  const mots = [
-    { z:'gauche', x: fs*.62,   y: H/2, rot:-Math.PI/2 },
-    { z:'droite', x: W-fs*.62, y: H/2, rot: Math.PI/2 },
-    { z:'dessus', x: W/2,      y: fs*.95, rot:0 },
-    { z:'face',   x: W/2,      y: H - fs*.62, rot:0 }
-  ];
-  ctx.save(); ctx.font = '800 ' + fs + 'px Inter'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-  for(const m of mots){
-    const mot = m.z.toUpperCase(), w = ctx.measureText(mot).width, v = Z[m.z], actif = pose === m.z && v < 1;
-    ctx.save(); ctx.translate(m.x, m.y); ctx.rotate(m.rot);
-    ctx.lineWidth = 1.2; ctx.strokeStyle = 'rgba(234,246,255,' + (actif ? .9 : .38) + ')'; ctx.strokeText(mot, 0, 0);
-    ctx.save(); ctx.beginPath(); ctx.rect(-w/2, fs*.5 - fs*v, w, fs*v + 2); ctx.clip();
-    ctx.fillStyle = v >= 1 ? '#eaf6ff' : 'rgba(96,190,255,.95)'; ctx.fillText(mot, 0, 0); ctx.restore();
+
+  /* LE DEPOT. L'encre sortie par le bas s'accumule : le niveau EST le
+     pourcentage lu — la meme mesure, montree autrement. */
+  const tt = total();
+  FLAQUE.h += (tt * H * .048 - FLAQUE.h) * clamp(dt*2, 0, 1);
+  if(FLAQUE.h > .8){
+    const yb = H - FLAQUE.h;
+    ctx.save(); ctx.beginPath(); ctx.moveTo(0, H); ctx.lineTo(0, yb);
+    for(let x=0;x<=W;x+=18) ctx.lineTo(x, yb + Math.sin(x*.0125 + t*.0017)*2.4 + Math.sin(x*.0043 - t*.0009)*1.7);
+    ctx.lineTo(W, H); ctx.closePath();
+    const g = ctx.createLinearGradient(0, yb, 0, H);
+    g.addColorStop(0, 'rgba(10,46,104,.88)'); g.addColorStop(.35, 'rgba(4,20,56,.95)'); g.addColorStop(1, 'rgba(1,6,20,.99)');
+    ctx.fillStyle = g; ctx.fill();
+    ctx.globalCompositeOperation = 'screen';
+    ctx.strokeStyle = 'rgba(132,196,255,.62)'; ctx.lineWidth = 1; ctx.stroke();
     ctx.restore();
   }
-  ctx.restore();
 }
 
-/* 23/09 — le choix de propale (touches 1 a 3) n'a plus rien a faire ici : il
-   remettait le pourcentage a zero SANS vider les images gardees, et la zone ne
-   pouvait plus jamais se remplir. Le style est fige. */
-function choisir(g){ G = g; document.body.className = 'g' + g; }
+/* ==========================================================================
+   LA PORTE DE SORTIE — ?tete=1 : L'ANCIENNE TETE EN POINTS.
+   Ce qui suit est le code du 23/09, mot pour mot. Il ne s'execute QUE si
+   ?tete=1 est demande, et c'est seulement a ce moment-la que three.js part
+   au telechargement. Tant que personne ne le demande, la page ne paie rien
+   pour lui : ni octets, ni contexte WebGL, ni images par seconde.
+   ========================================================================== */
+async function monterTete(){
+  const THREE = await import('three');
+  const { EffectComposer } = await import('three/addons/postprocessing/EffectComposer.js');
+  const { RenderPass } = await import('three/addons/postprocessing/RenderPass.js');
+  const { UnrealBloomPass } = await import('three/addons/postprocessing/UnrealBloomPass.js');
+  const { OutputPass } = await import('three/addons/postprocessing/OutputPass.js');
 
+  /* ==========================================================================
+     A · LE DOUBLE — une tete de points, a droite, qui tourne comme la votre.
+     Ses cheveux sont en quatre zones ; elles passent du gris au bleu quand
+     elles ont ete lues. On tourne pour remplir le gris.
+     ========================================================================== */
+  const gl = $('gl');
+  const re = new THREE.WebGLRenderer({ canvas:gl, antialias:true, alpha:true }); re.setPixelRatio(Math.min(devicePixelRatio,1.5)); re.setClearColor(0x000000, 0);
+  const sc = new THREE.Scene(), cam = new THREE.PerspectiveCamera(30, 1, .1, 50); cam.position.set(0, .15, 7.2);
+  const co = new EffectComposer(re); co.addPass(new RenderPass(sc, cam));
+  const bloom = new UnrealBloomPass(new THREE.Vector2(512,512), .7, .5, .2); co.addPass(bloom); co.addPass(new OutputPass());
+  const tete = new THREE.Group(); sc.add(tete);
+  const NPT = 14000, pos = new Float32Array(NPT*3), col = new Float32Array(NPT*3), zon = new Int8Array(NPT), seuil = new Float32Array(NPT);
+  function rnd(n){ const s = Math.sin(n*127.1)*43758.5453; return s - Math.floor(s); }
+  for(let i=0;i<NPT;i++){
+    /* une tete : ellipsoide, un peu plus haute que large, menton affine */
+    const u = rnd(i)*2-1, a = rnd(i*3.7)*Math.PI*2, s = Math.sqrt(1-u*u);
+    let x = s*Math.cos(a)*.92, y = u*1.18, z = s*Math.sin(a)*1.02;
+    if(y < -.3){ const k = 1 - (-.3 - y)*.45; x *= k; z *= k; }
+    if(z > .5 && Math.abs(x) < .16 && y > -.45 && y < .2) z += .22 * (1 - Math.abs(x)/.16) * (1 - Math.abs(y + .12)/.33);   /* le nez */
+    if(z > .5 && y < .12 && y > -.02 && Math.abs(Math.abs(x) - .32) < .14) z -= .06;                                     /* les orbites */
+    pos[i*3]=x; pos[i*3+1]=y; pos[i*3+2]=z;
+    /* les cheveux : tout le haut et l'arriere, sauf le visage */
+    const visageZ = z > .35 && y < .42 && y > -1.1 && Math.abs(x) < .72;
+    let zz = -1;
+    if(!visageZ && (y > .05 || z < -.1)){
+      if(y > .72 && Math.abs(x) < .55 && z > -.55) zz = 3;           /* dessus */
+      else if(x < -.3 && y > -.7) zz = 2;                              /* montre en tournant vers la droite de l'ecran */
+      else if(x > .3 && y > -.7) zz = 1;                               /* montre en tournant vers la gauche */
+      else if(z > .1) zz = 0;                                          /* devant */
+      else zz = 3 + 1;                                                 /* arriere : jamais lu seul */
+    }
+    if(zz >= 0){ const k = 1.07 + rnd(i*4.4)*.06; pos[i*3]*=k; pos[i*3+1]*=k; pos[i*3+2]*=k; }   /* le volume des cheveux, au-dessus du crane */
+    zon[i] = zz; seuil[i] = rnd(i*9.1);
+  }
+  const gt = new THREE.BufferGeometry(); gt.setAttribute('position', new THREE.BufferAttribute(pos,3)); gt.setAttribute('color', new THREE.BufferAttribute(col,3));
+  tete.add(new THREE.Points(gt, new THREE.PointsMaterial({ size:.018, vertexColors:true, transparent:true, opacity:.95, blending:THREE.AdditiveBlending, depthWrite:false })));
+  function couleursTete(t){
+    for(let i=0;i<NPT;i++){
+      const zz = zon[i]; let r, g, b;
+      if(zz < 0){ const k = pos[i*3+2] > .35 ? .22 + .3*Math.max(0,pos[i*3+2]-.35) : .05; r = g = b = k; }   /* exactement la version du 21/09 23h41 */         /* visage : on doit le reconnaitre */
+      else if(zz === 4){ r = g = b = .05; }                                                    /* arriere */
+      else {
+        const lu = Z[ZONES[zz]] > seuil[i], actif = ZONES[zz] === pose && Z[ZONES[zz]] < 1;
+        if(lu){ r = .35; g = .78; b = 1.3; }
+        else { const k = actif ? .45 + .25*Math.sin(t/120 + i) : .26; r = g = b = k; }
+      }
+      col[i*3]=r; col[i*3+1]=g; col[i*3+2]=b;
+    }
+    gt.attributes.color.needsUpdate = true;
+  }
+  function tailleGL(){ const w = gl.clientWidth || innerWidth, h = gl.clientHeight || innerHeight; re.setSize(w, h, false); co.setSize(w, h); cam.aspect = w/h; cam.updateProjectionMatrix(); }
+  addEventListener('resize', tailleGL);
+
+  /* ---------------- les trois dessins ---------------- */
+  let G = clamp(+(Q.get('g') || 1), 1, 3);
+  /* ---------------- LE DOUBLE, DESSINE D'APRES VOTRE TETE ----------------
+     23/09 — premiere version : un ellipsoide de principe, le meme pour tout le
+     monde (« on dirait un Playmobil »). Deuxieme : la bonne forme, mais un
+     ballon rond autour d'un visage plat et un halo de poussiere en guise de
+     cheveux. Celle-ci DESSINE :
+     - le crane est serre sur l'anatomie : largeur de tete = largeur des
+       pommettes, sommet juste au-dessus de la ligne de cheveux MESUREE, et la
+       silhouette du volume est celle du masque de cheveux, direction par
+       direction : le contour du double et celui de la tete se superposent ;
+     - le visage a du relief : chaque point est eclaire par la normale de son
+       triangle, et les aretes vives du maillage (dos du nez, arcades,
+       pommettes, levres, machoire) recoivent plus de points et plus de lumiere.
+       De trois quarts, on lit le profil du nez ;
+     - les cheveux sont des MECHES : des segments qui partent du front, passent
+       sur le crane et tombent derriere et sur les cotes — le sens ou les cheveux
+       poussent. Leur longueur est celle que le masque a mesuree a cet endroit :
+       une coupe ras donne un duvet colle au crane, un volume donne de longues
+       meches. Une coiffure, pas un nuage.
+     Rien d'autre ne bouge : memes couleurs, meme passage au bleu par zone, et
+     14 000 sommets en tout comme la tete de principe. Tout est construit dans
+     LE REPERE DE LA TETE (unite = demi-largeur du visage) et pose dans l'image
+     par la matrice mTete : le double tourne parce que la tete tourne. */
+  const racine = new THREE.Group(); sc.add(racine);
+  const corps = new THREE.Group(); corps.matrixAutoUpdate = false; racine.add(corps);
+
+  function P(l){ return [ (l.x - .5) * PW, -(l.y - .5) * PH, -l.z * PW ]; }
+  const sub = (a,b) => [a[0]-b[0], a[1]-b[1], a[2]-b[2]], nrm = a => { const n = Math.hypot(a[0],a[1],a[2]) || 1; return [a[0]/n, a[1]/n, a[2]/n]; };
+  const dot = (a,b) => a[0]*b[0] + a[1]*b[1] + a[2]*b[2], crs = (a,b) => [a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]];
+
+  /* le maillage : les triangles se deduisent des aretes (trois points relies
+     deux a deux). Les yeux et la bouche sont des trous dans ce maillage ; on y
+     seme quand meme un peu de poussiere, sinon le double a des orbites vides. */
+  const ARETES = FaceLandmarker.FACE_LANDMARKS_TESSELATION || [];
+  const TRIS = (function(){
+    const vois = new Map(), add = (a,b) => { if(!vois.has(a)) vois.set(a, new Set()); vois.get(a).add(b); };
+    ARETES.forEach(e => { add(e.start, e.end); add(e.end, e.start); });
+    const vu = new Set(), out = [];
+    ARETES.forEach(e => { const A = vois.get(e.start), B = vois.get(e.end); if(!A || !B) return;
+      for(const c of A){ if(!B.has(c)) continue; const k = [e.start, e.end, c].sort((x,y) => x-y).join(','); if(vu.has(k)) continue; vu.add(k); out.push(e.start, e.end, c); } });
+    return out;
+  })();
+  function anneau(con){ const s = new Set(); (con || []).forEach(c => { s.add(c.start); s.add(c.end); }); return [...s]; }
+  const TROUS = [FaceLandmarker.FACE_LANDMARKS_LEFT_EYE, FaceLandmarker.FACE_LANDMARKS_RIGHT_EYE, FaceLandmarker.FACE_LANDMARKS_LIPS]
+    .map(anneau).filter(z => z.length > 2);
+
+  /* LE MEME NOMBRE DE SOMMETS QU'AVANT : 8 800 points de visage + 2 600 meches
+     a deux bouts = 14 000, exactement la tete de principe (une seule des deux
+     est affichee a la fois). Des meches longues et peu nombreuses dessinent une
+     coiffure ; des meches courtes et serrees ne font qu'une fourrure. */
+  const NV = 8800, NM = 2600;
+  /* le centre approximatif de la tete : il sert a retourner les normales du
+     maillage vers l'exterieur */
+  const CTR = [0, .25, -.5];
+
+  /* ---- le visage ----
+     chaque point retient son triangle et ses trois poids : il suit les traits
+     image apres image, expression comprise. vRid dit si son triangle est sur une
+     arete vive du visage (le dos du nez, les levres) ou sur une surface plate. */
+  const vI = new Int32Array(NV*3), vW = new Float32Array(NV*3), vJ = new Float32Array(NV*3), vRid = new Float32Array(NV);
+  const vPos = new Float32Array(NV*3), vCol = new Float32Array(NV*3);
+  let semis = false;
+  function semer(Ll){
+    const nT = TRIS.length / 3, tn = new Float32Array(nT*3);
+    const somme = new Float32Array(478*3), compte = new Float32Array(478), ridV = new Float32Array(478);
+    for(let k=0;k<nT;k++){
+      const a = TRIS[k*3], b = TRIS[k*3+1], c = TRIS[k*3+2];
+      const u = [Ll[b*3]-Ll[a*3], Ll[b*3+1]-Ll[a*3+1], Ll[b*3+2]-Ll[a*3+2]];
+      const v = [Ll[c*3]-Ll[a*3], Ll[c*3+1]-Ll[a*3+1], Ll[c*3+2]-Ll[a*3+2]];
+      let n = crs(u, v); const nl = Math.hypot(n[0],n[1],n[2]) || 1; n = [n[0]/nl, n[1]/nl, n[2]/nl];
+      /* le maillage n'a pas d'endroit ni d'envers : on tourne la normale vers
+         l'exterieur de la tete */
+      const g = [(Ll[a*3]+Ll[b*3]+Ll[c*3])/3 - CTR[0], (Ll[a*3+1]+Ll[b*3+1]+Ll[c*3+1])/3 - CTR[1], (Ll[a*3+2]+Ll[b*3+2]+Ll[c*3+2])/3 - CTR[2]];
+      if(dot(n, g) < 0){ n = [-n[0], -n[1], -n[2]]; }
+      tn[k*3] = n[0]; tn[k*3+1] = n[1]; tn[k*3+2] = n[2];
+      for(const s of [a,b,c]){ somme[s*3] += n[0]; somme[s*3+1] += n[1]; somme[s*3+2] += n[2]; compte[s]++; }
+    }
+    /* une arete vive : les triangles voisins ne regardent pas dans le meme sens */
+    for(let i=0;i<478;i++){ const c = compte[i] || 1; ridV[i] = clamp(1 - Math.hypot(somme[i*3], somme[i*3+1], somme[i*3+2]) / c, 0, 1); }
+    /* on seme au prorata de l'AIRE, mais on charge les aretes vives : c'est la
+       ou se dessine le visage */
+    const cum = []; let t = 0;
+    for(let k=0;k<nT;k++){
+      const a = TRIS[k*3], b = TRIS[k*3+1], c = TRIS[k*3+2];
+      const u = [Ll[b*3]-Ll[a*3], Ll[b*3+1]-Ll[a*3+1], Ll[b*3+2]-Ll[a*3+2]];
+      const v = [Ll[c*3]-Ll[a*3], Ll[c*3+1]-Ll[a*3+1], Ll[c*3+2]-Ll[a*3+2]];
+      const n = crs(u, v), aire = Math.hypot(n[0],n[1],n[2]) / 2;
+      t += aire * (1 + 1.3*(ridV[a] + ridV[b] + ridV[c])/3); cum.push(t);
+    }
+    for(let i=0;i<NV;i++){
+      let u = rnd(i*3.71), v = rnd(i*8.17); if(u + v > 1){ u = 1 - u; v = 1 - v; }
+      if(TROUS.length && rnd(i*5.55) < .08){
+        /* paupieres closes, levres jointes : un eventail de points dans le trou */
+        const z = TROUS[Math.floor(rnd(i*6.6) * TROUS.length)];
+        vI[i*3]   = z[Math.floor(rnd(i*1.1)*z.length)];
+        vI[i*3+1] = z[Math.floor(rnd(i*2.2)*z.length)];
+        vI[i*3+2] = z[Math.floor(rnd(i*3.3)*z.length)];
+      } else {
+        const r = rnd(i*7.13) * t; let lo = 0, hi = cum.length - 1;
+        while(lo < hi){ const m = (lo + hi) >> 1; if(cum[m] < r) lo = m + 1; else hi = m; }
+        vI[i*3] = TRIS[lo*3]; vI[i*3+1] = TRIS[lo*3+1]; vI[i*3+2] = TRIS[lo*3+2];
+      }
+      vRid[i] = (ridV[vI[i*3]] + ridV[vI[i*3+1]] + ridV[vI[i*3+2]]) / 3;
+      vW[i*3] = 1 - u - v; vW[i*3+1] = u; vW[i*3+2] = v;
+      vJ[i*3] = rnd(i*1.9) - .5; vJ[i*3+1] = rnd(i*2.7) - .5; vJ[i*3+2] = rnd(i*4.1) - .5;
+    }
+    semis = true;
+  }
+  const gV = new THREE.BufferGeometry(); gV.setAttribute('position', new THREE.BufferAttribute(vPos,3)); gV.setAttribute('color', new THREE.BufferAttribute(vCol,3));
+  corps.add(new THREE.Points(gV, new THREE.PointsMaterial({ size:.018, vertexColors:true, transparent:true, opacity:.95, blending:THREE.AdditiveBlending, depthWrite:false })));
+
+  /* ---- les meches ----
+     un segment par meche : la racine sur le crane, la pointe plus bas. */
+  const mBase = new Float32Array(NM*4), mPos = new Float32Array(NM*6), mNor = new Float32Array(NM*3);
+  const mCol = new Float32Array(NM*6), mZone = new Int8Array(NM), mSeuil = new Float32Array(NM);
+  for(let i=0;i<NM;i++){ mBase[i*4] = rnd(i*1.7); mBase[i*4+1] = rnd(i*5.3); mBase[i*4+2] = rnd(i*8.9); mBase[i*4+3] = rnd(i*2.9); mSeuil[i] = rnd(i*9.1); }
+  const gM = new THREE.BufferGeometry(); gM.setAttribute('position', new THREE.BufferAttribute(mPos,3)); gM.setAttribute('color', new THREE.BufferAttribute(mCol,3));
+  corps.add(new THREE.LineSegments(gM, new THREE.LineBasicMaterial({ vertexColors:true, transparent:true, opacity:.95, blending:THREE.AdditiveBlending, depthWrite:false })));
+
+  /* les mesures de la chevelure, lissees ; valeurs de depart = cheveux courts */
+  const CH = { haut:1.8, cote:1.2, long:-.6, dens:1, front:1.05, menton:-1.55, frontZ:.9, large:1 }, CHc = Object.assign({}, CH);
+  /* LE PROFIL DE LA CHEVELURE : le rayon du masque de cheveux, direction par
+     direction, autour du centre de la tete. C'est LUI la silhouette du double :
+     une coupe au carre, une raie sur le cote, un afro haut ne donnent plus le
+     meme contour. */
+  const NA = 48, CYP = .35;   /* CYP : l'origine du profil, au-dessus de la ligne des yeux */
+  const SIL = new Float32Array(NA), SILc = new Float32Array(NA);
+  let silPret = false;
+  const rayonCrane = a => 1 / Math.hypot(Math.cos(a)/1.02, Math.sin(a)/1.22);
+  function profil(a){
+    if(!silPret) return null;
+    const f = ((a + Math.PI) / (2*Math.PI)) * NA, i = Math.floor(f), g = f - i;
+    return lerp(SIL[((i % NA) + NA) % NA], SIL[((i+1) % NA + NA) % NA], g);
+  }
+
+  function mesurerChevelure(){
+    const L = dernierVisage; if(!L || Math.abs(yawV) > .38) return;   /* presque de face suffit */
+    /* en pixels du petit cadre (celui du masque) */
+    const a = L[234], b = L[454], cx = (a.x + b.x)/2 * PW, w = Math.abs(b.x - a.x) * PW / 2;
+    if(w < 8) return;
+    const yFront = L[10].y * PH, yMenton = L[152].y * PH, yYeux = (L[33].y + L[263].y)/2 * PH;
+    const cyImg = yYeux - CYP*w;                                  /* le centre du profil, dans l'image */
+    let haut = PH, bas = 0, cote = 0, dessus = 0, place = 0;
+    for(let k=0;k<NA;k++) SILc[k] = 0;
+    for(let y=0;y<PH;y++) for(let x=0;x<PW;x++){
+      const dx = Math.abs(x - cx);
+      /* la calotte attendue : du front a 1,6 largeur au-dessus, sur la largeur du visage */
+      if(dx < w && y < yFront && y > yFront - 1.6*w){ place++; if(HAIR[y*PW + x] >= .5) dessus++; }
+      if(HAIR[y*PW + x] < .5) continue;
+      if(dx < 2.2*w && y < haut) haut = y;
+      if(dx > .75*w && dx < 2.6*w && y > bas) bas = y;
+      if(y > yFront && y < yMenton && dx > cote) cote = dx;
+      /* le profil : le plus loin qu'aillent les cheveux dans cette direction */
+      const ux = (x - cx)/w, uy = -(y - cyImg)/w, r = Math.hypot(ux, uy);
+      if(r > .3 && r < 4.2){ let k = Math.floor(((Math.atan2(uy, ux) + Math.PI) / (2*Math.PI)) * NA); k = ((k % NA) + NA) % NA; if(r > SILc[k]) SILc[k] = r; }
+    }
+    CHc.dens = place ? clamp(dessus / place / .55, .08, 1) : 1;   /* crane rase ou degarni : peu de points */
+    /* une direction sans cheveux garde le rayon du crane : epaisseur nulle */
+    for(let k=0;k<NA;k++){ const ang = -Math.PI + (k + .5)*2*Math.PI/NA; if(SILc[k] < .3) SILc[k] = rayonCrane(ang); }
+    /* on lisse le tour, puis dans le temps : la silhouette ne doit pas trembler */
+    const liss = new Float32Array(NA);
+    for(let k=0;k<NA;k++) liss[k] = (SILc[(k+NA-1)%NA] + 2*SILc[k] + SILc[(k+1)%NA]) / 4;
+    for(let k=0;k<NA;k++) SIL[k] = silPret ? SIL[k] + (liss[k] - SIL[k]) * .25 : liss[k];
+    silPret = true;
+    if(haut >= PH){ CHc.haut = 1.62; CHc.cote = 1.1; CHc.long = -.6; return; }
+    CHc.haut = clamp((yYeux - haut) / w, 1.45, 3.6);
+    CHc.cote = clamp(cote / w, 1.02, 3.0);
+    CHc.long = clamp((bas - yMenton) / w, -.6, 4);
+  }
+
+  /* LE CRANE, SERRE SUR L'ANATOMIE.
+     Unite = demi-largeur du visage (points 234-454, la largeur bizygomatique).
+     Largeur de tete = cette largeur-la, a 2 % pres : une tete n'est pas plus
+     large que ses pommettes.
+     Longueur : 1,26 fois la demi-largeur (tete de 19,5 cm pour 15,5 cm de
+     large) ; l'avant se cale juste derriere le front lu, donc l'arriere tombe
+     sur la nuque et ne la depasse pas.
+     Sommet : JUSTE SOUS la ligne de cheveux mesuree, jamais au-dessus. */
+  const CRANE = { cy:.3, cz:-.4, rx:1.02, ry:1.2, rz:1.28 };
+  let ECHELLE = .84;          /* combien vaut une demi-largeur de visage a l'ecran */
+  let mechesFaites = false;
+  function faireMeches(){
+    const K = CRANE;
+    K.rx = clamp(CH.large * 1.02, .95, 1.18);
+    const sommet = clamp(Math.min(CH.haut - .14, -CH.menton * .95), 1.12, 1.52), bas = -.9;
+    K.ry = (sommet - bas) / 2; K.cy = sommet - K.ry;
+    K.rz = K.rx * 1.26;
+    K.cz = clamp(CH.frontZ - .10 - K.rz, -1.0, -.15);
+    const moyen = clamp(CH.cote - K.rx, .03, 1.6);               /* epaisseur quand le masque ne dit rien */
+    const front = CH.front, menton = CH.menton;
+    const longs = CH.long > -.25;                                 /* des cheveux sous le menton */
+    const basLong = menton - clamp(CH.long, 0, 1.9);              /* la chevelure longue s'arrete au cadre */
+    /* la source de la pousse, juste au-dessus du front : les cheveux partent du
+       visage et vont vers l'arriere, ils ne lui tombent pas dessus */
+    const C0 = [0, CH.front + .55, K.cz + K.rz*1.05];
+    let etX = K.rx, etY = Math.max(sommet - .1, .1 - menton);
+    for(let i=0;i<NM;i++){
+      let x = 0, y = 0, z = 0, dx = 0, dy = 1, dz = 0, ep = moyen, ok = false;
+      const tombe = longs && mBase[i*4] < .22;
+      for(let essai=0; essai<6 && !ok; essai++){
+        const u = rnd(i*13.1 + essai*7.7), v = rnd(i*3.3 + essai*5.9), e = rnd(i*6.1 + essai*2.3);
+        if(!tombe){
+          /* une direction sur la sphere, du sommet jusqu'un peu sous les oreilles */
+          const yy = 1 - u*1.34, rr = Math.sqrt(Math.max(0, 1 - yy*yy)), th = v*Math.PI*2;
+          dy = yy; dx = rr*Math.cos(th); dz = rr*Math.sin(th);
+          const sx = dx*K.rx, sy = K.cy + dy*K.ry, sz = K.cz + dz*K.rz;
+          /* L'EPAISSEUR VIENT DU MASQUE : de face et de cote, le bout de la meche
+             tombe exactement sur le contour mesure ; vers l'avant et l'arriere, ou
+             la photo ne dit rien, on garde l'epaisseur moyenne. */
+          const rp = profil(Math.atan2(sy - CYP, sx));
+          if(rp !== null){
+            const ra = Math.hypot(sx, sy - CYP) || 1e-6, vu = Math.pow(Math.hypot(dx, dy), 1.4);
+            ep = lerp(moyen, clamp(rp - ra, .02, 2.6), vu);
+          } else ep = moyen;
+          const dans = ep * (.22 + .62*Math.pow(e, .8));          /* ou la meche sort de la masse */
+          x = sx + dx*dans; y = sy + dy*dans; z = sz + dz*dans;
+          /* le visage reste libre : sous la lisiere du front, devant les tempes */
+          const visage = dz > .2 && y < front && Math.abs(x) < 1.0;
+          /* sous la ligne des oreilles, seulement a l'arriere (la nuque) */
+          const cou = y < -.22 && dz > -.2;
+          ok = !visage && !cou;
+        } else {
+          /* les longueurs : autour de l'arriere et des cotes, de l'oreille au bout mesure */
+          const th = (-.58 + v*1.16) * Math.PI, k = u, yy = lerp(-.1, basLong, k);
+          const fl = 1 + k*.1; ep = moyen*(.4 + .6*e);
+          dx = Math.sin(th); dz = -Math.cos(th); dy = 0;
+          x = dx * (K.rx + ep) * fl; z = K.cz + dz * (K.rz*.85 + ep) * fl; y = yy;
+          ok = !(z > .15 && Math.abs(x) < 1.0);
+        }
+      }
+      /* LA DIRECTION DE POUSSE : elle part du front, passe sur le crane et
+         descend derriere et sur les cotes — c'est le sens dans lequel les cheveux
+         poussent. Plaquee sur le crane, puis de plus en plus verticale a mesure
+         qu'on descend. Une meche, pas un grain. */
+      let nx = dx, ny = dy, nz = dz; const nl = Math.hypot(nx,ny,nz) || 1; nx/=nl; ny/=nl; nz/=nl;
+      let gx = x - C0[0], gy = y - C0[1], gz = z - C0[2];
+      let gn = gx*nx + gy*ny + gz*nz; gx -= nx*gn; gy -= ny*gn; gz -= nz*gn;
+      let gl = Math.hypot(gx, gy, gz);
+      if(gl < .05){ gx = nx; gy = 0; gz = nz; gl = Math.hypot(gx, gy, gz) || 1; }   /* pile au sommet : on rayonne */
+      gx/=gl; gy/=gl; gz/=gl;
+      const chute = tombe ? 1 : sm((K.cy + .75 - y) / 1.1);
+      gx = lerp(gx, 0, chute); gy = lerp(gy, -1, chute); gz = lerp(gz, 0, chute);
+      /* la meche ne part jamais vers l'exterieur, la pesanteur la couche (surtout
+         pres du sommet, sinon la couronne rayonne a l'horizontale et fait un
+         soleil), et un peu de biais l'empeche d'etre un rideau de traits paralleles */
+      gn = gx*nx + gy*ny + gz*nz; if(gn > 0){ gx -= nx*gn; gy -= ny*gn; gz -= nz*gn; }
+      const biais = (mBase[i*4+2] - .5) * .7;
+      gx += -nz*biais; gz += nx*biais;
+      gy -= .55 + .7*Math.max(0, ny);
+      gl = Math.hypot(gx, gy, gz) || 1; gx/=gl; gy/=gl; gz/=gl;
+      /* LA LONGUEUR DE LA MECHE EST CELLE QUE LE MASQUE A MESUREE a cet endroit :
+         une coupe ras donne un duvet colle au crane, un volume donne de longues
+         meches. C'est ce qui empeche tout le monde d'avoir la meme coiffure. */
+      let lg = tombe ? (.22 + .22*mBase[i*4+1]) * (.5 + .5*clamp(CH.long, 0, 2))
+                     : clamp((.05 + .95*ep) * (.55 + .9*mBase[i*4+1]), .045, .62);
+      /* UNE MECHE NE TOMBE PAS DEVANT LE VISAGE : si sa pointe passait sous la
+         lisiere du front, on la coupe a la lisiere — sans cela toute la tete
+         porte une frange et on ne voit plus les traits. Et cette lisiere n'est
+         pas une ligne droite : elle remonte aux tempes et ondule un peu, sinon le
+         double porte un bol. */
+      const lis = front + .16*Math.min(1, x*x) + (mBase[i*4+2] - .5)*.13;
+      if(gy < -.02 && z > .15 && Math.abs(x) < 1.15 && y > lis) lg = Math.min(lg, (y - lis) / -gy);
+      mPos[i*6] = x; mPos[i*6+1] = y; mPos[i*6+2] = z;
+      mPos[i*6+3] = x + gx*lg; mPos[i*6+4] = y + gy*lg; mPos[i*6+5] = z + gz*lg;
+      mNor[i*3] = nx; mNor[i*3+1] = ny; mNor[i*3+2] = nz;
+      if(!tombe){ if(Math.abs(x) > etX) etX = Math.abs(x); if(Math.abs(y - .1) > etY) etY = Math.abs(y - .1); }
+      let zz;
+      if(y > K.cy + K.ry*.7 && Math.abs(x) < .62) zz = 3;
+      else if(x > .5) zz = 1;
+      else if(x < -.5) zz = 2;
+      else if(z > K.cz) zz = 0;
+      else zz = 4;
+      mZone[i] = zz;
+    }
+    gM.attributes.position.needsUpdate = true;
+    /* la tete tient toujours dans son coin d'ecran, quelle que soit la coiffure */
+    ECHELLE = clamp(Math.min(1.26 / etX, 1.72 / etY), .62, .9);
+  }
+  /* LES COULEURS : celles du 21/09, au point pres. Cheveux gris tant que la zone
+     n'est pas lue, bleus des qu'elle l'est, arriere presque eteint. Deux
+     modulations, et rien d'autre : la pointe de la meche est plus legere que sa
+     racine, et l'autre cote du crane s'assombrit — sinon l'avant et l'arriere se
+     superposent et la coiffure ne se lit plus. */
+  const VUE = [0, 0, 1];
+  function couleursMeches(t){
+    for(let i=0;i<NM;i++){
+      const zz = mZone[i]; let r, g, b;
+      if(mBase[i*4+3] > CH.dens){ r = g = b = 0; }            /* peu de cheveux : peu de meches */
+      else if(zz === 4){ r = g = b = .05; }                                                    /* arriere */
+      else {
+        const lu = Z[ZONES[zz]] > mSeuil[i], actif = ZONES[zz] === pose && Z[ZONES[zz]] < 1;
+        if(lu){ r = .35; g = .78; b = 1.3; }
+        else { const k = actif ? .45 + .25*Math.sin(t/120 + i) : .26; r = g = b = k; }
+      }
+      const f = .22 + .78*sm((mNor[i*3]*VUE[0] + mNor[i*3+1]*VUE[1] + mNor[i*3+2]*VUE[2] + .22) / .55);
+      const a = f, c = f*.42;
+      mCol[i*6]=r*a; mCol[i*6+1]=g*a; mCol[i*6+2]=b*a;
+      mCol[i*6+3]=r*c; mCol[i*6+4]=g*c; mCol[i*6+5]=b*c;
+    }
+    gM.attributes.color.needsUpdate = true;
+  }
+
+  /* le visage, replie dans le repere de la tete */
+  const Lloc = new Float32Array(478*3);
+  const mTete = new THREE.Matrix4();
+  /* la lumiere du double : une cle haute a gauche, fixe a l'ecran. C'est elle qui
+     fait sortir le nez, les arcades et les pommettes. */
+  const CLE = nrm([-.5, .42, .76]), CLEl = [0, 0, 1];
+  let dernCoque = 0;
+  function majDouble(t, now){
+    const L = dernierVisage; if(!L) return false;
+    /* le repere de la tete, tire du visage : droite, haut, avant */
+    let A = P(L[234]), B = P(L[454]); if(A[0] > B[0]){ const c = A; A = B; B = c; }
+    const w = Math.hypot(B[0]-A[0], B[1]-A[1], B[2]-A[2]) / 2;
+    if(!(w > 1)) return false;
+    const X = nrm(sub(B, A));
+    let Y = sub(P(L[10]), P(L[152])); const d = dot(Y, X); Y = nrm([Y[0]-X[0]*d, Y[1]-X[1]*d, Y[2]-X[2]*d]);
+    const Zv = crs(X, Y);
+    const e1 = P(L[33]), e2 = P(L[263]);
+    const O = [(A[0]+B[0])/2, (e1[1]+e2[1])/2, (A[2]+B[2])/2];
+    /* les 478 points, en unites de demi-largeur de visage */
+    let large = 1;
+    for(let i=0;i<478;i++){
+      const q = sub(P(L[i]), O);
+      const lx = dot(q, X)/w, ly = dot(q, Y)/w, lz = dot(q, Zv)/w;
+      Lloc[i*3] = lx; Lloc[i*3+1] = ly; Lloc[i*3+2] = lz;
+      if(Math.abs(lx) > large) large = Math.abs(lx);
+    }
+    if(!semis) semer(Lloc);
+    /* l'oeil et la lumiere, vus depuis la tete */
+    VUE[0] = X[2]; VUE[1] = Y[2]; VUE[2] = Zv[2];
+    CLEl[0] = dot(X, CLE); CLEl[1] = dot(Y, CLE); CLEl[2] = dot(Zv, CLE);
+    /* LE VISAGE DESSINE : la normale du triangle donne l'ombre, le bord donne le
+       trait (c'est lui qui dessine le profil du nez de trois quarts), l'arete
+       vive donne l'accent. La rampe reste celle du 21/09 : du gris sombre au gris
+       clair, rien d'autre. */
+    for(let i=0;i<NV;i++){
+      const a = vI[i*3]*3, b = vI[i*3+1]*3, c = vI[i*3+2]*3, wa = vW[i*3], wb = vW[i*3+1], wc = vW[i*3+2];
+      const x = Lloc[a]*wa + Lloc[b]*wb + Lloc[c]*wc + vJ[i*3]*.018;
+      const y = Lloc[a+1]*wa + Lloc[b+1]*wb + Lloc[c+1]*wc + vJ[i*3+1]*.018;
+      const z = Lloc[a+2]*wa + Lloc[b+2]*wb + Lloc[c+2]*wc + vJ[i*3+2]*.018;
+      vPos[i*3] = x; vPos[i*3+1] = y; vPos[i*3+2] = z;
+      let nx = (Lloc[b+1]-Lloc[a+1])*(Lloc[c+2]-Lloc[a+2]) - (Lloc[b+2]-Lloc[a+2])*(Lloc[c+1]-Lloc[a+1]);
+      let ny = (Lloc[b+2]-Lloc[a+2])*(Lloc[c]-Lloc[a])   - (Lloc[b]-Lloc[a])*(Lloc[c+2]-Lloc[a+2]);
+      let nz = (Lloc[b]-Lloc[a])*(Lloc[c+1]-Lloc[a+1])   - (Lloc[b+1]-Lloc[a+1])*(Lloc[c]-Lloc[a]);
+      const nl = Math.hypot(nx, ny, nz) || 1; nx/=nl; ny/=nl; nz/=nl;
+      if(nx*(x-CTR[0]) + ny*(y-CTR[1]) + nz*(z-CTR[2]) < 0){ nx=-nx; ny=-ny; nz=-nz; }
+      const lam = Math.max(0, nx*CLEl[0] + ny*CLEl[1] + nz*CLEl[2]);
+      const face = nx*VUE[0] + ny*VUE[1] + nz*VUE[2];
+      const e0 = 1 - Math.abs(face), bord = e0*e0*e0;               /* le trait du bord : le profil du nez */
+      const vers = .30 + .70*sm((face + .04) / .34);                 /* l'autre joue s'efface */
+      const k = clamp((.09 + .68*lam*lam + .45*bord + .75*vRid[i]*(.35 + .65*lam)) * vers, .03, .98);
+      vCol[i*3] = vCol[i*3+1] = vCol[i*3+2] = k;
+    }
+    gV.attributes.position.needsUpdate = true; gV.attributes.color.needsUpdate = true;
+    /* les mesures que le crane attend : largeur, front, menton, avancee du front */
+    CHc.large = clamp(large, .95, 1.18);
+    CHc.front = clamp(Lloc[10*3+1] - .05, .7, 1.5);
+    CHc.menton = clamp(Lloc[152*3+1], -2.2, -1.1);
+    CHc.frontZ = clamp(Lloc[10*3+2], .3, 1.4);
+    /* la coiffure suit les mesures, sans a-coups */
+    let bouge = false;
+    for(const k2 of ['haut','cote','long','dens','front','menton','frontZ','large']){
+      const n = CH[k2] + (CHc[k2] - CH[k2]) * .08; if(Math.abs(n - CH[k2]) > .004) bouge = true; CH[k2] = n;
+    }
+    if(!mechesFaites || (bouge && now - dernCoque > 160)){ faireMeches(); mechesFaites = true; dernCoque = now; }
+    couleursMeches(t);
+    /* la tete se pose dans l'image : la matrice porte l'orientation ET l'echelle */
+    mTete.set(X[0]*w, Y[0]*w, Zv[0]*w, O[0],
+              X[1]*w, Y[1]*w, Zv[1]*w, O[1],
+              X[2]*w, Y[2]*w, Zv[2]*w, O[2],
+              0, 0, 0, 1);
+    corps.matrix.copy(mTete); corps.matrixWorldNeedsUpdate = true;
+    /* tout est recentre sur le volume de la tete et mis a l'echelle de l'ecran,
+       a la place exacte de l'ancienne tete de principe */
+    const S = ECHELLE / w, cy = .1, cz = -.35;
+    const C = [O[0] + Y[0]*w*cy + Zv[0]*w*cz, O[1] + Y[1]*w*cy + Zv[1]*w*cz, O[2] + Y[2]*w*cy + Zv[2]*w*cz];
+    racine.scale.setScalar(S); racine.position.set(.25 - C[0]*S, -C[1]*S, -C[2]*S);
+    /* ?debug=1 : les mesures de la tete, pour les relire au banc d'essai */
+    if(DEBUG) window.__dbl = { w, ECHELLE, CRANE:Object.assign({}, CRANE), CH:Object.assign({}, CH), SIL:[].slice.call(SIL) };
+    return true;
+  }
+
+  function dessinA(t, r){
+    /* 23/09 — on ne passe plus la personne en noir et blanc : lumiere naturelle,
+       a peine posee. Seule la moitie droite est assombrie, pour que la tete en
+       points reste lisible par-dessus. */
+    peindre(ctx, r, 'saturate(1) brightness(.82) contrast(1.04)');
+    const vd = ctx.createLinearGradient(W*.30, 0, W, 0);
+    vd.addColorStop(0, 'rgba(0,0,0,0)'); vd.addColorStop(.45, 'rgba(0,0,0,.82)'); vd.addColorStop(1, 'rgba(0,0,0,.95)');
+    ctx.fillStyle = vd; ctx.fillRect(W*.30, 0, W*.70, H);
+    /* le texte du bas reste lisible meme sur une piece claire */
+    const vb = ctx.createLinearGradient(0, H*.55, 0, H);
+    vb.addColorStop(0, 'rgba(0,0,0,0)'); vb.addColorStop(1, 'rgba(0,0,0,.85)');
+    ctx.fillStyle = vb; ctx.fillRect(0, H*.55, W*.62, H*.45);
+    cheveux(r, BLEU(.9));
+    gl.style.display = 'block';
+    /* Le style est celui du 21/09, 23h41 (la tete que Charles a trouvee stylee) ;
+       seule la FORME a change.
+       LA TETE, C'EST LA VOTRE : tant que le visage a ete lu il y a moins d'une
+       seconde et demie, le double est bati sur vos 478 points. Sinon (demo,
+       visage jamais trouve, contre-jour) on retombe sur la tete de principe,
+       dans le meme style. */
+    const reel = (t - dernierVisageT < 1500) && majDouble(t, t);
+    racine.visible = reel; tete.visible = !reel;
+    if(!reel){
+      tete.position.set(.25, 0, 0);
+      tete.rotation.y += ((yawV * .95) - tete.rotation.y) * .15;
+      tete.rotation.x += ((clamp(pitchV,0,1.4) * .55) - tete.rotation.x) * .15;
+      couleursTete(t);
+    }
+    co.render();
+  }
+  function bord(cote, force, t){
+    const a = force * (.55 + .45*Math.sin(t/260));
+    let g;
+    if(cote === 'gauche'){ g = ctx.createLinearGradient(0,0,W*.22,0); g.addColorStop(0,BLEU(a)); g.addColorStop(1,BLEU(0)); ctx.fillStyle = g; ctx.fillRect(0,0,W*.22,H); }
+    if(cote === 'droite'){ g = ctx.createLinearGradient(W,0,W*.78,0); g.addColorStop(0,BLEU(a)); g.addColorStop(1,BLEU(0)); ctx.fillStyle = g; ctx.fillRect(W*.78,0,W*.22,H); }
+    if(cote === 'dessus'){ g = ctx.createLinearGradient(0,0,0,H*.28); g.addColorStop(0,BLEU(a)); g.addColorStop(1,BLEU(0)); ctx.fillStyle = g; ctx.fillRect(0,0,W,H*.28); }
+    if(cote === 'face'){ g = ctx.createRadialGradient(W/2,H/2,0,W/2,H/2,H*.6); g.addColorStop(0,BLEU(a*.35)); g.addColorStop(1,BLEU(0)); ctx.fillStyle = g; ctx.fillRect(0,0,W,H); }
+  }
+  function dessinB(t, r){
+    gl.style.display = 'none';
+    peindre(ctx, r, 'grayscale(1) brightness(.42) contrast(1.1)');
+    /* les cheveux vus maintenant : gris s'ils restent a lire, bleus s'ils le sont */
+    const z = ZONES.includes(pose) ? Z[pose] : 0;
+    cheveux(r, 'rgba(' + Math.round(lerp(150,64,z)) + ',' + Math.round(lerp(160,170,z)) + ',' + Math.round(lerp(175,255,z)) + ',.95)', z > .05 ? 'color' : 'saturation');
+    if(z > .05){ ctx.save(); ctx.globalAlpha = .25*z; cheveux(r, BLEU(1), 'screen'); ctx.restore(); }
+    /* la lumiere au bord : c'est elle qui fait tourner la tete */
+    ctx.save(); ctx.globalCompositeOperation = 'screen';
+    const m = manquante(); if(m && m !== pose) bord(m, .75, t);
+    ctx.restore();
+  }
+  function dessinC(t, r){
+    gl.style.display = 'none';
+    peindre(ctx, r, 'grayscale(1) brightness(.34) contrast(1.1)');
+    cheveux(r, BLEU(.9));
+    /* quatre mots, chacun sur le bord qu'il designe ; il se remplit quand c'est lu */
+    const fs = Math.min(W, H) * .16;
+    const mots = [
+      { z:'gauche', x: fs*.62,   y: H/2, rot:-Math.PI/2 },
+      { z:'droite', x: W-fs*.62, y: H/2, rot: Math.PI/2 },
+      { z:'dessus', x: W/2,      y: fs*.95, rot:0 },
+      { z:'face',   x: W/2,      y: H - fs*.62, rot:0 }
+    ];
+    ctx.save(); ctx.font = '800 ' + fs + 'px Inter'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    for(const m of mots){
+      const mot = m.z.toUpperCase(), w = ctx.measureText(mot).width, v = Z[m.z], actif = pose === m.z && v < 1;
+      ctx.save(); ctx.translate(m.x, m.y); ctx.rotate(m.rot);
+      ctx.lineWidth = 1.2; ctx.strokeStyle = 'rgba(234,246,255,' + (actif ? .9 : .38) + ')'; ctx.strokeText(mot, 0, 0);
+      ctx.save(); ctx.beginPath(); ctx.rect(-w/2, fs*.5 - fs*v, w, fs*v + 2); ctx.clip();
+      ctx.fillStyle = v >= 1 ? '#eaf6ff' : 'rgba(96,190,255,.95)'; ctx.fillText(mot, 0, 0); ctx.restore();
+      ctx.restore();
+    }
+    ctx.restore();
+  }
+
+  /* 23/09 — le choix de propale (touches 1 a 3) n'a plus rien a faire ici : il
+     remettait le pourcentage a zero SANS vider les images gardees, et la zone ne
+     pouvait plus jamais se remplir. Le style est fige. */
+  function choisir(g){ G = g; document.body.className = 'g' + g; }
+
+  /* les deux seules prises dont la page a besoin de l'exterieur */
+  hookMasqueTete = mesurerChevelure;
+  dessinTete = function(t, r){ if(G === 1) dessinA(t, r); else if(G === 2) dessinB(t, r); else dessinC(t, r); };
+  choisir(G); tailleGL();
+}
+
+/* ---------------- la boucle ---------------- */
 let debutSansVisage = 0;
 function image(now){
   requestAnimationFrame(image);
@@ -866,8 +1254,11 @@ function image(now){
   const dt = Math.min(.1, (now - tPrec)/1000); tPrec = now;
   lire(now); lirePose(now, dt);
   ctx.save(); ctx.setTransform(1,0,0,1,0,0); ctx.fillStyle = '#000'; ctx.fillRect(0,0,cv.width,cv.height); ctx.restore();
-  const r = cadre();
-  if(G === 1) dessinA(now, r); else if(G === 2) dessinB(now, r); else dessinC(now, r);
+  RC = cadre();
+  /* le seul aiguillage : l'encre par defaut, la tete en points sous ?tete=1 */
+  const tD = performance.now();
+  if(TETE){ if(dessinTete) dessinTete(now, RC); } else dessin1(now, dt);
+  msDessin = msDessin ? msDessin*.94 + (performance.now() - tD)*.06 : (performance.now() - tD);
   const tt = total();
   /* « Lu. » ne doit pas etre reecrit par le pourcentage ; il est repeint a
      chaque image pour suivre un changement de langue arrive apres coup. */
@@ -894,16 +1285,19 @@ function image(now){
     if(!finiDepuis){ finiDepuis = now; document.body.classList.add('fini'); $('pct').textContent = T('hcg.lu') ?? 'Lu.'; }
     else if(now - finiDepuis > 300) rendre();
   }
-  if(DEBUG) $('lectureDebug').textContent = 'lacet ' + yawV.toFixed(2) + '\ntangage ' + pitchV.toFixed(2) + '\nvisage ' + visage + '\ncheveux ' + (vuCheveux*100).toFixed(1) + ' %\npose ' + pose;
+  if(DEBUG) $('lectureDebug').textContent = 'lacet ' + yawV.toFixed(2) + '\ntangage ' + pitchV.toFixed(2) + '\nvisage ' + visage + '\ncheveux ' + (vuCheveux*100).toFixed(1) + ' %\npose ' + pose + '\ndessin ' + msDessin.toFixed(2) + ' ms';
 }
 
 (async function(){
-  taille(); tailleGL();
+  taille(); tailleTrainee();
+  document.body.className = TETE ? 'g1' : 'encre';
+  if(TETE) await monterTete();          /* et seulement la, three.js */
   await ouvrirSource();
   if(!src) return;        /* camera refusee : le parcours a deja repris la main */
   tailles();
+  if(!TETE) allouer(PW*PH);   /* les tampons du dessin, a la taille du masque */
   await ouvrirLecture();
-  choisir(G); bloqueDepuis = performance.now();
+  bloqueDepuis = performance.now();
   requestAnimationFrame(image);
 })();
 </script>

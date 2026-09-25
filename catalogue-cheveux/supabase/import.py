@@ -74,6 +74,10 @@ def charge():
                 "image_incertaine": bool(p.get("image_incertaine")),
                 "cutout_url": p.get("cutout_url"),
                 "ciblage_source": p.get("ciblage_source"),
+                # 24/09 : un medicament (minoxidil...) ne doit jamais entrer dans
+                # une routine. Le drapeau est NOT NULL cote base : une fiche qui
+                # ne dit rien n'est pas un medicament.
+                "medicament": bool(p.get("medicament")),
             })
     # la table attend name/univers/pays/site : on normalise les cles du fichier (nom, produits)
     PAYS = {"France":"FR","États-Unis":"US","Etats-Unis":"US","Royaume-Uni":"GB","Italie":"IT","Espagne":"ES",
@@ -169,7 +173,10 @@ def ecrire_csv(marques, produits):
                 "cheveux_cibles", "actifs", "claims", "ingredients", "description", "source",
                 # 23/09 : sans ces trois colonnes, l'import perdait les alertes qualite
                 # d'image (fiche sans photo, photo douteuse) et le detourage.
-                "image_absente", "image_incertaine", "cutout_url"]
+                "image_absente", "image_incertaine", "cutout_url", "ciblage_source",
+                # 24/09 : sans elle, l'import par CSV perdait le drapeau medicament
+                # et le moteur pouvait remettre un minoxidil dans une routine.
+                "medicament"]
         w = csv.DictWriter(f, fieldnames=cols)
         w.writeheader()
         for p in produits:
