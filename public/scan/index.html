@@ -1604,6 +1604,25 @@ function showFinalDashboard() {
     hydration = Math.max(40, Math.min(98, hydration));
 
     console.log('[CHARLOTTE_TILBURY] computed: globalScore=' + globalScore + ' cellAge=' + cellAge + ' hydration=' + hydration);
+    /* 26/09 : le protocole complet (nouvel onglet) ecrit son compte rendu a partir de ces
+       valeurs. Avant, rien n'etait transmis : la partie gauche du protocole restait vide. */
+    try {
+      const garder = {}; ['wrinkles','firmness','glow','hydration','redness','pores','sebum','pigmentation'].forEach(k => { if (typeof s[k] === 'number') garder[k] = Math.round(s[k]); });
+      localStorage.setItem('vyvre_scan_scores', JSON.stringify(garder));
+      localStorage.setItem('vyvre_score', String(globalScore));
+      localStorage.setItem('vyvre_hyd', String(hydration));
+      localStorage.setItem('vyvre_scan_at', String(Date.now()));
+      const ag = result.age || result.ageEstimate || null;
+      const fourchette = result.age_display || result.ageDisplay || (ag && ag.ageReadable !== false && (ag.ageDisplay || (Array.isArray(ag.range) ? ag.range[0] + '–' + ag.range[1] : ''))) || '';
+      if (fourchette) localStorage.setItem('vyvre_age_display', String(fourchette)); else localStorage.removeItem('vyvre_age_display');
+      /* une vignette du visage, petite, pour que le protocole montre de qui il parle */
+      const src = document.getElementById('capturedImg'), vid = document.getElementById('liveVideo');
+      const c = document.createElement('canvas'), W = 360;
+      let ok = false;
+      if (src && src.naturalWidth) { c.width = W; c.height = Math.round(W * src.naturalHeight / src.naturalWidth); c.getContext('2d').drawImage(src, 0, 0, c.width, c.height); ok = true; }
+      else if (vid && vid.videoWidth) { c.width = W; c.height = Math.round(W * vid.videoHeight / vid.videoWidth); c.getContext('2d').drawImage(vid, 0, 0, c.width, c.height); ok = true; }
+      if (ok) localStorage.setItem('vyvre_scan_face', c.toDataURL('image/jpeg', 0.72));
+    } catch (e) { console.warn('[VYVRE] compte rendu non transmis au protocole', e); }
     console.log('[CHARLOTTE_TILBURY] vyvre-scan-engine: real CIE LAB analysis complete', { raw: result.raw, scores: s });
   } else {
     console.warn('[CHARLOTTE_TILBURY] no scan result available — using defaults (this should NOT happen in prod)');
@@ -1717,6 +1736,13 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
 
   // Top 3 produits, en évitant les doublons de "famille" (préfère diversité)
   scoredProducts.sort((a, b) => b.matchScore - a.matchScore);
+  // 26/09 (audit) : un nettoyant ou un masque n'est pas un des trois soins. On les ecarte
+  // tant qu'il reste au moins 3 vrais soins dans le perimetre.
+  {
+    const PAS_UN_SOIN = /cleans|nettoy|d[ée]maquill|micell|face wash|\bwash\b|foam|mousse nettoy|masque|\bmask|sheet|patch|gommage|scrub|\blip\b|l[èe]vres|lip balm/i;
+    const soins = scoredProducts.filter(p => !PAS_UN_SOIN.test(p.name || ''));
+    if (soins.length >= 3) { scoredProducts.length = 0; soins.forEach(p => scoredProducts.push(p)); }
+  }
 
   // Diversifier : on prend top 1, puis on cherche un produit avec un primary target différent
   const selected = [];
@@ -1739,6 +1765,23 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     else break;
   }
 
+  // 26/09 (audit) : l'objectif choisi avant le scan tient la premiere place, avec son etiquette.
+  let cibleObjectif = null;
+  if (window.vyPrefs && window.vyPrefs.cibles) {
+    const cibles = window.vyPrefs.cibles();
+    if (cibles.length) {
+      /* d'abord un produit dont c'est la cible principale, sinon le plus efficace sur cette cible */
+      const vise = scoredProducts.find(p => cibles.indexOf((p.targets || [])[0]) >= 0)
+        || scoredProducts.filter(p => (p.targets || []).some(t => cibles.indexOf(t) >= 0))
+             .sort((a, b) => Math.max(...cibles.map(c => (b.concern_scores || {})[c] || 0)) - Math.max(...cibles.map(c => (a.concern_scores || {})[c] || 0)))[0];
+      if (vise) {
+        const i = selected.findIndex(x => x.id === vise.id);
+        if (i > 0) { selected.splice(i, 1); selected.unshift(vise); }
+        else if (i < 0) { selected.pop(); selected.unshift(vise); }
+        cibleObjectif = (vise.targets || []).find(t => cibles.indexOf(t) >= 0) || null;
+      }
+    }
+  }
   console.log('[CHARLOTTE_TILBURY] selected products:', selected.map(p => p.name + ' (match=' + p.matchScore.toFixed(1) + ')'));
   // la liste retenue, telle quelle, pour « LA SALLE » (?salle=1). Lecture seule.
   try { window.__vySelection = selected; } catch(e) {}
@@ -1754,7 +1797,7 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
   selected.forEach((p, idx) => {
     const card = document.querySelector(`[data-vyvre-prod-slot="${idx}"]`);
     if (!card) return;
-    const primaryTarget = (p.targets || [])[0] || 'wrinkles';
+    const primaryTarget = (idx === 0 && cibleObjectif) ? cibleObjectif : ((p.targets || [])[0] || 'wrinkles');
     const lblEl = card.querySelector('.v6lbl');
     const h3 = card.querySelector('h3');
     const pEl = card.querySelector('p');
@@ -2756,121 +2799,46 @@ header{backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important;-webki
 @media (prefers-reduced-motion:reduce){.vyvre-v6 .sg-barre::after{animation:none!important}}
 </style>
 <script id="sg-voile-noir-js">(function(){ if(document.getElementById('sg-voile-noir')) return; var d=document.createElement('div'); d.id='sg-voile-noir'; document.body.insertBefore(d, document.body.firstChild); })();</script>
-<!-- VYVRE_PREFS_BEGIN : ce que la personne veut, choisi AVANT le scan -->
+<!-- VYVRE_PREFS_BEGIN : ce que la personne veut, choisi AVANT le scan.
+     26/09 : l'ecran des questions est /scan/avant/ (propale G WOW validee par Charles),
+     pose en fenetre plein ecran. Il rend les reponses par postMessage ; ce bloc garde
+     la logique qui s'en sert : filtre du catalogue, poids des objectifs, barre de resume. -->
 <style id="vy-prefs-css">
-#vy-prefs{position:fixed;inset:0;z-index:9000;display:none;overflow-y:auto;background:radial-gradient(120% 80% at 50% 0%,rgba(255,255,255,.07),rgba(0,0,0,.92) 60%),rgba(0,0,0,.86);backdrop-filter:blur(26px);-webkit-backdrop-filter:blur(26px);opacity:0;transition:opacity .5s var(--ease-apple)}
-#vy-prefs.on{display:block}
-#vy-prefs.vis{opacity:1}
-.vyp-wrap{max-width:860px;margin:0 auto;padding:clamp(28px,6vh,72px) 16px 140px}
-.vyp-kick{font:500 10px/1 var(--font-data);letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.45)}
-.vyp-title{font-size:clamp(34px,5.4vw,64px);font-weight:200;letter-spacing:-.035em;line-height:1.02;margin:16px 0 10px;background:linear-gradient(180deg,#fff 30%,rgba(255,255,255,.45));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.vyp-sub{color:rgba(255,255,255,.5);font-size:15px;line-height:1.55;max-width:560px}
-.vyp-sec{margin-top:44px;padding-top:26px;border-top:1px solid rgba(255,255,255,.08)}
-.vyp-h{display:flex;align-items:baseline;gap:14px;margin-bottom:16px}
-.vyp-n{font:400 11px var(--font-data);color:rgba(255,255,255,.35);letter-spacing:.15em}
-.vyp-h b{font-weight:300;font-size:20px;letter-spacing:-.01em}
-.vyp-h i{font-style:normal;color:rgba(255,255,255,.38);font-size:13px;margin-left:auto}
-.vyp-chips{display:flex;flex-wrap:wrap;gap:10px}
-.vyp-chip{appearance:none;cursor:pointer;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.03);color:rgba(255,255,255,.82);border-radius:999px;padding:12px 20px;font:300 14px var(--font-main);transition:all .35s var(--ease-apple)}
-.vyp-chip:hover{border-color:rgba(255,255,255,.4);color:#fff}
-.vyp-chip[aria-pressed="true"]{background:linear-gradient(180deg,rgba(255,255,255,.92),rgba(255,255,255,.7));color:#04050a;border-color:#fff;box-shadow:0 12px 34px -14px rgba(236,233,226,.7)}
-.vyp-chip small{display:block;font:400 10px var(--font-data);letter-spacing:.08em;opacity:.55;margin-top:3px}
-.vyp-uni{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.vyp-uni .vyp-chip{border-radius:18px;padding:18px 16px;text-align:left}
-.vyp-budget{padding:6px 4px}
-.vyp-bval{font-size:30px;font-weight:200;letter-spacing:-.02em;margin-bottom:18px}
-.vyp-range{position:relative;height:28px}
-.vyp-range input{position:absolute;left:0;right:0;top:0;width:100%;height:28px;margin:0;background:none;pointer-events:none;-webkit-appearance:none;appearance:none}
-.vyp-range input::-webkit-slider-thumb{pointer-events:auto;-webkit-appearance:none;width:22px;height:22px;border-radius:50%;background:#fff;border:0;box-shadow:0 0 0 6px rgba(255,255,255,.1),0 6px 18px rgba(0,0,0,.5);cursor:grab}
-.vyp-range input::-moz-range-thumb{pointer-events:auto;width:22px;height:22px;border-radius:50%;background:#fff;border:0;cursor:grab}
-.vyp-track{position:absolute;left:0;right:0;top:13px;height:2px;background:rgba(255,255,255,.12)}
-.vyp-fill{position:absolute;top:13px;height:2px;background:#fff}
-.vyp-search{width:100%;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.14);border-radius:999px;color:#fff;padding:14px 22px;font:300 15px var(--font-main);outline:none;margin-bottom:14px}
-.vyp-search:focus{border-color:rgba(255,255,255,.45)}
-.vyp-brands{max-height:260px;overflow-y:auto;padding-right:4px}
-.vyp-brands .vyp-chip{padding:9px 16px;font-size:13px}
-.vyp-foot{position:fixed;left:0;right:0;bottom:0;z-index:9001;padding:18px 16px calc(18px + env(safe-area-inset-bottom));background:linear-gradient(0deg,rgba(0,0,0,.95) 40%,transparent);display:flex;justify-content:center;align-items:center;gap:22px;flex-wrap:wrap}
-.vyp-count{font:400 11px var(--font-data);letter-spacing:.12em;color:rgba(255,255,255,.55);text-transform:uppercase;min-width:190px;text-align:right}
-.vyp-go{appearance:none;cursor:pointer;border:1px solid #fff;border-radius:999px;padding:18px 44px;font:400 15px var(--font-main);color:#04050a;background:linear-gradient(180deg,#fff,rgba(255,255,255,.72));box-shadow:0 26px 60px -18px rgba(236,233,226,.6);transition:transform .35s var(--ease-apple)}
-.vyp-go:hover{transform:translateY(-2px) scale(1.03)}
-.vyp-skip{appearance:none;background:none;border:0;color:rgba(255,255,255,.5);font:300 14px var(--font-main);cursor:pointer;text-decoration:underline;text-underline-offset:4px}
-.vyp-close{position:fixed;top:18px;right:18px;z-index:9002;appearance:none;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#fff;width:42px;height:42px;border-radius:50%;cursor:pointer;font-size:18px;line-height:1}
-#vy-prefs-bar{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin:0 auto 26px;padding:0 16px;font:400 11px var(--font-data);letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55);text-align:center}
+#vy-avant{position:fixed;inset:0;z-index:9000;width:100vw;height:100vh;border:0;background:#030405;opacity:0;transition:opacity .7s cubic-bezier(.22,1,.36,1)}
+#vy-avant.vis{opacity:1}
+#vy-prefs-bar{grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin:0 auto 26px;padding:0 16px;font:400 11px var(--font-data);letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55);text-align:center}
 #vy-prefs-bar b{color:#fff;font-weight:400}
 #vy-prefs-bar button{appearance:none;cursor:pointer;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:999px;padding:9px 18px;font:400 11px var(--font-data);letter-spacing:.12em;text-transform:uppercase}
 #vy-prefs-bar em{font-style:normal;color:rgba(217,201,163,.9);text-transform:none;letter-spacing:0;font-family:var(--font-main)}
-@media (max-width:640px){.vyp-uni{grid-template-columns:1fr 1fr}.vyp-count{text-align:center;min-width:0;width:100%}.vyp-go{padding:16px 34px}}
 </style>
-<div id="vy-prefs" role="dialog" aria-modal="true" aria-labelledby="vyp-title">
-  <button class="vyp-close" type="button" aria-label="Fermer" data-i18n-attr="aria-label:vp.close" data-vyp="close">&#215;</button>
-  <div class="vyp-wrap">
-    <div class="vyp-kick" data-i18n="vp.kick">Avant votre scan</div>
-    <h2 class="vyp-title" id="vyp-title" data-i18n="vp.title">Que cherchez-vous ?</h2>
-    <p class="vyp-sub" data-i18n="vp.sub">Votre peau choisit le soin. Vous choisissez l’univers d’où il vient. Tout est facultatif et modifiable après vos résultats.</p>
-
-    <div class="vyp-sec"><div class="vyp-h"><span class="vyp-n">01</span><b data-i18n="vp.1">Votre âge</b></div>
-      <div class="vyp-chips" data-vyp-single="age">
-        <button type="button" class="vyp-chip" data-v="u25" data-i18n="ag.u25">Moins de 25 ans</button><button type="button" class="vyp-chip" data-v="25" data-i18n="ag.25">25 à 34 ans</button><button type="button" class="vyp-chip" data-v="35" data-i18n="ag.35">35 à 44 ans</button><button type="button" class="vyp-chip" data-v="45" data-i18n="ag.45">45 à 54 ans</button><button type="button" class="vyp-chip" data-v="55" data-i18n="ag.55">55 ans et plus</button>
-      </div></div>
-
-    <div class="vyp-sec"><div class="vyp-h"><span class="vyp-n">02</span><b data-i18n="vp.2">Ce que vous cherchez</b><i data-i18n="vp.multi">plusieurs possibles</i></div>
-      <div class="vyp-chips" data-vyp-multi="goals">
-        <button type="button" class="vyp-chip" data-v="antiage" data-i18n="g.antiage">Anti-âge</button><button type="button" class="vyp-chip" data-v="glow" data-i18n="g.glow">Éclat</button><button type="button" class="vyp-chip" data-v="hydration" data-i18n="g.hydration">Hydratation</button><button type="button" class="vyp-chip" data-v="redness" data-i18n="g.redness">Rougeurs, sensibilité</button><button type="button" class="vyp-chip" data-v="pores" data-i18n="g.pores">Imperfections, pores</button><button type="button" class="vyp-chip" data-v="pigmentation" data-i18n="g.pigmentation">Taches</button><button type="button" class="vyp-chip" data-v="sebum" data-i18n="g.sebum">Peau grasse</button>
-      </div></div>
-
-    <div class="vyp-sec"><div class="vyp-h"><span class="vyp-n">03</span><b data-i18n="vp.3">Votre univers</b><i data-i18n="vp.multi">plusieurs possibles</i></div>
-      <div class="vyp-uni" data-vyp-multi="univers">
-        <button type="button" class="vyp-chip" data-v="luxe"><span data-i18n="u.luxe">Luxe</span><small>Chanel, Dior, La Prairie</small></button>
-        <button type="button" class="vyp-chip" data-v="pharmacie"><span data-i18n="u.pharma">Pharmacie</span><small>Vichy, La Roche-Posay, Caudalie</small></button>
-        <button type="button" class="vyp-chip" data-v="normal"><span data-i18n="u.normal">Quotidien</span><small>Clarins, Kiehl's, Laneige</small></button>
-        <button type="button" class="vyp-chip" data-v="petit-prix"><span data-i18n="u.petit">Petit prix</span><small>The Ordinary, COSRX</small></button>
-      </div></div>
-
-    <div class="vyp-sec"><div class="vyp-h"><span class="vyp-n">05</span><b data-i18n="vp.5">D’où il vient</b><i data-i18n="vp.multi">plusieurs possibles</i></div>
-      <div class="vyp-chips" data-vyp-multi="origine">
-        <button type="button" class="vyp-chip" data-v="FR" data-i18n="o.FR">France</button><button type="button" class="vyp-chip" data-v="US" data-i18n="o.US">États-Unis</button><button type="button" class="vyp-chip" data-v="EU" data-i18n="o.EUrest">Reste de l’Europe</button><button type="button" class="vyp-chip" data-v="GB" data-i18n="o.GB">Royaume-Uni</button><button type="button" class="vyp-chip" data-v="JP" data-i18n="o.JP">Japon</button><button type="button" class="vyp-chip" data-v="KR" data-i18n="o.KRsk">Soins coréens</button>
-      </div></div>
-
-    <div class="vyp-sec"><div class="vyp-h"><span class="vyp-n">06</span><b data-i18n="vp.6">Certaines marques seulement</b><i id="vyp-bcount">toutes les marques</i></div>
-      <input class="vyp-search" id="vyp-search" type="search" placeholder="Rechercher une marque" data-i18n-attr="placeholder:vp.search" autocomplete="off">
-      <div class="vyp-chips vyp-brands" id="vyp-brands"></div></div>
-  </div>
-  <div class="vyp-foot">
-    <span class="vyp-count" id="vyp-count"></span>
-    <button type="button" class="vyp-go" data-vyp="go" id="vyp-go">Lancer mon scan</button>
-    <button type="button" class="vyp-skip" data-vyp="skip" id="vyp-skip" data-i18n="vp.skip">Passer, montrez-moi tout</button>
-  </div>
-</div>
 <script id="vy-prefs-js">
 (function(){
-  var EU={DE:1,CH:1,SE:1,BE:1,NL:1,ES:1,IT:1,AT:1,DK:1,PT:1};
+  /* les memes regions que l'ecran des questions (noyau.js) */
+  var EU={DE:1,CH:1,SE:1,BE:1,NL:1,ES:1,IT:1,AT:1,DK:1,PT:1,MC:1,HU:1,IE:1,PL:1};
   var KEY='vyvre-prefs-v1';
-  var P={age:null,goals:[],univers:[],origine:[],marques:[],min:0,max:500};
-  try{var sv=JSON.parse(localStorage.getItem(KEY)||'null'); if(sv) for(var k in P) if(sv[k]!==undefined) P[k]=sv[k];}catch(e){}
-  var BR={}, PRODUCTS=null, done=false, mode='scan', pending=null, note='';
-  var root=document.getElementById('vy-prefs');
+  var P={age:null,goals:[],univers:[],origine:[],marques:[]};
+  /* 26/09 (audit) : on ne recharge plus les reponses d'une visite precedente (« Passer » les
+     appliquait en cachette). On les enregistre seulement, pour le protocole complet. */
+  var BR={}, done=false, mode='scan', pending=null, note='', cadre=null, repondu=false;
   var $=function(id){return document.getElementById(id);};
+  /* actif pour tout le monde, dans les 12 langues (scan/avant/langues.js) ;
+     ?sansquestions le coupe ; les pages de marque /m/<marque> ne l'ont pas */
+  var ACTIF=!/[?&]sansquestions\b/.test(location.search);
   function save(){try{localStorage.setItem(KEY,JSON.stringify(P));}catch(e){}}
-  function load(){
-    if(PRODUCTS) return Promise.resolve();
-    return Promise.all([
-      fetch('/scan/catalogue/marques.json').then(function(r){return r.json();}).then(function(j){BR=j.marques||{};}).catch(function(){}),
-      fetch('/scan/catalogue/all.json').then(function(r){return r.json();}).then(function(j){PRODUCTS=j.products||[];}).catch(function(){PRODUCTS=[];})
-    ]).then(buildBrands);
-  }
+  fetch('/scan/catalogue/marques.json').then(function(r){return r.json();}).then(function(j){BR=j.marques||{};}).catch(function(){});
   function region(slug){var b=BR[slug]; if(!b) return null; return EU[b.pays]?'EU':b.pays;}
   function match(p,skip){
     var b=BR[p.brand]||{};
     if(P.marques.length && P.marques.indexOf(p.brand)<0) return false;
     if(!skip.univers && P.univers.length && P.univers.indexOf(b.univers)<0) return false;
     if(!skip.origine && P.origine.length && P.origine.indexOf(region(p.brand))<0) return false;
-    
     return true;
   }
-  var LADDER=[{},{budget:1},{budget:1,origine:1},{budget:1,origine:1,univers:1}];
-  var LADDER_NOTE=['','ld.1','ld.2','ld.3'];
+  /* si le perimetre laisse moins de 3 produits, on relache d'abord le pays, puis l'univers, et on le dit */
+  var LADDER=[{},{origine:1},{origine:1,univers:1}];
+  var LADDER_NOTE=['','ld.2','ld.3'];
   function filter(list){
-    if(!/[?&]mondes\b/.test(location.search)) return list;
+    if(!repondu) return list;
     for(var i=0;i<LADDER.length;i++){
       var out=list.filter(function(p){return match(p,LADDER[i]);});
       if(out.length>=3){note=LADDER_NOTE[i]?VY.t(LADDER_NOTE[i]):''; return out;}
@@ -2878,21 +2846,33 @@ header{backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important;-webki
     note=''; return list;
   }
   function boostConcerns(sev){
-    if(!/[?&]mondes\b/.test(location.search)) return;
+    if(!repondu) return;
     var map={antiage:['wrinkles','firmness'],glow:['glow'],hydration:['hydration'],redness:['redness'],pores:['pores'],pigmentation:['pigmentation'],sebum:['sebum']};
     P.goals.forEach(function(g){(map[g]||[]).forEach(function(c){ if(sev[c]!=null) sev[c]=sev[c]+40; });});
-    if(P.age==='45'||P.age==='55'){ sev.wrinkles=(sev.wrinkles||0)+15; sev.firmness=(sev.firmness||0)+15; }
-    if(P.age==='u25'){ sev.wrinkles=(sev.wrinkles||0)-20; sev.firmness=(sev.firmness||0)-20; }
+    /* 26/09 (audit) : chaque tranche d'age pese differemment ; avant, 25-34, 35-44 et « tout age » ne changeaient rien */
+    var AGE={u25:{wrinkles:-20,firmness:-20,sebum:10,pores:10},'25':{wrinkles:-10,firmness:-10,glow:10,pores:8},
+             '35':{wrinkles:14,firmness:10,pigmentation:10,glow:6},'45':{wrinkles:20,firmness:20,pigmentation:12},
+             '55':{wrinkles:26,firmness:28,hydration:14,pigmentation:8}}[P.age];
+    if(AGE) for(var c in AGE) if(sev[c]!=null) sev[c]=sev[c]+AGE[c];
+  }
+  function pays(code){
+    if(code==='EU') return VY.t('O.EU');
+    try{ return new Intl.DisplayNames([(window.VY&&VY.lang)||'fr'],{type:'region'}).of(code); }catch(e){ return code; }
   }
   function summary(){
-    var t=[], L={luxe:VY.t('u.luxe'),pharmacie:VY.t('u.pharma'),normal:VY.t('u.normal'),'petit-prix':VY.t('u.petit')}, O={FR:VY.t('o.FR'),US:VY.t('o.US'),EU:VY.t('O.EU'),GB:VY.t('o.GB'),JP:VY.t('o.JP'),KR:VY.t('O.KR')};
+    var t=[], L={luxe:VY.t('u.luxe'),pharmacie:VY.t('u.pharma'),normal:VY.t('u.normal'),'petit-prix':VY.t('u.petit')}, O={};
+    P.origine.forEach(function(c){ O[c]=pays(c); });
+    var G={antiage:'g.antiage',glow:'g.glow',hydration:'g.hydration',redness:'g.redness',pores:'g.pores',pigmentation:'g.pigmentation',sebum:'g.sebum'};
+    var A={u25:'ag.u25','25':'ag.25','35':'ag.35','45':'ag.45','55':'ag.55'};
+    if(P.goals.length) t.push(P.goals.map(function(g){return VY.t(G[g]);}).join(' + '));
+    if(P.age&&A[P.age]) t.push(VY.t(A[P.age]));
     if(P.univers.length) t.push(P.univers.map(function(u){return L[u];}).join(' + '));
-    if(P.origine.length) t.push(P.origine.map(function(o){return O[o];}).join(' + '));
+    if(P.origine.length) t.push(P.origine.map(function(o){return O[o]||o;}).join(' + '));
     if(P.marques.length) t.push(P.marques.map(function(m){return (BR[m]||{}).nom||m;}).slice(0,3).join(', ')+(P.marques.length>3?' +'+(P.marques.length-3):''));
     return t;
   }
   function afterRender(){
-    if(!/[?&]mondes\b/.test(location.search)) return;
+    if(!repondu) return;
     var row=document.getElementById('vyvre-product-row'); if(!row) return;
     var bar=$('vy-prefs-bar');
     if(!bar){ bar=document.createElement('div'); bar.id='vy-prefs-bar'; row.parentNode.insertBefore(bar,row); }
@@ -2900,59 +2880,42 @@ header{backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important;-webki
     bar.innerHTML='<span>'+(t.length?VY.t('vp.your')+' <b>'+t.join(' · ')+'</b>':VY.t('vp.allBrands'))+'</span>'+(note?'<em>'+note+'</em>':'')+'<button type="button">'+VY.t('vp.change')+'</button>';
     bar.querySelector('button').onclick=function(){ open('edit'); };
   }
-  window.vyPrefs={filter:filter,boostConcerns:boostConcerns,afterRender:afterRender,get:function(){return P;},repeindre:function(){ if(root) paint(); }};
+  var CIBLES={antiage:['wrinkles','firmness'],glow:['glow'],hydration:['hydration'],redness:['redness'],pores:['pores'],pigmentation:['pigmentation'],sebum:['sebum']};
+  function cibles(){ if(!repondu) return []; var o=[]; P.goals.forEach(function(g){ o=o.concat(CIBLES[g]||[]); }); return o; }
+  window.vyPrefs={filter:filter,boostConcerns:boostConcerns,afterRender:afterRender,cibles:cibles,get:function(){return P;},repeindre:function(){}};
 
-  function paint(){
-    root.querySelectorAll('[data-vyp-single]').forEach(function(g){var k=g.getAttribute('data-vyp-single'); g.querySelectorAll('.vyp-chip').forEach(function(c){c.setAttribute('aria-pressed',String(P[k]===c.dataset.v));});});
-    root.querySelectorAll('[data-vyp-multi]').forEach(function(g){var k=g.getAttribute('data-vyp-multi'); g.querySelectorAll('.vyp-chip').forEach(function(c){c.setAttribute('aria-pressed',String(P[k].indexOf(c.dataset.v)>=0));});});
-    $('vyp-brands').querySelectorAll('.vyp-chip').forEach(function(c){c.setAttribute('aria-pressed',String(P.marques.indexOf(c.dataset.v)>=0));});
-    $('vyp-bcount').textContent=P.marques.length?VY.t('vp.sel',{n:P.marques.length}):VY.t('vp.all');
-    if(PRODUCTS){
-      var strict=PRODUCTS.filter(function(p){return match(p,{});}), brands={};
-      strict.forEach(function(p){brands[p.brand]=1;});
-      $('vyp-count').textContent=VY.t('vp.count',{p:strict.length,b:Object.keys(brands).length});
-    }
-    $('vyp-go').textContent=VY.t(mode==='edit'?'vp.update':'vp.go');
-    $('vyp-skip').style.display=mode==='edit'?'none':'';
+  function open(m){
+    mode=m; if(cadre) return;
+    cadre=document.createElement('iframe'); cadre.id='vy-avant'; cadre.title='Avant votre scan';
+    cadre.src='/scan/avant/index.html?v=3&lang='+encodeURIComponent((window.VY&&VY.lang)||'fr'); cadre.setAttribute('allow','autoplay');
+    document.body.appendChild(cadre);
+    cadre.setAttribute('tabindex','-1');
+    cadre.addEventListener('load',function(){ try{ cadre.focus(); cadre.contentWindow.focus(); }catch(e){} });
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ cadre.classList.add('vis'); }); });
   }
-  function buildBrands(){
-    var box=$('vyp-brands'); if(box.childElementCount) return;
-    Object.keys(BR).sort(function(a,b){return BR[a].nom.localeCompare(BR[b].nom);}).forEach(function(s){
-      var c=document.createElement('button'); c.type='button'; c.className='vyp-chip'; c.dataset.v=s; c.textContent=BR[s].nom; box.appendChild(c);
-    });
-    paint();
+  function close(){
+    if(!cadre) return; var c=cadre; cadre=null; c.classList.remove('vis'); setTimeout(function(){ c.remove(); },650);
   }
-  root.addEventListener('click',function(e){
-    var c=e.target.closest('.vyp-chip');
-    if(c){
-      var s=c.parentNode.getAttribute('data-vyp-single'), m=c.parentNode.getAttribute('data-vyp-multi');
-      if(c.parentNode.id==='vyp-brands') m='marques';
-      if(s) P[s]=P[s]===c.dataset.v?null:c.dataset.v;
-      if(m){var i=P[m].indexOf(c.dataset.v); if(i<0) P[m].push(c.dataset.v); else P[m].splice(i,1);}
-      save(); paint(); return;
-    }
-    var a=e.target.closest('[data-vyp]'); if(!a) return;
-    var act=a.getAttribute('data-vyp');
-    if(act==='close'){ close(); return; }
-    if(act==='skip'){ P={age:P.age,goals:P.goals,univers:[],origine:[],marques:[],min:0,max:500}; save(); }
-    close();
+  function suite(){
     if(mode==='edit'){ if(window.__vyScores && typeof matchAndRenderCharlotteTilburyProducts==='function') matchAndRenderCharlotteTilburyProducts(window.__vyScores); }
     else if(pending){ done=true; var btn=pending; pending=null; btn.click(); }
+  }
+  addEventListener('message',function(e){
+    if(e.origin!==location.origin || !e.data || !e.data.vyvreAvant) return;
+    var m=e.data.vyvreAvant;
+    if(m==='fermer'){ close(); return; }
+    if(m==='passer'){ P={age:null,goals:[],univers:[],origine:[],marques:[]}; repondu=true; save(); close(); suite(); return; }
+    if(m==='lancer' && e.data.prefs){
+      var r=e.data.prefs;
+      P={age:r.age||null,goals:(r.goals||[]).slice(),univers:(r.univers||[]).slice(),origine:(r.origine||[]).slice(),marques:(r.marques||[]).slice()};
+      repondu=true; save(); close(); setTimeout(suite,260);
+    }
   });
-
-  $('vyp-search').addEventListener('input',function(){
-    var q=this.value.trim().toLowerCase();
-    $('vyp-brands').querySelectorAll('.vyp-chip').forEach(function(c){c.style.display=!q||c.textContent.toLowerCase().indexOf(q)>=0?'':'none';});
-  });
-  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&root.classList.contains('on')) close(); });
-  function open(m){ mode=m; root.classList.add('on'); requestAnimationFrame(function(){root.classList.add('vis');}); paint(); load().then(paint); root.scrollTop=0; }
-  function close(){ root.classList.remove('vis'); setTimeout(function(){root.classList.remove('on');},400); }
-  var ACTIF=/[?&]mondes\b/.test(location.search); // pas encore validé : visible seulement avec ?mondes
+  addEventListener('keydown',function(e){ if(e.key==='Escape'&&cadre) close(); });
   ['btn-scan','btn-upload'].forEach(function(id){
     var b=document.getElementById(id); if(!b||!ACTIF) return;
     b.addEventListener('click',function(e){ if(done) return; e.stopImmediatePropagation(); e.preventDefault(); pending=b; open('scan'); },true);
   });
-  load();
 })();
 </script>
 <!-- VYVRE_PREFS_END -->
@@ -2964,7 +2927,7 @@ header{backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important;-webki
   try{ if(sessionStorage.getItem(K)==='1' && !/[?&]intro\b/.test(location.search)) return; sessionStorage.setItem(K,'1'); }catch(e){}
   if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var f=document.createElement('iframe');
-  f.src='/intro/fusion.html?centre=1'; f.title='VYVRE'; f.setAttribute('aria-hidden','true'); f.setAttribute('tabindex','-1');
+  f.src='/intro/p-g.html?v=1'; f.title='VYVRE'; f.setAttribute('aria-hidden','true'); f.setAttribute('tabindex','-1');
   f.style.cssText='position:fixed;inset:0;width:100vw;height:100vh;border:0;z-index:99999;background:#000;transition:opacity .55s ease';
   var fini=false, t1, t2, barre=null;
   function fin(){
@@ -3246,5 +3209,6 @@ document.addEventListener('vy:lang', function(){
   try { if (window.sgTitreMarque) window.sgTitreMarque(); } catch(e){}
 });
 </script>
+<script src="/scan/retour.js?v=1"></script>
 </body>
 </html>

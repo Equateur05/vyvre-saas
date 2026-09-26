@@ -1,0 +1,94 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>G — LA COLONNE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="peau.css">
+<link rel="stylesheet" href="g-styles.css">
+<link rel="stylesheet" href="suite.css">
+<style>
+body{display:flex;flex-direction:column;min-height:100vh}
+.scene{position:relative;z-index:20;flex:1;display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(26px,4vw,72px);align-items:center;
+  width:100%;max-width:1320px;margin:0 auto;padding:124px clamp(22px,4vw,56px) 24px}
+.texte{font-weight:100;font-size:clamp(21px,2.4vw,32px);line-height:1.5;letter-spacing:-.022em;color:rgba(255,255,255,.32)}
+.texte b.rep-mot{cursor:pointer;border-bottom:1px solid rgba(255,255,255,.22);transition:border-color .4s var(--e)}
+.texte b.rep-mot:hover{border-color:#fff}
+
+.texte b{font-weight:100;color:#fff}
+.texte .cur{display:inline-block;width:1px;height:.9em;margin-left:.06em;background:#fff;vertical-align:-.08em;animation:bat 1.05s steps(1) infinite}
+@keyframes bat{0%,49%{opacity:1}50%,100%{opacity:0}}
+.boite{opacity:0;transform:translateX(18px);transition:opacity .7s var(--e),transform .8s var(--e)}
+.boite.vue{opacity:1;transform:none}
+.q{font:400 10px var(--d);letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.34);margin-bottom:6px;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.q em{font-style:normal;color:rgba(255,255,255,.2);text-transform:none;letter-spacing:.04em;font-family:var(--m);font-size:11px}
+.pts{display:flex;gap:7px;margin-left:auto}
+.pts i{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.18);transition:all .5s var(--e)}
+.pts i.on{background:#fff;box-shadow:0 0 10px 2px rgba(255,255,255,.5)}
+.rep{display:flex;flex-direction:column}
+.li{appearance:none;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid rgba(255,255,255,.08);
+  color:rgba(255,255,255,.58);cursor:pointer;padding:14px 4px;font:200 clamp(15px,1.35vw,18px) var(--m);letter-spacing:-.02em;
+  display:flex;align-items:baseline;gap:14px;position:relative;transition:color .5s var(--e),padding-left .5s var(--e)}
+.li:before{content:'';position:absolute;left:0;bottom:-1px;width:100%;height:1px;background:#fff;transform:scaleX(0);transform-origin:left;transition:transform .7s var(--e)}
+.li:hover{color:#fff;padding-left:12px}
+.li[aria-pressed=true]{color:#fff;padding-left:12px}
+.li[aria-pressed=true]:before{transform:scaleX(1)}
+.li i{margin-left:auto;font-style:normal;font:400 10px var(--d);letter-spacing:.1em;color:rgba(255,255,255,.3)}
+.li[aria-pressed=true]:after{content:'';position:absolute;left:0;top:50%;width:5px;height:5px;margin-top:-2px;border-radius:50%;background:#fff;box-shadow:0 0 12px 3px rgba(255,255,255,.6)}
+.bilan{font:400 13px var(--d);letter-spacing:.1em;color:rgba(255,255,255,.5);padding:14px 0}
+.bilan b{color:#fff;font-weight:400}
+.suite{display:flex;align-items:center;gap:16px;margin-top:22px;opacity:0;pointer-events:none;transition:opacity .5s var(--e)}
+.suite.vue{opacity:1;pointer-events:auto}
+.pied{position:relative;z-index:20;display:flex;align-items:center;gap:18px;width:100%;max-width:1320px;margin:0 auto;
+  padding:0 clamp(22px,4vw,56px) calc(26px + env(safe-area-inset-bottom))}
+.ret{appearance:none;background:none;border:0;color:rgba(255,255,255,.34);font:400 10px var(--d);letter-spacing:.2em;text-transform:uppercase;cursor:pointer}
+.ret:hover{color:#fff}
+.sp{flex:1}
+@media (max-width:900px){.scene{grid-template-columns:1fr;gap:26px;align-items:start;padding-top:110px}}
+</style></head><body>
+<header class="vy-head"><span class="mq">VYVRE<i>skin intelligence</i></span><span class="x">×</span>
+  <span class="ct">Avant le scan</span><span class="sp"></span><span class="et" id="tete">—</span></header>
+<div class="scene">
+  <p class="texte" id="texte"></p>
+  <div class="boite" id="boite">
+    <div class="q"><span id="qt">—</span><em id="qe"></em><span class="pts" id="pts"></span></div>
+    <div class="rep" id="rep"></div>
+    <div class="suite" id="suite"><button class="vy-go" id="ok">Continuer</button><span class="vy-cpt" id="cpt"></span></div>
+  </div>
+</div>
+<div class="pied"><button class="ret" id="ret" style="visibility:hidden">← Revenir</button>
+  <span class="vy-cpt" id="bas"></span><span class="sp"></span></div>
+<div class="gsel" id="gsel">
+  <div><span>Dégradés</span><button data-m="suite">Une teinte par question</button><button data-m="orturq">Or &amp; turquoise</button><button data-m="orfluo">Or &amp; vert fluo</button><button data-m="orviolet">Or &amp; violet</button><button data-m="orcorail">Or &amp; corail</button></div>
+  <div><span>Mots clés</span><button data-m="nacre">Nacre</button><button data-m="or">Or rétroéclairé</button><button data-m="feuille">Feuille d’or</button><button data-m="neon">Néon</button><button data-m="fluo">Fluo</button><button data-m="surligne">Surligné or</button><button data-m="aurore">Aurore</button></div>
+  <div><span>Réponses</span><button data-r="lignes">Lignes</button><button data-r="grands">Grands mots</button><button data-r="pastilles">Pastilles</button><button data-r="index">Index</button><button data-r="halo">Halo doré</button><button class="rejouer" id="rejouer">Rejouer la phrase</button></div>
+</div>
+<script>
+(function(){
+  var q=new URLSearchParams(location.search), M=q.get('mot')||'suite', R=q.get('rep')||'grands';
+  var b=document.body; b.classList.add('avec-gsel');
+  function mettre(){
+    b.className=b.className.replace(/\b(mot|rep)-[a-z]+\b/g,'').trim();
+    b.classList.add('mot-'+(M==='suite'?'orturq':M),'rep-'+R,'avec-gsel');
+    b.classList.toggle('degrade', /^(suite|or(turq|fluo|violet|corail))$/.test(M));
+    b.classList.toggle('suite-teintes', M==='suite');
+    [].forEach.call(document.querySelectorAll('.gsel [data-m]'),function(x){x.setAttribute('aria-pressed',String(x.dataset.m===M));});
+    [].forEach.call(document.querySelectorAll('.gsel [data-r]'),function(x){x.setAttribute('aria-pressed',String(x.dataset.r===R));});
+    history.replaceState(null,'','?mot='+M+'&rep='+R);
+  }
+  document.getElementById('gsel').addEventListener('click',function(e){
+    var x=e.target.closest('button'); if(!x) return;
+    if(x.dataset.m) M=x.dataset.m; if(x.dataset.r) R=x.dataset.r;
+    if(x.id==='rejouer'){ location.reload(); return; }
+    mettre();
+  });
+  mettre();
+})();
+</script>
+<script src="fumee.js"></script>
+<script src="noyau.js"></script>
+<script src="dictee.js"></script>
+<script>
+VYD.demarrer(function(o){
+  return '<button class="li" type="button" data-v="'+o[0]+'"><span class="lt">'+o[1].charAt(0).toUpperCase()+o[1].slice(1)+'</span>'+(o[2]?'<i>'+o[2]+'</i>':'')+'</button>';
+});
+</script></body></html>

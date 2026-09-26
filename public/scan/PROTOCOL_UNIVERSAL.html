@@ -639,6 +639,25 @@ footer{
   .analyse-meta{gap:32px}
 }
 .ci-range { color: rgba(245,244,240,0.45); font-family: var(--mono); font-size: 0.7em; margin-left: 4px; font-weight: 400; }
+/* 26/09 : marque sur chaque carte, perimetre reel, questions reduites */
+.routine-card .r-brand{font-family:var(--mono);font-size:9px;letter-spacing:0.28em;text-transform:uppercase;color:var(--champagne-soft);font-weight:400;line-height:1.3;min-height:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.routine-card.is-empty .r-name{font-size:11px;color:var(--ink-55)}
+#pr-scope{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center;margin:0 auto;max-width:920px;padding:0 8px;font-family:var(--sans);font-size:12px;font-weight:300;line-height:1.5;color:var(--ink-55);letter-spacing:0.005em}
+#pr-scope b{color:var(--ink);font-weight:400}
+#pr-scope em{font-style:normal;color:var(--champagne-soft)}
+.quiz-options.quiz-options-2{grid-template-columns:repeat(2,minmax(0,260px));justify-content:center}
+.quiz-options.quiz-options-7{display:flex;flex-wrap:wrap;justify-content:center}
+.quiz-options.quiz-options-7 .chip{flex:0 0 calc(25% - 14px);min-width:0}
+.quiz-hint{font-family:var(--mono);font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:var(--ink-30);margin-top:-24px}
+@media(max-width:760px){
+  .quiz-options.quiz-options-2{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+  .quiz-options.quiz-options-7{display:flex!important;gap:10px!important}
+  .quiz-options.quiz-options-7 .chip{flex:0 0 calc(50% - 5px)}
+  .quiz-options-7 .chip{min-height:58px!important;padding:12px 10px!important;gap:6px}
+  .quiz-options-7 .chip .chip-label{font-size:13px}
+  .quiz-hint{margin-top:-12px;letter-spacing:0.18em}
+  #pr-scope{font-size:12px;padding:0 4px}
+}
 </style>
   <link rel="stylesheet" href="/scan/vyvre-mobile.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500&display=swap">
@@ -670,23 +689,36 @@ footer{
       <span class="word-line" data-i18n="pp.t1">Votre routine.</span>
       <span class="word-line" data-i18n="pp.t2">Mesurée <em>pour vous</em>.</span>
     </h1>
-    <div class="hero-meta"><span data-i18n="pp.m1">4 questions</span> <span class="scroll-arr">·</span> <span data-i18n="pp.m2">30 secondes</span></div>
+    <div class="hero-meta"><span id="hero-nq">2 questions</span> <span class="scroll-arr">·</span> <span data-i18n="pp.m2">30 secondes</span></div>
   </div>
 
   <!-- QUIZ (fade in au même endroit après hero) -->
   <div class="quiz-container stage-layer" id="quiz-container">
 
-  <div class="quiz-progress">
-    <div class="step-pill active" data-step="0"></div>
-    <div class="step-pill" data-step="1"></div>
-    <div class="step-pill" data-step="2"></div>
-    <div class="step-pill" data-step="3"></div>
-  </div>
-
-  <section class="quiz-step active" data-step="0">
+  <!-- 26/09 : l'objectif n'est demande que si l'ecran d'avant-scan ne l'a pas deja
+       enregistre (vyvre-prefs-v1). L'age n'est plus demande ici : il vient de ce meme
+       ecran. Priorite et intention retirees (doublon de l'objectif). -->
+  <section class="quiz-step" data-q="goal">
     <div class="step-index">
-      <span>01 / 04</span>
-      <div class="progress-track"><div class="progress-fill" style="width:25%"></div></div>
+      <span class="step-count">01 / 03</span>
+      <div class="progress-track"><div class="progress-fill"></div></div>
+    </div>
+    <h3 class="quiz-question" data-pt="q.goal">Votre <em>objectif</em>.</h3>
+    <div class="quiz-options quiz-options-7">
+      <button class="chip quiz-option" data-value="antiage"><span class="chip-num">I</span><span class="chip-label" data-i18n="g.antiage">Anti-âge</span></button>
+      <button class="chip quiz-option" data-value="glow"><span class="chip-num">II</span><span class="chip-label" data-i18n="g.glow">Éclat</span></button>
+      <button class="chip quiz-option" data-value="hydration"><span class="chip-num">III</span><span class="chip-label" data-i18n="g.hydration">Hydratation</span></button>
+      <button class="chip quiz-option" data-value="redness"><span class="chip-num">IV</span><span class="chip-label" data-i18n="g.redness">Rougeurs, sensibilité</span></button>
+      <button class="chip quiz-option" data-value="pores"><span class="chip-num">V</span><span class="chip-label" data-i18n="g.pores">Imperfections, pores</span></button>
+      <button class="chip quiz-option" data-value="pigmentation"><span class="chip-num">VI</span><span class="chip-label" data-i18n="g.pigmentation">Taches</span></button>
+      <button class="chip quiz-option" data-value="sebum"><span class="chip-num">VII</span><span class="chip-label" data-i18n="g.sebum">Peau grasse</span></button>
+    </div>
+  </section>
+
+  <section class="quiz-step" data-q="peau">
+    <div class="step-index">
+      <span class="step-count">02 / 03</span>
+      <div class="progress-track"><div class="progress-fill"></div></div>
     </div>
     <h3 class="quiz-question" data-i18n="q.1">Votre <em>peau</em>.</h3>
     <div class="quiz-options">
@@ -697,52 +729,8 @@ footer{
     </div>
   </section>
 
-  <section class="quiz-step" data-step="1">
-    <div class="step-index">
-      <span>02 / 04</span>
-      <div class="progress-track"><div class="progress-fill" style="width:50%"></div></div>
-    </div>
-    <h3 class="quiz-question" data-i18n="q.2">Votre <em>âge</em>.</h3>
-    <div class="quiz-options">
-      <button class="chip quiz-option" data-value="20-30"><span class="chip-num">A</span><span class="chip-label">20 – 30</span></button>
-      <button class="chip quiz-option" data-value="30-40"><span class="chip-num">B</span><span class="chip-label">30 – 40</span></button>
-      <button class="chip quiz-option" data-value="40-50"><span class="chip-num">C</span><span class="chip-label">40 – 50</span></button>
-      <button class="chip quiz-option" data-value="50+"><span class="chip-num">D</span><span class="chip-label">50 +</span></button>
-    </div>
-  </section>
+  <!-- 26/09 : « Peau réactive ? » retirée à la demande de Charles (ne servait à rien pour lui). -->
 
-  <section class="quiz-step" data-step="2">
-    <div class="step-index">
-      <span>03 / 04</span>
-      <div class="progress-track"><div class="progress-fill" style="width:75%"></div></div>
-    </div>
-    <h3 class="quiz-question" data-i18n="q.3">Votre <em>priorité</em>.</h3>
-    <div class="quiz-options">
-      <button class="chip quiz-option" data-value="anti-age"><span class="chip-num">I</span><span class="chip-label" data-i18n="q.anti">Anti-âge</span></button>
-      <button class="chip quiz-option" data-value="hydratation"><span class="chip-num">II</span><span class="chip-label" data-i18n="q.hydra">Hydratation</span></button>
-      <button class="chip quiz-option" data-value="eclat"><span class="chip-num">III</span><span class="chip-label" data-i18n="q.glow">Éclat</span></button>
-      <button class="chip quiz-option" data-value="taches"><span class="chip-num">IV</span><span class="chip-label" data-i18n="q.spots">Taches</span></button>
-    </div>
-  </section>
-
-  <section class="quiz-step" data-step="3">
-    <div class="step-index">
-      <span>04 / 04</span>
-      <div class="progress-track"><div class="progress-fill" style="width:100%"></div></div>
-    </div>
-    <h3 class="quiz-question" data-i18n="q.4">Votre <em>intention</em>.</h3>
-    <div class="quiz-options">
-      <button class="chip quiz-option" data-value="prevention"><span class="chip-num">α</span><span class="chip-label" data-i18n="q.prev">Prévention</span></button>
-      <button class="chip quiz-option" data-value="reparation"><span class="chip-num">β</span><span class="chip-label" data-i18n="q.rep">Réparation</span></button>
-      <button class="chip quiz-option" data-value="lifting"><span class="chip-num">γ</span><span class="chip-label" data-i18n="q.lift">Effet tenseur</span></button>
-      <button class="chip quiz-option" data-value="confort"><span class="chip-num">δ</span><span class="chip-label" data-i18n="q.comf">Confort</span></button>
-    </div>
-  </section>
-
-  <div class="quiz-nav">
-    <button class="quiz-btn" id="quiz-prev" disabled data-i18n="pp.prev">précédent</button>
-    <button class="quiz-btn primary" id="quiz-next" disabled data-i18n="pp.next">suivant</button>
-  </div>
   </div>
 </section>
 
@@ -861,25 +849,28 @@ footer{
     </div>
   </div>
 
+  <!-- Perimetre reel : selection, reprise des reponses, elargissements, exclusions -->
+  <p id="pr-scope" style="display:none"></p>
+
   <!-- Routines 2 rangées (matin / soir) -->
   <div class="routines-wrap">
     <section class="routine-section" id="routine-matin">
       <h2 class="routine-title" data-i18n="rt.am">Matin</h2>
       <div class="routine-grid" id="grid-matin">
-        <div class="routine-card" data-protocol-slot="am-0"><div class="routine-step"><span class="step-num">01</span><span data-i18n="stp.cleanse">·Nettoyage</span></div><div class="routine-img"><img class="r-img" src="" alt=""></div><h4 class="r-name">—</h4><div class="r-cat">—</div><p class="r-desc">—</p><div class="r-price">—</div></div>
-        <div class="routine-card" data-protocol-slot="am-1"><div class="routine-step"><span class="step-num">02</span><span data-i18n="stp.serum">·Sérum</span></div><div class="routine-img"><img class="r-img" src="" alt=""></div><h4 class="r-name">—</h4><div class="r-cat">—</div><p class="r-desc">—</p><div class="r-price">—</div></div>
-        <div class="routine-card" data-protocol-slot="am-2"><div class="routine-step"><span class="step-num">03</span><span data-i18n="stp.day">·Crème de jour</span></div><div class="routine-img"><img class="r-img" src="" alt=""></div><h4 class="r-name">—</h4><div class="r-cat">—</div><p class="r-desc">—</p><div class="r-price">—</div></div>
-        <div class="routine-card" data-protocol-slot="am-3"><div class="routine-step"><span class="step-num">04</span><span data-i18n="stp.spf">·SPF</span></div><div class="routine-img"><img class="r-img" src="" alt=""></div><h4 class="r-name">—</h4><div class="r-cat">—</div><p class="r-desc">—</p><div class="r-price">—</div></div>
+        <div class="routine-card" data-protocol-slot="am-0"><div class="routine-step"><span class="step-num">01</span><span data-i18n="stp.cleanse">·Nettoyage</span></div><div class="routine-img"><img class="r-img" src="" alt=""></div><div class="r-brand"></div><h4 class="r-name">—</h4><div class="r-cat">—</div><p class="r-desc">—</p><div class="r-price">—</div></div>
+        <div class="routine-card" data-protocol-slot="am-1"><div class="routine-step"><span class="step-num">02</span><span data-i18n="stp.serum">·Sérum</span></div><div class="routine-img"><img class="r-img" src="" alt=""></div><div class="r-brand"></div><h4 class="r-name">—</h4><div class="r-cat">—</div><p class="r-desc">—</p><div class="r-price">—</div></div>
+        <div class="routine-card" data-protocol-slot="am-2"><div class="routine-step"><span class="step-num">03</span><span data-i18n="stp.day">·Crème de jour</span></div><div class="routine-img"><img class="r-img" src="" alt=""></div><div class="r-brand"></div><h4 class="r-name">—</h4><div class="r-cat">—</div><p class="r-desc">—</p><div class="r-price">—</div></div>
+        <div class="routine-card" data-protocol-slot="am-3"><div class="routine-step"><span class="step-num">04</span><span data-i18n="stp.spf">·SPF</span></div><div class="routine-img"><img class="r-img" src="" alt=""></div><div class="r-brand"></div><h4 class="r-name">—</h4><div class="r-cat">—</div><p class="r-desc">—</p><div class="r-price">—</div></div>
       </div>
     </section>
 
     <section class="routine-section" id="routine-soir">
       <h2 class="routine-title" data-i18n="rt.pm">Soir</h2>
       <div class="routine-grid" id="grid-soir">
-        <div class="routine-card" data-protocol-slot="pm-0"><div class="routine-step"><span class="step-num">01</span><span data-i18n="stp.remove">·Démaquillage</span></div><div class="routine-img"><img class="r-img" src="" alt=""></div><h4 class="r-name">—</h4><div class="r-cat">—</div><p class="r-desc">—</p><div class="r-price">—</div></div>
-        <div class="routine-card" data-protocol-slot="pm-1"><div class="routine-step"><span class="step-num">02</span><span data-i18n="stp.nserum">·Sérum de nuit</span></div><div class="routine-img"><img class="r-img" src="" alt=""></div><h4 class="r-name">—</h4><div class="r-cat">—</div><p class="r-desc">—</p><div class="r-price">—</div></div>
-        <div class="routine-card" data-protocol-slot="pm-2"><div class="routine-step"><span class="step-num">03</span><span data-i18n="stp.ncream">·Crème de nuit</span></div><div class="routine-img"><img class="r-img" src="" alt=""></div><h4 class="r-name">—</h4><div class="r-cat">—</div><p class="r-desc">—</p><div class="r-price">—</div></div>
-        <div class="routine-card" data-protocol-slot="pm-3"><div class="routine-step"><span class="step-num">04</span><span data-i18n="stp.eye">·Contour des yeux</span></div><div class="routine-img"><img class="r-img" src="" alt=""></div><h4 class="r-name">—</h4><div class="r-cat">—</div><p class="r-desc">—</p><div class="r-price">—</div></div>
+        <div class="routine-card" data-protocol-slot="pm-0"><div class="routine-step"><span class="step-num">01</span><span data-i18n="stp.remove">·Démaquillage</span></div><div class="routine-img"><img class="r-img" src="" alt=""></div><div class="r-brand"></div><h4 class="r-name">—</h4><div class="r-cat">—</div><p class="r-desc">—</p><div class="r-price">—</div></div>
+        <div class="routine-card" data-protocol-slot="pm-1"><div class="routine-step"><span class="step-num">02</span><span data-i18n="stp.nserum">·Sérum de nuit</span></div><div class="routine-img"><img class="r-img" src="" alt=""></div><div class="r-brand"></div><h4 class="r-name">—</h4><div class="r-cat">—</div><p class="r-desc">—</p><div class="r-price">—</div></div>
+        <div class="routine-card" data-protocol-slot="pm-2"><div class="routine-step"><span class="step-num">03</span><span data-i18n="stp.ncream">·Crème de nuit</span></div><div class="routine-img"><img class="r-img" src="" alt=""></div><div class="r-brand"></div><h4 class="r-name">—</h4><div class="r-cat">—</div><p class="r-desc">—</p><div class="r-price">—</div></div>
+        <div class="routine-card" data-protocol-slot="pm-3"><div class="routine-step"><span class="step-num">04</span><span data-i18n="stp.eye">·Contour des yeux</span></div><div class="routine-img"><img class="r-img" src="" alt=""></div><div class="r-brand"></div><h4 class="r-name">—</h4><div class="r-cat">—</div><p class="r-desc">—</p><div class="r-price">—</div></div>
       </div>
     </section>
   </div>
@@ -888,11 +879,11 @@ footer{
   <section class="summary-bandeau" id="summary-bandeau">
     <div class="summary-line">
       <span class="dot"></span>
-      <span class="analyse-mini" id="analyse-mini">Matrice <em>équilibrée</em>. Protocole <em>prévention</em>, priorité <em>éclat</em>.</span>
+      <span class="analyse-mini" id="analyse-mini"></span>
     </div>
     <div class="summary-kpis">
-      <div class="kpi"><span class="kpi-lbl" data-i18n="kpi.prod">Soins</span><span class="kpi-val" id="kpi-products">8<span class="kpi-u">/8</span></span></div>
-      <div class="kpi"><span class="kpi-lbl" data-i18n="kpi.routine">Routine</span><span class="kpi-val">4<span class="kpi-u" data-i18n="kpi.am">matin</span> · 4<span class="kpi-u" data-i18n="kpi.pm">soir</span></span></div>
+      <div class="kpi"><span class="kpi-lbl" data-i18n="kpi.prod">Soins</span><span class="kpi-val" id="kpi-products">—</span></div>
+      <div class="kpi"><span class="kpi-lbl" data-i18n="kpi.routine">Routine</span><span class="kpi-val"><span id="kpi-am">—</span><span class="kpi-u" data-i18n="kpi.am">matin</span> · <span id="kpi-pm">—</span><span class="kpi-u" data-i18n="kpi.pm">soir</span></span></div>
       <div class="kpi"><span class="kpi-lbl" data-i18n="kpi.pilot">Pilote</span><span class="kpi-val">30<span class="kpi-u" data-i18n="kpi.days">jours</span></span></div>
       <div class="kpi"><span class="kpi-lbl" data-i18n="kpi.act">Activation</span><span class="kpi-val">48<span class="kpi-u">h</span></span></div>
     </div>
@@ -920,145 +911,182 @@ footer{
 </div>
 <footer data-i18n="ft">VYVRE × Scan universel · Paris, France · charles@symphonydrive.com</footer>
 
-<!-- ============ AUTO-PROGRESS WRAPPER (runs BEFORE engine) ============ -->
+<!-- ============ JS ENGINE ============ -->
 <script>
+/* VYVRE PROTOCOL ENGINE — 26/09
+   Source unique : le catalogue du scan (/scan/catalogue/all.json + marques.json),
+   plus de l'API /api/products. Les choix faits avant le scan (localStorage
+   'vyvre-prefs-v1') s'appliquent comme dans le scan : famille de maisons + pays,
+   relache etape par etape (pays, puis famille) quand une etape a moins de 3
+   references, et on l'ecrit. Objectif et age sont repris, pas redemandes. */
 (function(){
-  // PAS de MutationObserver — l'engine utilise maintenant .show class directement
-  const aiThinking = document.getElementById('ai-thinking');
+  'use strict';
 
-  // E v9 : transitions douces entre questions SANS overlay IA. Overlay IA UNIQUEMENT à la fin (Q4).
-  function attachAutoProgress(opt) {
-    opt.addEventListener('click', function() {
-      const stepEl = opt.closest('.quiz-step');
-      const stepKey = stepEl.dataset.step;
-      const isLast = stepKey === '3';
-      console.log('[E] chip click step=' + stepKey + ' value=' + opt.dataset.value);
-
-      // Disable further clicks pendant transition
-      const allChips = opt.parentElement.querySelectorAll('.chip');
-      allChips.forEach(c => { c.style.pointerEvents = 'none'; });
-      // Fade non-selected chips
-      setTimeout(() => {
-        allChips.forEach(c => {
-          if (!c.classList.contains('selected')) c.classList.add('fading');
-        });
-      }, 50);
-
-      if (!isLast) {
-        // Q1-Q3 : transition simple (pas d'overlay IA), juste delay pour voir la sélection
-        setTimeout(() => {
-          if (window._vyvreEngine) window._vyvreEngine.advance();
-        }, 550);  // assez long pour voir le selected + sentir le rythme
-      } else {
-        // Q4 (LAST) : overlay IA UNE seule fois → reveal compact
-        setTimeout(() => {
-          aiThinking.classList.add('show');
-          setTimeout(() => {
-            // Hide stage + reveal (le reveal compact se construit en arrière-plan)
-            const stage = document.querySelector('.stage');
-            if (stage) { stage.style.transition = 'opacity 0.5s ease'; stage.style.opacity = '0'; }
-            setTimeout(() => { if (stage) stage.style.display = 'none'; }, 500);
-            if (window._vyvreEngine) window._vyvreEngine.reveal();
-            // Fade overlay APRES que le reveal soit affiché en dessous
-            setTimeout(() => aiThinking.classList.remove('show'), 400);
-          }, 1700);  // 1.7s d'animation IA "Calibration en cours"
-        }, 400);
-      }
+  /* ---------- textes : cle VY si elle existe, sinon le repli francais ecrit ici ---------- */
+  function T(key, fb, vars){
+    var s = key;
+    try { if (window.VY && VY.t) s = VY.t(key, vars); } catch(e) {}
+    if (s !== key) return s;
+    s = (fb == null) ? '' : String(fb);
+    if (vars) s = s.replace(/\{(\w+)\}/g, function(m, k){ return vars[k] == null ? m : vars[k]; });
+    return s;
+  }
+  function applyPT(){
+    document.querySelectorAll('[data-pt]').forEach(function(el){
+      if (el.dataset.ptFb === undefined) el.dataset.ptFb = el.innerHTML;
+      var s = T(el.dataset.pt, el.dataset.ptFb);
+      if (el.innerHTML !== s) el.innerHTML = s;
     });
   }
+  function esc(s){ return String(s == null ? '' : s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+  function nf(v){ try { return new Intl.NumberFormat((window.VY && VY.lang) || 'fr').format(v); } catch(e) { return String(v); } }
+  function stepLabel(k, fb){ return T(k, fb).replace(/^[·\s]+/, ''); }
 
-  window.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.quiz-option').forEach(attachAutoProgress);
+  /* ---------- reparation des noms mal encodes (UTF-8 lu en MacRoman ou Windows-1252) ---------- */
+  var MAC = 'ÄÅÇÉÑÖÜáàâäãåçéèêëíìîïñóòôöõúùûü†°¢£§•¶ß®©™´¨≠ÆØ∞±≤≥¥µ∂∑∏π∫ªºΩæø¿¡¬√ƒ≈∆«»…\u00A0ÀÃÕŒœ–—“”‘’÷◊ÿŸ⁄€‹›ﬁﬂ‡·‚„‰ÂÊÁËÈÍÎÏÌÓÔ\uF8FFÒÚÛÙıˆ˜¯˘˙˚¸˝˛ˇ';
+  var WIN = '€\u0081‚ƒ„…†‡ˆ‰Š‹Œ\u008DŽ\u008F\u0090‘’“”•–—˜™š›œ\u009DžŸ';
+  for (var wi = 0xA0; wi <= 0xFF; wi++) WIN += String.fromCharCode(wi);
+  var RUN = new RegExp('[' + (MAC + WIN).replace(/[\\\]\[\-^]/g, '\\$&') + ']{2,}', 'g');
+  /* un decodage n'est retenu que s'il donne du texte lisible : ni diacritique isole, ni controle, ni zone privee */
+  var BAD = /[\u0000-\u001F\u007F-\u009F\u0300-\u036F\uE000-\uF8FF\uFFFD]/;
+  function redecode(run, tab){
+    var bytes = [];
+    for (var i = 0; i < run.length; i++) { var k = tab.indexOf(run[i]); if (k < 0) return null; bytes.push(0x80 + k); }
+    try { return new TextDecoder('utf-8', { fatal: true }).decode(new Uint8Array(bytes)); } catch(e) { return null; }
+  }
+  function fixText(s){
+    s = String(s == null ? '' : s);
+    if (!/[√¬ƒÃÂâ]/.test(s)) return s;
+    /* variantes deja rencontrees dans l'ancienne API */
+    s = s.replace(/√®/g, 'è').replace(/√©/g, 'é').replace(/√¢/g, 'â').replace(/√´/g, 'ë').replace(/√Ä/g, 'À').replace(/√âclat/g, 'Éclat').replace(/√Çge/g, 'Âge').replace(/√™/g, 'ê');
+    s = s.replace(RUN, function(run){
+      var tabs = [WIN, MAC];
+      for (var i = 0; i < tabs.length; i++) { var r = redecode(run, tabs[i]); if (r && !BAD.test(r)) return r; }
+      return run;
+    });
+    return s;
+  }
+  window.vyFixText = fixText;
 
-    // Transition Hero → Quiz au MÊME endroit après animation titre
-    setTimeout(() => {
-      const heroLayer = document.getElementById('hero-layer');
-      const quizContainer = document.getElementById('quiz-container');
-      if (heroLayer && quizContainer) {
-        heroLayer.classList.add('exit');
-        setTimeout(() => quizContainer.classList.add('enter'), 350);
-      }
-    }, 2800);
-  });
-})();
-</script>
-
-<!-- ============ JS ENGINE (verbatim) ============ -->
-<script>
-/* VYVRE PROTOCOL ENGINE — UNIVERSAL SCAN */
-(function(){
-  const API_BASE = 'https://vyvre.fr/api/products';
-  const BRAND = (function(){ var q=new URLSearchParams(location.search).get('b'); if(!q){ var m=location.pathname.match(/\/m\/([a-z0-9-]+)\/protocol/i); q=m?m[1]:'all'; } return (q||'all').toLowerCase().replace(/[^a-z0-9-]/g,''); })();
-  const params = new URLSearchParams(location.search);
-  const scoreNum = parseInt(params.get('score') || localStorage.getItem('vyvre_score') || '0', 10);
+  /* ---------- contexte du scan ---------- */
+  var params = new URLSearchParams(location.search);
+  var BRAND = (function(){ var q = params.get('b'); if (!q) { var m = location.pathname.match(/\/m\/([a-z0-9-]+)\/protocol/i); q = m ? m[1] : 'all'; } return (q || 'all').toLowerCase().replace(/[^a-z0-9-]/g, ''); })();
+  var scoreNum = parseInt(params.get('score') || localStorage.getItem('vyvre_score') || '0', 10);
   // v11.1 — le moteur ne publie plus un age unique mais une fourchette, et rien
   // du tout quand l'image ne permet pas de la lire. On n'invente aucun chiffre ici.
-  const ageRaw   = params.get('age_display') || localStorage.getItem('vyvre_age_display') || '';
-  const ageBorne = (ageRaw.match(/\d+/g) || []).slice(0, 2);
-  const ageTxt   = ageBorne.length === 2 ? (ageBorne[0] + '\u2013' + ageBorne[1]) : '';
-  const hydNum   = parseInt(params.get('hyd')   || localStorage.getItem('vyvre_hyd')   || '0', 10);
-  let scanScores = null;
-  const encoded = params.get('scores');
+  var ageRaw   = params.get('age_display') || localStorage.getItem('vyvre_age_display') || '';
+  var ageBorne = (ageRaw.match(/\d+/g) || []).slice(0, 2);
+  var ageTxt   = ageBorne.length === 2 ? (ageBorne[0] + '–' + ageBorne[1]) : '';
+  var hydNum   = parseInt(params.get('hyd') || localStorage.getItem('vyvre_hyd') || '0', 10);
+  var scanScores = null;
+  var encoded = params.get('scores');
   if (encoded) { try { scanScores = JSON.parse(atob(encoded)); } catch(_) {} }
   if (!scanScores) { try { scanScores = JSON.parse(localStorage.getItem('vyvre_scan_scores') || 'null'); } catch(_) {} }
   document.getElementById('recap-score').textContent = scoreNum > 0 ? scoreNum : '—';
-  document.getElementById('recap-age').innerHTML    = ageTxt ? ageTxt + ' <i data-i18n="pp.yrs" style="font-style:normal">' + VY.t('pp.yrs') + '</i>' : '—';
-  document.getElementById('recap-hyd').textContent   = hydNum   > 0 ? hydNum + ' %' : '—';
+  document.getElementById('recap-age').innerHTML    = ageTxt ? ageTxt + ' <i data-i18n="pp.yrs" style="font-style:normal">' + T('pp.yrs', 'ans') + '</i>' : '—';
+  document.getElementById('recap-hyd').textContent   = hydNum > 0 ? hydNum + ' %' : '—';
   document.getElementById('meta-score').textContent  = scoreNum > 0 ? scoreNum : '—';
-  document.getElementById('meta-age').innerHTML     = ageTxt ? (ageTxt + ' <i data-i18n="pp.yrs" style="font-style:normal">' + VY.t('pp.yrs') + '</i>') : '—';
+  document.getElementById('meta-age').innerHTML     = ageTxt ? (ageTxt + ' <i data-i18n="pp.yrs" style="font-style:normal">' + T('pp.yrs', 'ans') + '</i>') : '—';
   try { var _cr = document.querySelector('#recap-age + .ci-range'); if (_cr) _cr.style.display = 'none'; } catch(_) {}
-  console.log('[PROTOCOL] scan loaded:', { scoreNum, ageTxt, hydNum, scanScores });
 
-  const answers = { 0:null, 1:null, 2:null, 3:null };
-  let currentStep = 0;
-  const STEPS = 4;
-  const prevBtn = document.getElementById('quiz-prev');
-  const nextBtn = document.getElementById('quiz-next');
+  /* ---------- ce que la personne a dit avant le scan ---------- */
+  var GOAL_SEV = { antiage:['wrinkles','firmness'], glow:['glow'], hydration:['hydration'], redness:['redness'], pores:['pores'], pigmentation:['pigmentation'], sebum:['sebum'] };
+  var AGES = { u25:1, '25':1, '35':1, '45':1, '55':1 };
+  var EU = { DE:1, CH:1, SE:1, BE:1, NL:1, ES:1, IT:1, AT:1, DK:1, PT:1, MC:1, HU:1, IE:1, PL:1 };
+  var PREFS = null;
+  try {
+    var raw = JSON.parse(localStorage.getItem('vyvre-prefs-v1') || 'null');
+    if (raw && typeof raw === 'object') {
+      var arr = function(v){ return Array.isArray(v) ? v.filter(function(x){ return typeof x === 'string' && x; }) : []; };
+      PREFS = {
+        age: AGES[raw.age] ? raw.age : null,
+        goals: arr(raw.goals).filter(function(g){ return GOAL_SEV[g]; }),
+        univers: arr(raw.univers), origine: arr(raw.origine), marques: arr(raw.marques)
+      };
+    }
+  } catch(e) { PREFS = null; }
+  var ASK_GOAL = !(PREFS && PREFS.goals.length);
+  console.log('[PROTOCOL] contexte', { brand: BRAND, prefs: PREFS, askGoal: ASK_GOAL, scoreNum: scoreNum, ageTxt: ageTxt, hydNum: hydNum });
 
-  function updateUI(){
-    document.querySelectorAll('.quiz-step').forEach((el,i)=>{
-      el.classList.toggle('active', i === currentStep);
+  /* ---------- questions ---------- */
+  var steps = [].slice.call(document.querySelectorAll('#quiz-container .quiz-step'));
+  if (!ASK_GOAL) { steps = steps.filter(function(s){ if (s.dataset.q === 'goal') { s.remove(); return false; } return true; }); }
+  var NQ = steps.length;
+  var answers = { goal: null, peau: null, react: null };
+  var currentStep = 0, busy = false;
+  function pad(n){ return (n < 10 ? '0' : '') + n; }
+  function paintStatic(){
+    applyPT();
+    var hq = document.getElementById('hero-nq'); if (hq) hq.textContent = NQ === 1 ? T('pp.mq1', '1 question') : T('pp.mq', '{n} questions', { n: NQ });
+    steps.forEach(function(s, i){
+      var c = s.querySelector('.step-count'); if (c) c.textContent = pad(i + 1) + ' / ' + pad(NQ);
+      var f = s.querySelector('.progress-fill'); if (f) f.style.width = Math.round((i + 1) / NQ * 100) + '%';
     });
-    document.querySelectorAll('.step-pill').forEach((el,i)=>{
-      el.classList.toggle('done',   i < currentStep);
-      el.classList.toggle('active', i === currentStep);
-    });
-    prevBtn.disabled = currentStep === 0;
-    nextBtn.disabled = answers[currentStep] === null;
   }
+  function showStep(){ steps.forEach(function(s, i){ s.classList.toggle('active', i === currentStep); }); }
+  paintStatic(); showStep();
+  document.addEventListener('vy:lang', paintStatic);
 
-  document.querySelectorAll('.quiz-option').forEach(opt=>{
-    opt.addEventListener('click', function(){
-      const step = this.closest('.quiz-step').dataset.step;
-      this.parentElement.querySelectorAll('.quiz-option').forEach(o=>o.classList.remove('selected'));
-      this.classList.add('selected');
-      answers[step] = this.dataset.value;
-      updateUI();
+  var aiThinking = document.getElementById('ai-thinking');
+  steps.forEach(function(sec, i){
+    var chips = [].slice.call(sec.querySelectorAll('.quiz-option'));
+    chips.forEach(function(opt){
+      opt.addEventListener('click', function(){
+        if (busy) return; busy = true;
+        chips.forEach(function(c){ c.classList.remove('selected'); c.style.pointerEvents = 'none'; });
+        opt.classList.add('selected');
+        answers[sec.dataset.q] = opt.dataset.value;
+        setTimeout(function(){ chips.forEach(function(c){ if (c !== opt) c.classList.add('fading'); }); }, 50);
+        if (i < NQ - 1) {
+          setTimeout(function(){ currentStep = i + 1; showStep(); busy = false; }, 550);
+        } else {
+          setTimeout(function(){
+            aiThinking.classList.add('show');
+            setTimeout(function(){
+              var stage = document.querySelector('.stage');
+              if (stage) { stage.style.transition = 'opacity 0.5s ease'; stage.style.opacity = '0'; setTimeout(function(){ stage.style.display = 'none'; }, 500); }
+              revealProtocol();
+              setTimeout(function(){ aiThinking.classList.remove('show'); }, 400);
+            }, 1700);
+          }, 400);
+        }
+      });
     });
   });
-  prevBtn.addEventListener('click', ()=>{ if(currentStep > 0){ currentStep--; updateUI(); } });
-  nextBtn.addEventListener('click', ()=>{
-    if(currentStep < STEPS - 1){ currentStep++; updateUI(); }
-    else { revealProtocol(); }
-  });
+  /* Hero -> questions au meme endroit, apres l'animation du titre */
+  setTimeout(function(){
+    var heroLayer = document.getElementById('hero-layer');
+    var quizContainer = document.getElementById('quiz-container');
+    if (heroLayer && quizContainer) { heroLayer.classList.add('exit'); setTimeout(function(){ quizContainer.classList.add('enter'); }, 350); }
+  }, 2800);
 
-  // === Expose engine to wrapper (E v4 fix) ===
   window._vyvreEngine = {
-    advance: () => { if(currentStep < STEPS - 1) { currentStep++; updateUI(); return true; } return false; },
-    reveal:  () => revealProtocol(),
-    state:   () => ({ currentStep, STEPS, answers: {...answers} })
+    advance: function(){ if (currentStep < NQ - 1) { currentStep++; showStep(); return true; } return false; },
+    reveal:  function(){ return revealProtocol(); },
+    state:   function(){ return { currentStep: currentStep, steps: NQ, answers: Object.assign({}, answers), prefs: PREFS, brand: BRAND }; }
   };
 
-  function fixMojibake(s) {
-    return (s || '')
-      .replace(/Cr√®me/g, 'Crème').replace(/cr√®me/g, 'crème')
-      .replace(/S√©rum/g, 'Sérum').replace(/s√©rum/g, 'sérum')
-      .replace(/√âclat/g, 'Éclat').replace(/√©clat/g, 'éclat')
-      .replace(/√Çge/g, 'Âge').replace(/√¢ge/g, 'âge')
-      .replace(/√™me/g, 'ême').replace(/√®/g, 'è').replace(/√©/g, 'é').replace(/√¢/g, 'â').replace(/√´/g, 'ë').replace(/√Ä/g, 'À');
+  /* ---------- catalogue du scan ---------- */
+  var CAT = null;
+  function loadCatalogue(){
+    if (CAT) return Promise.resolve(CAT);
+    return Promise.all([
+      fetch('/scan/catalogue/all.json').then(function(r){ if (!r.ok) throw new Error('catalogue indisponible'); return r.json(); }),
+      fetch('/scan/catalogue/marques.json').then(function(r){ return r.ok ? r.json() : { marques: {} }; }).catch(function(){ return { marques: {} }; })
+    ]).then(function(res){
+      var marques = (res[1] && res[1].marques) || {};
+      var products = (res[0].products || []).filter(function(p){ return p && p.id && p.name; });
+      products.forEach(function(p){
+        p._name = fixText(p.name);
+        p._n = p._name.toLowerCase();
+        p._brandName = fixText((marques[p.brand] && marques[p.brand].nom) || p.brand_name || p.brand || '');
+      });
+      CAT = { products: products, marques: marques };
+      return CAT;
+    });
   }
-  function isExcluded(name) {
-    const n = fixMojibake(name || '').toLowerCase();
+
+  function isExcluded(n) {
     return n.includes('mains') || n.includes(' main ') || n.includes('hand cream') || n.includes('hand balm') ||
            n.includes('corps') || n.includes('body ') || n.includes(' body') || n.includes('body cream') ||
            n.includes('eau de toilette') || n.includes('eau de cologne') || n.includes('eau de parfum') ||
@@ -1066,36 +1094,50 @@ footer{
            n.includes('cheveux') || n.includes('hair ') || n.includes('shampoo') ||
            n.includes('lèvres') || n.includes('lip balm') || n.includes('lipstick') ||
            n.includes('vernis') || n.includes('nail') ||
-           n.includes('bougie') || n.includes('candle');
+           n.includes('bougie') || n.includes('candle') ||
+           n.includes('neck') || n.includes('décolleté') || n.includes('decollete') || /\bcou\b/.test(n);
   }
-  function categorize(name) {
-    const n = fixMojibake(name || '').toLowerCase();
-    // Démaquillant / PM cleanser — FR + EN
-    if (n.includes('démaquill') || n.includes('lait dém') || n.includes('makeup remov') || n.includes('cleansing oil') || n.includes('cleansing balm') || n.includes('cleansing milk') || n.includes('balm cleanser') || n.includes('oil cleanser')) return 'cleanser-pm';
-    // Eye care — FR + EN
-    if (n.includes('yeux') || n.includes('regard') || n.includes('soin yeux') || n.includes('eye cream') || n.includes('eye serum') || n.includes('eye balm') || n.includes('eye treatment') || n.includes('eye gel') || n.includes('eye contour') || (n.includes('eye ') && !n.includes('eyebrow') && !n.includes('eyeshadow') && !n.includes('eyeliner'))) return 'eye';
-    // Sunscreen / SPF — FR + EN
-    if (n.includes('spf') || n.includes('solar') || n.includes('protect solaire') || n.includes('sun protect') || n.includes('sunscreen') || n.includes('sun cream') || n.includes('uv shield') || n.includes('skin glow veil')) return 'sunscreen';
-    // Mask
-    if (n.includes('masque') || n.includes(' mask') || n.includes('mask ')) return 'mask';
-    // Huile / Oil (non-spf, non-cleansing)
-    if ((n.includes('huile') || n.includes(' oil') || n.startsWith('oil ')) && !n.includes('démaquill') && !n.includes('cleansing oil') && !n.includes('balm cleanser')) return 'oil';
-    // Cleanser AM — FR + EN
-    if (n.includes('mousse') || n.includes('gel nettoy') || n.includes('purifi') || n.includes('lotion micellaire') || (n.includes('nettoy') && !n.includes('démaquill')) || n.includes('cleanser') || n.includes('face wash') || n.includes('foam wash') || n.includes('foaming') || n.includes('gel wash') || n.includes('purifying')) return 'cleanser-am';
-    // Sérum / Serum — FR + EN
-    if (n.includes('sérum') || n.includes('serum') || n.includes('concentré') || n.includes('concentrate') || n.includes('elixir') || n.includes('essence') || n.includes('booster') || n.includes('filler') || n.includes('soother') || n.includes('maximizer') || n.includes('cure') || n.includes('extrait') || n.includes('extract') || n.includes('nectar') || n.includes('ampoule') || n.includes('treatment') || n.includes('correcting')) return 'serum';
-    // Lotion / Toner
-    if (n.includes('lotion') || n.includes('toner') || n.includes('tonique') || n.includes(' mist')) return 'lotion';
-    // Crème / Cream — FR + EN
-    if (n.includes('crème') || n.includes('creme') || n.includes('balsam') || n.includes('baume') || n.includes(' balm') || n.includes('soin visage') || n.includes('perfecteur') || n.includes('dreamskin') || n.includes('cream') || n.includes('moisturizer') || n.includes('moisturiser') || n.includes('hydrator')) {
-      if (n.includes('nuit') || n.includes('riche') || n.includes('night') || n.includes('intense') || n.includes('overnight') || n.includes(' pm ')) return 'cream-pm';
-      return 'cream-am';
-    }
-    return 'other';
+  var RX = {
+    remover: /d[ée]maquill|cleansing (oil|balm|milk|water)|make-?up remov|micellar|micellaire|balm cleanser|oil cleanser/,
+    night: /\bnuit\b|night|overnight|\bpm\b|sleeping|nocturne/,
+    spf: /\bspf\b|\bupf\b|solaire|sunscreen|sun ?screen|sun cream|sun protect|\buv\b/,
+    /* peau reactive : on ecarte les actifs qui piquent (demande de Charles, liste fermee) */
+    reactive: /(?<!hyaluronic[\s-])acid(?!e?\s*hyaluron)|\baha\b|\bbha\b|glycol|salicyl|r[ée]tinol|r[ée]tinal|peeling|exfoli/
+  };
+  /* les 8 etapes : chaque etape n'accepte que sa vraie categorie du catalogue */
+  var SLOTS = [
+    { slot:'am-0', k:'stp.cleanse', fb:'Nettoyage',        ok:function(p){ return p.categorie === 'nettoyant'; },            w:function(p){ return RX.remover.test(p._n) ? 0.85 : 1; } },
+    { slot:'am-1', k:'stp.serum',   fb:'Sérum',            ok:function(p){ return p.categorie === 'serum'; },                w:function(p){ return RX.night.test(p._n) ? 0.8 : 1; } },
+    { slot:'am-2', k:'stp.day',     fb:'Crème de jour',    ok:function(p){ return p.categorie === 'creme'; },                w:function(p){ return RX.night.test(p._n) ? 0.7 : 1; } },
+    { slot:'am-3', k:'stp.spf',     fb:'SPF',              ok:function(p){ return p.categorie === 'solaire-visage' || (p.categorie === 'creme' && RX.spf.test(p._n)); }, w:function(){ return 1; } },
+    { slot:'pm-0', k:'stp.remove',  fb:'Démaquillage',     ok:function(p){ return p.categorie === 'nettoyant' || (p.categorie === 'huile' && RX.remover.test(p._n)); }, w:function(p){ return RX.remover.test(p._n) ? 1.3 : 1; } },
+    { slot:'pm-1', k:'stp.nserum',  fb:'Sérum de nuit',    ok:function(p){ return p.categorie === 'serum' || (p.categorie === 'huile' && !RX.remover.test(p._n)); }, w:function(p){ return RX.night.test(p._n) ? 1.2 : 1; } },
+    { slot:'pm-2', k:'stp.ncream',  fb:'Crème de nuit',    ok:function(p){ return p.categorie === 'creme' && !RX.spf.test(p._n); }, w:function(p){ return RX.night.test(p._n) ? 1.3 : 1; } },
+    { slot:'pm-3', k:'stp.eye',     fb:'Contour des yeux', ok:function(p){ return p.categorie === 'contour-yeux'; },         w:function(){ return 1; } }
+  ];
+
+  function region(slug){ var b = CAT.marques[slug]; if (!b) return null; return EU[b.pays] ? 'EU' : b.pays; }
+  /* niveaux, dans l'ordre du scan : 0 = tout ce qui a ete choisi, 1 = sans le pays,
+     2 = sans le pays ni la famille (marques choisies gardees), 3 = tout le catalogue */
+  function inScope(p, lvl){
+    if (!PREFS) return true;
+    var b = CAT.marques[p.brand] || {};
+    if (lvl < 3 && PREFS.marques.length && PREFS.marques.indexOf(p.brand) < 0) return false;
+    if (lvl < 2 && PREFS.univers.length && PREFS.univers.indexOf(b.univers) < 0) return false;
+    if (lvl < 1 && PREFS.origine.length && PREFS.origine.indexOf(region(p.brand)) < 0) return false;
+    return true;
+  }
+  function levels(){
+    if (!PREFS) return [0];
+    var L = [0];
+    if (PREFS.origine.length) L.push(1);
+    if (PREFS.univers.length) L.push(2);
+    if (PREFS.marques.length || PREFS.univers.length || PREFS.origine.length) L.push(3);
+    return L;
   }
 
-  function computeSeverity(scores, quiz) {
-    const sev = {
+  function computeSeverity(scores, ctx) {
+    var sev = {
       wrinkles:     scores ? Math.max(0, 100 - scores.wrinkles)   : 50,
       firmness:     scores ? Math.max(0, 100 - scores.firmness)   : 45,
       glow:         scores ? Math.max(0, 100 - scores.glow)       : 40,
@@ -1105,148 +1147,168 @@ footer{
       sebum:        scores ? scores.sebum                          : 35,
       pigmentation: scores ? scores.pigmentation                   : 25
     };
-    if (quiz.concern === 'anti-age')    { sev.wrinkles += 25; sev.firmness += 20; }
-    if (quiz.concern === 'hydratation') { sev.hydration += 30; sev.pores += 10; }
-    if (quiz.concern === 'eclat')       { sev.glow += 28; sev.pigmentation += 8; }
-    if (quiz.concern === 'taches')      { sev.pigmentation += 30; sev.glow += 12; }
-    if (quiz.typePeau === 'sèche')      { sev.hydration += 18; }
-    if (quiz.typePeau === 'grasse')     { sev.sebum += 22; sev.pores += 16; }
-    if (quiz.typePeau === 'mixte')      { sev.sebum += 10; sev.hydration += 8; }
-    if (quiz.goal === 'lifting')        { sev.firmness += 18; sev.wrinkles += 12; }
-    if (quiz.goal === 'reparation')     { sev.redness += 14; sev.hydration += 14; }
-    if (quiz.goal === 'confort')        { sev.redness += 20; sev.hydration += 12; }
+    Object.keys(sev).forEach(function(k){ if (typeof sev[k] !== 'number' || isNaN(sev[k])) sev[k] = 35; });
+    /* objectifs : meme poids que le scan (+40) */
+    ctx.goals.forEach(function(g){ (GOAL_SEV[g] || []).forEach(function(c){ sev[c] += 40; }); });
+    /* age declare avant le scan : meme regle que le scan */
+    if (ctx.age === '45' || ctx.age === '55') { sev.wrinkles += 15; sev.firmness += 15; }
+    if (ctx.age === 'u25') { sev.wrinkles -= 20; sev.firmness -= 20; }
+    if (ctx.peau === 'sèche')  { sev.hydration += 18; }
+    if (ctx.peau === 'grasse') { sev.sebum += 22; sev.pores += 16; }
+    if (ctx.peau === 'mixte')  { sev.sebum += 10; sev.hydration += 8; }
+    if (ctx.reactive)          { sev.redness += 35; }
     return sev;
   }
-
-  function matchScore(product, sev) {
-    const cs = product.concern_scores || {};
-    let s = 0;
-    for (const k in sev) s += (sev[k] || 0) * (cs[k] || 0);
+  function matchScore(p, sev){
+    var cs = p.concern_scores || {}, s = 0;
+    for (var k in sev) s += (sev[k] || 0) * (cs[k] || 0);
     return s;
   }
 
-  function buildRoutines(products, sev) {
-    products.forEach(p => {
-      p._cat = categorize(p.name);
-      p._display_name = fixMojibake(p.name);
+  function buildRoutine(sev, ctx){
+    var brandMode = BRAND && BRAND !== 'all' && CAT.products.some(function(p){ return p.brand === BRAND; });
+    var face = CAT.products.filter(function(p){ return !isExcluded(p._n) && SLOTS.some(function(s){ return s.ok(p); }); });
+    var base = face;
+    if (brandMode) base = base.filter(function(p){ return p.brand === BRAND; });
+    var baseAll = base, removedIds = {};
+    if (ctx.reactive) base = base.filter(function(p){ return !RX.reactive.test(p._n); });
+    var L = brandMode ? [0] : levels();
+    var used = {}, pool = {}, picks = {}, widened = {}, brandCount = {}, CAP = 3;
+    var capOff = brandMode || !!(PREFS && PREFS.marques && PREFS.marques.length);
+    SLOTS.forEach(function(s){
+      /* moins de 3 references a ce niveau : on relache d'un cran (les niveaux s'emboitent) */
+      var chosen = [], lvl = L[L.length - 1];
+      for (var i = 0; i < L.length; i++) {
+        var c = base.filter(function(p){ return s.ok(p) && (brandMode || inScope(p, L[i])); });
+        if (c.length >= 3) { chosen = c; lvl = L[i]; break; }
+        if (i === L.length - 1) chosen = c;
+      }
+      chosen.forEach(function(p){ pool[p.id] = p; });
+      /* peau reactive : on compte ce qui a vraiment ete ecarte de cette etape, a ce niveau */
+      if (ctx.reactive) baseAll.forEach(function(p){ if (s.ok(p) && (brandMode || inScope(p, lvl)) && RX.reactive.test(p._n)) removedIds[p.id] = 1; });
+      var rang = function(list){ return list.filter(function(p){ return !used[p.id]; })
+        .map(function(p){ return { p: p, sc: matchScore(p, sev) * s.w(p) }; })
+        .sort(function(a, b){ return b.sc - a.sc; }); };
+      var ranked = rang(chosen);
+      /* 26/09 : jamais plus de 3 soins d'une meme maison sur la routine (sauf page de marque ou marques
+         choisies). Si le perimetre n'a qu'une ou deux maisons, on elargit d'un cran pour les etapes
+         suivantes, et on le dit. */
+      var libre = function(p){ return capOff || (brandCount[p.brand] || 0) < CAP; };
+      var pick = null;
+      for (var r = 0; r < ranked.length; r++) if (libre(ranked[r].p)) { pick = ranked[r].p; break; }
+      if (!pick && !capOff) {
+        for (var j = L.indexOf(lvl) + 1; j < L.length && !pick; j++) {
+          var large = rang(base.filter(function(p){ return s.ok(p) && inScope(p, L[j]); }));
+          for (var r2 = 0; r2 < large.length; r2++) if (libre(large[r2].p)) { pick = large[r2].p; lvl = L[j]; break; }
+        }
+      }
+      if (!pick && ranked.length) pick = ranked[0].p;
+      if (pick) { used[pick.id] = 1; brandCount[pick.brand] = (brandCount[pick.brand] || 0) + 1; }
+      picks[s.slot] = pick;
+      if (lvl > 0 && pick) (widened[lvl] = widened[lvl] || []).push(s);
     });
-    products = products.filter(p => !isExcluded(p.name));
-    const used = [];
-    function pick(cat) {
-      const pool = products.filter(p => p._cat === cat && !used.includes(p.id));
-      pool.sort((a, b) => matchScore(b, sev) - matchScore(a, sev));
-      return pool[0] || null;
-    }
-    function take(cat, fbs=[]) {
-      let p = pick(cat);
-      for (const fb of fbs) { if (!p) p = pick(fb); }
-      // Fallback ultime: n'importe quel produit non utilisé (sort by matchScore)
-      if (!p) {
-        const pool = products.filter(pp => !used.includes(pp.id));
-        pool.sort((a, b) => matchScore(b, sev) - matchScore(a, sev));
-        p = pool[0] || null;
-      }
-      // Si vraiment rien dispo (moins de produits que slots), réutiliser le meilleur
-      if (!p && products.length > 0) {
-        const pool = [...products].sort((a, b) => matchScore(b, sev) - matchScore(a, sev));
-        p = pool[0];
-      }
-      if (p) { used.push(p.id); }
-      return p;
-    }
-    const morning = [
-      take('cleanser-am', ['cleanser-pm', 'lotion']),
-      take('serum',       ['lotion', 'oil']),
-      take('cream-am',    ['cream-pm']),
-      take('sunscreen',   ['cream-am'])
-    ];
-    const evening = [
-      take('cleanser-pm', ['oil', 'cleanser-am']),
-      take('serum',       ['mask', 'oil']),
-      take('cream-pm',    ['cream-am', 'mask']),
-      take('eye',         ['serum'])
-    ];
-    return { morning, evening };
+    var poolList = Object.keys(pool).map(function(k){ return pool[k]; });
+    return {
+      picks: picks, widened: widened, removed: Object.keys(removedIds).length, brandMode: brandMode,
+      poolN: poolList.length,
+      poolBrands: new Set(poolList.map(function(p){ return p.brand; })).size,
+      poolBrand1: poolList.length ? poolList[0]._brandName : ''
+    };
   }
 
-  let _productsCache = null;
-  async function fetchProducts() {
-    if (_productsCache) return _productsCache;
-    let data = null;
-    try { const res = await fetch(`${API_BASE}?brand=${BRAND}&_t=${Date.now()}`); if (res.ok) data = await res.json(); } catch(e) {}
-    if (!data || !(data.products||[]).length) { const r2 = await fetch('/scan/catalogue/all.json'); if (!r2.ok) throw new Error('catalogue indisponible'); data = await r2.json(); }
-    _productsCache = (data.products || []).filter(p => p && p.name); if (BRAND && BRAND !== 'all') { var f=_productsCache.filter(function(p){return p.brand===BRAND;}); if (f.length) _productsCache=f; }
-    return _productsCache;
-  }
-
-  function renderProduct(slotKey, product) {
-    const card = document.querySelector(`[data-protocol-slot="${slotKey}"]`);
+  function renderProduct(slotKey, product, emptyMsg) {
+    var card = document.querySelector('[data-protocol-slot="' + slotKey + '"]');
     if (!card) return;
+    var img = card.querySelector('.r-img');
+    var br = card.querySelector('.r-brand');
+    card.querySelector('.r-price').textContent = '';   // jamais de prix
+    card.querySelector('.r-desc').textContent = '';
     if (!product) {
-      card.style.opacity = '0.35';
-      card.querySelector('.r-name').textContent = '—';
+      card.style.opacity = '0.45';
+      card.classList.add('is-empty');
+      if (br) br.textContent = '';
+      card.querySelector('.r-name').textContent = emptyMsg || '—';
       card.querySelector('.r-cat').textContent = '';
-      card.querySelector('.r-desc').textContent = '';
-      card.querySelector('.r-price').textContent = '';
-      const img = card.querySelector('.r-img'); img.style.display = 'none';
+      img.removeAttribute('src'); img.style.display = 'none';
+      card.onclick = null; card.style.cursor = ''; card.removeAttribute('title');
       return;
     }
-    card.querySelector('.r-name').textContent = product._display_name || product.name;
-    const CAT_KEYS = {
-      'cleanser-am': 'cat.cleanserAm','cleanser-pm': 'cat.cleanserPm',
-      'serum': 'cat.serum','cream-am': 'cat.creamAm','cream-pm': 'cat.creamPm',
-      'sunscreen': 'cat.spf','eye': 'cat.eye',
-      'mask': 'cat.mask','oil': 'cat.oil','lotion': 'cat.lotion'
-    };
-    const catLabel = VY.t(CAT_KEYS[product._cat] || 'c.default');
-    card.querySelector('.r-cat').textContent = (product.brand_name ? product.brand_name + ' · ' : '') + catLabel;
-    card.querySelector('.r-price').textContent = ''; // jamais de prix
-    const img = card.querySelector('.r-img');
-    img.src = product.image_url || ''; if(window.sgDetoureProto) window.sgDetoureProto(img);
-    img.alt = product.name;
+    card.classList.remove('is-empty');
+    if (br) br.textContent = product._brandName;
+    card.querySelector('.r-name').textContent = product._name;
+    card.querySelector('.r-cat').textContent = product._brandName;
+    img.classList.remove('sg-plaque');
+    img.src = product.image_url || ''; if (window.sgDetoureProto) window.sgDetoureProto(img);
+    img.alt = product._brandName + ' · ' + product._name;
     img.style.display = '';
     card.style.opacity = '1';
-    // === [CLICK→URL marque] ===
     if (product.url) {
-      card.style.cursor = "pointer";
-      card.title = VY.t('p.open');
-      card.onclick = (e) => { e.preventDefault(); window.open(product.url, "_blank", "noopener,noreferrer"); };
-    }
+      card.style.cursor = 'pointer';
+      card.title = T('p.open', 'Voir sur le site officiel de la marque');
+      card.onclick = function(e){ e.preventDefault(); window.open(product.url, '_blank', 'noopener,noreferrer'); };
+    } else { card.onclick = null; card.style.cursor = ''; card.removeAttribute('title'); }
   }
 
-  function renderTrace(sev, morning, evening) {
-    const top3 = Object.entries(sev).sort((a, b) => b[1] - a[1]).slice(0, 3)
-      .map(([k]) => VY.t('tp.' + k)).join(' · ');
-    const matched = [...morning, ...evening].filter(Boolean).length;
-    const trace = document.getElementById('protocol-trace');
-    if (trace) {
-      trace.textContent = VY.t('tr.txt', { t: top3, n: matched });
-      trace.style.display = 'block';
+  var ORIG = { FR:['o.FR','France'], US:['o.US','États-Unis'], EU:['O.EU','Europe'], GB:['o.GB','Royaume-Uni'], JP:['o.JP','Japon'], KR:['O.KR','Corée'], AU:['o.AU','Australie'], CA:['o.CA','Canada'] };
+  var UNIV = { luxe:['u.luxe','Luxe'], pharmacie:['u.pharma','Pharmacie'], normal:['u.normal','Quotidien'], 'petit-prix':['u.petit','Petit prix'] };
+  var AGE_L = { u25:['pr.age.u25','moins de 25 ans'], '25':['pr.age.25','25–34 ans'], '35':['pr.age.35','35–44 ans'], '45':['pr.age.45','45–54 ans'], '55':['pr.age.55','55 ans et plus'] };
+  var GOAL_L = { antiage:['an.anti','anti-âge'], glow:['an.glow','éclat'], hydration:['an.hydra','hydratation'], redness:['tp.redness','rougeurs'], pores:['tp.pores','pores'], pigmentation:['an.pigm','pigmentation'], sebum:['tp.sebum','sébum'] };
+
+  function renderScope(ctx, R){
+    var el = document.getElementById('pr-scope'); if (!el) return;
+    var lines = [];
+    if (R.brandMode) {
+      var bn = esc((CAT.marques[BRAND] && CAT.marques[BRAND].nom) || BRAND);
+      lines.push(T('pr.brandOnly', 'Uniquement <b>{m}</b>.', { m: bn }));
+    } else if (PREFS && (PREFS.univers.length || PREFS.origine.length || PREFS.marques.length)) {
+      var t = [];
+      if (PREFS.univers.length) t.push(PREFS.univers.map(function(u){ var x = UNIV[u]; return x ? T(x[0], x[1]) : u; }).join(' + '));
+      if (PREFS.origine.length) t.push(PREFS.origine.map(function(o){ var x = ORIG[o]; return x ? T(x[0], x[1]) : o; }).join(' + '));
+      if (PREFS.marques.length) t.push(PREFS.marques.map(function(m){ return (CAT.marques[m] || {}).nom || m; }).slice(0, 3).join(', ') + (PREFS.marques.length > 3 ? ' +' + (PREFS.marques.length - 3) : ''));
+      lines.push(T('vp.your', 'Votre sélection :') + ' <b>' + esc(t.join(' · ')) + '</b>');
+    } else {
+      lines.push(T('pr.allCat', 'Toutes les marques du catalogue.'));
     }
+    if (PREFS && (PREFS.goals.length || PREFS.age)) {
+      var r = [];
+      if (PREFS.goals.length) r.push(PREFS.goals.map(function(g){ return T(GOAL_L[g][0], GOAL_L[g][1]); }).join(' + '));
+      if (PREFS.age && AGE_L[PREFS.age]) r.push(T(AGE_L[PREFS.age][0], AGE_L[PREFS.age][1]));
+      lines.push(T('pr.from', 'Repris de vos réponses avant le scan :') + ' <b>' + esc(r.join(' · ')) + '</b>');
+    }
+    var wid = [];
+    var WL = { 1:['pr.wide1','Élargi aux autres pays pour : {s}.'], 2:['pr.wide2','Élargi aux autres familles de maisons pour : {s}.'], 3:['pr.wide3','Élargi à tout le catalogue pour : {s}.'] };
+    [1, 2, 3].forEach(function(l){
+      if (R.widened[l]) wid.push(T(WL[l][0], WL[l][1], { s: R.widened[l].map(function(s){ return stepLabel(s.k, s.fb); }).join(', ') }));
+    });
+    if (wid.length) lines.push('<em>' + wid.join(' ') + '</em>');
+    var empty = SLOTS.filter(function(s){ return !R.picks[s.slot]; });
+    if (empty.length) lines.push('<em>' + T('pr.none', 'Aucune référence dans ce périmètre pour : {s}.', { s: empty.map(function(s){ return stepLabel(s.k, s.fb); }).join(', ') }) + '</em>');
+    if (ctx.reactive) lines.push(R.removed > 1
+      ? T('pr.react', 'Peau réactive : {n} références écartées (acides, rétinoïdes, exfoliants).', { n: nf(R.removed) })
+      : T('pr.react0', 'Peau réactive : acides, rétinoïdes et exfoliants écartés.'));
+    el.innerHTML = lines.map(function(l){ return '<span>' + l + '</span>'; }).join('');
+    el.style.display = '';
   }
 
   async function revealProtocol(){
-    const quiz = {
-      typePeau: answers[0] || 'normale',
-      ageRange: answers[1] || '30-40',
-      concern:  answers[2] || 'anti-age',
-      goal:     answers[3] || 'prevention'
+    var ctx = {
+      peau: answers.peau || 'normale',
+      reactive: answers.react === 'oui',
+      goals: (PREFS && PREFS.goals.length) ? PREFS.goals.slice() : (answers.goal ? [answers.goal] : []),
+      age: PREFS ? PREFS.age : null
     };
-    const concernShort = VY.t({'anti-age':'an.anti','hydratation':'an.hydra','eclat':'an.glow','taches':'an.pigm'}[quiz.concern] || 'an.anti');
-    const goalShort    = VY.t({'prevention':'q.prev','reparation':'q.rep','lifting':'q.lift','confort':'q.comf'}[quiz.goal] || 'q.prev');
-    document.getElementById('meta-goal').textContent = goalShort;
-
-    const matriceState = VY.t(quiz.typePeau === 'sèche' ? 'an.fragile' : quiz.typePeau === 'grasse' ? 'an.hyper' : 'an.balanced');
-    const analyse = VY.t('an.txt', { s: matriceState, g: goalShort.toLowerCase(), c: concernShort });
+    var matriceState = T(ctx.peau === 'sèche' ? 'an.fragile' : ctx.peau === 'grasse' ? 'an.hyper' : 'an.balanced',
+                         ctx.peau === 'sèche' ? 'fragile' : ctx.peau === 'grasse' ? 'hyperactive' : 'équilibrée');
+    var goalTxt = ctx.goals.map(function(g){ return T(GOAL_L[g][0], GOAL_L[g][1]); }).join(' + ');
+    var analyse = T('an.txt2', 'Matrice <em>{s}</em>{r}. Priorité <em>{c}</em>.', {
+      s: matriceState, r: ctx.reactive ? T('an.react', ', réactive') : '', c: goalTxt || T('pr.scanOnly', 'lecture du scan')
+    });
+    document.getElementById('meta-goal').textContent = goalTxt;
     document.getElementById('analyse-text').innerHTML = analyse;
-    // Injecte aussi dans le mini-bandeau résumé en bas
-    const analyseMini = document.getElementById('analyse-mini');
+    var analyseMini = document.getElementById('analyse-mini');
     if (analyseMini) analyseMini.innerHTML = analyse;
 
-    // Reveal compact : un seul container .result-stage qui contient tout
     document.getElementById('result-stage').classList.add('show');
-    // PAS de scroll — tout est dans le viewport (1 seule page)
-
     // === Atlas du visage : photo détourée du scan + 8 points biomarqueurs ===
     try {
       // 1) Charge la photo détourée si dispo
@@ -1322,6 +1384,14 @@ footer{
       // ────────────────────────────────────────────────────────────────────
       console.log('[PROTOCOL] narrative init → scanScores valid:', !!scanScores, 'el found:', !!document.getElementById('atlas-narrative-text'));
       const narrativeEl = document.getElementById('atlas-narrative-text');
+      /* 26/09 : sans scan sur cet appareil, on ne laisse plus « Analyse en cours » tourner dans le vide :
+         on dit la verite et on propose le scan, qui ecrira ce compte rendu. */
+      if (narrativeEl && !(scanScores && typeof scanScores.hydration === 'number')) {
+        const ret = '/scan/' + (BRAND && BRAND !== 'all' ? '' : '');
+        narrativeEl.innerHTML = T('at.noscan', 'Aucun scan sur cet appareil pour l’instant. Ce compte rendu s’écrit à partir de votre peau : faites votre scan, il apparaîtra ici.') +
+          ' <a href="' + (BRAND && BRAND !== 'all' ? '/m/' + BRAND : '/scan/') + '" style="display:inline-block;margin-top:14px;font-style:normal;color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:100px;padding:9px 16px;text-decoration:none">' +
+          T('at.doscan', 'Faire mon scan') + ' →</a>';
+      }
       if (narrativeEl && scanScores && typeof scanScores.hydration === 'number') {
         const s = scanScores;
         const neg = { sebum:1, pigmentation:1 };
@@ -1407,16 +1477,35 @@ footer{
     }
 
     try {
-      const [products] = await Promise.all([fetchProducts(), new Promise(r => setTimeout(r, 350))]);
-      const sev = computeSeverity(scanScores, quiz);
-      const { morning, evening } = buildRoutines(products, sev);
-      morning.forEach((p, i) => renderProduct(`am-${i}`, p));
-      evening.forEach((p, i) => renderProduct(`pm-${i}`, p));
-      renderTrace(sev, morning, evening);
+      var got = await Promise.all([loadCatalogue(), new Promise(function(r){ setTimeout(r, 350); })]);
+      var sev = computeSeverity(scanScores, ctx);
+      var R = buildRoutine(sev, ctx);
+      var am = 0, pm = 0, ids = {};
+      SLOTS.forEach(function(s){
+        var p = R.picks[s.slot];
+        renderProduct(s.slot, p, T('pr.noneCard', 'Aucune référence dans ce périmètre'));
+        if (p) { ids[p.id] = 1; if (s.slot.indexOf('am') === 0) am++; else pm++; }
+      });
+      var n = Object.keys(ids).length;
+      var kp = document.getElementById('kpi-products'); if (kp) kp.innerHTML = n + '<span class="kpi-u">/' + SLOTS.length + '</span>';
+      var ka = document.getElementById('kpi-am'); if (ka) ka.textContent = am;
+      var kq = document.getElementById('kpi-pm'); if (kq) kq.textContent = pm;
+      renderScope(ctx, R);
+      window.__vyProtocol = { ctx: ctx, pool: R.poolN, picks: SLOTS.map(function(s){ var p = R.picks[s.slot]; return p ? { slot: s.slot, id: p.id, brand: p.brand, name: p._name } : { slot: s.slot }; }) };
+      var top3 = Object.entries(sev).sort(function(a, b){ return b[1] - a[1]; }).slice(0, 3)
+        .map(function(e){ return T('tp.' + e[0], e[0]); }).join(' · ');
+      var trace = document.getElementById('protocol-trace');
+      if (trace) {
+        trace.textContent = R.poolBrands === 1
+          ? T('pr.trace1', 'Priorités : {t} · {n} soins retenus parmi {p} références {m} du catalogue du scan VYVRE',
+              { t: top3, n: n, p: nf(R.poolN), m: R.poolBrand1 })
+          : T('pr.trace', 'Priorités : {t} · {n} soins retenus parmi {p} références de {b} marques du catalogue du scan VYVRE',
+              { t: top3, n: n, p: nf(R.poolN), b: nf(R.poolBrands) });
+        trace.style.display = 'block';
+      }
+      console.log('[PROTOCOL] routine', { ctx: ctx, picks: SLOTS.map(function(s){ var p = R.picks[s.slot]; return s.slot + ' ' + (p ? p.brand + ' / ' + p._name : '—'); }), widened: Object.keys(R.widened), pool: R.poolN });
     } catch (e) { console.error('[PROTOCOL] compile failed:', e); }
   }
-
-  updateUI();
 })();
 </script>
 <script src="vyvre-mini-lattice.js" defer></script>

@@ -1822,7 +1822,7 @@
    "url_verifiee_le": "2026-09-19",
    "price_eur": null,
    "price_source": null,
-   "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5sj9i3x9h1q56dnx3czmr5oi1kg4a/u5wa3z31qn5sj9i3x9h1q56dnx3czmr5oi1kg4a?t=resize&width=300&height=300",
+   "image_source_url": "https://media-pierre-fabre.wedia-group.com/api/wedia/dam/transform/u5wa3z31qn5sj9i3x9h1q56dnx3czmr5oi1kg4a/u5wa3z31qn5sj9i3x9h1q56dnx3czmr5oi1kg4a?t=resize&width=3000",
    "image_local": "public/scan/products-cheveux/klorane/reflets-blonds-soin-illuminateur-et-demelant.jpg",
    "categorie": "apres-shampooing",
    "etape": 2,
@@ -1836,8 +1836,11 @@
     "demelant"
    ],
    "source": "sitemap klorane.com/fr-fr product.xml + json-ld",
-   "cutout_url": "public/scan/products-cheveux/klorane/cutout/reflets-blonds-soin-illuminateur-et-demelant.webp",
-   "ciblage_source": "deduit"
+   "cutout_url": null,
+   "ciblage_source": "deduit",
+   "image_fond": true,
+   "image_provenance": "page produit https://www.klorane.com/fr-fr/p/spray-a-la-camomille-bio-3282770149333-14c39aab",
+   "image_reparee_le": "2026-09-25"
   }
  ]
 }

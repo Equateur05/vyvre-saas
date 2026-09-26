@@ -1,0 +1,154 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>B — LE CHAMP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100;0,200;0,300;0,400;1,300&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="peau.css">
+<style>
+body{overflow:hidden;display:flex}
+.col{position:relative;z-index:10;width:min(452px,40vw);flex:0 0 auto;height:100%;overflow-y:auto;
+  padding:100px clamp(20px,2.2vw,34px) 40px;border-right:1px solid rgba(255,255,255,.07);
+  background:linear-gradient(180deg,rgba(6,7,11,.72),rgba(3,4,5,.62));backdrop-filter:blur(26px) saturate(1.3);-webkit-backdrop-filter:blur(26px) saturate(1.3)}
+.sec{margin-top:20px}
+.chips{display:flex;flex-wrap:wrap;gap:7px}
+.chips .vy-chip{padding:9px 15px;font-size:13px}
+.q2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.q2 .vy-card{padding:14px 14px 12px;border-radius:12px}
+.q2 .vy-card b{font-size:17px}
+.q2 .vy-card u{margin-top:8px;font-size:9px;color:rgba(255,255,255,.42)}
+.q2 .vy-card[aria-pressed=true] u{color:var(--sg-champ-vif)}
+/* le champ */
+.champ{position:relative;z-index:10;flex:1;overflow:hidden}
+#pts{position:absolute;inset:0}
+.pt{position:absolute;transform:translate(-50%,-50%);cursor:pointer;display:flex;align-items:center;gap:8px;
+  transition:opacity .6s var(--e),filter .6s var(--e),left .95s var(--e),top .95s var(--e)}
+.pt i{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.55);flex:0 0 auto;transition:all .6s var(--e);animation:respire 6s ease-in-out infinite}
+.pt span{font:300 12px var(--m);color:rgba(255,255,255,.4);white-space:nowrap;opacity:0;transition:opacity .4s var(--e)}
+.pt.lit span{opacity:.9}
+.pt:hover span,.pt.sel span{opacity:1;color:#fff}
+.pt:hover i{background:#fff;transform:scale(1.7);box-shadow:0 0 18px 4px rgba(255,255,255,.5)}
+.pt.sel i{background:var(--sg-champ-vif);box-shadow:0 0 18px 5px rgba(217,201,163,.75);transform:scale(1.8)}
+.pt.range{transform:translate(0,-50%)}
+.pt.hors{opacity:.12;filter:blur(1.2px)}
+.pt.range.hors{opacity:0;pointer-events:none}
+@keyframes respire{0%,100%{opacity:.5}50%{opacity:1}}
+.titres{position:absolute;inset:0;pointer-events:none}
+.titres b{position:absolute;transform:translate(-50%,-50%);font:400 10px var(--d);letter-spacing:.3em;text-transform:uppercase;
+  color:rgba(255,255,255,.16);transition:color .6s var(--e),opacity .6s var(--e)}
+.titres b.on{color:#fff}
+.cherche{position:absolute;top:104px;left:clamp(20px,3vw,44px);z-index:12;width:260px;
+  background:var(--sg-glass);border:1px solid var(--sg-line);backdrop-filter:blur(18px);
+  border-radius:100px;color:#fff;font:300 13px var(--m);padding:12px 20px;outline:none}
+.cherche:focus{border-color:rgba(255,255,255,.5)}
+footer{position:absolute;left:0;right:0;bottom:0;z-index:12;display:flex;align-items:center;gap:18px;
+  padding:22px clamp(20px,3vw,44px) calc(22px + env(safe-area-inset-bottom));
+  background:linear-gradient(0deg,rgba(3,4,5,.94) 55%,transparent)}
+.gros{font-weight:100;font-size:clamp(30px,3.4vw,50px);letter-spacing:-.045em;line-height:1}
+.gros small{display:block;font:400 10px var(--d);letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.42);margin-top:8px}
+.sp{flex:1}
+@media (max-width:980px){body{flex-direction:column;overflow:auto}.col{width:100%;height:auto;border-right:0;padding-bottom:26px}
+  .champ{height:66vh;flex:0 0 66vh}.cherche{top:14px}}
+</style></head><body>
+
+<header class="vy-head">
+  <span class="mq">VYVRE<i>skin intelligence</i></span><span class="x">×</span>
+  <span class="ct">Avant le scan</span><span class="sp"></span><span class="et" id="tete">—</span>
+</header>
+
+<div class="col">
+  <span class="vy-pill">Le champ des maisons</span>
+  <h1 class="vy-h1" style="font-size:clamp(26px,2.5vw,34px);margin:16px 0 10px">Votre peau choisit le soin. Vous choisissez le champ.</h1>
+  <p class="vy-p" style="font-size:13.5px;line-height:1.55">Chaque point à droite est une maison réelle du catalogue. Elle s’éteint dès qu’elle sort de votre périmètre, et se range d’elle-même quand il devient lisible.</p>
+
+  <div class="sec"><div class="vy-lab">01 — Vous <span>âge, puis ce que vous cherchez</span></div>
+    <div class="chips" data-un="age"><button class="vy-chip" data-v="u25">— 25 ans</button><button class="vy-chip" data-v="25">25 · 34</button><button class="vy-chip" data-v="35">35 · 44</button><button class="vy-chip" data-v="45">45 · 54</button><button class="vy-chip" data-v="55">55 +</button></div>
+    <div class="chips" style="margin-top:8px" data-mu="goals"><button class="vy-chip" data-v="antiage">Anti-âge</button><button class="vy-chip" data-v="glow">Éclat</button><button class="vy-chip" data-v="hydration">Hydratation</button><button class="vy-chip" data-v="redness">Rougeurs</button><button class="vy-chip" data-v="pores">Pores</button><button class="vy-chip" data-v="pigmentation">Taches</button><button class="vy-chip" data-v="sebum">Peau grasse</button></div></div>
+
+  <div class="sec"><div class="vy-lab">02 — La famille <b>de maisons</b></div>
+    <div class="q2" data-mu="univers">
+      <button class="vy-card" data-v="luxe"><b>Luxe</b><u data-n="luxe">—</u></button>
+      <button class="vy-card" data-v="pharmacie"><b>Pharmacie</b><u data-n="pharmacie">—</u></button>
+      <button class="vy-card" data-v="normal"><b>Quotidien</b><u data-n="normal">—</u></button>
+      <button class="vy-card" data-v="petit-prix"><b>Petit prix</b><u data-n="petit-prix">—</u></button></div></div>
+
+  <div class="sec"><div class="vy-lab">03 — Le pays <b>d’origine</b> <span>rien de coché = le monde entier</span></div>
+    <div class="q2" id="pays" data-mu="origine"></div></div>
+</div>
+
+<div class="champ">
+  <input class="cherche" id="q" type="search" placeholder="Chercher une maison" autocomplete="off">
+  <div class="titres" id="titres"></div>
+  <div id="pts"></div>
+  <footer>
+    <div class="gros" id="gros">—<small id="sm">produits dans votre périmètre</small></div>
+    <span class="sp"></span>
+    <button class="vy-ghost" id="tout">Montrez-moi tout</button>
+    <button class="vy-go" id="go">Lancer mon scan</button>
+  </footer>
+</div>
+
+<script src="fumee.js"></script>
+<script src="noyau.js"></script>
+<script>
+var P={age:null,goals:[],univers:[],origine:[],marques:[]};
+var $=function(s){return document.querySelector(s);},$$=function(s,r){return [].slice.call((r||document).querySelectorAll(s));};
+var CL={luxe:[.29,.33],pharmacie:[.72,.33],normal:[.29,.74],'petit-prix':[.72,.74]}, NOM={luxe:'Luxe',pharmacie:'Pharmacie',normal:'Quotidien','petit-prix':'Petit prix'};
+function peindre(){
+  $$('[data-un]').forEach(function(g){var k=g.dataset.un;$$('button',g).forEach(function(b){b.setAttribute('aria-pressed',String(P[k]===b.dataset.v));});});
+  $$('[data-mu]').forEach(function(g){var k=g.dataset.mu;$$('button',g).forEach(function(b){b.setAttribute('aria-pressed',String(P[k].indexOf(b.dataset.v)>=0));});});
+  var dedans={}; VYQ.perimetre(P).forEach(function(s){dedans[s]=1;});
+  var n=Object.keys(dedans).length, nomme=n<=48, dans=[];
+  $$('.pt').forEach(function(p){var d=!!dedans[p.dataset.s];p.classList.toggle('hors',!d);p.classList.toggle('sel',P.marques.indexOf(p.dataset.s)>=0);
+    p.classList.toggle('lit',d&&nomme); p.classList.toggle('range',nomme); if(d) dans.push(p);});
+  if(nomme){
+    dans.sort(function(a,b){return a.dataset.n.localeCompare(b.dataset.n);});
+    var cols=n<=14?1:(n<=30?2:3), lig=Math.ceil(n/cols), x0=13, dx=(88-13)/cols, y0=17, dy=(80-17)/Math.max(lig,1);
+    dans.forEach(function(p,i){ p.style.left=(x0+dx*Math.floor(i/lig))+'%'; p.style.top=(y0+dy*(i%lig))+'%'; });
+  } else $$('.pt').forEach(function(p){ p.style.left=p.dataset.x; p.style.top=p.dataset.y; });
+  $$('#titres b').forEach(function(b){b.classList.toggle('on',P.univers.indexOf(b.dataset.u)>=0);b.style.opacity=nomme?0:'';});
+  var c=VYQ.compte(P);
+  $('#gros').firstChild.nodeValue=VYQ.fmt(c.produits);
+  $('#sm').textContent='produits · '+c.marques+' maisons dans votre périmètre';
+  var t=VYQ.compte({}); $('#tete').innerHTML=VYQ.fmt(t.produits)+' produits · '+t.marques+' maisons';
+}
+document.addEventListener('click',function(e){
+  var p=e.target.closest('.pt');
+  if(p){var i=P.marques.indexOf(p.dataset.s); i<0?P.marques.push(p.dataset.s):P.marques.splice(i,1); peindre(); return;}
+  var b=e.target.closest('button[data-v]');
+  if(b){var g=b.closest('[data-un],[data-mu]');
+    if(g.dataset.un) P[g.dataset.un]=P[g.dataset.un]===b.dataset.v?null:b.dataset.v;
+    else{var k=g.dataset.mu,j=P[k].indexOf(b.dataset.v); j<0?P[k].push(b.dataset.v):P[k].splice(j,1);}
+    peindre(); return;}
+  if(e.target.id==='go') alert('→ le scan démarre avec ce périmètre');
+  if(e.target.id==='tout'){P.univers=[];P.origine=[];P.marques=[];peindre();alert('→ le scan démarre sur tout le catalogue');}
+});
+$('#q').addEventListener('input',function(){
+  var q=this.value.trim().toLowerCase();
+  $$('.pt').forEach(function(p){var v=!q||p.dataset.n.indexOf(q)>=0; p.style.display=v?'':'none';
+    p.querySelector('span').style.opacity=q&&v?1:'';});
+});
+VYQ.pret(function(){
+  var M=VYQ.marques(), pts=$('#pts'), par={}, n={};
+  Object.keys(M).forEach(function(s){par[M[s].univers]=(par[M[s].univers]||0)+1;});
+  $$('[data-n]').forEach(function(u){u.textContent=VYQ.mais(par[u.dataset.n]||0);});
+  VYQ.origines().forEach(function(o){
+    var b=document.createElement('button'); b.className='vy-card'; b.dataset.v=o.v;
+    b.innerHTML='<b>'+o.nom+'</b><u>'+o.maisons+' maisons · '+VYQ.fmt(o.produits)+' produits</u>';
+    $('#pays').appendChild(b);
+  });
+  Object.keys(CL).forEach(function(u){
+    var b=document.createElement('b'); b.dataset.u=u; b.textContent=NOM[u];
+    b.style.left=(CL[u][0]*100)+'%'; b.style.top=(CL[u][1]*100-16)+'%'; $('#titres').appendChild(b);
+  });
+  Object.keys(M).sort().forEach(function(s){
+    var u=M[s].univers, c=CL[u]||[.5,.5], k=(n[u]=(n[u]||0)+1), tot=par[u];
+    var ang=k*2.399, r=0.145*Math.sqrt(k/tot)*(1+.18*Math.sin(k));
+    var p=document.createElement('div'); p.className='pt'; p.dataset.s=s; p.dataset.n=M[s].nom.toLowerCase();
+    p.dataset.x=((c[0]+r*Math.cos(ang))*100)+'%'; p.dataset.y=((c[1]+r*Math.sin(ang)*1.15)*100)+'%';
+    p.style.left=p.dataset.x; p.style.top=p.dataset.y;
+    p.innerHTML='<i style="animation-delay:'+(k*.13).toFixed(2)+'s"></i><span>'+M[s].nom+'</span>';
+    pts.appendChild(p);
+  });
+  peindre();
+});
+</script></body></html>

@@ -8,7 +8,7 @@
 <meta name="description" content="Vos cheveux lus par la caméra : la boucle, la couleur. Puis une routine de quatre produits.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<script src="/scan/vy-i18n.js?v=9"></script>
+<script src="/scan/vy-i18n.js?v=10"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&family=JetBrains+Mono:wght@100;300;400;500&family=Playfair+Display:ital,wght@1,500&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
 /* ============================================================================
@@ -927,6 +927,14 @@ body.da-fibre .q-carres.pas-a-pas .chip.on::after{transform:scaleX(1)}
 body.da-fibre .q-carres.pas-a-pas .chips.tranche .chip:not(.on){opacity:.14}
 body.da-fibre .q-carres.pas-a-pas .chip .ond{display:none}
 body.da-fibre .q-carres.pas-a-pas .chip span{all:unset}
+/* 26/09 — le nombre de maisons derriere un pays, en petit, au bout de la ligne */
+.chip .nbm{font-family:'IBM Plex Mono',var(--fd);font-size:10px;letter-spacing:.16em;color:rgba(223,234,242,.42);
+  margin-inline-start:10px;white-space:nowrap}
+body.da-fibre .q-carres.pas-a-pas .chip .nbm{all:unset;margin-inline-start:auto;padding-inline-start:14px;
+  font-family:'IBM Plex Mono',var(--fd);font-size:11px;letter-spacing:.16em;color:rgba(223,234,242,.42);
+  white-space:nowrap;align-self:center}
+body.da-fibre .q-carres.pas-a-pas .chip.on .nbm,
+body.da-fibre .q-carres.pas-a-pas .chip:hover .nbm{color:rgba(127,216,255,.85)}
 body.da-fibre .q-retour{margin-top:34px;font-family:'IBM Plex Mono',var(--fd)}
 /* un seul bord gauche pour tout le bloc */
 body.da-fibre .q-carres.pas-a-pas #quizRows{justify-items:start;display:grid}
@@ -953,6 +961,8 @@ body.da-fibre .qnav{text-align:left}
 @media (max-width:640px){
   body.da-fibre .q-carres.pas-a-pas .qlabel em{font-size:clamp(34px,10vw,48px)}
   body.da-fibre .q-carres.pas-a-pas .chip{font-size:19px;padding:15px 0}
+  /* neuf pays sur un telephone : des lignes plus serrees pour tenir a l'ecran */
+  body.da-fibre .q-carres.pas-a-pas .chips:has(.chip:nth-child(7)) .chip{font-size:17px;padding-top:11px;padding-bottom:11px}
 }
 
 /* ---------- le bandeau de resultats : quatre chiffres, en ligne ---------- */
@@ -1155,6 +1165,39 @@ body.da-fibre .qnav{text-align:left}
   h1 .w{opacity:1;filter:none;transform:none}
   .hero .lead,.acts,.hfoot,.opt{opacity:1}
 }
+/* 26/09 — sur un telephone, le lustre des boutons de l'accueil et les lignes
+   du chargement debordaient de 60 px : toute la page etait mise en page sur
+   435 px au lieu de 375, et en arabe le bord gauche sortait de l'ecran. Chaque
+   vue coupe desormais ce qui la depasse en largeur (clip : sans creer de
+   defilement, et sans toucher au defilement vertical des resultats). */
+.view{overflow-x:clip}
+/* 26/09 — le retour, sur chaque ecran : une pastille de verre discrete,
+   sous l'en-tete ; a droite en arabe ; en bas sur un telephone */
+#hcRetour{position:fixed;left:max(16px,2.5%);top:104px;z-index:9999;display:inline-flex;align-items:center;gap:10px;
+  appearance:none;cursor:pointer;padding:10px 18px 10px 14px;border-radius:100px;
+  font-family:'IBM Plex Mono',var(--fd);font-size:10.5px;font-weight:400;letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(223,234,242,.82);background:rgba(8,10,14,.46);border:1px solid rgba(223,234,242,.18);
+  -webkit-backdrop-filter:blur(18px) saturate(1.3);backdrop-filter:blur(18px) saturate(1.3);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 16px 40px -20px rgba(0,0,0,.85);
+  transition:background .35s,border-color .35s,color .35s,transform .35s var(--e1)}
+#hcRetour[hidden]{display:none}
+#hcRetour:hover,#hcRetour:focus-visible{color:#fff;background:rgba(127,216,255,.1);border-color:rgba(127,216,255,.55);transform:translateX(-2px)}
+#hcRetour i{font-style:normal;font-size:14px;line-height:1;letter-spacing:0}
+[dir=rtl] #hcRetour{left:auto;right:max(16px,2.5%)}
+[dir=rtl] #hcRetour i{transform:scaleX(-1)}
+[dir=rtl] #hcRetour:hover{transform:translateX(2px)}
+@media (max-width:640px){
+  #hcRetour{top:auto;bottom:calc(16px + env(safe-area-inset-bottom));left:16px;padding:10px 16px 10px 12px}
+  [dir=rtl] #hcRetour{left:auto;right:16px}
+  /* la pastille ne doit jamais couvrir « Passer » ni la derniere reponse ; et
+     une question a neuf reponses (le pays) peut depasser l'ecran : la vue
+     defile alors au lieu de couper le haut et le bas */
+  #v-quiz,#v-res{padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+  #v-quiz{overflow-y:auto;justify-content:safe center}
+  #v-quiz .quiz{flex-shrink:0}
+}
+/* l'ancien lien « question precedente » est remplace par la pastille */
+.pas-a-pas.apres-premiere .q-retour,.q-retour{display:none}
 /* l'ecran de confiance, juste avant la camera */
 #vyConfiance{position:fixed;inset:0;z-index:9997;background:rgba(2,4,7,.94);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
   display:grid;place-items:center;opacity:0;transition:opacity .5s var(--e1)}
@@ -1424,7 +1467,7 @@ body.da-fibre .qnav{text-align:left}
   <div class="quiz q-carres pas-a-pas">
     <div class="q-prog" id="qProg"><i id="qProgFill"></i><span id="qProgTxt">1 / 3</span></div>
     <h2 class="q-titre" data-i18n="hc.q.h">Ce que la cam&eacute;ra ne peut pas voir.</h2>
-    <div class="qsub lab" data-i18n="hc.q.sub">Trois questions. Le reste, la cam&eacute;ra le mesure.</div>
+    <div class="qsub lab" id="qSub" data-i18n="hc.q.sub">Trois questions. La cam&eacute;ra mesure la nature et la couleur de vos cheveux.</div>
     <div id="quizRows"></div>
     <button class="link q-retour" id="qRetour" type="button" data-i18n="hc.q.back">&larr; Question pr&eacute;c&eacute;dente</button>
     <div class="qnav">
@@ -1608,7 +1651,7 @@ var COARSE = !!(window.matchMedia && window.matchMedia('(pointer: coarse)').matc
 
 var S = {
   answers:{}, poses:[], out:null, routine:null,
-  engine:null, engineReady:false, catalogue:null, catalogueUrl:null,
+  engine:null, engineReady:false, catalogue:null, catalogueUrl:null, fiches:null,
   brand:null, brandName:null, stream:null, qIndex:0, fromPhoto:false, photo:null
 };
 
@@ -1880,6 +1923,7 @@ function show(name){
   if(!defile) window.scrollTo(0,0);
   if(name !== 'scan' && !KEEP_CAM) stopCamera();
   if(name === 'load') LOAD.start(); else LOAD.stop();
+  setTimeout(majRetour, 0);
   if(name === 'load') FORMULES.start(); else FORMULES.stop();
   try {
     var d = DEPTH[name] || DEPTH.hero;
@@ -1934,15 +1978,94 @@ var QUESTIONS = [
   { id:'probleme', label:'hc.q.l2',
     opts:[['secheresse','secheresse'],['gras','gras'],['chute','chute'],
           ['pellicules','pellicules'],['casse','casse'],['','aucune']] },
+  /* 26/09 — « colores ou decolores » envoyait toujours 'colores' : la logique
+     propre aux decolores du moteur (reconstruction) ne se declenchait jamais.
+     Trois choix, trois valeurs du moteur. */
   { id:'etat', label:'hc.q.l3',
-    opts:[['naturels','naturels'],['colores','colodeco']] },
+    opts:[['naturels','naturels'],['colores','colores'],['decolores','decolores']] },
   /* 21/09 — la 3e question etait une « question de suite » que le moteur ne
      lisait PAS (reponsesMoteur ne la transmettait pas). Charles : « elle sert a
      rien ». Remplacee par la frequence de lavage, que le moteur utilise : elle
      regle le signal de sebum et donc la douceur du shampooing (etape 1). */
+  /* 26/09 — « une fois par semaine » et « plus rarement » donnaient la meme
+     routine : trois choix, que le moteur distingue (besoins.rythme). */
   { id:'lavage', label:'hc.q4',
-    opts:[['quotidien','quotidien'],['tous_deux_jours','deuxjours'],['hebdo','hebdo'],['rare','rare']] }
+    opts:[['quotidien','hcx.o.lav1'],['deux_trois_jours','hcx.o.lav23'],['moins_souvent','hcx.o.lavm']] },
+  /* 26/09 — comme pour la peau : la famille de maisons et le pays d'origine.
+     Ce sont des preferences, pas des besoins : le moteur filtre, et relache
+     (le pays, puis la famille) si une etape reste sans produit, en le disant.
+     Les deux questions n'existent que si les fiches marques sont chargees et
+     hors mode marque. Les options du pays sont calculees sur le catalogue. */
+  { id:'univers', label:'hcx.q.fam', prefs:true,
+    opts:[['','hcx.o.toutes'],['luxe','hcx.o.luxe'],['salon','hcx.o.salon'],['pharmacie','hcx.o.pharma'],
+          ['normal','hcx.o.quot'],['petit-prix','hcx.o.petit']] },
+  { id:'origine', label:'hcx.q.pays', prefs:true, opts:[] }
 ];
+/* les pays europeens hors France : la meme liste que l'ecran peau et le moteur */
+var EU_HORS_FR = { DE:1, CH:1, SE:1, BE:1, NL:1, ES:1, IT:1, AT:1, DK:1, PT:1, MC:1, HU:1, IE:1, PL:1 };
+function regionMarque(f){
+  var c = f && String(f.code_pays || '').toUpperCase();
+  if(!c) return null;
+  return EU_HORS_FR[c] ? 'EU' : c;
+}
+/* les maisons REELLEMENT presentes dans le catalogue charge, avec leur fiche */
+function maisonsDuCatalogue(){
+  var vues = {}, out = [];
+  if(!S.catalogue || !S.fiches) return out;
+  S.catalogue.forEach(function(p){
+    var b = String(p.brand || '').toLowerCase();
+    if(!b || vues[b]) return;
+    vues[b] = 1;
+    var f = S.fiches[b];
+    if(f) out.push(f);
+  });
+  return out;
+}
+/* les questions de preference n'existent que si on peut les tenir */
+function prefsPossibles(){ return !S.brand && !!S.fiches && !!S.catalogue && maisonsDuCatalogue().length > 0; }
+/* familles : seulement celles qui ont au moins une maison dans le catalogue */
+function optsUnivers(q){
+  var m = maisonsDuCatalogue(), n = {};
+  m.forEach(function(f){ n[f.univers] = (n[f.univers] || 0) + 1; });
+  return q.opts.filter(function(o){ return o[0] === '' || n[o[0]] > 0; });
+}
+/* pays : compte des maisons dans la famille choisie ; jamais un choix a zero,
+   jamais un pays qu'on ne sait pas nommer dans la langue */
+function optsOrigine(){
+  var fam = S.answers.univers || '', n = {}, total = 0;
+  maisonsDuCatalogue().forEach(function(f){
+    if(fam && f.univers !== fam) return;
+    var r = regionMarque(f); if(!r) return;
+    n[r] = (n[r] || 0) + 1; total++;
+  });
+  var regions = Object.keys(n).filter(function(r){ return T('hcx.p.' + r); })
+    .sort(function(a,b){ return n[b] - n[a] || (a < b ? -1 : 1); });
+  return [['', 'hcx.o.tous', total]].concat(regions.map(function(r){ return [r, 'hcx.p.' + r, n[r]]; }));
+}
+function optsDe(q){
+  if(q.id === 'univers') return optsUnivers(q);
+  if(q.id === 'origine') return optsOrigine();
+  return q.opts;
+}
+/* le catalogue (9 Mo) et les fiches arrivent parfois apres l'ouverture des
+   questions : on ajoute alors les deux questions de preference a la suite,
+   sans revenir a la premiere ni toucher aux reponses deja donnees. */
+function ajouterQuestionsPrefs(){
+  if(!document.querySelector('#v-quiz.active') || departTimer || !prefsPossibles()) return;
+  var host = $('quizRows'), qs = questionsActives();
+  var n = host.querySelectorAll('.qr').length;
+  if(n >= qs.length) return;
+  var tmp = document.createElement('div');
+  for(var k = n; k < qs.length; k++) tmp.innerHTML += questionHTML(qs[k], k);
+  while(tmp.firstChild) host.appendChild(tmp.firstChild);
+  $('quizSkip').classList.remove('go');
+  var sub = $('qSub'); if(sub){ sub.setAttribute('data-i18n','hcx.q.sub5'); sub.textContent = T('hcx.q.sub5') || sub.textContent; }
+  montrerEtape(etapeQ, true);
+}
+function questionsActives(){
+  var p = prefsPossibles();
+  return QUESTIONS.filter(function(q){ return !q.prefs || p; });
+}
 /* la question de suite : une seule, jamais deux. Sa reponse est gardee et
    affichee telle quelle ; le moteur ICE v1 ne la lit pas encore. */
 var SUITES = {
@@ -1954,18 +2077,25 @@ var SUITES = {
 };
 var TYPES = { 1:'hc.o.raides', 2:'hc.o.ondules', 3:'hc.o.boucles', 4:'hc.o.crepus' };
 function optVal(o){ return (typeof o === 'string') ? o : o[0]; }
-function optKey(o){ return 'hc.o.' + ((typeof o === 'string') ? o : o[1]); }
-var ANSWER_LABEL = { probleme:'hc.a.probleme', etat:'hc.a.etat',
+function optKey(o){
+  var k = (typeof o === 'string') ? o : o[1];
+  return k.indexOf('.') !== -1 ? k : 'hc.o.' + k;
+}
+var ANSWER_LABEL = { probleme:'hc.a.probleme', etat:'hc.a.etat', lavage:'hc.a.lavage',
+                     univers:'hcx.a.fam', origine:'hcx.a.pays',
                      type_ressenti:'hc.a.type', suite:'hc.a.suite' };
 
 /* l'ecran entier se dessine d'un coup : deux rangees, une troisieme qui
    arrive quand la premiere est repondue, et c'est tout. */
 var quizBound = false;
-function chipHTML(act, v, key, chosen, i){
+function chipHTML(act, v, key, chosen, i, nb){
+  /* nb : le nombre de maisons derriere ce choix, compte dans le catalogue */
+  var cpt = (typeof nb === 'number')
+    ? '<small class="nbm">' + esc(nb === 1 ? T('hcx.n1') : T('hcx.nn', { n: nb })) + '</small>' : '';
   return '<button type="button" class="chip' + (chosen === v ? ' on' : '') +
          '" data-act="' + act + '" data-v="' + esc(v) + '"' +
          ' style="--d:' + (0.06 + i*0.045).toFixed(2) + 's">' +
-         '<span data-i18n="' + key + '">' + esc(T(key)) + '</span><i class="ond"></i></button>';
+         '<span data-i18n="' + key + '">' + esc(T(key)) + '</span>' + cpt + '<i class="ond"></i></button>';
 }
 function rowHTML(num, labelKey, chipsHtml, extra){
   return '<div class="qr' + (extra || '') + '" data-row="' + num + '">' +
@@ -1985,16 +2115,22 @@ function suiteHTML(){
    tout reconstruire a chaque tap relancait l'animation d'entree des pastilles,
    qui repassaient par opacity:0 — l'ecran sautait et un tap rapide tombait
    dans le vide. C'etait le bug. */
+function questionHTML(q, n){
+  var chips = optsDe(q).map(function(o,i){
+    return chipHTML(q.id, optVal(o), optKey(o), S.answers[q.id], i, o[2]);
+  }).join('');
+  return rowHTML('0' + (n+1), q.label, chips);
+}
 function renderQuiz(){
   var host = $('quizRows'), h = '';
-  QUESTIONS.forEach(function(q, n){
-    var chips = q.opts.map(function(o,i){
-      return chipHTML(q.id, optVal(o), optKey(o), S.answers[q.id], i);
-    }).join('');
-    h += rowHTML('0' + (n+1), q.label, chips);
-  });
+  var qs = questionsActives();
+  qs.forEach(function(q, n){ h += questionHTML(q, n); });
   h += suiteHTML();
   host.innerHTML = h;
+  /* le sous-titre dit le vrai nombre de questions */
+  var sub = $('qSub');
+  if(sub){ var ks = qs.length === 5 ? 'hcx.q.sub5' : 'hc.q.sub';
+    sub.setAttribute('data-i18n', ks); sub.textContent = T(ks) || sub.textContent; }
   if(!quizBound){ host.addEventListener('click', onChip); quizBound = true; }
   montrerEtape(0, true);
 }
@@ -2053,6 +2189,22 @@ function answer(act, v){
   S.answers[act] = v;
   paintRow(act);
 
+  /* la famille change : la liste des pays se recompte, et un pays qui n'a plus
+     de maison dans cette famille n'est plus propose ni garde */
+  if(act === 'univers'){
+    var qs = questionsActives(), qo = null, io = -1;
+    qs.forEach(function(q, k){ if(q.id === 'origine'){ qo = q; io = k; } });
+    if(qo){
+      var dispo = optsOrigine().map(function(o){ return o[0]; });
+      if(S.answers.origine !== undefined && dispo.indexOf(S.answers.origine) === -1) delete S.answers.origine;
+      var ancienne = host.querySelector('.qr[data-row="0' + (io + 1) + '"]');
+      if(ancienne){
+        var tmpo = document.createElement('div'); tmpo.innerHTML = questionHTML(qo, io);
+        ancienne.parentNode.replaceChild(tmpo.firstChild, ancienne);
+      }
+    }
+  }
+
   if(changeSuite){
     delete S.answers.suite;
     var vieille = host.querySelector('.qr.suite');
@@ -2087,9 +2239,9 @@ function answer(act, v){
   }
 }
 function quizComplete(){
-  if(S.answers.probleme === undefined || S.answers.etat === undefined) return false;
-  if(S.answers.lavage === undefined) return false;
-  return true;
+  var ok = true;
+  questionsActives().forEach(function(q){ if(S.answers[q.id] === undefined) ok = false; });
+  return ok;
 }
 /* ce qu'on envoie au moteur : son vocabulaire, et rien d'invente. La frequence
    de lavage et l'age ne sont plus demandes : on ne les fabrique pas. */
@@ -2101,6 +2253,17 @@ function reponsesMoteur(){
   if(S.answers.type_ressenti) r.type_ressenti = S.answers.type_ressenti;
   return Object.keys(r).length ? r : null;
 }
+/* ce qu'on passe a composerRoutine en plus des reponses : la marque (mode
+   marque), et la famille et le pays choisis, avec les fiches pour les lire */
+function optionsRoutine(){
+  var o = { marque:S.brand || null };
+  if(prefsPossibles()){
+    o.univers = S.answers.univers ? [S.answers.univers] : [];
+    o.origine = S.answers.origine ? [S.answers.origine] : [];
+    o.fichesMarques = S.fiches;
+  }
+  return o;
+}
 
 /* the parting : the curtain opens first, the camera is found inside it */
 function afterQuestions(){
@@ -2110,8 +2273,8 @@ function afterQuestions(){
   /* 22/09 — le scan guide (la tete de points, « remplissez vos cheveux de
      bleu », 8 vraies images par cote) remplace le parcours pose par pose.
      L'ancien reste accessible avec ?scan=ancien. */
-  if(Q.get('scan') === 'ancien'){ setTimeout(function(){ show('scan'); startCamera(); }, 560); return; }
-  setTimeout(ecranConfiance, 560);
+  if(Q.get('scan') === 'ancien'){ passageTimer = setTimeout(function(){ passageTimer = null; show('scan'); startCamera(); }, 560); return; }
+  passageTimer = setTimeout(function(){ passageTimer = null; ecranConfiance(); }, 560);
 }
 /* 23/09 — juste avant d'allumer la camera, on dit ce qui se passe. Ce n'est pas
    une promesse commerciale : la lecture tourne entierement dans le navigateur,
@@ -2137,7 +2300,15 @@ function ecranConfiance(){
   var partir = function(){ if(!el.parentNode) return; el.classList.remove('on');
     setTimeout(function(){ if(el.parentNode) el.remove(); }, 420); lancerScanGuide(); };
   el.querySelector('.vc-go').addEventListener('click', partir);
-  setTimeout(partir, 4200);      /* on n'immobilise personne : ca part tout seul */
+  confianceTimer = setTimeout(partir, 4200);      /* on n'immobilise personne : ca part tout seul */
+}
+var confianceTimer = null, passageTimer = null;
+/* 26/09 — le retour depuis l'ecran de confiance : la camera n'est pas encore
+   ouverte, on annule le depart et on revient a la derniere question */
+function quitterConfiance(){
+  if(passageTimer){ clearTimeout(passageTimer); passageTimer = null; }
+  if(confianceTimer){ clearTimeout(confianceTimer); confianceTimer = null; }
+  var el = $('vyConfiance'); if(el) el.remove();
 }
 function lancerScanGuide(){
   if($('scanGuide')) return;          /* jamais deux guidages en meme temps */
@@ -2146,17 +2317,18 @@ function lancerScanGuide(){
   /* le guidage vit dans une iframe : le choix de langue memorise ne traverse pas
      toujours (origine, mode prive). On le lui passe en clair dans l'adresse. */
   var lg = (window.VY && VY.lang) ? VY.lang : 'fr';
-  f.id = 'scanGuide'; f.allow = 'camera'; f.src = '/cheveux/scan-guide.html?v=2&lang=' + encodeURIComponent(lg);
+  f.id = 'scanGuide'; f.allow = 'camera'; f.src = '/cheveux/scan-guide.html?v=3&lang=' + encodeURIComponent(lg);
   f.setAttribute('style', 'position:fixed;inset:0;width:100%;height:100%;border:0;z-index:9998;background:#000');
-  var q = document.createElement('button');
-  q.id = 'scanGuideQuitter'; q.type = 'button'; q.textContent = T('hc.s.quit') !== 'hc.s.quit' ? T('hc.s.quit') : 'Quitter';
-  q.setAttribute('style', 'position:fixed;left:4vw;bottom:24px;z-index:9999;background:rgba(0,0,0,.4);color:#dfeaf2;border:1px solid rgba(223,234,242,.2);font:400 10px "IBM Plex Mono",monospace;letter-spacing:.22em;text-transform:uppercase;padding:9px 14px;cursor:pointer');
-  q.onclick = function(){ fermerScanGuide(); show('hero'); };
-  document.body.appendChild(f); document.body.appendChild(q);
+  /* 26/09 — le « Quitter » pose ici par-dessus l'iframe est remplace par le
+     « ← Retour » du guidage lui-meme (scan-guide.html) : il coupe la camera
+     puis previent par postMessage « vyvre-scan-retour ». */
+  document.body.appendChild(f);
+  majRetour();
 }
 function fermerScanGuide(){
   var f = $('scanGuide'); if(f) f.remove();
   var q = $('scanGuideQuitter'); if(q) q.remove();
+  setTimeout(majRetour, 0);
   if(window.FIBRE && fibreSuit.monte && FIBRE.monter) FIBRE.monter($('fibreCv'));
 }
 /* Le masque de cheveux calcule par le guidage (hair_segmenter de MediaPipe),
@@ -2194,6 +2366,8 @@ window.addEventListener('message', function(e){
   if(e.data.type === 'vyvre-scan-camera-refusee' || e.data.type === 'vyvre-scan-sans-visage'){
     fermerScanGuide(); show('scan'); startCamera(); return;
   }
+  /* le retour pendant la capture : le guidage a deja coupe sa camera */
+  if(e.data.type === 'vyvre-scan-retour'){ fermerScanGuide(); retourAccueil(); return; }
   if(e.data.type !== 'vyvre-scan-fini') return;
   var poses = e.data.poses || [];
   Promise.all(poses.map(function(p){
@@ -2317,7 +2491,9 @@ function startCamera(){
     $('scanHint').style.opacity=''; $('scanHint').textContent = T('hc.s.hint.nocam'); return;
   }
   navigator.mediaDevices.getUserMedia({ video:{ facingMode:'user', width:{ideal:1280}, height:{ideal:960} }, audio:false })
-    .then(function(st){ S.stream = st; var v = $('liveVideo'); v.srcObject = st; return v.play().catch(function(){}); })
+    .then(function(st){
+      if(!$('v-scan').classList.contains('active')){ st.getTracks().forEach(function(t){ t.stop(); }); return; }
+      S.stream = st; var v = $('liveVideo'); v.srcObject = st; return v.play().catch(function(){}); })
     .catch(function(){
       /* on n'annonce un refus que s'il n'y a vraiment aucun flux : une erreur
          survenue APRES l'obtention de la camera affichait « camera refusee »
@@ -3392,9 +3568,9 @@ function setLoadProgress(p){
 /* ================================================================ ENGINE */
 function probeEngine(){
   if(window.VYVRE_HAIR_ENGINE){ S.engine = window.VYVRE_HAIR_ENGINE; S.engineReady = true; return Promise.resolve(true); }
-  return head('/scan/vyvre-hair-engine.js?v=5').then(function(ok){
+  return head('/scan/vyvre-hair-engine.js?v=6').then(function(ok){
     if(!ok) return false;
-    return injectScript('/scan/vyvre-hair-engine.js?v=5').then(function(loaded){
+    return injectScript('/scan/vyvre-hair-engine.js?v=6').then(function(loaded){
       if(loaded && window.VYVRE_HAIR_ENGINE){ S.engine = window.VYVRE_HAIR_ENGINE; S.engineReady = true; return true; }
       return false;
     });
@@ -3477,7 +3653,7 @@ function consoliderMultiPoses(r){
   if(meilleure) out.qualite = meilleure;
   try { out.scores = S.engine.composerScores(mes, rep); } catch(e){ out.scores = null; }
   if(!out.scores) return { ok:false, raison:'aucune_pose_exploitable' };
-  try { out.routine = S.engine.composerRoutine(out.scores, rep, S.catalogue, { marque:S.brand||null }); }
+  try { out.routine = S.engine.composerRoutine(out.scores, rep, S.catalogue, optionsRoutine()); }
   catch(e){ out.routine = null; }
   return out;
 }
@@ -3485,7 +3661,9 @@ function consoliderMultiPoses(r){
 var PLAN_MIN_MS = 3000;     /* la duree du plan, sortie comprise */
 var PLAN_FIN_MS = 1000;     /* la fin : les valeurs s'ecrivent, puis la lumiere s'ouvre */
 
+var lectureJeton = 0;
 function runReading(){
+  var jeton = ++lectureJeton;     /* un retour pendant la lecture la rend caduque */
   KEEP_CAM = true;
   show('load');
   setLoadProgress(0.02);
@@ -3495,6 +3673,7 @@ function runReading(){
   /* la progression du plan : elle monte jusqu'a 0,88 sur la duree minimale,
      et n'ira au bout que quand la lecture sera revenue. */
   var tick = setInterval(function(){
+    if(jeton !== lectureJeton){ clearInterval(tick); return; }
     if(fini) return;
     var k = clamp((performance.now()-tStart) / (PLAN_MIN_MS - PLAN_FIN_MS), 0, 1);
     setLoadProgress(Math.max(loadProgress, k * 0.88));
@@ -3506,6 +3685,9 @@ function runReading(){
     reponses: reponsesMoteur(),
     produits: S.catalogue,
     marque: S.brand || null,
+    univers: optionsRoutine().univers || null,
+    origine: optionsRoutine().origine || null,
+    fichesMarques: optionsRoutine().fichesMarques || null,
     frames: S.fromPhoto ? 1 : 3
   };
 
@@ -3528,6 +3710,7 @@ function runReading(){
   });
 
   call.then(function(out){
+    if(jeton !== lectureJeton) return;      /* on est deja reparti : on n'affiche rien */
     KEEP_CAM = false; stopCamera();
     if(!out || !out.ok || !out.scores){ fini = true; clearInterval(tick); refuse(out); return; }
     S.out = out;
@@ -3535,13 +3718,15 @@ function runReading(){
     /* on laisse le plan finir : ce qui reste a tenir avant la sortie */
     var reste = Math.max(0, PLAN_MIN_MS - (performance.now() - tStart));
     setTimeout(function(){
+      if(jeton !== lectureJeton) return;
       fini = true; clearInterval(tick);
       setLoadProgress(1);                 /* la lumiere s'ouvre */
       ecrireReleves(out);                 /* les valeurs s'inscrivent, enfin mesurees */
       renderResults();
-      setTimeout(function(){ show('res'); revealResults(); }, PLAN_FIN_MS);
+      setTimeout(function(){ if(jeton !== lectureJeton) return; show('res'); revealResults(); }, PLAN_FIN_MS);
     }, Math.max(0, reste - PLAN_FIN_MS));
   }).catch(function(err){
+    if(jeton !== lectureJeton) return;
     fini = true; clearInterval(tick); KEEP_CAM = false; stopCamera(); LOAD.stop();
     refuse(null, err);
   });
@@ -3943,9 +4128,19 @@ function ecrireLaLecture(liste){
   if(typeof q.score === 'number' && q.score < 70) phrases.push(T('hcl.prise'));
 
   var rep = S.answers || {};
-  var LAV = { quotidien:'hcl.lav1', tous_deux_jours:'hcl.lav2', hebdo:'hcl.lav3', rare:'hcl.lav4' };
+  /* 26/09 — trois frequences. « Moins souvent » ne dit « soins plus riches »
+     que si le moteur a vraiment favorise un soin riche pour cette raison. */
+  var riche = (liste || []).some(function(p){ return p && /lavages espaces/.test(String(p.pourquoi || '')); });
+  var LAV = { quotidien:'hcl.lav1', tous_deux_jours:'hcl.lav2', deux_trois_jours:'hcx.lav23',
+              moins_souvent: riche ? 'hcx.lavm' : 'hcx.lavm0', hebdo:'hcl.lav3', rare:'hcl.lav4' };
   if(rep.lavage && LAV[rep.lavage]) phrases.push(T(LAV[rep.lavage]));
-  if(rep.etat === 'colores') phrases.push(T('hcl.colore'));
+  if(rep.etat === 'colores' || rep.etat === 'decolores') phrases.push(T('hcl.colore'));
+  /* la famille ou le pays choisis n'ont pas pu etre tenus a une etape : on le dit */
+  var rt = S.routine || (S.out && S.out.routine) || null;
+  ((rt && rt.relachements) || []).forEach(function(x){
+    var k = x.relache.length === 2 ? 'hcx.rel.deux' : (x.relache[0] === 'pays' ? 'hcx.rel.pays' : 'hcx.rel.fam');
+    phrases.push(T(k, { e: T(STEP_KEYS[x.etape]) }));
+  });
 
   var gestes = (liste || []).filter(Boolean).map(function(p){
     return { n: p.nom || '', m: p.marque || '', e: p.etape || 0, w: p.pourquoi || '' };
@@ -3973,10 +4168,10 @@ function renderResults(){
                    ' <span data-i18n="' + valKey + '">' + esc(T(valKey)) + '</span>';
     strip.appendChild(el);
   }
-  QUESTIONS.forEach(function(q){
+  questionsActives().forEach(function(q){
     var v = S.answers[q.id]; if(v === undefined || v === '') return;
     var o = null;
-    q.opts.forEach(function(x){ if(optVal(x) === v) o = x; });
+    optsDe(q).forEach(function(x){ if(optVal(x) === v) o = x; });
     if(o) puce(ANSWER_LABEL[q.id], optKey(o));
   });
   if(S.answers.suite) puce(ANSWER_LABEL.suite, 'hc.fo.' + S.answers.suite);
@@ -4208,7 +4403,7 @@ function corrigerType(v){
       var rep = reponsesMoteur();
       S.out.scores = S.engine.composerScores(S.out.mesures, rep);
       if(typeof S.engine.composerRoutine === 'function' && S.catalogue){
-        S.routine = S.engine.composerRoutine(S.out.scores, rep, S.catalogue, { marque:S.brand||null });
+        S.routine = S.engine.composerRoutine(S.out.scores, rep, S.catalogue, optionsRoutine());
       }
     } catch(e){}
   }
@@ -4298,6 +4493,69 @@ function countTo(el, target, dur, dec){
   })();
 }
 
+/* ================================================================ RETOUR
+   26/09 — un « ← Retour » sur chaque ecran du parcours (demande de Charles),
+   dans le verre de la page. Un seul bouton, qui sait ou il est :
+   - questions : la question precedente ; sur la premiere, l'accueil ;
+   - ecran de confiance : on annule le depart, retour a la derniere question ;
+   - camera (ancien parcours), lecture en cours, image inexploitable : l'accueil,
+     la camera coupee et la lecture rendue caduque ;
+   - resultats : « Nouveau scan », comme le bouton du bas.
+   Pendant le guidage (iframe), c'est le guidage qui porte son propre retour. */
+function vueActive(){
+  var a = document.querySelector('.view.active');
+  return a ? a.id.replace(/^v-/, '') : 'hero';
+}
+function retourAccueil(){
+  lectureJeton++;                          /* une lecture en cours n'affichera rien */
+  quitterConfiance();
+  if(departTimer){ clearTimeout(departTimer); departTimer = null; }
+  KEEP_CAM = false; stopCamera();
+  S.poses = []; S.out = null; S.routine = null; S.answers = {}; S.photo = null;
+  $('v-res').classList.remove('seen');
+  $('quizSkip').classList.remove('go');
+  show('hero');
+}
+function retourAction(){
+  if($('scanGuide')) return;
+  if($('vyConfiance') || passageTimer){
+    quitterConfiance();
+    show('quiz');
+    var lignes = $('quizRows').querySelectorAll('.qr');
+    montrerEtape(Math.max(0, lignes.length - 1));
+    return;
+  }
+  var v = vueActive();
+  if(v === 'quiz'){
+    if(departTimer){ clearTimeout(departTimer); departTimer = null; $('quizSkip').classList.remove('go'); }
+    if(etapeQ > 0){ montrerEtape(etapeQ - 1); return; }
+    retourAccueil(); return;
+  }
+  if(v === 'res'){ $('btnAgain').click(); return; }
+  retourAccueil();
+}
+function majRetour(){
+  var b = $('hcRetour'); if(!b) return;
+  var v = vueActive();
+  var cache = (v === 'hero' && !$('vyConfiance') && !passageTimer && document.querySelector('#v-hero.active')) || !!$('scanGuide');
+  b.hidden = cache;
+  var k = (v === 'res' && !$('vyConfiance')) ? 'hcx.nouveau' : 'hcx.retour';
+  var sp = b.querySelector('span');
+  sp.setAttribute('data-i18n', k); sp.textContent = T(k) || (k === 'hcx.nouveau' ? 'Nouveau scan' : 'Retour');
+  b.setAttribute('aria-label', sp.textContent);
+}
+(function(){
+  var b = document.createElement('button');
+  b.id = 'hcRetour'; b.type = 'button'; b.hidden = true;
+  b.innerHTML = '<i aria-hidden="true">&#8592;</i><span data-i18n="hcx.retour">Retour</span>';
+  b.addEventListener('click', retourAction);
+  document.body.appendChild(b);
+  document.addEventListener('vy:lang', majRetour);
+  /* l'ecran de confiance s'ajoute et s'en va tout seul : on suit le body */
+  new MutationObserver(majRetour).observe(document.body, { childList:true });
+  majRetour();
+})();
+
 /* ================================================================ ROUTING */
 function begin(fromPhoto){
   S.fromPhoto = !!fromPhoto;
@@ -4365,7 +4623,7 @@ function demoResult(){
   }
   if(!out.scores) return { ok:false, raison:'aucune_frame_exploitable' };
   if(S.engine && typeof S.engine.composerRoutine === 'function'){
-    try { out.routine = S.engine.composerRoutine(out.scores, rep, S.catalogue, { marque:S.brand||null }); }
+    try { out.routine = S.engine.composerRoutine(out.scores, rep, S.catalogue, optionsRoutine()); }
     catch(e){ out.routine = null; }
   }
   return out;
@@ -4398,7 +4656,15 @@ document.addEventListener('vy:lang', function(){
   fibreSuit('hero');
 
   var ready = probeEngine();
-  var cat = loadCatalogue().then(function(list){ S.catalogue = list; announceCatalogue(); return list; });
+  var cat = loadCatalogue().then(function(list){ S.catalogue = list; announceCatalogue(); ajouterQuestionsPrefs(); return list; });
+  /* les fiches marques : famille et pays de chaque maison (questions 4 et 5) */
+  getJSON('/scan/catalogue-cheveux/marques.json').then(function(j){
+    var l = j && j.marques; if(!l || !l.length) return;
+    var idx = {};
+    l.forEach(function(f){ if(f && f.slug && f.univers && f.code_pays) idx[String(f.slug).toLowerCase()] = f; });
+    S.fiches = idx;
+    ajouterQuestionsPrefs();
+  });
 
   Promise.all([ready, cat]).then(function(r){
     var ok = r[0], st = $('heroStatus');

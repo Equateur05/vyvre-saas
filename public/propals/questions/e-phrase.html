@@ -1,0 +1,120 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>E — LA PHRASE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="peau.css">
+<style>
+body{display:flex;flex-direction:column;min-height:100vh}
+.centre{position:relative;z-index:20;flex:1;display:flex;flex-direction:column;justify-content:center;
+  padding:130px clamp(22px,6vw,90px) 40px;max-width:1240px;margin:0 auto;width:100%}
+.phrase{font-weight:100;font-size:clamp(28px,4.1vw,54px);line-height:1.42;letter-spacing:-.032em;color:rgba(255,255,255,.3);max-width:23ch;text-wrap:balance}
+.gr{white-space:nowrap}
+.mot{position:relative;display:inline-block;color:#fff;cursor:pointer;white-space:nowrap;
+  border-bottom:1px solid rgba(255,255,255,.28);transition:border-color .5s var(--e),color .5s var(--e)}
+.mot:hover{border-color:#fff}
+.mot.vide{color:rgba(255,255,255,.5)}
+.mot:after{content:'';position:absolute;left:0;right:0;bottom:-1px;height:1px;background:#fff;transform:scaleX(0);transform-origin:left;transition:transform .6s var(--e)}
+.mot.ouvert:after{transform:scaleX(1)}
+.liste{position:absolute;left:0;top:calc(100% + 16px);z-index:50;min-width:270px;max-height:min(52vh,420px);overflow-y:auto;
+  padding:8px;border-radius:16px;background:rgba(8,9,14,.82);border:1px solid var(--sg-line);
+  backdrop-filter:blur(30px) saturate(1.4);-webkit-backdrop-filter:blur(30px) saturate(1.4);
+  box-shadow:0 40px 90px -30px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.14);
+  opacity:0;transform:translateY(-8px);pointer-events:none;transition:opacity .4s var(--e),transform .5s var(--e)}
+.mot.ouvert .liste{opacity:1;transform:none;pointer-events:auto}
+.mot.haut .liste{top:auto;bottom:calc(100% + 16px);transform:translateY(8px)}
+.mot.haut.ouvert .liste{transform:none}
+.liste button{display:flex;align-items:baseline;gap:10px;width:100%;appearance:none;background:none;border:0;cursor:pointer;
+  text-align:left;padding:10px 14px;border-radius:10px;color:rgba(255,255,255,.7);font:200 17px var(--m);letter-spacing:-.01em;transition:all .3s var(--e)}
+.liste button:hover{background:rgba(255,255,255,.07);color:#fff}
+.liste button[aria-pressed=true]{background:linear-gradient(180deg,#fff,#e4e0d6);color:var(--sg-ink)}
+.liste button i{margin-left:auto;font-style:normal;font:400 10px var(--d);opacity:.45;white-space:nowrap}
+.pied{position:relative;z-index:10;display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+  padding:22px clamp(22px,6vw,90px) calc(26px + env(safe-area-inset-bottom));max-width:1240px;margin:0 auto;width:100%}
+.sp{flex:1}
+@media (max-width:640px){.liste{position:fixed;left:16px;right:16px;top:auto;bottom:16px;min-width:0}}
+</style></head><body>
+
+<header class="vy-head">
+  <span class="mq">VYVRE<i>skin intelligence</i></span><span class="x">×</span>
+  <span class="ct">Avant le scan</span><span class="sp"></span><span class="et" id="tete">—</span>
+</header>
+
+<div class="centre">
+  <span class="vy-pill" style="align-self:flex-start">Une phrase, quatre mots</span>
+  <p class="phrase" style="margin:26px 0 0">
+    Cherchez-moi un soin pour <span class="gr"><span class="mot vide" data-k="goals">ce que la caméra verra<span class="liste"></span></span>,</span>
+    pour une peau de <span class="gr"><span class="mot vide" data-k="age">tout âge<span class="liste"></span></span>,</span>
+    chez des maisons <span class="gr"><span class="mot vide" data-k="univers">de tous les univers<span class="liste"></span></span>,</span>
+    venant <span class="gr"><span class="mot vide" data-k="origine">du monde entier<span class="liste"></span></span>.</span>
+  </p>
+</div>
+
+<div class="pied">
+  <span class="vy-cpt" id="cpt">Lecture du catalogue…</span>
+  <span class="sp"></span>
+  <button class="vy-ghost" id="tout">Tout effacer</button>
+  <button class="vy-go" id="go">Lancer mon scan</button>
+</div>
+
+<script src="fumee.js"></script>
+<script src="noyau.js"></script>
+<script>
+var P={age:null,goals:[],univers:[],origine:[],marques:[]};
+var $=function(s){return document.querySelector(s);},$$=function(s,r){return [].slice.call((r||document).querySelectorAll(s));};
+var DEF={goals:'ce que la caméra verra',age:'tout âge',univers:'de tous les univers',origine:'du monde entier'};
+var OPT={
+  goals:[['antiage','l’âge'],['glow','l’éclat'],['hydration','l’hydratation'],['redness','les rougeurs'],['pores','les pores'],['pigmentation','les taches'],['sebum','la peau grasse']],
+  age:[['u25','moins de 25 ans'],['25','25 à 34 ans'],['35','35 à 44 ans'],['45','45 à 54 ans'],['55','55 ans et plus']],
+  univers:[['luxe','de luxe'],['pharmacie','de pharmacie'],['normal','du quotidien'],['petit-prix','à petit prix']],
+  origine:[]
+};
+function listeMots(k){
+  var v=P[k];
+  if(k==='age') return v?(OPT.age.filter(function(o){return o[0]===v;})[0]||['',''])[1]:null;
+  if(!v.length) return null;
+  var n=v.map(function(x){var o=OPT[k].filter(function(y){return y[0]===x;})[0]; return o?o[1]:x;});
+  return n.length<3?n.join(' et '):n.slice(0,2).join(', ')+' +'+(n.length-2);
+}
+function peindre(){
+  $$('.mot').forEach(function(m){
+    var k=m.dataset.k, t=listeMots(k);
+    m.firstChild.nodeValue=t||DEF[k];
+    m.classList.toggle('vide',!t);
+    $$('button',m).forEach(function(b){
+      b.setAttribute('aria-pressed',String(k==='age'?P.age===b.dataset.v:P[k].indexOf(b.dataset.v)>=0));
+    });
+  });
+  var c=VYQ.compte(P), t=VYQ.compte({});
+  $('#cpt').innerHTML='<b>'+VYQ.fmt(c.produits)+'</b> produits · <b>'+c.marques+'</b> maisons dans cette phrase';
+  $('#tete').innerHTML=VYQ.fmt(t.produits)+' produits · '+t.marques+' maisons';
+}
+document.addEventListener('click',function(e){
+  var b=e.target.closest('.liste button');
+  if(b){ var k=b.closest('.mot').dataset.k;
+    if(k==='age') P.age=P.age===b.dataset.v?null:b.dataset.v;
+    else{var i=P[k].indexOf(b.dataset.v); i<0?P[k].push(b.dataset.v):P[k].splice(i,1);}
+    peindre(); return; }
+  var m=e.target.closest('.mot');
+  $$('.mot').forEach(function(x){ if(x!==m) x.classList.remove('ouvert'); });
+  if(m){ m.classList.toggle('haut', m.getBoundingClientRect().top > innerHeight*0.45); m.classList.toggle('ouvert'); return; }
+  if(e.target.id==='go') alert('→ le scan démarre avec cette phrase');
+  if(e.target.id==='tout'){ P={age:null,goals:[],univers:[],origine:[],marques:[]}; peindre(); }
+});
+addEventListener('keydown',function(e){ if(e.key==='Escape') $$('.mot').forEach(function(x){x.classList.remove('ouvert');}); });
+VYQ.pret(function(){
+  OPT.origine=VYQ.origines().map(function(o){
+    return [o.v, o.v==='FR'?'de France':o.v==='EU'?'d’Europe':o.v==='GB'?'du Royaume-Uni':o.v==='US'?'des États-Unis':
+            o.v==='KR'?'de Corée':o.v==='JP'?'du Japon':o.v==='AU'?'d’Australie':o.v==='CA'?'du Canada':'de '+o.nom, VYQ.mais(o.maisons)];
+  });
+  $$('.mot').forEach(function(m){
+    var k=m.dataset.k, l=m.querySelector('.liste');
+    OPT[k].forEach(function(o){
+      var b=document.createElement('button'); b.type='button'; b.dataset.v=o[0];
+      b.innerHTML=o[1]+(o[2]?'<i>'+o[2]+'</i>':'');
+      l.appendChild(b);
+    });
+  });
+  peindre();
+});
+</script></body></html>

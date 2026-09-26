@@ -1,0 +1,68 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>H — LES CARTES</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="peau.css">
+<link rel="stylesheet" href="g-styles.css">
+<link rel="stylesheet" href="suite.css">
+<link rel="stylesheet" href="h-plus.css">
+<style>
+body{display:flex;flex-direction:column;min-height:100vh}
+.scene{position:relative;z-index:20;flex:1;display:flex;flex-direction:column;justify-content:center;gap:clamp(26px,5vh,48px);
+  width:100%;max-width:1240px;margin:0 auto;padding:124px clamp(22px,5vw,64px) 24px;text-align:center}
+.texte{font-weight:100;font-size:clamp(21px,2.5vw,33px);line-height:1.5;letter-spacing:-.022em;color:rgba(255,255,255,.32);min-height:3em;max-width:34ch;margin:0 auto;text-wrap:balance}
+.cadre .texte{margin:0 auto!important}
+.texte b.rep-mot{cursor:pointer;border-bottom:1px solid rgba(255,255,255,.22);transition:border-color .4s var(--e)}
+.texte b.rep-mot:hover{border-color:#fff}
+
+.texte b{font-weight:100;color:#fff}
+.texte .cur{display:inline-block;width:1px;height:.9em;margin-left:.06em;background:#fff;vertical-align:-.08em;animation:bat 1.05s steps(1) infinite}
+@keyframes bat{0%,49%{opacity:1}50%,100%{opacity:0}}
+.boite{opacity:0;transform:translateY(18px);transition:opacity .7s var(--e),transform .8s var(--e)}
+.boite.vue{opacity:1;transform:none}
+.q{font:400 10px var(--d);letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.34);margin-bottom:20px;
+  display:flex;gap:14px;align-items:center;justify-content:center;flex-wrap:wrap}
+.q em{font-style:normal;color:rgba(255,255,255,.22);text-transform:none;letter-spacing:.03em;font-family:var(--m);font-size:11.5px}
+.pts{display:flex;gap:7px}
+.pts i{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.18);transition:all .5s var(--e)}
+.pts i.on{background:#fff;box-shadow:0 0 10px 2px rgba(255,255,255,.5)}
+.rep{display:flex;flex-wrap:wrap;gap:11px;justify-content:center}
+.ca{appearance:none;cursor:pointer;min-width:132px;flex:0 1 auto;text-align:left;border-radius:14px;padding:15px 18px 13px;color:#fff;
+  background:var(--sg-glass);border:1px solid var(--sg-line);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.12);transition:transform .55s var(--e),background .55s,border-color .55s,box-shadow .55s}
+.ca:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.38);background:var(--sg-glass2)}
+.ca[aria-pressed=true]{background:linear-gradient(180deg,#fff,#e4e0d6);color:var(--sg-ink);border-color:transparent;
+  box-shadow:0 0 0 1px rgba(255,255,255,.45),0 26px 60px -22px rgba(236,233,226,.6)}
+.ca b{display:block;font-weight:200;font-size:16px;letter-spacing:-.015em}
+.ca i{display:block;font-style:normal;font:400 8.5px var(--d);letter-spacing:.12em;margin-top:6px;color:rgba(255,255,255,.42)}
+.ca[aria-pressed=true] i{color:rgba(4,5,10,.55)}
+.bilan{font:400 13px var(--d);letter-spacing:.1em;color:rgba(255,255,255,.5)}
+.bilan b{color:#fff;font-weight:400}
+.suite{display:flex;align-items:center;gap:16px;margin-top:24px;justify-content:center;opacity:0;pointer-events:none;transition:opacity .5s var(--e)}
+.suite.vue{opacity:1;pointer-events:auto}
+.pied{position:relative;z-index:20;display:flex;align-items:center;gap:18px;justify-content:center;
+  padding:0 24px calc(26px + env(safe-area-inset-bottom))}
+.ret{appearance:none;background:none;border:0;color:rgba(255,255,255,.34);font:400 10px var(--d);letter-spacing:.2em;text-transform:uppercase;cursor:pointer}
+.ret:hover{color:#fff}
+.sp{flex:1}
+</style></head><body class="mot-orturq degrade suite-teintes">
+<header class="vy-head"><span class="mq">VYVRE<i>skin intelligence</i></span><span class="x">×</span>
+  <span class="ct">Avant le scan</span><span class="sp"></span><span class="et" id="tete">—</span></header>
+<div class="scene">
+  <p class="texte" id="texte"></p>
+  <div class="boite" id="boite">
+    <div class="q"><span id="qt">—</span><em id="qe"></em><span class="pts" id="pts"></span></div>
+    <div class="rep" id="rep"></div>
+    <div class="suite" id="suite"><button class="vy-go" id="ok">Continuer</button><span class="vy-cpt" id="cpt"></span></div>
+  </div>
+</div>
+<div class="pied"><button class="ret" id="ret" style="visibility:hidden">← Revenir</button><span class="vy-cpt" id="bas"></span></div>
+<script src="fumee.js"></script>
+<script src="noyau.js"></script>
+<script src="dictee.js"></script>
+<script>
+VYD.demarrer(function(o){
+  return '<button class="ca" type="button" data-v="'+o[0]+'"><b>'+o[1].charAt(0).toUpperCase()+o[1].slice(1)+'</b>'+(o[2]?'<i>'+o[2]+'</i>':'')+'</button>';
+});
+</script></body></html>

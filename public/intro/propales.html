@@ -1,0 +1,32 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Intro — propales</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#030405;color:#fff;font-family:Inter,sans-serif;min-height:100vh;padding:clamp(28px,6vh,70px) clamp(16px,4vw,48px)}
+h1{font-weight:200;font-size:clamp(30px,4.6vw,56px);letter-spacing:-.04em;margin:0 0 8px}
+p{color:rgba(255,255,255,.5);font-weight:300;max-width:60ch;line-height:1.6}
+.g{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-top:30px}
+.c{border-radius:28px;overflow:hidden;border:1px solid rgba(255,255,255,.12);background:#050505}
+.c iframe{display:block;width:100%;aspect-ratio:16/10;border:0;pointer-events:none;background:#000}
+.c div{display:flex;align-items:center;gap:12px;padding:14px 18px}
+.c b{font:400 10px 'JetBrains Mono',monospace;letter-spacing:.2em;color:#d9c9a3}
+.c span{font-weight:300}
+.c a,.c button{margin-left:auto;font:300 13px Inter;color:#fff;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.2);border-radius:100px;padding:8px 14px;text-decoration:none;cursor:pointer}
+</style></head><body>
+<h1>Intro — sept propales.</h1>
+<p>Le fond fluide de l’accueil se forme peu à peu, puis VYVRE se pose dans le container rond. Chaque vignette rejoue toute seule ; « Plein écran » l’ouvre en grand.</p>
+<div class="g">
+  <div class="c"><iframe data-src="p-e.html" title="E"></iframe><div><b>E</b><span>Le verre liquide · un point de lumière s’étire en container</span><a href="p-e.html" target="_blank">Plein écran</a></div></div>
+  <div class="c"><iframe data-src="p-f.html" title="F"></iframe><div><b>F</b><span>La mise au point · VYVRE immense et flou devient net et petit</span><a href="p-f.html" target="_blank">Plein écran</a></div></div>
+  <div class="c"><iframe data-src="p-g.html" title="G"></iframe><div><b>G</b><span>L’écriture de lumière · une comète parcourt le container</span><a href="p-g.html" target="_blank">Plein écran</a></div></div>
+  <div class="c"><iframe data-src="p-a.html" title="A"></iframe><div><b>A</b><span>Le container · le fluide s’ouvre depuis le centre</span><a href="p-a.html" target="_blank">Plein écran</a></div></div>
+  <div class="c"><iframe data-src="p-b.html" title="B"></iframe><div><b>B</b><span>L’encre · le container se condense dans le fluide</span><a href="p-b.html" target="_blank">Plein écran</a></div></div>
+  <div class="c"><iframe data-src="p-c.html" title="C"></iframe><div><b>C</b><span>La marée · le fluide monte, le container flotte avec</span><a href="p-c.html" target="_blank">Plein écran</a></div></div>
+  <div class="c"><iframe data-src="p-d.html" title="D"></iframe><div><b>D</b><span>La brume · un trait de lumière révèle le container</span><a href="p-d.html" target="_blank">Plein écran</a></div></div>
+</div>
+<script>
+[].forEach.call(document.querySelectorAll('iframe[data-src]'),function(f){
+  function jouer(){ f.src=f.dataset.src+'?t='+Date.now(); }
+  jouer(); setInterval(jouer,6200);
+});
+</script></body></html>

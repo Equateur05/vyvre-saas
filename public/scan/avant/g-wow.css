@@ -1,0 +1,232 @@
+/* G — LA COLONNE · WOW : la peau de l'accueil (peau.css) + la mise en scene.
+   La couleur ne vient que des mots cles et des reponses : or + une seconde lumiere (--g1..--g4). Le fond ne change jamais de teinte. */
+body.mot-orturq  {--g1:#f6d27a;--g2:#fff3cf;--g3:#4de6dc;--g4:#18c6d8}
+body.mot-orfluo  {--g1:#f6d27a;--g2:#fff3cf;--g3:#d8ff4a;--g4:#8dff3a}
+body.mot-orviolet{--g1:#f6d27a;--g2:#fff3cf;--g3:#c9a2ff;--g4:#8f6bff}
+body.mot-orcorail{--g1:#f6d27a;--g2:#fff3cf;--g3:#ffa27f;--g4:#ff6f91}
+body{--grad:linear-gradient(95deg,var(--g1) 0%,var(--g2) 18%,var(--g1) 34%,var(--g3) 60%,var(--g4) 78%,var(--g1) 100%);
+  --g3a:color-mix(in srgb,var(--g3) 45%,transparent);--g1a:color-mix(in srgb,var(--g1) 32%,transparent);
+  display:flex;flex-direction:column;min-height:100vh;min-height:100dvh;overflow-x:hidden}
+
+html{overflow-x:hidden}
+@supports (overflow:clip){html{overflow-x:clip}}
+
+/* ================= la barre de progression, sous le verre de l'en-tete ================= */
+.vy-head{overflow:visible}
+.prog{position:absolute;left:26px;right:26px;bottom:-1px;height:1px;background:rgba(255,255,255,.06);pointer-events:none}
+.prog i{position:absolute;left:0;top:0;height:1px;width:0;background:linear-gradient(90deg,transparent,var(--g1) 30%,var(--g2) 70%,var(--g3));
+  box-shadow:0 0 10px 1px var(--g3a);transition:width 1.6s cubic-bezier(.16,1,.3,1)}
+.prog i:after{content:'';position:absolute;right:-3px;top:-2px;width:6px;height:5px;border-radius:50%;background:#fff;
+  box-shadow:0 0 8px 2px var(--g2),0 0 22px 6px var(--g3a),0 0 44px 12px var(--g1a);opacity:0;transition:opacity .8s}
+.prog i.va:after{opacity:1}
+
+/* ================= la scene ================= */
+.scene{position:relative;z-index:20;flex:1;display:grid;grid-template-columns:1.12fr .88fr;gap:clamp(26px,4.5vw,84px);align-items:center;
+  width:100%;max-width:1360px;margin:0 auto;padding:128px clamp(22px,4vw,56px) 24px}
+.boite{min-height:min(560px,62vh);display:flex;flex-direction:column;justify-content:center}
+
+/* ================= la phrase : plus lisible que la version fine ================= */
+.texte{font-weight:300;font-size:clamp(23px,2.55vw,37px);line-height:1.46;letter-spacing:-.024em;color:rgba(255,255,255,.8);
+  text-shadow:0 2px 24px rgba(0,0,0,.6)}
+.texte .mo{text-shadow:inherit}
+/* les mots cles : degrade or + seconde lumiere, qui glisse lentement */
+.texte b[data-e]{font-weight:400;color:transparent!important;-webkit-text-fill-color:transparent;text-shadow:none;
+  background-image:var(--grad);-webkit-background-clip:text;background-clip:text;background-size:300% 100%;
+  animation:vyLueur 6s linear infinite;letter-spacing:-.02em;
+  filter:drop-shadow(0 0 10px var(--g3a)) drop-shadow(0 0 26px var(--g1a))}
+.texte b[data-e]:after{background:linear-gradient(90deg,transparent,var(--g1),var(--g3),transparent)!important;opacity:.75;height:1px;bottom:.04em}
+/* le mot qui arrive : or chauffe a blanc, puis il refroidit dans son degrade */
+.texte b.neuf{font-weight:400;color:var(--g2);text-shadow:0 0 18px var(--g1a),0 0 40px var(--g3a);animation:none}
+.texte b.neuf .ch{animation-name:wCoule}
+@keyframes wCoule{0%{opacity:0;filter:blur(10px) brightness(2.2);transform:translateY(.3em) scale(.9)}45%{opacity:1}100%{opacity:1;filter:blur(0) brightness(1);transform:none}}
+.texte b.arrive{animation:vyLueur 6s linear infinite,wPose 1.6s cubic-bezier(.16,1,.3,1)}
+@keyframes wPose{0%{filter:brightness(1.9) drop-shadow(0 0 22px var(--g2)) drop-shadow(0 0 40px var(--g3a))}100%{filter:brightness(1) drop-shadow(0 0 10px var(--g3a)) drop-shadow(0 0 26px var(--g1a))}}
+/* le fantome de la reponse survolee */
+.texte .fantome{color:transparent;-webkit-text-fill-color:transparent;text-shadow:none;font-weight:300;font-style:italic;letter-spacing:-.015em;
+  background-image:linear-gradient(95deg,var(--g1),var(--g2) 35%,var(--g3) 75%,var(--g4));-webkit-background-clip:text;background-clip:text;
+  opacity:.72;filter:drop-shadow(0 0 16px var(--g3a));animation:wFantome .55s cubic-bezier(.16,1,.3,1)}
+@keyframes wFantome{from{opacity:0;filter:blur(8px);transform:translateX(-6px)}to{opacity:.72;filter:blur(0) drop-shadow(0 0 16px var(--g3a))}}
+.texte .fantome{display:inline-block}
+.texte .cur{background:linear-gradient(var(--g2),var(--g3))!important;width:2px!important;box-shadow:0 0 12px 1px var(--g3a)!important}
+/* a la fin, un mot se touche pour le changer */
+.texte b.rep-mot{cursor:pointer}
+.texte b.rep-mot:hover{filter:brightness(1.35) drop-shadow(0 0 14px var(--g2)) drop-shadow(0 0 30px var(--g3a))}
+/* la finale : les mots s'allument un a un */
+.texte b.flash{animation:vyLueur 6s linear infinite,wFlash 1.8s cubic-bezier(.16,1,.3,1) both;animation-delay:0s,var(--d,0s)}
+@keyframes wFlash{0%{filter:brightness(1) drop-shadow(0 0 10px var(--g3a)) drop-shadow(0 0 26px var(--g1a))}
+  22%{filter:brightness(1.8) drop-shadow(0 0 20px var(--g2)) drop-shadow(0 0 46px var(--g3a))}
+  100%{filter:brightness(1) drop-shadow(0 0 10px var(--g3a)) drop-shadow(0 0 26px var(--g1a))}}
+
+/* ================= la question ================= */
+.q{font:400 10px var(--d);letter-spacing:.24em;text-transform:uppercase;margin-bottom:14px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;min-height:18px}
+#qt{font-size:11px;letter-spacing:.26em;color:transparent;-webkit-text-fill-color:transparent;
+  background-image:linear-gradient(90deg,var(--g1),var(--g2) 45%,var(--g3));-webkit-background-clip:text;background-clip:text;
+  filter:drop-shadow(0 0 10px var(--g3a))}
+#qt.lettres{background:none;-webkit-text-fill-color:currentColor;color:var(--g1)}
+#qt .l{display:inline-block;opacity:0;animation:wLettre .7s cubic-bezier(.16,1,.3,1) forwards}
+@keyframes wLettre{from{opacity:0;transform:translateY(6px);filter:blur(4px)}to{opacity:1;transform:none;filter:blur(0)}}
+.q em{font-style:normal;text-transform:none;letter-spacing:.04em;font-family:var(--m);font-size:12px;font-weight:300;color:rgba(246,227,180,.55)}
+.pts{display:flex;gap:6px;margin-left:auto}
+.pts i{width:16px;height:2px;border-radius:2px;background:rgba(255,255,255,.14);transition:all .8s var(--e)}
+.pts i.on{background:linear-gradient(90deg,var(--g1),var(--g3));box-shadow:0 0 8px 1px var(--g3a)}
+.pts i.ici{width:28px}
+
+/* ================= la colonne ================= */
+.boite{opacity:0;transform:translateX(22px);transition:opacity .6s var(--e) .28s,transform .8s var(--e) .28s}
+.boite.vue{opacity:1;transform:none;transition-delay:0s}
+.rep{position:relative;display:flex;flex-direction:column;padding-left:2px}
+/* le rail de lumiere : la colonne se deploie de haut en bas, se replie de bas en haut */
+.rep:before{content:'';position:absolute;left:-30px;top:6px;bottom:6px;width:1px;border-radius:1px;
+  background:linear-gradient(180deg,transparent,var(--g1) 18%,var(--g2) 50%,var(--g3) 82%,transparent);
+  box-shadow:0 0 12px 1px var(--g3a);transform:scaleY(0);transform-origin:50% 0;opacity:.55;transition:transform 1.1s cubic-bezier(.16,1,.3,1)}
+.boite.vue .rep:before{transform:scaleY(1)}
+.rep.sortie:before{transform:scaleY(0);transform-origin:50% 100%;transition-duration:.6s}
+/* la lumiere qui suit la souris, derriere toute la colonne */
+.rep:after{content:'';position:absolute;left:var(--cx,50%);top:var(--cy,50%);width:420px;height:420px;margin:-210px 0 0 -210px;border-radius:50%;
+  pointer-events:none;z-index:-1;opacity:0;transition:opacity .6s;
+  background:radial-gradient(closest-side,color-mix(in srgb,var(--g1) 14%,transparent),color-mix(in srgb,var(--g3) 7%,transparent) 55%,transparent)}
+.rep.survol:after{opacity:1}
+
+.li{appearance:none;width:100%;text-align:left;background:none;border:0;cursor:pointer;position:relative;isolation:isolate;
+  padding:7px 16px 7px 18px;margin:0 0 0 -18px;border-radius:14px;
+  font:300 clamp(22px,2.2vw,31px)/1.18 var(--m);letter-spacing:-.03em;color:rgba(255,255,255,.66);
+  display:flex;align-items:baseline;gap:14px;-webkit-tap-highlight-color:transparent;outline:none;
+  transition:color .5s var(--e),opacity .5s var(--e),filter .5s var(--e)}
+/* verre eclaire a l'endroit du curseur */
+.li:before{content:'';position:absolute;inset:0;border-radius:inherit;z-index:-1;opacity:0;transition:opacity .45s var(--e);
+  background:radial-gradient(240px circle at var(--mx,30%) var(--my,50%),color-mix(in srgb,var(--g1) 16%,transparent),color-mix(in srgb,var(--g3) 7%,transparent) 45%,transparent 72%),
+             linear-gradient(180deg,rgba(255,255,255,.035),rgba(255,255,255,.01))}
+/* le liseré qui s'allume pres du curseur */
+.li:after{content:'';position:absolute;inset:0;border-radius:inherit;padding:1px;z-index:-1;opacity:0;transition:opacity .45s var(--e);
+  background:radial-gradient(180px circle at var(--mx,30%) var(--my,50%),color-mix(in srgb,var(--g2) 75%,transparent),color-mix(in srgb,var(--g3) 35%,transparent) 40%,transparent 75%);
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;
+  mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0)}
+.li .lt{display:inline-block;position:relative;will-change:transform;transform:translate3d(var(--tx,0px),var(--ty,0px),0)}
+.li .pt{position:absolute;left:4px;top:50%;width:5px;height:5px;margin-top:-2.5px;border-radius:50%;background:var(--g3);opacity:0;transform:scale(0);
+  box-shadow:0 0 10px 3px var(--g3a),0 0 22px 6px var(--g1a);transition:opacity .5s var(--e),transform .6s var(--e);text-decoration:none}
+.li i{margin-left:auto;font-style:normal;font:400 10px var(--d);letter-spacing:.1em;color:rgba(255,255,255,.34);align-self:center;white-space:nowrap;transition:color .5s}
+
+/* survol / focus : les autres s'effacent, celle-ci prend la lumiere */
+.rep.survol .li:not(.actif){color:rgba(255,255,255,.2);filter:blur(.7px)}
+.rep.survol .li:not(.actif) i{color:rgba(255,255,255,.14)}
+.li.actif:before,.li.actif:after,.li:focus-visible:before,.li:focus-visible:after{opacity:1}
+.li.actif .lt,.li:focus-visible .lt{color:transparent;-webkit-text-fill-color:transparent;font-weight:300;
+  background-image:linear-gradient(95deg,var(--g1),var(--g2) 28%,var(--g3) 66%,var(--g4) 86%,var(--g1));background-size:220% 100%;
+  -webkit-background-clip:text;background-clip:text;animation:wReflet 1.2s cubic-bezier(.22,1,.36,1) both,vyLueur 4s linear 1.2s infinite;
+  filter:drop-shadow(0 0 12px var(--g3a))}
+@keyframes wReflet{from{background-position:120% 0}to{background-position:0% 0}}
+.li.actif i,.li:focus-visible i{color:color-mix(in srgb,var(--g3) 80%,white)}
+/* la reponse deja retenue : un point de lumiere */
+.li[aria-pressed=true] .pt{opacity:1;transform:scale(1)}
+.li[aria-pressed=true]{color:#fff}
+
+/* entree : les reponses montent, une a une, du flou */
+.li.monte{opacity:0;animation:wMonte .95s cubic-bezier(.16,1,.3,1) forwards}
+@keyframes wMonte{from{opacity:0;filter:blur(10px);transform:translateY(22px)}to{opacity:1;filter:blur(0);transform:none}}
+/* sortie : le mot choisi s'envole, les autres glissent et s'eteignent */
+.rep.sortie .li:not(.choisi){animation:wSort .6s cubic-bezier(.55,0,.8,.2) forwards;animation-delay:calc(var(--k,0)*28ms)}
+@keyframes wSort{from{opacity:1}to{opacity:0;filter:blur(8px);transform:translateX(34px)}}
+.li.envole .lt{opacity:0!important;transition:none}
+.rep.sortie .li.choisi .pt{transform:scale(3);opacity:0;transition-duration:.5s}
+.rep.sortie .li.choisi i{opacity:0;transition:opacity .3s}
+.rep.sortie .li.choisi:before,.rep.sortie .li.choisi:after{opacity:0;transition:opacity .7s var(--e) .25s}
+
+/* ================= le mot qui vole ================= */
+.vol{position:absolute;left:0;top:0;z-index:45;pointer-events:none;white-space:nowrap;transform-origin:0 0;will-change:transform,opacity;letter-spacing:-.03em}
+.vol span{display:block;color:transparent;-webkit-text-fill-color:transparent;background-image:var(--grad);background-size:300% 100%;
+  -webkit-background-clip:text;background-clip:text;filter:drop-shadow(0 0 12px var(--g3a)) drop-shadow(0 0 30px var(--g1a))}
+.vol .b{position:absolute;left:0;top:0;opacity:0}
+
+/* ================= le bilan et le bouton final ================= */
+.bilan-w{padding:4px 0 6px}
+.bilan-w .gros{font:200 clamp(56px,6.4vw,96px)/1 var(--m);letter-spacing:-.05em;color:transparent;-webkit-text-fill-color:transparent;
+  background-image:var(--grad);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;
+  filter:drop-shadow(0 0 18px var(--g3a)) drop-shadow(0 0 40px var(--g1a));font-variant-numeric:tabular-nums}
+.bilan-w .gros{opacity:0;animation:wGros 1.2s cubic-bezier(.16,1,.3,1) forwards,vyLueur 7s linear infinite}
+@keyframes wGros{from{opacity:0;transform:translateY(18px) scale(.94)}to{opacity:1;transform:none}}
+.bilan-w .sous{font:400 11px var(--d);letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.55);margin-top:12px}
+.bilan-w .sous b{color:#fff;font-weight:400}
+.bilan-w .sous{opacity:0;animation:wMonte 1.1s cubic-bezier(.16,1,.3,1) .25s forwards}
+.suite{display:flex;align-items:center;gap:20px;margin-top:30px;opacity:0;pointer-events:none;transform:translateY(12px);transition:opacity .8s var(--e) .35s,transform 1s var(--e) .35s;flex-wrap:wrap}
+.suite.vue{opacity:1;pointer-events:auto;transform:none}
+.suite .vy-cpt{max-width:26ch;line-height:1.6;font-size:10px}
+.vy-go{position:relative;isolation:isolate;overflow:hidden;white-space:nowrap;background:none!important;border:0;padding:20px 50px;font:400 15px var(--m);letter-spacing:.01em;
+  color:var(--sg-ink);box-shadow:0 0 0 1px rgba(255,255,255,.12),0 24px 70px -18px var(--g3a),0 10px 50px -10px var(--g1a)}
+.vy-go:before{content:'';position:absolute;left:50%;top:50%;width:300%;aspect-ratio:1;z-index:-2;transform:translate(-50%,-50%) rotate(0deg);
+  background:conic-gradient(from 0deg,var(--g1),var(--g2),var(--g3),var(--g4),var(--g1),var(--g2),var(--g3),var(--g1));animation:wTour 4.5s linear infinite}
+.vy-go:after{content:'';position:absolute;inset:1.5px;border-radius:inherit;z-index:-1;
+  background:linear-gradient(105deg,transparent 30%,rgba(255,255,255,.9) 48%,transparent 60%) no-repeat -200% 0/60% 100%,linear-gradient(180deg,#fff,#e8e3d6);
+  animation:wLustre 3.6s cubic-bezier(.45,0,.2,1) 1.2s infinite}
+@keyframes wTour{to{transform:translate(-50%,-50%) rotate(360deg)}}
+@keyframes wLustre{0%,55%{background-position:-200% 0,0 0}100%{background-position:300% 0,0 0}}
+.vy-go:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 0 0 1px rgba(255,255,255,.3),0 30px 80px -14px var(--g3a),0 14px 60px -8px var(--g1a)}
+.suite.vue .vy-go{animation:wBouton 1.3s cubic-bezier(.16,1,.3,1) .3s both}
+@keyframes wBouton{from{opacity:0;transform:scale(.86);filter:blur(10px)}to{opacity:1;transform:none;filter:blur(0)}}
+
+/* ================= le pied ================= */
+.pied{position:relative;z-index:20;display:flex;align-items:center;gap:18px;width:100%;max-width:1360px;margin:0 auto;flex-wrap:wrap;
+  padding:0 clamp(22px,4vw,56px) calc(26px + env(safe-area-inset-bottom))}
+.ret{appearance:none;background:none;border:0;color:rgba(255,255,255,.4);font:400 10px var(--d);letter-spacing:.2em;text-transform:uppercase;cursor:pointer;padding:6px 0}
+.ret:hover{color:#fff}
+.pied .sp{flex:1}
+#bas b{font-variant-numeric:tabular-nums}
+.reglages{display:flex;align-items:center;gap:14px}
+.son,.rejouer{appearance:none;background:none;cursor:pointer;border:1px solid rgba(255,255,255,.12);border-radius:100px;padding:7px 13px;
+  font:400 9px var(--d);letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.45);transition:all .4s var(--e)}
+.son b{font-weight:400;color:rgba(255,255,255,.7)}
+.son:hover,.rejouer:hover{color:#fff;border-color:rgba(255,255,255,.35)}
+.son[aria-pressed=true]{border-color:color-mix(in srgb,var(--g3) 60%,transparent);color:#fff;box-shadow:0 0 16px -4px var(--g3a)}
+.son[aria-pressed=true] b{color:var(--g3)}
+.teintes{display:flex;gap:7px}
+.teintes button{appearance:none;cursor:pointer;width:16px;height:16px;border-radius:50%;padding:0;border:1px solid rgba(255,255,255,.18);transition:transform .4s var(--e),box-shadow .4s}
+.teintes [data-m=orturq]{background:linear-gradient(135deg,#f6d27a 45%,#4de6dc 55%)}
+.teintes [data-m=orfluo]{background:linear-gradient(135deg,#f6d27a 45%,#d8ff4a 55%)}
+.teintes [data-m=orviolet]{background:linear-gradient(135deg,#f6d27a 45%,#c9a2ff 55%)}
+.teintes [data-m=orcorail]{background:linear-gradient(135deg,#f6d27a 45%,#ffa27f 55%)}
+.teintes button:hover{transform:scale(1.2)}
+.teintes button[aria-pressed=true]{border-color:#fff;box-shadow:0 0 0 2px rgba(3,4,5,.9),0 0 0 3px rgba(255,255,255,.7),0 0 14px 2px var(--g3a)}
+
+/* ================= poussiere d'or et voile final ================= */
+#poussiere{position:fixed;inset:0;width:100%;height:100%;z-index:44;pointer-events:none}
+.voile{position:fixed;inset:0;z-index:70;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;pointer-events:none;opacity:0;transition:opacity 1.2s var(--e)}
+.voile.vue{opacity:1;pointer-events:auto}
+.voile p{margin:0;font:200 clamp(28px,4vw,54px)/1.1 var(--m);letter-spacing:-.04em;color:transparent;-webkit-text-fill-color:transparent;
+  background-image:var(--grad);background-size:300% 100%;-webkit-background-clip:text;background-clip:text;animation:vyLueur 5s linear infinite;
+  filter:drop-shadow(0 0 20px var(--g3a))}
+.voile span{font:400 10px var(--d);letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+body.part .scene,body.part .pied{transition:opacity 1s var(--e),filter 1s var(--e),transform 1.2s var(--e);opacity:0;filter:blur(14px);transform:scale(.97)}
+
+/* ================= petits ecrans ================= */
+@media (max-width:900px){
+  .scene{grid-template-columns:1fr;gap:28px;align-items:start;padding-top:112px}
+  .boite{min-height:0;justify-content:flex-start}
+}
+@media (max-width:560px){
+  .vy-head{padding:13px 16px;gap:10px;left:12px;width:calc(100% - 24px)}
+  .vy-head .ct{display:none}
+  .vy-head .et{font-size:9px;letter-spacing:.1em}
+  .prog{left:16px;right:16px}
+  .scene{padding:100px 16px 18px;gap:22px}
+  .texte{font-size:24px;line-height:1.42}
+  .li{font-size:23px;padding:7px 10px 7px 18px;flex-wrap:wrap;gap:2px 12px}
+  .li i{margin-left:0;flex-basis:100%;font-size:9px}
+  .rep:before,.rep:after{display:none}
+  .pts i{width:10px}.pts i.ici{width:18px}
+  .q em{flex-basis:100%;order:3}
+  .vy-go{padding:18px 40px}
+  .pied{padding:0 16px calc(18px + env(safe-area-inset-bottom));gap:12px}
+  .pied .sp{display:none}
+  .reglages{width:100%;justify-content:space-between}
+}
+
+/* ================= mouvement reduit : tout est pose, rien ne vole ================= */
+@media (prefers-reduced-motion:reduce){
+  .texte .ch,.texte b.neuf .ch{animation:none!important;opacity:1!important}
+  .texte b[data-e],.texte b.arrive,.texte b.flash,.li.actif .lt,.bilan-w .gros,.voile p{animation:none!important}
+  .li.monte,.bilan-w .gros,.bilan-w .sous,#qt .l{animation:none!important;opacity:1!important}
+  .rep.sortie .li:not(.choisi){animation:none!important;opacity:0}
+  .vy-go:before,.vy-go:after,.suite.vue .vy-go{animation:none!important}
+  .li .lt{transform:none!important}
+  .texte b[data-e],.texte .fantome,.bilan-w .gros,.voile p,.li.actif .lt{background-size:100% 100%!important}
+  .boite,.prog i,.rep:before,.suite{transition-duration:.01s!important}
+}

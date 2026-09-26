@@ -2527,11 +2527,16 @@
    * les pose plus (voir § scores non lisibles).
    */
   var QUESTIONS_FACULTATIVES = [
+    // 26/09 — la page /cheveux repose cette question, en TROIS choix : tous les jours,
+    // tous les 2-3 jours, moins souvent. Les quatre anciennes valeurs restent acceptees.
+    // Avant, « une fois par semaine » et « plus rarement » donnaient la meme routine :
+    // voir besoins.rythme dans composerRoutine, qui distingue maintenant les trois.
     { id: 'lavage', libelle: 'Vous les lavez', requise: false,
       options: [
-        { v: 'quotidien', l: 'Tous les jours' }, { v: 'tous_deux_jours', l: 'Un jour sur deux' },
-        { v: 'hebdo', l: 'Une a deux fois par semaine' }, { v: 'rare', l: 'Moins souvent' }
-      ] },
+        { v: 'quotidien', l: 'Tous les jours' }, { v: 'deux_trois_jours', l: 'Tous les 2-3 jours' },
+        { v: 'moins_souvent', l: 'Moins souvent' }
+      ],
+      anciennes: ['tous_deux_jours', 'hebdo', 'rare'] },
     { id: 'age', libelle: 'Votre age', requise: false,
       options: [
         { v: '-25', l: 'Moins de 25 ans' }, { v: '25-39', l: '25 a 39 ans' },
@@ -2613,7 +2618,8 @@
         // 'lavage' n'est plus demandé : sans lui, seule la gêne principale informe.
         if (l === 'quotidien') sig(0.85);
         else if (l === 'tous_deux_jours') sig(0.60);
-        else if (l === 'hebdo') sig(0.30);
+        else if (l === 'deux_trois_jours') sig(0.50);
+        else if (l === 'hebdo' || l === 'moins_souvent') sig(0.30);
         else if (l === 'rare') sig(0.15);
         if (p === 'gras') sig(0.80);
         break;
@@ -2871,8 +2877,52 @@
     volume: ['volume', 'fins', 'legere', 'leger', 'texturis', 'corps', 'aerien'],
     apaisant: ['apais', 'sensible', 'cuir chevelu', 'demangeaison', 'irrit'],
     thermique: ['thermique', 'chaleur', 'lissage', 'brushing'],
-    blancs: ['blanc', 'gris', 'argent', 'violet', 'anti-jaune', 'jaunissement']
+    blancs: ['blanc', 'gris', 'argent', 'violet', 'anti-jaune', 'jaunissement'],
+    // 26/09 — shampooing fait pour un lavage frequent. « douce » est ecarte expres :
+    // il attrape « douceur », qui parle du toucher du cheveu, pas du lavage.
+    doux: ['doux', 'usage fréquent', 'usage frequent', 'quotidien', 'daily', 'gentle', 'micellaire', 'everyday', 'sans-sulfate']
   };
+
+  /**
+   * FAMILLE DE MAISONS ET PAYS D'ORIGINE (26/09/2026)
+   * Les fiches marques (catalogue-cheveux/marques.json) portent univers et code_pays.
+   * 'EU' = pays europeens hors France, la meme liste que l'ecran peau.
+   */
+  var EUROPE_HORS_FR = { DE: 1, CH: 1, SE: 1, BE: 1, NL: 1, ES: 1, IT: 1, AT: 1, DK: 1, PT: 1, MC: 1, HU: 1, IE: 1, PL: 1 };
+  var UNIVERS_CONNUS = ['luxe', 'salon', 'pharmacie', 'normal', 'petit-prix'];
+  var PAYS_NOM_ISO = { 'états-unis': 'US', 'etats-unis': 'US', 'france': 'FR', 'royaume-uni': 'GB', 'australie': 'AU',
+    'allemagne': 'DE', 'italie': 'IT', 'suède': 'SE', 'suede': 'SE', 'danemark': 'DK', 'canada': 'CA', 'israël': 'IL',
+    'israel': 'IL', 'nouvelle-zélande': 'NZ', 'nouvelle-zelande': 'NZ', 'pays-bas': 'NL', 'suisse': 'CH', 'espagne': 'ES',
+    'belgique': 'BE', 'japon': 'JP', 'corée du sud': 'KR', 'coree du sud': 'KR' };
+
+  function indexFichesMarques(fiches) {
+    var idx = {};
+    if (!fiches) return idx;
+    var liste = Array.isArray(fiches) ? fiches : (fiches.marques || null);
+    if (liste && !Array.isArray(liste)) {           // format { slug: fiche }
+      for (var k in liste) if (Object.prototype.hasOwnProperty.call(liste, k)) idx[k.toLowerCase()] = liste[k];
+      return idx;
+    }
+    if (!liste) {
+      for (var k2 in fiches) if (Object.prototype.hasOwnProperty.call(fiches, k2)) idx[k2.toLowerCase()] = fiches[k2];
+      return idx;
+    }
+    for (var i = 0; i < liste.length; i++) if (liste[i] && liste[i].slug) idx[String(liste[i].slug).toLowerCase()] = liste[i];
+    return idx;
+  }
+  function codePaysFiche(f) {
+    if (!f) return null;
+    if (f.code_pays) return String(f.code_pays).toUpperCase();
+    var p = String(f.pays || '').trim();
+    if (/^[A-Za-z]{2}$/.test(p)) return p.toUpperCase();
+    return PAYS_NOM_ISO[p.toLowerCase()] || null;
+  }
+  /** region d'un code pays : 'FR', 'EU' (Europe hors France) ou le code lui-meme */
+  function regionPays(code) {
+    if (!code) return null;
+    code = String(code).toUpperCase();
+    return EUROPE_HORS_FR[code] ? 'EU' : code;
+  }
 
   function compte(txt, liste) {
     var n = 0;
@@ -2912,6 +2962,38 @@
       });
     }
 
+    // ---- famille de maisons et pays d'origine (26/09/2026)
+    // options.univers : ['luxe', 'salon', 'pharmacie', 'normal', 'petit-prix'] (un ou plusieurs)
+    // options.origine : codes pays ISO, ou 'EU' pour l'Europe hors France
+    // options.fichesMarques : marques.json (ou { slug: fiche }) ; a defaut, le produit
+    //   peut porter lui-meme univers et code_pays.
+    // Ce ne sont PAS des besoins : ce sont des preferences. Si une etape n'a plus aucun
+    // produit acceptable dans le perimetre, on relache d'abord le pays, puis la famille,
+    // et chaque relachement est rendu dans relachements[] pour etre dit a l'ecran.
+    function versListe(x) {
+      if (x === null || x === undefined || x === '') return [];
+      return (Array.isArray(x) ? x : [x]).filter(function (v) { return v !== null && v !== undefined && v !== ''; });
+    }
+    var prefUnivers = versListe(options.univers).map(function (u) { return String(u).toLowerCase(); });
+    var prefOrigine = versListe(options.origine).map(function (o) { return String(o).toUpperCase(); });
+    var fichesIdx = indexFichesMarques(options.fichesMarques);
+    function ficheDe(p) { return fichesIdx[String(p.brand || '').toLowerCase()] || null; }
+    function universDe(p) { var f = ficheDe(p); return String(p.univers || (f && f.univers) || '').toLowerCase() || null; }
+    function paysDe(p) { return p.code_pays ? String(p.code_pays).toUpperCase() : codePaysFiche(ficheDe(p)); }
+    function dansUnivers(p) { return !prefUnivers.length || prefUnivers.indexOf(universDe(p)) !== -1; }
+    function dansOrigine(p) {
+      if (!prefOrigine.length) return true;
+      var c = paysDe(p);
+      return !!c && (prefOrigine.indexOf(c) !== -1 || prefOrigine.indexOf(regionPays(c)) !== -1);
+    }
+    var prefsActives = !marque && (prefUnivers.length > 0 || prefOrigine.length > 0);
+    // 0 = famille et pays respectes ; 1 = famille respectee, pays elargi ; 2 = tout elargi
+    function niveauPref(p) {
+      if (!prefsActives) return 0;
+      var u = dansUnivers(p), o = dansOrigine(p);
+      return (u && o) ? 0 : (u ? 1 : 2);
+    }
+
     var n = function (cle) {
       var sc = scores && scores[cle];
       return (sc && typeof sc.valeur === 'number') ? sc.valeur / 100 : null;
@@ -2922,7 +3004,15 @@
       pellicules: n('pellicules'), chute: n('chute'),
       colore: reponses && (reponses.etat === 'colores' || reponses.etat === 'decolores') ? 1 : 0,
       decolore: reponses && reponses.etat === 'decolores' ? 1 : 0,
-      plats: reponses && reponses.probleme === 'plats' ? 1 : 0
+      plats: reponses && reponses.probleme === 'plats' ? 1 : 0,
+      // 26/09 — le rythme de lavage pese enfin sur la routine elle-meme, en trois
+      // niveaux. Avant, seul le signal « racines grasses » en dependait, et seul
+      // « tous les jours » depassait un seuil : les autres choix ne changeaient rien.
+      rythme: !reponses || !reponses.lavage ? null
+        : (reponses.lavage === 'quotidien' ? 'frequent'
+          : (reponses.lavage === 'tous_deux_jours' || reponses.lavage === 'deux_trois_jours') ? 'moyen'
+          : (reponses.lavage === 'hebdo' || reponses.lavage === 'rare' || reponses.lavage === 'moins_souvent') ? 'espace'
+          : null)
     };
 
     // Cibles attendues pour ce profil, dans le vocabulaire cheveux_cibles du catalogue.
@@ -3013,6 +3103,7 @@
           plus(compte(t, MOTS.nourrissant) * 1.0, 'lavage doux et nourrissant');
         }
         if (besoins.colore) plus(compte(t, MOTS.couleur) * 0.8, 'respecte la couleur');
+        if (besoins.rythme === 'frequent') plus(compte(t, MOTS.doux) * 0.8, 'lavage quotidien : shampooing doux, fait pour un usage frequent');
         if (besoins.plats) {
           plus(compte(t, MOTS.volume) * 1.2, 'donne du corps');
           moins(compte(t, MOTS.nourrissant) * 1.0, 'trop riche pour des cheveux plats');
@@ -3024,6 +3115,11 @@
         if (sec !== null) plus(compte(t, MOTS.nourrissant) * sec * 2.2, 'soin nourrissant pour la secheresse');
         if (casse !== null && casse > 0.55) plus(compte(t, MOTS.reparation) * 1.8, 'soin reconstructeur pour la casse');
         if (besoins.decolore) plus(compte(t, MOTS.reparation) * 1.2, 'cheveux decolores : reconstruction');
+        // lavages espaces : chaque shampooing est l'occasion d'un vrai masque
+        if (besoins.rythme === 'espace' && String(prod.categorie || '').toLowerCase() === 'masque' &&
+            !(gras !== null && gras > 0.7) && !besoins.plats) {
+          plus(0.6, 'lavages espaces : un masque a chaque shampooing');
+        }
         if (gras !== null && gras > 0.7) moins(compte(t, MOTS.nourrissant) * 0.8, 'soin tres riche alors que les racines sont grasses');
         if (besoins.plats) moins(compte(t, MOTS.nourrissant) * 1.4, 'masque riche sur des cheveux fins et plats');
         if (boucle !== null && boucle > 0.55) plus(compte(t, MOTS.boucles) * 1.2, 'adapte aux boucles');
@@ -3038,6 +3134,10 @@
         if (sec !== null) plus(compte(t, MOTS.nourrissant) * sec * 1.4, 'nourrit sans rincer');
         if (casse !== null && casse > 0.55) plus(compte(t, MOTS.reparation) * 1.0, 'protege des longueurs fragiles');
         plus(compte(t, MOTS.thermique) * 0.6, 'protege de la chaleur');
+        // lavages espaces : le sans-rincage porte le cheveu d'un shampooing a l'autre
+        if (besoins.rythme === 'espace' && !(gras !== null && gras > 0.7) && !besoins.plats) {
+          plus(compte(t, MOTS.nourrissant) * 0.5, 'lavages espaces : nourrit entre deux shampooings');
+        }
         if (gras !== null && gras > 0.7) moins(compte(t, MOTS.nourrissant) * 1.2, 'huile lourde alors que les racines regraissent vite');
         if (besoins.plats) {
           moins(compte(t, MOTS.nourrissant) * 1.6, 'alourdit des cheveux deja plats');
@@ -3068,7 +3168,8 @@
       var e = etapeDe(prod);
       if (!e) continue;
       var note = noter(prod, e);
-      parEtape[e].push({ produit: prod, etape: e, note: note.score, pourquoi: note.pourquoi, interdits: note.interdits });
+      parEtape[e].push({ produit: prod, etape: e, note: note.score, pourquoi: note.pourquoi, interdits: note.interdits,
+                         niveau: niveauPref(prod) });
     }
     for (var e2 = 1; e2 <= 4; e2++) {
       // 20/09 — a pertinence egale, on prefere un produit dont on a une VRAIE
@@ -3092,15 +3193,47 @@
 
     // Choix étape par étape, en commençant par celle qui a le moins de candidats
     // acceptables, pour que la contrainte de marque unique ne bloque pas une étape rare.
-    var ordre = [1, 2, 3, 4].sort(function (a, b) { return parEtape[a].length - parEtape[b].length; });
-    var marquesPrises = {}, choix = {}, manques = [], assouplissements = [];
+    // Avec des preferences, on compte les candidats DANS le perimetre choisi.
+    function dansPerimetre(et, niv) {
+      return parEtape[et].filter(function (x) { return x.niveau <= niv; });
+    }
+    var ordre = [1, 2, 3, 4].sort(function (a, b) { return dansPerimetre(a, 0).length - dansPerimetre(b, 0).length; });
+    var marquesPrises = {}, choix = {}, manques = [], assouplissements = [], relachements = [];
+    var NIVEAUX = prefsActives ? [0, 1, 2] : [2];
+    if (prefsActives && !prefOrigine.length) NIVEAUX = [0, 2];   // rien a relacher cote pays
 
     for (var o = 0; o < ordre.length; o++) {
-      var et = ordre[o], pris = null;
-      var meilleurToutes = parEtape[et].length ? parEtape[et][0] : null;
+      var et = ordre[o], essai = null;
+      for (var nv = 0; nv < NIVEAUX.length; nv++) {
+        essai = choisirEtape(et, dansPerimetre(et, NIVEAUX[nv]));
+        if (essai.pris) break;
+      }
+      assouplissements.push.apply(assouplissements, essai.assouplissements);
+      if (!essai.pris) { manques.push(essai.manque); continue; }
+      var pris = essai.pris;
+      if (prefsActives && pris.niveau > 0) {
+        var relache = [];
+        if (!dansOrigine(pris.produit)) relache.push('pays');
+        if (!dansUnivers(pris.produit)) relache.push('famille');
+        relachements.push({
+          etape: et, etapeLibelle: ETAPES[et].libelle, relache: relache,
+          note: 'etape ' + et + ' (' + ETAPES[et].libelle + ') : aucun produit adapte ' +
+            (relache.length === 2 ? 'dans la famille et le pays choisis' : relache[0] === 'pays' ? 'dans le pays choisi' : 'dans la famille choisie') +
+            ', produit pris ' + (relache.length === 2 ? 'hors de ces deux preferences' : relache[0] === 'pays' ? 'dans un autre pays' : 'dans une autre famille de maisons')
+        });
+      }
+      choix[et] = pris;
+      var mq2 = (pris.produit.brand || pris.produit.brand_name || '').toLowerCase();
+      if (mq2) marquesPrises[mq2] = true;
+    }
+
+    // Le choix d'UNE etape parmi des candidats deja tries. Rend { pris, assouplissements, manque }.
+    function choisirEtape(et, cands) {
+      var pris = null, asp = [];
+      var meilleurToutes = cands.length ? cands[0] : null;
       var meilleurAutreMarque = null;
-      for (var c = 0; c < parEtape[et].length; c++) {
-        var cand = parEtape[et][c];
+      for (var c = 0; c < cands.length; c++) {
+        var cand = cands[c];
         var mq = (cand.produit.brand || cand.produit.brand_name || '').toLowerCase();
         if (!marque && mq && marquesPrises[mq]) continue;
         meilleurAutreMarque = cand; break;
@@ -3111,29 +3244,25 @@
       if (!marque && meilleurToutes && meilleurAutreMarque && meilleurAutreMarque !== meilleurToutes &&
           meilleurAutreMarque.note < Math.max(0.8, 0.5 * meilleurToutes.note)) {
         pris = meilleurToutes;
-        assouplissements.push('etape ' + et + ' : marque repetee (' +
+        asp.push('etape ' + et + ' : marque repetee (' +
           (meilleurToutes.produit.brand_name || meilleurToutes.produit.brand) +
           ') parce que le meilleur produit d une autre marque etait nettement moins adapte');
       } else {
         pris = meilleurAutreMarque;
       }
-      if (!pris && parEtape[et].length) {
-        pris = parEtape[et][0];
-        assouplissements.push('etape ' + et + ' : marque repetee, aucun autre produit disponible pour cette etape');
+      if (!pris && cands.length) {
+        pris = cands[0];
+        asp.push('etape ' + et + ' : marque repetee, aucun autre produit disponible pour cette etape');
       }
       if (pris && pris.note <= 0) {
         // Tous les candidats de cette etape sont des contresens : on prefere une etape
         // vide a une recommandation absurde.
-        manques.push('etape ' + et + ' (' + ETAPES[et].libelle + ') : aucun produit sans contresens dans le catalogue fourni (meilleure note ' + Math.round(pris.note * 100) / 100 + ')');
-        continue;
+        return { pris: null, assouplissements: [], manque: 'etape ' + et + ' (' + ETAPES[et].libelle + ') : aucun produit sans contresens dans le catalogue fourni (meilleure note ' + Math.round(pris.note * 100) / 100 + ')' };
       }
       if (!pris) {
-        manques.push('etape ' + et + ' (' + ETAPES[et].libelle + ') : aucun produit de cette etape dans le catalogue fourni');
-        continue;
+        return { pris: null, assouplissements: [], manque: 'etape ' + et + ' (' + ETAPES[et].libelle + ') : aucun produit de cette etape dans le catalogue fourni' };
       }
-      choix[et] = pris;
-      var mq2 = (pris.produit.brand || pris.produit.brand_name || '').toLowerCase();
-      if (mq2) marquesPrises[mq2] = true;
+      return { pris: pris, assouplissements: asp, manque: null };
     }
 
     var routine = [];
@@ -3151,7 +3280,10 @@
         actifs: ch.produit.actifs || [],
         note: Math.round(ch.note * 100) / 100,
         pourquoi: ch.pourquoi,
-        reserves: ch.interdits
+        reserves: ch.interdits,
+        // preferences non tenues pour CE produit ('pays', 'famille'), vide sinon
+        horsPreferences: (prefsActives && ch.niveau > 0)
+          ? [].concat(dansOrigine(ch.produit) ? [] : ['pays'], dansUnivers(ch.produit) ? [] : ['famille']) : []
       });
     }
 
@@ -3160,6 +3292,9 @@
       complete: routine.length === 4,
       manques: manques,
       assouplissements: assouplissements,
+      preferences: { univers: prefUnivers, origine: prefOrigine, appliquees: prefsActives,
+                     ignorees: (!!marque && (prefUnivers.length > 0 || prefOrigine.length > 0)) ? 'mode marque : le catalogue est deja celui d une seule maison' : null },
+      relachements: relachements,
       jeuEssai: jeuEssai,
       modeMarque: marque || null,
       produitsEcartes: ecartes.length,
@@ -3451,7 +3586,8 @@
 
     if (options.produits || options.composerRoutine !== false) {
       resultat.routine = composerRoutine(scores, options.reponses || null, options.produits || null,
-        { marque: options.marque || null });
+        { marque: options.marque || null, univers: options.univers || null, origine: options.origine || null,
+          fichesMarques: options.fichesMarques || null });
     }
     return resultat;
   }
@@ -5015,6 +5151,8 @@
     segmentCheveux: segmentCheveux,
     segmentDepuisMasqueExterne: segmentDepuisMasqueExterne,   // masque fourni (MediaPipe hair_segmenter)
     composerRoutine: composerRoutine,
+    regionPays: regionPays, codePaysFiche: codePaysFiche, indexFichesMarques: indexFichesMarques,
+    EUROPE_HORS_FR: EUROPE_HORS_FR, UNIVERS_CONNUS: UNIVERS_CONNUS,
     // questionnaire
     QUESTIONS: QUESTIONS,
     QUESTIONS_FACULTATIVES: QUESTIONS_FACULTATIVES,

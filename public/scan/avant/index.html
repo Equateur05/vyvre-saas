@@ -1,0 +1,85 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>VYVRE — Avant votre scan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="icon" href="data:,">
+<script src="/scan/avant/langues.js?v=3"></script>
+<link rel="stylesheet" href="/scan/avant/peau.css">
+<link rel="stylesheet" href="/scan/avant/suite.css">
+<link rel="stylesheet" href="/scan/avant/g-wow.css?v=3">
+<style>
+.teintes{display:none!important}
+.passer{appearance:none;cursor:pointer;background:none;border:0;color:rgba(255,255,255,.42);font:300 13px var(--m);text-decoration:underline;text-underline-offset:5px}
+.passer:hover{color:#fff}
+.fermer{position:fixed;top:26px;right:30px;z-index:80;appearance:none;cursor:pointer;width:42px;height:42px;border-radius:50%;
+  background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.16);color:#fff;font-size:18px;line-height:1;backdrop-filter:blur(12px)}
+.vy-head .et{margin-right:56px}
+[dir=rtl] .fermer{right:auto;left:30px}
+[dir=rtl] .vy-head .et{margin-right:0;margin-left:56px}
+[dir=rtl] .vy-head .mq{margin-right:0}
+</style>
+</head><body class="mot-orturq degrade">
+<header class="vy-head"><span class="mq">VYVRE<i>skin intelligence</i></span><span class="x">×</span>
+  <span class="ct">Avant le scan</span><span class="sp"></span><span class="et" id="tete">—</span>
+  <div class="prog" aria-hidden="true"><i id="prog"></i></div></header>
+<main class="scene">
+  <p class="texte" id="texte" aria-live="polite"></p>
+  <div class="boite" id="boite">
+    <div class="q"><span id="qt">—</span><em id="qe"></em><span class="pts" id="pts"></span></div>
+    <div class="rep" id="rep"></div>
+    <div class="suite" id="suite"><button class="vy-go" id="ok" type="button">Continuer</button><span class="vy-cpt" id="cpt"></span></div>
+  </div>
+</main>
+<div class="pied">
+  <button class="ret" id="ret" type="button" style="visibility:hidden">← Revenir</button>
+  <span class="vy-cpt" id="bas"></span><span class="sp"></span>
+  <div class="reglages">
+    <button class="son" id="son" type="button" aria-pressed="false" title="Micro-sons">Son <b>coupé</b></button>
+    <span class="teintes" id="teintes" role="group" aria-label="Teinte des mots">
+      <button data-m="suite" title="Une teinte par question" class="t-suite"></button><button data-m="orturq" title="Or &amp; turquoise"></button><button data-m="orfluo" title="Or &amp; vert fluo"></button><button data-m="orviolet" title="Or &amp; violet"></button><button data-m="orcorail" title="Or &amp; corail"></button>
+    </span>
+    <button class="passer" id="passer" type="button">Passer, montrez-moi tout</button>
+  </div>
+</div>
+<script>
+(function(){
+  var q=new URLSearchParams(location.search), M='suite';
+  if(!/^(suite|or(turq|fluo|violet|corail))$/.test(M)) M='suite';
+  var b=document.body;
+  function mettre(){
+    b.className=b.className.replace(/\bmot-[a-z]+\b/g,'').trim();
+    b.classList.add('mot-'+(M==='suite'?'orturq':M),'degrade');
+    b.classList.toggle('suite-teintes', M==='suite');
+    [].forEach.call(document.querySelectorAll('#teintes [data-m]'),function(x){x.setAttribute('aria-pressed',String(x.dataset.m===M));});
+    var s=new URLSearchParams(location.search); s.set('mot',M); history.replaceState(null,'','?'+s.toString());
+    if(window.VYW) VYW.teinte();
+  }
+  document.getElementById('teintes').addEventListener('click',function(e){ var x=e.target.closest('[data-m]'); if(!x) return; M=x.dataset.m; mettre(); });
+  /* les textes fixes, dans la langue de la page */
+  (function(){ var T=VYL.t, q=function(s){return document.querySelector(s);};
+    q('.vy-head .ct').textContent=T('head'); q('#ret').textContent=T('revenir'); q('#ok').textContent=T('continuer');
+    q('#son').innerHTML=T('son')+' <b>'+T('off')+'</b>'; q('#passer').textContent=T('passer'); document.title='VYVRE — '+T('head');
+  })();
+  /* production : la page vit dans une fenetre posee sur /scan ; elle parle a la page mere */
+  function dire(m){ try{ parent.postMessage(Object.assign({vyvreAvant:m},arguments[1]||{}), location.origin); }catch(e){} }
+  window.vyAvantDire=dire;
+  document.getElementById('passer').addEventListener('click',function(){ dire('passer'); });
+  var fx=document.createElement('button'); fx.className='fermer'; fx.type='button'; fx.setAttribute('aria-label',VYL.t('fermer')); fx.innerHTML='&#215;';
+  fx.onclick=function(){ dire('fermer'); }; document.body.appendChild(fx);
+  addEventListener('keydown',function(e){ if(e.key==='Escape') dire('fermer'); });
+  mettre();
+  /* la poussiere et les lueurs suivent la teinte de la question en cours */
+  new MutationObserver(function(){ if(window.VYW&&VYW.teinte) VYW.teinte(); }).observe(b,{attributes:true,attributeFilter:['data-etape']});
+})();
+</script>
+<script src="/scan/avant/fumee-wow.js?v=3"></script>
+<script src="/scan/avant/noyau.js?v=3"></script>
+<script src="/scan/avant/dictee-wow.js?v=3"></script>
+<script src="/scan/avant/g-wow.js?v=3"></script>
+<script>
+VYD.demarrer(function(o,et){
+  var cle=et&&et.k==='origine'?'pays':(et&&et.k), lab=(cle&&VYL.label(cle,o[0]))||(o[1].charAt(0).toUpperCase()+o[1].slice(1));
+  return '<button class="li" type="button" data-v="'+o[0]+'"><s class="pt"></s><span class="lt">'+lab+'</span>'+(o[2]?'<i>'+o[2]+'</i>':'')+'</button>';
+});
+</script></body></html>

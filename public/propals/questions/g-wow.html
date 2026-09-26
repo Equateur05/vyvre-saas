@@ -1,0 +1,61 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>G — LA COLONNE · WOW</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="peau.css">
+<link rel="stylesheet" href="suite.css">
+<link rel="stylesheet" href="g-wow.css?v=1">
+</head><body class="mot-orturq degrade">
+<header class="vy-head"><span class="mq">VYVRE<i>skin intelligence</i></span><span class="x">×</span>
+  <span class="ct">Avant le scan</span><span class="sp"></span><span class="et" id="tete">—</span>
+  <div class="prog" aria-hidden="true"><i id="prog"></i></div></header>
+<main class="scene">
+  <p class="texte" id="texte" aria-live="polite"></p>
+  <div class="boite" id="boite">
+    <div class="q"><span id="qt">—</span><em id="qe"></em><span class="pts" id="pts"></span></div>
+    <div class="rep" id="rep"></div>
+    <div class="suite" id="suite"><button class="vy-go" id="ok" type="button">Continuer</button><span class="vy-cpt" id="cpt"></span></div>
+  </div>
+</main>
+<div class="pied">
+  <button class="ret" id="ret" type="button" style="visibility:hidden">← Revenir</button>
+  <span class="vy-cpt" id="bas"></span><span class="sp"></span>
+  <div class="reglages">
+    <button class="son" id="son" type="button" aria-pressed="false" title="Micro-sons">Son <b>coupé</b></button>
+    <span class="teintes" id="teintes" role="group" aria-label="Teinte des mots">
+      <button data-m="suite" title="Une teinte par question" class="t-suite"></button><button data-m="orturq" title="Or &amp; turquoise"></button><button data-m="orfluo" title="Or &amp; vert fluo"></button><button data-m="orviolet" title="Or &amp; violet"></button><button data-m="orcorail" title="Or &amp; corail"></button>
+    </span>
+    <button class="rejouer" id="rejouer" type="button">Rejouer</button>
+  </div>
+</div>
+<script>
+(function(){
+  var q=new URLSearchParams(location.search), M=q.get('mot')||'suite';
+  if(!/^(suite|or(turq|fluo|violet|corail))$/.test(M)) M='suite';
+  var b=document.body;
+  function mettre(){
+    b.className=b.className.replace(/\bmot-[a-z]+\b/g,'').trim();
+    b.classList.add('mot-'+(M==='suite'?'orturq':M),'degrade');
+    b.classList.toggle('suite-teintes', M==='suite');
+    [].forEach.call(document.querySelectorAll('#teintes [data-m]'),function(x){x.setAttribute('aria-pressed',String(x.dataset.m===M));});
+    var s=new URLSearchParams(location.search); s.set('mot',M); history.replaceState(null,'','?'+s.toString());
+    if(window.VYW) VYW.teinte();
+  }
+  document.getElementById('teintes').addEventListener('click',function(e){ var x=e.target.closest('[data-m]'); if(!x) return; M=x.dataset.m; mettre(); });
+  document.getElementById('rejouer').addEventListener('click',function(){ location.reload(); });
+  mettre();
+  /* la poussiere et les lueurs suivent la teinte de la question en cours */
+  new MutationObserver(function(){ if(window.VYW&&VYW.teinte) VYW.teinte(); }).observe(b,{attributes:true,attributeFilter:['data-etape']});
+})();
+</script>
+<script src="fumee-wow.js?v=1"></script>
+<script src="noyau.js"></script>
+<script src="dictee-wow.js?v=1"></script>
+<script src="g-wow.js?v=1"></script>
+<script>
+VYD.demarrer(function(o){
+  return '<button class="li" type="button" data-v="'+o[0]+'"><s class="pt"></s><span class="lt">'+o[1].charAt(0).toUpperCase()+o[1].slice(1)+'</span>'+(o[2]?'<i>'+o[2]+'</i>':'')+'</button>';
+});
+</script></body></html>

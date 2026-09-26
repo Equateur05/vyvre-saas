@@ -1,0 +1,23 @@
+/* H — LES CARTES, version chaude : memes mots clés que G (une teinte par question), cartes qui s'allument */
+.ca{position:relative;overflow:hidden;isolation:isolate;background:rgba(10,12,18,.42)!important;border-color:rgba(255,255,255,.12)!important;
+  transition:transform .6s cubic-bezier(.16,1,.3,1),box-shadow .6s,border-color .6s,background .6s!important}
+.ca:before{content:'';position:absolute;inset:-1px;border-radius:inherit;padding:1px;pointer-events:none;opacity:0;transition:opacity .5s;
+  background:linear-gradient(135deg,var(--g1),var(--g2) 35%,var(--g3) 70%,var(--g4));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude}
+.ca:after{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:0;
+  background:linear-gradient(100deg,transparent 30%,rgba(255,240,200,.14) 45%,rgba(255,255,255,.22) 50%,rgba(255,240,200,.14) 55%,transparent 70%);
+  background-size:250% 100%;background-position:130% 0}
+.ca:hover{transform:translateY(-6px) scale(1.03)!important;background:rgba(14,16,24,.62)!important;border-color:transparent!important;
+  box-shadow:0 26px 60px -24px color-mix(in srgb,var(--g3) 55%,transparent),0 0 40px -10px color-mix(in srgb,var(--g1) 45%,transparent)!important}
+.ca:hover:before,.ca[aria-pressed=true]:before{opacity:1}
+.ca:hover:after{opacity:1;animation:hReflet 1.1s cubic-bezier(.22,1,.36,1) both}
+@keyframes hReflet{from{background-position:130% 0}to{background-position:-30% 0}}
+.ca:hover b,.ca[aria-pressed=true] b{color:transparent!important;-webkit-text-fill-color:transparent;
+  background-image:linear-gradient(95deg,var(--g1),var(--g2) 30%,var(--g3) 70%,var(--g4));background-size:220% 100%;
+  -webkit-background-clip:text;background-clip:text;animation:vyLueur 3.6s linear infinite;font-weight:300!important}
+.ca:hover i,.ca[aria-pressed=true] i{color:color-mix(in srgb,var(--g3) 75%,white)!important}
+/* choisie : plus de carte blanche, le verre garde son liseré en dégradé */
+.ca[aria-pressed=true]{background:rgba(14,16,24,.7)!important;color:#fff!important;border-color:transparent!important;
+  box-shadow:0 0 0 0 transparent,0 20px 50px -24px color-mix(in srgb,var(--g3) 60%,transparent)!important}
+.rep:hover .ca:not(:hover){opacity:.55;filter:blur(.6px)}
+.ca{transition-property:transform,box-shadow,border-color,background,opacity,filter!important}

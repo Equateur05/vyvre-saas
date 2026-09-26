@@ -1,0 +1,68 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>F — LA DICTÉE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="peau.css">
+<style>
+body{display:flex;flex-direction:column;min-height:100vh;overflow-x:hidden}
+.scene{position:relative;z-index:20;flex:1;display:flex;flex-direction:column;justify-content:center;gap:clamp(26px,5vh,54px);
+  width:100%;max-width:1080px;margin:0 auto;padding:120px clamp(22px,5vw,64px) 30px}
+/* la phrase qui s'ecrit */
+.texte{font-weight:100;font-size:clamp(21px,2.4vw,31px);line-height:1.5;letter-spacing:-.022em;color:rgba(255,255,255,.32);min-height:3em;max-width:36ch}
+.texte b.rep-mot{cursor:pointer;border-bottom:1px solid rgba(255,255,255,.22);transition:border-color .4s var(--e)}
+.texte b.rep-mot:hover{border-color:#fff}
+
+.texte b{font-weight:100;color:#fff}
+.texte .cur{display:inline-block;width:1px;height:.92em;margin-left:.06em;background:#fff;vertical-align:-.08em;animation:bat 1.05s steps(1) infinite}
+@keyframes bat{0%,49%{opacity:1}50%,100%{opacity:0}}
+/* le conteneur des reponses, en dessous */
+.boite{border-radius:20px;padding:20px 22px 18px;background:rgba(8,9,14,.55);border:1px solid var(--sg-line);
+  backdrop-filter:blur(30px) saturate(1.35);-webkit-backdrop-filter:blur(30px) saturate(1.35);
+  box-shadow:0 40px 90px -40px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.12);
+  opacity:0;transform:translateY(16px);transition:opacity .7s var(--e),transform .8s var(--e)}
+.boite.vue{opacity:1;transform:none}
+.q{font:400 10px var(--d);letter-spacing:.24em;text-transform:uppercase;color:rgba(255,255,255,.34);margin-bottom:16px;display:flex;gap:14px;align-items:center}
+.q em{font-style:normal;color:rgba(255,255,255,.2)}
+.q .pts{margin-left:auto;display:flex;gap:7px}
+.q .pts i{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.18);transition:all .5s var(--e)}
+.q .pts i.on{background:#fff;box-shadow:0 0 10px 2px rgba(255,255,255,.5)}
+.rep{display:flex;flex-wrap:wrap;gap:9px}
+.rep .vy-chip{font-size:13.5px;padding:11px 18px}
+.bilan{font:400 13px var(--d);letter-spacing:.1em;color:rgba(255,255,255,.5)}
+.bilan b{color:#fff;font-weight:400}
+.rep .vy-chip i{font-style:normal;font:400 9px var(--d);letter-spacing:.12em;opacity:.45;margin-left:9px}
+.suite{display:flex;align-items:center;gap:16px;margin-top:18px;opacity:0;pointer-events:none;transition:opacity .5s var(--e)}
+.suite.vue{opacity:1;pointer-events:auto}
+.sp{flex:1}
+.pied{position:relative;z-index:20;display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+  width:100%;max-width:1080px;margin:0 auto;padding:12px clamp(22px,5vw,64px) calc(26px + env(safe-area-inset-bottom))}
+.ret{appearance:none;background:none;border:0;color:rgba(255,255,255,.34);font:400 10px var(--d);letter-spacing:.2em;text-transform:uppercase;cursor:pointer}
+.ret:hover{color:#fff}
+@media (max-width:640px){.texte{min-height:4.4em}}
+</style></head><body>
+
+<header class="vy-head">
+  <span class="mq">VYVRE<i>skin intelligence</i></span><span class="x">×</span>
+  <span class="ct">Avant le scan</span><span class="sp"></span><span class="et" id="tete">—</span>
+</header>
+
+<div class="scene">
+  <p class="texte" id="texte"></p>
+  <div class="boite" id="boite">
+    <div class="q"><span id="qt">—</span><em id="qe"></em><span class="pts" id="pts"></span></div>
+    <div class="rep" id="rep"></div>
+    <div class="suite" id="suite"><button class="vy-go" id="ok">Continuer</button><span class="vy-cpt" id="cpt"></span></div>
+  </div>
+</div>
+
+<div class="pied">
+  <button class="ret" id="ret" style="visibility:hidden">← Revenir</button>
+  <span class="vy-cpt" id="bas"></span><span class="sp"></span>
+</div>
+
+<script src="fumee.js"></script>
+<script src="noyau.js"></script>
+<script src="dictee.js"></script>
+<script>VYD.demarrer();</script>
+</body></html>

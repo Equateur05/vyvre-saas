@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="vy-title-key" content="hcg.meta.t">
 <title>vyvre — Scan cheveux</title>
-<script src="/scan/vy-i18n.js?v=9"></script>
+<script src="/scan/vy-i18n.js?v=10"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;800&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
@@ -18,8 +18,18 @@ html,body{background:#000;color:#eaf6ff;font-family:Inter,sans-serif;font-weight
 @media(max-width:760px){#gl{width:100%;height:46%;top:14%}}
 video{display:none}
 .hud{position:fixed;inset:0;pointer-events:none;z-index:3}
-.marque{position:absolute;top:28px;left:4vw;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.34em;color:rgba(223,234,242,.6)}
-.note{position:absolute;top:52px;left:4vw;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;color:#ffb38a;opacity:.85}
+/* 26/09 — le retour pendant la capture : il coupe la camera et rend la main a la page */
+#retour{position:fixed;top:18px;left:4vw;z-index:10;display:inline-flex;align-items:center;gap:10px;appearance:none;cursor:pointer;
+  padding:10px 18px 10px 14px;border-radius:100px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.2em;
+  text-transform:uppercase;color:rgba(223,234,242,.82);background:rgba(8,10,14,.46);border:1px solid rgba(223,234,242,.18);
+  -webkit-backdrop-filter:blur(18px) saturate(1.3);backdrop-filter:blur(18px) saturate(1.3);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 16px 40px -20px rgba(0,0,0,.85);transition:background .35s,border-color .35s,color .35s}
+#retour:hover,#retour:focus-visible{color:#fff;background:rgba(127,216,255,.1);border-color:rgba(127,216,255,.55)}
+#retour i{font-style:normal;font-size:14px;line-height:1;letter-spacing:0}
+[dir=rtl] #retour{left:auto;right:4vw}
+[dir=rtl] #retour i{transform:scaleX(-1)}
+.marque{position:absolute;top:72px;left:4vw;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.34em;color:rgba(223,234,242,.6)}
+.note{position:absolute;top:96px;left:4vw;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.2em;color:#ffb38a;opacity:.85}
 .choix{position:absolute;top:20px;right:4vw;display:flex;gap:4px;pointer-events:auto}
 .choix button{all:unset;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.22em;text-transform:uppercase;
   padding:9px 14px;border:1px solid rgba(223,234,242,.16);color:rgba(223,234,242,.6);background:rgba(0,0,0,.35);backdrop-filter:blur(10px)}
@@ -30,7 +40,7 @@ video{display:none}
 .aide.on{opacity:1}
 .total{position:absolute;right:4vw;bottom:9vh;font-family:'IBM Plex Mono',monospace;font-weight:300;font-size:clamp(40px,5vw,84px);letter-spacing:-.04em;text-align:right}
 .total i{display:block;font-style:normal;font-size:10px;letter-spacing:.3em;color:rgba(223,234,242,.5);margin-top:8px}
-.debug{position:absolute;left:4vw;top:80px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:#7fd8ff;white-space:pre;opacity:.7}
+.debug{position:absolute;left:4vw;top:124px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:#7fd8ff;white-space:pre;opacity:.7}
 body.g3 .total{right:50%;transform:translateX(50%);bottom:auto;top:44%;text-align:center;font-size:clamp(60px,9vw,150px)}
 body.g3 .phrase{display:none}
 
@@ -45,6 +55,18 @@ body.encre #gl{display:none}
 <video id="vid" playsinline muted autoplay></video>
 <canvas id="cv"></canvas>
 <canvas id="gl"></canvas>
+<button type="button" id="retour"><i aria-hidden="true">&#8592;</i><span data-i18n="hcx.retour">Retour</span></button>
+<script>
+/* 26/09 — « ← Retour » : on coupe la camera ICI (c'est cette page qui l'a
+   ouverte), puis on previent la page mere, comme les autres messages
+   vyvre-scan-*. Script classique, a part du module : le bouton marche meme si
+   le module n'a pas fini de charger. */
+document.getElementById('retour').addEventListener('click', function(){
+  try{ var v = document.getElementById('vid'); if(v && v.srcObject) v.srcObject.getTracks().forEach(function(t){ t.stop(); }); }catch(e){}
+  if(parent !== window) parent.postMessage({ type:'vyvre-scan-retour' }, location.origin);
+  else location.href = '/cheveux/';
+});
+</script>
 <div class="hud">
   <div class="marque" data-i18n="hcg.marque">VYVRE · SCAN CHEVEUX</div>
   <div class="note" id="note"></div>

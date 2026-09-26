@@ -1,0 +1,137 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>C — LA RÈGLE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,100;0,200;0,300;0,400;1,300&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="peau.css">
+<style>
+.page{position:relative;z-index:10;max-width:1180px;margin:0 auto;padding:130px clamp(20px,4vw,48px) 170px}
+.sec{margin-top:clamp(30px,5vh,58px)}
+/* la regle */
+.regle{position:relative;height:122px;touch-action:none;user-select:none}
+.axe{position:absolute;left:0;right:0;top:46px;height:1px;background:rgba(255,255,255,.14)}
+.plage{position:absolute;top:44px;height:5px;border-radius:4px;background:linear-gradient(90deg,rgba(255,255,255,.85),#fff);
+  box-shadow:0 0 30px 4px rgba(255,255,255,.28);transition:left .5s var(--e),width .5s var(--e)}
+.cran{position:absolute;top:0;transform:translateX(-50%);text-align:center;cursor:pointer}
+.cran.deb{transform:translateX(-20%)}.cran.fin{transform:translateX(-80%)}
+.cran u{display:block;width:1px;height:26px;background:rgba(255,255,255,.2);margin:32px auto 0;transition:all .5s var(--e)}
+.cran b{display:block;font-weight:200;font-size:clamp(15px,1.7vw,21px);letter-spacing:-.015em;color:rgba(255,255,255,.38);margin-top:12px;white-space:nowrap;transition:color .5s var(--e)}
+.cran small{display:block;font:400 9px var(--d);letter-spacing:.14em;color:rgba(255,255,255,.22);margin-top:5px;white-space:nowrap}
+.cran.in b{color:#fff}.cran.in u{background:#fff;height:34px;margin-top:24px;box-shadow:0 0 16px 2px rgba(255,255,255,.5)}
+.poi{position:absolute;top:32px;width:30px;height:30px;border-radius:50%;background:linear-gradient(180deg,#fff,#e4e0d6);transform:translateX(-50%);cursor:grab;
+  box-shadow:0 0 0 7px rgba(255,255,255,.06),0 12px 34px rgba(0,0,0,.65);transition:left .5s var(--e),transform .3s var(--e);z-index:3}
+.poi:active{cursor:grabbing;transform:translateX(-50%) scale(1.12)}
+.flux{margin-top:22px;overflow:hidden;mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
+.piste{display:flex;gap:30px;width:max-content;animation:defile 76s linear infinite}
+.piste:hover{animation-play-state:paused}
+.piste span{font:300 15px var(--m);color:rgba(255,255,255,.5);white-space:nowrap;transition:all .6s var(--e)}
+.piste span.hors{opacity:.1}
+@keyframes defile{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+/* les pays */
+.pays{display:grid;grid-template-columns:repeat(auto-fit,minmax(178px,1fr));gap:11px}
+.pays .vy-card{display:flex;flex-direction:column}
+.pays .vy-card u{margin-top:auto;padding-top:10px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+footer{position:fixed;left:0;right:0;bottom:0;z-index:30;display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+  padding:20px clamp(20px,4vw,48px) calc(20px + env(safe-area-inset-bottom));
+  background:rgba(3,4,5,.74);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-top:1px solid rgba(255,255,255,.07)}
+.sp{flex:1}
+@media (max-width:700px){.cran b{font-size:12px}.cran small{display:none}}
+</style></head><body>
+
+<header class="vy-head">
+  <span class="mq">VYVRE<i>skin intelligence</i></span><span class="x">×</span>
+  <span class="ct">Avant le scan</span><span class="sp"></span><span class="et" id="tete">—</span>
+</header>
+
+<div class="page">
+  <span class="vy-pill">Avant votre scan · trois gestes</span>
+  <h1 class="vy-h1">Réglez la règle.<small>Nous restons dedans.</small></h1>
+  <p class="vy-p">Aucun prix ne sera affiché, ni ici ni dans vos résultats. Vous posez trois choses : jusqu’où vous acceptez de monter, d’où vient le soin, et qui vous êtes.</p>
+
+  <div class="sec"><div class="vy-lab">01 — La règle <b>des maisons</b> <span>glissez les deux repères</span></div>
+    <div class="regle" id="regle">
+      <div class="axe"></div><div class="plage" id="plage"></div>
+      <div class="poi" id="pA"></div><div class="poi" id="pB"></div>
+    </div>
+    <div class="flux"><div class="piste" id="piste"></div></div>
+  </div>
+
+  <div class="sec"><div class="vy-lab">02 — Le pays <b>d’origine</b> <span>plusieurs possibles · rien de coché = le monde entier</span></div>
+    <div class="pays" id="pays" data-mu="origine"></div></div>
+
+  <div class="sec"><div class="vy-lab">03 — Vous <span>âge, puis ce que vous cherchez</span></div>
+    <div class="chips" data-un="age"><button class="vy-chip" data-v="u25">— 25 ans</button><button class="vy-chip" data-v="25">25 · 34</button><button class="vy-chip" data-v="35">35 · 44</button><button class="vy-chip" data-v="45">45 · 54</button><button class="vy-chip" data-v="55">55 +</button></div>
+    <div class="chips" style="margin-top:10px" data-mu="goals"><button class="vy-chip" data-v="antiage">Anti-âge</button><button class="vy-chip" data-v="glow">Éclat</button><button class="vy-chip" data-v="hydration">Hydratation</button><button class="vy-chip" data-v="redness">Rougeurs, sensibilité</button><button class="vy-chip" data-v="pores">Imperfections, pores</button><button class="vy-chip" data-v="pigmentation">Taches</button><button class="vy-chip" data-v="sebum">Peau grasse</button></div>
+  </div>
+</div>
+
+<footer>
+  <span class="vy-cpt" id="cpt">Lecture du catalogue…</span><span class="sp"></span>
+  <button class="vy-ghost" id="tout">Montrez-moi tout</button>
+  <button class="vy-go" id="go">Lancer mon scan</button>
+</footer>
+
+<script src="fumee.js"></script>
+<script src="noyau.js"></script>
+<script>
+var ORDRE=['petit-prix','normal','pharmacie','luxe'], TITRE={'petit-prix':'Petit prix',normal:'Quotidien',pharmacie:'Pharmacie',luxe:'Luxe'};
+var P={age:null,goals:[],univers:[],origine:[],marques:[]}, A=0, B=3;
+var $=function(s){return document.querySelector(s);},$$=function(s,r){return [].slice.call((r||document).querySelectorAll(s));};
+function pc(i){return (i/(ORDRE.length-1))*100;}
+function univers(){var o=[]; for(var i=Math.min(A,B);i<=Math.max(A,B);i++) o.push(ORDRE[i]); return o;}
+function peindre(){
+  P.univers=univers().length===ORDRE.length?[]:univers();
+  var lo=Math.min(A,B), hi=Math.max(A,B);
+  $('#plage').style.left=pc(lo)+'%'; $('#plage').style.width=(pc(hi)-pc(lo))+'%';
+  $('#pA').style.left=pc(A)+'%'; $('#pB').style.left=pc(B)+'%';
+  $$('.cran').forEach(function(c,i){c.classList.toggle('in',i>=lo&&i<=hi);});
+  $$('[data-un]').forEach(function(g){var k=g.dataset.un;$$('button',g).forEach(function(b){b.setAttribute('aria-pressed',String(P[k]===b.dataset.v));});});
+  $$('[data-mu]').forEach(function(g){var k=g.dataset.mu;$$('button',g).forEach(function(b){b.setAttribute('aria-pressed',String(P[k].indexOf(b.dataset.v)>=0));});});
+  var dedans={}; VYQ.perimetre(P).forEach(function(s){dedans[s]=1;});
+  $$('#piste span').forEach(function(s){s.classList.toggle('hors',!dedans[s.dataset.s]);});
+  var c=VYQ.compte(P), t=VYQ.compte({});
+  $('#cpt').innerHTML='<b>'+VYQ.fmt(c.produits)+'</b> produits · <b>'+c.marques+'</b> maisons dans votre règle';
+  $('#tete').innerHTML=VYQ.fmt(t.produits)+' produits · '+t.marques+' maisons';
+}
+(function(){
+  var r=$('#regle');
+  ORDRE.forEach(function(u,i){
+    var d=document.createElement('div'); d.className='cran'+(i?(i===ORDRE.length-1?' fin':''):' deb'); d.style.left=pc(i)+'%';
+    d.innerHTML='<u></u><b>'+TITRE[u]+'</b><small data-n="'+u+'">—</small>'; r.appendChild(d);
+    d.onclick=function(){ if(Math.abs(i-A)<=Math.abs(i-B)) A=i; else B=i; peindre(); };
+  });
+  var drag=null;
+  function pose(e){
+    if(!drag) return;
+    var b=r.getBoundingClientRect(), x=(e.clientX-b.left)/b.width;
+    var i=Math.max(0,Math.min(ORDRE.length-1,Math.round(x*(ORDRE.length-1))));
+    if(drag==='A') A=i; else B=i; peindre();
+  }
+  ['pA','pB'].forEach(function(id){ $('#'+id).addEventListener('pointerdown',function(e){drag=id.slice(1);this.setPointerCapture(e.pointerId);}); });
+  r.addEventListener('pointermove',pose);
+  addEventListener('pointerup',function(){drag=null;});
+})();
+document.addEventListener('click',function(e){
+  var b=e.target.closest('button[data-v]');
+  if(b){var g=b.closest('[data-un],[data-mu]');
+    if(g.dataset.un) P[g.dataset.un]=P[g.dataset.un]===b.dataset.v?null:b.dataset.v;
+    else{var k=g.dataset.mu,j=P[k].indexOf(b.dataset.v); j<0?P[k].push(b.dataset.v):P[k].splice(j,1);}
+    peindre(); return;}
+  if(e.target.id==='go') alert('→ le scan démarre avec cette règle');
+  if(e.target.id==='tout'){A=0;B=3;P.origine=[];peindre();alert('→ le scan démarre sur tout le catalogue');}
+});
+VYQ.pret(function(){
+  var M=VYQ.marques(), par={}, piste=$('#piste');
+  Object.keys(M).forEach(function(s){par[M[s].univers]=(par[M[s].univers]||0)+1;});
+  $$('[data-n]').forEach(function(u){u.textContent=VYQ.mais(par[u.dataset.n]||0);});
+  VYQ.origines().forEach(function(o){
+    var b=document.createElement('button'); b.className='vy-card'; b.dataset.v=o.v;
+    b.innerHTML='<b>'+o.nom+'</b>'+(o.sous?'<em>'+o.sous+'</em>':'')+'<u>'+VYQ.mais(o.maisons)+' · '+VYQ.fmt(o.produits)+' produits</u>';
+    $('#pays').appendChild(b);
+  });
+  var noms=Object.keys(M).sort(function(a,b){return M[a].nom.localeCompare(M[b].nom);});
+  noms.concat(noms).forEach(function(s){var e=document.createElement('span'); e.dataset.s=s; e.textContent=M[s].nom; piste.appendChild(e);});
+  peindre();
+});
+</script></body></html>

@@ -1,0 +1,14 @@
+/* Une teinte par question : l'oeil ne se lasse pas.
+   Q1 or & turquoise, Q2 or & violet, Q3 or & corail, Q4 or & vert fluo.
+   La question en cours teinte la colonne, le fantome, la progression ; chaque mot pose garde la teinte de sa question. */
+body.suite-teintes{--g1:#f6d27a;--g2:#fff3cf}
+body.suite-teintes[data-etape="0"]{--g3:#4de6dc;--g4:#18c6d8;--grad:linear-gradient(95deg,var(--g1) 0%,var(--g2) 18%,var(--g1) 34%,var(--g3) 60%,var(--g4) 78%,var(--g1) 100%);--g3a:color-mix(in srgb,var(--g3) 45%,transparent);--g1a:color-mix(in srgb,var(--g1) 32%,transparent)}
+body.suite-teintes .texte b[data-e="0"]{--g3:#4de6dc;--g4:#18c6d8;--grad:linear-gradient(95deg,var(--g1) 0%,var(--g2) 18%,var(--g1) 34%,var(--g3) 60%,var(--g4) 78%,var(--g1) 100%);--g3a:color-mix(in srgb,var(--g3) 45%,transparent);--g1a:color-mix(in srgb,var(--g1) 32%,transparent)}
+body.suite-teintes[data-etape="1"]{--g3:#c9a2ff;--g4:#8f6bff;--grad:linear-gradient(95deg,var(--g1) 0%,var(--g2) 18%,var(--g1) 34%,var(--g3) 60%,var(--g4) 78%,var(--g1) 100%);--g3a:color-mix(in srgb,var(--g3) 45%,transparent);--g1a:color-mix(in srgb,var(--g1) 32%,transparent)}
+body.suite-teintes .texte b[data-e="1"]{--g3:#c9a2ff;--g4:#8f6bff;--grad:linear-gradient(95deg,var(--g1) 0%,var(--g2) 18%,var(--g1) 34%,var(--g3) 60%,var(--g4) 78%,var(--g1) 100%);--g3a:color-mix(in srgb,var(--g3) 45%,transparent);--g1a:color-mix(in srgb,var(--g1) 32%,transparent)}
+body.suite-teintes[data-etape="2"]{--g3:#ffa27f;--g4:#ff6f91;--grad:linear-gradient(95deg,var(--g1) 0%,var(--g2) 18%,var(--g1) 34%,var(--g3) 60%,var(--g4) 78%,var(--g1) 100%);--g3a:color-mix(in srgb,var(--g3) 45%,transparent);--g1a:color-mix(in srgb,var(--g1) 32%,transparent)}
+body.suite-teintes .texte b[data-e="2"]{--g3:#ffa27f;--g4:#ff6f91;--grad:linear-gradient(95deg,var(--g1) 0%,var(--g2) 18%,var(--g1) 34%,var(--g3) 60%,var(--g4) 78%,var(--g1) 100%);--g3a:color-mix(in srgb,var(--g3) 45%,transparent);--g1a:color-mix(in srgb,var(--g1) 32%,transparent)}
+body.suite-teintes[data-etape="3"]{--g3:#d8ff4a;--g4:#8dff3a;--grad:linear-gradient(95deg,var(--g1) 0%,var(--g2) 18%,var(--g1) 34%,var(--g3) 60%,var(--g4) 78%,var(--g1) 100%);--g3a:color-mix(in srgb,var(--g3) 45%,transparent);--g1a:color-mix(in srgb,var(--g1) 32%,transparent)}
+body.suite-teintes .texte b[data-e="3"]{--g3:#d8ff4a;--g4:#8dff3a;--grad:linear-gradient(95deg,var(--g1) 0%,var(--g2) 18%,var(--g1) 34%,var(--g3) 60%,var(--g4) 78%,var(--g1) 100%);--g3a:color-mix(in srgb,var(--g3) 45%,transparent);--g1a:color-mix(in srgb,var(--g1) 32%,transparent)}
+body.suite-teintes[data-etape="fin"]{--g3:#4de6dc;--g4:#18c6d8;--grad:linear-gradient(95deg,var(--g1) 0%,var(--g2) 18%,var(--g1) 34%,var(--g3) 60%,var(--g4) 78%,var(--g1) 100%);--g3a:color-mix(in srgb,var(--g3) 45%,transparent);--g1a:color-mix(in srgb,var(--g1) 32%,transparent)}
+.teintes [data-m=suite]{background:conic-gradient(from 45deg,#4de6dc,#c9a2ff,#ffa27f,#d8ff4a,#4de6dc)!important}

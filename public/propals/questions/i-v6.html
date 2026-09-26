@@ -1,0 +1,87 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>I — CONTAINERS V6</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="peau.css">
+<link rel="stylesheet" href="g-styles.css">
+<link rel="stylesheet" href="suite.css">
+<style>
+/* Propale I : le deroule valide (la phrase s'ecrit, une question a la fois, passage automatique)
+   habille avec les containers ronds « V6 » du protocole complet. */
+:root{--v6-bg:radial-gradient(ellipse 130% 95% at 50% -20%,rgba(245,245,250,.92) 0%,rgba(200,200,210,.70) 12%,rgba(140,140,150,.45) 28%,rgba(70,70,80,.22) 50%,transparent 75%),linear-gradient(180deg,rgba(255,255,255,.06) 0%,transparent 40%),#050505;
+  --v6-border:1px solid rgba(255,255,255,.14);--v6-radius:36px}
+body{display:flex;flex-direction:column;min-height:100vh;background:#000}
+#sig-gl{opacity:.55!important}
+.scene{position:relative;z-index:20;flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:clamp(16px,2.6vh,26px);
+  width:100%;max-width:1220px;margin:0 auto;padding:96px clamp(18px,4vw,48px) 12px;text-align:center}
+/* la phrase ne reserve plus cinq lignes vides au-dessus des containers */
+.cadre{height:auto!important;-webkit-mask-image:none!important;mask-image:none!important}
+.cadre .texte{transform:none!important}
+.cadre .texte{margin:0 auto!important}
+.texte{font-weight:200!important;font-size:clamp(18px,1.9vw,26px)!important;line-height:1.5;letter-spacing:-.015em;color:rgba(255,255,255,.66)!important;max-width:46ch;text-wrap:balance}
+.texte .cur{display:inline-block;width:1px;height:.9em;margin-left:.08em;background:#fff;vertical-align:-.08em}
+.boite{display:flex;flex-direction:column;align-items:center;gap:clamp(14px,2.4vh,24px);margin-top:clamp(10px,2vh,22px);width:100%;opacity:0;transform:translateY(16px);transition:opacity .7s var(--e),transform .8s var(--e)}
+.boite.vue{opacity:1;transform:none}
+.idx{display:flex;align-items:center;gap:14px;font:400 10px var(--d);letter-spacing:.4em;color:rgba(245,244,240,.34)}
+.idx .piste{width:140px;height:1px;background:rgba(245,244,240,.15);position:relative}
+.idx .piste i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,var(--g1),var(--g3));box-shadow:0 0 10px color-mix(in srgb,var(--g3) 50%,transparent);transition:width .7s var(--e)}
+.q{display:flex;flex-direction:column;align-items:center;gap:10px}
+.q #qt{font:100 clamp(28px,3.8vw,54px)/1.05 var(--m)!important;letter-spacing:-.025em!important;text-transform:none!important;text-shadow:none!important}
+.q em{font:300 13px var(--m)!important;color:rgba(245,244,240,.42)!important;letter-spacing:.01em!important}
+.q .pts{display:none}
+/* les containers ronds du protocole */
+.rep{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;max-width:1180px;width:100%}
+.chip{flex:0 0 calc(25% - 12px);min-width:0;min-height:112px;background:var(--v6-bg);border:var(--v6-border);border-radius:var(--v6-radius);
+  padding:24px 18px;cursor:pointer;position:relative;overflow:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+  transition:transform .45s var(--e),border-color .45s,box-shadow .45s,opacity .4s;font-family:var(--m);appearance:none;color:#fff}
+.chip:after{content:'';position:absolute;inset:0;border-radius:var(--v6-radius);pointer-events:none;z-index:1;
+  background:radial-gradient(ellipse 100% 80% at 50% 110%,rgba(0,0,0,.85) 0%,transparent 60%)}
+.chip>*{position:relative;z-index:2}
+.chip .n{font:400 9px var(--d);letter-spacing:.42em;color:rgba(240,229,200,.55);transition:color .4s}
+.chip .lt{font-size:clamp(15px,1.35vw,19px);font-weight:200;letter-spacing:-.012em;color:rgba(255,255,255,.92)}
+.chip i{font-style:normal;font:400 8.5px var(--d);letter-spacing:.14em;color:rgba(255,255,255,.4)}
+.chip:hover{transform:translateY(-5px);border-color:transparent;box-shadow:0 30px 70px rgba(255,255,255,.08),0 0 0 1px color-mix(in srgb,var(--g3) 55%,transparent),0 18px 60px -20px color-mix(in srgb,var(--g3) 60%,transparent)}
+.chip:hover .n,.chip[aria-pressed=true] .n{color:var(--g1)}
+.chip:hover .lt,.chip[aria-pressed=true] .lt{color:transparent;-webkit-text-fill-color:transparent;font-weight:300;
+  background-image:linear-gradient(95deg,var(--g1),var(--g2) 30%,var(--g3) 70%,var(--g4));background-size:220% 100%;-webkit-background-clip:text;background-clip:text;animation:vyLueur 3.6s linear infinite}
+.chip[aria-pressed=true]{border-color:rgba(255,255,255,.55);box-shadow:0 30px 80px rgba(255,255,255,.14),inset 0 1px 0 rgba(255,255,255,.2)}
+.rep:hover .chip:not(:hover){opacity:.5}
+.bilan{font:400 13px var(--d);letter-spacing:.1em;color:rgba(255,255,255,.55)}.bilan b{color:#fff;font-weight:400}
+.suite{display:flex;align-items:center;gap:16px;justify-content:center;opacity:0;pointer-events:none;transition:opacity .5s var(--e)}
+.suite.vue{opacity:1;pointer-events:auto}
+.pied{position:relative;z-index:20;display:flex;align-items:center;gap:18px;justify-content:center;padding:0 24px calc(24px + env(safe-area-inset-bottom))}
+.ret{appearance:none;background:none;border:0;color:rgba(255,255,255,.36);font:400 10px var(--d);letter-spacing:.2em;text-transform:uppercase;cursor:pointer}
+.ret:hover{color:#fff}
+@media(max-width:900px){.chip{flex:0 0 calc(50% - 8px)}}
+@media(max-width:520px){.chip{min-height:64px;padding:14px 10px;gap:6px;border-radius:24px}.chip .lt{font-size:14px}}
+</style></head>
+<body class="mot-orturq degrade suite-teintes">
+<header class="vy-head"><span class="mq">VYVRE<i>skin intelligence</i></span><span class="x">×</span>
+  <span class="ct">Avant le scan</span><span class="sp"></span><span class="et" id="tete">—</span></header>
+<div class="scene">
+  <p class="texte" id="texte"></p>
+  <div class="boite" id="boite">
+    <div class="idx"><span id="nidx">01 / 04</span><span class="piste"><i id="pidx" style="width:25%"></i></span></div>
+    <div class="q"><span id="qt">—</span><em id="qe"></em><span class="pts" id="pts"></span></div>
+    <div class="rep" id="rep"></div>
+    <div class="suite" id="suite"><button class="vy-go" id="ok">Continuer</button><span class="vy-cpt" id="cpt"></span></div>
+  </div>
+</div>
+<div class="pied"><button class="ret" id="ret" style="visibility:hidden">← Revenir</button><span class="vy-cpt" id="bas"></span></div>
+<script src="fumee.js"></script>
+<script src="noyau.js"></script>
+<script src="dictee.js"></script>
+<script>
+var ROM=['I','II','III','IV','V','VI','VII','VIII','IX','X'];
+VYD.demarrer(function(o,et){
+  var i=et.opt.indexOf(o); if(i<0) i=et.opt.findIndex(function(x){return x[0]===o[0];});
+  return '<button class="chip" type="button" data-v="'+o[0]+'"><span class="n">'+ROM[Math.max(0,i)]+'</span><span class="lt">'+o[1].charAt(0).toUpperCase()+o[1].slice(1)+'</span>'+(o[2]?'<i>'+o[2]+'</i>':'')+'</button>';
+});
+/* l'index 01 / 04 et sa piste suivent la question en cours */
+new MutationObserver(function(){
+  var e=document.body.getAttribute('data-etape'), n=e==='fin'?4:(+e+1);
+  document.getElementById('nidx').textContent=(e==='fin'?'04':'0'+n)+' / 04';
+  document.getElementById('pidx').style.width=(n/4*100)+'%';
+}).observe(document.body,{attributes:true,attributeFilter:['data-etape']});
+</script></body></html>
