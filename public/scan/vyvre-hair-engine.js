@@ -2947,6 +2947,11 @@
    *     sur cheveux tres secs, etc.) : pénalités explicites, traçables dans pourquoi[] ;
    *   - une étape sans produit acceptable reste VIDE et est listée dans manques[].
    */
+  // Les cibles du catalogue, en francais : le repli quand la page n'a pas la cle hct.*
+  var CIBLE_FR = { secs: 'cheveux secs', abimes: 'cheveux abîmés', fins: 'cheveux fins', boucles: 'boucles',
+    colores: 'cheveux colorés', 'cuir-chevelu-sensible': 'cuir chevelu sensible', gras: 'racines grasses',
+    chute: 'chute', crepus: 'cheveux crépus', pellicules: 'pellicules', lisses: 'cheveux lisses', epais: 'cheveux épais' };
+
   function composerRoutine(scores, reponses, produits, options) {
     options = options || {};
     var jeuEssai = false;
@@ -3043,9 +3048,13 @@
       // Base non nulle : sans elle, tous les produits hors sujet sont a egalite a 0 et
       // l'ordre du catalogue decide. C'est exactement le bug trouve au premier test de
       // bout en bout (un shampooing antipelliculaire propose a une chevelure seche).
-      var score = 0.4, pourquoi = [], interdits = [];
+      var score = 0.4, pourquoi = [], raisons = [], interdits = [];
 
-      function plus(v, txt) { if (v > 0) { score += v; pourquoi.push(txt); } }
+      // 26/09 — chaque raison part avec sa cle i18n (et ses variables) : la page la
+      // traduit dans la langue affichee. Le texte francais reste le repli.
+      function plus(v, txt, cle, vars) {
+        if (v > 0) { score += v; pourquoi.push(txt); raisons.push({ cle: cle || null, v: vars || null }); }
+      }
       function moins(v, txt) { if (v > 0) { score -= v; interdits.push(txt); } }
 
       var sec = besoins.secheresse, gras = besoins.gras, casse = besoins.casse;
@@ -3057,7 +3066,7 @@
       var nJustes = 0;
       for (var cj = 0; cj < cibles.length; cj++) if (attendues[cibles[cj]]) nJustes++;
       for (var ci = 0; ci < cibles.length; ci++) {
-        if (attendues[cibles[ci]]) plus(1.3, 'cible ' + cibles[ci]);
+        if (attendues[cibles[ci]]) plus(1.3, CIBLE_FR[cibles[ci]] || cibles[ci].replace(/-/g, ' '), 'hct.' + cibles[ci]);
         else if (contraires[cibles[ci]]) moins(1.6 * (nJustes > 0 ? 0.35 : 1),
           'produit aussi destine aux cheveux ' + cibles[ci] + ', ce qui ne correspond pas au diagnostic');
       }
@@ -3093,70 +3102,70 @@
 
       // ---- etape 1 : lavage
       if (etape === 1) {
-        if (pell !== null && pell > 0.5) plus(compte(t, MOTS.antipelliculaire) * 2.2, 'shampooing antipelliculaire');
+        if (pell !== null && pell > 0.5) plus(compte(t, MOTS.antipelliculaire) * 2.2, 'shampooing antipelliculaire', 'hcx.pq.antipell1');
         if (gras !== null && gras > 0.6) {
-          plus(compte(t, MOTS.purifiant) * 1.8, 'lavage purifiant pour racines grasses');
+          plus(compte(t, MOTS.purifiant) * 1.8, 'lavage purifiant pour les racines grasses', 'hcx.pq.purif');
           moins(compte(t, MOTS.nourrissant) * 1.6, 'shampooing riche sur racines grasses');
         }
         if (sec !== null && sec > 0.6) {
           moins(compte(t, MOTS.purifiant) * 1.7, 'shampooing clarifiant sur cheveux secs');
-          plus(compte(t, MOTS.nourrissant) * 1.0, 'lavage doux et nourrissant');
+          plus(compte(t, MOTS.nourrissant) * 1.0, 'lavage doux et nourrissant', 'hcx.pq.douxnour');
         }
-        if (besoins.colore) plus(compte(t, MOTS.couleur) * 0.8, 'respecte la couleur');
-        if (besoins.rythme === 'frequent') plus(compte(t, MOTS.doux) * 0.8, 'lavage quotidien : shampooing doux, fait pour un usage frequent');
+        if (besoins.colore) plus(compte(t, MOTS.couleur) * 0.8, 'respecte la couleur', 'hcx.pq.couleur');
+        if (besoins.rythme === 'frequent') plus(compte(t, MOTS.doux) * 0.8, 'lavage quotidien : un shampooing doux, fait pour un usage fréquent', 'hcx.pq.quotidien');
         if (besoins.plats) {
-          plus(compte(t, MOTS.volume) * 1.2, 'donne du corps');
+          plus(compte(t, MOTS.volume) * 1.2, 'donne du corps', 'hcx.pq.corps');
           moins(compte(t, MOTS.nourrissant) * 1.0, 'trop riche pour des cheveux plats');
         }
       }
 
       // ---- etape 2 : soin rince
       if (etape === 2) {
-        if (sec !== null) plus(compte(t, MOTS.nourrissant) * sec * 2.2, 'soin nourrissant pour la secheresse');
-        if (casse !== null && casse > 0.55) plus(compte(t, MOTS.reparation) * 1.8, 'soin reconstructeur pour la casse');
-        if (besoins.decolore) plus(compte(t, MOTS.reparation) * 1.2, 'cheveux decolores : reconstruction');
+        if (sec !== null) plus(compte(t, MOTS.nourrissant) * sec * 2.2, 'soin nourrissant contre la sécheresse', 'hcx.pq.noursec');
+        if (casse !== null && casse > 0.55) plus(compte(t, MOTS.reparation) * 1.8, 'soin reconstructeur contre la casse', 'hcx.pq.reconcasse');
+        if (besoins.decolore) plus(compte(t, MOTS.reparation) * 1.2, 'cheveux décolorés : un soin qui reconstruit', 'hcx.pq.decolore');
         // lavages espaces : chaque shampooing est l'occasion d'un vrai masque
         if (besoins.rythme === 'espace' && String(prod.categorie || '').toLowerCase() === 'masque' &&
             !(gras !== null && gras > 0.7) && !besoins.plats) {
-          plus(0.6, 'lavages espaces : un masque a chaque shampooing');
+          plus(0.6, 'lavages espacés : un masque à chaque shampooing', 'hcx.pq.masqueesp');
         }
         if (gras !== null && gras > 0.7) moins(compte(t, MOTS.nourrissant) * 0.8, 'soin tres riche alors que les racines sont grasses');
         if (besoins.plats) moins(compte(t, MOTS.nourrissant) * 1.4, 'masque riche sur des cheveux fins et plats');
-        if (boucle !== null && boucle > 0.55) plus(compte(t, MOTS.boucles) * 1.2, 'adapte aux boucles');
+        if (boucle !== null && boucle > 0.55) plus(compte(t, MOTS.boucles) * 1.2, 'adapté aux boucles', 'hcx.pq.boucles');
         if (sec !== null && sec > 0.6) moins(compte(t, MOTS.purifiant) * 1.2, 'soin purifiant sur cheveux secs');
       }
 
       // ---- etape 3 : sans rincage
       if (etape === 3) {
         if (besoins.frizz !== null && boucle !== null && boucle > 0.4) {
-          plus(compte(t, MOTS.boucles) * besoins.frizz * 2.0, 'discipline le frizz');
+          plus(compte(t, MOTS.boucles) * besoins.frizz * 2.0, 'discipline les frisottis', 'hcx.pq.frizz');
         }
-        if (sec !== null) plus(compte(t, MOTS.nourrissant) * sec * 1.4, 'nourrit sans rincer');
-        if (casse !== null && casse > 0.55) plus(compte(t, MOTS.reparation) * 1.0, 'protege des longueurs fragiles');
-        plus(compte(t, MOTS.thermique) * 0.6, 'protege de la chaleur');
+        if (sec !== null) plus(compte(t, MOTS.nourrissant) * sec * 1.4, 'nourrit sans rinçage', 'hcx.pq.noursr');
+        if (casse !== null && casse > 0.55) plus(compte(t, MOTS.reparation) * 1.0, 'protège les longueurs fragiles', 'hcx.pq.longueurs');
+        plus(compte(t, MOTS.thermique) * 0.6, 'protège de la chaleur', 'hcx.pq.chaleur');
         // lavages espaces : le sans-rincage porte le cheveu d'un shampooing a l'autre
         if (besoins.rythme === 'espace' && !(gras !== null && gras > 0.7) && !besoins.plats) {
-          plus(compte(t, MOTS.nourrissant) * 0.5, 'lavages espaces : nourrit entre deux shampooings');
+          plus(compte(t, MOTS.nourrissant) * 0.5, 'lavages espacés : nourrit entre deux shampooings', 'hcx.pq.nouresp');
         }
         if (gras !== null && gras > 0.7) moins(compte(t, MOTS.nourrissant) * 1.2, 'huile lourde alors que les racines regraissent vite');
         if (besoins.plats) {
           moins(compte(t, MOTS.nourrissant) * 1.6, 'alourdit des cheveux deja plats');
-          plus(compte(t, MOTS.volume) * 1.2, 'texture leger');
+          plus(compte(t, MOTS.volume) * 1.2, 'texture légère', 'hcx.pq.leger');
         }
       }
 
       // ---- etape 4 : traitement cible
       if (etape === 4) {
-        if (pell !== null && pell > 0.5) plus(compte(t, MOTS.antipelliculaire) * 2.5, 'traitement antipelliculaire');
-        if (chute !== null && chute > 0.5) plus(compte(t, MOTS.chute) * 2.5, 'traitement chute');
-        if (casse !== null && casse > 0.6) plus(compte(t, MOTS.reparation) * 2.2, 'traitement reconstruction pour la casse');
-        if (besoins.densite !== null && besoins.densite < 0.4) plus(compte(t, MOTS.chute) * 1.2, 'densite apparente faible');
-        if (besoins.blancs !== null && besoins.blancs > 0.45) plus(compte(t, MOTS.blancs) * 1.2, 'entretient les cheveux blancs');
-        if (sec !== null && sec > 0.7) plus(compte(t, MOTS.nourrissant) * 0.7, 'apport nourrissant cible');
-        plus(compte(t, MOTS.apaisant) * 0.5, 'apaise le cuir chevelu');
+        if (pell !== null && pell > 0.5) plus(compte(t, MOTS.antipelliculaire) * 2.5, 'traitement antipelliculaire', 'hcx.pq.antipell4');
+        if (chute !== null && chute > 0.5) plus(compte(t, MOTS.chute) * 2.5, 'traitement contre la chute', 'hcx.pq.chute');
+        if (casse !== null && casse > 0.6) plus(compte(t, MOTS.reparation) * 2.2, 'traitement reconstructeur contre la casse', 'hcx.pq.traitcasse');
+        if (besoins.densite !== null && besoins.densite < 0.4) plus(compte(t, MOTS.chute) * 1.2, 'densité apparente faible', 'hcx.pq.densite');
+        if (besoins.blancs !== null && besoins.blancs > 0.45) plus(compte(t, MOTS.blancs) * 1.2, 'entretient les cheveux blancs', 'hcx.pq.blancs');
+        if (sec !== null && sec > 0.7) plus(compte(t, MOTS.nourrissant) * 0.7, 'apport nourrissant ciblé', 'hcx.pq.nourcible');
+        plus(compte(t, MOTS.apaisant) * 0.5, 'apaise le cuir chevelu', 'hcx.pq.apaise');
       }
 
-      return { score: score, pourquoi: pourquoi, interdits: interdits };
+      return { score: score, pourquoi: pourquoi, raisons: raisons, interdits: interdits };
     }
 
     var parEtape = { 1: [], 2: [], 3: [], 4: [] };
@@ -3168,7 +3177,7 @@
       var e = etapeDe(prod);
       if (!e) continue;
       var note = noter(prod, e);
-      parEtape[e].push({ produit: prod, etape: e, note: note.score, pourquoi: note.pourquoi, interdits: note.interdits,
+      parEtape[e].push({ produit: prod, etape: e, note: note.score, pourquoi: note.pourquoi, raisons: note.raisons, interdits: note.interdits,
                          niveau: niveauPref(prod) });
     }
     for (var e2 = 1; e2 <= 4; e2++) {
@@ -3280,6 +3289,8 @@
         actifs: ch.produit.actifs || [],
         note: Math.round(ch.note * 100) / 100,
         pourquoi: ch.pourquoi,
+        // les memes raisons, en cles i18n : [{ cle: 'hcx.pq.masqueesp', v: null }, ...]
+        raisons: ch.raisons || [],
         reserves: ch.interdits,
         // preferences non tenues pour CE produit ('pays', 'famille'), vide sinon
         horsPreferences: (prefsActives && ch.niveau > 0)

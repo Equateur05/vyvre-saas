@@ -8,7 +8,7 @@
 <meta name="description" content="Vos cheveux lus par la caméra : la boucle, la couleur. Puis une routine de quatre produits.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<script src="/scan/vy-i18n.js?v=10"></script>
+<script src="/scan/vy-i18n.js?v=12"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&family=JetBrains+Mono:wght@100;300;400;500&family=Playfair+Display:ital,wght@1,500&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
 /* ============================================================================
@@ -875,21 +875,21 @@ body.da-fibre #v-load .lsteps{z-index:2}
    qu'un fil de lumiere souligne au survol. Choisir une ligne l'allume, les
    autres s'effacent, et la question suivante s'assemble.
    ========================================================================== */
-body.da-fibre .q-carres.pas-a-pas{justify-items:start;text-align:left;align-content:center;
-  max-width:min(1180px,92vw);margin:0 auto;padding-left:clamp(0px,4vw,70px)}
-body.da-fibre .q-carres.pas-a-pas .q-titre,body.da-fibre .q-carres.pas-a-pas .qsub{text-align:left;margin-left:0}
+body.da-fibre .q-carres.pas-a-pas{justify-items:start;text-align:start;align-content:center;
+  max-width:min(1180px,92vw);margin:0 auto;padding-inline-start:clamp(0px,4vw,70px)}
+body.da-fibre .q-carres.pas-a-pas .q-titre,body.da-fibre .q-carres.pas-a-pas .qsub{text-align:start;margin-inline-start:0}
 body.da-fibre .q-carres.pas-a-pas .q-titre{font-size:clamp(14px,1.2vw,17px);font-family:'IBM Plex Mono',var(--fd);
   text-transform:uppercase;letter-spacing:.3em;font-weight:400;color:rgba(223,234,242,.5);margin-bottom:8px;max-width:none}
 body.da-fibre .q-carres.pas-a-pas .qsub{display:none}
 body.da-fibre .q-prog{margin:0 0 46px;width:min(360px,70vw)}
 body.da-fibre .q-prog span{left:0;transform:none;top:12px;font-family:'IBM Plex Mono',var(--fd)}
 body.da-fibre .q-carres.pas-a-pas #quizRows{width:100%}
-body.da-fibre .q-carres.pas-a-pas .qlabel{text-align:left;margin-bottom:44px}
+body.da-fibre .q-carres.pas-a-pas .qlabel{text-align:start;margin-bottom:44px}
 body.da-fibre .q-carres.pas-a-pas .qlabel b{font-family:'IBM Plex Mono',var(--fd);color:#7fd8ff;letter-spacing:.3em}
 body.da-fibre .q-carres.pas-a-pas .qlabel em{font-family:var(--fm);font-style:normal;font-weight:200;
   font-size:clamp(40px,6.2vw,92px);line-height:.98;letter-spacing:-.035em;color:#f4f9fc;max-width:14ch;margin:0}
 body.da-fibre .qlabel em .mot{display:inline-block;opacity:0;transform:translateY(.35em);filter:blur(10px);
-  animation:motEntre .9s var(--e1) forwards;animation-delay:var(--md,0s);margin-right:.22em}
+  animation:motEntre .9s var(--e1) forwards;animation-delay:var(--md,0s);margin-inline-end:.22em}
 @keyframes motEntre{to{opacity:1;transform:none;filter:blur(0)}}
 /* l'index des reponses */
 body.da-fibre .q-carres.pas-a-pas .chips{display:flex;flex-direction:column;align-items:stretch;gap:0;
@@ -911,16 +911,16 @@ body.da-fibre .q-carres.pas-a-pas .chip::after{content:'';position:absolute;left
 /* la ligne survolee ou choisie devient un vrai bouton : un bord bleu a gauche,
    un fond tres leger, le numero qui s'allume. Avant, seul un trait apparaissait
    sous le texte et on ne savait pas qu'il fallait cliquer. */
-body.da-fibre .q-carres.pas-a-pas .chip{padding-left:16px;border-left:2px solid transparent;
+body.da-fibre .q-carres.pas-a-pas .chip{padding-inline-start:16px;border-inline-start:2px solid transparent;
   transition:color .3s,background .3s,border-color .3s,padding-left .4s var(--e1),opacity .45s}
 body.da-fibre .q-carres.pas-a-pas .chip:hover,
-body.da-fibre .q-carres.pas-a-pas .chip:focus-visible{color:#fff;padding-left:22px;
+body.da-fibre .q-carres.pas-a-pas .chip:focus-visible{color:#fff;padding-inline-start:22px;
   background:linear-gradient(90deg,rgba(127,216,255,.13),rgba(127,216,255,.02) 60%,transparent);
-  border-left-color:#7fd8ff}
+  border-inline-start-color:#7fd8ff}
 body.da-fibre .q-carres.pas-a-pas .chip:hover::before,
 body.da-fibre .q-carres.pas-a-pas .chip.on::before{color:#7fd8ff}
 body.da-fibre .q-carres.pas-a-pas .chip:hover::after{transform:scaleX(1)}
-body.da-fibre .q-carres.pas-a-pas .chip.on{color:#fff;padding-left:22px;border-left-color:#7fd8ff;
+body.da-fibre .q-carres.pas-a-pas .chip.on{color:#fff;padding-inline-start:22px;border-inline-start-color:#7fd8ff;
   background:linear-gradient(90deg,rgba(127,216,255,.18),rgba(127,216,255,.04) 60%,transparent);
   text-shadow:0 0 26px rgba(127,216,255,.55)}
 body.da-fibre .q-carres.pas-a-pas .chip.on::after{transform:scaleX(1)}
@@ -957,7 +957,7 @@ body.da-fibre #v-quiz .quiz{position:relative;z-index:1}
 @media (max-width:760px){
   body.da-fibre .q-carres.pas-a-pas .chips:has(.chip:nth-child(5)){grid-template-columns:1fr}
 }
-body.da-fibre .qnav{text-align:left}
+body.da-fibre .qnav{text-align:start}
 @media (max-width:640px){
   body.da-fibre .q-carres.pas-a-pas .qlabel em{font-size:clamp(34px,10vw,48px)}
   body.da-fibre .q-carres.pas-a-pas .chip{font-size:19px;padding:15px 0}
@@ -1195,6 +1195,34 @@ body.da-fibre .qnav{text-align:left}
   #v-quiz,#v-res{padding-bottom:calc(84px + env(safe-area-inset-bottom))}
   #v-quiz{overflow-y:auto;justify-content:safe center}
   #v-quiz .quiz{flex-shrink:0}
+}
+/* 26/09 — en arabe, la question, son numero et la barre de progression
+   suivent le sens droite-a-gauche : la barre se remplit depuis la droite, la
+   ligne choisie s'allume a droite, les lignes entrent depuis la droite. */
+[dir=rtl] .q-prog i{left:auto;right:0;transform-origin:right}
+[dir=rtl] body.da-fibre .q-prog span{left:auto;right:0}
+[dir=rtl] body.da-fibre .q-carres.pas-a-pas .chip{transform:translateX(18px)}
+[dir=rtl] body.da-fibre .q-carres.pas-a-pas .chip::after{transform-origin:right;
+  background:linear-gradient(270deg,#7fd8ff,rgba(234,246,255,.9) 60%,transparent)}
+[dir=rtl] body.da-fibre .q-carres.pas-a-pas .chip:hover,
+[dir=rtl] body.da-fibre .q-carres.pas-a-pas .chip:focus-visible{
+  background:linear-gradient(270deg,rgba(127,216,255,.13),rgba(127,216,255,.02) 60%,transparent)}
+[dir=rtl] body.da-fibre .q-carres.pas-a-pas .chip.on{
+  background:linear-gradient(270deg,rgba(127,216,255,.18),rgba(127,216,255,.04) 60%,transparent)}
+/* 26/09 — l'en-tete n'a pas la meme hauteur dans toutes les langues : sur un
+   telephone, en espagnol ou en italien, le menu passe sur trois lignes et
+   recouvrait la barre de progression. Sa hauteur reelle est mesuree (--hdr,
+   voir « EN-TETE MESURE » dans le script) et chaque vue commence dessous. Les
+   valeurs d'avant restent le minimum : rien ne bouge la ou tout tenait. */
+.view{padding-top:max(140px,calc(var(--hdr,0px) + 60px))}
+#hcRetour{top:max(104px,calc(var(--hdr,0px) + 24px))}
+@media (max-width:640px){
+  .view{padding-top:max(150px,calc(var(--hdr,0px) + 24px))}
+  #v-scan{padding-top:max(96px,calc(var(--hdr,0px) + 16px))}
+  #hcRetour{top:auto}
+  /* « Passer » de l'autre cote que la pastille retour : sur l'ecran des pays,
+     il tombait dessous tant qu'on n'avait pas fait defiler */
+  body.da-fibre .q-carres.pas-a-pas .qnav,.q-carres .qnav{justify-self:stretch;justify-content:flex-end}
 }
 /* l'ancien lien « question precedente » est remplace par la pastille */
 .pas-a-pas.apres-premiere .q-retour,.q-retour{display:none}
@@ -1933,6 +1961,23 @@ function show(name){
     if(sc) sc.style.background = 'rgba(4,5,10,' + d.scrim + ')';
   } catch(e){}
 }
+
+/* ======================================================= EN-TETE MESURE
+   26/09 — la hauteur de l'en-tete depend de la langue (le menu passe a la
+   ligne sur un telephone) et des polices. On la mesure pour que les vues
+   commencent dessous : --hdr = le bas de l'en-tete, en pixels. */
+(function(){
+  var h = document.querySelector('header'); if(!h) return;
+  function mesure(){
+    var b = Math.ceil(h.getBoundingClientRect().bottom);
+    if(b > 0) document.documentElement.style.setProperty('--hdr', b + 'px');
+  }
+  mesure();
+  if(window.ResizeObserver) new ResizeObserver(mesure).observe(h);
+  addEventListener('resize', mesure, { passive:true });
+  document.addEventListener('vy:lang', function(){ setTimeout(mesure, 0); });
+  if(document.fonts && document.fonts.ready) document.fonts.ready.then(mesure);
+})();
 
 /* ================================================================ BRANDING */
 (function(){
@@ -3568,9 +3613,9 @@ function setLoadProgress(p){
 /* ================================================================ ENGINE */
 function probeEngine(){
   if(window.VYVRE_HAIR_ENGINE){ S.engine = window.VYVRE_HAIR_ENGINE; S.engineReady = true; return Promise.resolve(true); }
-  return head('/scan/vyvre-hair-engine.js?v=6').then(function(ok){
+  return head('/scan/vyvre-hair-engine.js?v=7').then(function(ok){
     if(!ok) return false;
-    return injectScript('/scan/vyvre-hair-engine.js?v=6').then(function(loaded){
+    return injectScript('/scan/vyvre-hair-engine.js?v=7').then(function(loaded){
       if(loaded && window.VYVRE_HAIR_ENGINE){ S.engine = window.VYVRE_HAIR_ENGINE; S.engineReady = true; return true; }
       return false;
     });
@@ -3896,6 +3941,31 @@ function actifs(list){
    Le texte ne dit que ce qui a ete mesure ou declare. Rien d'invente, aucun
    avis medical, aucun prix.
    ========================================================================== */
+/* 26/09 — les raisons du moteur (le « pourquoi » de chaque produit) arrivent
+   avec leur cle i18n : on les traduit ici. Le texte francais du moteur reste le
+   repli si une cle manque ; un ancien moteur sans cles donne son texte tel quel. */
+function raisonsDe(p){
+  if(!p) return [];
+  var fr = p.pourquoi, cles = p.raisons;
+  var frs = Array.isArray(fr) ? fr : String(fr || '').split(/\s*[,;]\s*/);
+  var out;
+  if(Array.isArray(cles) && cles.length){
+    out = cles.map(function(r, i){
+      var t = (r && r.cle) ? T(r.cle, r.v || undefined) : '';
+      return t || frs[i] || '';
+    });
+  } else {
+    out = frs.map(function(r){ return String(r || '').replace(/^cible\s+/i, '').replace(/-/g, ' '); });
+  }
+  return out.map(function(r){ return String(r).trim(); }).filter(Boolean);
+}
+function texteRaisons(p){ return raisonsDe(p).join(T('hcx.sep') || ', '); }
+/* le moteur a-t-il favorise un soin riche parce que les lavages sont espaces ? */
+function lavagesEspaces(p){
+  if(!p) return false;
+  if(Array.isArray(p.raisons) && p.raisons.some(function(r){ return r && /^hcx\.pq\.(masqueesp|nouresp)$/.test(r.cle || ''); })) return true;
+  return /lavages espac/.test(String(p.pourquoi || ''));
+}
 function fichePar(id){
   if(!id) return null;
   var liste = (S.routine && S.routine.routine) || (S.out && S.out.routine && S.out.routine.routine) || [];
@@ -3917,7 +3987,7 @@ function ouvrirFiche(id){
     (img ? '<div class="rff-im"><img src="' + esc(img) + '" alt=""></div>' : '') +
     '<div class="rff-k">' + esc((p.marque || cat.brand_name || '')) + (etape ? ' &middot; ' + esc(T(STEP_KEYS[etape])) : '') + '</div>' +
     '<h3>' + esc(p.nom || cat.name || '') + '</h3>' +
-    (p.pourquoi ? '<p>' + esc(p.pourquoi) + '</p>' : '') +
+    (function(){ var w = texteRaisons(p); return w ? '<p>' + esc(w) + '</p>' : ''; })() +
     (desc ? '<p>' + esc(String(desc).slice(0, 420)) + '</p>' : '') +
     ((cibles.length || promesses.length)
       ? '<div class="rff-l">' + cibles.concat(promesses).map(function(x){ return '<span>' + esc(String(x).replace(/-/g, ' ')) + '</span>'; }).join('') + '</div>'
@@ -4034,9 +4104,7 @@ function ecrireDetailProduits(liste){
     var img = imageUrl(p) || imageUrl(f), desc = f.description || p.description || '';
     /* les raisons deviennent des etiquettes lisibles : « cible secs,cible
        colores,lavage doux » etait une liste de mots colles. */
-    var raisons = String(p.pourquoi || '').split(/\s*[,;]\s*/).filter(Boolean).map(function(r){
-      return r.replace(/^cible\s+/i, '').replace(/-/g, ' ').trim();
-    }).filter(function(r){ return r.length > 2; }).slice(0, 4);
+    var raisons = raisonsDe(p).filter(function(r){ return r.length > 1; }).slice(0, 4);
     /* le titre entre mot a mot : un span par mot, un retard par mot */
     var nom = String(p.nom || f.name || '');
     var titre = nom.split(/\s+/).filter(Boolean).map(function(m, k){
@@ -4130,7 +4198,7 @@ function ecrireLaLecture(liste){
   var rep = S.answers || {};
   /* 26/09 — trois frequences. « Moins souvent » ne dit « soins plus riches »
      que si le moteur a vraiment favorise un soin riche pour cette raison. */
-  var riche = (liste || []).some(function(p){ return p && /lavages espaces/.test(String(p.pourquoi || '')); });
+  var riche = (liste || []).some(lavagesEspaces);
   var LAV = { quotidien:'hcl.lav1', tous_deux_jours:'hcl.lav2', deux_trois_jours:'hcx.lav23',
               moins_souvent: riche ? 'hcx.lavm' : 'hcx.lavm0', hebdo:'hcl.lav3', rare:'hcl.lav4' };
   if(rep.lavage && LAV[rep.lavage]) phrases.push(T(LAV[rep.lavage]));
@@ -4143,7 +4211,7 @@ function ecrireLaLecture(liste){
   });
 
   var gestes = (liste || []).filter(Boolean).map(function(p){
-    return { n: p.nom || '', m: p.marque || '', e: p.etape || 0, w: p.pourquoi || '' };
+    return { n: p.nom || '', m: p.marque || '', e: p.etape || 0, w: texteRaisons(p) };
   }).sort(function(x,y){ return x.e - y.e; });
 
   z.innerHTML =
@@ -4152,7 +4220,7 @@ function ecrireLaLecture(liste){
     (gestes.length
       ? '<div class="rfm-k" data-i18n="hcl.k2">' + esc(T('hcl.k2')) + '</div>' +
         '<ol>' + gestes.map(function(g, i){
-          return '<li><b>' + ['I','II','III','IV'][i] + '</b><span>' + esc(g.m + ' — ' + g.n) + (g.w ? ' : ' + esc(g.w) : '') + '</span></li>';
+          return '<li><b>' + ['I','II','III','IV'][i] + '</b><span>' + esc(g.m + ' — ' + g.n) + (g.w ? esc(T('hcx.deux') || ' : ') + esc(g.w) : '') + '</span></li>';
         }).join('') + '</ol>'
       : '');
 }
@@ -4258,7 +4326,7 @@ function renderResults(){
     for(var e = 1; e <= 4; e++){
       var p = byStep[e];
       var img = p ? imageUrl(p) : null;
-      var pourquoi = p && p.pourquoi ? String(p.pourquoi) : '';
+      var pourquoi = texteRaisons(p);
       if(pourquoi.length > 90) pourquoi = pourquoi.slice(0, 88).replace(/\s+\S*$/, '') + '…';
       h += '<article class="rf-p" tabindex="0" role="button" data-pid="' + esc(p ? (p.id || '') : '') + '" style="transition-delay:' + (0.12 * e) + 's">' +
         '<div class="num">' + ROM[e-1] + '</div>' +
