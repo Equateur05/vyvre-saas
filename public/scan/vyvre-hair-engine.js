@@ -2798,6 +2798,11 @@
     // erreur de saisie. Il lave : c'est l'etape 1. (Bouclème « Nettoyant pour boucles »
     // etait propose comme traitement cible.)
     if (prod.etape === 4 && /\b(nettoyant|cleanser|co-?wash)\b/i.test(String(prod.name || ''))) return 1;
+    // 27/09 (test de Charles) — un LAIT ou un leave-in range en etape 4 (Maui « Hair &
+    // Scalp Milk ») : c'est un soin sans rincage. En etape 4 il doublait l'etape 3 (deux
+    // laits dans la meme routine) et recevait la posologie d'un serum de cuir chevelu.
+    if (prod.etape === 4 && /\b(leave-?in|milk|lait)\b/i.test(String(prod.name || '')) &&
+        !/\b(s[e\u00e9]rum|tonique|tonic|lotion)\b/i.test(String(prod.name || ''))) return 3;
     if (prod.etape === 1 || prod.etape === 2 || prod.etape === 3 || prod.etape === 4) {
       return prod.etape;
     }
@@ -3345,6 +3350,17 @@
       if (sec !== null && sec > 0.65 && (gras === null || gras < 0.6)) {
         moins(compte(t, MOTS.purifiant) * 1.3, 'produit purifiant sur des cheveux secs');
       }
+      // 27/09 (test de Charles, cheveux ondules a boucles souples, boucle 0,60) — les
+      // gammes pour boucles SERREES et cheveux crepus (coils, afro, 4C) sont trop riches
+      // pour une ondulation : meme famille de soins, mais pas la meme charge.
+      if (boucle !== null && boucle > 0.42 && boucle < 0.72) {
+        moins(Math.min(3, compte(t, ['coil', 'crepu', 'afro', 'kinky', '4c', 'type 4'])) * 3.0,
+          'formule pour boucles serrees, trop riche pour des boucles souples');
+      }
+      // Une gamme pour enfants n'est pas proposee a un adulte (Cantu « Care for Kids »).
+      if (/\b(kids?|enfants?|junior|b[e\u00e9]b[e\u00e9]s?|baby)\b/i.test(String(prod.name || ''))) {
+        moins(4.0, 'gamme pour enfants');
+      }
       // Une laque ou un produit de coiffage pur n'est pas un soin.
       if (/\b(laque|hairspray|spray fixant|gel fixant|cire|wax|pommade)\b/i.test(prod.name || '')) {
         moins(1.6, 'produit de coiffage, pas un soin');
@@ -3381,6 +3397,13 @@
         if (!mixte && sec !== null && sec > 0.6) {
           moins(compte(t, MOTS.purifiant) * 1.7, 'shampooing clarifiant sur cheveux secs');
           plus(compte(t, MOTS.nourrissant) * 1.0, 'lavage doux et nourrissant', 'hcx.pq.douxnour');
+        }
+        // 27/09 — un co-wash ne lave pas : il nettoie sans mousse et laisse les depots.
+        // C'est le lavage des boucles serrees, entre deux shampooings. Comme SEUL lavage
+        // de la routine, sur des boucles souples ou des lavages espaces, il ne suffit pas.
+        if (/co-?wash|cleansing conditioner|apres-shampooing lavant/.test(t) &&
+            (boucle === null || boucle < 0.72 || besoins.rythme === 'espace')) {
+          moins(2.0, 'co-wash comme seul lavage : trop peu nettoyant ici');
         }
         if (besoins.colore) plus(compte(t, MOTS.couleur) * 0.8, 'respecte la couleur', 'hcx.pq.couleur');
         if (besoins.rythme === 'frequent') plus(compte(t, MOTS.doux) * 0.8, 'lavage quotidien : un shampooing doux, fait pour un usage fréquent', 'hcx.pq.quotidien');

@@ -3765,9 +3765,9 @@ function setLoadProgress(p){
 /* ================================================================ ENGINE */
 function probeEngine(){
   if(window.VYVRE_HAIR_ENGINE){ S.engine = window.VYVRE_HAIR_ENGINE; S.engineReady = true; return Promise.resolve(true); }
-  return head('/scan/vyvre-hair-engine.js?v=8').then(function(ok){
+  return head('/scan/vyvre-hair-engine.js?v=9').then(function(ok){
     if(!ok) return false;
-    return injectScript('/scan/vyvre-hair-engine.js?v=8').then(function(loaded){
+    return injectScript('/scan/vyvre-hair-engine.js?v=9').then(function(loaded){
       if(loaded && window.VYVRE_HAIR_ENGINE){ S.engine = window.VYVRE_HAIR_ENGINE; S.engineReady = true; return true; }
       return false;
     });
@@ -4433,7 +4433,7 @@ function ecrireLaLecture(liste){
   var b = mesures.boucle && (mesures.boucle.valeur != null ? mesures.boucle.valeur : (mesures.boucle.detail && mesures.boucle.detail.valeur));
   if(b != null){
     var bb = b <= 1 ? b*100 : b;
-    phrases.push(bb < 35 ? T('hcl.b1') : bb < 60 ? T('hcl.b2') : T('hcl.b3'));
+    phrases.push(bb < 35 ? T('hcl.b1') : bb < 68 ? T('hcl.b2') : T('hcl.b3'));
   }
   var cc = sc.couleur, fam = cc && FAMILLES[String(cc.famille||'').toLowerCase()];
   if(fam) phrases.push(T('hcl.coul', { c: T(fam) }));
@@ -5038,6 +5038,66 @@ document.addEventListener('vy:lang', function(){
       renderResults(); show('res'); revealResults();
     });
   }
+})();
+</script>
+<script>
+/* 27/09 (test iPhone de Charles) — certains packshots gardent leur fond blanc
+   (Maui Moisture, Maria Nila) : sur le fond bleu des resultats ils faisaient un
+   carre blanc. On retire le blanc RELIE AU BORD (le blanc d'une etiquette reste),
+   puis on recadre sur le produit pour qu'il remplisse sa niche. */
+(function(){
+  var ZONES = '.rf-shot img,.rff-im img,.rfd-im img';
+  function detourer(img){
+    if(img.dataset.detoure) return;
+    img.dataset.detoure = '1';
+    var W = img.naturalWidth, H = img.naturalHeight;
+    if(!W || !H) return;
+    var k = Math.min(1, 700 / Math.max(W, H)), w = Math.round(W*k), h = Math.round(H*k);
+    var c = document.createElement('canvas'); c.width = w; c.height = h;
+    var x = c.getContext('2d', { willReadFrequently:true });
+    try { x.drawImage(img, 0, 0, w, h); var d = x.getImageData(0, 0, w, h); } catch(e){ return; }
+    var px = d.data;
+    function blanc(i){ var r=px[i],g=px[i+1],b=px[i+2],a=px[i+3];
+      return a < 20 || (r > 212 && g > 212 && b > 212 && Math.max(r,g,b) - Math.min(r,g,b) < 14); }
+    /* rien a faire si les coins ne sont pas blancs et opaques */
+    var coins = [0, (w-1)*4, (h-1)*w*4, ((h-1)*w + w-1)*4], nb = 0;
+    coins.forEach(function(i){ if(px[i+3] > 200 && blanc(i)) nb++; });
+    if(nb < 3) return;
+    var vu = new Uint8Array(w*h), pile = [];
+    for(var xx = 0; xx < w; xx++){ pile.push(xx, (h-1)*w + xx); }
+    for(var yy = 0; yy < h; yy++){ pile.push(yy*w, yy*w + w-1); }
+    while(pile.length){
+      var q = pile.pop(); if(vu[q]) continue;
+      if(!blanc(q*4)) continue;
+      vu[q] = 1;
+      var qx = q % w, qy = (q / w) | 0;
+      if(qx > 0) pile.push(q-1); if(qx < w-1) pile.push(q+1);
+      if(qy > 0) pile.push(q-w); if(qy < h-1) pile.push(q+w);
+    }
+    var x0 = w, y0 = h, x1 = -1, y1 = -1;
+    for(var j = 0; j < w*h; j++){
+      if(vu[j]){ px[j*4+3] = 0; continue; }
+      /* bord adouci : un pixel clair voisin du fond devient semi-transparent */
+      var jx = j % w, jy = (j / w) | 0;
+      var bord = (jx > 0 && vu[j-1]) || (jx < w-1 && vu[j+1]) || (jy > 0 && vu[j-w]) || (jy < h-1 && vu[j+w]);
+      if(bord){ var L = (px[j*4] + px[j*4+1] + px[j*4+2]) / 3; if(L > 200) px[j*4+3] = Math.round(255 * (255 - L) / 55); }
+      if(jx < x0) x0 = jx; if(jx > x1) x1 = jx; if(jy < y0) y0 = jy; if(jy > y1) y1 = jy;
+    }
+    if(x1 < 0) return;
+    x.putImageData(d, 0, 0);
+    var m = 6, cw = Math.min(w, x1 - x0 + 1 + 2*m), ch = Math.min(h, y1 - y0 + 1 + 2*m);
+    var o = document.createElement('canvas'); o.width = cw; o.height = ch;
+    o.getContext('2d').drawImage(c, Math.max(0, x0 - m), Math.max(0, y0 - m), cw, ch, 0, 0, cw, ch);
+    img.src = o.toDataURL('image/png');
+  }
+  document.addEventListener('load', function(e){
+    var t = e.target;
+    if(t && t.tagName === 'IMG' && t.matches && t.matches(ZONES)) detourer(t);
+  }, true);
+  /* une image deja chargee (cache) avant l'ecoute */
+  new MutationObserver(function(){
+    Array.prototype.forEach.call(document.querySelectorAll(ZONES), function(i){ if(i.complete && i.naturalWidth) detourer(i); });
+  }).observe(document.body, { childList:true, subtree:true });
 })();
 </script>
 </body>
