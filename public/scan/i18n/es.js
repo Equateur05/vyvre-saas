@@ -17,7 +17,7 @@ VY.add('es', {
 'h.t1': 'Longevidad.',
 'h.t2': 'Medida.',
 'h.title': 'Longevidad.<br>Medida.',
-'h.p': "Unos segundos frente a su cámara. Después, los tres tratamientos hechos para su piel.",
+'h.p': "La luz de su piel, leída en unos segundos.",
 'h.scan': 'Iniciar el escaneo',
 'h.upload': 'Enviar una foto',
 'chip.glow': 'Luminosidad',

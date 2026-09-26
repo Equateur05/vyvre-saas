@@ -17,7 +17,7 @@ VY.add('nl', {
 'h.t1': 'Longeviteit.',
 'h.t2': 'Gemeten.',
 'h.title': 'Longeviteit.<br>Gemeten.',
-'h.p': "Een paar seconden voor uw camera. Daarna de drie verzorgingsproducten die bij uw huid passen.",
+'h.p': "Het licht van uw huid, gelezen in enkele seconden.",
 'h.scan': 'Scan starten',
 'h.upload': 'Foto versturen',
 'chip.glow': 'Stralendheid',

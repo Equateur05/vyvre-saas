@@ -17,7 +17,7 @@ VY.add('it', {
 'h.t1': 'Longevità.',
 'h.t2': 'Misurata.',
 'h.title': 'Longevità.<br>Misurata.',
-'h.p': "Pochi secondi davanti alla fotocamera. Poi, i tre trattamenti fatti per la sua pelle.",
+'h.p': "La luce della sua pelle, letta in pochi secondi.",
 'h.scan': 'Avviare la scansione',
 'h.upload': 'Inviare una foto',
 'chip.glow': 'Luminosità',
