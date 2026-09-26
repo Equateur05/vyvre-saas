@@ -2594,22 +2594,50 @@
    * sécheresse à quiconque avait répondu quelque chose, même sans rapport : c'était un
    * chiffre inventé, il a été retiré.
    */
+  /**
+   * LES GENES (27/09/2026) — jusqu'a TROIS, dans l'ordre ou la personne les a choisies.
+   * La page /cheveux demande « ce qui vous gene le plus » en choix multiple (1 a 3).
+   * Accepte : reponses.probleme = 'chute' (ancien format, une seule gene),
+   *           reponses.probleme = ['casse', 'chute', 'pellicules'], ou reponses.problemes = [...].
+   * La premiere choisie pese 1, la deuxieme 0,94, la troisieme 0,88 : les trois sont
+   * prises en compte, et l'ordre departage quand une seule etape doit trancher.
+   */
+  var GENES_CONNUES = ['secheresse', 'gras', 'chute', 'pellicules', 'casse', 'plats'];
+  var POIDS_RANG = [1, 0.94, 0.88];
+  function genesDe(rep) {
+    if (!rep) return [];
+    var brut = rep.problemes !== undefined ? rep.problemes : rep.probleme;
+    var l = Array.isArray(brut) ? brut : (brut === null || brut === undefined ? [] : [brut]);
+    var out = [];
+    for (var i = 0; i < l.length && out.length < 3; i++) {
+      var v = String(l[i] || '').toLowerCase();
+      if (GENES_CONNUES.indexOf(v) !== -1 && out.indexOf(v) === -1) out.push(v);
+    }
+    return out;
+  }
+  /** poids de la gene v dans les reponses : 0 si non choisie, sinon selon son rang */
+  function poidsGene(rep, v) {
+    var g = genesDe(rep), i = g.indexOf(v);
+    return i === -1 ? 0 : POIDS_RANG[i];
+  }
+
   function declare(rep, cle) {
     if (!rep) return null;
-    var p = rep.probleme, e = rep.etat, l = rep.lavage, t = rep.type_ressenti, a = rep.age;
+    var e = rep.etat, l = rep.lavage, t = rep.type_ressenti, a = rep.age;
     var signaux = [];
     function sig(v) { if (v !== null && v !== undefined) signaux.push(v); }
+    function g(v) { return poidsGene(rep, v); }
 
     switch (cle) {
       case 'secheresse':
-        if (p === 'secheresse') sig(0.85);
-        if (p === 'gras') sig(0.25);
+        if (g('secheresse')) sig(0.85 * g('secheresse'));
+        if (g('gras') && !g('secheresse')) sig(0.25);
         if (e === 'decolores') sig(0.72);
         if (e === 'defrises') sig(0.60);
         if (e === 'colores') sig(0.60);
         break;
       case 'casse':
-        if (p === 'casse') sig(0.85);
+        if (g('casse')) sig(0.85 * g('casse'));
         if (e === 'decolores') sig(0.70);
         if (e === 'defrises') sig(0.65);
         if (e === 'colores') sig(0.50);
@@ -2621,7 +2649,7 @@
         else if (l === 'deux_trois_jours') sig(0.50);
         else if (l === 'hebdo' || l === 'moins_souvent') sig(0.30);
         else if (l === 'rare') sig(0.15);
-        if (p === 'gras') sig(0.80);
+        if (g('gras')) sig(0.80 * g('gras'));
         break;
       case 'frizz':
         if (t === 'crepus') sig(0.75);
@@ -2644,8 +2672,8 @@
         else if (a === '-25') sig(0.02);
         break;
       case 'densite':
-        if (p === 'chute') sig(0.25);
-        if (p === 'plats') sig(0.35);
+        if (g('chute')) sig(0.25);
+        if (g('plats')) sig(0.35);
         break;
       default: return null;
     }
@@ -2712,14 +2740,15 @@
     // La question ne demande QUE la gêne principale : ne pas l'avoir choisie ne veut pas
     // dire qu'on n'a pas de pellicules. Mettre 10 comme avant, c'était affirmer une
     // absence qu'on n'a jamais constatée.
-    s.pellicules = (reponses && reponses.probleme === 'pellicules')
-      ? { libelle: 'Pellicules', valeur: 80, partMesuree: 0, partDeclaree: 1, fiabilite: 'declaree',
+    var wPell = poidsGene(reponses, 'pellicules'), wChute = poidsGene(reponses, 'chute');
+    s.pellicules = wPell
+      ? { libelle: 'Pellicules', valeur: Math.round(80 * wPell), partMesuree: 0, partDeclaree: 1, fiabilite: 'declaree',
           note: 'les pellicules ne sont pas mesurables sur une photo de chevelure : score entierement declare' }
       : { libelle: 'Pellicules', valeur: null, partMesuree: 0, partDeclaree: 0, fiabilite: 'nulle',
           raison: 'non_declaree_comme_gene_principale',
           note: 'non mesurable sur une photo, et non signalee comme gene principale : le moteur ne se prononce pas' };
-    s.chute = (reponses && reponses.probleme === 'chute')
-      ? { libelle: 'Chute', valeur: 80, partMesuree: 0, partDeclaree: 1, fiabilite: 'declaree',
+    s.chute = wChute
+      ? { libelle: 'Chute', valeur: Math.round(80 * wChute), partMesuree: 0, partDeclaree: 1, fiabilite: 'declaree',
           note: 'la chute se constate dans le temps, pas sur une image : score entierement declare' }
       : { libelle: 'Chute', valeur: null, partMesuree: 0, partDeclaree: 0, fiabilite: 'nulle',
           raison: 'non_declaree_comme_gene_principale',
@@ -2765,6 +2794,10 @@
     // et se trompait sur trois cas verifies : un « Bain Creme » Kerastase, qui est un
     // shampooing, partait en traitement cible, et deux demelants « Pre-Shampoo » ranges
     // en soin partaient en lavage parce que leur nom contient « shampoo ».
+    // 27/09 — une seule exception : un NETTOYANT (co-wash, cleanser) range en etape 4 par
+    // erreur de saisie. Il lave : c'est l'etape 1. (Bouclème « Nettoyant pour boucles »
+    // etait propose comme traitement cible.)
+    if (prod.etape === 4 && /\b(nettoyant|cleanser|co-?wash)\b/i.test(String(prod.name || ''))) return 1;
     if (prod.etape === 1 || prod.etape === 2 || prod.etape === 3 || prod.etape === 4) {
       return prod.etape;
     }
@@ -2798,7 +2831,7 @@
       // HAIRSPRAY GRAND FORMAT » a son mot-cle a trois mots de « set ».
       sauf: new RegExp('\\b(?:' + FORMES_GALENIQUES + ')\\b', 'i'),
       raison: 'coffret ou lot : une routine propose des produits a l unite' },
-    { re: /\b(kit|duo|trio|bundle|coffret|pack|collection)\b/i,
+    { re: /\b(kit|duo|trio|bundle|coffret|pack|collection|ceremony)\b/i,
       raison: 'coffret ou lot : une routine propose des produits a l unite' },
     // « free » a ete RETIRE de ce motif : il ecartait 20 vrais produits (Sulfate Free,
     // Paraben Free, Fragrance Free, Frizz Free, Free Styler...). Seules restent les
@@ -2835,11 +2868,23 @@
   function raisonEcart(prod) {
     var n = String(prod.name || '');
     if (!n) return 'produit sans nom';
+    // 27/09 — un medicament (minoxidil...) n'a pas sa place dans une routine cosmetique
+    // proposee apres une lecture photo : il se discute avec un medecin ou un pharmacien.
+    if (prod.medicament === true) return 'medicament : hors d une routine cosmetique';
+    // 27/09 — un coffret dont le NOM ne le dit pas (« Icônes de style » de Bouclème : « notre
+    // trio le plus vendu ») : c'est sa description qui le dit.
+    if (/\b(notre (?:trio|duo)|ce coffret|le coffret|this (?:kit|set|bundle|duo|trio)\b|(?:kit|set|bundle) includes|trousse)|^includes:/i.test(String(prod.description || ''))) {
+      return 'coffret ou lot : une routine propose des produits a l unite';
+    }
     for (var i = 0; i < HORS_ROUTINE.length; i++) {
       if (!HORS_ROUTINE[i].re.test(n)) continue;
       // « sauf » : le motif est annule quand le nom designe clairement une forme galenique.
       if (HORS_ROUTINE[i].sauf && HORS_ROUTINE[i].sauf.test(n)) continue;
       return HORS_ROUTINE[i].raison;
+    }
+    // 27/09 — un soin des ongles ou une huile a barbe ne sont pas des soins capillaires
+    if (/\b(ongles?|nails?|barbe|beard)\b/i.test(n) && !/(cheveu|cheveux|hair|shampo|scalp|cuir chevelu)/i.test(n)) {
+      return 'produit qui n est pas un soin capillaire (ongles ou barbe)';
     }
     if (MOT_HORS_CHEVEU.test(n) && !SANS_PARFUM.test(n)) {
       var cat = String(prod.categorie || '').toLowerCase();
@@ -2952,6 +2997,214 @@
     colores: 'cheveux colorés', 'cuir-chevelu-sensible': 'cuir chevelu sensible', gras: 'racines grasses',
     chute: 'chute', crepus: 'cheveux crépus', pellicules: 'pellicules', lisses: 'cheveux lisses', epais: 'cheveux épais' };
 
+  /**
+   * POSOLOGIE (27/09/2026) — quand, combien de fois, et ou, pour chaque produit propose.
+   * Charles a eu la « Cure Apaisante Specifique » Kerastase et l'ecran ne disait pas
+   * quand l'utiliser, alors que la marque ecrit « 4 semaines, 3 fois par semaine ».
+   *
+   * Ordre des sources :
+   *   1. POSOLOGIE_MARQUE : relevee a la main sur la fiche officielle (url + date) ;
+   *   2. le texte du produit dans le catalogue (description, claims) : on n'y prend QUE
+   *      des formules d'usage explicites (« 3 fois par semaine », « once a week »,
+   *      « a chaque shampooing », « use daily », « cure de 4 semaines », « laisser poser
+   *      5 minutes »), en plusieurs langues. « daily stressors » ou « 70 days of color »
+   *      ne sont pas des posologies et ne sont pas pris ;
+   *   3. sinon une REGLE GENERALE prudente par type de produit, et le resultat le dit
+   *      (source: 'regle').
+   * Rend { quand: {cle, v}, duree: {cle, v}|null, pose: {cle, v}|null, ou: {cle}|null,
+   *        source: 'marque'|'catalogue'|'regle', extrait: '...' } — les cles sont hcx.u.*
+   */
+  // Releve le 27/09/2026 sur les fiches officielles (url ci-dessous), pour les produits
+  // que le moteur propose le plus souvent. Chaque entree cite la phrase de la marque.
+  var POSOLOGIE_MARQUE = {
+    'kerastase--cure-apaisante-specifique-anti-inconfort-cuir-chevelu': {
+      quand: { cle: 'hcx.u.sem', v: { n: 3 } }, duree: { cle: 'hcx.u.pendant', v: { n: 4 } }, rincer: false, ou: 'cuir',
+      url: 'https://www.kerastase.be/fr-be/products/specifique/cure-apaisante-anti-inconforts',
+      extrait: 'Utilisez le traitement trois fois par semaine pendant quatre semaines' },
+    'davines--heart-of-glass-intense-treatment': {
+      quand: { cle: 'hcx.u.sem', v: { n: 1 } }, pose: { cle: 'hcx.u.pose2', v: { a: 5, b: 10 } }, ou: 'longess',
+      url: 'https://fr.davines.com/products/intense-treatment',
+      extrait: 'Laissez agir le soin durant 5 à 10 minutes [...] Utilisez une fois par semaine' },
+    'nioxin--system-3-leave-in-treatment': {
+      quand: { cle: 'hcx.u.semmin', v: { n: 3 } }, rincer: false, ou: 'cuir',
+      url: 'https://www.nioxin.com/fr-FR/products/leave-in/system-3-leave-in-treatment',
+      extrait: 'utiliser le kit System complet au moins 3 fois par semaine [...] Ne pas rincer' },
+    'k18--jumbo-peptide-prep-detox-shampoo': {
+      quand: { cle: 'hcx.u.sem', v: { n: 1 } }, besoin: true, ou: 'cuir',
+      url: 'https://www.k18hair.com/products/jumbo-peptide-prep-detox-shampoo',
+      extrait: 'Swap out your regular shampoo for this power wash 1x weekly or as needed' },
+    'bioderma--node-p-shampooing-normalisant': {
+      quand: { cle: 'hcx.u.sem', v: { n: 3 } }, duree: { cle: 'hcx.u.pendant', v: { n: 3 } },
+      suite: { cle: 'hcx.u.puis2', v: { a: 1, b: 2 } }, pose: { cle: 'hcx.u.pose', v: { n: 1 } }, ou: 'cuir',
+      url: 'https://www.bioderma.fr/p/node-p-shampooing-normalisant',
+      extrait: 'traitement d’attaque 3 fois par semaine pendant 3 semaines, entretien 1 à 2 fois par semaine ; laisser agir 1 minute' },
+    'bioderma--node-p-shampooing-purifiant': {
+      quand: { cle: 'hcx.u.sem', v: { n: 3 } }, duree: { cle: 'hcx.u.pendant', v: { n: 3 } },
+      suite: { cle: 'hcx.u.puis2', v: { a: 1, b: 2 } }, pose: { cle: 'hcx.u.pose', v: { n: 1 } }, ou: 'cuir',
+      url: 'https://www.bioderma.fr/p/node-p-shampooing-purifiant',
+      extrait: 'Traitement d’attaque (3 semaines) : 3 shampooings par semaine. Entretien : 1 à 2 shampooings par semaine. Laisser agir pendant 1 minute' },
+    'elvive-loreal-paris--growth-booster-scalp-serum-anti-hair-loss-serum-treatment': {
+      quand: { cle: 'hcx.u.jour' }, rincer: false, ou: 'cuir',
+      url: 'https://www.loreal-paris.co.uk/elvive/growth-booster-anti-hair-loss-serum',
+      extrait: 'Daily use. Apply directly on scalp, section by section [...] Do not rinse out' },
+    'living-proof--scalp-care-density-serum': {
+      quand: { cle: 'hcx.u.jour' }, rincer: false, ou: 'cuir',
+      url: 'https://www.livingproof.com/products/scalp-care-density-serum',
+      extrait: 'Daily. Apply 2-3 dropperfuls directly to dry or damp scalp. Massage in.' },
+    'australian-bodycare--spray-capillaire-chute-de-cheveux': {
+      quand: { cle: 'hcx.u.jour' }, ou: 'long',
+      url: 'https://australian-bodycare.fr/products/hair-loss-spray',
+      extrait: 'Utilisation quotidienne ; vaporisez uniformément sur les longueurs et les pointes. Évitez de pulvériser directement sur le cuir chevelu' },
+    'ouidad--curl-shaper-good-as-new-moisture-restoring-shampoo': {
+      quand: { cle: 'hcx.u.chaqueq' }, ou: 'cuir',
+      url: 'https://www.ouidad.com/products/curl-shaper-good-as-new-moisture-restoring-shampoo',
+      extrait: 'gentle enough to use daily' }
+  };
+  var NOMBRES = { un: 1, une: 1, one: 1, once: 1, deux: 2, two: 2, twice: 2, trois: 3, three: 3, quatre: 4, four: 4,
+    uno: 1, una: 1, dos: 2, tres: 3, due: 2, tre: 3, ein: 1, einmal: 1, zwei: 2, zweimal: 2, drei: 3, dreimal: 3, duas: 2, 'três': 3 };
+  function nombre(x) { if (x === undefined || x === null) return null; var k = String(x).toLowerCase(); return /^\d+$/.test(k) ? +k : (NOMBRES[k] || null); }
+  var MOT_NB = '(\\d+|une?|deux|trois|quatre|one|two|three|four|once|twice|uno|una|dos|tres|due|tre|ein|einmal|zwei|zweimal|drei|dreimal|duas|três)';
+  var RE_SEMAINE = new RegExp(MOT_NB + '(?:\\s*(?:à|a|ou|or|to|-|–|o)\\s*' + MOT_NB + ')?\\s*(?:fois|times?|x|veces|volte|vezes|mal)?\\s*(?:par|per|a|an?|each|every|/|por|alla|a la|pro|in der|na)\\s*(?:semaine|week|semana|settimana|woche)\\b', 'i');
+  var RE_JOUR_N = new RegExp(MOT_NB + '\\s*(?:fois|times?)\\s*(?:par|per|a)\\s*(?:jour|day)\\b', 'i');
+  var RE_HEBDO = /\b(once|twice) weekly\b|\bweekly (?:treatment|mask|masque|scrub|ritual|reset|use|deep|conditioning|clarif)|\b(?:use|apply|used) (?:it )?(?:once )?weekly\b|\b(?:soin|masque|rituel|usage|gommage) hebdomadaire\b|\bune fois par semaine\b/i;
+  var RE_CHAQUE = /(?:à|a|après|apres) chaque (?:shampo+ing|shampoing|lavage)|(?:with|after|at) (?:every|each) (?:wash|shampoo)|every time you (?:wash|shampoo)|each time you wash|in jeder haarw[äa]sche|ad ogni (?:lavaggio|shampoo)|en cada lavado/i;
+  var RE_QUOTIDIEN = /(?:usage|utilisation) quotidien|nettoyant quotidien|(?:utilis\w*|s.utilise|appliqu\w*|vaporis\w*|à utiliser|a utiliser)\s+(?:au quotidien|quotidiennement|tous les jours|chaque jour)|\b(?:use|apply|spray|massage|used)\b[^.]{0,25}\b(?:daily|every day|each day|once a day)\b|\bfor (?:everyday|daily) use\b|\b(?:everyday|daily) use\b|\bonce-daily\b|\buso (?:diario|quotidiano)\b|\bt[äa]glich(?:e anwendung)?\b/i;
+  // « daily conditioner » : n'est une posologie que si c'est bien CE produit (un apres-
+  // shampooing qui se dit « daily conditioner »), pas un autre produit de la gamme cite
+  // dans la description (« Shampoo, Conditioning Balm & Daily Leave-In Tonic »).
+  var RE_DAILY_NOM = /\bdaily (leave-in|conditioner|shampoo|cleanser|scalp serum|serum|scalp treatment|treatment|moisturi[sz]er|fluid|spray|mist|tonic|repair shampoo|repair conditioner)\b/i;
+  var DAILY_ETAPE = { 'leave-in': 3, conditioner: 2, shampoo: 1, cleanser: 1, 'scalp serum': 4, serum: 4, 'scalp treatment': 4,
+    treatment: 4, moisturizer: 3, moisturiser: 3, fluid: 3, spray: 3, mist: 3, tonic: 4, 'repair shampoo': 1, 'repair conditioner': 2 };
+  var RE_DUREE_CTX_NON = /test|volontaires|volunteers|study|[ée]tude|prot[ée]g[ée]e?|lasting|up to|jusqu|results? (?:in|after)|r[ée]sultats?/i;
+  var RE_DUREE = /(?:cure|traitement|treatment|programme|program|regimen|rituel)[^.]{0,40}?\b(\d+)\s*(semaines|weeks|mois|months)\b|\b(?:cure de|pendant|during)\s+(\d+)\s*(semaines|weeks|mois|months)\b|\b(?:use|apply|utiliser|appliquer)[^.]{0,40}?\bfor\s+(\d+)\s*(weeks|months)\b|\b(\d+)[- ](?:week|semaines?) (?:cure|treatment|program|programme|regimen)\b/i;
+  var RE_POSE = /(?:laisse[rz]?\s+(?:poser|agir|reposer)|temps de pose|leave (?:it )?(?:on|in)(?: for)?|let (?:it )?(?:sit|work) for|lasciare (?:in )?posa(?:re)?|dejar actuar|einwirken lassen)[^.]{0,20}?(\d+)(?:\s*(?:à|a|-|–|to)\s*(\d+))?\s*(?:min|minutes|minuti|minutos|minuten)\b|\b(\d+)[- ]minute (?:treatment|mask|masque|miracle)\b/i;
+  var RE_AVANT = /\bpr[ée]-?shampo+ing\b|\bavant (?:le |votre )?shampo+ing\b|\bpre-?shampoo\b|\bbefore (?:you )?(?:shampoo|washing|cleansing)\b/i;
+  var RE_OU_CUIR = /(?:sur|to|onto|on|into|directly (?:to|on)) (?:le |the |your )?(?:cuir chevelu|scalp)\b|raie par raie|section by section|part by part/i;
+  var RE_OU_POINTES = /(?:sur|to|on) (?:les |the |your )?(?:pointes|ends)\b/i;
+  var RE_OU_LONG = /\blongueurs\b|\bmid-?lengths?\b|\blengths and ends\b/i;
+
+  function semaineCle(a, b) {
+    if (!a) return null;
+    if (b && b > a) return { cle: 'hcx.u.sem2', v: { a: a, b: b } };
+    return { cle: 'hcx.u.sem', v: { n: a } };
+  }
+  function posologie(prod, contexte) {
+    contexte = contexte || {};
+    var cat = String(prod.categorie || '').toLowerCase();
+    var et = etapeDe(prod);
+    var nom = String(prod.name || '').toLowerCase();
+    var desc = String(prod.description || '').replace(/[’]/g, "'");
+    var tout = (nom + ' ' + cat + ' ' + desc + ' ' + (prod.claims || []).join(' ')).toLowerCase();
+    var res = { quand: null, duree: null, pose: null, ou: null, source: null, extrait: null };
+
+    // ---- 1. la fiche officielle relevee a la main
+    var m0 = POSOLOGIE_MARQUE[prod.id];
+    if (m0) {
+      res.quand = m0.quand; res.duree = m0.duree || null; res.pose = m0.pose || null;
+      res.suite = m0.suite || null;
+      if (m0.besoin) res.besoin = { cle: 'hcx.u.oubesoin' };
+      if (m0.rincer === false) res.rincer = { cle: 'hcx.u.sansrincer' };
+      res.ou = m0.ou ? { cle: 'hcx.u.o.' + m0.ou } : null; res.source = 'marque'; res.extrait = m0.extrait; res.url = m0.url;
+      return res;
+    }
+
+    // ---- 2. le texte du produit : seulement des formules d'usage explicites
+    var ex = [];
+    var m;
+    if ((m = RE_SEMAINE.exec(desc))) {
+      var a = nombre(m[1]), b = nombre(m[2]);
+      if (a && a <= 7 && (!b || b <= 7)) { res.quand = semaineCle(a, b); ex.push(m[0]); }
+    }
+    if (!res.quand && (m = RE_HEBDO.exec(desc))) {
+      res.quand = /twice/i.test(m[0]) ? { cle: 'hcx.u.sem', v: { n: 2 } } : { cle: 'hcx.u.sem', v: { n: 1 } }; ex.push(m[0]);
+    }
+    if (!res.quand && (m = RE_JOUR_N.exec(desc))) {
+      var nj = nombre(m[1]);
+      if (nj && nj <= 3) { res.quand = nj === 1 ? { cle: 'hcx.u.jour' } : { cle: 'hcx.u.journ', v: { n: nj } }; ex.push(m[0]); }
+    }
+    if (!res.quand && (m = RE_CHAQUE.exec(desc))) { res.quand = { cle: 'hcx.u.chaque' }; ex.push(m[0]); }
+    if (!res.quand && (m = RE_QUOTIDIEN.exec(desc))) {
+      res.quand = (et === 1 || et === 2) ? { cle: 'hcx.u.chaqueq' } : { cle: 'hcx.u.jour' }; ex.push(m[0]);
+    }
+    if (!res.quand && (m = RE_DAILY_NOM.exec(desc))) {
+      var eD = DAILY_ETAPE[m[1].toLowerCase()];
+      // « Daily » avec une majuscule, dans la description d'un produit qui ne s'appelle pas
+      // « daily » : c'est le nom d'un AUTRE produit de la gamme, pas une posologie.
+      var autreProduit = /^D/.test(m[0]) && !/daily/i.test(String(prod.name || ''));
+      if (!autreProduit && (eD === et || (eD >= 3 && et >= 3))) {
+        res.quand = (et === 1 || et === 2) ? { cle: 'hcx.u.chaqueq' } : { cle: 'hcx.u.jour' }; ex.push(m[0]);
+      }
+    }
+    // « avant le shampooing » est un MOMENT, pas une frequence : la frequence reste a trouver
+    if (et !== 1 && (m = RE_AVANT.exec(desc))) { res.avant = { cle: 'hcx.u.avant' }; ex.push(m[0]); }
+    if ((m = RE_DUREE.exec(desc)) && !RE_DUREE_CTX_NON.test(desc.slice(Math.max(0, m.index - 70), m.index + m[0].length))) {
+      var nd = +(m[1] || m[3] || m[5] || m[7]), un = String(m[2] || m[4] || m[6] || 'weeks').toLowerCase();
+      var mois = /mois|month/.test(un);
+      // « up to 4 weeks » de tenue de couleur n'est pas une duree de cure
+      if (nd && nd <= 26 && !/up to|jusqu/i.test(desc.slice(Math.max(0, m.index - 12), m.index + 4))) {
+        res.duree = mois ? { cle: 'hcx.u.pendantm', v: { n: nd } } : { cle: 'hcx.u.pendant', v: { n: nd } };
+        ex.push(m[0]);
+      }
+    }
+    if ((m = RE_POSE.exec(desc))) {
+      var p1 = +(m[1] || m[3]), p2 = m[2] ? +m[2] : null;
+      if (p1 && p1 <= 60) { res.pose = p2 ? { cle: 'hcx.u.pose2', v: { a: p1, b: p2 } } : { cle: 'hcx.u.pose', v: { n: p1 } }; ex.push(m[0]); }
+    }
+    if (RE_OU_CUIR.test(desc)) res.ou = { cle: 'hcx.u.o.cuir' };
+    else if (RE_OU_POINTES.test(desc) && !RE_OU_LONG.test(desc)) res.ou = { cle: 'hcx.u.o.pointes' };
+    // une duree ou un temps de pose sans frequence : la frequence vient de la regle
+    var deLaMarque = !!res.quand;
+    if (ex.length) res.extrait = ex.join(' · ');
+
+    // ---- 3. la regle generale, prudente, par type
+    var antipell = cat === 'anti-pellicules' || /pellicul|dandruff|piroctone|ketoconazole|climbazole|pyrithione/.test(tout);
+    var clarif = /clarif|detox|d[ée]tox|exfoli|gommage|scrub|deep clean|purifiant intense/.test(tout);
+    var coWash = /co-?wash|cowash/.test(tout);
+    var cure = /\bcure\b|ampoule|ampoules|vials?\b/.test(nom);
+    var regle = null, ouR = null;
+    if (et === 1) {
+      ouR = 'cuir';
+      if (coWash) regle = { cle: 'hcx.u.chaque' };
+      else if (antipell) regle = { cle: 'hcx.u.sem2', v: { a: 2, b: 3 }, alt: true };
+      else if (clarif) regle = { cle: 'hcx.u.sem', v: { n: 1 } };
+      else regle = { cle: 'hcx.u.chaque' };
+    } else if (et === 2) {
+      ouR = 'long';
+      if (cat === 'masque' || /\b(masque|mask|masca|maschera|maske)\b/.test(nom)) {
+        regle = contexte.masqueChaqueLavage ? { cle: 'hcx.u.chaque' } : { cle: 'hcx.u.sem2', v: { a: 1, b: 2 } };
+      } else if (cat === 'proteine-reconstruction') regle = { cle: 'hcx.u.sem', v: { n: 1 } };
+      else if (cat === 'coloration-soin') regle = { cle: 'hcx.u.sem2', v: { a: 1, b: 2 } };
+      else regle = { cle: 'hcx.u.chaque' };
+    } else if (et === 3) {
+      if (/dry shampoo|shampo+ing sec|shampoing sec|trockenshampoo|champ[uú] seco/.test(nom)) { regle = { cle: 'hcx.u.sec' }; ouR = 'racines'; }
+      else if (/\b(poudre|powder|dust)\b/.test(nom)) { regle = { cle: 'hcx.u.coiff' }; ouR = 'racines'; }
+      else if (/chute|hair loss|hair-loss|anti-chute|growth|densi|pousse|thinning/.test(nom)) { regle = { cle: 'hcx.u.jour', mois3: true }; ouR = 'cuir'; }
+      else if (cat === 'huile' || /\b(huile|oil|olio|aceite|öl|oleo)\b/.test(nom)) { regle = { cle: 'hcx.u.besoin' }; ouR = 'pointes'; }
+      else if (cat === 'protection-thermique' || /thermo|heat|chaleur/.test(nom)) { regle = { cle: 'hcx.u.chaleur' }; ouR = 'long'; }
+      else if (RE_OU_CUIR.test(desc) || /scalp|cuir chevelu/.test(nom) ||
+               (prod.claims || []).some(function (c) { return /apaisant-cuir-chevelu|antipelliculaire|anti-chute/.test(c); })) { regle = { cle: 'hcx.u.jour' }; ouR = 'cuir'; }
+      else { regle = { cle: 'hcx.u.apres' }; ouR = 'longess'; }
+    } else if (et === 4) {
+      ouR = (cat === 'proteine-reconstruction' && !/scalp|cuir/.test(tout)) ? 'long' : 'cuir';
+      if (cat === 'proteine-reconstruction') regle = { cle: 'hcx.u.sem', v: { n: 1 } };
+      else if (cat === 'traitement-chute' || /chute|hair loss|thinning|densi|growth|pousse/.test(tout)) regle = { cle: 'hcx.u.jour', mois3: true };
+      else if (antipell) regle = { cle: 'hcx.u.sem2', v: { a: 2, b: 3 } };
+      else if (cure) regle = { cle: 'hcx.u.sem2', v: { a: 2, b: 3 } };
+      else regle = { cle: 'hcx.u.sem2', v: { a: 2, b: 3 } };
+    }
+    if (!res.quand && res.avant && regle && regle.cle === 'hcx.u.chaque') regle = { cle: 'hcx.u.sem', v: { n: 1 } };
+    if (!res.quand && res.avant && (clarif || /scrub|gommage|exfoli/.test(tout))) regle = { cle: 'hcx.u.sem', v: { n: 1 } };
+    if (!res.quand && regle) {
+      res.quand = { cle: regle.cle, v: regle.v || null };
+      if (regle.alt) res.alterne = { cle: 'hcx.u.alt' };
+      if (regle.mois3 && !res.duree) res.duree = { cle: 'hcx.u.mois3' };
+    }
+    if (!res.ou && ouR) res.ou = { cle: 'hcx.u.o.' + ouR };
+    res.source = deLaMarque ? 'catalogue' : (res.extrait ? 'mixte' : 'regle');
+    if (!res.quand) return null;
+    return res;
+  }
+
   function composerRoutine(scores, reponses, produits, options) {
     options = options || {};
     var jeuEssai = false;
@@ -3009,7 +3262,9 @@
       pellicules: n('pellicules'), chute: n('chute'),
       colore: reponses && (reponses.etat === 'colores' || reponses.etat === 'decolores') ? 1 : 0,
       decolore: reponses && reponses.etat === 'decolores' ? 1 : 0,
-      plats: reponses && reponses.probleme === 'plats' ? 1 : 0,
+      plats: poidsGene(reponses, 'plats') ? 1 : 0,
+      // 27/09 — les genes declarees (1 a 3), dans l'ordre, et leur poids
+      genes: genesDe(reponses),
       // 26/09 — le rythme de lavage pese enfin sur la routine elle-meme, en trois
       // niveaux. Avant, seul le signal « racines grasses » en dependait, et seul
       // « tous les jours » depassait un seuil : les autres choix ne changeaient rien.
@@ -3094,6 +3349,13 @@
       if (/\b(laque|hairspray|spray fixant|gel fixant|cire|wax|pommade)\b/i.test(prod.name || '')) {
         moins(1.6, 'produit de coiffage, pas un soin');
       }
+      // 27/09 — un soin pour BLONDS (shampooing violet, « blonded ») sur une couleur mesuree
+      // foncee ou moyenne : contresens (test : R+Co Blonded propose a une chevelure foncee).
+      var famC = scores && scores.couleur && String(scores.couleur.famille || '').toLowerCase();
+      if ((famC === 'fonce' || famC === 'moyen') && !besoins.decolore &&
+          /\b(blond\w*|platin\w*|brass\w*|purple|violet|silver|argent)\b/.test(t)) {
+        moins(2.2, 'soin pour cheveux blonds sur une couleur mesuree foncee');
+      }
       // Produit anti-jaunissement (pigment violet) sans cheveux clairs ni blancs.
       if ((besoins.blancs === null || besoins.blancs < 0.35) && !besoins.decolore &&
           compte(t, MOTS.blancs) > 1) {
@@ -3103,11 +3365,20 @@
       // ---- etape 1 : lavage
       if (etape === 1) {
         if (pell !== null && pell > 0.5) plus(compte(t, MOTS.antipelliculaire) * 2.2, 'shampooing antipelliculaire', 'hcx.pq.antipell1');
-        if (gras !== null && gras > 0.6) {
+        // 27/09 — racines grasses ET longueurs seches (deux genes choisies ensemble, cas
+        // tres courant) : le shampooing s'occupe du cuir chevelu, doux et equilibrant ; la
+        // nutrition passe aux etapes 2 et 3, sur les longueurs. Sans ce cas, les deux
+        // regles se contredisaient et s'annulaient.
+        var mixte = gras !== null && gras > 0.6 && sec !== null && sec > 0.6;
+        if (mixte) {
+          plus((compte(t, MOTS.purifiant) + compte(t, MOTS.doux)) * 1.2, 'racines grasses, longueurs sèches : un lavage doux qui équilibre le cuir chevelu', 'hcx.pq.mixte');
+          moins(compte(t, ['clarifiant', 'detox', 'charbon', 'exfoli', 'gommage', 'scrub']) * 1.2, 'lavage trop decapant pour des longueurs seches');
+          moins(compte(t, ['beurre', 'karite', 'riche']) * 1.2, 'shampooing riche sur racines grasses');
+        } else if (gras !== null && gras > 0.6) {
           plus(compte(t, MOTS.purifiant) * 1.8, 'lavage purifiant pour les racines grasses', 'hcx.pq.purif');
           moins(compte(t, MOTS.nourrissant) * 1.6, 'shampooing riche sur racines grasses');
         }
-        if (sec !== null && sec > 0.6) {
+        if (!mixte && sec !== null && sec > 0.6) {
           moins(compte(t, MOTS.purifiant) * 1.7, 'shampooing clarifiant sur cheveux secs');
           plus(compte(t, MOTS.nourrissant) * 1.0, 'lavage doux et nourrissant', 'hcx.pq.douxnour');
         }
@@ -3121,7 +3392,9 @@
 
       // ---- etape 2 : soin rince
       if (etape === 2) {
-        if (sec !== null) plus(compte(t, MOTS.nourrissant) * sec * 2.2, 'soin nourrissant contre la sécheresse', 'hcx.pq.noursec');
+        // 27/09 — seulement si la secheresse est reelle : a 0,25 (« gras » choisi seul), le
+        // produit etait presente « contre la secheresse » a quelqu'un qui ne l'a jamais dite.
+        if (sec !== null && sec >= 0.45) plus(compte(t, MOTS.nourrissant) * sec * 2.2, 'soin nourrissant contre la sécheresse', 'hcx.pq.noursec');
         if (casse !== null && casse > 0.55) plus(compte(t, MOTS.reparation) * 1.8, 'soin reconstructeur contre la casse', 'hcx.pq.reconcasse');
         if (besoins.decolore) plus(compte(t, MOTS.reparation) * 1.2, 'cheveux décolorés : un soin qui reconstruit', 'hcx.pq.decolore');
         // lavages espaces : chaque shampooing est l'occasion d'un vrai masque
@@ -3140,7 +3413,7 @@
         if (besoins.frizz !== null && boucle !== null && boucle > 0.4) {
           plus(compte(t, MOTS.boucles) * besoins.frizz * 2.0, 'discipline les frisottis', 'hcx.pq.frizz');
         }
-        if (sec !== null) plus(compte(t, MOTS.nourrissant) * sec * 1.4, 'nourrit sans rinçage', 'hcx.pq.noursr');
+        if (sec !== null && sec >= 0.45) plus(compte(t, MOTS.nourrissant) * sec * 1.4, 'nourrit sans rinçage', 'hcx.pq.noursr');
         if (casse !== null && casse > 0.55) plus(compte(t, MOTS.reparation) * 1.0, 'protège les longueurs fragiles', 'hcx.pq.longueurs');
         plus(compte(t, MOTS.thermique) * 0.6, 'protège de la chaleur', 'hcx.pq.chaleur');
         // lavages espaces : le sans-rincage porte le cheveu d'un shampooing a l'autre
@@ -3156,9 +3429,12 @@
 
       // ---- etape 4 : traitement cible
       if (etape === 4) {
-        if (pell !== null && pell > 0.5) plus(compte(t, MOTS.antipelliculaire) * 2.5, 'traitement antipelliculaire', 'hcx.pq.antipell4');
-        if (chute !== null && chute > 0.5) plus(compte(t, MOTS.chute) * 2.5, 'traitement contre la chute', 'hcx.pq.chute');
-        if (casse !== null && casse > 0.6) plus(compte(t, MOTS.reparation) * 2.2, 'traitement reconstructeur contre la casse', 'hcx.pq.traitcasse');
+        // 27/09 — une seule etape pour plusieurs genes : le poids du rang (1 / 0,94 / 0,88)
+        // fait gagner celle que la personne a choisie en premier, a pertinence egale.
+        var wR = function (v) { return poidsGene(reponses, v) || 1; };
+        if (pell !== null && pell > 0.5) plus(compte(t, MOTS.antipelliculaire) * 2.5 * wR('pellicules'), 'traitement antipelliculaire', 'hcx.pq.antipell4');
+        if (chute !== null && chute > 0.5) plus(compte(t, MOTS.chute) * 2.5 * wR('chute'), 'traitement contre la chute', 'hcx.pq.chute');
+        if (casse !== null && casse > 0.6) plus(compte(t, MOTS.reparation) * 2.2 * wR('casse'), 'traitement reconstructeur contre la casse', 'hcx.pq.traitcasse');
         if (besoins.densite !== null && besoins.densite < 0.4) plus(compte(t, MOTS.chute) * 1.2, 'densité apparente faible', 'hcx.pq.densite');
         if (besoins.blancs !== null && besoins.blancs > 0.45) plus(compte(t, MOTS.blancs) * 1.2, 'entretient les cheveux blancs', 'hcx.pq.blancs');
         if (sec !== null && sec > 0.7) plus(compte(t, MOTS.nourrissant) * 0.7, 'apport nourrissant ciblé', 'hcx.pq.nourcible');
@@ -3292,6 +3568,8 @@
         // les memes raisons, en cles i18n : [{ cle: 'hcx.pq.masqueesp', v: null }, ...]
         raisons: ch.raisons || [],
         reserves: ch.interdits,
+        // 27/09 — quand, combien de fois, ou (voir posologie())
+        usage: posologie(ch.produit, { masqueChaqueLavage: (ch.raisons || []).some(function (r) { return r && r.cle === 'hcx.pq.masqueesp'; }) }),
         // preferences non tenues pour CE produit ('pays', 'famille'), vide sinon
         horsPreferences: (prefsActives && ch.niveau > 0)
           ? [].concat(dansOrigine(ch.produit) ? [] : ['pays'], dansUnivers(ch.produit) ? [] : ['famille']) : []
@@ -5162,6 +5440,8 @@
     segmentCheveux: segmentCheveux,
     segmentDepuisMasqueExterne: segmentDepuisMasqueExterne,   // masque fourni (MediaPipe hair_segmenter)
     composerRoutine: composerRoutine,
+    genesDe: genesDe, GENES_CONNUES: GENES_CONNUES,
+    posologie: posologie, POSOLOGIE_MARQUE: POSOLOGIE_MARQUE,
     regionPays: regionPays, codePaysFiche: codePaysFiche, indexFichesMarques: indexFichesMarques,
     EUROPE_HORS_FR: EUROPE_HORS_FR, UNIVERS_CONNUS: UNIVERS_CONNUS,
     // questionnaire

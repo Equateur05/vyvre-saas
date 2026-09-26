@@ -7,7 +7,7 @@
 <meta name="description" content="Votre routine matin et soir, composée à partir de votre lecture de peau.">
 <title>Votre protocole · VYVRE × Scan universel</title>
 <!-- VYVRE_I18N : moteur 12 langues, francais par defaut -->
-<script src="/scan/vy-i18n.js?v=15"></script>
+<script src="/scan/vy-i18n.js?v=17"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
@@ -658,6 +658,26 @@ footer{
   .quiz-hint{margin-top:-12px;letter-spacing:0.18em}
   #pr-scope{font-size:12px;padding:0 4px}
 }
+/* 26/09 soir : 3 questions (4 sans les reponses d'avant le scan), posologie sur chaque carte */
+.chip .chip-sub{font-family:var(--sans);font-size:11px;font-weight:300;color:var(--ink-55);letter-spacing:0;line-height:1.35;max-width:220px}
+.chip.selected .chip-sub{color:var(--ink-70)}
+.quiz-options.quiz-options-3{grid-template-columns:repeat(3,minmax(0,260px));justify-content:center}
+.quiz-next{margin-top:-18px;padding:12px 26px;border-radius:100px;border:1px solid rgba(255,255,255,0.22);background:rgba(0,0,0,0.4);backdrop-filter:blur(10px);color:#fff;font-family:var(--sans);font-size:12px;font-weight:400;letter-spacing:0.02em;cursor:pointer;opacity:0;pointer-events:none;transition:opacity .35s var(--ease),border-color .3s ease}
+.quiz-next.show{opacity:1;pointer-events:auto}
+.quiz-next:hover{border-color:#fff}
+.routine-card .r-use{font-family:var(--sans);font-size:11px;font-weight:300;line-height:1.4;color:var(--ink-70);letter-spacing:0;margin-top:-2px}
+.routine-card .r-use:empty{display:none}
+.routine-card .r-use .u-src{display:block;margin-top:3px;font-family:var(--mono);font-size:8px;letter-spacing:0.24em;text-transform:uppercase;color:var(--ink-30)}
+.routine-card.is-off{display:none}
+/* 3 gestes : memes cartes que la routine complete (3 colonnes sur les 4), pas des cartes geantes */
+.routines-wrap.is-short .routine-grid{grid-template-columns:repeat(3,minmax(0,1fr));max-width:calc((100% - 48px) * 0.75 + 32px)}
+@media(max-width:900px){.routines-wrap.is-short .routine-grid{grid-template-columns:repeat(2,1fr);max-width:none}}
+@media(max-width:760px){
+  .quiz-options.quiz-options-3{grid-template-columns:1fr!important;max-width:340px}
+  .quiz-options-3 .chip,.quiz-options-2 .chip{min-height:72px!important;padding:14px 14px!important;gap:6px}
+  .quiz-next{margin-top:-20px}
+}
+@media(max-width:520px){.routines-wrap.is-short .routine-grid{grid-template-columns:1fr}}
 </style>
   <link rel="stylesheet" href="/scan/vyvre-mobile.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500&display=swap">
@@ -704,6 +724,7 @@ footer{
       <div class="progress-track"><div class="progress-fill"></div></div>
     </div>
     <h3 class="quiz-question" data-pt="q.goal">Votre <em>objectif</em>.</h3>
+    <p class="quiz-hint" data-pt="q.goalHint">jusqu’à 3 choix</p>
     <div class="quiz-options quiz-options-7">
       <button class="chip quiz-option" data-value="antiage"><span class="chip-num">I</span><span class="chip-label" data-i18n="g.antiage">Anti-âge</span></button>
       <button class="chip quiz-option" data-value="glow"><span class="chip-num">II</span><span class="chip-label" data-i18n="g.glow">Éclat</span></button>
@@ -713,6 +734,7 @@ footer{
       <button class="chip quiz-option" data-value="pigmentation"><span class="chip-num">VI</span><span class="chip-label" data-i18n="g.pigmentation">Taches</span></button>
       <button class="chip quiz-option" data-value="sebum"><span class="chip-num">VII</span><span class="chip-label" data-i18n="g.sebum">Peau grasse</span></button>
     </div>
+    <button type="button" class="quiz-next" id="goal-next" data-pt="q.next">Continuer</button>
   </section>
 
   <section class="quiz-step" data-q="peau">
@@ -722,14 +744,41 @@ footer{
     </div>
     <h3 class="quiz-question" data-i18n="q.1">Votre <em>peau</em>.</h3>
     <div class="quiz-options">
-      <button class="chip quiz-option" data-value="sèche"><span class="chip-num">01</span><span class="chip-label" data-i18n="q.dry">Sèche</span></button>
-      <button class="chip quiz-option" data-value="normale"><span class="chip-num">02</span><span class="chip-label" data-i18n="q.normal">Normale</span></button>
-      <button class="chip quiz-option" data-value="mixte"><span class="chip-num">03</span><span class="chip-label" data-i18n="q.comb">Mixte</span></button>
-      <button class="chip quiz-option" data-value="grasse"><span class="chip-num">04</span><span class="chip-label" data-i18n="q.oily">Grasse</span></button>
+      <button class="chip quiz-option" data-value="sèche"><span class="chip-num">I</span><span class="chip-label" data-i18n="q.dry">Sèche</span></button>
+      <button class="chip quiz-option" data-value="normale"><span class="chip-num">II</span><span class="chip-label" data-i18n="q.normal">Normale</span></button>
+      <button class="chip quiz-option" data-value="mixte"><span class="chip-num">III</span><span class="chip-label" data-i18n="q.comb">Mixte</span></button>
+      <button class="chip quiz-option" data-value="grasse"><span class="chip-num">IV</span><span class="chip-label" data-i18n="q.oily">Grasse</span></button>
     </div>
   </section>
 
   <!-- 26/09 : « Peau réactive ? » retirée à la demande de Charles (ne servait à rien pour lui). -->
+
+  <!-- 26/09 soir : deux questions que la caméra ne voit pas et qui changent le résultat.
+       Routine : 3 gestes (6 cartes : nettoyant, sérum ciblé, SPF le matin / crème le soir) ou 8 soins.
+       Journée : dehors = SPF 50 privilégié, antioxydant le matin, SPF à renouveler au soleil. -->
+  <section class="quiz-step" data-q="routine">
+    <div class="step-index">
+      <span class="step-count">03 / 04</span>
+      <div class="progress-track"><div class="progress-fill"></div></div>
+    </div>
+    <h3 class="quiz-question" data-pt="q.routine">Votre <em>routine</em> idéale.</h3>
+    <div class="quiz-options quiz-options-2">
+      <button class="chip quiz-option" data-value="essentiel"><span class="chip-num">I</span><span class="chip-label" data-pt="q.routine.short">3 gestes essentiels</span><span class="chip-sub" data-pt="q.routine.shortSub">nettoyant, sérum ciblé, puis SPF le matin ou crème le soir</span></button>
+      <button class="chip quiz-option" data-value="complete"><span class="chip-num">II</span><span class="chip-label" data-pt="q.routine.full">Routine complète</span><span class="chip-sub" data-pt="q.routine.fullSub">8 soins, avec crème de jour et contour des yeux</span></button>
+    </div>
+  </section>
+
+  <section class="quiz-step" data-q="jour">
+    <div class="step-index">
+      <span class="step-count">04 / 04</span>
+      <div class="progress-track"><div class="progress-fill"></div></div>
+    </div>
+    <h3 class="quiz-question" data-pt="q.day">Votre <em>journée</em>.</h3>
+    <div class="quiz-options quiz-options-2">
+      <button class="chip quiz-option" data-value="dedans"><span class="chip-num">I</span><span class="chip-label" data-pt="q.day.in">Surtout à l’intérieur</span></button>
+      <button class="chip quiz-option" data-value="dehors"><span class="chip-num">II</span><span class="chip-label" data-pt="q.day.out">Souvent dehors, au soleil</span></button>
+    </div>
+  </section>
 
   </div>
 </section>
@@ -1012,9 +1061,16 @@ footer{
   var steps = [].slice.call(document.querySelectorAll('#quiz-container .quiz-step'));
   if (!ASK_GOAL) { steps = steps.filter(function(s){ if (s.dataset.q === 'goal') { s.remove(); return false; } return true; }); }
   var NQ = steps.length;
-  var answers = { goal: null, peau: null, react: null };
+  var answers = { goals: [], peau: null, react: null, routine: null, jour: null };
+  var GOAL_MAX = 3;
   var currentStep = 0, busy = false;
   function pad(n){ return (n < 10 ? '0' : '') + n; }
+  function paintNext(){
+    var b = document.getElementById('goal-next'); if (!b) return;
+    var k = answers.goals.length;
+    b.textContent = T('q.next', 'Continuer') + ' · ' + k + ' / ' + GOAL_MAX;
+    b.classList.toggle('show', k > 0);
+  }
   function paintStatic(){
     applyPT();
     var hq = document.getElementById('hero-nq'); if (hq) hq.textContent = NQ === 1 ? T('pp.mq1', '1 question') : T('pp.mq', '{n} questions', { n: NQ });
@@ -1022,35 +1078,60 @@ footer{
       var c = s.querySelector('.step-count'); if (c) c.textContent = pad(i + 1) + ' / ' + pad(NQ);
       var f = s.querySelector('.progress-fill'); if (f) f.style.width = Math.round((i + 1) / NQ * 100) + '%';
     });
+    paintNext();
   }
   function showStep(){ steps.forEach(function(s, i){ s.classList.toggle('active', i === currentStep); }); }
   paintStatic(); showStep();
   document.addEventListener('vy:lang', paintStatic);
 
   var aiThinking = document.getElementById('ai-thinking');
+  function nextFrom(i){
+    if (i < NQ - 1) {
+      setTimeout(function(){ currentStep = i + 1; showStep(); busy = false; }, 550);
+    } else {
+      setTimeout(function(){
+        aiThinking.classList.add('show');
+        setTimeout(function(){
+          var stage = document.querySelector('.stage');
+          if (stage) { stage.style.transition = 'opacity 0.5s ease'; stage.style.opacity = '0'; setTimeout(function(){ stage.style.display = 'none'; }, 500); }
+          revealProtocol();
+          setTimeout(function(){ aiThinking.classList.remove('show'); }, 400);
+        }, 1700);
+      }, 400);
+    }
+  }
   steps.forEach(function(sec, i){
     var chips = [].slice.call(sec.querySelectorAll('.quiz-option'));
+    var multi = sec.dataset.q === 'goal';
+    function closeStep(keep){
+      chips.forEach(function(c){ c.style.pointerEvents = 'none'; });
+      setTimeout(function(){ chips.forEach(function(c){ if (keep.indexOf(c) < 0) c.classList.add('fading'); }); }, 50);
+      var nb = sec.querySelector('.quiz-next'); if (nb) nb.classList.remove('show');
+      nextFrom(i);
+    }
     chips.forEach(function(opt){
       opt.addEventListener('click', function(){
-        if (busy) return; busy = true;
-        chips.forEach(function(c){ c.classList.remove('selected'); c.style.pointerEvents = 'none'; });
+        if (busy) return;
+        if (multi) {
+          /* objectif : jusqu'a 3 choix, comme l'ecran d'avant le scan ; le 3e choix fait passer a la suite */
+          var v = opt.dataset.value, k = answers.goals.indexOf(v);
+          if (k >= 0) { answers.goals.splice(k, 1); opt.classList.remove('selected'); }
+          else if (answers.goals.length < GOAL_MAX) { answers.goals.push(v); opt.classList.add('selected'); }
+          paintNext();
+          if (answers.goals.length >= GOAL_MAX) { busy = true; closeStep(chips.filter(function(c){ return c.classList.contains('selected'); })); }
+          return;
+        }
+        busy = true;
+        chips.forEach(function(c){ c.classList.remove('selected'); });
         opt.classList.add('selected');
         answers[sec.dataset.q] = opt.dataset.value;
-        setTimeout(function(){ chips.forEach(function(c){ if (c !== opt) c.classList.add('fading'); }); }, 50);
-        if (i < NQ - 1) {
-          setTimeout(function(){ currentStep = i + 1; showStep(); busy = false; }, 550);
-        } else {
-          setTimeout(function(){
-            aiThinking.classList.add('show');
-            setTimeout(function(){
-              var stage = document.querySelector('.stage');
-              if (stage) { stage.style.transition = 'opacity 0.5s ease'; stage.style.opacity = '0'; setTimeout(function(){ stage.style.display = 'none'; }, 500); }
-              revealProtocol();
-              setTimeout(function(){ aiThinking.classList.remove('show'); }, 400);
-            }, 1700);
-          }, 400);
-        }
+        closeStep([opt]);
       });
+    });
+    var nb = sec.querySelector('.quiz-next');
+    if (nb) nb.addEventListener('click', function(){
+      if (busy || !answers.goals.length) return; busy = true;
+      closeStep(chips.filter(function(c){ return c.classList.contains('selected'); }));
     });
   });
   /* Hero -> questions au meme endroit, apres l'animation du titre */
@@ -1063,7 +1144,14 @@ footer{
   window._vyvreEngine = {
     advance: function(){ if (currentStep < NQ - 1) { currentStep++; showStep(); return true; } return false; },
     reveal:  function(){ return revealProtocol(); },
-    state:   function(){ return { currentStep: currentStep, steps: NQ, answers: Object.assign({}, answers), prefs: PREFS, brand: BRAND }; }
+    state:   function(){ return { currentStep: currentStep, steps: NQ, answers: Object.assign({}, answers), prefs: PREFS, brand: BRAND }; },
+    /* banc d'essai : la routine qu'on obtiendrait avec d'autres reponses, sans rien afficher */
+    simulate: async function(over){
+      await loadCatalogue();
+      var ctx = Object.assign({ peau: 'normale', reactive: false, goals: (PREFS && PREFS.goals.length) ? PREFS.goals.slice() : [], age: PREFS ? PREFS.age : null, routine: 'complete', jour: null }, over || {});
+      var R = await composeRoutine(computeSeverity(scanScores, ctx), ctx);
+      return activeSlots(ctx).map(function(s){ var p = R.picks[s.slot]; var u = p ? usageFor(p, s, ctx) : null; return { slot: s.slot, id: p ? p.id : null, use: u ? u.text : null, src: u ? u.src : null }; });
+    }
   };
 
   /* ---------- catalogue du scan ---------- */
@@ -1115,6 +1203,273 @@ footer{
     { slot:'pm-2', k:'stp.ncream',  fb:'Crème de nuit',    ok:function(p){ return p.categorie === 'creme' && !RX.spf.test(p._n); }, w:function(p){ return RX.night.test(p._n) ? 1.3 : 1; } },
     { slot:'pm-3', k:'stp.eye',     fb:'Contour des yeux', ok:function(p){ return p.categorie === 'contour-yeux'; },         w:function(){ return 1; } }
   ];
+  /* « 3 gestes essentiels » : nettoyant, serum cible, puis SPF le matin / creme le soir */
+  var SHORT = { 'am-0':1, 'am-1':1, 'am-3':1, 'pm-0':1, 'pm-1':1, 'pm-2':1 };
+  function activeSlots(ctx){ return SLOTS.filter(function(s){ return ctx.routine !== 'essentiel' || SHORT[s.slot]; }); }
+
+  /* ---------- ce qu'est le produit (nom, categorie, raisons du score) ---------- */
+  function raisons(p){ if (p._r == null) p._r = (p.score_raisons || []).join(' | ').toLowerCase(); return p._r; }
+  var K = {
+    retino: /r[ée]tin(?:ol|al|oate|yl)|retinoid|r[ée]tino[iï]de/,
+    notRetino: /bakuchiol|alternative/,
+    acid: /\bpeel|peeling|\baha\b|\bbha\b|\bpha\b|glycoli|salicyl|lactic|lactique|mandel|resurfa|exfoli|gommage|gommant|scrub|buffing/,
+    scrub: /gommage|gommant|scrub|polish|buffing|microderm|grains|microfoliant|exfoliating powder/,
+    mask: /\bmasque\b|\bmask\b|patch/,
+    vitc: /vitamine? c\b|vit\.? ?c\b|\bc[- ]?(?:firma|tetra|e ferulic)|ascorbi/,
+    day: /\bjour\b|\bday\b|daily|\bam\b|morning|matin/,
+    /* formats ou une quantite en gouttes, noisette ou doigts n'a pas de sens */
+    form: /\bstick\b|brume|\bmist\b|spray|poudre|powder|cushion|compact|capsule|ampoule|\bpads?\b|disques?|lingettes?|wipes|patch|roll-?on|\bshot\b/,
+    liquid: /huile|\boil\b|\beau\b|water|micell|lotion|tonique|toner|essence/,
+    antiox: /antioxydant|vitamine c|th[ée] vert|resveratrol|acide ferulique|coenzyme q10|ascorbyle/
+  };
+  function isRetino(p){
+    if (K.notRetino.test(p._n)) return false;
+    if (K.retino.test(p._n)) return true;
+    var r = raisons(p);
+    if (/retin(?:ol|al) dans le nom/.test(r)) return true;
+    /* retinol cite par la marque (nom ou description), hors « alternative au retinol » (bakuchiol) */
+    if (/retinol \(texte\)/.test(r) && !/bakuchiol/.test(r)) return true;
+    var m = r.match(/retin(?:ol|al|oate)\s*\(inci #(\d+)\)/);
+    return !!(m && +m[1] <= 20);
+  }
+  function kindOf(p){
+    if (p._kind) return p._kind;
+    var n = p._n, c = p.categorie, k;
+    if (c === 'solaire-visage' || RX.spf.test(n)) k = 'spf';
+    else if ((c === 'nettoyant' || c === 'huile') && RX.remover.test(n)) k = 'remover';
+    else if (c === 'nettoyant') k = K.scrub.test(n) ? 'scrubClean' : 'cleanser';
+    else if (c === 'masque' || K.mask.test(n)) k = 'mask';
+    else if (isRetino(p)) k = 'retino';
+    else if (c === 'exfoliant' || K.acid.test(n)) k = K.scrub.test(n) ? 'scrub' : 'acid';
+    else if (c === 'contour-yeux') k = 'eye';
+    else if (c === 'huile') k = 'oil';
+    else if (c === 'serum') k = (K.vitc.test(n) || /vitamine c/.test(raisons(p))) && !RX.night.test(n) ? 'vitc' : 'serum';
+    else if (c === 'lotion') k = 'lotion';
+    else k = 'cream';
+    return (p._kind = k);
+  }
+  /* moment impose par la nature du produit (pas par l'etape) : null = libre */
+  function ruleWhen(p){
+    var k = kindOf(p), n = p._n, r = raisons(p);
+    if (k === 'spf' || k === 'vitc') return 'am';
+    if (k === 'retino' || k === 'acid' || k === 'remover') return 'pm';
+    if (k === 'cleanser' || k === 'eye' || k === 'lotion') return 'ampm';
+    if (RX.night.test(n) || (/soin de nuit/.test(r) && !/soin de jour/.test(r))) return 'pm';
+    if (k === 'cream' && (K.day.test(n) || (/soin de jour/.test(r) && !/soin de nuit/.test(r)))) return 'am';
+    if (k === 'oil') return 'pm';
+    return null;
+  }
+  function spfLevel(p){ var m = p._n.match(/\b(?:spf|fps|lsf)\s?(\d{2,3})/); return m ? +m[1] : null; }
+  function isAntiox(p){ return K.vitc.test(p._n) || /antioxid|antioxyd/.test(p._n) || K.antiox.test(raisons(p)); }
+  /* ce que les reponses changent au classement, etape par etape (multiplicateur du score) */
+  function modW(p, s, ctx){
+    var w = 1, am = s.slot.indexOf('am') === 0, rw = ruleWhen(p);
+    /* un soin du soir (retinoide, acide, soin de nuit) n'a rien a faire le matin, et l'inverse */
+    if (am && rw === 'pm') w *= 0.05;
+    if (!am && rw === 'am' && kindOf(p) !== 'vitc') w *= 0.3;
+    /* l'etape SPF suit : la creme de jour n'a pas a etre un second ecran solaire */
+    if (s.slot === 'am-2' && kindOf(p) === 'spf') w *= 0.3;
+    /* chaque etape est un geste quotidien : un masque ou un patch (1 a 2 fois par semaine) passe apres */
+    if (K.mask.test(p._n) || kindOf(p) === 'scrub') w *= 0.4;
+    if (ctx.jour === 'dehors') {
+      if (s.slot === 'am-3') { var l = spfLevel(p); w *= l == null ? 0.9 : l >= 50 ? 1.6 : l >= 30 ? 1 : 0.55; }
+      if (s.slot === 'am-1' && isAntiox(p)) w *= 1.5;
+    }
+    return w;
+  }
+
+  /* ---------- posologie : ce que la marque ecrit dans sa description ----------
+     On ne retient qu'une consigne d'usage (un verbe d'usage a cote du moment), jamais un resultat
+     (« au reveil la peau est lissee » n'est pas « a appliquer le matin »). Phrase par phrase ; une phrase
+     qui parle d'un autre produit (SPF a appliquer le matin, dans la notice d'un retinol) est ignoree. */
+  var NUMW = { un:1, une:1, one:1, once:1, deux:2, two:2, twice:2, trois:3, three:3, quatre:4, four:4, cinq:5, five:5 };
+  function numOf(w){ if (w == null) return null; w = String(w).toLowerCase(); if (/^\d+$/.test(w)) return +w; return NUMW[w] || null; }
+  var UN = '(\\d{1,2}|une?|deux|trois|quatre|cinq|one|two|three|four|five|once|twice)';
+  var SEP = '\\s*(?:à|a|ou|or|to|-|–)\\s*';
+  var PERW = '\\s*(?:fois|times|x)?\\s*(?:par|per|a|an|/|chaque|each|every)\\s*(?:semaine|week)';
+  var U_RX = {
+    use: /(appli|utilis|use\b|using|apply|s'emploie|employer|usage|massage|masse[rz]|[ée]tale[rz]|ideal for|id[ée]al|ritual|rituel|routine|geste|quand|when|step|[ée]tape|start|commence)/,
+    other: /(\bspf\b|sunscreen|sun ?screen|[ée]cran solaire|protection solaire|cr[èe]me solaire|sun protection)/,
+    wake: /(r[ée]veil|wake|waking|se lever)/,
+    wkR: new RegExp(UN + SEP + UN + PERW, 'i'),
+    wk1: new RegExp(UN + PERW, 'i'),
+    triW: /\btri-?weekly\b/,
+    wkW: /(\bonce weekly\b|\bonce-weekly\b|\bhebdomadaire\b|\bweekly (?:treatment|mask|masque|ritual|use|boost|exfoliat\w*)\b|\buse weekly\b)/,
+    alt: /(every other (?:night|day|evening)|un (?:soir|jour) sur deux|tous les deux (?:jours|soirs))/,
+    twiceDay: /(deux fois par jour|2 fois par jour|twice (?:a|per) day|twice daily|2x ?(?:\/ ?day|daily|a day|par jour)|2 times (?:a|per) day|dos veces al d[ií]a|due volte al giorno|zweimal t[äa]glich)/,
+    onceDay: /(une fois par jour|1 fois par jour|once (?:a|per) day|once daily|una vez al d[ií]a|una volta al giorno|einmal t[äa]glich)/,
+    daily: /(chaque jour|tous les jours|quotidiennement|usage quotidien|utilisation quotidienne|au quotidien|\bevery day\b|everyday (?:use|routine)|daily (?:use|routine|morning|evening|basis|skincare)|use daily|apply daily|for daily|todos los d[ií]as|uso diario|ogni giorno|uso quotidiano)/,
+    ampm: /(matin et(?: \/ ou| ou|\/ou)? (?:le )?soir|matin & soir|morning and(?:\/or)? (?:evening|night)|morning & (?:evening|night)|\ba\.?m\.? (?:and|&) p\.?m\.?\b|day and night use|ma[ñn]ana y noche|mattina e sera|morgens und abends)/,
+    pmX: /(soir uniquement|uniquement le soir|only at night|at night only|night-?time only|pm only|nightly use|night-?time use|apply nightly|use nightly|for nightly)/,
+    amX: /(for every morning|pour (?:chaque|tous les) matins?|morning use|daytime use|usage de jour)/,
+    pm: /(\ble soir\b|\bchaque soir\b|\btous les soirs\b|\bau coucher\b|\bavant (?:de (?:vous |se )?)?(?:coucher|dormir)\b|\bat night\b|\bat bedtime\b|\bevery night\b|\bnightly\b|\bin the evening\b|\beach evening\b|\bevery evening\b|\bbefore bed(?:time)?\b|\bpor la noche\b|\bla sera\b|\babends\b)/,
+    am: /(\ble matin\b|\bchaque matin\b|\btous les matins\b|\bin the morning\b|\bevery morning\b|\beach morning\b|\bduring the day\b|\bpendant la journ[ée]e\b|\bpor la ma[ñn]ana\b|\bla mattina\b|\bmorgens\b)/,
+    cureD: /(\bcure (?:intensive |sos |coup de fouet |)(?:de )?(\d{1,2}) ?(jours|semaines)|\b(\d{1,2}) ?(jours|semaines) de cure|\b(\d{1,2})[- ](day|week)s? (?:treatment|cure|program|programme|course|regimen)|\ben cure de (\d{1,2}) (jours|semaines))/,
+    dropsR: new RegExp(UN + SEP + UN + '\\s*(gouttes|drops|pressions|pumps|pompes)', 'i'),
+    drops1: new RegExp(UN + '\\s*(gouttes|drops|pressions|pumps|pompes)\\b', 'i'),
+    few: /(quelques gouttes|a few drops|few drops)/,
+    pea: /(pea[- ]?sized?|petit pois)/,
+    noisette: /\bnoisette\b/,
+    start: /(start|begin|first|commen|d[ée]but|premi[èe]re|premiers?|initially|au d[ée]part)/,
+    upto: /(up to|jusqu'à|jusqu'a|maximum|max\.?|no more than|pas plus de)\s*$/,
+    uptoAfter: /^\s*(maximum|max\b|au maximum|at most)/
+  };
+  function nearUse(s, idx, len){ return U_RX.use.test(s.slice(Math.max(0, idx - 60), idx + len + 50)); }
+  /* renvoie { when:'am'|'pm'|'ampm'|null, freq:{t:'daily'|'week'|'alt'|'cure', a, b, u, start, upto}|null, qty:{t, a, b}|null } */
+  function parseUsage(txt, isSpf){
+    var t = String(txt || '').replace(/[  ]/g, ' ').replace(/[’`]/g, "'").toLowerCase();
+    if (!t) return null;
+    t = t.replace(/evening (out|the|skin|tone)/g, 'xx $1');
+    var sents = t.split(/(?<=[.!?•;\n])\s+|\s[-–]\s/);
+    var r = { when: null, freq: null, qty: null }, am = false, pm = false, m;
+    sents.forEach(function(s){
+      if (!isSpf && U_RX.other.test(s)) return;
+      /* moment */
+      if (!r.when) {
+        if (U_RX.twiceDay.test(s) && !U_RX.start.test(s)) { r.when = 'ampm'; if (!r.freq) r.freq = { t: 'daily' }; }
+        else if (U_RX.ampm.test(s)) r.when = 'ampm';
+        else if (U_RX.pmX.test(s)) r.when = 'pm';
+        else {
+          if (U_RX.amX.test(s)) am = true;
+          if ((m = s.match(U_RX.pm)) && nearUse(s, m.index, m[0].length)) pm = true;
+          if (!U_RX.wake.test(s) && (m = s.match(U_RX.am)) && nearUse(s, m.index, m[0].length)) am = true;
+        }
+      }
+      /* frequence */
+      if (!r.freq) {
+        var f = null, at = -1, len = 0;
+        if ((m = s.match(U_RX.cureD)) && !/(between|entre)\b/.test(s.slice(Math.max(0, m.index - 40), m.index))) {
+          var n = +(m[2] || m[4] || m[6] || m[8]), u = (m[3] || m[5] || m[7] || m[9] || '');
+          if (n > 0 && n <= 90) { f = { t: 'cure', a: n, u: /sem|week/.test(u) ? 'w' : 'd' }; at = m.index; len = m[0].length; }
+        }
+        if (!f && U_RX.alt.test(s)) { m = s.match(U_RX.alt); f = { t: 'alt' }; at = m.index; len = m[0].length; }
+        if (!f && (m = s.match(U_RX.wkR))) { var a = numOf(m[1]), b = numOf(m[2]); if (a && b && b > a && b <= 7) { f = { t: 'week', a: a, b: b }; at = m.index; len = m[0].length; } }
+        if (!f && (m = s.match(U_RX.triW))) { f = { t: 'week', a: 3 }; at = m.index; len = m[0].length; }
+        if (!f && (m = s.match(U_RX.wk1))) { var a1 = numOf(m[1]); if (a1 && a1 <= 7) { f = { t: 'week', a: a1 }; at = m.index; len = m[0].length; } }
+        if (!f && (m = s.match(U_RX.wkW))) { f = { t: 'week', a: 1 }; at = m.index; len = m[0].length; }
+        if (!f && ((m = s.match(U_RX.onceDay)) || (m = s.match(U_RX.daily)))) { f = { t: 'daily' }; at = m.index; len = m[0].length; }
+        if (f) {
+          var before = s.slice(Math.max(0, at - 70), at), after = s.slice(at + len, at + len + 20);
+          if (f.t !== 'daily' && f.t !== 'cure' && U_RX.start.test(before)) f.start = true;
+          if (f.t === 'week' && (U_RX.upto.test(before) || U_RX.uptoAfter.test(after))) f.upto = true;
+          r.freq = f;
+        }
+      }
+      /* quantite */
+      if (!r.qty) {
+        if ((m = s.match(U_RX.dropsR))) { var qa = numOf(m[1]), qb = numOf(m[2]); if (qa && qb && qb > qa && qb <= 10) r.qty = { t: /goutt|drop/.test(m[3]) ? 'drops' : 'pumps', a: qa, b: qb }; }
+        if (!r.qty && (m = s.match(U_RX.drops1))) { var q1 = numOf(m[1]); if (q1 && q1 <= 10) r.qty = { t: /goutt|drop/.test(m[2]) ? 'drops' : 'pumps', a: q1 }; }
+        if (!r.qty && U_RX.few.test(s)) r.qty = { t: 'few' };
+        if (!r.qty && U_RX.pea.test(s)) r.qty = { t: 'pea' };
+        if (!r.qty && U_RX.noisette.test(s)) r.qty = { t: 'noisette' };
+      }
+    });
+    if (!r.when) { if (am && pm) r.when = 'ampm'; else if (pm) r.when = 'pm'; else if (am) r.when = 'am'; }
+    if (!r.when && !r.freq && !r.qty) return null;
+    return r;
+  }
+
+  /* descriptions des marques : fichier par maison (/scan/catalogue/<maison>.json), charge seulement
+     pour les maisons retenues ; all.json ne porte pas les descriptions */
+  var DESC = {}, DESC_BRANDS = {};
+  function loadDescs(brands){
+    var todo = brands.filter(function(b){ return /^[a-z0-9-]+$/.test(b) && !DESC_BRANDS[b]; });
+    return Promise.all(todo.map(function(b){
+      DESC_BRANDS[b] = fetch('/scan/catalogue/' + b + '.json').then(function(r){ return r.ok ? r.json() : null; })
+        .then(function(d){ ((d && d.products) || []).forEach(function(q){ if (q && q.id) DESC[q.id] = q.description || ''; }); })
+        .catch(function(){});
+      return DESC_BRANDS[b];
+    }));
+  }
+  function brandUsage(p){
+    if (p._use !== undefined) return p._use;
+    if (!(p.id in DESC)) return null;                       /* pas encore charge : on ne fige rien */
+    return (p._use = parseUsage(DESC[p.id], kindOf(p) === 'spf'));
+  }
+
+  /* ---------- la ligne d'usage d'une carte ----------
+     marque d'abord (moment, frequence, quantite), sinon une regle prudente par type de produit. */
+  function usageFor(p, s, ctx){
+    var b = brandUsage(p) || {}, k = kindOf(p), rw = ruleWhen(p);
+    var slotWhen = s.slot.indexOf('am') === 0 ? 'am' : 'pm';
+    var when = b.when, fromB = 0, fromR = 0;
+    if (when) fromB++; else { when = rw || slotWhen; fromR++; }
+    var freq = b.freq, qty = b.qty, extra = [];
+    /* « matin et soir » ecrit par la marque vaut « chaque jour » : on ne le contredit pas par une regle */
+    if (!freq && b.when === 'ampm') freq = { t: 'daily' };
+    if (freq) fromB++;
+    else {
+      fromR++;
+      freq = k === 'retino' ? { t: 'retino' }
+           : k === 'acid' ? { t: 'week', a: 2, b: 3 }
+           : k === 'scrub' || k === 'mask' ? { t: 'week', a: 1, b: 2 }
+           : k === 'scrubClean' ? { t: 'week', a: 2, b: 3 }
+           : { t: 'daily' };
+    }
+    if (qty) fromB++;
+    else if (K.form.test(p._n) || ((k === 'cleanser' || k === 'serum' || k === 'vitc') && K.liquid.test(p._n) && !/gel|cr[èe]me|cream|mousse|foam/.test(p._n))) qty = null;
+    else {
+      qty = k === 'spf' ? { t: 'spf' } : k === 'retino' ? { t: 'pea' } : k === 'eye' ? { t: 'eye' }
+          : k === 'oil' ? { t: 'drops', a: 2, b: 3 } : (k === 'serum' || k === 'vitc') ? { t: 'few' }
+          : (k === 'cream' || k === 'cleanser') ? { t: 'noisette' } : null;
+      if (qty) fromR++;
+    }
+    if (k === 'spf') {
+      extra.push(T('us.x.last', 'en dernier geste'));
+      if (ctx.jour === 'dehors') { extra.push(T('us.x.reapply', 'à renouveler toutes les 2 heures au soleil')); fromR++; }
+    }
+    var W = { am: ['us.am', 'Le matin'], pm: ['us.pm', 'Le soir'], ampm: ['us.ampm', 'Matin et soir'] };
+    var parts = [T(W[when][0], W[when][1])];
+    var f = '';
+    if (freq.t === 'daily') f = T('us.daily', 'chaque jour');
+    else if (freq.t === 'retino') f = T('us.retino', '2 soirs par semaine pour commencer, puis plus souvent');
+    else if (freq.t === 'alt') f = when === 'pm' ? T('us.altPm', 'un soir sur deux') : T('us.alt', 'un jour sur deux');
+    else if (freq.t === 'cure') f = freq.u === 'w' ? T('us.cureW', 'en cure de {n} semaines', { n: freq.a }) : T('us.cureD', 'en cure de {n} jours', { n: freq.a });
+    else if (freq.t === 'week') f = freq.b ? T('us.wkR', '{a} à {b} fois par semaine', { a: freq.a, b: freq.b })
+                                           : freq.a === 1 ? T('us.wk1', '1 fois par semaine') : T('us.wkN', '{a} fois par semaine', { a: freq.a });
+    if (freq.upto) f = T('us.upto', 'jusqu’à {f}', { f: f });
+    if (freq.start) f = T('us.start', '{f} pour commencer', { f: f });
+    if (extra.length && freq.t === 'daily') { f += ', ' + extra.shift(); }
+    parts.push(f);
+    if (qty) {
+      var Q = qty.t === 'drops' ? (qty.b ? T('us.q.dropsR', '{a} à {b} gouttes', qty) : T('us.q.drops', '{a} gouttes', qty))
+            : qty.t === 'pumps' ? (qty.b ? T('us.q.pumpsR', '{a} à {b} pressions', qty) : qty.a === 1 ? T('us.q.pump1', '1 pression') : T('us.q.pumps', '{a} pressions', qty))
+            : qty.t === 'few' ? T('us.q.few', 'quelques gouttes')
+            : qty.t === 'pea' ? T('us.q.pea', 'la taille d’un petit pois')
+            : qty.t === 'noisette' ? T('us.q.hazel', 'une noisette')
+            : qty.t === 'spf' ? T('us.q.spf', 'deux longueurs de doigt')
+            : qty.t === 'eye' ? T('us.q.eye', 'un grain de riz par œil') : '';
+      if (Q) parts.push(Q);
+    }
+    extra.forEach(function(x){ parts.push(x); });
+    var src = !fromB ? 'rule' : !fromR ? 'brand' : 'mix';
+    var SRC = { brand: ['us.src.brand', 'selon la marque'], rule: ['us.src.rule', 'usage courant'], mix: ['us.src.mix', 'selon la marque, complété par l’usage courant'] };
+    return { text: parts.join(' · '), src: src, srcText: T(SRC[src][0], SRC[src][1]), when: when, brandWhen: b.when || null };
+  }
+  /* la marque dit « le soir » pour un soin place le matin (ou l'inverse) : on ecarte et on recompose */
+  function conflicts(R){
+    var bad = [];
+    Object.keys(R.picks).forEach(function(slot){
+      var p = R.picks[slot]; if (!p) return;
+      var bw = (brandUsage(p) || {}).when; if (!bw || bw === 'ampm') return;
+      var sw = slot.indexOf('am') === 0 ? 'am' : 'pm';
+      if (bw !== sw) bad.push(p.id);
+    });
+    return bad;
+  }
+  async function composeRoutine(sev, ctx){
+    var banned = {}, R = null;
+    for (var round = 0; round < 4; round++) {
+      R = buildRoutine(sev, ctx, banned);
+      var brands = []; Object.keys(R.picks).forEach(function(k){ var p = R.picks[k]; if (p && brands.indexOf(p.brand) < 0) brands.push(p.brand); });
+      await Promise.race([loadDescs(brands), new Promise(function(r){ setTimeout(r, 2500); })]);
+      var bad = conflicts(R);
+      if (!bad.length) break;
+      console.log('[PROTOCOL] écarté : la marque indique un autre moment de la journée', bad);
+      bad.forEach(function(id){ banned[id] = 1; });
+    }
+    return R;
+  }
 
   function region(slug){ var b = CAT.marques[slug]; if (!b) return null; return EU[b.pays] ? 'EU' : b.pays; }
   /* niveaux, dans l'ordre du scan : 0 = tout ce qui a ete choisi, 1 = sans le pays,
@@ -1165,17 +1520,21 @@ footer{
     return s;
   }
 
-  function buildRoutine(sev, ctx){
+  function buildRoutine(sev, ctx, banned){
+    banned = banned || {};
     var brandMode = BRAND && BRAND !== 'all' && CAT.products.some(function(p){ return p.brand === BRAND; });
-    var face = CAT.products.filter(function(p){ return !isExcluded(p._n) && SLOTS.some(function(s){ return s.ok(p); }); });
+    var ACT = activeSlots(ctx);
+    var face = CAT.products.filter(function(p){ return !banned[p.id] && !isExcluded(p._n) && SLOTS.some(function(s){ return s.ok(p); }); });
     var base = face;
     if (brandMode) base = base.filter(function(p){ return p.brand === BRAND; });
     var baseAll = base, removedIds = {};
     if (ctx.reactive) base = base.filter(function(p){ return !RX.reactive.test(p._n); });
     var L = brandMode ? [0] : levels();
     var used = {}, pool = {}, picks = {}, widened = {}, brandCount = {}, CAP = 3;
+    /* un seul actif fort (retinoide ou acide exfoliant) par routine : on ne les empile pas le meme soir */
+    var strong = false, isStrong = function(p){ var k = kindOf(p); return k === 'retino' || k === 'acid'; };
     var capOff = brandMode || !!(PREFS && PREFS.marques && PREFS.marques.length);
-    SLOTS.forEach(function(s){
+    ACT.forEach(function(s){
       /* moins de 3 references a ce niveau : on relache d'un cran (les niveaux s'emboitent) */
       var chosen = [], lvl = L[L.length - 1];
       for (var i = 0; i < L.length; i++) {
@@ -1187,7 +1546,7 @@ footer{
       /* peau reactive : on compte ce qui a vraiment ete ecarte de cette etape, a ce niveau */
       if (ctx.reactive) baseAll.forEach(function(p){ if (s.ok(p) && (brandMode || inScope(p, lvl)) && RX.reactive.test(p._n)) removedIds[p.id] = 1; });
       var rang = function(list){ return list.filter(function(p){ return !used[p.id]; })
-        .map(function(p){ return { p: p, sc: matchScore(p, sev) * s.w(p) }; })
+        .map(function(p){ return { p: p, sc: matchScore(p, sev) * s.w(p) * modW(p, s, ctx) * (strong && isStrong(p) ? 0.1 : 1) }; })
         .sort(function(a, b){ return b.sc - a.sc; }); };
       var ranked = rang(chosen);
       /* 26/09 : jamais plus de 3 soins d'une meme maison sur la routine (sauf page de marque ou marques
@@ -1203,7 +1562,7 @@ footer{
         }
       }
       if (!pick && ranked.length) pick = ranked[0].p;
-      if (pick) { used[pick.id] = 1; brandCount[pick.brand] = (brandCount[pick.brand] || 0) + 1; }
+      if (pick) { used[pick.id] = 1; brandCount[pick.brand] = (brandCount[pick.brand] || 0) + 1; if (isStrong(pick)) strong = true; }
       picks[s.slot] = pick;
       if (lvl > 0 && pick) (widened[lvl] = widened[lvl] || []).push(s);
     });
@@ -1216,11 +1575,15 @@ footer{
     };
   }
 
-  function renderProduct(slotKey, product, emptyMsg) {
+  function renderProduct(slotKey, product, emptyMsg, use) {
     var card = document.querySelector('[data-protocol-slot="' + slotKey + '"]');
     if (!card) return;
+    card.classList.remove('is-off');
     var img = card.querySelector('.r-img');
     var br = card.querySelector('.r-brand');
+    var ue = card.querySelector('.r-use');
+    if (!ue) { ue = document.createElement('p'); ue.className = 'r-use'; card.querySelector('.r-name').insertAdjacentElement('afterend', ue); }
+    ue.innerHTML = (product && use) ? esc(use.text) + '<span class="u-src">' + esc(use.srcText) + '</span>' : '';
     card.querySelector('.r-price').textContent = '';   // jamais de prix
     card.querySelector('.r-desc').textContent = '';
     if (!product) {
@@ -1281,7 +1644,30 @@ footer{
       if (R.widened[l]) wid.push(T(WL[l][0], WL[l][1], { s: R.widened[l].map(function(s){ return stepLabel(s.k, s.fb); }).join(', ') }));
     });
     if (wid.length) lines.push('<em>' + wid.join(' ') + '</em>');
-    var empty = SLOTS.filter(function(s){ return !R.picks[s.slot]; });
+    /* ce que la personne vient de repondre ici, et ce que cela a change */
+    var said = [];
+    if (!(PREFS && PREFS.goals.length) && ctx.goals.length) said.push(ctx.goals.map(function(g){ return T(GOAL_L[g][0], GOAL_L[g][1]); }).join(' + '));
+    var PEAU_L = { 'sèche': ['pr.skin.dry', 'peau sèche'], normale: ['pr.skin.normal', 'peau normale'], mixte: ['pr.skin.comb', 'peau mixte'], grasse: ['pr.skin.oily', 'peau grasse'] };
+    if (answers.peau && PEAU_L[answers.peau]) said.push(T(PEAU_L[answers.peau][0], PEAU_L[answers.peau][1]));
+    if (ctx.routine === 'essentiel') said.push(T('pr.routine.short', '3 gestes essentiels'));
+    else if (ctx.routine === 'complete') said.push(T('pr.routine.full', 'routine complète'));
+    if (ctx.jour === 'dehors') said.push(T('pr.day.out', 'souvent dehors'));
+    else if (ctx.jour === 'dedans') said.push(T('pr.day.in', 'surtout à l’intérieur'));
+    if (said.length) lines.push(T('pr.said', 'Vos réponses :') + ' <b>' + esc(said.join(' · ')) + '</b>');
+    var fx = [];
+    if (ctx.routine === 'essentiel') fx.push(T('pr.fx.short', 'Routine réduite à 3 gestes matin et soir.'));
+    if (ctx.jour === 'dehors') {
+      /* on n'ecrit que ce qui s'est vraiment produit dans cette routine */
+      var sp = R.picks['am-3'], se = R.picks['am-1'];
+      var hi = sp && (spfLevel(sp) || 0) >= 50, ao = se && isAntiox(se);
+      fx.push(hi && ao ? T('pr.fx.out', 'Protection SPF 50 privilégiée, antioxydant le matin.')
+            : hi ? T('pr.fx.out50', 'Protection SPF 50 privilégiée.')
+            : ao ? T('pr.fx.outAo', 'Antioxydant le matin.') : '');
+      fx.push(sp ? T('pr.fx.reapply', 'SPF à renouveler au soleil.') : '');
+    }
+    fx = fx.filter(Boolean);
+    if (fx.length) lines.push('<em>' + fx.join(' ') + '</em>');
+    var empty = activeSlots(ctx).filter(function(s){ return !R.picks[s.slot]; });
     if (empty.length) lines.push('<em>' + T('pr.none', 'Aucune référence dans ce périmètre pour : {s}.', { s: empty.map(function(s){ return stepLabel(s.k, s.fb); }).join(', ') }) + '</em>');
     if (ctx.reactive) lines.push(R.removed > 1
       ? T('pr.react', 'Peau réactive : {n} références écartées (acides, rétinoïdes, exfoliants).', { n: nf(R.removed) })
@@ -1294,8 +1680,10 @@ footer{
     var ctx = {
       peau: answers.peau || 'normale',
       reactive: answers.react === 'oui',
-      goals: (PREFS && PREFS.goals.length) ? PREFS.goals.slice() : (answers.goal ? [answers.goal] : []),
-      age: PREFS ? PREFS.age : null
+      goals: ((PREFS && PREFS.goals.length) ? PREFS.goals.slice() : answers.goals.slice()).slice(0, GOAL_MAX),
+      age: PREFS ? PREFS.age : null,
+      routine: answers.routine || 'complete',
+      jour: answers.jour || null
     };
     var matriceState = T(ctx.peau === 'sèche' ? 'an.fragile' : ctx.peau === 'grasse' ? 'an.hyper' : 'an.balanced',
                          ctx.peau === 'sèche' ? 'fragile' : ctx.peau === 'grasse' ? 'hyperactive' : 'équilibrée');
@@ -1479,19 +1867,26 @@ footer{
     try {
       var got = await Promise.all([loadCatalogue(), new Promise(function(r){ setTimeout(r, 350); })]);
       var sev = computeSeverity(scanScores, ctx);
-      var R = buildRoutine(sev, ctx);
-      var am = 0, pm = 0, ids = {};
+      var R = await composeRoutine(sev, ctx);
+      var ACT = activeSlots(ctx);
+      var am = 0, pm = 0, ids = {}, uses = {}, na = 0, np = 0;
+      var wrap = document.querySelector('.routines-wrap'); if (wrap) wrap.classList.toggle('is-short', ctx.routine === 'essentiel');
       SLOTS.forEach(function(s){
+        var card = document.querySelector('[data-protocol-slot="' + s.slot + '"]');
+        if (ACT.indexOf(s) < 0) { if (card) card.classList.add('is-off'); return; }
         var p = R.picks[s.slot];
-        renderProduct(s.slot, p, T('pr.noneCard', 'Aucune référence dans ce périmètre'));
+        var u = p ? usageFor(p, s, ctx) : null; if (u) uses[s.slot] = u;
+        renderProduct(s.slot, p, T('pr.noneCard', 'Aucune référence dans ce périmètre'), u);
+        /* numeros d'etape suivis, meme quand une etape est retiree */
+        var num = card && card.querySelector('.step-num'); if (num) num.textContent = pad(s.slot.indexOf('am') === 0 ? ++na : ++np);
         if (p) { ids[p.id] = 1; if (s.slot.indexOf('am') === 0) am++; else pm++; }
       });
       var n = Object.keys(ids).length;
-      var kp = document.getElementById('kpi-products'); if (kp) kp.innerHTML = n + '<span class="kpi-u">/' + SLOTS.length + '</span>';
+      var kp = document.getElementById('kpi-products'); if (kp) kp.innerHTML = n + '<span class="kpi-u">/' + ACT.length + '</span>';
       var ka = document.getElementById('kpi-am'); if (ka) ka.textContent = am;
       var kq = document.getElementById('kpi-pm'); if (kq) kq.textContent = pm;
       renderScope(ctx, R);
-      window.__vyProtocol = { ctx: ctx, pool: R.poolN, picks: SLOTS.map(function(s){ var p = R.picks[s.slot]; return p ? { slot: s.slot, id: p.id, brand: p.brand, name: p._name } : { slot: s.slot }; }) };
+      window.__vyProtocol = { ctx: ctx, pool: R.poolN, picks: ACT.map(function(s){ var p = R.picks[s.slot]; var u = uses[s.slot]; return p ? { slot: s.slot, id: p.id, brand: p.brand, name: p._name, use: u && u.text, src: u && u.src } : { slot: s.slot }; }) };
       var top3 = Object.entries(sev).sort(function(a, b){ return b[1] - a[1]; }).slice(0, 3)
         .map(function(e){ return T('tp.' + e[0], e[0]); }).join(' · ');
       var trace = document.getElementById('protocol-trace');
@@ -1503,7 +1898,7 @@ footer{
               { t: top3, n: n, p: nf(R.poolN), b: nf(R.poolBrands) });
         trace.style.display = 'block';
       }
-      console.log('[PROTOCOL] routine', { ctx: ctx, picks: SLOTS.map(function(s){ var p = R.picks[s.slot]; return s.slot + ' ' + (p ? p.brand + ' / ' + p._name : '—'); }), widened: Object.keys(R.widened), pool: R.poolN });
+      console.log('[PROTOCOL] routine', { ctx: ctx, picks: ACT.map(function(s){ var p = R.picks[s.slot]; return s.slot + ' ' + (p ? p.brand + ' / ' + p._name : '—'); }), widened: Object.keys(R.widened), pool: R.poolN });
     } catch (e) { console.error('[PROTOCOL] compile failed:', e); }
   }
 })();

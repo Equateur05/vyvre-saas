@@ -7,7 +7,7 @@
 <meta name="description" content="Votre peau, mesurée en moins de 10 secondes depuis votre caméra. Puis les trois soins qui lui correspondent, parmi 5 883 références de 147 marques.">
 <title>VYVRE — Scan de peau universel</title>
 <!-- VYVRE_I18N : moteur 12 langues, francais par defaut -->
-<script src="/scan/vy-i18n.js?v=15"></script>
+<script src="/scan/vy-i18n.js?v=17"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Police ultra-clean (Silicon Valley DeepTech style) -->
@@ -3222,6 +3222,315 @@ document.addEventListener('vy:lang', function(){
   try { if (window.vyPrefs && window.vyPrefs.afterRender) window.vyPrefs.afterRender(); } catch(e){}
   try { if (window.sgTitreMarque) window.sgTitreMarque(); } catch(e){}
 });
+</script>
+<!-- SG_PRODUITS_LISIBLES (26/09) : les flacons des resultats, lisibles et propres.
+     Test de Charles sur iPhone : flacon minuscule colle au bord droit des cartes produit
+     (la regle sg-zoom-produit passait la photo en position:relative, son left:50% la
+     poussait hors de la carte), vignettes de l'ouverture qui debordaient de l'ecran,
+     detourages rates montres tels quels. Ici :
+     1. chaque image est mesuree sur un canvas a son chargement : on recadre sur la boite
+        utile (alpha, ou ce qui differe du fond) pour que tous les produits aient la meme
+        taille a l'ecran, quelle que soit la marge du fichier ;
+     2. un detourage rate (bande ecrasee, silhouette en morceaux, voile, bord touche,
+        image vide ou pleine) bascule sur la photo d'origine posee sur la plaque claire
+        (sg-plaque) ; si l'origine n'est pas un vrai packshot (fond colore, bande), la
+        carte reste sans photo plutot que de montrer une image sale ;
+     3. la carte produit sur telephone : la photo en haut, centree, grande ; le nom dessous. -->
+<style id="sg-produits-lisibles">
+.vyvre-v6 .v6price:empty{display:none!important}
+.vyvre-v6 .v6card.v6prod.sg-sans-photo .v6photo{display:none!important}
+.vyvre-v6 .v6prod .v6photo{object-fit:contain}
+/* plaque blanche pure : le fond blanc de la photo d'origine s'y fond, sans rectangle visible */
+.vyvre-v6 .v6prod .v6photo.sg-plaque{background:#fff!important;border-radius:16px;box-sizing:border-box;filter:drop-shadow(0 18px 24px rgba(0,0,0,.45))!important}
+#sg-intro .si-im.sg-plaque{background:#fff!important}
+/* telephone et tablette : la photo d'abord, grande et centree */
+@media (max-width:1099px){
+  .vyvre-v6 .v6card.v6prod{display:flex!important;flex-direction:column;align-items:center;text-align:center;min-height:0!important;padding:58px 22px 30px!important;overflow:hidden!important}
+  .vyvre-v6 .v6card.v6prod .v6photo,
+  .vyvre-v6 .v6card.v6prod:hover .v6photo,
+  .sgm.sgm-in .v6photo{order:-1;position:static!important;left:auto!important;right:auto!important;bottom:auto!important;transform:none!important;animation:none!important;
+    display:block;width:min(82%,300px)!important;max-width:none!important;height:clamp(190px,54vw,250px)!important;max-height:none!important;margin:0 auto 24px!important;opacity:1!important;padding:0!important;
+    filter:drop-shadow(0 22px 26px rgba(0,0,0,.6)) drop-shadow(0 0 22px rgba(217,201,163,.12))!important}
+  .vyvre-v6 .v6card.v6prod .v6photo.sg-plaque{padding:16px!important;border-radius:20px!important;filter:drop-shadow(0 18px 24px rgba(0,0,0,.5))!important}
+  .vyvre-v6 .v6card.v6prod .v6lbl{top:18px!important;right:18px!important}
+  .vyvre-v6 .v6card.v6prod h3{margin:0!important;font-size:clamp(21px,6.2vw,27px)!important;line-height:1.16;overflow-wrap:anywhere}
+  .vyvre-v6 .v6card.v6prod p{margin:12px 0 0!important;font-size:13.5px!important;line-height:1.55!important;color:rgba(255,255,255,.58)}
+  .vyvre-v6 .v6card.v6prod.sg-sans-photo{padding-top:62px!important}
+  /* la lecture (« Lecture · votre peau aujourd'hui ») n'avait aucun style sous 1100 px */
+  .vyvre-v6 .v6grid>.sg-verdict{display:block;padding:22px 22px 24px;border-radius:22px;border:1px solid rgba(255,255,255,.10)}
+  .vyvre-v6 .v6grid>.sg-verdict b{display:block;font-family:'JetBrains Mono',monospace;font-weight:400;font-size:9px;letter-spacing:.3em;line-height:1.6;color:rgba(217,201,163,.85);margin:0 0 12px;text-transform:uppercase}
+  .vyvre-v6 .v6grid>.sg-verdict p{margin:0;font-size:15px;line-height:1.62;font-weight:300;color:rgba(255,255,255,.86)}
+  .vyvre-v6 .v6grid>.sg-verdict p em{font-style:normal;color:#fbf0d2}
+}
+/* ordinateur : une case photo plus grande, de taille fixe pour les trois produits */
+@media (min-width:1100px){
+  .vyvre-v6 .v6card.v6prod{grid-template-columns:132px 1fr!important;column-gap:18px!important}
+  .vyvre-v6 .v6card.v6prod .v6photo{width:132px!important;height:140px!important;max-height:none!important}
+  .vyvre-v6 .v6card.v6prod .v6photo.sg-plaque{padding:10px!important}
+  .vyvre-v6 .v6card.v6prod.sg-sans-photo{display:flex!important;flex-direction:column;justify-content:center;align-items:center;text-align:center}
+  .vyvre-v6 .v6card.v6prod.sg-sans-photo p{margin-top:8px!important}
+  .vyvre-v6 .v6card.v6prod.sg-sans-photo h3,.vyvre-v6 .v6card.v6prod.sg-sans-photo p{grid-column:1/-1!important}
+  /* la pastille « Nouveau scan » (retour.js, fixe a 112 px) couvrait la premiere mesure */
+  body:has(#vy-retour[style*="inline-flex"]) #view-results{padding-top:156px!important}
+}
+/* l'ouverture « Votre rituel » : le produit remplit sa vitrine */
+#sg-intro .si-im img{width:100%;height:100%;max-width:none;max-height:none;object-fit:contain}
+#sg-intro .si-im.sg-sans-photo img{visibility:hidden}
+#sg-intro .si-im.sg-sans-photo::before{content:attr(data-marque);position:absolute;inset:0;display:grid;place-items:center;padding:12px;text-align:center;
+  font:200 clamp(13px,1.3vw,18px)/1.25 Inter,sans-serif;letter-spacing:.08em;color:rgba(242,244,245,.7)}
+@media (max-width:760px){
+  /* « VYVRE · SCAN UNIVERSEL » passait sur « Votre rituel, » */
+  #sg-intro .si-k{top:calc(8vh - 6px);font-size:10px;letter-spacing:.36em}
+  #sg-intro .si-t{top:calc(8vh + 26px)!important}
+  #sg-intro .si-p{left:12px;right:12px;gap:10px!important}
+  #sg-intro .si-pr{width:auto!important;flex:1 1 0;min-width:0;max-width:36vw}
+  #sg-intro .si-im{width:100%!important;height:auto!important;aspect-ratio:4/5;padding:10px!important;border-radius:20px!important}
+  #sg-intro .si-n{margin-top:14px}
+  #sg-intro .si-n b{font-size:9.5px;letter-spacing:.18em;line-height:1.5}
+  #sg-intro .si-n i{font-size:12.5px!important;margin-top:6px}
+}
+/* 26/09, retour de Charles sur iPhone : un container de mesure par ecran, dix ecrans a
+   descendre. Sous 640 px les resultats se resserrent : le score d'abord, les huit mesures
+   en grille de deux, le rituel et la lecture plus serres, le suivi en deux colonnes. */
+@media (max-width:1099px){
+  .vyvre-v6{padding-top:34px!important}
+  .vyvre-v6 .v6grid{gap:14px!important}
+  .vyvre-v6 .v6grid>.v6r1{order:-1}
+  .vyvre-v6 .v6card.v6score{padding:6px 0!important;min-height:0!important}
+  .vyvre-v6 .v6card.v6score .sg-centre{width:min(46vw,190px)!important}
+  .vyvre-v6 .v6card.v6score .v6num{font-size:clamp(58px,17vw,74px)!important;padding:0!important}
+  .vyvre-v6 .v6r3:has(.sg-metric){display:grid!important;grid-template-columns:repeat(auto-fill,minmax(150px,1fr))!important;gap:10px!important}
+  .vyvre-v6 .v6card.sg-metric,.vyvre-v6 .v6card.sg-bio{min-height:0!important;padding:14px 14px 15px!important;border-radius:18px!important;display:flex!important;flex-direction:column;justify-content:space-between;gap:8px}
+  .vyvre-v6 .v6card.sg-metric .v6lbl,.vyvre-v6 .v6card.sg-bio .v6lbl{display:none!important}
+  .vyvre-v6 .v6card.sg-metric h3,.vyvre-v6 .v6card.sg-bio h3{margin:0!important;font-size:13px!important;line-height:1.25!important;min-height:2.5em;font-weight:300;color:rgba(255,255,255,.8)}
+  .vyvre-v6 .v6card.sg-metric:hover h3,.vyvre-v6 .v6card.sg-bio:hover h3{letter-spacing:normal}
+  .vyvre-v6 .v6card.sg-metric .v6num,.vyvre-v6 .v6card.sg-bio .v6num{font-size:34px!important;padding:0!important;margin:0!important;line-height:1!important}
+  .vyvre-v6 .v6card.sg-metric .v6num .v6unit,.vyvre-v6 .v6card.sg-bio .v6num .v6unit{font-size:12px!important;margin-left:3px}
+  .vyvre-v6 .v6card.sg-metric .sg-barre,.vyvre-v6 .v6card.sg-bio .sg-barre{margin:2px 0 0!important}
+}
+@media (max-width:640px){
+  #vy-prefs-bar{margin-bottom:4px!important}
+  .vyvre-v6 #vyvre-product-row{gap:12px!important}
+  .vyvre-v6 .v6card.v6prod{padding:50px 20px 24px!important}
+  .vyvre-v6 .v6card.v6prod .v6photo,.vyvre-v6 .v6card.v6prod:hover .v6photo,.sgm.sgm-in .v6photo{height:clamp(170px,46vw,210px)!important;margin-bottom:18px!important}
+  .vyvre-v6 .v6card.v6prod h3{font-size:clamp(20px,5.6vw,24px)!important}
+  .vyvre-v6 .v6grid>.sg-verdict{padding:18px 18px 20px}
+  .vyvre-v6 .v6grid>.sg-verdict p{font-size:14.5px;line-height:1.56}
+}
+@media (max-width:1099px){
+  .vyvre-tracker-card{padding:20px 16px!important;margin:4px 0!important;border-radius:22px!important}
+  .vyvre-tracker-card>div:first-child{margin-bottom:14px!important;gap:12px!important}
+  .vyvre-tracker-card>div:first-child>div>div:nth-child(2){font-size:22px!important}
+  .vyvre-tracker-card>div:nth-child(2){margin-bottom:14px!important;font-size:16px!important}
+  .vyvre-tracker-card>div:nth-child(2):empty{display:none}
+  .vyvre-tracker-card>div:last-child{grid-template-columns:1fr 1fr!important;gap:10px!important}
+  .vyvre-tracker-card>div:last-child>div{padding:14px!important;border-radius:14px!important;min-width:0}
+  .vyvre-tracker-card>div:last-child>div>div:first-child{margin-bottom:8px!important}
+  .vyvre-tracker-card>div:last-child>div>div:nth-child(2){font-size:28px!important}
+  .vyvre-tracker-card>div:last-child>div>div:nth-child(2)>span:first-child{font-size:34px!important}
+  .vyvre-tracker-card>div:last-child svg{max-width:100%}
+}
+/* telephone : la pastille « Nouveau scan » est fixe en bas au centre ; la fin de page
+   remonte au-dessus d'elle au lieu de passer dessous */
+@media (max-width:640px){
+  body:has(#view-results.active){padding-bottom:calc(92px + env(safe-area-inset-bottom))!important}
+}
+</style>
+<script id="sg-produits-lisibles-js">
+(function(){
+  var S = 96;                         /* cote de la mesure */
+  var MESURES = {};                   /* url -> Promise(mesure) */
+  var RESULTATS = {};                 /* url affichee (source) -> Promise(resultat) */
+  var FABRIQUES = {};                 /* blob produit -> resultat (pour l'ouverture qui recopie les src) */
+  var MEME = /^(https?:\/\/[^\/]+)?\/scan\/products\//;
+
+  function abs(u){ try{ return new URL(u, location.href); }catch(e){ return null; } }
+  function sienne(u){ var a = abs(u); return !!a && a.origin === location.origin && MEME.test(a.pathname); }
+  /* la photo d'origine d'un detourage : .../v2/cutout/x.webp -> .../v2/x.jpg (vrai pour tout le catalogue) */
+  function origine(u){ var m = String(u).match(/^(.*\/scan\/products\/.+)\/cutout\/([^\/?#]+)\.webp(?:[?#].*)?$/i); return m ? m[1] + '/' + m[2] + '.jpg' : null; }
+
+  function charger(u){
+    return new Promise(function(ok, ko){ var im = new Image(); im.decoding = 'async'; im.onload = function(){ ok(im); }; im.onerror = ko; im.src = u; });
+  }
+
+  /* la mesure : transparence, boite utile, morceaux, voile, fond */
+  function mesurer(u){
+    if(MESURES[u]) return MESURES[u];
+    return MESURES[u] = charger(u).then(function(im){
+      var W = im.naturalWidth, H = im.naturalHeight; if(!W || !H) throw new Error('vide');
+      var k = S / Math.max(W, H), w = Math.max(1, Math.round(W * k)), h = Math.max(1, Math.round(H * k));
+      var c = document.createElement('canvas'); c.width = w; c.height = h;
+      var x = c.getContext('2d', { willReadFrequently: true }); x.drawImage(im, 0, 0, w, h);
+      var d = x.getImageData(0, 0, w, h).data, n = w * h, i, j;
+      var r = { im: im, W: W, H: H, w: w, h: h, k: k };
+      var transp = 0; for(i = 3; i < d.length; i += 4) if(d[i] < 200) transp++;
+      r.alpha = transp > n * 0.01;
+      var anneau = function(f){ var t = 0, o = 0; for(var y = 0; y < h; y++) for(var z = 0; z < w; z++){ if(y > 1 && y < h - 2 && z > 1 && z < w - 2) continue; t++; if(f((y * w + z) * 4)) o++; } return o / Math.max(1, t); };
+      var x0 = w, y0 = h, x1 = -1, y1 = -1, tot = 0, pris = new Uint8Array(n);
+      if(r.alpha){
+        var semi = 0;
+        for(j = 0; j < n; j++){ var a = d[j * 4 + 3]; if(a > 25 && a < 225) semi++; if(a > 128){ pris[j] = 1; tot++; } }
+        r.bord = anneau(function(p){ return d[p + 3] > 128; });
+        r.voile = semi / Math.max(1, tot);
+      }else{
+        /* fond : moyenne et ecart de la bordure (3 px) */
+        var sr = 0, sg = 0, sb = 0, s2 = 0, m = 0, y, z, p;
+        for(y = 0; y < h; y++) for(z = 0; z < w; z++){ if(y > 2 && y < h - 3 && z > 2 && z < w - 3) continue; p = (y * w + z) * 4; sr += d[p]; sg += d[p + 1]; sb += d[p + 2]; m++; }
+        sr /= m; sg /= m; sb /= m;
+        for(y = 0; y < h; y++) for(z = 0; z < w; z++){ if(y > 2 && y < h - 3 && z > 2 && z < w - 3) continue; p = (y * w + z) * 4; s2 += Math.abs(d[p] - sr) + Math.abs(d[p + 1] - sg) + Math.abs(d[p + 2] - sb); }
+        r.fondEcart = s2 / m / 3; r.fondLum = (sr + sg + sb) / 3; r.fondSat = Math.max(sr, sg, sb) - Math.min(sr, sg, sb);
+        for(j = 0; j < n; j++){ p = j * 4; if(Math.abs(d[p] - sr) + Math.abs(d[p + 1] - sg) + Math.abs(d[p + 2] - sb) > 42){ pris[j] = 1; tot++; } }
+      }
+      r.cov = tot / n;
+      /* taches connexes (4-voisins) : la plus grande et le nombre de morceaux notables */
+      var lab = new Int32Array(n), pile = [], tailles = [];
+      for(j = 0; j < n; j++){
+        if(!pris[j] || lab[j]) continue;
+        var id = tailles.length + 1, t = 0; lab[j] = id; pile.push(j);
+        while(pile.length){ var q = pile.pop(), qy = (q / w) | 0, qx = q - qy * w; t++;
+          if(qx < x0) x0 = qx; if(qx > x1) x1 = qx; if(qy < y0) y0 = qy; if(qy > y1) y1 = qy;
+          if(qx > 0 && pris[q - 1] && !lab[q - 1]){ lab[q - 1] = id; pile.push(q - 1); }
+          if(qx < w - 1 && pris[q + 1] && !lab[q + 1]){ lab[q + 1] = id; pile.push(q + 1); }
+          if(qy > 0 && pris[q - w] && !lab[q - w]){ lab[q - w] = id; pile.push(q - w); }
+          if(qy < h - 1 && pris[q + w] && !lab[q + w]){ lab[q + w] = id; pile.push(q + w); } }
+        tailles.push(t);
+      }
+      var grand = 0, morceaux = 0; tailles.forEach(function(t){ if(t > grand) grand = t; if(t > tot * 0.005) morceaux++; });
+      r.principal = tot ? grand / tot : 0; r.morceaux = morceaux;
+      r.boite = x1 >= 0 ? [x0, y0, x1 - x0 + 1, y1 - y0 + 1] : null;
+      r.aspect = r.boite ? r.boite[3] / r.boite[2] : 0;
+      return r;
+    });
+  }
+
+  /* un detourage est-il montrable ? (memes regles que audit_detourage.py) */
+  function detourageSain(r){
+    if(!r.alpha || !r.boite) return false;
+    if(r.cov < 0.02 || r.cov > 0.92) return false;         /* vide, ou fond non retire */
+    if(r.bord > 0.25) return false;                         /* touche le bord : coupe ou fond reste */
+    if(r.aspect < 0.2) return false;                        /* bande ecrasee */
+    if(r.H / r.W < 0.3) return false;
+    if(r.morceaux >= 4 && r.principal < 0.5) return false;  /* silhouette en morceaux */
+    if(r.voile > 0.45) return false;                        /* voile semi-transparent */
+    return true;
+  }
+  /* une photo opaque est-elle un vrai packshot sur fond clair et uni ? */
+  function packshot(r){
+    if(r.alpha || !r.boite) return false;
+    if(r.H / r.W < 0.3 || r.H / r.W > 3.5) return false;
+    if(r.fondEcart > 16 || r.fondLum < 200 || r.fondSat > 40) return false;
+    if(r.cov < 0.02 || r.aspect < 0.2) return false;       /* presque rien, ou une bande */
+    if(r.aspect < 0.4 && r.morceaux >= 3) return false;     /* une ligne de lettres : un logo de marque, pas le produit */
+    return true;
+  }
+
+  /* recadrage sur la boite utile, a la resolution d'origine */
+  function recadrer(r, marge, opaque){
+    var b = r.boite, k = r.k;
+    var bx = b[0] / k, by = b[1] / k, bw = b[2] / k, bh = b[3] / k, g = Math.max(bw, bh) * marge + 1 / k;
+    var sx = Math.max(0, Math.floor(bx - g)), sy = Math.max(0, Math.floor(by - g));
+    var ex = Math.min(r.W, Math.ceil(bx + bw + g)), ey = Math.min(r.H, Math.ceil(by + bh + g));
+    var cw = ex - sx, ch = ey - sy;
+    /* rien a gagner (moins de 4 % de marge) : on garde le fichier tel quel */
+    if(cw * ch > r.W * r.H * 0.96) return Promise.resolve(r.im.src);
+    var c = document.createElement('canvas'); c.width = cw; c.height = ch;
+    var x = c.getContext('2d');
+    if(opaque){ x.fillStyle = '#fff'; x.fillRect(0, 0, cw, ch); }
+    x.drawImage(r.im, sx, sy, cw, ch, 0, 0, cw, ch);
+    return new Promise(function(ok){
+      try{ c.toBlob(function(bl){ ok(bl ? URL.createObjectURL(bl) : r.im.src); }, opaque ? 'image/jpeg' : 'image/png', 0.92); }
+      catch(e){ ok(r.im.src); }
+    });
+  }
+
+  /* la decision pour une source : { url, plaque } ou { vide:true } */
+  function resoudre(src){
+    if(RESULTATS[src]) return RESULTATS[src];
+    return RESULTATS[src] = mesurer(src).then(function(r){
+      if(r.alpha){
+        if(detourageSain(r)) return recadrer(r, 0.03, false).then(function(u){ return { url: u, plaque: false }; });
+        var o = origine(src);
+        if(!o) return { vide: true, raison: 'detourage' };
+        return mesurer(o).then(function(ro){
+          if(!packshot(ro)) return { vide: true, raison: 'detourage+origine' };
+          return recadrer(ro, 0.07, true).then(function(u){ return { url: u, plaque: true, raison: 'detourage' }; });
+        }, function(){ return { vide: true, raison: 'origine absente' }; });
+      }
+      if(packshot(r)) return recadrer(r, 0.07, true).then(function(u){ return { url: u, plaque: true }; });
+      return { vide: true, raison: 'photo' };
+    }).then(function(res){ if(res.url) FABRIQUES[res.url] = res; return res; });
+  }
+
+  function marque(el){
+    var c = el.closest('.v6prod'); if(c && c.dataset.marque) return c.dataset.marque;
+    var b = el.closest('.si-pr'); b = b && b.querySelector('.si-n b');
+    return b ? b.textContent.replace(/^\s*\d+\s*·\s*/, '').trim() : '';
+  }
+
+  /* pose le resultat sur une image ; boite = l'element qui porte la plaque */
+  function poser(img, res, boite, carte){
+    boite = boite || img;
+    if(res.vide){
+      if(carte) carte.classList.add('sg-sans-photo');
+      boite.classList.add('sg-sans-photo'); boite.classList.remove('sg-plaque');
+      boite.setAttribute('data-marque', marque(img));
+      return;
+    }
+    if(carte) carte.classList.remove('sg-sans-photo');
+    boite.classList.remove('sg-sans-photo');
+    boite.classList.toggle('sg-plaque', !!res.plaque);
+    if(img.getAttribute('src') !== res.url){ img.dataset.sglFait = res.url; img.src = res.url; }
+  }
+
+  function traiter(img, boite, carte){
+    var src = img.getAttribute('src') || '';
+    if(!src || img.dataset.sglFait === src) return;
+    if(FABRIQUES[src]){ img.dataset.sglFait = src; poser(img, FABRIQUES[src], boite, carte); return; }
+    if(!sienne(src)) return;                       /* image d'un autre domaine : canvas illisible, on n'y touche pas */
+    img.dataset.sglSrc = src;
+    resoudre(src).then(function(res){
+      if(img.dataset.sglSrc !== src || img.getAttribute('src') !== src) return;   /* la carte a change entre-temps */
+      poser(img, res, boite, carte);
+    }).catch(function(){ /* mesure impossible : on laisse l'image telle quelle */ });
+  }
+
+  /* 1. les trois cartes du rituel */
+  function cartes(){
+    document.querySelectorAll('#vyvre-product-row .v6photo').forEach(function(im){ traiter(im, im, im.closest('.v6prod')); });
+  }
+  var row = document.getElementById('vyvre-product-row');
+  if(row){ new MutationObserver(cartes).observe(row, { subtree: true, attributes: true, attributeFilter: ['src'] }); cartes(); }
+
+  /* 2. l'ouverture « Votre rituel, compose d'apres votre lecture » */
+  function ouverture(el){
+    el.querySelectorAll('.si-im').forEach(function(b){ var im = b.querySelector('img'); if(im) traiter(im, b, null); });
+  }
+  new MutationObserver(function(ms){ ms.forEach(function(m){ m.addedNodes.forEach(function(n){ if(n.id === 'sg-intro') ouverture(n); }); }); })
+    .observe(document.body, { childList: true });
+
+  /* 3. « LA SALLE » (?salle=1) : on garde la mise en scene, on ne corrige que le detourage rate */
+  var corps = document.getElementById('pf-salle-corps');
+  if(corps){
+    new MutationObserver(function(){
+      corps.querySelectorAll('img.pfd-fl').forEach(function(im){
+        var src = im.getAttribute('src') || ''; if(!sienne(src) || im.dataset.sglSrc === src) return; im.dataset.sglSrc = src;
+        mesurer(src).then(function(r){
+          if(r.alpha ? detourageSain(r) : packshot(r)) return;
+          var zone = im.closest('.pfd-im'), o = r.alpha ? origine(src) : null;
+          var cacher = function(){ zone && zone.querySelectorAll('img').forEach(function(x){ x.style.display = 'none'; }); };
+          if(!o){ cacher(); return; }
+          mesurer(o).then(function(ro){
+            if(!packshot(ro)){ cacher(); return; }
+            im.src = o; im.classList.add('pfd-plaque');
+            var rf = zone && zone.querySelector('.pfd-rf'); if(rf) rf.style.display = 'none';
+          }, cacher);
+        }).catch(function(){});
+      });
+    }).observe(corps, { childList: true });
+  }
+
+  window.sgProduitsLisibles = { mesurer: mesurer, resoudre: resoudre, detourageSain: detourageSain, packshot: packshot };
+})();
 </script>
 <script src="/scan/retour.js?v=2"></script>
 </body>

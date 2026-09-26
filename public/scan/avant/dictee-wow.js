@@ -16,12 +16,12 @@ window.VYD=(function(){
   var L=window.VYL, Q=L.d.q;
   function liste(cle,ordre){ return ordre.map(function(v){ return [v, L.mot(cle,v)].concat(cle==='univers'&&L.EX[v]?[L.EX[v]]:[]); }); }
   var ETAPES=[
-    {k:'goals', multi:false, t:Q[0][0], e:Q[0][1], av:Q[0][2], ap:Q[0][3], opt:liste('goals',['antiage','glow','hydration','redness','pores','pigmentation','sebum'])},
+    {k:'goals', multi:true, max:3, t:Q[0][0], e:Q[0][1], av:Q[0][2], ap:Q[0][3], opt:liste('goals',['antiage','glow','hydration','redness','pores','pigmentation','sebum'])},
     {k:'age', multi:false, t:Q[1][0], e:Q[1][1], av:Q[1][2], ap:Q[1][3], opt:liste('age',['','u25','25','35','45','55'])},
     {k:'univers', multi:false, t:Q[2][0], e:Q[2][1], av:Q[2][2], ap:Q[2][3], opt:liste('univers',['','luxe','pharmacie','normal','petit-prix'])},
     {k:'origine', multi:false, t:Q[3][0], e:Q[3][1], av:Q[3][2], ap:Q[3][3], opt:[['',L.mot('pays','')]]}
   ];
-  var n=0, ecrit='', bloque=false, api;
+  var dernier=null, n=0, ecrit='', bloque=false, api;
   function FX(nom){ var f=api&&api.fx&&api.fx[nom]; return f?f.apply(null,[].slice.call(arguments,1)):undefined; }
 
   /* le texte coule : chaque lettre sort du flou en cascade (decal = attente de l'envol), le cadre defile vers le haut */
@@ -76,8 +76,10 @@ window.VYD=(function(){
     }, decal+txt.length*22+(mot?480:260));
     return cible;
   }
-  function poserValeur(et,v){ P[et.k]= et.k==='age' ? (v||null) : (v?[v]:[]); }
-  function choix(et){ return et.k==='age'?P.age:(P[et.k][0]||''); }
+  function poserValeur(et,v){
+    if(et.multi){ var i=P[et.k].indexOf(v); if(i>=0) P[et.k].splice(i,1); else if(P[et.k].length<(et.max||3)) P[et.k].push(v); return; }
+    P[et.k]= et.k==='age' ? (v||null) : (v?[v]:[]); }
+  function choix(et){ return et.k==='age'?P.age:(et.multi?P[et.k]:(P[et.k][0]||'')); }
   /* combien de produits resteraient si on choisissait cette reponse */
   function simule(et,v){
     var c={age:P.age,goals:P.goals.slice(),univers:P.univers.slice(),origine:P.origine.slice(),marques:[]};
@@ -85,7 +87,9 @@ window.VYD=(function(){
     return VYQ.compte(c);
   }
   function motDe(et){
-    var v=choix(et), o=et.opt.filter(function(x){return x[0]===v;})[0];
+    var v=choix(et);
+    if(et.multi){ var l=v.map(function(x){ var o=et.opt.filter(function(y){return y[0]===x;})[0]; return o?o[1]:x; }); return L.lie(l); }
+    var o=et.opt.filter(function(x){return x[0]===v;})[0];
     return o?o[1]:et.opt[0][1];
   }
   function opts(et){
@@ -106,7 +110,7 @@ window.VYD=(function(){
     $('boite').classList.remove('vue');
     if($('ret')) $('ret').style.visibility=n?'visible':'hidden';
     couler(et.av, false, function(){
-      $('qt').textContent=et.t; if($('qe')) $('qe').textContent=et.e;
+      $('qt').textContent=et.t; if($('qe')) $('qe').textContent=et.multi?L.t('trois'):et.e;
       if($('pts')) $('pts').innerHTML=ETAPES.map(function(_,i){return '<i class="'+(i<n?'on':i===n?'on ici':'')+'"></i>';}).join('');
       var r=$('rep'); r.innerHTML=''; r.className='rep';
       /* les reponses sont comptees dans le contexte deja choisi : on n'affiche jamais une porte qui ne mene nulle part */
@@ -118,6 +122,7 @@ window.VYD=(function(){
   }
   function valider(b){
     var et=ETAPES[n]; n++;
+    if(et.multi && $('suite')){ $('suite').classList.remove('vue'); $('ok').onclick=null; }
     var duree=(!REDUIT && api.fx && api.fx.vol && b)?720:0;
     var cible=couler(motDe(et), true, function(){
       if(et.ap){ ecrit+=et.ap; $('texte').innerHTML=ecrit; }
@@ -145,8 +150,14 @@ window.VYD=(function(){
   function peindre(){
     var et=ETAPES[n], v=choix(et);
     [].slice.call($('rep').querySelectorAll('[data-v]')).forEach(function(b){
-      b.setAttribute('aria-pressed',String(b.dataset.v===v));
+      b.setAttribute('aria-pressed',String(et.multi?v.indexOf(b.dataset.v)>=0:b.dataset.v===v));
     });
+    /* plusieurs choix : « Continuer · 2 / 3 » apparait des le premier */
+    if(et.multi && $('suite')){
+      $('suite').classList.toggle('vue', v.length>0);
+      $('ok').textContent=L.t('continuer')+' · '+v.length+' / '+(et.max||3);
+      $('ok').onclick=function(){ if(!bloque && choix(ETAPES[n]).length) { bloque=true; var d=dernier; FX('choisi', d, ETAPES[n]); setTimeout(function(){ valider(d); }, REDUIT?120:260); } };
+    }
     dire();
   }
   function nb(k){ return '<b class="n" data-n="'+k+'">'+L.fmt(k)+'</b>'; }
@@ -163,7 +174,7 @@ window.VYD=(function(){
   document.addEventListener('mouseover',function(e){
     var b=e.target.closest('#rep [data-v]'); if(!b||n>=ETAPES.length||bloque) return;
     var et=ETAPES[n], o=et.opt.filter(function(x){return x[0]===b.dataset.v;})[0];
-    if(o) fantome(o[1]);
+    if(o){ if(et.multi){ var sel=choix(et).filter(function(x){return x!==o[0];}).map(function(x){ var y=et.opt.filter(function(z){return z[0]===x;})[0]; return y?y[1]:x; }); fantome(L.lie(sel.concat([o[1]]))); } else fantome(o[1]); }
     if(et.k==='age'||et.k==='goals') return;
     var c=simule(et,b.dataset.v);
     dire(L.t('laisse',{p:nb(c.produits),m:L.mais(c.marques,nb)}));
@@ -174,6 +185,12 @@ window.VYD=(function(){
     var b=e.target.closest('#rep [data-v]');
     if(b){
       var et=ETAPES[n], v=b.dataset.v;
+      if(et.multi){
+        /* jusqu'a 3 reponses : chaque clic ajoute ou retire ; au 3e, on avance tout seul */
+        poserValeur(et,v); dernier=b; peindre();
+        if(choix(et).length>=(et.max||3)){ bloque=true; FX('choisi', b, et); setTimeout(function(){ valider(b); }, REDUIT?200:420); }
+        return;
+      }
       bloque=true; /* un seul choix par question, meme en double-clic */
       poserValeur(et,v); peindre(); FX('choisi', b, et);
       setTimeout(function(){ valider(b); }, REDUIT?200:260);

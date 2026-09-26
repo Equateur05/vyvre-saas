@@ -8,7 +8,7 @@
 <meta name="description" content="Vos cheveux lus par la caméra : la boucle, la couleur. Puis une routine de quatre produits.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<script src="/scan/vy-i18n.js?v=15"></script>
+<script src="/scan/vy-i18n.js?v=17"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&family=JetBrains+Mono:wght@100;300;400;500&family=Playfair+Display:ital,wght@1,500&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
 /* ============================================================================
@@ -778,6 +778,11 @@ body.da-fibre #v-res .rule,body.da-fibre #readGrid,body.da-fibre #toldGrid,
 body.da-fibre #noGrid,body.da-fibre #routineZone,body.da-fibre .confirm{display:none}
 body.da-fibre.rf-ouvert #v-res .rule,body.da-fibre.rf-ouvert #readGrid,body.da-fibre.rf-ouvert #toldGrid,
 body.da-fibre.rf-ouvert #noGrid{display:revert}
+/* 27/09 — dans le detail, le titre « La routine · quatre produits » restait seul
+   (la routine est deja au-dessus, en quatre gestes) ; la confirmation de la
+   nature du cheveu, elle, n'apparaissait nulle part : elle revient ici */
+body.da-fibre.rf-ouvert #v-res #ruleRoutine{display:none}
+body.da-fibre.rf-ouvert .confirm{display:block;margin-top:40px}
 .rf-kick{font-family:'IBM Plex Mono',var(--fd);font-size:10px;letter-spacing:.34em;color:rgba(223,234,242,.55)}
 .rf-kick::first-letter{color:rgba(223,234,242,.35)}
 .rf-titre{font-family:var(--fm);font-weight:300;font-size:clamp(30px,3.6vw,54px);letter-spacing:-.012em;
@@ -958,6 +963,26 @@ body.da-fibre #v-quiz .quiz{position:relative;z-index:1}
   body.da-fibre .q-carres.pas-a-pas .chips:has(.chip:nth-child(5)){grid-template-columns:1fr}
 }
 body.da-fibre .qnav{text-align:start}
+/* 27/09 — le choix multiple (la gene) : une barre sous la question, qui dit
+   qu'on peut en prendre trois, le compte, et le bouton pour continuer */
+.qmulti{display:flex;align-items:center;flex-wrap:wrap;gap:10px 18px;margin:-22px 0 22px;
+  font-family:'IBM Plex Mono',var(--fd);text-transform:uppercase}
+.qmulti .qm-t{font-size:11px;letter-spacing:.24em;color:#7fd8ff}
+.qmulti .qm-n{font-weight:400;font-size:13px;letter-spacing:.18em;color:rgba(223,234,242,.55)}
+.qmulti .qm-n i{font-style:normal;color:#fff;font-size:18px;letter-spacing:0}
+.qmulti .qm-go{all:unset;box-sizing:border-box;cursor:pointer;margin-inline-start:auto;display:inline-flex;align-items:center;gap:10px;
+  padding:12px 20px;border-radius:100px;font-size:11px;letter-spacing:.22em;color:#000;background:#eaf6ff;
+  box-shadow:0 0 24px rgba(127,216,255,.35);transition:opacity .3s,transform .3s var(--e1)}
+.qmulti .qm-go i{font-style:normal;font-size:14px;letter-spacing:0}
+.qmulti .qm-go:disabled{opacity:.22;cursor:default;box-shadow:none}
+.qmulti .qm-go:not(:disabled):hover{transform:translateX(3px)}
+.qmulti.refus .qm-n{animation:qmRefus .5s}
+@keyframes qmRefus{20%,60%{transform:translateX(-4px);color:#ffb38a}40%,80%{transform:translateX(4px)}}
+[dir=rtl] .qmulti .qm-go i{transform:scaleX(-1)}
+@media (max-width:640px){
+  .qmulti{margin:-26px 0 16px;gap:8px 14px}
+  .qmulti .qm-go{padding:13px 18px}
+}
 @media (max-width:640px){
   body.da-fibre .q-carres.pas-a-pas .qlabel em{font-size:clamp(34px,10vw,48px)}
   body.da-fibre .q-carres.pas-a-pas .chip{font-size:19px;padding:15px 0}
@@ -1181,6 +1206,10 @@ body.da-fibre .qnav{text-align:start}
   box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 16px 40px -20px rgba(0,0,0,.85);
   transition:background .35s,border-color .35s,color .35s,transform .35s var(--e1)}
 #hcRetour[hidden]{display:none}
+body.fiche-ouverte #hcRetour,body.fiche-ouverte #vy-lang{display:none!important}
+/* sur grand ecran aussi, la pastille couvrait les titres des resultats en defilant */
+body.defile #hcRetour.sur-res{opacity:0;pointer-events:none;transform:translateY(-12px)}
+#hcRetour{transition:background .35s,border-color .35s,color .35s,transform .35s var(--e1),opacity .3s}
 #hcRetour:hover,#hcRetour:focus-visible{color:#fff;background:rgba(127,216,255,.1);border-color:rgba(127,216,255,.55);transform:translateX(-2px)}
 #hcRetour i{font-style:normal;font-size:14px;line-height:1;letter-spacing:0}
 [dir=rtl] #hcRetour{left:auto;right:max(16px,2.5%)}
@@ -1193,6 +1222,16 @@ body.da-fibre .qnav{text-align:start}
      une question a neuf reponses (le pays) peut depasser l'ecran : la vue
      defile alors au lieu de couper le haut et le bas */
   #v-quiz,#v-res{padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+  body.defile #hcRetour.sur-res{opacity:0;pointer-events:none;transform:translateY(24px)}
+  /* 27/09 — la pastille de langue (vy-i18n) se posait au MEME endroit que le
+     retour, en bas a gauche : elles se recouvraient. Ici elle passe en bas a
+     droite, et comme le retour elle s'efface des qu'on descend dans les
+     resultats ou qu'une fiche produit est ouverte. */
+  html body #vy-lang{left:auto;right:16px}
+  html[dir=rtl] body #vy-lang{right:auto;left:16px}
+  html[dir=rtl] body #vy-lang ul{left:0;right:auto}
+  html body #vy-lang ul{left:auto;right:0}
+  body.vue-res.defile #vy-lang{opacity:0;pointer-events:none;transform:translateY(10px)}
   #v-quiz{overflow-y:auto;justify-content:safe center}
   #v-quiz .quiz{flex-shrink:0}
 }
@@ -1249,6 +1288,24 @@ body.da-fibre .qnav{text-align:start}
 .rf-mot ol li{display:grid;grid-template-columns:34px 1fr;gap:14px;font-size:clamp(14px,1.2vw,17px);
   line-height:1.6;color:rgba(223,234,242,.72)}
 .rf-mot ol li b{font-family:'IBM Plex Mono',var(--fd);font-size:10px;letter-spacing:.2em;color:rgba(127,216,255,.75);padding-top:4px}
+/* 27/09 — le mode d'emploi de chaque produit : quand, combien de fois, ou, et
+   d'ou vient l'indication (la marque, ou une regle generale) */
+.usage{margin-top:12px;display:grid;gap:4px;font-size:13px;line-height:1.5;color:#eaf1f6;font-weight:300}
+.usage b{font-family:'IBM Plex Mono',var(--fd);font-weight:400;font-size:9.5px;letter-spacing:.24em;text-transform:uppercase;color:#7fd8ff}
+.usage span em{font-style:normal;color:rgba(223,234,242,.66)}
+.usage i{font-style:normal;font-family:'IBM Plex Mono',var(--fd);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(223,234,242,.36)}
+.usage i.m{color:rgba(127,216,255,.62)}
+.usage a.usrc{font-family:'IBM Plex Mono',var(--fd);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(127,216,255,.8);text-decoration:underline;text-underline-offset:3px}
+.mc .num.sig{font-family:var(--fm);font-style:normal;font-size:clamp(26px,3vw,38px);font-weight:200;letter-spacing:-.01em}
+.usage.pu{padding:10px 0 0;border-top:1px solid rgba(127,216,255,.18)}
+.usage.rff-u{margin:0 0 20px;padding:14px 16px;border-inline-start:2px solid #7fd8ff;background:rgba(127,216,255,.06);font-size:15px}
+.usage.rfd-u{margin-top:16px;font-size:14px}
+.usage.nu{text-align:center;justify-items:center;font-size:12px}
+.rf-mot ol li small.usage-l{display:block;margin-top:4px;font-size:.88em;color:#cfe9f7}
+.rf-mot ol li small.usage-l i{font-style:normal;color:rgba(223,234,242,.4)}
+.rf-mot ul.rfm-g{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.rf-mot ul.rfm-g li{display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;font-size:clamp(14px,1.2vw,17px);color:rgba(223,234,242,.72)}
+.rf-mot ul.rfm-g li b{font-weight:400;color:#fff;min-width:9ch}
 /* une carte produit est cliquable : on le voit */
 .rf-p{cursor:pointer}
 .rf-p .rf-shot{transition:transform .5s var(--e1),box-shadow .5s var(--e1)}
@@ -1257,7 +1314,7 @@ body.da-fibre .qnav{text-align:start}
   color:rgba(127,216,255,.6);margin-top:10px;opacity:0;transition:opacity .4s}
 .rf-p:hover .pvoir,.rf-p:focus-visible .pvoir{opacity:1}
 /* la fiche produit */
-.rf-fiche{position:fixed;top:0;right:0;bottom:0;width:min(520px,94vw);z-index:60;background:rgba(6,9,13,.97);
+.rf-fiche{position:fixed;top:0;right:0;bottom:0;width:min(520px,94vw);z-index:10001;background:rgba(6,9,13,.97);
   -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border-left:1px solid rgba(223,234,242,.12);
   transform:translateX(100%);transition:transform .6s var(--e1);overflow:auto;padding:76px 42px 60px}
 .rf-fiche.on{transform:none}
@@ -1637,7 +1694,7 @@ body.da-fibre .qnav{text-align:start}
     <div class="rule" id="ruleNo"><span class="lab" data-i18n="hc.r.s3">Ce qu&rsquo;une photo de t&eacute;l&eacute;phone ne sait pas lire</span><i></i></div>
     <div id="noGrid"></div>
 
-    <div class="rule"><span class="lab" data-i18n="hc.r.s4">La routine &middot; quatre produits</span><i></i></div>
+    <div class="rule" id="ruleRoutine"><span class="lab" data-i18n="hc.r.s4">La routine &middot; quatre produits</span><i></i></div>
     <div id="routineZone"></div>
 
     <div id="confirmZone"></div>
@@ -1941,6 +1998,7 @@ function fibreResultats(zg){
 function show(name){
   if(name !== 'res') fibreResultats.jeton = 0;
   document.body.classList.toggle('vue-quiz', name === 'quiz');
+  document.body.classList.toggle('vue-res', name === 'res');
   fibreSuit(name);
   ['hero','quiz','scan','load','res','void'].forEach(function(n){
     var el = $('v-'+n); if(el) el.classList.toggle('active', n === name);
@@ -2020,9 +2078,14 @@ function applyBrandTexts(){
    On la fait confirmer APRES la lecture, en un geste.
    Les valeurs envoyees au moteur sont les siennes, jamais traduites.      */
 var QUESTIONS = [
-  { id:'probleme', label:'hc.q.l2',
+  /* 27/09 — test iPhone de Charles : « ce qui me gene le plus » n'acceptait qu'UN
+     choix, alors qu'on peut avoir des cheveux cassants ET qui tombent. Jusqu'a
+     trois choix (multi:3), dans l'ordre ou on les touche : le moteur les lit
+     toutes (genesDe) et la premiere departage. « Rien de particulier » est seul.
+     « Plats, sans volume » revient : le moteur le connait (besoins.plats). */
+  { id:'probleme', label:'hc.q.l2', multi:3,
     opts:[['secheresse','secheresse'],['gras','gras'],['chute','chute'],
-          ['pellicules','pellicules'],['casse','casse'],['','aucune']] },
+          ['pellicules','pellicules'],['casse','casse'],['plats','plats'],['','aucune']] },
   /* 26/09 — « colores ou decolores » envoyait toujours 'colores' : la logique
      propre aux decolores du moteur (reconstruction) ne se declenchait jamais.
      Trois choix, trois valeurs du moteur. */
@@ -2133,19 +2196,43 @@ var ANSWER_LABEL = { probleme:'hc.a.probleme', etat:'hc.a.etat', lavage:'hc.a.la
 /* l'ecran entier se dessine d'un coup : deux rangees, une troisieme qui
    arrive quand la premiere est repondue, et c'est tout. */
 var quizBound = false;
+/* une reponse simple est une valeur, une reponse multiple un tableau */
+function estChoisi(chosen, v){ return Array.isArray(chosen) ? chosen.indexOf(v) !== -1 : chosen === v; }
+function questionDe(id){ var r = null; QUESTIONS.forEach(function(q){ if(q.id === id) r = q; }); return r; }
 function chipHTML(act, v, key, chosen, i, nb){
   /* nb : le nombre de maisons derriere ce choix, compte dans le catalogue */
   var cpt = (typeof nb === 'number')
     ? '<small class="nbm">' + esc(nb === 1 ? T('hcx.n1') : T('hcx.nn', { n: nb })) + '</small>' : '';
-  return '<button type="button" class="chip' + (chosen === v ? ' on' : '') +
+  return '<button type="button" class="chip' + (estChoisi(chosen, v) ? ' on' : '') +
          '" data-act="' + act + '" data-v="' + esc(v) + '"' +
          ' style="--d:' + (0.06 + i*0.045).toFixed(2) + 's">' +
          '<span data-i18n="' + key + '">' + esc(T(key)) + '</span>' + cpt + '<i class="ond"></i></button>';
 }
-function rowHTML(num, labelKey, chipsHtml, extra){
-  return '<div class="qr' + (extra || '') + '" data-row="' + num + '">' +
+function rowHTML(num, labelKey, chipsHtml, extra, multi){
+  return '<div class="qr' + (extra || '') + (multi ? ' qmul' : '') + '" data-row="' + num + '">' +
          '<div class="qlabel"><b>' + num + '</b><em data-i18n="' + labelKey + '">' + esc(T(labelKey)) + '</em></div>' +
+         (multi ? multiHTML(multi) : '') +
          '<div class="chips">' + chipsHtml + '</div></div>';
+}
+/* 27/09 — la barre du choix multiple : on voit qu'on peut en prendre trois,
+   combien on en a pris, et on continue quand on veut (au 3e, ca part seul) */
+function multiHTML(max){
+  return '<div class="qmulti" aria-live="polite">' +
+    '<span class="qm-t" data-i18n="hcx.q.multi">' + esc(T('hcx.q.multi') || 'Jusqu\u2019\u00e0 trois choix') + '</span>' +
+    '<b class="qm-n"><i>0</i> / ' + max + '</b>' +
+    '<button type="button" class="qm-go" disabled><span data-i18n="hcx.q.cont">' + esc(T('hcx.q.cont') || 'Continuer') + '</span> <i aria-hidden="true">&rarr;</i></button>' +
+  '</div>';
+}
+function majMulti(act){
+  var q = questionDe(act); if(!q || !q.multi) return;
+  var row = null;
+  Array.prototype.forEach.call($('quizRows').querySelectorAll('.qr.qmul'), function(r){ if(r.querySelector('.chip[data-act="' + act + '"]')) row = r; });
+  if(!row) return;
+  var v = S.answers[act], n = Array.isArray(v) ? v.filter(function(x){ return x !== ''; }).length : 0;
+  var aucune = Array.isArray(v) && v.indexOf('') !== -1;
+  row.querySelector('.qm-n i').textContent = String(n);
+  row.classList.toggle('plein', n >= q.multi);
+  var go = row.querySelector('.qm-go'); go.disabled = !(n > 0 || aucune);
 }
 function suiteHTML(){
   return '';   /* plus de question de suite : voir QUESTIONS, 3e question */
@@ -2164,7 +2251,7 @@ function questionHTML(q, n){
   var chips = optsDe(q).map(function(o,i){
     return chipHTML(q.id, optVal(o), optKey(o), S.answers[q.id], i, o[2]);
   }).join('');
-  return rowHTML('0' + (n+1), q.label, chips);
+  return rowHTML('0' + (n+1), q.label, chips, '', q.multi || 0);
 }
 function renderQuiz(){
   var host = $('quizRows'), h = '';
@@ -2177,6 +2264,7 @@ function renderQuiz(){
   if(sub){ var ks = qs.length === 5 ? 'hcx.q.sub5' : 'hc.q.sub';
     sub.setAttribute('data-i18n', ks); sub.textContent = T(ks) || sub.textContent; }
   if(!quizBound){ host.addEventListener('click', onChip); quizBound = true; }
+  qs.forEach(function(q){ if(q.multi) majMulti(q.id); });
   montrerEtape(0, true);
 }
 var etapeQ = 0;
@@ -2214,6 +2302,14 @@ function montrerEtape(i, direct){
   if(boite) boite.classList.toggle('apres-premiere', i > 0);
 }
 function onChip(e){
+  var go = e.target && e.target.closest ? e.target.closest('.qm-go') : null;
+  if(go){
+    e.preventDefault(); if(go.disabled) return;
+    var lg = $('quizRows').querySelectorAll('.qr'), k = -1;
+    Array.prototype.forEach.call(lg, function(l, j){ if(l.contains(go)) k = j; });
+    if(k >= 0 && k < lg.length - 1) montrerEtape(k + 1); else if(quizComplete()) afterQuestions();
+    return;
+  }
   var b = e.target && e.target.closest ? e.target.closest('.chip') : null;
   if(!b || !b.dataset.act) return;
   e.preventDefault();
@@ -2224,15 +2320,41 @@ function onChip(e){
 function paintRow(act){
   var host = $('quizRows');
   Array.prototype.forEach.call(host.querySelectorAll('.chip[data-act="' + act + '"]'), function(b){
-    b.classList.toggle('on', b.dataset.v === S.answers[act]);
+    b.classList.toggle('on', estChoisi(S.answers[act], b.dataset.v));
   });
+  majMulti(act);
 }
 var departTimer = null;
 function answer(act, v){
   var host = $('quizRows');
-  var changeSuite = (act === 'probleme' && S.answers.probleme !== v);
-  S.answers[act] = v;
-  paintRow(act);
+  var qm = questionDe(act);
+  var avancer = true;
+  if(qm && qm.multi){
+    /* choix multiple : on ajoute ou on retire ; « rien de particulier » est
+       seul ; au-dela du maximum, le toucher ne fait rien (la barre le dit) */
+    var cur = Array.isArray(S.answers[act]) ? S.answers[act].slice() : [];
+    if(v === ''){ cur = cur.indexOf('') !== -1 ? [] : ['']; }
+    else {
+      cur = cur.filter(function(x){ return x !== ''; });
+      var ix = cur.indexOf(v);
+      if(ix !== -1) cur.splice(ix, 1);
+      else if(cur.length < qm.multi) cur.push(v);
+      else { var rw = host.querySelector('.qr.courant .qmulti'); if(rw){ rw.classList.remove('refus'); void rw.offsetWidth; rw.classList.add('refus'); } return; }
+    }
+    if(cur.length) S.answers[act] = cur; else delete S.answers[act];
+    paintRow(act);
+    /* on ne passe a la suite tout seul qu'au 3e choix, ou sur « rien » */
+    avancer = cur.length >= qm.multi || (cur.length === 1 && cur[0] === '');
+    if(!avancer){
+      if(departTimer){ clearTimeout(departTimer); departTimer = null; }
+      $('quizSkip').classList.toggle('go', quizComplete());
+      return;
+    }
+  } else {
+    S.answers[act] = v;
+    paintRow(act);
+  }
+  var changeSuite = false;
 
   /* la famille change : la liste des pays se recompte, et un pays qui n'a plus
      de maison dans cette famille n'est plus propose ni garde */
@@ -2285,14 +2407,20 @@ function answer(act, v){
 }
 function quizComplete(){
   var ok = true;
-  questionsActives().forEach(function(q){ if(S.answers[q.id] === undefined) ok = false; });
+  questionsActives().forEach(function(q){
+    var a = S.answers[q.id];
+    if(a === undefined || (Array.isArray(a) && !a.length)) ok = false;
+  });
   return ok;
 }
 /* ce qu'on envoie au moteur : son vocabulaire, et rien d'invente. La frequence
    de lavage et l'age ne sont plus demandes : on ne les fabrique pas. */
 function reponsesMoteur(){
   var r = {};
-  if(S.answers.probleme) r.probleme = S.answers.probleme;
+  /* 27/09 — la gene est une liste (1 a 3), dans l'ordre du choix */
+  var pb = S.answers.probleme;
+  pb = (Array.isArray(pb) ? pb : (pb ? [pb] : [])).filter(function(x){ return !!x; });
+  if(pb.length) r.probleme = pb;
   if(S.answers.etat) r.etat = S.answers.etat;
   if(S.answers.lavage) r.lavage = S.answers.lavage;
   if(S.answers.type_ressenti) r.type_ressenti = S.answers.type_ressenti;
@@ -2362,7 +2490,7 @@ function lancerScanGuide(){
   /* le guidage vit dans une iframe : le choix de langue memorise ne traverse pas
      toujours (origine, mode prive). On le lui passe en clair dans l'adresse. */
   var lg = (window.VY && VY.lang) ? VY.lang : 'fr';
-  f.id = 'scanGuide'; f.allow = 'camera'; f.src = '/cheveux/scan-guide.html?v=4&lang=' + encodeURIComponent(lg);
+  f.id = 'scanGuide'; f.allow = 'camera'; f.src = '/cheveux/scan-guide.html?v=5&lang=' + encodeURIComponent(lg);
   f.setAttribute('style', 'position:fixed;inset:0;width:100%;height:100%;border:0;z-index:9998;background:#000');
   /* 26/09 — le « Quitter » pose ici par-dessus l'iframe est remplace par le
      « ← Retour » du guidage lui-meme (scan-guide.html) : il coupe la camera
@@ -3613,9 +3741,9 @@ function setLoadProgress(p){
 /* ================================================================ ENGINE */
 function probeEngine(){
   if(window.VYVRE_HAIR_ENGINE){ S.engine = window.VYVRE_HAIR_ENGINE; S.engineReady = true; return Promise.resolve(true); }
-  return head('/scan/vyvre-hair-engine.js?v=7').then(function(ok){
+  return head('/scan/vyvre-hair-engine.js?v=8').then(function(ok){
     if(!ok) return false;
-    return injectScript('/scan/vyvre-hair-engine.js?v=7').then(function(loaded){
+    return injectScript('/scan/vyvre-hair-engine.js?v=8').then(function(loaded){
       if(loaded && window.VYVRE_HAIR_ENGINE){ S.engine = window.VYVRE_HAIR_ENGINE; S.engineReady = true; return true; }
       return false;
     });
@@ -3735,6 +3863,12 @@ function runReading(){
     fichesMarques: optionsRoutine().fichesMarques || null,
     frames: S.fromPhoto ? 1 : 3
   };
+  /* 27/09 — le guidage peut finir avec UNE seule pose (validation avant 100 %) :
+     elle garde alors son cadre de visage et son masque de cheveux */
+  if(!S.fromPhoto && prises.length === 1){
+    if(prises[0].faceBox) opts.faceBox = prises[0].faceBox;
+    if(prises[0].masqueExterne) opts.masqueExterne = prises[0].masqueExterne;
+  }
 
   var ready = S.fromPhoto ? loadFaceDetector() : Promise.resolve(true);
   var call = ready.then(function(){
@@ -3858,9 +3992,11 @@ var DECLARES = [
   { k:'racinesGrasses', name:'hc.m.gras' },
   { k:'frizz',      name:'hc.m.frizz' },
   { k:'blancs',     name:'hc.m.blancs' },
-  { k:'densite',    name:'hc.m.densite' },
-  { k:'pellicules', name:'hc.m.pellicules' },
-  { k:'chute',      name:'hc.m.chute' }
+  /* 27/09 — la densite n'est plus affichee en « declare » : elle ne venait que de
+     la gene « chute » ou « plats » (25 ou 35 /100), un chiffre que personne n'a
+     donne. Le moteur s'en sert toujours pour choisir. */
+  { k:'pellicules', name:'hc.m.pellicules', sig:true },
+  { k:'chute',      name:'hc.m.chute', sig:true }
 ];
 
 function labToRgb(L,a,b){
@@ -3960,6 +4096,50 @@ function raisonsDe(p){
   return out.map(function(r){ return String(r).trim(); }).filter(Boolean);
 }
 function texteRaisons(p){ return raisonsDe(p).join(T('hcx.sep') || ', '); }
+/* ==========================================================================
+   27/09 — LE MODE D'EMPLOI. Charles a eu la « Cure Apaisante Specifique »
+   Kerastase : l'ecran ne disait pas quand l'utiliser (la marque : 4 semaines,
+   3 fois par semaine). Chaque produit propose porte desormais une ligne
+   d'usage : quand et combien de fois, ou, et d'ou vient l'indication — la
+   marque, ou une regle generale prudente par type de produit (le moteur le
+   dit dans usage.source ; voir posologie() dans vyvre-hair-engine.js).
+   ========================================================================== */
+function usageDe(p){
+  if(!p) return null;
+  if(p.usage) return p.usage;
+  /* un produit ouvert depuis le catalogue (pas depuis la routine) : on le calcule */
+  var cat = (S.catalogue || []).filter(function(x){ return x && x.id === p.id; })[0] || p;
+  try { if(S.engine && typeof S.engine.posologie === 'function') return S.engine.posologie(cat); } catch(e){}
+  return null;
+}
+function tU(c){
+  if(!c || !c.cle) return '';
+  var k = c.cle, v = c.v || undefined;
+  if(k === 'hcx.u.sem' && v && +v.n === 1) k = 'hcx.u.sem1';
+  if(k === 'hcx.u.journ' && v && +v.n === 1) k = 'hcx.u.jour';
+  return T(k, v) || '';
+}
+/* { quand, ou, source } en texte : « 3 fois par semaine, pendant 4 semaines » ·
+   « sur le cuir chevelu » · « indication de la marque » */
+function usageParts(p){
+  var u = usageDe(p); if(!u || !u.quand) return null;
+  var sep = T('hcx.sep') || ', ';
+  var quand = [tU(u.quand), tU(u.besoin), tU(u.alterne), tU(u.avant), tU(u.duree), tU(u.suite), tU(u.pose), tU(u.rincer)].filter(Boolean).join(sep);
+  var src = (u.source === 'marque' || u.source === 'catalogue') ? 'hcx.u.src.m' : (u.source === 'mixte' ? 'hcx.u.src.x' : 'hcx.u.src.r');
+  return { quand: quand, ou: tU(u.ou), src: T(src), marque: src === 'hcx.u.src.m', url: u.url || null };
+}
+function usageTexte(p){
+  var x = usageParts(p); if(!x) return '';
+  return x.quand + (x.ou ? ' \u00b7 ' + x.ou : '');
+}
+function usageHTML(p, cls){
+  var x = usageParts(p); if(!x) return '';
+  return '<div class="' + (cls || 'usage') + '"><b>' + esc(T('hcx.u.k') || 'Usage') + '</b>' +
+    '<span>' + esc(x.quand) + (x.ou ? ' <em>\u00b7 ' + esc(x.ou) + '</em>' : '') + '</span>' +
+    ((x.url && /rff-u/.test(cls || ''))
+      ? '<a class="usrc" href="' + esc(x.url) + '" target="_blank" rel="noopener noreferrer">' + esc(x.src) + '</a>'
+      : '<i class="' + (x.marque ? 'm' : 'r') + '">' + esc(x.src) + '</i>') + '</div>';
+}
 /* le moteur a-t-il favorise un soin riche parce que les lavages sont espaces ? */
 function lavagesEspaces(p){
   if(!p) return false;
@@ -3988,17 +4168,26 @@ function ouvrirFiche(id){
     '<div class="rff-k">' + esc((p.marque || cat.brand_name || '')) + (etape ? ' &middot; ' + esc(T(STEP_KEYS[etape])) : '') + '</div>' +
     '<h3>' + esc(p.nom || cat.name || '') + '</h3>' +
     (function(){ var w = texteRaisons(p); return w ? '<p>' + esc(w) + '</p>' : ''; })() +
+    usageHTML(p, 'usage rff-u') +
     (desc ? '<p>' + esc(String(desc).slice(0, 420)) + '</p>' : '') +
     ((cibles.length || promesses.length)
       ? '<div class="rff-l">' + cibles.concat(promesses).map(function(x){ return '<span>' + esc(String(x).replace(/-/g, ' ')) + '</span>'; }).join('') + '</div>'
       : '') +
     ((p.url || cat.url) ? '<a class="rff-go" href="' + esc(p.url || cat.url) + '" target="_blank" rel="noopener noreferrer">' + esc(T('hc.official')) + '</a>' : '');
-  var f = $('rfFiche'); f.hidden = false;
+  var f = $('rfFiche');
+  /* 27/09 — la fiche est « fixed », mais un ancetre de l'ecran des resultats en
+     fait son cadre : ouverte depuis le bas de la page (le detail, « Voir la
+     fiche » des gestes III et IV sur telephone), elle s'affichait 6 000 px plus
+     haut, hors de l'ecran. Elle vit donc directement dans le body. */
+  if(f.parentNode !== document.body) document.body.appendChild(f);
+  f.hidden = false; f.scrollTop = 0;
+  document.body.classList.add('fiche-ouverte');
   requestAnimationFrame(function(){ f.classList.add('on'); });
 }
 function fermerFiche(){
   var f = $('rfFiche'); if(!f) return;
   f.classList.remove('on');
+  document.body.classList.remove('fiche-ouverte');
   setTimeout(function(){ f.hidden = true; }, 500);
 }
 var BANAL = /^(eau|water|aqua|glyc[ée]rine|glycerin|acide citrique|citric acid|parfum|fragrance|alcool|alcohol|sodium chloride|sel|phenoxyethanol|tocoph|parabene|silicone|dimethicone|conservateur)/i;
@@ -4011,12 +4200,16 @@ function ecrirePhrase(liste){
   var etats = [];
   var sech = sc.secheresse && sc.secheresse.valeur, casse = sc.casse && sc.casse.valeur,
       gras = sc.racinesGrasses && sc.racinesGrasses.valeur, frizz = sc.frizz && sc.frizz.valeur;
-  if(sech != null && sech >= 55) etats.push(T('hcp.secs'));
-  if(casse != null && casse >= 55) etats.push(T('hcp.casse'));
-  if(gras != null && gras >= 60) etats.push(T('hcp.gras'));
-  if(frizz != null && frizz >= 55) etats.push(T('hcp.frizz'));
+  /* 27/09 — ces etats viennent le plus souvent des REPONSES (la mesure n'est pas
+     validee) : on ne les ecrit plus comme si la camera les avait vus */
+  var mesure = false;
+  function note(x){ if(x && x.partDeclaree !== 1) mesure = true; }
+  if(sech != null && sech >= 55){ etats.push(T('hcp.secs')); note(sc.secheresse); }
+  if(casse != null && casse >= 55){ etats.push(T('hcp.casse')); note(sc.casse); }
+  if(gras != null && gras >= 60){ etats.push(T('hcp.gras')); note(sc.racinesGrasses); }
+  if(frizz != null && frizz >= 55){ etats.push(T('hcp.frizz')); note(sc.frizz); }
   var b = mes.boucle && (mes.boucle.valeur != null ? mes.boucle.valeur : (mes.boucle.detail && mes.boucle.detail.valeur));
-  if(!etats.length && b != null) etats.push((b <= 1 ? b*100 : b) >= 55 ? T('hcp.boucles') : T('hcp.equilibre'));
+  if(!etats.length && b != null){ etats.push((b <= 1 ? b*100 : b) >= 55 ? T('hcp.boucles') : T('hcp.equilibre')); mesure = true; }
   /* les actifs vraiment presents dans les quatre fiches retenues */
   var cat = S.catalogue || [], compte = {};
   (liste || []).filter(Boolean).forEach(function(p){
@@ -4031,7 +4224,7 @@ function ecrirePhrase(liste){
   });
   var actifs = Object.keys(compte).sort(function(x,y){ return compte[y]-compte[x]; }).slice(0,2);
   var etat = etats.slice(0,2).join(' ' + T('hcp.et') + ' ');
-  var txt = etat ? T('hcp.p1', { e: etat }) : T('hcp.p0');
+  var txt = etat ? ((!mesure && T('hcx.ph.decl', { e: etat })) || T('hcp.p1', { e: etat })) : T('hcp.p0');
   if(actifs.length) txt += ' ' + T('hcp.p2', { a: actifs.join(' ' + T('hcp.et') + ' ') });
   z.innerHTML = esc(txt).replace(esc(etat), '<b>' + esc(etat) + '</b>');
 }
@@ -4126,6 +4319,7 @@ function ecrireDetailProduits(liste){
           '<div class="rfd-m">' + esc(p.marque || f.brand_name || '') + '</div>' +
           (function(){ var ph = phraseProduit(p, f); return ph ? '<p>' + ph + '</p>' : ''; })() +
           (raisons.length ? '<div class="rfd-w">' + raisons.map(function(r){ return '<span>' + esc(r) + '</span>'; }).join('') + '</div>' : '') +
+          usageHTML(p, 'usage rfd-u') +
           ((p.url || f.url) ? '<a href="' + esc(p.url || f.url) + '" target="_blank" rel="noopener noreferrer">' + esc(T('hc.official')) + '</a>' : '') +
         '</div>' +
         '<div class="rfd-rail" aria-hidden="true">' + rail + '</div>' +
@@ -4178,6 +4372,33 @@ function ecrireDetailProduits(liste){
   }
   pose();
 }
+/* 27/09 — les genes choisies (1 a 3), et le geste de la routine qui repond a
+   chacune. On ne l'ecrit que d'apres les raisons rendues par le moteur : une
+   gene qu'aucun produit ne vise directement est dite comme telle. */
+var GENE_RAISONS = {
+  secheresse: /^hcx\.pq\.(noursec|noursr|douxnour|nourcible|mixte|nouresp|masqueesp)$|^hct\.secs$/,
+  gras:       /^hcx\.pq\.(purif|mixte)$|^hct\.gras$/,
+  chute:      /^hcx\.pq\.(chute|densite)$|^hct\.chute$/,
+  pellicules: /^hcx\.pq\.(antipell1|antipell4)$|^hct\.pellicules$/,
+  casse:      /^hcx\.pq\.(reconcasse|traitcasse|longueurs|decolore)$|^hct\.abimes$/,
+  plats:      /^hcx\.pq\.(corps|leger)$|^hct\.fins$/
+};
+function genesHTML(liste){
+  var pb = S.answers && S.answers.probleme;
+  pb = (Array.isArray(pb) ? pb : (pb ? [pb] : [])).filter(function(x){ return !!x && GENE_RAISONS[x]; });
+  if(!pb.length) return '';
+  var ROMG = ['I','II','III','IV'];
+  var gestes = (liste || []).filter(Boolean).slice().sort(function(a,b){ return (a.etape||0)-(b.etape||0); });
+  var lignes = pb.map(function(g){
+    var ou = [];
+    gestes.forEach(function(p, i){
+      if((p.raisons || []).some(function(r){ return r && GENE_RAISONS[g].test(r.cle || ''); })) ou.push(ROMG[(p.etape || (i + 1)) - 1]);
+    });
+    var txt = ou.length ? T('hcx.g.geste', { r: ou.join(', ') }) : T('hcx.g.aucun');
+    return '<li><b>' + esc(T('hc.o.' + g)) + '</b><span>' + esc(txt) + '</span></li>';
+  }).join('');
+  return '<div class="rfm-k" data-i18n="hcx.g.k">' + esc(T('hcx.g.k')) + '</div><ul class="rfm-g">' + lignes + '</ul>';
+}
 /* la lecture, en toutes lettres */
 function ecrireLaLecture(liste){
   var z = $('rfMot'); if(!z) return;
@@ -4211,7 +4432,7 @@ function ecrireLaLecture(liste){
   });
 
   var gestes = (liste || []).filter(Boolean).map(function(p){
-    return { n: p.nom || '', m: p.marque || '', e: p.etape || 0, w: texteRaisons(p) };
+    return { n: p.nom || '', m: p.marque || '', e: p.etape || 0, w: texteRaisons(p), p: p };
   }).sort(function(x,y){ return x.e - y.e; });
 
   z.innerHTML =
@@ -4220,9 +4441,12 @@ function ecrireLaLecture(liste){
     (gestes.length
       ? '<div class="rfm-k" data-i18n="hcl.k2">' + esc(T('hcl.k2')) + '</div>' +
         '<ol>' + gestes.map(function(g, i){
-          return '<li><b>' + ['I','II','III','IV'][i] + '</b><span>' + esc(g.m + ' — ' + g.n) + (g.w ? esc(T('hcx.deux') || ' : ') + esc(g.w) : '') + '</span></li>';
+          var ut = usageParts(g.p);
+          return '<li><b>' + ['I','II','III','IV'][i] + '</b><span>' + esc(g.m + ' — ' + g.n) + (g.w ? esc(T('hcx.deux') || ' : ') + esc(g.w) : '') +
+            (ut ? '<small class="usage-l">' + esc(T('hcx.u.k') || 'Usage') + ' \u00b7 ' + esc(ut.quand) + (ut.ou ? ' \u00b7 ' + esc(ut.ou) : '') + ' <i>(' + esc(ut.src) + ')</i></small>' : '') +
+            '</span></li>';
         }).join('') + '</ol>'
-      : '');
+      : '') + genesHTML(liste);
 }
 
 function renderResults(){
@@ -4238,6 +4462,18 @@ function renderResults(){
   }
   questionsActives().forEach(function(q){
     var v = S.answers[q.id]; if(v === undefined || v === '') return;
+    if(Array.isArray(v)){
+      /* plusieurs genes : une seule pastille, les reponses a la suite */
+      var noms = v.filter(function(x){ return x !== ''; }).map(function(x){
+        var oo = null; optsDe(q).forEach(function(o2){ if(optVal(o2) === x) oo = o2; });
+        return oo ? T(optKey(oo)) : '';
+      }).filter(Boolean);
+      if(!noms.length) return;
+      var el2 = document.createElement('span');
+      el2.innerHTML = '<b data-i18n="' + ANSWER_LABEL[q.id] + '">' + esc(T(ANSWER_LABEL[q.id])) + '</b> <span>' + esc(noms.join(T('hcx.sep') || ', ')) + '</span>';
+      strip.appendChild(el2);
+      return;
+    }
     var o = null;
     optsDe(q).forEach(function(x){ if(optVal(x) === v) o = x; });
     if(o) puce(ANSWER_LABEL[q.id], optKey(o));
@@ -4334,6 +4570,7 @@ function renderResults(){
         '<div class="pbrand">' + esc(p ? (p.marque || '') : T(STEP_KEYS[e])) + '</div>' +
         '<div class="pname">' + esc(p ? (p.nom || '') : T('hc.gap')) + '</div>' +
         '<div class="pwhy">' + esc(pourquoi) + '</div>' +
+        (p ? usageHTML(p, 'usage pu') : '') +
         '<div class="pline"></div>' +
         (p ? '<div class="pvoir">' + esc(T('hcf.voir') || 'Voir la fiche') + '</div>' : '') +
         '</article>';
@@ -4401,6 +4638,17 @@ function renderResults(){
     var c = document.createElement('div');
     c.className = 'mc small';
     c.style.transitionDelay = (0.05 + i*0.05).toFixed(2) + 's';
+    /* pellicules et chute : on les a SIGNALEES, on ne les a pas chiffrees ; le
+       nombre (80, 75 ou 70 selon l'ordre du choix) n'est qu'un poids interne */
+    if(d.sig){
+      c.innerHTML =
+        '<span class="tag decl">' + esc(T('hc.tag.decl')) + '</span>' +
+        '<h3>' + esc(T(d.name)) + '</h3>' +
+        '<div class="num sig">' + esc(T('hcx.signale') || 'Signalé') + '</div>' +
+        '<div class="why">' + esc(T('hcx.why.sig') || T('hc.why.decl')) + '</div>';
+      told.appendChild(c); nTold++;
+      return;
+    }
     c.innerHTML =
       '<span class="tag decl">' + esc(T('hc.tag.decl')) + '</span>' +
       '<h3>' + esc(T(d.name)) + '</h3>' +
@@ -4518,6 +4766,7 @@ function renderRoutine(){
       '<h3>' + esc(p.nom || '') + '</h3>' +
       (cat ? '<p>' + esc(cat) + '</p>' : '') +
       (act ? '<div class="act">' + esc(T('hc.actives')) + ' &middot; ' + esc(act) + '</div>' : '') +
+      usageHTML(p, 'usage nu') +
       (p.url ? '<a class="go" href="' + esc(p.url) + '" target="_blank" rel="noopener noreferrer"><span>' + esc(T('hc.official')) + '</span></a>' : '') +
       '</article>';
   }
@@ -4607,6 +4856,7 @@ function majRetour(){
   var v = vueActive();
   var cache = (v === 'hero' && !$('vyConfiance') && !passageTimer && document.querySelector('#v-hero.active')) || !!$('scanGuide');
   b.hidden = cache;
+  b.classList.toggle('sur-res', v === 'res');
   var k = (v === 'res' && !$('vyConfiance')) ? 'hcx.nouveau' : 'hcx.retour';
   var sp = b.querySelector('span');
   sp.setAttribute('data-i18n', k); sp.textContent = T(k) || (k === 'hcx.nouveau' ? 'Nouveau scan' : 'Retour');
@@ -4619,6 +4869,10 @@ function majRetour(){
   b.addEventListener('click', retourAction);
   document.body.appendChild(b);
   document.addEventListener('vy:lang', majRetour);
+  /* 27/09 — sur un telephone, la pastille « Nouveau scan » fixee en bas couvrait
+     le texte des resultats a chaque defilement. Elle ne reste qu'en haut de la
+     page ; plus bas, « Recommencer » est au pied des resultats. */
+  addEventListener('scroll', function(){ document.body.classList.toggle('defile', scrollY > 120); }, { passive:true });
   /* l'ecran de confiance s'ajoute et s'en va tout seul : on suit le body */
   new MutationObserver(majRetour).observe(document.body, { childList:true });
   majRetour();
@@ -4753,7 +5007,8 @@ document.addEventListener('vy:lang', function(){
   else if(DEV_VIEW === 'load'){ show('load'); setLoadProgress(0.46); }
   else if(DEV_VIEW === 'void'){ show('void'); }
   else if(DEV_VIEW === 'res'){
-    S.answers = { probleme:'secheresse', etat:'colores', suite:'pointes' };
+    S.answers = { probleme:(Q.get('genes') ? Q.get('genes').split(',') : ['secheresse']), etat:(Q.get('etat') || 'colores'), lavage:(Q.get('lavage') || undefined) };
+    if(!S.answers.lavage) delete S.answers.lavage;
     Promise.all([ready, cat]).then(function(){
       if(DEMO){ S.out = demoResult(); S.routine = S.out.routine || null; }
       renderResults(); show('res'); revealResults();
