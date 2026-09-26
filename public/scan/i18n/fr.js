@@ -759,5 +759,6 @@ VY.add('fr', {
     "o.AU": "Australie",
     "o.CA": "Canada",
     "at.noscan": "Aucun scan sur cet appareil pour l’instant. Ce compte rendu s’écrit à partir de votre peau : faites votre scan, il apparaîtra ici.",
-    "at.doscan": "Faire mon scan"
+    "at.doscan": "Faire mon scan",
+    "hcg.finir": "Terminer avec cette lecture"
   });

@@ -745,5 +745,6 @@ VY.add('it', {
     "o.AU": "Australia",
     "o.CA": "Canada",
     "at.noscan": "Ancora nessuna scansione su questo dispositivo. Questo resoconto si scrive a partire dalla sua pelle: faccia la scansione e apparirà qui.",
-    "at.doscan": "Avvia la mia scansione"
+    "at.doscan": "Avvia la mia scansione",
+    "hcg.finir": "Termina con questa lettura"
   });

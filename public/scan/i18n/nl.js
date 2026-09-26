@@ -745,5 +745,6 @@ VY.add('nl', {
     "o.AU": "Australië",
     "o.CA": "Canada",
     "at.noscan": "Nog geen scan op dit apparaat. Dit verslag wordt geschreven op basis van uw huid: doe uw scan en het verschijnt hier.",
-    "at.doscan": "Mijn scan starten"
+    "at.doscan": "Mijn scan starten",
+    "hcg.finir": "Afronden met deze meting"
   });

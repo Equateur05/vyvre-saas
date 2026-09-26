@@ -15,7 +15,7 @@
     '#vy-retour i{font-style:normal;font-size:15px;line-height:1}'+
     '[dir=rtl] #vy-retour{left:auto;right:max(16px,2.4%)}[dir=rtl] #vy-retour i{transform:scaleX(-1)}'+
     '.brand{cursor:pointer}'+
-    '@media (max-width:640px){#vy-retour{top:auto;bottom:calc(18px + env(safe-area-inset-bottom));left:16px;padding:10px 16px 10px 12px}}';
+    '@media (max-width:640px){#vy-retour{top:auto;bottom:calc(18px + env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);padding:10px 16px 10px 12px}#vy-retour:hover{transform:translateX(-50%)}[dir=rtl] #vy-retour{right:auto;left:50%}}';
   document.head.appendChild(css);
   var b=document.createElement('button'); b.id='vy-retour'; b.type='button';
   function accueil(){ location.href=location.pathname+location.search.replace(/[?&]v=\d+/,''); }

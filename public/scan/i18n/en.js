@@ -745,5 +745,6 @@ VY.add('en', {
     "o.AU": "Australia",
     "o.CA": "Canada",
     "at.noscan": "No scan on this device yet. This report is written from your skin: take your scan and it will appear here.",
-    "at.doscan": "Take my scan"
+    "at.doscan": "Take my scan",
+    "hcg.finir": "Finish with this reading"
   });

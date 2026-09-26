@@ -7,7 +7,7 @@
 <meta name="description" content="Votre peau, mesurée en moins de 10 secondes depuis votre caméra. Puis les trois soins qui lui correspondent, parmi 5 883 références de 147 marques.">
 <title>VYVRE — Scan de peau universel</title>
 <!-- VYVRE_I18N : moteur 12 langues, francais par defaut -->
-<script src="/scan/vy-i18n.js?v=14"></script>
+<script src="/scan/vy-i18n.js?v=15"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Police ultra-clean (Silicon Valley DeepTech style) -->
@@ -727,10 +727,24 @@ document.getElementById('btn-scan').addEventListener('click', async () => {
   switchView('view-scanner');
   await loadAI();
   try {
-    STATE.stream = await navigator.mediaDevices.getUserMedia({ video: true });
+    /* 27/09 (test iPhone de Charles) : « video:true » laissait iOS livrer un flux paysage, zoome
+       en plein ecran portrait : on ne voyait qu'une bande centrale, souvent le fond. On demande la
+       camera avant, au format de l'ecran ; si l'appareil refuse ces reglages, on retombe sur le simple. */
+    const portrait = window.innerHeight >= window.innerWidth;
+    try {
+      STATE.stream = await navigator.mediaDevices.getUserMedia({ audio: false, video: {
+        facingMode: 'user',
+        width:  { ideal: portrait ? 720 : 1280 },
+        height: { ideal: portrait ? 1280 : 720 },
+        aspectRatio: { ideal: portrait ? 9/16 : 16/9 } } });
+    } catch (e1) {
+      STATE.stream = await navigator.mediaDevices.getUserMedia({ audio: false, video: { facingMode: 'user' } });
+    }
     video.srcObject = STATE.stream;
     video.onloadedmetadata = () => {
       overlay.width = video.videoWidth; overlay.height = video.videoHeight;
+      /* iOS peut tourner le flux apres coup : on suit ses vraies dimensions */
+      video.addEventListener('resize', () => { overlay.width = video.videoWidth; overlay.height = video.videoHeight; });
       vyHud('hud.track');
       setInterval(detectAndDraw, 100);
       renderThermalTopography();
@@ -2687,6 +2701,6 @@ document.addEventListener('vy:lang', function(){
   try { if (window.__vyScores && typeof matchAndRenderCharlotteTilburyProducts === 'function') matchAndRenderCharlotteTilburyProducts(window.__vyScores); } catch(e){}
 });
 </script>
-<script src="/scan/retour.js?v=1"></script>
+<script src="/scan/retour.js?v=2"></script>
 </body>
 </html>

@@ -745,5 +745,6 @@ VY.add('es', {
     "o.AU": "Australia",
     "o.CA": "Canadá",
     "at.noscan": "Aún no hay ningún escaneo en este dispositivo. Este informe se escribe a partir de su piel: haga su escaneo y aparecerá aquí.",
-    "at.doscan": "Hacer mi escaneo"
+    "at.doscan": "Hacer mi escaneo",
+    "hcg.finir": "Terminar con esta lectura"
   });

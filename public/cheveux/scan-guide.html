@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="vy-title-key" content="hcg.meta.t">
 <title>vyvre — Scan cheveux</title>
-<script src="/scan/vy-i18n.js?v=14"></script>
+<script src="/scan/vy-i18n.js?v=15"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;800&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
@@ -45,7 +45,24 @@ body.g3 .total{right:50%;transform:translateX(50%);bottom:auto;top:44%;text-alig
 body.g3 .phrase{display:none}
 
 body.fini .phrase{opacity:0}
-@media(max-width:760px){.choix{top:auto;bottom:14px;left:4vw;right:4vw;justify-content:space-between}.phrase{bottom:16vh}.total{bottom:16vh}}
+@media(max-width:760px){.choix{top:auto;bottom:14px;left:4vw;right:4vw;justify-content:space-between}
+  /* 27/09 (test iPhone de Charles) : phrase, pourcentage et consigne etaient a trois endroits et se chevauchaient.
+     Sur telephone, un seul bloc en bas : le pourcentage, la phrase, puis la consigne en clair. */
+  .hud{display:flex;flex-direction:column;justify-content:flex-end;padding:0 6vw calc(34px + env(safe-area-inset-bottom))}
+  .hud:after{content:'';position:absolute;left:0;right:0;bottom:0;height:46%;z-index:-1;background:linear-gradient(0deg,rgba(0,0,0,.82),rgba(0,0,0,.4) 55%,transparent)}
+  .total{position:relative;left:auto;right:auto;bottom:auto;text-align:left;font-size:52px;display:flex;align-items:baseline;gap:12px;order:1}
+  .total i{display:inline;margin:0;font-size:10px}
+  .phrase{position:relative;left:auto;bottom:auto;max-width:none;font-size:30px;line-height:1.05;margin-top:8px;order:2}
+  .phrase small{display:none}
+  .aide{position:relative;left:auto;bottom:auto;order:3;margin-top:14px;min-height:44px;font-family:Inter,system-ui,sans-serif;font-size:16px;letter-spacing:0;text-transform:none;
+    color:#dff4ff;background:rgba(0,0,0,.5);border:1px solid rgba(127,216,255,.35);border-radius:14px;padding:11px 14px;align-self:flex-start}
+  .finir{order:4;margin-top:12px}
+  body.g3 .total{transform:none;top:auto;text-align:left;font-size:52px}
+}
+.finir{all:unset;display:none;pointer-events:auto;cursor:pointer;align-self:flex-start;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:#000;background:#eaf6ff;padding:12px 18px;border-radius:999px;position:absolute;left:4vw;bottom:calc(9vh - 96px)}
+.finir.on{display:inline-block}
+@media(max-width:760px){.finir{position:relative;left:auto;bottom:auto}}
 /* la toile du double en points ne sert que sous ?tete=1 */
 body.encre #gl{display:none}
 </style>
@@ -74,6 +91,7 @@ document.getElementById('retour').addEventListener('click', function(){
   <div class="phrase" id="phrase"><small data-i18n="hcg.kick">SCAN CHEVEUX</small><span id="phraseTxt" data-i18n="hcg.remplir">Remplissez vos cheveux de bleu.</span></div>
   <div class="aide" id="aide"></div>
   <div class="total"><span id="pct">0 %</span><i data-i18n="hcg.total">DE LA CHEVELURE LUE</i></div>
+  <button type="button" class="finir" id="finir" data-i18n="hcg.finir">Terminer avec cette lecture</button>
 </div>
 <script type="module">
 /* ==========================================================================
@@ -350,6 +368,7 @@ function boiteVisage(L){
 }
 /* fini : on rend au scan les meilleures images de chaque cote */
 let rendu = false;
+document.getElementById('finir').addEventListener('click', function(){ rendre(); });
 function rendre(){
   if(rendu || demo()) return; rendu = true;
   const poses = ZONES.filter(z => MEILLEURE[z]).map(z => ({ pose:z, image:MEILLEURE[z].image.toDataURL('image/jpeg', .9), masque:MEILLEURE[z].masque, faceBox:MEILLEURE[z].faceBox }));
@@ -1296,6 +1315,9 @@ function image(now){
                    droite:'Tournez un peu plus à droite.', dessus:'Baissez la tête pour montrer le dessus.' };
   const CLEF_GESTE = { face:'hcg.g.face', gauche:'hcg.g.gauche', droite:'hcg.g.droite', dessus:'hcg.g.dessus' };
   const aide = m && now - bloqueDepuis > 1200;
+  /* 27/09 : si le pourcentage ne bouge plus depuis 8 s et qu'on a deja le visage et la moitie de la chevelure,
+     on propose de finir avec ce qui est lu (le moteur lit les cotes presents) au lieu de laisser la personne coincee */
+  $('finir').classList.toggle('on', !!(m && now - bloqueDepuis > 8000 && total() >= .5 && MEILLEURE.face));
   $('aide').classList.toggle('on', !!aide);
   if(aide){
     const dit_raison = refus && now - refusDepuis > 2200 && RAISONS[refus];
