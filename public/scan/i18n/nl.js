@@ -845,5 +845,6 @@ VY.add('nl', {
     "us.q.eye": "een rijstkorrel per oog",
     "us.src.brand": "volgens het merk",
     "us.src.rule": "gebruikelijk gebruik",
-    "us.src.mix": "volgens het merk, aangevuld met gebruikelijk gebruik"
+    "us.src.mix": "volgens het merk, aangevuld met gebruikelijk gebruik",
+    "hc.s.faible": "Weinig licht: meting ter indicatie."
   });

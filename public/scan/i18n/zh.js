@@ -845,5 +845,6 @@ VY.add('zh', {
     "us.q.eye": "每只眼一粒米大小",
     "us.src.brand": "品牌建议",
     "us.src.rule": "常规用法",
-    "us.src.mix": "品牌建议，并参考常规用法"
+    "us.src.mix": "品牌建议，并参考常规用法",
+    "hc.s.faible": "光线较暗：结果仅供参考。"
   });

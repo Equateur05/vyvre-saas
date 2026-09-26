@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="vy-title-key" content="hcg.meta.t">
 <title>vyvre — Scan cheveux</title>
-<script src="/scan/vy-i18n.js?v=17"></script>
+<script src="/scan/vy-i18n.js?v=18"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;800&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
@@ -197,6 +197,7 @@ async function ouvrirSource(){
        le parcours restait bloque la pour toujours. Desormais on rend la main. */
     dit($('note'), 'hcg.cam.t');
     dit($('phraseTxt'), 'hcg.cam.p');
+    journal('camera-refusee');
     if(parent !== window) parent.postMessage({ type:'vyvre-scan-camera-refusee' }, location.origin);
     return;
   }
@@ -308,6 +309,7 @@ const IMAGES = { face:[], gauche:[], droite:[], dessus:[] };
 const MEILLEURE = { face:null, gauche:null, droite:null, dessus:null };
 let descenteVue = -1e9, dernierePrise = 0, grisPrec = null, refus = '', refusDepuis = 0;
 const NETS = [];
+let TOL = 1, SECOURS = null;   /* TOL < 1 : conditions assouplies ; SECOURS : la meilleure image ou le visage etait vu */
 function seuilNet(){ if(NETS.length < 8) return .00024; const t = NETS.slice().sort((a,b) => a-b); return Math.max(.00024, t[Math.floor(t.length*.8)] * .6); }
 function jugerImage(now, L){
   const d = pctx.getImageData(0, 0, PW, PH).data, n = PW*PH, g = new Float32Array(n);
@@ -322,12 +324,14 @@ function jugerImage(now, L){
   const net = k ? s2/k - (s1/k)*(s1/k) : 0;
   NETS.push(net); if(NETS.length > 60) NETS.shift();
   const z = pose; let r = '';
+  if(z !== 'aucune'){ JOURNAL.visageVu++; if(vuCheveux > JOURNAL.cheveuxMax) JOURNAL.cheveuxMax = vuCheveux; if(net > JOURNAL.netMax) JOURNAL.netMax = net;
+    if(z === 'face' && (!SECOURS || net > SECOURS.net) && vuCheveux > .005) SECOURS = { net, image: prendreImage(), masque: prendreMasque(), faceBox: boiteVisage(L) }; }
   if(!ZONES.includes(z)) r = z === 'aucune' ? 'visage' : 'angle';
   else if(IMAGES[z].length >= N_IMAGES) r = '';
-  else if(vuCheveux < .03) r = 'cheveux';
-  else if(bouge > SEUIL_BOUGE) r = 'bouge';
-  else if(net < seuilNet()) r = 'flou';
-  if(r){ if(r !== refus){ refus = r; refusDepuis = now; } return; }
+  else if(vuCheveux < .03 * TOL) r = 'cheveux';
+  else if(bouge > SEUIL_BOUGE / TOL) r = 'bouge';
+  else if(net < seuilNet() * TOL) r = 'flou';
+  if(r){ JOURNAL.refus[r] = (JOURNAL.refus[r]||0) + 1; if(r !== refus){ refus = r; refusDepuis = now; } return; }
   refus = '';
   if(ZONES.includes(z) && IMAGES[z].length < N_IMAGES && now - dernierePrise > 120){
     IMAGES[z].push(net); dernierePrise = now; Z[z] = IMAGES[z].length / N_IMAGES; bloqueDepuis = now;
@@ -388,6 +392,7 @@ function rendre(){
   rendu = true;
   const poses = ZONES.filter(z => MEILLEURE[z]).map(z => ({ pose:z, image:MEILLEURE[z].image.toDataURL('image/jpeg', .9), masque:MEILLEURE[z].masque, faceBox:MEILLEURE[z].faceBox }));
   try{ if(src && src.srcObject) src.srcObject.getTracks().forEach(t => t.stop()); }catch(e){}
+  journal('fini', { poses: poses.map(p => p.pose).join(',') });
   if(parent !== window) parent.postMessage({ type:'vyvre-scan-fini', poses }, location.origin);
 }
 const total = () => ZONES.reduce((a,z) => a + Z[z], 0) / 4;
@@ -1299,6 +1304,17 @@ const CONSIGNES_FR = { 'hcg.c.face':'Regardez l’écran, bien de face.', 'hcg.c
   'hcg.c.droite':'Tournez doucement la tête vers la droite.', 'hcg.c.dessus':'Baissez la tête pour montrer le dessus.',
   'hcg.presque':'Presque fini.', 'hcg.r.visage':'Votre visage n’est pas visible.', 'hcg.r.cheveux':'On ne voit pas assez vos cheveux.',
   'hcg.r.bouge':'Ne bougez plus.', 'hcg.r.flou':'L’image est floue : un peu plus de lumière.' };
+/* 26/09 — journal technique anonyme (chiffres seulement) vers /api/journal, pour comprendre un echec sur telephone */
+const JOURNAL = { t0: performance.now(), refus:{}, visageVu:0, images:0, cheveuxMax:0, netMax:0, envoye:{} };
+function journal(evt, extra){
+  if(DEMO || PHOTO || JOURNAL.envoye[evt]) return; JOURNAL.envoye[evt] = 1;
+  try{ const L = window.__lecture || {};
+    navigator.sendBeacon('/api/journal', JSON.stringify(Object.assign({ page:'scan-guide', evt, s:Math.round((performance.now()-JOURNAL.t0)/1000),
+      ua:navigator.userAgent.slice(0,160), modeles:L, video:(vid && vid.videoWidth)?vid.videoWidth+'x'+vid.videoHeight:'aucune',
+      refus:JOURNAL.refus, visageVu:JOURNAL.visageVu, images:ZONES.map(z=>z+':'+IMAGES[z].length).join(' '),
+      cheveuxMax:+JOURNAL.cheveuxMax.toFixed(3), netMax:+JOURNAL.netMax.toFixed(6), seuilNet:+seuilNet().toFixed(6) }, extra||{})));
+  }catch(e){}
+}
 function image(now){
   requestAnimationFrame(image);
   if(!src || !HAIR) return;
@@ -1308,9 +1324,16 @@ function image(now){
   if(!demo()){
     if(!debutSansVisage) debutSansVisage = now;
     const rienDuTout = ZONES.every(z => IMAGES[z].length === 0);
-    if(rienDuTout && now - debutSansVisage > 20000){
+    /* 26/09 (iPhone de Charles, chambre peu eclairee) : au lieu d'abandonner au bout de 20 s,
+       on devient plus tolerant a 8 s puis a 16 s ; a 24 s, si le visage a ete vu, on termine
+       avec la meilleure image vue ; sinon seulement, on rend la main. */
+    const attente = now - debutSansVisage;
+    TOL = rienDuTout ? (attente > 16000 ? .3 : attente > 8000 ? .55 : 1) : TOL;
+    if(rienDuTout && attente > 8000) journal('lent');
+    if(rienDuTout && attente > 24000){
       debutSansVisage = now + 1e9;
-      if(parent !== window) parent.postMessage({ type:'vyvre-scan-sans-visage' }, location.origin);
+      if(JOURNAL.visageVu > 10 && SECOURS){ MEILLEURE.face = SECOURS; IMAGES.face.push(0); journal('secours'); rendre(); }
+      else { journal('abandon'); if(parent !== window) parent.postMessage({ type:'vyvre-scan-sans-visage' }, location.origin); }
     }
     if(!rienDuTout) debutSansVisage = now + 1e9;
   }

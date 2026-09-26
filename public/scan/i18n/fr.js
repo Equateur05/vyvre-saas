@@ -859,5 +859,6 @@ VY.add('fr', {
     "us.q.eye": "un grain de riz par œil",
     "us.src.brand": "selon la marque",
     "us.src.rule": "usage courant",
-    "us.src.mix": "selon la marque, complété par l’usage courant"
+    "us.src.mix": "selon la marque, complété par l’usage courant",
+    "hc.s.faible": "Lumière faible : lecture indicative."
   });

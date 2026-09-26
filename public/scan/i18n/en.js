@@ -845,5 +845,6 @@ VY.add('en', {
     "us.q.eye": "a grain of rice per eye",
     "us.src.brand": "according to the brand",
     "us.src.rule": "common use",
-    "us.src.mix": "according to the brand, completed by common use"
+    "us.src.mix": "according to the brand, completed by common use",
+    "hc.s.faible": "Low light: indicative reading."
   });

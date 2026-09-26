@@ -8,7 +8,7 @@
 <meta name="description" content="Vos cheveux lus par la caméra : la boucle, la couleur. Puis une routine de quatre produits.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<script src="/scan/vy-i18n.js?v=17"></script>
+<script src="/scan/vy-i18n.js?v=18"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&family=JetBrains+Mono:wght@100;300;400;500&family=Playfair+Display:ital,wght@1,500&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
 /* ============================================================================
@@ -272,6 +272,10 @@ header{position:fixed;top:16px;left:2.5%;width:95%;z-index:60;padding:16px 26px;
   color:rgba(255,255,255,.62);margin-top:4px}
 @media (max-width:980px){
   .consigne{display:flex}
+  /* 26/09 (iPhone de Charles) : la carte recouvrait le bas du visage. Au ras du bord, compacte. */
+  .consigne{bottom:10px;left:10px;right:10px;padding:10px 12px;gap:10px;border-radius:16px}
+  .consigne .gestemini{width:44px;height:28px}
+  .consigne b{font-size:15px}.consigne em{font-size:11.5px}
   /* le panneau du bas ne repete plus la consigne : elle est sur l'image */
   .posehead h2,.posehead .posedesc,.posehead .geste{display:none}
 }
@@ -2490,7 +2494,7 @@ function lancerScanGuide(){
   /* le guidage vit dans une iframe : le choix de langue memorise ne traverse pas
      toujours (origine, mode prive). On le lui passe en clair dans l'adresse. */
   var lg = (window.VY && VY.lang) ? VY.lang : 'fr';
-  f.id = 'scanGuide'; f.allow = 'camera'; f.src = '/cheveux/scan-guide.html?v=5&lang=' + encodeURIComponent(lg);
+  f.id = 'scanGuide'; f.allow = 'camera'; f.src = '/cheveux/scan-guide.html?v=6&lang=' + encodeURIComponent(lg);
   f.setAttribute('style', 'position:fixed;inset:0;width:100%;height:100%;border:0;z-index:9998;background:#000');
   /* 26/09 — le « Quitter » pose ici par-dessus l'iframe est remplace par le
      « ← Retour » du guidage lui-meme (scan-guide.html) : il coupe la camera
@@ -2648,7 +2652,7 @@ var POSES = [
   { id:'droite', t:'hc.p.droite', d:'hc.pd.droite', geste:'droite', visage:true },
   { id:'dessus', t:'hc.p.dessus', d:'hc.pd.dessus', geste:'dessus', visage:false }
 ];
-var poseIdx = 0, bonnesLectures = 0, compteur = 0, compteTimer = null, gardeJusqu = 0;
+var poseIdx = 0, bonnesLectures = 0, compteur = 0, compteTimer = null, gardeJusqu = 0, poseDebut = 0;
 function poseCourante(){ return POSES[Math.min(poseIdx, POSES.length-1)]; }
 
 /* 20/09 — les vignettes des prises ont ete retirees de l'ecran : l'utilisateur
@@ -3049,7 +3053,7 @@ function majPose(){
   if(ct){ ct.setAttribute('data-i18n', P.t); ct.textContent = T(P.t); }
   var cd = $('consigneDesc');
   if(cd){ cd.setAttribute('data-i18n', P.d); cd.textContent = T(P.d); }
-  bonnesLectures = 0; compteur = 0;
+  bonnesLectures = 0; compteur = 0; poseDebut = performance.now();
 }
 
 function camTick(){
@@ -3058,6 +3062,13 @@ function camTick(){
   peindreCompteurs();
   dessinerCadre();
   /* le declenchement : c'est le moteur qui dit si la prise est exploitable */
+  /* 26/09 : dans une piece sombre, la lecture ne devenait jamais « fiable » et le parcours restait
+     bloque. Si le visage est vu depuis 7 s sur la meme pose, on prend la pose quand meme ; le moteur
+     la lira avec sa note de qualite, et la page le dit. */
+  if(!compteTimer && poseDebut && performance.now() - poseDebut > 7000 && lastFace && performance.now() - lastFaceAt < 1500 && performance.now() > gardeJusqu){
+    poseDebut = 0; var ce = $('consigneEtat'); if(ce) ce.textContent = T('hc.s.faible') || 'Lumière faible : lecture indicative.';
+    prendrePose(); return;
+  }
   if(SEG.ok && SEG.fiable && performance.now() > gardeJusqu){
     bonnesLectures++;
     if(bonnesLectures === 2) lancerCompte();

@@ -845,5 +845,6 @@ VY.add('pt', {
     "us.q.eye": "um grão de arroz por olho",
     "us.src.brand": "segundo a marca",
     "us.src.rule": "uso habitual",
-    "us.src.mix": "segundo a marca, completado pelo uso habitual"
+    "us.src.mix": "segundo a marca, completado pelo uso habitual",
+    "hc.s.faible": "Pouca luz: leitura indicativa."
   });

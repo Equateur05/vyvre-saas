@@ -845,5 +845,6 @@ VY.add('it', {
     "us.q.eye": "un chicco di riso per occhio",
     "us.src.brand": "secondo la marca",
     "us.src.rule": "uso comune",
-    "us.src.mix": "secondo la marca, completato dall’uso comune"
+    "us.src.mix": "secondo la marca, completato dall’uso comune",
+    "hc.s.faible": "Luce scarsa: lettura indicativa."
   });

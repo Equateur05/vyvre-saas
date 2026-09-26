@@ -845,5 +845,6 @@ VY.add('de', {
     "us.q.eye": "ein Reiskorn pro Auge",
     "us.src.brand": "laut Marke",
     "us.src.rule": "übliche Anwendung",
-    "us.src.mix": "laut Marke, ergänzt durch die übliche Anwendung"
+    "us.src.mix": "laut Marke, ergänzt durch die übliche Anwendung",
+    "hc.s.faible": "Wenig Licht: Messung nur als Richtwert."
   });
