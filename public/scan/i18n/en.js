@@ -17,7 +17,7 @@ VY.add('en', {
 'h.t1': 'Longevity.',
 'h.t2': 'Measured.',
 'h.title': 'Longevity.<br>Measured.',
-'h.p': "A few seconds in front of your camera. And among {n} treatments from {b} houses, the three made for your skin.",
+'h.p': "A few seconds in front of your camera. Then the three treatments made for your skin.",
 'h.scan': 'Start the scan',
 'h.upload': 'Upload a photo',
 'chip.glow': 'Radiance',

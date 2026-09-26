@@ -17,7 +17,7 @@ VY.add('de', {
 'h.t1': 'Langlebigkeit.',
 'h.t2': 'Gemessen.',
 'h.title': 'Langlebigkeit.<br>Gemessen.',
-'h.p': "Ein paar Sekunden vor Ihrer Kamera. Und aus {n} Pflegeprodukten von {b} Häusern die drei, die zu Ihrer Haut passen.",
+'h.p': "Ein paar Sekunden vor Ihrer Kamera. Dann die drei Pflegeprodukte, die für Ihre Haut gemacht sind.",
 'h.scan': 'Scan starten',
 'h.upload': 'Foto hochladen',
 'chip.glow': 'Leuchtkraft',

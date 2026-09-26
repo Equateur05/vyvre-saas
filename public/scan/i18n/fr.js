@@ -19,7 +19,7 @@ VY.add('fr', {
     'h.t1': 'Longévité.',
     'h.t2': 'Mesurée.',
     'h.title': 'Longévité.<br>Mesurée.',
-    'h.p': "Quelques secondes devant votre caméra. Et parmi {n} soins de {b} maisons, les trois faits pour votre peau.",
+    'h.p': "Quelques secondes devant votre caméra. Puis les trois soins faits pour votre peau.",
     'h.scan': 'Lancer le scan',
     'h.upload': 'Envoyer une photo',
     'chip.glow': 'Éclat',
