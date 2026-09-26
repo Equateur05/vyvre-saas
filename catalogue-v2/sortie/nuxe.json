@@ -59,22 +59,23 @@
    "image_url": "/scan/products/nuxe/v2/demaquillant-waterproof-yeux-et-levres-biphase.jpg",
    "url": "https://fr.nuxe.com/products/demaquillant-waterproof-yeux-et-levres-biphase",
    "targets": [
-    "wrinkles"
+    "sebum",
+    "pores"
    ],
    "concern_scores": {
-    "wrinkles": 0.49,
-    "firmness": 0.38,
-    "glow": 0.27,
-    "hydration": 0.37,
-    "redness": 0.37,
-    "pores": 0.24,
-    "sebum": 0.3,
-    "pigmentation": 0.32
+    "wrinkles": 0.21,
+    "firmness": 0.06,
+    "glow": 0.21,
+    "hydration": 0.29,
+    "redness": 0.29,
+    "pores": 0.5,
+    "sebum": 0.58,
+    "pigmentation": 0.25
    },
    "position": 1,
    "brand": "nuxe",
    "brand_name": "Nuxe",
-   "categorie": "contour-yeux",
+   "categorie": "nettoyant",
    "price_source": "site officiel FR",
    "url_verifiee_le": "2026-09-17",
    "pays": "FR",
@@ -86,7 +87,7 @@
     "demaquillant doux (nom+description)",
     "texture legere (nom+description)",
     "antioxydant (claim)",
-    "categorie contour-yeux"
+    "categorie nettoyant"
    ],
    "name_origine": "Démaquillant Waterproof Yeux et Lèvres - Biphase",
    "ingredients": "AQUA/WATER, COCO-CAPRYLATE/CAPRATE, C15-19 ALKANE, SODIUM CHLORIDE, GLYCERIN, CAPRYLOYL GLYCINE, CITRIC ACID, SODIUM HYDROXIDE, SODIUM GLUCONATE, BENZYL ALCOHOL, DEHYDROACETIC ACID, TOCOPHEROL, HELIANTHUS ANNUUS (SUNFLOWER) SEED OIL, ROSA DAMASCENA FLOWER EXTRACT [N5812/A]",
@@ -2292,22 +2293,23 @@
    "image_url": "/scan/products/nuxe/v2/stop-boutons.jpg",
    "url": "https://fr.nuxe.com/products/stop-boutons",
    "targets": [
-    "pores"
+    "pores",
+    "sebum"
    ],
    "concern_scores": {
-    "wrinkles": 0.22,
+    "wrinkles": 0.23,
     "firmness": 0.07,
-    "glow": 0.17,
-    "hydration": 0.4,
+    "glow": 0.18,
+    "hydration": 0.39,
     "redness": 0.07,
-    "pores": 0.61,
-    "sebum": 0.47,
-    "pigmentation": 0.35
+    "pores": 0.65,
+    "sebum": 0.5,
+    "pigmentation": 0.37
    },
    "position": 46,
    "brand": "nuxe",
    "brand_name": "Nuxe",
-   "categorie": "masque",
+   "categorie": "autre-visage",
    "price_source": "site officiel FR",
    "url_verifiee_le": "2026-09-17",
    "pays": "FR",
@@ -2319,7 +2321,7 @@
     "niacinamide (texte) (description)",
     "texture riche (description)",
     "texture legere (description)",
-    "categorie masque"
+    "categorie autre-visage"
    ],
    "name_origine": "Stop Boutons",
    "ingredients": null,

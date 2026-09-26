@@ -1988,22 +1988,23 @@
    "url": "https://www.neutrogena.com/products/skincare/rapid-clear-salicylic-acid-acne-treatment-with-witch-hazel/6802480",
    "targets": [
     "pores",
-    "glow"
+    "sebum",
+    "redness"
    ],
    "concern_scores": {
-    "wrinkles": 0.06,
-    "firmness": 0.06,
-    "glow": 0.52,
-    "hydration": 0.27,
-    "redness": 0.45,
-    "pores": 0.76,
-    "sebum": 0.47,
-    "pigmentation": 0.16
+    "wrinkles": 0.07,
+    "firmness": 0.07,
+    "glow": 0.32,
+    "hydration": 0.31,
+    "redness": 0.51,
+    "pores": 0.69,
+    "sebum": 0.53,
+    "pigmentation": 0.07
    },
    "position": 42,
    "brand": "neutrogena",
    "brand_name": "Neutrogena",
-   "categorie": "exfoliant",
+   "categorie": "autre-visage",
    "price_source": null,
    "url_verifiee_le": "2026-09-17",
    "pays": "US",
@@ -2014,7 +2015,7 @@
     "exfoliant (claim)",
     "texture legere (nom+description)",
     "BHA/salicylique (texte) (description)",
-    "categorie exfoliant"
+    "categorie autre-visage"
    ],
    "name_origine": "Neutrogena® Rapid Clear Acne Eliminating Spot Gel with Witch Hazel",
    "ingredients": null,
@@ -2367,22 +2368,23 @@
    "image_url": "/scan/products/neutrogena/v2/neutrogena-on-the-spot-acne-treatment.jpg",
    "url": "https://www.neutrogena.com/products/skincare/on-the-spot-acne-treatment/6801790",
    "targets": [
-    "pores"
+    "pores",
+    "sebum"
    ],
    "concern_scores": {
     "wrinkles": 0.07,
     "firmness": 0.07,
-    "glow": 0.2,
-    "hydration": 0.28,
+    "glow": 0.07,
+    "hydration": 0.07,
     "redness": 0.07,
-    "pores": 0.49,
-    "sebum": 0.33,
+    "pores": 0.64,
+    "sebum": 0.54,
     "pigmentation": 0.07
    },
    "position": 50,
    "brand": "neutrogena",
    "brand_name": "Neutrogena",
-   "categorie": "huile",
+   "categorie": "autre-visage",
    "price_source": null,
    "url_verifiee_le": "2026-09-17",
    "pays": "US",
@@ -2390,7 +2392,7 @@
    "score_raisons": [
     "anti-imperfections (nom+claim+description)",
     "matifiant (description)",
-    "categorie huile"
+    "categorie autre-visage"
    ],
    "name_origine": "Neutrogena® On-The-Spot Acne Treatment",
    "ingredients": null,
@@ -2677,22 +2679,22 @@
    "image_url": "/scan/products/neutrogena/v2/neutrogena-mineral-ultra-sheer-dry-touch-spf30sunscreen-lotion.jpg",
    "url": "https://www.neutrogena.com/products/neutrogena-mineral-ultra-sheer-dry-touch-spf-30-sunscreen-lotion/6819370",
    "targets": [
-    "redness"
+    "pigmentation"
    ],
    "concern_scores": {
-    "wrinkles": 0.33,
-    "firmness": 0.07,
-    "glow": 0.07,
-    "hydration": 0.24,
-    "redness": 0.47,
-    "pores": 0.07,
+    "wrinkles": 0.46,
+    "firmness": 0.06,
+    "glow": 0.06,
+    "hydration": 0.15,
+    "redness": 0.44,
+    "pores": 0.06,
     "sebum": 0.11,
-    "pigmentation": 0.45
+    "pigmentation": 0.63
    },
    "position": 57,
    "brand": "neutrogena",
    "brand_name": "Neutrogena",
-   "categorie": "lotion",
+   "categorie": "solaire-visage",
    "price_source": null,
    "url_verifiee_le": "2026-09-17",
    "pays": "US",
@@ -2702,7 +2704,7 @@
     "apaisant (claim)",
     "peaux sensibles (description)",
     "texture legere (description)",
-    "categorie lotion"
+    "categorie solaire-visage"
    ],
    "name_origine": "Neutrogena® Mineral Ultra Sheer Dry-Touch SPF 30 Sunscreen Lotion",
    "ingredients": null,
@@ -2771,22 +2773,24 @@
    "image_url": "/scan/products/neutrogena/v2/neutrogena-stubborn-acne-spot-drying-lotion.jpg",
    "url": "https://www.neutrogena.com/products/stubborn-acne--spot-drying-lotion/6810322",
    "targets": [
-    "pores"
+    "pores",
+    "redness",
+    "sebum"
    ],
    "concern_scores": {
     "wrinkles": 0.07,
     "firmness": 0.07,
-    "glow": 0.19,
-    "hydration": 0.34,
-    "redness": 0.48,
-    "pores": 0.65,
-    "sebum": 0.47,
-    "pigmentation": 0.19
+    "glow": 0.2,
+    "hydration": 0.3,
+    "redness": 0.51,
+    "pores": 0.69,
+    "sebum": 0.5,
+    "pigmentation": 0.2
    },
    "position": 59,
    "brand": "neutrogena",
    "brand_name": "Neutrogena",
-   "categorie": "lotion",
+   "categorie": "autre-visage",
    "price_source": null,
    "url_verifiee_le": "2026-09-17",
    "pays": "US",
@@ -2797,7 +2801,7 @@
     "nourrissant (claim)",
     "pores (description)",
     "niacinamide (texte) (description)",
-    "categorie lotion"
+    "categorie autre-visage"
    ],
    "name_origine": "Neutrogena® Stubborn Acne Spot Drying Lotion",
    "ingredients": null,
@@ -2822,19 +2826,19 @@
     "sebum"
    ],
    "concern_scores": {
-    "wrinkles": 0.07,
-    "firmness": 0.07,
-    "glow": 0.07,
-    "hydration": 0.2,
-    "redness": 0.07,
-    "pores": 0.71,
-    "sebum": 0.63,
-    "pigmentation": 0.07
+    "wrinkles": 0.06,
+    "firmness": 0.06,
+    "glow": 0.06,
+    "hydration": 0.06,
+    "redness": 0.06,
+    "pores": 0.72,
+    "sebum": 0.65,
+    "pigmentation": 0.06
    },
    "position": 60,
    "brand": "neutrogena",
    "brand_name": "Neutrogena",
-   "categorie": "masque",
+   "categorie": "nettoyant",
    "price_source": null,
    "url_verifiee_le": "2026-09-17",
    "pays": "US",
@@ -2844,7 +2848,7 @@
     "pores (nom+description)",
     "matifiant (claim+description)",
     "argile (texte) (description)",
-    "categorie masque"
+    "categorie nettoyant"
    ],
    "name_origine": "Neutrogena® Clear Pore Cleanser Mask",
    "ingredients": null,
@@ -3060,19 +3064,19 @@
     "pores"
    ],
    "concern_scores": {
-    "wrinkles": 0.16,
+    "wrinkles": 0.17,
     "firmness": 0.07,
     "glow": 0.07,
-    "hydration": 0.24,
-    "redness": 0.58,
-    "pores": 0.58,
-    "sebum": 0.43,
+    "hydration": 0.16,
+    "redness": 0.62,
+    "pores": 0.62,
+    "sebum": 0.45,
     "pigmentation": 0.07
    },
    "position": 65,
    "brand": "neutrogena",
    "brand_name": "Neutrogena",
-   "categorie": "masque",
+   "categorie": "autre-visage",
    "price_source": null,
    "url_verifiee_le": "2026-09-17",
    "pays": "US",
@@ -3083,7 +3087,7 @@
     "apaisant (claim)",
     "demaquillant doux (description)",
     "soin de nuit (description)",
-    "categorie masque"
+    "categorie autre-visage"
    ],
    "name_origine": "Neutrogena® Sensitive Skin Blemish Patches",
    "ingredients": null,
@@ -3111,16 +3115,16 @@
     "wrinkles": 0.07,
     "firmness": 0.07,
     "glow": 0.07,
-    "hydration": 0.2,
-    "redness": 0.55,
-    "pores": 0.58,
-    "sebum": 0.43,
+    "hydration": 0.07,
+    "redness": 0.58,
+    "pores": 0.62,
+    "sebum": 0.45,
     "pigmentation": 0.07
    },
    "position": 66,
    "brand": "neutrogena",
    "brand_name": "Neutrogena",
-   "categorie": "masque",
+   "categorie": "autre-visage",
    "price_source": null,
    "url_verifiee_le": "2026-09-17",
    "pays": "US",
@@ -3129,7 +3133,7 @@
     "anti-imperfections (nom+claim+description)",
     "apaisant (claim)",
     "peaux sensibles (nom+claim)",
-    "categorie masque"
+    "categorie autre-visage"
    ],
    "name_origine": "Neutrogena® Sensitive Skin Triangle Acne Patches",
    "ingredients": null,

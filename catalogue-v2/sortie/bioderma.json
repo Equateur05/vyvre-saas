@@ -66,19 +66,19 @@
     "glow"
    ],
    "concern_scores": {
-    "wrinkles": 0.33,
-    "firmness": 0.07,
-    "glow": 0.56,
-    "hydration": 0.07,
-    "redness": 0.07,
-    "pores": 0.07,
-    "sebum": 0.07,
-    "pigmentation": 0.72
+    "wrinkles": 0.45,
+    "firmness": 0.06,
+    "glow": 0.5,
+    "hydration": 0.06,
+    "redness": 0.06,
+    "pores": 0.06,
+    "sebum": 0.06,
+    "pigmentation": 0.79
    },
    "position": 1,
    "brand": "bioderma",
    "brand_name": "Bioderma",
-   "categorie": "autre-visage",
+   "categorie": "solaire-visage",
    "price_source": "site officiel FR",
    "url_verifiee_le": "2026-09-17",
    "pays": "FR",
@@ -88,7 +88,7 @@
     "eclat (claim+description)",
     "protection solaire (nom+claim+description)",
     "soin de jour (nom+description)",
-    "categorie autre-visage"
+    "categorie solaire-visage"
    ],
    "name_origine": "Pigmentbio Daily care SPF 50+",
    "ingredients": null,
@@ -148,51 +148,6 @@
    "image_source_url": "https://www.bioderma.fr/content/dam/bioderma/fr_fr/media-campaign/photoderm/xdefense-2026/solaire-ete-xdefense.jpg",
    "source": "json-ld",
    "cutout_url": "/scan/products/bioderma/v2/cutout/pigmentbio-night-renewer.webp"
-  },
-  {
-   "id": "bioderma--pigmentbio-sensitive-areas",
-   "name": "Pigmentbio Sensitive areas",
-   "price_eur": 30.95,
-   "image_url": "/scan/products/bioderma/v2/pigmentbio-sensitive-areas.jpg",
-   "url": "https://www.bioderma.fr/p/pigmentbio-sensitive-areas",
-   "targets": [
-    "pigmentation",
-    "redness"
-   ],
-   "concern_scores": {
-    "wrinkles": 0.07,
-    "firmness": 0.07,
-    "glow": 0.26,
-    "hydration": 0.07,
-    "redness": 0.58,
-    "pores": 0.07,
-    "sebum": 0.07,
-    "pigmentation": 0.62
-   },
-   "position": 3,
-   "brand": "bioderma",
-   "brand_name": "Bioderma",
-   "categorie": "autre-visage",
-   "price_source": "site officiel FR",
-   "url_verifiee_le": "2026-09-17",
-   "pays": "FR",
-   "univers": "pharmacie",
-   "score_raisons": [
-    "anti-taches (nom+claim+description)",
-    "apaisant (claim)",
-    "peaux sensibles (nom+description)",
-    "categorie autre-visage"
-   ],
-   "name_origine": "Pigmentbio Sensitive areas",
-   "ingredients": null,
-   "description": "BIODERMA Pigmentbio Sensitive areas : unifie et éclaircit la peau même sur les zones les plus sensibles.",
-   "claims": [
-    "apaisant",
-    "anti-taches"
-   ],
-   "image_source_url": "https://www.bioderma.fr/content/dam/bioderma/fr_fr/media-campaign/photoderm/xdefense-2026/solaire-ete-xdefense.jpg",
-   "source": "json-ld",
-   "cutout_url": "/scan/products/bioderma/v2/cutout/pigmentbio-sensitive-areas.webp"
   },
   {
    "id": "bioderma--atoderm-intensive-eye",
@@ -988,19 +943,19 @@
     "hydration"
    ],
    "concern_scores": {
-    "wrinkles": 0.08,
-    "firmness": 0.08,
-    "glow": 0.08,
-    "hydration": 0.63,
-    "redness": 0.21,
-    "pores": 0.08,
-    "sebum": 0.2,
-    "pigmentation": 0.08
+    "wrinkles": 0.06,
+    "firmness": 0.06,
+    "glow": 0.06,
+    "hydration": 0.44,
+    "redness": 0.16,
+    "pores": 0.22,
+    "sebum": 0.31,
+    "pigmentation": 0.06
    },
    "position": 20,
    "brand": "bioderma",
    "brand_name": "Bioderma",
-   "categorie": "creme",
+   "categorie": "nettoyant",
    "price_source": "site officiel FR",
    "url_verifiee_le": "2026-09-17",
    "pays": "FR",
@@ -1009,7 +964,7 @@
     "hydratant (claim+description)",
     "texture legere (nom+description)",
     "demaquillant doux (description)",
-    "categorie creme"
+    "categorie nettoyant"
    ],
    "name_origine": "Créaline Gel moussant",
    "ingredients": null,
@@ -1032,19 +987,19 @@
     "hydration"
    ],
    "concern_scores": {
-    "wrinkles": 0.08,
-    "firmness": 0.08,
-    "glow": 0.08,
-    "hydration": 0.63,
-    "redness": 0.2,
-    "pores": 0.08,
-    "sebum": 0.2,
-    "pigmentation": 0.08
+    "wrinkles": 0.06,
+    "firmness": 0.06,
+    "glow": 0.06,
+    "hydration": 0.44,
+    "redness": 0.14,
+    "pores": 0.22,
+    "sebum": 0.31,
+    "pigmentation": 0.06
    },
    "position": 21,
    "brand": "bioderma",
    "brand_name": "Bioderma",
-   "categorie": "creme",
+   "categorie": "nettoyant",
    "price_source": "site officiel FR",
    "url_verifiee_le": "2026-09-17",
    "pays": "FR",
@@ -1053,7 +1008,7 @@
     "hydratant (claim+description)",
     "texture legere (nom+description)",
     "demaquillant doux (description)",
-    "categorie creme"
+    "categorie nettoyant"
    ],
    "name_origine": "Hydrabio GEL MOUSSANT",
    "ingredients": null,
@@ -1163,19 +1118,19 @@
     "pores"
    ],
    "concern_scores": {
-    "wrinkles": 0.08,
-    "firmness": 0.08,
-    "glow": 0.08,
-    "hydration": 0.42,
-    "redness": 0.17,
-    "pores": 0.6,
-    "sebum": 0.67,
-    "pigmentation": 0.08
+    "wrinkles": 0.06,
+    "firmness": 0.06,
+    "glow": 0.06,
+    "hydration": 0.24,
+    "redness": 0.13,
+    "pores": 0.56,
+    "sebum": 0.62,
+    "pigmentation": 0.06
    },
    "position": 24,
    "brand": "bioderma",
    "brand_name": "Bioderma",
-   "categorie": "creme",
+   "categorie": "nettoyant",
    "price_source": "site officiel FR",
    "url_verifiee_le": "2026-09-17",
    "pays": "FR",
@@ -1186,7 +1141,7 @@
     "purifiant (claim+description)",
     "texture legere (nom+description)",
     "demaquillant doux (description)",
-    "categorie creme"
+    "categorie nettoyant"
    ],
    "name_origine": "Sébium Gel moussant",
    "ingredients": null,

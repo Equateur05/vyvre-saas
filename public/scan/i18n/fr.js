@@ -860,5 +860,7 @@ VY.add('fr', {
     "us.src.brand": "selon la marque",
     "us.src.rule": "usage courant",
     "us.src.mix": "selon la marque, complété par l’usage courant",
-    "hc.s.faible": "Lumière faible : lecture indicative."
+    "hc.s.faible": "Lumière faible : lecture indicative.",
+    "hcg.r.sombre": "Pas assez de lumière. Mettez-vous dans une zone bien éclairée, face à la lumière.",
+    "hud.sombre": "Pas assez de lumière. Mettez-vous dans une zone bien éclairée, face à la lumière."
   });

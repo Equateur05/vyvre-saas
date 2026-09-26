@@ -846,5 +846,7 @@ VY.add('it', {
     "us.src.brand": "secondo la marca",
     "us.src.rule": "uso comune",
     "us.src.mix": "secondo la marca, completato dall’uso comune",
-    "hc.s.faible": "Luce scarsa: lettura indicativa."
+    "hc.s.faible": "Luce scarsa: lettura indicativa.",
+    "hcg.r.sombre": "Luce insufficiente. Si sposti in una zona ben illuminata, di fronte alla luce.",
+    "hud.sombre": "Luce insufficiente. Si sposti in una zona ben illuminata, di fronte alla luce."
   });

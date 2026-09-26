@@ -846,5 +846,7 @@ VY.add('de', {
     "us.src.brand": "laut Marke",
     "us.src.rule": "übliche Anwendung",
     "us.src.mix": "laut Marke, ergänzt durch die übliche Anwendung",
-    "hc.s.faible": "Wenig Licht: Messung nur als Richtwert."
+    "hc.s.faible": "Wenig Licht: Messung nur als Richtwert.",
+    "hcg.r.sombre": "Nicht genug Licht. Gehen Sie an einen hellen Ort, mit dem Gesicht zum Licht.",
+    "hud.sombre": "Nicht genug Licht. Gehen Sie an einen hellen Ort, mit dem Gesicht zum Licht."
   });

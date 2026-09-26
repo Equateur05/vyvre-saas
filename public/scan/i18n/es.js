@@ -846,5 +846,7 @@ VY.add('es', {
     "us.src.brand": "según la marca",
     "us.src.rule": "uso habitual",
     "us.src.mix": "según la marca, completado por el uso habitual",
-    "hc.s.faible": "Poca luz: lectura orientativa."
+    "hc.s.faible": "Poca luz: lectura orientativa.",
+    "hcg.r.sombre": "No hay suficiente luz. Colóquese en una zona bien iluminada, de cara a la luz.",
+    "hud.sombre": "No hay suficiente luz. Colóquese en una zona bien iluminada, de cara a la luz."
   });

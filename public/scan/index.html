@@ -7,7 +7,7 @@
 <meta name="description" content="Votre peau, mesurée en moins de 10 secondes depuis votre caméra. Puis les trois soins qui lui correspondent, parmi 5 883 références de 147 marques.">
 <title>VYVRE — Scan de peau universel</title>
 <!-- VYVRE_I18N : moteur 12 langues, francais par defaut -->
-<script src="/scan/vy-i18n.js?v=18"></script>
+<script src="/scan/vy-i18n.js?v=19"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Police ultra-clean (Silicon Valley DeepTech style) -->
@@ -927,6 +927,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{cursor:auto}
 
 // 1. VIEW CONTROLLER
 function switchView(viewId) {
+    var bnS = document.getElementById('vy-sombre'); if (bnS && viewId !== 'view-scanner') bnS.style.display = 'none';
     document.querySelectorAll('.view-state').forEach(el => el.classList.remove('active'));
     document.getElementById(viewId).classList.add('active');
 
@@ -987,6 +988,23 @@ document.getElementById('btn-scan').addEventListener('click', async () => {
       video.addEventListener('resize', () => { overlay.width = video.videoWidth; overlay.height = video.videoHeight; });
       vyHud('hud.track');
       setInterval(detectAndDraw, 100);
+      /* 26/09 — trop sombre : on le dit en clair (90e centile de luminance, independant de la couleur de peau) */
+      setInterval(function(){
+        try{ if(!video.videoWidth || !document.getElementById('view-scanner').classList.contains('active')) return;
+          var c = window.__lumCv || (window.__lumCv = document.createElement('canvas')); c.width = 48; c.height = 36;
+          var x = c.getContext('2d', { willReadFrequently:true }); x.drawImage(video, 0, 0, 48, 36);
+          var d = x.getImageData(0, 0, 48, 36).data, hs = new Uint32Array(32), n = 0, p90 = 1;
+          for(var i=0;i<d.length;i+=4){ hs[Math.min(31, ((d[i]*.3 + d[i+1]*.59 + d[i+2]*.11)/255*32)|0)]++; n++; }
+          for(var k=0,acc=0;k<32;k++){ acc += hs[k]; if(acc >= n*.9){ p90 = (k+.5)/32; break; } }
+          /* un bandeau a part, bien visible : la pastille du bas est reecrite en continu par le suivi du visage */
+          var bn = document.getElementById('vy-sombre');
+          if(!bn){ bn = document.createElement('div'); bn.id = 'vy-sombre'; bn.setAttribute('role','status');
+            bn.style.cssText = 'position:fixed;left:50%;top:calc(env(safe-area-inset-top) + 190px);transform:translateX(-50%);z-index:60;max-width:min(88vw,460px);padding:14px 20px;border-radius:18px;text-align:center;font:300 16px/1.35 Inter,system-ui,sans-serif;color:#ffe3bd;background:rgba(10,8,6,.72);border:1px solid rgba(255,214,160,.4);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 20px 50px -20px #000;display:none';
+            document.body.appendChild(bn); }
+          if(p90 < .42){ bn.textContent = VY.t('hud.sombre'); bn.style.display = 'block'; }
+          else bn.style.display = 'none';
+        }catch(e){}
+      }, 600);
       renderThermalTopography();
     };
   } catch(e) {

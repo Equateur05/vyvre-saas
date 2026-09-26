@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="vy-title-key" content="hcg.meta.t">
 <title>vyvre — Scan cheveux</title>
-<script src="/scan/vy-i18n.js?v=18"></script>
+<script src="/scan/vy-i18n.js?v=19"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;800&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
@@ -45,6 +45,7 @@ body.g3 .total{right:50%;transform:translateX(50%);bottom:auto;top:44%;text-alig
 body.g3 .phrase{display:none}
 
 body.fini .phrase{opacity:0}
+body.sombre #phraseTxt{color:#ffd9a8}
 @media(max-width:760px){.choix{top:auto;bottom:14px;left:4vw;right:4vw;justify-content:space-between}
   /* 27/09 (test iPhone de Charles) : phrase, pourcentage et consigne etaient a trois endroits et se chevauchaient.
      Sur telephone, un seul bloc en bas : le pourcentage, la phrase, puis la consigne en clair. */
@@ -309,11 +310,18 @@ const IMAGES = { face:[], gauche:[], droite:[], dessus:[] };
 const MEILLEURE = { face:null, gauche:null, droite:null, dessus:null };
 let descenteVue = -1e9, dernierePrise = 0, grisPrec = null, refus = '', refusDepuis = 0;
 const NETS = [];
-let TOL = 1, SECOURS = null;   /* TOL < 1 : conditions assouplies ; SECOURS : la meilleure image ou le visage etait vu */
+let TOL = 1, SECOURS = null, LUM = -1;   /* LUM : lumiere mesuree (0 noir, 1 blanc) */
+const SEUIL_SOMBRE = .42;   /* TOL < 1 : conditions assouplies ; SECOURS : la meilleure image ou le visage etait vu */
 function seuilNet(){ if(NETS.length < 8) return .00024; const t = NETS.slice().sort((a,b) => a-b); return Math.max(.00024, t[Math.floor(t.length*.8)] * .6); }
 function jugerImage(now, L){
   const d = pctx.getImageData(0, 0, PW, PH).data, n = PW*PH, g = new Float32Array(n);
   for(let i=0;i<n;i++) g[i] = (d[i*4]*.3 + d[i*4+1]*.59 + d[i*4+2]*.11) / 255;
+  /* 26/09 — la lumiere : 90e centile de la luminance de TOUTE l'image. Une piece eclairee a toujours
+     des zones claires, quelle que soit la couleur de peau ; dans le noir, tout est sombre. */
+  { const h = new Uint32Array(32); for(let i=0;i<n;i+=4) h[Math.min(31, (g[i]*32)|0)]++;
+    let acc = 0, tot = 0; for(let k=0;k<32;k++) tot += h[k];
+    let p90 = 1; for(let k=0;k<32;k++){ acc += h[k]; if(acc >= tot*.9){ p90 = (k+.5)/32; break; } }
+    LUM = LUM < 0 ? p90 : LUM*.85 + p90*.15; JOURNAL.lum = +LUM.toFixed(2); }
   let bouge = 0; if(grisPrec){ for(let i=0;i<n;i+=3) bouge += Math.abs(g[i] - grisPrec[i]); bouge /= (n/3); }
   grisPrec = g;
   let s1 = 0, s2 = 0, k = 0; const peu = vuCheveux < .03;
@@ -1303,7 +1311,8 @@ const CLEF_CONSIGNE = { face:'hcg.c.face', gauche:'hcg.c.gauche', droite:'hcg.c.
 const CONSIGNES_FR = { 'hcg.c.face':'Regardez l’écran, bien de face.', 'hcg.c.gauche':'Tournez doucement la tête vers la gauche.',
   'hcg.c.droite':'Tournez doucement la tête vers la droite.', 'hcg.c.dessus':'Baissez la tête pour montrer le dessus.',
   'hcg.presque':'Presque fini.', 'hcg.r.visage':'Votre visage n’est pas visible.', 'hcg.r.cheveux':'On ne voit pas assez vos cheveux.',
-  'hcg.r.bouge':'Ne bougez plus.', 'hcg.r.flou':'L’image est floue : un peu plus de lumière.' };
+  'hcg.r.bouge':'Ne bougez plus.', 'hcg.r.flou':'L’image est floue : un peu plus de lumière.',
+  'hcg.r.sombre':'Pas assez de lumière. Mettez-vous dans une zone bien éclairée, face à la lumière.' };
 /* 26/09 — journal technique anonyme (chiffres seulement) vers /api/journal, pour comprendre un echec sur telephone */
 const JOURNAL = { t0: performance.now(), refus:{}, visageVu:0, images:0, cheveuxMax:0, netMax:0, envoye:{} };
 function journal(evt, extra){
@@ -1381,7 +1390,10 @@ function image(now){
     finiDepuis = now; document.body.classList.add('fini'); rendre();
   }
   let cle = null;
-  if(offre) cle = 'hcg.presque';
+  const sombre = LUM >= 0 && LUM < SEUIL_SOMBRE;
+  document.body.classList.toggle('sombre', sombre);
+  if(sombre && !finiDepuis){ cle = 'hcg.r.sombre'; journal('sombre'); }
+  else if(offre) cle = 'hcg.presque';
   else if(refus && now - refusDepuis > 1500 && CLEF_RAISON[refus] && refus !== 'angle') cle = CLEF_RAISON[refus];
   else if(m) cle = CLEF_CONSIGNE[m];
   if(cle && cle !== consigneCle && !finiDepuis){

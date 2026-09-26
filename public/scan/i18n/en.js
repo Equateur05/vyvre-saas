@@ -846,5 +846,7 @@ VY.add('en', {
     "us.src.brand": "according to the brand",
     "us.src.rule": "common use",
     "us.src.mix": "according to the brand, completed by common use",
-    "hc.s.faible": "Low light: indicative reading."
+    "hc.s.faible": "Low light: indicative reading.",
+    "hcg.r.sombre": "Not enough light. Move to a well-lit spot, facing the light.",
+    "hud.sombre": "Not enough light. Move to a well-lit spot, facing the light."
   });

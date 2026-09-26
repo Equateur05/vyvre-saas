@@ -19,7 +19,31 @@ MOTS = [r"\blipstick\b", r"rouge à lèvres", r"\bhair makeup\b", r"\bmascara\b"
         r"\bkeychain\b", r"porte-cl[ée]s?\b", r"\bspatula\b", r"\bspatule\b"]
 
 
+# Balayage du 26/09 : produits sortis nommement, parce qu'un mot-cle les
+# attraperait mal (« body » est aussi un volume, « bebe » un nom de gamme).
+IDS = {
+    # peau, pas cheveux : Kelual DS est un gel-creme pour la dermite seborrheique du visage
+    "ducray--creme-apaisante",
+    # maquillage sourcils / yeux
+    "lavera--eyebrow-pencil-blonde-02-116209", "lavera--soft-eyeliner-brown-02-113253",
+    "cecred--restoring-lash-and-brow-builder", "virtue--flourish-brow-density-booster",
+    # toilette de bebe (corps), coffrets
+    "cattier--valise-maternite-indispensables-maman-bebe-cattier", "cattier--essentiels-soins-bebe-cattier",
+    "cattier--mousse-lavante-bebe", "cattier--lait-toilette-bebe",
+    "klorane--eau-nettoyante-bebe", "klorane--lait-de-toilette-bebe-sans-rincage",
+    # ongles, barbe seule, corps, visage
+    "luxeol--soin-ongles-fortifiant", "luxeol--huile-barbe-nutrition", "unite-hair--body-wash",
+    "oway--fabulous-body-oil", "oway--after-sun-body-balm", "oway--age-better-face-mask",
+    "oway--calming-face-mask", "oway--compressed-face-mask-sheets", "oway--glowing-face-gommage",
+    "oway--blooming-gleam-face-cream", "oway--de-stress-tonic-potion",
+    # complement alimentaire
+    "vegamour--gro-advanced-hair-growth-and-density-supplements",
+}
+
+
 def a_sortir(p):
+    if p.get("id") in IDS:
+        return True
     n = (p.get("name") or "").lower()
     return any(re.search(m, n) for m in MOTS)
 
@@ -60,6 +84,16 @@ def main():
         doc = gardes
     json.dump(doc, open(SERVI, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
     print("ecrit : %s" % SERVI)
+    # le compte de produits par marque affiche sur le site
+    fm = os.path.join(os.path.dirname(SERVI), "marques.json")
+    if os.path.exists(fm):
+        m = json.load(open(fm, encoding="utf-8"))
+        n = {}
+        for p in gardes: n[p.get("brand")] = n.get(p.get("brand"), 0) + 1
+        for x in (m.get("marques") if isinstance(m, dict) else m):
+            if x.get("slug") in n and "produits" in x: x["produits"] = n[x["slug"]]
+        json.dump(m, open(fm, "w", encoding="utf-8"), ensure_ascii=False, indent=1)
+        print("ecrit : %s" % fm)
 
 
 if __name__ == "__main__":

@@ -846,5 +846,7 @@ VY.add('nl', {
     "us.src.brand": "volgens het merk",
     "us.src.rule": "gebruikelijk gebruik",
     "us.src.mix": "volgens het merk, aangevuld met gebruikelijk gebruik",
-    "hc.s.faible": "Weinig licht: meting ter indicatie."
+    "hc.s.faible": "Weinig licht: meting ter indicatie.",
+    "hcg.r.sombre": "Te weinig licht. Ga op een goed verlichte plek staan, met uw gezicht naar het licht.",
+    "hud.sombre": "Te weinig licht. Ga op een goed verlichte plek staan, met uw gezicht naar het licht."
   });
