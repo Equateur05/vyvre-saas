@@ -22,8 +22,11 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 from collections import defaultdict
 
 RACINE = os.path.dirname(os.path.abspath(__file__))
-SERVI = os.path.join(RACINE, "..", "public", "scan", "catalogue-cheveux", "all.json")
-ETAT = os.path.join(RACINE, "stock_etat.json")
+PEAU = "--peau" in sys.argv
+# --peau : le meme controle sur le catalogue peau (public/scan/catalogue/all.json)
+SERVI = os.path.join(RACINE, "..", "public", "scan", "catalogue" if PEAU else "catalogue-cheveux", "all.json")
+ETAT = os.path.join(RACINE, "..", "catalogue-v2", "stock_etat.json") if PEAU else os.path.join(RACINE, "stock_etat.json")
+ECARTES = os.path.join(RACINE, "..", "catalogue-v2", "stock_ecartes.json")
 UA = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0 Safari/537.36"
 PAR_DOMAINE = int(os.environ.get("PAR_DOMAINE", "3"))
 verrous = defaultdict(lambda: threading.Semaphore(PAR_DOMAINE))
@@ -144,6 +147,52 @@ def verifie():
     print(sum(1 for x in faits.values() if x.get("mode_emploi")), "modes d'emploi releves")
 
 
+def applique_peau():
+    """Peau : les pages lisent all.json a sept endroits. Plutot que d'y ajouter un filtre
+    partout, on RETIRE du fichier servi ce qui est en rupture ou mort, et on le garde
+    dans catalogue-v2/stock_ecartes.json (rien n'est perdu ; publie.py applique le meme
+    filtre a chaque publication)."""
+    etat = {x["id"]: x for x in json.load(open(ETAT))["produits"]}
+    d = json.load(open(SERVI))
+    liste = d["products"]
+    par_marque = defaultdict(lambda: [0, 0])
+    for p in liste:
+        e = etat.get(p["id"])
+        if e and e["statut"] in ("dispo", "rupture"):
+            par_marque[p.get("brand")][0] += 1
+            par_marque[p.get("brand")][1] += e["statut"] == "rupture"
+    revendeurs = {m for m, (t, r) in par_marque.items() if t >= 5 and r / t >= 0.8}
+    print("marques vendues ailleurs (rupture ignoree) :", sorted(revendeurs))
+    garde, ecartes = [], []
+    for p in liste:
+        e = etat.get(p["id"])
+        st = e["statut"] if e else "inconnu"
+        if st == "mort" or (st == "rupture" and p.get("brand") not in revendeurs):
+            ecartes.append({"id": p["id"], "brand": p.get("brand"), "name": p.get("name"), "url": p.get("url"),
+                            "statut": st, "raison": e.get("raison"), "le": e["le"]})
+        else:
+            garde.append(p)
+    d["products"] = garde
+    json.dump(d, open(SERVI, "w"), ensure_ascii=False, separators=(", ", ": "))
+    # le mode d'emploi officiel va dans le fichier de la maison (charge a la demande par le
+    # protocole), pas dans all.json que chaque visiteur telecharge en entier
+    dossier = os.path.dirname(SERVI)
+    for slug in {p.get("brand") for p in garde}:
+        f = os.path.join(dossier, "%s.json" % slug)
+        if not slug or not os.path.exists(f):
+            continue
+        dm = json.load(open(f))
+        for q in dm.get("products", []):
+            q.pop("mode_emploi", None)
+            e = etat.get(q.get("id"))
+            if e and e.get("mode_emploi"):
+                q["mode_emploi"] = e["mode_emploi"]
+        json.dump(dm, open(f, "w"), ensure_ascii=False, indent=1)
+    json.dump({"le": time.strftime("%Y-%m-%d"), "revendeurs": sorted(revendeurs), "produits": ecartes},
+              open(ECARTES, "w"), ensure_ascii=False, indent=1)
+    print(len(garde), "produits gardes,", len(ecartes), "ecartes,", len({p.get("brand") for p in garde}), "marques")
+
+
 def applique():
     etat = {x["id"]: x for x in json.load(open(ETAT))["produits"]}
     d = json.load(open(SERVI))
@@ -178,4 +227,7 @@ def applique():
 
 
 if __name__ == "__main__":
-    applique() if "--applique" in sys.argv else verifie()
+    if "--applique" in sys.argv:
+        applique_peau() if PEAU else applique()
+    else:
+        verifie()

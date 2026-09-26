@@ -7,7 +7,7 @@
 <meta name="description" content="Votre routine matin et soir, composée à partir de votre lecture de peau.">
 <title>Votre protocole · VYVRE × Scan universel</title>
 <!-- VYVRE_I18N : moteur 12 langues, francais par defaut -->
-<script src="/scan/vy-i18n.js?v=20"></script>
+<script src="/scan/vy-i18n.js?v=21"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
@@ -1376,7 +1376,8 @@ footer{
     var todo = brands.filter(function(b){ return /^[a-z0-9-]+$/.test(b) && !DESC_BRANDS[b]; });
     return Promise.all(todo.map(function(b){
       DESC_BRANDS[b] = fetch('/scan/catalogue/' + b + '.json').then(function(r){ return r.ok ? r.json() : null; })
-        .then(function(d){ ((d && d.products) || []).forEach(function(q){ if (q && q.id) DESC[q.id] = q.description || ''; }); })
+        /* 27/09 — le mode d'emploi releve sur le site de la marque passe avant la description */
+        .then(function(d){ ((d && d.products) || []).forEach(function(q){ if (q && q.id) DESC[q.id] = (q.mode_emploi ? q.mode_emploi + ' ' : '') + (q.description || ''); }); })
         .catch(function(){});
       return DESC_BRANDS[b];
     }));

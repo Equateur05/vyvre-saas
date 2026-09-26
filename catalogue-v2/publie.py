@@ -199,6 +199,15 @@ def main():
 
     nouvelles = sorted(deja | set(retenues))
     liste = [p for p in tous if p.get("brand") in set(nouvelles)]
+    # 27/09 — les produits en rupture ou a lien mort chez la marque (verifie_stock.py
+    # --peau) ne repartent pas en ligne a la publication suivante
+    ECARTES = os.path.join(V2, "stock_ecartes.json")
+    if os.path.exists(ECARTES):
+        hors = {x["id"] for x in charge_json(ECARTES).get("produits", [])}
+        avant = len(liste)
+        liste = [p for p in liste if p.get("id") not in hors]
+        if avant != len(liste):
+            print("stock     : %d produits en rupture ou lien mort laisses de cote" % (avant - len(liste)))
     print("ajoutees  : %d marques, %d fichiers images" % (len(retenues), cumul))
     if repoussees:
         print("repoussees: %d marques (%d fichiers)"
