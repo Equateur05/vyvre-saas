@@ -2876,6 +2876,20 @@
     // 27/09 — un medicament (minoxidil...) n'a pas sa place dans une routine cosmetique
     // proposee apres une lecture photo : il se discute avec un medecin ou un pharmacien.
     if (prod.medicament === true) return 'medicament : hors d une routine cosmetique';
+    // 27/09 — verifie_stock.py : en rupture ou lien mort chez la marque, on ne le propose pas
+    if (prod.en_rupture === true) return 'en rupture chez la marque';
+    // Une gamme pour enfants n'est pas proposee apres la lecture d'un adulte. Le nom ne
+    // le dit pas toujours (Curl Keeper « Curls & Twirls » : c'est l'emballage qui dit KIDS).
+    var enf = n + ' ' + String(prod.image_source_url || '') + ' ' + String(prod.url || '');
+    var dEnf = String(prod.description || '').slice(0, 400);
+    // « baby » seul est ecarte expres : les « baby hairs » sont les petits cheveux du front
+    // (Vegamour, evo « Baby Got Bounce », IGK « Rich Kid ») et ces produits sont pour adultes.
+    if (/\b(kids|actikids|enfants?|junior|toddlers?|born curly)\b|[_\/-]kids[_\/-]|pour b[e\u00e9]b[e\u00e9]s?\b|b[e\u00e9]b[e\u00e9] bio/i.test(enf) ||
+        (/(pour (les )?enfants|for kids|for children|sp[e\u00e9]cial enfants|little ones|tout-petits)/i.test(dEnf) &&
+         !/(adultes?|toute la famille|whole family|all the family|grown-?ups)/i.test(dEnf))) {
+      return 'gamme pour enfants';
+    }
+    if (prod.lien_mort === true) return 'page produit introuvable chez la marque';
     // 27/09 — un coffret dont le NOM ne le dit pas (« Icônes de style » de Bouclème : « notre
     // trio le plus vendu ») : c'est sa description qui le dit.
     if (/\b(notre (?:trio|duo)|ce coffret|le coffret|this (?:kit|set|bundle|duo|trio)\b|(?:kit|set|bundle) includes|trousse)|^includes:/i.test(String(prod.description || ''))) {
@@ -3098,7 +3112,9 @@
     var cat = String(prod.categorie || '').toLowerCase();
     var et = etapeDe(prod);
     var nom = String(prod.name || '').toLowerCase();
-    var desc = String(prod.description || '').replace(/[’]/g, "'");
+    // 27/09 — le mode d'emploi releve sur le site de la marque (verifie_stock.py) est lu
+    // AVANT la description : c'est la consigne officielle.
+    var desc = String((prod.mode_emploi ? prod.mode_emploi + ' ' : '') + (prod.description || '')).replace(/[’]/g, "'");
     var tout = (nom + ' ' + cat + ' ' + desc + ' ' + (prod.claims || []).join(' ')).toLowerCase();
     var res = { quand: null, duree: null, pose: null, ou: null, source: null, extrait: null };
 
@@ -3206,6 +3222,8 @@
     }
     if (!res.ou && ouR) res.ou = { cle: 'hcx.u.o.' + ouR };
     res.source = deLaMarque ? 'catalogue' : (res.extrait ? 'mixte' : 'regle');
+    // la consigne vient de la page officielle : on y renvoie
+    if (deLaMarque && prod.mode_emploi && prod.url) res.url = prod.url;
     if (!res.quand) return null;
     return res;
   }
@@ -3357,10 +3375,11 @@
         moins(Math.min(3, compte(t, ['coil', 'crepu', 'afro', 'kinky', '4c', 'type 4'])) * 3.0,
           'formule pour boucles serrees, trop riche pour des boucles souples');
       }
-      // Une gamme pour enfants n'est pas proposee a un adulte (Cantu « Care for Kids »).
-      if (/\b(kids?|enfants?|junior|b[e\u00e9]b[e\u00e9]s?|baby)\b/i.test(String(prod.name || ''))) {
-        moins(4.0, 'gamme pour enfants');
+      // Un gel douche « cheveux et corps » n'est pas un shampooing de routine de soin.
+      if (/hair (?:&|and) body|body wash|2 ?en ?1|2-in-1|cheveux et corps/i.test(String(prod.name || ''))) {
+        moins(3.0, 'produit cheveux et corps, pas un soin capillaire');
       }
+
       // Une laque ou un produit de coiffage pur n'est pas un soin.
       if (/\b(laque|hairspray|spray fixant|gel fixant|cire|wax|pommade)\b/i.test(prod.name || '')) {
         moins(1.6, 'produit de coiffage, pas un soin');
@@ -3433,6 +3452,18 @@
 
       // ---- etape 3 : sans rincage
       if (etape === 3) {
+        // 27/09 — un GEL (tenue, fixation) est un produit de coiffage : pour des boucles
+        // souples ou des cheveux qui veulent juste de la douceur, un lait ou une creme legere
+        // passe avant. Le gel reste possible sur des boucles franches (> 0,72).
+        if (boucle === null || boucle < 0.72) {
+          moins(Math.min(2, compte(t, ['gel', 'jelly', 'fixation', ' hold', 'tenue forte', 'maintien'])) * 1.4,
+            'gel coiffant plutot qu un soin sans rincage');
+          // et une texture « double beurre » est faite pour les boucles serrees
+          moins(Math.min(2, compte(t, ['beurre', 'butter', 'double', 'tres nourrissant', 'ultra riche', 'intense'])) * 1.3,
+            'texture trop riche pour des boucles souples');
+          plus(Math.min(2, compte(t, ['leger', 'legere', 'light', 'lightweight', 'lait', 'milk', 'spray', 'brume', 'mist'])) * 1.0,
+            'texture légère', 'hcx.pq.leger');
+        }
         if (besoins.frizz !== null && boucle !== null && boucle > 0.4) {
           plus(compte(t, MOTS.boucles) * besoins.frizz * 2.0, 'discipline les frisottis', 'hcx.pq.frizz');
         }
@@ -3448,6 +3479,18 @@
           moins(compte(t, MOTS.nourrissant) * 1.6, 'alourdit des cheveux deja plats');
           plus(compte(t, MOTS.volume) * 1.2, 'texture légère', 'hcx.pq.leger');
         }
+      }
+
+      // ---- etape 5 : finition (27/09) — une huile ou un serum LEGER pose sur les pointes,
+      // quand aucun probleme de cuir chevelu ne justifie un traitement cible.
+      if (etape === 5) {
+        plus(Math.min(2, compte(t, ['leger', 'legere', 'light', 'lightweight', 'fluide', 'huile seche', 'dry oil', 'sans alourdir', 'weightless'])) * 1.2, 'texture légère', 'hcx.pq.leger');
+        if (besoins.frizz !== null && besoins.frizz >= 0.4) plus(Math.min(2, compte(t, ['frizz', 'frisot', 'lisse', 'smooth'])) * 1.2, 'discipline les frisottis', 'hcx.pq.frizz');
+        if (sec !== null && sec >= 0.45) plus(Math.min(3, compte(t, MOTS.nourrissant)) * 0.5, 'nourrit sans rinçage', 'hcx.pq.noursr');
+        moins(Math.min(2, compte(t, ['beurre', 'butter', 'ricin', 'castor', 'karite', 'shea', 'cire'])) * 1.2, 'trop riche pour une finition');
+        moins(Math.min(2, compte(t, ['cuir chevelu', 'scalp', 'racine', 'chute', 'pousse', 'growth'])) * 1.5, 'soin du cuir chevelu, pas une finition');
+        if (gras !== null && gras > 0.7) moins(2.0, 'huile alors que les racines regraissent vite');
+        if (besoins.plats) moins(1.5, 'alourdit des cheveux deja plats');
       }
 
       // ---- etape 4 : traitement cible
@@ -3467,6 +3510,27 @@
       return { score: score, pourquoi: pourquoi, raisons: raisons, interdits: interdits };
     }
 
+    // 27/09 (test de Charles) — le 4e geste etait TOUJOURS rempli : sans pellicules, chute
+    // ni casse, le moteur y mettait quand meme un soin du cuir chevelu (une huile HASK pour
+    // un cuir chevelu dont personne ne se plaignait). Desormais :
+    //   - un vrai besoin cible            -> 4e geste = traitement cible
+    //   - sinon                           -> 4e geste = finition (huile ou serum leger, pointes)
+    // Charles, 27/09 : le rituel a TOUJOURS quatre produits. Si aucune finition ne tient
+    // (cheveux plats, racines grasses), on retombe sur le meilleur soin du cuir chevelu.
+    var besoinCible = (besoins.pellicules !== null && besoins.pellicules > 0.5) ||
+      (besoins.chute !== null && besoins.chute > 0.5) || (besoins.casse !== null && besoins.casse > 0.6) ||
+      (besoins.densite !== null && besoins.densite < 0.3) || (besoins.blancs !== null && besoins.blancs > 0.45) ||
+      besoins.decolore === 1 || (besoins.gras !== null && besoins.gras > 0.7);
+    var quatrieme = besoinCible ? 'cible' : 'finition';
+    var secoursCible = [];
+    function estFinition(prod) {
+      var nm = String(prod.name || '').toLowerCase(), ct = String(prod.categorie || '').toLowerCase();
+      // « Cream Gel with Coconut Oil » n'est pas une huile : la forme du produit prime
+      // sur un ingredient cite dans son nom.
+      if (/(cr[e\u00e8]me|cream|\bgel\b|lotion|masque|mask|mousse|shampo|conditioner|apr[e\u00e8]s|lait|milk|leave-?in|butter|beurre)/.test(nm)) return false;
+      return (ct === 'huile' || /\b(huile|oil|olio|aceite|elixir|s[e\u00e9]rum)\b/.test(nm)) &&
+        !/(scalp|cuir chevelu|racine|chute|growth|pousse|densi)/.test(nm);
+    }
     var parEtape = { 1: [], 2: [], 3: [], 4: [] };
     var ecartes = [];
     for (var i = 0; i < liste.length; i++) {
@@ -3475,6 +3539,19 @@
       if (motif) { ecartes.push({ nom: prod.name, raison: motif }); continue; }
       var e = etapeDe(prod);
       if (!e) continue;
+      if (e === 4 && quatrieme !== 'cible') {
+        var ns = noter(prod, 4);
+        secoursCible.push({ produit: prod, etape: 4, note: ns.score, pourquoi: ns.pourquoi, raisons: ns.raisons,
+                            interdits: ns.interdits, niveau: niveauPref(prod) });
+        continue;
+      }
+      if (e === 3 && quatrieme === 'finition' && estFinition(prod)) {
+        // l'huile legere part en finition ; le 3e geste reste un lait ou une creme
+        var nf = noter(prod, 5);
+        parEtape[4].push({ produit: prod, etape: 4, finition: true, note: nf.score, pourquoi: nf.pourquoi, raisons: nf.raisons,
+                           interdits: nf.interdits, niveau: niveauPref(prod) });
+        continue;
+      }
       var note = noter(prod, e);
       parEtape[e].push({ produit: prod, etape: e, note: note.score, pourquoi: note.pourquoi, raisons: note.raisons, interdits: note.interdits,
                          niveau: niveauPref(prod) });
@@ -3515,6 +3592,15 @@
       for (var nv = 0; nv < NIVEAUX.length; nv++) {
         essai = choisirEtape(et, dansPerimetre(et, NIVEAUX[nv]));
         if (essai.pris) break;
+      }
+      if (et === 4 && !essai.pris && quatrieme === 'finition' && secoursCible.length) {
+        // aucune finition sans contresens : le 4e produit reste, en soin du cuir chevelu
+        secoursCible.sort(function (a, b) { return b.note - a.note; });
+        parEtape[4] = secoursCible;
+        for (var nv2 = 0; nv2 < NIVEAUX.length; nv2++) {
+          essai = choisirEtape(4, dansPerimetre(4, NIVEAUX[nv2]));
+          if (essai.pris) break;
+        }
       }
       assouplissements.push.apply(assouplissements, essai.assouplissements);
       if (!essai.pris) { manques.push(essai.manque); continue; }
@@ -3578,7 +3664,8 @@
       if (!choix[e3]) continue;
       var ch = choix[e3];
       routine.push({
-        etape: e3, etapeLibelle: ETAPES[e3].libelle,
+        etape: e3, etapeLibelle: (e3 === 4 && ch.finition) ? 'Soin des longueurs' : ETAPES[e3].libelle,
+        finition: !!ch.finition,
         id: ch.produit.id || null, nom: ch.produit.name, marque: ch.produit.brand_name || ch.produit.brand || null,
         categorie: ch.produit.categorie || null, url: ch.produit.url || null,
         image: ch.produit.image_local || ch.produit.image_url || null,
@@ -3602,6 +3689,8 @@
     return {
       routine: routine,
       complete: routine.length === 4,
+      // 27/09 — 'cible', 'finition', ou null (trois gestes suffisent)
+      quatrieme: quatrieme,
       manques: manques,
       assouplissements: assouplissements,
       preferences: { univers: prefUnivers, origine: prefOrigine, appliquees: prefsActives,

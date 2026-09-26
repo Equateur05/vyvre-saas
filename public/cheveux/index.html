@@ -8,7 +8,7 @@
 <meta name="description" content="Vos cheveux lus par la caméra : la boucle, la couleur. Puis une routine de quatre produits.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<script src="/scan/vy-i18n.js?v=19"></script>
+<script src="/scan/vy-i18n.js?v=20"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&family=JetBrains+Mono:wght@100;300;400;500&family=Playfair+Display:ital,wght@1,500&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
 /* ============================================================================
@@ -804,6 +804,7 @@ body.da-fibre.rf-ouvert .confirm{display:block;margin-top:40px}
 .rf-sous{font-family:var(--fm);font-size:10.5px;letter-spacing:.36em;text-transform:uppercase;
   color:rgba(223,234,242,.42);margin-bottom:26px}
 .rf-gestes{display:grid;grid-template-columns:repeat(4,1fr);gap:32px}
+.rf-gestes.trois{grid-template-columns:repeat(3,1fr)}
 .rf-p{display:flex;flex-direction:column;opacity:0;transform:translateY(20px);
   transition:opacity .95s var(--e1),transform .95s var(--e1)}
 .rf-p.vis{opacity:1;transform:none}
@@ -832,6 +833,7 @@ body.da-fibre.rf-ouvert .confirm{display:block;margin-top:40px}
 @media (max-width:860px){
   .rf-mes{grid-template-columns:repeat(2,1fr);gap:28px 22px}
   .rf-gestes{grid-template-columns:repeat(2,1fr);gap:22px 16px}
+  .rf-gestes.trois{grid-template-columns:repeat(2,1fr)}
 }
 
 /* ============================================================================
@@ -3765,9 +3767,9 @@ function setLoadProgress(p){
 /* ================================================================ ENGINE */
 function probeEngine(){
   if(window.VYVRE_HAIR_ENGINE){ S.engine = window.VYVRE_HAIR_ENGINE; S.engineReady = true; return Promise.resolve(true); }
-  return head('/scan/vyvre-hair-engine.js?v=9').then(function(ok){
+  return head('/scan/vyvre-hair-engine.js?v=10').then(function(ok){
     if(!ok) return false;
-    return injectScript('/scan/vyvre-hair-engine.js?v=9').then(function(loaded){
+    return injectScript('/scan/vyvre-hair-engine.js?v=10').then(function(loaded){
       if(loaded && window.VYVRE_HAIR_ENGINE){ S.engine = window.VYVRE_HAIR_ENGINE; S.engineReady = true; return true; }
       return false;
     });
@@ -3775,7 +3777,7 @@ function probeEngine(){
 }
 /* le catalogue servi par le site d'abord : c'est celui qui existe en ligne.
    /catalogue-cheveux/sortie/ reste en second, c'est le dossier de travail. */
-var CATALOGUE_URLS = ['/scan/catalogue-cheveux/all.json','/catalogue-cheveux/sortie/all.json'];
+var CATALOGUE_URLS = ['/scan/catalogue-cheveux/all.json?v=20260927','/catalogue-cheveux/sortie/all.json'];
 function brandUrls(slug){ return ['/scan/catalogue-cheveux/'+slug+'.json','/catalogue-cheveux/sortie/'+slug+'.json']; }
 function normaliseCatalogue(raw){
   if(!raw) return null;
@@ -4042,6 +4044,10 @@ var FAMILLES = {
 };
 
 var STEP_KEYS = { 1:'hc.step1', 2:'hc.step2', 3:'hc.step3', 4:'hc.step4' };
+/* 27/09 — le 4e geste est un traitement cible OU une finition (huile legere), et il
+   n'existe plus quand rien ne le justifie : la routine a alors trois gestes. */
+function stepKey(p, e){ return (p && p.finition) ? 'hc.step4f' : STEP_KEYS[e || (p && p.etape)]; }
+function sansQuatrieme(){ var rt = S.routine || (S.out && S.out.routine) || null; return !!(rt && rt.quatrieme === null); }
 var CAT_FR = {
   'shampooing':'Shampooing', 'apres-shampooing':'Après-shampooing', 'masque':'Masque',
   'soin-sans-rinçage':'Sans-rinçage', 'soin-sans-rincage':'Sans-rinçage', 'huile':'Huile',
@@ -4189,7 +4195,7 @@ function ouvrirFiche(id){
   var z = $('rfFicheIn');
   z.innerHTML =
     (img ? '<div class="rff-im"><img src="' + esc(img) + '" alt=""></div>' : '') +
-    '<div class="rff-k">' + esc((p.marque || cat.brand_name || '')) + (etape ? ' &middot; ' + esc(T(STEP_KEYS[etape])) : '') + '</div>' +
+    '<div class="rff-k">' + esc((p.marque || cat.brand_name || '')) + (etape ? ' &middot; ' + esc(T(stepKey(p, etape))) : '') + '</div>' +
     '<h3>' + esc(p.nom || cat.name || '') + '</h3>' +
     (function(){ var w = texteRaisons(p); return w ? '<p>' + esc(w) + '</p>' : ''; })() +
     usageHTML(p, 'usage rff-u') +
@@ -4339,7 +4345,7 @@ function ecrireDetailProduits(liste){
         '<div class="rfd-im">' + (img ? '<img src="' + esc(img) + '" alt="">' : '') + '</div>' +
         '<h4 class="rfd-ti">' + titre + '</h4>' +
         '<div class="rfd-ca">' +
-          '<div class="rfd-k">' + esc(T(STEP_KEYS[p.etape] || 'hc.step1')) + '</div>' +
+          '<div class="rfd-k">' + esc(T(stepKey(p) || 'hc.step1')) + '</div>' +
           '<div class="rfd-m">' + esc(p.marque || f.brand_name || '') + '</div>' +
           (function(){ var ph = phraseProduit(p, f); return ph ? '<p>' + ph + '</p>' : ''; })() +
           (raisons.length ? '<div class="rfd-w">' + raisons.map(function(r){ return '<span>' + esc(r) + '</span>'; }).join('') + '</div>' : '') +
@@ -4463,7 +4469,7 @@ function ecrireLaLecture(liste){
     '<div class="rfm-k" data-i18n="hcl.k">' + esc(T('hcl.k')) + '</div>' +
     (phrases.length ? '<p>' + phrases.filter(Boolean).join(' ') + '</p>' : '') +
     (gestes.length
-      ? '<div class="rfm-k" data-i18n="hcl.k2">' + esc(T('hcl.k2')) + '</div>' +
+      ? '<div class="rfm-k" data-i18n="' + (gestes.length === 3 ? 'hcl.k2b' : 'hcl.k2') + '">' + esc(T(gestes.length === 3 ? 'hcl.k2b' : 'hcl.k2')) + '</div>' +
         '<ol>' + gestes.map(function(g, i){
           var ut = usageParts(g.p);
           return '<li><b>' + ['I','II','III','IV'][i] + '</b><span>' + esc(g.m + ' — ' + g.n) + (g.w ? esc(T('hcx.deux') || ' : ') + esc(g.w) : '') +
@@ -4583,7 +4589,11 @@ function renderResults(){
     var byStep = {};
     liste.forEach(function(p){ if(p && p.etape) byStep[p.etape] = p; });
     var h = '';
-    for(var e = 1; e <= 4; e++){
+    var trois = !byStep[4] && sansQuatrieme();
+    zg.classList.toggle('trois', trois);
+    var sous = document.querySelector('.rf-sous');
+    if(sous){ var ks = trois ? 'hc.rf.gestes3' : 'hc.rf.gestes'; sous.setAttribute('data-i18n', ks); sous.textContent = T(ks); }
+    for(var e = 1; e <= (trois ? 3 : 4); e++){
       var p = byStep[e];
       var img = p ? imageUrl(p) : null;
       var pourquoi = texteRaisons(p);
@@ -4770,6 +4780,7 @@ function renderRoutine(){
   var html = '<div class="ecrin"><span class="cap">' + esc(cap) + '</span><div class="niches">';
   for(var e=1;e<=4;e++){
     var p = byStep[e];
+    if(!p && e === 4 && r.quatrieme === null) continue;
     if(!p){
       html += '<article class="niche"><span class="step">' + esc(T(STEP_KEYS[e])) + '</span>' +
               '<div class="gap">' + esc(T('hc.gap')) + '</div></article>';
@@ -4781,7 +4792,7 @@ function renderRoutine(){
     var cat = (!window.VY || VY.lang === 'fr') ? (CAT_FR[(p.categorie||'').toLowerCase()] || '') : '';
     var act = actifs(p.actifs);
     html += '<article class="niche">' +
-      '<span class="step">' + esc(T(STEP_KEYS[e])) + '</span>' +
+      '<span class="step">' + esc(T(stepKey(p, e))) + '</span>' +
       '<div class="stage">' +
         (img ? '<div class="plate"><img src="' + esc(img) + '" alt=""></div>'
              : '<div class="noimg">' + esc(T('hc.img')) + '</div>') +
