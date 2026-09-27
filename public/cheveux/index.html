@@ -8,7 +8,7 @@
 <meta name="description" content="Vos cheveux lus par la caméra : la boucle, la couleur. Puis une routine de quatre produits.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<script src="/scan/vy-i18n.js?v=23"></script>
+<script src="/scan/vy-i18n.js?v=24"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&family=JetBrains+Mono:wght@100;300;400;500&family=Playfair+Display:ital,wght@1,500&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
 /* ============================================================================
@@ -73,7 +73,7 @@ body.armed #cur{opacity:1}
 @media (pointer:coarse){ #cur{display:none} }
 
 /* ---------- typography ---------- */
-h1{font-size:clamp(50px,9.4vw,142px);font-weight:100;letter-spacing:-.052em;line-height:.93;color:#fff}
+h1{font-size:clamp(44px,6.2vw,92px);font-weight:100;letter-spacing:-.045em;line-height:.98;color:#fff}
 h1 .w{display:inline-block;opacity:0;transform:translateY(.24em);filter:blur(12px);
   animation:wIn 1.5s var(--e1) forwards;animation-delay:var(--d,0s)}
 h1 .w.sheen{background:linear-gradient(100deg,#fff 0 32%,rgba(255,255,255,.35) 46%,#FFF3DA 56%,#fff 70% 100%);
@@ -532,7 +532,7 @@ header{position:fixed;top:16px;left:2.5%;width:95%;z-index:60;padding:16px 26px;
   .menu{display:flex;margin-left:0;width:100%;column-gap:18px;row-gap:0;flex-wrap:wrap}
   .menu a{font-size:9px;letter-spacing:.1em;display:inline-flex;align-items:center;min-height:34px}
   .view{padding:150px 20px 44px}
-  h1{font-size:clamp(44px,13vw,66px)}
+  h1{font-size:44px}
   .hero .lead{font-size:15px}
   .acts{flex-direction:column;align-items:stretch;gap:11px}
   .acts .btn{width:100%}
@@ -1476,6 +1476,16 @@ body.defile #hcRetour.sur-res{opacity:0;pointer-events:none;transform:translateY
   .rfd-sol,.rfd-sw,.rfd-rail,.rfd-mur{display:none}
 }
 </style>
+<style id="vy-autre-css">
+/* 27/09 — Charles : « scan cheveux » dans le menu etait trop petit (10 px, 50 % d'opacite).
+   Le lien vers l'autre scan devient une pastille lisible ; le reste du menu grossit un peu. */
+header .menu a{font-size:11px!important}
+header .menu a.vy-autre{font-size:12px!important;color:#fff!important;opacity:1!important;padding:7px 14px;border:1px solid rgba(255,255,255,.3);
+  border-radius:999px;background:rgba(255,255,255,.06);letter-spacing:.2em;transition:background .3s,border-color .3s}
+header .menu a.vy-autre:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.55)}
+@media (max-width:600px){header .menu a{font-size:9.5px!important}
+  header .menu a.vy-autre{font-size:10.5px!important;padding:5px 12px;margin-right:100%;margin-top:6px;white-space:nowrap;flex-shrink:0}}
+</style>
 </head>
 <body>
 <script src="/cheveux/fibre-de-verre.js?v=2"></script>
@@ -1522,7 +1532,7 @@ body.defile #hcRetour.sur-res{opacity:0;pointer-events:none;transform:translateY
     <span class="bx">&times;</span>
     <span class="bpart" id="partner" data-i18n="hc.partner">SCAN CHEVEUX</span>
     <nav class="menu">
-      <a href="/scan" data-i18n="hc.nav.skin">Scan peau</a>
+      <a href="/scan" class="vy-autre" data-i18n="hc.nav.skin">Scan peau</a>
       <a href="/manifeste" data-i18n="nav.man">Manifeste</a>
       <a href="/accuracy" data-i18n="nav.meth">M&eacute;thode</a>
       <a href="/marques" data-i18n="nav.brands">Pour les marques</a>
@@ -1535,8 +1545,8 @@ body.defile #hcRetour.sur-res{opacity:0;pointer-events:none;transform:translateY
 <section class="view active" id="v-hero">
   <div class="hero">
     <div class="pill" id="heroKicker" data-i18n="hc.h.kick">Fibre de k&eacute;ratine &middot; lecture optique</div>
-    <h1><span class="w" style="--d:.15s" data-i18n="hc.h.t1">Votre fibre.</span><br><span class="w sheen" style="--d:.38s" data-i18n="hc.h.t2">Lue.</span></h1>
-    <p class="lead" id="heroLead" data-i18n="hc.h.lead">La peau est une surface, le cheveu est une longueur. La cam&eacute;ra lit la fibre &mdash; la boucle qu&rsquo;elle dessine, la couleur qu&rsquo;elle porte &mdash; et une routine de quatre produits se compose autour de ce qu&rsquo;elle montre.</p>
+    <h1><span class="w" style="--d:.15s" data-i18n="hc.h.t1">Le cheveu,</span><br><span class="w sheen" style="--d:.38s" data-i18n="hc.h.t2">révélé.</span></h1>
+    <p class="lead" id="heroLead" data-i18n="hc.h.lead">Le mouvement de vos cheveux, lu en quelques secondes.</p>
 
     <div class="acts">
       <button class="btn key" id="btnStart"><span data-i18n="hc.h.start">Lancer le scan</span><i class="ond"></i></button>
@@ -1558,7 +1568,7 @@ body.defile #hcRetour.sur-res{opacity:0;pointer-events:none;transform:translateY
   <div class="quiz q-carres pas-a-pas">
     <div class="q-prog" id="qProg"><i id="qProgFill"></i><span id="qProgTxt">1 / 3</span></div>
     <h2 class="q-titre" data-i18n="hc.q.h">Ce que la cam&eacute;ra ne peut pas voir.</h2>
-    <div class="qsub lab" id="qSub" data-i18n="hc.q.sub">Trois questions. La cam&eacute;ra mesure la nature et la couleur de vos cheveux.</div>
+    <div class="qsub lab" id="qSub" data-i18n="hc.q.sub">Quelques questions. Puis la cam&eacute;ra mesure la nature et la couleur de vos cheveux.</div>
     <div id="quizRows"></div>
     <button class="link q-retour" id="qRetour" type="button" data-i18n="hc.q.back">&larr; Question pr&eacute;c&eacute;dente</button>
     <div class="qnav">
@@ -2496,7 +2506,7 @@ function lancerScanGuide(){
   /* le guidage vit dans une iframe : le choix de langue memorise ne traverse pas
      toujours (origine, mode prive). On le lui passe en clair dans l'adresse. */
   var lg = (window.VY && VY.lang) ? VY.lang : 'fr';
-  f.id = 'scanGuide'; f.allow = 'camera'; f.src = '/cheveux/scan-guide.html?v=7&lang=' + encodeURIComponent(lg);
+  f.id = 'scanGuide'; f.allow = 'camera'; f.src = '/cheveux/scan-guide.html?v=8&lang=' + encodeURIComponent(lg);
   f.setAttribute('style', 'position:fixed;inset:0;width:100%;height:100%;border:0;z-index:9998;background:#000');
   /* 26/09 — le « Quitter » pose ici par-dessus l'iframe est remplace par le
      « ← Retour » du guidage lui-meme (scan-guide.html) : il coupe la camera
@@ -3767,9 +3777,9 @@ function setLoadProgress(p){
 /* ================================================================ ENGINE */
 function probeEngine(){
   if(window.VYVRE_HAIR_ENGINE){ S.engine = window.VYVRE_HAIR_ENGINE; S.engineReady = true; return Promise.resolve(true); }
-  return head('/scan/vyvre-hair-engine.js?v=10').then(function(ok){
+  return head('/scan/vyvre-hair-engine.js?v=11').then(function(ok){
     if(!ok) return false;
-    return injectScript('/scan/vyvre-hair-engine.js?v=10').then(function(loaded){
+    return injectScript('/scan/vyvre-hair-engine.js?v=11').then(function(loaded){
       if(loaded && window.VYVRE_HAIR_ENGINE){ S.engine = window.VYVRE_HAIR_ENGINE; S.engineReady = true; return true; }
       return false;
     });
@@ -5051,11 +5061,19 @@ document.addEventListener('vy:lang', function(){
   }
 })();
 </script>
+<style>
+/* produit blanc sur fond blanc : la photo d'origine, sur une carte claire */
+.rf-shot img.plaque,.rff-im img.plaque,.rfd-im img.plaque{background:#fff;border-radius:18px;padding:5%;box-sizing:border-box;
+  object-fit:contain;filter:none;box-shadow:0 22px 40px -14px rgba(0,0,0,.65)}
+.rf-shot img.plaque{width:60%!important;height:64%!important;margin-top:-4%}
+</style>
 <script>
 /* 27/09 (test iPhone de Charles) — certains packshots gardent leur fond blanc
    (Maui Moisture, Maria Nila) : sur le fond bleu des resultats ils faisaient un
-   carre blanc. On retire le blanc RELIE AU BORD (le blanc d'une etiquette reste),
-   puis on recadre sur le produit pour qu'il remplisse sa niche. */
+   carre blanc. Le detourage automatique a ete essaye puis ABANDONNE le meme jour :
+   il avalait les produits blancs (Christophe Robin) et laissait les ombres grises
+   des studios. Desormais : on recadre au plus pres du produit, on garde le fond
+   blanc, et la photo est posee sur une carte claire aux coins arrondis. */
 (function(){
   var ZONES = '.rf-shot img,.rff-im img,.rfd-im img';
   function detourer(img){
@@ -5063,43 +5081,32 @@ document.addEventListener('vy:lang', function(){
     img.dataset.detoure = '1';
     var W = img.naturalWidth, H = img.naturalHeight;
     if(!W || !H) return;
-    var k = Math.min(1, 700 / Math.max(W, H)), w = Math.round(W*k), h = Math.round(H*k);
+    var k = Math.min(1, 900 / Math.max(W, H)), w = Math.round(W*k), h = Math.round(H*k);
     var c = document.createElement('canvas'); c.width = w; c.height = h;
     var x = c.getContext('2d', { willReadFrequently:true });
     try { x.drawImage(img, 0, 0, w, h); var d = x.getImageData(0, 0, w, h); } catch(e){ return; }
     var px = d.data;
     function blanc(i){ var r=px[i],g=px[i+1],b=px[i+2],a=px[i+3];
-      return a < 20 || (r > 212 && g > 212 && b > 212 && Math.max(r,g,b) - Math.min(r,g,b) < 14); }
-    /* rien a faire si les coins ne sont pas blancs et opaques */
+      return a < 20 || (r > 236 && g > 236 && b > 236); }
     var coins = [0, (w-1)*4, (h-1)*w*4, ((h-1)*w + w-1)*4], nb = 0;
     coins.forEach(function(i){ if(px[i+3] > 200 && blanc(i)) nb++; });
-    if(nb < 3) return;
-    var vu = new Uint8Array(w*h), pile = [];
-    for(var xx = 0; xx < w; xx++){ pile.push(xx, (h-1)*w + xx); }
-    for(var yy = 0; yy < h; yy++){ pile.push(yy*w, yy*w + w-1); }
-    while(pile.length){
-      var q = pile.pop(); if(vu[q]) continue;
-      if(!blanc(q*4)) continue;
-      vu[q] = 1;
-      var qx = q % w, qy = (q / w) | 0;
-      if(qx > 0) pile.push(q-1); if(qx < w-1) pile.push(q+1);
-      if(qy > 0) pile.push(q-w); if(qy < h-1) pile.push(q+w);
-    }
+    if(nb < 3) return;                      /* deja detoure (fond transparent) : rien a faire */
     var x0 = w, y0 = h, x1 = -1, y1 = -1;
-    for(var j = 0; j < w*h; j++){
-      if(vu[j]){ px[j*4+3] = 0; continue; }
-      /* bord adouci : un pixel clair voisin du fond devient semi-transparent */
-      var jx = j % w, jy = (j / w) | 0;
-      var bord = (jx > 0 && vu[j-1]) || (jx < w-1 && vu[j+1]) || (jy > 0 && vu[j-w]) || (jy < h-1 && vu[j+w]);
-      if(bord){ var L = (px[j*4] + px[j*4+1] + px[j*4+2]) / 3; if(L > 200) px[j*4+3] = Math.round(255 * (255 - L) / 55); }
-      if(jx < x0) x0 = jx; if(jx > x1) x1 = jx; if(jy < y0) y0 = jy; if(jy > y1) y1 = jy;
+    for(var yy = 0; yy < h; yy++) for(var xx = 0; xx < w; xx++){
+      if(blanc((yy*w + xx)*4)) continue;
+      if(xx < x0) x0 = xx; if(xx > x1) x1 = xx; if(yy < y0) y0 = yy; if(yy > y1) y1 = yy;
     }
+    img.classList.add('plaque');
     if(x1 < 0) return;
-    x.putImageData(d, 0, 0);
-    var m = 6, cw = Math.min(w, x1 - x0 + 1 + 2*m), ch = Math.min(h, y1 - y0 + 1 + 2*m);
+    /* recadrage carre-ish au plus pres, avec une marge de 8 % : le produit remplit la carte */
+    var bw = x1 - x0 + 1, bh = y1 - y0 + 1, m = Math.round(Math.max(bw, bh) * 0.08);
+    var cx0 = Math.max(0, x0 - m), cy0 = Math.max(0, y0 - m);
+    var cw = Math.min(w, x1 + m + 1) - cx0, ch = Math.min(h, y1 + m + 1) - cy0;
+    if(cw * ch > w * h * 0.9) return;       /* deja cadre serre */
     var o = document.createElement('canvas'); o.width = cw; o.height = ch;
-    o.getContext('2d').drawImage(c, Math.max(0, x0 - m), Math.max(0, y0 - m), cw, ch, 0, 0, cw, ch);
-    img.src = o.toDataURL('image/png');
+    var ox = o.getContext('2d'); ox.fillStyle = '#fff'; ox.fillRect(0, 0, cw, ch);
+    ox.drawImage(c, cx0, cy0, cw, ch, 0, 0, cw, ch);
+    img.src = o.toDataURL('image/jpeg', 0.92);
   }
   document.addEventListener('load', function(e){
     var t = e.target;

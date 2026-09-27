@@ -183,7 +183,7 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
     if (!('serviceWorker' in navigator)) return;
     if (window.location.protocol !== 'https:' && window.location.hostname !== 'localhost') return;
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/scan/sw.js', { scope: '/' })
+      navigator.serviceWorker.register('/scan/sw.js', { scope: '/scan/' })
         .then(reg => {
           VYVRE_LOG('[vyvre-loader] service worker registered, scope:', reg.scope);
         })

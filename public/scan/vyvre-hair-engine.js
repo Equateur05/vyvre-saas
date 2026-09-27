@@ -3399,6 +3399,17 @@
 
       // ---- etape 1 : lavage
       if (etape === 1) {
+        // 27/09 (test de la compagne de Charles) — un shampooing DETOX ou clarifiant
+        // (K18 « detox shampoo » : une fois par semaine selon la marque) etait choisi comme
+        // SEUL shampooing pour des racines qui regraissent vite. C'est un geste hebdomadaire
+        // en plus, pas le lavage de tous les jours.
+        var nomL = String(prod.name || '').toLowerCase();
+        if (/detox|d[e\u00e9]tox|clarif|exfoli|scrub|gommage|peeling|purifying treatment/.test(nomL)) {
+          moins(8.0, 'shampooing detox ou clarifiant : une fois par semaine, pas le lavage courant');
+        }
+        if (/(once|1x|une fois) (a|per|par) (week|semaine)|weekly|hebdomadaire/i.test(String(prod.mode_emploi || ''))) {
+          moins(2.0, 'la marque le limite a une fois par semaine');
+        }
         if (pell !== null && pell > 0.5) plus(compte(t, MOTS.antipelliculaire) * 2.2, 'shampooing antipelliculaire', 'hcx.pq.antipell1');
         // 27/09 — racines grasses ET longueurs seches (deux genes choisies ensemble, cas
         // tres courant) : le shampooing s'occupe du cuir chevelu, doux et equilibrant ; la
@@ -3452,6 +3463,12 @@
 
       // ---- etape 3 : sans rincage
       if (etape === 3) {
+        // 27/09 — un traitement antichute ou du cuir chevelu range en « sans rincage »
+        // (Australian Bodycare « Spray chute de cheveux ») doublait le 4e geste et recevait
+        // une consigne « sur les longueurs ». Sa place est l'etape 4.
+        if (compte(t, MOTS.chute) > 0 || /(scalp|cuir chevelu|hair loss|antichute|anti-chute)/.test(String(prod.name || '').toLowerCase())) {
+          moins(3.0, 'traitement du cuir chevelu : c est le 4e geste, pas le sans-rincage');
+        }
         // 27/09 — un GEL (tenue, fixation) est un produit de coiffage : pour des boucles
         // souples ou des cheveux qui veulent juste de la douceur, un lait ou une creme legere
         // passe avant. Le gel reste possible sur des boucles franches (> 0,72).

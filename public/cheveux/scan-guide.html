@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="vy-title-key" content="hcg.meta.t">
 <title>vyvre — Scan cheveux</title>
-<script src="/scan/vy-i18n.js?v=23"></script>
+<script src="/scan/vy-i18n.js?v=24"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;800&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
@@ -241,7 +241,9 @@ function lire(now){
         /* la barbe et la moustache ne sont pas la chevelure : tout ce qui est
            sous le nez, entre les deux joues, est retire */
         let bx0 = -1, bx1 = -1, by0 = PH;
-        if(dernierVisage && !demo()){ const L = dernierVisage; const xa = L[234].x*PW, xb = L[454].x*PW;
+        /* 27/09 — seulement si le visage vient d'etre vu : dos a la camera, l'ancienne
+           position du visage effacait un rectangle de cheveux sur la nuque */
+        if(dernierVisage && !demo() && visage && now - dernierVisageT < 400){ const L = dernierVisage; const xa = L[234].x*PW, xb = L[454].x*PW;
           bx0 = Math.min(xa,xb) - 4; bx1 = Math.max(xa,xb) + 4; by0 = L[2].y*PH; }
         for(let i=0;i<PW*PH;i++){
           let v = m[i]; const x = i % PW, y = (i / PW) | 0;
@@ -282,10 +284,21 @@ function lirePose(now, dt){
     vuCheveux = Math.max(vuCheveux, .05);
   }
   if(visage && pitchV > .6) descenteVue = now;
-  let p = 'face';
-  /* le sommet : tete baissee avec le visage encore vu, ou visage perdu juste
-     apres une descente (moins de 1,5 s) avec beaucoup de cheveux */
-  if((visage && pitchV > 1.1) || (!visage && now - descenteVue < 1500 && vuCheveux > .15)) p = 'dessus';
+  /* 27/09 (test iPhone de Charles) — trois poses qui ne se lisaient pas :
+     - le PROFIL : tourne franchement, le visage n'est plus detecte et le cote
+       n'etait plus compte. On retient le dernier cote vu (2,5 s) ;
+     - le DESSUS : il fallait baisser la tete tres fort (tangage 1,1). Le front
+       dans la moitie basse de l'image avec beaucoup de cheveux au-dessus suffit ;
+     - la NUQUE : dos a la camera, aucune zone ne la prenait (« votre visage
+       n'est pas visible », bloque). Des cheveux sans visage comptent desormais
+       pour la zone sans visage, et partent au moteur sous le nom « nuque ». */
+  if(visage && Math.abs(yawV) > .35){ coteVu = yawV < 0 ? 'gauche' : 'droite'; coteVuT = now; }
+  const hautFront = (visage && dernierVisage) ? dernierVisage[10].y : null;
+  let p = 'face'; poseReelle = null;
+  if((visage && (pitchV > .9 || (hautFront !== null && hautFront > .40 && pitchV > .3 && vuCheveux > .15))) ||
+     (!visage && now - descenteVue < 2500 && vuCheveux > .12)) p = 'dessus';
+  else if(!visage && !demo() && now - coteVuT < 2500 && vuCheveux > .08) p = coteVu;
+  else if(!visage && !demo() && vuCheveux > .15){ p = 'dessus'; poseReelle = 'nuque'; }
   else if(!visage && !demo()) p = 'aucune';
   else if(yawV < -.42) p = 'gauche';
   else if(yawV > .42) p = 'droite';
@@ -308,6 +321,7 @@ function lirePose(now, dt){
 const N_IMAGES = 8, SEUIL_BOUGE = .03;
 const IMAGES = { face:[], gauche:[], droite:[], dessus:[] };
 const MEILLEURE = { face:null, gauche:null, droite:null, dessus:null };
+let coteVu = 'gauche', coteVuT = -1e9, poseReelle = null;
 let descenteVue = -1e9, dernierePrise = 0, grisPrec = null, refus = '', refusDepuis = 0;
 const NETS = [];
 let TOL = 1, SECOURS = null, LUM = -1;   /* LUM : lumiere mesuree (0 noir, 1 blanc) */
@@ -343,7 +357,7 @@ function jugerImage(now, L){
   refus = '';
   if(ZONES.includes(z) && IMAGES[z].length < N_IMAGES && now - dernierePrise > 120){
     IMAGES[z].push(net); dernierePrise = now; Z[z] = IMAGES[z].length / N_IMAGES; bloqueDepuis = now;
-    if(!MEILLEURE[z] || net > MEILLEURE[z].net) MEILLEURE[z] = { net, image: prendreImage(), masque: prendreMasque(), faceBox: boiteVisage(L) };
+    if(!MEILLEURE[z] || net > MEILLEURE[z].net) MEILLEURE[z] = { net, image: prendreImage(), masque: prendreMasque(), faceBox: boiteVisage(L), pose: poseReelle || z };
   }
 }
 /* l'image pour le moteur : pleine definition (1100 px), non miroir */
@@ -398,7 +412,7 @@ function rendre(){
   if(rendu) return;
   if(demo()){ rendu = true; window.__rendu = { poses: ZONES.filter(z => MEILLEURE[z]), pct: Math.round(total()*100) }; return; }
   rendu = true;
-  const poses = ZONES.filter(z => MEILLEURE[z]).map(z => ({ pose:z, image:MEILLEURE[z].image.toDataURL('image/jpeg', .9), masque:MEILLEURE[z].masque, faceBox:MEILLEURE[z].faceBox }));
+  const poses = ZONES.filter(z => MEILLEURE[z]).map(z => ({ pose:MEILLEURE[z].pose || z, image:MEILLEURE[z].image.toDataURL('image/jpeg', .9), masque:MEILLEURE[z].masque, faceBox:MEILLEURE[z].faceBox }));
   try{ if(src && src.srcObject) src.srcObject.getTracks().forEach(t => t.stop()); }catch(e){}
   journal('fini', { poses: poses.map(p => p.pose).join(',') });
   if(parent !== window) parent.postMessage({ type:'vyvre-scan-fini', poses }, location.origin);
@@ -1395,6 +1409,9 @@ function image(now){
   if(sombre && !finiDepuis){ cle = 'hcg.r.sombre'; journal('sombre'); }
   else if(offre) cle = 'hcg.presque';
   else if(refus && now - refusDepuis > 1500 && CLEF_RAISON[refus] && refus !== 'angle') cle = CLEF_RAISON[refus];
+  /* on est en train de lire une zone : on le dit, au lieu de demander deja la suivante
+     (Charles, tete baissee : « Regardez l'ecran, bien de face. ») */
+  else if(ZONES.includes(pose) && Z[pose] < 1 && !refus) cle = 'hcg.r.bouge';
   else if(m) cle = CLEF_CONSIGNE[m];
   if(cle && cle !== consigneCle && !finiDepuis){
     consigneCle = cle;

@@ -7,7 +7,7 @@
 <meta name="description" content="Votre peau, mesurée en moins de 10 secondes depuis votre caméra. Puis les trois soins qui lui correspondent, parmi 5 883 références de 147 marques.">
 <title>VYVRE — Scan de peau universel</title>
 <!-- VYVRE_I18N : moteur 12 langues, francais par defaut -->
-<script src="/scan/vy-i18n.js?v=23"></script>
+<script src="/scan/vy-i18n.js?v=24"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Police ultra-clean (Silicon Valley DeepTech style) -->
@@ -33,7 +33,7 @@
 </script>
 <!-- VYVRE_SANS_WASM_END -->
 <!-- VYVRE_V10_LOADER_BEGIN -->
-<script src="/scan/vyvre-loader.js?v=10.1" defer></script>
+<script src="/scan/vyvre-loader.js?v=10.2" defer></script>
 <!-- VYVRE_V10_LOADER_END -->
 <style>
 /* ============================================================================
@@ -401,6 +401,16 @@ input:focus-visible,select:focus-visible,summary:focus-visible{
 /* la DA masque le curseur systeme (cursor:none) : au clavier on rend un repere */
 a:focus-visible,button:focus-visible,[tabindex]:focus-visible{cursor:auto}
 </style>
+<style id="vy-autre-css">
+/* 27/09 — Charles : « scan cheveux » dans le menu etait trop petit (10 px, 50 % d'opacite).
+   Le lien vers l'autre scan devient une pastille lisible ; le reste du menu grossit un peu. */
+.vy-menu a{font-size:11px!important}
+.vy-menu a.vy-autre{font-size:12px!important;color:#fff!important;opacity:1!important;padding:7px 14px;border:1px solid rgba(255,255,255,.3);
+  border-radius:999px;background:rgba(255,255,255,.06);letter-spacing:.2em;transition:background .3s,border-color .3s}
+.vy-menu a.vy-autre:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.55)}
+@media (max-width:600px){.vy-menu a{font-size:9.5px!important}
+  .vy-menu a.vy-autre{font-size:10.5px!important;padding:5px 12px;margin-right:100%;white-space:nowrap;flex-shrink:0}}
+</style>
 </head>
 <body>
 <!-- VYVRE_PITCH_BTN_BEGIN -->
@@ -431,7 +441,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{cursor:auto}
     <span class="brand-x">×</span>
     <span class="brand-partner" data-i18n="hd.partner">SCAN UNIVERSEL</span>
     <nav class="vy-menu">
-      <a href="/cheveux" data-i18n="nav.hair">Scan cheveux</a>
+      <a href="/cheveux" class="vy-autre" data-i18n="nav.hair">Scan cheveux</a>
       <a href="/manifeste" data-i18n="nav.man">Manifeste</a>
       <a href="/accuracy" data-i18n="nav.meth">Méthode</a>
       <a href="/marques" data-i18n="nav.brands">Pour les marques</a>
