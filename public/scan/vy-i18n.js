@@ -116,7 +116,7 @@
     if (loading[c]) { loading[c].push(cb); return; }
     loading[c] = [cb];
     var s = d.createElement('script');
-    s.src = BASE + c + '.js?v=22';
+    s.src = BASE + c + '.js?v=23';
     s.onload = s.onerror = function () {
       var q = loading[c] || []; loading[c] = null;
       for (var i = 0; i < q.length; i++) q[i]();

@@ -16,9 +16,9 @@ VY.add('fr', {
     'lang.aria': 'Choisir la langue',
 
     'h.kick': 'Topologie moléculaire',
-    'h.t1': 'Longévité.',
-    'h.t2': 'Mesurée.',
-    'h.title': 'Longévité.<br>Mesurée.',
+    'h.t1': 'La peau,',
+    'h.t2': 'révélée.',
+    'h.title': 'La peau,<br>révélée.',
     'h.p': "La lumière de votre peau, lue en quelques secondes.",
     'h.scan': 'Lancer le scan',
     'h.upload': 'Envoyer une photo',
