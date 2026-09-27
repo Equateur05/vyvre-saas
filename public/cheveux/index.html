@@ -8,7 +8,7 @@
 <meta name="description" content="Vos cheveux lus par la caméra : la boucle, la couleur. Puis une routine de quatre produits.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<script src="/scan/vy-i18n.js?v=24"></script>
+<script src="/scan/vy-i18n.js?v=25"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&family=JetBrains+Mono:wght@100;300;400;500&family=Playfair+Display:ital,wght@1,500&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
 /* ============================================================================
@@ -2506,7 +2506,7 @@ function lancerScanGuide(){
   /* le guidage vit dans une iframe : le choix de langue memorise ne traverse pas
      toujours (origine, mode prive). On le lui passe en clair dans l'adresse. */
   var lg = (window.VY && VY.lang) ? VY.lang : 'fr';
-  f.id = 'scanGuide'; f.allow = 'camera'; f.src = '/cheveux/scan-guide.html?v=8&lang=' + encodeURIComponent(lg);
+  f.id = 'scanGuide'; f.allow = 'camera'; f.src = '/cheveux/scan-guide.html?v=9&lang=' + encodeURIComponent(lg);
   f.setAttribute('style', 'position:fixed;inset:0;width:100%;height:100%;border:0;z-index:9998;background:#000');
   /* 26/09 — le « Quitter » pose ici par-dessus l'iframe est remplace par le
      « ← Retour » du guidage lui-meme (scan-guide.html) : il coupe la camera

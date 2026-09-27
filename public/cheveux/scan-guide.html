@@ -6,7 +6,7 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="vy-title-key" content="hcg.meta.t">
 <title>vyvre — Scan cheveux</title>
-<script src="/scan/vy-i18n.js?v=24"></script>
+<script src="/scan/vy-i18n.js?v=25"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;800&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
@@ -60,6 +60,19 @@ body.sombre #phraseTxt{color:#ffd9a8}
   .finir{order:4;margin-top:12px}
   body.g3 .total{transform:none;top:auto;text-align:left;font-size:52px}
 }
+.etapes{position:absolute;left:50%;top:84px;transform:translateX(-50%);display:flex;gap:8px;z-index:3;pointer-events:none}
+.etapes span{position:relative;overflow:hidden;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:rgba(223,234,242,.45);border:1px solid rgba(223,234,242,.18);border-radius:999px;padding:7px 12px;background:rgba(0,0,0,.35);
+  transition:color .4s,border-color .4s,background .4s;white-space:nowrap}
+.etapes span em{font-style:normal;position:relative;z-index:1}
+.etapes span b{position:absolute;left:0;bottom:0;height:2px;width:calc(var(--p,0)*100%);background:#7fd8ff;transition:width .3s}
+.etapes span.actif{color:#fff;border-color:#7fd8ff;background:rgba(127,216,255,.16);box-shadow:0 0 18px rgba(127,216,255,.35)}
+.etapes span.fait{color:#7fd8ff;border-color:rgba(127,216,255,.45)}
+body.fini .etapes{opacity:0;transition:opacity .6s}
+@media(max-width:760px){
+  .etapes{position:relative;left:auto;top:auto;transform:none;order:0;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+  .etapes span{font-size:9.5px;letter-spacing:.1em;padding:6px 10px}
+}
 .finir{all:unset;display:none;pointer-events:auto;cursor:pointer;align-self:flex-start;font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.2em;text-transform:uppercase;
   color:#000;background:#eaf6ff;padding:15px 22px;border-radius:999px;position:absolute;right:4vw;bottom:calc(9vh + 128px);overflow:hidden;isolation:isolate;
   box-shadow:0 0 30px rgba(127,216,255,.45)}
@@ -97,6 +110,13 @@ document.getElementById('retour').addEventListener('click', function(){
   <div class="debug" id="lectureDebug"></div>
   <div class="phrase" id="phrase"><small data-i18n="hcg.kick">SCAN CHEVEUX</small><span id="phraseTxt" data-i18n="hcg.remplir">Remplissez vos cheveux de bleu.</span></div>
   <div class="aide" id="aide"></div>
+  <!-- 27/09 (Charles) : les etapes en toutes lettres, celle a faire allumee -->
+  <div class="etapes" id="etapes">
+    <span data-z="face"><em data-i18n="hcg.e.face">Face</em><b></b></span>
+    <span data-z="gauche"><em data-i18n="hcg.e.gauche">Profil gauche</em><b></b></span>
+    <span data-z="droite"><em data-i18n="hcg.e.droite">Profil droit</em><b></b></span>
+    <span data-z="dessus"><em data-i18n="hcg.e.dessus">Crâne</em><b></b></span>
+  </div>
   <div class="total"><span id="pct">0 %</span><i data-i18n="hcg.total">DE LA CHEVELURE LUE</i></div>
   <button type="button" class="finir" id="finir" data-i18n="hcg.finir">Terminer avec cette lecture</button>
 </div>
@@ -1403,6 +1423,11 @@ function image(now){
   if(auto && bloque > DELAI_AUTO && !finiDepuis){
     finiDepuis = now; document.body.classList.add('fini'); rendre();
   }
+  /* les etapes en clair : celle qu'on lit (ou la prochaine) allumee, les finies marquees */
+  { const cible = (ZONES.includes(pose) && Z[pose] < 1) ? pose : m;
+    document.querySelectorAll('#etapes span').forEach(el => { const z = el.dataset.z;
+      el.style.setProperty('--p', Z[z].toFixed(3));
+      el.classList.toggle('fait', Z[z] >= 1); el.classList.toggle('actif', z === cible && Z[z] < 1); }); }
   let cle = null;
   const sombre = LUM >= 0 && LUM < SEUIL_SOMBRE;
   document.body.classList.toggle('sombre', sombre);
