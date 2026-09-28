@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>VYVRE · Instrument</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#000;color:#fff;font-family:Inter,system-ui,sans-serif;overflow:hidden}
+video{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1);filter:brightness(.5) contrast(1.1) saturate(.7)}
+canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
+.haut{position:fixed;top:0;left:0;right:0;padding:calc(16px + env(safe-area-inset-top)) 18px 0;display:flex;justify-content:space-between;align-items:flex-start;z-index:5;font-family:'IBM Plex Mono',monospace}
+.haut .g{font-size:9.5px;letter-spacing:.3em;color:rgba(255,255,255,.55);line-height:1.9}
+.haut .g b{color:#fff;font-weight:400}
+.haut .g i{font-style:normal;color:#ff3346}
+.retour{font-size:9.5px;letter-spacing:.24em;color:rgba(255,255,255,.85);text-decoration:none;border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:8px 13px;background:rgba(0,0,0,.35)}
+.bas{position:fixed;left:0;right:0;bottom:0;padding:0 18px calc(18px + env(safe-area-inset-bottom));z-index:5;font-family:'IBM Plex Mono',monospace}
+.barre{height:1px;background:rgba(255,255,255,.12);position:relative;margin-bottom:10px}
+.barre i{position:absolute;left:0;top:0;bottom:0;background:#ff3346;width:0}
+.ligne{display:flex;justify-content:space-between;font-size:9.5px;letter-spacing:.26em;color:rgba(255,255,255,.55)}
+.ligne b{color:#fff;font-weight:400}
+.choix{display:flex;gap:8px;justify-content:center;margin-top:12px}
+.choix a{font-size:9.5px;letter-spacing:.16em;color:rgba(255,255,255,.55);text-decoration:none;border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:7px 12px;background:rgba(0,0,0,.4)}
+.choix a.on{color:#fff;border-color:#ff3346}
+.msg{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:30px;font-weight:200;font-size:21px;line-height:1.4;z-index:4;color:rgba(255,255,255,.85)}
+.msg small{display:block;font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.3em;color:rgba(255,255,255,.5);margin-top:14px}
+</style>
+</head>
+<body>
+<video id="v" playsinline muted autoplay></video>
+<canvas id="c"></canvas>
+<div class="msg" id="msg">Ouverture de la caméra…<small>AUTORISEZ LA CAMÉRA</small></div>
+<div class="haut">
+  <div class="g">VYVRE · <b>INSTRUMENT DE LECTURE</b><br>COLORIMÉTRIE CIE L*a*b* · D65<br><i id="etat">INITIALISATION</i></div>
+  <a class="retour" href="/propals/laser">TOUTES</a>
+</div>
+<div class="bas">
+  <div class="barre"><i id="prog"></i></div>
+  <div class="ligne"><span id="phase">—</span><span><b id="pct">00</b> %</span></div>
+  <nav class="choix"><a href="?s=1" id="c1">UN FAISCEAU</a><a href="?s=2" id="c2">DEUX FAISCEAUX</a></nav>
+</div>
+<script type="module">
+/* ==========================================================================
+   L'INSTRUMENT (28/09/2026, Charles : « plus tech, plus subtil, rouge plus fin,
+   épater les adultes, pas les enfants »).
+   Tout ce qui est ecrit a l'ecran est CALCULE sur le visage filme :
+   - colorimetrie : pixels de la video sous 4 zones de peau, sRGB -> XYZ (D65) ->
+     CIE L*a*b*, angle typologique individuel ITA° = atan((L*-50)/b*) ;
+   - geometrie : symetrie par rapport a l'axe median, rapport des tiers moyen et
+     inferieur, inclinaison des axes palpebraux, rapport largeur / hauteur,
+     rapport levre superieure / inferieure.
+   Sans carte de reference dans le cadre, la couleur n'est pas calibree : les
+   valeurs sont justes EN RELATIF (comparaisons, evolution), et c'est affiche.
+   ========================================================================== */
+import { FilesetResolver, FaceLandmarker } from "/cheveux/vendor/mediapipe/vision_bundle.mjs";
+
+const Q = new URLSearchParams(location.search), DEUX = Q.get('s') === '2';
+document.getElementById(DEUX ? 'c2' : 'c1').classList.add('on');
+const R = '255,51,70', OR = '232,199,127';
+
+const v = document.getElementById('v'), cv = document.getElementById('c'), x = cv.getContext('2d');
+let W = 0, H = 0;
+function taille(){ const d = Math.min(2, devicePixelRatio || 1); W = innerWidth; H = innerHeight; cv.width = W*d; cv.height = H*d; x.setTransform(d,0,0,d,0,0); }
+addEventListener('resize', taille); taille();
+try { v.srcObject = await navigator.mediaDevices.getUserMedia({ audio:false, video:{ facingMode:'user', width:{ ideal:1280 }, height:{ ideal:720 } } }); await v.play(); document.getElementById('msg').style.display = 'none'; }
+catch(e){ document.getElementById('msg').innerHTML = 'La caméra est nécessaire.<small>AUTORISEZ-LA, PUIS RECHARGEZ</small>'; throw e; }
+const fs = await FilesetResolver.forVisionTasks('/cheveux/vendor/mediapipe/wasm');
+const fo = d => ({ baseOptions:{ modelAssetPath:'/cheveux/vendor/mediapipe/modeles/face_landmarker.task', delegate:d }, runningMode:'VIDEO', numFaces:1 });
+let face; try { face = await FaceLandmarker.createFromOptions(fs, fo('GPU')); } catch(e){ face = await FaceLandmarker.createFromOptions(fs, fo('CPU')); }
+const ARETES = FaceLandmarker.FACE_LANDMARKS_TESSELATION;
+
+/* ---- lecture : reperes lisses + petite image pour la couleur ---- */
+let L = null, vu = 0;
+const ech = document.createElement('canvas'), ec = ech.getContext('2d', { willReadFrequently:true }); const EW = 320;
+function lire(now){
+  let r; try { r = face.detectForVideo(v, now); } catch(e){ return; }
+  const n = r.faceLandmarks && r.faceLandmarks[0]; if(!n) return;
+  if(!L) L = n.map(p => ({ x:p.x, y:p.y, z:p.z })); else for(let i=0;i<L.length;i++){ const k = .4; L[i].x += (n[i].x-L[i].x)*k; L[i].y += (n[i].y-L[i].y)*k; L[i].z += (n[i].z-L[i].z)*k; }
+  vu = now;
+  const EH = Math.round(EW * v.videoHeight / v.videoWidth); if(ech.width !== EW || ech.height !== EH){ ech.width = EW; ech.height = EH; }
+  ec.drawImage(v, 0, 0, EW, EH);
+}
+let dw=0, dh=0, ox=0, oy=0;
+function cadre(){ const vw = v.videoWidth || 1280, vh = v.videoHeight || 720, s = Math.max(W/vw, H/vh); dw = vw*s; dh = vh*s; ox = (W-dw)/2; oy = (H-dh)/2; }
+const P = i => ({ x: ox + (1 - L[i].x) * dw, y: oy + L[i].y * dh });
+const D = (a, b) => Math.hypot(L[a].x*(v.videoWidth||1) - L[b].x*(v.videoWidth||1), L[a].y*(v.videoHeight||1) - L[b].y*(v.videoHeight||1));
+
+/* ---- colorimetrie reelle : sRGB -> XYZ (D65) -> L*a*b* ---- */
+function lin(c){ c /= 255; return c <= .04045 ? c/12.92 : Math.pow((c + .055)/1.055, 2.4); }
+function lab(r, g, b){
+  r = lin(r); g = lin(g); b = lin(b);
+  let X = (r*.4124 + g*.3576 + b*.1805) / .95047, Y = (r*.2126 + g*.7152 + b*.0722), Z = (r*.0193 + g*.1192 + b*.9505) / 1.08883;
+  const f = t => t > .008856 ? Math.cbrt(t) : 7.787*t + 16/116; X = f(X); Y = f(Y); Z = f(Z);
+  return { L: 116*Y - 16, a: 500*(X - Y), b: 200*(Y - Z) };
+}
+function zone(ids){ // moyenne des pixels dans le polygone forme par des reperes (fenetre autour du barycentre)
+  let cx = 0, cy = 0; ids.forEach(i => { cx += L[i].x; cy += L[i].y; }); cx /= ids.length; cy /= ids.length;
+  const px = Math.round(cx * ech.width), py = Math.round(cy * ech.height), r = Math.max(3, Math.round(ech.width * .012));
+  let d; try { d = ec.getImageData(Math.max(0, px - r), Math.max(0, py - r), r*2, r*2).data; } catch(e){ return null; }
+  let R0 = 0, G0 = 0, B0 = 0, n = 0; for(let i=0;i<d.length;i+=4){ R0 += d[i]; G0 += d[i+1]; B0 += d[i+2]; n++; }
+  const c = lab(R0/n, G0/n, B0/n);
+  // ITA° = arctan((L*-50)/b*) : defini pour b* > 0 (toute peau sous une lumiere neutre). Une image
+  // trop bleue (b* <= 2) ne permet pas de le calculer : on l'affiche comme tel, sans inventer.
+  c.ita = c.b > 2 ? Math.atan((c.L - 50) / c.b) * 180 / Math.PI : null; return c;
+}
+const ZONES = [
+  { nom:'FRONT', ids:[151, 9, 108, 337], cote:-1 },
+  { nom:'JOUE G.', ids:[205, 50, 187, 123], cote:-1 },
+  { nom:'JOUE D.', ids:[425, 280, 411, 352], cote:1 },
+  { nom:'MENTON', ids:[199, 175, 200, 18], cote:1 },
+];
+const lisse = {}; function doux(k, val, a = .12){ if(val == null || isNaN(val)) return lisse[k]; lisse[k] = lisse[k] == null ? val : lisse[k] + (val - lisse[k])*a; return lisse[k]; }
+
+/* ---- geometrie reelle ---- */
+function geometrie(){
+  const vw = v.videoWidth || 1, vh = v.videoHeight || 1, pt = i => ({ x: L[i].x*vw, y: L[i].y*vh });
+  const a = pt(10), b = pt(152), ux = b.x - a.x, uy = b.y - a.y, nn = Math.hypot(ux, uy);
+  const dist = i => { const p = pt(i); return ((p.x - a.x)*uy - (p.y - a.y)*ux) / nn; };   // distance signee a l'axe median
+  const PAIRES = [[33,263],[133,362],[61,291],[234,454],[172,397],[70,300],[105,334],[98,327],[50,280],[136,365]];
+  let e = 0; PAIRES.forEach(([g, d]) => { e += Math.abs(Math.abs(dist(g)) - Math.abs(dist(d))) / (Math.abs(dist(g)) + Math.abs(dist(d)) + 1e-6); });
+  const sym = 100 * (1 - e / PAIRES.length);
+  const moyen = D(9, 2), inf = D(2, 152);
+  const g0 = pt(33), d0 = pt(263), roulis = Math.atan2(d0.y - g0.y, d0.x - g0.x);
+  const incl = (i, o) => { const p = pt(i), q = pt(o); const cr = Math.cos(-roulis), sr = Math.sin(-roulis);
+    const dx = (q.x - p.x)*cr - (q.y - p.y)*sr, dy = (q.x - p.x)*sr + (q.y - p.y)*cr; return Math.atan2(-dy, Math.abs(dx)) * 180 / Math.PI; };
+  return { sym, tiers: moyen / inf, largeur: D(234, 454) / D(10, 152), levres: D(0, 13) / Math.max(1, D(14, 17)),
+           canthG: incl(133, 33), canthD: incl(362, 263) };
+}
+
+/* ---- dessin fin ---- */
+const ORDRE = {
+  ovale:[10,338,297,332,284,251,389,356,454,323,361,288,397,365,379,378,400,377,152,148,176,149,150,136,172,58,132,93,234,127,162,21,54,103,67,109,10],
+  sourcilG:[46,53,52,65,55], sourcilD:[276,283,282,295,285],
+  oeilG:[33,246,161,160,159,158,157,173,133,155,154,153,145,144,163,7,33], oeilD:[263,466,388,387,386,385,384,398,362,382,381,380,374,373,390,249,263],
+  nez:[168,6,197,195,5,4,1,19,94,2], narines:[129,98,97,2,326,327,358],
+  levres:[61,185,40,39,37,0,267,269,270,409,291,375,321,405,314,17,84,181,91,146,61],
+};
+function longueurs(p){ const l=[0]; for(let i=1;i<p.length;i++) l.push(l[i-1]+Math.hypot(p[i].x-p[i-1].x,p[i].y-p[i-1].y)); return l; }
+function pointA(p,l,d){ let i=1; while(i<l.length-1&&l[i]<d) i++; const t=Math.max(0,Math.min(1,(d-l[i-1])/((l[i]-l[i-1])||1))); return {x:p[i-1].x+(p[i].x-p[i-1].x)*t,y:p[i-1].y+(p[i].y-p[i-1].y)*t}; }
+function chemin(p,l,d){ let n=1; while(n<l.length&&l[n]<=d) n++; const q=p.slice(0,n); const f=pointA(p,l,d); q.push(f);
+  x.beginPath(); x.moveTo(q[0].x,q[0].y); for(let i=1;i<q.length-1;i++){ x.quadraticCurveTo(q[i].x,q[i].y,(q[i].x+q[i+1].x)/2,(q[i].y+q[i+1].y)/2); } x.lineTo(f.x,f.y); return f; }
+function fil(pts, frac, rgb, a){
+  if(pts.length < 2 || frac <= 0) return null;
+  const l = longueurs(pts), d = l[l.length-1] * Math.min(1, frac);
+  x.lineCap = 'round'; x.lineJoin = 'round';
+  chemin(pts,l,d); x.strokeStyle = 'rgba('+rgb+','+(.10*a)+')'; x.lineWidth = 2.4; x.stroke();
+  const f = chemin(pts,l,d); x.strokeStyle = 'rgba('+rgb+','+(.85*a)+')'; x.lineWidth = .6; x.stroke();
+  return frac < 1 ? f : null;
+}
+function impact(src, p, rgb){
+  const g = x.createLinearGradient(src.x, src.y, p.x, p.y); g.addColorStop(0, 'rgba('+rgb+',0)'); g.addColorStop(1, 'rgba('+rgb+',.35)');
+  x.strokeStyle = g; x.lineWidth = .5; x.beginPath(); x.moveTo(src.x, src.y); x.lineTo(p.x, p.y); x.stroke();
+  x.fillStyle = 'rgba(255,255,255,.95)'; x.beginPath(); x.arc(p.x, p.y, 1.1, 0, 7); x.fill();
+  x.strokeStyle = 'rgba('+rgb+',.6)'; x.lineWidth = .5; x.beginPath(); x.arc(p.x, p.y, 4.5, 0, 7); x.stroke();
+}
+function coupe(y){ const pts = [], k = dw*.3;
+  for(const e of ARETES){ const a = P(e.start), b = P(e.end); if((a.y-y)*(b.y-y) < 0){ const t = (y-a.y)/(b.y-a.y), z = L[e.start].z + (L[e.end].z-L[e.start].z)*t; pts.push({ x:a.x+(b.x-a.x)*t, y:y - z*k }); } }
+  pts.sort((p,q) => p.x-q.x); const o = []; for(const p of pts) if(!o.length || p.x - o[o.length-1].x > 1.2) o.push(p);
+  // les aretes du bord se croisent a des profondeurs differentes : un filtre median sur 5 points
+  // enleve les dents de scie sans aplatir le relief
+  return o.map((p, i) => { const w = o.slice(Math.max(0, i-2), i+3).map(q => q.y).sort((a, b) => a-b); return { x:p.x, y:w[w.length >> 1] }; }); }
+
+/* petits textes et cotes, facon instrument */
+function texte(t, px, py, al = 'left', a = 1, taille = 9.5, rgb = '255,255,255'){ x.font = '300 ' + taille + 'px "IBM Plex Mono", monospace'; x.textAlign = al; x.fillStyle = 'rgba('+rgb+','+(.78*a)+')'; x.fillText(t, px, py); }
+function coteV(xl, ys, noms, a){ // cote verticale : une ligne, des traits aux reperes, un texte par intervalle
+  x.strokeStyle = 'rgba(255,255,255,'+(.6*a)+')'; x.lineWidth = .5;
+  x.beginPath(); x.moveTo(xl, ys[0]); x.lineTo(xl, ys[ys.length-1]); x.stroke();
+  ys.forEach(y => { x.beginPath(); x.moveTo(xl - 4, y); x.lineTo(xl + 4, y); x.stroke(); });
+  noms.forEach((t, k) => texte(t, xl - 8, (ys[k] + ys[k+1])/2 + 3, 'right', a, 8.5));
+}
+function coteH(x1, x2, yl, t, a){
+  x.strokeStyle = 'rgba(255,255,255,'+(.6*a)+')'; x.lineWidth = .5;
+  x.beginPath(); x.moveTo(x1, yl); x.lineTo(x2, yl); x.moveTo(x1, yl - 4); x.lineTo(x1, yl + 4); x.moveTo(x2, yl - 4); x.lineTo(x2, yl + 4); x.stroke();
+  texte(t, (x1 + x2)/2, yl + 13, 'center', a, 8.5);
+}
+function reticule(p, a, rgb = R){
+  x.strokeStyle = 'rgba('+rgb+','+(.8*a)+')'; x.lineWidth = .5; const r = 7;
+  x.beginPath(); x.arc(p.x, p.y, r, 0, 7); x.moveTo(p.x - r*1.8, p.y); x.lineTo(p.x - r*.5, p.y); x.moveTo(p.x + r*.5, p.y); x.lineTo(p.x + r*1.8, p.y);
+  x.moveTo(p.x, p.y - r*1.8); x.lineTo(p.x, p.y - r*.5); x.moveTo(p.x, p.y + r*.5); x.lineTo(p.x, p.y + r*1.8); x.stroke();
+}
+function etiquette(p, lignes, cote, a){
+  const bx = cote < 0 ? Math.max(16, p.x - 150) : Math.min(W - 16, p.x + 150), by = p.y - 10;
+  x.strokeStyle = 'rgba(255,255,255,'+(.35*a)+')'; x.lineWidth = .5; x.beginPath(); x.moveTo(p.x + cote*9, p.y); x.lineTo(bx - cote*4, by); x.lineTo(bx + cote*(-4 - 96), by); x.stroke();
+  lignes.forEach((t, i) => texte(t, cote < 0 ? bx : bx, by + 13 + i*12, cote < 0 ? 'left' : 'right', a * (i ? .85 : 1), i ? 8.5 : 9, i ? '255,255,255' : R));
+}
+
+/* ---- le deroule (13 s) ---- */
+const PHASES = [[0,'TOPOLOGIE'],[4.2,'RELIEF'],[6,'GÉOMÉTRIE'],[8.6,'COLORIMÉTRIE'],[11.2,'SYNTHÈSE']];
+const DUREE = 16;
+let debut = null;
+function boite(){ let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9; for(let i=0;i<L.length;i+=3){ const p=P(i); x0=Math.min(x0,p.x); x1=Math.max(x1,p.x); y0=Math.min(y0,p.y); y1=Math.max(y1,p.y); } return {x0,y0,x1,y1,w:x1-x0,h:y1-y0}; }
+const f01 = (t, a, b) => Math.max(0, Math.min(1, (t - a) / (b - a)));
+
+function scene(t){
+  const tt = t - debut, b = boite(), A = f01(tt, DUREE - 1.2, DUREE) > 0 ? 1 - f01(tt, DUREE - 1.2, DUREE) : 1;
+  x.save(); x.globalCompositeOperation = 'lighter';
+  // 1. TOPOLOGIE : le faisceau (ou les deux) trace les courbes, en un seul geste continu
+  const traits = ['ovale','sourcilG','sourcilD','oeilG','oeilD','nez','narines','levres'];
+  const srcs = DEUX ? [{ x:-20, y:H*.08 }, { x:W+20, y:H*.08 }] : [{ x:W*.5, y:-20 }];
+  traits.forEach((nom, i) => {
+    const debutT = i * .45, frac = f01(tt, debutT, debutT + (nom === 'ovale' ? 1.6 : .7));
+    const rgb = DEUX && (nom.endsWith('D')) ? OR : R;
+    const tete = fil(ORDRE[nom].map(P), frac, rgb, A);
+    if(tete) impact(srcs[DEUX && nom.endsWith('D') ? 1 : 0], tete, rgb);
+  });
+  // 2. RELIEF : huit coupes, tres fines, qui epousent la profondeur
+  for(let k = 0; k < 8; k++){ const fr = f01(tt, 4.2 + k*.18, 4.9 + k*.18); if(fr <= 0) continue;
+    const pts = coupe(b.y0 + b.h*(.14 + k*.1)); fil(pts, fr, R, A*.55); }
+  x.restore();
+  // 3. GEOMETRIE : cotes et angles, avec les VRAIES valeurs
+  const G = geometrie(), ga = A * f01(tt, 6, 6.6);
+  if(ga > 0){
+    const sym = doux('sym', G.sym, .06), tiers = doux('tiers', G.tiers, .06), larg = doux('larg', G.largeur, .06), lev = doux('lev', G.levres, .06);
+    // axe median, en pointilles
+    x.setLineDash([2, 4]); x.strokeStyle = 'rgba(255,255,255,'+(.35*ga)+')'; x.lineWidth = .5; const m1 = P(10), m2 = P(152);
+    x.beginPath(); x.moveTo(m1.x + (m1.x-m2.x)*.15, m1.y + (m1.y-m2.y)*.15); x.lineTo(m2.x + (m2.x-m1.x)*.08, m2.y + (m2.y-m1.y)*.08); x.stroke(); x.setLineDash([]);
+    const xl = Math.max(70, b.x0 - 22);
+    coteV(xl, [P(9).y, P(2).y, P(152).y], ['TIERS MOYEN', 'INF. ×' + (1/tiers).toFixed(2).replace('.', ',')], ga * f01(tt, 6.2, 6.9));
+    coteH(Math.min(P(234).x, P(454).x), Math.max(P(234).x, P(454).x), Math.min(H - 170, b.y1 + 16), 'LARGEUR / HAUTEUR  ' + larg.toFixed(3).replace('.', ','), ga * f01(tt, 6.8, 7.5));
+    // inclinaison des axes palpebraux
+    const ca = ga * f01(tt, 7.4, 8);
+    [[133, 33, G.canthG, 'cG'], [362, 263, G.canthD, 'cD']].forEach(([i, o, ang, k]) => { const p = P(i), q = P(o), val = doux(k, ang, .06);
+      x.strokeStyle = 'rgba(255,255,255,'+(.6*ca)+')'; x.lineWidth = .5; x.beginPath(); x.moveTo(p.x, p.y); x.lineTo(q.x + (q.x - p.x)*.35, q.y + (q.y - p.y)*.35); x.stroke();
+      x.setLineDash([1, 3]); x.beginPath(); x.moveTo(p.x, p.y); x.lineTo(q.x + (q.x - p.x)*.35, p.y); x.stroke(); x.setLineDash([]);
+      texte((val >= 0 ? '+' : '') + val.toFixed(1).replace('.', ',') + '°', q.x + (q.x - p.x)*.45, q.y - 6, q.x > p.x ? 'left' : 'right', ca, 8.5); });
+    etiquette(P(0), ['SYMÉTRIE ' + sym.toFixed(1).replace('.', ',') + ' %', 'LÈVRES SUP./INF. ' + lev.toFixed(2).replace('.', ',')], P(0).x > W/2 ? 1 : 1, ga * f01(tt, 7.8, 8.4));
+  }
+  // 4. COLORIMETRIE : quatre zones, L*a*b* et ITA° lus dans les pixels
+  const ca = A * f01(tt, 8.6, 9.2);
+  const mesures = [];
+  if(ca > 0) ZONES.forEach((z, i) => {
+    const za = ca * f01(tt, 8.6 + i*.45, 9.2 + i*.45); if(za <= 0) return;
+    let cx = 0, cy = 0; z.ids.forEach(k => { const p = P(k); cx += p.x; cy += p.y; }); const p = { x: cx/z.ids.length, y: cy/z.ids.length };
+    const c = zone(z.ids); if(!c) return;
+    const Lv = doux('L'+i, c.L), av = doux('a'+i, c.a), bv = doux('b'+i, c.b), it = c.ita == null ? null : doux('i'+i, c.ita);
+    mesures.push({ L:Lv, a:av, b:bv, ita:it });
+    reticule(p, za);
+    const cote2 = (p.x < (b.x0 + b.x1)/2) ? -1 : 1;
+    etiquette(p, [z.nom, 'L* ' + Lv.toFixed(1).replace('.', ',') + '  a* ' + av.toFixed(1).replace('.', ',') + '  b* ' + bv.toFixed(1).replace('.', ','), it == null ? 'ITA° — LUMIÈRE TROP FROIDE' : 'ITA° ' + it.toFixed(1).replace('.', ',')], cote2, za);
+  });
+  // 5. SYNTHESE : une ligne, au pied du visage
+  const sa = A * f01(tt, 11.2, 11.9);
+  if(sa > 0 && mesures.length){
+    const m = mesures.reduce((s, c) => ({ L:s.L + c.L/mesures.length, a:s.a + c.a/mesures.length, b:s.b + c.b/mesures.length }), { L:0, a:0, b:0 });
+    m.ita = m.b > 2 ? Math.atan((m.L - 50) / m.b) * 180 / Math.PI : null;
+    const hom = Math.max(0, 100 - Math.sqrt(mesures.reduce((s, c) => s + (c.L - m.L)**2 + (c.a - m.a)**2 + (c.b - m.b)**2, 0) / mesures.length) * 4);
+    const y = Math.min(H - 118, b.y1 + 58);
+    x.strokeStyle = 'rgba(255,255,255,'+(.3*sa)+')'; x.lineWidth = .5; x.beginPath(); x.moveTo(W/2 - 150, y - 16); x.lineTo(W/2 + 150, y - 16); x.stroke();
+    texte((m.ita == null ? 'ITA° — ' : 'ITA° MOYEN ' + m.ita.toFixed(1).replace('.', ',')) + '   ·   HOMOGÉNÉITÉ DU TEINT ' + hom.toFixed(0) + ' %', W/2, y, 'center', sa, 9.5);
+    texte('MESURE RELATIVE · SANS CARTE DE RÉFÉRENCE DANS LE CADRE', W/2, y + 15, 'center', sa * .6, 8);
+  }
+  // barre et phase
+  const ph = PHASES.filter(p => tt >= p[0]).pop();
+  document.getElementById('phase').textContent = ph ? ph[1] : '—';
+  const pc = Math.min(100, Math.round(tt / 12 * 100)); document.getElementById('pct').textContent = String(pc).padStart(2, '0');
+  document.getElementById('prog').style.width = pc + '%';
+  document.getElementById('etat').textContent = pc >= 100 ? 'LECTURE COMPLÈTE' : 'LECTURE EN COURS';
+}
+
+let tLire = 0; const t0 = performance.now();
+function image(now){
+  if(v.readyState >= 2 && now - tLire > 33){ tLire = now; lire(now); }
+  cadre(); x.clearRect(0, 0, W, H);
+  const t = (now - t0) / 1000;
+  if(!L || now - vu > 3000){ debut = null; document.getElementById('etat').textContent = 'VISAGE NON DÉTECTÉ'; document.getElementById('phase').textContent = 'PLACEZ-VOUS FACE À L’ÉCRAN'; requestAnimationFrame(image); return; }
+  if(debut === null || t - debut > DUREE) debut = t;
+  scene(t);
+  requestAnimationFrame(image);
+}
+requestAnimationFrame(image);
+</script>
+</body>
+</html>
