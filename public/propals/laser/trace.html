@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>VYVRE · Le laser qui dessine</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{--c:#ff2a3c}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#000;color:#fff;font-family:Inter,system-ui,sans-serif;overflow:hidden}
+video{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1);filter:brightness(.52) contrast(1.12) saturate(.75)}
+body.bleu video{filter:brightness(.48) contrast(1.12) saturate(.55)}
+canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
+.haut{position:fixed;top:0;left:0;right:0;padding:calc(18px + env(safe-area-inset-top)) 22px 0;display:flex;justify-content:space-between;align-items:flex-start;z-index:5}
+.marque{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.34em;color:rgba(255,255,255,.62)}
+.marque b{display:block;font-family:Inter;font-weight:200;font-size:26px;letter-spacing:-.02em;color:#fff;margin-top:8px;text-transform:none}
+.marque i{display:block;font-style:normal;margin-top:6px;color:var(--c)}
+.retour{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.24em;color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:9px 14px;background:rgba(0,0,0,.35)}
+.bas{position:fixed;left:0;right:0;bottom:0;padding:0 16px calc(20px + env(safe-area-inset-bottom));z-index:5;display:flex;flex-direction:column;gap:14px;align-items:center}
+.lecture{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.32em;color:rgba(255,255,255,.7);min-height:15px;transition:opacity .5s}
+.lecture b{color:var(--c);font-weight:400}
+.choix{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.choix a{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.16em;color:rgba(255,255,255,.6);text-decoration:none;border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:8px 13px;background:rgba(0,0,0,.4)}
+.choix a.on{color:#fff;border-color:var(--c)}
+.msg{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:30px;font-weight:200;font-size:22px;line-height:1.4;z-index:4;color:rgba(255,255,255,.85)}
+.msg small{display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.3em;color:rgba(255,255,255,.5);margin-top:14px}
+</style>
+</head>
+<body>
+<video id="v" playsinline muted autoplay></video>
+<canvas id="c"></canvas>
+<div class="msg" id="msg">Ouverture de la caméra…<small>AUTORISEZ LA CAMÉRA POUR VOIR LE LASER</small></div>
+<div class="haut">
+  <div class="marque">VYVRE · LE LASER QUI DESSINE<b id="titre"></b><i id="sous"></i></div>
+  <a class="retour" href="/propals/laser">TOUTES</a>
+</div>
+<div class="bas">
+  <div class="lecture" id="lecture"></div>
+  <nav class="choix">
+    <a href="/propals/laser/trace.html?s=1" id="c1">UN LASER</a>
+    <a href="/propals/laser/trace.html?s=2" id="c2">DEUX LASERS</a>
+    <a href="/propals/laser/trace.html?s=3" id="c3">CHEVEUX</a>
+  </nav>
+</div>
+<script type="module">
+/* ==========================================================================
+   LE LASER QUI DESSINE (28/09/2026, demande de Charles : « un laser qui dessine
+   les vraies courbes, plus subtil, plus beau »).
+   Le point d'impact d'un faisceau parcourt, a vitesse constante, les VRAIES
+   courbes du visage (contour, sourcils, paupieres, arete du nez, levres), puis
+   les courbes de relief (coupes horizontales du maillage). Les courbes sont
+   recalculees a chaque image sur les reperes lisses de face_landmarker : le
+   dessin suit la personne si elle bouge. Rien n'est mesure ici : mise en scene.
+   ========================================================================== */
+import { FilesetResolver, FaceLandmarker, ImageSegmenter } from "/cheveux/vendor/mediapipe/vision_bundle.mjs";
+
+const Q = new URLSearchParams(location.search);
+const S = ['1','2','3'].includes(Q.get('s')) ? Q.get('s') : '1';
+const CHEVEUX = S === '3';
+const TITRES = { '1':['Un laser', 'PEAU · ROUGE'], '2':['Deux lasers', 'PEAU · ROUGE ET OR'], '3':['Le fil', 'CHEVEUX · BLEU'] };
+document.getElementById('titre').textContent = TITRES[S][0];
+document.getElementById('sous').textContent = TITRES[S][1];
+document.getElementById('c' + S).classList.add('on');
+if(CHEVEUX){ document.body.classList.add('bleu'); document.documentElement.style.setProperty('--c', '#39b6ff'); }
+
+const v = document.getElementById('v'), cv = document.getElementById('c'), x = cv.getContext('2d');
+let W = 0, H = 0;
+function taille(){ const d = Math.min(2, devicePixelRatio || 1); W = innerWidth; H = innerHeight; cv.width = W*d; cv.height = H*d; x.setTransform(d,0,0,d,0,0); }
+addEventListener('resize', taille); taille();
+
+try {
+  v.srcObject = await navigator.mediaDevices.getUserMedia({ audio:false, video:{ facingMode:'user', width:{ ideal:1280 }, height:{ ideal:720 } } });
+  await v.play(); document.getElementById('msg').style.display = 'none';
+} catch(e){ document.getElementById('msg').innerHTML = 'La caméra est nécessaire pour voir le laser.<small>AUTORISEZ-LA, PUIS RECHARGEZ</small>'; throw e; }
+
+const fs = await FilesetResolver.forVisionTasks('/cheveux/vendor/mediapipe/wasm');
+const fo = d => ({ baseOptions:{ modelAssetPath:'/cheveux/vendor/mediapipe/modeles/face_landmarker.task', delegate:d }, runningMode:'VIDEO', numFaces:1 });
+let face; try { face = await FaceLandmarker.createFromOptions(fs, fo('GPU')); } catch(e){ face = await FaceLandmarker.createFromOptions(fs, fo('CPU')); }
+let seg = null;
+if(CHEVEUX) seg = await ImageSegmenter.createFromOptions(fs, { baseOptions:{ modelAssetPath:'/cheveux/vendor/mediapipe/modeles/hair_segmenter.tflite', delegate:'CPU' }, runningMode:'VIDEO', outputConfidenceMasks:true, outputCategoryMask:false });
+const ARETES = FaceLandmarker.FACE_LANDMARKS_TESSELATION;
+
+/* ---- reperes lisses (sans lissage, le trait tremble : c'est ce qui fait « cheap ») ---- */
+let L = null, Lraw = null, vu = 0;
+const PW = 256; let PH = 144; const petit = document.createElement('canvas'), pc = petit.getContext('2d', { willReadFrequently:true });
+let MASK = null, tour = 0;
+function lire(now){
+  try { const r = face.detectForVideo(v, now); Lraw = (r.faceLandmarks && r.faceLandmarks[0]) || null; } catch(e){}
+  if(Lraw){ if(!L) L = Lraw.map(p => ({ x:p.x, y:p.y, z:p.z })); else for(let i=0;i<L.length;i++){ L[i].x += (Lraw[i].x - L[i].x)*.45; L[i].y += (Lraw[i].y - L[i].y)*.45; L[i].z += (Lraw[i].z - L[i].z)*.45; } vu = now; }
+  if(seg && (tour++ % 2 === 0)){
+    PH = Math.round(PW * (v.videoHeight || 720) / (v.videoWidth || 1280));
+    if(petit.width !== PW || petit.height !== PH){ petit.width = PW; petit.height = PH; MASK = new Float32Array(PW*PH); }
+    pc.drawImage(v, 0, 0, PW, PH);
+    try { seg.segmentForVideo(petit, now, r => { const cm = r.confidenceMasks; if(!cm) return; const m = (cm[1] || cm[0]).getAsFloat32Array();
+      for(let i=0;i<m.length;i++) MASK[i] = MASK[i]*.5 + m[i]*.5; cm.forEach(z => z.close && z.close()); }); } catch(e){}
+  }
+}
+let dw=0, dh=0, ox=0, oy=0;
+function cadre(){ const vw = v.videoWidth || 1280, vh = v.videoHeight || 720, s = Math.max(W/vw, H/vh); dw = vw*s; dh = vh*s; ox = (W-dw)/2; oy = (H-dh)/2; }
+const P = i => ({ x: ox + (1 - L[i].x) * dw, y: oy + L[i].y * dh });
+
+/* ---- les courbes du visage (indices MediaPipe, dans l'ordre du trait) ---- */
+const OVALE = [10,338,297,332,284,251,389,356,454,323,361,288,397,365,379,378,400,377,152,148,176,149,150,136,172,58,132,93,234,127,162,21,54,103,67,109,10];
+const SOURCIL_G = [46,53,52,65,55,107,66,105,63,70], SOURCIL_D = [276,283,282,295,285,336,296,334,293,300];
+const OEIL_G = [33,246,161,160,159,158,157,173,133,155,154,153,145,144,163,7,33];
+const OEIL_D = [263,466,388,387,386,385,384,398,362,382,381,380,374,373,390,249,263];
+const NEZ = [168,6,197,195,5,4,1], NARINES = [129,98,97,2,326,327,358];
+const LEVRES = [61,185,40,39,37,0,267,269,270,409,291,375,321,405,314,17,84,181,91,146,61];
+const LEVRES_IN = [78,191,80,81,82,13,312,311,310,415,308,324,318,402,317,14,87,178,88,95,78];
+const PAUPIERE_G = [226,247,30,29,27,28,56,190,243], PAUPIERE_D = [446,467,260,259,257,258,286,414,463];
+const POMMETTE_G = [116,117,118,119,100,47], POMMETTE_D = [345,346,347,348,329,277];
+
+/* une coupe horizontale du maillage : une vraie courbe de relief */
+function coupe(y){
+  // la ligne suit la PROFONDEUR : un plan laser vu de biais se bombe sur le nez,
+  // les pommettes et le menton (z de MediaPipe : negatif = plus pres de la camera)
+  const pts = [], k = dw * .32;
+  for(const e of ARETES){ const a = P(e.start), b = P(e.end);
+    if((a.y - y) * (b.y - y) < 0){ const t = (y - a.y) / (b.y - a.y); const z = L[e.start].z + (L[e.end].z - L[e.start].z)*t;
+      pts.push({ x: a.x + (b.x - a.x)*t, y: y - z * k }); } }
+  pts.sort((p, q) => p.x - q.x);
+  // on garde une seule courbe continue (pas de sauts dans les trous des yeux et de la bouche)
+  const out = []; for(const p of pts){ if(!out.length || p.x - out[out.length-1].x > 1.5) out.push(p); }
+  return out;
+}
+function boite(){ let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9; for(let i=0;i<L.length;i+=4){ const p = P(i); if(p.x<x0)x0=p.x; if(p.x>x1)x1=p.x; if(p.y<y0)y0=p.y; if(p.y>y1)y1=p.y; } return { x0, y0, x1, y1, w:x1-x0, h:y1-y0 }; }
+
+/* ---- la sequence de dessin : chaque etape = une courbe, recalculee a chaque image ---- */
+const ids = arr => () => arr.map(P);
+const releif = f => () => { const b = boite(); return coupe(b.y0 + b.h * f); };
+const PROG1 = [
+  { nom:'CONTOUR', f: ids(OVALE) },
+  { nom:'SOURCILS', f: ids(SOURCIL_G) }, { nom:'SOURCILS', f: ids(SOURCIL_D) },
+  { nom:'REGARD', f: ids(OEIL_G) }, { nom:'REGARD', f: ids(OEIL_D) },
+  { nom:'REGARD', f: ids(PAUPIERE_G) }, { nom:'REGARD', f: ids(PAUPIERE_D) },
+  { nom:'ARÊTE DU NEZ', f: ids(NEZ) }, { nom:'ARÊTE DU NEZ', f: ids(NARINES) },
+  { nom:'POMMETTES', f: ids(POMMETTE_G) }, { nom:'POMMETTES', f: ids(POMMETTE_D) },
+  { nom:'LÈVRES', f: ids(LEVRES) }, { nom:'LÈVRES', f: ids(LEVRES_IN) },
+  { nom:'RELIEF', f: releif(.22) }, { nom:'RELIEF', f: releif(.36) }, { nom:'RELIEF', f: releif(.5) },
+  { nom:'RELIEF', f: releif(.62) }, { nom:'RELIEF', f: releif(.74) }, { nom:'RELIEF', f: releif(.86) },
+];
+/* deux lasers : chacun sa moitie, en miroir, et ils se rejoignent au menton */
+const moitie = (arr, de, a) => { const i = arr.indexOf(de), j = arr.indexOf(a); return arr.slice(Math.min(i,j), Math.max(i,j) + 1); };
+const OV_A = moitie(OVALE.slice(0, -1), 10, 152), OV_B = [10,109,67,103,54,21,162,127,234,93,132,58,172,136,150,149,176,148,152];
+const PROG2 = [
+  [{ nom:'CONTOUR', f: ids(OV_A) }, { nom:'CONTOUR', f: ids(OV_B) }],
+  [{ nom:'SOURCILS', f: ids(SOURCIL_D) }, { nom:'SOURCILS', f: ids(SOURCIL_G) }],
+  [{ nom:'REGARD', f: ids(OEIL_D) }, { nom:'REGARD', f: ids(OEIL_G) }],
+  [{ nom:'REGARD', f: ids(PAUPIERE_D) }, { nom:'REGARD', f: ids(PAUPIERE_G) }],
+  [{ nom:'POMMETTES', f: ids(POMMETTE_D) }, { nom:'POMMETTES', f: ids(POMMETTE_G) }],
+  [{ nom:'ARÊTE DU NEZ', f: ids([168,6,197,195,5,4,1]) }, { nom:'ARÊTE DU NEZ', f: ids(NARINES) }],
+  [{ nom:'LÈVRES', f: ids(moitie(LEVRES, 0, 291).concat([375,321,405,314,17])) }, { nom:'LÈVRES', f: ids([0,37,39,40,185,61,146,91,181,84,17]) }],
+  [{ nom:'RELIEF', f: releif(.3) }, { nom:'RELIEF', f: releif(.44) }],
+  [{ nom:'RELIEF', f: releif(.58) }, { nom:'RELIEF', f: releif(.72) }],
+  [{ nom:'RELIEF', f: releif(.84) }, { nom:'RELIEF', f: releif(.16) }],
+];
+
+/* ---- outils de trait ---- */
+function longueurs(pts){ const l = [0]; for(let i=1;i<pts.length;i++) l.push(l[i-1] + Math.hypot(pts[i].x-pts[i-1].x, pts[i].y-pts[i-1].y)); return l; }
+function pointA(pts, l, d){ if(pts.length < 2) return pts[0]; let i = 1; while(i < l.length - 1 && l[i] < d) i++; const t = Math.max(0, Math.min(1, (d - l[i-1]) / ((l[i] - l[i-1]) || 1))); return { x: pts[i-1].x + (pts[i].x - pts[i-1].x)*t, y: pts[i-1].y + (pts[i].y - pts[i-1].y)*t }; }
+/* courbe lissee (milieux + quadratiques) jusqu'a la distance d */
+function courbe(pts, l, d){
+  if(pts.length < 2) return;
+  let n = 1; while(n < l.length && l[n] <= d) n++;
+  const q = pts.slice(0, n); const fin = pointA(pts, l, d); q.push(fin);
+  x.beginPath(); x.moveTo(q[0].x, q[0].y);
+  for(let i=1;i<q.length-1;i++){ const mx = (q[i].x + q[i+1].x)/2, my = (q[i].y + q[i+1].y)/2; x.quadraticCurveTo(q[i].x, q[i].y, mx, my); }
+  x.lineTo(fin.x, fin.y);
+}
+function trait(pts, l, d, rgb, a){
+  x.lineCap = 'round'; x.lineJoin = 'round';
+  courbe(pts, l, d); x.strokeStyle = 'rgba(' + rgb + ',' + (.14*a) + ')'; x.lineWidth = 5; x.stroke();          // halo
+  courbe(pts, l, d); x.strokeStyle = 'rgba(' + rgb + ',' + (.9*a) + ')'; x.lineWidth = 1.15; x.stroke();       // le trait
+}
+const etincelles = [];
+function faisceau(src, p, rgb, t){
+  // le faisceau : presque invisible, comme dans l'air ; plus dense pres de l'impact
+  const g = x.createLinearGradient(src.x, src.y, p.x, p.y);
+  g.addColorStop(0, 'rgba(' + rgb + ',0)'); g.addColorStop(.75, 'rgba(' + rgb + ',.10)'); g.addColorStop(1, 'rgba(' + rgb + ',.55)');
+  x.strokeStyle = g; x.lineWidth = .8; x.beginPath(); x.moveTo(src.x, src.y); x.lineTo(p.x, p.y); x.stroke();
+  // l'impact : un coeur blanc, un halo, une legere pulsation
+  const r = 9 + Math.sin(t*40)*1.2;
+  const h = x.createRadialGradient(p.x, p.y, 0, p.x, p.y, r*2.2);
+  h.addColorStop(0, 'rgba(255,255,255,.95)'); h.addColorStop(.18, 'rgba(' + rgb + ',.85)'); h.addColorStop(1, 'rgba(' + rgb + ',0)');
+  x.fillStyle = h; x.beginPath(); x.arc(p.x, p.y, r*2.2, 0, 7); x.fill();
+  if(Math.random() < .5) etincelles.push({ x:p.x, y:p.y, vx:(Math.random()-.5)*1.6, vy:(Math.random()-.8)*1.4, t, rgb });
+}
+function lesEtincelles(t){
+  for(let i = etincelles.length - 1; i >= 0; i--){ const e = etincelles[i], a = 1 - (t - e.t)/.5; if(a <= 0){ etincelles.splice(i,1); continue; }
+    e.x += e.vx; e.y += e.vy; e.vy += .05; x.fillStyle = 'rgba(' + e.rgb + ',' + a + ')'; x.fillRect(e.x, e.y, 1.2, 1.2); }
+}
+
+/* ---- le deroule : on dessine, on garde, on estompe, on recommence ---- */
+const ROUGE = '255,42,60', OR = '232,199,127', BLEU = '57,182,255';
+let debut = null;
+function vitesse(){ const b = boite(); return Math.max(260, b.w * 2.1); }   // px par seconde, a l'echelle du visage
+function jouerPeau(t){
+  const pistes = S === '1' ? [PROG1] : [PROG2.map(p => p[0]), PROG2.map(p => p[1])];
+  const sources = S === '1' ? [{ x: W*.5, y: -30 }] : [{ x: -30, y: H*.12 }, { x: W+30, y: H*.12 }];
+  const couleurs = S === '1' ? [ROUGE] : [ROUGE, OR];
+  const vpx = vitesse(); const tt = t - debut;
+  let finTotale = 0, nomCourant = '';
+  x.save(); x.globalCompositeOperation = 'lighter';
+  pistes.forEach((prog, k) => {
+    let temps = 0;
+    for(const etape of prog){
+      const pts = etape.f(); if(pts.length < 2) continue;
+      const l = longueurs(pts), duree = l[l.length-1] / vpx + .12;
+      const dt = tt - temps;
+      if(dt > 0){
+        const d = Math.min(l[l.length-1], dt * vpx);
+        // persistance : le trait reste vif, puis se pose a 40 % ; tout s'efface a la fin du cycle
+        const vieux = dt - duree, a = vieux > 0 ? Math.max(.4, 1 - vieux / 2.5) : 1;
+        trait(pts, l, d, couleurs[k], a * fondu);
+        if(dt < duree){ faisceau(sources[k], pointA(pts, l, d), couleurs[k], t); nomCourant = etape.nom; }
+      }
+      temps += duree;
+    }
+    finTotale = Math.max(finTotale, temps);
+  });
+  lesEtincelles(t);
+  x.restore();
+  document.getElementById('lecture').innerHTML = nomCourant ? 'LECTURE · <b>' + nomCourant + '</b>' : (fondu < 1 ? '' : 'LECTURE TERMINÉE');
+  return finTotale;
+}
+
+/* cheveux : le laser suit le bord de la chevelure, puis des fils qui descendent dans la masse */
+function decoupe(pts, saut){
+  // une courbe ne saute jamais : au-dela de « saut » pixels, on commence un nouveau trait
+  const out = []; let cur = [];
+  for(const p of pts){ if(cur.length && Math.hypot(p.x - cur[cur.length-1].x, p.y - cur[cur.length-1].y) > saut){ if(cur.length > 5) out.push(cur); cur = []; } cur.push(p); }
+  if(cur.length > 5) out.push(cur); return out;
+}
+function contourCheveux(){
+  if(!MASK) return [];
+  const s = (u, w) => ({ x: ox + (1 - u) * dw, y: oy + w * dh });
+  const gauche = [], droite = [], haut = [];
+  for(let yy = 0; yy < PH; yy += 2){ let a = -1, b = -1;
+    for(let xx = 0; xx < PW; xx++) if(MASK[yy*PW + xx] > .5){ if(a < 0) a = xx; b = xx; }
+    if(a >= 0 && b - a > 3){ gauche.push(s(a/PW, yy/PH)); droite.push(s(b/PW, yy/PH)); } }
+  for(let xx = 0; xx < PW; xx += 2){ for(let yy = 0; yy < PH; yy++) if(MASK[yy*PW + xx] > .5){ haut.push(s(xx/PW, yy/PH)); break; } }
+  const saut = Math.max(18, dw * .025);
+  return [...decoupe(haut, saut), ...decoupe(gauche, saut), ...decoupe(droite, saut)];
+}
+function filsCheveux(){
+  if(!MASK) return [];
+  const s = (u, w) => ({ x: ox + (1 - u) * dw, y: oy + w * dh }), fils = [];
+  for(let k = 1; k <= 9; k++){ const u0 = k / 10; let pts = [];
+    for(let yy = 0; yy < PH; yy += 3){ let u = u0 + Math.sin(yy * .09 + k) * .012; const xx = Math.min(PW-1, Math.max(0, Math.round(u*PW)));
+      if(MASK[yy*PW + xx] > .55) pts.push(s(u, yy/PH)); else if(pts.length > 6){ fils.push(pts); pts = []; } else pts = []; }
+    if(pts.length > 6) fils.push(pts); }
+  return fils;
+}
+function jouerCheveux(t){
+  const tt = t - debut, vpx = 520, src = { x: W*.5, y: -30 };
+  const prog = [...contourCheveux().map(p => ({ nom:'CONTOUR', pts:p })), ...filsCheveux().map(p => ({ nom:'FIBRE', pts:p }))];
+  let temps = 0, nom = '';
+  x.save(); x.globalCompositeOperation = 'lighter';
+  for(const e of prog){ const l = longueurs(e.pts), duree = l[l.length-1] / vpx + .1, dt = tt - temps;
+    if(dt > 0){ const d = Math.min(l[l.length-1], dt*vpx), vieux = dt - duree, a = vieux > 0 ? Math.max(.35, 1 - vieux/2.5) : 1;
+      trait(e.pts, l, d, BLEU, a * fondu); if(dt < duree){ faisceau(src, pointA(e.pts, l, d), BLEU, t); nom = e.nom; } }
+    temps += duree; }
+  lesEtincelles(t); x.restore();
+  document.getElementById('lecture').innerHTML = nom ? 'LECTURE · <b>' + nom + '</b>' : '';
+  return Math.max(temps, 3);
+}
+
+let fondu = 1, tLire = 0;
+const t0 = performance.now();
+function image(now){
+  if(v.readyState >= 2 && now - tLire > 30){ tLire = now; lire(now); }
+  cadre(); x.clearRect(0, 0, W, H);
+  const t = (now - t0) / 1000;
+  const present = L && now - vu < 800;
+  if(!present){ debut = null; document.getElementById('lecture').textContent = 'PLACEZ VOTRE VISAGE FACE À L’ÉCRAN'; requestAnimationFrame(image); return; }
+  if(debut === null){ debut = t; fondu = 1; }
+  const fin = CHEVEUX ? jouerCheveux(t) : jouerPeau(t);
+  // a la fin du dessin : 2,5 s de pose, 1,2 s de fondu, puis on recommence
+  const apres = t - debut - fin;
+  if(apres > 2.5){ fondu = Math.max(0, 1 - (apres - 2.5) / 1.2); if(fondu === 0){ debut = t; fondu = 1; } }
+  requestAnimationFrame(image);
+}
+requestAnimationFrame(image);
+</script>
+</body>
+</html>
