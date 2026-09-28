@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>VYVRE · Scan laser</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#050506;color:#fff;font-family:Inter,system-ui,sans-serif;min-height:100vh;padding:calc(38px + env(safe-area-inset-top)) 16px 60px}
+.k{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.34em;color:rgba(255,255,255,.55);text-align:center}
+h1{font-weight:200;font-size:clamp(34px,5vw,64px);letter-spacing:-.03em;text-align:center;margin:14px 0 10px}
+p.l{text-align:center;color:rgba(255,255,255,.6);font-weight:300;max-width:560px;margin:0 auto 38px;line-height:1.5}
+.g{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1120px;margin:0 auto}
+@media(max-width:900px){.g{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:560px){.g{grid-template-columns:1fr}}
+a.carte{position:relative;display:block;text-decoration:none;color:#fff;border:1px solid rgba(255,255,255,.12);border-radius:22px;padding:22px 22px 24px;min-height:220px;overflow:hidden;background:#0b0b0d;transition:border-color .3s,transform .3s}
+a.carte:hover{transform:translateY(-3px);border-color:var(--c)}
+a.carte .n{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.3em;color:var(--c)}
+a.carte h2{font-weight:300;font-size:26px;letter-spacing:-.02em;margin:10px 0 8px}
+a.carte p{font-size:14px;line-height:1.5;color:rgba(255,255,255,.62);font-weight:300}
+a.carte .t{position:absolute;right:22px;bottom:20px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.24em;color:rgba(255,255,255,.75)}
+/* un apercu anime, en CSS : la couleur et le geste de chaque proposition */
+a.carte::before{content:'';position:absolute;left:-10%;right:-10%;height:2px;top:30%;background:var(--c);box-shadow:0 0 18px var(--c),0 0 40px var(--c);opacity:.7;animation:nappe 3.2s ease-in-out infinite}
+a.carte.pb::before{height:auto;top:0;bottom:0;background:radial-gradient(circle,var(--c) 1px,transparent 1.6px) 0 0/9px 9px;box-shadow:none;opacity:.14;animation:none}
+a.carte.pc::before{width:2px;height:auto;top:0;bottom:0;left:30%;right:auto;animation:rideau 3.6s ease-in-out infinite}
+a.carte.pd::before{height:auto;top:0;bottom:0;background:linear-gradient(var(--c) 1px,transparent 1px) 0 0/100% 16px,linear-gradient(90deg,var(--c) 1px,transparent 1px) 0 0/16px 100%;box-shadow:none;opacity:.12;animation:none}
+a.carte.pe::before{background:linear-gradient(90deg,#ff2a3c,#e8c77f);transform:rotate(-18deg)}
+a.carte.pf::before{background:linear-gradient(90deg,#ff4658,#5affaa,#5a96ff);transform:rotate(45deg);animation:prisme 4s linear infinite}
+@keyframes nappe{0%,100%{top:14%}50%{top:86%}}
+@keyframes rideau{0%,100%{left:8%}50%{left:92%}}
+@keyframes prisme{0%{top:-20%}100%{top:120%}}
+.pied{text-align:center;margin-top:34px;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.24em;color:rgba(255,255,255,.4)}
+</style>
+</head>
+<body>
+<div class="k">VYVRE · PROPOSITIONS</div>
+<h1>Le scan, au laser.</h1>
+<p class="l">Six façons de montrer la lecture. Chacune suit votre vrai visage, et vos vrais cheveux, en direct sur la caméra.</p>
+<div class="g">
+  <a class="carte pa" style="--c:#ff2a3c" href="/propals/laser/scan.html?s=a"><div class="n">A · PEAU · ROUGE</div><h2>Nappe laser</h2><p>La pub Revitalift : un plan rouge balaie le visage de haut en bas et en épouse chaque relief. Les points touchés restent allumés un instant.</p><span class="t">VOIR →</span></a>
+  <a class="carte pb" style="--c:#ff2a3c" href="/propals/laser/scan.html?s=b"><div class="n">B · PEAU · ROUGE</div><h2>Projecteur de points</h2><p>Des milliers de points rouges projetés, plus serrés sur le visage. Une onde part du centre et fait briller le relief.</p><span class="t">VOIR →</span></a>
+  <a class="carte pc" style="--c:#39b6ff" href="/propals/laser/scan.html?s=c"><div class="n">C · CHEVEUX · BLEU</div><h2>Filaments</h2><p>Un rideau de lasers bleus passe sur la chevelure, fil par fil, seulement là où il y a des cheveux. Des étincelles tombent derrière.</p><span class="t">VOIR →</span></a>
+  <a class="carte pd" style="--c:#ff3b5c" href="/propals/laser/scan.html?s=d"><div class="n">D · PEAU · ROUGE</div><h2>Grille épousée</h2><p>Une grille laser plate sur le décor, qui se courbe en touchant le visage, comme une lumière structurée. Une vague la parcourt.</p><span class="t">VOIR →</span></a>
+  <a class="carte pe" style="--c:#e8c77f" href="/propals/laser/scan.html?s=e"><div class="n">E · PEAU · ROUGE ET OR</div><h2>Faisceaux croisés</h2><p>Deux sources, rouge et or, balaient le visage depuis deux coins opposés. Là où elles se croisent, deux lignes dessinent le relief.</p><span class="t">VOIR →</span></a>
+  <a class="carte pf" style="--c:#f4f1ea" href="/propals/laser/scan.html?s=f"><div class="n">F · PEAU ET CHEVEUX · BLANC</div><h2>Prisme</h2><p>La version luxe : un rayon blanc décomposé en rouge, vert et bleu traverse en diagonale. Il laisse entrevoir le maillage du visage.</p><span class="t">VOIR →</span></a>
+</div>
+<div class="pied">AUTORISEZ LA CAMÉRA · TOUT RESTE SUR VOTRE TÉLÉPHONE</div>
+</body>
+</html>

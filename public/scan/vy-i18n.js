@@ -27,7 +27,7 @@
   var KEY = 'vyvre-lang';
   /* chiffres du catalogue : valeurs de repli, ecrasees par VY.chiffres() des que le
      catalogue reellement servi a repondu. Formatees selon la langue affichee. */
-  var NUM = { p: 5599, b: 146 };
+  var NUM = { p: 5831, b: 151 };
   var BASE = '/scan/i18n/';
 
   /* ---------- etat ---------- */
@@ -116,7 +116,7 @@
     if (loading[c]) { loading[c].push(cb); return; }
     loading[c] = [cb];
     var s = d.createElement('script');
-    s.src = BASE + c + '.js?v=25';
+    s.src = BASE + c + '.js?v=26';
     s.onload = s.onerror = function () {
       var q = loading[c] || []; loading[c] = null;
       for (var i = 0; i < q.length; i++) q[i]();

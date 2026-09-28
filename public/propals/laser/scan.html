@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>VYVRE · Propositions laser</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{--rouge:#ff2a3c;--bleu:#39b6ff;--or:#e8c77f}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:#000;color:#fff;font-family:Inter,system-ui,sans-serif;overflow:hidden}
+video{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1);filter:brightness(.46) contrast(1.18) saturate(.7)}
+body.s-c video{filter:brightness(.5) contrast(1.1) saturate(.55) hue-rotate(-8deg)}
+body.s-f video{filter:brightness(.55) contrast(1.12) saturate(.3)}
+canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
+.haut{position:fixed;top:0;left:0;right:0;padding:calc(18px + env(safe-area-inset-top)) 22px 0;display:flex;justify-content:space-between;align-items:flex-start;z-index:5}
+.marque{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.34em;color:rgba(255,255,255,.7)}
+.marque b{display:block;font-family:Inter;font-weight:200;font-size:26px;letter-spacing:-.02em;color:#fff;margin-top:8px;text-transform:none}
+.marque i{display:block;font-style:normal;margin-top:6px;color:var(--c,var(--rouge))}
+.retour{font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.24em;color:#fff;text-decoration:none;border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:9px 14px;background:rgba(0,0,0,.35)}
+.bas{position:fixed;left:0;right:0;bottom:0;padding:0 16px calc(20px + env(safe-area-inset-bottom));z-index:5;display:flex;flex-direction:column;gap:14px;align-items:center}
+.lecture{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.3em;color:rgba(255,255,255,.75);text-align:center;min-height:16px}
+.lecture b{color:var(--c,var(--rouge));font-weight:400}
+.choix{display:flex;gap:8px;flex-wrap:wrap;justify-content:center}
+.choix a{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.18em;color:rgba(255,255,255,.6);text-decoration:none;border:1px solid rgba(255,255,255,.2);border-radius:999px;padding:8px 13px;background:rgba(0,0,0,.4)}
+.choix a.on{color:#fff;border-color:var(--c,var(--rouge));box-shadow:0 0 18px color-mix(in srgb,var(--c,var(--rouge)) 55%,transparent)}
+.msg{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:30px;font-weight:200;font-size:22px;line-height:1.4;z-index:4;color:rgba(255,255,255,.85)}
+.msg small{display:block;font-family:'IBM Plex Mono',monospace;font-size:10.5px;letter-spacing:.3em;color:rgba(255,255,255,.5);margin-top:14px}
+</style>
+</head>
+<body>
+<video id="v" playsinline muted autoplay></video>
+<canvas id="c"></canvas>
+<div class="msg" id="msg">Ouverture de la caméra…<small>AUTORISEZ LA CAMÉRA POUR VOIR LE SCAN</small></div>
+<div class="haut">
+  <div class="marque">VYVRE · PROPOSITION <span id="lettre">A</span><b id="titre"></b><i id="sous"></i></div>
+  <a class="retour" href="/propals/laser/">TOUTES</a>
+</div>
+<div class="bas">
+  <div class="lecture" id="lecture"></div>
+  <nav class="choix" id="choix"></nav>
+</div>
+<script type="module">
+/* ==========================================================================
+   SIX FACONS DE MONTRER LA LECTURE (27/09/2026, demande de Charles apres la pub
+   Revitalift aux lasers rouges). Tout suit le VRAI visage : les 478 reperes de
+   face_landmarker (MediaPipe), et pour les cheveux le masque de hair_segmenter.
+   Rien n'est mesure ici : c'est une mise en scene, a brancher ensuite sur le scan.
+   ========================================================================== */
+import { FilesetResolver, FaceLandmarker, ImageSegmenter } from "/cheveux/vendor/mediapipe/vision_bundle.mjs";
+
+const STYLES = {
+  a:{ titre:'Nappe laser', sous:'PEAU · ROUGE', c:'#ff2a3c', cheveux:false },
+  b:{ titre:'Projecteur de points', sous:'PEAU · ROUGE', c:'#ff2a3c', cheveux:false },
+  c:{ titre:'Filaments', sous:'CHEVEUX · BLEU', c:'#39b6ff', cheveux:true },
+  d:{ titre:'Grille épousée', sous:'PEAU · ROUGE', c:'#ff3b5c', cheveux:false },
+  e:{ titre:'Faisceaux croisés', sous:'PEAU · ROUGE ET OR', c:'#ff2a3c', cheveux:false },
+  f:{ titre:'Prisme', sous:'PEAU ET CHEVEUX · BLANC', c:'#f4f1ea', cheveux:true },
+};
+const Q = new URLSearchParams(location.search);
+const S = (Q.get('s') || 'a').toLowerCase() in STYLES ? (Q.get('s') || 'a').toLowerCase() : 'a';
+const ST = STYLES[S];
+document.body.classList.add('s-' + S);
+document.documentElement.style.setProperty('--c', ST.c);
+document.getElementById('lettre').textContent = S.toUpperCase();
+document.getElementById('titre').textContent = ST.titre;
+document.getElementById('sous').textContent = ST.sous;
+document.getElementById('choix').innerHTML = Object.keys(STYLES).map(k =>
+  '<a href="?s=' + k + '"' + (k === S ? ' class="on"' : '') + '>' + k.toUpperCase() + '</a>').join('');
+
+const v = document.getElementById('v'), cv = document.getElementById('c'), x = cv.getContext('2d');
+let W = 0, H = 0, DPR = 1;
+function taille(){ DPR = Math.min(2, devicePixelRatio || 1); W = innerWidth; H = innerHeight; cv.width = W*DPR; cv.height = H*DPR; x.setTransform(DPR,0,0,DPR,0,0); }
+addEventListener('resize', taille); taille();
+
+/* ---- camera ---- */
+try {
+  const flux = await navigator.mediaDevices.getUserMedia({ audio:false, video:{ facingMode:'user', width:{ ideal:1280 }, height:{ ideal:720 } } });
+  v.srcObject = flux; await v.play();
+  document.getElementById('msg').style.display = 'none';
+} catch(e){
+  document.getElementById('msg').innerHTML = 'La caméra est nécessaire pour voir la proposition.<small>AUTORISEZ-LA DANS LE NAVIGATEUR, PUIS RECHARGEZ</small>';
+  throw e;
+}
+
+/* ---- lecture ---- */
+const fs = await FilesetResolver.forVisionTasks('/cheveux/vendor/mediapipe/wasm');
+const fo = d => ({ baseOptions:{ modelAssetPath:'/cheveux/vendor/mediapipe/modeles/face_landmarker.task', delegate:d }, runningMode:'VIDEO', numFaces:1 });
+let face; try { face = await FaceLandmarker.createFromOptions(fs, fo('GPU')); } catch(e){ face = await FaceLandmarker.createFromOptions(fs, fo('CPU')); }
+let seg = null;
+if(ST.cheveux) seg = await ImageSegmenter.createFromOptions(fs, { baseOptions:{ modelAssetPath:'/cheveux/vendor/mediapipe/modeles/hair_segmenter.tflite', delegate:'CPU' }, runningMode:'VIDEO', outputConfidenceMasks:true, outputCategoryMask:false });
+const ARETES = FaceLandmarker.FACE_LANDMARKS_TESSELATION;
+const OVALE = FaceLandmarker.FACE_LANDMARKS_FACE_OVAL;
+const ORDRE = (() => { const suiv = {}; OVALE.forEach(e => suiv[e.start] = e.end); const o = [OVALE[0].start]; for(let i=0;i<OVALE.length;i++){ const n = suiv[o[o.length-1]]; if(n === undefined || n === o[0]) break; o.push(n); } return o; })();
+function clipVisage(){ x.beginPath(); ORDRE.forEach((i, k) => { const p = L[i]; k ? x.lineTo(ex(p), ey(p)) : x.moveTo(ex(p), ey(p)); }); x.closePath(); x.clip(); }
+
+/* petite image pour les modeles (et masque cheveux lisse) */
+const PW = 256; let PH = 144;
+const petit = document.createElement('canvas'), pc = petit.getContext('2d', { willReadFrequently:true });
+const mk = document.createElement('canvas'), mkc = mk.getContext('2d'); let MASK = null, mid = null;
+
+/* repere video -> ecran (object-fit:cover + miroir) */
+let dw = 0, dh = 0, ox = 0, oy = 0;
+function cadre(){ const vw = v.videoWidth || 1280, vh = v.videoHeight || 720, s = Math.max(W/vw, H/vh); dw = vw*s; dh = vh*s; ox = (W-dw)/2; oy = (H-dh)/2; }
+const ex = p => ox + (1 - p.x) * dw, ey = p => oy + p.y * dh;
+
+let L = null, tour = 0, tLast = 0;
+function lire(now){
+  PH = Math.round(PW * (v.videoHeight || 720) / (v.videoWidth || 1280));
+  if(petit.width !== PW || petit.height !== PH){ petit.width = PW; petit.height = PH; mk.width = PW; mk.height = PH; MASK = new Float32Array(PW*PH); mid = mkc.createImageData(PW, PH); }
+  pc.drawImage(v, 0, 0, PW, PH);
+  try { const r = face.detectForVideo(v, now); L = (r.faceLandmarks && r.faceLandmarks[0]) || null; } catch(e){}
+  if(Q.has('debug')) window.__dbg = { vw:v.videoWidth, vh:v.videoHeight, W, H, dw, dh, ox, oy, pts: L && [10,152,234,454].map(i => [+L[i].x.toFixed(3), +L[i].y.toFixed(3)]) };
+  if(seg && (tour++ % 2 === 0)){
+    try { seg.segmentForVideo(petit, now, r => { const cm = r.confidenceMasks; if(!cm) return; const m = (cm[1] || cm[0]).getAsFloat32Array();
+      for(let i=0;i<m.length;i++) MASK[i] = MASK[i]*.35 + m[i]*.65; cm.forEach(z => z.close && z.close()); }); } catch(e){}
+  }
+}
+/* masque cheveux dessine dans le repere ecran, teinte donnee */
+function masqueCheveux(r, g, b, a){
+  if(!MASK) return;
+  for(let i=0;i<PW*PH;i++){ const k = i*4, m = MASK[i]; mid.data[k]=r; mid.data[k+1]=g; mid.data[k+2]=b; mid.data[k+3] = m > .45 ? Math.min(255, (m-.45)/.4*255*a) : 0; }
+  mkc.putImageData(mid, 0, 0);
+  x.save(); x.translate(ox + dw, oy); x.scale(-dw/PW, dh/PH); x.drawImage(mk, 0, 0); x.restore();
+}
+const masqueEn = (sx, sy) => { if(!MASK) return 0; const u = 1 - (sx - ox)/dw, w = (sy - oy)/dh; if(u<0||u>1||w<0||w>1) return 0; return MASK[Math.min(PH-1,(w*PH)|0)*PW + Math.min(PW-1,(u*PW)|0)]; };
+
+/* intersections du maillage avec une droite y = c (ou x = c) : la ligne laser qui epouse le visage */
+function coupe(c, axe){
+  const pts = [];
+  for(const e of ARETES){
+    const a = L[e.start], b = L[e.end];
+    const va = axe ? ey(a) : ex(a), vb = axe ? ey(b) : ex(b);
+    if((va - c) * (vb - c) < 0){
+      const t = (c - va) / (vb - va);
+      pts.push({ x: ex(a) + (ex(b)-ex(a))*t, y: ey(a) + (ey(b)-ey(a))*t, z: a.z + (b.z-a.z)*t });
+    }
+  }
+  pts.sort((p, q) => axe ? p.x - q.x : p.y - q.y);
+  return pts;
+}
+function trait(pts, couleur, largeur, lueur){
+  if(pts.length < 2) return;
+  x.save(); x.strokeStyle = couleur; x.lineWidth = largeur; x.shadowColor = couleur; x.shadowBlur = lueur; x.lineCap = 'round'; x.lineJoin = 'round';
+  x.beginPath(); x.moveTo(pts[0].x, pts[0].y);
+  for(let i=1;i<pts.length;i++){ const p = pts[i], q = pts[i-1]; if(Math.hypot(p.x-q.x, p.y-q.y) > 40){ x.moveTo(p.x, p.y); continue; } x.lineTo(p.x, p.y); }
+  x.stroke(); x.restore();
+}
+function boite(){ let x0=1e9,y0=1e9,x1=-1e9,y1=-1e9; for(const i of [10,152,234,454,1,0]){ } for(const p of L){ const a = ex(p), b = ey(p); if(a<x0)x0=a; if(a>x1)x1=a; if(b<y0)y0=b; if(b>y1)y1=b; } return { x0, y0, x1, y1, w:x1-x0, h:y1-y0 }; }
+const ROUGE = a => 'rgba(255,42,60,' + a + ')', BLEU = a => 'rgba(57,182,255,' + a + ')', OR = a => 'rgba(232,199,127,' + a + ')';
+
+/* ---- les lectures affichees (mise en scene) ---- */
+const MOTS = ST.cheveux && S === 'c' ? ['FIBRE', 'BOUCLE', 'COULEUR', 'DENSITÉ'] : ['ÉCLAT', 'RIDES', 'PORES', 'HYDRATATION', 'TACHES'];
+function lecture(t){ const i = Math.floor(t / 1.6) % MOTS.length; const p = Math.min(99, Math.floor((t % 9.6) / 9.6 * 100));
+  document.getElementById('lecture').innerHTML = (L ? 'LECTURE · <b>' + MOTS[i] + '</b> · ' + String(p).padStart(2,'0') + ' %' : 'PLACEZ VOTRE VISAGE DANS LE CADRE'); }
+
+/* ================== A · NAPPE LASER (la pub) ================== */
+const traces = [];
+function styleA(t){
+  const b = boite(); const per = 3.2, k = (t % per) / per, aller = k < .5 ? k*2 : 2 - k*2;
+  const y = b.y0 - b.h*.08 + aller * b.h*1.16;
+  // la nappe : un plan rouge tres fin sur toute la largeur, plus vif sur le visage
+  const g = x.createLinearGradient(0, y-60, 0, y+2); g.addColorStop(0, ROUGE(0)); g.addColorStop(1, ROUGE(.16));
+  x.fillStyle = g; x.fillRect(0, y-60, W, 62);
+  x.fillStyle = ROUGE(.8); x.fillRect(0, y-.75, W, 1.5);
+  // la lumiere rouge sur la peau : une bande douce, seulement dans l'ovale du visage
+  x.save(); clipVisage(); x.globalCompositeOperation = 'lighter';
+  const bande = x.createLinearGradient(0, y - 46, 0, y + 46);
+  bande.addColorStop(0, ROUGE(0)); bande.addColorStop(.5, ROUGE(.42)); bande.addColorStop(1, ROUGE(0));
+  x.fillStyle = bande; x.fillRect(b.x0 - 20, y - 46, b.w + 40, 92); x.restore();
+  const pts = coupe(y, true);
+  trait(pts, '#ff2a3c', 4, 30); trait(pts, '#ff5a68', 2, 12); trait(pts, '#fff4f5', 1, 4);
+  // la source : deux eventails depuis le haut de l'ecran
+  x.save(); x.globalCompositeOperation = 'lighter';
+  for(const sx of [W*.5]){ const gg = x.createLinearGradient(sx, 0, sx, y); gg.addColorStop(0, ROUGE(.0)); gg.addColorStop(1, ROUGE(.10));
+    x.fillStyle = gg; x.beginPath(); x.moveTo(sx, -10); x.lineTo(b.x0 - 40, y); x.lineTo(b.x1 + 40, y); x.closePath(); x.fill(); }
+  x.restore();
+  // rémanence : les reperes que la nappe vient de toucher restent allumes un instant
+  for(let i=0;i<L.length;i+=3){ const py = ey(L[i]); if(Math.abs(py - y) < 3) traces.push({ x:ex(L[i]), y:py, t }); }
+  while(traces.length && t - traces[0].t > 1.4) traces.shift();
+  x.save(); x.globalCompositeOperation = 'lighter';
+  for(const p of traces){ const a = 1 - (t - p.t)/1.4; x.fillStyle = ROUGE(.8*a); x.beginPath(); x.arc(p.x, p.y, 1.3, 0, 7); x.fill(); }
+  x.restore();
+}
+
+/* ================== B · PROJECTEUR DE POINTS ================== */
+let champ = null;
+function styleB(t){
+  if(!champ){ champ = []; for(let i=0;i<900;i++) champ.push({ x:Math.random(), y:Math.random(), p:Math.random()*6.28 }); }
+  x.save(); x.globalCompositeOperation = 'lighter';
+  for(const d of champ){ const a = .12 + .1*Math.sin(t*2 + d.p); x.fillStyle = ROUGE(a); x.fillRect(d.x*W, d.y*H, 1.2, 1.2); }
+  // sur le visage : les reperes, et le milieu de chaque arete (un semis serre qui epouse le relief)
+  const onde = (t % 2.4) / 2.4, b = boite(), cx = (b.x0+b.x1)/2, cy = (b.y0+b.y1)/2, R = Math.hypot(b.w, b.h) * .62;
+  const dessine = (px, py, z) => { const d = Math.hypot(px-cx, py-cy) / R; const vague = Math.exp(-Math.pow((d - onde)*7, 2));
+    const r = 1.8 + 2.4*vague + Math.max(-.5, Math.min(1.4, -z*9));
+    x.fillStyle = ROUGE(.22 + .35*vague); x.beginPath(); x.arc(px, py, r*2.2, 0, 7); x.fill();
+    x.fillStyle = vague > .35 ? 'rgba(255,235,238,' + (.75 + .25*vague) + ')' : ROUGE(.85); x.beginPath(); x.arc(px, py, r*.7, 0, 7); x.fill(); };
+  for(const p of L) dessine(ex(p), ey(p), p.z);
+  for(let i=0;i<ARETES.length;i+=2){ const a = L[ARETES[i].start], c = L[ARETES[i].end]; dessine((ex(a)+ex(c))/2, (ey(a)+ey(c))/2, (a.z+c.z)/2); }
+  x.restore();
+}
+
+/* ================== C · FILAMENTS (cheveux, bleu) ================== */
+const etincelles = [];
+function styleC(t){
+  masqueCheveux(57, 182, 255, .07);
+  const per = 3.6, k = (t % per) / per, sx = ox + (k < .5 ? k*2 : 2 - k*2) * dw;
+  // le rideau : des filaments verticaux, seulement la ou il y a des cheveux
+  x.save(); x.globalCompositeOperation = 'lighter';
+  for(let gx = 0; gx < W; gx += 5){
+    const prox = Math.exp(-Math.pow((gx - sx) / 70, 2));
+    let enCours = false, y0 = 0;
+    for(let gy = 0; gy <= H; gy += 6){
+      const dans = gy < H && masqueEn(gx, gy) > .5;
+      if(dans && !enCours){ enCours = true; y0 = gy; }
+      if((!dans || gy >= H) && enCours){ enCours = false;
+        const a = .16 + .7*prox; x.strokeStyle = BLEU(a); x.lineWidth = .7 + 1.2*prox; x.shadowColor = '#39b6ff'; x.shadowBlur = 8*prox;
+        x.beginPath(); x.moveTo(gx, y0); x.lineTo(gx + Math.sin(gy*.02 + t)*2, gy); x.stroke();
+        if(prox > .8 && Math.random() < .08) etincelles.push({ x:gx, y:y0 + Math.random()*(gy-y0), vx:(Math.random()-.5)*.6, vy:.6+Math.random(), t }); }
+    }
+  }
+  x.shadowBlur = 0;
+  x.fillStyle = BLEU(.9); x.fillRect(sx - .6, 0, 1.2, H);
+  const g = x.createLinearGradient(sx - 120, 0, sx + 2, 0); g.addColorStop(0, BLEU(0)); g.addColorStop(1, BLEU(.12)); x.fillStyle = g; x.fillRect(sx - 120, 0, 122, H);
+  for(let i = etincelles.length - 1; i >= 0; i--){ const e = etincelles[i], a = 1 - (t - e.t)/.9; if(a <= 0){ etincelles.splice(i,1); continue; }
+    e.x += e.vx; e.y += e.vy; x.fillStyle = 'rgba(200,236,255,' + a + ')'; x.fillRect(e.x, e.y, 1.6, 1.6); }
+  x.restore();
+  if(L){ const pts = OVALE.map(e => ({ x:ex(L[e.start]), y:ey(L[e.start]) })); pts.push(pts[0]); trait(pts, BLEU(.35), .8, 6); }
+}
+
+/* ================== D · GRILLE EPOUSEE ================== */
+function styleD(t){
+  const b = boite(), pas = Math.max(9, b.w / 16), dec = (t * 14) % pas;
+  x.save(); x.globalCompositeOperation = 'lighter';
+  // la grille plate sur le decor, tres discrete
+  x.strokeStyle = 'rgba(255,59,92,.12)'; x.lineWidth = 1;
+  for(let gx = (b.x0 % pas) + dec; gx < W; gx += pas){ x.beginPath(); x.moveTo(gx, 0); x.lineTo(gx, H); x.stroke(); }
+  for(let gy = (b.y0 % pas) + dec; gy < H; gy += pas){ x.beginPath(); x.moveTo(0, gy); x.lineTo(W, gy); x.stroke(); }
+  x.restore();
+  // sur le visage : les memes lignes, mais qui suivent le relief
+  const vague = (t % 2.8) / 2.8;
+  for(let gy = b.y0 - pas + dec; gy < b.y1 + pas; gy += pas){ const f = Math.exp(-Math.pow(((gy - b.y0)/b.h - vague) * 5, 2)); trait(coupe(gy, true), 'rgba(255,59,92,' + (.55 + .45*f) + ')', 1.3 + 1.8*f, 8 + 16*f); }
+  for(let gx = b.x0 - pas + dec; gx < b.x1 + pas; gx += pas){ trait(coupe(gx, false), 'rgba(255,59,92,.6)', 1.1, 8); }
+}
+
+/* ================== E · FAISCEAUX CROISES ================== */
+function styleE(t){
+  const b = boite(), sources = [{ x:-20, y:H*.18, c:ROUGE }, { x:W+20, y:H*.82, c:OR }];
+  x.save(); x.globalCompositeOperation = 'lighter';
+  sources.forEach((s, j) => {
+    const ang = t * (j ? -.9 : .9);
+    for(let i = 0; i < L.length; i += 3){
+      const p = L[i], px = ex(p), py = ey(p);
+      const phase = (Math.atan2(py - s.y, px - s.x) * 9 + ang) % 6.283;
+      const a = Math.max(0, Math.cos(phase)) ** 4;
+      if(a < .05) continue;
+      x.strokeStyle = s.c(.16 * a); x.lineWidth = .7; x.beginPath(); x.moveTo(s.x, s.y); x.lineTo(px, py); x.stroke();
+      x.fillStyle = s.c(.95 * a); x.beginPath(); x.arc(px, py, 1.8 + 1.8*a, 0, 7); x.fill();
+    }
+  });
+  x.restore();
+  // la croix : ou les deux nappes se rencontrent, une ligne horizontale et une verticale qui epousent le visage
+  const k = (Math.sin(t*.8) + 1) / 2, cy = b.y0 + b.h*(.2 + .6*k), cx = b.x0 + b.w*(.8 - .6*k);
+  trait(coupe(cy, true), '#ff2a3c', 3, 26); trait(coupe(cy, true), '#fff0f1', 1, 4);
+  trait(coupe(cx, false), '#e8c77f', 3, 26); trait(coupe(cx, false), '#fff8e8', 1, 4);
+}
+
+/* ================== F · PRISME (blanc, luxe) ================== */
+function styleF(t){
+  if(seg) masqueCheveux(244, 241, 234, .10);
+  const b = boite(), per = 4, k = (t % per) / per;
+  const d0 = (b.x0 + b.y0) - 80 + k * (b.w + b.h + 160);  // une diagonale x + y = d0
+  x.save(); x.globalCompositeOperation = 'lighter';
+  [['rgba(255,70,90,', -5], ['rgba(90,255,170,', 0], ['rgba(90,150,255,', 5]].forEach(([c, dd]) => {
+    const dd0 = d0 + dd;
+    x.strokeStyle = c + '.9)'; x.lineWidth = 2; x.shadowColor = c + '1)'; x.shadowBlur = 18; x.beginPath(); x.moveTo(dd0 - H, H); x.lineTo(dd0, 0); x.stroke(); x.shadowBlur = 0;
+    // sur le visage : les reperes proches de la diagonale s'allument dans leur couleur
+    for(const p of L){ const s = ex(p) + ey(p) - dd0; if(Math.abs(s) < 9){ x.fillStyle = c + (1 - Math.abs(s)/9) + ')'; x.beginPath(); x.arc(ex(p), ey(p), 2.2, 0, 7); x.fill(); } }
+  });
+  // la trace blanche derriere le passage : le maillage entrevu
+  x.strokeStyle = 'rgba(244,241,234,.22)'; x.lineWidth = .6; x.beginPath();
+  for(let i=0;i<ARETES.length;i+=2){ const a = L[ARETES[i].start], c = L[ARETES[i].end]; const s = ex(a) + ey(a) - d0; if(s < 0 && s > -220){ x.moveTo(ex(a), ey(a)); x.lineTo(ex(c), ey(c)); } }
+  x.stroke(); x.restore();
+}
+
+const DESSIN = { a:styleA, b:styleB, c:styleC, d:styleD, e:styleE, f:styleF };
+const t0 = performance.now();
+function image(now){
+  if(v.readyState >= 2 && now - tLast > 30){ tLast = now; lire(now); }
+  cadre(); x.clearRect(0, 0, W, H);
+  const t = (now - t0) / 1000;
+  if(S === 'c') { DESSIN.c(t); }
+  else if(L) DESSIN[S](t);
+  lecture(t);
+  requestAnimationFrame(image);
+}
+requestAnimationFrame(image);
+</script>
+</body>
+</html>
