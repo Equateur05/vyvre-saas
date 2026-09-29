@@ -175,7 +175,7 @@ function image(now){
   const tt = t - debut;
   let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9; OVALE.forEach(i => { const p = P(i); x0 = Math.min(x0, p.x); x1 = Math.max(x1, p.x); y0 = Math.min(y0, p.y); y1 = Math.max(y1, p.y); });
   const h = y1 - y0, w = x1 - x0;
-  const per = 4.2, cx0 = (x0 + x1)/2, cy0 = (y0 + y1)/2;
+  const per = 3.2, cx0 = (x0 + x1)/2, cy0 = (y0 + y1)/2;
   const va = (tt2, p) => .5 - .5*Math.cos(((tt2 % p)/p) * 2*Math.PI);          // aller-retour doux
   let yL = null, xL = null;
   x.save(); x.globalCompositeOperation = 'lighter';
@@ -207,13 +207,14 @@ function image(now){
     yL = c.y; xL = c.x;
   } else if(S === 7){
     // la sequence : deux balayages horizontaux, puis deux verticaux, puis la trame en deux allers-retours
-    const cyc = tt % (per*4 + 1.2), ph = cyc < per ? 0 : cyc < per*2 ? 1 : cyc < per*4 ? 2 : 3;
+    // 29/09 (Charles) : plus rapide, et la trame finale ne passe qu'une fois, de haut en bas
+    const TR = 2.2, FIN = per*2 + TR, cyc = tt % (FIN + 1.2), ph = cyc < per ? 0 : cyc < per*2 ? 1 : cyc < FIN ? 2 : 3;
     const etiq = ['BALAYAGE HORIZONTAL', 'BALAYAGE VERTICAL', 'TRAME', 'LECTURE COMPLÈTE'][ph];
     document.getElementById('phase').dataset.seq = etiq;
     if(ph === 0){ yL = y0 - h*.06 + va(cyc, per) * h*1.12; nappe(0, 1, yL); }
     else if(ph === 1){ xL = x0 - w*.06 + va(cyc - per, per) * w*1.12; nappe(1, 0, xL); }
-    else if(ph === 2){ yL = trame(y0 + va(cyc - per*2, per*2/2) * h, 1); }
-    else { trame(-1e9, Math.max(0, 1 - (cyc - per*4)/1.2)); }
+    else if(ph === 2){ yL = trame(y0 - h*.05 + va(cyc - per*2, TR*2) * h*1.1, 1); }
+    else { trame(-1e9, Math.max(0, 1 - (cyc - FIN)/1.2)); }
   } else if(S === 6){
     yL = trame(y0 + va(tt, per) * h, 1);
   }
@@ -243,7 +244,7 @@ function image(now){
     texte(c.ita == null ? 'ITA° —' : 'ITA° ' + f(c.ita), bx + dx, cy + 20, al, .65*a);
   });
   // progression : trois passages complets = une lecture
-  const pc = S === 7 ? Math.min(100, Math.round((tt % (per*4 + 1.2)) / (per*4) * 100)) : Math.min(100, Math.round(tt / (4.2*1.5) * 100));
+  const pc = S === 7 ? Math.min(100, Math.round((tt % (per*2 + 3.4)) / (per*2 + 2.2) * 100)) : Math.min(100, Math.round(tt / (per*1.5) * 100));
   document.getElementById('pct').textContent = String(pc).padStart(2, '0');
   const ph = document.getElementById('phase'); ph.textContent = S === 7 ? (ph.dataset.seq || '') : (pc < 100 ? 'LECTURE EN COURS' : 'LECTURE COMPLÈTE');
   const vus = lu.filter(z => z.c).map(z => z.c);
