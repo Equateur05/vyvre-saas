@@ -53,7 +53,7 @@ canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
    ========================================================================== */
 import { FilesetResolver, FaceLandmarker } from "/cheveux/vendor/mediapipe/vision_bundle.mjs";
 
-const MODELES = { 1:'UNE LIGNE', 2:'LIGNES CROISÉES', 3:'RIDEAU', 4:'POINT', 5:'ROTATION', 6:'TRAME', 7:'SÉQUENCE' };
+const MODELES = { 1:'UNE LIGNE', 2:'LIGNES CROISÉES', 3:'RIDEAU', 4:'POINT', 5:'ROTATION', 6:'TRAME', 7:'SÉQUENCE', 8:'SILLAGE', 9:'MAILLAGE', 10:'PROFIL', 11:'SYMÉTRIE', 12:'STÉRÉO' };
 const Q = new URLSearchParams(location.search), S = MODELES[Q.get('s')] ? +Q.get('s') : 1, CROIX = S === 2;
 /* 29/09 : intensite calmee (Charles). Cinq couleurs de laser. halo = la lumiere qui diffuse, trait = la ligne, coeur = le centre presque blanc */
 const COULEURS = {
@@ -88,10 +88,13 @@ function lire(now){
   vu = now;
   const EW = 320, EH = Math.round(EW * v.videoHeight / v.videoWidth); if(ech.width !== EW || ech.height !== EH){ ech.width = EW; ech.height = EH; }
   ec.drawImage(v, 0, 0, EW, EH);
+  mesurerZones();
 }
 let dw=0, dh=0, ox=0, oy=0;
 function cadre(){ const vw = v.videoWidth || 1280, vh = v.videoHeight || 720, s = Math.max(W/vw, H/vh); dw = vw*s; dh = vh*s; ox = (W-dw)/2; oy = (H-dh)/2; }
 const P = i => ({ x: ox + (1 - L[i].x) * dw, y: oy + L[i].y * dh });
+let PC = [];   // les 478 points projetes, recalcules une fois par image
+function projeter(){ if(!L) return; if(PC.length !== L.length) PC = L.map(() => ({ x:0, y:0 })); for(let i = 0; i < L.length; i++){ PC[i].x = ox + (1 - L[i].x) * dw; PC[i].y = oy + L[i].y * dh; } }
 
 /* ---- la ligne projetee : coupe du maillage, deplacee selon la profondeur ---- */
 function lisse(o, cle){ return o.map((p, i) => { const w = o.slice(Math.max(0, i-2), i+3).map(q => q[cle]).sort((a, b) => a-b); const r = { x:p.x, y:p.y }; r[cle] = w[w.length >> 1]; return r; }); }
@@ -102,18 +105,19 @@ function coupeV(xx){ const pts = [], k = dw*.3;
   for(const e of ARETES){ const a = P(e.start), b = P(e.end); if((a.x-xx)*(b.x-xx) < 0){ const t = (xx-a.x)/(b.x-a.x), z = L[e.start].z + (L[e.end].z-L[e.start].z)*t; pts.push({ x:xx - z*k*.7, y:a.y+(b.y-a.y)*t }); } }
   pts.sort((p,q) => p.y-q.y); const o = []; for(const p of pts) if(!o.length || p.y - o[o.length-1].y > 1.2) o.push(p); return lisse(o, 'x'); }
 
-function coupeDir(nx, ny, c){ // la nappe laser : les points ou n·p = c, deplaces le long de n selon la profondeur
-  const pts = [], k = dw*.3, tx = -ny, ty = nx;
-  for(const e of ARETES){ const a = P(e.start), b = P(e.end), sa = a.x*nx + a.y*ny - c, sb = b.x*nx + b.y*ny - c;
+function coupeDir(nx, ny, c, kf = .3){ // la nappe laser : les points ou n·p = c, deplaces le long de n selon la profondeur
+  const pts = [], k = dw*kf, tx = -ny, ty = nx;
+  for(const e of ARETES){ const a = PC[e.start], b = PC[e.end], sa = a.x*nx + a.y*ny - c, sb = b.x*nx + b.y*ny - c;
     if(sa*sb < 0){ const t = sa/(sa - sb), z = L[e.start].z + (L[e.end].z-L[e.start].z)*t;
-      pts.push({ x:a.x+(b.x-a.x)*t - nx*z*k, y:a.y+(b.y-a.y)*t - ny*z*k, s:(a.x+(b.x-a.x)*t)*tx + (a.y+(b.y-a.y)*t)*ty }); } }
+      pts.push({ x:a.x+(b.x-a.x)*t - nx*z*k, y:a.y+(b.y-a.y)*t - ny*z*k, s:(a.x+(b.x-a.x)*t)*tx + (a.y+(b.y-a.y)*t)*ty, z }); } }
   pts.sort((p,q) => p.s-q.s); const o = []; for(const p of pts) if(!o.length || p.s - o[o.length-1].s > 1.2) o.push(p);
   // lissage median perpendiculaire a la ligne
-  return o.map((p, i) => { const w = o.slice(Math.max(0, i-2), i+3).map(q => q.x*nx + q.y*ny).sort((a, b) => a-b); const m = w[w.length >> 1], d = m - (p.x*nx + p.y*ny); return { x:p.x + nx*d, y:p.y + ny*d, s:p.s }; });
+  return o.map((p, i) => { const w = o.slice(Math.max(0, i-2), i+3).map(q => q.x*nx + q.y*ny).sort((a, b) => a-b); const m = w[w.length >> 1], d = m - (p.x*nx + p.y*ny); return { x:p.x + nx*d, y:p.y + ny*d, s:p.s, z:p.z }; });
 }
 function longueurs(p){ const l=[0]; for(let i=1;i<p.length;i++) l.push(l[i-1]+Math.hypot(p[i].x-p[i-1].x,p[i].y-p[i-1].y)); return l; }
 function pointA(p,l,d){ let i=1; while(i<l.length-1&&l[i]<d) i++; const t=Math.max(0,Math.min(1,(d-l[i-1])/((l[i]-l[i-1])||1))); return {x:p[i-1].x+(p[i].x-p[i-1].x)*t,y:p[i-1].y+(p[i].y-p[i-1].y)*t}; }
 function point(p, intensite){ // un point laser : coeur blanc, halo qui diffuse
+  intensite *= VIE;
   [[14,.025],[8,.05],[4,.13],[1.9,.35]].forEach(([r, a]) => { x.fillStyle = rgba(K.halo, a*intensite); x.beginPath(); x.arc(p.x, p.y, r, 0, 7); x.fill(); });
   x.fillStyle = rgba(K.coeur, intensite); x.beginPath(); x.arc(p.x, p.y, .8, 0, 7); x.fill();
 }
@@ -121,7 +125,7 @@ function point(p, intensite){ // un point laser : coeur blanc, halo qui diffuse
 /* ---- le rendu physique d'une ligne laser ---- */
 function tracer(pts){ x.beginPath(); x.moveTo(pts[0].x, pts[0].y); for(let i=1;i<pts.length-1;i++) x.quadraticCurveTo(pts[i].x, pts[i].y, (pts[i].x+pts[i+1].x)/2, (pts[i].y+pts[i+1].y)/2); x.lineTo(pts[pts.length-1].x, pts[pts.length-1].y); }
 function laser(pts, intensite){
-  if(pts.length < 2) return;
+  if(pts.length < 2) return; intensite *= VIE;
   x.lineCap = 'round'; x.lineJoin = 'round';
   // halo : plusieurs passes de plus en plus larges et faibles (un « bloom » qui marche partout, iPhone compris)
   [[22,.018],[12,.033],[6,.066],[2.5,.19]].forEach(([w, a]) => { tracer(pts); x.strokeStyle = rgba(K.halo, a*intensite); x.lineWidth = w; x.stroke(); });
@@ -133,20 +137,20 @@ function laser(pts, intensite){
     x.fillRect(p.x + (Math.random()-.5)*2, p.y + (Math.random()-.5)*2, 1, 1); }
 }
 /* la lumiere qui diffuse dans la peau, autour de la ligne, seulement sur le visage */
-function diffusion(pts, horizontal){
+function diffusion(pts, horizontal, fo = 1){
   if(pts.length < 2) return;
   x.save(); x.beginPath(); OVALE.forEach((i, k) => { const p = P(i); k ? x.lineTo(p.x, p.y) : x.moveTo(p.x, p.y); }); x.closePath(); x.clip();
-  tracer(pts); x.strokeStyle = rgba(K.peau, .06); x.lineWidth = 52; x.stroke();
-  tracer(pts); x.strokeStyle = rgba(K.peau, .05); x.lineWidth = 26; x.stroke();
+  tracer(pts); x.strokeStyle = rgba(K.peau, .06*fo*VIE); x.lineWidth = 52; x.stroke();
+  tracer(pts); x.strokeStyle = rgba(K.peau, .05*fo*VIE); x.lineWidth = 26; x.stroke();
   x.restore();
 }
 /* la ligne continue sur le decor, en plus sombre, de part et d'autre du visage */
-function decor(pts, horizontal, pos){
-  x.strokeStyle = rgba(K.peau, .15); x.lineWidth = .7; x.beginPath();
+function decor(pts, horizontal, pos, fo = 1){
+  x.strokeStyle = rgba(K.peau, .15*fo); x.lineWidth = .7; x.beginPath();
   if(horizontal){ const a = pts[0], b = pts[pts.length-1]; x.moveTo(0, pos); x.lineTo(a.x, a.y); x.moveTo(b.x, b.y); x.lineTo(W, pos); }
   else { const a = pts[0], b = pts[pts.length-1]; x.moveTo(pos, 0); x.lineTo(a.x, a.y); x.moveTo(b.x, b.y); x.lineTo(pos, H); }
   x.stroke();
-  x.strokeStyle = rgba(K.peau, .05); x.lineWidth = 7; x.stroke();
+  x.strokeStyle = rgba(K.peau, .05*fo); x.lineWidth = 7; x.stroke();
 }
 
 /* ---- colorimetrie, lue la ou la ligne passe ---- */
@@ -159,30 +163,51 @@ function zone(ids){ let cx = 0, cy = 0; ids.forEach(i => { cx += L[i].x; cy += L
   let d; try { d = ec.getImageData(Math.max(0, px-r), Math.max(0, py-r), r*2, r*2).data; } catch(e){ return null; }
   let R0 = 0, G0 = 0, B0 = 0, n = 0; for(let i=0;i<d.length;i+=4){ R0 += d[i]; G0 += d[i+1]; B0 += d[i+2]; n++; }
   const c = lab(R0/n, G0/n, B0/n); c.ita = c.b > 2 ? Math.atan((c.L - 50)/c.b)*180/Math.PI : null; return c; }
-const ZONES = [{ nom:'FRONT', ids:[151,9,108,337] }, { nom:'JOUE', ids:[205,50,187,123] }, { nom:'JOUE', ids:[425,280,411,352] }, { nom:'MENTON', ids:[199,175,200,18] }];
-const lu = ZONES.map(() => ({ t:-9, c:null }));
+/* 30/09 (Charles) : de vraies mesures, lues dans les pixels de peau seulement (la barbe, l'ombre ou les
+   cheveux sont ecartes et on le dit), lissees sur les dernieres images, affichees 2 s quand la ligne passe. */
+const ZONES = [{ nom:'FRONT', ids:[151,9,108,337] }, { nom:'JOUE DROITE', ids:[205,50,187,123] }, { nom:'JOUE GAUCHE', ids:[425,280,411,352] }, { nom:'MENTON', ids:[199,175,200,18] }];
+const lu = ZONES.map(() => ({ t:-99, m:null }));
+function mesure(ids){ let cx = 0, cy = 0; ids.forEach(i => { cx += L[i].x; cy += L[i].y; }); cx /= ids.length; cy /= ids.length;
+  const px = Math.round(cx*ech.width), py = Math.round(cy*ech.height), r = Math.max(4, Math.round(ech.width*.022));
+  if(px < r || py < r || px > ech.width - r || py > ech.height - r) return { peau:0, sombre:true, hors:true };
+  let d; try { d = ec.getImageData(Math.max(0, px-r), Math.max(0, py-r), r*2, r*2).data; } catch(e){ return null; }
+  let n = 0, np = 0, sL = 0, sA = 0, sB = 0, sL2 = 0;
+  for(let i = 0; i < d.length; i += 4){ n++; const c = lab(d[i], d[i+1], d[i+2]), hue = Math.atan2(c.b, c.a)*180/Math.PI;
+    const chroma = Math.hypot(c.a, c.b);   // peau : assez claire, teinte chaude, un peu de couleur (la barbe et l'ombre sont sombres et grises)
+    if(c.L > 24 && c.a > 1.5 && c.a < 36 && c.b > -3 && c.b < 40 && chroma > 3.5 && hue > -15 && hue < 85){ np++; sL += c.L; sA += c.a; sB += c.b; sL2 += c.L*c.L; } }
+  if(!n) return null; const peau = np/n; if(np < 8) return { peau, sombre: true };
+  const Lm = sL/np, am = sA/np, bm = sB/np, sig = Math.sqrt(Math.max(0, sL2/np - Lm*Lm));
+  return { peau, L:Lm, a:am, b:bm, sig, ita: bm > 5 ? Math.atan((Lm - 50)/bm)*180/Math.PI : null }; }
+function mesurerZones(){ ZONES.forEach(z => { const m = mesure(z.ids); if(!m) return;
+  if(!z.m || m.sombre || z.m.sombre || m.peau < .5) z.m = m;
+  else { const k = .25; ['L','a','b','sig','peau'].forEach(q => z.m[q] += (m[q] - z.m[q])*k); z.m.ita = z.m.b > 5 ? Math.atan((z.m.L - 50)/z.m.b)*180/Math.PI : null; } }); }
 const f = (n, d = 1) => n.toFixed(d).replace('.', ',');
 function texte(t, px, py, al, a, rgb = '255,255,255'){ x.font = '300 9px "IBM Plex Mono", monospace'; x.textAlign = al; x.fillStyle = 'rgba(' + rgb + ',' + a + ')'; x.fillText(t, px, py); }
 
 /* ---- le deroule ---- */
 const t0 = performance.now(); let tLire = 0, debut = null, passages = 0, dernierSens = 1;
+/* 30/09 (Charles) : plus vivant, tres leger. L'intensite respire (±8 %), comme la velocite
+   d'un musicien : deux ondes lentes a phases tirees au hasard, jamais deux fois pareil. */
+let VIE = 1; const PH = [0,0,0,0].map(() => Math.random()*6.28), HIST = []; let ALLUME = null;
 function image(now){
   if(v.readyState >= 2 && now - tLire > 33){ tLire = now; lire(now); }
-  cadre(); x.clearRect(0, 0, W, H);
+  cadre(); projeter(); x.clearRect(0, 0, W, H);
   const t = (now - t0)/1000;
   if(!L || now - vu > 3000){ debut = null; document.getElementById('phase').textContent = 'PLACEZ-VOUS FACE À L’ÉCRAN'; requestAnimationFrame(image); return; }
   if(debut === null){ debut = t; passages = 0; }
   const tt = t - debut;
+  VIE = .84 + .16*(.5 + .25*Math.sin(tt*.53 + PH[0]) + .25*Math.sin(tt*1.37 + PH[1]));
+  const ttv = tt;   // la vitesse reste reguliere (Charles : c'est l'intensite qui doit vivre, pas la vitesse)
   let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9; OVALE.forEach(i => { const p = P(i); x0 = Math.min(x0, p.x); x1 = Math.max(x1, p.x); y0 = Math.min(y0, p.y); y1 = Math.max(y1, p.y); });
   const h = y1 - y0, w = x1 - x0;
   const per = 3.2, cx0 = (x0 + x1)/2, cy0 = (y0 + y1)/2;
   const va = (tt2, p) => .5 - .5*Math.cos(((tt2 % p)/p) * 2*Math.PI);          // aller-retour doux
   let yL = null, xL = null;
   x.save(); x.globalCompositeOperation = 'lighter';
-  const nappe = (nx, ny, c, fort = 1, bord = true) => { const pts = coupeDir(nx, ny, c); if(pts.length > 3){ diffusion(pts, ny !== 0); if(bord) decor(pts, ny !== 0, c); laser(pts, fort); } return pts; };
+  const nappe = (nx, ny, c, fort = 1, bord = true) => { const pts = coupeDir(nx, ny, c); if(pts.length > 3){ diffusion(pts, ny !== 0, fort); if(bord) decor(pts, ny !== 0, c, fort); laser(pts, fort); } return pts; };
   if(S === 1 || S === 2){
-    yL = y0 - h*.06 + va(tt, per) * h*1.12; nappe(0, 1, yL);
-    if(S === 2){ xL = x0 - w*.06 + va(tt*.83 + 1.3, per) * w*1.12; nappe(1, 0, xL, .85); }
+    yL = y0 - h*.06 + va(ttv, per) * h*1.12; nappe(0, 1, yL);
+    if(S === 2){ xL = x0 - w*.06 + va(ttv*.83 + 1.3, per) * w*1.12; nappe(1, 0, xL, .85); }
   } else if(S === 3){
     // rideau : 9 lignes paralleles tres fines qui descendent lentement, comme un scanner 3D a lumiere structuree
     const pas = h/9, dec = (tt * pas * .35) % pas;
@@ -206,17 +231,89 @@ function image(now){
     const ang2 = ang + Math.PI/2; nappe(Math.cos(ang2), Math.sin(ang2), n1.x*Math.cos(ang2) + n1.y*Math.sin(ang2), .35, false);
     yL = c.y; xL = c.x;
   } else if(S === 7){
-    // la sequence : deux balayages horizontaux, puis deux verticaux, puis la trame en deux allers-retours
-    // 29/09 (Charles) : plus rapide, et la trame finale ne passe qu'une fois, de haut en bas
-    const TR = 2.2, FIN = per*2 + TR, cyc = tt % (FIN + 1.2), ph = cyc < per ? 0 : cyc < per*2 ? 1 : cyc < FIN ? 2 : 3;
-    const etiq = ['BALAYAGE HORIZONTAL', 'BALAYAGE VERTICAL', 'TRAME', 'LECTURE COMPLÈTE'][ph];
-    document.getElementById('phase').dataset.seq = etiq;
-    if(ph === 0){ yL = y0 - h*.06 + va(cyc, per) * h*1.12; nappe(0, 1, yL); }
-    else if(ph === 1){ xL = x0 - w*.06 + va(cyc - per, per) * w*1.12; nappe(1, 0, xL); }
-    else if(ph === 2){ yL = trame(y0 - h*.05 + va(cyc - per*2, TR*2) * h*1.1, 1); }
-    else { trame(-1e9, Math.max(0, 1 - (cyc - FIN)/1.2)); }
+    // la sequence : horizontal, vertical, puis la trame en un passage. Chaque geste se fond dans le suivant,
+    // et le sens s'inverse d'un cycle a l'autre (de bas en haut, de droite a gauche)
+    const TR = 2.2, FIN = per*2 + TR, CY = FIN + 1.2, nC = Math.floor(ttv / CY), cyc = ttv - nC*CY, inv = nC % 2 === 1, X = .45;
+    const fondu = (a, b) => Math.max(0, Math.min(1, (cyc - a)/X + 1, (b - cyc)/X + 1));
+    const sens = u => inv ? 1 - u : u, borne = (c, m) => Math.max(0, Math.min(m, c));
+    const ph = cyc < per ? 0 : cyc < per*2 ? 1 : cyc < FIN ? 2 : 3;
+    document.getElementById('phase').dataset.seq = ['BALAYAGE HORIZONTAL', 'BALAYAGE VERTICAL', 'TRAME', 'LECTURE COMPLÈTE'][ph];
+    const fH = fondu(0, per), fV = fondu(per, per*2), fT = fondu(per*2 - .2, FIN + .5);
+    if(fH > 0){ const yy = y0 - h*.06 + sens(va(borne(cyc, per), per))*h*1.12; nappe(0, 1, yy, fH); if(ph === 0) yL = yy; }
+    if(fV > 0){ const xx = x0 - w*.06 + sens(va(borne(cyc - per, per), per))*w*1.12; nappe(1, 0, xx, fV); if(ph === 1) xL = xx; }
+    if(fT > 0){ const on = y0 - h*.05 + sens(va(borne(cyc - per*2, TR), TR*2))*h*1.1; const o2 = trame(on, fT); if(ph === 2) yL = o2; }
+  } else if(S === 8){
+    // sillage : la ligne laisse derriere elle ses coupes precedentes, qui s'eteignent ; le relief se dessine en courbes de niveau
+    yL = y0 - h*.05 + va(ttv, per*1.25)*h*1.1;
+    if(!HIST.length || tt - HIST[HIST.length-1].t > .075) HIST.push({ u:(yL - y0)/h, t:tt });
+    while(HIST.length && tt - HIST[0].t > 1.7) HIST.shift();
+    HIST.forEach(q => { const age = (tt - q.t)/1.7, pts = coupeDir(0, 1, y0 + q.u*h); if(pts.length < 4) return;
+      tracer(pts); x.strokeStyle = rgba(K.trait, Math.pow(1 - age, 2)*.3*VIE); x.lineWidth = .5; x.stroke();
+      if(age < .5){ x.fillStyle = rgba(K.coeur, (1 - age*2)*.35); for(let k2 = 0; k2 < pts.length; k2 += 6) x.fillRect(pts[k2].x - .5, pts[k2].y - .5, 1, 1); } });
+    nappe(0, 1, yL);
+  } else if(S === 9){
+    // maillage : la ligne verticale revele au passage les aretes du vrai maillage, qui s'eteignent doucement
+    xL = x0 - w*.05 + va(ttv, per*1.3)*w*1.1;
+    if(!ALLUME || ALLUME.length !== ARETES.length) ALLUME = new Float32Array(ARETES.length).fill(-99);
+    const seaux = [[], [], [], [], [], []];
+    for(let q = 0; q < ARETES.length; q++){ const e = ARETES[q], a = PC[e.start], b = PC[e.end];
+      if(Math.abs((a.x + b.x)/2 - xL) < 9) ALLUME[q] = tt;
+      const age = tt - ALLUME[q]; if(age > 1.4) continue; seaux[Math.min(5, (age/1.4*6)|0)].push(a.x, a.y, b.x, b.y); }
+    x.lineWidth = .45;
+    seaux.forEach((sq, kq) => { if(!sq.length) return; x.beginPath(); for(let m = 0; m < sq.length; m += 4){ x.moveTo(sq[m], sq[m+1]); x.lineTo(sq[m+2], sq[m+3]); }
+      x.strokeStyle = rgba(kq === 0 ? K.coeur : K.trait, Math.pow(1 - (kq + .5)/6, 2)*.32*VIE); x.stroke(); });
+    nappe(1, 0, xL, .9);
+  } else if(S === 10){
+    // profil : la coupe du relief, lue en direct dans le maillage, tracee a cote comme sur un instrument
+    yL = y0 - h*.04 + va(ttv, per*1.15)*h*1.08; const pts = nappe(0, 1, yL);
+    if(pts.length > 5){
+      const pw = Math.min(170, W*.42), ph2 = 58, px = W - pw - 16, py = 96;
+      const zs = pts.map(q => -q.z), zmin = Math.min(...zs), zmax = Math.max(...zs), dz = (zmax - zmin) || 1e-6;
+      x.strokeStyle = rgba('255,255,255', .22); x.lineWidth = .5; x.beginPath();
+      [[px, py, 1, 1], [px + pw, py, -1, 1], [px, py + ph2, 1, -1], [px + pw, py + ph2, -1, -1]].forEach(([a, b, sx, sy]) => { x.moveTo(a + 7*sx, b); x.lineTo(a, b); x.lineTo(a, b + 7*sy); });
+      x.stroke();
+      x.fillStyle = rgba('255,255,255', .2); for(let g = 1; g < 8; g++) x.fillRect(px + g*pw/8, py + ph2 - 2, .6, 2);
+      const X0 = pts[0].x, X1 = pts[pts.length-1].x, mX = q => px + (q.x - X0)/((X1 - X0) || 1)*pw, mY = q => py + ph2 - 6 - ((-q.z - zmin)/dz)*(ph2 - 14);
+      x.beginPath(); pts.forEach((q, k2) => k2 ? x.lineTo(mX(q), mY(q)) : x.moveTo(mX(q), mY(q)));
+      x.strokeStyle = rgba(K.halo, .16*VIE); x.lineWidth = 4; x.stroke(); x.strokeStyle = rgba(K.trait, .8*VIE); x.lineWidth = .8; x.stroke();
+      const qM = pts[zs.indexOf(zmax)]; x.fillStyle = rgba(K.coeur, .9); x.fillRect(mX(qM) - 1, mY(qM) - 1, 2, 2); x.fillRect(qM.x - 1, qM.y - 1, 2, 2);
+      texte('PROFIL · COUPE ' + f((yL - y0)/h*100, 0) + ' %', px, py - 7, 'left', .6);
+      texte('RELIEF ' + f(dz*dw/w*100, 0) + ' % DE LA LARGEUR', px, py + ph2 + 13, 'left', .5);
+    }
+  } else if(S === 11){
+    // symetrie : l'axe du visage et la ligne des pupilles se posent, un balayage, puis des paires de points se repondent
+    const CY11 = per + 3.6, cyc = ttv % CY11, A = PC[10], B = PC[152], ax = B.x - A.x, ay = B.y - A.y, al = Math.hypot(ax, ay) || 1, ux = ax/al, uy = ay/al;
+    const vient = Math.min(1, cyc/.8, (CY11 - cyc)/.5), I1 = PC[468] || PC[33], I2 = PC[473] || PC[263];
+    x.setLineDash([2, 4]); x.strokeStyle = rgba(K.trait, .35*vient*VIE); x.lineWidth = .6; x.beginPath();
+    x.moveTo(A.x - ux*h*.12, A.y - uy*h*.12); x.lineTo(B.x + ux*h*.08, B.y + uy*h*.08);
+    x.moveTo(I1.x - (I2.x - I1.x)*.35, I1.y - (I2.y - I1.y)*.35); x.lineTo(I2.x + (I2.x - I1.x)*.35, I2.y + (I2.y - I1.y)*.35); x.stroke(); x.setLineDash([]);
+    [I1, I2].forEach(I => { x.strokeStyle = rgba(K.trait, .5*vient); x.beginPath(); x.arc(I.x, I.y, 5, 0, 7); x.stroke(); });
+    if(cyc > 1 && cyc < 1 + per){ yL = y0 - h*.05 + va(cyc - 1, per)*h*1.1; nappe(0, 1, yL, .8); }
+    const PAIRES = [[33,263],[133,362],[70,300],[105,334],[234,454],[93,323],[132,361],[58,288],[61,291],[50,280],[205,425],[172,397]];
+    const nx2 = -uy, ny2 = ux, dAxe = q => (q.x - A.x)*nx2 + (q.y - A.y)*ny2; let ecart = 0;
+    PAIRES.forEach(([i1, i2], k2) => { const p1 = PC[i1], p2 = PC[i2]; ecart += Math.abs(Math.abs(dAxe(p1)) - Math.abs(dAxe(p2)))/w;
+      const a2 = Math.max(0, Math.min(1, (cyc - (1 + per + k2*.12))/.3, (CY11 - cyc)/.5)); if(a2 <= 0) return;
+      x.strokeStyle = rgba(K.trait, .26*a2*VIE); x.lineWidth = .5; x.beginPath(); x.moveTo(p1.x, p1.y); x.lineTo(p2.x, p2.y); x.stroke();
+      x.fillStyle = rgba(K.coeur, .85*a2); x.fillRect(p1.x - 1, p1.y - 1, 2, 2); x.fillRect(p2.x - 1, p2.y - 1, 2, 2); });
+    // un vrai calcul : l'ecart moyen gauche / droite a l'axe. Tete tournee : pas de chiffre.
+    const nez = PC[1], lacet = (Math.hypot(nez.x - PC[234].x, nez.y - PC[234].y) - Math.hypot(nez.x - PC[454].x, nez.y - PC[454].y))/w;
+    const sym = Math.max(0, 100 - ecart/PAIRES.length*400), incl = Math.atan2(I2.y - I1.y, I2.x - I1.x)*180/Math.PI;
+    const a3 = Math.max(0, Math.min(1, (cyc - (1 + per + .6))/.4, (CY11 - cyc)/.5));
+    if(a3 > 0){ const ty2 = Math.min(H - 200, y1 + 30);
+      texte(Math.abs(lacet) > .12 ? 'TOURNEZ-VOUS DE FACE' : 'SYMÉTRIE ' + f(sym) + ' %', W/2, ty2, 'center', .9*a3, K.trait);
+      texte('INCLINAISON DE LA TÊTE ' + f(incl) + '°', W/2, ty2 + 13, 'center', .55*a3); }
+  } else if(S === 12){
+    // stereo : deux nappes tres fines et paralleles, comme un scanner a triangulation ; leur ecart suit le relief
+    yL = y0 - h*.05 + va(ttv, per*1.2)*h*1.1;
+    const a1 = coupeDir(0, 1, yL, .24), a2 = coupeDir(0, 1, yL + 5, .36);
+    if(a1.length > 3){ diffusion(a1, true, .7); decor(a1, true, yL, .8); laser(a1, .75); }
+    if(a2.length > 3){ decor(a2, true, yL + 5, .5); laser(a2, .42); }
+    if(a1.length > 3 && a2.length > 3){ x.strokeStyle = rgba(K.trait, .3*VIE); x.lineWidth = .5; x.beginPath();
+      for(let k2 = 0; k2 < a1.length; k2 += 4){ const p1 = a1[k2]; let best = null, bd = 1e9; for(const q of a2){ const dd = Math.abs(q.x - p1.x); if(dd < bd){ bd = dd; best = q; } }
+        if(best && bd < 4){ x.moveTo(p1.x, p1.y); x.lineTo(best.x, best.y); } }
+      x.stroke(); }
   } else if(S === 6){
-    yL = trame(y0 + va(tt, per) * h, 1);
+    yL = trame(y0 + va(ttv, per) * h, 1);
   }
   function trame(onde, force){
     // une trame de points projetee : les sommets et le milieu des aretes, deplaces selon la profondeur,
@@ -230,26 +327,28 @@ function image(now){
     return onde;
   }
   x.restore();
-  // les mesures apparaissent la ou la ligne passe, puis s'effacent
+  // les mesures : une zone s'affiche 2 s quand la ligne la touche (au plus une fois toutes les 4 s), puis s'efface
+  x.font = '300 9px "IBM Plex Mono", monospace';
   ZONES.forEach((z, i) => {
-    let cx = 0, cy = 0; z.ids.forEach(k => { const p = P(k); cx += p.x; cy += p.y; }); cx /= z.ids.length; cy /= z.ids.length;
-    if((yL !== null && Math.abs(cy - yL) < 6) || (xL !== null && Math.abs(cx - xL) < 6) || (S === 5 && Math.random() < .01)){ const c = zone(z.ids); if(c){ lu[i].c = c; lu[i].t = tt; } }
-    const a = Math.max(0, 1 - (tt - lu[i].t)/2.2); if(a <= 0 || !lu[i].c) return;
-    const c = lu[i].c, gauche = cx < (x0 + x1)/2, bx = gauche ? x0 - 18 : x1 + 18;
-    x.strokeStyle = 'rgba(255,255,255,' + .35*a + ')'; x.lineWidth = .5; x.beginPath(); x.moveTo(cx, cy); x.lineTo(bx, cy); x.stroke();
+    let cx = 0, cy = 0; z.ids.forEach(k => { const p = PC[k]; cx += p.x; cy += p.y; }); cx /= z.ids.length; cy /= z.ids.length;
+    const touche = (yL !== null && Math.abs(cy - yL) < 7) || (xL !== null && Math.abs(cx - xL) < 7) || (S === 5 && Math.random() < .006);
+    if(touche && tt - lu[i].t > 4 && z.m){ lu[i].t = tt; lu[i].m = Object.assign({}, z.m); }
+    const age = tt - lu[i].t, a = age < 1.6 ? Math.min(1, age/.2) : Math.max(0, 1 - (age - 1.6)/.5); if(a <= 0 || !lu[i].m) return;
+    const m = lu[i].m, l2 = m.sombre || m.peau < .5 ? 'NON MESURÉ' : 'CLARTÉ ' + f(m.L) + ' · ROUGEUR ' + f(m.a),
+      l3 = m.sombre || m.peau < .5 ? (m.hors ? 'HORS CHAMP' : m.sombre ? 'CHEVEUX, BARBE OU OMBRE' : 'PEAU PEU VISIBLE') : (m.ita == null ? 'ITA° —' : 'ITA° ' + f(m.ita)) + ' · GRAIN ' + f(m.sig);
+    const tw = Math.max(x.measureText(z.nom).width, x.measureText(l2).width, x.measureText(l3).width), gauche = cx < cx0;
+    const ty = Math.max(96, Math.min(H - 190, cy)), tx = gauche ? 14 : W - 14 - tw, fin = gauche ? tx + tw + 8 : tx - 8;
+    x.fillStyle = 'rgba(0,0,0,' + .42*a + ')'; x.fillRect(tx - 6, ty - 15, tw + 12, 44);
+    x.strokeStyle = 'rgba(255,255,255,' + .3*a + ')'; x.lineWidth = .5; x.beginPath(); x.moveTo(cx, cy); x.lineTo(fin, ty); x.stroke();
     x.fillStyle = 'rgba(255,255,255,' + .9*a + ')'; x.fillRect(cx - 1, cy - 1, 2, 2);
-    const al = gauche ? 'right' : 'left', dx = gauche ? -6 : 6;
-    texte(z.nom, bx + dx, cy - 4, al, .85*a, K.trait);
-    texte('L* ' + f(c.L) + '   a* ' + f(c.a) + '   b* ' + f(c.b), bx + dx, cy + 8, al, .8*a);
-    texte(c.ita == null ? 'ITA° —' : 'ITA° ' + f(c.ita), bx + dx, cy + 20, al, .65*a);
+    texte(z.nom, tx, ty - 4, 'left', .9*a, K.trait); texte(l2, tx, ty + 8, 'left', .8*a); texte(l3, tx, ty + 20, 'left', .6*a);
   });
   // progression : trois passages complets = une lecture
-  const pc = S === 7 ? Math.min(100, Math.round((tt % (per*2 + 3.4)) / (per*2 + 2.2) * 100)) : Math.min(100, Math.round(tt / (per*1.5) * 100));
+  const pc = S === 7 ? Math.min(100, Math.round((ttv % (per*2 + 3.4)) / (per*2 + 2.2) * 100)) : Math.min(100, Math.round(tt / (per*1.5) * 100));
   document.getElementById('pct').textContent = String(pc).padStart(2, '0');
   const ph = document.getElementById('phase'); ph.textContent = S === 7 ? (ph.dataset.seq || '') : (pc < 100 ? 'LECTURE EN COURS' : 'LECTURE COMPLÈTE');
-  const vus = lu.filter(z => z.c).map(z => z.c);
-  if(pc >= 100 && vus.length){ const m = vus.reduce((s, c) => ({ L:s.L + c.L/vus.length, b:s.b + c.b/vus.length }), { L:0, b:0 });
-    document.getElementById('synthese').textContent = m.b > 2 ? 'ITA° MOYEN ' + f(Math.atan((m.L - 50)/m.b)*180/Math.PI) : ''; }
+  const vus = ZONES.map(z => z.m).filter(m => m && !m.sombre && m.peau >= .5 && m.ita != null);
+  document.getElementById('synthese').textContent = vus.length >= 2 ? 'ITA° PEAU ' + f(vus.reduce((q, m) => q + m.ita, 0)/vus.length) : '';
   requestAnimationFrame(image);
 }
 requestAnimationFrame(image);
