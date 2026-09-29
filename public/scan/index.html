@@ -7,7 +7,7 @@
 <meta name="description" content="Votre peau, mesurée en moins de 10 secondes depuis votre caméra. Puis les trois soins qui lui correspondent, parmi 5 883 références de 147 marques.">
 <title>VYVRE — Scan de peau universel</title>
 <!-- VYVRE_I18N : moteur 12 langues, francais par defaut -->
-<script src="/scan/vy-i18n.js?v=26"></script>
+<script src="/scan/vy-i18n.js?v=28"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Police ultra-clean (Silicon Valley DeepTech style) -->
@@ -343,6 +343,41 @@
 <!-- VYVRE_V10_PWA_END -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500&display=swap">
 <style id="sans-prix">.v6price,.r-price{display:none!important}</style>
+<style id="vy-video-fondu">
+/* 29/09 : pas d'ovale noir pendant que la camera demarre ; la video apparait en fondu */
+#liveVideo{opacity:0;transition:opacity .45s ease}
+#liveVideo.vy-on{opacity:1}
+</style>
+<style id="vy-cadre-tel">
+/* 29/09 (iPhone de Charles) : le panneau du scan depassait l'ecran et la video etait agrandie pour
+   remplir un cadre tres haut : visage zoome, fond noir. Sur telephone, la scene fait l'ecran, sans
+   bordure, et la video se cale sur l'anneau de verre selon le format que la camera envoie vraiment. */
+@media (max-width:1099px) and (orientation:portrait){
+  #view-scanner{padding:0!important}
+  #view-scanner>div:first-child{margin:0!important;height:0!important}
+  #view-scanner .scanner-module{width:100vw!important;height:100vh!important;height:100dvh!important;max-width:none!important;padding:0!important;margin:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
+  #view-scanner .label-sm{top:calc(env(safe-area-inset-top) + 160px)!important}
+  #view-scanner h2{top:calc(env(safe-area-inset-top) + 178px)!important}
+}
+#view-scanner .video-container.vy-cadre .thermal-base{inset:auto!important;left:var(--vy-l)!important;top:var(--vy-t)!important;width:var(--vy-w)!important;height:var(--vy-h)!important;object-fit:fill!important;
+  -webkit-mask-image:radial-gradient(ellipse var(--vy-rx) var(--vy-ry) at var(--vy-mx) var(--vy-my),#000 64%,rgba(0,0,0,.6) 82%,transparent 100%)!important;
+  mask-image:radial-gradient(ellipse var(--vy-rx) var(--vy-ry) at var(--vy-mx) var(--vy-my),#000 64%,rgba(0,0,0,.6) 82%,transparent 100%)!important}
+#view-scanner .video-container.vy-cadre::after{background:radial-gradient(ellipse var(--vy-rx) var(--vy-ry) at 50% 47%,transparent 72%,rgba(4,5,10,.22) 100%)!important}
+</style>
+<script id="vy-cadre-js">
+/* La video prend la largeur de l'ecran, et au moins la hauteur de l'anneau : jamais un gros plan. */
+window.vyCadrer=function(){
+  var vc=document.getElementById('thermal-vid-container'),v=document.getElementById('liveVideo');if(!vc||!v)return;
+  var W=vc.clientWidth,H=vc.clientHeight,vw=v.videoWidth,vh=v.videoHeight,tel=H>W*1.15&&vw>0&&vh>0;
+  vc.classList.toggle('vy-cadre',tel);if(!tel)return;
+  var b=getComputedStyle(vc,'::before'),rw=parseFloat(b.width)||W*.7,rh=parseFloat(b.height)||H*.43,cx=W/2,cy=H*.47;
+  var s=Math.max(W/vw,rh*1.05/vh),ew=vw*s,eh=vh*s,l=cx-ew/2,t=cy-eh/2,st=vc.style;
+  st.setProperty('--vy-l',l+'px');st.setProperty('--vy-t',t+'px');st.setProperty('--vy-w',ew+'px');st.setProperty('--vy-h',eh+'px');
+  st.setProperty('--vy-mx',(cx-l)+'px');st.setProperty('--vy-my',(cy-t)+'px');st.setProperty('--vy-rx',(rw*.6)+'px');st.setProperty('--vy-ry',(rh*.58)+'px');
+};
+addEventListener('resize',function(){setTimeout(window.vyCadrer,60);});
+addEventListener('orientationchange',function(){setTimeout(window.vyCadrer,300);});
+</script>
 <style id="sg-scan-verre">
 /* Charles 17/09 : plus de noir autour du visage. La fumee du fond continue autour du cercle,
    et un anneau de verre avec un reflet entoure la lecture. */
@@ -602,7 +637,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{cursor:auto}
     </div>
 
     <!-- ROW 3 : 3 produits Charlotte Tilbury dynamiques (matched depuis vyvre.fr/api/products?brand=charlotte-tilbury) -->
-    <div class="v6r3" id="vyvre-product-row" data-ritual="VOTRE RITUEL · 3 SOINS" data-i18n-attr="data-ritual:ri.label">
+    <div class="v6r3" id="vyvre-product-row" data-ritual="VOTRE RITUEL · 4 SOINS" data-i18n-attr="data-ritual:ri.label">
       <div class="v6card v6prod" data-vyvre-prod-slot="0">
         <span class="v6lbl" data-i18n="c.hydration">Hydratation</span>
         <h3>Charlotte's Magic Cream Moisturiser</h3>
@@ -623,6 +658,13 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{cursor:auto}
         <p data-i18n="d.p2">Action ciblée : Éclat · Ridules.</p>
         <img class="v6photo" src="https://vyvre-demos.web.app/products/charlotte-tilbury/magic-serum-crystal-elixir.jpg" alt="Charlotte's Magic Serum Crystal Elixir" onerror="this.style.display='none'">
         <div class="v6price">75 €</div>
+      </div>
+      <div class="v6card v6prod" data-vyvre-prod-slot="3" style="display:none">
+        <span class="v6lbl" data-i18n="c.hydration">Hydratation</span>
+        <h3>Charlotte's Magic Cream Moisturiser</h3>
+        <p data-i18n="d.p0">Action ciblée : Hydratation · Éclat.</p>
+        <img class="v6photo" src="https://vyvre-demos.web.app/products/charlotte-tilbury/charlotte-s-magic-cream-moisturiser.jpg" alt="" onerror="this.style.display='none'">
+        <div class="v6price">85 €</div>
       </div>
     </div>
 
@@ -943,6 +985,7 @@ function switchView(viewId) {
 
     if(viewId === 'view-results') {
         document.body.classList.add('scrollable');
+        try{ (document.scrollingElement||document.documentElement).scrollTop=0; document.body.scrollTop=0; }catch(e){}
     }
 }
 
@@ -976,26 +1019,39 @@ async function loadAI() {
 
 document.getElementById('btn-scan').addEventListener('click', async () => {
   switchView('view-scanner');
-  await loadAI();
+  /* 29/09 (test iPhone de Charles : « écran noir puis visage ») : la camera ne s'ouvrait qu'APRES
+     le telechargement des modeles du visage (plusieurs secondes en 4G, ovale noir pendant ce temps).
+     La camera s'ouvre maintenant tout de suite ; les modeles se chargent en parallele, et le suivi
+     du visage (detectAndDraw) attend deja STATE.modelsLoaded pour demarrer. */
+  Promise.resolve().then(loadAI).catch(function(){});
   try {
     /* 27/09 (test iPhone de Charles) : « video:true » laissait iOS livrer un flux paysage, zoome
        en plein ecran portrait : on ne voyait qu'une bande centrale, souvent le fond. On demande la
        camera avant, au format de l'ecran ; si l'appareil refuse ces reglages, on retombe sur le simple. */
     const portrait = window.innerHeight >= window.innerWidth;
     try {
-      STATE.stream = await navigator.mediaDevices.getUserMedia({ audio: false, video: {
-        facingMode: 'user',
-        width:  { ideal: portrait ? 720 : 1280 },
-        height: { ideal: portrait ? 1280 : 720 },
-        aspectRatio: { ideal: portrait ? 9/16 : 16/9 } } });
+      /* 29/09 : sur telephone, plus de format impose (9/16) : iOS rognait le capteur pour l'obtenir,
+         d'ou le visage zoome. On demande le format natif ; l'affichage s'adapte a ce qui arrive (vyCadrer). */
+      STATE.stream = await navigator.mediaDevices.getUserMedia({ audio: false, video: portrait
+        ? { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } }
+        : { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 }, aspectRatio: { ideal: 16/9 } } });
     } catch (e1) {
       STATE.stream = await navigator.mediaDevices.getUserMedia({ audio: false, video: { facingMode: 'user' } });
     }
     video.srcObject = STATE.stream;
+    /* la video n'apparait qu'avec sa premiere vraie image : jamais d'ovale noir */
+    const montrer = () => { try{ window.vyCadrer && window.vyCadrer(); }catch(_){} video.classList.add('vy-on'); };
+    video.addEventListener('playing', montrer, { once:true });
+    video.addEventListener('timeupdate', montrer, { once:true });
+    /* 29/09 : le suivi du visage se branche AVANT play() : sinon les metadonnees sont deja
+       chargees quand play() rend la main et le suivi ne demarre jamais */
     video.onloadedmetadata = () => {
+      if (video.__vyPret) { try{ window.vyCadrer && window.vyCadrer(); }catch(_){} return; }
+      video.__vyPret = true;
       overlay.width = video.videoWidth; overlay.height = video.videoHeight;
       /* iOS peut tourner le flux apres coup : on suit ses vraies dimensions */
-      video.addEventListener('resize', () => { overlay.width = video.videoWidth; overlay.height = video.videoHeight; });
+      video.addEventListener('resize', () => { overlay.width = video.videoWidth; overlay.height = video.videoHeight; try{ window.vyCadrer && window.vyCadrer(); }catch(_){} });
+      try{ window.vyCadrer && window.vyCadrer(); }catch(_){}
       vyHud('hud.track');
       setInterval(detectAndDraw, 100);
       /* 26/09 — trop sombre : on le dit en clair (90e centile de luminance, independant de la couleur de peau) */
@@ -1017,6 +1073,8 @@ document.getElementById('btn-scan').addEventListener('click', async () => {
       }, 600);
       renderThermalTopography();
     };
+    try { await video.play(); } catch(_) {}
+    if (video.readyState >= 1 && !video.__vyPret) video.onloadedmetadata();
   } catch(e) {
     // Camera refusee ou indisponible : on le dit et on propose la photo, jamais d'ecran noir muet.
     vyHud('hud.camoff');
@@ -1701,7 +1759,8 @@ function showFinalDashboard() {
 
   // === Matching produits Charlotte Tilbury depuis API ===
   if (result && result.scores) {
-    matchAndRenderCharlotteTilburyProducts(result.scores);
+    window.__vyRendu = matchAndRenderCharlotteTilburyProducts(result.scores);
+    Promise.resolve(window.__vyRendu).then(function(){ try{ window.vyRecap && window.vyRecap(); }catch(e){} }, function(){});
   } else {
     console.warn('[CHARLOTTE_TILBURY] no scores for product matching');
   }
@@ -1746,10 +1805,16 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
   // Fetch produits
   let products = [];
   try {
-    const resp = await fetch('/scan/catalogue/all.json?_t=' + Date.now());
-    if (!resp.ok) throw new Error('HTTP ' + resp.status);
-    const data = await resp.json();
-    products = data.products || [];
+    /* 29/09 : le catalogue deja en cours de chargement depuis l'ouverture de la page ; sinon on le recharge */
+    let data;
+    try { data = await window.__vyCatalogue; } catch (_) { data = null; }
+    if (!data || !data.products) {
+      const resp = await fetch('/scan/catalogue/all.json?_t=' + Date.now());
+      if (!resp.ok) throw new Error('HTTP ' + resp.status);
+      data = await resp.json();
+      window.__vyCatalogue = Promise.resolve(data);
+    }
+    products = (data.products || []).slice();
     console.log('[CHARLOTTE_TILBURY] fetched', products.length, 'products from vyvre.fr');
   } catch(e) {
     console.error('[CHARLOTTE_TILBURY] product fetch failed:', e.message);
@@ -1758,6 +1823,9 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
   }
 
   if (window.vyPrefs && window.vyPrefs.filter) products = window.vyPrefs.filter(products);
+  /* 29/09 (test iPhone de Charles) : « [US ONLY] Collagen Glow Bubble Serum » propose en France.
+     Les fiches reservees aux Etats-Unis et les doublons d'abonnement (« [Subscr.] ») sortent. */
+  products = products.filter(p => !/\b(US|USA|U\.S\.)\s*ONLY\b|\bONLY\s+(IN|FOR)\s+(THE\s+)?(US|USA)\b|^\s*\[subscr/i.test(p.name || ''));
   if (products.length === 0) return;
 
   // Score chaque produit selon les top concerns
@@ -1789,20 +1857,26 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
   // Diversifier : on prend top 1, puis on cherche un produit avec un primary target différent
   const selected = [];
   const usedTargets = new Set();
+  /* meme photo, ou meme marque + meme nom complet : c'est le meme produit.
+     (le nom complet : « [C20] Biotic » et « [HYALU] Biotic » sont deux produits differents) */
+  const photoDe = q => q.cutout_url || q.image_url || '';
+  const cleDe = q => (String(q.brand || '') + '|' + String(q.name || '')).trim().toLowerCase();
+  const memeProduit = (x, p) => x.id === p.id || (photoDe(x) && photoDe(x) === photoDe(p)) || cleDe(x) === cleDe(p);
   for (const p of scoredProducts) {
-    if (selected.length === 3) break;
+    if (selected.length === 4) break;
     const primaryTarget = (p.targets || [])[0];
     // Évite 3 fois le même primary target si on a le choix
     if (selected.some(x => x.brand && x.brand === p.brand) && new Set(products.map(q => q.brand)).size >= 3) continue;
     if (selected.some(x => x.id === p.id)) continue;
+    if (selected.some(x => memeProduit(x, p))) continue;
     if (selected.length < 2 || !usedTargets.has(primaryTarget) || scoredProducts.length < 6) {
       selected.push(p);
       if (primaryTarget) usedTargets.add(primaryTarget);
     }
   }
   // Si manque (peu probable), complète
-  while (selected.length < 3 && scoredProducts.length > selected.length) {
-    const next = scoredProducts.find(p => !selected.includes(p));
+  while (selected.length < 4 && scoredProducts.length > selected.length) {
+    const next = scoredProducts.find(p => !selected.some(x => memeProduit(x, p)));
     if (next) selected.push(next);
     else break;
   }
@@ -1817,7 +1891,7 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
         || scoredProducts.filter(p => (p.targets || []).some(t => cibles.indexOf(t) >= 0))
              .sort((a, b) => Math.max(...cibles.map(c => (b.concern_scores || {})[c] || 0)) - Math.max(...cibles.map(c => (a.concern_scores || {})[c] || 0)))[0];
       if (vise) {
-        const i = selected.findIndex(x => x.id === vise.id);
+        const i = selected.findIndex(x => memeProduit(x, vise));
         if (i > 0) { selected.splice(i, 1); selected.unshift(vise); }
         else if (i < 0) { selected.pop(); selected.unshift(vise); }
         cibleObjectif = (vise.targets || []).find(t => cibles.indexOf(t) >= 0) || null;
@@ -1836,6 +1910,8 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
   };
   const concernLabel = (k) => CONCERN_KEYS[k] ? VY.t(CONCERN_KEYS[k]) : k;
 
+  document.querySelectorAll('[data-vyvre-prod-slot]').forEach(c => { c.style.display = (+c.dataset.vyvreProdSlot < selected.length) ? '' : 'none'; });
+  { const rw = document.getElementById('vyvre-product-row'); if (rw && rw.dataset.ritual) rw.dataset.ritual = rw.dataset.ritual.replace(/\d+/, selected.length); }
   selected.forEach((p, idx) => {
     const card = document.querySelector(`[data-vyvre-prod-slot="${idx}"]`);
     if (!card) return;
@@ -1894,6 +1970,8 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
 
   console.log('[CHARLOTTE_TILBURY] product cards updated successfully');
   if (window.vyPrefs && window.vyPrefs.afterRender) window.vyPrefs.afterRender();
+  /* le petit recapitulatif suit chaque nouveau rendu (langue, preferences modifiees) */
+  try { window.vyRecap && window.vyRecap(); } catch (e) {}
 }
 
 </script>
@@ -1906,7 +1984,7 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
   });
 </script>
 <!-- VYVRE V10: TF.js removed from eager load — handled by /vyvre-loader.js -->
-<script src="/scan/vyvre-scan-engine.js?v=10.5" defer></script>
+<script src="/scan/vyvre-scan-engine.js?v=10.6" defer></script>
 <!-- VYVRE_V10_TRACKER_BEGIN -->
 <script src="/scan/vyvre-tracker.js?v=10.1" defer></script>
 <!-- VYVRE_V10_TRACKER_END -->
@@ -2198,7 +2276,7 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     .vyvre-v6 .v6card.sg-std p{font-size:11px;margin:0;line-height:1.4;color:rgba(255,255,255,.45)}
     .vyvre-v6 .v6card.sg-s1{grid-row:1}.vyvre-v6 .v6card.sg-s2{grid-row:2}.vyvre-v6 .v6card.sg-s3{grid-row:3}
     /* la vitrine : une seule pièce de verre, trois produits dedans, détourés */
-    .vyvre-v6 .v6grid>#vyvre-product-row{display:grid;grid-template-columns:repeat(3,1fr);grid-column:1/13;grid-row:4;gap:0;
+    .vyvre-v6 .v6grid>#vyvre-product-row{display:grid;grid-template-columns:repeat(4,1fr);grid-column:1/13;grid-row:4;gap:0;
       background:linear-gradient(160deg,rgba(255,255,255,.075),rgba(255,255,255,.025) 45%,rgba(255,255,255,.04));border:1px solid var(--sg-line);border-radius:24px;
       backdrop-filter:blur(26px) saturate(1.3);-webkit-backdrop-filter:blur(26px) saturate(1.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 50px 100px -50px rgba(0,0,0,1);overflow:hidden;position:relative}
     .vyvre-v6 .v6grid>#vyvre-product-row::before{content:attr(data-ritual);position:absolute;top:14px;left:20px;font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.3em;color:rgba(217,201,163,.8)}
@@ -2438,7 +2516,7 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
   /* ---- LE SCAN : LES DEUX FILS, branché sur les vrais repères du moteur (STATE.landmarks) ---- */
   var vcont=document.getElementById('thermal-vid-container');
   if(vcont){ var fx=document.createElement('canvas');fx.id='sig-fx';vcont.appendChild(fx);var x=fx.getContext('2d');var W2=0,H2=0;
-    function rs(){W2=fx.width=innerWidth;H2=fx.height=innerHeight;}rs();addEventListener('resize',rs);
+    function rs(){W2=fx.width=fx.clientWidth||innerWidth;H2=fx.height=fx.clientHeight||innerHeight;}rs();addEventListener('resize',rs);setTimeout(rs,0);new MutationObserver(function(){setTimeout(rs,50);}).observe(document.getElementById('view-scanner'),{attributes:true,attributeFilter:['class']});
     var OR='251,240,210',AM='217,201,163',AR='214,222,232',BL='255,255,255',CY='150,200,235';function rgba(k,a){return 'rgba('+k+','+a+')';}
     function stroke(col,w,blur){x.strokeStyle=col;x.lineWidth=w||1;if(blur){x.shadowBlur=blur;x.shadowColor=col;}x.stroke();x.shadowBlur=0;}
     function txt(t2,px,py,al,size,al2){x.font=(size||9)+'px JetBrains Mono';x.textAlign=al2||'left';x.fillStyle=rgba(AR,al);x.fillText(t2,px,py);x.textAlign='left';}
@@ -2448,7 +2526,8 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     function contour(P){var out=[];for(var i=0;i<=16;i++)out.push(P[i]);var l=P[0],r=P[16],cx=(l[0]+r[0])/2,top=Math.min(P[19][1],P[24][1]);var cy=P[27][1],rx=(r[0]-l[0])/2,ry=Math.max((cy-top)*2.4,(P[8][1]-cy)*.78);for(var k=1;k<24;k++){var a=k/24*Math.PI;out.push([cx+Math.cos(a)*rx*1.02,cy-Math.sin(a)*ry]);}return out;}
     function clipFace(P){var C=contour(P);x.beginPath();C.forEach(function(p,i){i?x.lineTo(p[0],p[1]):x.moveTo(p[0],p[1]);});x.closePath();x.clip();}
     var vid=document.getElementById('liveVideo');
-    function mapPts(){var L=STATE.landmarks;if(!L||L.length<68)return null;var vw=vid.videoWidth||1280,vh=vid.videoHeight||720,sc=Math.max(W2/vw,H2/vh),ox=(W2-vw*sc)/2,oy=(H2-vh*sc)/2;return L.map(function(q){return [W2-(ox+q.x*sc),oy+q.y*sc];});}
+    /* 29/09 : on part de la vraie place de la video a l'ecran (elle ne remplit plus forcement le cadre) */
+    function mapPts(){var L=STATE.landmarks;if(!L||L.length<68)return null;var vw=vid.videoWidth||1280,vh=vid.videoHeight||720,fr=fx.getBoundingClientRect(),r=vid.getBoundingClientRect(),kx=W2/(fr.width||W2),ky=H2/(fr.height||H2),rw=r.width*kx,rh=r.height*ky,sc=Math.max(rw/vw,rh/vh),ox=(r.left-fr.left)*kx+(rw-vw*sc)/2,oy=(r.top-fr.top)*ky+(rh-vh*sc)/2;return L.map(function(q){return [ox+(vw-q.x)*sc,oy+q.y*sc];});}
     var SM=null;function pts(){var P=mapPts();if(!P)return SM;if(!SM)SM=P.map(function(p){return p.slice();});else for(var i=0;i<68;i++){SM[i][0]+=(P[i][0]-SM[i][0])*.4;SM[i][1]+=(P[i][1]-SM[i][1])*.4;}return SM;}
     var ZONES=function(P){var b=bounds(contour(P));return [{n:'FRONT',k:'hydration',c:[(P[19][0]+P[24][0])/2,P[19][1]-b.h*.16],r:b.w*.3,side:1},{n:'POMMETTE G',k:'radiance',c:[(P[2][0]*.55+P[31][0]*.45),(P[2][1]+P[31][1])/2-6],r:b.w*.14,side:-1},{n:'POMMETTE D',k:'radiance',c:[(P[14][0]*.55+P[35][0]*.45),(P[14][1]+P[35][1])/2-6],r:b.w*.14,side:1},{n:'CONTOUR ŒIL',k:'fine lines',c:[(P[42][0]+P[45][0])/2,P[46][1]+8],r:b.w*.11,side:1},{n:'NEZ',k:'pores',c:[P[30][0],P[30][1]],r:b.w*.1,side:-1},{n:'MENTON',k:'texture',c:[P[8][0],P[8][1]-b.h*.08],r:b.w*.14,side:-1}];};
     var RELEVES=['L01 EPIDERMIS · MELANIN','L01 EPIDERMIS · ERYTHEMA','L02 DERMAL · COLLAGEN','L02 DERMAL · ELASTIN','L03 THERMO · PERFUSION','SEBUM · T-ZONE','HYDRATION · STRATUM','MICRO-TEXTURE · POR.','LAB · ΔE SKIN','UV · PHOTODAMAGE','FINE LINES · PERIOCULAR','RADIANCE · L* INDEX'];
@@ -2527,8 +2606,8 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
   (function(){var res=document.getElementById('view-results'),grid=document.querySelector('.vyvre-v6 .v6grid');if(!res||!grid)return;var fait=false;
     function bio(){if(fait)return;fait=true;var r=window.vyvreLastScanResult,sc=r&&r.scores||{};function v(k,d){var n=Number(sc[k]);return isFinite(n)?Math.round(n):d;}
       var raw=(r&&r.raw)||{}; var tw=Number(raw.tewl), ita=Number(raw.ita);
-      var texture=isFinite(tw)?Math.max(5,Math.min(98,Math.round(100-tw*2.2))):68, itaV=isFinite(ita)?Math.round(ita):38;
-      var L=[['r.pores','r.tPores',v('pores',70),'/100'],['r.oil','r.tSeb',100-v('sebum',30),'/100'],['r.even','r.tTone',100-v('pigmentation',30),'/100'],['r.ita','r.tPhoto',itaV,'°']];
+      var texture=isFinite(tw)?Math.max(5,Math.min(98,Math.round(100-tw*2.2))):68, itaV=(isFinite(ita)&&ita>-90&&ita<90)?Math.round(ita):null;
+      var L=[['r.pores','r.tPores',v('pores',70),'/100'],['r.oil','r.tSeb',100-v('sebum',30),'/100'],['r.even','r.tTone',100-v('pigmentation',30),'/100'],['r.ita','r.tPhoto',itaV,'°']].filter(function(d){ return d[2]!==null; });
       (function(){ var fr=grid.querySelector('.v6r3'); var c=document.createElement('div'); c.className='v6card sg-metric sg-m4'; c.innerHTML='<span class="v6lbl" data-i18n="r.tMicro">'+VY.t('r.tMicro')+'</span><h3 data-i18n="r.texture">'+VY.t('r.texture')+'</h3><div class="v6num"><span>0</span><span class="v6unit">/100</span></div><div class="sg-barre"><i></i></div>'; fr.appendChild(c);
         var num=c.querySelector('.v6num span'),bar=c.querySelector('.sg-barre i'); setTimeout(function(){ c.classList.add('sg-in'); var t0=performance.now(); (function k(now){var p=Math.min(1,(now-t0)/1600);p=1-Math.pow(1-p,3);num.textContent=Math.round(texture*p);if(p<1)requestAnimationFrame(k);})(t0); bar.style.width=texture+'%'; },880); })();
       var first=grid.querySelector('.v6r3');L.forEach(function(d,i){var c=document.createElement('div');c.className='v6card sg-bio sg-b'+(i+1);c.innerHTML='<span class="v6lbl" data-i18n="'+d[1]+'">'+VY.t(d[1])+'</span><h3 data-i18n="'+d[0]+'">'+VY.t(d[0])+'</h3><div class="v6num"><span>0</span><span class="v6unit">'+d[3]+'</span></div><div class="sg-barre"><i></i></div>';first.appendChild(c);
@@ -2605,7 +2684,7 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
   var fait=false;
   function lancer(){
     if(fait) return; fait=true;
-    var cards=[].slice.call(document.querySelectorAll('[data-vyvre-prod-slot]'));
+    var cards=[].slice.call(document.querySelectorAll('[data-vyvre-prod-slot]')).filter(function(c){ return c.style.display!=='none'; });
     var prods=cards.map(function(c){ var im=c.querySelector('img'); var src=im?(im.getAttribute('src')||''):'';
       /* pas de reecriture vers le detourage PNG : les PNG ne partent pas en ligne (image cassee) */
       return {src:src, nom:((c.querySelector('h3')||{}).textContent||'').trim(), lbl:(c.dataset.marque||((c.querySelector('.v6lbl')||{}).textContent||'')).trim()}; }).filter(function(p){return p.src&&p.nom;});
@@ -2653,11 +2732,14 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
       var uR=gl.getUniformLocation(pg,'R'), uT=gl.getUniformLocation(pg,'T'), t0=performance.now();
       (function tick(){ if(!run) return; gl.uniform2f(uR,cv.width,cv.height); gl.uniform1f(uT,(performance.now()-t0)/1000+12.); gl.drawArrays(gl.TRIANGLE_STRIP,0,4); requestAnimationFrame(tick); })();
     }
-    var fin=function(){ if(el.classList.contains('out')) return; el.classList.add('out'); setTimeout(function(){ run=false; el.remove(); },1050); };
+    var fin=function(){ if(el.classList.contains('out')) return; el.classList.add('out');
+      try{ (document.scrollingElement||document.documentElement).scrollTop=0; document.body.scrollTop=0; }catch(e){}
+      setTimeout(function(){ run=false; el.remove(); },1050); };
     el.querySelector('.si-skip').addEventListener('click',fin);
     var gel=(location.search.match(/[?&]introgel=1/)); if(!gel) setTimeout(fin, 5600);
   }
-  var attendre=function(){ /* les produits sont re-rendus apres l'appel catalogue : on laisse 700 ms */ setTimeout(lancer,1300); };
+  /* 29/09 : l'intro attend le vrai rendu des produits (le catalogue fait 6 Mo : en 4G, 1,3 s ne suffisait pas) */
+  var attendre=function(){ Promise.resolve(window.__vyRendu).then(function(){ setTimeout(lancer,300); }, function(){ setTimeout(lancer,300); }); };
   if(typeof showFinalDashboard==='function'){ var _sfd=showFinalDashboard; showFinalDashboard=function(){ var r=_sfd.apply(this,arguments); attendre(); return r; }; }
   window.vyvreIntroProduits=lancer;
 })();
@@ -2776,6 +2858,36 @@ html,body{background:#030405!important}
     t.withFaceLandmarks=function(){ var n=faceapi.nets; if(!((n.faceLandmark68TinyNet&&n.faceLandmark68TinyNet.isLoaded)||(n.faceLandmark68Net&&n.faceLandmark68Net.isLoaded))) return Promise.resolve(null); return w.apply(t,arguments); };
     return t; };
 })();
+</script>
+<style id="vy-recap-css">
+/* 29/09 (Charles, iPhone) : apres les scores, les 4 soins en petit, pour les avoir sous les yeux,
+   puis les produits un par un en grand. Sur ordinateur la vitrine les montre deja cote a cote. */
+#vy-recap{padding:18px 14px 16px!important;opacity:1!important;transform:none!important;align-items:stretch!important}
+#vy-recap .vr-k{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.3em;color:rgba(217,201,163,.85);margin:0 0 14px 4px}
+#vy-recap .vr-g{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+#vy-recap .vr-p{display:block;text-decoration:none;color:#fff;min-width:0;cursor:pointer}
+#vy-recap .vr-im{aspect-ratio:3/4;border-radius:14px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);display:grid;place-items:center;overflow:hidden;padding:6px}
+#vy-recap .vr-im img{max-width:100%;max-height:100%;object-fit:contain}
+#vy-recap b{display:block;margin-top:8px;font:400 8px/1.4 'JetBrains Mono',monospace;letter-spacing:.16em;color:rgba(217,201,163,.8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#vy-recap i{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font:300 11px/1.3 Inter,sans-serif;font-style:normal;color:rgba(255,255,255,.85);margin-top:3px}
+@media (min-width:1100px){#vy-recap{display:none!important}}
+</style>
+<script id="vy-recap-js">
+window.vyRecap = function(){
+  var grid = document.querySelector('.vyvre-v6 .v6grid'); if(!grid) return;
+  var slots = [].slice.call(document.querySelectorAll('[data-vyvre-prod-slot]')).filter(function(c){ return c.style.display !== 'none'; });
+  var items = slots.map(function(c, i){ var im = c.querySelector('img'); return { i:i, src: im ? (im.getAttribute('src') || '') : '',
+    nom: ((c.querySelector('h3') || {}).textContent || '').trim(), marque: (c.dataset.marque || '').trim(), slot: c }; }).filter(function(p){ return p.nom; });
+  if(!items.length) return;
+  var r = document.getElementById('vy-recap'); if(!r){ r = document.createElement('div'); r.id = 'vy-recap'; r.className = 'v6card sg-in'; grid.appendChild(r); }
+  var lbl = (document.getElementById('vyvre-product-row') || {}).dataset || {};
+  var esc = function(t){ return String(t).replace(/[&<>"]/g, function(ch){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[ch]; }); };
+  r.innerHTML = '<div class="vr-k">' + esc((lbl.ritual || 'VOTRE RITUEL').replace(/\d+/, items.length)) + '</div><div class="vr-g">' + items.map(function(p){
+    return '<a class="vr-p" data-i="' + p.i + '"><div class="vr-im">' + (p.src ? '<img src="' + esc(p.src) + '" alt="" onerror="this.style.visibility=\'hidden\'">' : '') + '</div><b>' + String(p.i + 1).padStart(2, '0') + (p.marque ? ' · ' + esc(p.marque) : '') + '</b><i>' + esc(p.nom) + '</i></a>'; }).join('') + '</div>';
+  [].forEach.call(r.querySelectorAll('.vr-p'), function(a){ a.addEventListener('click', function(){ var c = items[+a.dataset.i].slot; if(c) c.scrollIntoView({ behavior:'smooth', block:'center' }); }); });
+  /* les photos sont recadrees apres coup (produits lisibles) : on suit la version finale */
+  setTimeout(function(){ items.forEach(function(p, k){ var im = p.slot.querySelector('img'), m = r.querySelectorAll('.vr-im img')[k]; if(im && m && im.getAttribute('src') !== m.getAttribute('src')) m.src = im.getAttribute('src'); }); }, 2500);
+};
 </script>
 <style id="sg-huit">
 @media (min-width:1100px){
@@ -3027,7 +3139,9 @@ header{backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important;-webki
    On les donne au moteur de langue : il les replace dans {n} / {b} des 12 langues,
    formates selon la langue affichee. */
 (function(){
-  fetch('/scan/catalogue/all.json?_t='+Date.now()).then(function(r){return r.json();}).then(function(j){
+  /* un seul telechargement du catalogue (6 Mo), partage avec le choix des produits */
+  window.__vyCatalogue = window.__vyCatalogue || fetch('/scan/catalogue/all.json?_t='+Date.now()).then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); });
+  window.__vyCatalogue.then(function(j){
     var p=j.products||[]; if(!p.length) return;
     var n=p.length, m=new Set(p.map(function(x){return x.brand;})).size;
     if(window.VY && VY.chiffres) VY.chiffres(n, m);
@@ -3311,11 +3425,17 @@ document.addEventListener('vy:lang', function(){
   #sg-intro .si-k{top:calc(8vh - 6px);font-size:10px;letter-spacing:.36em}
   #sg-intro .si-t{top:calc(8vh + 26px)!important}
   #sg-intro .si-p{left:12px;right:12px;gap:10px!important}
-  #sg-intro .si-pr{width:auto!important;flex:1 1 0;min-width:0;max-width:36vw}
+  #sg-intro .si-p{flex-wrap:wrap!important;justify-content:center!important;row-gap:14px!important}
+  #sg-intro .si-pr{width:auto!important;flex:0 0 40%;min-width:0;max-width:40%}
   #sg-intro .si-im{width:100%!important;height:auto!important;aspect-ratio:4/5;padding:10px!important;border-radius:20px!important}
   #sg-intro .si-n{margin-top:14px}
   #sg-intro .si-n b{font-size:9.5px;letter-spacing:.18em;line-height:1.5}
   #sg-intro .si-n i{font-size:12.5px!important;margin-top:6px}
+  /* 29/09 : 2 x 2 moins haut, pour ne plus passer sur le titre */
+  #sg-intro .si-p{bottom:6vh!important}
+  #sg-intro .si-im{aspect-ratio:auto!important;height:min(17vh,140px)!important}
+  #sg-intro .si-n{margin-top:8px}
+  #sg-intro .si-n i{display:-webkit-box!important;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
 }
 /* 26/09, retour de Charles sur iPhone : un container de mesure par ecran, dix ecrans a
    descendre. Sous 640 px les resultats se resserrent : le score d'abord, les huit mesures
@@ -3323,7 +3443,10 @@ document.addEventListener('vy:lang', function(){
 @media (max-width:1099px){
   .vyvre-v6{padding-top:34px!important}
   .vyvre-v6 .v6grid{gap:14px!important}
-  .vyvre-v6 .v6grid>.v6r1{order:-1}
+  .vyvre-v6 .v6grid>.v6r1{order:-4}
+  .vyvre-v6 .v6grid>.v6r3:has(.sg-metric){order:-3}
+  .vyvre-v6 .v6grid>.sg-verdict{order:-2}
+  .vyvre-v6 .v6grid>#vy-recap{order:-1}
   .vyvre-v6 .v6card.v6score{padding:6px 0!important;min-height:0!important}
   .vyvre-v6 .v6card.v6score .sg-centre{width:min(46vw,190px)!important}
   .vyvre-v6 .v6card.v6score .v6num{font-size:clamp(58px,17vw,74px)!important;padding:0!important}
@@ -3362,6 +3485,25 @@ document.addEventListener('vy:lang', function(){
    remonte au-dessus d'elle au lieu de passer dessous */
 @media (max-width:640px){
   body:has(#view-results.active){padding-bottom:calc(92px + env(safe-area-inset-bottom))!important}
+}
+</style>
+<style id="vy-resultats-haut">
+/* 29/09 : sur telephone le menu (150 px) cachait le haut du score */
+@media (max-width:1099px){ #view-results{padding-top:calc(env(safe-area-inset-top) + 164px)!important} }
+</style>
+<style id="vy-quatre-produits">
+/* 29/09 : quatre produits. Ordinateur : une colonne par produit visible (jamais de colonne vide) ;
+   entre 1100 et 1500 px, photo au-dessus du nom pour ne pas ecraser le texte. Tablette : 2 x 2. */
+@media (min-width:1100px){
+  .vyvre-v6 .v6grid>#vyvre-product-row{grid-template-columns:repeat(auto-fit,minmax(0,1fr))!important}
+}
+@media (min-width:1100px) and (max-width:1499px){
+  .vyvre-v6 .v6card.v6prod{grid-template-columns:1fr!important;justify-items:center;text-align:center;row-gap:10px}
+  .vyvre-v6 .v6card.v6prod>*{grid-column:1!important}
+  .vyvre-v6 .v6card.v6prod .v6photo{grid-row:auto!important;order:-1;width:110px!important;height:120px!important;margin-top:8px}
+}
+@media (min-width:769px) and (max-width:1099px){
+  .vyvre-v6 #vyvre-product-row{grid-template-columns:repeat(2,1fr)!important}
 }
 </style>
 <script id="sg-produits-lisibles-js">

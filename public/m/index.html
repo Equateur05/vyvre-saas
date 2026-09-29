@@ -7,7 +7,7 @@
 <meta name="description" content="Votre peau, mesurée en moins de 10 secondes depuis votre caméra. Puis les trois soins qui lui correspondent, parmi 5 883 références de 147 marques.">
 <title>VYVRE — Scan de peau universel</title>
 <!-- VYVRE_I18N : moteur 12 langues, francais par defaut -->
-<script src="/scan/vy-i18n.js?v=26"></script>
+<script src="/scan/vy-i18n.js?v=28"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Police ultra-clean (Silicon Valley DeepTech style) -->
@@ -1462,6 +1462,8 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     if (!resp.ok) throw new Error('HTTP ' + resp.status);
     const data = await resp.json();
     products = data.products || [];
+    /* 29/09 : jamais un produit reserve aux Etats-Unis ni un doublon d'abonnement */
+    products = products.filter(function(p){ return !/\b(US|USA|U\.S\.)\s*ONLY\b|\bONLY\s+(IN|FOR)\s+(THE\s+)?(US|USA)\b|^\s*\[subscr/i.test(p.name || ''); });
     if (window.VYVRE_MARQUE) { var f = products.filter(function(p){ return p.brand === window.VYVRE_MARQUE; });
       if (f.length) { products = f; window.VYVRE_MARQUE_NOM = f[0].brand_name || window.VYVRE_MARQUE; window.sgTitreMarque && window.sgTitreMarque(); }
       else {
@@ -1632,7 +1634,7 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
   });
 </script>
 <!-- VYVRE V10: TF.js removed from eager load — handled by /vyvre-loader.js -->
-<script src="/scan/vyvre-scan-engine.js?v=10.5" defer></script>
+<script src="/scan/vyvre-scan-engine.js?v=10.6" defer></script>
 <!-- VYVRE_V10_TRACKER_BEGIN -->
 <script src="/scan/vyvre-tracker.js?v=10.1" defer></script>
 <!-- VYVRE_V10_TRACKER_END -->
@@ -2252,8 +2254,8 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
   (function(){var res=document.getElementById('view-results'),grid=document.querySelector('.vyvre-v6 .v6grid');if(!res||!grid)return;var fait=false;
     function bio(){if(fait)return;fait=true;var r=window.vyvreLastScanResult,sc=r&&r.scores||{};function v(k,d){var n=Number(sc[k]);return isFinite(n)?Math.round(n):d;}
       var raw=(r&&r.raw)||{}; var tw=Number(raw.tewl), ita=Number(raw.ita);
-      var texture=isFinite(tw)?Math.max(5,Math.min(98,Math.round(100-tw*2.2))):68, itaV=isFinite(ita)?Math.round(ita):38;
-      var L=[['r.pores','r.tPores',v('pores',70),'/100'],['r.oil','r.tSeb',100-v('sebum',30),'/100'],['r.even','r.tTone',100-v('pigmentation',30),'/100'],['r.ita','r.tPhoto',itaV,'°']];
+      var texture=isFinite(tw)?Math.max(5,Math.min(98,Math.round(100-tw*2.2))):68, itaV=(isFinite(ita)&&ita>-90&&ita<90)?Math.round(ita):null;
+      var L=[['r.pores','r.tPores',v('pores',70),'/100'],['r.oil','r.tSeb',100-v('sebum',30),'/100'],['r.even','r.tTone',100-v('pigmentation',30),'/100'],['r.ita','r.tPhoto',itaV,'°']].filter(function(d){ return d[2]!==null; });
       (function(){ var fr=grid.querySelector('.v6r3'); var c=document.createElement('div'); c.className='v6card sg-metric sg-m4'; c.innerHTML='<span class="v6lbl" data-i18n="r.tMicro">'+VY.t('r.tMicro')+'</span><h3 data-i18n="r.texture">'+VY.t('r.texture')+'</h3><div class="v6num"><span>0</span><span class="v6unit">/100</span></div><div class="sg-barre"><i></i></div>'; fr.appendChild(c);
         var num=c.querySelector('.v6num span'),bar=c.querySelector('.sg-barre i'); setTimeout(function(){ c.classList.add('sg-in'); var t0=performance.now(); (function k(now){var p=Math.min(1,(now-t0)/1600);p=1-Math.pow(1-p,3);num.textContent=Math.round(texture*p);if(p<1)requestAnimationFrame(k);})(t0); bar.style.width=texture+'%'; },880); })();
       var first=grid.querySelector('.v6r3');L.forEach(function(d,i){var c=document.createElement('div');c.className='v6card sg-bio sg-b'+(i+1);c.innerHTML='<span class="v6lbl" data-i18n="'+d[1]+'">'+VY.t(d[1])+'</span><h3 data-i18n="'+d[0]+'">'+VY.t(d[0])+'</h3><div class="v6num"><span>0</span><span class="v6unit">'+d[3]+'</span></div><div class="sg-barre"><i></i></div>';first.appendChild(c);
@@ -3011,5 +3013,11 @@ document.addEventListener('vy:lang', function(){
 })();
 </script>
 <script src="/scan/retour.js?v=2"></script>
+<script id="vy-rituel-compte">
+(function(){ var row=document.getElementById('vyvre-product-row'); if(!row) return;
+  function juste(){ var n=[].filter.call(document.querySelectorAll('[data-vyvre-prod-slot]'),function(c){return c.style.display!=='none';}).length, t=row.getAttribute('data-ritual')||'', u=t.replace(/\d+/, n);
+    if(n && u!==t) row.setAttribute('data-ritual', u); }
+  juste(); new MutationObserver(juste).observe(row,{attributes:true,attributeFilter:['data-ritual']}); })();
+</script>
 </body>
 </html>

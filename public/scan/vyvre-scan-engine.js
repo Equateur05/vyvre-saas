@@ -554,7 +554,11 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
   const RAD_TO_DEG = 180 / Math.PI;
 
   function ita(L, b) {
-    return Math.atan2(L - ITA_L_PIVOT, b) * RAD_TO_DEG;
+    // 29/09 : atan2 donnait jusqu'a ±180° (172° affiche sur un iPhone) quand b* <= 0.
+    // La formule de Chardon est atan((L*-50)/b*), definie pour b* > 0 : toute peau sous une
+    // lumiere neutre. Un echantillon bleute (b* <= 0) n'est pas de la peau lisible : NaN.
+    if (!(b > 0) || !isFinite(L)) return NaN;
+    return Math.atan((L - ITA_L_PIVOT) / b) * RAD_TO_DEG;
   }
 
   /**
@@ -577,6 +581,7 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
   };
 
   function detectPhototype(itaAngle) {
+    if (!isFinite(itaAngle)) return 3;   // ITA illisible : phototype median, jamais VI par defaut
     if (itaAngle > ITA_BOUNDARIES.I_II) return 1;
     if (itaAngle > ITA_BOUNDARIES.II_III) return 2;
     if (itaAngle > ITA_BOUNDARIES.III_IV) return 3;
@@ -3723,8 +3728,8 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
     // ─── ITA° clamping (Flament 2013 webcam variance compensation) ───────
     // Pour phototypes I-IV on clamp ; pour V-VI on laisse passer (ITA° < -10 légitime)
     const itaClamped = phototype <= 4
-      ? clamp(ITA_CLAMP_MIN, ITA_CLAMP_MAX, raw.ita)
-      : raw.ita;
+      ? clamp(ITA_CLAMP_MIN, ITA_CLAMP_MAX, isFinite(raw.ita) ? raw.ita : 35)
+      : (isFinite(raw.ita) ? raw.ita : 35);
 
     // ─── HYDRATION (Stamatas 2011) ───────────────────────────────────────
     const hydration = Math.round(clamp(
