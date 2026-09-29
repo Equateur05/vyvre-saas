@@ -87,7 +87,7 @@ let L = null, Lraw = null, vu = 0;
 const PW = 256; let PH = 144; const petit = document.createElement('canvas'), pc = petit.getContext('2d', { willReadFrequently:true });
 let MASK = null, tour = 0;
 function lire(now){
-  try { const r = face.detectForVideo(v, now); Lraw = (r.faceLandmarks && r.faceLandmarks[0]) || null; } catch(e){}
+  try { const r = face.detectForVideo(imageDetection(), now); Lraw = (r.faceLandmarks && r.faceLandmarks[0]) || null; } catch(e){}
   if(Lraw){ if(!L) L = Lraw.map(p => ({ x:p.x, y:p.y, z:p.z })); else for(let i=0;i<L.length;i++){ L[i].x += (Lraw[i].x - L[i].x)*.45; L[i].y += (Lraw[i].y - L[i].y)*.45; L[i].z += (Lraw[i].z - L[i].z)*.45; } vu = now; }
   if(seg && (tour++ % 2 === 0)){
     PH = Math.round(PW * (v.videoHeight || 720) / (v.videoWidth || 1280));
@@ -283,6 +283,14 @@ function image(now){
   requestAnimationFrame(image);
 }
 requestAnimationFrame(image);
+/* 29/09 (iPhone de Charles) : Safari sur iPhone lit mal la video donnee directement a MediaPipe,
+   le visage n'etait jamais trouve. Comme le scan cheveux, on lui donne une image copiee de la video. */
+function imageDetection(){
+  const c = imageDetection.c || (imageDetection.c = document.createElement('canvas')), g = imageDetection.g || (imageDetection.g = c.getContext('2d'));
+  const w = 480, h = Math.round(w * (v.videoHeight || 720) / (v.videoWidth || 1280));
+  if(c.width !== w || c.height !== h){ c.width = w; c.height = h; }
+  g.drawImage(v, 0, 0, w, h); return c;
+}
 </script>
 </body>
 </html>
