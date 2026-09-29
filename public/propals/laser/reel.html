@@ -55,7 +55,7 @@ import { FilesetResolver, FaceLandmarker } from "/cheveux/vendor/mediapipe/visio
 
 const MODELES = { 1:'UNE LIGNE', 2:'LIGNES CROISÉES', 3:'RIDEAU', 4:'POINT', 5:'ROTATION', 6:'TRAME', 7:'SÉQUENCE' };
 const Q = new URLSearchParams(location.search), S = MODELES[Q.get('s')] ? +Q.get('s') : 1, CROIX = S === 2;
-/* 29/09 : cinq couleurs de laser. halo = la lumiere qui diffuse, trait = la ligne, coeur = le centre presque blanc */
+/* 29/09 : intensite calmee (Charles). Cinq couleurs de laser. halo = la lumiere qui diffuse, trait = la ligne, coeur = le centre presque blanc */
 const COULEURS = {
   rouge: { nom:'ROUGE', nm:'650 NM', halo:'255,24,40',  trait:'255,70,80',   coeur:'255,236,236', peau:'255,30,45'  },
   blanc: { nom:'BLANC', nm:'LUMIÈRE BLANCHE', halo:'205,220,255', trait:'232,238,255', coeur:'255,255,255', peau:'200,214,255' },
@@ -114,7 +114,7 @@ function coupeDir(nx, ny, c){ // la nappe laser : les points ou n·p = c, deplac
 function longueurs(p){ const l=[0]; for(let i=1;i<p.length;i++) l.push(l[i-1]+Math.hypot(p[i].x-p[i-1].x,p[i].y-p[i-1].y)); return l; }
 function pointA(p,l,d){ let i=1; while(i<l.length-1&&l[i]<d) i++; const t=Math.max(0,Math.min(1,(d-l[i-1])/((l[i]-l[i-1])||1))); return {x:p[i-1].x+(p[i].x-p[i-1].x)*t,y:p[i-1].y+(p[i].y-p[i-1].y)*t}; }
 function point(p, intensite){ // un point laser : coeur blanc, halo qui diffuse
-  [[14,.04],[8,.08],[4,.2],[1.9,.5]].forEach(([r, a]) => { x.fillStyle = rgba(K.halo, a*intensite); x.beginPath(); x.arc(p.x, p.y, r, 0, 7); x.fill(); });
+  [[14,.025],[8,.05],[4,.13],[1.9,.35]].forEach(([r, a]) => { x.fillStyle = rgba(K.halo, a*intensite); x.beginPath(); x.arc(p.x, p.y, r, 0, 7); x.fill(); });
   x.fillStyle = rgba(K.coeur, intensite); x.beginPath(); x.arc(p.x, p.y, .8, 0, 7); x.fill();
 }
 
@@ -124,25 +124,25 @@ function laser(pts, intensite){
   if(pts.length < 2) return;
   x.lineCap = 'round'; x.lineJoin = 'round';
   // halo : plusieurs passes de plus en plus larges et faibles (un « bloom » qui marche partout, iPhone compris)
-  [[22,.030],[12,.055],[6,.11],[2.5,.30]].forEach(([w, a]) => { tracer(pts); x.strokeStyle = rgba(K.halo, a*intensite); x.lineWidth = w; x.stroke(); });
-  tracer(pts); x.strokeStyle = rgba(K.trait, .95*intensite); x.lineWidth = 1.1; x.stroke();
-  tracer(pts); x.strokeStyle = rgba(K.coeur, .95*intensite); x.lineWidth = .45; x.stroke();   // le coeur, presque blanc
+  [[22,.018],[12,.033],[6,.066],[2.5,.19]].forEach(([w, a]) => { tracer(pts); x.strokeStyle = rgba(K.halo, a*intensite); x.lineWidth = w; x.stroke(); });
+  tracer(pts); x.strokeStyle = rgba(K.trait, .7*intensite); x.lineWidth = 1.1; x.stroke();
+  tracer(pts); x.strokeStyle = rgba(K.coeur, .85*intensite); x.lineWidth = .45; x.stroke();   // le coeur, presque blanc
   // le speckle : le grain lumineux qui scintille sur une vraie ligne laser
   for(let i = 0; i < pts.length; i++){ if(Math.random() > .35) continue; const p = pts[i];
-    x.fillStyle = rgba(Math.random() < .5 ? K.coeur : K.trait, Math.random()*.9*intensite);
+    x.fillStyle = rgba(Math.random() < .5 ? K.coeur : K.trait, Math.random()*.6*intensite);
     x.fillRect(p.x + (Math.random()-.5)*2, p.y + (Math.random()-.5)*2, 1, 1); }
 }
 /* la lumiere qui diffuse dans la peau, autour de la ligne, seulement sur le visage */
 function diffusion(pts, horizontal){
   if(pts.length < 2) return;
   x.save(); x.beginPath(); OVALE.forEach((i, k) => { const p = P(i); k ? x.lineTo(p.x, p.y) : x.moveTo(p.x, p.y); }); x.closePath(); x.clip();
-  tracer(pts); x.strokeStyle = rgba(K.peau, .10); x.lineWidth = 52; x.stroke();
-  tracer(pts); x.strokeStyle = rgba(K.peau, .08); x.lineWidth = 26; x.stroke();
+  tracer(pts); x.strokeStyle = rgba(K.peau, .06); x.lineWidth = 52; x.stroke();
+  tracer(pts); x.strokeStyle = rgba(K.peau, .05); x.lineWidth = 26; x.stroke();
   x.restore();
 }
 /* la ligne continue sur le decor, en plus sombre, de part et d'autre du visage */
 function decor(pts, horizontal, pos){
-  x.strokeStyle = rgba(K.peau, .22); x.lineWidth = .7; x.beginPath();
+  x.strokeStyle = rgba(K.peau, .15); x.lineWidth = .7; x.beginPath();
   if(horizontal){ const a = pts[0], b = pts[pts.length-1]; x.moveTo(0, pos); x.lineTo(a.x, a.y); x.moveTo(b.x, b.y); x.lineTo(W, pos); }
   else { const a = pts[0], b = pts[pts.length-1]; x.moveTo(pos, 0); x.lineTo(a.x, a.y); x.moveTo(b.x, b.y); x.lineTo(pos, H); }
   x.stroke();
@@ -224,8 +224,8 @@ function image(now){
     for(let q = 0; q < ARETES.length; q += 2){ const e = ARETES[q], a = L[e.start], b = L[e.end];
       const px = ox + (1 - (a.x + b.x)/2)*dw, py = oy + (a.y + b.y)/2*dh - (a.z + b.z)/2*k;
       const f = Math.exp(-Math.pow((py - onde)/(h*.06), 2)), sc = .25 + .75*f;
-      x.fillStyle = rgba(K.halo, .22*sc*force); x.beginPath(); x.arc(px, py, 2.8, 0, 7); x.fill();
-      x.fillStyle = rgba(f > .5 ? K.coeur : K.trait, (.6 + .4*f) * (Math.random() < .08 ? .45 : 1) * force); x.fillRect(px - .6, py - .6, 1.2, 1.2); }
+      x.fillStyle = rgba(K.halo, .14*sc*force); x.beginPath(); x.arc(px, py, 2.8, 0, 7); x.fill();
+      x.fillStyle = rgba(f > .5 ? K.coeur : K.trait, (.45 + .35*f) * (Math.random() < .08 ? .45 : 1) * force); x.fillRect(px - .6, py - .6, 1.2, 1.2); }
     return onde;
   }
   x.restore();
