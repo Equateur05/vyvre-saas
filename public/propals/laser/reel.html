@@ -53,16 +53,16 @@ canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
    ========================================================================== */
 import { FilesetResolver, FaceLandmarker } from "/cheveux/vendor/mediapipe/vision_bundle.mjs";
 
-const MODELES = { 1:'UNE LIGNE', 2:'LIGNES CROISÉES', 3:'RIDEAU', 4:'POINT', 5:'ROTATION', 6:'TRAME', 7:'SÉQUENCE', 8:'SILLAGE', 9:'MAILLAGE', 10:'PROFIL', 11:'SYMÉTRIE', 12:'STÉRÉO', 13:'ONDE', 14:'CROISÉ', 15:'CONSTELLATION', 16:'RELIEF', 17:'RADAR' };
+const MODELES = { 1:'UNE LIGNE', 2:'LIGNES CROISÉES', 3:'RIDEAU', 4:'POINT', 5:'ROTATION', 6:'TRAME', 7:'SÉQUENCE', 8:'SILLAGE', 9:'MAILLAGE', 10:'PROFIL', 11:'SYMÉTRIE', 12:'STÉRÉO', 13:'ONDE', 14:'CROISÉ', 15:'CONSTELLATION', 16:'RELIEF', 17:'RADAR', 18:'ISOBATHES', 19:'GRAVURE', 20:'REGARD', 21:'TRACÉ', 22:'FRANGES', 23:'GRILLE', 24:'SPOT', 25:'NORMALES', 26:'LISSAJOUS', 27:'ONDULATIONS' };
 const Q = new URLSearchParams(location.search), S = MODELES[Q.get('s')] ? +Q.get('s') : 1, CROIX = S === 2;
 /* 29/09 : intensite calmee (Charles). Cinq couleurs de laser. halo = la lumiere qui diffuse, trait = la ligne, coeur = le centre presque blanc */
 const COULEURS = {
   rouge: { nom:'ROUGE', nm:'650 NM', halo:'255,24,40',  trait:'255,70,80',   coeur:'255,236,236', peau:'255,30,45'  },
-  blanc: { nom:'BLANC', nm:'LUMIÈRE BLANCHE', halo:'205,220,255', trait:'232,238,255', coeur:'255,255,255', peau:'200,214,255' },
+  blanc: { nom:'BLANC', nm:'LUMIÈRE BLANCHE', halo:'195,212,255', trait:'228,235,255', coeur:'245,248,255', peau:'190,206,255', fh:1.5, ft:.6 },
   bleu:  { nom:'BLEU',  nm:'450 NM', halo:'30,120,255', trait:'90,170,255',  coeur:'228,242,255', peau:'40,120,255'  },
   vert:  { nom:'VERT',  nm:'532 NM', halo:'20,255,110', trait:'90,255,150',  coeur:'236,255,242', peau:'30,220,110'  },
   or:    { nom:'OR',    nm:'CHAMPAGNE', halo:'232,190,110', trait:'240,208,140', coeur:'255,248,230', peau:'232,190,110' } };
-const CO = COULEURS[Q.get('c')] ? Q.get('c') : 'rouge', K = COULEURS[CO], rgba = (c, a) => 'rgba(' + c + ',' + a + ')';
+const CO = COULEURS[Q.get('c')] ? Q.get('c') : 'rouge', K = Object.assign({ fh:1, ft:1 }, COULEURS[CO]), rgba = (c, a) => 'rgba(' + c + ',' + a + ')';
 document.documentElement.style.setProperty('--lc', rgba(K.trait, .9));
 document.getElementById('nm').textContent = K.nm;
 document.getElementById('choix').innerHTML = Object.keys(MODELES).map(k => '<a href="?s=' + k + '&c=' + CO + '"' + (+k === S ? ' class="on"' : '') + '>' + k + ' · ' + MODELES[k] + '</a>').join('');
@@ -118,8 +118,8 @@ function longueurs(p){ const l=[0]; for(let i=1;i<p.length;i++) l.push(l[i-1]+Ma
 function pointA(p,l,d){ let i=1; while(i<l.length-1&&l[i]<d) i++; const t=Math.max(0,Math.min(1,(d-l[i-1])/((l[i]-l[i-1])||1))); return {x:p[i-1].x+(p[i].x-p[i-1].x)*t,y:p[i-1].y+(p[i].y-p[i-1].y)*t}; }
 function point(p, intensite){ // un point laser : coeur blanc, halo qui diffuse
   intensite *= VIE;
-  [[14,.025],[8,.05],[4,.13],[1.9,.35]].forEach(([r, a]) => { x.fillStyle = rgba(K.halo, a*intensite); x.beginPath(); x.arc(p.x, p.y, r, 0, 7); x.fill(); });
-  x.fillStyle = rgba(K.coeur, intensite); x.beginPath(); x.arc(p.x, p.y, .8, 0, 7); x.fill();
+  [[14,.025],[8,.05],[4,.13],[1.9,.35]].forEach(([r, a]) => { x.fillStyle = rgba(K.halo, a*intensite*K.fh); x.beginPath(); x.arc(p.x, p.y, r, 0, 7); x.fill(); });
+  x.fillStyle = rgba(K.coeur, intensite*K.ft); x.beginPath(); x.arc(p.x, p.y, .8, 0, 7); x.fill();
 }
 
 /* ---- le rendu physique d'une ligne laser ---- */
@@ -128,9 +128,9 @@ function laser(pts, intensite){
   if(pts.length < 2) return; intensite *= VIE;
   x.lineCap = 'round'; x.lineJoin = 'round';
   // halo : plusieurs passes de plus en plus larges et faibles (un « bloom » qui marche partout, iPhone compris)
-  [[22,.018],[12,.033],[6,.066],[2.5,.19]].forEach(([w, a]) => { tracer(pts); x.strokeStyle = rgba(K.halo, a*intensite); x.lineWidth = w; x.stroke(); });
-  tracer(pts); x.strokeStyle = rgba(K.trait, .7*intensite); x.lineWidth = 1.1; x.stroke();
-  tracer(pts); x.strokeStyle = rgba(K.coeur, .85*intensite); x.lineWidth = .45; x.stroke();   // le coeur, presque blanc
+  [[22,.018],[12,.033],[6,.066],[2.5,.19]].forEach(([w, a]) => { tracer(pts); x.strokeStyle = rgba(K.halo, a*intensite*K.fh); x.lineWidth = w; x.stroke(); });
+  tracer(pts); x.strokeStyle = rgba(K.trait, .7*intensite*K.ft); x.lineWidth = 1.1; x.stroke();
+  tracer(pts); x.strokeStyle = rgba(K.coeur, .85*intensite*K.ft); x.lineWidth = .45; x.stroke();   // le coeur, presque blanc
   // le speckle : le grain lumineux qui scintille sur une vraie ligne laser
   for(let i = 0; i < pts.length; i++){ if(Math.random() > .35) continue; const p = pts[i];
     x.fillStyle = rgba(Math.random() < .5 ? K.coeur : K.trait, Math.random()*.6*intensite);
@@ -188,7 +188,8 @@ function texte(t, px, py, al, a, rgb = '255,255,255'){ x.font = '300 9px "IBM Pl
 const t0 = performance.now(); let tLire = 0, debut = null, passages = 0, dernierSens = 1;
 /* 30/09 (Charles) : plus vivant, tres leger. L'intensite respire (±8 %), comme la velocite
    d'un musicien : deux ondes lentes a phases tirees au hasard, jamais deux fois pareil. */
-let VIE = 1; const PH = [0,0,0,0].map(() => Math.random()*6.28), HIST = []; let ALLUME = null, ETOILE = null, toucheZone = null;
+let VIE = 1; const PH = [0,0,0,0].map(() => Math.random()*6.28), HIST = [], TRAINEE = []; let ALLUME = null, ETOILE = null, toucheZone = null;
+const TRACE = [[10,338,297,332,284,251,389,356,454,323,361,288,397,365,379,378,400,377,152,148,176,149,150,136,172,58,132,93,234,127,162,21,54,103,67,109,10],[70,63,105,66,107],[336,296,334,293,300],[33,160,158,133,153,144,33],[362,385,387,263,373,380,362],[168,6,197,195,5,4],[61,40,37,0,267,270,291,321,314,17,84,91,61]];
 /* le maillage qui s'allume au passage (Charles aime le modele 9) : touche(a, b, q) dit si l'arete q est eclairee
    maintenant ; elle s'eteint ensuite en « duree » secondes. Les aretes proches de la camera brillent davantage :
    le relief se lit. Tout est trace en 18 chemins (age x profondeur), leger pour l'iPhone. */
@@ -204,7 +205,9 @@ function reveler(touche, duree, force, tt, relief = 1){
   x.lineWidth = .45;
   seaux.forEach((sq, k) => { if(!sq.length) return; const ka = (k/3)|0, kd = k % 3;
     x.beginPath(); for(let m = 0; m < sq.length; m += 4){ x.moveTo(sq[m], sq[m+1]); x.lineTo(sq[m+2], sq[m+3]); }
-    x.strokeStyle = rgba(ka === 0 ? K.coeur : K.trait, Math.pow(1 - (ka + .5)/6, 2)*(.12 + relief*.1*kd)*force*VIE); x.stroke(); });
+    const al = Math.pow(1 - (ka + .5)/6, 2)*(.12 + relief*.1*kd)*force*VIE;
+    if(ka < 2){ x.strokeStyle = rgba(K.halo, al*.3*K.fh); x.lineWidth = 2.6; x.stroke(); x.lineWidth = .45; }   // le retroeclairage
+    x.strokeStyle = rgba(ka === 0 ? K.coeur : K.trait, al*(ka === 0 ? .62 : 1)*K.ft); x.stroke(); });
 }
 function image(now){
   if(v.readyState >= 2 && now - tLire > 33){ tLire = now; lire(now); }
@@ -279,7 +282,9 @@ function image(now){
       const age = tt - ALLUME[q]; if(age > 1.4) continue; seaux[Math.min(5, (age/1.4*6)|0)].push(a.x, a.y, b.x, b.y); }
     x.lineWidth = .45;
     seaux.forEach((sq, kq) => { if(!sq.length) return; x.beginPath(); for(let m = 0; m < sq.length; m += 4){ x.moveTo(sq[m], sq[m+1]); x.lineTo(sq[m+2], sq[m+3]); }
-      x.strokeStyle = rgba(kq === 0 ? K.coeur : K.trait, Math.pow(1 - (kq + .5)/6, 2)*.32*VIE); x.stroke(); });
+      const al = Math.pow(1 - (kq + .5)/6, 2)*.32*VIE;
+      if(kq < 2){ x.strokeStyle = rgba(K.halo, al*.3*K.fh); x.lineWidth = 2.6; x.stroke(); x.lineWidth = .45; }   // le retroeclairage
+      x.strokeStyle = rgba(kq === 0 ? K.coeur : K.trait, al*(kq === 0 ? .62 : 1)*K.ft); x.stroke(); });
     nappe(1, 0, xL, .9);
   } else if(S === 10){
     // profil : la coupe du relief, lue en direct dans le maillage, tracee a cote comme sur un instrument
@@ -377,6 +382,95 @@ function image(now){
     toucheZone = (cx, cy) => angle(cx, cy) < .08;
     const pts = coupeDir(nx, ny, O.x*nx + O.y*ny).filter(p => (p.x - O.x)*dx + (p.y - O.y)*dy > 0);
     if(pts.length > 2) laser(pts, .8); point(O, .45);
+  } else if(S === 18){
+    // isobathes : les lignes d'egale profondeur du visage, en pointille, qui glissent lentement vers l'avant
+    let zmin = 1e9, zmax = -1e9; for(let i2 = 0; i2 < L.length; i2++){ const z = L[i2].z; if(z < zmin) zmin = z; if(z > zmax) zmax = z; }
+    const N = 9, pas = (zmax - zmin)/N, dec = ((ttv*.18) % 1)*pas;
+    for(let n = 0; n < N; n++){ const lv = zmin + dec + n*pas, prof = n/N, al = (.4 + .5*(1 - prof))*VIE*Math.sqrt(K.ft);
+      x.fillStyle = rgba(n === 0 ? K.coeur : K.trait, al*.85);
+      for(const e of ARETES){ const za = L[e.start].z, zb = L[e.end].z; if((za - lv)*(zb - lv) < 0){ const t = (lv - za)/(zb - za), a = PC[e.start], b = PC[e.end]; const qx = a.x + (b.x - a.x)*t, qy = a.y + (b.y - a.y)*t; x.fillRect(qx - .7, qy - .7, 1.4, 1.4); } } }
+    const on = y0 + va(ttv, per*1.6)*h; toucheZone = (cx, cy) => Math.abs(cy - on) < 6;
+    x.fillStyle = rgba(K.halo, .05*K.fh); x.fillRect(x0 - 20, on - 1, w + 40, 2);
+  } else if(S === 19){
+    // gravure : des hachures verticales tres fines, deplacees par le relief, revelees de gauche a droite comme un burin
+    const N = Math.min(46, Math.max(18, Math.round(w/9))), front = x0 - w*.05 + va(ttv, per*1.6)*w*1.1;
+    for(let n = 0; n <= N; n++){ const c = x0 + n*w/N, d = front - c; if(d < -4) continue; const age = Math.min(1, d/(w*.55));
+      const pts = coupeDir(1, 0, c, .38); if(pts.length < 3) continue;
+      x.setLineDash([1.6, 2.4]); tracer(pts); x.strokeStyle = rgba(K.trait, (.5 - .3*age)*VIE*Math.sqrt(K.ft)); x.lineWidth = .5; x.stroke(); x.setLineDash([]); }
+    xL = front; nappe(1, 0, front, .7);
+  } else if(S === 20){
+    // regard : deux mires se posent sur les iris ; l'ecart des yeux est mesure en vrai, rapporte a la largeur du visage
+    const oeil = (c0, r0) => { const C = PC[c0]; let r = 0; for(let k2 = r0; k2 < r0 + 4; k2++) r += Math.hypot(PC[k2].x - C.x, PC[k2].y - C.y); return { C, r:r/4 }; };
+    const A = oeil(468, 469), B = oeil(473, 474), rot = ttv*.8;
+    [A, B].forEach((O, k2) => {
+      x.strokeStyle = rgba(K.trait, .55*VIE*K.ft); x.lineWidth = .6; x.beginPath(); x.arc(O.C.x, O.C.y, O.r, 0, 7); x.stroke();
+      [[1.9, .3, 1], [2.9, .18, -1]].forEach(([m, al, sg]) => { x.strokeStyle = rgba(K.trait, al*VIE*K.ft); x.setLineDash([3, 5]); x.lineDashOffset = sg*rot*20; x.beginPath(); x.arc(O.C.x, O.C.y, O.r*m, 0, 7); x.stroke(); });
+      x.setLineDash([]); x.lineDashOffset = 0;
+      for(let t2 = 0; t2 < 4; t2++){ const a = rot*(k2 ? -1 : 1) + t2*Math.PI/2, c1 = Math.cos(a), s1 = Math.sin(a); x.beginPath(); x.moveTo(O.C.x + c1*O.r*3.2, O.C.y + s1*O.r*3.2); x.lineTo(O.C.x + c1*O.r*3.7, O.C.y + s1*O.r*3.7); x.stroke(); }
+      point(O.C, .25); });
+    x.setLineDash([1, 3]); x.strokeStyle = rgba(K.trait, .35*VIE); x.beginPath(); x.moveTo(A.C.x, A.C.y); x.lineTo(B.C.x, B.C.y); x.stroke(); x.setLineDash([]);
+    const ecart = Math.hypot(B.C.x - A.C.x, B.C.y - A.C.y)/w, mx = (A.C.x + B.C.x)/2, my = Math.min(A.C.y, B.C.y) - Math.max(A.r, B.r)*4.4;
+    texte('ÉCART DES YEUX ' + f(ecart*100, 1) + ' % DE LA LARGEUR', mx, my, 'center', .6, K.trait);
+    xL = x0 + va(ttv, per*1.4)*w; toucheZone = null; const bx = Math.abs(xL - A.C.x) < A.r*4 || Math.abs(xL - B.C.x) < B.r*4; if(bx) nappe(1, 0, xL, .35, false);
+  } else if(S === 21){
+    // trace : un point laser dessine le visage trait apres trait (ovale, sourcils, yeux, nez, levres) ; ce qui est trace reste, tres pale
+    const tous = []; TRACE.forEach(ch => { for(let k2 = 0; k2 < ch.length; k2++) tous.push({ i:ch[k2], debut:k2 === 0 }); });
+    const CY = 8, u = (ttv % CY)/(CY - 1.4), nTot = tous.length, fin2 = Math.min(nTot - 1, u*nTot), dis = Math.max(0, 1 - ((ttv % CY) - (CY - 1.4))/1.2);
+    const vis = Math.min(1, dis + (u < 1 ? 1 : 0)); x.beginPath();
+    for(let k2 = 0; k2 <= fin2; k2++){ const p = PC[tous[k2].i]; tous[k2].debut ? x.moveTo(p.x, p.y) : x.lineTo(p.x, p.y); }
+    x.strokeStyle = rgba(K.halo, .07*vis*K.fh*VIE); x.lineWidth = 3; x.stroke(); x.strokeStyle = rgba(K.trait, .38*vis*VIE*Math.sqrt(K.ft)); x.lineWidth = .6; x.stroke();
+    if(u < 1){ const k0 = Math.floor(fin2), fr = fin2 - k0, pA = PC[tous[k0].i], pB = PC[tous[Math.min(nTot - 1, k0 + 1)].i];
+      const tete = (k0 + 1 < nTot && !tous[k0 + 1].debut) ? { x:pA.x + (pB.x - pA.x)*fr, y:pA.y + (pB.y - pA.y)*fr } : pA;
+      const seg = []; for(let k2 = Math.max(0, k0 - 5); k2 <= k0; k2++){ if(tous[k2].debut) seg.length = 0; seg.push(PC[tous[k2].i]); } seg.push(tete);
+      if(seg.length > 1) laser(seg, .55); point(tete, .9); toucheZone = (cx, cy) => Math.hypot(cx - tete.x, cy - tete.y) < 18; }
+  } else if(S === 22){
+    // franges : douze franges verticales, comme un scanner 3D a lumiere structuree ; elles glissent et respirent
+    const N = 12, pas = w*1.1/N, dec = (ttv*pas*.22) % pas;
+    for(let n = -1; n <= N; n++){ const c = x0 - w*.05 + n*pas + dec, ph2 = .5 + .5*Math.sin(n*.9 + ttv*1.6), pts = coupeDir(1, 0, c, .45); if(pts.length < 3) continue;
+      tracer(pts); x.strokeStyle = rgba(K.halo, .06*ph2*K.fh*VIE); x.lineWidth = 3; x.stroke(); x.strokeStyle = rgba(K.trait, (.24 + .3*ph2)*VIE*Math.sqrt(K.ft)); x.lineWidth = .55; x.stroke(); }
+    xL = x0 + ((ttv*.22*w) % w);
+  } else if(S === 23){
+    // grille : une grille laser projetee, deformee par le relief ; une impulsion la parcourt en diagonale
+    const N = 8, imp = (ttv*.45) % 1.6 - .3;
+    for(let n = 0; n <= N; n++){ const u = n/N;
+      [[0, 1, y0 + u*h], [1, 0, x0 + u*w]].forEach(([nx, ny, c]) => { const pts = coupeDir(nx, ny, c, .3); if(pts.length < 3) return;
+        for(let k2 = 1; k2 < pts.length; k2++){ const p = pts[k2], q = pts[k2 - 1], d = ((p.x - x0)/w + (p.y - y0)/h)/2, g = Math.exp(-Math.pow((d - imp)/.08, 2));
+          x.strokeStyle = rgba(g > .5 ? K.coeur : K.trait, (.28 + .5*g)*VIE*Math.sqrt(K.ft)); x.lineWidth = .5 + .4*g; x.beginPath(); x.moveTo(q.x, q.y); x.lineTo(p.x, p.y); x.stroke(); } }); }
+    const ci = imp*2; toucheZone = (cx, cy) => Math.abs(((cx - x0)/w + (cy - y0)/h) - ci) < .04;
+  } else if(S === 24){
+    // spot : un seul spot laser se promene sur la peau ; autour de lui, le grain scintille et le maillage s'allume
+    const sp = { x:cx0 + w*.34*Math.sin(ttv*.9 + 1), y:cy0 + h*.36*Math.sin(ttv*1.33) }, R2 = Math.min(w, h)*.09;
+    reveler((a, b) => Math.hypot((a.x + b.x)/2 - sp.x, (a.y + b.y)/2 - sp.y) < R2, 1.6, .8, tt);
+    for(let k2 = 0; k2 < 26; k2++){ const a = Math.random()*6.28, r = Math.sqrt(Math.random())*R2; x.fillStyle = rgba(Math.random() < .4 ? K.coeur : K.trait, Math.random()*.5*VIE*K.ft); x.fillRect(sp.x + Math.cos(a)*r, sp.y + Math.sin(a)*r, 1, 1); }
+    x.strokeStyle = rgba(K.trait, .22*VIE); x.lineWidth = .5; x.beginPath(); x.arc(sp.x, sp.y, R2, 0, 7); x.stroke();
+    point(sp, .8); toucheZone = (cx, cy) => Math.hypot(cx - sp.x, cy - sp.y) < R2*.6;
+  } else if(S === 25){
+    // normales : de petits traits qui suivent la pente du visage, reveles par une ligne qui descend
+    const G = L.map(() => [0, 0]);
+    for(const e of ARETES){ const a = PC[e.start], b = PC[e.end], dx = b.x - a.x, dy = b.y - a.y, d2 = dx*dx + dy*dy || 1, dz = (L[e.end].z - L[e.start].z)*dw;
+      G[e.start][0] += dz*dx/d2; G[e.start][1] += dz*dy/d2; G[e.end][0] += dz*dx/d2; G[e.end][1] += dz*dy/d2; }
+    yL = y0 - h*.05 + va(ttv, per*1.3)*h*1.1;
+    if(!ETOILE || ETOILE.length !== L.length) ETOILE = new Float32Array(L.length).fill(-99);
+    x.lineWidth = .55; x.beginPath(); const x2 = [];
+    for(let i2 = 0; i2 < L.length; i2++){ const p = PC[i2]; if(Math.abs(p.y - yL) < 4) ETOILE[i2] = tt; const age = tt - ETOILE[i2]; if(age > 2) continue;
+      const g = G[i2], n = Math.hypot(g[0], g[1]) || 1, l = Math.min(9, n*5); x.moveTo(p.x, p.y); x.lineTo(p.x - g[0]/n*l, p.y - g[1]/n*l); if(age < .3) x2.push(p); }
+    x.strokeStyle = rgba(K.trait, .38*VIE*K.ft); x.stroke();
+    x.fillStyle = rgba(K.coeur, .6*K.ft); x2.forEach(p => x.fillRect(p.x - .6, p.y - .6, 1.2, 1.2));
+    nappe(0, 1, yL, .45);
+  } else if(S === 26){
+    // lissajous : un point laser dessine une courbe de Lissajous sur le visage et laisse une trainee qui s'eteint
+    const p = { x:cx0 + w*.4*Math.sin(ttv*1.7), y:cy0 + h*.4*Math.sin(ttv*2.3 + .6) };
+    TRAINEE.push({ x:p.x, y:p.y, t:tt }); while(TRAINEE.length && tt - TRAINEE[0].t > 2.2) TRAINEE.shift();
+    const n3 = TRAINEE.length, tiers = [0, n3*.45|0, n3*.8|0, n3 - 1];
+    [.12, .3, .65].forEach((al, k2) => { const seg = TRAINEE.slice(tiers[k2], tiers[k2 + 1] + 1); if(seg.length > 1) laser(seg, al); });
+    point(p, .9); toucheZone = (cx, cy) => Math.hypot(cx - p.x, cy - p.y) < 16;
+  } else if(S === 27){
+    // ondulations : vingt coupes horizontales tres deplacees par le relief ; une vague de lumiere les parcourt lentement
+    const N = 22, vague = y0 - h*.2 + ((ttv*.28) % 1)*h*1.4;
+    for(let n = 0; n <= N; n++){ const c = y0 + n*h/N, pts = coupeDir(0, 1, c, .62); if(pts.length < 3) continue; const g = Math.exp(-Math.pow((c - vague)/(h*.09), 2));
+      tracer(pts); if(g > .2){ x.strokeStyle = rgba(K.halo, .08*g*K.fh*VIE); x.lineWidth = 3.5; x.stroke(); }
+      x.strokeStyle = rgba(g > .6 ? K.coeur : K.trait, (.26 + .5*g)*VIE*Math.sqrt(K.ft)); x.lineWidth = .5; x.stroke(); }
+    yL = vague;
   } else if(S === 6){
     yL = trame(y0 + va(ttv, per) * h, 1);
   }
