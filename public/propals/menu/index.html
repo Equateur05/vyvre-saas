@@ -3,179 +3,114 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>VYVRE · Menu</title>
+<title>VYVRE · Menu sur le vrai site</title>
 <meta name="robots" content="noindex">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500&family=IBM+Plex+Mono:wght@400;500&family=Playfair+Display:ital,wght@1,500&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-:root{--or:#d9c9a3;--or2:#fbf0d2;--ligne:rgba(255,255,255,.12);--txt:rgba(255,255,255,.92);--doux:rgba(255,255,255,.62)}
-body{background:#050506;color:#fff;font-family:Inter,system-ui,sans-serif;padding:calc(34px + env(safe-area-inset-top)) 16px 70px}
-.k{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.3em;color:rgba(255,255,255,.55);text-align:center}
-h1{font-weight:200;font-size:clamp(32px,5vw,58px);letter-spacing:-.03em;text-align:center;margin:12px 0 10px}
-p.l{text-align:center;color:var(--doux);font-weight:300;max-width:560px;margin:0 auto 34px;line-height:1.55;font-size:15px}
-.liste{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:34px;max-width:1500px;margin:0 auto}
-.prop h2{font-weight:300;font-size:22px;margin:0 0 6px}
-.prop .n{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.26em;color:var(--or)}
-.prop p{color:var(--doux);font-size:14px;line-height:1.5;font-weight:300;margin:6px 0 14px}
-/* le telephone */
-.tel{position:relative;width:340px;max-width:100%;height:640px;margin:0 auto;border-radius:44px;border:1px solid rgba(255,255,255,.14);overflow:hidden;
-  background:radial-gradient(120% 70% at 50% 30%,#1a1a1f 0%,#08080a 60%);box-shadow:0 40px 90px -40px #000}
-.tel .ecran{position:absolute;inset:0;padding-top:44px}
-.tel .ile{position:absolute;top:10px;left:50%;transform:translateX(-50%);width:96px;height:26px;border-radius:20px;background:#000;z-index:30}
-.hero{position:absolute;left:0;right:0;top:250px;text-align:center;padding:0 26px}
-.hero b{display:block;font-weight:200;font-size:38px;letter-spacing:-.03em;line-height:1.05}
-.hero i{display:block;font-style:normal;color:var(--doux);font-weight:300;font-size:14px;margin-top:12px}
-.marque{display:inline-flex;align-items:center;gap:9px;font-weight:500;letter-spacing:.14em;font-size:14px}
-.marque .o{width:24px;height:24px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0,#d9c9a3 30%,#6b5a3a 70%,#1a150c 100%)}
-.marque small{display:block;font:italic 500 11px/1 'Playfair Display',serif;letter-spacing:0;color:rgba(255,255,255,.6);margin-top:3px}
-.lang{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--txt);border:1px solid var(--ligne);border-radius:999px;padding:8px 12px}
-.tel .haut{position:relative;z-index:27}
-button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
-.voile{position:absolute;inset:0;z-index:25;background:rgba(5,5,6,.94);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);opacity:0;pointer-events:none;transition:opacity .35s}
-.voile.on{opacity:1;pointer-events:auto}
-.bureau{margin:18px auto 0;max-width:720px;border:1px solid var(--ligne);border-radius:18px;padding:14px 18px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;background:rgba(255,255,255,.02)}
-.bureau .t{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.24em;color:rgba(255,255,255,.4);width:100%}
-
-/* A · deux niveaux */
-.A .haut{display:flex;justify-content:space-between;align-items:center;padding:12px 18px}
-.A .scans{display:flex;margin:6px 16px 0;border:1px solid var(--ligne);border-radius:999px;padding:4px;background:rgba(255,255,255,.03)}
-.A .scans a{flex:1;text-align:center;padding:11px 0;border-radius:999px;font-size:14px;font-weight:400;color:var(--doux);text-decoration:none;letter-spacing:.02em}
-.A .scans a.on{background:#fff;color:#000;font-weight:500}
-.A .burger{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.18em;color:var(--txt)}
-.A .voile .liens{padding:120px 30px 0}
-.A .voile .liens a{display:block;font-weight:300;font-size:26px;color:#fff;text-decoration:none;padding:14px 0;border-bottom:1px solid var(--ligne)}
-
-/* B · onglets en bas */
-.B .haut{display:flex;justify-content:space-between;align-items:center;padding:12px 18px}
-.B .tabs{position:absolute;left:12px;right:12px;bottom:14px;height:74px;border-radius:26px;border:1px solid var(--ligne);background:rgba(20,20,24,.72);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);display:flex;z-index:20}
-.B .tabs a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:7px;color:var(--doux);text-decoration:none;font-size:12.5px;font-weight:400}
-.B .tabs a.on{color:#fff}.B .tabs a.on svg{stroke:var(--or)}
-.B .tabs svg{width:24px;height:24px;fill:none;stroke:rgba(255,255,255,.7);stroke-width:1.2}
-.B .voile .liens{padding:110px 28px 0}
-.B .voile .liens a{display:flex;justify-content:space-between;align-items:baseline;font-weight:200;font-size:30px;color:#fff;text-decoration:none;padding:16px 0;border-bottom:1px solid var(--ligne)}
-.B .voile .liens a span{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--or);letter-spacing:.2em}
-
-/* C · plein ecran editorial */
-.C .haut{display:flex;justify-content:space-between;align-items:center;padding:12px 18px}
-.C .menu{font-size:14px;font-weight:500;letter-spacing:.16em;display:flex;align-items:center;gap:10px}
-.C .menu i{display:inline-block;width:18px;height:8px;border-top:1.5px solid #fff;border-bottom:1.5px solid #fff}
-.C .voile .liens{padding:96px 26px 0}
-.C .voile .grp{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.28em;color:var(--or);margin:18px 0 6px}
-.C .voile a{display:flex;gap:14px;align-items:baseline;color:#fff;text-decoration:none;padding:9px 0}
-.C .voile a em{font-style:normal;font-family:'IBM Plex Mono',monospace;font-size:11px;color:rgba(255,255,255,.4)}
-.C .voile a b{font-weight:200;font-size:34px;letter-spacing:-.02em}
-.C .voile a small{display:block;font-size:13px;color:var(--doux);font-weight:300;margin-top:2px}
-
-/* D · une barre, lisible */
-.D .haut{display:flex;justify-content:space-between;align-items:center;padding:12px 18px}
-.D .barre{display:flex;gap:8px;padding:8px 16px 0;overflow-x:auto;scrollbar-width:none}
-.D .barre::-webkit-scrollbar{display:none}
-.D .barre a{flex:none;font-size:14px;font-weight:400;color:var(--txt);text-decoration:none;padding:10px 14px;border-radius:999px;border:1px solid var(--ligne)}
-.D .barre a.on{border-color:var(--or);color:var(--or2)}
-.D .barre a.nv{position:relative}
-.D .barre a.nv::after{content:'NOUVEAU';position:absolute;top:-8px;right:8px;font:500 7.5px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;background:var(--or);color:#000;padding:3px 5px;border-radius:5px}
-.D .plus{font-size:20px;color:var(--txt);width:40px;height:40px;border-radius:50%;border:1px solid var(--ligne)}
-
-/* E · la capsule */
-.E .capsule{position:absolute;top:48px;left:50%;transform:translateX(-50%);z-index:26;border-radius:28px;border:1px solid rgba(255,255,255,.16);background:rgba(18,18,22,.8);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);
-  width:300px;height:54px;overflow:hidden;transition:height .45s cubic-bezier(.2,.9,.2,1),border-radius .45s}
-.E .capsule.ouv{height:386px;border-radius:30px}
-.E .ligne1{display:flex;align-items:center;justify-content:space-between;height:54px;padding:0 8px 0 14px}
-.E .ligne1 .sc{display:flex;gap:4px}
-.E .ligne1 .sc a{font-size:13px;color:var(--doux);text-decoration:none;padding:9px 11px;border-radius:999px}
-.E .ligne1 .sc a.on{background:rgba(255,255,255,.12);color:#fff}
-.E .ligne1 button{width:38px;height:38px;border-radius:50%;border:1px solid var(--ligne);font-size:16px}
-.E .reste{padding:10px 20px}
-.E .reste a{display:block;color:#fff;text-decoration:none;font-weight:300;font-size:21px;padding:13px 0;border-top:1px solid var(--ligne)}
-.E .reste .lang{display:inline-block;margin-top:14px}
+html,body{height:100%;background:#000;overflow:hidden;font-family:Inter,system-ui,sans-serif}
+iframe{position:fixed;inset:0;width:100%;height:100%;border:0;background:#000}
+#sel{position:fixed;left:50%;bottom:calc(10px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:10;display:flex;gap:4px;align-items:center;
+  padding:5px;border-radius:999px;background:rgba(255,40,60,.16);border:1px solid rgba(255,90,100,.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 10px 40px -10px #000}
+#sel b{font:500 9px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#ffb3ba;padding:0 6px 0 8px}
+#sel a{font:500 13px/1 Inter,sans-serif;color:#fff;text-decoration:none;padding:9px 11px;border-radius:999px;cursor:pointer}
+#sel a.on{background:#fff;color:#000}
+#info{position:fixed;left:50%;bottom:calc(62px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:10;width:min(92vw,420px);text-align:center;
+  font:300 13px/1.45 Inter,sans-serif;color:#fff;background:rgba(0,0,0,.72);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:10px 14px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:opacity .4s}
+#info.cache{opacity:0}
 </style>
 </head>
 <body>
-<div class="k">VYVRE · PROPOSITIONS</div>
-<h1>Le menu, lisible.</h1>
-<p class="l">Aujourd'hui, les liens du menu font 9 à 11 pixels, en gris à moitié transparent : on les lit mal sur un téléphone. Voici cinq menus, tous avec le nouveau « Scan aliment ». Touchez-les : ils fonctionnent.</p>
-
-<div class="liste">
-
-<section class="prop A">
-  <div class="n">A · DEUX NIVEAUX</div><h2>Les trois scans en tête</h2>
-  <p>La marque et la langue en haut ; juste dessous, un sélecteur de 14 px pour les trois scans. Le reste (Manifeste, Méthode, Pour les marques) est rangé dans « Menu ».</p>
-  <div class="tel"><div class="ile"></div><div class="ecran">
-    <div class="haut"><span class="marque"><span class="o"></span><span>VYVRE<small>skin intelligence</small></span></span><button class="burger" data-ouvre>MENU</button></div>
-    <nav class="scans"><a class="on">Peau</a><a>Cheveux</a><a>Aliment</a></nav>
-    <div class="hero"><b>La peau,<br>révélée.</b><i>La lumière de votre peau, lue en quelques secondes.</i></div>
-    <div class="voile"><div class="liens"><a>Manifeste</a><a>Méthode</a><a>Pour les marques</a><a>Français ▾</a></div></div>
-  </div></div>
-</section>
-
-<section class="prop B">
-  <div class="n">B · ONGLETS EN BAS</div><h2>Comme une app</h2>
-  <p>Les trois scans deviennent des onglets en bas de l'écran, sous le pouce, avec une icône fine et un nom en 12,5 px. En haut, seulement la marque et « Menu ».</p>
-  <div class="tel"><div class="ile"></div><div class="ecran">
-    <div class="haut"><span class="marque"><span class="o"></span><span>VYVRE<small>skin intelligence</small></span></span><button class="lang" data-ouvre>MENU</button></div>
-    <div class="hero"><b>La peau,<br>révélée.</b><i>La lumière de votre peau, lue en quelques secondes.</i></div>
-    <nav class="tabs">
-      <a class="on"><svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="7" ry="9"/><path d="M9 10.5h.01M15 10.5h.01M9.5 15.5c1.5 1 3.5 1 5 0"/></svg>Peau</a>
-      <a><svg viewBox="0 0 24 24"><path d="M6 20c0-8 2-14 6-16 4 2 6 8 6 16"/><path d="M9 20c0-6 1-10 3-12M15 20c0-6-1-10-3-12"/></svg>Cheveux</a>
-      <a><svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="7"/><path d="M12 6c0-2 1-3 3-3M8.5 13.5c1 1.6 2.2 2.4 3.5 2.4"/></svg>Aliment</a>
-    </nav>
-    <div class="voile"><div class="liens"><a>Manifeste<span>01</span></a><a>Méthode<span>02</span></a><a>Pour les marques<span>03</span></a><a>Langue<span>FR</span></a></div></div>
-  </div></div>
-</section>
-
-<section class="prop C">
-  <div class="n">C · PLEIN ÉCRAN ÉDITORIAL</div><h2>Un sommaire de magazine</h2>
-  <p>Un seul bouton « Menu » bien visible. Il ouvre un sommaire plein écran : grands titres de 34 px, numérotés, avec une phrase pour chacun.</p>
-  <div class="tel"><div class="ile"></div><div class="ecran">
-    <div class="haut"><span class="marque"><span class="o"></span><span>VYVRE<small>skin intelligence</small></span></span><button class="menu" data-ouvre><i></i>MENU</button></div>
-    <div class="hero"><b>La peau,<br>révélée.</b><i>La lumière de votre peau, lue en quelques secondes.</i></div>
-    <div class="voile"><div class="liens">
-      <div class="grp">LES SCANS</div>
-      <a><em>01</em><span><b>Peau</b><small>La lumière de votre peau</small></span></a>
-      <a><em>02</em><span><b>Cheveux</b><small>Face, profils, crâne, nuque</small></span></a>
-      <a><em>03</em><span><b>Aliment</b><small>Ce qui nourrit votre peau</small></span></a>
-      <div class="grp">VYVRE</div>
-      <a><em>04</em><span><b style="font-size:24px">Manifeste</b></span></a>
-      <a><em>05</em><span><b style="font-size:24px">Méthode</b></span></a>
-      <a><em>06</em><span><b style="font-size:24px">Pour les marques</b></span></a>
-    </div></div>
-  </div></div>
-</section>
-
-<section class="prop D">
-  <div class="n">D · UNE BARRE, LISIBLE</div><h2>Le plus proche d'aujourd'hui</h2>
-  <p>Le même principe qu'aujourd'hui, mais en vrai texte : 14 px, blanc, sans grand espacement. Les liens défilent au doigt ; le nouveau scan porte une étiquette « Nouveau ».</p>
-  <div class="tel"><div class="ile"></div><div class="ecran">
-    <div class="haut"><span class="marque"><span class="o"></span><span>VYVRE<small>skin intelligence</small></span></span><span class="lang">FR ▾</span></div>
-    <nav class="barre"><a class="on">Scan peau</a><a>Scan cheveux</a><a class="nv">Scan aliment</a><a>Manifeste</a><a>Méthode</a><a>Pour les marques</a></nav>
-    <div class="hero"><b>La peau,<br>révélée.</b><i>La lumière de votre peau, lue en quelques secondes.</i></div>
-  </div></div>
-</section>
-
-<section class="prop E">
-  <div class="n">E · LA CAPSULE</div><h2>Une capsule qui s'ouvre</h2>
-  <p>Une capsule de verre en haut, avec les trois scans. Le « + » l'agrandit en douceur pour montrer le reste, sans quitter la page.</p>
-  <div class="tel"><div class="ile"></div><div class="ecran">
-    <div class="capsule"><div class="ligne1"><nav class="sc"><a class="on">Peau</a><a>Cheveux</a><a>Aliment</a></nav><button data-capsule>+</button></div>
-      <div class="reste"><a>Manifeste</a><a>Méthode</a><a>Pour les marques</a><span class="lang">FR ▾</span></div></div>
-    <div class="hero"><b>La peau,<br>révélée.</b><i>La lumière de votre peau, lue en quelques secondes.</i></div>
-  </div></div>
-</section>
-
-</div>
-
-<div class="k" style="margin:50px 0 14px">SUR ORDINATEUR (MÊME LOGIQUE)</div>
-<div class="bureau"><span class="t">A · C · E</span><span class="marque"><span class="o"></span>VYVRE</span><span style="flex:1"></span><span style="font-size:14px">Peau</span><span style="font-size:14px;color:var(--doux)">Cheveux</span><span style="font-size:14px;color:var(--doux)">Aliment</span><span class="lang">MENU</span></div>
-<div class="bureau"><span class="t">D</span><span class="marque"><span class="o"></span>VYVRE</span><span style="flex:1"></span><span style="font-size:14px">Scan peau</span><span style="font-size:14px">Scan cheveux</span><span style="font-size:14px">Scan aliment</span><span style="font-size:14px;color:var(--doux)">Manifeste</span><span style="font-size:14px;color:var(--doux)">Méthode</span><span style="font-size:14px;color:var(--doux)">Pour les marques</span></div>
-
+<iframe id="f" src="/scan/" title="vyvre.fr"></iframe>
+<div id="info"></div>
+<nav id="sel"><b>MENU</b><a data-m="actuel">Actuel</a><a data-m="A">A</a><a data-m="B">B</a><a data-m="C">C</a><a data-m="D">D</a><a data-m="E">E</a></nav>
 <script>
-document.querySelectorAll('.tel').forEach(function(t){
-  var v = t.querySelector('.voile');
-  t.querySelectorAll('[data-ouvre]').forEach(function(b){ b.addEventListener('click', function(){ v.classList.toggle('on'); b.textContent = v.classList.contains('on') ? 'FERMER' : 'MENU'; if(b.classList.contains('menu')) b.innerHTML = v.classList.contains('on') ? '<i></i>FERMER' : '<i></i>MENU'; }); });
-  if(v) v.addEventListener('click', function(e){ if(e.target === v) v.classList.remove('on'); });
-  var c = t.querySelector('[data-capsule]'); if(c) c.addEventListener('click', function(){ var k = t.querySelector('.capsule'); k.classList.toggle('ouv'); c.textContent = k.classList.contains('ouv') ? '×' : '+'; });
-  t.querySelectorAll('nav a').forEach(function(a){ a.addEventListener('click', function(){ a.parentNode.querySelectorAll('a').forEach(function(z){ z.classList.remove('on'); }); a.classList.add('on'); }); });
-});
+/* 30/09 (Charles : « refais tes propals avec le vrai menu, j'ai du mal a me rendre compte ») :
+   la vraie page vyvre.fr/scan est chargee telle quelle ; chaque proposition remplace seulement son menu. */
+const INFO = {
+  actuel:'Le menu d’aujourd’hui : liens de 9 à 11 px, gris à moitié transparent.',
+  A:'A · Deux niveaux : sous la marque, un grand sélecteur Peau / Cheveux / Aliment. Le reste est dans « Menu ».',
+  B:'B · Onglets en bas : les trois scans en bas de l’écran, sous le pouce, comme une app. « Menu » en haut pour le reste.',
+  C:'C · Sommaire : un seul bouton « Menu » bien visible, qui ouvre un sommaire plein écran.',
+  D:'D · Une barre lisible : le même menu qu’aujourd’hui, en vrai texte blanc de 14 px, qui défile au doigt.',
+  E:'E · La capsule : une capsule de verre avec les trois scans ; le « + » l’ouvre pour le reste.' };
+const LIENS = [['Manifeste','/manifeste'],['Méthode','/accuracy'],['Pour les marques','/marques']];
+const SCANS = [['Peau','/scan/'],['Cheveux','/cheveux'],['Aliment','/propals/aliment/']];
+const BASE = `
+header .vy-menu{display:none!important}
+#vp-voile{position:fixed;inset:0;z-index:300;background:rgba(5,5,6,.95);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);opacity:0;pointer-events:none;transition:opacity .35s;padding:130px 28px 0;font-family:Inter,sans-serif}
+#vp-voile.on{opacity:1;pointer-events:auto}
+#vp-voile a{display:flex;justify-content:space-between;align-items:baseline;color:#fff;text-decoration:none;font-weight:200;font-size:30px;letter-spacing:-.02em;padding:15px 0;border-bottom:1px solid rgba(255,255,255,.12)}
+#vp-voile a span{font:500 11px 'IBM Plex Mono',monospace;color:#d9c9a3;letter-spacing:.2em}
+#vp-voile .g{font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.28em;color:#d9c9a3;margin:20px 0 4px}
+.vp-btn{font:500 13px/1 Inter,sans-serif;letter-spacing:.14em;color:#fff;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:11px 16px;cursor:pointer;position:relative;z-index:310}
+`;
+const CSS = {
+  A: BASE + `
+#vp-a{display:flex;width:100%;margin-top:12px;border:1px solid rgba(255,255,255,.16);border-radius:999px;padding:4px;background:rgba(255,255,255,.04)}
+#vp-a a{flex:1;text-align:center;padding:12px 0;border-radius:999px;font:400 14.5px/1 Inter,sans-serif;color:rgba(255,255,255,.75);text-decoration:none}
+#vp-a a.on{background:#fff;color:#000;font-weight:500}
+header .brand{flex-wrap:wrap!important}
+#vp-btn-haut{margin-left:auto}`,
+  B: BASE + `
+#vp-tabs{position:fixed;left:12px;right:12px;bottom:calc(64px + env(safe-area-inset-bottom));height:72px;border-radius:26px;z-index:200;display:flex;border:1px solid rgba(255,255,255,.14);background:rgba(18,18,22,.78);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+#vp-tabs a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:rgba(255,255,255,.66);text-decoration:none;font:400 12.5px/1 Inter,sans-serif}
+#vp-tabs a.on{color:#fff}#vp-tabs a.on svg{stroke:#d9c9a3}
+#vp-tabs svg{width:24px;height:24px;fill:none;stroke:rgba(255,255,255,.72);stroke-width:1.2}
+#vp-btn-haut{margin-left:auto}`,
+  C: BASE + `
+#vp-btn-haut{margin-left:auto;display:inline-flex;align-items:center;gap:10px}
+#vp-btn-haut i{display:inline-block;width:18px;height:8px;border-top:1.5px solid #fff;border-bottom:1.5px solid #fff}
+#vp-voile a.gros{display:block}
+#vp-voile a.gros b{font-weight:200;font-size:36px}
+#vp-voile a.gros small{display:block;font-size:13px;color:rgba(255,255,255,.6);font-weight:300;margin-top:3px}`,
+  D: `
+header .vy-menu{display:flex!important;flex-wrap:nowrap!important;overflow-x:auto;scrollbar-width:none;gap:8px!important;margin:10px 0 0!important;width:100%!important;padding:8px 0 2px}
+header .vy-menu::-webkit-scrollbar{display:none}
+header .vy-menu a,header .vy-menu a.vy-autre{flex:none;font:400 14px/1 Inter,sans-serif!important;letter-spacing:.01em!important;text-transform:none!important;color:rgba(255,255,255,.92)!important;padding:11px 14px!important;border-radius:999px!important;border:1px solid rgba(255,255,255,.16)!important;background:rgba(255,255,255,.03)!important;min-height:0!important}
+header .vy-menu a.vp-on{border-color:#d9c9a3!important;color:#fbf0d2!important}
+header .vy-menu a.vp-nv{position:relative}
+header .vy-menu a.vp-nv::after{content:'NOUVEAU';position:absolute;top:-7px;right:8px;font:500 7.5px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;background:#d9c9a3;color:#000;padding:3px 5px;border-radius:5px}
+header .brand{flex-wrap:wrap!important}`,
+  E: BASE + `
+#vp-cap{position:fixed;top:calc(env(safe-area-inset-top) + 150px);left:50%;transform:translateX(-50%);z-index:250;width:min(92vw,330px);height:56px;overflow:hidden;border-radius:28px;border:1px solid rgba(255,255,255,.18);background:rgba(18,18,22,.82);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);transition:height .45s cubic-bezier(.2,.9,.2,1)}
+#vp-cap.ouv{height:300px}
+#vp-cap .l1{display:flex;align-items:center;justify-content:space-between;height:56px;padding:0 8px 0 12px}
+#vp-cap .l1 a{font:400 14px/1 Inter,sans-serif;color:rgba(255,255,255,.72);text-decoration:none;padding:10px 12px;border-radius:999px}
+#vp-cap .l1 a.on{background:rgba(255,255,255,.14);color:#fff}
+#vp-cap .l1 button{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:none;color:#fff;font-size:18px}
+#vp-cap .reste a{display:block;color:#fff;text-decoration:none;font:300 20px/1 Inter,sans-serif;padding:16px 20px;border-top:1px solid rgba(255,255,255,.1)}` };
+const ICONES = ['<svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="7" ry="9"/><path d="M9.5 15.5c1.5 1 3.5 1 5 0"/></svg>','<svg viewBox="0 0 24 24"><path d="M6 20c0-8 2-14 6-16 4 2 6 8 6 16"/><path d="M9 20c0-6 1-10 3-12M15 20c0-6-1-10-3-12"/></svg>','<svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="7"/><path d="M12 6c0-2 1-3 3-3"/></svg>'];
+let M = new URLSearchParams(location.search).get('m') || 'A';
+const f = document.getElementById('f'), info = document.getElementById('info');
+
+function appliquer(){
+  let d; try { d = f.contentDocument; } catch(e){ return; } if(!d || !d.querySelector('header')) return;
+  d.querySelectorAll('[data-vp]').forEach(e => e.remove());
+  const nav = d.querySelector('header .vy-menu');
+  if(nav){ nav.querySelectorAll('[data-vp-ajout]').forEach(e => e.remove()); nav.querySelectorAll('a').forEach(a => a.classList.remove('vp-on', 'vp-nv')); }
+  if(M === 'actuel') return;
+  const st = d.createElement('style'); st.setAttribute('data-vp', ''); st.textContent = CSS[M]; d.head.appendChild(st);
+  const brand = d.querySelector('header .brand'), ici = (d.defaultView.location.pathname.indexOf('/cheveux') === 0) ? 1 : 0;
+  const el = (html, parent) => { const w = d.createElement('div'); w.innerHTML = html; const n = w.firstElementChild; n.setAttribute('data-vp', ''); (parent || d.body).appendChild(n); return n; };
+  const voile = (inner) => { const v = el('<div id="vp-voile">' + inner + '</div>'); return v; };
+  const bouton = (txt, v) => { const b = el('<button class="vp-btn" id="vp-btn-haut">' + txt + '</button>', brand); b.onclick = () => { v.classList.toggle('on'); b.innerHTML = v.classList.contains('on') ? (M === 'C' ? '<i></i>FERMER' : 'FERMER') : (M === 'C' ? '<i></i>MENU' : 'MENU'); }; return b; };
+  const liens = LIENS.map((l, k) => '<a href="' + l[1] + '">' + l[0] + '<span>' + String(k + 1).padStart(2, '0') + '</span></a>').join('');
+  if(M === 'A'){ const v = voile(liens); bouton('MENU', v); el('<nav id="vp-a">' + SCANS.map((s, k) => '<a href="' + s[1] + '"' + (k === ici ? ' class="on"' : '') + '>' + s[0] + '</a>').join('') + '</nav>', brand); }
+  if(M === 'B'){ const v = voile(liens); bouton('MENU', v); el('<nav id="vp-tabs">' + SCANS.map((s, k) => '<a href="' + s[1] + '"' + (k === ici ? ' class="on"' : '') + '>' + ICONES[k] + s[0] + '</a>').join('') + '</nav>'); }
+  if(M === 'C'){ const v = voile('<div class="g">LES SCANS</div>' + [['Peau','La lumière de votre peau'],['Cheveux','Face, profils, crâne, nuque'],['Aliment','Ce qui nourrit votre peau']].map((s, k) => '<a class="gros" href="' + SCANS[k][1] + '"><span style="font-size:11px">' + String(k + 1).padStart(2, '0') + '</span><b>' + s[0] + '<small>' + s[1] + '</small></b></a>').join('') + '<div class="g">VYVRE</div>' + liens); bouton('<i></i>MENU', v); }
+  if(M === 'D' && nav){
+    const peau = d.createElement('a'); peau.href = '/scan/'; peau.textContent = 'Scan peau'; peau.setAttribute('data-vp-ajout', ''); nav.insertBefore(peau, nav.firstChild);
+    const al = d.createElement('a'); al.href = '/propals/aliment/'; al.textContent = 'Scan aliment'; al.className = 'vp-nv'; al.setAttribute('data-vp-ajout', ''); nav.insertBefore(al, nav.children[2]);
+    (ici ? nav.querySelector('.vy-autre') : peau).classList.add('vp-on'); }
+  if(M === 'E'){ const c = el('<div id="vp-cap"><div class="l1"><nav>' + SCANS.map((s, k) => '<a href="' + s[1] + '"' + (k === ici ? ' class="on"' : '') + '>' + s[0] + '</a>').join('') + '</nav><button>+</button></div><div class="reste">' + LIENS.map(l => '<a href="' + l[1] + '">' + l[0] + '</a>').join('') + '</div></div>');
+    const b = c.querySelector('button'); b.onclick = () => { c.classList.toggle('ouv'); b.textContent = c.classList.contains('ouv') ? '×' : '+'; }; }
+}
+function choisir(m){ M = m; document.querySelectorAll('#sel a').forEach(a => a.classList.toggle('on', a.dataset.m === m));
+  try { history.replaceState(null, '', '?m=' + m); } catch(e){}
+  info.textContent = INFO[m]; info.classList.remove('cache'); clearTimeout(choisir.t); choisir.t = setTimeout(() => info.classList.add('cache'), 4500); appliquer(); }
+document.querySelectorAll('#sel a').forEach(a => a.onclick = () => choisir(a.dataset.m));
+f.addEventListener('load', () => { appliquer(); setTimeout(appliquer, 800); });
+choisir(M);
 </script>
 </body>
 </html>
