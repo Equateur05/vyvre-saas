@@ -3132,7 +3132,9 @@ if(/[?&]depuis=aliment\b/.test(location.search)) addEventListener('load', functi
     var tr=function(k,d){ try{ return (window.VY&&VY.t)?VY.t(k):d; }catch(e){ return d; } };
     var go=document.createElement('button');
     go.type='button'; go.className='spatial-btn'; go.id='vy-intro-go';
-    go.setAttribute('data-i18n','h.scan'); go.textContent=tr('h.scan','Lancer le scan');
+    /* 01/10 (Charles) : « Commencer » lance directement le scan */
+    var COMMENCER={fr:'Commencer',en:'Start',es:'Empezar',de:'Starten',it:'Inizia',pt:'Começar',nl:'Beginnen',ru:'Начать',ar:'ابدأ',zh:'开始',ja:'はじめる',ko:'시작하기'};
+    go.textContent=COMMENCER[(window.VY&&VY.lang)||'fr']||'Commencer';
     /* intro sur fond blanc : le bouton passe en noir, lisible */
     [['background','#1d1d1f'],['color','#fff'],['border','0'],['box-shadow','0 14px 34px -16px rgba(0,0,0,.5)']].forEach(function(p){ go.style.setProperty(p[0],p[1],'important'); });   /* le style du site est en !important */
     go.addEventListener('click',function(){ fin(); var b=document.getElementById('btn-scan'); if(b) b.click(); });
@@ -3145,9 +3147,8 @@ if(/[?&]depuis=aliment\b/.test(location.search)) addEventListener('load', functi
     passer.addEventListener('click',fin);
     barre.appendChild(go); barre.appendChild(passer);
     document.body.appendChild(barre);
-    requestAnimationFrame(function(){ barre.style.opacity='1'; });
-    /* filet si l'image d'animation tarde : le bouton ne reste jamais invisible */
-    setTimeout(function(){ if(barre) barre.style.opacity='1'; },400);
+    /* 01/10 (Charles) : les deux boutons apparaissent apres 2 s, le temps que VYVRE se forme */
+    setTimeout(function(){ if(barre) barre.style.opacity='1'; },2000);
     passer.focus({ preventScroll:true });
   })();
 })();
