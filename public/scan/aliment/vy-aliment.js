@@ -85,7 +85,8 @@
     var ps = []; if(v('pores') != null) ps.push(100 - v('pores')); if(v('sebum') != null) ps.push(v('sebum')); if(ps.length) sev.pores_sebum = Math.max.apply(null, ps);
     if(v('pigmentation') != null) sev.uniformite = v('pigmentation');
     var t = Object.keys(sev).sort(function(x, y){ return sev[y] - sev[x]; });
-    return t.length ? { i1:t[0], i2:t[1] || null } : null; }
+    var note = function(k){ return Math.max(0, Math.min(100, Math.round(100 - sev[k]))); };
+    return t.length ? { i1:t[0], i2:t[1] || null, n1:note(t[0]), n2:t[1] ? note(t[1]) : null } : null; }
 
   /* ---- exclusions (QUESTIONNAIRE.md) ---- */
   function exclus(){ var x = {}, notes = {}; var ex = function(i){ x[i] = 1; }, note = function(i, t){ (notes[i] = notes[i] || []).push(t); };
@@ -148,6 +149,16 @@
         if((l.indexOf(m) >= 0 || (m === 'oméga-3' && l.indexOf('epa') >= 0)) && t[k] > 0){ if(k === 'epa_dha_mg' && !(t[k] > 50)) continue; if(k === 'ala_g' && !(t[k] > .3)) continue;
           var val = t[k] >= 10 ? Math.round(t[k]) : Math.round(t[k]*10)/10; return '100 g apportent environ ' + String(val).replace('.', ',') + ' ' + NUTR[j][2] + ' (table CIQUAL).'; } } }
     return null; }
+  var VNR = [['vitamine_c_mg', 80, 'mg', 'de vitamine C'], ['vitamine_e_mg', 12, 'mg', 'de vitamine E'], ['vitamine_a_ug_ER_calcule', 800, 'µg', 'de vitamine A'], ['zinc_mg', 10, 'mg', 'de zinc'], ['selenium_ug', 55, 'µg', 'de sélénium'], ['iode_ug', 150, 'µg', 'd’iode'], ['niacine_mg', 16, 'mg', 'de vitamine B3'], ['riboflavine_mg', 1.4, 'mg', 'de vitamine B2'], ['potassium_mg', 2000, 'mg', 'de potassium'], ['vitamine_k1_ug', 75, 'µg', 'de vitamine K'], ['cuivre_mg', 1, 'mg', 'de cuivre']];
+  function grammes(f){ var m = /(\d+(?:[.,]\d+)?)\s*(g|ml)\b/.exec(f.portion_type || ''); return m ? parseFloat(m[1].replace(',', '.')) : null; }
+  function apports(f){ var g = grammes(f), t = (f.ciqual && f.ciqual.teneurs_pour_100g) || {}; if(!g) return [];
+    var out = VNR.map(function(v){ var q = (t[v[0]] || 0)*g/100, pc = Math.round(q/v[1]*100); return { pc:pc, txt:(q >= 10 ? Math.round(q) : Math.round(q*10)/10).toString().replace('.', ',') + ' ' + v[2] + ' ' + v[3] + ' (' + pc + ' % des apports de référence)' }; })
+      .filter(function(x){ return x.pc >= 10; }).sort(function(p, q){ return q.pc - p.pc; }).slice(0, 3);
+    if(t.fibres_g && t.fibres_g*g/100 >= 2) out.push({ pc:0, txt:String(Math.round(t.fibres_g*g/10)/10).replace('.', ',') + ' g de fibres (repère : 30 g par jour)' });
+    if(t.epa_dha_mg && t.epa_dha_mg*g/100 >= 100) out.push({ pc:0, txt:Math.round(t.epa_dha_mg*g/100) + ' mg d’oméga-3 EPA et DHA (repère : 250 mg par jour)' });
+    return out.map(function(x){ return x.txt; }); }
+  var FREQ = { legume:'Chaque jour, dans vos cinq fruits et légumes.', fruit:'Chaque jour, dans vos cinq fruits et légumes.', legumineuse:'Au moins deux fois par semaine.', poisson:'Deux fois par semaine, dont un poisson gras.', fruit_de_mer:'De temps en temps, bien cuits.', fruit_a_coque:'Une petite poignée par jour, non salée.', cereale_complete:'Chaque jour, complet de préférence.', feculent:'Chaque jour, complet de préférence.', matiere_grasse:'Chaque jour, en assaisonnement, sans excès.', produit_laitier_fermente:'Jusqu’à deux produits laitiers par jour.', produit_laitier:'Jusqu’à deux produits laitiers par jour.', fromage:'Jusqu’à deux produits laitiers par jour.', graine:'Une cuillère à soupe, régulièrement.', cacao:'De temps en temps, sans sucre ajouté.', boisson:'Sans sucre ajouté.', fruit_sec:'Une petite poignée, de temps en temps.', epice_herbe:'Pour relever vos plats, en petite quantité.', oeuf:'Selon vos habitudes, dans une alimentation variée.', volaille:'En alternance avec le poisson, les œufs et les légumes secs.' };
+  var DOSE_ETUDE = { concentre_tomate:'Dans les essais : 40 à 55 g par jour pendant 10 à 12 semaines, cuit avec de l’huile d’olive.', amande:'Dans les essais : environ 60 g par jour pendant 16 à 24 semaines.', avocat:'Dans l’essai : un avocat par jour pendant 8 semaines.', cacao_poudre:'Dans les essais : une boisson riche en flavanols chaque jour pendant 12 à 24 semaines.', eau:'Dans l’étude : environ deux litres par jour, avec un effet surtout chez ceux qui buvaient peu.' };
   function allegation(f){ var t = f.allegation_UE_autorisee; if(!t || /vitamine A|cuivre|pigmentation/i.test(t)) return null; return t; }   // vitamine A vegetale : avis juridique d'abord ; cuivre : jamais pour les taches
   function saison(f){ var s = f.saison || []; if(s.length >= 12 || !s.length) return 'toute l’année'; return 'de ' + MOIS[s[0] - 1] + ' à ' + MOIS[s[s.length - 1] - 1]; }
 
@@ -349,7 +360,13 @@
       + lignes.map(function(c, k){ var f = DATA.filter(function(z){ return z.id === c.aliment_id; })[0], ac = actifs[c.actif_id]; if(!f) return '';
         var prods = produitsPour(ac);
         return '<div class="rit"><i>' + n2(k) + '</i><div><h3>' + esc(f.nom) + ' + ' + esc(ac.nom) + '</h3><div class="sous">' + esc(INDICES[c.indice] || c.indice) + ' · aliment : preuve ' + esc(c.grade_aliment || f.niveau_preuve_peau) + ' · actif : preuve ' + esc(c.grade_actif || ac.grade) + '</div>'
-          + '<p>' + esc(c.pourquoi) + '</p><p style="opacity:.8">' + esc(c.phrase_honnete || '') + '</p>'
+          + '<p>' + esc(c.pourquoi) + '</p>'
+          + '<div class="preuve" style="margin-top:14px">Votre rituel</div><p style="margin-top:4px">'
+            + (ac.moment === 'soir' ? 'Le soir' : ac.moment === 'matin' ? 'Le matin' : 'Matin ou soir') + ' : ' + esc((ac.nom || '').split(' (')[0].toLowerCase()) + '.'
+            + (ac.concentration_efficace && /\d/.test(ac.concentration_efficace) && !/^Rarement/i.test(ac.concentration_efficace) ? '<br><span style="opacity:.8">Dans les essais : ' + esc(ac.concentration_efficace.charAt(0).toLowerCase() + ac.concentration_efficace.slice(1)) + '</span>' : '')
+            + (ac.exige_spf || ac.id === 'retinoide' || ac.id === 'aha' ? ' Chaque matin : une protection solaire.' : '')
+            + '<br>À table : ' + esc(f.nom.split(' (')[0].toLowerCase()) + ', ' + esc((f.portion_type || '').toLowerCase()) + '. ' + esc(FREQ[f.categorie] || '') + (DOSE_ETUDE[f.id] ? ' ' + esc(DOSE_ETUDE[f.id]) : '') + '</p>'
+          + '<p style="opacity:.8;font-size:12.5px">' + esc(c.phrase_honnete || '') + '</p>'
           + (ac.moment ? '<div class="preuve">' + (ac.moment === 'soir' ? 'Le soir' : ac.moment === 'matin' ? 'Le matin' : 'Matin ou soir') + (ac.concentration_efficace ? ' · ' + esc(ac.concentration_efficace) : '') + '</div>' : '')
           + (ac.precautions || []).slice(0, 2).map(function(t){ return '<div class="prec" style="color:#f3c9a6">' + esc(t) + '</div>'; }).join('')
           + (ac.ce_qu_on_peut_dire ? '<div class="alleg">' + esc(ac.ce_qu_on_peut_dire) + '</div>' : '')
@@ -429,6 +446,7 @@
     if(a('q7','vegan')) al.push('Pensez à la vitamine B12 : parlez-en à un professionnel de santé.');
     var h = HAUT + '<div class="m">' + (prudent ? 'Sans vos réponses · d’après votre lecture' : 'Votre assiette · d’après votre lecture') + '</div><h1>' + (prudent ? 'Assiette prudente.' : titres[pris.length]) + '</h1>'
       + (prudent ? '<p class="lead">Sans vos réponses, nous ne gardons que des aliments sans aucun des 14 allergènes majeurs ni précaution médicale connue. Pour une assiette sur mesure, répondez à une seule question. <a href="#" id="vy-as-rep2" style="color:inherit">Répondre</a></p>' : '')
+      + (pris.length ? '<div class="m" style="margin-top:22px">Pourquoi cette sélection pour vous</div><p class="lead" style="margin-top:8px">Votre lecture montre d’abord <b style="font-weight:500">' + esc(INDICES[ind.i1].toLowerCase()) + '</b> (' + ind.n1 + ' sur 100)' + (ind.i2 ? ', puis <b style="font-weight:500">' + esc(INDICES[ind.i2].toLowerCase()) + '</b> (' + ind.n2 + ' sur 100)' : '') + '. Parmi ' + DATA.length + ' aliments, nous avons gardé ceux qui ont été étudiés pour ces points, écarté ' + Object.keys(e.x).length + ' aliments ' + (prudent ? 'par prudence' : 'pour tous ou d’après vos réponses') + ', puis classé par solidité des preuves, saison et goûts. Une seule famille par aliment, pour varier.</p>' : '')
       + '<p class="lead">' + (pris.length ? esc(PHRASE[ind.i1]) : 'Vos réponses écartent tous les aliments liés à vos indices. Nous préférons ne rien proposer plutôt qu’un aliment sans rapport.') + '</p>'
       + (prudent ? '' : affiner())
       + '<div class="ruban">' + pris.map(function(c){ return '<span class="on">' + esc(c.f.nom.split(' (')[0]) + '</span>'; }).join('') + '</div>'
@@ -436,7 +454,10 @@
       + pris.map(function(c, k){ var f = c.f, a2 = allegation(f), fa = fait(f); if(a2) une = true;
           var pr = (e.notes[f.id] || []).concat((f.precautions || []).filter(function(t){ return !/allégation|afficher|néphrolog|juriste/i.test(t); }).slice(0, 2));   // les notes de securite du profil passent toujours
           return '<div class="rit"><i>' + n2(k) + '</i><div><h3>' + esc(f.nom) + '</h3><div class="sous">Pour : ' + esc(INDICES[c.pour]) + ' · ' + esc(f.portion_type) + ' · ' + saison(f) + '</div>'
-            + '<p>' + esc(f.mecanisme_simple) + '</p>' + (a2 ? '<div class="alleg">' + esc(a2) + '</div>' : '') + (fa ? '<p>' + esc(fa) + '</p>' : '')
+            + '<p>' + esc(f.mecanisme_simple) + '</p>'
+            + '<div class="preuve" style="margin-top:12px">Combien</div><p style="margin-top:4px">' + esc(f.portion_type) + '. ' + esc(FREQ[f.categorie] || 'Dans une alimentation variée.') + (DOSE_ETUDE[f.id] ? ' ' + esc(DOSE_ETUDE[f.id]) : '') + '</p>'
+            + (apports(f).length ? '<div class="preuve" style="margin-top:12px">Une portion apporte</div><p style="margin-top:4px">' + apports(f).map(esc).join('<br>') + '</p>' : '')
+            + (a2 ? '<div class="alleg">' + esc(a2) + '</div>' : '') + (fa ? '<p>' + esc(fa) + '</p>' : '')
             + '<div class="preuve">Preuve ' + f.niveau_preuve_peau + ' · ' + PREUVE[f.niveau_preuve_peau] + '</div>'
             + (prix(f) ? '<div class="preuve" style="text-transform:none;letter-spacing:.2px;font-size:11.5px">' + esc(prix(f)) + (AFFINE.bio && f.bio_disponible ? ' Existe en bio.' : '') + '</div>' : '')
             + (f.allergenes_UE.length ? '<div class="prec">Allergènes : ' + f.allergenes_UE.map(function(z){ return AL_NOM[z] || z; }).join(', ') + '.</div>' : '')
