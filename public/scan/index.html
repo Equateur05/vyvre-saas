@@ -3133,6 +3133,8 @@ if(/[?&]depuis=aliment\b/.test(location.search)) addEventListener('load', functi
     var go=document.createElement('button');
     go.type='button'; go.className='spatial-btn'; go.id='vy-intro-go';
     go.setAttribute('data-i18n','h.scan'); go.textContent=tr('h.scan','Lancer le scan');
+    /* intro sur fond blanc : le bouton passe en noir, lisible */
+    go.style.cssText='background:#1d1d1f;color:#fff;border:0;box-shadow:0 14px 34px -16px rgba(0,0,0,.5)';
     go.addEventListener('click',function(){ fin(); var b=document.getElementById('btn-scan'); if(b) b.click(); });
     var passer=document.createElement('button');
     passer.type='button'; passer.id='vy-intro-passer';
