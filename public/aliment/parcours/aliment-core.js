@@ -9,7 +9,7 @@
    ========================================================================== */
 (function(){
   'use strict';
-  var BASE = '/scan/aliment/';
+  var BASE = window.PARC_DATA_BASE || '/scan/aliment/';
   var INDICES = { rougeurs:'Rougeurs', eclat:'Éclat', pores_sebum:'Pores et sébum', uniformite:'Uniformité', rides_fermete:'Rides et fermeté', hydratation:'Hydratation', texture:'Texture' };
   var PHRASE = {
     hydratation:'L’hydratation de surface dépend d’abord des soins et de l’environnement. L’eau reste la seule boisson recommandée par le PNNS.',
@@ -48,7 +48,7 @@
   var CLE = 'vyvre-assiette-v2', ACCORD = 'c2-2026-10', DEFAUT_EXCLUS = ['pamplemousse','huitre','tofu','noix_bresil'];
   var PRUDENT = ['tomate','carotte','myrtille','orange','poivron_rouge','huile_olive','eau','fraise','cassis'];
   var SANTE = null, MODE = null, GARDER = false, PASPOUR = [], AFFINE = { saison:true, usage:null, cuisines:[], budget:null, bio:false, cuis:false };   // MODE : 'normal' | 'prudent' | 'mineur'
-  try { localStorage.removeItem('vy-assiette'); } catch(e){}   // l'ancienne cle, remplie sans accord separe : jamais migree
+
   function lireMemoire(){ try { var m = JSON.parse(localStorage.getItem(CLE) || 'null'); if(!m) return null;
       var s0 = m.sante || {}, autre = (s0.allergies || []).length || s0.grossesse || s0.anticoagulant || s0.reins || s0.regime;
       if(m.schema !== 2 || !m.accord || m.accord.texte !== ACCORD || !m.expire || new Date(m.expire) < new Date() || (s0.rien && autre)) { localStorage.removeItem(CLE); return null; }
@@ -323,7 +323,7 @@
     var e = document.getElementById('vy-as-entree');
     if(!e){ e = document.createElement('section'); e.id = 'vy-as-entree'; grid.appendChild(e); e.addEventListener('click', ouvrir); }
     e.innerHTML = '<div class="m">Nouveau · Votre assiette</div><h3>Assiette.</h3><p>Jusqu’à quatre aliments, choisis d’après votre lecture : ' + esc(INDICES[ind.i1].toLowerCase()) + (ind.i2 ? ', ' + esc(INDICES[ind.i2].toLowerCase()) : '') + '. Pour chacun, ce que les études montrent. Rien de plus.</p><button type="button">Composer mon assiette</button>';
-    if(/[?&](assiette=1|depuis=aliment)\b/.test(location.search) && !entree.fait){ entree.fait = 1; setTimeout(ouvrir, /depuis=aliment/.test(location.search) ? 1600 : 900); } }
+    if(/[?&]assiette=1/.test(location.search) && !entree.fait){ entree.fait = 1; setTimeout(ouvrir, 900); } }
 
   /* ---- la feuille plein ecran ---- */
   function feuille(html, cls){ style(); html = html.replace(HAUT_BASE, HAUT_BASE + demo()); if(!ouvert){ ouvert = document.createElement('div'); ouvert.id = 'vy-as'; ouvert.setAttribute('role', 'dialog'); ouvert.setAttribute('aria-label', 'Votre assiette'); document.body.appendChild(ouvert); requestAnimationFrame(function(){ ouvert.classList.add('on'); }); document.documentElement.style.overflow = 'hidden'; }
@@ -443,7 +443,7 @@
             + (ac.moment === 'soir' ? 'Le soir' : ac.moment === 'matin' ? 'Le matin' : 'Matin ou soir') + ' : ' + esc((ac.nom || '').split(' (')[0].toLowerCase()) + '.'
             + (ac.dose_affichee ? '<br><span style="opacity:.8">Dose : ' + esc(ac.dose_affichee) + '</span>' : '')
             + '<br>À table : ' + esc(f.nom.split(' (')[0].toLowerCase()) + ', ' + esc((f.portion_type || '').toLowerCase()) + '. ' + esc(FREQ[f.categorie] || '') + '' + '</p>'
-          + (ac.precautions || []).slice(0, 2).map(function(t){ return '<div class="prec" style="color:#f3c9a6">' + esc(t) + '</div>'; }).join('')
+          + (ac.precautions || []).map(function(t){ return '<div class="prec" style="color:#f3c9a6">' + esc(t) + '</div>'; }).join('')
           + (ac.ce_qu_on_peut_dire ? '<div class="alleg">' + esc(ac.ce_qu_on_peut_dire) + '</div>' : '')
           + (ac.exige_spf ? '<div class="prec" style="color:#f3c9a6">Avec cet actif, une protection solaire chaque matin est indispensable.</div>' : '')
           + ((a('q3','enceinte') || a('q3','allaite') || a('q3','projet')) && ac.grossesse === 'avis' ? '<div class="prec" style="color:#f3c9a6">Grossesse ou allaitement : demandez l’avis de votre médecin ou de votre pharmacien avant cet actif.</div>' : '')
@@ -642,7 +642,7 @@
       + '<div class="puces" style="flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -24px 6px;padding:0 24px 4px">' + TYPES_R.map(function(t){ var c = sures.filter(function(r){ return r.type === t[0]; }).length; return '<span class="puce' + (t[0] === ONGLET ? ' on' : '') + '" data-onglet="' + t[0] + '" style="flex:none;font-size:12.5px;padding:9px 12px">' + t[1] + ' · ' + c + '</span>'; }).join('') + '</div>'
       + liste.slice(0, OUVERTES).map(carte).join('')
       + (liste.length > OUVERTES ? '<button class="btn sec" type="button" id="vy-as-plusrec">Voir ' + Math.min(6, liste.length - OUVERTES) + ' recettes de plus</button>' : '')
-      + '<p class="fine">Aucune recette ne porte d’allégation de santé. Le niveau de prix est indicatif.</p></div>'; }
+      + '<p class="fine">Aucune recette ne porte d’allégation de santé. </p></div>'; }
 
   /* ---- PRES DE VOUS : ou acheter ces aliments, autour de soi (OpenStreetMap, sans compte) ----
      La position est arrondie a environ 1 km avant d'etre envoyee, et n'est jamais enregistree. */
@@ -686,14 +686,17 @@
     if(m){ SANTE = m.sante; MODE = 'normal'; PASPOUR = m.paspour || []; } else { SANTE = null; MODE = 'prudent'; }
     versRep(ind); var pris = choisir(ind);
     return { prudent:MODE !== 'normal', i1:INDICES[ind.i1], i2:ind.i2 ? INDICES[ind.i2] : null, n1:ind.n1, aliments:pris.map(function(c){ var f = c.f; return { id:f.id, nom:f.nom.split(' (')[0].split(',')[0], categorie:NOM_CAT[f.categorie] || '', portion:(f.portion_type || '').split(' (')[0], accroche:f.accroche || '', photo:BASE + 'photos/' + f.id + '.png', teinte:TEINTE[f.categorie] || '#999', saison:saison(f), preuve:f.niveau_preuve_peau }; }) }; }); }
-  window.vyAliment = { entree:entree, ouvrir:ouvrir, apercu:apercu };
-  /* 30/09 (Charles : « j'ai deja le bon scan de peau ») : ?assiette=1 ouvre l'assiette tout de suite
-     a partir du dernier scan garde sur cet appareil, sans refaire le scan */
-  if(/[?&]assiette=1/.test(location.search)){
-    var direct = function(){ if(window.__vyScores || ouvert) return;
-      var sc = null; try { sc = JSON.parse(localStorage.getItem('vyvre_scan_scores') || 'null'); } catch(e){}
-      if(!sc || !Object.keys(sc).length){ sc = { glow:47, redness:58, hydration:52, pores:58, sebum:36, pigmentation:25, wrinkles:61, firmness:66 }; window.__vyDemo = true; }   // aucun scan sur cet appareil : un exemple, signale
-      window.__vyScores = sc; entree.fait = 1; ouvrir(); };
-    if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(direct, 300); }); else setTimeout(direct, 300); }
-  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') fermer(); var z = e.target; if(ouvert && z && z.classList && z.classList.contains('puce') && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); z.click(); } });
+
+  window.AlimentCore = {
+    load:charger, catalogue:catalogue, choose:choisir, exclusions:exclus, prudentOk:prudentOk,
+    indices:indicesDuScan, phrase:phrase, valid:valide, composition:composition, contributions:apports,
+    claim:allegation, credit:credit, season:saison, fact:fait, recipes:recettes, safeRecipes:recettesSures,
+    rhythm:rythme, combos:combos, trends:tendances, near:presDeVous,
+    labels:INDICES, evidence:PREUVE, frequency:FREQ, allergens:ALLERG, allergenNames:NOMS_AL,
+    cuisines:CUISINES, recipeTypes:TYPES_R,
+    state:function(s,mode,prefs,removed,ry){SANTE=s;MODE=mode;GARDER=false;AFFINE=prefs;PASPOUR=removed||[];if(ry)Object.assign(REP,ry);versRep(indicesDuScan());},
+    get:function(){return {data:DATA,credits:CREDITS,recipes:RECS,trends:TEND,combos:COMBOS,products:PRODUITS,rep:REP}},
+    recipeTab:function(tab,n){ONGLET=tab;OUVERTES=n||3;},
+    trendCount:function(n){TOUVERT=n;}
+  };
 })();
