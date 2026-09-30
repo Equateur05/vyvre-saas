@@ -1119,8 +1119,8 @@
     "Mixer et servir frais."
    ],
    "allergenes_UE": [
-    "lait",
-    "fruits_a_coque"
+    "fruits_a_coque",
+    "lait"
    ],
    "regimes": [
     "vegetarien",
@@ -1705,8 +1705,8 @@
     "Servir frais."
    ],
    "allergenes_UE": [
-    "lait",
-    "fruits_a_coque"
+    "fruits_a_coque",
+    "lait"
    ],
    "regimes": [
     "vegetarien",
@@ -3058,8 +3058,8 @@
     "Servir frais."
    ],
    "allergenes_UE": [
-    "lait",
-    "fruits_a_coque"
+    "fruits_a_coque",
+    "lait"
    ],
    "regimes": [
     "vegetarien",
@@ -3446,8 +3446,8 @@
    ],
    "allergenes_UE": [
     "cereales_gluten",
-    "lait",
-    "fruits_a_coque"
+    "fruits_a_coque",
+    "lait"
    ],
    "regimes": [
     "vegetarien",
@@ -3594,8 +3594,8 @@
    ],
    "allergenes_UE": [
     "cereales_gluten",
-    "lait",
-    "fruits_a_coque"
+    "fruits_a_coque",
+    "lait"
    ],
    "regimes": [
     "vegetarien",
@@ -3765,8 +3765,11 @@
     "texture"
    ],
    "usage": "quotidien",
-   "notes": [],
-   "photo_prompt": "a slice of wholemeal toast with smashed avocado and a poached egg, served in matte handmade ceramic on warm beige stone, soft daylight, minimal luxury food photography, three-quarter view"
+   "notes": [
+    "Grossesse : cuire l’œuf jusqu’à ce que le jaune soit ferme (au moins 10 minutes pour un œuf dur)."
+   ],
+   "photo_prompt": "a slice of wholemeal toast with smashed avocado and a poached egg, served in matte handmade ceramic on warm beige stone, soft daylight, minimal luxury food photography, three-quarter view",
+   "oeuf_peu_cuit": true
   },
   {
    "id": "oeufs_brouilles_epinards",
@@ -3955,8 +3958,8 @@
     "Arroser d'un filet de miel."
    ],
    "allergenes_UE": [
-    "lait",
-    "fruits_a_coque"
+    "fruits_a_coque",
+    "lait"
    ],
    "regimes": [
     "vegetarien",
@@ -4081,12 +4084,11 @@
     "Cuire jusqu'à ce que le blanc soit pris, replier les bords et servir."
    ],
    "allergenes_UE": [
-    "oeufs",
-    "lait"
+    "lait",
+    "oeufs"
    ],
    "regimes": [
     "vegetarien",
-    "sans_gluten",
     "halal_possible",
     "casher_possible"
    ],
@@ -4101,9 +4103,11 @@
    "usage": "quotidien",
    "notes": [
     "Fromage au lait cru : à éviter pendant la grossesse (Santé.fr) ; le remplacer par un fromage au lait pasteurisé.",
-    "Sarrasin : sans gluten par nature, mais contamination croisée ou galettes mêlées de blé possibles ; lire l’étiquette en cas de maladie cœliaque."
+    "Sarrasin : sans gluten par nature, mais contamination croisée ou galettes mêlées de blé possibles ; lire l’étiquette en cas de maladie cœliaque.",
+    "Grossesse : cuire l’œuf jusqu’à ce que le jaune soit ferme (au moins 10 minutes pour un œuf dur)."
    ],
-   "photo_prompt": "a folded buckwheat galette with egg and spinach, served in matte handmade ceramic on warm beige stone, soft daylight, minimal luxury food photography, three-quarter view"
+   "photo_prompt": "a folded buckwheat galette with egg and spinach, served in matte handmade ceramic on warm beige stone, soft daylight, minimal luxury food photography, three-quarter view",
+   "oeuf_peu_cuit": true
   },
   {
    "id": "congee_gingembre",
@@ -4182,9 +4186,11 @@
    ],
    "usage": "quotidien",
    "notes": [
-    "Contient du soja : déconseillé pendant la grossesse et l’allaitement (Santé.fr)."
+    "Contient du soja : déconseillé pendant la grossesse et l’allaitement (Santé.fr).",
+    "Grossesse : cuire l’œuf jusqu’à ce que le jaune soit ferme (au moins 10 minutes pour un œuf dur)."
    ],
-   "photo_prompt": "a bowl of rice congee with ginger, chives and a soft egg, served in matte handmade ceramic on warm beige stone, soft daylight, minimal luxury food photography, three-quarter view"
+   "photo_prompt": "a bowl of rice congee with ginger, chives and a soft egg, served in matte handmade ceramic on warm beige stone, soft daylight, minimal luxury food photography, three-quarter view",
+   "oeuf_peu_cuit": true
   },
   {
    "id": "tofu_brouille_curcuma",
@@ -4450,8 +4456,8 @@
    ],
    "allergenes_UE": [
     "cereales_gluten",
-    "poissons",
-    "lait"
+    "lait",
+    "poissons"
    ],
    "regimes": [
     "halal_possible",
@@ -4522,8 +4528,8 @@
    ],
    "allergenes_UE": [
     "cereales_gluten",
-    "lait",
     "fruits_a_coque",
+    "lait",
     "sulfites"
    ],
    "regimes": [
@@ -4732,8 +4738,8 @@
     "Couvrir de banane en rondelles et d'une pincée de cannelle."
    ],
    "allergenes_UE": [
-    "cereales_gluten",
-    "arachides"
+    "arachides",
+    "cereales_gluten"
    ],
    "regimes": [
     "vegetarien",
@@ -4956,7 +4962,6 @@
    ],
    "regimes": [
     "vegetarien",
-    "sans_gluten",
     "sans_lactose",
     "halal_possible",
     "casher_possible"
@@ -5100,8 +5105,8 @@
    "allergenes_UE": [
     "cereales_gluten",
     "oeufs",
-    "soja",
-    "sesame"
+    "sesame",
+    "soja"
    ],
    "regimes": [
     "vegetarien",
@@ -5252,8 +5257,9 @@
    ],
    "allergenes_UE": [
     "cereales_gluten",
+    "moutarde",
     "oeufs",
-    "moutarde"
+    "sulfites"
    ],
    "regimes": [
     "vegetarien",
@@ -5315,8 +5321,8 @@
     "Servir le yaourt avec les quartiers, les amandes et la cannelle."
    ],
    "allergenes_UE": [
-    "lait",
-    "fruits_a_coque"
+    "fruits_a_coque",
+    "lait"
    ],
    "regimes": [
     "vegetarien",
@@ -5517,8 +5523,8 @@
    ],
    "allergenes_UE": [
     "cereales_gluten",
-    "oeufs",
-    "lait"
+    "lait",
+    "oeufs"
    ],
    "regimes": [
     "vegetarien",
@@ -5658,8 +5664,8 @@
    ],
    "allergenes_UE": [
     "cereales_gluten",
-    "oeufs",
-    "lait"
+    "lait",
+    "oeufs"
    ],
    "regimes": [
     "vegetarien",
@@ -5718,8 +5724,8 @@
     "Arroser d'un filet de miel."
    ],
    "allergenes_UE": [
-    "lait",
-    "fruits_a_coque"
+    "fruits_a_coque",
+    "lait"
    ],
    "regimes": [
     "vegetarien",
@@ -5785,8 +5791,8 @@
    ],
    "allergenes_UE": [
     "cereales_gluten",
-    "lait",
-    "fruits_a_coque"
+    "fruits_a_coque",
+    "lait"
    ],
    "regimes": [
     "vegetarien",
@@ -5926,8 +5932,8 @@
    ],
    "allergenes_UE": [
     "cereales_gluten",
-    "oeufs",
-    "lait"
+    "lait",
+    "oeufs"
    ],
    "regimes": [
     "vegetarien",
@@ -6067,8 +6073,8 @@
    ],
    "allergenes_UE": [
     "cereales_gluten",
-    "lait",
-    "fruits_a_coque"
+    "fruits_a_coque",
+    "lait"
    ],
    "regimes": [
     "vegetarien",
@@ -6133,8 +6139,8 @@
    ],
    "allergenes_UE": [
     "cereales_gluten",
-    "oeufs",
-    "lait"
+    "lait",
+    "oeufs"
    ],
    "regimes": [
     "vegetarien",
@@ -6150,8 +6156,11 @@
     "pores_sebum"
    ],
    "usage": "quotidien",
-   "notes": [],
-   "photo_prompt": "two baked eggs in ramekins with spinach and cream, served in matte handmade ceramic on warm beige stone, soft daylight, minimal luxury food photography, three-quarter view"
+   "notes": [
+    "Grossesse : cuire l’œuf jusqu’à ce que le jaune soit ferme (au moins 10 minutes pour un œuf dur)."
+   ],
+   "photo_prompt": "two baked eggs in ramekins with spinach and cream, served in matte handmade ceramic on warm beige stone, soft daylight, minimal luxury food photography, three-quarter view",
+   "oeuf_peu_cuit": true
   },
   {
    "id": "soupe_potiron_gingembre",
@@ -6520,7 +6529,8 @@
     "Assaisonner tiède de moutarde, huile, échalote et persil."
    ],
    "allergenes_UE": [
-    "moutarde"
+    "moutarde",
+    "sulfites"
    ],
    "regimes": [
     "vegetarien",
@@ -6966,8 +6976,8 @@
     "Ajouter le chèvre émietté, les noix et l'huile de noix."
    ],
    "allergenes_UE": [
-    "lait",
-    "fruits_a_coque"
+    "fruits_a_coque",
+    "lait"
    ],
    "regimes": [
     "vegetarien",
@@ -7037,7 +7047,8 @@
    ],
    "allergenes_UE": [
     "fruits_a_coque",
-    "moutarde"
+    "moutarde",
+    "sulfites"
    ],
    "regimes": [
     "vegetarien",
@@ -7781,8 +7792,8 @@
    ],
    "allergenes_UE": [
     "cereales_gluten",
-    "soja",
-    "sesame"
+    "sesame",
+    "soja"
    ],
    "regimes": [
     "vegetarien",
@@ -7849,8 +7860,8 @@
    ],
    "allergenes_UE": [
     "cereales_gluten",
-    "soja",
-    "sesame"
+    "sesame",
+    "soja"
    ],
    "regimes": [
     "vegetarien",
@@ -8280,7 +8291,8 @@
    ],
    "allergenes_UE": [
     "fruits_a_coque",
-    "moutarde"
+    "moutarde",
+    "sulfites"
    ],
    "regimes": [
     "vegetarien",
@@ -8354,8 +8366,9 @@
     "Napper les poireaux de vinaigrette moutarde-colza, parsemer d'œuf et de persil."
    ],
    "allergenes_UE": [
+    "moutarde",
     "oeufs",
-    "moutarde"
+    "sulfites"
    ],
    "regimes": [
     "vegetarien",
@@ -8423,9 +8436,10 @@
     "Assaisonner le céleri, parsemer de persil."
    ],
    "allergenes_UE": [
-    "lait",
     "celeri",
-    "moutarde"
+    "lait",
+    "moutarde",
+    "sulfites"
    ],
    "regimes": [
     "vegetarien",
@@ -8767,8 +8781,8 @@
     "Servir avec l'huile, le zeste, le parmesan et l'œuf."
    ],
    "allergenes_UE": [
-    "oeufs",
-    "lait"
+    "lait",
+    "oeufs"
    ],
    "regimes": [
     "vegetarien",
@@ -8784,9 +8798,11 @@
    ],
    "usage": "quotidien",
    "notes": [
-    "Fromage au lait cru : à éviter pendant la grossesse (Santé.fr) ; le remplacer par un fromage au lait pasteurisé."
+    "Fromage au lait cru : à éviter pendant la grossesse (Santé.fr) ; le remplacer par un fromage au lait pasteurisé.",
+    "Grossesse : cuire l’œuf jusqu’à ce que le jaune soit ferme (au moins 10 minutes pour un œuf dur)."
    ],
-   "photo_prompt": "green asparagus with a soft-boiled egg and parmesan shavings, served in matte handmade ceramic on warm beige stone, soft daylight, minimal luxury food photography, three-quarter view"
+   "photo_prompt": "green asparagus with a soft-boiled egg and parmesan shavings, served in matte handmade ceramic on warm beige stone, soft daylight, minimal luxury food photography, three-quarter view",
+   "oeuf_peu_cuit": true
   },
   {
    "id": "artichaut_vinaigrette",
@@ -8840,7 +8856,8 @@
     "Servir tiède, feuille à feuille."
    ],
    "allergenes_UE": [
-    "moutarde"
+    "moutarde",
+    "sulfites"
    ],
    "regimes": [
     "vegetarien",
@@ -9917,8 +9934,9 @@
     "Assaisonner les pommes de terre tièdes de vinaigrette moutarde-colza, oignon et aneth ; ajouter le hareng."
    ],
    "allergenes_UE": [
+    "moutarde",
     "poissons",
-    "moutarde"
+    "sulfites"
    ],
    "regimes": [
     "sans_gluten",
@@ -9990,8 +10008,8 @@
    ],
    "allergenes_UE": [
     "cereales_gluten",
-    "poissons",
-    "lait"
+    "lait",
+    "poissons"
    ],
    "regimes": [
     "halal_possible",
@@ -10359,9 +10377,10 @@
     "Garnir les blancs, parsemer de ciboulette et de paprika."
    ],
    "allergenes_UE": [
-    "oeufs",
     "lait",
-    "moutarde"
+    "moutarde",
+    "oeufs",
+    "sulfites"
    ],
    "regimes": [
     "vegetarien",
@@ -10509,8 +10528,8 @@
     "Assaisonner, ajouter les herbes et les cacahuètes concassées."
    ],
    "allergenes_UE": [
-    "poissons",
-    "arachides"
+    "arachides",
+    "poissons"
    ],
    "regimes": [
     "sans_gluten",
@@ -10608,8 +10627,11 @@
     "texture"
    ],
    "usage": "quotidien",
-   "notes": [],
-   "photo_prompt": "a bowl of Puy lentils with diced vegetables and a poached egg, served in matte handmade ceramic on warm beige stone, soft daylight, minimal luxury food photography, three-quarter view"
+   "notes": [
+    "Grossesse : cuire l’œuf jusqu’à ce que le jaune soit ferme (au moins 10 minutes pour un œuf dur)."
+   ],
+   "photo_prompt": "a bowl of Puy lentils with diced vegetables and a poached egg, served in matte handmade ceramic on warm beige stone, soft daylight, minimal luxury food photography, three-quarter view",
+   "oeuf_peu_cuit": true
   },
   {
    "id": "lieu_poireaux_fondus",
@@ -10666,8 +10688,8 @@
     "Cuire le poisson 8 minutes sur les poireaux à couvert ; arroser de citron."
    ],
    "allergenes_UE": [
-    "poissons",
-    "lait"
+    "lait",
+    "poissons"
    ],
    "regimes": [
     "sans_gluten",
@@ -10885,8 +10907,8 @@
     "Napper le chou-fleur, couvrir du reste de comté, gratiner 20 minutes à 200 °C."
    ],
    "allergenes_UE": [
-    "oeufs",
-    "lait"
+    "lait",
+    "oeufs"
    ],
    "regimes": [
     "vegetarien",
@@ -11034,8 +11056,8 @@
     "Dorer les amandes 1 minute, arroser de citron et de persil, napper le poisson."
    ],
    "allergenes_UE": [
-    "poissons",
-    "fruits_a_coque"
+    "fruits_a_coque",
+    "poissons"
    ],
    "regimes": [
     "sans_gluten",
@@ -11254,7 +11276,6 @@
    ],
    "regimes": [
     "vegetarien",
-    "sans_gluten",
     "halal_possible",
     "casher_possible"
    ],
@@ -11472,7 +11493,8 @@
    ],
    "allergenes_UE": [
     "lait",
-    "moutarde"
+    "moutarde",
+    "sulfites"
    ],
    "regimes": [
     "sans_gluten",
@@ -12895,8 +12917,8 @@
    ],
    "allergenes_UE": [
     "cereales_gluten",
-    "oeufs",
-    "lait"
+    "lait",
+    "oeufs"
    ],
    "regimes": [
     "vegetarien",
@@ -14160,8 +14182,8 @@
    ],
    "allergenes_UE": [
     "cereales_gluten",
-    "soja",
-    "sesame"
+    "sesame",
+    "soja"
    ],
    "regimes": [
     "vegetarien",
@@ -14243,8 +14265,8 @@
    "allergenes_UE": [
     "cereales_gluten",
     "oeufs",
-    "soja",
-    "sesame"
+    "sesame",
+    "soja"
    ],
    "regimes": [
     "vegetarien",
@@ -14320,8 +14342,8 @@
    "allergenes_UE": [
     "cereales_gluten",
     "poissons",
-    "soja",
-    "sesame"
+    "sesame",
+    "soja"
    ],
    "regimes": [
     "sans_lactose",
@@ -14786,8 +14808,8 @@
    "allergenes_UE": [
     "cereales_gluten",
     "poissons",
-    "soja",
-    "sesame"
+    "sesame",
+    "soja"
    ],
    "regimes": [
     "sans_lactose",
@@ -14863,8 +14885,8 @@
     "Ajouter haricots, sauce soja et cacahuètes concassées ; servir avec le riz."
    ],
    "allergenes_UE": [
-    "cereales_gluten",
     "arachides",
+    "cereales_gluten",
     "soja"
    ],
    "regimes": [
@@ -15185,8 +15207,8 @@
     "Dresser laitue, carotte râpée, vermicelles, bœuf, menthe et cacahuètes ; arroser de nuoc-mâm allongé de citron vert et d'eau."
    ],
    "allergenes_UE": [
-    "poissons",
-    "arachides"
+    "arachides",
+    "poissons"
    ],
    "regimes": [
     "sans_gluten",
@@ -15495,11 +15517,10 @@
     "Garnir les tortillas chaudes."
    ],
    "allergenes_UE": [
-    "poissons",
-    "lait"
+    "lait",
+    "poissons"
    ],
    "regimes": [
-    "sans_gluten",
     "halal_possible",
     "casher_possible"
    ],
@@ -15876,7 +15897,6 @@
     "lait"
    ],
    "regimes": [
-    "sans_gluten",
     "halal_possible"
    ],
    "prix_niveau": 2,
@@ -16409,7 +16429,8 @@
     "Ajouter le poulet et la marinade, cuire 20 minutes (bien cuit) ; servir avec le riz."
    ],
    "allergenes_UE": [
-    "moutarde"
+    "moutarde",
+    "sulfites"
    ],
    "regimes": [
     "sans_gluten",
@@ -17003,8 +17024,8 @@
     "Servir avec le concombre au yaourt, citron et aneth."
    ],
    "allergenes_UE": [
-    "poissons",
-    "lait"
+    "lait",
+    "poissons"
    ],
    "regimes": [
     "sans_gluten",
@@ -17073,9 +17094,9 @@
     "Cuire les boulettes 15 minutes à 200 °C (bien cuites)."
    ],
    "allergenes_UE": [
-    "oeufs",
+    "celeri",
     "lait",
-    "celeri"
+    "oeufs"
    ],
    "regimes": [
     "sans_gluten",
@@ -17143,9 +17164,10 @@
     "Servir avec la betterave en dés et une sauce yaourt, moutarde et aneth."
    ],
    "allergenes_UE": [
-    "poissons",
     "lait",
-    "moutarde"
+    "moutarde",
+    "poissons",
+    "sulfites"
    ],
    "regimes": [
     "sans_gluten",
@@ -17221,8 +17243,8 @@
     "Saler, servir avec l'aneth."
    ],
    "allergenes_UE": [
-    "poissons",
-    "lait"
+    "lait",
+    "poissons"
    ],
    "regimes": [
     "sans_gluten",
@@ -17377,8 +17399,8 @@
     "Fondre le beurre avec l'aneth et le citron, napper."
    ],
    "allergenes_UE": [
-    "poissons",
-    "lait"
+    "lait",
+    "poissons"
    ],
    "regimes": [
     "sans_gluten",
@@ -17450,9 +17472,10 @@
     "Mélanger crème et moutarde, napper."
    ],
    "allergenes_UE": [
-    "poissons",
     "lait",
-    "moutarde"
+    "moutarde",
+    "poissons",
+    "sulfites"
    ],
    "regimes": [
     "sans_gluten",
@@ -17594,8 +17617,8 @@
     "Servir avec la salade."
    ],
    "allergenes_UE": [
-    "oeufs",
-    "lait"
+    "lait",
+    "oeufs"
    ],
    "regimes": [
     "vegetarien",
@@ -17810,8 +17833,8 @@
     "Alterner dans un plat, couvrir de parmesan, cuire 20 minutes à 190 °C."
    ],
    "allergenes_UE": [
-    "oeufs",
-    "lait"
+    "lait",
+    "oeufs"
    ],
    "regimes": [
     "vegetarien",
@@ -18330,8 +18353,8 @@
     "Servir avec le riz."
    ],
    "allergenes_UE": [
-    "poissons",
-    "lait"
+    "lait",
+    "poissons"
    ],
    "regimes": [
     "sans_gluten",
@@ -18615,8 +18638,8 @@
    "allergenes_UE": [
     "cereales_gluten",
     "crustaces",
-    "soja",
-    "sesame"
+    "sesame",
+    "soja"
    ],
    "regimes": [
     "sans_lactose",
@@ -18686,8 +18709,8 @@
    ],
    "allergenes_UE": [
     "cereales_gluten",
-    "lait",
-    "fruits_a_coque"
+    "fruits_a_coque",
+    "lait"
    ],
    "regimes": [
     "vegetarien",
@@ -18756,8 +18779,8 @@
     "Cuire 30 minutes à 180 °C."
    ],
    "allergenes_UE": [
-    "lait",
-    "fruits_a_coque"
+    "fruits_a_coque",
+    "lait"
    ],
    "regimes": [
     "vegetarien",
@@ -18889,8 +18912,8 @@
    ],
    "allergenes_UE": [
     "cereales_gluten",
-    "oeufs",
-    "lait"
+    "lait",
+    "oeufs"
    ],
    "regimes": [
     "vegetarien",
@@ -19214,7 +19237,9 @@
     "Monter l'aquafaba en neige ferme, ajouter le sucre.",
     "Incorporer délicatement au chocolat avec le zeste ; réserver 3 heures au frais, saupoudrer de cacao."
    ],
-   "allergenes_UE": [],
+   "allergenes_UE": [
+    "soja"
+   ],
    "regimes": [
     "vegetarien",
     "vegan",
@@ -19234,7 +19259,11 @@
     "Sans œuf cru : l’aquafaba remplace les blancs. Repos de 3 heures au réfrigérateur.",
     "Chocolat : lire l’étiquette (lait, soja ou fruits à coque possibles selon la marque)."
    ],
-   "photo_prompt": "a chocolate mousse in a small glass, served in matte handmade ceramic on warm beige stone, soft daylight, minimal luxury food photography, three-quarter view"
+   "photo_prompt": "a chocolate mousse in a small glass, served in matte handmade ceramic on warm beige stone, soft daylight, minimal luxury food photography, three-quarter view",
+   "allergenes_possibles": [
+    "fruits_a_coque",
+    "lait"
+   ]
   },
   {
    "id": "panna_cotta_agar_framboise",
@@ -19351,8 +19380,8 @@
     "Servir avec le yaourt et les noix."
    ],
    "allergenes_UE": [
-    "lait",
-    "fruits_a_coque"
+    "fruits_a_coque",
+    "lait"
    ],
    "regimes": [
     "vegetarien",
@@ -19415,8 +19444,8 @@
     "Servir avec le yaourt et les amandes grillées."
    ],
    "allergenes_UE": [
-    "lait",
-    "fruits_a_coque"
+    "fruits_a_coque",
+    "lait"
    ],
    "regimes": [
     "vegetarien",
@@ -19478,8 +19507,8 @@
     "Servir avec le fromage blanc."
    ],
    "allergenes_UE": [
-    "lait",
-    "fruits_a_coque"
+    "fruits_a_coque",
+    "lait"
    ],
    "regimes": [
     "vegetarien",
@@ -19754,8 +19783,8 @@
     "Ajouter la fleur d'oranger, verser en coupes, réserver au frais ; parsemer de pistaches."
    ],
    "allergenes_UE": [
-    "lait",
-    "fruits_a_coque"
+    "fruits_a_coque",
+    "lait"
    ],
    "regimes": [
     "vegetarien",
@@ -19829,8 +19858,8 @@
     "Servir tiède ou froid avec les pistaches."
    ],
    "allergenes_UE": [
-    "lait",
     "fruits_a_coque",
+    "lait",
     "sulfites"
    ],
    "regimes": [
@@ -20120,8 +20149,8 @@
     "Cuire 30 minutes au bain-marie à 170 °C (appareil bien pris) ; réserver au frais."
    ],
    "allergenes_UE": [
-    "oeufs",
-    "lait"
+    "lait",
+    "oeufs"
    ],
    "regimes": [
     "vegetarien",
@@ -20397,7 +20426,8 @@
     "Napper les poires de sauce."
    ],
    "allergenes_UE": [
-    "lait"
+    "lait",
+    "soja"
    ],
    "regimes": [
     "vegetarien",
@@ -20412,7 +20442,11 @@
    "notes": [
     "Chocolat : lire l’étiquette (lait, soja ou fruits à coque possibles selon la marque)."
    ],
-   "photo_prompt": "poached pears with dark chocolate sauce, served in matte handmade ceramic on warm beige stone, soft daylight, minimal luxury food photography, three-quarter view"
+   "photo_prompt": "poached pears with dark chocolate sauce, served in matte handmade ceramic on warm beige stone, soft daylight, minimal luxury food photography, three-quarter view",
+   "allergenes_possibles": [
+    "fruits_a_coque",
+    "lait"
+   ]
   },
   {
    "id": "gateau_fromage_blanc",
@@ -20468,8 +20502,8 @@
     "Cuire 35 minutes à 170 °C ; laisser refroidir."
    ],
    "allergenes_UE": [
-    "oeufs",
-    "lait"
+    "lait",
+    "oeufs"
    ],
    "regimes": [
     "vegetarien",
@@ -20541,7 +20575,6 @@
    ],
    "regimes": [
     "vegetarien",
-    "sans_gluten",
     "halal_possible",
     "casher_possible"
    ],
@@ -20678,8 +20711,8 @@
    ],
    "allergenes_UE": [
     "cereales_gluten",
-    "lait",
-    "fruits_a_coque"
+    "fruits_a_coque",
+    "lait"
    ],
    "regimes": [
     "vegetarien",
@@ -20828,8 +20861,8 @@
     "Servir frais avec les pistaches."
    ],
    "allergenes_UE": [
-    "lait",
-    "fruits_a_coque"
+    "fruits_a_coque",
+    "lait"
    ],
    "regimes": [
     "vegetarien",
@@ -20954,8 +20987,8 @@
     "Couvrir de prunes tièdes et de noisettes concassées."
    ],
    "allergenes_UE": [
-    "lait",
-    "fruits_a_coque"
+    "fruits_a_coque",
+    "lait"
    ],
    "regimes": [
     "vegetarien",
@@ -21087,8 +21120,8 @@
    ],
    "allergenes_UE": [
     "cereales_gluten",
-    "lait",
-    "fruits_a_coque"
+    "fruits_a_coque",
+    "lait"
    ],
    "regimes": [
     "vegetarien",
@@ -21236,8 +21269,8 @@
    ],
    "allergenes_UE": [
     "cereales_gluten",
-    "oeufs",
-    "lait"
+    "lait",
+    "oeufs"
    ],
    "regimes": [
     "vegetarien",
@@ -21364,7 +21397,8 @@
     "Garnir de fruits secs et de zeste, laisser durcir au frais."
    ],
    "allergenes_UE": [
-    "fruits_a_coque"
+    "fruits_a_coque",
+    "soja"
    ],
    "regimes": [
     "vegetarien",
@@ -21385,7 +21419,11 @@
    "notes": [
     "Chocolat : lire l’étiquette (lait, soja ou fruits à coque possibles selon la marque)."
    ],
-   "photo_prompt": "dark chocolate discs with almonds, pistachios and orange zest, served in matte handmade ceramic on warm beige stone, soft daylight, minimal luxury food photography, three-quarter view"
+   "photo_prompt": "dark chocolate discs with almonds, pistachios and orange zest, served in matte handmade ceramic on warm beige stone, soft daylight, minimal luxury food photography, three-quarter view",
+   "allergenes_possibles": [
+    "fruits_a_coque",
+    "lait"
+   ]
   },
   {
    "id": "banane_chocolat_papillote",
@@ -21436,7 +21474,8 @@
     "Cuire 12 minutes à 200 °C."
    ],
    "allergenes_UE": [
-    "fruits_a_coque"
+    "fruits_a_coque",
+    "soja"
    ],
    "regimes": [
     "vegetarien",
@@ -21453,7 +21492,11 @@
    "notes": [
     "Chocolat : lire l’étiquette (lait, soja ou fruits à coque possibles selon la marque)."
    ],
-   "photo_prompt": "a banana baked in parchment with dark chocolate and hazelnuts, served in matte handmade ceramic on warm beige stone, soft daylight, minimal luxury food photography, three-quarter view"
+   "photo_prompt": "a banana baked in parchment with dark chocolate and hazelnuts, served in matte handmade ceramic on warm beige stone, soft daylight, minimal luxury food photography, three-quarter view",
+   "allergenes_possibles": [
+    "fruits_a_coque",
+    "lait"
+   ]
   },
   {
    "id": "gratin_fruits_rouges",
@@ -21500,8 +21543,8 @@
     "Gratiner 12 minutes à 220 °C (appareil bien pris)."
    ],
    "allergenes_UE": [
-    "oeufs",
-    "lait"
+    "lait",
+    "oeufs"
    ],
    "regimes": [
     "vegetarien",
@@ -21563,8 +21606,8 @@
     "Servir avec le yaourt et les amandes grillées."
    ],
    "allergenes_UE": [
-    "lait",
-    "fruits_a_coque"
+    "fruits_a_coque",
+    "lait"
    ],
    "regimes": [
     "vegetarien",
@@ -21680,8 +21723,9 @@
     "Râper le chocolat par-dessus, parsemer d'amandes concassées."
    ],
    "allergenes_UE": [
+    "fruits_a_coque",
     "lait",
-    "fruits_a_coque"
+    "soja"
    ],
    "regimes": [
     "vegetarien",
@@ -21696,7 +21740,11 @@
    "notes": [
     "Chocolat : lire l’étiquette (lait, soja ou fruits à coque possibles selon la marque)."
    ],
-   "photo_prompt": "fresh cherries with grated dark chocolate and almonds over yogurt, served in matte handmade ceramic on warm beige stone, soft daylight, minimal luxury food photography, three-quarter view"
+   "photo_prompt": "fresh cherries with grated dark chocolate and almonds over yogurt, served in matte handmade ceramic on warm beige stone, soft daylight, minimal luxury food photography, three-quarter view",
+   "allergenes_possibles": [
+    "fruits_a_coque",
+    "lait"
+   ]
   },
   {
    "id": "kaki_grenade_yaourt",
@@ -21808,8 +21856,8 @@
     "Servir avec le yaourt et les pistaches."
    ],
    "allergenes_UE": [
-    "lait",
-    "fruits_a_coque"
+    "fruits_a_coque",
+    "lait"
    ],
    "regimes": [
     "vegetarien",
@@ -22396,8 +22444,8 @@
    ],
    "allergenes_UE": [
     "cereales_gluten",
-    "oeufs",
-    "lait"
+    "lait",
+    "oeufs"
    ],
    "regimes": [
     "vegetarien",

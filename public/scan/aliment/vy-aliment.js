@@ -12,13 +12,13 @@
   var BASE = '/scan/aliment/';
   var INDICES = { rougeurs:'Rougeurs', eclat:'Éclat', pores_sebum:'Pores et sébum', uniformite:'Uniformité', rides_fermete:'Rides et fermeté', hydratation:'Hydratation', texture:'Texture' };
   var PHRASE = {
-    hydratation:'L’eau n’aide la peau que si l’on boit peu. L’hydratation de surface dépend d’abord des soins et de l’environnement.',
-    eclat:'Les pigments orangés des végétaux se déposent dans la peau ; une étude a relié plus de fruits et légumes à un teint jugé plus sain en six semaines.',
-    rougeurs:'Dans de petits essais, 40 à 55 g de concentré de tomate par jour pendant 10 à 12 semaines ont un peu réduit la rougeur provoquée par les UV. Cela ne remplace jamais une protection solaire.',
-    pores_sebum:'Féculents complets et légumineuses : une alimentation à faible charge glycémique.',
+    hydratation:'L’hydratation de surface dépend d’abord des soins et de l’environnement. L’eau reste la seule boisson recommandée par le PNNS.',
+    eclat:'Des fruits et légumes colorés, variés, chaque jour.',
+    rougeurs:'Contre les rougeurs liées au soleil, la protection solaire reste la mesure de référence.',
+    pores_sebum:'Féculents complets et légumineuses composent une alimentation à faible charge glycémique.',
     uniformite:'Contre les taches, la protection solaire reste la première mesure.',
     rides_fermete:'Le tabac et le soleil sont les deux premiers facteurs de rides.',
-    texture:'Les données sont encore limitées.' };
+    texture:'Sur le grain de peau, les données restent limitées.' };
   var QUESTIONS = [
     { id:'q1', t:'Avez-vous une allergie alimentaire diagnostiquée ?', oblig:1, multi:1, o:[['aucune','Aucune'],['cereales_gluten','Gluten'],['crustaces','Crustacés'],['oeufs','Œufs'],['poissons','Poissons'],['arachides','Arachides'],['soja','Soja'],['lait','Lait'],['fruits_a_coque','Fruits à coque'],['celeri','Céleri'],['moutarde','Moutarde'],['sesame','Sésame'],['sulfites','Sulfites'],['lupin','Lupin'],['mollusques','Mollusques']] },
     { id:'q2', t:'Allergie au latex ou au pollen de bouleau ?', oblig:1, multi:1, o:[['non','Non'],['latex','Latex'],['bouleau','Bouleau'],['nsp','Je ne sais pas']] },
@@ -41,7 +41,7 @@
     { n:'Porridge d’avoine, kiwi et noix', ing:['flocons_avoine','kiwi','noix','yaourt_nature'], al:['cereales_gluten','fruits_a_coque','lait'], t:'Cuire les flocons d’avoine cinq minutes, servir avec un kiwi en dés, quelques noix et une cuillère de yaourt nature.' },
     { n:'Patate douce rôtie, pois chiches et épinards', ing:['patate_douce','pois_chiche','epinard','huile_olive'], al:[], t:'Rôtir la patate douce en cubes 30 minutes, ajouter les pois chiches, puis les épinards juste fondus à la poêle.' } ];
 
-  var DATA = null, COMBOS = null, RECS = [], REP = {}, ouvert = null;
+  var DATA = null, COMBOS = null, RECS = [], TEND = [], REP = {}, ouvert = null;
   var TEINTE = { legume:'#5f8f5b', fruit:'#c8563f', poisson:'#4f7896', fruit_de_mer:'#6b8fa8', legumineuse:'#b58a3c', cereale_complete:'#c9a45c', feculent:'#c9a45c', graine:'#a99270', fruit_a_coque:'#9b7650', fruit_sec:'#8a5a3c', cacao:'#5b3a29', boisson:'#6aa39b', matiere_grasse:'#9aa04a', produit_laitier_fermente:'#d7cdb8', produit_laitier:'#d7cdb8', fromage:'#e0c98a', oeuf:'#e6c27a', epice_herbe:'#7a9a55', viande:'#a3473f', volaille:'#c9956b', condiment:'#8d7a5c', sucre:'#caa46a' };
   /* 30/09 : questionnaire v2 (_nutrition/QUESTIONNAIRE_V2.md). Une seule question, « Quelque chose a eviter ? ».
      Les reponses vivent en memoire ; elles ne sont gardees sur l'appareil que si la personne allume « Garder ». */
@@ -67,10 +67,11 @@
     r.q9 = [REP.q9s === 'moins7' ? '6_7' : REP.q9s === 'plus9' ? 'plus9' : REP.q9s === '7_9' ? '7_9' : null, REP.q9d ? 'irregulier' : null].filter(Boolean);
     r.q10 = REP.q10p ? [REP.q10p] : []; REP = r; }
   function charger(){ if(DATA) return Promise.resolve();
-    return fetch(BASE + 'aliments_v2.json?v=1').then(function(r){ return r.json(); }).then(function(j){ DATA = j.aliments; })
+    return fetch(BASE + 'aliments_v3.json?v=1').then(function(r){ return r.json(); }).then(function(j){ DATA = j.aliments; })
       .then(function(){ return fetch(BASE + 'recettes.json?v=1').then(function(r){ return r.json(); }).then(function(j){ RECS = j.recettes || []; }).catch(function(){ RECS = []; }); })
+      .then(function(){ return fetch(BASE + 'tendances.json?v=1').then(function(r){ return r.json(); }).then(function(j){ TEND = j.tendances || []; }).catch(function(){ TEND = []; }); })
       .then(function(){ return fetch(BASE + 'combos.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(j){ COMBOS = j; }).catch(function(){}); }); }
-  function esc(t){ return String(t == null ? '' : t).replace(/[&<>"]/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]; }); }
+  function esc(t){ return String(t == null ? '' : t).replace(/([A-Za-zÀ-ÿ])'([A-Za-zÀ-ÿ])/g, '$1’$2').replace(/[&<>"]/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]; }); }
   function a(cle, v){ var r = REP[cle]; return Array.isArray(r) ? r.indexOf(v) >= 0 : r === v; }
   function n2(k){ return String(k + 1).padStart(2, '0'); }
 
@@ -98,11 +99,12 @@
     if(a('q7','vege') || a('q7','vegan')) DATA.forEach(function(f){ if(['poisson','fruit_de_mer','viande','volaille'].indexOf(f.categorie) >= 0) ex(f.id); });
     if(a('q7','vegan')) DATA.forEach(function(f){ if(['oeuf','produit_laitier','produit_laitier_fermente','fromage'].indexOf(f.categorie) >= 0 || /miel/.test(f.id)) ex(f.id); });
     if(a('q3','enceinte')) ['parmesan','comte','brebis_pyrenees'].forEach(ex);
+    if(a('q3','enceinte') || a('q3','allaite')){ DATA.forEach(function(f){ if((f.allergenes_UE || []).indexOf('soja') >= 0) ex(f.id); }); ex('sauce_soja'); ['dorade','bar','lotte','thon_naturel'].forEach(function(i){ note(i, 'Grossesse et allaitement : poisson prédateur, au plus 150 g par semaine (ANSES).'); }); }
     if(MODE !== 'normal') DATA.forEach(function(f){ if(PRUDENT.indexOf(f.id) < 0) ex(f.id); });
     if(MODE !== 'normal'){ ['tomate','poivron_rouge'].forEach(function(i){ note(i, 'Allergie au latex : réaction possible (syndrome latex-fruits).'); }); note('carotte', 'Pollen de bouleau : réaction croisée possible ; de préférence cuite.'); }
     DATA.forEach(function(f){ (f.allergenes_UE || []).forEach(function(al){ if(a('q1', al)) ex(f.id); }); });
     if(a('q1','sulfites')) ex('abricot');
-    if(a('q2','latex')){ ['avocat','kiwi'].forEach(ex); ['tomate','concentre_tomate','poivron_rouge'].forEach(function(i){ note(i, 'Allergie au latex : réaction possible (syndrome latex-fruits).'); }); }
+    if(a('q2','latex')){ ['avocat','kiwi','banane','chataigne'].forEach(ex); ['tomate','concentre_tomate','poivron_rouge'].forEach(function(i){ note(i, 'Allergie au latex : réaction possible (syndrome latex-fruits).'); }); }
     if(a('q2','bouleau')) ['noisette','amande','carotte','kiwi','abricot','tofu'].forEach(function(i){ note(i, 'Pollen de bouleau : réaction croisée possible ; préférez-le cuit quand c’est possible.'); });
     if(a('q3','enceinte') || a('q3','allaite')){ ['tofu','huitre','the_vert'].forEach(ex); note('saumon', 'Enceinte ou allaitante : uniquement cuit, pas fumé.'); }
     if(a('q4','avk')) ['epinard','chou_frise','brocoli','mache'].forEach(ex);
@@ -127,7 +129,7 @@
     if(AFFINE.budget === 'serre') b += ({ 1:1, 2:0, 3:-1.5 })[f.prix_niveau] || 0; else if(AFFINE.budget === 'moyen') b += ({ 1:.5, 2:0, 3:-.5 })[f.prix_niveau] || 0;
     if(AFFINE.bio && f.bio_disponible) b += .5;
     if(AFFINE.saison){ if(sa.length && sa.length < 12) b += sa.indexOf(mois) >= 0 ? 1 : -1; if(f.origine_possible_france) b += .5; }
-    if(AFFINE.usage === 'quotidien') b += f.usage === 'quotidien' ? .5 : -1; else if(AFFINE.usage === 'decouverte' && f.usage === 'rare') b += .5;
+    if(AFFINE.usage === 'quotidien') b += f.usage === 'quotidien' ? .5 : -1; else if(AFFINE.usage === 'decouverte' && f.usage === 'rare') b += .5; else if(AFFINE.usage === 'tendance' && f.tendance) b += 1;
     return Math.max(-2, Math.min(2, b)); }
   function choisir(ind){ var e = exclus(), mois = new Date().getMonth() + 1, G = { A:3, B:2, C:1 };
     var cand = DATA.filter(function(f){ return !e.x[f.id] && G[f.niveau_preuve_peau]; }).map(function(f){
@@ -138,7 +140,7 @@
     var pris = [], cats = {}, nut = {}, sansEtude = 0, rares = 0;
     cand.forEach(function(c){ if(pris.length >= 4) return; var f = c.f, n1 = (f.nutriments_cles[0] || '').toLowerCase();
       if(cats[f.categorie] || nut[n1]) return; if(SANS_ETUDE.indexOf(f.id) >= 0 && sansEtude) return;
-      if(!AFFINE.usage && f.usage === 'rare' && rares) return; if(f.usage === 'rare') rares++;
+      if((!AFFINE.usage || AFFINE.usage === 'quotidien') && f.usage === 'rare' && rares) return; if(f.usage === 'rare') rares++;
       pris.push(c); cats[f.categorie] = 1; nut[n1] = 1; if(SANS_ETUDE.indexOf(f.id) >= 0) sansEtude++; });
     if(pris.length && !pris.some(function(c){ return VEGETAL.indexOf(c.f.categorie) >= 0; })){ var v = cand.filter(function(c){ return VEGETAL.indexOf(c.f.categorie) >= 0 && pris.indexOf(c) < 0; })[0]; if(v) pris[pris.length - 1] = v; }
     return pris; }
@@ -157,24 +159,46 @@
     if(t.fibres_g && t.fibres_g*g/100 >= 2) out.push({ pc:0, txt:String(Math.round(t.fibres_g*g/10)/10).replace('.', ',') + ' g de fibres (repère : 30 g par jour)' });
     if(t.epa_dha_mg && t.epa_dha_mg*g/100 >= 100) out.push({ pc:0, txt:Math.round(t.epa_dha_mg*g/100) + ' mg d’oméga-3 EPA et DHA (repère : 250 mg par jour)' });
     return out.map(function(x){ return x.txt; }); }
-  var FREQ = { legume:'Chaque jour, dans vos cinq fruits et légumes.', fruit:'Chaque jour, dans vos cinq fruits et légumes.', legumineuse:'Au moins deux fois par semaine.', poisson:'Deux fois par semaine, dont un poisson gras.', fruit_de_mer:'De temps en temps, bien cuits.', fruit_a_coque:'Une petite poignée par jour, non salée.', cereale_complete:'Chaque jour, complet de préférence.', feculent:'Chaque jour, complet de préférence.', matiere_grasse:'Chaque jour, en assaisonnement, sans excès.', produit_laitier_fermente:'Jusqu’à deux produits laitiers par jour.', produit_laitier:'Jusqu’à deux produits laitiers par jour.', fromage:'Jusqu’à deux produits laitiers par jour.', graine:'Une cuillère à soupe, régulièrement.', cacao:'De temps en temps, sans sucre ajouté.', boisson:'Sans sucre ajouté.', fruit_sec:'Une petite poignée, de temps en temps.', epice_herbe:'Pour relever vos plats, en petite quantité.', oeuf:'Selon vos habitudes, dans une alimentation variée.', volaille:'En alternance avec le poisson, les œufs et les légumes secs.' };
+  var FREQ = { legume:'Chaque jour, dans vos cinq fruits et légumes.', fruit:'Chaque jour, dans vos cinq fruits et légumes.', legumineuse:'Au moins deux fois par semaine.', poisson:'Deux fois par semaine, dont un poisson gras.', fruit_de_mer:'De temps en temps, bien cuits.', fruit_a_coque:'Une petite poignée par jour, non salée.', cereale_complete:'Chaque jour, complet de préférence.', feculent:'Chaque jour, complet de préférence.', matiere_grasse:'Chaque jour, en assaisonnement, sans excès.', produit_laitier_fermente:'Jusqu’à deux produits laitiers par jour.', produit_laitier:'Jusqu’à deux produits laitiers par jour.', fromage:'Jusqu’à deux produits laitiers par jour.', graine:'Une cuillère à soupe, régulièrement.', cacao:'De temps en temps, sans sucre ajouté.', boisson:'Au fil de la journée, sans sucre ajouté.', fruit_sec:'Une petite poignée, de temps en temps.', epice_herbe:'Pour relever vos plats, en petite quantité.', oeuf:'Selon vos habitudes, dans une alimentation variée.', volaille:'En alternance avec le poisson, les œufs et les légumes secs.' };
   var DOSE_ETUDE = { concentre_tomate:'Dans les essais : 40 à 55 g par jour pendant 10 à 12 semaines, cuit avec de l’huile d’olive.', amande:'Dans les essais : environ 60 g par jour pendant 16 à 24 semaines.', avocat:'Dans l’essai : un avocat par jour pendant 8 semaines.', cacao_poudre:'Dans les essais : une boisson riche en flavanols chaque jour pendant 12 à 24 semaines.', eau:'Dans l’étude : environ deux litres par jour, avec un effet surtout chez ceux qui buvaient peu.' };
+  /* composition exacte pour 100 g (UE 1924/2006 : « source » >= 15 % VNR, « riche » >= 30 % VNR) */
+  var NOM_CAT = { legume:'Légume', fruit:'Fruit', legumineuse:'Légumineuse', poisson:'Poisson', fruit_de_mer:'Fruit de mer', cereale_complete:'Céréale complète', feculent:'Féculent', fruit_a_coque:'Fruit à coque', graine:'Graine', fruit_sec:'Fruit sec', cacao:'Cacao', boisson:'Boisson', matiere_grasse:'Huile', produit_laitier_fermente:'Produit laitier fermenté', produit_laitier:'Produit laitier', fromage:'Fromage', oeuf:'Œuf', epice_herbe:'Épice ou herbe', volaille:'Volaille', viande:'Viande', condiment:'Condiment', sucre:'Produit sucré' };
+  function composition(f){ var t = (f.ciqual && f.ciqual.teneurs_pour_100g) || {}, riche = [], source = [];
+    VNR.forEach(function(v){ var pc = (t[v[0]] || 0)/v[1]*100, nom = v[3].replace(/^de |^d’/, ''); if(pc >= 30) riche.push(nom); else if(pc >= 15) source.push(nom); });
+    if((t.fibres_g || 0) >= 6) riche.push('fibres'); else if((t.fibres_g || 0) >= 3) source.push('fibres');
+    if((t.epa_dha_mg || 0) >= 80) source.push('oméga-3 EPA et DHA'); if((t.ala_g || 0) >= .3) source.push('oméga-3 ALA');
+    var cat = NOM_CAT[f.categorie] || 'Aliment', txt = cat;
+    if(riche.length) txt += ' riche en ' + riche.slice(0, 3).join(', ');
+    if(source.length) txt += (riche.length ? ', source de ' : ' source de ') + source.slice(0, 3).join(', ');
+    return txt === cat ? cat + ', pour varier votre assiette.' : txt + ' (pour 100 g, table CIQUAL).'; }
   function allegation(f){ var t = f.allegation_UE_autorisee; if(!t || /vitamine A|cuivre|pigmentation/i.test(t)) return null; return t; }   // vitamine A vegetale : avis juridique d'abord ; cuivre : jamais pour les taches
-  function saison(f){ var s = f.saison || []; if(s.length >= 12 || !s.length) return 'toute l’année'; return 'de ' + MOIS[s[0] - 1] + ' à ' + MOIS[s[s.length - 1] - 1]; }
+  function saison(f){ var s = (f.saison || []).slice().sort(function(a1, b1){ return a1 - b1; }); if(!s.length) return 'saison non renseignée'; if(s.length >= 12) return 'toute l’année';
+    var p = [], d = s[0], pr = s[0]; for(var i = 1; i <= s.length; i++){ if(i < s.length && s[i] === pr + 1){ pr = s[i]; continue; } p.push([d, pr]); if(i < s.length){ d = s[i]; pr = s[i]; } }
+    if(p.length > 1 && p[0][0] === 1 && p[p.length - 1][1] === 12){ var last = p.pop(); p[0] = [last[0], p[0][1]]; }
+    return p.map(function(z){ return z[0] === z[1] ? 'en ' + MOIS[z[0] - 1] : 'de ' + MOIS[z[0] - 1] + ' à ' + MOIS[z[1] - 1]; }).join(' et '); }
 
   /* ---- le style : editorial, titres italiques (d'apres Maree) ---- */
   var CSS = '\
-#vy-as-entree{grid-column:1/-1;margin:22px 0 0;border-radius:26px;overflow:hidden;background:linear-gradient(180deg,#fbfbfd,#e9ebee)!important;color:#1c2f30!important;padding:30px 24px 26px;position:relative;cursor:pointer;opacity:1!important;transform:none!important;backdrop-filter:none!important;border:0!important;box-shadow:0 40px 80px -40px #000}\
+#vy-as-entree{display:block!important;grid-column:1/-1;margin:22px 0 0;border-radius:26px;overflow:hidden;background:linear-gradient(180deg,#fbfbfd,#e9ebee)!important;color:#1c2f30!important;padding:30px 24px 26px;position:relative;cursor:pointer;opacity:1!important;transform:none!important;backdrop-filter:none!important;border:0!important;box-shadow:0 40px 80px -40px #000}\
 #vy-as-entree *{-webkit-text-fill-color:currentColor;background-clip:border-box}\
 #vy-as-entree .m{font:500 9.5px/1 "Helvetica Neue",Arial,sans-serif;letter-spacing:2.2px;text-transform:uppercase}\
 #vy-as-entree h3{font:italic 400 58px/.95 Georgia,serif;letter-spacing:-4px;margin:16px 0 10px;color:#183b3e}\
 #vy-as-entree p{font:300 14px/1.6 "Helvetica Neue",Arial,sans-serif;color:#3e5f5d;max-width:320px;margin:0}\
 #vy-as-entree button{margin-top:20px;width:100%;min-height:50px;border-radius:30px;border:0;background:#173d3f;color:#e3eee7;font:400 14px "Helvetica Neue",Arial,sans-serif;letter-spacing:.3px}\
-#vy-as{position:fixed;inset:0;z-index:2000;overflow:auto;-webkit-overflow-scrolling:touch;font-family:"Helvetica Neue",Arial,sans-serif;opacity:0;transform:translateY(30px);transition:opacity .6s,transform .8s cubic-bezier(.2,.9,.2,1)}\
+#vy-as{position:fixed;inset:0;z-index:2000;overflow:auto;-webkit-overflow-scrolling:touch;font-family:Inter,"Helvetica Neue",Arial,sans-serif;background:#06181e;opacity:0;transform:translateY(30px);transition:opacity .6s,transform .8s cubic-bezier(.2,.9,.2,1)}\
 #vy-as.on{opacity:1;transform:none}\
 #vy-as .ec{min-height:100%;padding:calc(30px + env(safe-area-inset-top)) 24px calc(40px + env(safe-area-inset-bottom));max-width:560px;margin:0 auto}\
 #vy-as .nuit{background:#06181e;color:#e7f5f2}\
 #vy-as .jour{background:linear-gradient(180deg,#fbfbfd 0%,#f1f2f4 55%,#e9ebee 100%);color:#1c2f30}\
+#vy-as[data-fond=jour]{background:linear-gradient(180deg,#fbfbfd 0%,#eceef1 100%)}\
+#vy-as button{font-family:inherit}\
+#vy-as .puce{min-height:44px;display:inline-flex;align-items:center}\
+#vy-as .puce:focus-visible,#vy-as button:focus-visible,#vy-as a:focus-visible{outline:2px solid #173d3f;outline-offset:3px}\
+#vy-as .collant{position:sticky;bottom:calc(10px + env(safe-area-inset-bottom));z-index:3;box-shadow:0 18px 40px -18px rgba(0,0,0,.45)}\
+#vy-as .plats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:22px 0 4px}\
+#vy-as .plats div{background:#fff;border-radius:18px;padding:10px 6px 12px;text-align:center;font-size:11.5px;line-height:1.25;box-shadow:0 16px 34px -24px rgba(0,0,0,.4)}\
+#vy-as .plats img{display:block;width:100%;height:64px;object-fit:contain;margin-bottom:6px}\
+#vy-as .plats i{display:block;width:30px;height:30px;border-radius:50%;margin:17px auto 23px}\
 #vy-as .roue{position:relative;height:232px;overflow:hidden;margin:26px -24px 0;perspective:700px;-webkit-mask-image:linear-gradient(transparent,#000 28%,#000 72%,transparent);mask-image:linear-gradient(transparent,#000 28%,#000 72%,transparent)}\
 #vy-as .roue .bande{position:absolute;left:24px;right:24px;top:50%;height:46px;margin-top:-23px;border-top:1px solid rgba(28,47,48,.18);border-bottom:1px solid rgba(28,47,48,.18);pointer-events:none}\
 #vy-as .roue .it{position:absolute;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:center;gap:12px;font-weight:300;font-size:24px;letter-spacing:-.4px;will-change:transform,opacity}\
@@ -248,27 +272,29 @@
     var grid = document.querySelector('.vyvre-v6 .v6grid'); if(!grid) return;
     var e = document.getElementById('vy-as-entree');
     if(!e){ e = document.createElement('section'); e.id = 'vy-as-entree'; grid.appendChild(e); e.addEventListener('click', ouvrir); }
-    e.innerHTML = '<div class="m">Nouveau · votre assiette</div><h3>Assiette.</h3><p>Jusqu’à quatre aliments du quotidien, choisis d’après votre lecture (' + esc(INDICES[ind.i1]) + (ind.i2 ? ', ' + esc(INDICES[ind.i2]) : '') + '), avec ce que la science sait vraiment.</p><button type="button">Composer mon assiette</button>';
+    e.innerHTML = '<div class="m">Nouveau · Votre assiette</div><h3>Assiette.</h3><p>Jusqu’à quatre aliments, choisis d’après votre lecture : ' + esc(INDICES[ind.i1].toLowerCase()) + (ind.i2 ? ', ' + esc(INDICES[ind.i2].toLowerCase()) : '') + '. Pour chacun, ce que les études montrent. Rien de plus.</p><button type="button">Composer mon assiette</button>';
     if(/[?&]assiette=1/.test(location.search) && !entree.fait){ entree.fait = 1; setTimeout(ouvrir, 900); } }
 
   /* ---- la feuille plein ecran ---- */
   function feuille(html, cls){ style(); if(!ouvert){ ouvert = document.createElement('div'); ouvert.id = 'vy-as'; ouvert.setAttribute('role', 'dialog'); ouvert.setAttribute('aria-label', 'Votre assiette'); document.body.appendChild(ouvert); requestAnimationFrame(function(){ ouvert.classList.add('on'); }); document.documentElement.style.overflow = 'hidden'; }
-    ouvert.innerHTML = '<div class="ec ' + cls + '">' + html + '</div>'; ouvert.scrollTop = 0;
+    ouvert.setAttribute('data-fond', cls); ouvert.innerHTML = '<div class="ec ' + cls + '">' + html + '</div>'; ouvert.scrollTop = 0;
+    /* accessibilite : chaque puce est un vrai bouton (clavier, lecteur d'ecran) */
+    ouvert.querySelectorAll('.puce').forEach(function(z){ z.setAttribute('role', 'button'); z.tabIndex = 0; z.setAttribute('aria-pressed', z.classList.contains('on') ? 'true' : 'false'); });
     var f = ouvert.querySelector('.fermer'); if(f) f.onclick = fermer; }
   function fermer(){ if(!ouvert) return; var o = ouvert; ouvert = null; o.classList.remove('on'); document.documentElement.style.overflow = ''; setTimeout(function(){ o.remove(); }, 500); }
   var HAUT = '<div class="haut"><b>vyvre.</b><button class="fermer" type="button">FERMER</button></div>';
 
-  var ALLERG = [['fruits_a_coque','Fruits à coque'],['poissons','Poissons'],['cereales_gluten','Gluten ou maladie cœliaque'],['lait','Lait'],['oeufs','Œufs'],['soja','Soja'],['mollusques','Mollusques'],['crustaces','Crustacés'],['arachides','Arachide'],['sesame','Sésame'],['moutarde','Moutarde'],['celeri','Céleri'],['lupin','Lupin'],['sulfites','Sulfites'],['latex','Latex'],['bouleau','Pollen de bouleau'],['autre','Une autre']];
+  var ALLERG = [['fruits_a_coque','Fruits à coque'],['poissons','Poissons'],['cereales_gluten','Gluten ou maladie cœliaque'],['lait','Lait'],['oeufs','Œufs'],['soja','Soja'],['mollusques','Mollusques'],['crustaces','Crustacés'],['arachides','Arachides'],['sesame','Sésame'],['moutarde','Moutarde'],['celeri','Céleri'],['lupin','Lupin'],['sulfites','Sulfites'],['latex','Latex'],['bouleau','Pollen de bouleau'],['autre','Un autre aliment']];
   var NOMS_AL = { fruits_a_coque:'fruits à coque', poissons:'poissons', cereales_gluten:'gluten', lait:'lait', oeufs:'œufs', soja:'soja', mollusques:'mollusques', crustaces:'crustacés', arachides:'arachide', sesame:'sésame', moutarde:'moutarde', celeri:'céleri', lupin:'lupin', sulfites:'sulfites' };
-  function phrase(s0){ if(!s0) return 'Touchez « Rien de particulier » ou ce qui vous concerne.'; if(s0.rien) return 'Une assiette pour moi, sans restriction particulière.';
+  function phrase(s0){ if(!s0) return 'Touchez ce qui vous concerne, ou « Rien de particulier ».'; if(s0.rien) return 'Une assiette pour moi, sans restriction particulière.';
     var m = [], al = (s0.allergies || []).filter(function(z){ return NOMS_AL[z]; }).map(function(z){ return NOMS_AL[z]; });
     (s0.autres_aliments || []).forEach(function(id){ var f = DATA.filter(function(z){ return z.id === id; })[0]; if(f) al.push(f.nom.split(' (')[0].toLowerCase()); });
     if(al.length) m.push('sans ' + al.join(' ni '));
-    if((s0.allergies || []).indexOf('latex') >= 0) m.push('sans avocat ni kiwi');
+    if((s0.allergies || []).indexOf('latex') >= 0) m.push('sans avocat, kiwi, banane ni châtaigne');
     if((s0.allergies || []).indexOf('bouleau') >= 0) m.push('attentive au pollen de bouleau');
-    if(s0.grossesse) m.push('adaptée à la grossesse et à l’allaitement'); if(s0.anticoagulant) m.push('compatible avec mon anticoagulant');
-    if(s0.reins) m.push('adaptée à mes reins'); if(s0.regime) m.push(s0.regime === 'vegan' ? 'végane' : 'végétarienne');
-    if(!m.length) return 'Touchez « Rien de particulier » ou ce qui vous concerne.';
+    if(s0.grossesse) m.push('en tenant compte de la grossesse ou de l’allaitement'); if(s0.anticoagulant) m.push('sans les légumes verts très riches en vitamine K');
+    if(s0.reins) m.push('sans les aliments les plus riches en potassium'); if(s0.regime) m.push(s0.regime === 'vegan' ? 'végane' : 'végétarienne');
+    if(!m.length) return 'Touchez ce qui vous concerne, ou « Rien de particulier ».';
     var t = m.length > 1 ? m.slice(0, -1).join(', ') + ' et ' + m[m.length - 1] : m[0]; return 'Une assiette pour moi, ' + t + '. Rien d’autre.'; }
   function restants(){ var sv = MODE, rp = REP; MODE = 'normal'; versRep(indicesDuScan()); var n = DATA.length - Object.keys(exclus().x).length; MODE = sv; REP = rp; return n; }
   function valide(s0){ if(!s0) return false; if(s0.rien) return true; var cases = s0._cases || {};
@@ -281,48 +307,48 @@
     if(m){ SANTE = m.sante; PASPOUR = m.paspour || []; REP.q9s = m.rythme && m.rythme.sommeil; REP.q9d = m.rythme && m.rythme.decale; REP.q10p = m.rythme && m.rythme.pas; GARDER = true; pareil(m); }
     else { SANTE = null; GARDER = false; eviter(); } }); }
 
-  function pareil(m){ var d = new Date(m.le); feuille(HAUT + '<div class="m">Vos réponses du ' + d.getDate() + ' ' + MOIS[d.getMonth()] + '</div><h1>Toujours pareil ?</h1>'
+  function pareil(m){ var d = new Date(m.le); feuille(HAUT + '<div class="m">Vos réponses du ' + d.getDate() + ' ' + MOIS[d.getMonth()] + '</div><h1>Rien n’a changé ?</h1>'
       + '<p class="alleg" style="font:italic 19px/1.5 Georgia,serif;border-left:1px solid;padding-left:14px">« ' + esc(phrase(SANTE)) + ' »</p>'
-      + '<button class="btn" type="button" id="vy-as-oui">Oui, voir mon assiette</button><button class="btn sec" type="button" id="vy-as-change">Quelque chose a changé</button>'
-      + '<p class="fine" style="display:flex;justify-content:space-between;gap:12px"><a href="#" id="vy-as-autre" style="color:inherit">Une autre personne ?</a><a href="#" id="vy-as-eff" style="color:inherit">Effacer mes réponses de cet appareil</a></p>', 'jour');
+      + '<button class="btn" type="button" id="vy-as-oui">Oui, voir mon assiette</button><button class="btn sec" type="button" id="vy-as-change">Modifier mes réponses</button>'
+      + '<p class="fine" style="display:flex;justify-content:space-between;gap:12px"><a href="#" id="vy-as-autre" style="color:inherit">Pour une autre personne</a><a href="#" id="vy-as-eff" style="color:inherit">Effacer mes réponses de cet appareil</a></p>', 'jour');
     document.getElementById('vy-as-oui').onclick = function(){ MODE = 'normal'; versRep(indicesDuScan()); lancer(); };
     document.getElementById('vy-as-change').onclick = function(){ eviter(JSON.parse(JSON.stringify(SANTE))); };
     document.getElementById('vy-as-autre').onclick = function(ev){ ev.preventDefault(); GARDER = false; PASPOUR = []; SANTE = null; eviter(); };
-    document.getElementById('vy-as-eff').onclick = function(ev){ ev.preventDefault(); effacer(); GARDER = false; PASPOUR = []; SANTE = null; eviter(null, 'Réponses effacées de cet appareil.'); }; }
+    document.getElementById('vy-as-eff').onclick = function(ev){ ev.preventDefault(); effacer(); GARDER = false; PASPOUR = []; SANTE = null; eviter(null, 'Vos réponses sont effacées de cet appareil.'); }; }
 
   function eviter(pre, message){ var s0 = pre || { _cases:{} }; s0._cases = s0._cases || {};
     if(pre){ if((pre.allergies || []).length || (pre.autres_aliments || []).length) s0._cases.allergie = 1; if(pre.regime) s0._cases.regime = 1; }
-    var CASES = [['allergie','Une allergie','aliment, latex ou pollen'],['grossesse','Enceinte ou allaitante','ou projet de grossesse'],['anticoagulant','Un anticoagulant','fluidifiant du sang'],['reins','Une maladie des reins','ou des calculs'],['regime','Végétarien ou végan','']];
+    var CASES = [['allergie','Une allergie','aliment, latex ou pollen'],['grossesse','Enceinte ou allaitante','ou projet de grossesse'],['anticoagulant','Un anticoagulant','traitement qui fluidifie le sang'],['reins','Une maladie des reins','ou des calculs rénaux'],['regime','Végétarien ou végan','']];
     var AUTRES = DATA.filter(function(f){ return !(f.allergenes_UE || []).length && DEFAUT_EXCLUS.indexOf(f.id) < 0; });
     feuille(HAUT + (message ? '<div class="alerte" style="border-color:rgba(24,59,62,.3);color:#183b3e">' + esc(message) + '</div>' : '')
-      + '<div class="m">Avant votre assiette · une seule question</div><h1>Quelque chose à éviter ?</h1><p class="lead">Nous écartons ce qui ne vous convient pas avant de choisir quoi que ce soit.</p>'
+      + '<div class="m">Une seule question, avant votre assiette</div><h1>Quelque chose à éviter ?</h1><p class="lead">D’abord, nous retirons ce qui ne vous convient pas. Ensuite seulement, nous choisissons.</p>'
       + '<div class="puces" id="vy-as-cases" style="margin-top:22px">' + CASES.map(function(c){ return '<span class="puce" data-c="' + c[0] + '" style="display:flex;flex-direction:column;align-items:flex-start;padding:12px 16px">' + c[1] + (c[2] ? '<small style="font-size:11px;opacity:.6;margin-top:3px">' + c[2] + '</small>' : '') + '</span>'; }).join('') + '</div>'
       + '<div id="vy-as-dep"></div>'
-      + '<button type="button" id="vy-as-rien" style="display:block;width:100%;margin-top:18px;padding:18px;border-radius:22px;border:1px solid #183b3e;background:none;color:#183b3e;cursor:pointer"><span style="display:block;font-size:17px;font-weight:400">Rien de particulier</span><span style="display:block;font-size:11.5px;opacity:.7;margin-top:4px">ni allergie, ni grossesse, ni anticoagulant, ni reins, ni régime végétarien</span></button>'
-      + '<div class="q" style="margin:20px 0 0"><b style="font-size:15px">Et plutôt ?<small>FACULTATIF</small></b><div class="puces" id="vy-as-usage"><span class="puce" data-v="quotidien">Des aliments du quotidien</span><span class="puce" data-v="decouverte">Des découvertes</span><span class="puce on" data-v="">Tous</span></div></div>'
+      + '<button type="button" id="vy-as-rien" style="display:block;width:100%;margin-top:18px;padding:18px;border-radius:22px;border:1px solid #183b3e;background:none;color:#183b3e;cursor:pointer"><span style="display:block;font-size:17px;font-weight:400">Rien de particulier</span><span style="display:block;font-size:11.5px;opacity:.7;margin-top:4px">ni allergie, ni grossesse, ni anticoagulant, ni maladie des reins, ni régime végétarien ou végan</span></button>'
+      + '<div class="q" style="margin:20px 0 0"><b style="font-size:15px">Plutôt du quotidien, ou des découvertes ?<small>FACULTATIF</small></b><div class="puces" id="vy-as-usage"><span class="puce" data-v="quotidien">Des aliments du quotidien</span><span class="puce" data-v="decouverte">Des découvertes</span><span class="puce" data-v="tendance">Les tendances</span><span class="puce on" data-v="">Peu importe</span></div></div>'
       + '<p id="vy-as-phrase" style="font:italic 18px/1.5 Georgia,serif;margin:22px 0 6px"></p><div class="m" id="vy-as-compte" style="opacity:.6"></div>'
       + '<p class="lead" style="font-size:13px;margin-top:22px">' + (ageOk() ? '' : 'Vous avez 18 ans ou plus. ') + 'Vos réponses concernent votre santé. En acceptant, vous nous autorisez à nous en servir pour une seule chose : écarter des aliments et des soins. Elles restent sur cet appareil, ne nous sont jamais envoyées et s’effacent quand vous fermez la page.</p>'
-      + '<button class="btn" type="button" id="vy-as-accept" disabled style="opacity:.45">Accepter et voir mon assiette</button>'
+      + '<button class="btn" type="button" id="vy-as-accept" disabled style="opacity:.45" class="btn collant">Accepter et voir mon assiette</button>'
       + '<p class="fine" style="display:flex;justify-content:space-between;gap:12px;font-size:13px"><a href="#" id="vy-as-mineur" style="color:inherit">J’ai moins de 18 ans</a><a href="#" id="vy-as-nr" style="color:inherit">Je préfère ne pas répondre</a></p>'
-      + '<p class="fine">Information générale, pas un avis médical. Après un repas, gonflement du visage ou gêne respiratoire : appelez le 15 ou le 112.</p>'
+      + '<p class="fine">Information générale, pas un avis médical. Gonflement du visage ou gêne respiratoire après un repas : appelez le 15 ou le 112.</p>'
       + '<details><summary>Lire l’avertissement complet</summary><p class="fine">Les suggestions d’aliments de vyvre sont des informations générales sur l’alimentation. Elles ne constituent ni un diagnostic, ni un traitement, ni un avis médical ou diététique personnalisé, et ne remplacent pas une consultation. Les indices de votre scan sont des mesures optiques de l’image de votre peau : aucun aliment n’a été étudié pour les modifier, et nous ne promettons aucun résultat. Les aliments proposés s’intègrent dans une alimentation variée et équilibrée et un mode de vie sain. Si vous avez une allergie, une maladie, un traitement en cours, si vous êtes enceinte ou allaitez, ou pour un enfant, demandez l’avis de votre médecin ou de votre pharmacien avant de modifier votre alimentation. En cas de réaction allergique grave (gonflement du visage, gêne respiratoire), appelez le 15 ou le 112.</p></details>', 'jour');
     var maj = function(){
       ouvert.querySelectorAll('#vy-as-cases .puce').forEach(function(z){ var c = z.dataset.c; z.classList.toggle('on', !s0.rien && !!(c === 'allergie' ? s0._cases.allergie : c === 'regime' ? s0._cases.regime : s0[c])); });
       var r = document.getElementById('vy-as-rien'); r.style.background = s0.rien ? '#173d3f' : 'none'; r.style.color = s0.rien ? '#e3eee7' : '#183b3e';
       var dep = '';
-      if(s0._cases.allergie && !s0.rien){ dep += '<div class="q"><b>Lesquelles ?<small>TOUTES CELLES QUI VOUS CONCERNENT</small></b><div class="puces" data-g="al">' + ALLERG.map(function(o){ var on = o[0] === 'autre' ? s0._autre : (s0.allergies || []).indexOf(o[0]) >= 0; return '<span class="puce' + (on ? ' on' : '') + '" data-v="' + o[0] + '">' + o[1] + '</span>'; }).join('') + '</div>';
-        if(s0._autre) dep += '<b style="margin-top:14px">Parmi nos aliments, lesquels ?</b><p class="fine" style="margin:0 0 10px">Nous ne proposons que ces aliments : cochez ceux qui ne vous conviennent pas, ils n’apparaîtront nulle part, ni dans une recette.</p><div class="puces" data-g="autre">' + AUTRES.map(function(f){ return '<span class="puce' + ((s0.autres_aliments || []).indexOf(f.id) >= 0 ? ' on' : '') + '" data-v="' + f.id + '">' + esc(f.nom.split(' (')[0]) + '</span>'; }).join('') + '</div>';
-        if(((s0.allergies || []).length || (s0.autres_aliments || []).length)) dep += '<p class="fine"><i>Ces aliments disparaissent de l’assiette, des recettes et des combos. Nous ne remplaçons pas votre allergologue.</i></p>';
+      if(s0._cases.allergie && !s0.rien){ dep += '<div class="q"><b>Lesquelles ?<small>PLUSIEURS CHOIX POSSIBLES</small></b><div class="puces" data-g="al">' + ALLERG.map(function(o){ var on = o[0] === 'autre' ? s0._autre : (s0.allergies || []).indexOf(o[0]) >= 0; return '<span class="puce' + (on ? ' on' : '') + '" data-v="' + o[0] + '">' + o[1] + '</span>'; }).join('') + '</div>';
+        if(s0._autre) dep += '<b style="margin-top:14px">Parmi nos aliments, lesquels ?</b><p class="fine" style="margin:0 0 10px">Voici tous nos aliments. Touchez ceux qui ne vous conviennent pas : ils n’apparaîtront nulle part, pas même dans une recette.</p><div class="puces" data-g="autre">' + AUTRES.map(function(f){ return '<span class="puce' + ((s0.autres_aliments || []).indexOf(f.id) >= 0 ? ' on' : '') + '" data-v="' + f.id + '">' + esc(f.nom.split(' (')[0]) + '</span>'; }).join('') + '</div>';
+        if(((s0.allergies || []).length || (s0.autres_aliments || []).length)) dep += '<p class="fine"><i>Ces aliments disparaissent de l’assiette, des recettes et des combos. Cela ne remplace pas l’avis de votre allergologue.</i></p>';
         else dep += '<p class="fine">Choisissez au moins une réponse, ou touchez de nouveau « Une allergie » pour la retirer.</p>';
         dep += '</div>'; }
-      if(s0.grossesse && !s0.rien) dep += '<p class="fine"><i>Nous écartons le thé vert et les soins déconseillés pendant la grossesse, comme les rétinoïdes. Le saumon : seulement bien cuit. Zéro alcool.</i></p>';
+      if(s0.grossesse && !s0.rien) dep += '<p class="fine"><i>Nous écartons le thé vert et les soins déconseillés pendant la grossesse, comme les rétinoïdes. Le saumon : seulement bien cuit, jamais fumé. Zéro alcool.</i></p>';
       if(s0.anticoagulant && !s0.rien) dep += '<p class="fine"><i>Nous ne vous proposerons pas d’augmenter les légumes verts riches en vitamine K. Tout changement se discute avec votre médecin.</i></p>';
       if(s0.reins && !s0.rien) dep += '<p class="fine"><i>Nous écartons les aliments riches en potassium, les graines et les épinards. Votre alimentation se fixe avec votre néphrologue.</i></p>';
       if(s0._cases.regime && !s0.rien) dep += '<div class="q"><div class="puces" data-g="regime"><span class="puce' + (s0.regime === 'vegetarien' ? ' on' : '') + '" data-v="vegetarien">Végétarien</span><span class="puce' + (s0.regime === 'vegan' ? ' on' : '') + '" data-v="vegan">Végan</span></div>' + (s0.regime === 'vegan' ? '<p class="fine"><i>Pensez à la vitamine B12 : parlez-en à un professionnel de santé.</i></p>' : '') + '</div>';
       document.getElementById('vy-as-dep').innerHTML = dep;
       var ok = valide(s0), b = document.getElementById('vy-as-accept'); b.disabled = !ok; b.style.opacity = ok ? 1 : .45;
       SANTE = s0; document.getElementById('vy-as-phrase').textContent = ok || s0.rien ? '« ' + phrase(s0) + ' »' : phrase(null);
-      document.getElementById('vy-as-compte').textContent = 'Il reste ' + restants() + ' aliments pour composer votre assiette'; };
+      document.getElementById('vy-as-compte').textContent = restants() + ' aliments possibles pour votre assiette'; };
     ouvert.querySelector('#vy-as-cases').addEventListener('click', function(ev){ var z = ev.target.closest('.puce'); if(!z) return; var c = z.dataset.c; s0.rien = false;
       if(c === 'allergie') s0._cases.allergie = !s0._cases.allergie, s0._cases.allergie || (s0.allergies = [], s0.autres_aliments = [], s0._autre = false);
       else if(c === 'regime') s0._cases.regime = !s0._cases.regime, s0._cases.regime || (s0.regime = null);
@@ -353,26 +379,23 @@
     var ids = {}; pris.forEach(function(c){ ids[c.f.id] = 1; });
     var ex = exclus().x, enceinte = a('q3','enceinte') || a('q3','allaite') || a('q3','projet');
     var actifs = {}; (COMBOS.actifs || []).forEach(function(z){ actifs[z.id] = z; });
-    var lignes = COMBOS.combos.filter(function(c){ var ac = actifs[c.actif_id]; return (c.indice === ind.i1 || c.indice === ind.i2) && !ex[c.aliment_id] && ac && !(enceinte && ac.grossesse === 'eviter') && !(MODE === 'prudent' && ac.grossesse !== 'ok') && !(MODE === 'mineur' && ac.id !== 'protection_solaire'); })
+    var lignes = COMBOS.combos.filter(function(c){ var ac = actifs[c.actif_id]; if(/tomate/.test(c.aliment_id) && c.actif_id === 'protection_solaire') return false; return (c.indice === ind.i1 || c.indice === ind.i2) && !ex[c.aliment_id] && ac && !(enceinte && ac.grossesse === 'eviter') && !(MODE === 'prudent' && ac.grossesse !== 'ok') && !(MODE === 'mineur' && ac.id !== 'protection_solaire'); })
       .sort(function(p, q){ return (ids[q.aliment_id] ? 1 : 0) - (ids[p.aliment_id] ? 1 : 0) || (p.ordre || 9) - (q.ordre || 9); }).slice(0, 3);
     if(!lignes.length) return '';
-    return '<div class="prem"><div class="m">Premium · combo aliment + crème et sérum</div><h2>Combo.</h2><p class="lead" style="color:#b6cdc8">Pour la même cible, un aliment de l’intérieur et un actif de soin de l’extérieur. Chacun a ses propres preuves ; aucune étude n’a testé leur association, nous ne promettons donc aucun effet combiné.</p>'
+    return '<div class="prem"><div class="m">Premium · Un aliment, un soin</div><h2>Combo.</h2><p class="lead" style="color:#b6cdc8">Pour une même cible, un aliment à table et un actif en soin. Chacun a ses propres preuves. Aucune étude n’a testé les deux ensemble : nous ne promettons donc aucun effet combiné.</p>'
       + lignes.map(function(c, k){ var f = DATA.filter(function(z){ return z.id === c.aliment_id; })[0], ac = actifs[c.actif_id]; if(!f) return '';
         var prods = produitsPour(ac);
-        return '<div class="rit"><i>' + n2(k) + '</i><div><h3>' + esc(f.nom) + ' + ' + esc(ac.nom) + '</h3><div class="sous">' + esc(INDICES[c.indice] || c.indice) + ' · aliment : preuve ' + esc(c.grade_aliment || f.niveau_preuve_peau) + ' · actif : preuve ' + esc(c.grade_actif || ac.grade) + '</div>'
-          + '<p>' + esc(c.pourquoi) + '</p>'
+        return '<div class="rit"><i>' + n2(k) + '</i><div>' + (ids[f.id] ? '' : '<div class="preuve" style="margin:0 0 4px">Un autre aliment pour la même cible</div>') + '<h3>' + esc(f.nom.split(' (')[0]) + ' + ' + esc(ac.nom.split(' (')[0]) + '</h3><div class="sous">' + esc(INDICES[c.indice] || c.indice) + ' · aliment : preuve ' + esc(c.grade_aliment || f.niveau_preuve_peau) + ' · soin : preuve ' + esc(c.grade_actif || ac.grade) + '</div>'
+          + '<p>À table : ' + esc(f.nom.split(' (')[0].toLowerCase()) + ', ' + esc(composition(f).charAt(0).toLowerCase() + composition(f).slice(1)) + ' En soin : ' + esc(ac.ce_qu_on_peut_dire || '') + '</p>'
           + '<div class="preuve" style="margin-top:14px">Votre rituel</div><p style="margin-top:4px">'
             + (ac.moment === 'soir' ? 'Le soir' : ac.moment === 'matin' ? 'Le matin' : 'Matin ou soir') + ' : ' + esc((ac.nom || '').split(' (')[0].toLowerCase()) + '.'
-            + (ac.concentration_efficace && /\d/.test(ac.concentration_efficace) && !/^Rarement/i.test(ac.concentration_efficace) ? '<br><span style="opacity:.8">Dans les essais : ' + esc(ac.concentration_efficace.charAt(0).toLowerCase() + ac.concentration_efficace.slice(1)) + '</span>' : '')
-            + (ac.exige_spf || ac.id === 'retinoide' || ac.id === 'aha' ? ' Chaque matin : une protection solaire.' : '')
-            + '<br>À table : ' + esc(f.nom.split(' (')[0].toLowerCase()) + ', ' + esc((f.portion_type || '').toLowerCase()) + '. ' + esc(FREQ[f.categorie] || '') + (DOSE_ETUDE[f.id] ? ' ' + esc(DOSE_ETUDE[f.id]) : '') + '</p>'
-          + '<p style="opacity:.8;font-size:12.5px">' + esc(c.phrase_honnete || '') + '</p>'
-          + (ac.moment ? '<div class="preuve">' + (ac.moment === 'soir' ? 'Le soir' : ac.moment === 'matin' ? 'Le matin' : 'Matin ou soir') + (ac.concentration_efficace ? ' · ' + esc(ac.concentration_efficace) : '') + '</div>' : '')
+            + (ac.dose_affichee ? '<br><span style="opacity:.8">Dose : ' + esc(ac.dose_affichee) + '</span>' : '')
+            + '<br>À table : ' + esc(f.nom.split(' (')[0].toLowerCase()) + ', ' + esc((f.portion_type || '').toLowerCase()) + '. ' + esc(FREQ[f.categorie] || '') + '' + '</p>'
           + (ac.precautions || []).slice(0, 2).map(function(t){ return '<div class="prec" style="color:#f3c9a6">' + esc(t) + '</div>'; }).join('')
           + (ac.ce_qu_on_peut_dire ? '<div class="alleg">' + esc(ac.ce_qu_on_peut_dire) + '</div>' : '')
           + (ac.exige_spf ? '<div class="prec" style="color:#f3c9a6">Avec cet actif, une protection solaire chaque matin est indispensable.</div>' : '')
           + ((a('q3','enceinte') || a('q3','allaite') || a('q3','projet')) && ac.grossesse === 'avis' ? '<div class="prec" style="color:#f3c9a6">Grossesse ou allaitement : demandez l’avis de votre médecin ou de votre pharmacien avant cet actif.</div>' : '')
-          + (prods.length ? '<div class="preuve" style="margin-top:16px">En complément, dans notre catalogue</div>' : '')
+          + (prods.length ? '<div class="preuve" style="margin-top:16px">Dans notre catalogue</div>' : '')
           + prods.map(function(p){ var par = /\(([^)]+)\)/.exec(ac.nom || ''), nom = (ac.id === 'humectants' && par ? par[1] : (ac.nom || '').split(' (')[0]).toLowerCase(), CATN = { serum:'Sérum', creme:'Crème', 'solaire-visage':'Solaire visage' }; return '<a class="prod" href="' + esc(p.url || '#') + '" target="_blank" rel="noopener"><img src="' + esc(p.img || '') + '" alt="" onerror="this.style.visibility=\'hidden\'"><span><b>' + esc(p.b || '') + (p.cat ? ' · ' + esc(CATN[p.cat] || p.cat) : '') + '</b>' + esc(p.n || '') + '<br><small style="opacity:.7">' + (ac.id === 'protection_solaire' ? 'Protection solaire du visage' : 'Contient ' + esc(nom) + (p.pos <= 4 ? ', parmi les premiers ingrédients' : '')) + '</small></span></a>'; }).join('')
           + ((ac.etudes || []).length ? '<details><summary>Les études de l’actif (' + ac.etudes.length + ')</summary>' + ac.etudes.map(function(e){ return '<a href="' + esc(e.lien) + '" target="_blank" rel="noopener">' + esc(e.ref) + ' ↗</a>'; }).join('') + '</details>' : '')
           + '</div></div>'; }).join('')
@@ -381,16 +404,16 @@
   var CUISINES = [['francaise','Française'],['mediterraneenne','Méditerranéenne'],['orientale','Orientale'],['asiatique','Asiatique'],['latino','Amérique latine'],['africaine','Afrique de l’Ouest'],['nordique','Nordique']];
   function affiner(){ var pu = function(k, v, t, on){ return '<span class="puce' + (on ? ' on' : '') + '" data-af="' + k + '" data-v="' + (v || '') + '" style="flex:none;font-size:12.5px;padding:9px 12px">' + t + '</span>'; };
     return '<div class="m" style="margin:22px 0 8px;opacity:.6">Affiner</div><div class="puces" style="flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -24px;padding:0 24px 4px">'
-      + pu('saison', '', 'De saison et de France', AFFINE.saison) + pu('usage', 'quotidien', 'Du quotidien', AFFINE.usage === 'quotidien') + pu('usage', 'decouverte', 'Découvertes', AFFINE.usage === 'decouverte')
-      + pu('budget', 'serre', 'Budget serré', AFFINE.budget === 'serre') + pu('budget', 'moyen', 'Budget moyen', AFFINE.budget === 'moyen') + pu('bio', '', 'Je privilégie le bio', AFFINE.bio)
+      + pu('saison', '', 'De saison et de France', AFFINE.saison) + pu('usage', 'quotidien', 'Du quotidien', AFFINE.usage === 'quotidien') + pu('usage', 'decouverte', 'Découvertes', AFFINE.usage === 'decouverte') + pu('usage', 'tendance', 'Les tendances', AFFINE.usage === 'tendance')
+      + pu('budget', 'serre', 'Budget serré', AFFINE.budget === 'serre') + pu('budget', 'moyen', 'Budget moyen', AFFINE.budget === 'moyen') + pu('bio', '', 'Bio de préférence', AFFINE.bio)
       + pu('cuis', '', 'Cuisines' + (AFFINE.cuisines.length ? ' (' + AFFINE.cuisines.length + ')' : '') + ' ▾', AFFINE.cuis || AFFINE.cuisines.length)
-      + (PASPOUR.length ? '<span class="puce" id="vy-as-pp" style="flex:none;font-size:12.5px;padding:9px 12px">Pas pour moi (' + PASPOUR.length + ') · rétablir</span>' : '') + '</div>'
+      + (PASPOUR.length ? '<span class="puce" id="vy-as-pp" style="flex:none;font-size:12.5px;padding:9px 12px">Rétablir les aliments retirés (' + PASPOUR.length + ')</span>' : '') + '</div>'
       + (AFFINE.cuis ? '<div class="puces" style="margin-top:8px">' + CUISINES.map(function(c){ return pu('cuisine', c[0], c[1], AFFINE.cuisines.indexOf(c[0]) >= 0); }).join('') + '<p class="fine" style="width:100%;margin:4px 0 0">Jusqu’à trois cuisines. Les autres ne sont jamais masquées.</p></div>' : '')
-      + (AFFINE.bio ? '<p class="fine">Le bio n’a pas montré d’effet propre sur la peau dans notre étude ; il coûte en moyenne plus cher (fruits +61 %, légumes +67 %, Familles Rurales, juin 2026).</p>' : ''); }
+      + (AFFINE.bio ? '<p class="fine">Dans notre revue des études, le bio n’a pas montré d’effet propre sur la peau. Il coûte en moyenne plus cher : fruits +61 %, légumes +67 % (Familles Rurales, juin 2026).</p>' : ''); }
   /* le prix, jamais invente (FILTRES.md section 4) */
   function prix(f){ var sy = ['', '€', '€€', '€€€'][f.prix_niveau] || '', r = f.prix_releve;
     if(r && r.valeur){ return sy + ' · prix indicatif : ' + String(r.valeur).replace('.', ',') + ' ' + (r.unite || '') + (r.produit ? ' (' + r.produit.replace(/\s*\(.*\)\s*$/, '').toLowerCase() + ')' : '') + (r.bio_valeur ? ', ' + String(r.bio_valeur).replace('.', ',') + ' en bio' : '') + '. ' + (r.source || '').split(',')[0] + ', ' + (r.periode || '') + ', ' + (r.zone || 'France') + '. Vos prix peuvent varier.'; }
-    return sy ? sy + ' · estimation d’après la catégorie, pas de prix relevé pour cet aliment.' : ''; }
+    return sy ? sy + ' · niveau estimé d’après la catégorie ; aucun prix relevé pour cet aliment.' : ''; }
   /* ---- LA COMPOSITION : une roue fait defiler les VRAIS candidats et s'arrete sur les VRAIS choix ;
      le journal montre les vraies etapes du calcul (Charles : « pas simule, vraiment lie ») ---- */
   function lancer(){ var ind = indicesDuScan(); if(!ind) return; var pris = choisir(ind);
@@ -401,81 +424,83 @@
     var choisis = pris.map(function(c){ return c.f; }), roue = choisis.concat(cand.filter(function(f){ return choisis.indexOf(f) < 0; }).slice(0, 36)).sort(function(){ return Math.random() - .5; });   // les choix sont toujours dans la roue
     while(roue.length < 14) roue = roue.concat(roue);
     var H = 46;
-    feuille('<div class="fond-tri" aria-hidden="true">' + DATA.map(function(f){ return '<div data-id="' + f.id + '">' + esc(f.nom.split(' (')[0].split(',')[0]) + '</div>'; }).join('') + '</div><div class="devant">' + HAUT + '<div class="m">Composition de votre assiette</div><h2 style="margin:10px 0 0;font-size:40px;letter-spacing:-2px" id="vy-as-ct">Nous lisons.</h2>'
+    feuille('<div class="fond-tri" aria-hidden="true">' + DATA.map(function(f){ return '<div data-id="' + f.id + '">' + esc(f.nom.split(' (')[0].split(',')[0]) + '</div>'; }).join('') + '</div><div class="devant">' + HAUT + '<div class="m">Composition de votre assiette</div><h2 style="margin:10px 0 0;font-size:40px;letter-spacing:-2px" id="vy-as-ct">Nous trions.</h2>'
       + '<div class="cases4">' + [0, 1, 2, 3].map(function(k){ return '<div id="vy-as-c' + k + '"><b>' + n2(k) + '</b><span style="opacity:.35">·</span></div>'; }).join('') + '</div>'
       + '<div class="roue"><div class="bande"></div><div id="vy-as-ruban">' + roue.map(function(f){ return '<div class="it"><i style="background:' + (TEINTE[f.categorie] || '#999') + '"></i>' + esc(f.nom.split(' (')[0]) + '</div>'; }).join('') + '</div></div>'
-      + '<div class="journal" id="vy-as-jr"></div><button class="btn sec" type="button" id="vy-as-passer" style="margin-top:6px">Passer</button></div>', 'jour');
+      + '<div class="journal" id="vy-as-jr"></div><button class="btn sec collant" type="button" id="vy-as-passer" style="margin-top:6px;background:#fbfbfd!important">Voir l’assiette tout de suite</button></div>', 'jour');
     /* le fond suit les vraies etapes : ecartes pour tous, puis d'apres vos reponses, puis hors de vos indices */
     var fond = {}; ouvert.querySelectorAll('.fond-tri div').forEach(function(d){ fond[d.dataset.id] = d; });
     var barrer = function(test){ DATA.forEach(function(f){ if(test(f) && fond[f.id]) fond[f.id].classList.add('x'); }); };
     var ex0 = {}; (function(){ var sv = { S:SANTE, M:MODE, R:REP }; SANTE = { rien:true }; MODE = 'normal'; versRep(ind); ex0 = exclus().x; SANTE = sv.S; MODE = sv.M; REP = sv.R; })();
-    setTimeout(function(){ barrer(function(f){ return ex0[f.id]; }); }, 200 + 330);
-    setTimeout(function(){ barrer(function(f){ return e.x[f.id]; }); }, 200 + 2*330);
-    setTimeout(function(){ barrer(function(f){ return cand.indexOf(f) < 0; }); }, 200 + 4*330);
+    setTimeout(function(){ barrer(function(f){ return ex0[f.id]; }); }, 120 + 170);
+    setTimeout(function(){ barrer(function(f){ return e.x[f.id]; }); }, 120 + 2*170);
+    setTimeout(function(){ barrer(function(f){ return cand.indexOf(f) < 0; }); }, 120 + 4*170);
     var items = [].slice.call(ouvert.querySelectorAll('.roue .it')), N = items.length, pos = 0, fini = false, raf;
     var dessiner = function(){ var hc = 116; items.forEach(function(el, i){ var y = ((i*H - pos) % (N*H) + N*H) % (N*H); if(y > N*H/2) y -= N*H; var d = y / (H*2.6);
       el.style.transform = 'translateY(' + (hc - H/2 + y) + 'px) rotateX(' + (-Math.max(-1.2, Math.min(1.2, d))*38) + 'deg)'; el.style.opacity = Math.max(0, 1 - Math.abs(d)*.55); el.style.fontWeight = Math.abs(y) < H/2 ? 400 : 300; }); };
     dessiner();
     var jr = document.getElementById('vy-as-jr'), ligne = function(t){ var d = document.createElement('div'); d.textContent = t; jr.appendChild(d); requestAnimationFrame(function(){ d.classList.add('on'); }); };
-    var etapes = [DATA.length + ' aliments dans la base · teneurs CIQUAL 2020 (ANSES)', '− ' + nDef + ' écartés pour tous : algues, soja, pamplemousse, huître, noix du Brésil'];
+    var etapes = [DATA.length + ' aliments au départ · composition CIQUAL 2020 (ANSES)', '− ' + nDef + ' écartés pour tous, par prudence : algues, soja, pamplemousse, huître, noix du Brésil'];
     if(nTot > nDef) etapes.push('− ' + (nTot - nDef) + ' écartés d’après vos réponses');
-    etapes.push('Votre lecture : ' + INDICES[ind.i1] + (ind.i2 ? ' d’abord, puis ' + INDICES[ind.i2] : ''), cand.length + ' candidats pour ces deux indices', 'Les preuves d’abord, puis la saison (' + MOIS[mois - 1] + ') et vos goûts', 'Une famille par aliment, jamais deux fois le même nutriment');
-    etapes.forEach(function(t, k){ setTimeout(function(){ if(!fini) ligne(t); }, 200 + k*330); });
-    var tourner = function(k){ if(fini) return; if(k >= pris.length){ document.getElementById('vy-as-ct').textContent = 'Votre assiette.'; setTimeout(function(){ if(!fini){ fini = true; assiette(); } }, 900); return; }
+    etapes.push('Votre lecture : ' + INDICES[ind.i1] + (ind.i2 ? ' d’abord, puis ' + INDICES[ind.i2] : ''), cand.length + ' aliments étudiés pour ' + (ind.i2 ? 'ces deux indices' : 'cet indice'), 'Classement : les preuves d’abord, puis la saison (' + MOIS[mois - 1] + ') et vos goûts', 'Un aliment par famille, jamais deux fois le même nutriment');
+    etapes.forEach(function(t, k){ setTimeout(function(){ if(!fini) ligne(t); }, 120 + k*170); });
+    var tourner = function(k){ if(fini) return; if(k >= pris.length){ document.getElementById('vy-as-ct').textContent = 'Votre assiette.'; setTimeout(function(){ if(!fini){ fini = true; assiette(); } }, 600); return; }
       var cible = roue.indexOf(pris[k].f); if(cible < 0) cible = 0;
-      var depart = pos, tours = 2 + (k % 2), fin = (Math.ceil(depart/(N*H)) + tours)*N*H + cible*H, t0 = performance.now(), dur = 1500;
-      document.getElementById('vy-as-ct').textContent = ['Première', 'Deuxième', 'Troisième', 'Quatrième'][k] + ' place.';
+      var depart = pos, tours = 2 + (k % 2), fin = (Math.ceil(depart/(N*H)) + tours)*N*H + cible*H, t0 = performance.now(), dur = 950;
+      document.getElementById('vy-as-ct').textContent = ['Premier', 'Deuxième', 'Troisième', 'Quatrième'][k] + ' choix.';
       (function anim(now){ if(fini) return; var u = Math.min(1, (now - t0)/dur), ez = 1 - Math.pow(1 - u, 4); pos = depart + (fin - depart)*ez; dessiner();
         if(u < 1) raf = requestAnimationFrame(anim);
         else { var f = pris[k].f, c = document.getElementById('vy-as-c' + k); c.classList.add('on'); c.innerHTML = '<b>' + n2(k) + '</b>' + esc(f.nom.split(' (')[0]);
           if(fond[f.id]) fond[f.id].classList.add('k');
-          ligne(n2(k) + ' · ' + f.nom.split(' (')[0] + ' · preuve ' + f.niveau_preuve_peau + ' · pour ' + INDICES[pris[k].pour].toLowerCase() + ((f.saison || []).indexOf(mois) >= 0 && (f.saison || []).length < 12 ? ' · de saison' : ''));
-          setTimeout(function(){ tourner(k + 1); }, 650); } })(t0); };
-    setTimeout(function(){ tourner(0); }, 200 + etapes.length*330);
+          ligne(n2(k) + ' · ' + f.nom.split(' (')[0] + ' · preuve ' + f.niveau_preuve_peau + ' · ' + INDICES[pris[k].pour] + ((f.saison || []).indexOf(mois) >= 0 && (f.saison || []).length < 12 ? ' · de saison' : ''));
+          setTimeout(function(){ tourner(k + 1); }, 380); } })(t0); };
+    setTimeout(function(){ tourner(0); }, 150 + etapes.length*170);
     document.getElementById('vy-as-passer').onclick = function(){ fini = true; cancelAnimationFrame(raf); assiette(); }; }
 
   function assiette(){ var ind = indicesDuScan(); if(!ind) return; var pris = choisir(ind), e = exclus(), une = false;
-    var titres = ['Rien.','Un aliment.','Deux aliments.','Trois aliments.','Quatre aliments.'], prudent = MODE !== 'normal';
+    var titres = ['Aucun aliment.','Un aliment.','Deux aliments.','Trois aliments.','Quatre aliments.'], prudent = MODE !== 'normal';
     var al = [];
     if(a('q3','enceinte') || a('q3','allaite') || a('q4','avk') || a('q4','quotidien') || a('q4','thyroide') || a('q5','renale') || a('q5','thyroide')) al.push('Tout changement alimentaire important se discute avec votre médecin ou votre pharmacien.');
     if(a('q4','quotidien')) al.push('Certains aliments interagissent avec des médicaments (le pamplemousse, par exemple) : parlez-en à votre pharmacien.');
-    if(a('q8','acne')) al.push('Si votre acné est douloureuse, laisse des cicatrices ou dure : consultez un médecin ou un dermatologue.');
+    if(a('q8','acne')) al.push('Si vous avez des boutons douloureux, des cicatrices ou une acné qui dure : un médecin ou un dermatologue peut vous aider.');
     if(a('q8','eczema')) al.push('N’éliminez pas d’aliments sans avis médical, surtout chez l’enfant : cela peut créer une allergie.');
-    if(a('q8','rosacee')) al.push('Observez vos propres déclencheurs ; les plus cités sont le soleil, le stress, la chaleur, l’alcool, les épices et les boissons chaudes.');
-    if((REP.q1 || []).some(function(v){ return v !== 'aucune'; })) al.push('Nous ne remplaçons pas votre allergologue.');
+    if(a('q8','rosacee')) al.push('Si vous avez des rougeurs qui durent, parlez-en à un médecin ; les déclencheurs les plus cités sont le soleil, le stress, la chaleur, l’alcool, les épices et les boissons chaudes.');
+    if((REP.q1 || []).some(function(v){ return v !== 'aucune'; })) al.push('Cela ne remplace pas l’avis de votre allergologue.');
     if(a('q7','vegan')) al.push('Pensez à la vitamine B12 : parlez-en à un professionnel de santé.');
     var h = HAUT + '<div class="m">' + (prudent ? 'Sans vos réponses · d’après votre lecture' : 'Votre assiette · d’après votre lecture') + '</div><h1>' + (prudent ? 'Assiette prudente.' : titres[pris.length]) + '</h1>'
       + (prudent ? '<p class="lead">Sans vos réponses, nous ne gardons que des aliments sans aucun des 14 allergènes majeurs ni précaution médicale connue. Pour une assiette sur mesure, répondez à une seule question. <a href="#" id="vy-as-rep2" style="color:inherit">Répondre</a></p>' : '')
-      + (pris.length ? '<div class="m" style="margin-top:22px">Pourquoi cette sélection pour vous</div><p class="lead" style="margin-top:8px">Votre lecture montre d’abord <b style="font-weight:500">' + esc(INDICES[ind.i1].toLowerCase()) + '</b> (' + ind.n1 + ' sur 100)' + (ind.i2 ? ', puis <b style="font-weight:500">' + esc(INDICES[ind.i2].toLowerCase()) + '</b> (' + ind.n2 + ' sur 100)' : '') + '. Parmi ' + DATA.length + ' aliments, nous avons gardé ceux qui ont été étudiés pour ces points, écarté ' + Object.keys(e.x).length + ' aliments ' + (prudent ? 'par prudence' : 'pour tous ou d’après vos réponses') + ', puis classé par solidité des preuves, saison et goûts. Une seule famille par aliment, pour varier.</p>' : '')
-      + '<p class="lead">' + (pris.length ? esc(PHRASE[ind.i1]) : 'Vos réponses écartent tous les aliments liés à vos indices. Nous préférons ne rien proposer plutôt qu’un aliment sans rapport.') + '</p>'
+      + (pris.length ? '<div class="m" style="margin-top:22px">Pourquoi ces aliments, pour vous</div><p class="lead" style="margin-top:8px">Les deux points à soutenir en priorité d’après votre lecture : <b style="font-weight:500">' + esc(INDICES[ind.i1].toLowerCase()) + '</b> (' + ind.n1 + ' sur 100)' + (ind.i2 ? ' et <b style="font-weight:500">' + esc(INDICES[ind.i2].toLowerCase()) + '</b> (' + ind.n2 + ' sur 100)' : '') + '. Parmi ' + DATA.length + ' aliments, nous avons gardé ceux que la littérature relie, même faiblement, à ces aspects de la peau, écarté ' + Object.keys(e.x).length + ' aliments ' + (prudent ? 'par prudence' : 'pour tous ou d’après vos réponses') + ', puis classé par solidité des preuves, saison et goûts. Aucun aliment n’a été étudié sur les indices de votre scan.</p>' : '')
+      + '<p class="lead">' + (pris.length ? esc(PHRASE[ind.i1]) : 'Vos réponses écartent tous les aliments étudiés pour vos indices. Plutôt qu’un aliment sans rapport, nous préférons ne rien proposer.') + '</p>'
       + (prudent ? '' : affiner())
-      + '<div class="ruban">' + pris.map(function(c){ return '<span class="on">' + esc(c.f.nom.split(' (')[0]) + '</span>'; }).join('') + '</div>'
+      + (pris.length ? '<div class="plats">' + pris.map(function(c){ return '<div><img src="' + BASE + 'photos/' + c.f.id + '.png" alt="" onerror="this.outerHTML=\'<i style=&quot;background:' + (TEINTE[c.f.categorie] || '#999') + '&quot;></i>\'">' + esc(c.f.nom.split(' (')[0].split(',')[0]) + '</div>'; }).join('') + '</div>' : '')
       + al.map(function(t){ return '<div class="alerte">' + esc(t) + '</div>'; }).join('')
       + pris.map(function(c, k){ var f = c.f, a2 = allegation(f), fa = fait(f); if(a2) une = true;
-          var pr = (e.notes[f.id] || []).concat((f.precautions || []).filter(function(t){ return !/allégation|afficher|néphrolog|juriste/i.test(t); }).slice(0, 2));   // les notes de securite du profil passent toujours
-          return '<div class="rit"><i>' + n2(k) + '</i><div><h3>' + esc(f.nom) + '</h3><div class="sous">Pour : ' + esc(INDICES[c.pour]) + ' · ' + esc(f.portion_type) + ' · ' + saison(f) + '</div>'
-            + '<p>' + esc(f.mecanisme_simple) + '</p>'
-            + '<div class="preuve" style="margin-top:12px">Combien</div><p style="margin-top:4px">' + esc(f.portion_type) + '. ' + esc(FREQ[f.categorie] || 'Dans une alimentation variée.') + (DOSE_ETUDE[f.id] ? ' ' + esc(DOSE_ETUDE[f.id]) : '') + '</p>'
+          var pr = (e.notes[f.id] || []).concat((f.precautions || []).filter(function(t){ return !/allégation|afficher|juriste/i.test(t); }));   // toutes les precautions de securite s'affichent
+          return '<div class="rit"><i>' + n2(k) + '</i><div><h3>' + esc(f.nom) + '</h3><div class="sous">Idée pour votre assiette · ' + esc(f.portion_type) + ' · ' + saison(f) + '</div>'
+            + '<p>' + esc(composition(f)) + '</p>'
+            + '<div class="preuve" style="margin-top:12px">Combien</div><p style="margin-top:4px">' + esc(f.portion_type) + '. ' + esc(FREQ[f.categorie] || 'Dans une alimentation variée.') + '' + '</p>'
             + (apports(f).length ? '<div class="preuve" style="margin-top:12px">Une portion apporte</div><p style="margin-top:4px">' + apports(f).map(esc).join('<br>') + '</p>' : '')
-            + (a2 ? '<div class="alleg">' + esc(a2) + '</div>' : '') + (fa ? '<p>' + esc(fa) + '</p>' : '')
+            + (a2 ? '<div class="alleg">' + esc(a2) + '</div>' : '') 
             + '<div class="preuve">Preuve ' + f.niveau_preuve_peau + ' · ' + PREUVE[f.niveau_preuve_peau] + '</div>'
             + (prix(f) ? '<div class="preuve" style="text-transform:none;letter-spacing:.2px;font-size:11.5px">' + esc(prix(f)) + (AFFINE.bio && f.bio_disponible ? ' Existe en bio.' : '') + '</div>' : '')
-            + (f.allergenes_UE.length ? '<div class="prec">Allergènes : ' + f.allergenes_UE.map(function(z){ return AL_NOM[z] || z; }).join(', ') + '.</div>' : '')
+            + (f.allergenes_UE.length ? '<div class="prec">Allergènes : ' + f.allergenes_UE.map(function(z){ return AL_NOM[z] || z; }).join(', ') + ((f.allergenes_possibles || []).length ? ' ; selon la marque : ' + f.allergenes_possibles.map(function(z){ return AL_NOM[z] || z; }).join(', ') : '') + '.</div>' : '')
             + pr.map(function(t){ return '<div class="prec">' + esc(t) + '</div>'; }).join('')
-            + (f.etudes.length ? '<details><summary>Les études (' + f.etudes.length + ')</summary>' + f.etudes.map(function(s){ return '<a href="' + esc(s.lien) + '" target="_blank" rel="noopener">' + esc(s.ref) + ' ↗</a>'; }).join('') + '</details>' : '')
-            + (prudent ? '' : '<a href="#" class="vy-as-pas" data-id="' + f.id + '" style="display:inline-block;margin-top:12px;font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:#52716f">Pas pour moi</a>')
+            + (f.etudes.length ? '<details><summary>Ce que disent les études (' + f.etudes.length + ')</summary><p style="font-size:12.5px">' + esc(f.mecanisme_simple) + ' Information scientifique générale : ce n’est pas un effet attendu de cet aliment sur votre peau.</p>' + f.etudes.map(function(s){ return '<a href="' + esc(s.lien) + '" target="_blank" rel="noopener">' + esc(s.ref) + ' ↗</a>'; }).join('') + '</details>' : '')
+            + (prudent ? '' : '<a href="#" class="vy-as-pas" data-id="' + f.id + '" style="display:inline-block;margin-top:12px;font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:#52716f">Retirer cet aliment</a>')
             + '</div></div>'; }).join('')
       + (une ? '<p class="fine">À intégrer dans une alimentation variée et équilibrée et un mode de vie sain.</p>' : '')
+      + (AFFINE.usage === 'tendance' ? tendances() : '')
       + '<div id="vy-as-geo"></div>'
       + rythme()
       + '<div id="vy-as-combo"></div>'
       + recettes(pris, e.x)
+      + (AFFINE.usage === 'tendance' ? '' : tendances())
       + (prudent ? '<button class="btn" type="button" id="vy-as-rep">Répondre à une seule question</button>'
         : '<h2>Vos réponses.</h2><p style="font:italic 18px/1.5 Georgia,serif">« ' + esc(phrase(SANTE)) + ' »</p><button class="btn sec" type="button" id="vy-as-rep">Modifier mes réponses</button>'
-          + '<label style="display:flex;gap:12px;align-items:flex-start;margin-top:18px;font-size:14px;line-height:1.5;cursor:pointer"><input type="checkbox" id="vy-as-garder"' + (GARDER ? ' checked' : '') + ' style="margin-top:4px;width:18px;height:18px;accent-color:#173d3f"><span>Garder mes réponses sur cet appareil<br><small style="opacity:.7">La prochaine fois, une seule question : « Toujours pareil ? ». Rien n’est envoyé. Effacement automatique dans six mois.</small></span></label>'
+          + '<label style="display:flex;gap:12px;align-items:flex-start;margin-top:18px;font-size:14px;line-height:1.5;cursor:pointer"><input type="checkbox" id="vy-as-garder"' + (GARDER ? ' checked' : '') + ' style="margin-top:4px;width:18px;height:18px;accent-color:#173d3f"><span>Garder mes réponses sur cet appareil<br><small style="opacity:.7">La prochaine fois, une seule question vous sera posée. Vos réponses ne quittent pas cet appareil. Effacement automatique dans six mois.</small></span></label>'
           + (GARDER ? '<p class="fine"><a href="#" id="vy-as-effnow" style="color:inherit">Effacer maintenant</a></p>' : ''))
       + '<p class="fine">Eczéma ou psoriasis : n’éliminez aucun aliment sans avis médical, surtout chez l’enfant. Certains aliments interagissent avec des médicaments : parlez-en à votre pharmacien.</p>'
-      + '<p class="fine">Information générale, pas un avis médical. Composition : table CIQUAL 2020 (ANSES). Allégations : registre de l’Union européenne (Règlement 1924/2006).</p>';
+      + '<p class="fine">Information générale, pas un avis médical. Composition : table CIQUAL 2020 (ANSES). Allégations : registre de l’Union européenne, règlement (CE) n° 1924/2006.</p>';
     feuille(h, 'jour'); ecrireMemoire();
     document.getElementById('vy-as-rep').onclick = function(){ eviter(SANTE ? JSON.parse(JSON.stringify(SANTE)) : null); };
     var r2 = document.getElementById('vy-as-rep2'); if(r2) r2.onclick = function(ev){ ev.preventDefault(); eviter(); };
@@ -494,31 +519,41 @@
     var brancherRec = function(){ ouvert.querySelectorAll('[data-onglet]').forEach(function(z){ z.onclick = function(){ ONGLET = z.dataset.onglet; OUVERTES = 3; var box = document.getElementById('vy-as-rec'); box.outerHTML = recettes(pris, e.x); brancherRec(); }; });
       var pl = document.getElementById('vy-as-plusrec'); if(pl) pl.onclick = function(){ OUVERTES += 6; var box = document.getElementById('vy-as-rec'); box.outerHTML = recettes(pris, e.x); brancherRec(); }; };
     brancherRec();
+    var pt = function(){ var b = document.getElementById('vy-as-plustend'); if(b) b.onclick = function(){ TOUVERT = 99; var box = document.getElementById('vy-as-tend'); box.outerHTML = tendances(); pt(); }; }; pt();
     catalogue().then(function(){ var z = document.getElementById('vy-as-combo'); if(z) z.innerHTML = combos(ind, pris); }); }
 
-  function rythme(){ if(a('q6','moins18')) return '<h2>Rythme.</h2><div class="rit"><i>01</i><div><h3>Bouger</h3><p>Une heure par jour en moyenne (OMS 2020). Pour l’acné ou le poids, parlez-en à votre médecin traitant.</p></div></div>';
+  function rythme(){ if(a('q6','moins18')) return '<h2>Rythme.</h2><div class="rit"><i>01</i><div><h3>Bouger</h3><p>Une heure d’activité par jour en moyenne (OMS 2020), en jouant, en marchant, en faisant du sport.</p></div></div>';
     var l = [];
     l.push(['L’assiette', 'Cinq fruits et légumes par jour, des légumes secs au moins deux fois par semaine, un féculent complet par jour, une petite poignée de fruits à coque non salés, du poisson deux fois par semaine dont un gras.', 'Repères PNNS 2019, Santé publique France.']);
     var tca = true;   // QUESTIONNAIRE_V2 : la regle trouble alimentaire s'applique a tous (aucun grammage de restriction, aucun poids)
     l.push(['Plus souvent', 'Plus souvent des légumes secs, du poisson et des végétaux ; la charcuterie et la viande rouge, de temps en temps ; l’eau comme boisson.', 'Repères chiffrés du PNNS : mangerbouger.fr']);
-    l.push(['Dormir', a('q9','moins6') || a('q9','6_7') ? 'Visez au moins sept heures par nuit.' : a('q9','plus9') ? 'Un sommeil très long et régulier peut justifier d’en parler à votre médecin.' : 'Au moins sept heures par nuit.', a('q9','irregulier') ? 'Priorité à la régularité : même heure de lever, lumière du jour le matin. Travail de nuit : pas de fenêtre alimentaire sans avis médical.' : 'Des horaires réguliers, week-end compris.']);
+    l.push(['Dormir', a('q9','moins6') || a('q9','6_7') ? 'Visez au moins sept heures par nuit.' : a('q9','plus9') ? 'Plus de neuf heures par nuit, d’habitude ? Cela peut valoir la peine d’en parler à votre médecin.' : 'Au moins sept heures par nuit.', a('q9','irregulier') ? 'Priorité à la régularité : même heure de lever, lumière du jour le matin. Travail de nuit : pas de jeûne ni de repas limités à une plage horaire sans avis médical.' : 'Des horaires réguliers, week-end compris.']);
     l.push(['Bouger', a('q10','moins4000') ? 'Ajoutez 1 000 pas par jour, pour viser environ 7 000.' : 'Environ 7 000 pas par jour.', '150 à 300 minutes d’activité modérée par semaine et deux séances de renforcement (OMS). Maladie du cœur, diabète traité ou reprise après une longue pause : demandez l’avis de votre médecin avant d’augmenter l’effort.']);
     if(a('q3','enceinte') || a('q3','allaite') || a('q3','projet')) l.push(['L’alcool', 'Pendant la grossesse, l’allaitement ou un projet de grossesse : zéro alcool.', 'Recommandation de Santé publique France.']);
-    else l.push(['L’alcool', 'Moins, c’est mieux : il n’existe pas de consommation sans risque (OMS 2023).', 'Repère français : deux verres par jour au maximum, et pas tous les jours.']);
+    else l.push(['L’alcool', 'Moins, c’est mieux : il n’existe pas de consommation sans risque (OMS 2023).', 'Repère français : au maximum 10 verres par semaine, 2 par jour, et des jours sans. Enceinte, allaitante ou projet de grossesse : zéro alcool.']);
     l.push(['Le tabac', 'Le tabac et le soleil sont les deux premiers facteurs de vieillissement visible de la peau.', 'Pour arrêter : Tabac Info Service, 39 89.']);
-    if(a('q6','65') && !a('q5','renale')) l.push(['Les protéines', 'Après 65 ans, des protéines à chaque repas (œufs, poisson, légumineuses) aident à garder ses muscles.', 'Quantité à valider avec votre médecin.']);
+    if(a('q6','65') && !a('q5','renale')) l.push(['Les protéines', 'Après 65 ans, des protéines à chaque repas (œufs, poisson, légumineuses) aident à garder vos muscles.', 'Quantité à valider avec votre médecin.']);
     var pu = function(k, v, t){ var on = k === 'd' ? REP.q9d : REP[k] === v; return '<span class="puce' + (on ? ' on' : '') + '" data-ry="' + k + '" data-v="' + v + '" style="font-size:12px;padding:8px 11px">' + t + '</span>'; };
     var ici = { 'Dormir':'<p style="margin-top:12px;font-size:12px;opacity:.75">Et vous, en général ?</p><div class="puces">' + pu('q9s','moins7','Moins de 7 h') + pu('q9s','7_9','7 à 9 h') + pu('q9s','plus9','Plus de 9 h') + pu('d','1','Horaires décalés ou de nuit') + '</div>',
-      'Bouger':'<p style="margin-top:12px;font-size:12px;opacity:.75">Et vous, par jour ? Votre téléphone le sait : app Santé ou Google Fit.</p><div class="puces">' + pu('q10p','moins4000','Moins de 4 000 pas') + pu('q10p','4000_7000','4 000 à 7 000') + pu('q10p','plus7000','Plus de 7 000') + '</div>' };
-    return '<h2>Rythme.</h2><p class="lead">Ce que les grandes études montrent le plus solidement pour vivre longtemps en bonne santé, adapté à vos réponses.</p>'
+      'Bouger':'<p style="margin-top:12px;font-size:12px;opacity:.75">Et vous, par jour ? Votre téléphone le mesure : app Santé ou Google Fit.</p><div class="puces">' + pu('q10p','moins4000','Moins de 4 000 pas') + pu('q10p','4000_7000','4 000 à 7 000') + pu('q10p','plus7000','Plus de 7 000') + '</div>' };
+    return '<h2>Rythme.</h2><p class="lead">Les repères de santé les plus solides des grandes études, adaptés à vos réponses.</p>'
       + l.map(function(z, k){ return '<div class="rit"><i>' + n2(k) + '</i><div><h3>' + z[0] + '</h3><p>' + esc(z[1]) + '</p>' + (z[2] ? '<div class="preuve">' + esc(z[2]) + '</div>' : '') + (ici[z[0]] || '') + '</div></div>'; }).join(''); }
 
   var TYPES_R = [['jus_boisson','Jus et boissons'],['petit_dejeuner','Petit-déjeuner'],['entree','Entrées'],['plat','Plats'],['dessert','Desserts'],['encas','En-cas']], ONGLET = 'plat', OUVERTES = 3;
+  var VERDICT = { prouve:['Prouvé', '#2f6b4f'], plausible:['Plausible', '#8a6a2c'], pas_demontre:['Pas démontré', '#6b6f73'], deconseille:['Déconseillé', '#a3473f'] }, TOUVERT = 4;
+  function tendances(){ if(!TEND.length) return '';
+    var carte = function(t){ var v = VERDICT[t.verdict] || ['', '#666']; return '<div class="rit"><div style="width:100%"><div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><h3>' + esc(t.accroche || t.titre) + '</h3><span style="flex:none;font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:#fff;background:' + v[1] + ';padding:6px 10px;border-radius:999px">' + v[0] + '</span></div>'
+      + '<p>' + esc(t.verdict_texte) + '</p>' + (t.ce_quon_peut_faire ? '<p><b style="font-weight:500">Ce que vous pouvez faire.</b> ' + esc(t.ce_quon_peut_faire) + '</p>' : '') + (t.prudence ? '<div class="prec">' + esc(t.prudence) + '</div>' : '')
+      + ((t.etudes || []).length ? '<details><summary>Les études (' + t.etudes.length + ')</summary>' + t.etudes.map(function(e2){ return '<a href="' + esc(e2.lien) + '" target="_blank" rel="noopener">' + esc(e2.ref) + ' ↗</a>'; }).join('') + '</details>' : '') + '</div></div>'; };
+    return '<div id="vy-as-tend"><div class="m" style="margin-top:46px">Collagène, matcha, vinaigre de cidre…</div><h2 style="margin-top:6px">Tendances.</h2><p class="lead">Ce que disent vraiment les études sur les tendances du moment. Sans parti pris, sources à l’appui.</p>'
+      + TEND.slice(0, TOUVERT).map(carte).join('') + (TEND.length > TOUVERT ? '<button class="btn sec" type="button" id="vy-as-plustend">Voir les ' + (TEND.length - TOUVERT) + ' autres tendances</button>' : '') + '</div>'; }
   function recettesSures(x){ var al = (REP.q1 || []).filter(function(v){ return v !== 'aucune'; }), mois = new Date().getMonth() + 1;
     return RECS.filter(function(r){
       if(r.ingredients.some(function(g){ return g.aliment_id && x[g.aliment_id]; })) return false;
       if((r.allergenes_UE || []).some(function(z){ return al.indexOf(z) >= 0; })) return false;
       if(a('q1','sulfites') && r.ingredients.some(function(g){ return /abricot_sec|raisin_sec|figue_seche|capres/.test(g.aliment_id || ''); })) return false;
+      if((a('q3','enceinte') || a('q3','allaite')) && r.oeuf_peu_cuit) return false;
+      if((r.allergenes_possibles || []).some(function(z){ return al.indexOf(z) >= 0; })) return false;
       if(a('q7','vege') && (r.regimes || []).indexOf('vegetarien') < 0) return false;
       if(a('q7','vegan') && (r.regimes || []).indexOf('vegan') < 0) return false;
       if(a('q5','coeliaque') && (r.regimes || []).indexOf('sans_gluten') < 0) return false;
@@ -535,7 +570,7 @@
       return '<div class="rit"><i>' + n2(k) + '</i><div><h3>' + esc(r.nom) + '</h3><div class="sous">' + r.temps_min + ' min · ' + r.personnes + ' pers. · ' + esc(cout) + ' · ' + esc((CUISINES.filter(function(c){ return c[0] === r.cuisine; })[0] || ['', 'Universelle'])[1]) + '</div>'
         + '<details><summary>Ingrédients et étapes</summary><p>' + r.ingredients.map(function(g){ return esc(g.quantite + ' ' + g.libelle); }).join(' · ') + '</p>' + r.etapes.map(function(e2, m){ return '<p><b style="font-weight:500">' + (m + 1) + '.</b> ' + esc(e2); }).join('</p>') + '</p>'
         + (r.notes || []).map(function(t){ return '<div class="prec" style="color:#52716f">' + esc(t) + '</div>'; }).join('') + '</details>'
-        + '<div class="prec" style="color:#52716f">Allergènes : ' + ((r.allergenes_UE || []).length ? r.allergenes_UE.map(function(z){ return NOMS_AL[z] || z; }).join(', ') : 'aucun des 14 allergènes réglementés') + '.</div></div></div>'; };
+        + '<div class="prec" style="color:#52716f">Allergènes : ' + ((r.allergenes_UE || []).length ? r.allergenes_UE.map(function(z){ return NOMS_AL[z] || z; }).join(', ') : 'aucun des 14 allergènes réglementés') + ((r.allergenes_possibles || []).length ? ' ; selon la marque : ' + r.allergenes_possibles.map(function(z){ return NOMS_AL[z] || z; }).join(', ') : '') + '.</div></div></div>'; };
     return '<div id="vy-as-rec"><div class="m" style="margin-top:46px">Premium · ' + n + ' recettes pour vous</div><h2 style="margin-top:6px">Recettes.</h2>'
       + '<div class="puces" style="flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -24px 6px;padding:0 24px 4px">' + TYPES_R.map(function(t){ var c = sures.filter(function(r){ return r.type === t[0]; }).length; return '<span class="puce' + (t[0] === ONGLET ? ' on' : '') + '" data-onglet="' + t[0] + '" style="flex:none;font-size:12.5px;padding:9px 12px">' + t[1] + ' · ' + c + '</span>'; }).join('') + '</div>'
       + liste.slice(0, OUVERTES).map(carte).join('')
@@ -580,5 +615,5 @@
     .catch(function(){ var b = document.getElementById('vy-as-geo-go'); if(b){ b.disabled = false; b.textContent = 'Réessayer'; } }); }
 
   window.vyAliment = { entree:entree, ouvrir:ouvrir };
-  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') fermer(); });
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') fermer(); var z = e.target; if(ouvert && z && z.classList && z.classList.contains('puce') && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); z.click(); } });
 })();

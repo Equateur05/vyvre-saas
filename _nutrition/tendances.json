@@ -1,0 +1,587 @@
+{
+ "_meta": {
+  "version": "1.0",
+  "date": "2026-09-30",
+  "description": "Cartes « verdict » sur les modes alimentaires, pour l'écran Tendances de vyvre. Chaque carte dit ce que montrent les meilleures preuves disponibles, en mots simples, avec la taille de l'effet quand elle existe et les conflits d'intérêts connus.",
+  "verdicts": {
+   "prouve": "Rôle établi (allégation européenne autorisée ou plusieurs essais concordants).",
+   "plausible": "Des essais ou des études d'observation vont dans le même sens, mais petits, courts ou non causaux.",
+   "pas_demontre": "Pas de preuve chez l'humain pour la promesse de la mode, ou preuves contradictoires, ou effet qui disparaît dans les études indépendantes.",
+   "deconseille": "Aucune base scientifique et des risques documentés."
+  },
+  "regles_texte": "Jamais « superaliment », « anti-âge » ; « détox » seulement entre guillemets pour nommer la mode. Aucune allégation de santé hors libellé européen autorisé, cité mot pour mot. Ces cartes informent : elles ne remplacent pas un avis médical.",
+  "verification": "Identifiants PubMed contrôlés via NCBI E-utilities (premier auteur, année, revue, titre ; statut de rétractation) le 30/09/2026 ; DOI EFSA contrôlés via Crossref ; sites officiels (OMS, ANSES, Santé publique France, EUR-Lex, CIQUAL) ouverts le même jour.",
+  "aliment_ids": "Renvoient à aliments_v3.json ; liste vide quand vyvre ne propose aucun aliment pour cette mode (kombucha, cures, jeûne).",
+  "repartition": {
+   "prouve": 1,
+   "plausible": 4,
+   "pas_demontre": 13,
+   "deconseille": 1
+  }
+ },
+ "tendances": [
+  {
+   "id": "collagene",
+   "titre": "Collagène en poudre, en boisson ou en bouillon d'os",
+   "accroche": "Le collagène à boire",
+   "verdict": "pas_demontre",
+   "verdict_texte": "Tous essais confondus, les compléments de collagène semblent agir sur l'hydratation et les rides. Mais la méta-analyse la plus rigoureuse (23 essais, 2025) ne trouve plus aucun effet dans les études non financées par l'industrie, ni dans celles de bonne qualité. Le bouillon d'os, lui, apporte des précurseurs du collagène en quantités faibles et très variables ; aucune allégation européenne n'est autorisée pour le collagène.",
+   "ce_quon_peut_faire": "Des protéines variées à chaque repas, et des fruits et légumes sources de vitamine C : « La vitamine C contribue à la formation normale de collagène pour assurer la fonction normale de la peau. »",
+   "prudence": "Poudres et boissons sont des compléments, souvent aromatisés ou sucrés : lire l'étiquette ; les bouillons sont souvent très salés.",
+   "aliment_ids": [
+    "bouillon_pot_au_feu",
+    "kiwi",
+    "poivron_rouge"
+   ],
+   "etudes": [
+    {
+     "ref": "Myung SK 2025, Am J Med (collagène en compléments et vieillissement cutané, méta-analyse de 23 ECR, 1 474 participants, analyse par financement)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/40324552/"
+    },
+    {
+     "ref": "de Miranda RB 2021, Int J Dermatol (collagène hydrolysé et peau, méta-analyse de 19 ECR, financement non analysé)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/33742704/"
+    },
+    {
+     "ref": "Alcock RD 2019, Int J Sport Nutr Exerc Metab (bouillons d'os : précurseurs du collagène faibles et variables)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/29893587/"
+    },
+    {
+     "ref": "Règlement (UE) n° 432/2012, liste des allégations de santé autorisées",
+     "lien": "https://eur-lex.europa.eu/eli/reg/2012/432/oj"
+    }
+   ]
+  },
+  {
+   "id": "smoothies_los_angeles",
+   "titre": "Les smoothies « à la Los Angeles »",
+   "accroche": "Le verre qui promet tout",
+   "verdict": "pas_demontre",
+   "verdict_texte": "Aucun essai n'a testé sur la peau ces mélanges de fruits, de protéines en poudre, de collagène ou de poudres de plantes. Le collagène ajouté n'a pas d'effet démontré dans les études indépendantes, et le repère de protéines (0,83 g par kilo et par jour chez l'adulte, EFSA) est en général atteint par l'alimentation habituelle en Europe. Les jus de fruits ajoutés comptent comme sucres libres pour l'OMS.",
+   "ce_quon_peut_faire": "Préférez les fruits entiers et gardez la protéine dans l'assiette (œuf, yaourt, légumineuses) ; si vous aimez le smoothie, faites-le maison, sans poudre ni jus ajouté.",
+   "prudence": "Les poudres de plantes sont des compléments, avec des interactions possibles : grossesse, traitement ou maladie, demandez l'avis du pharmacien.",
+   "aliment_ids": [
+    "myrtille",
+    "kiwi",
+    "yaourt_nature",
+    "flocons_avoine"
+   ],
+   "etudes": [
+    {
+     "ref": "Myung SK 2025, Am J Med (collagène en compléments et vieillissement cutané, méta-analyse de 23 ECR, 1 474 participants, analyse par financement)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/40324552/"
+    },
+    {
+     "ref": "EFSA 2012, EFSA Journal (valeurs nutritionnelles de référence pour les protéines)",
+     "lien": "https://doi.org/10.2903/j.efsa.2012.2557"
+    },
+    {
+     "ref": "OMS 2015, Guideline: sugars intake for adults and children",
+     "lien": "https://www.who.int/publications/i/item/9789241549028"
+    }
+   ]
+  },
+  {
+   "id": "vinaigre_cidre",
+   "titre": "Le vinaigre de cidre à jeun",
+   "accroche": "Une cuillère avant le repas",
+   "verdict": "pas_demontre",
+   "verdict_texte": "Pris avec un repas, le vinaigre a un peu réduit la hausse de la glycémie qui suit ce repas, dans de petits essais (méta-analyse 2017). Pour le poids, l'essai le plus cité a été mené par les chercheurs d'un fabricant de vinaigre, et un essai récent très relayé a été rétracté en 2025. Aucune étude sur la peau.",
+   "ce_quon_peut_faire": "En vinaigrette sur des crudités, au cours du repas : c'est la façon la plus simple et la plus sûre de l'utiliser.",
+   "prudence": "Jamais pur ni en « shot » : acide pour l'émail des dents et l'œsophage. Sous diurétique, insuline ou digoxine, ou en cas de diabète avec vidange lente de l'estomac, avis médical.",
+   "aliment_ids": [
+    "vinaigre_cidre"
+   ],
+   "etudes": [
+    {
+     "ref": "Shishehbor F 2017, Diabetes Res Clin Pract (vinaigre et glycémie après le repas, méta-analyse d'essais)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/28292654/"
+    },
+    {
+     "ref": "Kondo T 2009, Biosci Biotechnol Biochem (vinaigre et poids, ECR, auteurs salariés de Mizkan, fabricant de vinaigre)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/19661687/"
+    },
+    {
+     "ref": "Abou-Khalil R 2024, BMJ Nutr Prev Health (vinaigre de cidre et poids) : article rétracté en 2025",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/38966098/"
+    },
+    {
+     "ref": "BMJ Nutr Prev Health 2025, avis de rétractation de l'essai Abou-Khalil 2024",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/41789013/"
+    },
+    {
+     "ref": "Hlebowicz J 2007, BMC Gastroenterol (vinaigre de cidre et vidange gastrique, diabète de type 1 avec gastroparésie, pilote)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/18093343/"
+    },
+    {
+     "ref": "Hill LL 2005, J Am Diet Assoc (lésion de l'œsophage par comprimé de vinaigre de cidre)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/15983536/"
+    },
+    {
+     "ref": "Lhotta K 1998, Nephron (hypokaliémie avec de grandes quantités de vinaigre de cidre, cas)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/9736833/"
+    },
+    {
+     "ref": "Marschner F 2024, J Dent (facteurs de risque de l'érosion dentaire, méta-analyse : aliments acides OR 2,40)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/38552999/"
+    }
+   ]
+  },
+  {
+   "id": "eau_citronnee",
+   "titre": "L'eau citronnée au réveil",
+   "accroche": "Un rituel, pas un remède",
+   "verdict": "pas_demontre",
+   "verdict_texte": "Aucune étude n'a montré que l'eau citronnée « alcalinise » le corps, accélère le métabolisme ou purifie la peau ; une revue systématique ne trouve pas d'appui à l'idée d'une alimentation « alcalinisante ». Une cuillère à soupe de jus de citron apporte environ 6 mg de vitamine C (CIQUAL) : l'essentiel, c'est le verre d'eau.",
+   "ce_quon_peut_faire": "Si ce verre vous aide à boire le matin, gardez-le : c'est de l'eau en plus, avec du goût.",
+   "prudence": "Acide pour l'émail : les aliments et boissons acides sont associés à l'érosion dentaire ; reflux gastrique, à éviter s'il vous gêne.",
+   "aliment_ids": [
+    "citron",
+    "eau"
+   ],
+   "etudes": [
+    {
+     "ref": "Fenton TR 2016, BMJ Open (charge acide de l'alimentation, eau alcaline et cancer, revue systématique)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/27297008/"
+    },
+    {
+     "ref": "Marschner F 2024, J Dent (facteurs de risque de l'érosion dentaire, méta-analyse : aliments acides OR 2,40)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/38552999/"
+    },
+    {
+     "ref": "ANSES, table CIQUAL 2020 (jus de citron maison : 42,4 mg de vitamine C pour 100 g ; kombucha : 1,45 g de sucres pour 100 g)",
+     "lien": "https://ciqual.anses.fr/"
+    }
+   ]
+  },
+  {
+   "id": "jus_detox",
+   "titre": "Les cures de jus « détox »",
+   "accroche": "Nettoyer l'intérieur ?",
+   "verdict": "deconseille",
+   "verdict_texte": "L'idée d'une cure « détox » n'a aucune base scientifique : aucun essai randomisé n'a évalué ces programmes chez l'humain, et le foie et les reins assurent déjà l'élimination. Ces cures remplacent des repas par des boissons pauvres en protéines et en fibres, souvent riches en sucres ; des atteintes rénales aiguës ont été décrites après des cures de jus ou de smoothies verts riches en oxalates.",
+   "ce_quon_peut_faire": "Mangez les fruits et légumes entiers et variés, dans des repas complets.",
+   "prudence": "Maladie rénale, diabète, grossesse, traitement quotidien ou antécédent de trouble du comportement alimentaire : aucune cure sans avis médical.",
+   "aliment_ids": [],
+   "etudes": [
+    {
+     "ref": "Klein AV 2015, J Hum Nutr Diet (régimes « détox » : revue critique, aucun ECR chez l'humain)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/25522674/"
+    },
+    {
+     "ref": "Getting JE 2013, Am J Med (néphropathie à l'oxalate après une cure de jus, cas et revue)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/23830537/"
+    },
+    {
+     "ref": "Makkapati S 2018, Am J Kidney Dis (cure de smoothies verts et néphropathie aiguë à l'oxalate, cas)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/29203127/"
+    },
+    {
+     "ref": "OMS 2015, Guideline: sugars intake for adults and children",
+     "lien": "https://www.who.int/publications/i/item/9789241549028"
+    }
+   ]
+  },
+  {
+   "id": "jeune_intermittent",
+   "titre": "Le jeûne intermittent (16:8 et autres fenêtres)",
+   "accroche": "Manger moins souvent",
+   "verdict": "pas_demontre",
+   "verdict_texte": "Dans les essais randomisés, manger sur une fenêtre de 8 heures ne fait pas perdre plus qu'une simple réduction des calories : 8,0 contre 6,3 kg en un an, écart non significatif (NEJM 2022) ; un autre essai de 12 semaines ne trouve aucune différence avec trois repas par jour. Aucun effet sur la peau n'a été étudié.",
+   "ce_quon_peut_faire": "Des repas à heures régulières suffisent ; si une fenêtre vous convient et reste facile, rien n'oblige à l'abandonner, mais elle n'apporte rien de démontré en plus.",
+   "prudence": "Jamais chez les mineurs, pendant la grossesse ou l'allaitement, en cas de diabète traité ou d'antécédent de trouble du comportement alimentaire.",
+   "aliment_ids": [],
+   "etudes": [
+    {
+     "ref": "Liu D 2022, N Engl J Med (restriction calorique avec ou sans fenêtre de 8 h, ECR de 12 mois, n=139)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/35443107/"
+    },
+    {
+     "ref": "Lowe DA 2020, JAMA Intern Med (essai TREAT, fenêtre 16:8, 12 semaines, n=116)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/32986097/"
+    }
+   ]
+  },
+  {
+   "id": "kombucha",
+   "titre": "Le kombucha",
+   "accroche": "Le thé qui pétille",
+   "verdict": "pas_demontre",
+   "verdict_texte": "Une revue systématique de 310 articles n'a trouvé qu'une seule étude menée chez l'humain : les bienfaits annoncés reposent sur des travaux de laboratoire ou chez l'animal. Rien n'est démontré chez l'humain pour la peau ni pour le microbiote avec le kombucha lui-même.",
+   "ce_quon_peut_faire": "Si vous l'aimez, c'est une boisson plaisir, peu sucrée en version nature (1,5 g de sucres pour 100 g, CIQUAL) ; vyvre ne la propose pas dans l'assiette.",
+   "prudence": "Souvent non pasteurisé et légèrement alcoolisé : par prudence, pas pendant la grossesse ou l'allaitement, chez l'enfant ni en cas d'immunodépression ; des cas graves ont été rapportés avec du kombucha maison (CDC, 1995).",
+   "aliment_ids": [],
+   "etudes": [
+    {
+     "ref": "Kapp JM 2019, Ann Epidemiol (kombucha : revue systématique, une seule étude chez l'humain)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/30527803/"
+    },
+    {
+     "ref": "CDC 1995, MMWR (maladie grave inexpliquée, dont un décès, chez deux buveuses de kombucha maison, Iowa)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/7476846/"
+    },
+    {
+     "ref": "ANSES, table CIQUAL 2020 (jus de citron maison : 42,4 mg de vitamine C pour 100 g ; kombucha : 1,45 g de sucres pour 100 g)",
+     "lien": "https://ciqual.anses.fr/"
+    }
+   ]
+  },
+  {
+   "id": "matcha",
+   "titre": "Le matcha",
+   "accroche": "Le thé vert en poudre",
+   "verdict": "pas_demontre",
+   "verdict_texte": "Le matcha est une feuille de thé vert moulue, bue entière ; il n'a pas de fiche dans la table CIQUAL. Pour la peau, les essais sur le thé vert se contredisent : une boisson très concentrée (1 402 mg de catéchines par jour) a réduit de 25 % la rougeur après UV, mais deux autres essais, dont un de 2 ans, n'ont trouvé aucun effet.",
+   "ce_quon_peut_faire": "Une ou deux tasses comme boisson plaisir, à la place d'une boisson sucrée ; le thé vert infusé est une alternative plus économique.",
+   "prudence": "Contient de la caféine (grossesse : au plus 200 mg par jour toutes sources, EFSA) et réduit l'absorption du fer ; jamais d'extrait de thé vert en gélules (atteintes du foie à partir de 800 mg d'EGCG par jour, EFSA 2018).",
+   "aliment_ids": [
+    "the_vert"
+   ],
+   "etudes": [
+    {
+     "ref": "Heinrich U 2011, J Nutr (boisson de polyphénols de thé vert, 1 402 mg de catéchines/j, ECR n=60)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/21525260/"
+    },
+    {
+     "ref": "Farrar MD 2015, Am J Clin Nutr (catéchines de thé vert, ECR n=50, sans effet)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/26178731/"
+    },
+    {
+     "ref": "Janjua R 2009, Dermatol Surg (polyphénols de thé vert pendant 2 ans, ECR, pas mieux que le placebo)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/19469799/"
+    },
+    {
+     "ref": "EFSA 2018, EFSA Journal (sécurité des catéchines du thé vert)",
+     "lien": "https://doi.org/10.2903/j.efsa.2018.5239"
+    },
+    {
+     "ref": "EFSA 2015, EFSA Journal (sécurité de la caféine)",
+     "lien": "https://doi.org/10.2903/j.efsa.2015.4102"
+    },
+    {
+     "ref": "Hurrell RF 1999, Br J Nutr (boissons riches en polyphénols et absorption du fer)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/10999016/"
+    }
+   ]
+  },
+  {
+   "id": "goji_acai",
+   "titre": "Goji et açaï",
+   "accroche": "Les baies venues de loin",
+   "verdict": "pas_demontre",
+   "verdict_texte": "Aucun essai clinique n'a évalué la baie de goji ni l'açaï sur la peau : les promesses reposent sur des mesures en laboratoire. Ni l'une ni l'autre ne figurent dans la table CIQUAL, et rien ne montre qu'elles valent mieux que les baies d'ici.",
+   "ce_quon_peut_faire": "Une poignée de fruits rouges de saison, ou surgelés nature le reste de l'année.",
+   "prudence": "Goji : interaction décrite avec la warfarine et risque d'allergie chez les personnes déjà allergiques à d'autres aliments. Açaï : jamais de pulpe non pasteurisée (transmission de la maladie de Chagas décrite au Brésil).",
+   "aliment_ids": [
+    "myrtille",
+    "cassis",
+    "mure",
+    "framboise"
+   ],
+   "etudes": [
+    {
+     "ref": "Lam AY 2001, Ann Pharmacother (interaction possible entre warfarine et baie de goji, cas)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/11675844/"
+    },
+    {
+     "ref": "Larramendi CH 2012, J Investig Allergol Clin Immunol (baies de goji et risque allergique chez les allergiques alimentaires)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/23101309/"
+    },
+    {
+     "ref": "Nóbrega AA 2009, Emerg Infect Dis (transmission orale de la maladie de Chagas par l'açaï, Brésil)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/19331764/"
+    }
+   ]
+  },
+  {
+   "id": "spiruline",
+   "titre": "La spiruline",
+   "accroche": "La poudre bleu-vert",
+   "verdict": "pas_demontre",
+   "verdict_texte": "Aucun essai n'a mesuré d'effet de la spiruline sur la peau. En complément, elle a baissé le cholestérol dans une méta-analyse de 7 petits essais ; sa vitamine B12 est surtout une forme inactive (ANSES). Riche en protéines pour 100 g, elle se prend par cuillerée de 3 g : l'apport reste modeste.",
+   "ce_quon_peut_faire": "Si vous l'aimez, une cuillère à café d'origine tracée, sans en attendre d'effet sur la peau.",
+   "prudence": "Déconseillée en cas de phénylcétonurie ou de terrain allergique ; contaminations possibles par des métaux lourds et des toxines (ANSES 2017) ; thyroïde, grossesse, enfant : avis médical.",
+   "aliment_ids": [
+    "spiruline"
+   ],
+   "etudes": [
+    {
+     "ref": "ANSES 2017, avis 2014-SA-0096 sur les compléments contenant de la spiruline",
+     "lien": "https://www.anses.fr/fr/system/files/NUT2014SA0096.pdf"
+    },
+    {
+     "ref": "Serban MC 2016, Clin Nutr (spiruline en complément et lipides sanguins, méta-analyse de 7 ECR)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/26433766/"
+    }
+   ]
+  },
+  {
+   "id": "curcuma",
+   "titre": "Le curcuma et le « golden latte »",
+   "accroche": "L'or des épices",
+   "verdict": "pas_demontre",
+   "verdict_texte": "Les effets cutanés étudiés concernent la curcumine concentrée, en gélules ou en gel, pas l'épice ; et la curcumine est très mal absorbée par l'intestin. Aucun essai n'a testé le curcuma de cuisine ni le « golden latte » sur la peau.",
+   "ce_quon_peut_faire": "En cuisine, pour le goût et la couleur : currys, soupes, légumes rôtis.",
+   "prudence": "Les compléments de curcuma ne sont pas l'épice : l'ANSES a recensé des hépatites et des interactions (anticoagulants notamment) ; en cuisine, aucune restriction connue.",
+   "aliment_ids": [
+    "curcuma"
+   ],
+   "etudes": [
+    {
+     "ref": "Vollono L 2019, Nutrients (curcumine et maladies de peau, revue ; formes topiques et compléments)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/31509968/"
+    },
+    {
+     "ref": "Anand P 2007, Mol Pharm (faible biodisponibilité de la curcumine, revue)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/17999464/"
+    },
+    {
+     "ref": "ANSES 2022, avis révisé sur les compléments alimentaires contenant du curcuma",
+     "lien": "https://www.anses.fr/fr/content/avis-revise-de-lanses-relatif-levaluation-des-risques-relatifs-la-consommation-de"
+    }
+   ]
+  },
+  {
+   "id": "gingembre",
+   "titre": "Les shots de gingembre",
+   "accroche": "Le petit verre piquant",
+   "verdict": "pas_demontre",
+   "verdict_texte": "Le gingembre n'a un effet documenté que sur un terrain : en gélules, il a un peu réduit les nausées de grossesse (pas les vomissements) dans 12 essais de faible qualité. Rien n'est démontré pour l'immunité, l'élimination ou la peau.",
+   "ce_quon_peut_faire": "Frais et râpé dans un plat, une infusion ou une vinaigrette, pour le goût.",
+   "prudence": "Les shots sont acides et piquants (émail, estomac sensible) ; sous anticoagulant, pas de compléments de gingembre sans avis ; grossesse : gélules seulement sur avis médical.",
+   "aliment_ids": [
+    "gingembre"
+   ],
+   "etudes": [
+    {
+     "ref": "Viljoen E 2014, Nutr J (gingembre et nausées de grossesse, méta-analyse de 12 ECR, 1 278 femmes, qualité faible)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/24642205/"
+    }
+   ]
+  },
+  {
+   "id": "fermentes_probiotiques",
+   "titre": "Probiotiques et aliments fermentés",
+   "accroche": "Kéfir, choucroute et compagnie",
+   "verdict": "plausible",
+   "verdict_texte": "Dans un essai de 17 semaines, un régime riche en aliments fermentés a augmenté la diversité du microbiote et baissé plusieurs marqueurs d'inflammation, sur 18 adultes par groupe. Pour la peau, les résultats positifs concernent des souches précises en gélules, souvent financées par le fabricant, pas le yaourt ni le kéfir ; aucune allégation n'est autorisée pour les probiotiques.",
+   "ce_quon_peut_faire": "Un yaourt nature ou un kéfir, et de temps en temps de la choucroute crue ou du miso, dans une alimentation variée.",
+   "prudence": "Choucroute et miso sont salés ; kéfir maison au lait cru à éviter pendant la grossesse ; immunodépression : pas de probiotiques en gélules sans avis médical.",
+   "aliment_ids": [
+    "kefir",
+    "yaourt_nature",
+    "choucroute",
+    "miso",
+    "tempeh"
+   ],
+   "etudes": [
+    {
+     "ref": "Wastyk HC 2021, Cell (régime riche en aliments fermentés, 17 semaines, 2 bras de 18 adultes : microbiote et marqueurs d'inflammation)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/34256014/"
+    },
+    {
+     "ref": "Lee DE 2015, J Microbiol Biotechnol (probiotique L. plantarum HY7714 en gélules, ECR n=110, auteurs Korea Yakult)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/26428734/"
+    }
+   ]
+  },
+  {
+   "id": "eau_deux_litres",
+   "titre": "Boire 2 litres d'eau pour la peau",
+   "accroche": "L'hydratation par le verre",
+   "verdict": "pas_demontre",
+   "verdict_texte": "Boire davantage n'a augmenté un peu l'hydratation de la peau que chez les personnes qui buvaient peu, dans de petites études non randomisées ; une revue systématique juge ces preuves faibles, et aucun effet sur les rides n'est démontré. Les 2 litres de l'EFSA (femmes ; 2,5 litres pour les hommes) comptent toute l'eau, y compris celle des aliments.",
+   "ce_quon_peut_faire": "Boire selon sa soif, surtout de l'eau, un peu plus quand il fait chaud ou après l'effort ; l'hydratation de surface dépend d'abord des soins et de l'environnement.",
+   "prudence": "Insuffisance cardiaque ou rénale : la quantité d'eau se fixe avec le médecin.",
+   "aliment_ids": [
+    "eau",
+    "tisane"
+   ],
+   "etudes": [
+    {
+     "ref": "Palma L 2015, Clin Cosmet Investig Dermatol (eau et hydratation cutanée, n=49, non randomisé)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/26345226/"
+    },
+    {
+     "ref": "Akdeniz M 2018, Skin Res Technol (apports hydriques et hydratation cutanée, revue systématique, preuves faibles)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/29392767/"
+    },
+    {
+     "ref": "EFSA 2010, EFSA Journal (valeurs de référence pour l'eau : 2,0 L/j pour les femmes, 2,5 L/j pour les hommes, toutes sources)",
+     "lien": "https://doi.org/10.2903/j.efsa.2010.1459"
+    }
+   ]
+  },
+  {
+   "id": "sucre_glycation",
+   "titre": "Sucre et peau : la glycation",
+   "accroche": "Quand le sucre caramélise",
+   "verdict": "plausible",
+   "verdict_texte": "Le sucre peut se fixer sur le collagène (glycation) : le mécanisme est solide au laboratoire, mais aucun essai n'a montré qu'en manger moins change l'aspect de la peau. Dans une cohorte néerlandaise, chaque mmol/L de glycémie en plus correspondait à 0,4 an d'âge perçu en plus ; un régime à faible charge glycémique a réduit les lésions d'acné dans deux petits essais.",
+   "ce_quon_peut_faire": "Moins de sucres ajoutés et de boissons sucrées, plus de légumineuses et de céréales complètes, comme le conseille le PNNS.",
+   "prudence": "Diabète : tout changement d'alimentation se discute avec le médecin.",
+   "aliment_ids": [
+    "lentille",
+    "pois_chiche",
+    "flocons_avoine",
+    "pain_complet"
+   ],
+   "etudes": [
+    {
+     "ref": "Danby FW 2010, Clin Dermatol (sucre, glycation et vieillissement cutané, revue)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/20620757/"
+    },
+    {
+     "ref": "Noordam R 2013, Age (glycémie et âge perçu, Leiden Longevity Study, n=602)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/22102339/"
+    },
+    {
+     "ref": "Smith RN 2007, Am J Clin Nutr (régime à faible charge glycémique et acné, ECR n=43)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/17616769/"
+    },
+    {
+     "ref": "Kwon HH 2012, Acta Derm Venereol (faible charge glycémique et acné, ECR n=32)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/22678562/"
+    },
+    {
+     "ref": "OMS 2015, Guideline: sugars intake for adults and children",
+     "lien": "https://www.who.int/publications/i/item/9789241549028"
+    },
+    {
+     "ref": "Santé publique France 2019, recommandations PNNS pour les adultes",
+     "lien": "https://www.mangerbouger.fr/ressources-pros/elaboration-des-recommandations-nutritionnelles/les-recommandations-adultes-alimentation-activite-physique-et-sedentarite"
+    }
+   ]
+  },
+  {
+   "id": "chocolat_acne",
+   "titre": "Chocolat et acné",
+   "accroche": "Coupable ou innocent ?",
+   "verdict": "plausible",
+   "verdict_texte": "Trois petits essais vont dans le même sens : un peu plus de boutons, en 2 jours à 4 semaines, après du chocolat au lait, du chocolat noir ou du cacao pur, chez de jeunes adultes (13 à 54 participants). Ces études sont très courtes, parfois sans groupe témoin, et ne disent pas si c'est le cacao, le lait ou le sucre qui compte.",
+   "ce_quon_peut_faire": "Si vous avez de l'acné, observez votre propre réaction : le chocolat reste un plaisir à garder raisonnable, pas un aliment à bannir.",
+   "prudence": "Acné douloureuse, nodulaire ou apparue brutalement à l'âge adulte : parlez-en à un médecin ou un dermatologue.",
+   "aliment_ids": [
+    "chocolat_noir_70",
+    "cacao_poudre"
+   ],
+   "etudes": [
+    {
+     "ref": "Caperton C 2014, J Clin Aesthet Dermatol (cacao pur en gélules et acné, ECR en double aveugle, 14 hommes)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/24847404/"
+    },
+    {
+     "ref": "Delost GR 2016, J Am Acad Dermatol (chocolat au lait contre bonbons de même charge glycémique, essai croisé, 54 étudiants)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/27317522/"
+    },
+    {
+     "ref": "Vongraviopap S 2016, Int J Dermatol (chocolat noir 99 % et acné, 25 hommes, sans groupe témoin)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/26711092/"
+    }
+   ]
+  },
+  {
+   "id": "laitiers_acne",
+   "titre": "Produits laitiers et acné",
+   "accroche": "Le lait sur le banc des accusés",
+   "verdict": "plausible",
+   "verdict_texte": "Les méta-analyses d'études d'observation associent les laitiers, surtout le lait, à plus d'acné (rapport de cotes de 1,25 pour l'ensemble des laitiers dans l'une, 1,48 pour le lait dans l'autre) ; les résultats divergent pour le yaourt et le fromage. Aucun essai n'a testé l'arrêt des laitiers, et un auteur d'une des méta-analyses a reçu une bourse de la filière laitière danoise.",
+   "ce_quon_peut_faire": "Ne supprimez pas les laitiers sans remplacer le calcium (boissons végétales enrichies, eaux riches en calcium, légumes verts) ; parlez-en si vous pensez y réagir.",
+   "prudence": "Adolescents : pas d'éviction sans avis médical ; acné sévère : consulter.",
+   "aliment_ids": [
+    "yaourt_nature",
+    "lait_demi_ecreme",
+    "fromage_blanc",
+    "boisson_soja_calcium"
+   ],
+   "etudes": [
+    {
+     "ref": "Juhl CR 2018, Nutrients (laitiers et acné, méta-analyse d'observation, 78 529 jeunes)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/30096883/"
+    },
+    {
+     "ref": "Aghasi M 2019, Clin Nutr (laitiers et acné, méta-analyse d'observation)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/29778512/"
+    }
+   ]
+  },
+  {
+   "id": "omega3_poisson_gelules",
+   "titre": "Oméga-3 : poisson ou gélules ?",
+   "accroche": "Le gras qui fait débat",
+   "verdict": "pas_demontre",
+   "verdict_texte": "Chez l'adulte en bonne santé, les gélules d'huile de poisson n'ont réduit ni les accidents cardiovasculaires ni les cancers dans le grand essai VITAL (25 871 personnes, 5 ans), et la revue Cochrane ne trouve pas d'effet sur la mortalité totale. Elles sont associées à 25 % de fibrillation atriale en plus, davantage au-delà de 1 g par jour ; les effets cutanés n'ont été vus qu'à des doses de compléments (4 g par jour).",
+   "ce_quon_peut_faire": "Du poisson deux fois par semaine, dont un poisson gras (sardine, maquereau, hareng), comme le conseille le PNNS.",
+   "prudence": "Pas de gélules à forte dose sans avis médical ; grossesse : éviter les grands prédateurs (espadon, requin, marlin) mais garder deux portions de poisson par semaine (ANSES).",
+   "aliment_ids": [
+    "sardine",
+    "maquereau",
+    "hareng",
+    "saumon",
+    "anchois"
+   ],
+   "etudes": [
+    {
+     "ref": "Manson JE 2019, N Engl J Med (essai VITAL : oméga-3 1 g/j contre placebo, 25 871 participants, 5,3 ans)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/30415637/"
+    },
+    {
+     "ref": "Abdelhamid AS 2020, Cochrane Database Syst Rev (oméga-3 et prévention cardiovasculaire, 86 ECR)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/32114706/"
+    },
+    {
+     "ref": "Gencer B 2021, Circulation (oméga-3 en compléments et fibrillation atriale, méta-analyse de 7 ECR)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/34612056/"
+    },
+    {
+     "ref": "Rhodes LE 2003, Carcinogenesis (EPA 4 g/j en complément et coup de soleil, ECR n=42)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/12771037/"
+    },
+    {
+     "ref": "Jayedi A 2018, Public Health Nutr (poisson et mortalité, méta-analyse de cohortes)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/29317009/"
+    },
+    {
+     "ref": "ANSES, fiche Poissons : conseils de consommation (poissons prédateurs, grossesse)",
+     "lien": "https://www.anses.fr/system/files/ANSES-Ft-RecosPoissons.pdf"
+    },
+    {
+     "ref": "Santé publique France 2019, recommandations PNNS pour les adultes",
+     "lien": "https://www.mangerbouger.fr/ressources-pros/elaboration-des-recommandations-nutritionnelles/les-recommandations-adultes-alimentation-activite-physique-et-sedentarite"
+    }
+   ]
+  },
+  {
+   "id": "vitamine_c_assiette",
+   "titre": "La vitamine C dans l'assiette",
+   "accroche": "Le kiwi plutôt que la gélule",
+   "verdict": "prouve",
+   "verdict_texte": "C'est l'une des rares allégations autorisées pour la peau : « La vitamine C contribue à la formation normale de collagène pour assurer la fonction normale de la peau. » Un effet visible sur les rides n'est en revanche montré que par des études d'observation (moins d'aspect ridé chez les plus fortes consommatrices, 4 025 Américaines), dont les auteurs travaillaient pour Unilever.",
+   "ce_quon_peut_faire": "Un kiwi, une orange, du poivron cru, du cassis ou du brocoli chaque jour : une portion suffit souvent à atteindre les 80 mg de référence.",
+   "prudence": null,
+   "aliment_ids": [
+    "kiwi",
+    "poivron_rouge",
+    "cassis",
+    "orange",
+    "fraise",
+    "brocoli",
+    "chou_frise"
+   ],
+   "etudes": [
+    {
+     "ref": "Règlement (UE) n° 432/2012, liste des allégations de santé autorisées",
+     "lien": "https://eur-lex.europa.eu/eli/reg/2012/432/oj"
+    },
+    {
+     "ref": "Pullar JM 2017, Nutrients (rôles de la vitamine C dans la peau, revue)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/28805671/"
+    },
+    {
+     "ref": "Cosgrove MC 2007, Am J Clin Nutr (apports alimentaires et aspect de la peau, transversal, 4 025 femmes, auteurs Unilever)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/17921406/"
+    }
+   ]
+  }
+ ]
+}

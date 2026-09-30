@@ -31,10 +31,12 @@ for a in combos['actifs']:
         txt = inci.get(pid)
         if not txt: continue
         # la liste brute peut etre suivie de texte parasite : on coupe au premier long paragraphe
-        items = [i.strip() for i in re.split(r',|•|;', txt.split('\n')[0]) if i.strip()]
+        items = [x.strip() for x in re.split(r'[,•;|]|\.\s+(?=[a-z0-9])', txt.split('\n')[0]) if x.strip()]
+        if len(items) < 8: continue   # liste mal decoupee ou trop courte : position illisible
         pos = next((k for k, it in enumerate(items) for m in a['inci_mots_cles'] if m in it), None)
         if pos is None: continue
         if a['id'] == 'humectants' and pos > 4: continue   # la glycerine est partout : seulement si elle est parmi les 5 premiers
+        if a['id'] in ('vitamine_c', 'retinoide', 'aha', 'acide_salicylique', 'niacinamide') and re.search(r'\b(huile|oil|micellaire|nettoyant|cleanser|mist|brume)\b', (p.get('name') or ''), re.I): continue   # support incompatible avec l'actif
         res.append(fiche(p, pos))
     res.sort(key=lambda r: (r['pos'], r['n'] or ''))
     sortie[a['id']] = res[:60]
