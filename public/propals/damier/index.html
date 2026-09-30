@@ -6,7 +6,7 @@
 <title>Damier produits · vyvre</title>
 <meta name="robots" content="noindex">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;500;700&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;500;700&family=IBM+Plex+Mono:wght@400&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
 <style>
 /* 30/09 (Charles) : « damier produits ». Tous les produits du catalogue et les aliments en damier, VYVRE au milieu.
    Cinq propositions pour la page d'accueil ou l'intro. */
@@ -66,18 +66,58 @@ body.clair #centre .cta{background:#111;color:#fff;box-shadow:0 18px 40px -18px 
 #sel a.on{background:#fff;color:#111}
 body.propre #sel{display:none}
 @media (prefers-reduced-motion:reduce){.col,.rang{animation-duration:600s!important}.v-E #mur{animation:none}}
+/* la signature, comme sur le site */
+#centre .sig{display:block;font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:400;letter-spacing:.01em;font-size:clamp(15px,1.6vw,22px);opacity:.72;margin-top:clamp(4px,1vh,12px)}
+#scene{position:fixed;inset:0;overflow:hidden}
+/* F · Perspective : un sol infini de produits qui file vers l'horizon */
+.v-F{background:#f4f4f6;color:#111}
+.v-F #scene{perspective:760px;perspective-origin:50% 8%}
+.v-F #mur{transform-origin:50% 100%;transform:rotateX(64deg) translateY(12%) scale(2.6)}
+.v-F #voile{background:linear-gradient(180deg,#f4f4f6 0%,#f4f4f6 26%,rgba(244,244,246,.85) 36%,rgba(244,244,246,0) 58%,rgba(244,244,246,0) 100%)}
+.v-F #centre{justify-content:flex-start;padding-top:clamp(70px,12vh,130px)}
+.v-F #centre .logo{font-weight:700;letter-spacing:-.045em;margin-right:0;font-size:clamp(70px,15vw,250px)}
+.v-F #centre .cta{background:#111;color:#fff}
+/* G · Cylindre : le mur enroule en 3D, qui tourne */
+.v-G #scene{perspective:1000px;perspective-origin:50% 42%}
+.anneau{position:absolute;left:50%;top:50%;transform-style:preserve-3d;animation:tourne 90s linear infinite}
+@keyframes tourne{from{transform:translate(-50%,-50%) rotateX(-9deg) rotateY(0)}to{transform:translate(-50%,-50%) rotateX(-9deg) rotateY(-360deg)}}
+.pan{position:absolute;left:calc(var(--t)/-2);top:0;display:flex;flex-direction:column;backface-visibility:visible}
+.v-G #voile{background:radial-gradient(ellipse 46% 40% at 50% 50%,rgba(5,5,6,.82),rgba(5,5,6,.35) 60%,rgba(5,5,6,.75) 100%)}
+/* H · Lumiere : le mur dans le noir ; le doigt (ou la souris) est une lampe */
+.v-H #mur{filter:saturate(1.1)}
+.v-H #voile{background:#050506;-webkit-mask-image:radial-gradient(circle var(--r,190px) at var(--x,50%) var(--y,50%),transparent 0,transparent 32%,rgba(0,0,0,.55) 62%,#000 100%);mask-image:radial-gradient(circle var(--r,190px) at var(--x,50%) var(--y,50%),transparent 0,transparent 32%,rgba(0,0,0,.55) 62%,#000 100%)}
+.v-H #centre .logo,.v-H #centre .sous,.v-H #centre .sig{text-shadow:0 2px 30px rgba(0,0,0,.9)}
+.v-H .indice{position:fixed;left:50%;bottom:calc(70px + env(safe-area-inset-bottom));transform:translateX(-50%);font:400 11px 'IBM Plex Mono',monospace;letter-spacing:.24em;color:rgba(255,255,255,.5);pointer-events:none}
+/* I · Vague : les cases se retournent comme des cartes, en vagues */
+.grille{position:absolute;inset:0;display:grid;grid-template-columns:repeat(var(--nc),var(--t));grid-auto-rows:var(--t);justify-content:center;align-content:center}
+.carte{position:relative;perspective:600px}
+.carte .dos,.carte .face{position:absolute;inset:0;display:grid;place-items:center;backface-visibility:hidden;-webkit-backface-visibility:hidden;transition:transform 1.1s cubic-bezier(.5,0,.2,1);transition-delay:var(--dl,0s)}
+.carte .dos{transform:rotateY(180deg)}
+.carte.tourne .face{transform:rotateY(-180deg)}.carte.tourne .dos{transform:rotateY(0)}
+.carte img{width:74%;height:74%;object-fit:contain;filter:drop-shadow(0 8px 10px rgba(0,0,0,.35))}
+.n .carte.p .face,.n .carte.p .dos{background:#0c0c0e}.n .carte.i .face,.n .carte.i .dos{background:#141417}
+.v-I #voile{background:radial-gradient(ellipse 55% 42% at 50% 50%,rgba(5,5,6,.9),rgba(5,5,6,.55) 55%,rgba(5,5,6,.1) 100%)}
+/* J · Lettres : VYVRE ecrit avec les produits eux-memes */
+.v-J{background:#f5f5f7;color:#111}
+.v-J #centre .logo{display:none}
+.v-J #centre{justify-content:flex-end;padding-bottom:clamp(90px,15vh,170px)}
+.v-J #centre .cta{background:#111;color:#fff}
+.pion{position:absolute;left:0;top:0;width:var(--t);height:var(--t);display:grid;place-items:center;transition:transform 1.6s cubic-bezier(.2,.9,.2,1),opacity .9s;will-change:transform}
+.pion img{width:92%;height:92%;object-fit:contain;filter:drop-shadow(0 3px 4px rgba(0,0,0,.18))}
+.fond-pion{opacity:.07}
+
 </style>
 </head>
 <body>
-<div id="mur" aria-hidden="true"></div>
+<div id="scene"><div id="mur" aria-hidden="true"></div></div>
 <div id="voile"></div>
 <div id="lettres" aria-hidden="true"><span>VYVRE</span></div>
-<div id="centre"><div class="plaque-ou-rien"><h1 class="logo">VYVRE</h1><p class="sous">La peau, révélée.</p></div><a class="cta" href="/scan/">Commencer</a></div>
+<div id="centre"><div class="plaque-ou-rien"><h1 class="logo">VYVRE</h1><i class="sig">skin intelligence</i><p class="sous">La peau, révélée.</p></div><a class="cta" href="/scan/">Commencer</a></div>
 <nav id="sel"></nav>
 <script>
-const NOMS = { A:'Nuit', B:'Blanc', C:'Damier', D:'À travers', E:'Zoom' };
+const NOMS = { F:'Perspective', G:'Cylindre', H:'Lumière', I:'Vague', J:'Lettres', A:'Nuit', B:'Blanc', C:'Damier', D:'À travers', E:'Zoom' };
 const q = new URLSearchParams(location.search);
-let V = NOMS[q.get('v')] ? q.get('v') : 'A';
+let V = NOMS[q.get('v')] ? q.get('v') : 'F';
 if(q.get('propre')) document.body.classList.add('propre');
 let LISTE = null;
 const melange = a => { a = a.slice(); for(let i = a.length - 1; i > 0; i--){ const j = Math.random()*(i + 1) | 0; [a[i], a[j]] = [a[j], a[i]]; } return a; };
@@ -88,11 +128,15 @@ function cellule(k, pair, alim){
   im.src = alim ? '/propals/damier/a/' + alim + '.webp' : LISTE.produits[k % LISTE.produits.length].i;
   im.onerror = () => im.remove(); d.appendChild(im); return d;
 }
+let vagueT = null, lampeT = null;
 function construire(){
-  const mur = document.getElementById('mur'); mur.innerHTML = ''; mur.className = '';
-  const clair = V === 'B'; document.body.classList.toggle('clair', clair); mur.classList.add(clair ? 'b' : 'n');
+  const mur = document.getElementById('mur'); mur.innerHTML = ''; mur.className = ''; mur.removeAttribute('style');
+  if(V === 'G') return cylindre(mur);
+  if(V === 'I') return vague(mur);
+  if(V === 'J') return lettres(mur);
+  const clair = V === 'B' || V === 'F'; document.body.classList.toggle('clair', clair); mur.classList.add(clair ? 'b' : 'n');
   const W = innerWidth, H = innerHeight, petit = W < 700;
-  const T = V === 'E' ? (petit ? 58 : 76) : V === 'D' ? (petit ? 96 : 150) : (petit ? 82 : 128);
+  const T = V === 'E' ? (petit ? 58 : 76) : V === 'D' ? (petit ? 96 : 150) : V === 'F' ? (petit ? 70 : 96) : (petit ? 82 : 128);
   mur.style.setProperty('--t', T + 'px');
   const produits = melange(LISTE.produits.map((_, i) => i)), aliments = melange(LISTE.aliments);
   let np = 0, na = 0;
@@ -108,19 +152,20 @@ function construire(){
       mur.appendChild(rg); }
     return; }
   mur.style.flexDirection = 'row';
-  const nC = Math.ceil(W/T) + 1, nR = Math.ceil(H/T) + 2;
+  const nC = Math.ceil(W/T) + 1, nR = Math.ceil(H/T) + 2 + (V === 'F' ? 4 : 0);
   for(let c = 0; c < nC; c++){
     const col = document.createElement('div'); col.className = 'col' + (c % 2 ? ' bas' : '');
-    col.style.setProperty('--d', (V === 'E' ? 140 : 70 + (c % 4)*9) + 's');
+    col.style.setProperty('--d', (V === 'E' ? 140 : V === 'F' ? 48 : 70 + (c % 4)*9) + 's'); if(V === 'F') col.classList.add('bas');
     const cells = []; for(let r = 0; r < nR; r++){ const pair = (r + c) % 2 === 0; cells.push(V === 'C' ? suivant(pair, pair ? 'pr' : 'al') : suivant(pair)); }
     cells.forEach(e => col.appendChild(e)); cells.forEach(e => col.appendChild(e.cloneNode(true)));   // deux fois : la boucle ne se voit pas
     mur.appendChild(col); }
+  if(V === 'H') lampe();
   if(V === 'E'){ // on part d'un produit precis, au centre de l'ecran
     const c0 = Math.floor(nC/2), r0 = Math.floor(nR/2); mur.style.transformOrigin = (c0*T + T/2) + 'px ' + (r0*T + T/2) + 'px';
     mur.querySelectorAll('.col').forEach(col => col.style.animationPlayState = 'paused'); setTimeout(() => mur.querySelectorAll('.col').forEach(col => col.style.animationPlayState = 'running'), 8000); }
 }
 function appliquer(v){
-  V = v; document.body.className = document.body.className.replace(/\bv-[A-E]\b/g, '').trim() + ' v-' + v;
+  V = v; document.body.className = document.body.className.replace(/\bv-[A-J]\b/g, '').trim() + ' v-' + v; clearTimeout(vagueT); clearInterval(lampeT); document.querySelectorAll('.indice').forEach(e => e.remove());
   const plaque = document.querySelector('.plaque-ou-rien'); plaque.className = 'plaque-ou-rien' + (v === 'C' ? ' plaque' : '');
   document.querySelectorAll('#sel a').forEach(a => a.classList.toggle('on', a.dataset.v === v));
   try { const u = new URL(location.href); u.searchParams.set('v', v); history.replaceState(null, '', u); } catch(e){}
@@ -131,6 +176,70 @@ function appliquer(v){
 document.getElementById('sel').innerHTML = Object.entries(NOMS).map(([k, n]) => '<a data-v="' + k + '">' + k + ' · ' + n + '</a>').join('');
 document.getElementById('sel').onclick = e => { const a = e.target.closest('a'); if(a) appliquer(a.dataset.v); };
 let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(construire, 250); });
+/* G · le cylindre */
+function cylindre(mur){
+  mur.classList.add('n'); document.body.classList.remove('clair');
+  const W = innerWidth, H = innerHeight, petit = W < 700, T = petit ? 74 : 104, N = petit ? 22 : 30, Rr = N*T/(2*Math.PI), nR = Math.ceil(H*.8/T);
+  mur.style.setProperty('--t', T + 'px');
+  const an = document.createElement('div'); an.className = 'anneau'; an.style.height = (nR*T) + 'px';
+  const pr = melange(LISTE.produits.map((_, i) => i)), al = melange(LISTE.aliments); let np = 0, na = 0;
+  for(let i = 0; i < N; i++){ const p = document.createElement('div'); p.className = 'pan'; p.style.transform = 'rotateY(' + (i*360/N) + 'deg) translateZ(' + Rr + 'px)';
+    for(let r = 0; r < nR; r++){ const pair = (i + r) % 2 === 0; p.appendChild(Math.random() < .2 ? cellule(0, pair, al[na++ % al.length]) : cellule(pr[np++ % pr.length], pair, null)); }
+    an.appendChild(p); }
+  mur.appendChild(an);
+}
+/* H · la lampe : suit le doigt ou la souris ; sans geste, elle se promene seule */
+function lampe(){
+  const v = document.getElementById('voile'); let libre = 0, t0 = performance.now();
+  const poser = (x, y) => { v.style.setProperty('--x', x + 'px'); v.style.setProperty('--y', y + 'px'); };
+  const bouge = e => { const p = e.touches ? e.touches[0] : e; poser(p.clientX, p.clientY); libre = performance.now() + 2500; };
+  addEventListener('pointermove', bouge, { passive:true }); addEventListener('touchmove', bouge, { passive:true });
+  v.style.setProperty('--r', (innerWidth < 700 ? 150 : 230) + 'px');
+  const d = document.createElement('div'); d.className = 'indice'; d.textContent = innerWidth < 700 ? 'GLISSEZ LE DOIGT' : 'PROMENEZ LA SOURIS'; document.body.appendChild(d);
+  lampeT = setInterval(() => { if(V !== 'H' || performance.now() < libre) return; const t = (performance.now() - t0)/1000;
+    poser(innerWidth*(.5 + .36*Math.sin(t*.41)), innerHeight*(.5 + .32*Math.sin(t*.67 + 1))); }, 16);
+}
+/* I · la vague : une grille fixe de cartes qui se retournent, en ondes qui partent d'un point */
+function vague(mur){
+  mur.classList.add('n'); document.body.classList.remove('clair');
+  const W = innerWidth, H = innerHeight, petit = W < 700, T = petit ? 78 : 118, nc = Math.ceil(W/T), nr = Math.ceil(H/T);
+  mur.style.setProperty('--t', T + 'px');
+  const g = document.createElement('div'); g.className = 'grille'; g.style.setProperty('--nc', nc);
+  const pr = melange(LISTE.produits.map((_, i) => i)), al = melange(LISTE.aliments); let np = 0, na = 0;
+  const src = () => Math.random() < .22 ? '/propals/damier/a/' + al[na++ % al.length] + '.webp' : LISTE.produits[pr[np++ % pr.length]].i;
+  const cartes = [];
+  for(let r = 0; r < nr; r++) for(let c = 0; c < nc; c++){ const k = document.createElement('div'); k.className = 'carte ' + ((r + c) % 2 ? 'i' : 'p'); k.r = r; k.c = c;
+    k.innerHTML = '<div class="face"><img alt="" src="' + src() + '"></div><div class="dos"><img alt="" src="' + src() + '"></div>'; g.appendChild(k); cartes.push(k); }
+  mur.appendChild(g);
+  const onde = () => { if(V !== 'I') return; const oc = Math.random()*nc, or = Math.random()*nr;
+    cartes.forEach(k => { const dd = Math.hypot(k.c - oc, k.r - or); k.style.setProperty('--dl', (dd*.07).toFixed(2) + 's'); k.classList.toggle('tourne');
+      // la face cachee recoit un nouveau produit, apres le retournement
+      setTimeout(() => { const cachee = k.querySelector(k.classList.contains('tourne') ? '.face img' : '.dos img'); if(cachee) cachee.src = src(); }, dd*70 + 1300); });
+    vagueT = setTimeout(onde, 4200); };
+  vagueT = setTimeout(onde, 1400);
+}
+/* J · les lettres : on dessine VYVRE en cachette, et chaque case pleine recoit un produit, qui vole a sa place */
+function lettres(mur){
+  document.body.classList.add('clair');
+  const W = innerWidth, H = innerHeight, petit = W < 700;
+  const cols = petit ? 34 : 84, T = Math.max(petit ? 10 : 14, Math.floor(W*.95/cols)), rowsMax = Math.floor(H*(petit ? .3 : .56)/T);
+  const cv = document.createElement('canvas'), g = cv.getContext('2d'); cv.width = cols; cv.height = rowsMax;
+  g.fillStyle = '#000'; g.textAlign = 'center'; g.textBaseline = 'middle';
+  let fs = rowsMax; g.font = '800 ' + fs + 'px Inter, Arial, sans-serif'; while(g.measureText('VYVRE').width > cols*.98 && fs > 6){ fs--; g.font = '800 ' + fs + 'px Inter, Arial, sans-serif'; }
+  g.fillText('VYVRE', cols/2, rowsMax/2 + fs*.04);
+  const d = g.getImageData(0, 0, cols, rowsMax).data, pleines = [];
+  for(let r = 0; r < rowsMax; r++) for(let c = 0; c < cols; c++) if(d[(r*cols + c)*4 + 3] > 110) pleines.push([c, r]);
+  mur.style.setProperty('--t', T + 'px');
+  const x0 = (W - cols*T)/2, y0 = H*.36 - rowsMax*T/2;
+  const pr = melange(LISTE.produits.map((_, i) => i)), al = melange(LISTE.aliments);
+  pleines.forEach(([c, r], k) => { const e = document.createElement('div'); e.className = 'pion';
+    const im = new Image(); im.alt = ''; im.src = k % 5 === 0 ? '/propals/damier/a/' + al[k % al.length] + '.webp' : LISTE.produits[pr[k % pr.length]].i; e.appendChild(im);
+    const a = Math.random()*Math.PI*2, dist = Math.max(W, H)*(.6 + Math.random()*.5);
+    e.style.transform = 'translate(' + (W/2 + Math.cos(a)*dist) + 'px,' + (H/2 + Math.sin(a)*dist) + 'px) rotate(' + (Math.random()*260 - 130) + 'deg) scale(1.8)'; e.style.opacity = '0';
+    e.style.transitionDelay = (Math.random()*1.4).toFixed(2) + 's'; mur.appendChild(e);
+    requestAnimationFrame(() => requestAnimationFrame(() => { e.style.opacity = '1'; e.style.transform = 'translate(' + (x0 + c*T) + 'px,' + (y0 + r*T) + 'px) rotate(0) scale(1)'; })); });
+  document.getElementById('centre').style.paddingBottom = Math.max(60, H - (y0 + rowsMax*T) - 190) + 'px';
+}
 fetch('/propals/damier/liste.json?v=2').then(r => r.json()).then(j => { LISTE = j; appliquer(V); });
 </script>
 </body>
