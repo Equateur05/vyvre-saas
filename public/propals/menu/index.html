@@ -37,7 +37,7 @@ const INFO = {
   G:'G · En haut à droite : un petit sélecteur Peau | Cheveux | Aliment ; le reste dans le petit bouton.',
   H:'H · En haut à droite, sur deux lignes : les trois scans, puis Manifeste, Méthode, Pour les marques.' };
 const LIENS = [['Manifeste','/manifeste'],['Méthode','/accuracy'],['Pour les marques','/marques']];
-const SCANS = [['Peau','/scan/'],['Cheveux','/cheveux'],['Aliment','/scan/?assiette=1']];
+const SCANS = [['Peau','/scan/'],['Cheveux','/cheveux'],['Aliment','/propals/intro-aliment/']];
 const BASE = `
 header .vy-menu{display:none!important}
 #vp-voile{position:fixed;inset:0;z-index:300;background:rgba(5,5,6,.95);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);opacity:0;pointer-events:none;transition:opacity .35s;padding:130px 28px 0;font-family:Inter,sans-serif}
@@ -51,7 +51,8 @@ const DROITE = `
 header .brand{width:100%}
 @media (max-width:560px){header .brand .brand-x,header .brand .brand-partner{display:none!important}header .brand{flex-wrap:nowrap!important}}
 #vp-d{margin-left:auto;display:flex;align-items:center;gap:14px;position:relative;z-index:310}
-@media (min-width:561px){#vp-d{margin-right:96px}}
+#vp-d #vy-lang{position:static!important;inset:auto!important;transform:none!important;margin:0!important}
+#vp-d #vy-lang ul{right:0}
 #vp-d .sc{display:flex;align-items:center;gap:14px}
 #vp-d .sc a{font:400 14px/1 Inter,sans-serif;color:rgba(255,255,255,.72);text-decoration:none;padding:10px 0;position:relative;letter-spacing:.01em}
 #vp-d .sc a.on{color:#fff}
@@ -112,6 +113,7 @@ const f = document.getElementById('f'), info = document.getElementById('info');
 
 function appliquer(){
   let d; try { d = f.contentDocument; } catch(e){ return; } if(!d || !d.querySelector('header')) return;
+  const lg = d.getElementById('vy-lang'); if(lg && lg.dataset.vpDeplace && appliquer.parent){ appliquer.parent.insertBefore(lg, appliquer.suivant || null); delete lg.dataset.vpDeplace; }
   d.querySelectorAll('[data-vp]').forEach(e => e.remove());
   const nav = d.querySelector('header .vy-menu');
   if(nav){ nav.querySelectorAll('[data-vp-ajout]').forEach(e => e.remove()); nav.querySelectorAll('a').forEach(a => a.classList.remove('vp-on', 'vp-nv')); }
@@ -127,14 +129,16 @@ function appliquer(){
   if(M === 'C'){ const v = voile('<div class="g">LES SCANS</div>' + [['Peau','La lumière de votre peau'],['Cheveux','Face, profils, crâne, nuque'],['Aliment','Ce qui nourrit votre peau']].map((s, k) => '<a class="gros" href="' + SCANS[k][1] + '"><span style="font-size:11px">' + String(k + 1).padStart(2, '0') + '</span><b>' + s[0] + '<small>' + s[1] + '</small></b></a>').join('') + '<div class="g">VYVRE</div>' + liens); bouton('<i></i>MENU', v); }
   if(M === 'D' && nav){
     const peau = d.createElement('a'); peau.href = '/scan/'; peau.textContent = 'Scan peau'; peau.setAttribute('data-vp-ajout', ''); nav.insertBefore(peau, nav.firstChild);
-    const al = d.createElement('a'); al.href = '/scan/?assiette=1'; al.textContent = 'Scan aliment'; al.className = 'vp-nv'; al.setAttribute('data-vp-ajout', ''); nav.insertBefore(al, nav.children[2]);
+    const al = d.createElement('a'); al.href = '/propals/intro-aliment/'; al.textContent = 'Scan aliment'; al.className = 'vp-nv'; al.setAttribute('data-vp-ajout', ''); nav.insertBefore(al, nav.children[2]);
     (ici ? nav.querySelector('.vy-autre') : peau).classList.add('vp-on'); }
   if(M === 'F' || M === 'G'){ const v = voile(liens); const d0 = el('<div id="vp-d"><nav class="sc">' + SCANS.map((sc, k) => '<a href="' + sc[1] + '"' + (k === ici ? ' class="on"' : '') + '>' + sc[0] + '</a>').join('') + '</nav><button class="burger" aria-label="Menu"><i></i></button></div>', brand);
-    d0.querySelector('.burger').onclick = () => v.classList.toggle('on'); }
-  if(M === 'H'){ el('<div id="vp-d"><nav class="sc">' + SCANS.map((sc, k) => '<a href="' + sc[1] + '"' + (k === ici ? ' class="on"' : '') + '>' + sc[0] + '</a>').join('') + '</nav><nav class="sec">' + LIENS.map(l => '<a href="' + l[1] + '">' + l[0] + '</a>').join('') + '</nav></div>', brand); }
+    d0.querySelector('.burger').onclick = () => v.classList.toggle('on'); ranger(d, d0, d0.querySelector('.burger')); }
+  if(M === 'H'){ const dh = el('<div id="vp-d"><nav class="sc">' + SCANS.map((sc, k) => '<a href="' + sc[1] + '"' + (k === ici ? ' class="on"' : '') + '>' + sc[0] + '</a>').join('') + '</nav><nav class="sec">' + LIENS.map(l => '<a href="' + l[1] + '">' + l[0] + '</a>').join('') + '</nav></div>', brand); ranger(d, dh, null); }
   if(M === 'E'){ const c = el('<div id="vp-cap"><div class="l1"><nav>' + SCANS.map((s, k) => '<a href="' + s[1] + '"' + (k === ici ? ' class="on"' : '') + '>' + s[0] + '</a>').join('') + '</nav><button>+</button></div><div class="reste">' + LIENS.map(l => '<a href="' + l[1] + '">' + l[0] + '</a>').join('') + '</div></div>');
     const b = c.querySelector('button'); b.onclick = () => { c.classList.toggle('ouv'); b.textContent = c.classList.contains('ouv') ? '×' : '+'; }; }
 }
+/* le bouton de langue quitte sa place flottante et rejoint la rangee du menu (plus aucun chevauchement) */
+function ranger(d, rangee, avant){ const lg = d.getElementById('vy-lang'); if(!lg) return; if(!lg.dataset.vpDeplace){ appliquer.parent = lg.parentNode; appliquer.suivant = lg.nextSibling; lg.dataset.vpDeplace = '1'; } rangee.insertBefore(lg, avant); }
 function choisir(m){ M = m; document.querySelectorAll('#sel a').forEach(a => a.classList.toggle('on', a.dataset.m === m));
   try { history.replaceState(null, '', '?m=' + m); } catch(e){}
   info.textContent = INFO[m]; info.classList.remove('cache'); clearTimeout(choisir.t); choisir.t = setTimeout(() => info.classList.add('cache'), 3200); appliquer(); }

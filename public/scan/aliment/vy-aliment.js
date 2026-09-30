@@ -187,6 +187,8 @@
   /* credit photo : obligatoire pour les licences CC BY et CC BY-SA (la photo detouree garde la meme licence) */
   function credit(id){ var c = CREDITS[id]; if(!c) return ''; var lic = String(c.licence || '').toUpperCase().replace('BY-SA', 'BY-SA').replace(/^CC0$/, 'CC0');
     return '<div class="preuve" style="text-transform:none;letter-spacing:.2px;font-size:10.5px;opacity:.7;margin-top:10px">Photo : ' + esc(c.auteur || 'auteur inconnu') + ', ' + (c.licence_url ? '<a href="' + esc(c.licence_url) + '" target="_blank" rel="noopener" style="color:inherit">' + esc(lic) + '</a>' : esc(lic)) + (c.source_url ? ', <a href="' + esc(c.source_url) + '" target="_blank" rel="noopener" style="color:inherit">source</a>' : '') + (/SA/.test(lic) ? ' ; détourée par vyvre, même licence.' : ' ; détourée par vyvre.') + '</div>'; }
+  /* la photo detouree d'un aliment, sinon sa pastille de couleur */
+  function photo(f, t){ return '<img src="' + BASE + 'photos/' + f.id + '.png" alt="" style="width:' + t + 'px;height:' + t + 'px;object-fit:contain;flex:none;filter:drop-shadow(0 8px 8px rgba(36,27,21,.18))" onerror="this.outerHTML=\'<i style=&quot;display:inline-block;width:9px;height:9px;border-radius:50%;flex:none;background:' + (TEINTE[f.categorie] || '#999') + '&quot;></i>\'">'; }
   function allegation(f){ var t = f.allegation_UE_autorisee; if(!t || /vitamine A|cuivre|pigmentation/i.test(t)) return null; return t; }   // vitamine A vegetale : avis juridique d'abord ; cuivre : jamais pour les taches
   function saison(f){ var s = (f.saison || []).slice().sort(function(a1, b1){ return a1 - b1; }); if(!s.length) return 'saison non renseignée'; if(s.length >= 12) return 'toute l’année';
     var p = [], d = s[0], pr = s[0]; for(var i = 1; i <= s.length; i++){ if(i < s.length && s[i] === pr + 1){ pr = s[i]; continue; } p.push([d, pr]); if(i < s.length){ d = s[i]; pr = s[i]; } }
@@ -220,7 +222,7 @@
 #vy-as .roue .it{position:absolute;left:0;right:0;height:46px;display:flex;align-items:center;justify-content:center;gap:12px;font-weight:300;font-size:24px;letter-spacing:-.4px;will-change:transform,opacity}\
 #vy-as .roue .it i{width:9px;height:9px;border-radius:50%;flex:none}\
 #vy-as .cases4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}\
-#vy-as .cases4 div{border:1px solid rgba(28,47,48,.16);border-radius:16px;min-height:70px;padding:10px 8px;font-size:12.5px;line-height:1.3;text-align:center;display:flex;flex-direction:column;justify-content:center;transition:background .5s,transform .5s}\
+#vy-as .cases4 div{border:1px solid rgba(28,47,48,.16);border-radius:16px;min-height:96px;align-items:center;gap:2px;padding:10px 8px;font-size:12.5px;line-height:1.3;text-align:center;display:flex;flex-direction:column;justify-content:center;transition:background .5s,transform .5s}\
 #vy-as .cases4 div.on{background:#fff;box-shadow:0 18px 40px -22px rgba(0,0,0,.35);transform:translateY(-2px)}\
 #vy-as .cases4 b{display:block;font:italic 16px Georgia,serif;margin-bottom:4px}\
 #vy-as .ec{position:relative}\
@@ -471,12 +473,12 @@
     var e = exclus(), sv = { S:SANTE, M:MODE, R:REP }; SANTE = { rien:true }; MODE = 'normal'; versRep(ind); var nDef = Object.keys(exclus().x).length; SANTE = sv.S; MODE = sv.M; REP = sv.R;
     var nTot = Object.keys(e.x).length, G = { A:1, B:1, C:1 }, mois = new Date().getMonth() + 1;
     var cand = DATA.filter(function(f){ return !e.x[f.id] && G[f.niveau_preuve_peau] && (f.cibles_peau.indexOf(ind.i1) >= 0 || (ind.i2 && f.cibles_peau.indexOf(ind.i2) >= 0)); });
-    var choisis = pris.map(function(c){ return c.f; }), roue = choisis.concat(cand.filter(function(f){ return choisis.indexOf(f) < 0; }).slice(0, 36)).sort(function(){ return Math.random() - .5; });   // les choix sont toujours dans la roue
+    var choisis = pris.map(function(c){ return c.f; }), roue = choisis.concat(cand.filter(function(f){ return choisis.indexOf(f) < 0 && CREDITS[f.id]; }).slice(0, 36)).sort(function(){ return Math.random() - .5; });   // les choix sont toujours dans la roue
     while(roue.length < 14) roue = roue.concat(roue);
     var H = 46;
     feuille('<div class="fond-tri" aria-hidden="true">' + DATA.map(function(f){ return '<div data-id="' + f.id + '">' + esc(f.nom.split(' (')[0].split(',')[0]) + '</div>'; }).join('') + '</div><div class="devant">' + HAUT + '<div class="m">Composition de votre assiette</div><h2 style="margin:10px 0 0;font-size:40px;letter-spacing:-2px" id="vy-as-ct">Nous trions.</h2>'
       + '<div class="cases4">' + [0, 1, 2, 3].map(function(k){ return '<div id="vy-as-c' + k + '"><b>' + n2(k) + '</b><span style="opacity:.35">·</span></div>'; }).join('') + '</div>'
-      + '<div class="roue"><div class="bande"></div><div id="vy-as-ruban">' + roue.map(function(f){ return '<div class="it"><i style="background:' + (TEINTE[f.categorie] || '#999') + '"></i>' + esc(f.nom.split(' (')[0]) + '</div>'; }).join('') + '</div></div>'
+      + '<div class="roue"><div class="bande"></div><div id="vy-as-ruban">' + roue.map(function(f){ return '<div class="it">' + photo(f, 34) + esc(f.nom.split(' (')[0]) + '</div>'; }).join('') + '</div></div>'
       + '<div class="journal" id="vy-as-jr"></div><button class="btn sec collant" type="button" id="vy-as-passer" style="margin-top:6px;background:#fbfbfd!important">Voir l’assiette tout de suite</button></div>', 'jour');
     /* le fond suit les vraies etapes : ecartes pour tous, puis d'apres vos reponses, puis hors de vos indices */
     var fond = {}; ouvert.querySelectorAll('.fond-tri div').forEach(function(d){ fond[d.dataset.id] = d; });
@@ -500,7 +502,7 @@
       document.getElementById('vy-as-ct').textContent = ['Premier', 'Deuxième', 'Troisième', 'Quatrième'][k] + ' choix.';
       (function anim(now){ if(fini) return; var u = Math.min(1, (now - t0)/dur), ez = 1 - Math.pow(1 - u, 4); pos = depart + (fin - depart)*ez; dessiner();
         if(u < 1) raf = requestAnimationFrame(anim);
-        else { var f = pris[k].f, c = document.getElementById('vy-as-c' + k); c.classList.add('on'); c.innerHTML = '<b>' + n2(k) + '</b>' + esc(f.nom.split(' (')[0]);
+        else { var f = pris[k].f, c = document.getElementById('vy-as-c' + k); c.classList.add('on'); c.innerHTML = '<b>' + n2(k) + '</b>' + photo(f, 40) + esc(f.nom.split(' (')[0].split(',')[0]);
           if(fond[f.id]) fond[f.id].classList.add('k');
           ligne(n2(k) + ' · ' + f.nom.split(' (')[0] + ' · preuve ' + f.niveau_preuve_peau + ' · ' + INDICES[pris[k].pour] + ((f.saison || []).indexOf(mois) >= 0 && (f.saison || []).length < 12 ? ' · de saison' : ''));
           setTimeout(function(){ tourner(k + 1); }, 380); } })(t0); };
