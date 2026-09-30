@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>VYVRE · Composition de l'assiette</title>
+<meta name="robots" content="noindex">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#1c2f30;--doux:#5b6d6e;--ligne:rgba(28,47,48,.14)}
+html,body{height:100%}
+body{background:linear-gradient(180deg,#fbfbfd 0%,#f1f2f4 55%,#e7e9ec 100%);color:var(--ink);font-family:"Helvetica Neue",Arial,sans-serif;overflow:hidden}
+.m{font-size:9.5px;letter-spacing:2.2px;text-transform:uppercase;color:var(--doux)}
+.mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace}
+#scene{position:fixed;inset:0;padding:calc(26px + env(safe-area-inset-top)) 22px 0;overflow:hidden}
+h1{font:italic 400 44px/.95 Georgia,serif;letter-spacing:-2.5px;margin:10px 0 0;min-height:44px}
+.cases4{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px;position:relative;z-index:5}
+.cases4 div{border:1px solid var(--ligne);border-radius:16px;min-height:92px;padding:8px 6px;font-size:12px;line-height:1.25;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;transition:background .5s,box-shadow .5s,transform .5s}
+.cases4 div.on{background:#fff;box-shadow:0 18px 40px -22px rgba(0,0,0,.35);transform:translateY(-2px)}
+.cases4 b{font:italic 15px Georgia,serif}
+.cases4 img{width:40px;height:40px;object-fit:contain}
+.pt{display:inline-block;width:9px;height:9px;border-radius:50%;flex:none}
+.journal{position:absolute;left:22px;right:22px;bottom:calc(92px + env(safe-area-inset-bottom));font:400 10.5px/1.85 "IBM Plex Mono",ui-monospace,Menlo,monospace;color:var(--doux)}
+.journal div{opacity:0;transform:translateY(6px);transition:opacity .45s,transform .45s}.journal div.on{opacity:1;transform:none}
+#sel{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:20;display:flex;gap:4px;padding:5px;border-radius:999px;background:rgba(255,255,255,.8);border:1px solid var(--ligne);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 14px 40px -20px rgba(0,0,0,.4)}
+#sel a{font-size:13px;color:var(--ink);text-decoration:none;padding:9px 12px;border-radius:999px;cursor:pointer}
+#sel a.on{background:var(--ink);color:#fff}
+#nom{position:fixed;left:0;right:0;bottom:calc(64px + env(safe-area-inset-bottom));text-align:center;font-size:11px;color:var(--doux);z-index:20}
+/* A la roue */
+.roue{position:relative;height:230px;margin:18px -22px 0;perspective:700px;-webkit-mask-image:linear-gradient(transparent,#000 28%,#000 72%,transparent);mask-image:linear-gradient(transparent,#000 28%,#000 72%,transparent)}
+.roue .bande{position:absolute;left:22px;right:22px;top:50%;height:48px;margin-top:-24px;border-top:1px solid var(--ligne);border-bottom:1px solid var(--ligne)}
+.roue .it{position:absolute;left:0;right:0;height:48px;display:flex;align-items:center;justify-content:center;gap:12px;font-weight:300;font-size:24px;letter-spacing:-.4px}
+.it img{width:34px;height:34px;object-fit:contain}
+/* B le defile */
+.defile{position:relative;height:210px;margin:26px -22px 0;overflow:hidden}
+.defile .lentille{position:absolute;left:50%;top:10px;width:150px;height:180px;margin-left:-75px;border-radius:28px;background:rgba(255,255,255,.7);box-shadow:0 30px 60px -30px rgba(0,0,0,.35),inset 0 0 0 1px var(--ligne)}
+.defile .rail{position:absolute;top:0;left:0;height:210px;display:flex;align-items:center}
+.defile .c{width:130px;flex:none;display:flex;flex-direction:column;align-items:center;gap:10px;font-size:13px;text-align:center;color:var(--ink)}
+.defile .c .rond{width:70px;height:70px;border-radius:50%;display:grid;place-items:center;background:#fff;box-shadow:0 10px 24px -14px rgba(0,0,0,.35)}
+.defile .c .rond img{width:52px;height:52px;object-fit:contain}
+/* C la recolte */
+.champ{position:absolute;left:0;right:0;top:230px;bottom:180px}
+.champ span{position:absolute;display:flex;align-items:center;gap:6px;font-size:11px;white-space:nowrap;transition:opacity .9s,filter .9s;color:var(--ink)}
+.champ span.out{opacity:0!important;filter:blur(4px)}
+.compteur{font:200 64px/1 "Helvetica Neue",Arial,sans-serif;letter-spacing:-3px;margin-top:10px}
+/* D le tableau */
+.tableau{margin-top:22px;border-radius:22px;background:#fff;box-shadow:0 30px 60px -34px rgba(0,0,0,.35);padding:14px 16px}
+.tableau .ligne{display:flex;justify-content:space-between;align-items:center;height:40px;border-bottom:1px solid var(--ligne);font:400 15px "IBM Plex Mono",ui-monospace,Menlo,monospace}
+.tableau .ligne:last-child{border:0}
+.tableau .ligne .v{letter-spacing:.5px}
+.tableau .ligne em{font-style:normal;font-size:10px;color:var(--doux)}
+.visage{position:relative;height:150px;margin-top:14px;border-radius:22px;overflow:hidden;background:radial-gradient(60% 70% at 50% 45%,#fff 0,#eceef1 70%)}
+.visage svg{position:absolute;left:50%;top:10px;transform:translateX(-50%)}
+/* E le tri */
+.grille{position:absolute;left:22px;right:22px;top:230px;bottom:190px;column-count:3;column-gap:10px;font-size:9.5px;line-height:1.55;overflow:hidden}
+.grille div{transition:opacity .6s,color .6s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.grille div.x{opacity:.12;text-decoration:line-through}
+.grille div.k{color:var(--ink);font-weight:600}
+</style>
+</head>
+<body>
+<div id="scene"></div>
+<div id="nom"></div>
+<nav id="sel"><a data-v="A">A</a><a data-v="B">B</a><a data-v="C">C</a><a data-v="D">D</a><a data-v="E">E</a><a data-v="R">↻</a></nav>
+<script>
+/* Propositions d'animation pour « Composition de votre assiette ». Donnees reelles (aliments_v2.json : 259 aliments),
+   profil de peau d'EXEMPLE (Eclat puis Rides et fermete), regles de choix identiques au module en ligne (simplifiees). */
+const NOMS = { A:'A · La roue : le sélecteur des iPhone', B:'B · Le défilé : les aliments passent sous une lentille', C:'C · La récolte : le champ se vide, il en reste quatre', D:'D · Le tableau : la lecture à gauche, le tableau des départs à droite', E:'E · Le tri : 259 noms, les filtres barrent, quatre restent' };
+const TEINTE = { legume:'#5f8f5b', fruit:'#c8563f', poisson:'#4f7896', fruit_de_mer:'#6b8fa8', legumineuse:'#b58a3c', cereale_complete:'#c9a45c', feculent:'#c9a45c', graine:'#a99270', fruit_a_coque:'#9b7650', fruit_sec:'#8a5a3c', cacao:'#5b3a29', boisson:'#6aa39b', matiere_grasse:'#9aa04a', produit_laitier_fermente:'#cfc3a8', produit_laitier:'#cfc3a8', fromage:'#e0c98a', oeuf:'#e6c27a', epice_herbe:'#7a9a55', viande:'#a3473f', volaille:'#c9956b', condiment:'#8d7a5c', sucre:'#caa46a', soja:'#b9b27a', algue:'#4f6b55' };
+const I1 = 'eclat', I2 = 'rides_fermete', INDN = { eclat:'Éclat', rides_fermete:'Rides et fermeté' };
+let DATA = [], PRIS = [], CAND = [], EXCL = [], jeton = 0;
+const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]));
+const court = f => f.nom.split(' (')[0].split(',')[0];
+const img = f => '<img src="/scan/aliment/photos/' + f.id + '.png" alt="" onerror="this.replaceWith(Object.assign(document.createElement(\'i\'),{className:\'pt\',style:\'background:' + (TEINTE[f.categorie] || '#999') + ';width:14px;height:14px\'}))">';
+const pause = ms => new Promise(r => setTimeout(r, ms));
+function calcul(){ const mois = new Date().getMonth() + 1, G = { A:3, B:2, C:1 }, defaut = ['pamplemousse','huitre','noix_bresil'];
+  EXCL = DATA.filter(f => defaut.includes(f.id) || f.categorie === 'algue' || f.categorie === 'soja');
+  CAND = DATA.filter(f => !EXCL.includes(f) && G[f.niveau_preuve_peau] && (f.cibles_peau.includes(I1) || f.cibles_peau.includes(I2)));
+  const sc = CAND.map(f => ({ f, s:G[f.niveau_preuve_peau] + (f.cibles_peau.includes(I1) ? 2 : 0) + (f.cibles_peau.includes(I2) ? 1 : 0) + ((f.saison || []).includes(mois) ? 1 : 0) })).sort((a, b) => b.s - a.s);
+  const cats = new Set(), nut = new Set(); PRIS = []; let rare = 0;
+  for(const c of sc){ if(PRIS.length >= 4) break; const n1 = (c.f.nutriments_cles[0] || '').toLowerCase(); if(cats.has(c.f.categorie) || nut.has(n1) || (c.f.usage === 'rare' && rare)) continue; if(c.f.usage === 'rare') rare++; PRIS.push(c.f); cats.add(c.f.categorie); nut.add(n1); } }
+function base(titre){ document.getElementById('scene').innerHTML = '<div class="m">Composition de votre assiette · profil d’exemple</div><h1 id="t">' + titre + '</h1><div class="cases4">' + [0,1,2,3].map(k => '<div id="c' + k + '"><b>0' + (k + 1) + '</b><span style="opacity:.3">·</span></div>').join('') + '</div>'; }
+function remplir(k){ const f = PRIS[k], c = document.getElementById('c' + k); if(!c) return; c.classList.add('on'); c.innerHTML = '<b>0' + (k + 1) + '</b>' + img(f) + esc(court(f)); }
+function journal(){ const j = document.createElement('div'); j.className = 'journal'; document.getElementById('scene').appendChild(j); return t => { const d = document.createElement('div'); d.textContent = t; j.appendChild(d); requestAnimationFrame(() => d.classList.add('on')); while(j.children.length > 7) j.removeChild(j.firstChild); }; }
+const PLACES = ['Première place.', 'Deuxième place.', 'Troisième place.', 'Quatrième place.'];
+
+/* A · la roue */
+async function A(id){ base('Nous lisons.'); const s = document.getElementById('scene'); const r = document.createElement('div'); r.className = 'roue'; s.appendChild(r);
+  let roue = PRIS.concat(CAND.filter(f => !PRIS.includes(f)).slice(0, 36)).sort(() => Math.random() - .5); while(roue.length < 16) roue = roue.concat(roue);
+  r.innerHTML = '<div class="bande"></div>' + roue.map(f => '<div class="it">' + img(f) + esc(court(f)) + '</div>').join('');
+  const it = [...r.querySelectorAll('.it')], N = it.length, H = 48; let pos = 0;
+  const draw = () => it.forEach((el, i) => { let y = ((i*H - pos) % (N*H) + N*H) % (N*H); if(y > N*H/2) y -= N*H; const d = y/(H*2.6); el.style.transform = 'translateY(' + (115 - H/2 + y) + 'px) rotateX(' + (-Math.max(-1.2, Math.min(1.2, d))*38) + 'deg)'; el.style.opacity = Math.max(0, 1 - Math.abs(d)*.55); });
+  draw(); const log = journal(); log(DATA.length + ' aliments · CIQUAL 2020'); await pause(300); log('− ' + EXCL.length + ' écartés pour tous'); await pause(300); log(CAND.length + ' candidats pour Éclat et Rides');
+  for(let k = 0; k < PRIS.length; k++){ if(id !== jeton) return; document.getElementById('t').textContent = PLACES[k];
+    const cible = roue.indexOf(PRIS[k]), d0 = pos, fin = (Math.ceil(d0/(N*H)) + 2)*N*H + cible*H, t0 = performance.now();
+    await new Promise(res => { (function an(n){ if(id !== jeton) return res(); const u = Math.min(1, (n - t0)/1500); pos = d0 + (fin - d0)*(1 - Math.pow(1 - u, 4)); draw(); u < 1 ? requestAnimationFrame(an) : res(); })(t0); });
+    remplir(k); log('0' + (k + 1) + ' · ' + court(PRIS[k]) + ' · preuve ' + PRIS[k].niveau_preuve_peau); await pause(600); }
+  document.getElementById('t').textContent = 'Votre assiette.'; }
+
+/* B · le defile */
+async function B(id){ base('Nous lisons.'); const s = document.getElementById('scene'); const d = document.createElement('div'); d.className = 'defile'; s.appendChild(d);
+  let seq = CAND.slice(); while(seq.length < 30) seq = seq.concat(CAND);
+  d.innerHTML = '<div class="lentille"></div><div class="rail">' + seq.map(f => '<div class="c"><div class="rond">' + img(f) + '</div>' + esc(court(f)) + '</div>').join('') + '</div>';
+  const rail = d.querySelector('.rail'), W = 130, mid = innerWidth/2 - W/2; let x = 0; const log = journal(); log(CAND.length + ' candidats passent sous la lentille');
+  for(let k = 0; k < PRIS.length; k++){ if(id !== jeton) return; document.getElementById('t').textContent = PLACES[k];
+    let idx = seq.indexOf(PRIS[k], Math.ceil(x/W) + 6); if(idx < 0){ seq = seq.concat(CAND); rail.insertAdjacentHTML('beforeend', CAND.map(f => '<div class="c"><div class="rond">' + img(f) + '</div>' + esc(court(f)) + '</div>').join('')); idx = seq.indexOf(PRIS[k], Math.ceil(x/W) + 6); }
+    const x0 = x, x1 = idx*W - mid, t0 = performance.now();
+    await new Promise(res => { (function an(n){ if(id !== jeton) return res(); const u = Math.min(1, (n - t0)/1700); x = x0 + (x1 - x0)*(1 - Math.pow(1 - u, 3)); rail.style.transform = 'translateX(' + (-x) + 'px)'; u < 1 ? requestAnimationFrame(an) : res(); })(t0); });
+    const el = rail.children[idx]; el.animate([{ transform:'translateY(0) scale(1)' }, { transform:'translateY(-14px) scale(1.12)' }, { transform:'translateY(0) scale(1)' }], { duration:500 });
+    remplir(k); log('0' + (k + 1) + ' · ' + court(PRIS[k]) + ' · pour ' + (PRIS[k].cibles_peau.includes(I1) ? 'éclat' : 'rides')); await pause(550); }
+  document.getElementById('t').textContent = 'Votre assiette.'; }
+
+/* C · la recolte */
+async function C(id){ base('<span class="compteur" id="n">' + DATA.length + '</span>'); const s = document.getElementById('scene'); const ch = document.createElement('div'); ch.className = 'champ'; s.appendChild(ch);
+  const W = innerWidth - 60, Hh = Math.max(200, innerHeight - 410);
+  const sp = DATA.map((f, i) => { const e = document.createElement('span'); e.innerHTML = '<i class="pt" style="background:' + (TEINTE[f.categorie] || '#999') + '"></i>' + esc(court(f)); e.style.left = (8 + Math.random()*W) + 'px'; e.style.top = (Math.random()*Hh) + 'px'; e.style.opacity = .25 + Math.random()*.5; ch.appendChild(e); return { f, e }; });
+  const n = document.getElementById('n'), log = journal(), compte = async (v) => { const a = +n.textContent, t0 = performance.now(); await new Promise(r => { (function an(t){ const u = Math.min(1, (t - t0)/700); n.textContent = Math.round(a + (v - a)*u); u < 1 ? requestAnimationFrame(an) : r(); })(t0); }); };
+  log(DATA.length + ' aliments'); await pause(700); if(id !== jeton) return;
+  sp.forEach(o => { if(EXCL.includes(o.f)) o.e.classList.add('out'); }); log('− ' + EXCL.length + ' écartés pour tous'); await compte(DATA.length - EXCL.length); await pause(500); if(id !== jeton) return;
+  sp.forEach(o => { if(!CAND.includes(o.f)) o.e.classList.add('out'); }); log('Seuls les aliments étudiés pour Éclat et Rides'); await compte(CAND.length); await pause(600); if(id !== jeton) return;
+  sp.forEach(o => { if(CAND.includes(o.f)){ o.e.style.transition = 'all 1.1s cubic-bezier(.2,.9,.2,1)'; o.e.style.left = (W/2 - 60 + (Math.random() - .5)*W*.55) + 'px'; o.e.style.top = (Hh/2 + (Math.random() - .5)*Hh*.5) + 'px'; o.e.style.opacity = .9; } }); await pause(1200);
+  for(let k = 0; k < PRIS.length; k++){ if(id !== jeton) return; const o = sp.find(z => z.f === PRIS[k]); const c = document.getElementById('c' + k).getBoundingClientRect(), r0 = o.e.getBoundingClientRect();
+    o.e.animate([{ transform:'translate(0,0) scale(1)' }, { transform:'translate(' + (c.left + c.width/2 - r0.left - r0.width/2) + 'px,' + (c.top + c.height/2 - r0.top) + 'px) scale(1.3)', opacity:0 }], { duration:800, easing:'cubic-bezier(.6,0,.2,1)', fill:'forwards' });
+    await pause(650); remplir(k); log('0' + (k + 1) + ' · ' + court(PRIS[k])); await compte(CAND.length - k - 1 > 4 ? 4 : 4); await pause(250); }
+  sp.forEach(o => o.e.classList.add('out')); n.textContent = '4'; }
+
+/* D · le tableau des departs */
+async function D(id){ base('Nous lisons.'); const s = document.getElementById('scene');
+  s.insertAdjacentHTML('beforeend', '<div class="visage"><svg width="120" height="140" viewBox="0 0 120 140"><ellipse cx="60" cy="70" rx="42" ry="56" fill="none" stroke="#b9c1c3" stroke-width="1"/><path d="M40 60h12M68 60h12M60 70v18M48 100q12 8 24 0" stroke="#b9c1c3" stroke-width="1" fill="none"/><rect id="lz" x="10" y="14" width="100" height="1.2" fill="#ff2a3c"/></svg></div><div class="tableau" id="tb">' + [0,1,2,3].map(k => '<div class="ligne"><span class="v" id="v' + k + '">··········</span><em id="e' + k + '"></em></div>').join('') + '</div>');
+  const lz = document.getElementById('lz'); let t = 0; const vol = () => { if(id !== jeton) return; t += .02; lz.setAttribute('y', 14 + (Math.sin(t)*.5 + .5)*112); requestAnimationFrame(vol); }; vol();
+  const AB = 'ABCDEÉFGHIJKLMNOPQRSTUVWXYZ '; const log = journal(); log('Lecture de la peau · Éclat, Rides');
+  for(let k = 0; k < PRIS.length; k++){ if(id !== jeton) return; document.getElementById('t').textContent = PLACES[k]; const v = document.getElementById('v' + k), cible = court(PRIS[k]).toUpperCase().slice(0, 16).padEnd(16, ' ');
+    for(let pas = 0; pas < 22; pas++){ if(id !== jeton) return; v.textContent = cible.split('').map((ch, i) => pas > 8 + i ? ch : AB[(Math.random()*AB.length)|0]).join(''); if(pas % 3 === 0){ const f = CAND[(Math.random()*CAND.length)|0]; document.getElementById('e' + k).textContent = court(f).toLowerCase(); } await pause(55); }
+    v.textContent = cible; document.getElementById('e' + k).textContent = 'preuve ' + PRIS[k].niveau_preuve_peau; remplir(k); log('0' + (k + 1) + ' · ' + court(PRIS[k])); await pause(350); }
+  document.getElementById('t').textContent = 'Votre assiette.'; }
+
+/* E · le tri */
+async function E(id){ base('<span class="compteur" id="n">' + DATA.length + '</span>'); const s = document.getElementById('scene'); const g = document.createElement('div'); g.className = 'grille'; s.appendChild(g);
+  const ls = DATA.map(f => { const d = document.createElement('div'); d.textContent = court(f); g.appendChild(d); return { f, d }; }); const n = document.getElementById('n'), log = journal();
+  const compte = async v => { const a = +n.textContent, t0 = performance.now(); await new Promise(r => { (function an(t){ const u = Math.min(1, (t - t0)/650); n.textContent = Math.round(a + (v - a)*u); u < 1 ? requestAnimationFrame(an) : r(); })(t0); }); };
+  const etapes = [['Écartés pour tous : algues, soja, pamplemousse…', f => !EXCL.includes(f)], ['Sans lien étudié avec la peau (preuve D)', f => f.niveau_preuve_peau !== 'D' && !EXCL.includes(f)], ['Pour Éclat et Rides seulement', f => CAND.includes(f)], ['Les preuves, la saison, une famille par aliment', f => PRIS.includes(f)]];
+  for(const [txt, garde] of etapes){ await pause(750); if(id !== jeton) return; let k = 0; ls.forEach(o => { if(!garde(o.f) && !o.d.classList.contains('x')){ o.d.classList.add('x'); } else if(garde(o.f)) k++; }); log(txt); await compte(k); }
+  ls.forEach(o => { if(PRIS.includes(o.f)) o.d.classList.add('k'); });
+  for(let k = 0; k < PRIS.length; k++){ await pause(420); if(id !== jeton) return; remplir(k); } }
+
+const V = { A, B, C, D, E }; let cour = new URLSearchParams(location.search).get('v') || 'A';
+function jouer(v){ cour = v; jeton++; document.querySelectorAll('#sel a').forEach(a => a.classList.toggle('on', a.dataset.v === v)); document.getElementById('nom').textContent = NOMS[v]; try { history.replaceState(null, '', '?v=' + v); } catch(e){} V[v](jeton); }
+document.querySelectorAll('#sel a').forEach(a => a.onclick = () => a.dataset.v === 'R' ? jouer(cour) : jouer(a.dataset.v));
+fetch('/scan/aliment/aliments_v2.json').then(r => r.json()).then(j => { DATA = j.aliments; calcul(); jouer(cour); });
+</script>
+</body>
+</html>

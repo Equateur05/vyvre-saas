@@ -375,7 +375,8 @@
     var e = exclus(), sv = { S:SANTE, M:MODE, R:REP }; SANTE = { rien:true }; MODE = 'normal'; versRep(ind); var nDef = Object.keys(exclus().x).length; SANTE = sv.S; MODE = sv.M; REP = sv.R;
     var nTot = Object.keys(e.x).length, G = { A:1, B:1, C:1 }, mois = new Date().getMonth() + 1;
     var cand = DATA.filter(function(f){ return !e.x[f.id] && G[f.niveau_preuve_peau] && (f.cibles_peau.indexOf(ind.i1) >= 0 || (ind.i2 && f.cibles_peau.indexOf(ind.i2) >= 0)); });
-    var roue = cand.slice(); while(roue.length < 14) roue = roue.concat(cand); roue = roue.slice(0, 40);
+    var choisis = pris.map(function(c){ return c.f; }), roue = choisis.concat(cand.filter(function(f){ return choisis.indexOf(f) < 0; }).slice(0, 36)).sort(function(){ return Math.random() - .5; });   // les choix sont toujours dans la roue
+    while(roue.length < 14) roue = roue.concat(roue);
     var H = 46;
     feuille(HAUT + '<div class="m">Composition de votre assiette</div><h2 style="margin:10px 0 0;font-size:40px;letter-spacing:-2px" id="vy-as-ct">Nous lisons.</h2>'
       + '<div class="cases4">' + [0, 1, 2, 3].map(function(k){ return '<div id="vy-as-c' + k + '"><b>' + n2(k) + '</b><span style="opacity:.35">·</span></div>'; }).join('') + '</div>'
