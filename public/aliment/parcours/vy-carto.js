@@ -29,6 +29,42 @@ function moteur(){
 
 let actif = null;   // { boite, media, cv, x, L, PC, debut, t0 }
 const copie = document.createElement('canvas'), cg = copie.getContext('2d');
+/* ---- 30/09 (Charles : « a droite, des trucs en temps reel au lieu d'infos a la con ») ----
+   Des mesures optiques reelles, lues dans les pixels du visage : lumiere, cadrage, stabilite, relief,
+   et pour le front, les joues et le menton : clarte L*, rougeur a*, angle ITA. Rien n'est simule. */
+function lin(c){ c /= 255; return c <= .04045 ? c/12.92 : Math.pow((c + .055)/1.055, 2.4); }
+function lab(r, g, b){ r = lin(r); g = lin(g); b = lin(b);
+  let X = (r*.4124 + g*.3576 + b*.1805)/.95047, Y = r*.2126 + g*.7152 + b*.0722, Z = (r*.0193 + g*.1192 + b*.9505)/1.08883;
+  const f = t => t > .008856 ? Math.cbrt(t) : 7.787*t + 16/116; X = f(X); Y = f(Y); Z = f(Z); return { L:116*Y - 16, a:500*(X - Y), b:200*(Y - Z) }; }
+const ZONES = { Front:[151, 9, 108, 337], Joues:[50, 280, 205, 425], Menton:[152, 199, 175] };
+let MES = null, prec = null;
+function mesurer(L){
+  let d; try { d = cg.getImageData(0, 0, copie.width, copie.height).data; } catch(e){ return; }
+  const W = copie.width, H = copie.height, out = {};
+  const pix = (x, y) => { const k = ((y|0)*W + (x|0))*4; return [d[k], d[k + 1], d[k + 2]]; };
+  let tot = { L:0, n:0 };
+  for(const [nom, ids] of Object.entries(ZONES)){ let r = 0, g = 0, b = 0, n = 0;
+    ids.forEach(i => { const cx = L[i].x*W, cy = L[i].y*H; for(let dy = -3; dy <= 3; dy++) for(let dx = -3; dx <= 3; dx++){ const x = cx + dx, y = cy + dy; if(x < 0 || y < 0 || x >= W || y >= H) continue; const p = pix(x, y); r += p[0]; g += p[1]; b += p[2]; n++; } });
+    if(!n) continue; const c = lab(r/n, g/n, b/n); out[nom] = { L:c.L, a:c.a, b:c.b }; tot.L += c.L; tot.n++; }
+  let x0 = 1, x1 = 0, zmin = 1e9, zmax = -1e9; for(const p of L){ if(p.x < x0) x0 = p.x; if(p.x > x1) x1 = p.x; if(p.z < zmin) zmin = p.z; if(p.z > zmax) zmax = p.z; }
+  let bouge = 0; if(prec){ for(let i = 0; i < L.length; i += 12) bouge += Math.hypot((L[i].x - prec[i].x)*W, (L[i].y - prec[i].y)*H); bouge /= Math.ceil(L.length/12); }
+  prec = L.map(p => ({ x:p.x, y:p.y }));
+  const lisse = (k, v) => MES && MES[k] != null ? MES[k] + (v - MES[k])*.25 : v;
+  MES = { lumiere:lisse('lumiere', tot.n ? tot.L/tot.n : 0), cadrage:lisse('cadrage', (x1 - x0)*100), stabilite:lisse('stabilite', bouge), relief:lisse('relief', (zmax - zmin)*1000), points:L.length, zones:out };
+}
+let tPanneau = 0;
+function panneau(now){
+  const el = document.getElementById('vyLive'); if(!el || !MES || now - tPanneau < 130) return; tPanneau = now;
+  const f1 = v => v.toFixed(1).replace('.', ','), ligne = (k, v, etat, pct) => `<div class="lv"><span>${k}</span><b>${v}</b><i style="--p:${Math.max(0, Math.min(100, pct))}%"></i><em>${etat}</em></div>`;
+  const lu = MES.lumiere, ca = MES.cadrage, st = MES.stabilite;
+  let h = ligne('Lumière', 'L* ' + f1(lu), lu < 38 ? 'trop sombre' : lu > 82 ? 'trop vive' : 'bonne', lu)
+    + ligne('Cadrage', f1(ca) + ' %', ca < 32 ? 'rapprochez-vous' : ca > 72 ? 'reculez' : 'bon', ca)
+    + ligne('Stabilité', f1(st) + ' px', st > 2.5 ? 'bougez moins' : 'stable', 100 - st*20)
+    + ligne('Points suivis', String(MES.points), 'maillage 3D', 100)
+    + ligne('Relief', f1(MES.relief), 'profondeur relative', MES.relief);
+  h += '<div class="lz">' + Object.entries(MES.zones).map(([z, v]) => `<div><span>${z}</span><b>L* ${f1(v.L)}</b><b>a* ${f1(v.a)}</b><b>b* ${f1(v.b)}</b></div>`).join('') + '</div>';
+  el.innerHTML = '<div class="overline">Mesures en direct</div>' + h + '<p class="fine">Mesures optiques de l’image, calculées sur cet appareil. Pas un diagnostic.</p>';
+}
 function taillesSource(m){ return m.tagName === 'VIDEO' ? [m.videoWidth, m.videoHeight] : [m.naturalWidth, m.naturalHeight]; }
 function image(m){ const [sw, sh] = taillesSource(m); const w = 480, h = Math.round(w*sh/sw); if(copie.width !== w || copie.height !== h){ copie.width = w; copie.height = h; } cg.drawImage(m, 0, 0, w, h); return copie; }
 
@@ -53,9 +89,9 @@ function boucle(now){
     const n = r && r.faceLandmarks && r.faceLandmarks[0];
     if(n){ if(!a.L) a.L = n.map(p => ({ x:p.x, y:p.y, z:p.z }));
       else for(let i = 0; i < a.L.length; i++){ a.L[i].x += (n[i].x - a.L[i].x)*.45; a.L[i].y += (n[i].y - a.L[i].y)*.45; a.L[i].z += (n[i].z - a.L[i].z)*.45; }
-      a.vu = now; if(a.debut === null) a.debut = now; }
+      a.vu = now; if(a.debut === null) a.debut = now; mesurer(a.L); }
   }
-  dessiner(a, now, sw, sh);
+  dessiner(a, now, sw, sh); panneau(now);
   requestAnimationFrame(boucle);
 }
 

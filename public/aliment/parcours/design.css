@@ -15,3 +15,53 @@
 .auto-bar.run{opacity:1}.auto-bar.run i{animation:autobar var(--d,1700ms) linear forwards}
 @keyframes autobar{to{width:100%}}
 @media (prefers-reduced-motion:reduce){.auto-bar.run i{animation-duration:1ms}}
+/* 30/09 : mots forts, surlignes au defilement (un trait champagne qui se dessine) */
+b.hl{font-weight:600;color:#1f2419;background-image:linear-gradient(transparent 62%,rgba(214,176,112,.38) 62%,rgba(214,176,112,.38) 92%,transparent 92%);background-repeat:no-repeat;background-size:0% 100%;transition:background-size .9s cubic-bezier(.2,.8,.2,1)}
+b.hl.vu{background-size:100% 100%}
+.pourquoi{font-size:17px}
+.lien-peau{margin:18px 0 6px;padding:18px 20px;border-radius:18px;background:linear-gradient(135deg,rgba(214,176,112,.12),rgba(255,255,255,.6));border:1px solid rgba(214,176,112,.35)}
+.lien-peau p{margin:8px 0 0}
+.lien-peau .allegation{display:inline-block;margin-top:4px;font-style:italic;color:#3a3f33}
+details.etudes[open] summary{margin-bottom:6px}
+/* les aliments respirent : un leger flottement */
+.visual .product,.food-detail .visual .product,.list-panel img,.slot img{animation:flotte 5.5s ease-in-out infinite}
+.food-detail:nth-child(2n) .visual .product{animation-delay:-2.2s}
+@keyframes flotte{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-9px) rotate(-1.2deg)}}
+@media (prefers-reduced-motion:reduce){.visual .product,.list-panel img,.slot img{animation:none}b.hl{transition:none;background-size:100% 100%}}
+/* plus de ligne horizontale sur la camera : la cartographie suffit */
+.camera .scanline{display:none!important}
+/* 30/09 : pendant la lecture, a droite, les mesures en direct */
+.live-panel:empty{display:none}
+.live-panel{margin:18px 0 8px;padding:18px 20px;border-radius:20px;background:#fff;border:1px solid #e6e7e1;box-shadow:0 20px 50px -34px rgba(0,0,0,.35);font-variant-numeric:tabular-nums}
+.live-panel .lv{display:grid;grid-template-columns:118px 92px 1fr auto;align-items:center;gap:12px;padding:7px 0;border-bottom:1px solid #f0f0ec;font-size:14px}
+.live-panel .lv span{color:#6b6f66}.live-panel .lv b{font:500 14px 'IBM Plex Mono',ui-monospace,monospace;color:#1f2419}
+.live-panel .lv i{height:3px;border-radius:3px;background:linear-gradient(90deg,#d6b070 var(--p),#ecece6 var(--p));transition:background .3s}
+.live-panel .lv em{font-style:normal;font-size:12.5px;color:#8a8e82;text-align:right}
+.live-panel .lz{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.live-panel .lz div{padding:12px;border-radius:14px;background:#f6f6f2;display:flex;flex-direction:column;gap:3px}
+.live-panel .lz span{font-size:12.5px;color:#6b6f66;margin-bottom:3px}.live-panel .lz b{font:500 13px 'IBM Plex Mono',ui-monospace,monospace;color:#1f2419}
+.frame-actions.en-direct .primary,.frame-actions.en-direct .secondary:not(label){display:none}
+.frame-actions.en-direct label{border:0;background:none;padding:0;text-decoration:underline;text-underline-offset:3px;color:#6b6f66;min-height:0}
+@media (max-width:700px){.live-panel .lv{grid-template-columns:96px 80px 1fr;}.live-panel .lv em{grid-column:1/-1;text-align:left;margin-top:-4px}}
+/* 30/09 : recettes, une composition des vrais ingredients en guise de photo */
+.rit.rec{align-items:center}
+.rec-visu{position:relative;flex:none;width:150px;height:110px;margin:0 20px 0 6px}
+.rec-visu img{position:absolute;width:70px;height:70px;object-fit:contain;filter:drop-shadow(0 10px 10px rgba(40,30,15,.18));animation:flotte 6s ease-in-out infinite;animation-delay:calc(var(--k)*-1.3s)}
+.rec-visu img:nth-child(1){left:36px;top:6px;width:84px;height:84px;z-index:3}
+.rec-visu img:nth-child(2){left:0;top:34px;z-index:2}
+.rec-visu img:nth-child(3){left:84px;top:38px;z-index:4}
+.rec-visu img:nth-child(4){left:52px;top:52px;width:56px;height:56px;z-index:5}
+.rec-visu.n1 img{left:30px;top:4px;width:100px;height:100px}
+.rec-acc{margin:6px 0 8px;font-size:16px;line-height:1.55;color:#3a3f33;max-width:640px}
+@media (max-width:700px){.rit.rec{flex-wrap:wrap}.rec-visu{width:130px;height:96px;margin:6px 0 4px}}
+/* 30/09 : le COMBO remonte juste sous l'assiette et prend de la place */
+#combos{margin-top:28px;padding:34px clamp(18px,4vw,48px);border-radius:32px;background:linear-gradient(145deg,#faf7f0,#f1efe8);border:1px solid #ebe3d2}
+#combos .pair-visual{display:flex;align-items:center;gap:6px;margin:10px 0}
+#combos .pair-visual img{width:110px;height:110px;object-fit:contain;filter:drop-shadow(0 14px 14px rgba(40,30,15,.2));animation:flotte 6s ease-in-out infinite}
+#combos .pair-visual img:nth-child(2){animation-delay:-2.5s}
+#combos .pair-visual img+img::before{content:'+'}
+/* la fenetre sombre du moteur de lecture n'a pas sa place ici : la raison s'affiche dans la page */
+#vyvre-v9-reject{display:none!important}
+.rit.rec{display:grid!important;grid-template-columns:34px 170px minmax(0,1fr);gap:0 18px;align-items:start}
+.rit.rec > i{grid-column:1}.rit.rec .rec-visu{grid-column:2;margin:0}.rit.rec > div:last-child{grid-column:3}
+@media (max-width:700px){.rit.rec{grid-template-columns:28px minmax(0,1fr)}.rit.rec .rec-visu{grid-column:2;margin-bottom:6px}.rit.rec > div:last-child{grid-column:2}}

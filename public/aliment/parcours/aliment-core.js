@@ -152,6 +152,7 @@
        on ne prend qu'eux (une famille peut alors revenir) ; sinon elles passent seulement devant. La securite ne bouge pas. */
     var FAM = { fruits:['fruit','fruit_sec'], legumes:['legume'], epices:['epice_herbe'], boissons:['boisson'], cereales:['cereale_complete','feculent'], legumineuses:['legumineuse','soja'], mer:['poisson','fruit_de_mer'], noix:['fruit_a_coque','graine'] };
     var ty = [].concat.apply([], ((AFFINE && AFFINE.types) || []).map(function(k){ return FAM[k] || []; })), large = false;
+    var tous = cand.slice();
     if(ty.length){ var dans = cand.filter(function(c){ return ty.indexOf(c.f.categorie) >= 0; });
       if(dans.length >= 4){ cand = dans; large = true; } else { cand.forEach(function(c){ if(ty.indexOf(c.f.categorie) >= 0) c.s += 3; }); cand.sort(function(p, q){ return q.s - p.s; }); } }
     var parFam = large ? Math.max(1, Math.ceil(4 / new Set(cand.map(function(c){ return c.f.categorie; })).size)) : 1;
@@ -164,6 +165,12 @@
     if(pris.length < 4){ var fois = {}; pris.forEach(function(c){ fois[c.f.categorie] = (fois[c.f.categorie] || 0) + 1; });
       cand.forEach(function(c){ if(pris.length >= 4 || pris.indexOf(c) >= 0) return; var f = c.f, n1 = (f.nutriments_cles[0] || '').toLowerCase();
         if((fois[f.categorie] || 0) >= Math.max(2, parFam) || nut[n1]) return; pris.push(c); fois[f.categorie] = (fois[f.categorie] || 0) + 1; nut[n1] = 1; }); }
+    /* 30/09 (test de Charles) : un besoin coche doit toujours avoir au moins un aliment etudie pour lui, meme hors des familles
+       choisies (ex. « hydratation » + « fruits » : aucun fruit n'est etudie pour l'hydratation). Il remplace le dernier choix. */
+    var ditB = ((AFFINE && AFFINE.besoins) || []).slice(0, 2);
+    ditB.forEach(function(k){ if(pris.some(function(c){ return c.pour === k; })) return;
+      var m = tous.filter(function(c){ return c.pour === k && pris.indexOf(c) < 0 && !pris.some(function(p){ return p.f.id === c.f.id; }); })[0]; if(!m) return;
+      if(pris.length < 4) pris.push(m); else { var j = pris.length - 1; while(j > 0 && ditB.indexOf(pris[j].pour) >= 0) j--; pris[j] = m; } });
     /* familles choisies par la personne : si l'assiette n'est pas pleine, un nutriment peut revenir une fois */
     if(large && pris.length < 4) cand.forEach(function(c){ if(pris.length < 4 && pris.indexOf(c) < 0) pris.push(c); });
     if(!large && pris.length && !pris.some(function(c){ return VEGETAL.indexOf(c.f.categorie) >= 0; })){ var v = cand.filter(function(c){ return VEGETAL.indexOf(c.f.categorie) >= 0 && pris.indexOf(c) < 0; })[0]; if(v) pris[pris.length - 1] = v; }
@@ -645,7 +652,10 @@
       if(AFFINE.usage === 'quotidien') sc += r.usage === 'quotidien' ? .5 : -1; return sc; };
     var liste = sures.filter(function(r){ return r.type === ONGLET; }).sort(function(p, q){ return note(q) - note(p); });
     var carte = function(r, k){ var cout = ['', '€', '€€', '€€€'][r.prix_niveau] || '';
-      return '<div class="rit"><i>' + n2(k) + '</i><div><h3>' + esc(r.nom) + '</h3><div class="sous">' + r.temps_min + ' min · ' + r.personnes + ' pers. · ' + (cout ? esc(cout) + ' · ' : '') + esc((CUISINES.filter(function(c){ return c[0] === r.cuisine; })[0] || ['', 'Universelle'])[1]) + '</div>'
+      /* 30/09 (Charles : « les recettes, il faut des photos ») : une composition faite des vrais ingredients, en photos detourees */
+      var vus = {}, ph = r.ingredients.map(function(g){ return g.aliment_id; }).filter(function(id){ if(!id || vus[id] || !CREDITS[id]) return false; vus[id] = 1; return true; }).slice(0, 4);
+      var visu = ph.length ? '<div class="rec-visu n' + ph.length + '" aria-hidden="true">' + ph.map(function(id, m){ return '<img src="' + BASE + 'photos/' + id + '.png" alt="" loading="lazy" style="--k:' + m + '">'; }).join('') + '</div>' : '';
+      return '<div class="rit rec"><i>' + n2(k) + '</i>' + visu + '<div><h3>' + esc(r.nom) + '</h3>' + (r.accroche ? '<p class="rec-acc">' + esc(r.accroche) + '</p>' : '') + '<div class="sous">' + r.temps_min + ' min · ' + r.personnes + ' pers. · ' + (cout ? esc(cout) + ' · ' : '') + esc((CUISINES.filter(function(c){ return c[0] === r.cuisine; })[0] || ['', 'Universelle'])[1]) + '</div>'
         + '<details><summary>Ingrédients et étapes</summary><p>' + r.ingredients.map(function(g){ return esc(g.quantite + ' ' + g.libelle); }).join(' · ') + '</p>' + r.etapes.map(function(e2, m){ return '<p><b style="font-weight:500">' + (m + 1) + '.</b> ' + esc(e2); }).join('</p>') + '</p>'
         + (r.notes || []).map(function(t){ return '<div class="prec" style="color:#52716f">' + esc(t) + '</div>'; }).join('') + '</details>'
         + '<div class="prec" style="color:#52716f">Allergènes : ' + ((r.allergenes_UE || []).length ? r.allergenes_UE.map(function(z){ return NOMS_AL[z] || z; }).join(', ') : 'aucun des 14 allergènes réglementés') + ((r.allergenes_possibles || []).length ? ' ; selon la marque : ' + r.allergenes_possibles.map(function(z){ return NOMS_AL[z] || z; }).join(', ') : '') + '.</div></div></div>'; };
@@ -698,7 +708,22 @@
     versRep(ind); var pris = choisir(ind);
     return { prudent:MODE !== 'normal', i1:INDICES[ind.i1], i2:ind.i2 ? INDICES[ind.i2] : null, n1:ind.n1, aliments:pris.map(function(c){ var f = c.f; return { id:f.id, nom:f.nom.split(' (')[0].split(',')[0], categorie:NOM_CAT[f.categorie] || '', portion:(f.portion_type || '').split(' (')[0], accroche:f.accroche || '', photo:BASE + 'photos/' + f.id + '.png', teinte:TEINTE[f.categorie] || '#999', saison:saison(f), preuve:f.niveau_preuve_peau }; }) }; }); }
 
+  /* 30/09 (Charles : « il manque la correlation avec la peau, explicite ») : les allegations sante AUTORISEES (registre UE,
+     reglement 432/2012) qui parlent de la peau, calculees sur la vraie composition CIQUAL. Condition legale : l'aliment doit etre
+     au moins « source » du nutriment (15 % des VNR pour 100 g ; « riche en » a partir de 30 %). Libelles recopies mot pour mot.
+     Vitamine A et cuivre restent volontairement absents (decision de la revue science et droit du 29/09). */
+  var PEAU_UE = [
+    ['vitamine_c_mg', 80, 'vitamine C', 'La vitamine C contribue à la formation normale de collagène pour assurer la fonction normale de la peau.'],
+    ['zinc_mg', 10, 'zinc', 'Le zinc contribue au maintien d’une peau normale.'],
+    ['riboflavine_mg', 1.4, 'riboflavine (vitamine B2)', 'La riboflavine contribue au maintien d’une peau normale.'],
+    ['niacine_mg', 16, 'niacine (vitamine B3)', 'La niacine contribue au maintien d’une peau normale.'],
+    ['iode_ug', 150, 'iode', 'L’iode contribue au maintien d’une peau normale.'] ];
+  function lienPeau(f){ var t = (f.ciqual && f.ciqual.teneurs_pour_100g) || {}, out = [];
+    PEAU_UE.forEach(function(p){ var v = Number(t[p[0]]); if(!isFinite(v)) return; var pct = Math.round(v / p[1] * 100); if(pct < 15) return;
+      out.push({ niveau: pct >= 30 ? 'Riche en' : 'Source', nutriment: p[2], pct: pct, allegation: p[3] }); });
+    return out.sort(function(a1, b1){ return b1.pct - a1.pct; }); }
   window.AlimentCore = {
+    skinLinks:lienPeau,
     load:charger, catalogue:catalogue, choose:choisir, exclusions:exclus, prudentOk:prudentOk,
     indices:indicesDuScan, phrase:phrase, valid:valide, composition:composition, contributions:apports,
     claim:allegation, credit:credit, season:saison, fact:fait, recipes:recettes, safeRecipes:recettesSures,
