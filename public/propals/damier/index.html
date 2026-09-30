@@ -78,6 +78,25 @@ body.propre #sel{display:none}
 .v-M #voile{background:radial-gradient(circle at 50% 50%,rgba(5,5,6,.85) 0,rgba(5,5,6,.4) 18%,rgba(5,5,6,0) 40%)}
 .v-N{background:radial-gradient(ellipse at 50% 55%,#1c1813 0,#070708 55%)}
 .v-N #voile{background:radial-gradient(ellipse 30% 18% at 50% 50%,rgba(255,236,200,.18),rgba(255,236,200,0) 70%)}
+/* vignettes tirees des planches */
+.vg{display:block;width:100%;height:100%;background-repeat:no-repeat}
+.c.mini .vg{width:84%;height:84%}
+.v-J #centre .logo,.v-O #centre .logo,.v-P #centre .logo,.v-Q #centre .logo,.v-R #centre .logo,.v-S #centre .logo{display:none}
+.v-J #centre,.v-O #centre,.v-P #centre,.v-Q #centre,.v-R #centre,.v-S #centre{justify-content:flex-end}
+.v-O,.v-P,.v-Q,.v-S{background:#060607;color:#fff}
+.v-O #centre .cta,.v-P #centre .cta,.v-Q #centre .cta,.v-S #centre .cta{background:#fff;color:#111}
+.v-J #centre .cta,.v-R #centre .cta{background:#111;color:#fff}
+.v-J,.v-R{background:#f5f5f7;color:#111}
+.pion .vg{filter:drop-shadow(0 2px 3px rgba(0,0,0,.25))}
+.v-O .pion .vg,.v-Q .pion .vg,.v-S .pion .vg{filter:drop-shadow(0 0 6px rgba(255,236,200,.18))}
+.poussiere{position:absolute;animation:derive linear infinite}
+@keyframes derive{from{transform:translate3d(0,0,0)}to{transform:translate3d(-60vw,-30vh,0)}}
+.v-P .pion{transition:opacity 1.6s ease,filter 1.6s ease}
+.v-P .pion.eteint{opacity:.9}.v-P.revele .pion.eteint,.v-P .revele .pion.eteint{opacity:.13;filter:grayscale(1)}
+.v-P .pion.vif .vg{filter:drop-shadow(0 0 5px rgba(255,236,200,.35))}
+.pion.pulse{animation:pulse .7s ease}
+@keyframes pulse{40%{filter:brightness(1.9)}}
+.relief{transform-style:preserve-3d}
 /* la signature, comme sur le site */
 #centre .sig{display:block;font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:400;letter-spacing:.01em;font-size:clamp(15px,1.6vw,22px);opacity:.72;margin-top:clamp(4px,1vh,12px)}
 #scene{position:fixed;inset:0;overflow:hidden}
@@ -127,15 +146,16 @@ body.propre #sel{display:none}
 <div id="centre"><div class="plaque-ou-rien"><h1 class="logo">VYVRE</h1><i class="sig">skin intelligence</i><p class="sous">La peau, révélée.</p></div><a class="cta" href="/scan/">Commencer</a></div>
 <nav id="sel"></nav>
 <script>
-const NOMS = { K:'Sphère', L:'Hélice', M:'Tunnel', N:'Galaxie', F:'Perspective', G:'Cylindre', H:'Lumière', I:'Vague', J:'Lettres', A:'Nuit', B:'Blanc', C:'Damier', D:'À travers', E:'Zoom' };
+const NOMS = { J:'Lettres', O:'Lettres nuit', P:'Émergence', Q:'Assemblage', R:'Tracé', S:'Relief', K:'Sphère', L:'Hélice', M:'Tunnel', N:'Galaxie', F:'Perspective', G:'Cylindre', H:'Lumière', I:'Vague', A:'Nuit', B:'Blanc', C:'Damier', D:'À travers', E:'Zoom' };
 const q = new URLSearchParams(location.search);
-let V = NOMS[q.get('v')] ? q.get('v') : 'K';
+let V = NOMS[q.get('v')] ? q.get('v') : 'J';
 if(q.get('propre')) document.body.classList.add('propre');
 let LISTE = null;
 const melange = a => { a = a.slice(); for(let i = a.length - 1; i > 0; i--){ const j = Math.random()*(i + 1) | 0; [a[i], a[j]] = [a[j], a[i]]; } return a; };
 
 function cellule(k, pair, alim){
   const d = document.createElement('div'); d.className = 'c ' + (pair ? 'p' : 'i') + (alim ? ' al' : '');
+  if((V === 'A' || V === 'B') && LISTE.atlas){ d.classList.add('mini'); d.appendChild(vignette(Math.random()*LISTE.atlas.n | 0)); return d; }
   const im = new Image(); im.alt = ''; im.decoding = 'async'; im.draggable = false;
   im.src = alim ? '/propals/damier/a/' + alim + '.webp' : LISTE.produits[k % LISTE.produits.length].i;
   im.onerror = () => im.remove(); d.appendChild(im); return d;
@@ -146,10 +166,10 @@ function construire(){
   if('KLMN'.includes(V)) return scene3d(mur);
   if(V === 'G') return cylindre(mur);
   if(V === 'I') return vague(mur);
-  if(V === 'J') return lettres(mur);
+  if('JOPQRS'.includes(V)) return lettres(mur);
   const clair = V === 'B' || V === 'F'; document.body.classList.toggle('clair', clair); mur.classList.add(clair ? 'b' : 'n');
   const W = innerWidth, H = innerHeight, petit = W < 700;
-  const T = V === 'E' ? (petit ? 58 : 76) : V === 'D' ? (petit ? 96 : 150) : V === 'F' ? (petit ? 70 : 96) : (petit ? 82 : 128);
+  const T = V === 'A' || V === 'B' ? (petit ? 40 : 54) : V === 'E' ? (petit ? 58 : 76) : V === 'D' ? (petit ? 96 : 150) : V === 'F' ? (petit ? 70 : 96) : (petit ? 82 : 128);
   mur.style.setProperty('--t', T + 'px');
   const produits = melange(LISTE.produits.map((_, i) => i)), aliments = melange(LISTE.aliments);
   let np = 0, na = 0;
@@ -178,7 +198,7 @@ function construire(){
     mur.querySelectorAll('.col').forEach(col => col.style.animationPlayState = 'paused'); setTimeout(() => mur.querySelectorAll('.col').forEach(col => col.style.animationPlayState = 'running'), 8000); }
 }
 function appliquer(v){
-  V = v; document.body.className = document.body.className.replace(/\bv-[A-N]\b/g, '').trim() + ' v-' + v; clearTimeout(vagueT); clearInterval(lampeT); cancelAnimationFrame(rafE); espace = null; document.querySelectorAll('.indice').forEach(e => e.remove());
+  V = v; document.body.className = document.body.className.replace(/\bv-[A-S]\b/g, '').trim() + ' v-' + v; clearTimeout(vagueT); clearInterval(lampeT); cancelAnimationFrame(rafE); espace = null; lettresT.forEach(clearTimeout); lettresT = []; document.getElementById('scene').style.perspective = ''; document.getElementById('centre').style.paddingBottom = ''; document.querySelectorAll('.indice').forEach(e => e.remove());
   const plaque = document.querySelector('.plaque-ou-rien'); plaque.className = 'plaque-ou-rien' + (v === 'C' ? ' plaque' : '');
   document.querySelectorAll('#sel a').forEach(a => a.classList.toggle('on', a.dataset.v === v));
   try { const u = new URL(location.href); u.searchParams.set('v', v); history.replaceState(null, '', u); } catch(e){}
@@ -281,29 +301,69 @@ function vague(mur){
     vagueT = setTimeout(onde, 4200); };
   vagueT = setTimeout(onde, 1400);
 }
-/* J · les lettres : on dessine VYVRE en cachette, et chaque case pleine recoit un produit, qui vole a sa place */
-function lettres(mur){
-  document.body.classList.add('clair');
-  const W = innerWidth, H = innerHeight, petit = W < 700;
-  const cols = petit ? 34 : 84, T = Math.max(petit ? 10 : 14, Math.floor(W*.95/cols)), rowsMax = Math.floor(H*(petit ? .3 : .56)/T);
+/* ---- la famille « Lettres » (Charles : « la lettre, un des meilleurs ; fais-en d'autres ») ----
+   VYVRE est dessine en cachette sur une grille ; chaque case pleine recoit un produit du catalogue, en vignette
+   tiree d'une planche (1 600 produits sur 4 images : leger meme a des centaines a l'ecran). */
+function vignette(k){ const A = LISTE.atlas, n = k % A.n, f = Math.floor(n/(A.grille*A.grille)), m = n % (A.grille*A.grille), c = m % A.grille, r = Math.floor(m/A.grille);
+  const e = document.createElement('i'); e.className = 'vg'; e.style.backgroundImage = 'url(' + A.feuilles[f] + ')';
+  e.style.backgroundSize = (A.grille*100) + '% ' + (A.grille*100) + '%'; e.style.backgroundPosition = (c/(A.grille - 1)*100).toFixed(3) + '% ' + (r/(A.grille - 1)*100).toFixed(3) + '%'; return e; }
+function masqueVYVRE(cols, rowsMax){
   const cv = document.createElement('canvas'), g = cv.getContext('2d'); cv.width = cols; cv.height = rowsMax;
   g.fillStyle = '#000'; g.textAlign = 'center'; g.textBaseline = 'middle';
-  let fs = rowsMax; g.font = '800 ' + fs + 'px Inter, Arial, sans-serif'; while(g.measureText('VYVRE').width > cols*.98 && fs > 6){ fs--; g.font = '800 ' + fs + 'px Inter, Arial, sans-serif'; }
-  g.fillText('VYVRE', cols/2, rowsMax/2 + fs*.04);
+  let fs = rowsMax*1.25; const police = n => '800 ' + n + 'px Inter, "Helvetica Neue", Arial, sans-serif';
+  g.font = police(fs); while(g.measureText('VYVRE').width > cols*.97 && fs > 6){ fs -= .5; g.font = police(fs); }
+  g.fillText('VYVRE', cols/2, rowsMax/2 + fs*.05);
   const d = g.getImageData(0, 0, cols, rowsMax).data, pleines = [];
-  for(let r = 0; r < rowsMax; r++) for(let c = 0; c < cols; c++) if(d[(r*cols + c)*4 + 3] > 110) pleines.push([c, r]);
+  for(let r = 0; r < rowsMax; r++) for(let c = 0; c < cols; c++) if(d[(r*cols + c)*4 + 3] > 120) pleines.push([c, r]);
+  let r0 = 1e9, r1 = -1; pleines.forEach(([, r]) => { r0 = Math.min(r0, r); r1 = Math.max(r1, r); });
+  return { pleines:pleines.map(([c, r]) => [c, r - r0]), rows:r1 - r0 + 1 }; }
+let lettresT = [];
+function lettres(mur){
+  lettresT.forEach(clearTimeout); lettresT = [];
+  const W = innerWidth, H = innerHeight, petit = W < 700, style = V;
+  const sombre = 'OPQS'.includes(style); document.body.classList.toggle('clair', !sombre);
+  const T = petit ? (style === 'S' ? 11 : 9) : (style === 'S' ? 20 : 16), cols = Math.floor(W*.92/T), rowsMax = Math.floor(H*(petit ? .22 : .42)/T);
+  const m = masqueVYVRE(cols, rowsMax), x0 = (W - cols*T)/2, y0 = H*.4 - m.rows*T/2;
   mur.style.setProperty('--t', T + 'px');
-  const x0 = (W - cols*T)/2, y0 = H*.36 - rowsMax*T/2;
-  const pr = melange(LISTE.produits.map((_, i) => i)), al = melange(LISTE.aliments);
-  pleines.forEach(([c, r], k) => { const e = document.createElement('div'); e.className = 'pion';
-    const im = new Image(); im.alt = ''; im.src = false ? '/propals/damier/a/' + al[k % al.length] + '.webp' : LISTE.produits[pr[k % pr.length]].i; e.appendChild(im);
-    const a = Math.random()*Math.PI*2, dist = Math.max(W, H)*(.6 + Math.random()*.5);
-    e.style.transform = 'translate(' + (W/2 + Math.cos(a)*dist) + 'px,' + (H/2 + Math.sin(a)*dist) + 'px) rotate(' + (Math.random()*260 - 130) + 'deg) scale(1.8)'; e.style.opacity = '0';
-    e.style.transitionDelay = (Math.random()*1.4).toFixed(2) + 's'; mur.appendChild(e);
-    requestAnimationFrame(() => requestAnimationFrame(() => { e.style.opacity = '1'; e.style.transform = 'translate(' + (x0 + c*T) + 'px,' + (y0 + r*T) + 'px) rotate(0) scale(1)'; })); });
-  document.getElementById('centre').style.paddingBottom = Math.max(60, H - (y0 + rowsMax*T) - 190) + 'px';
+  const ordre = melange(Array.from({ length:LISTE.atlas.n }, (_, i) => i));
+  const hote = style === 'S' ? (() => { const st = document.createElement('div'); st.className = 'st3 relief'; st.style.left = '0'; st.style.top = '0'; mur.appendChild(st); return st; })() : mur;
+  // P · Emergence : tout l'ecran est un mur de mini produits ; seules les lettres sont vives
+  if(style === 'P'){ const nc = Math.ceil(W/T), nr = Math.ceil(H/T), dedans = new Set(m.pleines.map(([c, r]) => (c + Math.round(x0/T)) + ',' + (r + Math.round(y0/T))));
+    let k = 0; for(let r = 0; r < nr; r++) for(let c = 0; c < nc; c++){ const e = document.createElement('div'); e.className = 'pion' + (dedans.has(c + ',' + r) ? ' vif' : ' eteint'); e.appendChild(vignette(ordre[k++ % ordre.length]));
+      e.style.transform = 'translate(' + (c*T) + 'px,' + (r*T) + 'px)'; if(!dedans.has(c + ',' + r)) e.style.transitionDelay = (Math.random()*2).toFixed(2) + 's'; mur.appendChild(e); }
+    requestAnimationFrame(() => requestAnimationFrame(() => mur.classList.add('revele')));
+    const scint = () => { if(V !== 'P') return; const ts = mur.querySelectorAll('.pion.vif'); for(let n = 0; n < 12; n++){ const e = ts[Math.random()*ts.length | 0]; if(e){ e.replaceChildren(vignette(ordre[Math.random()*ordre.length | 0])); e.classList.remove('pulse'); void e.offsetWidth; e.classList.add('pulse'); } } lettresT.push(setTimeout(scint, 220)); };
+    lettresT.push(setTimeout(scint, 2500));
+    document.getElementById('centre').style.paddingBottom = Math.max(60, H - (y0 + m.rows*T) - 190) + 'px'; return; }
+  const pions = m.pleines.map(([c, r], k) => { const e = document.createElement('div'); e.className = 'pion'; e.appendChild(vignette(ordre[k % ordre.length])); e.c = c; e.r = r;
+    e.cible = 'translate3d(' + (x0 + c*T) + 'px,' + (y0 + r*T) + 'px,' + (style === 'S' ? ((k % 3) - 1)*T*2.2 : 0) + 'px)'; hote.appendChild(e); return e; });
+  const disperse = e => { const a = Math.random()*Math.PI*2, dist = Math.max(W, H)*(.55 + Math.random()*.6); return 'translate3d(' + (W/2 + Math.cos(a)*dist) + 'px,' + (H/2 + Math.sin(a)*dist) + 'px,0) rotate(' + (Math.random()*300 - 150) + 'deg) scale(2.2)'; };
+  const poser = (e, dl) => { e.style.transitionDelay = dl.toFixed(2) + 's'; e.style.opacity = '1'; e.style.transform = e.cible; };
+  if(style === 'R'){ // Trace : les lettres s'ecrivent de gauche a droite, colonne par colonne, comme a la plume
+    pions.forEach(e => { e.style.opacity = '0'; e.style.transform = e.cible + ' scale(.2)'; });
+    const cycle = () => { if(V !== 'R') return; pions.forEach(e => { e.style.transition = 'transform .5s cubic-bezier(.2,1.4,.3,1),opacity .3s'; poser(e, e.c*.028 + e.r*.004); });
+      lettresT.push(setTimeout(() => { pions.forEach(e => { e.style.transitionDelay = (e.c*.012).toFixed(2) + 's'; e.style.opacity = '0'; e.style.transform = e.cible + ' scale(.2)'; }); lettresT.push(setTimeout(cycle, 1800)); }, cols*28 + 7500)); };
+    requestAnimationFrame(() => requestAnimationFrame(cycle)); }
+  else if(style === 'Q'){ // Assemblage : un nuage, les lettres, puis tout s'envole, et recommence
+    pions.forEach(e => { e.style.transform = disperse(e); e.style.opacity = '0'; });
+    const cycle = () => { if(V !== 'Q') return; pions.forEach(e => poser(e, Math.random()*1.2));
+      lettresT.push(setTimeout(() => { pions.forEach(e => { e.style.transitionDelay = (Math.random()*.6).toFixed(2) + 's'; e.style.transform = disperse(e); e.style.opacity = '0'; }); lettresT.push(setTimeout(cycle, 2200)); }, 9000)); };
+    requestAnimationFrame(() => requestAnimationFrame(cycle)); }
+  else { pions.forEach(e => { e.style.transform = disperse(e); e.style.opacity = '0'; }); requestAnimationFrame(() => requestAnimationFrame(() => pions.forEach(e => poser(e, Math.random()*1.4)))); }
+  if(style === 'O'){ // Nuit : autour, une poussiere de produits qui derive lentement
+    for(let k = 0; k < (petit ? 60 : 160); k++){ const e = document.createElement('div'); e.className = 'poussiere'; e.appendChild(vignette(ordre[(k*7) % ordre.length]));
+      const sz = T*(.6 + Math.random()*.9); e.style.width = e.style.height = sz + 'px'; e.style.left = (Math.random()*100) + '%'; e.style.top = (Math.random()*100) + '%';
+      e.style.animationDuration = (18 + Math.random()*22) + 's'; e.style.animationDelay = (-Math.random()*30) + 's'; e.style.opacity = (.12 + Math.random()*.25).toFixed(2); mur.appendChild(e); } }
+  if(style === 'S'){ // Relief : trois epaisseurs de produits ; la scene suit le doigt ou la souris
+    document.getElementById('scene').style.perspective = '1000px'; let rx = 0, ry = 0, tx = 0, ty = 0, t0 = performance.now();
+    const bouge = ev => { const p = ev.touches ? ev.touches[0] : ev; tx = (p.clientY/innerHeight - .5)*-22; ty = (p.clientX/innerWidth - .5)*34; };
+    addEventListener('pointermove', bouge, { passive:true }); addEventListener('touchmove', bouge, { passive:true });
+    hote.style.transformOrigin = (W/2) + 'px ' + (y0 + m.rows*T/2) + 'px';
+    const tourne = now => { if(V !== 'S') return; const t = (now - t0)/1000; rx += (tx + Math.sin(t*.5)*6 - rx)*.05; ry += (ty + Math.sin(t*.37)*14 - ry)*.05; hote.style.transform = 'rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg)'; rafE = requestAnimationFrame(tourne); };
+    rafE = requestAnimationFrame(tourne); }
+  document.getElementById('centre').style.paddingBottom = Math.max(60, H - (y0 + m.rows*T) - 190) + 'px';
 }
-fetch('/propals/damier/liste.json?v=2').then(r => r.json()).then(j => { LISTE = j; appliquer(V); });
+fetch('/propals/damier/liste.json?v=3').then(r => r.json()).then(j => { LISTE = j; appliquer(V); });
 </script>
 </body>
 </html>
