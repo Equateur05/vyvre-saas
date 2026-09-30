@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VYVRE</title>
+<meta name="robots" content="noindex">
+<style>
+/* 30/09 (Charles) : l'intro de vyvre.fr devient la propale « J · Lettres » : VYVRE ecrit avec les produits du catalogue,
+   qui arrivent en volant. Une seule planche de 400 vignettes (440 Ko) pour demarrer vite, meme en 4G.
+   Meme protocole que les intros precedentes : message « debut » au premier mouvement, « fin » a la sortie ; un toucher passe. */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:#f5f5f7}
+body{font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;transition:opacity .6s ease}
+body.sort{opacity:0}
+#mur{position:fixed;inset:0}
+.pion{position:absolute;left:0;top:0;width:var(--t);height:var(--t);will-change:transform,opacity;transition:transform 1.5s cubic-bezier(.2,.9,.2,1),opacity .8s}
+.pion i{display:block;width:100%;height:100%;background-image:url(/intro/lettres-atlas.webp);background-size:2000% 2000%;background-repeat:no-repeat;filter:drop-shadow(0 2px 3px rgba(0,0,0,.2))}
+.sig{position:fixed;left:0;right:0;text-align:center;font-family:'Playfair Display',Georgia,serif;font-style:italic;font-size:clamp(16px,1.8vw,24px);color:#3a3a36;opacity:0;transform:translateY(8px);transition:opacity 1s ease,transform 1s ease}
+.sig.vue{opacity:.8;transform:none}
+</style>
+</head>
+<body>
+<div id="mur" aria-hidden="true"></div>
+<div class="sig" id="sig">skin intelligence</div>
+<script>
+(function(){
+  const envoie = m => { try { parent.postMessage({ vyvreIntro:m }, '*'); } catch(e){} };
+  let fini = false; const fin = () => { if(fini) return; fini = true; document.body.classList.add('sort'); setTimeout(() => envoie('fin'), 500); };
+  addEventListener('pointerdown', fin); addEventListener('keydown', fin);
+  const W = innerWidth, H = innerHeight, petit = W < 700, T = petit ? 9 : 15;
+  const cols = Math.floor(W*.9/T), rowsMax = Math.floor(H*(petit ? .2 : .36)/T);
+  const cv = document.createElement('canvas'), g = cv.getContext('2d'); cv.width = cols; cv.height = rowsMax;
+  g.textAlign = 'center'; g.textBaseline = 'middle'; g.fillStyle = '#000';
+  let fs = rowsMax*1.25; const police = n => '800 ' + n + 'px -apple-system, "Helvetica Neue", Arial, sans-serif';
+  g.font = police(fs); while(g.measureText('VYVRE').width > cols*.97 && fs > 6){ fs -= .5; g.font = police(fs); }
+  g.fillText('VYVRE', cols/2, rowsMax/2 + fs*.05);
+  const d = g.getImageData(0, 0, cols, rowsMax).data, pl = [];
+  for(let r = 0; r < rowsMax; r++) for(let c = 0; c < cols; c++) if(d[(r*cols + c)*4 + 3] > 120) pl.push([c, r]);
+  let r0 = 1e9, r1 = -1; pl.forEach(([, r]) => { r0 = Math.min(r0, r); r1 = Math.max(r1, r); });
+  const rows = r1 - r0 + 1, x0 = (W - cols*T)/2, y0 = H*.44 - rows*T/2;
+  document.getElementById('sig').style.top = (y0 + rows*T + (petit ? 16 : 26)) + 'px';
+  const mur = document.getElementById('mur'); mur.style.setProperty('--t', T + 'px');
+  const ordre = Array.from({ length:400 }, (_, i) => i).sort(() => Math.random() - .5);
+  const pions = pl.map(([c, r], k) => { const e = document.createElement('div'); e.className = 'pion';
+    const i = document.createElement('i'), n = ordre[k % 400]; i.style.backgroundPosition = ((n % 20)/19*100).toFixed(3) + '% ' + (Math.floor(n/20)/19*100).toFixed(3) + '%'; e.appendChild(i);
+    const a = Math.random()*Math.PI*2, dist = Math.max(W, H)*(.55 + Math.random()*.6);
+    e.style.transform = 'translate3d(' + (W/2 + Math.cos(a)*dist) + 'px,' + (H/2 + Math.sin(a)*dist) + 'px,0) rotate(' + (Math.random()*300 - 150) + 'deg) scale(2.2)'; e.style.opacity = '0';
+    e.cible = 'translate3d(' + (x0 + c*T) + 'px,' + (y0 + (r - r0)*T) + 'px,0)'; mur.appendChild(e); return e; });
+  const go = () => { envoie('debut');
+    requestAnimationFrame(() => requestAnimationFrame(() => pions.forEach(e => { e.style.transitionDelay = (Math.random()*1.1).toFixed(2) + 's'; e.style.opacity = '1'; e.style.transform = e.cible; })));
+    setTimeout(() => document.getElementById('sig').classList.add('vue'), 2200);
+    setTimeout(fin, 4600); };
+  const img = new Image(); img.onload = go; img.onerror = fin; img.src = '/intro/lettres-atlas.webp';
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) fin();
+})();
+</script>
+</body>
+</html>

@@ -3097,8 +3097,8 @@ if(/[?&]depuis=aliment\b/.test(location.search)) addEventListener('load', functi
   try{ if(sessionStorage.getItem(K)==='1' && !/[?&]intro\b/.test(location.search)) return; sessionStorage.setItem(K,'1'); }catch(e){}
   if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
   var f=document.createElement('iframe');
-  f.src='/intro/p-g.html?v=1'; f.title='VYVRE'; f.setAttribute('aria-hidden','true'); f.setAttribute('tabindex','-1');
-  f.style.cssText='position:fixed;inset:0;width:100vw;height:100vh;border:0;z-index:99999;background:#000;transition:opacity .55s ease';
+  f.src='/intro/lettres.html?v=1';   /* 30/09 (Charles) : l'intro devient « J · Lettres » : VYVRE ecrit avec les produits */ f.title='VYVRE'; f.setAttribute('aria-hidden','true'); f.setAttribute('tabindex','-1');
+  f.style.cssText='position:fixed;inset:0;width:100vw;height:100vh;border:0;z-index:99999;background:#f5f5f7;transition:opacity .55s ease';
   var fini=false, t1, t2, barre=null;
   function fin(){
     if(fini) return; fini=true;
@@ -3113,8 +3113,8 @@ if(/[?&]depuis=aliment\b/.test(location.search)) addEventListener('load', functi
   /* 19/09 : l'intro retenait le bouton « Lancer le scan » 9,3 s sur une page qui promet
      une lecture en moins de dix secondes. Les garde-fous tombent de 5 s / 10 s a 1,8 s / 5 s,
      un clic n'importe ou la passe (fusion.html ecoute deja pointerdown), une touche aussi. */
-  t1=setTimeout(function(){ if(!demarre) fin(); },1800);
-  t2=setTimeout(fin,5000);
+  t1=setTimeout(function(){ if(!demarre) fin(); },2600);   /* la planche de produits (440 Ko) doit avoir le temps d'arriver */
+  t2=setTimeout(fin,6500);
   addEventListener('keydown',fin);
   (document.body||document.documentElement).appendChild(f);
 
@@ -3137,7 +3137,7 @@ if(/[?&]depuis=aliment\b/.test(location.search)) addEventListener('load', functi
     var passer=document.createElement('button');
     passer.type='button'; passer.id='vy-intro-passer';
     passer.setAttribute('data-i18n','si.skip'); passer.textContent=tr('si.skip','Passer');
-    passer.style.cssText='background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.3);color:#f2f4f5;'+
+    passer.style.cssText='background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.22);color:#1d1d1f;'+   /* intro sur fond blanc */
       'border-radius:100px;padding:0 22px;min-height:44px;font-family:"JetBrains Mono",monospace;font-size:10px;'+
       'letter-spacing:.28em;text-transform:uppercase;cursor:pointer';
     passer.addEventListener('click',fin);
