@@ -88,9 +88,16 @@
     if(v('pigmentation') != null) sev.uniformite = v('pigmentation');
     var t = Object.keys(sev).sort(function(x, y){ return sev[y] - sev[x]; });
     var note = function(k){ return Math.max(0, Math.min(100, Math.round(100 - sev[k]))); };
-    return t.length ? { i1:t[0], i2:t[1] || null, n1:note(t[0]), n2:t[1] ? note(t[1]) : null } : null; }
+    return t.length ? { i1:t[0], i2:t[1] || null, n1:note(t[0]), n2:t[1] ? note(t[1]) : null, suite:t.slice(2) } : null; }
 
   /* ---- exclusions (QUESTIONNAIRE.md) ---- */
+  /* assiette prudente : la meme regle que la liste ecrite a la main, appliquee a toute la base :
+     aucun des 14 allergenes, aucune precaution ni reaction croisee connue, pas riche en potassium ni en vitamine K,
+     ni poisson, ni viande, ni boisson */
+  function prudentOk(f){ var t = (f.ciqual && f.ciqual.teneurs_pour_100g) || {};
+    if(PRUDENT.indexOf(f.id) >= 0 && f.categorie !== 'boisson') return true;
+    return !(f.allergenes_UE || []).length && !(f.allergenes_possibles || []).length && !(f.precautions || []).length && !(f.reactions_croisees || []).length
+      && (t.potassium_mg || 0) <= 300 && (t.vitamine_k1_ug || 0) <= 80 && ['fruit', 'legume', 'cereale_complete', 'feculent', 'epice_herbe'].indexOf(f.categorie) >= 0; }
   function exclus(){ var x = {}, notes = {}; var ex = function(i){ x[i] = 1; }, note = function(i, t){ (notes[i] = notes[i] || []).push(t); };
     DEFAUT_EXCLUS.forEach(ex); PASPOUR.forEach(ex); ((SANTE && SANTE.autres_aliments) || []).forEach(ex);
     var ten = function(f, k){ return ((f.ciqual && f.ciqual.teneurs_pour_100g) || {})[k] || 0; };
@@ -101,7 +108,7 @@
     if(a('q7','vegan')) DATA.forEach(function(f){ if(['oeuf','produit_laitier','produit_laitier_fermente','fromage'].indexOf(f.categorie) >= 0 || /miel/.test(f.id)) ex(f.id); });
     if(a('q3','enceinte')) ['parmesan','comte','brebis_pyrenees'].forEach(ex);
     if(a('q3','enceinte') || a('q3','allaite')){ DATA.forEach(function(f){ if((f.allergenes_UE || []).indexOf('soja') >= 0) ex(f.id); }); ex('sauce_soja'); ['dorade','bar','lotte','thon_naturel'].forEach(function(i){ note(i, 'Grossesse et allaitement : poisson prédateur, au plus 150 g par semaine (ANSES).'); }); }
-    if(MODE !== 'normal') DATA.forEach(function(f){ if(PRUDENT.indexOf(f.id) < 0) ex(f.id); });
+    if(MODE !== 'normal') DATA.forEach(function(f){ if(!prudentOk(f)) ex(f.id); });
     if(MODE !== 'normal'){ ['tomate','poivron_rouge'].forEach(function(i){ note(i, 'Allergie au latex : réaction possible (syndrome latex-fruits).'); }); note('carotte', 'Pollen de bouleau : réaction croisée possible ; de préférence cuite.'); }
     DATA.forEach(function(f){ (f.allergenes_UE || []).forEach(function(al){ if(a('q1', al)) ex(f.id); }); });
     if(a('q1','sulfites')) ex('abricot');
@@ -134,15 +141,20 @@
     return Math.max(-2, Math.min(2, b)); }
   function choisir(ind){ var e = exclus(), mois = new Date().getMonth() + 1, G = { A:3, B:2, C:1 };
     var cand = DATA.filter(function(f){ return !e.x[f.id] && G[f.niveau_preuve_peau]; }).map(function(f){
-      var c1 = f.cibles_peau.indexOf(ind.i1) >= 0, c2 = ind.i2 && f.cibles_peau.indexOf(ind.i2) >= 0; if(!c1 && !c2) return null;
+      var c1 = f.cibles_peau.indexOf(ind.i1) >= 0, c2 = ind.i2 && f.cibles_peau.indexOf(ind.i2) >= 0, c3 = !c1 && !c2 ? (ind.suite || []).filter(function(k){ return f.cibles_peau.indexOf(k) >= 0; })[0] : null; if(!c1 && !c2 && !c3) return null;
       var s = G[f.niveau_preuve_peau] + (c1 ? 2 : 0) + (c2 ? 1 : 0) + (!AFFINE.saison && (f.saison || []).indexOf(mois) >= 0 ? .5 : 0) + (f.allegation_UE_autorisee ? .5 : 0) + bonus(f, mois);
       if(a('q8','acne') && ind.i1 === 'pores_sebum' && f.categorie !== 'legumineuse' && f.categorie !== 'cereale_complete') s -= 1;
-      return { f:f, s:s, pour:c1 ? ind.i1 : ind.i2 }; }).filter(Boolean).sort(function(p, q){ return q.s - p.s; });
+      if(c3) s -= 1.5;   // un point plus loin dans la lecture : seulement pour completer l'assiette
+      return { f:f, s:s, pour:c1 ? ind.i1 : c2 ? ind.i2 : c3 }; }).filter(Boolean).sort(function(p, q){ return q.s - p.s; });
     var pris = [], cats = {}, nut = {}, sansEtude = 0, rares = 0;
     cand.forEach(function(c){ if(pris.length >= 4) return; var f = c.f, n1 = (f.nutriments_cles[0] || '').toLowerCase();
       if(cats[f.categorie] || nut[n1]) return; if(SANS_ETUDE.indexOf(f.id) >= 0 && sansEtude) return;
       if((!AFFINE.usage || AFFINE.usage === 'quotidien') && f.usage === 'rare' && rares) return; if(f.usage === 'rare') rares++;
       pris.push(c); cats[f.categorie] = 1; nut[n1] = 1; if(SANS_ETUDE.indexOf(f.id) >= 0) sansEtude++; });
+    /* second passage, seulement s'il reste des places : une famille peut revenir une fois, jamais le meme nutriment */
+    if(pris.length < 4){ var fois = {}; pris.forEach(function(c){ fois[c.f.categorie] = (fois[c.f.categorie] || 0) + 1; });
+      cand.forEach(function(c){ if(pris.length >= 4 || pris.indexOf(c) >= 0) return; var f = c.f, n1 = (f.nutriments_cles[0] || '').toLowerCase();
+        if((fois[f.categorie] || 0) >= 2 || nut[n1]) return; pris.push(c); fois[f.categorie] = (fois[f.categorie] || 0) + 1; nut[n1] = 1; }); }
     if(pris.length && !pris.some(function(c){ return VEGETAL.indexOf(c.f.categorie) >= 0; })){ var v = cand.filter(function(c){ return VEGETAL.indexOf(c.f.categorie) >= 0 && pris.indexOf(c) < 0; })[0]; if(v) pris[pris.length - 1] = v; }
     return pris; }
 
@@ -665,6 +677,11 @@
         + '<p class="fine">Distances à vol d’oiseau depuis votre position arrondie. Commerces et horaires : © contributeurs OpenStreetMap (licence ODbL), à vérifier avant de vous déplacer.</p>'; })
     .catch(function(){ var b = document.getElementById('vy-as-geo-go'); if(b){ b.disabled = false; b.textContent = 'Réessayer'; } }); }
 
-  window.vyAliment = { entree:entree, ouvrir:ouvrir };
+  /* apercu pour la page de resultats : sans reponses gardees, l'assiette prudente (aucun des 14 allergenes, aucune precaution medicale) */
+  function apercu(){ return charger().then(function(){ var ind = indicesDuScan(); if(!ind) return null; var m = lireMemoire();
+    if(m){ SANTE = m.sante; MODE = 'normal'; PASPOUR = m.paspour || []; } else { SANTE = null; MODE = 'prudent'; }
+    versRep(ind); var pris = choisir(ind);
+    return { prudent:MODE !== 'normal', i1:INDICES[ind.i1], i2:ind.i2 ? INDICES[ind.i2] : null, n1:ind.n1, aliments:pris.map(function(c){ var f = c.f; return { id:f.id, nom:f.nom.split(' (')[0].split(',')[0], categorie:NOM_CAT[f.categorie] || '', portion:(f.portion_type || '').split(' (')[0], accroche:f.accroche || '', photo:BASE + 'photos/' + f.id + '.png', teinte:TEINTE[f.categorie] || '#999', saison:saison(f), preuve:f.niveau_preuve_peau }; }) }; }); }
+  window.vyAliment = { entree:entree, ouvrir:ouvrir, apercu:apercu };
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape') fermer(); var z = e.target; if(ouvert && z && z.classList && z.classList.contains('puce') && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); z.click(); } });
 })();

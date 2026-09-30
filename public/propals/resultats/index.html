@@ -49,6 +49,28 @@ body{font-family:Manrope,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothin
 .gpt .assiette h4{font:400 30px/1 'Playfair Display';letter-spacing:-.05em;margin-top:10px}
 @media(max-width:760px){.gpt .head{display:block}.gpt .head p{margin-top:20px}.gpt .grid{grid-template-columns:1fr}.gpt .score-card{min-height:380px}.gpt .disc{width:140px;top:26%}.gpt .signals{grid-template-columns:1fr;gap:0}.gpt .signal{display:grid;grid-template-columns:110px 1fr;align-items:center}.gpt .signal b{margin:0}}
 
+/* affinages 30/09 : grain de papier, titre metallique, vitrine de l'assiette, bouton toujours accessible */
+.gpt:before{content:'';position:fixed;inset:0;pointer-events:none;z-index:1;opacity:.16;mix-blend-mode:multiply;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.18'/%3E%3C/svg%3E")}
+.gpt h2 em{font-style:italic;background:linear-gradient(105deg,#302923 0%,#7c6858 27%,#d0ac8b 49%,#604e43 75%,#302923 100%);background-size:210% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:metal 9s ease-in-out infinite}
+@keyframes metal{0%,100%{background-position:0 0}50%{background-position:100% 0}}
+.gpt .ass{margin-top:15px;padding:26px}
+.gpt .ass h3{font:400 38px/.95 'Playfair Display';letter-spacing:-.06em;margin:12px 0 10px}
+.gpt .ass .na{color:var(--muted);font-size:13px;line-height:1.55;max-width:46ch}
+.gpt .vit{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:20px}
+.gpt .vit a{position:relative;display:block;padding:14px 12px 16px;border-radius:22px;background:radial-gradient(80% 60% at 50% 34%,#fff,rgba(255,255,255,.35));border:1px solid rgba(21,20,19,.08);text-decoration:none;color:inherit;transition:transform .5s cubic-bezier(.22,1,.36,1)}
+.gpt .vit a:hover{transform:translateY(-4px)}
+.gpt .vit img{display:block;width:100%;height:118px;object-fit:contain;filter:drop-shadow(0 18px 14px rgba(36,27,21,.18));animation:flotte 5s ease-in-out infinite alternate}
+.gpt .vit a:nth-child(2) img{animation-delay:-1.2s}.gpt .vit a:nth-child(3) img{animation-delay:-2.4s}.gpt .vit a:nth-child(4) img{animation-delay:-3.6s}
+@keyframes flotte{to{transform:translateY(-6px)}}
+.gpt .vit i{display:block;width:44px;height:44px;border-radius:50%;margin:37px auto}
+.gpt .vit em{position:absolute;top:12px;right:14px;font:400 10px 'DM Mono';font-style:normal;color:#a78151}
+.gpt .vit b{display:block;font:400 21px/1 'Playfair Display';letter-spacing:-.04em;margin-top:10px}
+.gpt .vit span{display:block;font-size:10.5px;color:var(--muted);margin-top:5px}
+.gpt .vit p{font-size:11.5px;line-height:1.45;color:#4f4a44;margin-top:8px;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.gpt .collant{position:fixed;left:16px;right:16px;bottom:calc(66px + env(safe-area-inset-bottom));z-index:40;display:flex;justify-content:space-between;align-items:center;padding:15px 18px;background:#151413;color:#fff;border-radius:2px;text-decoration:none;font:500 13.5px Manrope,sans-serif;box-shadow:0 20px 40px -18px rgba(0,0,0,.6);transform:translateY(140%);transition:transform .6s cubic-bezier(.22,1,.36,1)}
+.gpt .collant.on{transform:none}
+@media(min-width:900px){.gpt .vit{grid-template-columns:repeat(4,1fr)}.gpt .collant{left:auto;right:4vw;width:340px}}
+@media(max-width:760px){.gpt h2{font-size:58px}.gpt .score-card h3{margin-top:40px}.gpt .score{font-size:128px}.gpt .disc{width:118px;right:6%;top:18%}}
 /* ===== R1 · « Anneaux » : blanc Apple, quatre anneaux comme une montre ===== */
 .r1{background:linear-gradient(180deg,#fbfbfd 0%,#f1f2f4 60%,#e9ebee 100%);color:#1d1d1f;min-height:100vh;padding:calc(34px + env(safe-area-inset-top)) 22px 120px;font-family:-apple-system,"SF Pro Display","Helvetica Neue",Arial,sans-serif}
 .r1 .m{font-size:11px;font-weight:600;letter-spacing:.06em;color:#86868b;text-transform:uppercase}
@@ -90,6 +112,7 @@ body{font-family:Manrope,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothin
 <body>
 <div id="page"></div>
 <nav id="sel"><a data-v="gpt">GPT fidèle</a><a data-v="r1">Anneaux</a><a data-v="r2">Marée</a><a data-v="r3">Studio nuit</a></nav>
+<script src="/scan/aliment/vy-aliment.js?v=24"></script>
 <script>
 /* Propositions pour la page de resultats. Donnees : votre DERNIER VRAI SCAN sur cet appareil (vyvre_scan_scores,
    vyvre_score, vyvre_rituel, vyvre_scan_at). Sans scan sur cet appareil : un exemple, signale comme tel. */
@@ -111,11 +134,11 @@ function compter(el, fin){ const t0 = performance.now(); (function k(n){ const u
 
 const V = {
 gpt: () => `<div class="gpt"><header class="top"><div class="logo">VYVRE <i>skin intelligence</i></div><span class="eyebrow">${VRAI ? 'Votre lecture' : 'Exemple'}</span></header>
-  <div class="head reveal"><div><div class="eyebrow">Votre skin edit / ${DATE ? esc(DATE) : 'aujourd’hui'}</div><h2>${esc(FORT.n)},<br>votre force.</h2></div><p>Votre point fort aujourd’hui : ${esc(FORT.n.toLowerCase())} (${FORT.v} sur 100). À soutenir en priorité : ${esc(FAIBLE.n.toLowerCase())} (${FAIBLE.v} sur 100). Une lecture pour vous accompagner, pas pour vous juger.</p></div>
+  <div class="head reveal"><div><div class="eyebrow">Votre skin edit / ${DATE ? esc(DATE) : 'aujourd’hui'}</div><h2>${esc(FORT.n)},<br><em>votre force.</em></h2></div><p>Votre point fort aujourd’hui : ${esc(FORT.n.toLowerCase())} (${FORT.v} sur 100). À soutenir en priorité : ${esc(FAIBLE.n.toLowerCase())} (${FAIBLE.v} sur 100). Une lecture pour vous accompagner, pas pour vous juger.</p></div>
   <div class="grid"><article class="card score-card reveal d1"><div class="eyebrow">Vyvre index</div><div class="disc"></div><h3>${esc(lib(G))}</h3><div class="score"><span id="sc">0</span><sup>/100</sup></div><p class="note">Indice global de votre lecture. ${esc(FORT.n)} est votre meilleur point ; ${esc(FAIBLE.n.toLowerCase())} est celui que votre rituel soutient d’abord.</p></article>
   <aside class="card routine reveal d2"><div class="eyebrow">Votre rituel / ${R.length} gestes</div><h3>Le petit luxe<br>qui change tout.</h3>${R.map((p, k) => `<a class="prod" href="${esc(p.url || '#')}" target="_blank" rel="noopener"><img src="${esc(p.img)}" alt=""><div><b>${esc(p.name)}</b><span>${esc(p.brand)} · ${esc(CAT[p.categorie] || '')}${p.cible ? ' · ' + esc(CIBLE[p.cible] || '') : ''}</span></div><em>0${k + 1}</em></a>`).join('')}<a class="cta" href="${ASS}">Découvrir mon rituel <span>→</span></a></aside></div>
   <div class="signals reveal d3">${[FORT, TRI[1], FAIBLE].map((x, k) => `<article class="signal"><div><div class="eyebrow">Signal 0${k + 1}</div><b>${x.v}/100</b></div><p>${esc(x.n)} · ${k === 0 ? 'votre meilleur point aujourd’hui' : k === 2 ? 'à soutenir en priorité' : 'à entretenir'}.</p></article>`).join('')}</div>
-  <a class="card assiette reveal d3" href="${ASS}"><div><div class="eyebrow">Nouveau · votre assiette</div><h4>Ce qui nourrit votre peau.</h4></div><span style="font-size:22px">→</span></a><p class="src">${esc(SRC)}</p></div>`,
+  <section class="card ass reveal d3" id="vy-apercu"><div class="eyebrow">Votre assiette</div><h3>Ce qui nourrit<br>votre peau.</h3><p class="na">Composition en cours…</p></section><p class="src">${esc(SRC)}</p><a class="collant" id="collant" href="${ASS}">Composer mon assiette <span>→</span></a></div>`,
 r1: () => { const cols = ['#ff375f', '#30d158', '#0a84ff', '#ff9f0a'], top4 = TRI.slice(0, 4);
   const ring = (i, v) => { const r = 78 - i*17, c = 2*Math.PI*r; return `<circle cx="90" cy="90" r="${r}" fill="none" stroke="${cols[i]}" stroke-opacity=".18" stroke-width="13"/><circle cx="90" cy="90" r="${r}" fill="none" stroke="${cols[i]}" stroke-width="13" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c}" transform="rotate(-90 90 90)" data-to="${c*(1 - v/100)}" style="transition:stroke-dashoffset 1.6s cubic-bezier(.22,1,.36,1) ${.15*i}s"/>`; };
   return `<div class="r1"><div class="m reveal">${VRAI ? 'Votre lecture' + (DATE ? ' · ' + esc(DATE) : '') : 'Exemple'}</div><h1 class="reveal">${esc(lib(G))}.<br><span style="color:#86868b">${G} sur 100.</span></h1><p class="sous reveal d1">À soutenir d’abord : ${esc(FAIBLE.n.toLowerCase())}. Votre rituel et votre assiette partent de là.</p>
@@ -131,7 +154,13 @@ r3: () => `<div class="r3"><div class="m reveal">${VRAI ? 'Votre lecture' + (DAT
   <div class="barres reveal d2">${TRI.map(x => `<div class="barre${x === FAIBLE ? ' faible' : ''}"><span>${esc(x.n)}</span><div class="l"><i style="width:0" data-w="${x.v}"></i></div><b>${x.v}</b></div>`).join('')}</div>
   <div class="m" style="margin-top:26px">Votre rituel · ${R.length} gestes</div><div class="vitrine">${R.map((p, k) => `<a class="v reveal d2" href="${esc(p.url || '#')}" target="_blank" rel="noopener"><small>0${k + 1} · ${esc(p.cible ? CIBLE[p.cible] || '' : '')}</small><img src="${esc(p.img)}" alt=""><small>${esc(p.brand)}</small><span>${esc(p.name)}</span></a>`).join('')}</div>
   <a class="cta" href="${ASS}">Composer mon assiette <span>→</span></a><p class="src">${esc(SRC)}</p></div>` };
-function voir(v){ document.getElementById('page').innerHTML = V[v](); document.querySelectorAll('#sel a').forEach(a => a.classList.toggle('on', a.dataset.v === v)); try { history.replaceState(null, '', '?v=' + v); } catch(e){} scrollTo(0, 0);
+function vitrine(){ const box = document.getElementById('vy-apercu'); if(!box || !window.vyAliment || !window.vyAliment.apercu) return;
+  window.__vyScores = S; window.vyAliment.apercu().then(r => { if(!r || !r.aliments.length) return;
+    box.innerHTML = `<div class="eyebrow">Votre assiette / ${r.aliments.length} aliments</div><h3>Ce qui nourrit<br>votre peau.</h3><p class="na">${r.prudent ? 'Avant vos réponses : une assiette prudente, sans aucun des 14 allergènes majeurs. Une seule question suffit pour l’ajuster à vous.' : 'D’après votre lecture et vos réponses.'} À soutenir d’abord : ${esc(r.i1.toLowerCase())}${r.i2 ? ', puis ' + esc(r.i2.toLowerCase()) : ''}.</p>`
+      + `<div class="vit">${r.aliments.map((f, k) => `<a href="${ASS}"><em>0${k + 1}</em><img src="${esc(f.photo)}" alt="" onerror="this.outerHTML='<i style=&quot;background:${f.teinte}&quot;></i>'"><b>${esc(f.nom)}</b><span>${esc(f.categorie)} · ${esc(f.portion)} · ${esc(f.saison)}</span><p>${esc(f.accroche)}</p></a>`).join('')}</div>`
+      + `<a class="cta" style="background:var(--ink);color:#fff;margin-top:18px;border-radius:2px" href="${ASS}">${r.prudent ? 'Ajuster en une question' : 'Voir mon assiette'} <span>→</span></a>`; }).catch(() => {}); }
+function voir(v){ document.getElementById('page').innerHTML = V[v]();
+  if(v === 'gpt'){ vitrine(); const c = document.getElementById('collant'); const f = () => c && c.classList.toggle('on', scrollY > 420); addEventListener('scroll', f, { passive:true }); f(); } document.querySelectorAll('#sel a').forEach(a => a.classList.toggle('on', a.dataset.v === v)); try { history.replaceState(null, '', '?v=' + v); } catch(e){} scrollTo(0, 0);
   const sc = document.getElementById('sc'); if(sc) compter(sc, G);
   requestAnimationFrame(() => requestAnimationFrame(() => { document.querySelectorAll('[data-to]').forEach(c => c.style.strokeDashoffset = c.dataset.to); document.querySelectorAll('[data-w]').forEach(i => i.style.width = i.dataset.w + '%'); })); }
 document.querySelectorAll('#sel a').forEach(a => a.onclick = () => voir(a.dataset.v));

@@ -14,7 +14,7 @@ iframe{position:fixed;inset:0;width:100%;height:100%;border:0;background:#000}
 #sel b{font:500 9px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;color:#ffb3ba;padding:0 6px 0 8px}
 #sel a{font:500 13px/1 Inter,sans-serif;color:#fff;text-decoration:none;padding:9px 11px;border-radius:999px;cursor:pointer}
 #sel a.on{background:#fff;color:#000}
-#info{position:fixed;left:50%;bottom:calc(62px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:10;width:min(92vw,420px);text-align:center;
+#info{position:fixed;left:50%;top:calc(12px + env(safe-area-inset-top));transform:translateX(-50%);z-index:10;width:min(92vw,420px);text-align:center;
   font:300 13px/1.45 Inter,sans-serif;color:#fff;background:rgba(0,0,0,.72);border:1px solid rgba(255,255,255,.14);border-radius:14px;padding:10px 14px;backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:opacity .4s}
 #info.cache{opacity:0}
 </style>
@@ -52,7 +52,7 @@ const CSS = {
 header .brand{flex-wrap:wrap!important}
 #vp-btn-haut{margin-left:auto}`,
   B: BASE + `
-#vp-tabs{position:fixed;left:12px;right:12px;bottom:calc(64px + env(safe-area-inset-bottom));height:72px;border-radius:26px;z-index:200;display:flex;border:1px solid rgba(255,255,255,.14);background:rgba(18,18,22,.78);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
+#vp-tabs{position:fixed;left:12px;right:12px;bottom:calc(66px + env(safe-area-inset-bottom));height:72px;border-radius:26px;z-index:200;display:flex;border:1px solid rgba(255,255,255,.14);background:rgba(18,18,22,.78);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px)}
 #vp-tabs a{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;color:rgba(255,255,255,.66);text-decoration:none;font:400 12.5px/1 Inter,sans-serif}
 #vp-tabs a.on{color:#fff}#vp-tabs a.on svg{stroke:#d9c9a3}
 #vp-tabs svg{width:24px;height:24px;fill:none;stroke:rgba(255,255,255,.72);stroke-width:1.2}
@@ -107,7 +107,7 @@ function appliquer(){
 }
 function choisir(m){ M = m; document.querySelectorAll('#sel a').forEach(a => a.classList.toggle('on', a.dataset.m === m));
   try { history.replaceState(null, '', '?m=' + m); } catch(e){}
-  info.textContent = INFO[m]; info.classList.remove('cache'); clearTimeout(choisir.t); choisir.t = setTimeout(() => info.classList.add('cache'), 4500); appliquer(); }
+  info.textContent = INFO[m]; info.classList.remove('cache'); clearTimeout(choisir.t); choisir.t = setTimeout(() => info.classList.add('cache'), 3200); appliquer(); }
 document.querySelectorAll('#sel a').forEach(a => a.onclick = () => choisir(a.dataset.m));
 f.addEventListener('load', () => { appliquer(); setTimeout(appliquer, 800); });
 choisir(M);
