@@ -51,9 +51,9 @@ canvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none}
    ligne qui continue, plus sombre, sur le décor.
    Les valeurs L*a*b* et ITA° sont lues dans les pixels, là où la ligne passe.
    ========================================================================== */
-import { FilesetResolver, FaceLandmarker } from "/cheveux/vendor/mediapipe/vision_bundle.mjs";
+import { FilesetResolver, FaceLandmarker, ImageSegmenter } from "/cheveux/vendor/mediapipe/vision_bundle.mjs";
 
-const MODELES = { 1:'UNE LIGNE', 2:'LIGNES CROISÉES', 3:'RIDEAU', 4:'POINT', 5:'ROTATION', 6:'TRAME', 7:'SÉQUENCE', 8:'SILLAGE', 9:'MAILLAGE', 10:'PROFIL', 11:'SYMÉTRIE', 12:'STÉRÉO', 13:'ONDE', 14:'CROISÉ', 15:'CONSTELLATION', 16:'RELIEF', 17:'RADAR', 18:'ISOBATHES', 19:'GRAVURE', 20:'REGARD', 21:'TRACÉ', 22:'FRANGES', 23:'GRILLE', 24:'SPOT', 25:'NORMALES', 26:'LISSAJOUS', 27:'ONDULATIONS' };
+const MODELES = { 1:'UNE LIGNE', 2:'LIGNES CROISÉES', 3:'RIDEAU', 4:'POINT', 5:'ROTATION', 6:'TRAME', 7:'SÉQUENCE', 8:'SILLAGE', 9:'MAILLAGE', 10:'PROFIL', 11:'SYMÉTRIE', 12:'STÉRÉO', 13:'ONDE', 14:'CROISÉ', 15:'CONSTELLATION', 16:'RELIEF', 17:'RADAR', 18:'ISOBATHES', 19:'GRAVURE', 20:'REGARD', 21:'TRACÉ', 22:'FRANGES', 23:'GRILLE', 24:'SPOT', 25:'NORMALES', 26:'LISSAJOUS', 27:'ONDULATIONS', 28:'TOPOGRAPHIE', 29:'GRATICULE', 30:'ROUGEURS', 31:'ARPENTAGE', 32:'COURANTS', 33:'CHEVELURE', 34:'ATLAS' };
 const Q = new URLSearchParams(location.search); let S = MODELES[Q.get('s')] ? +Q.get('s') : 1;
 /* 29/09 : intensite calmee (Charles). Cinq couleurs de laser. halo = la lumiere qui diffuse, trait = la ligne, coeur = le centre presque blanc */
 const COULEURS = {
@@ -102,6 +102,55 @@ function lire(now){
   const EW = 320, EH = Math.round(EW * v.videoHeight / v.videoWidth); if(ech.width !== EW || ech.height !== EH){ ech.width = EW; ech.height = EH; }
   ec.drawImage(v, 0, 0, EW, EH);
   mesurerZones();
+  if(S === 30) lireRougeurs(EW, EH);
+}
+/* carte des rougeurs : le a* reel de la peau sous chaque sommet du maillage (3 x 3 pixels) ; hors peau = rien */
+let ROUGE = null;
+function lireRougeurs(EW, EH){ let d; try { d = ec.getImageData(0, 0, EW, EH).data; } catch(e){ return; }
+  if(!ROUGE || ROUGE.length !== L.length) ROUGE = new Float32Array(L.length);
+  for(let i = 0; i < L.length; i++){ const px = Math.round(L[i].x*EW), py = Math.round(L[i].y*EH); if(px < 1 || py < 1 || px >= EW - 1 || py >= EH - 1){ ROUGE[i] = NaN; continue; }
+    let r = 0, g = 0, b = 0; for(let dy = -1; dy <= 1; dy++) for(let dx = -1; dx <= 1; dx++){ const k = ((py + dy)*EW + px + dx)*4; r += d[k]; g += d[k+1]; b += d[k+2]; }
+    const c = lab(r/9, g/9, b/9), ch = Math.hypot(c.a, c.b), hue = Math.atan2(c.b, c.a)*180/Math.PI;
+    const v2 = (c.L > 24 && c.a > 1.5 && ch > 3.5 && hue > -15 && hue < 85) ? c.a : NaN; ROUGE[i] = isNaN(ROUGE[i]) || isNaN(v2) ? v2 : ROUGE[i] + (v2 - ROUGE[i])*.3; } }
+/* ---- les cheveux : le meme moteur que le scan cheveux (hair_segmenter), charge seulement pour les modeles cheveux ---- */
+const segC = document.createElement('canvas'), segX = segC.getContext('2d', { willReadFrequently:true });
+let SEG = null, SEGp = null, MASQUE = null, MW = 0, MH = 0, tSeg = 0, CHAMP = null, DIST = null, COTES = [], BORD = [], PARTS = null, COUV = 0, EPAIS = 0, DIRD = null;
+function chargerCheveux(){ if(!SEGp) SEGp = ImageSegmenter.createFromOptions(fs, { baseOptions:{ modelAssetPath:'/cheveux/vendor/mediapipe/modeles/hair_segmenter.tflite', delegate:'CPU' },
+  runningMode:'VIDEO', outputConfidenceMasks:true, outputCategoryMask:false }).then(sg => { SEG = sg; }).catch(() => {}); }
+const masque = (u, w2) => { if(!MASQUE || u < 0 || w2 < 0 || u >= 1 || w2 >= 1) return 0; return MASQUE[((w2*MH)|0)*MW + ((u*MW)|0)]; };
+const ecranU = (u, w2) => ({ x: ox + (1 - u)*dw, y: oy + w2*dh });
+function lireCheveux(now){
+  if(!SEG || now - tSeg < 110 || !v.videoWidth) return; tSeg = now;
+  const w2 = 192, h2 = Math.round(w2*v.videoHeight/v.videoWidth); if(segC.width !== w2 || segC.height !== h2){ segC.width = w2; segC.height = h2; }
+  segX.drawImage(v, 0, 0, w2, h2);
+  try { SEG.segmentForVideo(segC, now, r => { const cm = r.confidenceMasks; if(!cm) return; const mk = cm[1] || cm[0]; MW = mk.width; MH = mk.height; MASQUE = Float32Array.from(mk.getAsFloat32Array()); cm.forEach(c => c.close && c.close()); }); } catch(e){ return; }
+  if(!MASQUE) return;
+  // la barbe n'est pas la chevelure : sous le nez, entre les joues, on efface
+  if(L){ const xa = Math.min(L[234].x, L[454].x)*MW, xb = Math.max(L[234].x, L[454].x)*MW, yb = L[2].y*MH;
+    for(let j = Math.max(0, yb|0); j < MH; j++) for(let i = Math.max(0, xa|0); i < Math.min(MW, xb|0); i++) MASQUE[j*MW + i] = 0; }
+  let n = 0; for(let i = 0; i < MASQUE.length; i++) if(MASQUE[i] > .5) n++; COUV = n/MASQUE.length;
+  // le bord de la chevelure (la « cote »), avec sa normale vers l'exterieur
+  BORD = []; for(let j = 1; j < MH - 1; j += 1) for(let i = 1; i < MW - 1; i += 1){ const m0 = MASQUE[j*MW + i]; if(m0 <= .5) continue;
+    const gx = MASQUE[j*MW + i + 1] - MASQUE[j*MW + i - 1], gy = MASQUE[(j + 1)*MW + i] - MASQUE[(j - 1)*MW + i], gn = Math.hypot(gx, gy);
+    if(gn > .5 && (i + j) % 2 === 0) BORD.push({ u:(i + .5)/MW, v:(j + .5)/MH, nx:-gx/gn, ny:-gy/gn }); }
+  if(S === 33 || S === 34){ // distance au bord, en cases (deux passes de chanfrein)
+    const D = new Float32Array(MW*MH); for(let i = 0; i < D.length; i++) D[i] = MASQUE[i] > .5 ? 1e6 : 0;
+    for(let j = 0; j < MH; j++) for(let i = 0; i < MW; i++){ const k = j*MW + i; if(!D[k]) continue; let m = D[k]; if(i) m = Math.min(m, D[k - 1] + 1); if(j) m = Math.min(m, D[k - MW] + 1); if(i && j) m = Math.min(m, D[k - MW - 1] + 1.414); if(j && i < MW - 1) m = Math.min(m, D[k - MW + 1] + 1.414); D[k] = m; }
+    for(let j = MH - 1; j >= 0; j--) for(let i = MW - 1; i >= 0; i--){ const k = j*MW + i; if(!D[k]) continue; let m = D[k]; if(i < MW - 1) m = Math.min(m, D[k + 1] + 1); if(j < MH - 1) m = Math.min(m, D[k + MW] + 1); if(i < MW - 1 && j < MH - 1) m = Math.min(m, D[k + MW + 1] + 1.414); if(j < MH - 1 && i) m = Math.min(m, D[k + MW - 1] + 1.414); D[k] = m; }
+    DIST = D; let mx = 0; for(let i = 0; i < D.length; i++) if(D[i] > mx && D[i] < 1e5) mx = D[i]; EPAIS = mx;
+    const pas = Math.max(2, mx/9); COTES = [];
+    for(let j = 0; j < MH - 1; j++) for(let i = 0; i < MW - 1; i++){ const a = D[j*MW + i], b = D[j*MW + i + 1], c = D[(j + 1)*MW + i];
+      const la = Math.floor(a/pas), lb = Math.floor(b/pas), lc = Math.floor(c/pas);
+      if(la !== lb && Math.max(la, lb) > 0) COTES.push({ u:(i + 1)/MW, v:(j + .5)/MH, n:Math.max(la, lb) });
+      else if(la !== lc && Math.max(la, lc) > 0) COTES.push({ u:(i + .5)/MW, v:(j + 1)/MH, n:Math.max(la, lc) }); } }
+  if(S === 32){ // le sens des meches : tenseur de structure sur la luminance, par blocs de 6 pixels
+    const d = segX.getImageData(0, 0, w2, h2).data, lum = new Float32Array(w2*h2); for(let i = 0; i < lum.length; i++) lum[i] = d[i*4]*.3 + d[i*4 + 1]*.59 + d[i*4 + 2]*.11;
+    const B = 6, gw = Math.floor(w2/B), gh = Math.floor(h2/B), ang = new Float32Array(gw*gh), coh = new Float32Array(gw*gh); let sx = 0, sy = 0;
+    for(let bj = 0; bj < gh; bj++) for(let bi = 0; bi < gw; bi++){ let xx = 0, yy = 0, xy = 0;
+      for(let j = bj*B + 1; j < (bj + 1)*B && j < h2 - 1; j++) for(let i = bi*B + 1; i < (bi + 1)*B && i < w2 - 1; i++){ const gx = lum[j*w2 + i + 1] - lum[j*w2 + i - 1], gy = lum[(j + 1)*w2 + i] - lum[(j - 1)*w2 + i]; xx += gx*gx; yy += gy*gy; xy += gx*gy; }
+      const k = bj*gw + bi; ang[k] = .5*Math.atan2(2*xy, xx - yy) + Math.PI/2; coh[k] = Math.sqrt((xx - yy)*(xx - yy) + 4*xy*xy)/((xx + yy) || 1);
+      if(masque((bi + .5)/gw, (bj + .5)/gh) > .5){ sx += Math.cos(2*ang[k])*coh[k]; sy += Math.sin(2*ang[k])*coh[k]; } }
+    CHAMP = { gw, gh, ang, coh }; DIRD = (sx || sy) ? ((Math.atan2(sy, sx)/2*180/Math.PI) + 180) % 180 : null; }
 }
 let dw=0, dh=0, ox=0, oy=0;
 function cadre(){ const vw = v.videoWidth || 1280, vh = v.videoHeight || 720, s = Math.max(W/vw, H/vh); dw = vw*s; dh = vh*s; ox = (W-dw)/2; oy = (H-dh)/2; }
@@ -487,6 +536,95 @@ function image(now){
       tracer(pts); if(g > .2){ x.strokeStyle = rgba(K.halo, .08*g*K.fh*VIE); x.lineWidth = 3.5; x.stroke(); }
       x.strokeStyle = rgba(g > .6 ? K.coeur : K.trait, (.26 + .5*g)*VIE*Math.sqrt(K.ft)); x.lineWidth = .5; x.stroke(); }
     yL = vague;
+  } else if(S === 28){
+    // topographie : une vraie carte du visage ; courbes de niveau du relief, cotes chiffrees, quadrillage, nord et echelle
+    let zmin = 1e9, zmax = -1e9; for(let i2 = 0; i2 < L.length; i2++){ const z = L[i2].z; if(z < zmin) zmin = z; if(z > zmax) zmax = z; }
+    const N = 12, pas = (zmax - zmin)/N, bal = y0 + va(ttv, per*1.8)*h;
+    x.strokeStyle = rgba('255,255,255', .045); x.lineWidth = .5; x.beginPath(); for(let gx = 0; gx < W; gx += 48){ x.moveTo(gx, 0); x.lineTo(gx, H); } for(let gy = 0; gy < H; gy += 48){ x.moveTo(0, gy); x.lineTo(W, gy); } x.stroke();
+    for(let n = 1; n < N; n++){ const lv = zmin + n*pas, maitre = n % 3 === 0; let lab2 = null;
+      for(const e of ARETES){ const za = L[e.start].z, zb = L[e.end].z; if((za - lv)*(zb - lv) >= 0) continue; const t = (lv - za)/(zb - za), a = PC[e.start], b = PC[e.end], qx = a.x + (b.x - a.x)*t, qy = a.y + (b.y - a.y)*t;
+        const g = Math.exp(-Math.pow((qy - bal)/(h*.12), 2)); x.fillStyle = rgba(g > .6 ? K.coeur : K.trait, ((maitre ? .55 : .3) + .35*g)*VIE*Math.sqrt(K.ft)); const sz = maitre ? 1.5 : 1.1; x.fillRect(qx - sz/2, qy - sz/2, sz, sz);
+        if(maitre && (!lab2 || qx > lab2.x)) lab2 = { x:qx, y:qy }; }
+      if(lab2) texte(f((1 - n/N)*100, 0), lab2.x + 5, lab2.y + 3, 'left', .5, K.trait); }
+    const nx0 = 30, ny0 = 128; x.strokeStyle = rgba(K.trait, .5); x.lineWidth = .7; x.beginPath(); x.moveTo(nx0, ny0 + 14); x.lineTo(nx0, ny0 - 6); x.moveTo(nx0 - 4, ny0); x.lineTo(nx0, ny0 - 6); x.lineTo(nx0 + 4, ny0); x.stroke(); texte('N', nx0, ny0 - 10, 'center', .6);
+    const sb = w/4, sy2 = H - 205; x.strokeStyle = rgba('255,255,255', .45); x.beginPath(); x.moveTo(18, sy2); x.lineTo(18 + sb, sy2); x.moveTo(18, sy2 - 3); x.lineTo(18, sy2 + 3); x.moveTo(18 + sb, sy2 - 3); x.lineTo(18 + sb, sy2 + 3); x.stroke();
+    texte('¼ DE LA LARGEUR DU VISAGE', 18, sy2 - 7, 'left', .45); texte('COTES : RELIEF EN % (100 = LE PLUS PROCHE)', 18, sy2 + 14, 'left', .35);
+    yL = bal;
+  } else if(S === 29){
+    // graticule : parallels et meridiens poses sur le relief ; un curseur donne ses coordonnees sur le visage
+    x.setLineDash([2, 3]); x.lineWidth = .5;
+    for(let n = 1; n < 8; n++){ const ph1 = coupeDir(0, 1, y0 + n*h/8, .3), me = coupeDir(1, 0, x0 + n*w/8, .3);
+      [ph1, me].forEach(pts => { if(pts.length > 3){ tracer(pts); x.strokeStyle = rgba(K.trait, (n === 4 ? .6 : .4)*VIE*Math.sqrt(K.ft)); x.lineWidth = .6; x.stroke(); } });
+      const lo = Math.asin(Math.max(-1, Math.min(1, (x0 + n*w/8 - cx0)/(w/2))))*180/Math.PI; texte(f(Math.abs(lo), 0) + '°' + (lo < 0 ? 'O' : lo > 0 ? 'E' : ''), x0 + n*w/8, y0 - 8, 'center', .4); }
+    x.setLineDash([]);
+    const cur = { x:cx0 + w*.32*Math.sin(ttv*.55), y:cy0 + h*.3*Math.sin(ttv*.83 + 1) };
+    const dms = a => { const d = Math.abs(a), g = Math.floor(d), m = Math.round((d - g)*60); return g + '°' + String(m).padStart(2, '0') + '′'; };
+    const la = Math.asin(Math.max(-1, Math.min(1, (cy0 - cur.y)/(h/2))))*180/Math.PI, lo2 = Math.asin(Math.max(-1, Math.min(1, (cur.x - cx0)/(w/2))))*180/Math.PI;
+    x.strokeStyle = rgba(K.trait, .5*VIE); x.lineWidth = .5; x.beginPath(); x.moveTo(cur.x - 14, cur.y); x.lineTo(cur.x - 4, cur.y); x.moveTo(cur.x + 4, cur.y); x.lineTo(cur.x + 14, cur.y); x.moveTo(cur.x, cur.y - 14); x.lineTo(cur.x, cur.y - 4); x.moveTo(cur.x, cur.y + 4); x.lineTo(cur.x, cur.y + 14); x.stroke();
+    point(cur, .7); texte((la >= 0 ? 'N ' : 'S ') + dms(la) + '  ' + (lo2 >= 0 ? 'E ' : 'O ') + dms(lo2), cur.x + 18, cur.y - 6, 'left', .7, K.trait);
+    toucheZone = (cx, cy) => Math.hypot(cx - cur.x, cy - cur.y) < 16;
+  } else if(S === 30){
+    // rougeurs : une carte de la rougeur reelle (a*) sous chaque point du maillage, en quatre classes, avec sa legende
+    if(ROUGE){ const vals = []; for(let i2 = 0; i2 < ROUGE.length; i2++) if(!isNaN(ROUGE[i2])) vals.push(ROUGE[i2]);
+      if(vals.length > 40){ vals.sort((a, b) => a - b); const q = [.25, .5, .75].map(p2 => vals[Math.floor(vals.length*p2)]);
+        const cl = v2 => v2 < q[0] ? 0 : v2 < q[1] ? 1 : v2 < q[2] ? 2 : 3, AL = [.02, .05, .1, .17];
+        for(let c2 = 0; c2 < 4; c2++){ x.fillStyle = rgba(K.halo, AL[c2]*VIE*K.fh); for(let i2 = 0; i2 < ROUGE.length; i2++){ if(isNaN(ROUGE[i2]) || cl(ROUGE[i2]) !== c2) continue; const p = PC[i2]; x.beginPath(); x.arc(p.x, p.y, 6, 0, 7); x.fill(); } }
+        x.fillStyle = rgba(K.coeur, .35*Math.sqrt(K.ft)); for(let i2 = 0; i2 < ROUGE.length; i2++){ if(isNaN(ROUGE[i2]) || cl(ROUGE[i2]) < 3) continue; const p = PC[i2]; x.fillRect(p.x - .6, p.y - .6, 1.2, 1.2); }
+        const lx = 18, ly = H - 215; texte('ROUGEUR RÉELLE · a*', lx, ly - 8, 'left', .55, K.trait);
+        const bornes = [vals[0], q[0], q[1], q[2], vals[vals.length - 1]];
+        for(let c2 = 0; c2 < 4; c2++){ x.fillStyle = rgba(K.halo, AL[c2]*4); x.fillRect(lx + c2*34, ly, 30, 7); texte(f(bornes[c2]) + '–' + f(bornes[c2 + 1]), lx + c2*34, ly + 18, 'left', .4); } }
+      else texte('APPROCHEZ-VOUS DE LA LUMIÈRE', W/2, H*.3, 'center', .6); }
+    xL = x0 + va(ttv, per*1.6)*w; nappe(1, 0, xL, .35, false);
+  } else if(S === 31){
+    // arpentage : des stations de triangulation sur les reperes du visage ; un theodolite vise de l'une a l'autre et note la vraie distance
+    const RES = [[10,468],[10,473],[468,473],[468,1],[473,1],[234,468],[454,473],[1,61],[1,291],[61,291],[61,152],[291,152],[234,61],[454,291]];
+    const ST = [10,152,234,454,1,468,473,61,291], CY = RES.length*.55 + 2, c = ttv % CY;
+    ST.forEach(i2 => { const p = PC[i2]; x.strokeStyle = rgba(K.trait, .55*VIE); x.lineWidth = .6; x.beginPath(); x.moveTo(p.x, p.y - 5); x.lineTo(p.x + 4.3, p.y + 2.5); x.lineTo(p.x - 4.3, p.y + 2.5); x.closePath(); x.stroke(); x.fillStyle = rgba(K.coeur, .8); x.fillRect(p.x - .6, p.y - .6, 1.2, 1.2); });
+    RES.forEach(([a1, b1], k2) => { const t0b = k2*.55, u = (c - t0b)/.45; if(u <= 0) return; const A = PC[a1], B = PC[b1], fin3 = Math.min(1, u), Q = { x:A.x + (B.x - A.x)*fin3, y:A.y + (B.y - A.y)*fin3 };
+      const vis = Math.min(1, (CY - c)/.6);
+      if(u < 1){ laser([A, Q], .7); point(Q, .6); toucheZone = (cx, cy) => Math.hypot(cx - Q.x, cy - Q.y) < 14; }
+      else { x.setLineDash([3, 3]); x.strokeStyle = rgba(K.trait, .32*vis*VIE); x.lineWidth = .5; x.beginPath(); x.moveTo(A.x, A.y); x.lineTo(B.x, B.y); x.stroke(); x.setLineDash([]);
+        texte(f(Math.hypot(B.x - A.x, B.y - A.y)/w*100, 1), (A.x + B.x)/2 + 3, (A.y + B.y)/2 - 3, 'left', .5*vis); } });
+    texte('DISTANCES EN % DE LA LARGEUR DU VISAGE', 18, H - 205, 'left', .35);
+  } else if(S === 32){
+    // courants : le sens reel des meches, lu dans l'image, parcouru par des particules de lumiere (comme une carte des vents)
+    chargerCheveux(); lireCheveux(now);
+    if(!MASQUE || !CHAMP) texte('LECTURE DE LA CHEVELURE…', W/2, H*.3, 'center', .6);
+    else { if(!PARTS) PARTS = Array.from({ length:900 }, () => ({ u:0, v:0, du:0, dv:0, age:99, vie:1 }));
+      const bk = [[], [], []];
+      for(const p of PARTS){
+        if(p.age > p.vie){ let ok = false; for(let e = 0; e < 14 && !ok; e++){ p.u = Math.random(); p.v = Math.random(); ok = masque(p.u, p.v) > .6; } p.age = ok ? 0 : 99; p.vie = 40 + Math.random()*70; p.du = p.dv = 0; if(!ok) continue; }
+        const gi = Math.min(CHAMP.gw - 1, (p.u*CHAMP.gw)|0), gj = Math.min(CHAMP.gh - 1, (p.v*CHAMP.gh)|0), a = CHAMP.ang[gj*CHAMP.gw + gi];
+        let du = Math.cos(a)*.0035, dv = Math.sin(a)*.0035*MW/MH; if(du*p.du + dv*p.dv < 0){ du = -du; dv = -dv; }
+        const A = ecranU(p.u, p.v); p.u += du; p.v += dv; p.du = du; p.dv = dv; p.age++;
+        if(masque(p.u, p.v) < .4){ p.age = 99; continue; }
+        const B = ecranU(p.u, p.v), fa = Math.sin(Math.PI*p.age/p.vie); bk[fa > .66 ? 2 : fa > .33 ? 1 : 0].push(A.x - (B.x - A.x)*3, A.y - (B.y - A.y)*3, B.x, B.y); }
+      x.lineWidth = .6; bk.forEach((sq, k2) => { if(!sq.length) return; x.beginPath(); for(let m = 0; m < sq.length; m += 4){ x.moveTo(sq[m], sq[m+1]); x.lineTo(sq[m+2], sq[m+3]); } x.strokeStyle = rgba(k2 === 2 ? K.coeur : K.trait, [.28, .5, .75][k2]*VIE*Math.sqrt(K.ft)); x.stroke(); });
+      x.fillStyle = rgba(K.trait, .22); BORD.forEach((b, k2) => { if(k2 % 2) return; const q = ecranU(b.u, b.v); x.fillRect(q.x - .5, q.y - .5, 1, 1); });
+      texte('COURANTS DE LA CHEVELURE', 18, H - 218, 'left', .6, K.trait);
+      texte('COUVERTURE ' + f(COUV*100, 0) + ' % DE L’IMAGE' + (DIRD != null ? ' · SENS DOMINANT ' + f(DIRD, 0) + '°' : ''), 18, H - 205, 'left', .45); }
+  } else if(S === 33){
+    // chevelure : la masse des cheveux en courbes de niveau, du bord vers le coeur ; les lignes avancent lentement vers l'interieur
+    chargerCheveux(); lireCheveux(now);
+    if(!MASQUE || !DIST) texte('LECTURE DE LA CHEVELURE…', W/2, H*.3, 'center', .6);
+    else { const vague = (ttv*1.2) % 10;
+      for(let n = 1; n <= 10; n++){ const g = Math.exp(-Math.pow(((n - vague + 10) % 10) - 0, 2)/2); x.fillStyle = rgba(g > .6 ? K.coeur : K.trait, (.22 + .45*g)*VIE*Math.sqrt(K.ft));
+        for(const c3 of COTES){ if(c3.n !== n) continue; const q = ecranU(c3.u, c3.v); x.fillRect(q.x - .55, q.y - .55, 1.1, 1.1); } }
+      x.fillStyle = rgba(K.coeur, .55*Math.sqrt(K.ft)); BORD.forEach(b => { const q = ecranU(b.u, b.v); x.fillRect(q.x - .6, q.y - .6, 1.2, 1.2); });
+      texte('CHEVELURE · COURBES DE VOLUME', 18, H - 218, 'left', .6, K.trait);
+      texte('COUVERTURE ' + f(COUV*100, 0) + ' % · ÉPAISSEUR MAX ' + f(EPAIS/MW*dw/w*100, 0) + ' % DE LA LARGEUR DU VISAGE', 18, H - 205, 'left', .45); }
+  } else if(S === 34){
+    // atlas : le visage en graticule, la chevelure comme une cote hachuree, la mer en pointille ; nord, echelle et cartouche
+    chargerCheveux(); lireCheveux(now);
+    x.fillStyle = rgba('255,255,255', .05); for(let gy = 30; gy < H; gy += 26) for(let gx = 13; gx < W; gx += 26) x.fillRect(gx, gy, 1, 1);
+    x.setLineDash([2, 3]); x.lineWidth = .5; for(let n = 1; n < 7; n++){ [coupeDir(0, 1, y0 + n*h/7, .3), coupeDir(1, 0, x0 + n*w/7, .3)].forEach(pts => { if(pts.length > 3){ tracer(pts); x.strokeStyle = rgba(K.trait, .26*VIE*Math.sqrt(K.ft)); x.stroke(); } }); } x.setLineDash([]);
+    if(BORD.length){ x.strokeStyle = rgba(K.trait, .38*VIE*Math.sqrt(K.ft)); x.lineWidth = .5; x.beginPath();
+      BORD.forEach((b, k2) => { const q = ecranU(b.u, b.v); const nxs = -b.nx, nys = b.ny; if(k2 % 3 === 0){ x.moveTo(q.x, q.y); x.lineTo(q.x + nxs*5, q.y + nys*5); } }); x.stroke();
+      x.fillStyle = rgba(K.coeur, .5*Math.sqrt(K.ft)); BORD.forEach(b => { const q = ecranU(b.u, b.v); x.fillRect(q.x - .5, q.y - .5, 1, 1); }); }
+    yL = y0 - h*.1 + va(ttv, per*2)*h*1.2; nappe(0, 1, yL, .4);
+    const nx0 = W - 34, ny0 = 128; x.strokeStyle = rgba(K.trait, .5); x.lineWidth = .7; x.beginPath(); x.moveTo(nx0, ny0 + 14); x.lineTo(nx0, ny0 - 6); x.moveTo(nx0 - 4, ny0); x.lineTo(nx0, ny0 - 6); x.lineTo(nx0 + 4, ny0); x.stroke(); texte('N', nx0, ny0 - 10, 'center', .6);
+    x.strokeStyle = rgba('255,255,255', .3); x.strokeRect(14, H - 238, 196, 42);
+    texte('ATLAS · VISAGE ET CHEVELURE', 22, H - 224, 'left', .65, K.trait); texte('CÔTE : BORD RÉEL DES CHEVEUX · ' + f(COUV*100, 0) + ' %', 22, H - 211, 'left', .42);
   } else if(S === 6){
     yL = trame(y0 + va(ttv, per) * h, 1);
   }
