@@ -111,7 +111,7 @@ function dessiner(a, now, sw, sh){
   const w = x1 - x0, h = y1 - y0, cx0 = (x0 + x1)/2, cy0 = (y0 + y1)/2, t = (now - a.debut)/1000;
   const vie = .86 + .14*Math.sin(t*.9);
   const mix = Math.min(1, Math.max(0, (t - TOPO)/FONDU)), topo = 1 - mix, grat = mix;
-  const texte = (s2, px, py, al, al2) => { x.font = '300 9px "IBM Plex Mono", ui-monospace, monospace'; x.textAlign = al; x.fillStyle = rgba(K.texte, al2); x.fillText(s2, px, py); };
+  const texte = (s2, px, py, al, al2) => { x.font = '400 10.5px "IBM Plex Mono", ui-monospace, monospace'; x.textAlign = al; x.fillStyle = rgba(K.texte, al2); x.fillText(s2, px, py); };
   const f0 = n => n.toFixed(0);
   // une ombre tres douce sous les traits, pour qu'ils restent lisibles sur une peau claire
   x.shadowColor = 'rgba(40,30,15,.35)'; x.shadowBlur = 2;

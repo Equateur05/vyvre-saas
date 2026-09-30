@@ -67,7 +67,7 @@
     r.q9 = [REP.q9s === 'moins7' ? '6_7' : REP.q9s === 'plus9' ? 'plus9' : REP.q9s === '7_9' ? '7_9' : null, REP.q9d ? 'irregulier' : null].filter(Boolean);
     r.q10 = REP.q10p ? [REP.q10p] : []; REP = r; }
   function charger(){ if(DATA) return Promise.resolve();
-    return fetch(BASE + 'aliments_v4.json?v=1').then(function(r){ return r.json(); }).then(function(j){ DATA = j.aliments; })
+    return fetch(BASE + 'aliments_v4.json?v=2').then(function(r){ return r.json(); }).then(function(j){ DATA = j.aliments; })
       .then(function(){ return fetch(BASE + 'recettes.json?v=2').then(function(r){ return r.json(); }).then(function(j){ RECS = j.recettes || []; }).catch(function(){ RECS = []; }); })
       .then(function(){ return fetch(BASE + 'tendances.json?v=1').then(function(r){ return r.json(); }).then(function(j){ TEND = j.tendances || []; }).catch(function(){ TEND = []; }); })
       .then(function(){ return fetch(BASE + 'photos/credits.json?v=2').then(function(r){ return r.json(); }).then(function(j){ CREDITS = j || {}; }).catch(function(){ CREDITS = {}; }); })
@@ -95,9 +95,8 @@
      aucun des 14 allergenes, aucune precaution ni reaction croisee connue, pas riche en potassium ni en vitamine K,
      ni poisson, ni viande, ni boisson */
   function prudentOk(f){ var t = (f.ciqual && f.ciqual.teneurs_pour_100g) || {};
-    if(PRUDENT.indexOf(f.id) >= 0 && f.categorie !== 'boisson') return true;
-    return !(f.allergenes_UE || []).length && !(f.allergenes_possibles || []).length && !(f.precautions || []).length && !(f.reactions_croisees || []).length
-      && (t.potassium_mg || 0) <= 300 && (t.vitamine_k1_ug || 0) <= 80 && ['fruit', 'legume', 'cereale_complete', 'feculent', 'epice_herbe'].indexOf(f.categorie) >= 0; }
+    /* 01/10 (audit) : la liste validee de QUESTIONNAIRE_V2, et elle seule (avant : etendue a 13 aliments) */
+    return PRUDENT.indexOf(f.id) >= 0; }
   function exclus(){ var x = {}, notes = {}; var ex = function(i){ x[i] = 1; }, note = function(i, t){ (notes[i] = notes[i] || []).push(t); };
     DEFAUT_EXCLUS.forEach(ex); PASPOUR.forEach(ex); ((SANTE && SANTE.autres_aliments) || []).forEach(ex);
     var ten = function(f, k){ return ((f.ciqual && f.ciqual.teneurs_pour_100g) || {})[k] || 0; };
@@ -112,7 +111,9 @@
     if(MODE !== 'normal'){ ['tomate','poivron_rouge'].forEach(function(i){ note(i, 'Allergie au latex : réaction possible (syndrome latex-fruits).'); }); note('carotte', 'Pollen de bouleau : réaction croisée possible ; de préférence cuite.'); }
     DATA.forEach(function(f){ (f.allergenes_UE || []).forEach(function(al){ if(a('q1', al)) ex(f.id); }); });
     if(a('q1','sulfites')) ex('abricot');
-    if(a('q2','latex')){ ['avocat','kiwi','banane','chataigne'].forEach(ex); ['tomate','concentre_tomate','poivron_rouge'].forEach(function(i){ note(i, 'Allergie au latex : réaction possible (syndrome latex-fruits).'); }); }
+    /* 01/10 (audit) : pignon (allergies decrites) et mangue (reaction croisee cajou, pistache) */
+    if(a('q1','fruits_a_coque')) ['pignon','mangue'].forEach(ex);
+    if(a('q2','latex')){ ['avocat','kiwi','banane','chataigne','papaye'].forEach(ex); ['tomate','concentre_tomate','poivron_rouge'].forEach(function(i){ note(i, 'Allergie au latex : réaction possible (syndrome latex-fruits).'); }); }
     if(a('q2','bouleau')) ['noisette','amande','carotte','kiwi','abricot','tofu'].forEach(function(i){ note(i, 'Pollen de bouleau : réaction croisée possible ; préférez-le cuit quand c’est possible.'); });
     if(a('q3','enceinte') || a('q3','allaite')){ ['tofu','huitre','the_vert'].forEach(ex); note('saumon', 'Enceinte ou allaitante : uniquement cuit, pas fumé.'); }
     if(a('q4','avk')) ['epinard','chou_frise','brocoli','mache'].forEach(ex);
@@ -140,7 +141,7 @@
     if(AFFINE.usage === 'quotidien') b += f.usage === 'quotidien' ? .5 : -1; else if(AFFINE.usage === 'decouverte' && f.usage === 'rare') b += .5; else if(AFFINE.usage === 'tendance' && f.tendance) b += 1;
     return Math.max(-2, Math.min(2, b)); }
   function choisir(ind){ var e = exclus(), mois = new Date().getMonth() + 1, G = { A:3, B:2, C:1 };
-    var cand = DATA.filter(function(f){ return !e.x[f.id] && G[f.niveau_preuve_peau]; }).map(function(f){
+    var cand = DATA.filter(function(f){ return !e.x[f.id] && G[f.niveau_preuve_peau] && (f.etudes || []).length; })   /* 01/10 (audit) : au moins une etude */.map(function(f){
       var c1 = f.cibles_peau.indexOf(ind.i1) >= 0, c2 = ind.i2 && f.cibles_peau.indexOf(ind.i2) >= 0, c3 = !c1 && !c2 ? (ind.suite || []).filter(function(k){ return f.cibles_peau.indexOf(k) >= 0; })[0] : null; if(!c1 && !c2 && !c3) return null;
       var s = G[f.niveau_preuve_peau] + (c1 ? 2 : 0) + (c2 ? 1 : 0) + (!AFFINE.saison && (f.saison || []).indexOf(mois) >= 0 ? .5 : 0) + (f.allegation_UE_autorisee ? .5 : 0) + bonus(f, mois);
       if(a('q8','acne') && ind.i1 === 'pores_sebum' && f.categorie !== 'legumineuse' && f.categorie !== 'cereale_complete') s -= 1;
@@ -427,11 +428,13 @@
     if(window.vyPrefs && window.vyPrefs.filter){ try { var f = window.vyPrefs.filter(l.map(function(p){ return { id:p.id, brand:p.brand, pays:p.pays, categorie:p.cat, name:p.n }; })); var ok = {}; f.forEach(function(p){ ok[p.id] = 1; }); if(f.length) l = l.filter(function(p){ return ok[p.id]; }); } catch(e){} }
     var serum = l.filter(function(p){ return /serum|sérum/i.test(p.cat || '') ; })[0], creme = l.filter(function(p){ return /creme|crème|soin|hydratant/i.test(p.cat || '') && p !== serum; })[0];
     var out = [serum, creme].filter(Boolean); l.forEach(function(p){ if(out.length < 2 && out.indexOf(p) < 0) out.push(p); }); return out.slice(0, 2); }
+  function minus(t){ return /^[A-ZÀ-Ý][a-zà-ÿ]/.test(t) ? t.charAt(0).toLowerCase() + t.slice(1) : t; }   /* « vitamine C », mais « AHA » */
   function combos(ind, pris){ if(!COMBOS || !COMBOS.combos) return '';
     var ids = {}; pris.forEach(function(c){ ids[c.f.id] = 1; });
     var ex = exclus().x, enceinte = a('q3','enceinte') || a('q3','allaite') || a('q3','projet');
     var actifs = {}; (COMBOS.actifs || []).forEach(function(z){ actifs[z.id] = z; });
-    var lignes = COMBOS.combos.filter(function(c){ var ac = actifs[c.actif_id]; if(/tomate/.test(c.aliment_id) && c.actif_id === 'protection_solaire') return false; return (c.indice === ind.i1 || c.indice === ind.i2) && !ex[c.aliment_id] && ac && !(enceinte && ac.grossesse === 'eviter') && !(MODE === 'prudent' && ac.grossesse !== 'ok') && !(MODE === 'mineur' && ac.id !== 'protection_solaire'); })
+    var lignes = COMBOS.combos.filter(function(c){ var ac = actifs[c.actif_id]; if(/tomate/.test(c.aliment_id) && c.actif_id === 'protection_solaire') return false; var sensible = ind.i1 === 'rougeurs' || ind.i2 === 'rougeurs' || ((AFFINE && AFFINE.besoins) || []).indexOf('rougeurs') >= 0;   /* 01/10 (audit) : peau reactive, pas d'AHA ni de retinoide */
+      return (c.indice === ind.i1 || c.indice === ind.i2) && !ex[c.aliment_id] && ac && !(sensible && ['aha','retinoide'].indexOf(ac.id) >= 0) && !(enceinte && ac.grossesse === 'eviter') && !(MODE === 'prudent' && ac.grossesse !== 'ok') && !(MODE === 'mineur' && ac.id !== 'protection_solaire'); })
       .sort(function(p, q){ return (ids[q.aliment_id] ? 1 : 0) - (ids[p.aliment_id] ? 1 : 0) || (p.ordre || 9) - (q.ordre || 9); }).slice(0, 3);
     if(!lignes.length) return '';
     return '<div class="prem"><div class="m">Premium · Un aliment, un soin</div><h2>Combo.</h2><p class="lead" style="color:#b6cdc8">Pour une même cible, un aliment à table et un actif en soin. Chacun a ses propres preuves. Aucune étude n’a testé les deux ensemble : nous ne promettons donc aucun effet combiné.</p>'
@@ -440,7 +443,7 @@
         return '<div class="rit"><i>' + n2(k) + '</i><div>' + (ids[f.id] ? '' : '<div class="preuve" style="margin:0 0 4px">Un autre aliment pour la même cible</div>') + '<h3>' + esc(f.nom.split(' (')[0]) + ' + ' + esc(ac.nom.split(' (')[0]) + '</h3><div class="sous">' + esc(INDICES[c.indice] || c.indice) + ' · aliment : preuve ' + esc(c.grade_aliment || f.niveau_preuve_peau) + ' · soin : preuve ' + esc(c.grade_actif || ac.grade) + '</div>'
           + '<p>À table : ' + esc(f.nom.split(' (')[0].toLowerCase()) + ', ' + esc(composition(f).charAt(0).toLowerCase() + composition(f).slice(1)) + ' En soin : ' + esc(ac.ce_qu_on_peut_dire || '') + '</p>'
           + '<div class="preuve" style="margin-top:14px">Votre rituel</div><p style="margin-top:4px">'
-            + (ac.moment === 'soir' ? 'Le soir' : ac.moment === 'matin' ? 'Le matin' : 'Matin ou soir') + ' : ' + esc((ac.nom || '').split(' (')[0].toLowerCase()) + '.'
+            + (ac.moment === 'soir' ? 'Le soir' : ac.moment === 'matin' ? 'Le matin' : 'Matin ou soir') + ' : ' + esc(minus((ac.nom || '').split(' (')[0])) + '.'
             + (ac.dose_affichee ? '<br><span style="opacity:.8">Dose : ' + esc(ac.dose_affichee) + '</span>' : '')
             + '<br>À table : ' + esc(f.nom.split(' (')[0].toLowerCase()) + ', ' + esc((f.portion_type || '').toLowerCase()) + '. ' + esc(FREQ[f.categorie] || '') + '' + '</p>'
           + (ac.precautions || []).slice(0, 2).map(function(t){ return '<div class="prec" style="color:#f3c9a6">' + esc(t) + '</div>'; }).join('')
@@ -620,6 +623,8 @@
       if((r.allergenes_UE || []).some(function(z){ return al.indexOf(z) >= 0; })) return false;
       if(a('q1','sulfites') && r.ingredients.some(function(g){ return /abricot_sec|raisin_sec|figue_seche|capres/.test(g.aliment_id || ''); })) return false;
       if((a('q3','enceinte') || a('q3','allaite')) && r.oeuf_peu_cuit) return false;
+      /* 01/10 (audit) : reins ou calculs, les recettes riches en oxalates ou tres salees sont retirees */
+      if(a('q5','renale') && r.ingredients.some(function(g){ return /rhubarbe|th[ée] noir|the_noir|oseille|[ée]pinard|fleur de sel|anchois|c[âa]pre|sauce.?soja|olive noire|olives/i.test((g.libelle || '') + ' ' + (g.aliment_id || '')); })) return false;
       if((r.allergenes_possibles || []).some(function(z){ return al.indexOf(z) >= 0; })) return false;
       if(a('q7','vege') && (r.regimes || []).indexOf('vegetarien') < 0) return false;
       if(a('q7','vegan') && (r.regimes || []).indexOf('vegan') < 0) return false;

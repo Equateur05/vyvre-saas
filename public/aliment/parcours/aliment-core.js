@@ -67,7 +67,7 @@
     r.q9 = [REP.q9s === 'moins7' ? '6_7' : REP.q9s === 'plus9' ? 'plus9' : REP.q9s === '7_9' ? '7_9' : null, REP.q9d ? 'irregulier' : null].filter(Boolean);
     r.q10 = REP.q10p ? [REP.q10p] : []; REP = r; }
   function charger(){ if(DATA) return Promise.resolve();
-    return fetch(BASE + 'aliments_v4.json?v=1').then(function(r){ return r.json(); }).then(function(j){ DATA = j.aliments; })
+    return fetch(BASE + 'aliments_v4.json?v=2').then(function(r){ return r.json(); }).then(function(j){ DATA = j.aliments; })
       .then(function(){ return fetch(BASE + 'recettes.json?v=2').then(function(r){ return r.json(); }).then(function(j){ RECS = j.recettes || []; }).catch(function(){ RECS = []; }); })
       .then(function(){ return fetch(BASE + 'tendances.json?v=1').then(function(r){ return r.json(); }).then(function(j){ TEND = j.tendances || []; }).catch(function(){ TEND = []; }); })
       .then(function(){ return fetch(BASE + 'photos/credits.json?v=2').then(function(r){ return r.json(); }).then(function(j){ CREDITS = j || {}; }).catch(function(){ CREDITS = {}; }); })
@@ -97,9 +97,8 @@
      aucun des 14 allergenes, aucune precaution ni reaction croisee connue, pas riche en potassium ni en vitamine K,
      ni poisson, ni viande, ni boisson */
   function prudentOk(f){ var t = (f.ciqual && f.ciqual.teneurs_pour_100g) || {};
-    if(PRUDENT.indexOf(f.id) >= 0 && f.categorie !== 'boisson') return true;
-    return !(f.allergenes_UE || []).length && !(f.allergenes_possibles || []).length && !(f.precautions || []).length && !(f.reactions_croisees || []).length
-      && (t.potassium_mg || 0) <= 300 && (t.vitamine_k1_ug || 0) <= 80 && ['fruit', 'legume', 'cereale_complete', 'feculent', 'epice_herbe'].indexOf(f.categorie) >= 0; }
+    /* 01/10 (audit) : la liste validee de QUESTIONNAIRE_V2, et elle seule (avant : etendue a 13 aliments) */
+    return PRUDENT.indexOf(f.id) >= 0; }
   function exclus(){ var x = {}, notes = {}; var ex = function(i){ x[i] = 1; }, note = function(i, t){ (notes[i] = notes[i] || []).push(t); };
     DEFAUT_EXCLUS.forEach(ex); PASPOUR.forEach(ex); ((SANTE && SANTE.autres_aliments) || []).forEach(ex);
     var ten = function(f, k){ return ((f.ciqual && f.ciqual.teneurs_pour_100g) || {})[k] || 0; };
@@ -114,7 +113,9 @@
     if(MODE !== 'normal'){ ['tomate','poivron_rouge'].forEach(function(i){ note(i, 'Allergie au latex : réaction possible (syndrome latex-fruits).'); }); note('carotte', 'Pollen de bouleau : réaction croisée possible ; de préférence cuite.'); }
     DATA.forEach(function(f){ (f.allergenes_UE || []).forEach(function(al){ if(a('q1', al)) ex(f.id); }); });
     if(a('q1','sulfites')) ex('abricot');
-    if(a('q2','latex')){ ['avocat','kiwi','banane','chataigne'].forEach(ex); ['tomate','concentre_tomate','poivron_rouge'].forEach(function(i){ note(i, 'Allergie au latex : réaction possible (syndrome latex-fruits).'); }); }
+    /* 01/10 (audit) : pignon (allergies decrites) et mangue (reaction croisee cajou, pistache) */
+    if(a('q1','fruits_a_coque')) ['pignon','mangue'].forEach(ex);
+    if(a('q2','latex')){ ['avocat','kiwi','banane','chataigne','papaye'].forEach(ex); ['tomate','concentre_tomate','poivron_rouge'].forEach(function(i){ note(i, 'Allergie au latex : réaction possible (syndrome latex-fruits).'); }); }
     if(a('q2','bouleau')) ['noisette','amande','carotte','kiwi','abricot','tofu'].forEach(function(i){ note(i, 'Pollen de bouleau : réaction croisée possible ; préférez-le cuit quand c’est possible.'); });
     if(a('q3','enceinte') || a('q3','allaite')){ ['tofu','huitre','the_vert'].forEach(ex); note('saumon', 'Enceinte ou allaitante : uniquement cuit, pas fumé.'); }
     if(a('q4','avk')) ['epinard','chou_frise','brocoli','mache'].forEach(ex);
@@ -142,7 +143,7 @@
     if(AFFINE.usage === 'quotidien') b += f.usage === 'quotidien' ? .5 : -1; else if(AFFINE.usage === 'decouverte' && f.usage === 'rare') b += .5; else if(AFFINE.usage === 'tendance' && f.tendance) b += 1;
     return Math.max(-2, Math.min(2, b)); }
   function choisir(ind){ var e = exclus(), mois = new Date().getMonth() + 1, G = { A:3, B:2, C:1 };
-    var cand = DATA.filter(function(f){ return !e.x[f.id] && G[f.niveau_preuve_peau]; }).map(function(f){
+    var cand = DATA.filter(function(f){ return !e.x[f.id] && G[f.niveau_preuve_peau] && (f.etudes || []).length; })   /* 01/10 (audit) : au moins une etude */.map(function(f){
       var c1 = f.cibles_peau.indexOf(ind.i1) >= 0, c2 = ind.i2 && f.cibles_peau.indexOf(ind.i2) >= 0, c3 = !c1 && !c2 ? (ind.suite || []).filter(function(k){ return f.cibles_peau.indexOf(k) >= 0; })[0] : null; if(!c1 && !c2 && !c3) return null;
       var s = G[f.niveau_preuve_peau] + (c1 ? 2 : 0) + (c2 ? 1 : 0) + (!AFFINE.saison && (f.saison || []).indexOf(mois) >= 0 ? .5 : 0) + (f.allegation_UE_autorisee ? .5 : 0) + bonus(f, mois);
       if(a('q8','acne') && ind.i1 === 'pores_sebum' && f.categorie !== 'legumineuse' && f.categorie !== 'cereale_complete') s -= 1;
@@ -204,7 +205,7 @@
     return txt === cat ? cat + ', pour varier votre assiette.' : txt + ' (pour 100 g, table CIQUAL).'; }
   /* credit photo : obligatoire pour les licences CC BY et CC BY-SA (la photo detouree garde la meme licence) */
   function credit(id){ var c = CREDITS[id]; if(!c) return ''; var lic = String(c.licence || '').toUpperCase().replace('BY-SA', 'BY-SA').replace(/^CC0$/, 'CC0');
-    return '<div class="preuve" style="text-transform:none;letter-spacing:.2px;font-size:10.5px;opacity:.7;margin-top:10px">Photo : ' + esc(c.auteur || 'auteur inconnu') + ', ' + (c.licence_url ? '<a href="' + esc(c.licence_url) + '" target="_blank" rel="noopener" style="color:inherit">' + esc(lic) + '</a>' : esc(lic)) + (c.source_url ? ', <a href="' + esc(c.source_url) + '" target="_blank" rel="noopener" style="color:inherit">source</a>' : '') + (/SA/.test(lic) ? ' ; détourée par vyvre, même licence.' : ' ; détourée par vyvre.') + '</div>'; }
+    return '<div class="preuve" style="text-transform:none;letter-spacing:.2px;font-size:12px;opacity:.7;margin-top:10px">Photo : ' + esc(c.auteur || 'auteur inconnu') + ', ' + (c.licence_url ? '<a href="' + esc(c.licence_url) + '" target="_blank" rel="noopener" style="color:inherit">' + esc(lic) + '</a>' : esc(lic)) + (c.source_url ? ', <a href="' + esc(c.source_url) + '" target="_blank" rel="noopener" style="color:inherit">source</a>' : '') + (/SA/.test(lic) ? ' ; détourée par vyvre, même licence.' : ' ; détourée par vyvre.') + '</div>'; }
   /* la photo detouree d'un aliment, sinon sa pastille de couleur */
   function photo(f, t){ return '<img src="' + BASE + 'photos/' + f.id + '.png" alt="" style="width:' + t + 'px;height:' + t + 'px;object-fit:contain;flex:none;filter:drop-shadow(0 8px 8px rgba(36,27,21,.18))" onerror="this.outerHTML=\'<i style=&quot;display:inline-block;width:9px;height:9px;border-radius:50%;flex:none;background:' + (TEINTE[f.categorie] || '#999') + '&quot;></i>\'">'; }
   function allegation(f){ var t = f.allegation_UE_autorisee; if(!t || /vitamine A|cuivre|pigmentation/i.test(t)) return null; return t; }   // vitamine A vegetale : avis juridique d'abord ; cuivre : jamais pour les taches
@@ -217,7 +218,7 @@
   var CSS = '\
 #vy-as-entree{display:block!important;grid-column:1/-1;margin:22px 0 0;border-radius:26px;overflow:hidden;background:linear-gradient(180deg,#fbfbfd,#e9ebee)!important;color:#1c2f30!important;padding:30px 24px 26px;position:relative;cursor:pointer;opacity:1!important;transform:none!important;backdrop-filter:none!important;border:0!important;box-shadow:0 40px 80px -40px #000}\
 #vy-as-entree *{-webkit-text-fill-color:currentColor;background-clip:border-box}\
-#vy-as-entree .m{font:500 9.5px/1 "Helvetica Neue",Arial,sans-serif;letter-spacing:2.2px;text-transform:uppercase}\
+#vy-as-entree .m{font:500 11.5px/1 "Helvetica Neue",Arial,sans-serif;letter-spacing:2.2px;text-transform:uppercase}\
 #vy-as-entree h3{font:italic 400 58px/.95 Georgia,serif;letter-spacing:-4px;margin:16px 0 10px;color:#183b3e}\
 #vy-as-entree p{font:300 14px/1.6 "Helvetica Neue",Arial,sans-serif;color:#3e5f5d;max-width:320px;margin:0}\
 #vy-as-entree button{margin-top:20px;width:100%;min-height:50px;border-radius:30px;border:0;background:#173d3f;color:#e3eee7;font:400 14px "Helvetica Neue",Arial,sans-serif;letter-spacing:.3px}\
@@ -232,7 +233,7 @@
 #vy-as .puce:focus-visible,#vy-as button:focus-visible,#vy-as a:focus-visible{outline:2px solid #173d3f;outline-offset:3px}\
 #vy-as .collant{position:sticky;bottom:calc(10px + env(safe-area-inset-bottom));z-index:3;box-shadow:0 18px 40px -18px rgba(0,0,0,.45)}\
 #vy-as .plats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:22px 0 4px}\
-#vy-as .plats div{background:#fff;border-radius:18px;padding:10px 6px 12px;text-align:center;font-size:11.5px;line-height:1.25;box-shadow:0 16px 34px -24px rgba(0,0,0,.4)}\
+#vy-as .plats div{background:#fff;border-radius:18px;padding:10px 6px 12px;text-align:center;font-size:12.5px;line-height:1.25;box-shadow:0 16px 34px -24px rgba(0,0,0,.4)}\
 #vy-as .plats img{display:block;width:100%;height:64px;object-fit:contain;margin-bottom:6px}\
 #vy-as .plats i{display:block;width:30px;height:30px;border-radius:50%;margin:17px auto 23px}\
 #vy-as .roue{position:relative;height:232px;overflow:hidden;margin:26px -24px 0;perspective:700px;-webkit-mask-image:linear-gradient(transparent,#000 28%,#000 72%,transparent);mask-image:linear-gradient(transparent,#000 28%,#000 72%,transparent)}\
@@ -244,18 +245,18 @@
 #vy-as .cases4 div.on{background:#fff;box-shadow:0 18px 40px -22px rgba(0,0,0,.35);transform:translateY(-2px)}\
 #vy-as .cases4 b{display:block;font:italic 16px Georgia,serif;margin-bottom:4px}\
 #vy-as .ec{position:relative}\
-#vy-as .fond-tri{position:absolute;inset:0;padding:calc(110px + env(safe-area-inset-top)) 14px 20px;column-count:3;column-gap:12px;font-size:9px;line-height:1.55;color:#1c2f30;opacity:.075;pointer-events:none;overflow:hidden;z-index:0}\
+#vy-as .fond-tri{position:absolute;inset:0;padding:calc(110px + env(safe-area-inset-top)) 14px 20px;column-count:3;column-gap:12px;font-size:12px;line-height:1.55;color:#1c2f30;opacity:.075;pointer-events:none;overflow:hidden;z-index:0}\
 #vy-as .fond-tri div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:opacity .8s}\
 #vy-as .fond-tri div.x{opacity:.25;text-decoration:line-through}\
 #vy-as .fond-tri div.k{font-weight:700;opacity:1}\
 #vy-as .devant{position:relative;z-index:1}\
-#vy-as .journal{margin-top:22px;font:400 11px/1.9 "IBM Plex Mono",ui-monospace,monospace;letter-spacing:.3px;color:#56696a;min-height:150px}\
+#vy-as .journal{margin-top:22px;font:400 12.5px/1.9 "IBM Plex Mono",ui-monospace,monospace;letter-spacing:.3px;color:#56696a;min-height:150px}\
 #vy-as .journal div{opacity:0;transform:translateY(6px);transition:opacity .45s,transform .45s}\
 #vy-as .journal div.on{opacity:1;transform:none}\
 #vy-as .haut{display:flex;justify-content:space-between;align-items:center;margin-bottom:34px}\
 #vy-as .haut b{font-size:24px;font-weight:300;letter-spacing:-1.3px}\
-#vy-as .m{font-size:9.5px;letter-spacing:2.2px;text-transform:uppercase}\
-#vy-as .fermer{background:none;border:1px solid currentColor;color:inherit;border-radius:30px;padding:9px 14px;font-size:10px;letter-spacing:1.6px;opacity:.75}\
+#vy-as .m{font-size:12px;letter-spacing:2.2px;text-transform:uppercase}\
+#vy-as .fermer{background:none;border:1px solid currentColor;color:inherit;border-radius:30px;padding:9px 14px;font-size:12px;letter-spacing:1.6px;opacity:.75}\
 #vy-as h1,#vy-as h2,#vy-as h3{color:inherit!important;-webkit-text-fill-color:currentColor!important;background:none!important;text-shadow:none!important}\
 #vy-as h1{font:italic 400 76px/.93 Georgia,serif;letter-spacing:-5px;margin:8px 0 18px}\
 #vy-as h2{font:italic 400 52px/.95 Georgia,serif;letter-spacing:-3px;margin:46px 0 16px}\
@@ -263,22 +264,22 @@
 #vy-as .nuit .lead{color:#bed2d0}\
 #vy-as .ruban{display:flex;overflow-x:auto;scrollbar-width:none;margin:28px -24px;border-top:1px solid currentColor;border-bottom:1px solid currentColor;border-color:rgba(24,59,62,.2)}\
 #vy-as .nuit .ruban{border-color:rgba(212,247,239,.2)}\
-#vy-as .ruban span{flex:1 0 auto;padding:16px 12px;white-space:nowrap;text-align:center;font-size:9.5px;letter-spacing:1.6px;text-transform:uppercase}\
+#vy-as .ruban span{flex:1 0 auto;padding:16px 12px;white-space:nowrap;text-align:center;font-size:12px;letter-spacing:1.6px;text-transform:uppercase}\
 #vy-as .ruban span.on{font-weight:600}\
 #vy-as .rit{display:flex;gap:22px;padding:22px 0;border-bottom:1px solid rgba(24,59,62,.2)}\
 #vy-as .rit>i{font:italic 28px Georgia,serif;min-width:38px;padding-top:2px}\
 #vy-as .rit h3{font-size:22px;font-weight:300;margin:0 0 4px;letter-spacing:-.3px}\
-#vy-as .rit .sous{font-size:11.5px;color:#52716f;margin:0 0 10px;letter-spacing:.2px}\
+#vy-as .rit .sous{font-size:12.5px;color:#52716f;margin:0 0 10px;letter-spacing:.2px}\
 #vy-as .rit p{font-size:13.5px;line-height:1.65;margin:8px 0 0;color:#2d4f4e}\
 #vy-as .rit .alleg{font:italic 16px/1.5 Georgia,serif;color:#183b3e;border-left:1px solid #183b3e;padding-left:12px;margin:12px 0}\
-#vy-as .rit .preuve{font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:#52716f;margin-top:10px}\
+#vy-as .rit .preuve{font-size:12px;letter-spacing:1.4px;text-transform:uppercase;color:#52716f;margin-top:10px}\
 #vy-as .rit .prec{font-size:12.5px;color:#8a4b1c;margin-top:8px;line-height:1.55}\
-#vy-as details{margin-top:10px}#vy-as summary{font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:#52716f;cursor:pointer;list-style:none}\
+#vy-as details{margin-top:10px}#vy-as summary{font-size:12px;letter-spacing:1.6px;text-transform:uppercase;color:#52716f;cursor:pointer;list-style:none}\
 #vy-as summary::-webkit-details-marker{display:none}\
 #vy-as details a{display:block;color:#183b3e;font-size:12.5px;line-height:1.5;margin-top:7px;text-decoration:none;border-bottom:1px solid rgba(24,59,62,.15);padding-bottom:6px}\
 #vy-as .q{margin:26px 0}#vy-as .q b{display:block;font-weight:300;font-size:18px;line-height:1.35;margin-bottom:12px;letter-spacing:-.2px}\
 #vy-as .q b em{font:italic 16px Georgia,serif;margin-right:10px;opacity:.7}\
-#vy-as .q small{font-size:9px;letter-spacing:1.6px;margin-left:8px;opacity:.55}\
+#vy-as .q small{font-size:12px;letter-spacing:1.6px;margin-left:8px;opacity:.55}\
 #vy-as .puces{display:flex;flex-wrap:wrap;gap:8px}\
 #vy-as .puce{font-size:13px;padding:10px 13px;border-radius:30px;border:1px solid rgba(24,59,62,.3);cursor:pointer;user-select:none;-webkit-user-select:none}\
 #vy-as .puce.on{background:#173d3f;color:#e3eee7;border-color:#173d3f}\
@@ -286,7 +287,7 @@
 #vy-as .nuit .btn{background:#d6eee7;color:#12343b}\
 #vy-as .jour .btn{background:#173d3f;color:#e3eee7}\
 #vy-as .btn.sec{background:none!important;color:inherit!important;border:1px solid currentColor;opacity:.8}\
-#vy-as .fine{font-size:10.5px;line-height:1.7;opacity:.7;margin-top:18px}\
+#vy-as .fine{font-size:12px;line-height:1.7;opacity:.7;margin-top:18px}\
 #vy-as .alerte{font-size:13px;line-height:1.55;border:1px solid rgba(138,75,28,.45);color:#6b3a14;border-radius:16px;padding:12px 14px;margin:10px 0}\
 #vy-as .prem{margin:34px -24px 0;padding:34px 24px 30px;background:#173d3f;color:#e3eee7}\
 #vy-as .prem h2{margin-top:6px}\
@@ -296,7 +297,7 @@
 #vy-as .prem details a{color:#e3eee7}\
 #vy-as .prod{display:flex;gap:14px;align-items:center;margin-top:12px;padding:10px;border-radius:16px;background:rgba(255,255,255,.06);text-decoration:none;color:inherit}\
 #vy-as .prod img{width:56px;height:70px;object-fit:contain;background:#fff;border-radius:10px;padding:4px;flex:none}\
-#vy-as .prod b{display:block;font-size:10px;letter-spacing:1.4px;text-transform:uppercase;opacity:.75}\
+#vy-as .prod b{display:block;font-size:12px;letter-spacing:1.4px;text-transform:uppercase;opacity:.75}\
 #vy-as .prod span{font-size:13.5px;line-height:1.35}\
 #vy-as .vague{position:absolute;left:0;right:0;height:200px;pointer-events:none;opacity:.5}\
 @media(min-width:700px){#vy-as h1{font-size:110px}#vy-as-entree h3{font-size:72px}}\
@@ -304,9 +305,9 @@
 #vy-as .jour{background:transparent;color:#151413;font-family:Manrope,Inter,"Helvetica Neue",Arial,sans-serif}\
 #vy-as .jour h1,#vy-as .jour h2{font-family:"Playfair Display",Georgia,serif;font-style:normal;font-weight:400;letter-spacing:-.065em}\
 #vy-as .jour h1{font-size:62px;line-height:.86}#vy-as .jour h2{font-size:44px;line-height:.9}\
-#vy-as .jour .m{font:400 10px/1.4 "DM Mono",ui-monospace,monospace;letter-spacing:.18em;color:#6f6a64}\
+#vy-as .jour .m{font:400 12px/1.4 "DM Mono",ui-monospace,monospace;letter-spacing:.18em;color:#6f6a64}\
 #vy-as .jour .lead{color:#6f6a64}\
-#vy-as .jour .rit{border-bottom-color:rgba(21,20,19,.13)}#vy-as .jour .rit>i{font:400 11px "DM Mono",monospace;color:#a78151;min-width:30px;padding-top:6px;font-style:normal}\
+#vy-as .jour .rit{border-bottom-color:rgba(21,20,19,.13)}#vy-as .jour .rit>i{font:400 12.5px "DM Mono",monospace;color:#a78151;min-width:30px;padding-top:6px;font-style:normal}\
 #vy-as .jour .rit h3{font-family:"Playfair Display",Georgia,serif;font-size:26px;letter-spacing:-.04em}\
 #vy-as .jour .rit .alleg{font-family:"Playfair Display",Georgia,serif;border-left-color:#c6a36b}\
 #vy-as .jour .btn{background:#151413;color:#fff;border-radius:2px;box-shadow:0 15px 28px -20px rgba(0,0,0,.65)}\
@@ -325,11 +326,11 @@
 #vy-as .ed-list h3{font:400 31px/1 "Playfair Display",Georgia,serif;letter-spacing:-.06em;margin:12px 0 18px}\
 #vy-as .ed-row{display:grid;grid-template-columns:64px 1fr auto;gap:13px;align-items:center;padding:12px 0;border-top:1px solid rgba(21,20,19,.13);text-decoration:none;color:inherit}\
 #vy-as .ed-row img{width:58px;height:62px;object-fit:contain;filter:drop-shadow(0 14px 10px rgba(36,27,21,.16))}#vy-as .ed-row i{width:26px;height:26px;border-radius:50%;margin:0 auto}\
-#vy-as .ed-row b{display:block;font-size:14px;font-weight:600}#vy-as .ed-row span{display:block;font-size:11px;color:#6f6a64;margin-top:3px}#vy-as .ed-row em{font:400 10px "DM Mono",monospace;font-style:normal;color:#a78151}\
+#vy-as .ed-row b{display:block;font-size:14px;font-weight:600}#vy-as .ed-row span{display:block;font-size:12.5px;color:#6f6a64;margin-top:3px}#vy-as .ed-row em{font:400 12px "DM Mono",monospace;font-style:normal;color:#a78151}\
 #vy-as .ed-btn{display:flex;justify-content:space-between;align-items:center;margin-top:14px;padding:15px 18px;background:#151413;color:#fff;border-radius:2px;text-decoration:none;font-size:13px;box-shadow:0 15px 28px -20px rgba(0,0,0,.65)}\
 #vy-as .ed-signals{display:grid;grid-template-columns:1fr;margin-top:14px}\
 #vy-as .ed-signals article{display:grid;grid-template-columns:92px 1fr;align-items:center;gap:6px 14px;padding:16px 0;border-top:1px solid rgba(21,20,19,.55)}#vy-as .ed-signals article:nth-child(2){border-top-color:rgba(198,163,107,.72)}\
-#vy-as .ed-signals b{grid-row:1/3;font:400 30px/1 "Playfair Display",Georgia,serif;letter-spacing:-.05em}#vy-as .ed-signals p{font-size:11.5px;color:#6f6a64;line-height:1.45;margin:0}\
+#vy-as .ed-signals b{grid-row:1/3;font:400 30px/1 "Playfair Display",Georgia,serif;letter-spacing:-.05em}#vy-as .ed-signals p{font-size:12.5px;color:#6f6a64;line-height:1.45;margin:0}\
 @media(min-width:900px){#vy-as .ec{max-width:1080px}#vy-as .ed-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px}#vy-as .ed-grid{grid-template-columns:1.15fr .85fr}#vy-as .ed-score{min-height:440px}#vy-as .ed-num{font-size:220px}#vy-as .ed-disc{width:200px;top:20%}#vy-as .ed-signals{grid-template-columns:repeat(3,1fr);gap:15px}#vy-as .ed-signals article{display:block}#vy-as .ed-signals b{display:block;margin:12px 0 6px}}\
 @media(prefers-reduced-motion:reduce){#vy-as{transition:none}}';
   function style(){ if(!document.getElementById('vy-as-fontes')){ var l = document.createElement('link'); l.id = 'vy-as-fontes'; l.rel = 'stylesheet'; l.href = 'https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&family=Manrope:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap'; document.head.appendChild(l); }
@@ -392,9 +393,9 @@
     var AUTRES = DATA.filter(function(f){ return !(f.allergenes_UE || []).length && DEFAUT_EXCLUS.indexOf(f.id) < 0; });
     feuille(HAUT + (message ? '<div class="alerte" style="border-color:rgba(24,59,62,.3);color:#183b3e">' + esc(message) + '</div>' : '')
       + '<div class="m">Une seule question, avant votre assiette</div><h1>Quelque chose à éviter ?</h1><p class="lead">D’abord, nous retirons ce qui ne vous convient pas. Ensuite seulement, nous choisissons.</p>'
-      + '<div class="puces" id="vy-as-cases" style="margin-top:22px">' + CASES.map(function(c){ return '<span class="puce" data-c="' + c[0] + '" style="display:flex;flex-direction:column;align-items:flex-start;padding:12px 16px">' + c[1] + (c[2] ? '<small style="font-size:11px;opacity:.6;margin-top:3px">' + c[2] + '</small>' : '') + '</span>'; }).join('') + '</div>'
+      + '<div class="puces" id="vy-as-cases" style="margin-top:22px">' + CASES.map(function(c){ return '<span class="puce" data-c="' + c[0] + '" style="display:flex;flex-direction:column;align-items:flex-start;padding:12px 16px">' + c[1] + (c[2] ? '<small style="font-size:12.5px;opacity:.6;margin-top:3px">' + c[2] + '</small>' : '') + '</span>'; }).join('') + '</div>'
       + '<div id="vy-as-dep"></div>'
-      + '<button type="button" id="vy-as-rien" style="display:block;width:100%;margin-top:18px;padding:18px;border-radius:22px;border:1px solid #183b3e;background:none;color:#183b3e;cursor:pointer"><span style="display:block;font-size:17px;font-weight:400">Rien de particulier</span><span style="display:block;font-size:11.5px;opacity:.7;margin-top:4px">ni allergie, ni grossesse, ni anticoagulant, ni maladie des reins, ni régime végétarien ou végan</span></button>'
+      + '<button type="button" id="vy-as-rien" style="display:block;width:100%;margin-top:18px;padding:18px;border-radius:22px;border:1px solid #183b3e;background:none;color:#183b3e;cursor:pointer"><span style="display:block;font-size:17px;font-weight:400">Rien de particulier</span><span style="display:block;font-size:12.5px;opacity:.7;margin-top:4px">ni allergie, ni grossesse, ni anticoagulant, ni maladie des reins, ni régime végétarien ou végan</span></button>'
       + '<div class="q" style="margin:20px 0 0"><b style="font-size:15px">Plutôt du quotidien, ou des découvertes ?<small>FACULTATIF</small></b><div class="puces" id="vy-as-usage"><span class="puce" data-v="quotidien">Des aliments du quotidien</span><span class="puce" data-v="decouverte">Des découvertes</span><span class="puce" data-v="tendance">Les tendances</span><span class="puce on" data-v="">Peu importe</span></div></div>'
       + '<p id="vy-as-phrase" style="font:italic 18px/1.5 Georgia,serif;margin:22px 0 6px"></p><div class="m" id="vy-as-compte" style="opacity:.6"></div>'
       + '<p class="lead" style="font-size:13px;margin-top:22px">' + (ageOk() ? '' : 'Vous avez 18 ans ou plus. ') + 'Vos réponses concernent votre santé. En acceptant, vous nous autorisez à nous en servir pour une seule chose : écarter des aliments et des soins. Elles restent sur cet appareil, ne nous sont jamais envoyées et s’effacent quand vous fermez la page.</p>'
@@ -445,11 +446,13 @@
     if(window.vyPrefs && window.vyPrefs.filter){ try { var f = window.vyPrefs.filter(l.map(function(p){ return { id:p.id, brand:p.brand, pays:p.pays, categorie:p.cat, name:p.n }; })); var ok = {}; f.forEach(function(p){ ok[p.id] = 1; }); if(f.length) l = l.filter(function(p){ return ok[p.id]; }); } catch(e){} }
     var serum = l.filter(function(p){ return /serum|sérum/i.test(p.cat || '') ; })[0], creme = l.filter(function(p){ return /creme|crème|soin|hydratant/i.test(p.cat || '') && p !== serum; })[0];
     var out = [serum, creme].filter(Boolean); l.forEach(function(p){ if(out.length < 2 && out.indexOf(p) < 0) out.push(p); }); return out.slice(0, 2); }
+  function minus(t){ return /^[A-ZÀ-Ý][a-zà-ÿ]/.test(t) ? t.charAt(0).toLowerCase() + t.slice(1) : t; }   /* « vitamine C », mais « AHA » */
   function combos(ind, pris){ if(!COMBOS || !COMBOS.combos) return '';
     var ids = {}; pris.forEach(function(c){ ids[c.f.id] = 1; });
     var ex = exclus().x, enceinte = a('q3','enceinte') || a('q3','allaite') || a('q3','projet');
     var actifs = {}; (COMBOS.actifs || []).forEach(function(z){ actifs[z.id] = z; });
-    var lignes = COMBOS.combos.filter(function(c){ var ac = actifs[c.actif_id]; if(/tomate/.test(c.aliment_id) && c.actif_id === 'protection_solaire') return false; return (c.indice === ind.i1 || c.indice === ind.i2) && !ex[c.aliment_id] && ac && !(enceinte && ac.grossesse === 'eviter') && !(MODE === 'prudent' && ac.grossesse !== 'ok') && !(MODE === 'mineur' && ac.id !== 'protection_solaire'); })
+    var lignes = COMBOS.combos.filter(function(c){ var ac = actifs[c.actif_id]; if(/tomate/.test(c.aliment_id) && c.actif_id === 'protection_solaire') return false; var sensible = ind.i1 === 'rougeurs' || ind.i2 === 'rougeurs' || ((AFFINE && AFFINE.besoins) || []).indexOf('rougeurs') >= 0;   /* 01/10 (audit) : peau reactive, pas d'AHA ni de retinoide */
+      return (c.indice === ind.i1 || c.indice === ind.i2) && !ex[c.aliment_id] && ac && !(sensible && ['aha','retinoide'].indexOf(ac.id) >= 0) && !(enceinte && ac.grossesse === 'eviter') && !(MODE === 'prudent' && ac.grossesse !== 'ok') && !(MODE === 'mineur' && ac.id !== 'protection_solaire'); })
       .sort(function(p, q){ return (ids[q.aliment_id] ? 1 : 0) - (ids[p.aliment_id] ? 1 : 0) || (p.ordre || 9) - (q.ordre || 9); }).slice(0, 3);
     if(!lignes.length) return '';
     return '<div class="prem"><div class="m">Premium · Un aliment, un soin</div><h2>Combo.</h2><p class="lead" style="color:#b6cdc8">Pour une même cible, un aliment à table et un actif en soin. Chacun a ses propres preuves. Aucune étude n’a testé les deux ensemble : nous ne promettons donc aucun effet combiné.</p>'
@@ -458,7 +461,7 @@
         return '<div class="rit"><i>' + n2(k) + '</i><div>' + (ids[f.id] ? '' : '<div class="preuve" style="margin:0 0 4px">Un autre aliment pour la même cible</div>') + '<h3>' + esc(f.nom.split(' (')[0]) + ' + ' + esc(ac.nom.split(' (')[0]) + '</h3><div class="sous">' + esc(INDICES[c.indice] || c.indice) + ' · aliment : preuve ' + esc(c.grade_aliment || f.niveau_preuve_peau) + ' · soin : preuve ' + esc(c.grade_actif || ac.grade) + '</div>'
           + '<p>À table : ' + esc(f.nom.split(' (')[0].toLowerCase()) + ', ' + esc(composition(f).charAt(0).toLowerCase() + composition(f).slice(1)) + ' En soin : ' + esc(ac.ce_qu_on_peut_dire || '') + '</p>'
           + '<div class="preuve" style="margin-top:14px">Votre rituel</div><p style="margin-top:4px">'
-            + (ac.moment === 'soir' ? 'Le soir' : ac.moment === 'matin' ? 'Le matin' : 'Matin ou soir') + ' : ' + esc((ac.nom || '').split(' (')[0].toLowerCase()) + '.'
+            + (ac.moment === 'soir' ? 'Le soir' : ac.moment === 'matin' ? 'Le matin' : 'Matin ou soir') + ' : ' + esc(minus((ac.nom || '').split(' (')[0])) + '.'
             + (ac.dose_affichee ? '<br><span style="opacity:.8">Dose : ' + esc(ac.dose_affichee) + '</span>' : '')
             + '<br>À table : ' + esc(f.nom.split(' (')[0].toLowerCase()) + ', ' + esc((f.portion_type || '').toLowerCase()) + '. ' + esc(FREQ[f.categorie] || '') + '' + '</p>'
           + (ac.precautions || []).map(function(t){ return '<div class="prec" style="color:#f3c9a6">' + esc(t) + '</div>'; }).join('')
@@ -564,12 +567,12 @@
             + (apports(f).length ? '<div class="preuve" style="margin-top:12px">Une portion apporte</div><p style="margin-top:4px">' + apports(f).map(esc).join('<br>') + '</p>' : '')
             + (a2 ? '<div class="alleg">' + esc(a2) + '</div>' : '') 
             + '<div class="preuve">Preuve ' + f.niveau_preuve_peau + ' · ' + PREUVE[f.niveau_preuve_peau] + '</div>'
-            + (prix(f) ? '<div class="preuve" style="text-transform:none;letter-spacing:.2px;font-size:11.5px">' + esc(prix(f)) + (AFFINE.bio && f.bio_disponible ? ' Existe en bio.' : '') + '</div>' : '')
+            + (prix(f) ? '<div class="preuve" style="text-transform:none;letter-spacing:.2px;font-size:12.5px">' + esc(prix(f)) + (AFFINE.bio && f.bio_disponible ? ' Existe en bio.' : '') + '</div>' : '')
             + (f.allergenes_UE.length ? '<div class="prec">Allergènes : ' + f.allergenes_UE.map(function(z){ return AL_NOM[z] || z; }).join(', ') + ((f.allergenes_possibles || []).length ? ' ; selon la marque : ' + f.allergenes_possibles.map(function(z){ return AL_NOM[z] || z; }).join(', ') : '') + '.</div>' : '')
             + pr.map(function(t){ return '<div class="prec">' + esc(t) + '</div>'; }).join('')
             + (f.etudes.length ? '<details><summary>Ce que disent les études (' + f.etudes.length + ')</summary><p style="font-size:12.5px">' + esc(f.mecanisme_simple) + ' Information scientifique générale : ce n’est pas un effet attendu de cet aliment sur votre peau.</p>' + f.etudes.map(function(s){ return '<a href="' + esc(s.lien) + '" target="_blank" rel="noopener">' + esc(s.ref) + ' ↗</a>'; }).join('') + '</details>' : '')
             + credit(f.id)
-            + (prudent ? '' : '<a href="#" class="vy-as-pas" data-id="' + f.id + '" style="display:inline-block;margin-top:12px;font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:#52716f">Retirer cet aliment</a>')
+            + (prudent ? '' : '<a href="#" class="vy-as-pas" data-id="' + f.id + '" style="display:inline-block;margin-top:12px;font-size:12.5px;letter-spacing:1.4px;text-transform:uppercase;color:#52716f">Retirer cet aliment</a>')
             + '</div></div>'; }).join('')
       + (une ? '<p class="fine">À intégrer dans une alimentation variée et équilibrée et un mode de vie sain.</p>' : '')
       + (AFFINE.usage === 'tendance' ? tendances() : '')
@@ -627,7 +630,7 @@
   var TYPES_R = [['jus_boisson','Jus et boissons'],['petit_dejeuner','Petit-déjeuner'],['entree','Entrées'],['plat','Plats'],['dessert','Desserts'],['encas','En-cas']], ONGLET = 'plat', OUVERTES = 3;
   var VERDICT = { prouve:['Prouvé', '#2f6b4f'], plausible:['Plausible', '#8a6a2c'], pas_demontre:['Pas démontré', '#6b6f73'], deconseille:['Déconseillé', '#a3473f'] }, TOUVERT = 4;
   function tendances(){ if(!TEND.length) return '';
-    var carte = function(t){ var v = VERDICT[t.verdict] || ['', '#666']; return '<div class="rit"><div style="width:100%"><div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><h3>' + esc(t.accroche || t.titre) + '</h3><span style="flex:none;font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:#fff;background:' + v[1] + ';padding:6px 10px;border-radius:999px">' + v[0] + '</span></div>'
+    var carte = function(t){ var v = VERDICT[t.verdict] || ['', '#666']; return '<div class="rit"><div style="width:100%"><div style="display:flex;justify-content:space-between;gap:12px;align-items:baseline"><h3>' + esc(t.accroche || t.titre) + '</h3><span style="flex:none;font-size:12px;letter-spacing:1.4px;text-transform:uppercase;color:#fff;background:' + v[1] + ';padding:6px 10px;border-radius:999px">' + v[0] + '</span></div>'
       + '<p>' + esc(t.verdict_texte) + '</p>' + (t.ce_quon_peut_faire ? '<p><b style="font-weight:500">Ce que vous pouvez faire.</b> ' + esc(t.ce_quon_peut_faire) + '</p>' : '') + (t.prudence ? '<div class="prec">' + esc(t.prudence) + '</div>' : '')
       + ((t.etudes || []).length ? '<details><summary>Les études (' + t.etudes.length + ')</summary>' + t.etudes.map(function(e2){ return '<a href="' + esc(e2.lien) + '" target="_blank" rel="noopener">' + esc(e2.ref) + ' ↗</a>'; }).join('') + '</details>' : '') + '</div></div>'; };
     return '<div id="vy-as-tend"><div class="m" style="margin-top:46px">Collagène, matcha, vinaigre de cidre…</div><h2 style="margin-top:6px">Tendances.</h2><p class="lead">Ce que disent vraiment les études sur les tendances du moment. Sans parti pris, sources à l’appui.</p>'
@@ -638,6 +641,8 @@
       if((r.allergenes_UE || []).some(function(z){ return al.indexOf(z) >= 0; })) return false;
       if(a('q1','sulfites') && r.ingredients.some(function(g){ return /abricot_sec|raisin_sec|figue_seche|capres/.test(g.aliment_id || ''); })) return false;
       if((a('q3','enceinte') || a('q3','allaite')) && r.oeuf_peu_cuit) return false;
+      /* 01/10 (audit) : reins ou calculs, les recettes riches en oxalates ou tres salees sont retirees */
+      if(a('q5','renale') && r.ingredients.some(function(g){ return /rhubarbe|th[ée] noir|the_noir|oseille|[ée]pinard|fleur de sel|anchois|c[âa]pre|sauce.?soja|olive noire|olives/i.test((g.libelle || '') + ' ' + (g.aliment_id || '')); })) return false;
       if((r.allergenes_possibles || []).some(function(z){ return al.indexOf(z) >= 0; })) return false;
       if(a('q7','vege') && (r.regimes || []).indexOf('vegetarien') < 0) return false;
       if(a('q7','vegan') && (r.regimes || []).indexOf('vegan') < 0) return false;
