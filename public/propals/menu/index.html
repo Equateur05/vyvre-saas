@@ -22,7 +22,7 @@ iframe{position:fixed;inset:0;width:100%;height:100%;border:0;background:#000}
 <body>
 <iframe id="f" src="/scan/" title="vyvre.fr"></iframe>
 <div id="info"></div>
-<nav id="sel"><b>MENU</b><a data-m="actuel">Actuel</a><a data-m="A">A</a><a data-m="B">B</a><a data-m="C">C</a><a data-m="D">D</a><a data-m="E">E</a></nav>
+<nav id="sel"><b>MENU</b><a data-m="actuel">Actuel</a><a data-m="F">F</a><a data-m="G">G</a><a data-m="H">H</a><a data-m="A">A</a><a data-m="B">B</a><a data-m="C">C</a><a data-m="D">D</a><a data-m="E">E</a></nav>
 <script>
 /* 30/09 (Charles : « refais tes propals avec le vrai menu, j'ai du mal a me rendre compte ») :
    la vraie page vyvre.fr/scan est chargee telle quelle ; chaque proposition remplace seulement son menu. */
@@ -32,7 +32,10 @@ const INFO = {
   B:'B · Onglets en bas : les trois scans en bas de l’écran, sous le pouce, comme une app. « Menu » en haut pour le reste.',
   C:'C · Sommaire : un seul bouton « Menu » bien visible, qui ouvre un sommaire plein écran.',
   D:'D · Une barre lisible : le même menu qu’aujourd’hui, en vrai texte blanc de 14 px, qui défile au doigt.',
-  E:'E · La capsule : une capsule de verre avec les trois scans ; le « + » l’ouvre pour le reste.' };
+  E:'E · La capsule : une capsule de verre avec les trois scans ; le « + » l’ouvre pour le reste.' ,
+  F:'F · En haut à droite : Peau, Cheveux, Aliment en vrai texte lisible ; le reste dans le petit bouton.',
+  G:'G · En haut à droite : un petit sélecteur Peau | Cheveux | Aliment ; le reste dans le petit bouton.',
+  H:'H · En haut à droite, sur deux lignes : les trois scans, puis Manifeste, Méthode, Pour les marques.' };
 const LIENS = [['Manifeste','/manifeste'],['Méthode','/accuracy'],['Pour les marques','/marques']];
 const SCANS = [['Peau','/scan/'],['Cheveux','/cheveux'],['Aliment','/scan/?assiette=1']];
 const BASE = `
@@ -43,6 +46,18 @@ header .vy-menu{display:none!important}
 #vp-voile a span{font:500 11px 'IBM Plex Mono',monospace;color:#d9c9a3;letter-spacing:.2em}
 #vp-voile .g{font:500 11px 'IBM Plex Mono',monospace;letter-spacing:.28em;color:#d9c9a3;margin:20px 0 4px}
 .vp-btn{font:500 13px/1 Inter,sans-serif;letter-spacing:.14em;color:#fff;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.28);border-radius:999px;padding:11px 16px;cursor:pointer;position:relative;z-index:310}
+`;
+const DROITE = `
+header .brand{width:100%}
+@media (max-width:560px){header .brand .brand-x,header .brand .brand-partner{display:none!important}header .brand{flex-wrap:nowrap!important}}
+#vp-d{margin-left:auto;display:flex;align-items:center;gap:14px;position:relative;z-index:310}
+@media (min-width:561px){#vp-d{margin-right:96px}}
+#vp-d .sc{display:flex;align-items:center;gap:14px}
+#vp-d .sc a{font:400 14px/1 Inter,sans-serif;color:rgba(255,255,255,.72);text-decoration:none;padding:10px 0;position:relative;letter-spacing:.01em}
+#vp-d .sc a.on{color:#fff}
+#vp-d .sc a.on:after{content:'';position:absolute;left:0;right:0;bottom:3px;height:1px;background:#d9c9a3}
+#vp-d .burger{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.05);display:grid;place-items:center;cursor:pointer}
+#vp-d .burger i{display:block;width:15px;height:7px;border-top:1.3px solid #fff;border-bottom:1.3px solid #fff}
 `;
 const CSS = {
   A: BASE + `
@@ -71,6 +86,18 @@ header .vy-menu a.vp-on{border-color:#d9c9a3!important;color:#fbf0d2!important}
 header .vy-menu a.vp-nv{position:relative}
 header .vy-menu a.vp-nv::after{content:'NOUVEAU';position:absolute;top:-7px;right:8px;font:500 7.5px/1 'IBM Plex Mono',monospace;letter-spacing:.14em;background:#d9c9a3;color:#000;padding:3px 5px;border-radius:5px}
 header .brand{flex-wrap:wrap!important}`,
+  F: BASE + DROITE,
+  G: BASE + DROITE + `
+#vp-d .sc{gap:0;padding:3px;border:1px solid rgba(255,255,255,.18);border-radius:999px;background:rgba(255,255,255,.04)}
+#vp-d .sc a{font-size:12.5px;padding:8px 11px;border-radius:999px}
+#vp-d .sc a.on{background:#fff;color:#111}#vp-d .sc a.on:after{display:none}`,
+  H: DROITE + `
+header .vy-menu{display:none!important}
+#vp-d{flex-direction:column;align-items:flex-end;gap:4px}
+#vp-d .sc a{font-size:14px;padding:4px 0}
+#vp-d .sec{display:flex;gap:12px}
+#vp-d .sec a{font:400 11.5px/1 Inter,sans-serif;color:rgba(255,255,255,.6);text-decoration:none;padding:6px 0}
+@media (max-width:560px){#vp-d .sec a{font-size:11px}#vp-d .sc{gap:11px}}`,
   E: BASE + `
 #vp-cap{position:fixed;top:calc(env(safe-area-inset-top) + 150px);left:50%;transform:translateX(-50%);z-index:250;width:min(92vw,330px);height:56px;overflow:hidden;border-radius:28px;border:1px solid rgba(255,255,255,.18);background:rgba(18,18,22,.82);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);transition:height .45s cubic-bezier(.2,.9,.2,1)}
 #vp-cap.ouv{height:300px}
@@ -80,7 +107,7 @@ header .brand{flex-wrap:wrap!important}`,
 #vp-cap .l1 button{width:40px;height:40px;border-radius:50%;border:1px solid rgba(255,255,255,.2);background:none;color:#fff;font-size:18px}
 #vp-cap .reste a{display:block;color:#fff;text-decoration:none;font:300 20px/1 Inter,sans-serif;padding:16px 20px;border-top:1px solid rgba(255,255,255,.1)}` };
 const ICONES = ['<svg viewBox="0 0 24 24"><ellipse cx="12" cy="12" rx="7" ry="9"/><path d="M9.5 15.5c1.5 1 3.5 1 5 0"/></svg>','<svg viewBox="0 0 24 24"><path d="M6 20c0-8 2-14 6-16 4 2 6 8 6 16"/><path d="M9 20c0-6 1-10 3-12M15 20c0-6-1-10-3-12"/></svg>','<svg viewBox="0 0 24 24"><circle cx="12" cy="13" r="7"/><path d="M12 6c0-2 1-3 3-3"/></svg>'];
-let M = new URLSearchParams(location.search).get('m') || 'A';
+let M = new URLSearchParams(location.search).get('m') || 'F';
 const f = document.getElementById('f'), info = document.getElementById('info');
 
 function appliquer(){
@@ -102,6 +129,9 @@ function appliquer(){
     const peau = d.createElement('a'); peau.href = '/scan/'; peau.textContent = 'Scan peau'; peau.setAttribute('data-vp-ajout', ''); nav.insertBefore(peau, nav.firstChild);
     const al = d.createElement('a'); al.href = '/scan/?assiette=1'; al.textContent = 'Scan aliment'; al.className = 'vp-nv'; al.setAttribute('data-vp-ajout', ''); nav.insertBefore(al, nav.children[2]);
     (ici ? nav.querySelector('.vy-autre') : peau).classList.add('vp-on'); }
+  if(M === 'F' || M === 'G'){ const v = voile(liens); const d0 = el('<div id="vp-d"><nav class="sc">' + SCANS.map((sc, k) => '<a href="' + sc[1] + '"' + (k === ici ? ' class="on"' : '') + '>' + sc[0] + '</a>').join('') + '</nav><button class="burger" aria-label="Menu"><i></i></button></div>', brand);
+    d0.querySelector('.burger').onclick = () => v.classList.toggle('on'); }
+  if(M === 'H'){ el('<div id="vp-d"><nav class="sc">' + SCANS.map((sc, k) => '<a href="' + sc[1] + '"' + (k === ici ? ' class="on"' : '') + '>' + sc[0] + '</a>').join('') + '</nav><nav class="sec">' + LIENS.map(l => '<a href="' + l[1] + '">' + l[0] + '</a>').join('') + '</nav></div>', brand); }
   if(M === 'E'){ const c = el('<div id="vp-cap"><div class="l1"><nav>' + SCANS.map((s, k) => '<a href="' + s[1] + '"' + (k === ici ? ' class="on"' : '') + '>' + s[0] + '</a>').join('') + '</nav><button>+</button></div><div class="reste">' + LIENS.map(l => '<a href="' + l[1] + '">' + l[0] + '</a>').join('') + '</div></div>');
     const b = c.querySelector('button'); b.onclick = () => { c.classList.toggle('ouv'); b.textContent = c.classList.contains('ouv') ? '×' : '+'; }; }
 }

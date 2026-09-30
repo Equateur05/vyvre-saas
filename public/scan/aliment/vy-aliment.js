@@ -683,5 +683,11 @@
     versRep(ind); var pris = choisir(ind);
     return { prudent:MODE !== 'normal', i1:INDICES[ind.i1], i2:ind.i2 ? INDICES[ind.i2] : null, n1:ind.n1, aliments:pris.map(function(c){ var f = c.f; return { id:f.id, nom:f.nom.split(' (')[0].split(',')[0], categorie:NOM_CAT[f.categorie] || '', portion:(f.portion_type || '').split(' (')[0], accroche:f.accroche || '', photo:BASE + 'photos/' + f.id + '.png', teinte:TEINTE[f.categorie] || '#999', saison:saison(f), preuve:f.niveau_preuve_peau }; }) }; }); }
   window.vyAliment = { entree:entree, ouvrir:ouvrir, apercu:apercu };
+  /* 30/09 (Charles : « j'ai deja le bon scan de peau ») : ?assiette=1 ouvre l'assiette tout de suite
+     a partir du dernier scan garde sur cet appareil, sans refaire le scan */
+  if(/[?&]assiette=1/.test(location.search)){
+    var direct = function(){ if(window.__vyScores || ouvert) return;
+      try { var sc = JSON.parse(localStorage.getItem('vyvre_scan_scores') || 'null'); if(sc && Object.keys(sc).length){ window.__vyScores = sc; entree.fait = 1; ouvrir(); } } catch(e){} };
+    if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(direct, 300); }); else setTimeout(direct, 300); }
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape') fermer(); var z = e.target; if(ouvert && z && z.classList && z.classList.contains('puce') && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); z.click(); } });
 })();
