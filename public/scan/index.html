@@ -2876,7 +2876,7 @@ html,body{background:#030405!important}
 #vy-recap i{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font:300 11px/1.3 Inter,sans-serif;font-style:normal;color:rgba(255,255,255,.85);margin-top:3px}
 @media (min-width:1100px){#vy-recap{display:none!important}}
 </style>
-<script src="/scan/aliment/vy-aliment.js?v=27" defer></script>
+<script src="/scan/aliment/vy-aliment.js?v=28" defer></script>
 <style id="vy-as-place">@media (min-width:1100px){.vyvre-v6 .v6grid>#vy-as-entree{grid-row:9!important;grid-column:1/13!important}}</style>
 <script id="vy-recap-js">
 window.vyRecap = function(){
@@ -3080,9 +3080,18 @@ header{backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important;-webki
 </script>
 <!-- VYVRE_PREFS_END -->
 
+<script id="vy-depuis-aliment">
+/* 30/09 : depuis /aliment, « Lancer le scan » lance vraiment le scan (Charles : « il ne se passe rien ») ;
+   l'assiette s'ouvre ensuite toute seule sur les resultats (vy-aliment.js, entree) */
+if(/[?&]depuis=aliment\b/.test(location.search)) addEventListener('load', function(){ setTimeout(function(){ var b = document.getElementById('btn-scan'); if(!b) return; b.click();
+  /* les questions sur les soins ne concernent pas l'assiette : on les passe, la camera s'ouvre */
+  setTimeout(function(){ if(document.getElementById('vy-avant')) postMessage({ vyvreAvant:'passer' }, location.origin); }, 60); }, 250); });
+</script>
 <script id="vy-intro-scan">
 (function(){
   if(!/^\/(index\.html)?$/.test(location.pathname) && location.pathname!=='/scan/index.html' && location.pathname!=='/scan') return;
+  /* 30/09 : venu de /aliment, on a deja clique « Lancer le scan » : pas d'intro, le scan demarre */
+  if(/[?&]depuis=aliment\b/.test(location.search)) return;
   var K='vyvre-intro-vue';
   try{ if(sessionStorage.getItem(K)==='1' && !/[?&]intro\b/.test(location.search)) return; sessionStorage.setItem(K,'1'); }catch(e){}
   if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
