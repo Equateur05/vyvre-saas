@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>VYVRE · Résultats</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&family=Manrope:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{min-height:100%}
+body{font-family:Manrope,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased}
+#sel{position:fixed;left:50%;bottom:calc(12px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:50;display:flex;gap:3px;padding:5px;border-radius:999px;background:rgba(255,255,255,.88);border:1px solid rgba(0,0,0,.08);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 12px 36px -18px rgba(0,0,0,.45);font-size:12.5px}
+#sel a{color:#171716;text-decoration:none;padding:9px 12px;border-radius:999px;cursor:pointer;white-space:nowrap}
+#sel a.on{background:#171716;color:#fff}
+.src{font:400 9.5px/1.4 'DM Mono',monospace;letter-spacing:.08em;opacity:.55;margin-top:10px}
+.reveal{animation:rv 1s cubic-bezier(.22,1,.36,1) both}.d1{animation-delay:.12s}.d2{animation-delay:.24s}.d3{animation-delay:.4s}
+@keyframes rv{from{opacity:0;transform:translateY(24px);filter:blur(8px)}to{opacity:1;transform:none;filter:none}}
+@keyframes spin{to{transform:rotate(360deg)}}
+.cta{display:flex;justify-content:space-between;align-items:center;width:100%;padding:16px 18px;border:0;cursor:pointer;font:500 14px Manrope,sans-serif;text-decoration:none}
+
+/* ===== GPT · « The Skin Edit », repris trait pour trait, branche sur les vraies donnees ===== */
+.gpt{--ink:#151413;--muted:#6f6a64;--paper:#f5f2ed;--line:rgba(21,20,19,.14);background:radial-gradient(circle at 92% 11%,rgba(237,194,172,.37),transparent 23%),radial-gradient(circle at 5% 76%,rgba(214,227,205,.35),transparent 22%),var(--paper);color:var(--ink);min-height:100vh;padding:calc(90px + env(safe-area-inset-top)) 4vw 110px}
+.gpt .top{position:fixed;top:0;left:0;right:0;z-index:10;padding:22px 4vw;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(21,20,19,.08);background:linear-gradient(180deg,rgba(245,242,237,.9),rgba(245,242,237,.3));backdrop-filter:blur(18px)}
+.gpt .logo{font:600 14px Manrope;letter-spacing:.22em}.gpt .logo i{font:500 14px 'Playfair Display';font-style:italic;letter-spacing:0}
+.gpt .eyebrow{font:400 10px 'DM Mono';letter-spacing:.18em;color:var(--muted);text-transform:uppercase}
+.gpt h2{font:400 clamp(52px,9vw,120px)/.82 'Playfair Display';letter-spacing:-.07em;margin:14px 0 0}
+.gpt .head{display:flex;justify-content:space-between;gap:20px;align-items:end;padding-bottom:36px}.gpt .head p{max-width:30ch;color:var(--muted);font-size:13px;line-height:1.6}
+.gpt .grid{display:grid;grid-template-columns:1.15fr .85fr;gap:15px}
+.gpt .card{border:1px solid var(--line);border-radius:28px;background:linear-gradient(145deg,rgba(255,255,255,.76),rgba(255,255,255,.27));box-shadow:inset 0 1px rgba(255,255,255,.92),0 28px 60px -54px rgba(28,20,13,.55);overflow:hidden;position:relative}
+.gpt .score-card{min-height:440px;padding:28px}
+.gpt .score-card h3{font:400 31px/1 'Playfair Display';letter-spacing:-.05em;margin:56px 0 0;max-width:9ch}
+.gpt .score{font:400 clamp(120px,19vw,250px)/.78 'Playfair Display';letter-spacing:-.1em;margin:30px 0 0;display:flex;align-items:flex-start}
+.gpt .score sup{font:400 13px 'DM Mono';letter-spacing:0;margin:.4em 0 0 .6em}
+.gpt .disc{position:absolute;width:200px;aspect-ratio:1;border-radius:50%;right:7%;top:20%;background:conic-gradient(from 15deg,#e6d0bc,#d9cfaf,#f4dfb7,#cab9cf,#e6d0bc);animation:spin 7.5s linear infinite;box-shadow:0 15px 30px rgba(72,51,37,.14)}
+.gpt .disc:after{content:'';position:absolute;inset:24%;border-radius:50%;background:linear-gradient(145deg,#f9f6ef,#efe9df);box-shadow:inset 0 1px #fff}
+.gpt .note{position:absolute;bottom:26px;left:28px;right:28px;max-width:34ch;color:var(--muted);font-size:13px;line-height:1.55}
+.gpt .routine{padding:26px;display:flex;flex-direction:column}
+.gpt .routine h3{font:400 33px/1 'Playfair Display';letter-spacing:-.06em;margin:13px 0 24px}
+.gpt .prod{display:grid;grid-template-columns:70px 1fr auto;gap:13px;align-items:center;padding:12px 0;border-top:1px solid var(--line);text-decoration:none;color:inherit;transition:padding .45s,background .45s}
+.gpt .prod:hover{padding-left:7px;background:rgba(255,255,255,.27)}
+.gpt .prod img{width:62px;height:78px;object-fit:contain;filter:drop-shadow(0 16px 12px rgba(36,27,21,.16))}
+.gpt .prod b{font-size:12.5px;display:block;line-height:1.3}.gpt .prod span{font-size:10.5px;color:var(--muted);display:block;margin-top:4px}.gpt .prod em{font:400 10px 'DM Mono';font-style:normal;color:#a78151}
+.gpt .cta{background:var(--ink);color:#fff;margin-top:16px;border-radius:2px}
+.gpt .signals{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:15px}
+.gpt .signal{padding:21px;border-top:1px solid rgba(21,20,19,.58)}.gpt .signal:nth-child(2){border-top-color:rgba(198,163,107,.72)}
+.gpt .signal b{font:400 30px/1 'Playfair Display';letter-spacing:-.05em;display:block;margin:14px 0 7px}.gpt .signal p{color:var(--muted);font-size:11.5px;line-height:1.5}
+.gpt .assiette{margin-top:15px;padding:26px;display:flex;justify-content:space-between;align-items:center;gap:20px;text-decoration:none;color:inherit}
+.gpt .assiette h4{font:400 30px/1 'Playfair Display';letter-spacing:-.05em;margin-top:10px}
+@media(max-width:760px){.gpt .head{display:block}.gpt .head p{margin-top:20px}.gpt .grid{grid-template-columns:1fr}.gpt .score-card{min-height:380px}.gpt .disc{width:140px;top:26%}.gpt .signals{grid-template-columns:1fr;gap:0}.gpt .signal{display:grid;grid-template-columns:110px 1fr;align-items:center}.gpt .signal b{margin:0}}
+
+/* ===== R1 · « Anneaux » : blanc Apple, quatre anneaux comme une montre ===== */
+.r1{background:linear-gradient(180deg,#fbfbfd 0%,#f1f2f4 60%,#e9ebee 100%);color:#1d1d1f;min-height:100vh;padding:calc(34px + env(safe-area-inset-top)) 22px 120px;font-family:-apple-system,"SF Pro Display","Helvetica Neue",Arial,sans-serif}
+.r1 .m{font-size:11px;font-weight:600;letter-spacing:.06em;color:#86868b;text-transform:uppercase}
+.r1 h1{font-size:44px;font-weight:600;letter-spacing:-.03em;line-height:1.05;margin:8px 0 6px}
+.r1 .sous{font-size:17px;color:#6e6e73;line-height:1.45;max-width:30ch}
+.r1 .anneaux{display:flex;align-items:center;gap:22px;margin:28px 0 8px}
+.r1 .anneaux svg{flex:none}
+.r1 .leg div{display:flex;align-items:baseline;gap:8px;font-size:14px;color:#1d1d1f;margin:5px 0}.r1 .leg i{width:9px;height:9px;border-radius:50%;flex:none;transform:translateY(-1px)}.r1 .leg b{font-weight:600;font-variant-numeric:tabular-nums}
+.r1 .bloc{background:#fff;border-radius:22px;padding:20px;margin-top:16px;box-shadow:0 1px 0 rgba(0,0,0,.02),0 20px 40px -30px rgba(0,0,0,.25)}
+.r1 .rail{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:14px -22px 0;padding:4px 22px 10px;scrollbar-width:none}
+.r1 .p{flex:none;width:72%;max-width:290px;scroll-snap-align:start;background:#fff;border-radius:22px;padding:18px;box-shadow:0 20px 40px -30px rgba(0,0,0,.3);text-decoration:none;color:inherit}
+.r1 .p .n{font-size:12px;font-weight:600;color:#86868b}.r1 .p img{display:block;width:100%;height:170px;object-fit:contain;margin:10px 0}.r1 .p b{display:block;font-size:12px;color:#86868b;font-weight:600;text-transform:uppercase;letter-spacing:.04em}.r1 .p span{display:block;font-size:16px;font-weight:500;margin-top:3px;line-height:1.3}
+.r1 .cta{background:#1d1d1f;color:#fff;border-radius:14px;margin-top:18px;font-family:inherit}
+/* ===== R2 · « Maree » : editorial sauge, italique, comme l'assiette ===== */
+.r2{background:#dce7e1;color:#183b3e;min-height:100vh;padding:calc(34px + env(safe-area-inset-top)) 24px 120px;font-family:"Helvetica Neue",Arial,sans-serif}
+.r2 .m{font-size:9.5px;letter-spacing:2.2px;text-transform:uppercase}
+.r2 h1{font:italic 400 76px/.9 Georgia,serif;letter-spacing:-5px;margin:12px 0 16px}
+.r2 .lead{font-size:14.5px;line-height:1.7;font-weight:300;max-width:360px}
+.r2 .chiffre{display:flex;align-items:baseline;gap:10px;margin:26px 0 0}.r2 .chiffre b{font:italic 400 120px/.8 Georgia,serif;letter-spacing:-6px}.r2 .chiffre span{font-size:11px;letter-spacing:1.6px;text-transform:uppercase}
+.r2 .ruban{display:flex;overflow-x:auto;margin:28px -24px;border-top:1px solid rgba(24,59,62,.2);border-bottom:1px solid rgba(24,59,62,.2);scrollbar-width:none}
+.r2 .ruban span{flex:1 0 auto;padding:14px 14px;text-align:center;font-size:9.5px;letter-spacing:1.4px;text-transform:uppercase;white-space:nowrap}.r2 .ruban span b{display:block;font:italic 22px Georgia,serif;letter-spacing:0;text-transform:none;margin-bottom:4px}
+.r2 .rit{display:flex;gap:20px;padding:20px 0;border-bottom:1px solid rgba(24,59,62,.2);text-decoration:none;color:inherit;align-items:center}
+.r2 .rit>i{font:italic 28px Georgia,serif;min-width:36px}.r2 .rit img{width:64px;height:80px;object-fit:contain;flex:none}.r2 .rit h3{font-size:19px;font-weight:300;letter-spacing:-.2px}.r2 .rit p{font-size:11.5px;color:#52716f;margin-top:4px;letter-spacing:.3px;text-transform:uppercase}
+.r2 .as{margin:30px -24px 0;padding:32px 24px;background:#173d3f;color:#e3eee7;display:block;text-decoration:none}.r2 .as h2{font:italic 400 54px/.95 Georgia,serif;letter-spacing:-3px;margin:8px 0 10px}
+/* ===== R3 · « Studio nuit » : noir, champagne, chiffres tres fins ===== */
+.r3{background:radial-gradient(120% 60% at 50% 0%,#1b1a17 0%,#0a0a09 60%);color:#f2efe9;min-height:100vh;padding:calc(34px + env(safe-area-inset-top)) 22px 120px;font-family:Manrope,sans-serif}
+.r3 .m{font:400 10px 'DM Mono';letter-spacing:.2em;color:#b9a27a;text-transform:uppercase}
+.r3 .grand{font:200 150px/.8 Manrope,sans-serif;letter-spacing:-.07em;margin:20px 0 4px;background:linear-gradient(180deg,#fff,#b9a27a);-webkit-background-clip:text;background-clip:text;color:transparent}
+.r3 h1{font:300 30px/1.1 Manrope;letter-spacing:-.03em;margin-top:10px}.r3 h1 em{font:italic 400 32px 'Playfair Display'}
+.r3 .barres{margin-top:26px}.r3 .barre{display:grid;grid-template-columns:120px 1fr 34px;gap:12px;align-items:center;font-size:12.5px;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.07)}
+.r3 .barre .l{height:2px;background:rgba(255,255,255,.1);position:relative;border-radius:2px}.r3 .barre .l i{position:absolute;left:0;top:0;bottom:0;background:linear-gradient(90deg,#8a7552,#f1dfb5);border-radius:2px;box-shadow:0 0 12px rgba(241,223,181,.5);transition:width 1.4s cubic-bezier(.22,1,.36,1)}
+.r3 .barre.faible{color:#f1dfb5}.r3 .barre b{font-weight:300;text-align:right;font-variant-numeric:tabular-nums}
+.r3 .vitrine{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:26px}
+.r3 .v{border-radius:20px;padding:14px;background:radial-gradient(80% 60% at 50% 35%,rgba(241,223,181,.14),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08);text-decoration:none;color:inherit}
+.r3 .v img{display:block;width:100%;height:130px;object-fit:contain;filter:drop-shadow(0 18px 18px rgba(0,0,0,.6))}.r3 .v small{font:400 9.5px 'DM Mono';letter-spacing:.12em;color:#b9a27a}.r3 .v span{display:block;font-size:12.5px;margin-top:4px;line-height:1.3}
+.r3 .cta{background:linear-gradient(90deg,#f1dfb5,#b9a27a);color:#141311;border-radius:14px;margin-top:18px}
+</style>
+</head>
+<body>
+<div id="page"></div>
+<nav id="sel"><a data-v="gpt">GPT fidèle</a><a data-v="r1">Anneaux</a><a data-v="r2">Marée</a><a data-v="r3">Studio nuit</a></nav>
+<script>
+/* Propositions pour la page de resultats. Donnees : votre DERNIER VRAI SCAN sur cet appareil (vyvre_scan_scores,
+   vyvre_score, vyvre_rituel, vyvre_scan_at). Sans scan sur cet appareil : un exemple, signale comme tel. */
+const lire = k => { try { return JSON.parse(localStorage.getItem(k)); } catch(e){ return null; } };
+let S = lire('vyvre_scan_scores'), G = +(localStorage.getItem('vyvre_score') || 0), R = lire('vyvre_rituel'), AT = localStorage.getItem('vyvre_scan_at'), VRAI = !!(S && G);
+if(!VRAI){ S = { glow:47, redness:58, hydration:52, pores:58, sebum:36, pigmentation:25, wrinkles:61, firmness:66 }; G = 67; }
+if(!R || !R.length) R = [{"name":"Black Diamond Vitamin C Brightening Booster","brand":"111SKIN","img":"/scan/products/111skin/v2/cutout/black-diamond-vitamin-c-brightening-booster.webp","url":"https://111skin.com/en-eu/products/vitamin-c-brightening-booster","cible":"glow","categorie":"serum"},{"name":"Crème légère dermatologique hydratante","brand":"A-Derma","img":"/scan/products/a-derma/v2/cutout/creme-legere-dermatologique-hydratante.webp","url":"https://www.aderma.fr/fr-fr/p/creme-legere-dermatologique-hydratante-3282770146646-14c39aab","cible":"hydration","categorie":"creme"},{"name":"Azelaic Acid 10 Hyaluron Redness Soothing Serum","brand":"Anua","img":"/scan/products/anua/v2/cutout/azelaic-acid-10-hyaluron-redness-soothing-serum.webp","url":"https://anua.com/products/azelaic-acid-10-hyaluron-redness-soothing-serum","cible":"redness","categorie":"serum"},{"name":"Le traitement resurfaçant","brand":"Aime","img":"/scan/products/aime/v2/cutout/le-traitement-resurfacant.webp","url":"https://aime.co/products/traitement-resurfacant","cible":"wrinkles","categorie":"creme"}];
+/* les indices, dans le sens « plus haut = mieux », comme sur la page de resultats du scan */
+const IND = [['Éclat', S.glow], ['Apaisement', S.redness], ['Hydratation', S.hydration], ['Pores', S.pores], ['Équilibre du sébum', S.sebum != null ? 100 - S.sebum : null], ['Uniformité', S.pigmentation != null ? 100 - S.pigmentation : null], ['Fermeté', S.firmness], ['Peau lisse', S.wrinkles]].filter(x => x[1] != null).map(x => ({ n:x[0], v:Math.round(x[1]) }));
+const TRI = IND.slice().sort((a, b) => a.v - b.v), FAIBLE = TRI[0], FORT = TRI[TRI.length - 1];
+const CIBLE = { glow:'Éclat', redness:'Apaisement', hydration:'Hydratation', pores:'Pores', sebum:'Sébum', pigmentation:'Uniformité', wrinkles:'Peau lisse', firmness:'Fermeté' };
+const CAT = { serum:'Sérum', creme:'Crème', 'solaire-visage':'Solaire' };
+const esc = t => String(t == null ? '' : t).replace(/[&<>"]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]));
+const quand = AT ? new Date(+AT || AT) : null, DATE = quand && !isNaN(quand) ? quand.toLocaleDateString('fr-FR', { day:'numeric', month:'long' }) : null;
+const SRC = VRAI ? 'Votre dernière lecture' + (DATE ? ' du ' + DATE : '') + ', sur cet appareil. Mesures optiques, pas un diagnostic.' : 'Exemple : aucun scan trouvé sur cet appareil. Faites un scan sur vyvre.fr/scan, puis revenez ici.';
+const lib = s => s >= 75 ? 'Très bel équilibre' : s >= 60 ? 'Bel équilibre' : s >= 45 ? 'À soutenir' : 'À chouchouter';
+const ASS = '/scan/?assiette=1';
+function compter(el, fin){ const t0 = performance.now(); (function k(n){ const u = Math.min(1, (n - t0)/1400); el.textContent = Math.round(fin*(1 - Math.pow(1 - u, 3))); if(u < 1) requestAnimationFrame(k); })(t0); }
+
+const V = {
+gpt: () => `<div class="gpt"><header class="top"><div class="logo">VYVRE <i>skin intelligence</i></div><span class="eyebrow">${VRAI ? 'Votre lecture' : 'Exemple'}</span></header>
+  <div class="head reveal"><div><div class="eyebrow">Votre skin edit / ${DATE ? esc(DATE) : 'aujourd’hui'}</div><h2>${esc(FORT.n)},<br>votre force.</h2></div><p>Votre point fort aujourd’hui : ${esc(FORT.n.toLowerCase())} (${FORT.v} sur 100). À soutenir en priorité : ${esc(FAIBLE.n.toLowerCase())} (${FAIBLE.v} sur 100). Une lecture pour vous accompagner, pas pour vous juger.</p></div>
+  <div class="grid"><article class="card score-card reveal d1"><div class="eyebrow">Vyvre index</div><div class="disc"></div><h3>${esc(lib(G))}</h3><div class="score"><span id="sc">0</span><sup>/100</sup></div><p class="note">Indice global de votre lecture. ${esc(FORT.n)} est votre meilleur point ; ${esc(FAIBLE.n.toLowerCase())} est celui que votre rituel soutient d’abord.</p></article>
+  <aside class="card routine reveal d2"><div class="eyebrow">Votre rituel / ${R.length} gestes</div><h3>Le petit luxe<br>qui change tout.</h3>${R.map((p, k) => `<a class="prod" href="${esc(p.url || '#')}" target="_blank" rel="noopener"><img src="${esc(p.img)}" alt=""><div><b>${esc(p.name)}</b><span>${esc(p.brand)} · ${esc(CAT[p.categorie] || '')}${p.cible ? ' · ' + esc(CIBLE[p.cible] || '') : ''}</span></div><em>0${k + 1}</em></a>`).join('')}<a class="cta" href="${ASS}">Découvrir mon rituel <span>→</span></a></aside></div>
+  <div class="signals reveal d3">${[FORT, TRI[1], FAIBLE].map((x, k) => `<article class="signal"><div><div class="eyebrow">Signal 0${k + 1}</div><b>${x.v}/100</b></div><p>${esc(x.n)} · ${k === 0 ? 'votre meilleur point aujourd’hui' : k === 2 ? 'à soutenir en priorité' : 'à entretenir'}.</p></article>`).join('')}</div>
+  <a class="card assiette reveal d3" href="${ASS}"><div><div class="eyebrow">Nouveau · votre assiette</div><h4>Ce qui nourrit votre peau.</h4></div><span style="font-size:22px">→</span></a><p class="src">${esc(SRC)}</p></div>`,
+r1: () => { const cols = ['#ff375f', '#30d158', '#0a84ff', '#ff9f0a'], top4 = TRI.slice(0, 4);
+  const ring = (i, v) => { const r = 78 - i*17, c = 2*Math.PI*r; return `<circle cx="90" cy="90" r="${r}" fill="none" stroke="${cols[i]}" stroke-opacity=".18" stroke-width="13"/><circle cx="90" cy="90" r="${r}" fill="none" stroke="${cols[i]}" stroke-width="13" stroke-linecap="round" stroke-dasharray="${c}" stroke-dashoffset="${c}" transform="rotate(-90 90 90)" data-to="${c*(1 - v/100)}" style="transition:stroke-dashoffset 1.6s cubic-bezier(.22,1,.36,1) ${.15*i}s"/>`; };
+  return `<div class="r1"><div class="m reveal">${VRAI ? 'Votre lecture' + (DATE ? ' · ' + esc(DATE) : '') : 'Exemple'}</div><h1 class="reveal">${esc(lib(G))}.<br><span style="color:#86868b">${G} sur 100.</span></h1><p class="sous reveal d1">À soutenir d’abord : ${esc(FAIBLE.n.toLowerCase())}. Votre rituel et votre assiette partent de là.</p>
+  <div class="anneaux reveal d1"><svg width="180" height="180" viewBox="0 0 180 180">${top4.map((x, i) => ring(i, x.v)).join('')}</svg><div class="leg">${top4.map((x, i) => `<div><i style="background:${cols[i]}"></i>${esc(x.n)} <b>${x.v}</b></div>`).join('')}</div></div>
+  <div class="m" style="margin-top:22px">Votre rituel · ${R.length} gestes</div><div class="rail">${R.map((p, k) => `<a class="p reveal d2" href="${esc(p.url || '#')}" target="_blank" rel="noopener"><div class="n">Geste ${k + 1}${p.cible ? ' · ' + esc(CIBLE[p.cible] || '') : ''}</div><img src="${esc(p.img)}" alt=""><b>${esc(p.brand)}</b><span>${esc(p.name)}</span></a>`).join('')}</div>
+  <div class="bloc reveal d3"><div class="m">Nouveau</div><div style="font-size:24px;font-weight:600;letter-spacing:-.02em;margin-top:6px">Votre assiette.</div><div class="sous" style="font-size:15px;margin-top:4px">Quatre aliments choisis pour ${esc(FAIBLE.n.toLowerCase())}, avec ce que la science sait vraiment.</div><a class="cta" href="${ASS}">Composer mon assiette <span>→</span></a></div><p class="src">${esc(SRC)}</p></div>`; },
+r2: () => `<div class="r2"><div class="m reveal">${VRAI ? 'Votre lecture' + (DATE ? ' du ' + esc(DATE) : '') : 'Exemple'}</div><h1 class="reveal">${esc(FAIBLE.n)},<br>d’abord.</h1><p class="lead reveal d1">Votre peau est en ${G >= 60 ? 'bel équilibre' : 'demande de soin'} ; ${esc(FORT.n.toLowerCase())} est votre force (${FORT.v} sur 100). Le rituel soutient d’abord ${esc(FAIBLE.n.toLowerCase())} (${FAIBLE.v} sur 100).</p>
+  <div class="chiffre reveal d1"><b id="sc">0</b><span>sur 100 · indice global</span></div>
+  <div class="ruban reveal d2">${IND.map(x => `<span${x === FAIBLE ? ' style="font-weight:600"' : ''}><b>${x.v}</b>${esc(x.n)}</span>`).join('')}</div>
+  <div class="m">Votre rituel · ${R.length} gestes</div>${R.map((p, k) => `<a class="rit reveal d2" href="${esc(p.url || '#')}" target="_blank" rel="noopener"><i>0${k + 1}</i><img src="${esc(p.img)}" alt=""><div><h3>${esc(p.name)}</h3><p>${esc(p.brand)} · ${esc(CAT[p.categorie] || '')}${p.cible ? ' · ' + esc(CIBLE[p.cible] || '') : ''}</p></div></a>`).join('')}
+  <a class="as reveal d3" href="${ASS}"><div class="m">Nouveau · votre assiette</div><h2>Assiette.</h2><p style="font-size:14px;line-height:1.6;opacity:.85">Quatre aliments du quotidien pour ${esc(FAIBLE.n.toLowerCase())}, choisis d’après votre lecture.</p><p style="margin-top:16px;font-size:13px;letter-spacing:.3px">Composer mon assiette →</p></a><p class="src">${esc(SRC)}</p></div>`,
+r3: () => `<div class="r3"><div class="m reveal">${VRAI ? 'Votre lecture' + (DATE ? ' · ' + esc(DATE) : '') : 'Exemple'}</div><div class="grand reveal" id="sc">0</div><div class="m reveal d1">Indice global · sur 100</div><h1 class="reveal d1">${esc(lib(G))}. <em>${esc(FAIBLE.n)}</em>, d’abord.</h1>
+  <div class="barres reveal d2">${TRI.map(x => `<div class="barre${x === FAIBLE ? ' faible' : ''}"><span>${esc(x.n)}</span><div class="l"><i style="width:0" data-w="${x.v}"></i></div><b>${x.v}</b></div>`).join('')}</div>
+  <div class="m" style="margin-top:26px">Votre rituel · ${R.length} gestes</div><div class="vitrine">${R.map((p, k) => `<a class="v reveal d2" href="${esc(p.url || '#')}" target="_blank" rel="noopener"><small>0${k + 1} · ${esc(p.cible ? CIBLE[p.cible] || '' : '')}</small><img src="${esc(p.img)}" alt=""><small>${esc(p.brand)}</small><span>${esc(p.name)}</span></a>`).join('')}</div>
+  <a class="cta" href="${ASS}">Composer mon assiette <span>→</span></a><p class="src">${esc(SRC)}</p></div>` };
+function voir(v){ document.getElementById('page').innerHTML = V[v](); document.querySelectorAll('#sel a').forEach(a => a.classList.toggle('on', a.dataset.v === v)); try { history.replaceState(null, '', '?v=' + v); } catch(e){} scrollTo(0, 0);
+  const sc = document.getElementById('sc'); if(sc) compter(sc, G);
+  requestAnimationFrame(() => requestAnimationFrame(() => { document.querySelectorAll('[data-to]').forEach(c => c.style.strokeDashoffset = c.dataset.to); document.querySelectorAll('[data-w]').forEach(i => i.style.width = i.dataset.w + '%'); })); }
+document.querySelectorAll('#sel a').forEach(a => a.onclick = () => voir(a.dataset.v));
+voir(new URLSearchParams(location.search).get('v') || 'gpt');
+</script>
+</body>
+</html>
