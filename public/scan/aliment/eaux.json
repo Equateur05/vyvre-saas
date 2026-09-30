@@ -1,0 +1,985 @@
+{
+  "_meta": {
+    "date": "2026-10-01",
+    "sources_reglementaires": [
+      {
+        "texte": "Arrêté du 14 mars 2007, annexe III « Mentions d'étiquetage de l'eau minérale naturelle conditionnée » (version en vigueur depuis le 14/01/2023, modifiée par l'arrêté du 10 janvier 2023)",
+        "url": "https://www.legifrance.gouv.fr/loda/id/JORFTEXT000000274485",
+        "seuils": {
+          "très faiblement minéralisée": "résidu sec à 180 °C inférieur à 50 mg/L",
+          "oligominérale ou faiblement minéralisée": "résidu sec à 180 °C inférieur à 500 mg/L",
+          "riche en sels minéraux": "résidu fixe à 180 °C supérieur à 1 500 mg/L",
+          "bicarbonatée": "HCO3 > 600 mg/L",
+          "sulfatée": "SO4 > 200 mg/L",
+          "chlorurée": "Cl > 200 mg/L",
+          "calcique": "Ca > 150 mg/L",
+          "magnésienne": "Mg > 50 mg/L",
+          "fluorée": "F > 1 mg/L",
+          "ferrugineuse": "fer bivalent > 1 mg/L",
+          "acidulée": "CO2 libre > 250 mg/L",
+          "sodique": "Na > 200 mg/L",
+          "convient pour un régime pauvre en sodium": "Na < 20 mg/L"
+        }
+      },
+      {
+        "texte": "Directive 2009/54/CE, annexe III (mentions et critères)",
+        "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:32009L0054",
+        "ecart": "La directive dit « n'est pas supérieure à 500 mg/l » (≤ 500) et « ≤ 50 », l'arrêté français « inférieure à » (< 500, < 50). Le calcul ici applique la règle stricte (<), valable pour les deux textes."
+      },
+      {
+        "texte": "Code de la santé publique, article R1322-44-9 (non gazeuse, naturellement gazeuse, renforcée au gaz de la source, avec adjonction de gaz carbonique)",
+        "url": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006909819"
+      },
+      {
+        "texte": "Règlement (CE) 1924/2006, annexe (allégations nutritionnelles), version consolidée 13/12/2014",
+        "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:02006R1924-20141213"
+      },
+      {
+        "texte": "Règlement (UE) 1169/2011, annexe XIII (VNR ; quantité significative = 7,5 % de la VNR par 100 mL pour une boisson)",
+        "url": "https://eur-lex.europa.eu/legal-content/FR/TXT/HTML/?uri=CELEX:02011R1169-20180101"
+      },
+      {
+        "texte": "Table CIQUAL (ANSES), eau de coco, code 18011",
+        "url": "https://ciqual.anses.fr/#/aliments/18011/eau-de-coco"
+      },
+      {
+        "texte": "Résultats du contrôle sanitaire de l'eau du robinet, par commune (ministère chargé de la santé)",
+        "url": "https://orobnat.sante.gouv.fr/"
+      }
+    ],
+    "regles": "Chiffres relevés uniquement sur une source officielle (site ou document de la marque, du groupe propriétaire, ou organisme public), en mg/L ; valeur absente de la source = null. mentions_reglementaires : calculées à partir des seuils de l'annexe III, seulement pour les eaux au statut « eau minérale naturelle » vérifié, et seulement à partir des valeurs relevées (résidu null = aucune mention de minéralisation). mentions_revendiquees_par_la_marque : ce que la marque affiche elle-même, non recalculé. Une « minéralisation moyenne » ou un « TDS » n'est pas traité comme un résidu sec à 180 °C. Aucune promesse santé, beauté ou peau ; pas de prix. Les compositions de marque peuvent évoluer : revérifier avant publication.",
+    "exclusions": [
+      {
+        "marque": "Vita Coco (eau de coco)",
+        "raison": "Les fiches revendeurs trouvées indiquent « eau de coco 99 %, fructose < 1 % » ou « sucre » ; site officiel français inaccessible au moment du relevé. Écartée faute de source officielle sans sucre ajouté."
+      },
+      {
+        "marque": "Bjorg eau de coco",
+        "raison": "Ingrédients relevés hors site officiel (eau, eau de coco, acide ascorbique) : ce n'est pas une eau de coco pure. Écartée."
+      }
+    ]
+  },
+  "types": [
+    {
+      "id": "robinet",
+      "nom": "Eau du robinet",
+      "description": "L'eau du réseau public, contrôlée par les agences régionales de santé ; sa minéralisation change d'une commune à l'autre. Servie fraîche en carafe, elle reste l'eau de tous les jours.",
+      "quand": "Toute la journée, en carafe à table.",
+      "mentions_possibles": [],
+      "note": "Aucune mention de l'annexe III (réservées aux eaux minérales naturelles). Composition de sa commune : résultats du contrôle sanitaire.",
+      "source_url": "https://orobnat.sante.gouv.fr/"
+    },
+    {
+      "id": "source",
+      "nom": "Eau de source",
+      "description": "Une eau d'origine souterraine, embouteillée à la source, dont la composition peut varier dans le temps ; en général neutre et peu marquée en bouche.",
+      "quand": "Toute la journée.",
+      "mentions_possibles": [],
+      "note": "Les mentions de l'annexe III de l'arrêté du 14 mars 2007 visent l'eau minérale naturelle conditionnée (article 8) : ne pas les appliquer à une eau de source."
+    },
+    {
+      "id": "faiblement_mineralisee",
+      "nom": "Eau minérale faiblement minéralisée",
+      "description": "Des eaux légères en bouche, au goût discret, qui laissent toute la place aux saveurs.",
+      "quand": "Du réveil au soir, et à table avec les plats délicats.",
+      "mentions_possibles": [
+        "très faiblement minéralisée",
+        "faiblement minéralisée",
+        "convient pour un régime pauvre en sodium"
+      ]
+    },
+    {
+      "id": "magnesienne",
+      "nom": "Eau riche en magnésium",
+      "description": "Des eaux au goût minéral franc, parfois légèrement amer, où le magnésium dépasse 50 mg/L.",
+      "quand": "Par petites gorgées entre les repas.",
+      "mentions_possibles": [
+        "magnésienne",
+        "riche en sels minéraux",
+        "sulfatée",
+        "calcique"
+      ]
+    },
+    {
+      "id": "calcique",
+      "nom": "Eau calcique",
+      "description": "Des eaux qui dépassent 150 mg/L de calcium, à la minéralité perceptible.",
+      "quand": "Au fil de la journée, entre les repas.",
+      "mentions_possibles": [
+        "calcique",
+        "riche en sels minéraux",
+        "convient pour un régime pauvre en sodium"
+      ]
+    },
+    {
+      "id": "bicarbonatee",
+      "nom": "Eau bicarbonatée",
+      "description": "Des eaux souvent pétillantes, rondes et parfois salines, au-delà de 600 mg/L de bicarbonates.",
+      "quand": "À table, avec les plats riches ou en fin de repas.",
+      "mentions_possibles": [
+        "bicarbonatée",
+        "sodique",
+        "calcique",
+        "magnésienne",
+        "riche en sels minéraux"
+      ]
+    },
+    {
+      "id": "sulfatee",
+      "nom": "Eau sulfatée",
+      "description": "Des eaux au caractère minéral net, au-delà de 200 mg/L de sulfates.",
+      "quand": "Entre les repas.",
+      "mentions_possibles": [
+        "sulfatée",
+        "calcique",
+        "magnésienne"
+      ]
+    },
+    {
+      "id": "petillante_naturelle",
+      "nom": "Eau minérale naturellement gazeuse",
+      "description": "Des eaux dont le gaz vient de la source elle-même : une bulle souvent plus fine et plus douce.",
+      "quand": "À l'apéritif et à table.",
+      "mentions_possibles": [
+        "bicarbonatée",
+        "magnésienne",
+        "calcique",
+        "sodique",
+        "acidulée"
+      ],
+      "note": "Dénominations définies par l'article R1322-44-9 du Code de la santé publique : naturellement gazeuse / renforcée au gaz de la source / avec adjonction de gaz carbonique.",
+      "source_url": "https://www.legifrance.gouv.fr/codes/article_lc/LEGIARTI000006909819"
+    },
+    {
+      "id": "eau_de_coco",
+      "nom": "Eau de coco nature",
+      "description": "Le liquide de la noix de coco jeune, légèrement sucré par nature ; à choisir sans sucre ajouté. Ce n'est pas une eau minérale.",
+      "quand": "Fraîche, en milieu d'après-midi ou après une séance de sport.",
+      "mentions_possibles": [
+        "source de potassium",
+        "faible valeur énergétique",
+        "pauvre en sodium",
+        "sans sucres ajoutés (si le produit le permet)"
+      ]
+    },
+    {
+      "id": "infusee",
+      "nom": "Eau infusée maison",
+      "description": "Une carafe d'eau parfumée de fruits, de légumes ou d'herbes : une idée simple pour varier les plaisirs.",
+      "quand": "Préparée le matin, servie fraîche tout au long de la journée.",
+      "mentions_possibles": []
+    }
+  ],
+  "eaux": [
+    {
+      "id": "evian",
+      "marque": "evian",
+      "type_id": "faiblement_mineralisee",
+      "statut": "eau minérale naturelle",
+      "pays": "France",
+      "source_lieu": "Plateau de Gavot, Alpes françaises ; source Cachat à Évian-les-Bains",
+      "gazeuse": false,
+      "residu_sec_mg_l": 345,
+      "calcium_mg_l": 80,
+      "magnesium_mg_l": 26,
+      "sodium_mg_l": 6.5,
+      "bicarbonates_mg_l": 360,
+      "sulfates_mg_l": 15,
+      "silice_mg_l": 14,
+      "autres_mg_l": {
+        "chlorures": 10,
+        "potassium": 1,
+        "nitrates": 3.8,
+        "pH": 7.2
+      },
+      "mentions_reglementaires": [
+        "faiblement minéralisée",
+        "convient pour un régime pauvre en sodium"
+      ],
+      "mentions_revendiquees_par_la_marque": [],
+      "accroche": "L'eau du plateau de Gavot, ronde et discrète : elle accompagne la journée sans jamais couvrir un plat.",
+      "source_url": "https://www.evian.com/fr/produits/composition-eau-evian/",
+      "sources_complementaires": [],
+      "releve_le": "2026-10-01",
+      "note": null
+    },
+    {
+      "id": "volvic",
+      "marque": "Volvic",
+      "type_id": "faiblement_mineralisee",
+      "statut": "eau minérale naturelle",
+      "pays": "France",
+      "source_lieu": "Volvic, volcans d'Auvergne",
+      "gazeuse": false,
+      "residu_sec_mg_l": null,
+      "calcium_mg_l": 13,
+      "magnesium_mg_l": 9,
+      "sodium_mg_l": 12,
+      "bicarbonates_mg_l": 80,
+      "sulfates_mg_l": 9,
+      "silice_mg_l": 31,
+      "autres_mg_l": {
+        "chlorures": 16,
+        "potassium": 7,
+        "nitrates": 7.7
+      },
+      "mentions_reglementaires": [
+        "convient pour un régime pauvre en sodium"
+      ],
+      "mentions_revendiquees_par_la_marque": [
+        "faiblement minéralisée"
+      ],
+      "accroche": "Filtrée par six couches de roches volcaniques d'Auvergne : un goût net, à peine minéral.",
+      "source_url": "https://www.volvic.fr/nos-produits/eau-minerale-naturelle.html",
+      "sources_complementaires": [
+        "https://www.volvic.fr/volvic-l-eau-volcanique/composition.html"
+      ],
+      "releve_le": "2026-10-01",
+      "note": "Le résidu sec à 180 °C n'est pas publié sur le site de la marque (ni sur sa page composition) : laissé à null."
+    },
+    {
+      "id": "mont_roucous",
+      "marque": "Mont Roucous",
+      "type_id": "faiblement_mineralisee",
+      "statut": "eau minérale naturelle",
+      "pays": "France",
+      "source_lieu": "Parc naturel régional du Haut-Languedoc",
+      "gazeuse": false,
+      "residu_sec_mg_l": 33,
+      "calcium_mg_l": 2.6,
+      "magnesium_mg_l": 0.49,
+      "sodium_mg_l": 3,
+      "bicarbonates_mg_l": null,
+      "sulfates_mg_l": 2.5,
+      "silice_mg_l": null,
+      "autres_mg_l": {
+        "silicates": 8.0,
+        "nitrates": 1.6,
+        "potassium": 0.36,
+        "fluorures": "<0,1",
+        "pH": 5.8
+      },
+      "mentions_reglementaires": [
+        "très faiblement minéralisée",
+        "convient pour un régime pauvre en sodium"
+      ],
+      "mentions_revendiquees_par_la_marque": [],
+      "accroche": "L'une des eaux les moins minéralisées de France, née dans le Haut-Languedoc : presque rien en bouche, et c'est tout son art.",
+      "source_url": "https://www.mont-roucous.com/eau-tres-faiblement-mineralisee/eau-mont-roucous/composition-mont-roucous",
+      "sources_complementaires": [],
+      "releve_le": "2026-10-01",
+      "note": "Bicarbonates non publiés. La marque indique « silicates 8,0 mg/L » (et non « silice ») : rangé dans autres_mg_l."
+    },
+    {
+      "id": "montcalm",
+      "marque": "Montcalm",
+      "type_id": "faiblement_mineralisee",
+      "statut": "eau minérale naturelle",
+      "pays": "France",
+      "source_lieu": "Vallée d'Auzat, Ariège (Pyrénées), 1 100 m d'altitude",
+      "gazeuse": false,
+      "residu_sec_mg_l": null,
+      "calcium_mg_l": 3,
+      "magnesium_mg_l": 0.7,
+      "sodium_mg_l": 2.9,
+      "bicarbonates_mg_l": 5.2,
+      "sulfates_mg_l": 10,
+      "silice_mg_l": 7.5,
+      "autres_mg_l": {
+        "chlorures": 0.6,
+        "potassium": 0.6,
+        "mineralisation_moyenne_declaree": 32
+      },
+      "mentions_reglementaires": [
+        "convient pour un régime pauvre en sodium"
+      ],
+      "mentions_revendiquees_par_la_marque": [],
+      "accroche": "Captée à 1 100 mètres dans les Pyrénées ariégeoises : une eau de montagne d'une grande douceur.",
+      "source_url": "https://www.sources-alma.com/nos-marques/les-eaux-minerales/montcalm/",
+      "sources_complementaires": [
+        "https://www.montcalm.fr/"
+      ],
+      "releve_le": "2026-10-01",
+      "note": "Le groupe publie une « minéralisation moyenne » de 32 mg/L, pas un « résidu sec à 180 °C » : résidu laissé à null, donc pas de mention de minéralisation calculée."
+    },
+    {
+      "id": "acqua_panna",
+      "marque": "Acqua Panna",
+      "type_id": "faiblement_mineralisee",
+      "statut": "eau minérale naturelle",
+      "pays": "Italie",
+      "source_lieu": "Toscane",
+      "gazeuse": false,
+      "residu_sec_mg_l": 142,
+      "calcium_mg_l": 32.2,
+      "magnesium_mg_l": 6.7,
+      "sodium_mg_l": 7.0,
+      "bicarbonates_mg_l": 107,
+      "sulfates_mg_l": 23.0,
+      "silice_mg_l": 7.1,
+      "autres_mg_l": {
+        "chlorures": 8.2,
+        "potassium": 0.9,
+        "nitrates": 2.4,
+        "pH": 8.0
+      },
+      "mentions_reglementaires": [
+        "faiblement minéralisée",
+        "convient pour un régime pauvre en sodium"
+      ],
+      "mentions_revendiquees_par_la_marque": [],
+      "accroche": "Une eau de Toscane, veloutée et équilibrée, pensée pour la table et les grands vins.",
+      "source_url": "https://www.acquapanna.com/intl/75-cl-glass-water-bottle",
+      "sources_complementaires": [],
+      "releve_le": "2026-10-01",
+      "note": "Analyse type publiée sur le site international de la marque (« Total Dissolved Solids at 180 °C » = résidu sec à 180 °C)."
+    },
+    {
+      "id": "wattwiller",
+      "marque": "Wattwiller",
+      "type_id": "faiblement_mineralisee",
+      "statut": "eau minérale naturelle",
+      "pays": "France",
+      "source_lieu": "Source Artesia, Parc naturel régional des Ballons des Vosges (Alsace)",
+      "gazeuse": false,
+      "residu_sec_mg_l": 155,
+      "calcium_mg_l": 35,
+      "magnesium_mg_l": 11,
+      "sodium_mg_l": 3,
+      "bicarbonates_mg_l": 135,
+      "sulfates_mg_l": 24,
+      "silice_mg_l": null,
+      "autres_mg_l": {
+        "potassium": 1,
+        "nitrates": 0,
+        "fluor": "<0,5",
+        "pH": 7.5
+      },
+      "mentions_reglementaires": [
+        "faiblement minéralisée",
+        "convient pour un régime pauvre en sodium"
+      ],
+      "mentions_revendiquees_par_la_marque": [],
+      "accroche": "Venue du massif des Ballons des Vosges : une eau alsacienne fraîche et très douce.",
+      "source_url": "https://www.wattwiller.com/eau-minerale-de-wattwiller/faq/",
+      "sources_complementaires": [],
+      "releve_le": "2026-10-01",
+      "note": null
+    },
+    {
+      "id": "perrier",
+      "marque": "Perrier",
+      "type_id": "faiblement_mineralisee",
+      "statut": "eau minérale naturelle",
+      "pays": "France",
+      "source_lieu": "Vergèze, Gard",
+      "gazeuse": true,
+      "residu_sec_mg_l": 456,
+      "calcium_mg_l": 150,
+      "magnesium_mg_l": 3.9,
+      "sodium_mg_l": 9.6,
+      "bicarbonates_mg_l": 420,
+      "sulfates_mg_l": 25.3,
+      "silice_mg_l": null,
+      "autres_mg_l": {
+        "chlorures": 19.5,
+        "potassium": "<1,0",
+        "nitrates": 7.3
+      },
+      "mentions_reglementaires": [
+        "faiblement minéralisée",
+        "convient pour un régime pauvre en sodium"
+      ],
+      "mentions_revendiquees_par_la_marque": [],
+      "accroche": "La bulle vive du Gard, née à Vergèze : un trait de fraîcheur à l'apéritif.",
+      "source_url": "https://www.perrier.com/fr/produits/detail/fines-bulles",
+      "sources_complementaires": [
+        "https://www.perrier.com/fr/eau-et-territoire"
+      ],
+      "releve_le": "2026-10-01",
+      "note": "Étiquette : « eau minérale naturelle avec adjonction de gaz carbonique » (gaz non issu de la source). Calcium à 150 mg/L pile : ne dépasse pas le seuil « calcique » (> 150)."
+    },
+    {
+      "id": "fiji",
+      "marque": "FIJI Water",
+      "type_id": "faiblement_mineralisee",
+      "statut": "« natural artesian water » (rapport qualité 2026 publié pour la Californie) ; statut européen non vérifié",
+      "pays": "Fidji",
+      "source_lieu": "Nappe artésienne, Viti Levu (îles Fidji)",
+      "gazeuse": false,
+      "residu_sec_mg_l": null,
+      "calcium_mg_l": 18,
+      "magnesium_mg_l": 14,
+      "sodium_mg_l": 17,
+      "bicarbonates_mg_l": 126.4,
+      "sulfates_mg_l": 0.5,
+      "silice_mg_l": 86,
+      "autres_mg_l": {
+        "total_dissolved_solids": 210
+      },
+      "mentions_reglementaires": [],
+      "mentions_revendiquees_par_la_marque": [],
+      "accroche": "Une eau artésienne des îles Fidji, au toucher soyeux, parmi les plus riches en silice.",
+      "source_url": "https://cdn.shopify.com/s/files/1/0051/7262/5477/files/2026_CA_Water_Quality_Report_English_-_FINAL_-_3.30.2026.pdf?v=1774914850",
+      "sources_complementaires": [
+        "https://www.fijiwater.com/the-water"
+      ],
+      "releve_le": "2026-10-01",
+      "note": "Chiffres du rapport qualité publié par la marque pour le marché américain. TDS 210 mg/L (pas un résidu sec à 180 °C déclaré). Statut d'eau minérale naturelle en Europe non vérifié : aucune mention de l'annexe III appliquée."
+    },
+    {
+      "id": "voss",
+      "marque": "VOSS (plate)",
+      "type_id": "faiblement_mineralisee",
+      "statut": "statut réglementaire européen non vérifié",
+      "pays": "Norvège",
+      "source_lieu": "Norvège (source non nommée par la marque)",
+      "gazeuse": false,
+      "residu_sec_mg_l": null,
+      "calcium_mg_l": 2.7,
+      "magnesium_mg_l": 0.61,
+      "sodium_mg_l": 3,
+      "bicarbonates_mg_l": null,
+      "sulfates_mg_l": null,
+      "silice_mg_l": null,
+      "autres_mg_l": {
+        "bicarbonates": "<20",
+        "sulfates": "non détecté",
+        "chlorures": 3.8,
+        "total_dissolved_solids": 40,
+        "pH": 5.8
+      },
+      "mentions_reglementaires": [],
+      "mentions_revendiquees_par_la_marque": [],
+      "accroche": "Le flacon cylindrique venu de Norvège : une eau d'une neutralité presque absolue.",
+      "source_url": "https://www.vosswaterglobal.com/pages/about",
+      "sources_complementaires": [
+        "https://www.vosswaterglobal.com/pages/faq"
+      ],
+      "releve_le": "2026-10-01",
+      "note": "Analyse « VOSS Still (NO) » publiée par la marque. TDS 40 mg/L, pas un résidu sec à 180 °C déclaré. Statut non vérifié : aucune mention de l'annexe III appliquée."
+    },
+    {
+      "id": "hepar",
+      "marque": "Hépar",
+      "type_id": "magnesienne",
+      "statut": "eau minérale naturelle",
+      "pays": "France",
+      "source_lieu": null,
+      "gazeuse": false,
+      "residu_sec_mg_l": 2513,
+      "calcium_mg_l": 549,
+      "magnesium_mg_l": 119,
+      "sodium_mg_l": 14.2,
+      "bicarbonates_mg_l": 384,
+      "sulfates_mg_l": 1530,
+      "silice_mg_l": null,
+      "autres_mg_l": {
+        "chlorures": 18.8,
+        "potassium": 4.1,
+        "fluor": 0.4,
+        "nitrates": 4.3,
+        "pH": 7.2
+      },
+      "mentions_reglementaires": [
+        "riche en sels minéraux",
+        "sulfatée",
+        "calcique",
+        "magnésienne",
+        "convient pour un régime pauvre en sodium"
+      ],
+      "mentions_revendiquees_par_la_marque": [],
+      "accroche": "Une eau de caractère, franchement minérale, à boire en petites gorgées au fil de la journée.",
+      "source_url": "https://www.hepar.fr/eau-hepar/une-composition-minerale-unique",
+      "sources_complementaires": [],
+      "releve_le": "2026-10-01",
+      "note": "Chiffres relevés sur l'infographie officielle de la page (image « hepar-composition-riche-mineraux »). Lieu de la source non indiqué sur le site : null."
+    },
+    {
+      "id": "rozana",
+      "marque": "Rozana",
+      "type_id": "magnesienne",
+      "statut": "eau minérale naturelle",
+      "pays": "France",
+      "source_lieu": "Au pied des monts d'Auvergne",
+      "gazeuse": true,
+      "residu_sec_mg_l": null,
+      "calcium_mg_l": 301,
+      "magnesium_mg_l": 160,
+      "sodium_mg_l": 493,
+      "bicarbonates_mg_l": 1837,
+      "sulfates_mg_l": 230,
+      "silice_mg_l": 97,
+      "autres_mg_l": {
+        "chlorures": 649,
+        "potassium": 52,
+        "nitrates": 1,
+        "mineralisation_moyenne_declaree": 3022
+      },
+      "mentions_reglementaires": [
+        "bicarbonatée",
+        "sulfatée",
+        "chlorurée",
+        "calcique",
+        "magnésienne",
+        "sodique"
+      ],
+      "mentions_revendiquees_par_la_marque": [],
+      "accroche": "Une eau pétillante d'Auvergne au profil très minéral, presque saline : à réserver aux plats de caractère.",
+      "source_url": "https://www.sources-alma.com/nos-marques/les-eaux-minerales/marque-rozana/",
+      "sources_complementaires": [
+        "https://www.eau-rozana.com/"
+      ],
+      "releve_le": "2026-10-01",
+      "note": "Page du groupe propriétaire (Sources Alma). « Minéralisation moyenne » 3 022 mg/L publiée, pas un résidu sec : résidu laissé à null. Sodium élevé (493 mg/L)."
+    },
+    {
+      "id": "contrex",
+      "marque": "Contrex",
+      "type_id": "calcique",
+      "statut": "eau minérale naturelle",
+      "pays": "France",
+      "source_lieu": "Contrexéville, Lorraine",
+      "gazeuse": false,
+      "residu_sec_mg_l": 2073,
+      "calcium_mg_l": 479,
+      "magnesium_mg_l": 72.2,
+      "sodium_mg_l": 8,
+      "bicarbonates_mg_l": 378,
+      "sulfates_mg_l": 1148,
+      "silice_mg_l": null,
+      "autres_mg_l": {
+        "chlorures": 10,
+        "potassium": 3.4,
+        "nitrates": 2.7,
+        "pH": 7.3
+      },
+      "mentions_reglementaires": [
+        "riche en sels minéraux",
+        "sulfatée",
+        "calcique",
+        "magnésienne",
+        "convient pour un régime pauvre en sodium"
+      ],
+      "mentions_revendiquees_par_la_marque": [],
+      "accroche": "L'eau de Contrexéville, au goût minéral affirmé, qui se boit fraîche entre les repas.",
+      "source_url": "https://www.contrex.fr/eau-minerale-contrex/composition",
+      "sources_complementaires": [
+        "https://www.contrex.fr/eau-minerale-contrex/histoire"
+      ],
+      "releve_le": "2026-10-01",
+      "note": "Chiffres relevés sur l'encart officiel de la page (image « encart-composition-1L-contrex »)."
+    },
+    {
+      "id": "la_salvetat",
+      "marque": "La Salvetat",
+      "type_id": "calcique",
+      "statut": "eau minérale naturelle",
+      "pays": "France",
+      "source_lieu": "Haut-Languedoc",
+      "gazeuse": true,
+      "residu_sec_mg_l": null,
+      "calcium_mg_l": 160,
+      "magnesium_mg_l": 7.5,
+      "sodium_mg_l": 5,
+      "bicarbonates_mg_l": 530,
+      "sulfates_mg_l": 20,
+      "silice_mg_l": 55,
+      "autres_mg_l": {
+        "chlorures": 5,
+        "potassium": 2,
+        "pH": 6
+      },
+      "mentions_reglementaires": [
+        "calcique",
+        "convient pour un régime pauvre en sodium"
+      ],
+      "mentions_revendiquees_par_la_marque": [],
+      "accroche": "Une fine pétillance du Haut-Languedoc, douce et peu salée, qui ne bouscule aucune assiette.",
+      "source_url": "https://www.lasalvetat.fr/eau-salvetat/composition-minerale.html",
+      "sources_complementaires": [],
+      "releve_le": "2026-10-01",
+      "note": "Résidu sec non publié sur la page composition : null. Mode de gazéification non précisé sur la page (« finement pétillante »)."
+    },
+    {
+      "id": "courmayeur",
+      "marque": "Courmayeur",
+      "type_id": "sulfatee",
+      "statut": "eau minérale naturelle",
+      "pays": "Italie",
+      "source_lieu": "Vallée d'Aoste, 1 224 m, au pied du massif du Mont-Blanc",
+      "gazeuse": false,
+      "residu_sec_mg_l": null,
+      "calcium_mg_l": 556,
+      "magnesium_mg_l": 68.4,
+      "sodium_mg_l": 0.69,
+      "bicarbonates_mg_l": 201,
+      "sulfates_mg_l": 1410.2,
+      "silice_mg_l": 4.6,
+      "autres_mg_l": {
+        "chlorures": 0.75,
+        "potassium": 2.8,
+        "nitrates": "<1",
+        "fluor": "<0,1",
+        "mineralisation_moyenne_declaree": 2146.9
+      },
+      "mentions_reglementaires": [
+        "sulfatée",
+        "calcique",
+        "magnésienne",
+        "convient pour un régime pauvre en sodium"
+      ],
+      "mentions_revendiquees_par_la_marque": [
+        "riche en sels minéraux (« riche en minéraux », renvoi à l'annexe III)",
+        "sulfatée",
+        "convient pour un régime pauvre en sodium"
+      ],
+      "accroche": "Née à 1 224 mètres au pied du Mont-Blanc : une eau alpine au goût minéral net.",
+      "source_url": "https://www.sources-alma.com/nos-marques/les-eaux-minerales/marque-courmayeur/",
+      "sources_complementaires": [
+        "https://www.eau-courmayeur.com/tout-savoir-sur-courmayeur/"
+      ],
+      "releve_le": "2026-10-01",
+      "note": "« Minéralisation moyenne » 2 146,9 mg/L publiée, pas un résidu sec : la mention « riche en sels minéraux » n'est pas recalculée ici, elle est seulement revendiquée par la marque."
+    },
+    {
+      "id": "san_pellegrino",
+      "marque": "S.Pellegrino",
+      "type_id": "sulfatee",
+      "statut": "eau minérale naturelle",
+      "pays": "Italie",
+      "source_lieu": "Alpes italiennes",
+      "gazeuse": true,
+      "residu_sec_mg_l": 860,
+      "calcium_mg_l": 169,
+      "magnesium_mg_l": 49.2,
+      "sodium_mg_l": 31.2,
+      "bicarbonates_mg_l": 249,
+      "sulfates_mg_l": 403,
+      "silice_mg_l": 7.2,
+      "autres_mg_l": {
+        "chlorures": 49.8,
+        "potassium": 2.4,
+        "fluorure": 0.5,
+        "strontium": 2.7,
+        "nitrates": 3,
+        "pH_source": 7.6
+      },
+      "mentions_reglementaires": [
+        "sulfatée",
+        "calcique"
+      ],
+      "mentions_revendiquees_par_la_marque": [],
+      "accroche": "L'étiquette étoilée des tables italiennes : une bulle fine, une pointe minérale qui accompagne les plats.",
+      "source_url": "https://www.sanpellegrino.com/fr/eau/bouteille-verre-1l",
+      "sources_complementaires": [
+        "https://www.sanpellegrino.com/fr/eau-s.pellegrino"
+      ],
+      "releve_le": "2026-10-01",
+      "note": "Étiquette : « eau minérale naturelle avec adjonction de gaz carbonique ». Magnésium 49,2 mg/L : juste sous le seuil « magnésienne » (> 50)."
+    },
+    {
+      "id": "badoit",
+      "marque": "Badoit",
+      "type_id": "petillante_naturelle",
+      "statut": "eau minérale naturelle",
+      "pays": "France",
+      "source_lieu": "Saint-Galmier (Massif central)",
+      "gazeuse": true,
+      "residu_sec_mg_l": null,
+      "calcium_mg_l": 153,
+      "magnesium_mg_l": 80,
+      "sodium_mg_l": 180,
+      "bicarbonates_mg_l": 1250,
+      "sulfates_mg_l": 35,
+      "silice_mg_l": 27,
+      "autres_mg_l": {
+        "chlorures": 54,
+        "fluorures": 1.2
+      },
+      "mentions_reglementaires": [
+        "bicarbonatée",
+        "calcique",
+        "magnésienne",
+        "fluorée"
+      ],
+      "mentions_revendiquees_par_la_marque": [
+        "calcique"
+      ],
+      "accroche": "La bulle fine de Saint-Galmier, saline et soyeuse, fidèle des grandes tables depuis 1778.",
+      "source_url": "https://www.badoit.fr/notre-eau-minerale/badoit-composition.html",
+      "sources_complementaires": [],
+      "releve_le": "2026-10-01",
+      "note": "La marque se présente comme « l'eau naturellement gazeuse ». Résidu sec non publié sur la page : null. Sodium 180 mg/L : la marque précise qu'elle ne convient pas aux régimes pauvres en sodium."
+    },
+    {
+      "id": "saint_geron",
+      "marque": "Saint-Géron",
+      "type_id": "petillante_naturelle",
+      "statut": "eau minérale naturelle",
+      "pays": "France",
+      "source_lieu": "Saint-Géron, Auvergne",
+      "gazeuse": true,
+      "residu_sec_mg_l": 1158,
+      "calcium_mg_l": 95.7,
+      "magnesium_mg_l": 64,
+      "sodium_mg_l": 207.9,
+      "bicarbonates_mg_l": 1191.1,
+      "sulfates_mg_l": 20.4,
+      "silice_mg_l": null,
+      "autres_mg_l": {
+        "chlorures": 35.5,
+        "potassium": 18.4,
+        "nitrates": 0,
+        "pH": 6.2
+      },
+      "mentions_reglementaires": [
+        "bicarbonatée",
+        "magnésienne",
+        "sodique"
+      ],
+      "mentions_revendiquees_par_la_marque": [],
+      "accroche": "Une eau d'Auvergne qui jaillit déjà pétillante, aux bulles d'une finesse de champagne.",
+      "source_url": "https://eauxsaintgeron.com/pages/composition",
+      "sources_complementaires": [],
+      "releve_le": "2026-10-01",
+      "note": "La marque la déclare « naturellement gazeuse »."
+    },
+    {
+      "id": "chateldon",
+      "marque": "Châteldon",
+      "type_id": "bicarbonatee",
+      "statut": "eau minérale naturelle",
+      "pays": "France",
+      "source_lieu": "Source Sergentale, Châteldon (Puy-de-Dôme, Auvergne)",
+      "gazeuse": true,
+      "residu_sec_mg_l": null,
+      "calcium_mg_l": 355,
+      "magnesium_mg_l": 49,
+      "sodium_mg_l": 240,
+      "bicarbonates_mg_l": 2075,
+      "sulfates_mg_l": 33,
+      "silice_mg_l": null,
+      "autres_mg_l": {
+        "chlorures": 5.5,
+        "fluorures": 2.2,
+        "potassium": 41,
+        "nitrates": "<1",
+        "mineralisation_moyenne_declaree": 1882
+      },
+      "mentions_reglementaires": [
+        "bicarbonatée",
+        "calcique",
+        "fluorée",
+        "sodique"
+      ],
+      "mentions_revendiquees_par_la_marque": [
+        "riche en sels minéraux (« riche en minéraux », renvoi à l'annexe III)",
+        "bicarbonatée",
+        "calcique"
+      ],
+      "accroche": "L'eau servie à Versailles sous Louis XIV : une bulle aérienne et une minéralité ample, pour les grandes tables.",
+      "source_url": "https://www.sources-alma.com/nos-marques/les-eaux-minerales/marque-chateldon/",
+      "sources_complementaires": [
+        "https://www.eauxdeprestige.com/chateldon-eau-gazeuse-exception/"
+      ],
+      "releve_le": "2026-10-01",
+      "note": "Deux pages officielles du même groupe divergent : sulfates 33 (Sources Alma) contre 22 mg/L, fluorures 2,2 contre 2,6 (eauxdeprestige.com). Valeurs Sources Alma retenues. La fiche Alma affiche « Plate » alors que le texte dit « finement pétillante » : gazeuse retenue. Résidu non publié (minéralisation 1 882 mg/L)."
+    },
+    {
+      "id": "vichy_celestins",
+      "marque": "Vichy Célestins",
+      "type_id": "bicarbonatee",
+      "statut": "eau minérale naturelle",
+      "pays": "France",
+      "source_lieu": "Source des Célestins, Vichy",
+      "gazeuse": true,
+      "residu_sec_mg_l": null,
+      "calcium_mg_l": 103,
+      "magnesium_mg_l": 10,
+      "sodium_mg_l": 1172,
+      "bicarbonates_mg_l": 2989,
+      "sulfates_mg_l": 138,
+      "silice_mg_l": null,
+      "autres_mg_l": {
+        "chlorures": 235,
+        "potassium": 66,
+        "fluorures": "<1,5",
+        "mineralisation_moyenne_declaree": 3325
+      },
+      "mentions_reglementaires": [
+        "bicarbonatée",
+        "chlorurée",
+        "sodique"
+      ],
+      "mentions_revendiquees_par_la_marque": [
+        "riche en sels minéraux"
+      ],
+      "accroche": "La doyenne des sources de Vichy : une eau saline et vive, à part, à réserver à un moment précis.",
+      "source_url": "https://www.sources-alma.com/nos-marques/les-eaux-minerales/marque-vichy-celestin/",
+      "sources_complementaires": [
+        "https://www.vichy-celestins.com/mineralite-prodigieuse/",
+        "https://www.vichy-celestins.com/une-eau-dexeption/"
+      ],
+      "releve_le": "2026-10-01",
+      "note": "Sodium très élevé (1 172 mg/L, soit 0,39 g de sel par litre selon la marque). Résidu non publié (minéralisation 3 325 mg/L)."
+    },
+    {
+      "id": "quezac",
+      "marque": "Quézac L'Originale",
+      "type_id": "bicarbonatee",
+      "statut": "eau minérale naturelle",
+      "pays": "France",
+      "source_lieu": "Quézac, gorges du Tarn (Cévennes, entre Lozère et Gard)",
+      "gazeuse": true,
+      "residu_sec_mg_l": 980,
+      "calcium_mg_l": 165,
+      "magnesium_mg_l": 69,
+      "sodium_mg_l": 110,
+      "bicarbonates_mg_l": 1000,
+      "sulfates_mg_l": null,
+      "silice_mg_l": null,
+      "autres_mg_l": {
+        "potassium": 32.6,
+        "fluor": 2.2,
+        "nitrates": "< limite de détection",
+        "pH": 5.8
+      },
+      "mentions_reglementaires": [
+        "bicarbonatée",
+        "calcique",
+        "magnésienne",
+        "fluorée"
+      ],
+      "mentions_revendiquees_par_la_marque": [],
+      "accroche": "Venue des gorges du Tarn, une pétillance douce et une minéralité bien dosée, complice des repas.",
+      "source_url": "https://quezac.com/quezac-originale/",
+      "sources_complementaires": [
+        "https://quezac.com/notre-histoire/"
+      ],
+      "releve_le": "2026-10-01",
+      "note": "Sulfates non publiés : null. La version « L'Intense » est, elle, « avec adjonction de gaz carbonique »."
+    },
+    {
+      "id": "gerolsteiner",
+      "marque": "Gerolsteiner Sprudel",
+      "type_id": "bicarbonatee",
+      "statut": "eau minérale naturelle",
+      "pays": "Allemagne",
+      "source_lieu": "Vulkaneifel (Eifel volcanique)",
+      "gazeuse": true,
+      "residu_sec_mg_l": null,
+      "calcium_mg_l": 348,
+      "magnesium_mg_l": 108,
+      "sodium_mg_l": 118,
+      "bicarbonates_mg_l": 1816,
+      "sulfates_mg_l": 38,
+      "silice_mg_l": null,
+      "autres_mg_l": {
+        "chlorures": 40,
+        "potassium": 11
+      },
+      "mentions_reglementaires": [
+        "bicarbonatée",
+        "calcique",
+        "magnésienne"
+      ],
+      "mentions_revendiquees_par_la_marque": [],
+      "accroche": "L'eau de l'Eifel volcanique, très pétillante et franchement minérale.",
+      "source_url": "https://www.gerolsteiner.de/produkte/mineralwasser/sprudel",
+      "sources_complementaires": [],
+      "releve_le": "2026-10-01",
+      "note": "Extrait d'analyse publié en allemand (« Analyseauszug ») ; résidu sec non publié : null."
+    }
+  ],
+  "eau_de_coco": {
+    "ciqual": {
+      "aliment": "Eau de coco",
+      "code_ciqual": "18011",
+      "pour": "100 g",
+      "url": "https://ciqual.anses.fr/#/aliments/18011/eau-de-coco",
+      "energie_kcal": 11.8,
+      "energie_kj": 49.8,
+      "eau_g": 95.7,
+      "proteines_g": 0.21,
+      "glucides_g": 3.33,
+      "sucres_g": 2.48,
+      "lipides_g": "<0,3",
+      "fibres_g": "<0,5",
+      "potassium_mg": 200,
+      "sodium_mg": 20.4,
+      "chlorure_mg": 140,
+      "calcium_mg": 14,
+      "magnesium_mg": 8.3,
+      "phosphore_mg": 7.9,
+      "sel_g": 0.051,
+      "vitamine_c_mg": "<0,5",
+      "releve_le": "2026-10-01"
+    },
+    "marques": [
+      {
+        "id": "vaivai_100_pure",
+        "marque": "VAÏVAÏ coco — Eau de coco 100 % pure",
+        "description_officielle": "100 % pur jus, sans concentré ni additifs, sans sucres ajoutés, sans conservateurs ni arômes artificiels",
+        "source_url": "https://www.vaivai.fr/products/eau-de-coco-100-pure",
+        "releve_le": "2026-10-01",
+        "accroche": "Une eau de coco pure, servie bien fraîche, à la douceur naturelle."
+      },
+      {
+        "id": "naturalia_bio_1l",
+        "marque": "Naturalia — Eau de coco bio 1 L",
+        "ingredients_officiels": "Eau de coco* (*issue de l'agriculture biologique)",
+        "mention_etiquette": "sans sucres ajoutés, contient des sucres naturellement présents",
+        "valeur_energetique_kcal_100ml": 15,
+        "source_url": "https://www.naturalia.fr/produit/eau-de-coco-brique-1l",
+        "releve_le": "2026-10-01",
+        "accroche": "Un seul ingrédient, l'eau de coco bio, pour une pause fraîche l'après-midi."
+      }
+    ],
+    "allegations_possibles": [
+      {
+        "allegation": "source de potassium",
+        "base": "Potassium 200 mg/100 g (CIQUAL) ≥ 150 mg/100 mL, soit 7,5 % de la VNR de 2 000 mg pour une boisson (règlement 1169/2011, annexe XIII)",
+        "condition": "Vérifier la teneur sur l'étiquette de la marque, exprimée par 100 mL."
+      },
+      {
+        "allegation": "faible valeur énergétique",
+        "base": "11,8 kcal/100 g (CIQUAL) ≤ 20 kcal/100 mL pour un liquide (règlement 1924/2006, annexe)",
+        "condition": "Vérifier sur l'étiquette (Naturalia : 15 kcal/100 mL, conforme)."
+      },
+      {
+        "allegation": "pauvre en sodium",
+        "base": "Sodium 20,4 mg/100 g ≤ 0,12 g/100 mL (règlement 1924/2006, annexe) ; le plafond de 2 mg/100 mL vise les « eaux », or l'eau de coco est une boisson de fruit",
+        "condition": "À faire valider : c'est une lecture du texte, pas une position officielle trouvée."
+      },
+      {
+        "allegation": "sans sucres ajoutés",
+        "base": "Règlement 1924/2006, annexe : aucun mono- ou disaccharide ajouté ; ajouter « contient des sucres naturellement présents »",
+        "condition": "Uniquement pour un produit précis dont l'étiquette le permet (ex. les deux marques ci-dessus)."
+      }
+    ],
+    "note": "Techniquement, le chlorure (140 mg/100 g, VNR 800 mg) passe aussi le seuil « source de » ; allégation sans intérêt éditorial, non retenue. Ne pas présenter l'eau de coco comme une eau minérale."
+  },
+  "infusions": [
+    {
+      "id": "concombre_menthe",
+      "nom": "Concombre et menthe",
+      "recette": "1 L d'eau fraîche, 1/2 concombre en fines rondelles, 6 à 8 feuilles de menthe froissées. 2 h au réfrigérateur. À boire dans la journée."
+    },
+    {
+      "id": "citron",
+      "nom": "Citron",
+      "recette": "1 L d'eau, 1 citron non traité en rondelles. 1 à 2 h au frais ; retirer les rondelles au-delà de 4 h pour éviter l'amertume de l'écorce."
+    },
+    {
+      "id": "gingembre_citron",
+      "nom": "Gingembre et citron",
+      "recette": "1 L d'eau, 3 à 4 fines lamelles de gingembre frais pelé, quelques rondelles de citron. 2 h au frais. Pour une version chaude : verser de l'eau frémissante et laisser infuser 5 min."
+    },
+    {
+      "id": "fraise_basilic",
+      "nom": "Fraise et basilic",
+      "recette": "1 L d'eau, 6 fraises coupées en deux, 4 feuilles de basilic. 2 h au frais, à boire dans la journée."
+    }
+  ]
+}

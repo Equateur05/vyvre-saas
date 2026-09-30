@@ -79,3 +79,17 @@ details.etudes[open] summary{margin-bottom:6px}
 .scan-layout.en-lecture h1{font-size:clamp(34px,3.4vw,54px)!important;line-height:1.02}
 .scan-layout.en-lecture .scan-copy > p:not(.fine){display:none}
 .scan-layout.en-lecture .live-status{margin-top:10px}
+/* 01/10 : quelle eau ? */
+#eaux .eau-g{margin:26px 0 10px;font-size:15px;font-weight:600;letter-spacing:.02em;color:#3a3f33}
+.eaux{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.eau{padding:18px 18px 14px;border-radius:20px;background:linear-gradient(170deg,#fff,#f6f7f4);box-shadow:inset 0 0 0 1px #e8e9e3,0 18px 40px -32px rgba(0,0,0,.35)}
+.eau-t{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+.eau-t h3{font-size:21px;letter-spacing:-.02em;text-transform:capitalize}
+.eau-t span{font-size:12.5px;color:#8a8e82;white-space:nowrap}
+.eau-a{margin:8px 0 10px;color:#4a4f44;font-size:14.5px;line-height:1.5}
+.eau-c{display:grid;grid-template-columns:repeat(auto-fill,minmax(70px,1fr));gap:8px;margin-bottom:10px}
+.eau-c div{padding:8px;border-radius:12px;background:#fff;box-shadow:inset 0 0 0 1px #eeeee8}
+.eau-c b{display:block;font:500 16px 'IBM Plex Mono',ui-monospace,monospace;color:#1f2419}
+.eau-c small{font-size:12px;color:#8a8e82}
+.eau-m{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:8px}
+.eau-m span{font-size:12px;padding:4px 9px;border-radius:999px;background:rgba(214,176,112,.16);color:#8a6a35}
