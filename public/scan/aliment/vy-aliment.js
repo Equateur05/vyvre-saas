@@ -324,13 +324,15 @@
     if(/[?&]assiette=1/.test(location.search) && !entree.fait){ entree.fait = 1; setTimeout(ouvrir, 900); } }
 
   /* ---- la feuille plein ecran ---- */
-  function feuille(html, cls){ style(); if(!ouvert){ ouvert = document.createElement('div'); ouvert.id = 'vy-as'; ouvert.setAttribute('role', 'dialog'); ouvert.setAttribute('aria-label', 'Votre assiette'); document.body.appendChild(ouvert); requestAnimationFrame(function(){ ouvert.classList.add('on'); }); document.documentElement.style.overflow = 'hidden'; }
+  function feuille(html, cls){ style(); html = html.replace(HAUT_BASE, HAUT_BASE + demo()); if(!ouvert){ ouvert = document.createElement('div'); ouvert.id = 'vy-as'; ouvert.setAttribute('role', 'dialog'); ouvert.setAttribute('aria-label', 'Votre assiette'); document.body.appendChild(ouvert); requestAnimationFrame(function(){ ouvert.classList.add('on'); }); document.documentElement.style.overflow = 'hidden'; }
     ouvert.setAttribute('data-fond', cls); ouvert.innerHTML = '<div class="ec ' + cls + '">' + html + '</div>'; ouvert.scrollTop = 0;
     /* accessibilite : chaque puce est un vrai bouton (clavier, lecteur d'ecran) */
     ouvert.querySelectorAll('.puce').forEach(function(z){ z.setAttribute('role', 'button'); z.tabIndex = 0; z.setAttribute('aria-pressed', z.classList.contains('on') ? 'true' : 'false'); });
     var f = ouvert.querySelector('.fermer'); if(f) f.onclick = fermer; }
   function fermer(){ if(!ouvert) return; var o = ouvert; ouvert = null; o.classList.remove('on'); document.documentElement.style.overflow = ''; setTimeout(function(){ o.remove(); }, 500); }
-  var HAUT = '<div class="haut"><b>vyvre.</b><button class="fermer" type="button">FERMER</button></div>';
+  var HAUT_BASE = '<div class="haut"><b>vyvre.</b><button class="fermer" type="button">FERMER</button></div>';
+  var HAUT = HAUT_BASE;
+  function demo(){ return window.__vyDemo ? '<div class="alerte" style="border-color:rgba(21,20,19,.25);color:#151413;background:rgba(255,255,255,.5)">Exemple : aucun scan trouvé sur cet appareil. <a href="/scan/" style="color:inherit">Faites votre scan</a> pour votre vraie assiette.</div>' : ''; }
 
   var ALLERG = [['fruits_a_coque','Fruits à coque'],['poissons','Poissons'],['cereales_gluten','Gluten ou maladie cœliaque'],['lait','Lait'],['oeufs','Œufs'],['soja','Soja'],['mollusques','Mollusques'],['crustaces','Crustacés'],['arachides','Arachides'],['sesame','Sésame'],['moutarde','Moutarde'],['celeri','Céleri'],['lupin','Lupin'],['sulfites','Sulfites'],['latex','Latex'],['bouleau','Pollen de bouleau'],['autre','Un autre aliment']];
   var NOMS_AL = { fruits_a_coque:'fruits à coque', poissons:'poissons', cereales_gluten:'gluten', lait:'lait', oeufs:'œufs', soja:'soja', mollusques:'mollusques', crustaces:'crustacés', arachides:'arachide', sesame:'sésame', moutarde:'moutarde', celeri:'céleri', lupin:'lupin', sulfites:'sulfites' };
@@ -687,7 +689,9 @@
      a partir du dernier scan garde sur cet appareil, sans refaire le scan */
   if(/[?&]assiette=1/.test(location.search)){
     var direct = function(){ if(window.__vyScores || ouvert) return;
-      try { var sc = JSON.parse(localStorage.getItem('vyvre_scan_scores') || 'null'); if(sc && Object.keys(sc).length){ window.__vyScores = sc; entree.fait = 1; ouvrir(); } } catch(e){} };
+      var sc = null; try { sc = JSON.parse(localStorage.getItem('vyvre_scan_scores') || 'null'); } catch(e){}
+      if(!sc || !Object.keys(sc).length){ sc = { glow:47, redness:58, hydration:52, pores:58, sebum:36, pigmentation:25, wrinkles:61, firmness:66 }; window.__vyDemo = true; }   // aucun scan sur cet appareil : un exemple, signale
+      window.__vyScores = sc; entree.fait = 1; ouvrir(); };
     if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(direct, 300); }); else setTimeout(direct, 300); }
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape') fermer(); var z = e.target; if(ouvert && z && z.classList && z.classList.contains('puce') && (e.key === 'Enter' || e.key === ' ')){ e.preventDefault(); z.click(); } });
 })();
