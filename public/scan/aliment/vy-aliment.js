@@ -172,6 +172,12 @@
 #vy-as .cases4 div{border:1px solid rgba(28,47,48,.16);border-radius:16px;min-height:70px;padding:10px 8px;font-size:12.5px;line-height:1.3;text-align:center;display:flex;flex-direction:column;justify-content:center;transition:background .5s,transform .5s}\
 #vy-as .cases4 div.on{background:#fff;box-shadow:0 18px 40px -22px rgba(0,0,0,.35);transform:translateY(-2px)}\
 #vy-as .cases4 b{display:block;font:italic 16px Georgia,serif;margin-bottom:4px}\
+#vy-as .ec{position:relative}\
+#vy-as .fond-tri{position:absolute;inset:0;padding:calc(110px + env(safe-area-inset-top)) 14px 20px;column-count:3;column-gap:12px;font-size:9px;line-height:1.55;color:#1c2f30;opacity:.075;pointer-events:none;overflow:hidden;z-index:0}\
+#vy-as .fond-tri div{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;transition:opacity .8s}\
+#vy-as .fond-tri div.x{opacity:.25;text-decoration:line-through}\
+#vy-as .fond-tri div.k{font-weight:700;opacity:1}\
+#vy-as .devant{position:relative;z-index:1}\
 #vy-as .journal{margin-top:22px;font:400 11px/1.9 "IBM Plex Mono",ui-monospace,monospace;letter-spacing:.3px;color:#56696a;min-height:150px}\
 #vy-as .journal div{opacity:0;transform:translateY(6px);transition:opacity .45s,transform .45s}\
 #vy-as .journal div.on{opacity:1;transform:none}\
@@ -378,10 +384,17 @@
     var choisis = pris.map(function(c){ return c.f; }), roue = choisis.concat(cand.filter(function(f){ return choisis.indexOf(f) < 0; }).slice(0, 36)).sort(function(){ return Math.random() - .5; });   // les choix sont toujours dans la roue
     while(roue.length < 14) roue = roue.concat(roue);
     var H = 46;
-    feuille(HAUT + '<div class="m">Composition de votre assiette</div><h2 style="margin:10px 0 0;font-size:40px;letter-spacing:-2px" id="vy-as-ct">Nous lisons.</h2>'
+    feuille('<div class="fond-tri" aria-hidden="true">' + DATA.map(function(f){ return '<div data-id="' + f.id + '">' + esc(f.nom.split(' (')[0].split(',')[0]) + '</div>'; }).join('') + '</div><div class="devant">' + HAUT + '<div class="m">Composition de votre assiette</div><h2 style="margin:10px 0 0;font-size:40px;letter-spacing:-2px" id="vy-as-ct">Nous lisons.</h2>'
       + '<div class="cases4">' + [0, 1, 2, 3].map(function(k){ return '<div id="vy-as-c' + k + '"><b>' + n2(k) + '</b><span style="opacity:.35">·</span></div>'; }).join('') + '</div>'
       + '<div class="roue"><div class="bande"></div><div id="vy-as-ruban">' + roue.map(function(f){ return '<div class="it"><i style="background:' + (TEINTE[f.categorie] || '#999') + '"></i>' + esc(f.nom.split(' (')[0]) + '</div>'; }).join('') + '</div></div>'
-      + '<div class="journal" id="vy-as-jr"></div><button class="btn sec" type="button" id="vy-as-passer" style="margin-top:6px">Passer</button>', 'jour');
+      + '<div class="journal" id="vy-as-jr"></div><button class="btn sec" type="button" id="vy-as-passer" style="margin-top:6px">Passer</button></div>', 'jour');
+    /* le fond suit les vraies etapes : ecartes pour tous, puis d'apres vos reponses, puis hors de vos indices */
+    var fond = {}; ouvert.querySelectorAll('.fond-tri div').forEach(function(d){ fond[d.dataset.id] = d; });
+    var barrer = function(test){ DATA.forEach(function(f){ if(test(f) && fond[f.id]) fond[f.id].classList.add('x'); }); };
+    var ex0 = {}; (function(){ var sv = { S:SANTE, M:MODE, R:REP }; SANTE = { rien:true }; MODE = 'normal'; versRep(ind); ex0 = exclus().x; SANTE = sv.S; MODE = sv.M; REP = sv.R; })();
+    setTimeout(function(){ barrer(function(f){ return ex0[f.id]; }); }, 200 + 330);
+    setTimeout(function(){ barrer(function(f){ return e.x[f.id]; }); }, 200 + 2*330);
+    setTimeout(function(){ barrer(function(f){ return cand.indexOf(f) < 0; }); }, 200 + 4*330);
     var items = [].slice.call(ouvert.querySelectorAll('.roue .it')), N = items.length, pos = 0, fini = false, raf;
     var dessiner = function(){ var hc = 116; items.forEach(function(el, i){ var y = ((i*H - pos) % (N*H) + N*H) % (N*H); if(y > N*H/2) y -= N*H; var d = y / (H*2.6);
       el.style.transform = 'translateY(' + (hc - H/2 + y) + 'px) rotateX(' + (-Math.max(-1.2, Math.min(1.2, d))*38) + 'deg)'; el.style.opacity = Math.max(0, 1 - Math.abs(d)*.55); el.style.fontWeight = Math.abs(y) < H/2 ? 400 : 300; }); };
@@ -398,6 +411,7 @@
       (function anim(now){ if(fini) return; var u = Math.min(1, (now - t0)/dur), ez = 1 - Math.pow(1 - u, 4); pos = depart + (fin - depart)*ez; dessiner();
         if(u < 1) raf = requestAnimationFrame(anim);
         else { var f = pris[k].f, c = document.getElementById('vy-as-c' + k); c.classList.add('on'); c.innerHTML = '<b>' + n2(k) + '</b>' + esc(f.nom.split(' (')[0]);
+          if(fond[f.id]) fond[f.id].classList.add('k');
           ligne(n2(k) + ' · ' + f.nom.split(' (')[0] + ' · preuve ' + f.niveau_preuve_peau + ' · pour ' + INDICES[pris[k].pour].toLowerCase() + ((f.saison || []).indexOf(mois) >= 0 && (f.saison || []).length < 12 ? ' · de saison' : ''));
           setTimeout(function(){ tourner(k + 1); }, 650); } })(t0); };
     setTimeout(function(){ tourner(0); }, 200 + etapes.length*330);
