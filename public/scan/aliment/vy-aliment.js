@@ -67,7 +67,7 @@
     r.q9 = [REP.q9s === 'moins7' ? '6_7' : REP.q9s === 'plus9' ? 'plus9' : REP.q9s === '7_9' ? '7_9' : null, REP.q9d ? 'irregulier' : null].filter(Boolean);
     r.q10 = REP.q10p ? [REP.q10p] : []; REP = r; }
   function charger(){ if(DATA) return Promise.resolve();
-    return fetch(BASE + 'aliments_v3.json?v=1').then(function(r){ return r.json(); }).then(function(j){ DATA = j.aliments; })
+    return fetch(BASE + 'aliments_v4.json?v=1').then(function(r){ return r.json(); }).then(function(j){ DATA = j.aliments; })
       .then(function(){ return fetch(BASE + 'recettes.json?v=1').then(function(r){ return r.json(); }).then(function(j){ RECS = j.recettes || []; }).catch(function(){ RECS = []; }); })
       .then(function(){ return fetch(BASE + 'tendances.json?v=1').then(function(r){ return r.json(); }).then(function(j){ TEND = j.tendances || []; }).catch(function(){ TEND = []; }); })
       .then(function(){ return fetch(BASE + 'combos.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(j){ COMBOS = j; }).catch(function(){}); }); }
@@ -520,7 +520,8 @@
       + pris.map(function(c, k){ var f = c.f, a2 = allegation(f), fa = fait(f); if(a2) une = true;
           var pr = (e.notes[f.id] || []).concat((f.precautions || []).filter(function(t){ return !/allégation|afficher|juriste/i.test(t); }));   // toutes les precautions de securite s'affichent
           return '<div class="rit" id="vy-as-f' + k + '"><i>' + n2(k) + '</i><div><h3>' + esc(f.nom) + '</h3><div class="sous">Idée pour votre assiette · ' + esc(f.portion_type) + ' · ' + saison(f) + '</div>'
-            + '<p>' + esc(composition(f)) + '</p>'
+            + (f.accroche ? '<p style="font:italic 400 17px/1.45 \'Playfair Display\',Georgia,serif;color:#151413">' + esc(f.accroche) + '</p>' : '')
+            + '<p style="font-size:12.5px;opacity:.75">' + esc(composition(f)) + '</p>'
             + '<div class="preuve" style="margin-top:12px">Combien</div><p style="margin-top:4px">' + esc(f.portion_type) + '. ' + esc(FREQ[f.categorie] || 'Dans une alimentation variée.') + '' + '</p>'
             + (apports(f).length ? '<div class="preuve" style="margin-top:12px">Une portion apporte</div><p style="margin-top:4px">' + apports(f).map(esc).join('<br>') + '</p>' : '')
             + (a2 ? '<div class="alleg">' + esc(a2) + '</div>' : '') 
