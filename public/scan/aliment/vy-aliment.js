@@ -213,19 +213,15 @@
       document.getElementById('vy-as-manque').style.display = ok ? 'none' : 'block'; if(ok) assiette(); }; }
 
   /* ---- COMBO aliment + creme ou serum (premium) : chaque cote a ses preuves, jamais de synergie promise ---- */
-  var CATALOGUE = null;
-  function catalogue(){ if(CATALOGUE) return Promise.resolve(CATALOGUE);
-    var p = window.__vyCatalogue || fetch('/scan/catalogue/all.json').then(function(r){ return r.json(); });
-    return Promise.resolve(p).then(function(j){ CATALOGUE = (j && j.products) || []; return CATALOGUE; }).catch(function(){ CATALOGUE = []; return CATALOGUE; }); }
-  function produitsPour(actif, n){ if(!CATALOGUE || !actif) return [];
-    var mots = (actif.inci_mots_cles || []).map(function(m){ return String(m).toLowerCase(); }); if(!mots.length) return [];
-    var champ = COMBOS && COMBOS._meta && COMBOS._meta.champ_ingredients;
-    var liste = CATALOGUE.filter(function(p){ if(!p || (window.vyPrefs && window.vyPrefs.filter && !window.vyPrefs.filter([p]).length)) return false;
-      if(/\b(US|USA)\s*ONLY\b|^\s*\[subscr/i.test(p.name || '')) return false;
-      var inci = String((champ && p[champ]) || p.ingredients || p.inci || p.ingredients_text || '').toLowerCase(); if(!inci) return false;
-      return mots.some(function(m){ return inci.indexOf(m) >= 0; }); });
-    liste.sort(function(p, q){ return (q.rating || 0) - (p.rating || 0); });
-    return liste.slice(0, n || 2); }
+  /* les produits du catalogue qui contiennent chaque actif (actifs_produits.json, genere depuis les listes INCI :
+     rang = position de l'actif dans la liste, donc sa concentration probable) */
+  var PRODUITS = null;
+  function catalogue(){ if(PRODUITS) return Promise.resolve(PRODUITS);
+    return fetch(BASE + 'actifs_produits.json').then(function(r){ return r.json(); }).then(function(j){ PRODUITS = j.actifs || {}; return PRODUITS; }).catch(function(){ PRODUITS = {}; return PRODUITS; }); }
+  function produitsPour(actif){ var l = (PRODUITS && PRODUITS[actif.id]) || [];
+    if(window.vyPrefs && window.vyPrefs.filter){ try { var f = window.vyPrefs.filter(l.map(function(p){ return { id:p.id, brand:p.brand, pays:p.pays, categorie:p.cat, name:p.n }; })); var ok = {}; f.forEach(function(p){ ok[p.id] = 1; }); if(f.length) l = l.filter(function(p){ return ok[p.id]; }); } catch(e){} }
+    var serum = l.filter(function(p){ return /serum|sérum/i.test(p.cat || '') ; })[0], creme = l.filter(function(p){ return /creme|crème|soin|hydratant/i.test(p.cat || '') && p !== serum; })[0];
+    var out = [serum, creme].filter(Boolean); l.forEach(function(p){ if(out.length < 2 && out.indexOf(p) < 0) out.push(p); }); return out.slice(0, 2); }
   function combos(ind, pris){ if(!COMBOS || !COMBOS.combos) return '';
     var ids = {}; pris.forEach(function(c){ ids[c.f.id] = 1; });
     var ex = exclus().x, enceinte = a('q3','enceinte') || a('q3','allaite') || a('q3','projet');
@@ -235,12 +231,16 @@
     if(!lignes.length) return '';
     return '<div class="prem"><div class="m">Premium · combo aliment + crème et sérum</div><h2>Combo.</h2><p class="lead" style="color:#b6cdc8">Pour la même cible, un aliment de l’intérieur et un actif de soin de l’extérieur. Chacun a ses propres preuves ; aucune étude n’a testé leur association, nous ne promettons donc aucun effet combiné.</p>'
       + lignes.map(function(c, k){ var f = DATA.filter(function(z){ return z.id === c.aliment_id; })[0], ac = actifs[c.actif_id]; if(!f) return '';
-        var prods = produitsPour(ac, 2);
+        var prods = produitsPour(ac);
         return '<div class="rit"><i>' + n2(k) + '</i><div><h3>' + esc(f.nom) + ' + ' + esc(ac.nom) + '</h3><div class="sous">' + esc(INDICES[c.indice] || c.indice) + ' · aliment : preuve ' + esc(c.grade_aliment || f.niveau_preuve_peau) + ' · actif : preuve ' + esc(c.grade_actif || ac.grade) + '</div>'
           + '<p>' + esc(c.pourquoi) + '</p><p style="opacity:.8">' + esc(c.phrase_honnete || '') + '</p>'
           + (ac.moment ? '<div class="preuve">' + (ac.moment === 'soir' ? 'Le soir' : ac.moment === 'matin' ? 'Le matin' : 'Matin ou soir') + (ac.concentration_efficace ? ' · ' + esc(ac.concentration_efficace) : '') + '</div>' : '')
           + (ac.precautions || []).slice(0, 2).map(function(t){ return '<div class="prec" style="color:#f3c9a6">' + esc(t) + '</div>'; }).join('')
-          + prods.map(function(p){ return '<a class="prod" href="' + esc(p.product_url || p.url || '#') + '" target="_blank" rel="noopener"><img src="' + esc(p.cutout_url || p.image_url || '') + '" alt="" onerror="this.style.visibility=\'hidden\'"><span><b>' + esc(p.brand_name || p.brand || '') + '</b>' + esc(p.name || '') + '</span></a>'; }).join('')
+          + (ac.ce_qu_on_peut_dire ? '<div class="alleg">' + esc(ac.ce_qu_on_peut_dire) + '</div>' : '')
+          + (ac.exige_spf ? '<div class="prec" style="color:#f3c9a6">Avec cet actif, une protection solaire chaque matin est indispensable.</div>' : '')
+          + ((a('q3','enceinte') || a('q3','allaite') || a('q3','projet')) && ac.grossesse === 'avis' ? '<div class="prec" style="color:#f3c9a6">Grossesse ou allaitement : demandez l’avis de votre médecin ou de votre pharmacien avant cet actif.</div>' : '')
+          + (prods.length ? '<div class="preuve" style="margin-top:16px">En complément, dans notre catalogue</div>' : '')
+          + prods.map(function(p){ var par = /\(([^)]+)\)/.exec(ac.nom || ''), nom = (ac.id === 'humectants' && par ? par[1] : (ac.nom || '').split(' (')[0]).toLowerCase(), CATN = { serum:'Sérum', creme:'Crème', 'solaire-visage':'Solaire visage' }; return '<a class="prod" href="' + esc(p.url || '#') + '" target="_blank" rel="noopener"><img src="' + esc(p.img || '') + '" alt="" onerror="this.style.visibility=\'hidden\'"><span><b>' + esc(p.b || '') + (p.cat ? ' · ' + esc(CATN[p.cat] || p.cat) : '') + '</b>' + esc(p.n || '') + '<br><small style="opacity:.7">' + (ac.id === 'protection_solaire' ? 'Protection solaire du visage' : 'Contient ' + esc(nom) + (p.pos <= 4 ? ', parmi les premiers ingrédients' : '')) + '</small></span></a>'; }).join('')
           + ((ac.etudes || []).length ? '<details><summary>Les études de l’actif (' + ac.etudes.length + ')</summary>' + ac.etudes.map(function(e){ return '<a href="' + esc(e.lien) + '" target="_blank" rel="noopener">' + esc(e.ref) + ' ↗</a>'; }).join('') + '</details>' : '')
           + '</div></div>'; }).join('')
       + '<p class="fine" style="color:#b6cdc8">Soins cosmétiques : ils agissent sur l’aspect de la peau, pas sur une maladie. Testez chaque nouveau soin sur une petite zone. Protection solaire chaque matin, surtout avec un rétinoïde ou un acide exfoliant.</p></div>'; }

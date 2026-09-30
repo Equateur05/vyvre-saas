@@ -1,0 +1,1162 @@
+{
+  "_meta": {
+    "version": "1.0",
+    "date": "2026-09-30",
+    "description": "Paires aliment + actif cosmétique par indice du scan vyvre. Chaque côté a son propre niveau de preuve ; aucune paire n'a été testée ensemble ; aucune synergie n'est revendiquée.",
+    "echelle": "A : plusieurs ECR concordants ou méta-analyse concordante ; B : au moins un ECR correct ; C : observationnel, mécanistique ou extrapolé d'un médicament ; D : non étayé. Même échelle que ETUDE_ALIMENTS_PEAU_LONGEVITE.md.",
+    "phrase_honnete_standard": "Aucune étude n'a testé cette association. Chaque côté a ses propres preuves, indiquées séparément ; on ne peut pas dire que les deux ensemble font mieux que chacun seul.",
+    "scan": "Les indices vyvre sont des mesures optiques d'une photo. Aucun aliment ni aucun actif n'a été étudié sur ces indices : ne jamais promettre que le score va remonter.",
+    "correspondance_indice_catalogue": {
+      "hydratation": [
+        "hydration"
+      ],
+      "eclat": [
+        "glow"
+      ],
+      "rougeurs": [
+        "redness"
+      ],
+      "pores_sebum": [
+        "pores",
+        "sebum"
+      ],
+      "uniformite": [
+        "pigmentation"
+      ],
+      "rides_fermete": [
+        "wrinkles",
+        "firmness"
+      ],
+      "texture": []
+    },
+    "catalogue": {
+      "source_liste": "public/scan/catalogue/all.json (5 831 produits, SANS champ ingrédients)",
+      "source_ingredients": "public/scan/catalogue/<marque>.json, champ 'ingredients' (chaîne INCI brute, séparateurs virgule ou point, parfois du texte parasite de page web en fin de chaîne), jointure par 'id'",
+      "produits_avec_INCI": 2951,
+      "champs_type": "categorie : creme, serum, nettoyant, masque, contour-yeux, solaire-visage, lotion, exfoliant, huile, autre-visage ; univers : luxe, normal, petit-prix, pharmacie",
+      "regles_matching": "Détection en minuscules par sous-chaîne sur la liste INCI. Détecter un actif NE PROUVE PAS qu'il est à dose efficace (document technique UE sur les allégations, 2017). Préférer les produits où l'actif est dans les 10 premiers ingrédients. Protection solaire : categorie 'solaire-visage' ou SPF chiffré dans le nom."
+    },
+    "regles_affichage": [
+      "Pour rougeurs, uniformite et rides_fermete, la paire avec protection_solaire est toujours affichée en premier.",
+      "Si un actif a exige_spf = true, afficher aussi un écran solaire.",
+      "grossesse = 'eviter' : paire masquée si l'utilisateur a déclaré grossesse, projet de grossesse ou allaitement ; 'avis' : afficher « demandez conseil à votre médecin ou pharmacien ».",
+      "Appliquer les exclusions alimentaires de QUESTIONNAIRE.md à l'aliment de la paire ; si l'aliment est exclu, la paire tombe.",
+      "Côté aliment : seules les allégations autorisées (Règlement 1924/2006), mot pour mot. Côté cosmétique : formulations de ce_qu_on_peut_dire, jamais de maladie."
+    ],
+    "avertissement": "Information générale, pas un avis médical. Ne constitue pas une allégation d'un produit précis : l'efficacité d'un produit dépend de sa formule et de sa concentration."
+  },
+  "actifs": [
+    {
+      "id": "protection_solaire",
+      "nom": "Protection solaire (SPF large spectre UVA/UVB)",
+      "grade": "A",
+      "grade_par_indice": {
+        "rides_fermete": "A",
+        "uniformite": "A",
+        "rougeurs": "A",
+        "eclat": "B",
+        "texture": "B"
+      },
+      "concentration_efficace": "Produit étiqueté SPF 30 ou plus avec protection UVA (logo UVA cerclé), appliqué chaque matin en quantité suffisante et renouvelé en exposition. Le SPF exact utilisé dans Hughes 2013 n'est pas repris ici (non relu dans le texte intégral).",
+      "ce_qu_on_peut_dire": "Aide à protéger la peau des effets visibles du soleil : coups de soleil, taches et rides liées au soleil. L'usage quotidien d'un écran solaire a ralenti le vieillissement visible de la peau dans un essai randomisé de 4,5 ans.",
+      "a_ne_pas_dire": [
+        "écran total",
+        "sunblock",
+        "protection 100 %",
+        "efface les taches",
+        "répare l'ADN",
+        "prévient le cancer (allégation médicale ; à laisser aux autorités de santé)"
+      ],
+      "precautions": [
+        "Aucune protection n'est totale : chapeau, ombre et heures creuses restent nécessaires.",
+        "Indispensable dès qu'un rétinoïde, un AHA ou un BHA est utilisé le soir.",
+        "Mélasma (taches brunes du visage) : les écrans teintés qui filtrent aussi la lumière visible ont réduit les rechutes dans un essai (Boukari 2015)."
+      ],
+      "moment": "matin",
+      "grossesse": "ok",
+      "grossesse_note": "Aucune contre-indication connue ; conseillé pendant la grossesse car le soleil aggrave le masque de grossesse.",
+      "exige_spf": false,
+      "detection": "Ne pas détecter par INCI (le dioxyde de titane et l'oxyde de zinc servent aussi de pigments). Utiliser categorie == 'solaire-visage' ou un SPF chiffré dans le nom du produit.",
+      "inci_mots_cles": [],
+      "inci_formes_faibles": [],
+      "statut_UE": "Recommandation 2006/647/CE : pas d'allégation « écran total » ou « 100 % » ; protection UVA au moins égale au tiers du SPF.",
+      "etudes": [
+        {
+          "ref": "Hughes MC 2013, Ann Intern Med (ECR, 903 adultes de moins de 55 ans, 4,5 ans : vieillissement cutané 24 % moindre avec l'écran quotidien ; financement public NHMRC)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/23732711/"
+        },
+        {
+          "ref": "Green A 1999, Lancet (ECR Nambour, écran quotidien et carcinomes cutanés)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/10475183/"
+        },
+        {
+          "ref": "Green AC 2011, J Clin Oncol (suivi de l'ECR : moins de mélanomes après usage régulier d'écran)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/21135266/"
+        },
+        {
+          "ref": "Boukari F 2015, J Am Acad Dermatol (ECR, mélasma : écran UV + lumière visible et rechutes ; un auteur salarié de Bioderma)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/25443629/"
+        },
+        {
+          "ref": "Randhawa M 2016, Dermatol Surg (32 sujets, SPF 30 pendant 1 an, sans groupe témoin ; auteurs Johnson & Johnson)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/27749441/"
+        }
+      ],
+      "catalogue_2026_09": {
+        "produits_detectes": 511,
+        "detail": "500 en categorie solaire-visage + 11 produits avec SPF chiffré dans le nom (8 crèmes, 3 contours des yeux)",
+        "dont_avec_INCI": "259 des 500 solaire-visage"
+      }
+    },
+    {
+      "id": "retinoide",
+      "nom": "Rétinoïdes cosmétiques (rétinol, rétinal)",
+      "grade": "B",
+      "grade_par_indice": {
+        "rides_fermete": "B",
+        "texture": "B",
+        "uniformite": "C"
+      },
+      "concentration_efficace": "Rétinol : essais entre 0,1 % et 0,4 % (Kafi 2007 : 0,4 %). Plafond UE depuis le Règlement (UE) 2024/996 : 0,3 % en équivalent rétinol pour le visage, 0,05 % pour les laits corps (mise sur le marché à partir du 1er novembre 2025, retrait des produits non conformes au 1er mai 2027). Rétinal : 0,05 % dans Creidi 1998 ; pas de plafond UE à ce jour (CosIng : aucune restriction). La trétinoïne (acide rétinoïque) est un médicament sur ordonnance, interdite en cosmétique (annexe II, n° 375).",
+      "ce_qu_on_peut_dire": "Aide à atténuer l'apparence des rides et ridules et à lisser le grain de peau, avec une utilisation régulière sur plusieurs mois.",
+      "a_ne_pas_dire": [
+        "efface les rides",
+        "effet trétinoïne / aussi efficace qu'un médicament",
+        "répare la peau",
+        "anti-acné (le traitement de l'acné relève des rétinoïdes médicaments)"
+      ],
+      "precautions": [
+        "Grossesse, projet de grossesse, allaitement : éviter par précaution.",
+        "Irritation, rougeurs, desquamation les premières semaines : commencer 2 à 3 soirs par semaine.",
+        "Photosensibilité : écran solaire obligatoire le matin.",
+        "Ne pas cumuler le même soir avec un AHA/BHA ou un peeling (pratique courante, non testée en essai).",
+        "Étiquette UE obligatoire : « Contient de la vitamine A. Tenez compte de votre apport quotidien avant utilisation » (libellé français non vérifié mot pour mot ; libellé anglais officiel « Contains Vitamin A. Consider your daily intake before use. »). Ne pas associer à un complément de vitamine A.",
+        "Les esters (retinyl palmitate, retinyl acetate) et l'hydroxypinacolone retinoate sont moins étudiés : les signaler comme formes faibles."
+      ],
+      "moment": "soir",
+      "grossesse": "eviter",
+      "grossesse_note": "L'ANSM a contre-indiqué le 25/10/2018 les rétinoïdes médicaments par voie cutanée (trétinoïne, isotrétinoïne, adapalène, tazarotène) pendant la grossesse. Aucun texte équivalent trouvé pour le rétinol cosmétique ; on applique la même prudence (même famille chimique).",
+      "exige_spf": true,
+      "inci_mots_cles": [
+        "retinol",
+        "retinal"
+      ],
+      "inci_formes_faibles": [
+        "retinyl",
+        "hydroxypinacolone retinoate"
+      ],
+      "statut_UE": "Rétinol, acétate et palmitate de rétinyle : annexe III n° 376 (CosIng) ; trétinoïne : annexe II n° 375 (interdite).",
+      "etudes": [
+        {
+          "ref": "Kafi R 2007, Arch Dermatol (ECR double aveugle, 36 sujets de 87 ans en moyenne, rétinol 0,4 % sur le bras, 24 semaines : ridules améliorées)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/17515510/"
+        },
+        {
+          "ref": "Randhawa M 2015, J Drugs Dermatol (ECR contre excipient, rétinol stabilisé, 1 an ; auteurs Johnson & Johnson)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/25738849/"
+        },
+        {
+          "ref": "Creidi P 1998, J Am Acad Dermatol (ECR, 125 patients, rétinal 0,05 % vs trétinoïne vs excipient, 44 semaines : rides et rugosité réduites, rétinal mieux toléré)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/9843009/"
+        },
+        {
+          "ref": "Kong R 2016, J Cosmet Dermatol (rétinol vs acide rétinoïque : effets similaires mais plus faibles ; auteurs Amway)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/26578346/"
+        },
+        {
+          "ref": "Mukherjee S 2006, Clin Interv Aging (revue : efficacité et tolérance des rétinoïdes dans le vieillissement cutané)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/18046911/"
+        },
+        {
+          "ref": "Weiss JS 1988, JAMA (trétinoïne, médicament, référence historique ; ne s'applique pas au rétinol)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/3336176/"
+        },
+        {
+          "ref": "Règlement (UE) 2024/996 (plafonds vitamine A)",
+          "lien": "https://eur-lex.europa.eu/eli/reg/2024/996/oj"
+        },
+        {
+          "ref": "ANSM 25/10/2018 : rétinoïdes cutanés contre-indiqués pendant la grossesse (résumé VIDAL)",
+          "lien": "https://www.vidal.fr/actualites/22933-acne-contre-indication-des-retinoides-par-voie-cutanee-chez-la-femme-enceinte-ou-envisageant-une-grossesse.html"
+        }
+      ],
+      "catalogue_2026_09": {
+        "produits_detectes": 151,
+        "dont_actif_dans_les_10_premiers_INCI": 28,
+        "formes_faibles_seules": 68,
+        "dont_creme": 34,
+        "dont_serum": 58
+      }
+    },
+    {
+      "id": "vitamine_c",
+      "nom": "Vitamine C (acide L-ascorbique)",
+      "grade": "B",
+      "grade_par_indice": {
+        "eclat": "B",
+        "rides_fermete": "B",
+        "uniformite": "B",
+        "texture": "C"
+      },
+      "concentration_efficace": "Acide L-ascorbique 5 % (Humbert 2003) à 15-20 % ; il ne pénètre que formulé à pH inférieur à 3,5, au-delà de 20 % l'absorption n'augmente plus (Pinnell 2001, peau de porc). Les dérivés (ascorbyl glucoside, magnesium ascorbyl phosphate, ascorbyl palmitate) n'ont pas augmenté la vitamine C cutanée dans cette étude : les signaler comme formes faibles.",
+      "ce_qu_on_peut_dire": "Antioxydant ; contribue à un teint plus lumineux et aide à atténuer l'apparence des ridules et des taches, avec une utilisation régulière.",
+      "a_ne_pas_dire": [
+        "booste le collagène",
+        "remplace l'écran solaire",
+        "efface les taches"
+      ],
+      "precautions": [
+        "Picotements possibles à pH acide ; peaux sensibles : commencer bas.",
+        "S'oxyde (brunit) à l'air et à la lumière : flacon opaque, bien fermé.",
+        "Complète l'écran solaire, ne le remplace pas."
+      ],
+      "moment": "matin",
+      "grossesse": "avis",
+      "grossesse_note": "Aucun signal connu ; pas de fiche CRAT trouvée, donc non affirmé comme « sans risque ».",
+      "exige_spf": false,
+      "inci_mots_cles": [
+        "ascorbic acid"
+      ],
+      "inci_exclure": [
+        "ethyl ascorbic acid"
+      ],
+      "inci_formes_faibles": [
+        "ascorbyl",
+        "ascorbate",
+        "ethyl ascorbic acid"
+      ],
+      "statut_UE": "Aucune restriction (CosIng).",
+      "etudes": [
+        {
+          "ref": "Humbert PG 2003, Exp Dermatol (ECR double aveugle contre excipient, 20 femmes, crème à 5 % pendant 6 mois : microrelief amélioré)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/12823436/"
+        },
+        {
+          "ref": "Traikovich SS 1999, Arch Otolaryngol Head Neck Surg (ECR contre excipient, 3 mois : rugosité et ridules améliorées)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/10522500/"
+        },
+        {
+          "ref": "Espinal-Perez LE 2004, Int J Dermatol (ECR, 16 femmes, mélasma : acide ascorbique 5 % moins efficace que l'hydroquinone 4 % mais bien mieux toléré)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/15304189/"
+        },
+        {
+          "ref": "Pinnell SR 2001, Dermatol Surg (conditions de pénétration : pH < 3,5, 20 % maximum)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/11207686/"
+        },
+        {
+          "ref": "Lin FH 2005, J Invest Dermatol (vitamine C 15 % + E + acide férulique : photoprotection doublée, étude expérimentale)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/16185284/"
+        },
+        {
+          "ref": "Al-Niaimi F 2017, J Clin Aesthet Dermatol (revue)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/29104718/"
+        }
+      ],
+      "catalogue_2026_09": {
+        "produits_detectes": 148,
+        "dont_actif_dans_les_10_premiers_INCI": 36,
+        "formes_faibles_seules": 405,
+        "dont_creme": 32,
+        "dont_serum": 42
+      }
+    },
+    {
+      "id": "niacinamide",
+      "nom": "Niacinamide (vitamine B3)",
+      "grade": "A",
+      "grade_par_indice": {
+        "uniformite": "A",
+        "rougeurs": "B",
+        "pores_sebum": "B",
+        "rides_fermete": "B",
+        "eclat": "B",
+        "hydratation": "B"
+      },
+      "concentration_efficace": "2 % (sébum, Draelos 2006) à 4-5 % (taches, rides, Hakozaki 2002, Bissett 2005, Navarrete-Solís 2011).",
+      "ce_qu_on_peut_dire": "Aide à atténuer l'apparence des taches et des rougeurs, à réduire l'aspect brillant de la peau et à renforcer la barrière des couches supérieures de l'épiderme.",
+      "a_ne_pas_dire": [
+        "traite la rosacée",
+        "traite l'acné",
+        "blanchit la peau"
+      ],
+      "precautions": [
+        "Bien tolérée dans les essais ; picotements rares.",
+        "La plupart des essais sont petits et plusieurs sont financés par Procter & Gamble : l'afficher."
+      ],
+      "moment": "les deux",
+      "grossesse": "avis",
+      "grossesse_note": "Aucun signal connu ; pas de fiche CRAT trouvée.",
+      "exige_spf": false,
+      "inci_mots_cles": [
+        "niacinamide",
+        "nicotinamide"
+      ],
+      "inci_formes_faibles": [],
+      "statut_UE": "Aucune restriction (CosIng).",
+      "etudes": [
+        {
+          "ref": "Bissett DL 2005, Dermatol Surg (ECR hémivisage, 50 femmes, 5 %, 12 semaines : ridules, taches, rougeurs, teint jaune améliorés ; auteurs Procter & Gamble)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/16029679/"
+        },
+        {
+          "ref": "Hakozaki T 2002, Br J Dermatol (essais cliniques 18 et 120 sujets : hyperpigmentation réduite dès 4 semaines ; auteurs Procter & Gamble)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/12100180/"
+        },
+        {
+          "ref": "Navarrete-Solís J 2011, Dermatol Res Pract (ECR, 27 patients, mélasma : niacinamide 4 % proche de l'hydroquinone 4 %, mieux tolérée)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/21822427/"
+        },
+        {
+          "ref": "Draelos ZD 2006, J Cosmet Laser Ther (ECR, 100 Japonais + 30 Caucasiens, 2 % : excrétion de sébum réduite chez les Japonais, sébum de surface réduit chez les Caucasiens)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/16766489/"
+        },
+        {
+          "ref": "Draelos ZD 2005, Cutis (50 sujets avec rosacée, crème à la niacinamide : barrière cutanée améliorée ; investigateur non aveugle au produit)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/16209160/"
+        },
+        {
+          "ref": "Tanno O 2000, Br J Dermatol (augmente la synthèse des céramides de la couche cornée)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/10971324/"
+        },
+        {
+          "ref": "Boo YC 2021, Antioxidants (revue)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/34439563/"
+        }
+      ],
+      "catalogue_2026_09": {
+        "produits_detectes": 746,
+        "dont_actif_dans_les_10_premiers_INCI": 592,
+        "formes_faibles_seules": 0,
+        "dont_creme": 168,
+        "dont_serum": 204
+      }
+    },
+    {
+      "id": "acide_azelaique",
+      "nom": "Acide azélaïque",
+      "grade": "C",
+      "grade_par_indice": {
+        "pores_sebum": "C",
+        "uniformite": "C",
+        "rougeurs": "C"
+      },
+      "concentration_efficace": "Les essais solides portent sur des MÉDICAMENTS : gel à 15 % (rosacée, Finacea) et crème à 20 % (acné, Skinoren). Les cosmétiques en contiennent en général 10 % ou moins : aucun essai randomisé à ces concentrations n'a été vérifié ici. Grade A pour le médicament, C pour le cosmétique (extrapolation).",
+      "ce_qu_on_peut_dire": "Aide à unifier le teint et à réduire l'apparence des imperfections.",
+      "a_ne_pas_dire": [
+        "traite l'acné",
+        "traite la rosacée",
+        "soigne le mélasma",
+        "aussi efficace que Finacea/Skinoren"
+      ],
+      "precautions": [
+        "Picotements et sensation de brûlure transitoires fréquents au début.",
+        "Rougeurs persistantes ou boutons inflammatoires : orienter vers un médecin, le traitement existe en médicament."
+      ],
+      "moment": "les deux",
+      "grossesse": "ok",
+      "grossesse_note": "Le CRAT indique que l'acide azélaïque (médicament) est utilisable à tous les termes de la grossesse ; pénétration cutanée faible.",
+      "exige_spf": false,
+      "inci_mots_cles": [
+        "azelaic acid"
+      ],
+      "inci_formes_faibles": [
+        "azeloyl"
+      ],
+      "statut_UE": "Ingrédient cosmétique sans restriction d'annexe (CosIng, fonctions : tampon, parfum). Son usage à 15-20 % relève du médicament.",
+      "etudes": [
+        {
+          "ref": "Elewski BE 2003, Arch Dermatol (ECR, rosacée papulo-pustuleuse : gel à 15 % supérieur au métronidazole 0,75 % ; médicament)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/14623704/"
+        },
+        {
+          "ref": "Verallo-Rowell VM 1989, Acta Derm Venereol Suppl (ECR, 155 patients, mélasma : crème à 20 % vs hydroquinone 2 % ; médicament ; co-auteur du fabricant non vérifié)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/2528260/"
+        },
+        {
+          "ref": "Schulte BC 2015, J Drugs Dermatol (revue des mécanismes et usages cliniques)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/26355614/"
+        },
+        {
+          "ref": "Reynolds RV 2024, J Am Acad Dermatol (recommandations AAD acné : recommandation conditionnelle pour l'acide azélaïque)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/38300170/"
+        },
+        {
+          "ref": "CRAT, fiche acide azélaïque et grossesse",
+          "lien": "https://www.lecrat.fr/6347/"
+        }
+      ],
+      "catalogue_2026_09": {
+        "produits_detectes": 40,
+        "dont_actif_dans_les_10_premiers_INCI": 26,
+        "formes_faibles_seules": 9,
+        "dont_creme": 10,
+        "dont_serum": 14
+      }
+    },
+    {
+      "id": "aha",
+      "nom": "AHA (acide glycolique, acide lactique)",
+      "grade": "B",
+      "grade_par_indice": {
+        "texture": "B",
+        "eclat": "B",
+        "uniformite": "C",
+        "rides_fermete": "B"
+      },
+      "concentration_efficace": "8 % (acide glycolique ou L-lactique) dans l'essai Stiller 1996. Position de précaution du comité scientifique européen (SCCNFP/0370/00, 2000) pour les produits grand public : acide glycolique jusqu'à 4 % à pH ≥ 3,8, acide lactique jusqu'à 2,5 % à pH ≥ 5 ; ce n'est pas une limite légale (aucune entrée d'annexe) et beaucoup de produits vendus en UE sont plus concentrés. Panel américain CIR : jusqu'à 10 % à pH ≥ 3,5.",
+      "ce_qu_on_peut_dire": "Exfolie la surface de la peau, lisse le grain de peau et ravive l'éclat du teint.",
+      "a_ne_pas_dire": [
+        "peeling médical",
+        "efface les taches",
+        "resurfaçage"
+      ],
+      "precautions": [
+        "Photosensibilité démontrée : l'acide glycolique à 10 % a augmenté la sensibilité aux UV, réversible une semaine après l'arrêt (Kaidbey 2003). Écran solaire obligatoire pendant l'usage et la semaine suivante (avertissement FDA).",
+        "Irritation, picotements ; éviter le contour des yeux.",
+        "Ne pas cumuler le même soir avec un rétinoïde.",
+        "L'acide lactique est souvent un simple correcteur de pH en fin de liste : ne compter l'actif que s'il figure dans les 10 premiers ingrédients."
+      ],
+      "moment": "soir",
+      "grossesse": "avis",
+      "grossesse_note": "Pas de fiche CRAT trouvée pour l'usage cosmétique.",
+      "exige_spf": true,
+      "inci_mots_cles": [
+        "glycolic acid",
+        "lactic acid",
+        "mandelic acid"
+      ],
+      "inci_formes_faibles": [
+        "gluconolactone",
+        "lactobionic acid"
+      ],
+      "inci_rang_max": 10,
+      "statut_UE": "Aucune restriction d'annexe (CosIng) ; position de précaution SCCNFP/0370/00.",
+      "etudes": [
+        {
+          "ref": "Stiller MJ 1996, Arch Dermatol (ECR double aveugle, 74 femmes, 8 % glycolique ou lactique, 22 semaines : photovieillissement amélioré chez 76 % et 71 % vs 40 % avec l'excipient)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/8651713/"
+        },
+        {
+          "ref": "Ditre CM 1996, J Am Acad Dermatol (étude pilote clinique et histologique)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/8642081/"
+        },
+        {
+          "ref": "Kaidbey K 2003, Photodermatol Photoimmunol Photomed (glycolique 10 % : photosensibilité réversible)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/12713551/"
+        },
+        {
+          "ref": "Kornhauser A 2010, Clin Cosmet Investig Dermatol (revue : classification, mécanismes, photoactivité)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/21437068/"
+        },
+        {
+          "ref": "SCCNFP/0370/00, position sur la sécurité des AHA (28 juin 2000)",
+          "lien": "https://ec.europa.eu/health/ph_risk/committees/sccp/documents/out121_en.pdf"
+        },
+        {
+          "ref": "FDA, Alpha Hydroxy Acids (avertissement coup de soleil)",
+          "lien": "https://www.fda.gov/cosmetics/cosmetic-ingredients/alpha-hydroxy-acids"
+        }
+      ],
+      "catalogue_2026_09": {
+        "produits_detectes": 357,
+        "dont_actif_dans_les_10_premiers_INCI": 156,
+        "formes_faibles_seules": 103,
+        "dont_creme": 59,
+        "dont_serum": 96
+      }
+    },
+    {
+      "id": "acide_salicylique",
+      "nom": "Acide salicylique (BHA)",
+      "grade": "B",
+      "grade_par_indice": {
+        "pores_sebum": "B",
+        "texture": "C"
+      },
+      "concentration_efficace": "0,5 à 2 % en soin sans rinçage (plafond UE 2 %, annexe III n° 98). Les peelings à 20-30 % sont des actes professionnels, hors champ.",
+      "ce_qu_on_peut_dire": "Désincruste les pores et aide à réduire l'apparence des points noirs et des imperfections.",
+      "a_ne_pas_dire": [
+        "traite l'acné",
+        "antibactérien",
+        "guérit les boutons"
+      ],
+      "precautions": [
+        "Interdit dans les produits pour enfants de moins de 3 ans (annexe III n° 98).",
+        "Dessèchement, irritation ; ne pas cumuler avec un rétinoïde le même soir.",
+        "Allergie à l'aspirine : prudence (même famille ; non vérifié ici par une étude).",
+        "Le capryloyl salicylic acid (LHA) et le betaine salicylate sont des formes différentes, moins étudiées."
+      ],
+      "moment": "soir",
+      "grossesse": "avis",
+      "grossesse_note": "Le CRAT juge l'exposition faible sur de petites surfaces (fiche verrues) ; pas de position trouvée pour un soin visage quotidien.",
+      "exige_spf": false,
+      "inci_mots_cles": [
+        "salicylic acid"
+      ],
+      "inci_exclure": [
+        "capryloyl salicylic acid"
+      ],
+      "inci_formes_faibles": [
+        "capryloyl salicylic acid",
+        "betaine salicylate"
+      ],
+      "statut_UE": "Annexe III n° 98 (hors conservateur) : 2 % maximum hors produits capillaires rincés (3 %), interdit chez l'enfant de moins de 3 ans ; limites reprises de sources secondaires concordantes et de la référence CosIng III/98.",
+      "etudes": [
+        {
+          "ref": "Reynolds RV 2024, J Am Acad Dermatol (recommandations AAD acné : recommandation conditionnelle pour l'acide salicylique)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/38300170/"
+        },
+        {
+          "ref": "Arif T 2015, Clin Cosmet Investig Dermatol (revue : l'acide salicylique comme agent exfoliant)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/26347269/"
+        },
+        {
+          "ref": "Lee HS 2003, Dermatol Surg (peelings à 30 %, patients asiatiques, sans groupe témoin : acte professionnel)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/14725662/"
+        }
+      ],
+      "catalogue_2026_09": {
+        "produits_detectes": 220,
+        "dont_actif_dans_les_10_premiers_INCI": 92,
+        "formes_faibles_seules": 61,
+        "dont_creme": 38,
+        "dont_serum": 40
+      }
+    },
+    {
+      "id": "ceramides",
+      "nom": "Céramides",
+      "grade": "B",
+      "grade_par_indice": {
+        "hydratation": "B",
+        "texture": "C",
+        "rougeurs": "C"
+      },
+      "concentration_efficace": "Rarement indiquée ; efficacité démontrée pour des formules complètes (céramides + cholestérol + acides gras), pas pour l'ingrédient seul.",
+      "ce_qu_on_peut_dire": "Aide à restaurer la barrière des couches supérieures de l'épiderme et à limiter la perte en eau de la peau.",
+      "a_ne_pas_dire": [
+        "répare la peau",
+        "traite l'eczéma"
+      ],
+      "precautions": [
+        "Très bien tolérés.",
+        "Présence dans l'INCI ≠ quantité utile : souvent à l'état de traces (fin de liste)."
+      ],
+      "moment": "les deux",
+      "grossesse": "ok",
+      "grossesse_note": "Lipides physiologiques de la peau ; aucun signal connu.",
+      "exige_spf": false,
+      "inci_mots_cles": [
+        "ceramide"
+      ],
+      "inci_formes_faibles": [],
+      "statut_UE": "Aucune restriction (CosIng).",
+      "etudes": [
+        {
+          "ref": "Spada F 2018, Clin Cosmet Investig Dermatol (crème aux céramides vs placebo et 3 références : hydratation et perte en eau améliorées à 24 h ; auteurs du fabricant, non vérifié)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/30410378/"
+        },
+        {
+          "ref": "Lueangarun S 2019, Dermatol Ther (ECR double aveugle, 24 sujets, xérose : hydratation et barrière améliorées)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/31585489/"
+        },
+        {
+          "ref": "Coderch L 2003, Am J Clin Dermatol (revue : céramides et fonction cutanée)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/12553851/"
+        }
+      ],
+      "catalogue_2026_09": {
+        "produits_detectes": 381,
+        "dont_actif_dans_les_10_premiers_INCI": 55,
+        "formes_faibles_seules": 0,
+        "dont_creme": 118,
+        "dont_serum": 86
+      }
+    },
+    {
+      "id": "humectants",
+      "nom": "Humectants (glycérine, acide hyaluronique)",
+      "grade": "A",
+      "grade_par_indice": {
+        "hydratation": "A",
+        "rides_fermete": "C",
+        "texture": "B"
+      },
+      "concentration_efficace": "Glycérine : 5 à 20 % (20 % dans Lodén 2002). Acide hyaluronique : 0,1 % dans Pavicic 2011. Tout soin hydratant bien formulé en contient.",
+      "ce_qu_on_peut_dire": "Hydrate les couches supérieures de l'épiderme.",
+      "a_ne_pas_dire": [
+        "comble les rides",
+        "repulpe en profondeur",
+        "injecte de l'acide hyaluronique",
+        "remplace les injections"
+      ],
+      "precautions": [
+        "Très bien tolérés.",
+        "Glycérine présente dans presque tous les soins : ne la compter que dans les 5 premiers ingrédients."
+      ],
+      "moment": "les deux",
+      "grossesse": "ok",
+      "grossesse_note": "Molécules physiologiques ou inertes ; aucun signal connu.",
+      "exige_spf": false,
+      "inci_mots_cles": [
+        "glycerin",
+        "sodium hyaluronate",
+        "hyaluronic acid",
+        "hyaluron"
+      ],
+      "inci_formes_faibles": [],
+      "inci_regle": "glycerin : compter seulement si rang ≤ 5 ; toute forme 'hyaluron' comptée.",
+      "statut_UE": "Aucune restriction (CosIng).",
+      "etudes": [
+        {
+          "ref": "Lodén M 2002, Acta Derm Venereol (ECR double aveugle, 197 patients atopiques, crème à 20 % de glycérine vs excipient vs urée)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/12013198/"
+        },
+        {
+          "ref": "Breternitz M 2008, Skin Pharmacol Physiol (ECR contre placebo, émollient à base de glycérol, dermatite atopique)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/18025807/"
+        },
+        {
+          "ref": "Fluhr JW 2008, Br J Dermatol (revue : la glycérine et la peau)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/18510666/"
+        },
+        {
+          "ref": "van Zuuren EJ 2017, Cochrane Database Syst Rev (émollients et hydratants dans l'eczéma)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/28166390/"
+        },
+        {
+          "ref": "Pavicic T 2011, J Drugs Dermatol (ECR, acide hyaluronique 0,1 % de différents poids moléculaires : hydratation et élasticité améliorées)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/22052267/"
+        }
+      ],
+      "catalogue_2026_09": {
+        "produits_detectes": 2292,
+        "dont_actif_dans_les_10_premiers_INCI": 2113,
+        "formes_faibles_seules": 0,
+        "dont_creme": 597,
+        "dont_serum": 502
+      }
+    },
+    {
+      "id": "peptides",
+      "nom": "Peptides (palmitoyl pentapeptide-4, acetyl hexapeptide-8…)",
+      "grade": "B",
+      "grade_par_indice": {
+        "rides_fermete": "B"
+      },
+      "concentration_efficace": "Palmitoyl pentapeptide : 3 ppm dans Robinson 2005. Chaque peptide est une molécule différente : les preuves de l'un ne valent pas pour les autres.",
+      "ce_qu_on_peut_dire": "Aide à atténuer l'apparence des ridules (preuves limitées, surtout issues de l'industrie).",
+      "a_ne_pas_dire": [
+        "effet botox",
+        "remplace les injections",
+        "stimule le collagène (formulé comme un résultat pour le produit)"
+      ],
+      "precautions": [
+        "Très bien tolérés.",
+        "Essais peu nombreux, souvent réalisés par les fabricants."
+      ],
+      "moment": "les deux",
+      "grossesse": "avis",
+      "grossesse_note": "Pas de données.",
+      "exige_spf": false,
+      "inci_mots_cles": [
+        "peptide"
+      ],
+      "inci_formes_faibles": [],
+      "statut_UE": "Aucune restriction générale (à vérifier peptide par peptide dans CosIng).",
+      "etudes": [
+        {
+          "ref": "Robinson LR 2005, Int J Cosmet Sci (ECR hémivisage, 93 femmes, 12 semaines, palmitoyl pentapeptide : rides réduites ; auteurs Procter & Gamble)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/18492182/"
+        },
+        {
+          "ref": "Blanes-Mira C 2002, Int J Cosmet Sci (hexapeptide Argireline : essai de faible taille)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/18498523/"
+        },
+        {
+          "ref": "Gorouhi F 2009, Int J Cosmet Sci (revue : peptides topiques et peau âgée)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/19570099/"
+        }
+      ],
+      "catalogue_2026_09": {
+        "produits_detectes": 633,
+        "dont_actif_dans_les_10_premiers_INCI": 100,
+        "formes_faibles_seules": 0,
+        "dont_creme": 183,
+        "dont_serum": 187
+      }
+    },
+    {
+      "id": "acide_tranexamique",
+      "nom": "Acide tranexamique (en application)",
+      "grade": "B",
+      "grade_par_indice": {
+        "uniformite": "B"
+      },
+      "concentration_efficace": "2 à 3 % en application (Kim 2016 : 2 % ; Ebrahimi 2014 : 3 %). La forme orale est un médicament, hors champ.",
+      "ce_qu_on_peut_dire": "Aide à atténuer l'apparence des taches pigmentaires et à unifier le teint.",
+      "a_ne_pas_dire": [
+        "traite le mélasma",
+        "dépigmentant",
+        "blanchissant"
+      ],
+      "precautions": [
+        "Irritation légère possible.",
+        "Toujours avec un écran solaire : sans lui, les taches reviennent."
+      ],
+      "moment": "les deux",
+      "grossesse": "avis",
+      "grossesse_note": "Pas de données pour l'application cutanée.",
+      "exige_spf": false,
+      "inci_mots_cles": [
+        "tranexamic acid"
+      ],
+      "inci_formes_faibles": [
+        "nicotinoyl tranexamic acid"
+      ],
+      "statut_UE": "Ingrédient cosmétique sans restriction d'annexe (CosIng, fonctions : astringent, conditionneur cutané).",
+      "etudes": [
+        {
+          "ref": "Ebrahimi B 2014, J Res Med Sci (ECR hémivisage double aveugle, 50 femmes, mélasma : 3 % aussi efficace que hydroquinone + dexaméthasone, moins d'effets secondaires)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/25422661/"
+        },
+        {
+          "ref": "Kim SJ 2016, Clin Exp Dermatol (23 patients, 2 %, 12 semaines, sans groupe témoin ; co-auteurs Shiseido)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/27135282/"
+        },
+        {
+          "ref": "Kim HJ 2017, Acta Derm Venereol (méta-analyse, 11 études, 667 participants, toutes voies confondues, surtout observationnelles)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/28374042/"
+        },
+        {
+          "ref": "Taraz M 2017, Dermatol Ther (revue des études cliniques)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/28133910/"
+        }
+      ],
+      "catalogue_2026_09": {
+        "produits_detectes": 37,
+        "dont_actif_dans_les_10_premiers_INCI": 18,
+        "formes_faibles_seules": 0,
+        "dont_creme": 11,
+        "dont_serum": 16
+      }
+    },
+    {
+      "id": "bakuchiol",
+      "nom": "Bakuchiol",
+      "grade": "B",
+      "grade_par_indice": {
+        "rides_fermete": "B",
+        "uniformite": "C"
+      },
+      "concentration_efficace": "0,5 %, deux fois par jour (Dhaliwal 2019).",
+      "ce_qu_on_peut_dire": "Aide à atténuer l'apparence des rides et des taches ; dans un essai, il a fait jeu égal avec le rétinol et a été mieux toléré.",
+      "a_ne_pas_dire": [
+        "rétinol naturel sans risque pendant la grossesse",
+        "remplace le rétinol"
+      ],
+      "precautions": [
+        "Un seul essai randomisé (44 personnes) et sans groupe placebo : preuve fragile.",
+        "Pas de données de sécurité pendant la grossesse, malgré le marketing."
+      ],
+      "moment": "les deux",
+      "grossesse": "avis",
+      "grossesse_note": "Aucune donnée ; ne pas présenter comme « l'alternative grossesse » sans avis médical.",
+      "exige_spf": false,
+      "inci_mots_cles": [
+        "bakuchiol"
+      ],
+      "inci_formes_faibles": [],
+      "statut_UE": "Aucune restriction (CosIng).",
+      "etudes": [
+        {
+          "ref": "Dhaliwal S 2019, Br J Dermatol (ECR double aveugle, 44 patients, bakuchiol 0,5 % vs rétinol 0,5 %, 12 semaines : pas de différence, moins d'irritation)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/29947134/"
+        },
+        {
+          "ref": "Chaudhuri RK 2014, Int J Cosmet Sci (profil génique proche du rétinol + étude de cas clinique ; auteur industriel)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/24471735/"
+        }
+      ],
+      "catalogue_2026_09": {
+        "produits_detectes": 52,
+        "dont_actif_dans_les_10_premiers_INCI": 17,
+        "formes_faibles_seules": 0,
+        "dont_creme": 15,
+        "dont_serum": 26
+      }
+    },
+    {
+      "id": "panthenol",
+      "nom": "Panthénol (provitamine B5)",
+      "grade": "B",
+      "grade_par_indice": {
+        "rougeurs": "B",
+        "hydratation": "B"
+      },
+      "concentration_efficace": "1 à 5 % (Camargo 2011 : effet sur la perte en eau dès 1 %).",
+      "ce_qu_on_peut_dire": "Apaise et hydrate ; aide à préserver la barrière cutanée.",
+      "a_ne_pas_dire": [
+        "cicatrisant (allégation médicale)",
+        "traite l'eczéma",
+        "soigne les brûlures"
+      ],
+      "precautions": [
+        "Très bien toléré ; rares allergies de contact."
+      ],
+      "moment": "les deux",
+      "grossesse": "ok",
+      "grossesse_note": "Aucun signal connu ; largement utilisé.",
+      "exige_spf": false,
+      "inci_mots_cles": [
+        "panthenol"
+      ],
+      "inci_formes_faibles": [],
+      "statut_UE": "Aucune restriction (CosIng).",
+      "etudes": [
+        {
+          "ref": "Proksch E 2002, J Dermatolog Treat (dexpanthénol : réparation de barrière plus rapide après irritation au laurylsulfate)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/19753737/"
+        },
+        {
+          "ref": "Camargo FB Jr 2011, J Cosmet Sci (panthénol 0,5 à 5 % : perte en eau réduite)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/21982351/"
+        },
+        {
+          "ref": "Gehring W 2000, Arzneimittelforschung (dexpanthénol : barrière et hydratation de la couche cornée)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/10965426/"
+        },
+        {
+          "ref": "Proksch E 2017, J Dermatolog Treat (revue ; co-auteurs Bayer)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/28503966/"
+        }
+      ],
+      "catalogue_2026_09": {
+        "produits_detectes": 645,
+        "dont_actif_dans_les_10_premiers_INCI": 270,
+        "formes_faibles_seules": 0,
+        "dont_creme": 149,
+        "dont_serum": 137
+      }
+    },
+    {
+      "id": "centella",
+      "nom": "Centella asiatica (madécassoside, asiaticoside)",
+      "grade": "C",
+      "grade_par_indice": {
+        "rougeurs": "C",
+        "hydratation": "C"
+      },
+      "concentration_efficace": "Non établie (2,5 à 5 % d'extrait dans Ratz-Łyko 2016).",
+      "ce_qu_on_peut_dire": "Apaise les peaux sensibles (preuves limitées).",
+      "a_ne_pas_dire": [
+        "cicatrisant",
+        "anti-inflammatoire (allégation médicale)",
+        "traite la rosacée"
+      ],
+      "precautions": [
+        "Allergies de contact rares.",
+        "Extraits très variables d'un produit à l'autre."
+      ],
+      "moment": "les deux",
+      "grossesse": "avis",
+      "grossesse_note": "Pas de données.",
+      "exige_spf": false,
+      "inci_mots_cles": [
+        "centella asiatica",
+        "madecassoside",
+        "asiaticoside",
+        "madecassic acid",
+        "asiatic acid"
+      ],
+      "inci_formes_faibles": [],
+      "statut_UE": "Aucune restriction (CosIng).",
+      "etudes": [
+        {
+          "ref": "Bylka W 2013, Postepy Dermatol Alergol (revue : Centella asiatica en cosmétologie)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/24278045/"
+        },
+        {
+          "ref": "Ratz-Łyko A 2016, Indian J Pharm Sci (25 volontaires, avant-bras, 4 semaines : hydratation et barrière)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/27168678/"
+        },
+        {
+          "ref": "Haftek M 2008, Exp Dermatol (ECR, 20 femmes, vitamine C 5 % + madécassoside 0,1 % associés : effet de l'association, pas du madécassoside seul)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/18503551/"
+        }
+      ],
+      "catalogue_2026_09": {
+        "produits_detectes": 354,
+        "dont_actif_dans_les_10_premiers_INCI": 81,
+        "formes_faibles_seules": 0,
+        "dont_creme": 89,
+        "dont_serum": 87
+      }
+    },
+    {
+      "id": "the_vert_topique",
+      "nom": "Thé vert en application (polyphénols, EGCG)",
+      "grade": "C",
+      "grade_par_indice": {
+        "rougeurs": "C",
+        "pores_sebum": "C",
+        "rides_fermete": "D"
+      },
+      "concentration_efficace": "Non établie (émulsion à 3 % dans Mahmood 2010).",
+      "ce_qu_on_peut_dire": "Antioxydant ; preuves limitées et contradictoires sur l'aspect de la peau.",
+      "a_ne_pas_dire": [
+        "anti-âge",
+        "protège du soleil",
+        "remplace l'écran solaire"
+      ],
+      "precautions": [
+        "Irritation plus fréquente que le placebo dans Chiu 2005."
+      ],
+      "moment": "matin",
+      "grossesse": "avis",
+      "grossesse_note": "Pas de données.",
+      "exige_spf": false,
+      "inci_mots_cles": [
+        "camellia sinensis leaf",
+        "epigallocatechin"
+      ],
+      "inci_formes_faibles": [
+        "camellia sinensis"
+      ],
+      "statut_UE": "Aucune restriction (CosIng).",
+      "etudes": [
+        {
+          "ref": "Elmets CA 2001, J Am Acad Dermatol (extraits appliqués avant UV sur des volontaires : moins d'érythème ; étude expérimentale, pas un usage cosmétique quotidien)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/11209110/"
+        },
+        {
+          "ref": "Chiu AE 2005, Dermatol Surg (ECR contre placebo, thé vert oral + local, 8 semaines : aucune différence clinique, plus d'irritation)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/16029678/"
+        },
+        {
+          "ref": "Mahmood T 2010, Bosn J Basic Med Sci (émulsion à 3 %, hommes volontaires : sébum réduit ; petite étude)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/20846135/"
+        },
+        {
+          "ref": "Mahmood T 2013, Hippokratia (22 sujets, simple aveugle : sébum réduit)",
+          "lien": "https://pubmed.ncbi.nlm.nih.gov/23935347/"
+        }
+      ],
+      "catalogue_2026_09": {
+        "produits_detectes": 245,
+        "dont_actif_dans_les_10_premiers_INCI": 56,
+        "formes_faibles_seules": 30,
+        "dont_creme": 47,
+        "dont_serum": 49
+      }
+    }
+  ],
+  "combos": [
+    {
+      "indice": "hydratation",
+      "aliment_id": "eau",
+      "actif_id": "humectants",
+      "pourquoi": "Côté assiette, boire suffisamment aide surtout ceux qui boivent peu ; côté soin, la glycérine et l'acide hyaluronique hydratent les couches supérieures de l'épiderme.",
+      "phrase_honnete": "Aucune étude n'a testé cette association. Chaque côté a ses propres preuves, indiquées séparément ; on ne peut pas dire que les deux ensemble font mieux que chacun seul.",
+      "grade_aliment": "C",
+      "grade_actif": "A",
+      "ordre": 1,
+      "note": "L'eau ne doit jamais être présentée comme un soin des rides."
+    },
+    {
+      "indice": "hydratation",
+      "aliment_id": "graines_lin",
+      "actif_id": "ceramides",
+      "pourquoi": "Les graines de lin apportent des oméga-3 végétaux ; les céramides aident à restaurer la barrière de surface qui retient l'eau.",
+      "phrase_honnete": "Aucune étude n'a testé cette association. Chaque côté a ses propres preuves, indiquées séparément ; on ne peut pas dire que les deux ensemble font mieux que chacun seul.",
+      "grade_aliment": "C",
+      "grade_actif": "B",
+      "ordre": 2
+    },
+    {
+      "indice": "hydratation",
+      "aliment_id": "cacao_poudre",
+      "actif_id": "panthenol",
+      "pourquoi": "Un cacao riche en flavanols a amélioré l'hydratation cutanée dans un petit essai ; le panthénol hydrate et aide à préserver la barrière.",
+      "phrase_honnete": "Aucune étude n'a testé cette association. Chaque côté a ses propres preuves, indiquées séparément ; on ne peut pas dire que les deux ensemble font mieux que chacun seul.",
+      "grade_aliment": "C",
+      "grade_actif": "B",
+      "ordre": 3,
+      "note": "Le résultat cacao ne vaut que pour des cacaos riches en flavanols, pas pour tout cacao en poudre."
+    },
+    {
+      "indice": "eclat",
+      "aliment_id": "poivron_rouge",
+      "actif_id": "vitamine_c",
+      "pourquoi": "Même nutriment, deux voies. Assiette (le poivron rouge en est source) : « La vitamine C contribue à la formation normale de collagène pour assurer la fonction normale de la peau. » Soin : appliquée en sérum, la vitamine C contribue à un teint plus lumineux.",
+      "phrase_honnete": "Aucune étude n'a testé cette association. Chaque côté a ses propres preuves, indiquées séparément ; on ne peut pas dire que les deux ensemble font mieux que chacun seul.",
+      "grade_aliment": "C",
+      "grade_actif": "B",
+      "ordre": 1,
+      "note": "Afficher l'allégation alimentaire mot pour mot et seulement si l'aliment remplit la condition (aliments.json)."
+    },
+    {
+      "indice": "eclat",
+      "aliment_id": "carotte",
+      "actif_id": "aha",
+      "pourquoi": "Les pigments orangés des végétaux se déposent dans la peau ; les AHA exfolient la surface et ravivent l'éclat.",
+      "phrase_honnete": "Aucune étude n'a testé cette association. Chaque côté a ses propres preuves, indiquées séparément ; on ne peut pas dire que les deux ensemble font mieux que chacun seul.",
+      "grade_aliment": "C",
+      "grade_actif": "B",
+      "ordre": 2,
+      "note": "AHA le soir : écran solaire obligatoire le matin."
+    },
+    {
+      "indice": "eclat",
+      "aliment_id": "patate_douce",
+      "actif_id": "niacinamide",
+      "pourquoi": "Les caroténoïdes colorent légèrement la peau ; la niacinamide a atténué l'aspect terne et jaune du teint dans un essai.",
+      "phrase_honnete": "Aucune étude n'a testé cette association. Chaque côté a ses propres preuves, indiquées séparément ; on ne peut pas dire que les deux ensemble font mieux que chacun seul.",
+      "grade_aliment": "C",
+      "grade_actif": "B",
+      "ordre": 3
+    },
+    {
+      "indice": "rougeurs",
+      "aliment_id": "concentre_tomate",
+      "actif_id": "protection_solaire",
+      "pourquoi": "Même cible, les UV : le concentré de tomate cuit à l'huile a un peu réduit les coups de soleil après 10 à 12 semaines ; l'écran solaire est la protection de référence.",
+      "phrase_honnete": "Aucune étude n'a testé cette association. Chaque côté a ses propres preuves, indiquées séparément ; on ne peut pas dire que les deux ensemble font mieux que chacun seul.",
+      "grade_aliment": "B",
+      "grade_actif": "A",
+      "ordre": 1,
+      "note": "Toujours en premier. Ne jamais laisser entendre que la tomate remplace l'écran."
+    },
+    {
+      "indice": "rougeurs",
+      "aliment_id": "sardine",
+      "actif_id": "niacinamide",
+      "pourquoi": "Même vitamine (B3), deux voies. Assiette (la sardine en est source) : « La niacine contribue au maintien d'une peau normale. » Soin : la niacinamide aide à atténuer l'apparence des rougeurs et renforce la barrière de surface.",
+      "phrase_honnete": "Aucune étude n'a testé cette association. Chaque côté a ses propres preuves, indiquées séparément ; on ne peut pas dire que les deux ensemble font mieux que chacun seul.",
+      "grade_aliment": "C",
+      "grade_actif": "B",
+      "ordre": 2,
+      "note": "Rougeurs persistantes, yeux irrités ou boutons : orienter vers un médecin."
+    },
+    {
+      "indice": "rougeurs",
+      "aliment_id": "the_vert",
+      "actif_id": "panthenol",
+      "pourquoi": "Des boissons très concentrées en polyphénols de thé vert ont réduit l'érythème UV dans un essai (et pas dans un autre) ; le panthénol apaise et aide à préserver la barrière.",
+      "phrase_honnete": "Aucune étude n'a testé cette association. Chaque côté a ses propres preuves, indiquées séparément ; on ne peut pas dire que les deux ensemble font mieux que chacun seul.",
+      "grade_aliment": "C",
+      "grade_actif": "B",
+      "ordre": 3
+    },
+    {
+      "indice": "pores_sebum",
+      "aliment_id": "lentille",
+      "actif_id": "niacinamide",
+      "pourquoi": "Un régime à faible charge glycémique (légumineuses) a réduit les lésions d'acné dans deux essais ; la niacinamide à 2 % a réduit le sébum de surface.",
+      "phrase_honnete": "Aucune étude n'a testé cette association. Chaque côté a ses propres preuves, indiquées séparément ; on ne peut pas dire que les deux ensemble font mieux que chacun seul.",
+      "grade_aliment": "B",
+      "grade_actif": "B",
+      "ordre": 1,
+      "note": "Le grade B concerne le régime à faible charge glycémique, pas la lentille seule. Acné douloureuse ou avec cicatrices : médecin."
+    },
+    {
+      "indice": "pores_sebum",
+      "aliment_id": "flocons_avoine",
+      "actif_id": "acide_salicylique",
+      "pourquoi": "Les céréales complètes font partie d'une alimentation à faible charge glycémique ; l'acide salicylique désincruste les pores.",
+      "phrase_honnete": "Aucune étude n'a testé cette association. Chaque côté a ses propres preuves, indiquées séparément ; on ne peut pas dire que les deux ensemble font mieux que chacun seul.",
+      "grade_aliment": "B",
+      "grade_actif": "B",
+      "ordre": 2,
+      "note": "Gluten (avoine) : voir exclusions du questionnaire."
+    },
+    {
+      "indice": "uniformite",
+      "aliment_id": "amande",
+      "actif_id": "protection_solaire",
+      "pourquoi": "Même cible, les taches : un essai (financé par la filière) a observé moins de pigmentation avec des amandes ; l'écran solaire reste la première mesure contre les taches.",
+      "phrase_honnete": "Aucune étude n'a testé cette association. Chaque côté a ses propres preuves, indiquées séparément ; on ne peut pas dire que les deux ensemble font mieux que chacun seul.",
+      "grade_aliment": "B",
+      "grade_actif": "A",
+      "ordre": 1,
+      "note": "Toujours en premier. Afficher le financement Almond Board of California."
+    },
+    {
+      "indice": "uniformite",
+      "aliment_id": "concentre_tomate",
+      "actif_id": "niacinamide",
+      "pourquoi": "Le lycopène réduit un peu la sensibilité aux UV ; la niacinamide aide à atténuer l'apparence des taches.",
+      "phrase_honnete": "Aucune étude n'a testé cette association. Chaque côté a ses propres preuves, indiquées séparément ; on ne peut pas dire que les deux ensemble font mieux que chacun seul.",
+      "grade_aliment": "C",
+      "grade_actif": "A",
+      "ordre": 2,
+      "note": "Le grade aliment est C pour la pigmentation (B seulement pour la rougeur UV)."
+    },
+    {
+      "indice": "uniformite",
+      "aliment_id": "amande",
+      "actif_id": "acide_tranexamique",
+      "pourquoi": "Les amandes ont été associées à moins de pigmentation dans un essai ; l'acide tranexamique en application aide à atténuer l'apparence des taches.",
+      "phrase_honnete": "Aucune étude n'a testé cette association. Chaque côté a ses propres preuves, indiquées séparément ; on ne peut pas dire que les deux ensemble font mieux que chacun seul.",
+      "grade_aliment": "B",
+      "grade_actif": "B",
+      "ordre": 3,
+      "note": "Taches qui changent, saignent ou grandissent : médecin."
+    },
+    {
+      "indice": "rides_fermete",
+      "aliment_id": "avocat",
+      "actif_id": "protection_solaire",
+      "pourquoi": "Même cible, le relâchement lié au soleil : un avocat par jour a amélioré un peu la fermeté dans un essai pilote (financé par la filière) ; l'écran quotidien a ralenti le vieillissement visible sur 4,5 ans.",
+      "phrase_honnete": "Aucune étude n'a testé cette association. Chaque côté a ses propres preuves, indiquées séparément ; on ne peut pas dire que les deux ensemble font mieux que chacun seul.",
+      "grade_aliment": "B",
+      "grade_actif": "A",
+      "ordre": 1,
+      "note": "Toujours en premier. Latex : exclure l'avocat."
+    },
+    {
+      "indice": "rides_fermete",
+      "aliment_id": "amande",
+      "actif_id": "retinoide",
+      "pourquoi": "Les amandes ont été associées à moins de rides dans deux petits essais (financés par la filière) ; le rétinol aide à atténuer l'apparence des rides.",
+      "phrase_honnete": "Aucune étude n'a testé cette association. Chaque côté a ses propres preuves, indiquées séparément ; on ne peut pas dire que les deux ensemble font mieux que chacun seul.",
+      "grade_aliment": "B",
+      "grade_actif": "B",
+      "ordre": 2,
+      "note": "Exclure si grossesse, projet de grossesse ou allaitement ; écran solaire le matin obligatoire."
+    },
+    {
+      "indice": "rides_fermete",
+      "aliment_id": "kiwi",
+      "actif_id": "vitamine_c",
+      "pourquoi": "Même nutriment, deux voies. Assiette (le kiwi en est source) : « La vitamine C contribue à la formation normale de collagène pour assurer la fonction normale de la peau. » Soin : en sérum, la vitamine C aide à atténuer l'apparence des ridules.",
+      "phrase_honnete": "Aucune étude n'a testé cette association. Chaque côté a ses propres preuves, indiquées séparément ; on ne peut pas dire que les deux ensemble font mieux que chacun seul.",
+      "grade_aliment": "C",
+      "grade_actif": "B",
+      "ordre": 3,
+      "note": "Allégation alimentaire mot pour mot uniquement. Latex ou pollen de bouleau : exclure le kiwi."
+    },
+    {
+      "indice": "texture",
+      "aliment_id": "cacao_poudre",
+      "actif_id": "aha",
+      "pourquoi": "Un cacao riche en flavanols a réduit la rugosité dans de petits essais ; les AHA lissent le grain de peau.",
+      "phrase_honnete": "Aucune étude n'a testé cette association. Chaque côté a ses propres preuves, indiquées séparément ; on ne peut pas dire que les deux ensemble font mieux que chacun seul.",
+      "grade_aliment": "C",
+      "grade_actif": "B",
+      "ordre": 1,
+      "note": "AHA le soir : écran solaire obligatoire le matin."
+    },
+    {
+      "indice": "texture",
+      "aliment_id": "noix",
+      "actif_id": "retinoide",
+      "pourquoi": "Les oméga-3 alimentaires sont associés à moins de photovieillissement (observation) ; le rétinol et le rétinal ont réduit la rugosité dans des essais.",
+      "phrase_honnete": "Aucune étude n'a testé cette association. Chaque côté a ses propres preuves, indiquées séparément ; on ne peut pas dire que les deux ensemble font mieux que chacun seul.",
+      "grade_aliment": "C",
+      "grade_actif": "B",
+      "ordre": 2,
+      "note": "Exclure si grossesse ; écran solaire le matin."
+    }
+  ]
+}

@@ -85,26 +85,13 @@ export default function PricingClient({
   s: PricingStrings;
   rtl?: boolean;
 }) {
-  const [annual, setAnnual] = useState(false);
+  // 30/09/2026 : la remise annuelle est retiree (decision de Charles) : offre mensuelle uniquement.
+  const annual = false;
   const [theme, setTheme] = useState<'dark' | 'light'>('dark');
 
   return (
     <section className="px-8 pb-12">
       <div className="max-w-7xl mx-auto">
-
-        {/* Mensuel / Annuel */}
-        <div className="flex justify-center mb-10">
-          <div className="inline-flex items-center gap-1 p-1 border border-line rounded-full text-xs font-mono tracking-[0.12em] uppercase backdrop-blur">
-            <button
-              onClick={() => setAnnual(false)}
-              className={`px-5 py-2 rounded-full transition-colors ${!annual ? 'bg-text text-bg' : 'text-text/55 hover:text-text'}`}
-            >{s.monthly}</button>
-            <button
-              onClick={() => setAnnual(true)}
-              className={`px-5 py-2 rounded-full transition-colors ${annual ? 'bg-text text-bg' : 'text-text/55 hover:text-text'}`}
-            >{s.annual} <span className="text-accent vy-ltr">· -17%</span></button>
-          </div>
-        </div>
 
         {/* Thème du widget, choisi avant l'achat */}
         <div className="flex flex-col items-center gap-2.5 mb-12">

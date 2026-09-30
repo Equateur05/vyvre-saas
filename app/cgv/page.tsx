@@ -67,13 +67,12 @@ export default function CGVPage() {
 
             <Block title={t('cgv.a4')}>
               <p>Le paiement s'effectue par carte bancaire via notre prestataire Stripe (certifié PCI-DSS niveau 1) ou par virement SEPA pour les plans Enterprise.</p>
-              <p className="mt-3">Les abonnements mensuels sont facturés au début de chaque période. Les abonnements annuels (avec remise -20%) sont facturés à la souscription.</p>
+              <p className="mt-3">Les abonnements mensuels sont facturés au début de chaque période.</p>
               <p className="mt-3">En cas de retard de paiement, des pénalités de retard égales à 3 fois le taux d'intérêt légal s'appliquent, ainsi qu'une indemnité forfaitaire de 40€ pour frais de recouvrement (article L.441-10 du Code de commerce).</p>
             </Block>
 
             <Block title={t('cgv.a5')}>
               <p>Les abonnements mensuels sont sans engagement de durée minimum. Ils sont reconductibles tacitement chaque mois et résiliables à tout moment depuis l'espace client ou par email avec un préavis de 30 jours.</p>
-              <p className="mt-3">Les abonnements annuels sont conclus pour une durée de 12 mois, reconductibles tacitement. Conformément à la loi Châtel, le Client est informé par email 60 jours avant la date de reconduction et peut s'y opposer à tout moment.</p>
               <p className="mt-3">Le plan Pilot (gratuit) peut être interrompu unilatéralement par Symphony Drive SAS avec un préavis de 7 jours.</p>
             </Block>
 
