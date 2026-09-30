@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Damier produits · vyvre</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;500;700&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+/* 30/09 (Charles) : « damier produits ». Tous les produits du catalogue et les aliments en damier, VYVRE au milieu.
+   Cinq propositions pour la page d'accueil ou l'intro. */
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:Inter,-apple-system,sans-serif;-webkit-font-smoothing:antialiased;background:#050506;color:#fff;transition:background .6s}
+body.clair{background:#f2f2f4;color:#111}
+#mur{position:fixed;inset:-2px;overflow:hidden;display:flex;gap:0}
+.col{flex:none;display:flex;flex-direction:column;will-change:transform;animation:monte var(--d) linear infinite}
+.col.bas{animation-name:descend}
+@keyframes monte{from{transform:translate3d(0,0,0)}to{transform:translate3d(0,-50%,0)}}
+@keyframes descend{from{transform:translate3d(0,-50%,0)}to{transform:translate3d(0,0,0)}}
+.rang{flex:none;display:flex;will-change:transform;animation:gauche var(--d) linear infinite}
+.rang.droite{animation-name:droite}
+@keyframes gauche{from{transform:translate3d(0,0,0)}to{transform:translate3d(-50%,0,0)}}
+@keyframes droite{from{transform:translate3d(-50%,0,0)}to{transform:translate3d(0,0,0)}}
+.c{flex:none;width:var(--t);height:var(--t);display:grid;place-items:center;position:relative}
+.c img{width:74%;height:74%;object-fit:contain;filter:drop-shadow(0 8px 10px rgba(0,0,0,.35));-webkit-user-drag:none}
+.c.al img{width:66%;height:66%}
+/* le damier : une case sur deux legerement plus claire */
+.n .c.p{background:#0c0c0e}.n .c.i{background:#131316}
+.b .c.p{background:#f7f7f9}.b .c.i{background:#ececef}
+.b .c img{filter:drop-shadow(0 10px 12px rgba(0,0,0,.14))}
+#voile{position:fixed;inset:0;pointer-events:none}
+#centre{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none;padding:0 16px}
+#centre .logo{font-weight:200;letter-spacing:.32em;margin-right:-.32em;font-size:clamp(58px,14vw,230px);line-height:1}
+#centre .sous{margin-top:clamp(10px,2vh,22px);font-size:clamp(15px,1.5vw,19px);font-weight:300;opacity:.75;letter-spacing:.01em}
+#centre .cta{pointer-events:auto;margin-top:clamp(20px,3.4vh,34px);display:inline-flex;align-items:center;min-height:50px;padding:0 30px;border-radius:999px;text-decoration:none;font-size:16px;font-weight:500;background:#fff;color:#0a0a0a;box-shadow:0 18px 50px -18px rgba(0,0,0,.8);transition:transform .3s}
+#centre .cta:hover{transform:scale(1.04)}
+body.clair #centre .cta{background:#111;color:#fff;box-shadow:0 18px 40px -18px rgba(0,0,0,.45)}
+#centre > *{opacity:0;transform:translateY(12px);animation:vient 1.2s cubic-bezier(.2,.8,.2,1) forwards}
+#centre .sous{animation-delay:.25s}#centre .cta{animation-delay:.4s}
+@keyframes vient{to{opacity:1;transform:none}}
+/* A · Nuit */
+.v-A #voile{background:radial-gradient(ellipse 60% 48% at 50% 50%,rgba(5,5,6,.92) 0%,rgba(5,5,6,.7) 45%,rgba(5,5,6,.2) 80%,rgba(5,5,6,.55) 100%)}
+/* B · Blanc */
+.v-B #voile{background:radial-gradient(ellipse 62% 46% at 50% 50%,rgba(242,242,244,.97) 0%,rgba(242,242,244,.82) 42%,rgba(242,242,244,.15) 82%,rgba(242,242,244,.5) 100%)}
+.v-B #centre .logo{font-weight:700;letter-spacing:-.045em;margin-right:0;font-size:clamp(76px,19vw,320px)}
+/* C · Damier : le vrai echiquier, produits et aliments en alternance ; VYVRE dans une plaque de verre */
+.v-C #centre .plaque{pointer-events:auto;padding:clamp(26px,4vw,54px) clamp(30px,6vw,90px);border-radius:34px;background:rgba(10,10,12,.55);backdrop-filter:blur(22px) saturate(1.2);-webkit-backdrop-filter:blur(22px) saturate(1.2);box-shadow:0 40px 90px -30px rgba(0,0,0,.9),inset 0 1px 0 rgba(255,255,255,.12)}
+.v-C #voile{background:radial-gradient(ellipse at center,rgba(0,0,0,0) 40%,rgba(0,0,0,.55) 100%)}
+.v-C #centre .logo{font-size:clamp(46px,10vw,150px)}
+/* D · A travers : le mur ne se voit qu'a travers les lettres de VYVRE */
+#lettres{position:fixed;inset:0;display:none;align-items:center;justify-content:center;background:rgba(0,0,0,.9);mix-blend-mode:multiply;pointer-events:none}
+#lettres span{font-weight:700;letter-spacing:-.04em;font-size:clamp(90px,24vw,400px);color:#fff;line-height:1}
+.v-D #lettres{display:flex}
+.v-D #centre .logo{visibility:hidden}
+.v-D #centre{justify-content:flex-end;padding-bottom:clamp(90px,14vh,150px)}
+/* E · Zoom : on part d'un seul produit, le mur se revele, puis VYVRE */
+.v-E #mur{transform-origin:50% 50%;animation:recule 9s cubic-bezier(.6,0,.2,1) forwards}
+@keyframes recule{0%{transform:scale(7)}100%{transform:scale(1)}}
+.v-E #voile{background:radial-gradient(ellipse 58% 46% at 50% 50%,rgba(5,5,6,.9) 0%,rgba(5,5,6,.6) 50%,rgba(5,5,6,.25) 100%);opacity:0;animation:vient2 1.6s 7.2s forwards}
+.v-E #centre > *{animation-delay:7.6s}.v-E #centre .sous{animation-delay:7.9s}.v-E #centre .cta{animation-delay:8.1s}
+@keyframes vient2{to{opacity:1}}
+#sel{position:fixed;left:50%;bottom:calc(12px + env(safe-area-inset-bottom));transform:translateX(-50%);display:flex;gap:2px;padding:5px;border-radius:999px;background:rgba(20,20,22,.7);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 10px 30px -10px rgba(0,0,0,.6),inset 0 0 0 1px rgba(255,255,255,.1);z-index:10;max-width:calc(100vw - 20px);overflow-x:auto}
+#sel a{flex:none;padding:9px 12px;border-radius:999px;font-size:12.5px;color:rgba(255,255,255,.72);text-decoration:none;cursor:pointer;white-space:nowrap}
+#sel a.on{background:#fff;color:#111}
+body.propre #sel{display:none}
+@media (prefers-reduced-motion:reduce){.col,.rang{animation-duration:600s!important}.v-E #mur{animation:none}}
+</style>
+</head>
+<body>
+<div id="mur" aria-hidden="true"></div>
+<div id="voile"></div>
+<div id="lettres" aria-hidden="true"><span>VYVRE</span></div>
+<div id="centre"><div class="plaque-ou-rien"><h1 class="logo">VYVRE</h1><p class="sous">La peau, révélée.</p></div><a class="cta" href="/scan/">Commencer</a></div>
+<nav id="sel"></nav>
+<script>
+const NOMS = { A:'Nuit', B:'Blanc', C:'Damier', D:'À travers', E:'Zoom' };
+const q = new URLSearchParams(location.search);
+let V = NOMS[q.get('v')] ? q.get('v') : 'A';
+if(q.get('propre')) document.body.classList.add('propre');
+let LISTE = null;
+const melange = a => { a = a.slice(); for(let i = a.length - 1; i > 0; i--){ const j = Math.random()*(i + 1) | 0; [a[i], a[j]] = [a[j], a[i]]; } return a; };
+
+function cellule(k, pair, alim){
+  const d = document.createElement('div'); d.className = 'c ' + (pair ? 'p' : 'i') + (alim ? ' al' : '');
+  const im = new Image(); im.alt = ''; im.decoding = 'async'; im.draggable = false;
+  im.src = alim ? '/propals/damier/a/' + alim + '.webp' : LISTE.produits[k % LISTE.produits.length].i;
+  im.onerror = () => im.remove(); d.appendChild(im); return d;
+}
+function construire(){
+  const mur = document.getElementById('mur'); mur.innerHTML = ''; mur.className = '';
+  const clair = V === 'B'; document.body.classList.toggle('clair', clair); mur.classList.add(clair ? 'b' : 'n');
+  const W = innerWidth, H = innerHeight, petit = W < 700;
+  const T = V === 'E' ? (petit ? 58 : 76) : V === 'D' ? (petit ? 96 : 150) : (petit ? 82 : 128);
+  mur.style.setProperty('--t', T + 'px');
+  const produits = melange(LISTE.produits.map((_, i) => i)), aliments = melange(LISTE.aliments);
+  let np = 0, na = 0;
+  const suivant = (pair, force) => {
+    const alim = force === 'al' || (force !== 'pr' && Math.random() < .18);
+    return alim ? cellule(0, pair, aliments[na++ % aliments.length]) : cellule(produits[np++ % produits.length], pair, null); };
+  if(V === 'D'){
+    // des rangees qui filent en sens oppose
+    mur.style.flexDirection = 'column'; const nR = Math.ceil(H/T) + 1, nC = Math.ceil(W/T) + 2;
+    for(let r = 0; r < nR; r++){ const rg = document.createElement('div'); rg.className = 'rang' + (r % 2 ? ' droite' : ''); rg.style.setProperty('--d', (60 + (r % 3)*14) + 's');
+      const cells = []; for(let c = 0; c < nC; c++) cells.push(suivant((r + c) % 2 === 0));
+      cells.forEach(e => rg.appendChild(e)); cells.forEach(e => rg.appendChild(e.cloneNode(true)));
+      mur.appendChild(rg); }
+    return; }
+  mur.style.flexDirection = 'row';
+  const nC = Math.ceil(W/T) + 1, nR = Math.ceil(H/T) + 2;
+  for(let c = 0; c < nC; c++){
+    const col = document.createElement('div'); col.className = 'col' + (c % 2 ? ' bas' : '');
+    col.style.setProperty('--d', (V === 'E' ? 140 : 70 + (c % 4)*9) + 's');
+    const cells = []; for(let r = 0; r < nR; r++){ const pair = (r + c) % 2 === 0; cells.push(V === 'C' ? suivant(pair, pair ? 'pr' : 'al') : suivant(pair)); }
+    cells.forEach(e => col.appendChild(e)); cells.forEach(e => col.appendChild(e.cloneNode(true)));   // deux fois : la boucle ne se voit pas
+    mur.appendChild(col); }
+  if(V === 'E'){ // on part d'un produit precis, au centre de l'ecran
+    const c0 = Math.floor(nC/2), r0 = Math.floor(nR/2); mur.style.transformOrigin = (c0*T + T/2) + 'px ' + (r0*T + T/2) + 'px';
+    mur.querySelectorAll('.col').forEach(col => col.style.animationPlayState = 'paused'); setTimeout(() => mur.querySelectorAll('.col').forEach(col => col.style.animationPlayState = 'running'), 8000); }
+}
+function appliquer(v){
+  V = v; document.body.className = document.body.className.replace(/\bv-[A-E]\b/g, '').trim() + ' v-' + v;
+  const plaque = document.querySelector('.plaque-ou-rien'); plaque.className = 'plaque-ou-rien' + (v === 'C' ? ' plaque' : '');
+  document.querySelectorAll('#sel a').forEach(a => a.classList.toggle('on', a.dataset.v === v));
+  try { const u = new URL(location.href); u.searchParams.set('v', v); history.replaceState(null, '', u); } catch(e){}
+  // on rejoue l'apparition du centre
+  document.querySelectorAll('#centre > *, #voile, #mur').forEach(e => { e.style.animation = 'none'; void e.offsetWidth; e.style.animation = ''; });
+  construire();
+}
+document.getElementById('sel').innerHTML = Object.entries(NOMS).map(([k, n]) => '<a data-v="' + k + '">' + k + ' · ' + n + '</a>').join('');
+document.getElementById('sel').onclick = e => { const a = e.target.closest('a'); if(a) appliquer(a.dataset.v); };
+let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(construire, 250); });
+fetch('/propals/damier/liste.json?v=2').then(r => r.json()).then(j => { LISTE = j; appliquer(V); });
+</script>
+</body>
+</html>
