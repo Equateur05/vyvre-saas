@@ -83,10 +83,10 @@ let W = 0, H = 0, items = [], tick = null, dernierNom = '';
 function fruit(k){
   const [id] = LISTE[((k % N) + N) % N];
   const e = document.createElement('div'); e.className = 'f';
-  e.innerHTML = '<i class="o"></i><img class="p" alt="" src="img/' + id + '.webp"><img class="r" alt="" src="img/' + id + '.webp">';
+  e.innerHTML = '<i class="o"></i><img class="p" alt="" src="/propals/intro-aliment/img/' + id + '.webp"><img class="r" alt="" src="/propals/intro-aliment/img/' + id + '.webp">';
   e.k = k; scene.appendChild(e); return e;
 }
-function changer(e, k){ const id = LISTE[((k % N) + N) % N][0]; e.k = k; e.querySelectorAll('img').forEach(i => i.src = 'img/' + id + '.webp'); }
+function changer(e, k){ const id = LISTE[((k % N) + N) % N][0]; e.k = k; e.querySelectorAll('img').forEach(i => i.src = '/propals/intro-aliment/img/' + id + '.webp'); }
 function taille(e, w){ if(e.w === w) return; e.w = w; e.style.width = w + 'px'; e.style.height = (w * .72) + 'px'; }
 function poser(e, x, y, s, o, z){ e.style.transform = 'translate3d(' + (x - e.w / 2).toFixed(1) + 'px,' + y.toFixed(1) + 'px,0) scale(' + s.toFixed(4) + ')'; e.style.opacity = o.toFixed(3); e.style.zIndex = z; }
 /* un fruit souleve : son reflet descend d'autant, son ombre s'efface (un vrai miroir au sol) */
