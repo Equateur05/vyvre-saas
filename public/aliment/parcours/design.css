@@ -9,3 +9,9 @@
 .pair-visual{display:flex;justify-content:flex-start;align-items:center;gap:65px;margin:25px 0}.pair-visual img{height:170px;width:170px;object-fit:contain}.pair-visual img+img{height:160px;width:110px}@media(max-width:650px){.solo{min-height:calc(100svh - 175px);margin:0 auto}.solo:not(.preference) .visual{min-height:85px}.solo:not(.preference) .visual .product{height:85px;width:110px}.pair-visual{gap:35px}.pair-visual img{height:115px;width:115px}.pair-visual img+img{height:115px;width:75px}}
 
 .landing .slot{position:relative}.landing .slot>.reflection{position:absolute;top:85px;left:0;transform:scaleY(-1);opacity:.08;mask-image:linear-gradient(to top,#000,transparent 38%);pointer-events:none}@media(max-width:650px){.landing .slot>.reflection{top:75px}}
+/* 30/09 : passage automatique a l'ecran suivant (une fine barre qui se remplit apres chaque choix) */
+.auto-bar{height:2px;width:min(320px,100%);margin:22px 0 4px;background:#e4e5df;border-radius:2px;overflow:hidden;opacity:0;transition:opacity .3s}
+.auto-bar i{display:block;height:100%;width:0;background:#30362a}
+.auto-bar.run{opacity:1}.auto-bar.run i{animation:autobar var(--d,1700ms) linear forwards}
+@keyframes autobar{to{width:100%}}
+@media (prefers-reduced-motion:reduce){.auto-bar.run i{animation-duration:1ms}}

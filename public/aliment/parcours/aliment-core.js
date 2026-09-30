@@ -87,7 +87,9 @@
     var ps = []; if(v('pores') != null) ps.push(100 - v('pores')); if(v('sebum') != null) ps.push(v('sebum')); if(ps.length) sev.pores_sebum = Math.max.apply(null, ps);
     if(v('pigmentation') != null) sev.uniformite = v('pigmentation');
     var t = Object.keys(sev).sort(function(x, y){ return sev[y] - sev[x]; });
-    var note = function(k){ return Math.max(0, Math.min(100, Math.round(100 - sev[k]))); };
+    /* 30/09 (parcours aliment) : les besoins choisis par la personne passent devant ; la lecture complete dans son ordre */
+    var dit = (AFFINE && AFFINE.besoins) || []; if(dit.length) t = dit.concat(t.filter(function(k){ return dit.indexOf(k) < 0; }));
+    var note = function(k){ return sev[k] == null ? null : Math.max(0, Math.min(100, Math.round(100 - sev[k]))); };
     return t.length ? { i1:t[0], i2:t[1] || null, n1:note(t[0]), n2:t[1] ? note(t[1]) : null, suite:t.slice(2) } : null; }
 
   /* ---- exclusions (QUESTIONNAIRE.md) ---- */
@@ -146,16 +148,25 @@
       if(a('q8','acne') && ind.i1 === 'pores_sebum' && f.categorie !== 'legumineuse' && f.categorie !== 'cereale_complete') s -= 1;
       if(c3) s -= 1.5;   // un point plus loin dans la lecture : seulement pour completer l'assiette
       return { f:f, s:s, pour:c1 ? ind.i1 : c2 ? ind.i2 : c3 }; }).filter(Boolean).sort(function(p, q){ return q.s - p.s; });
+    /* 30/09 (parcours aliment) : « Dans votre assiette ? ». S'il y a au moins quatre aliments surs dans les familles choisies,
+       on ne prend qu'eux (une famille peut alors revenir) ; sinon elles passent seulement devant. La securite ne bouge pas. */
+    var FAM = { fruits:['fruit','fruit_sec'], legumes:['legume'], epices:['epice_herbe'], boissons:['boisson'], cereales:['cereale_complete','feculent'], legumineuses:['legumineuse','soja'], mer:['poisson','fruit_de_mer'], noix:['fruit_a_coque','graine'] };
+    var ty = [].concat.apply([], ((AFFINE && AFFINE.types) || []).map(function(k){ return FAM[k] || []; })), large = false;
+    if(ty.length){ var dans = cand.filter(function(c){ return ty.indexOf(c.f.categorie) >= 0; });
+      if(dans.length >= 4){ cand = dans; large = true; } else { cand.forEach(function(c){ if(ty.indexOf(c.f.categorie) >= 0) c.s += 3; }); cand.sort(function(p, q){ return q.s - p.s; }); } }
+    var parFam = large ? Math.max(1, Math.ceil(4 / new Set(cand.map(function(c){ return c.f.categorie; })).size)) : 1;
     var pris = [], cats = {}, nut = {}, sansEtude = 0, rares = 0;
     cand.forEach(function(c){ if(pris.length >= 4) return; var f = c.f, n1 = (f.nutriments_cles[0] || '').toLowerCase();
-      if(cats[f.categorie] || nut[n1]) return; if(SANS_ETUDE.indexOf(f.id) >= 0 && sansEtude) return;
+      if((cats[f.categorie] || 0) >= parFam || nut[n1]) return; if(SANS_ETUDE.indexOf(f.id) >= 0 && sansEtude) return;
       if((!AFFINE.usage || AFFINE.usage === 'quotidien') && f.usage === 'rare' && rares) return; if(f.usage === 'rare') rares++;
-      pris.push(c); cats[f.categorie] = 1; nut[n1] = 1; if(SANS_ETUDE.indexOf(f.id) >= 0) sansEtude++; });
+      pris.push(c); cats[f.categorie] = (cats[f.categorie] || 0) + 1; nut[n1] = 1; if(SANS_ETUDE.indexOf(f.id) >= 0) sansEtude++; });
     /* second passage, seulement s'il reste des places : une famille peut revenir une fois, jamais le meme nutriment */
     if(pris.length < 4){ var fois = {}; pris.forEach(function(c){ fois[c.f.categorie] = (fois[c.f.categorie] || 0) + 1; });
       cand.forEach(function(c){ if(pris.length >= 4 || pris.indexOf(c) >= 0) return; var f = c.f, n1 = (f.nutriments_cles[0] || '').toLowerCase();
-        if((fois[f.categorie] || 0) >= 2 || nut[n1]) return; pris.push(c); fois[f.categorie] = (fois[f.categorie] || 0) + 1; nut[n1] = 1; }); }
-    if(pris.length && !pris.some(function(c){ return VEGETAL.indexOf(c.f.categorie) >= 0; })){ var v = cand.filter(function(c){ return VEGETAL.indexOf(c.f.categorie) >= 0 && pris.indexOf(c) < 0; })[0]; if(v) pris[pris.length - 1] = v; }
+        if((fois[f.categorie] || 0) >= Math.max(2, parFam) || nut[n1]) return; pris.push(c); fois[f.categorie] = (fois[f.categorie] || 0) + 1; nut[n1] = 1; }); }
+    /* familles choisies par la personne : si l'assiette n'est pas pleine, un nutriment peut revenir une fois */
+    if(large && pris.length < 4) cand.forEach(function(c){ if(pris.length < 4 && pris.indexOf(c) < 0) pris.push(c); });
+    if(!large && pris.length && !pris.some(function(c){ return VEGETAL.indexOf(c.f.categorie) >= 0; })){ var v = cand.filter(function(c){ return VEGETAL.indexOf(c.f.categorie) >= 0 && pris.indexOf(c) < 0; })[0]; if(v) pris[pris.length - 1] = v; }
     return pris; }
 
   function fait(f){ var t = (f.ciqual && f.ciqual.teneurs_pour_100g) || {};
