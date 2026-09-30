@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>VYVRE · Scan et assiette</title>
+<meta name="robots" content="noindex">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden}
+body{font-family:"Helvetica Neue",Arial,sans-serif;transition:background .6s,color .6s}
+.m{font-size:9px;letter-spacing:2.2px;text-transform:uppercase;opacity:.65}
+#app{position:fixed;inset:0;display:grid;grid-template-columns:1.05fr 1fr;grid-template-rows:auto 1fr auto auto;gap:0 14px;padding:calc(22px + env(safe-area-inset-top)) 16px calc(78px + env(safe-area-inset-bottom))}
+#haut{grid-column:1/3;display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:14px}
+#haut h1{font:italic 400 30px/.95 Georgia,serif;letter-spacing:-1.5px}
+#pct{font:300 12px "IBM Plex Mono",ui-monospace,Menlo,monospace}
+#gauche{position:relative;overflow:hidden;border-radius:24px}
+#gauche video,#gauche svg.face{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+#gauche video{transform:scaleX(-1)}
+#laser{position:absolute;left:0;right:0;height:1.5px;top:10%;pointer-events:none}
+#droite{position:relative;display:flex;flex-direction:column;min-width:0}
+.roue{position:relative;flex:1;perspective:600px;-webkit-mask-image:linear-gradient(transparent,#000 30%,#000 70%,transparent);mask-image:linear-gradient(transparent,#000 30%,#000 70%,transparent);overflow:hidden}
+.roue .bande{position:absolute;left:0;right:0;top:50%;height:40px;margin-top:-20px;border-top:1px solid;border-bottom:1px solid;opacity:.18}
+.roue .it{position:absolute;left:0;right:0;height:40px;display:flex;align-items:center;gap:9px;padding-left:4px;font-size:17px;font-weight:300;letter-spacing:-.2px;white-space:nowrap}
+.roue .it i{width:8px;height:8px;border-radius:50%;flex:none}
+.roue .it img{width:28px;height:28px;object-fit:contain;flex:none}
+#etat{font:400 10px/1.6 "IBM Plex Mono",ui-monospace,Menlo,monospace;min-height:34px;margin-top:8px}
+#cases{grid-column:1/3;display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:14px}
+#cases div{border:1px solid;border-color:inherit;border-radius:16px;min-height:66px;padding:8px 6px;font-size:12px;line-height:1.25;text-align:center;display:flex;flex-direction:column;justify-content:center;gap:3px;transition:all .5s;opacity:.55}
+#cases div.on{opacity:1}
+#cases b{font:italic 14px Georgia,serif}
+#journal{grid-column:1/3;margin-top:10px;height:52px;overflow:hidden;font:400 9.5px/1.7 "IBM Plex Mono",ui-monospace,Menlo,monospace;opacity:.7;pointer-events:none}
+#journal div{animation:vient .45s both}@keyframes vient{from{opacity:0;transform:translateY(5px)}}
+#sel{position:fixed;left:50%;bottom:calc(12px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:20;display:flex;gap:3px;padding:5px;border-radius:999px;background:rgba(255,255,255,.85);border:1px solid rgba(0,0,0,.08);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 12px 36px -18px rgba(0,0,0,.45);font-size:12.5px}
+#sel a{color:#1c2f30;text-decoration:none;padding:9px 11px;border-radius:999px;cursor:pointer;white-space:nowrap}
+#sel a.on{background:#1c2f30;color:#fff}
+#nom{position:fixed;left:0;right:0;bottom:calc(60px + env(safe-area-inset-bottom));text-align:center;font-size:10.5px;opacity:.6;z-index:20}
+
+/* S1 · Laboratoire : blanc Apple */
+body.S1{background:linear-gradient(180deg,#fbfbfd,#e9ebee);color:#1c2f30}
+.S1 #gauche{background:#f3f4f6;box-shadow:0 30px 60px -34px rgba(0,0,0,.4)}
+.S1 #laser{background:#ff2a3c;box-shadow:0 0 12px 2px rgba(255,42,60,.55)}
+.S1 #cases div{border-color:rgba(28,47,48,.16)}.S1 #cases div.on{background:#fff;box-shadow:0 16px 36px -22px rgba(0,0,0,.35)}
+/* S2 · Nuit : noir, verre depoli */
+body.S2{background:#050506;color:#f2f2f2}
+.S2 #gauche{border-radius:0 24px 24px 0;margin-left:-16px}
+.S2 #droite{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:24px;padding:10px 10px 8px;backdrop-filter:blur(16px)}
+.S2 #laser{background:#ff4a5a;box-shadow:0 0 16px 3px rgba(255,42,60,.7)}
+.S2 #cases div{border-color:rgba(255,255,255,.14)}.S2 #cases div.on{background:rgba(255,255,255,.08)}
+.S2 #sel{background:rgba(30,30,34,.85);border-color:rgba(255,255,255,.1)}.S2 #sel a{color:#eee}.S2 #sel a.on{background:#fff;color:#000}
+/* S3 · Editorial : sauge, portrait rond, italique */
+body.S3{background:#dce7e1;color:#183b3e}
+.S3 #gauche{border-radius:50%;aspect-ratio:3/4;align-self:center;box-shadow:0 0 0 1px rgba(24,59,62,.25),0 30px 60px -30px rgba(0,0,0,.4)}
+.S3 #laser{background:#b8924a;box-shadow:0 0 10px 1px rgba(184,146,74,.6)}
+.S3 .roue .it{font:italic 19px Georgia,serif}
+.S3 #cases div{border-color:rgba(24,59,62,.2)}.S3 #cases div.on{background:#eef4f0}
+/* S4 · Cinema : plein ecran, la roue en colonne de verre */
+body.S4{background:#000;color:#fff}
+.S4 #app{grid-template-columns:1fr}
+.S4 #gauche{position:fixed;inset:0;border-radius:0;z-index:0}
+.S4 #gauche::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.05) 30%,rgba(0,0,0,.72))}
+.S4 #haut,.S4 #cases,.S4 #droite{position:relative;z-index:2}
+.S4 #droite{grid-column:1;justify-self:end;width:52%;background:rgba(20,20,24,.35);border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:8px;backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px)}
+.S4 #laser{background:#fff;box-shadow:0 0 18px 3px rgba(255,255,255,.7)}
+.S4 #cases div{border-color:rgba(255,255,255,.2);background:rgba(0,0,0,.25);backdrop-filter:blur(10px)}.S4 #cases div.on{background:rgba(255,255,255,.14)}
+.S4 #journal{position:relative;z-index:2}
+.S4 #sel{background:rgba(30,30,34,.85);border-color:rgba(255,255,255,.1)}.S4 #sel a{color:#eee}.S4 #sel a.on{background:#fff;color:#000}
+@media(min-width:900px){#app{max-width:1100px;margin:0 auto;grid-template-columns:1.1fr 1fr}#haut h1{font-size:44px}.roue .it{font-size:24px;height:48px}}
+</style>
+</head>
+<body class="S1">
+<div id="app">
+  <div id="haut"><div><div class="m">Lecture et assiette · profil d’exemple</div><h1 id="t">Lecture.</h1></div><div id="pct">00 %</div></div>
+  <div id="gauche"><svg class="face" viewBox="0 0 200 260" preserveAspectRatio="xMidYMid meet"><defs><radialGradient id="g" cx="50%" cy="45%" r="65%"><stop offset="0" stop-color="#ffffff" stop-opacity=".9"/><stop offset="1" stop-color="#cfd4d7" stop-opacity=".6"/></radialGradient></defs><rect x="-200" y="-200" width="600" height="660" fill="url(#g)"/><g id="trame" fill="#8b969a"></g><path d="M78 112q10-5 20 0M102 112q10-5 20 0M100 120v22q-5 4 0 5M86 166q14 8 28 0" stroke="#8b969a" stroke-width=".7" fill="none" stroke-linecap="round"/></svg><video id="v" playsinline muted></video><div id="laser"></div></div>
+  <div id="droite"><div class="roue" id="roue"><div class="bande"></div></div><div id="etat"></div></div>
+  <div id="cases"><div id="c0"><b>01</b>·</div><div id="c1"><b>02</b>·</div><div id="c2"><b>03</b>·</div><div id="c3"><b>04</b>·</div></div>
+  <div id="journal"></div>
+</div>
+<div id="nom"></div>
+<nav id="sel"><a data-s="S1">Labo</a><a data-s="S2">Nuit</a><a data-s="S3">Éditorial</a><a data-s="S4">Cinéma</a><a data-s="cam">Caméra</a><a data-s="R">↻</a></nav>
+<script>
+/* Propositions : la lecture a gauche, la roue a droite, en temps reel. Honnete : pendant la lecture, la roue tourne
+   librement sur tous les aliments autorises (les indices ne sont pas encore connus) ; des que la lecture est finie,
+   elle se resserre sur les candidats de vos indices et s'arrete sur les vrais choix. Profil de peau d'exemple ici. */
+const NOMS = { S1:'Labo : blanc Apple, la lecture dans une carte, la roue à côté', S2:'Nuit : noir, la roue sous verre dépoli', S3:'Éditorial : portrait rond, la roue en italique', S4:'Cinéma : plein écran, la roue en colonne de verre' };
+const TEINTE = { legume:'#5f8f5b', fruit:'#c8563f', poisson:'#4f7896', fruit_de_mer:'#6b8fa8', legumineuse:'#b58a3c', cereale_complete:'#c9a45c', feculent:'#c9a45c', graine:'#a99270', fruit_a_coque:'#9b7650', fruit_sec:'#8a5a3c', cacao:'#5b3a29', boisson:'#6aa39b', matiere_grasse:'#9aa04a', produit_laitier_fermente:'#cfc3a8', produit_laitier:'#cfc3a8', fromage:'#e0c98a', oeuf:'#e6c27a', epice_herbe:'#7a9a55', viande:'#a3473f', volaille:'#c9956b', condiment:'#8d7a5c', sucre:'#caa46a' };
+const I1 = 'eclat', I2 = 'rides_fermete';
+let DATA = [], PERMIS = [], CAND = [], PRIS = [], jeton = 0, S = new URLSearchParams(location.search).get('s') || 'S1';
+const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]));
+const court = f => f.nom.split(' (')[0].split(',')[0];
+const pause = ms => new Promise(r => setTimeout(r, ms));
+function calcul(){ const mois = new Date().getMonth() + 1, G = { A:3, B:2, C:1 };
+  PERMIS = DATA.filter(f => !['pamplemousse','huitre','noix_bresil'].includes(f.id) && f.categorie !== 'algue' && f.categorie !== 'soja');
+  CAND = PERMIS.filter(f => G[f.niveau_preuve_peau] && (f.cibles_peau.includes(I1) || f.cibles_peau.includes(I2)));
+  const sc = CAND.map(f => ({ f, s:G[f.niveau_preuve_peau] + (f.cibles_peau.includes(I1) ? 2 : 0) + (f.cibles_peau.includes(I2) ? 1 : 0) + ((f.saison || []).includes(mois) ? 1 : 0) })).sort((a, b) => b.s - a.s);
+  const cats = new Set(), nut = new Set(); PRIS = []; let rare = 0;
+  for(const c of sc){ if(PRIS.length >= 4) break; const n1 = (c.f.nutriments_cles[0] || '').toLowerCase(); if(cats.has(c.f.categorie) || nut.has(n1) || (c.f.usage === 'rare' && rare)) continue; if(c.f.usage === 'rare') rare++; PRIS.push(c.f); cats.add(c.f.categorie); nut.add(n1); } }
+
+/* la roue */
+let items = [], liste = [], pos = 0, H = 40;
+function charger(l){ liste = l; const r = document.getElementById('roue'); r.querySelectorAll('.it').forEach(e => e.remove());
+  items = l.map(f => { const d = document.createElement('div'); d.className = 'it'; d.innerHTML = '<img src="/scan/aliment/photos/' + f.id + '.png" alt="" onerror="this.replaceWith(Object.assign(document.createElement(\'i\'),{style:\'background:' + (TEINTE[f.categorie] || '#999') + '\'}))">' + esc(court(f)); r.appendChild(d); return d; }); H = innerWidth >= 900 ? 48 : 40; }
+function dessiner(){ const r = document.getElementById('roue'), hc = r.clientHeight/2, N = items.length;
+  items.forEach((el, i) => { let y = ((i*H - pos) % (N*H) + N*H) % (N*H); if(y > N*H/2) y -= N*H; const d = y/(H*2.4);
+    el.style.transform = 'translateY(' + (hc - H/2 + y) + 'px) rotateX(' + (-Math.max(-1.2, Math.min(1.2, d))*40) + 'deg)'; el.style.opacity = Math.max(0, 1 - Math.abs(d)*.5); el.style.fontWeight = Math.abs(y) < H/2 ? 400 : 300; }); }
+const log = t => { const j = document.getElementById('journal'); const d = document.createElement('div'); d.textContent = t; j.appendChild(d); while(j.children.length > 3) j.removeChild(j.firstChild); };
+const melange = a => a.map(x => [Math.random(), x]).sort((p, q) => p[0] - q[0]).map(x => x[1]);
+
+async function jouer(){ const id = ++jeton; document.getElementById('journal').innerHTML = ''; [0,1,2,3].forEach(k => { const c = document.getElementById('c' + k); c.className = ''; c.innerHTML = '<b>0' + (k + 1) + '</b>·'; });
+  const t = document.getElementById('t'), pct = document.getElementById('pct'), et = document.getElementById('etat'), laser = document.getElementById('laser');
+  charger(melange(PERMIS).slice(0, 44)); pos = 0; dessiner(); t.textContent = 'Lecture.';
+  log(DATA.length + ' aliments · CIQUAL 2020'); log('− ' + (DATA.length - PERMIS.length) + ' écartés pour tous');
+  /* 1. la lecture : le laser balaie, la roue tourne librement, en attente des indices */
+  const t0 = performance.now(), DUR = 6000;
+  await new Promise(res => { (function an(n){ if(id !== jeton) return res(); const u = Math.min(1, (n - t0)/DUR);
+    laser.style.top = (8 + (Math.sin(u*Math.PI*3 - Math.PI/2)*.5 + .5)*84) + '%'; pct.textContent = String(Math.round(u*100)).padStart(2, '0') + ' %';
+    pos += 3.2; dessiner(); et.textContent = 'En attente de votre lecture · ' + PERMIS.length + ' aliments possibles';
+    u < 1 ? requestAnimationFrame(an) : res(); })(t0); });
+  if(id !== jeton) return; laser.style.top = '-10%'; pct.textContent = '100 %';
+  log('Lecture : Éclat d’abord, puis Rides et fermeté'); log(CAND.length + ' candidats pour ces deux indices');
+  et.textContent = CAND.length + ' candidats · les preuves, puis la saison';
+  /* 2. la roue se resserre sur les candidats et s'arrete sur les vrais choix */
+  const roue = melange(PRIS.concat(CAND.filter(f => !PRIS.includes(f)).slice(0, 30))); charger(roue); pos = 0; dessiner();
+  const N = roue.length;
+  for(let k = 0; k < PRIS.length; k++){ if(id !== jeton) return; t.textContent = ['Première', 'Deuxième', 'Troisième', 'Quatrième'][k] + ' place.';
+    const cible = roue.indexOf(PRIS[k]), d0 = pos, fin = (Math.ceil(d0/(N*H)) + 2)*N*H + cible*H, s0 = performance.now();
+    await new Promise(res => { (function an(n){ if(id !== jeton) return res(); const u = Math.min(1, (n - s0)/1500); pos = d0 + (fin - d0)*(1 - Math.pow(1 - u, 4)); dessiner(); u < 1 ? requestAnimationFrame(an) : res(); })(s0); });
+    const c = document.getElementById('c' + k); c.className = 'on'; c.innerHTML = '<b>0' + (k + 1) + '</b>' + esc(court(PRIS[k]));
+    log('0' + (k + 1) + ' · ' + court(PRIS[k]) + ' · preuve ' + PRIS[k].niveau_preuve_peau); await pause(600); }
+  t.textContent = 'Votre assiette.'; et.textContent = 'Composée d’après votre lecture'; }
+
+function style(s){ S = s; document.body.className = s; document.querySelectorAll('#sel a').forEach(a => a.classList.toggle('on', a.dataset.s === s)); document.getElementById('nom').textContent = NOMS[s]; try { history.replaceState(null, '', '?s=' + s); } catch(e){} requestAnimationFrame(dessiner); }
+document.querySelectorAll('#sel a').forEach(a => a.onclick = async () => {
+  if(a.dataset.s === 'R') return jouer();
+  if(a.dataset.s === 'cam'){ try { const st = await navigator.mediaDevices.getUserMedia({ video:{ facingMode:'user' }, audio:false }); const v = document.getElementById('v'); v.srcObject = st; await v.play(); document.querySelector('svg.face').style.display = 'none'; a.textContent = 'Caméra ✓'; jouer(); } catch(e){ a.textContent = 'Caméra refusée'; } return; }
+  style(a.dataset.s); });
+addEventListener('resize', dessiner);
+/* la trame : des points poses sur un ovale de visage, plus serres au centre */
+(function(){ const g = document.getElementById('trame'); let h = ''; for(let j = 0; j < 26; j++) for(let i = 0; i < 20; i++){ const u = (i + .5)/20*2 - 1, v = (j + .5)/26*2 - 1; if(u*u + v*v*1.02 > 1) continue; const x = 100 + u*58, y = 128 + v*80, r = .45 + .5*(1 - (u*u + v*v)); h += '<circle cx="' + x.toFixed(1) + '" cy="' + y.toFixed(1) + '" r="' + r.toFixed(2) + '" opacity="' + (.25 + .45*(1 - Math.abs(u))).toFixed(2) + '"/>'; } g.innerHTML = h; })();
+fetch('/scan/aliment/aliments_v2.json').then(r => r.json()).then(j => { DATA = j.aliments; calcul(); style(S); jouer(); });
+</script>
+</body>
+</html>
