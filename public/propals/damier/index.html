@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;500;700&family=IBM+Plex+Mono:wght@400&family=Playfair+Display:ital@1&display=swap" rel="stylesheet">
 <style>
-/* 30/09 (Charles) : « damier produits ». Tous les produits du catalogue et les aliments en damier, VYVRE au milieu.
+/* 30/09 (Charles) : « damier produits ». Les produits cosmetiques du catalogue, VYVRE au milieu (plus d'aliments).
    Cinq propositions pour la page d'accueil ou l'intro. */
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%;overflow:hidden}
@@ -66,6 +66,18 @@ body.clair #centre .cta{background:#111;color:#fff;box-shadow:0 18px 40px -18px 
 #sel a.on{background:#fff;color:#111}
 body.propre #sel{display:none}
 @media (prefers-reduced-motion:reduce){.col,.rang{animation-duration:600s!important}.v-E #mur{animation:none}}
+/* K, L, M, N : scenes 3D */
+.v-K #scene,.v-L #scene,.v-M #scene,.v-N #scene{perspective:1100px}
+.st3{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d;will-change:transform}
+.p3{position:absolute;left:0;top:0;display:grid;place-items:center;will-change:transform,opacity}
+.p3 img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 12px 16px rgba(0,0,0,.55))}
+.v-K #voile{background:radial-gradient(circle at 50% 50%,rgba(5,5,6,.0) 0,rgba(5,5,6,0) 30%,rgba(5,5,6,.6) 100%)}
+.v-K #centre .logo,.v-L #centre .logo,.v-M #centre .logo,.v-N #centre .logo{text-shadow:0 4px 40px rgba(0,0,0,.9),0 0 2px rgba(0,0,0,.6)}
+.v-L #voile{background:radial-gradient(ellipse 40% 60% at 50% 50%,rgba(5,5,6,.35),rgba(5,5,6,0) 70%)}
+.v-M{background:radial-gradient(circle at 50% 50%,#1a1a1f 0,#050506 60%)}
+.v-M #voile{background:radial-gradient(circle at 50% 50%,rgba(5,5,6,.85) 0,rgba(5,5,6,.4) 18%,rgba(5,5,6,0) 40%)}
+.v-N{background:radial-gradient(ellipse at 50% 55%,#1c1813 0,#070708 55%)}
+.v-N #voile{background:radial-gradient(ellipse 30% 18% at 50% 50%,rgba(255,236,200,.18),rgba(255,236,200,0) 70%)}
 /* la signature, comme sur le site */
 #centre .sig{display:block;font-family:'Playfair Display',Georgia,serif;font-style:italic;font-weight:400;letter-spacing:.01em;font-size:clamp(15px,1.6vw,22px);opacity:.72;margin-top:clamp(4px,1vh,12px)}
 #scene{position:fixed;inset:0;overflow:hidden}
@@ -115,9 +127,9 @@ body.propre #sel{display:none}
 <div id="centre"><div class="plaque-ou-rien"><h1 class="logo">VYVRE</h1><i class="sig">skin intelligence</i><p class="sous">La peau, révélée.</p></div><a class="cta" href="/scan/">Commencer</a></div>
 <nav id="sel"></nav>
 <script>
-const NOMS = { F:'Perspective', G:'Cylindre', H:'Lumière', I:'Vague', J:'Lettres', A:'Nuit', B:'Blanc', C:'Damier', D:'À travers', E:'Zoom' };
+const NOMS = { K:'Sphère', L:'Hélice', M:'Tunnel', N:'Galaxie', F:'Perspective', G:'Cylindre', H:'Lumière', I:'Vague', J:'Lettres', A:'Nuit', B:'Blanc', C:'Damier', D:'À travers', E:'Zoom' };
 const q = new URLSearchParams(location.search);
-let V = NOMS[q.get('v')] ? q.get('v') : 'F';
+let V = NOMS[q.get('v')] ? q.get('v') : 'K';
 if(q.get('propre')) document.body.classList.add('propre');
 let LISTE = null;
 const melange = a => { a = a.slice(); for(let i = a.length - 1; i > 0; i--){ const j = Math.random()*(i + 1) | 0; [a[i], a[j]] = [a[j], a[i]]; } return a; };
@@ -131,6 +143,7 @@ function cellule(k, pair, alim){
 let vagueT = null, lampeT = null;
 function construire(){
   const mur = document.getElementById('mur'); mur.innerHTML = ''; mur.className = ''; mur.removeAttribute('style');
+  if('KLMN'.includes(V)) return scene3d(mur);
   if(V === 'G') return cylindre(mur);
   if(V === 'I') return vague(mur);
   if(V === 'J') return lettres(mur);
@@ -141,7 +154,7 @@ function construire(){
   const produits = melange(LISTE.produits.map((_, i) => i)), aliments = melange(LISTE.aliments);
   let np = 0, na = 0;
   const suivant = (pair, force) => {
-    const alim = force === 'al' || (force !== 'pr' && Math.random() < .18);
+    const alim = false;   // 30/09 (Charles) : uniquement les produits cosmetiques, plus d'aliments
     return alim ? cellule(0, pair, aliments[na++ % aliments.length]) : cellule(produits[np++ % produits.length], pair, null); };
   if(V === 'D'){
     // des rangees qui filent en sens oppose
@@ -165,7 +178,7 @@ function construire(){
     mur.querySelectorAll('.col').forEach(col => col.style.animationPlayState = 'paused'); setTimeout(() => mur.querySelectorAll('.col').forEach(col => col.style.animationPlayState = 'running'), 8000); }
 }
 function appliquer(v){
-  V = v; document.body.className = document.body.className.replace(/\bv-[A-J]\b/g, '').trim() + ' v-' + v; clearTimeout(vagueT); clearInterval(lampeT); document.querySelectorAll('.indice').forEach(e => e.remove());
+  V = v; document.body.className = document.body.className.replace(/\bv-[A-N]\b/g, '').trim() + ' v-' + v; clearTimeout(vagueT); clearInterval(lampeT); cancelAnimationFrame(rafE); espace = null; document.querySelectorAll('.indice').forEach(e => e.remove());
   const plaque = document.querySelector('.plaque-ou-rien'); plaque.className = 'plaque-ou-rien' + (v === 'C' ? ' plaque' : '');
   document.querySelectorAll('#sel a').forEach(a => a.classList.toggle('on', a.dataset.v === v));
   try { const u = new URL(location.href); u.searchParams.set('v', v); history.replaceState(null, '', u); } catch(e){}
@@ -176,6 +189,56 @@ function appliquer(v){
 document.getElementById('sel').innerHTML = Object.entries(NOMS).map(([k, n]) => '<a data-v="' + k + '">' + k + ' · ' + n + '</a>').join('');
 document.getElementById('sel').onclick = e => { const a = e.target.closest('a'); if(a) appliquer(a.dataset.v); };
 let rt; addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(construire, 250); });
+/* ---- K, L, M, N : de vraies scenes 3D. Chaque produit est un point de l'espace, toujours de face (comme un panneau) ;
+   la perspective du navigateur fait le reste. Le doigt ou la souris inclinent la scene. ---- */
+let rafE = 0, espace = null;
+function scene3d(mur){
+  mur.classList.add('n'); document.body.classList.remove('clair');
+  const W = innerWidth, H = innerHeight, petit = W < 700;
+  const st = document.createElement('div'); st.className = 'st3'; mur.appendChild(st);
+  const N = V === 'M' ? (petit ? 150 : 220) : V === 'L' ? (petit ? 90 : 120) : (petit ? 120 : 180);
+  const pr = melange(LISTE.produits.map((_, i) => i));
+  const T = (petit ? .8 : 1)*(V === 'M' ? 110 : V === 'N' ? 64 : V === 'L' ? 92 : 88);
+  const els = [];
+  for(let i = 0; i < N; i++){ const e = document.createElement('div'); e.className = 'p3'; e.style.width = e.style.height = T + 'px';
+    const im = new Image(); im.alt = ''; im.decoding = 'async'; im.src = LISTE.produits[pr[i % pr.length]].i; im.onerror = () => e.remove(); e.appendChild(im); st.appendChild(e); els.push(e); }
+  let rx = 0, ry = 0, trx = 0, try_ = 0, vit = 1, t0 = performance.now(), tPrec = t0, ang = 0;
+  const bouge = ev => { const p = ev.touches ? ev.touches[0] : ev; trx = (p.clientY/innerHeight - .5)*-26; try_ = (p.clientX/innerWidth - .5)*40; vit = 3.2; };
+  addEventListener('pointermove', bouge, { passive:true }); addEventListener('touchmove', bouge, { passive:true });
+  const R0 = Math.min(W, H)*(petit ? .46 : .4);
+  // positions de base, calculees une fois
+  const base = els.map((_, i) => {
+    if(V === 'K'){ const y = 1 - 2*(i + .5)/N, r = Math.sqrt(1 - y*y), th = i*2.39996; return { x:Math.cos(th)*r, y, z:Math.sin(th)*r }; }
+    if(V === 'L'){ const brin = i % 2, k = i >> 1, n2 = N/2; return { k, brin, y:(k/(n2 - 1) - .5) }; }
+    if(V === 'M'){ const anneau = Math.floor(i/10), pos = i % 10; return { anneau, a:pos/10*Math.PI*2 + anneau*.31 }; }
+    const bras = i % 3, r = Math.pow(Math.random(), .7), th = r*5.2 + bras*2.094 + (Math.random() - .5)*.5; return { r, th, h:(Math.random() - .5)*.08 }; });
+  const lg = document.querySelector('#centre .logo').getBoundingClientRect(), zoneX = lg.width*.56, zoneY = lg.height*.8, decY = H/2 - (lg.top + lg.height/2);
+  espace = true;
+  const image = now => {
+    if(!espace || !'KLMN'.includes(V)) return;
+    const dt = Math.min(.05, (now - tPrec)/1000); tPrec = now; vit += (1 - vit)*dt*1.5; ang += dt*vit;
+    rx += (trx - rx)*dt*3; ry += (try_ - ry)*dt*3;
+    st.style.transform = 'rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg)';
+    const t = (now - t0)/1000;
+    els.forEach((e, i) => { const b = base[i]; let x, y, z, o = 1, s = 1;
+      if(V === 'K'){ // la sphere tourne sur elle-meme, legerement penchee
+        const a = ang*.35, c = Math.cos(a), sn = Math.sin(a); const x1 = b.x*c + b.z*sn, z1 = -b.x*sn + b.z*c; const tl = .35, y1 = b.y*Math.cos(tl) - z1*Math.sin(tl), z2 = b.y*Math.sin(tl) + z1*Math.cos(tl);
+        x = x1*R0*1.25; y = y1*R0*1.25; z = z2*R0*1.25; o = .25 + .75*(z2 + 1)/2; }
+      else if(V === 'L'){ // double helice : deux brins, les memes paliers, un demi-tour d'ecart
+        const a = b.k*.36 + ang*.9 + (b.brin ? Math.PI : 0), Rh = R0*(petit ? .72 : .95); x = Math.cos(a)*Rh; z = Math.sin(a)*Rh; y = b.y*H*1.05; o = .3 + .7*(Math.sin(a) + 1)/2; }
+      else if(V === 'M'){ // tunnel : les anneaux arrivent vers nous
+        const prof = 2600, gap = prof/Math.ceil(N/10); let zz = ((b.anneau*gap + t*260) % prof); z = zz - prof + 300; const a = b.a + t*.12, Rt = Math.max(W, H)*.36;
+        x = Math.cos(a)*Rt; y = Math.sin(a)*Rt*.8; o = Math.min(1, (zz)/500)*Math.min(1, (prof - zz + 50)/700); }
+      else { // galaxie spirale, vue en biais
+        const th = b.th + ang*(.25 + .5*(1 - b.r)), rr = b.r*R0*1.9; const px = Math.cos(th)*rr, pz = Math.sin(th)*rr, tl = 1.05;
+        x = px; y = pz*.46 + b.h*R0*2; z = -pz*.75; o = .35 + .65*(1 - b.r*.6); s = .6 + .6*(1 - b.r); }
+      // VYVRE doit rester lisible : ce qui passe devant le nom s'efface
+      if(V !== 'M' && z > -R0*.3 && Math.abs(x) < zoneX && Math.abs(y + decY) < zoneY) o *= .16;
+      e.style.transform = 'translate3d(' + x.toFixed(1) + 'px,' + y.toFixed(1) + 'px,' + z.toFixed(1) + 'px) translate(-50%,-50%) scale(' + s.toFixed(3) + ')';
+      e.style.opacity = Math.max(0, Math.min(1, o)).toFixed(3); });
+    rafE = requestAnimationFrame(image); };
+  rafE = requestAnimationFrame(image);
+}
 /* G · le cylindre */
 function cylindre(mur){
   mur.classList.add('n'); document.body.classList.remove('clair');
@@ -184,7 +247,7 @@ function cylindre(mur){
   const an = document.createElement('div'); an.className = 'anneau'; an.style.height = (nR*T) + 'px';
   const pr = melange(LISTE.produits.map((_, i) => i)), al = melange(LISTE.aliments); let np = 0, na = 0;
   for(let i = 0; i < N; i++){ const p = document.createElement('div'); p.className = 'pan'; p.style.transform = 'rotateY(' + (i*360/N) + 'deg) translateZ(' + Rr + 'px)';
-    for(let r = 0; r < nR; r++){ const pair = (i + r) % 2 === 0; p.appendChild(Math.random() < .2 ? cellule(0, pair, al[na++ % al.length]) : cellule(pr[np++ % pr.length], pair, null)); }
+    for(let r = 0; r < nR; r++){ const pair = (i + r) % 2 === 0; p.appendChild(false ? cellule(0, pair, al[na++ % al.length]) : cellule(pr[np++ % pr.length], pair, null)); }
     an.appendChild(p); }
   mur.appendChild(an);
 }
@@ -206,7 +269,7 @@ function vague(mur){
   mur.style.setProperty('--t', T + 'px');
   const g = document.createElement('div'); g.className = 'grille'; g.style.setProperty('--nc', nc);
   const pr = melange(LISTE.produits.map((_, i) => i)), al = melange(LISTE.aliments); let np = 0, na = 0;
-  const src = () => Math.random() < .22 ? '/propals/damier/a/' + al[na++ % al.length] + '.webp' : LISTE.produits[pr[np++ % pr.length]].i;
+  const src = () => false ? '/propals/damier/a/' + al[na++ % al.length] + '.webp' : LISTE.produits[pr[np++ % pr.length]].i;
   const cartes = [];
   for(let r = 0; r < nr; r++) for(let c = 0; c < nc; c++){ const k = document.createElement('div'); k.className = 'carte ' + ((r + c) % 2 ? 'i' : 'p'); k.r = r; k.c = c;
     k.innerHTML = '<div class="face"><img alt="" src="' + src() + '"></div><div class="dos"><img alt="" src="' + src() + '"></div>'; g.appendChild(k); cartes.push(k); }
@@ -233,7 +296,7 @@ function lettres(mur){
   const x0 = (W - cols*T)/2, y0 = H*.36 - rowsMax*T/2;
   const pr = melange(LISTE.produits.map((_, i) => i)), al = melange(LISTE.aliments);
   pleines.forEach(([c, r], k) => { const e = document.createElement('div'); e.className = 'pion';
-    const im = new Image(); im.alt = ''; im.src = k % 5 === 0 ? '/propals/damier/a/' + al[k % al.length] + '.webp' : LISTE.produits[pr[k % pr.length]].i; e.appendChild(im);
+    const im = new Image(); im.alt = ''; im.src = false ? '/propals/damier/a/' + al[k % al.length] + '.webp' : LISTE.produits[pr[k % pr.length]].i; e.appendChild(im);
     const a = Math.random()*Math.PI*2, dist = Math.max(W, H)*(.6 + Math.random()*.5);
     e.style.transform = 'translate(' + (W/2 + Math.cos(a)*dist) + 'px,' + (H/2 + Math.sin(a)*dist) + 'px) rotate(' + (Math.random()*260 - 130) + 'deg) scale(1.8)'; e.style.opacity = '0';
     e.style.transitionDelay = (Math.random()*1.4).toFixed(2) + 's'; mur.appendChild(e);
