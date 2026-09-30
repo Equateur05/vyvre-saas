@@ -50,7 +50,12 @@ function mesurer(L){
   let bouge = 0; if(prec){ for(let i = 0; i < L.length; i += 12) bouge += Math.hypot((L[i].x - prec[i].x)*W, (L[i].y - prec[i].y)*H); bouge /= Math.ceil(L.length/12); }
   prec = L.map(p => ({ x:p.x, y:p.y }));
   const lisse = (k, v) => MES && MES[k] != null ? MES[k] + (v - MES[k])*.25 : v;
-  window.__vyMES = MES = { lumiere:lisse('lumiere', tot.n ? tot.L/tot.n : 0), cadrage:lisse('cadrage', (x1 - x0)*100), stabilite:lisse('stabilite', bouge), relief:lisse('relief', (zmax - zmin)*1000), points:L.length, zones:out };
+  /* 01/10 : de face ? (le nez a egale distance des deux joues) ; sert a declencher la lecture au bon moment */
+  const dG = Math.hypot(L[1].x - L[234].x, L[1].y - L[234].y), dD = Math.hypot(L[1].x - L[454].x, L[1].y - L[454].y), lacet = (dG - dD)/((dG + dD) || 1);
+  const tang = Math.abs(L[33].y - L[263].y)/(Math.abs(L[33].x - L[263].x) || 1);
+  window.__vyMES = MES = { lacet, roulis:tang, lumiere:lisse('lumiere', tot.n ? tot.L/tot.n : 0), cadrage:lisse('cadrage', (x1 - x0)*100), stabilite:lisse('stabilite', bouge), relief:lisse('relief', (zmax - zmin)*1000), points:L.length, zones:out };
+  MES.pret = Math.abs(MES.lacet) < .16 && MES.roulis < .12 && MES.stabilite < 2.2 && MES.cadrage > 30 && MES.cadrage < 75 && MES.lumiere > 36 && MES.lumiere < 84;
+  MES.conseil = Math.abs(MES.lacet) >= .16 || MES.roulis >= .12 ? 'Regardez droit vers la caméra.' : MES.stabilite >= 2.2 ? 'Ne bougez plus.' : MES.cadrage <= 30 ? 'Rapprochez-vous un peu.' : MES.cadrage >= 75 ? 'Reculez un peu.' : MES.lumiere <= 36 ? 'Un peu plus de lumière.' : MES.lumiere >= 84 ? 'Évitez le contre-jour.' : 'Parfait, on lit votre peau.';
 }
 let tPanneau = 0;
 function panneau(now){
@@ -83,7 +88,7 @@ function boucle(now){
   const a = actif; if(!a) return;
   if(!a.boite.isConnected || !a.media.isConnected){ arreter(); return; }
   const [sw, sh] = taillesSource(a.media);
-  if(sw && sh && now - a.ts > 45){
+  if(sw && sh && now - a.ts > 90){   /* 01/10 : 11 lectures par seconde suffisent ; la video reste fluide */
     a.ts = now;
     let r = null; try { r = face.detectForVideo(image(a.media), now); } catch(e){}
     const n = r && r.faceLandmarks && r.faceLandmarks[0];
@@ -165,5 +170,6 @@ function chercher(){
   if(pret) poser(m.closest('.camera'), m);
   else if(!m.__vyCarto){ m.__vyCarto = 1; m.addEventListener(m.tagName === 'VIDEO' ? 'playing' : 'load', chercher, { once:true }); }
 }
+window.vyCartoPrechauffe = () => moteur().catch(() => {});   /* chargement anticipe pendant les questions */
 new MutationObserver(chercher).observe(document.documentElement, { childList:true, subtree:true });
 chercher();
