@@ -37,7 +37,7 @@ const INFO = {
   G:'G · En haut à droite : un petit sélecteur Peau | Cheveux | Aliment ; le reste dans le petit bouton.',
   H:'H · En haut à droite, sur deux lignes : les trois scans, puis Manifeste, Méthode, Pour les marques.' };
 const LIENS = [['Manifeste','/manifeste'],['Méthode','/accuracy'],['Pour les marques','/marques']];
-const SCANS = [['Peau','/scan/'],['Cheveux','/cheveux'],['Aliment','/propals/intro-aliment']];
+const SCANS = [['Peau','/scan/'],['Cheveux','/cheveux'],['Aliment','/aliment']];
 const BASE = `
 header .vy-menu{display:none!important}
 #vp-voile{position:fixed;inset:0;z-index:300;background:rgba(5,5,6,.95);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);opacity:0;pointer-events:none;transition:opacity .35s;padding:130px 28px 0;font-family:Inter,sans-serif}
@@ -129,7 +129,7 @@ function appliquer(){
   if(M === 'C'){ const v = voile('<div class="g">LES SCANS</div>' + [['Peau','La lumière de votre peau'],['Cheveux','Face, profils, crâne, nuque'],['Aliment','Ce qui nourrit votre peau']].map((s, k) => '<a class="gros" href="' + SCANS[k][1] + '"><span style="font-size:11px">' + String(k + 1).padStart(2, '0') + '</span><b>' + s[0] + '<small>' + s[1] + '</small></b></a>').join('') + '<div class="g">VYVRE</div>' + liens); bouton('<i></i>MENU', v); }
   if(M === 'D' && nav){
     const peau = d.createElement('a'); peau.href = '/scan/'; peau.textContent = 'Scan peau'; peau.setAttribute('data-vp-ajout', ''); nav.insertBefore(peau, nav.firstChild);
-    const al = d.createElement('a'); al.href = '/propals/intro-aliment'; al.textContent = 'Scan aliment'; al.className = 'vp-nv'; al.setAttribute('data-vp-ajout', ''); nav.insertBefore(al, nav.children[2]);
+    const al = d.createElement('a'); al.href = '/aliment'; al.textContent = 'Scan aliment'; al.className = 'vp-nv'; al.setAttribute('data-vp-ajout', ''); nav.insertBefore(al, nav.children[2]);
     (ici ? nav.querySelector('.vy-autre') : peau).classList.add('vp-on'); }
   if(M === 'F' || M === 'G'){ const v = voile(liens); const d0 = el('<div id="vp-d"><nav class="sc">' + SCANS.map((sc, k) => '<a href="' + sc[1] + '"' + (k === ici ? ' class="on"' : '') + '>' + sc[0] + '</a>').join('') + '</nav><button class="burger" aria-label="Menu"><i></i></button></div>', brand);
     d0.querySelector('.burger').onclick = () => v.classList.toggle('on'); ranger(d, d0, d0.querySelector('.burger')); }
