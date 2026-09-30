@@ -34,7 +34,7 @@ const INFO = {
   D:'D · Une barre lisible : le même menu qu’aujourd’hui, en vrai texte blanc de 14 px, qui défile au doigt.',
   E:'E · La capsule : une capsule de verre avec les trois scans ; le « + » l’ouvre pour le reste.' };
 const LIENS = [['Manifeste','/manifeste'],['Méthode','/accuracy'],['Pour les marques','/marques']];
-const SCANS = [['Peau','/scan/'],['Cheveux','/cheveux'],['Aliment','/propals/aliment/']];
+const SCANS = [['Peau','/scan/'],['Cheveux','/cheveux'],['Aliment','/scan/?assiette=1']];
 const BASE = `
 header .vy-menu{display:none!important}
 #vp-voile{position:fixed;inset:0;z-index:300;background:rgba(5,5,6,.95);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);opacity:0;pointer-events:none;transition:opacity .35s;padding:130px 28px 0;font-family:Inter,sans-serif}
@@ -100,7 +100,7 @@ function appliquer(){
   if(M === 'C'){ const v = voile('<div class="g">LES SCANS</div>' + [['Peau','La lumière de votre peau'],['Cheveux','Face, profils, crâne, nuque'],['Aliment','Ce qui nourrit votre peau']].map((s, k) => '<a class="gros" href="' + SCANS[k][1] + '"><span style="font-size:11px">' + String(k + 1).padStart(2, '0') + '</span><b>' + s[0] + '<small>' + s[1] + '</small></b></a>').join('') + '<div class="g">VYVRE</div>' + liens); bouton('<i></i>MENU', v); }
   if(M === 'D' && nav){
     const peau = d.createElement('a'); peau.href = '/scan/'; peau.textContent = 'Scan peau'; peau.setAttribute('data-vp-ajout', ''); nav.insertBefore(peau, nav.firstChild);
-    const al = d.createElement('a'); al.href = '/propals/aliment/'; al.textContent = 'Scan aliment'; al.className = 'vp-nv'; al.setAttribute('data-vp-ajout', ''); nav.insertBefore(al, nav.children[2]);
+    const al = d.createElement('a'); al.href = '/scan/?assiette=1'; al.textContent = 'Scan aliment'; al.className = 'vp-nv'; al.setAttribute('data-vp-ajout', ''); nav.insertBefore(al, nav.children[2]);
     (ici ? nav.querySelector('.vy-autre') : peau).classList.add('vp-on'); }
   if(M === 'E'){ const c = el('<div id="vp-cap"><div class="l1"><nav>' + SCANS.map((s, k) => '<a href="' + s[1] + '"' + (k === ici ? ' class="on"' : '') + '>' + s[0] + '</a>').join('') + '</nav><button>+</button></div><div class="reste">' + LIENS.map(l => '<a href="' + l[1] + '">' + l[0] + '</a>').join('') + '</div></div>');
     const b = c.querySelector('button'); b.onclick = () => { c.classList.toggle('ouv'); b.textContent = c.classList.contains('ouv') ? '×' : '+'; }; }
