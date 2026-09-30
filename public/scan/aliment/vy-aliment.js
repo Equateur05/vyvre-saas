@@ -268,12 +268,13 @@
             + (f.etudes.length ? '<details><summary>Les études (' + f.etudes.length + ')</summary>' + f.etudes.map(function(s){ return '<a href="' + esc(s.lien) + '" target="_blank" rel="noopener">' + esc(s.ref) + ' ↗</a>'; }).join('') + '</details>' : '')
             + '</div></div>'; }).join('')
       + (une ? '<p class="fine">À intégrer dans une alimentation variée et équilibrée et un mode de vie sain.</p>' : '')
+      + '<div id="vy-as-geo"></div>'
       + rythme()
       + '<div id="vy-as-combo"></div>'
       + recette(pris, e.x)
       + '<button class="btn" type="button" id="vy-as-rep">Modifier mes réponses</button>'
       + '<p class="fine">Information générale, pas un avis médical. Composition : table CIQUAL 2020 (ANSES). Allégations : registre de l’Union européenne (Règlement 1924/2006).</p>';
-    feuille(h, 'jour'); document.getElementById('vy-as-rep').onclick = questionnaire;
+    feuille(h, 'jour'); document.getElementById('vy-as-rep').onclick = questionnaire; presDeVous(pris);
     catalogue().then(function(){ var z = document.getElementById('vy-as-combo'); if(z) z.innerHTML = combos(ind, pris); }); }
 
   function rythme(){ if(a('q6','moins18')) return '<h2>Rythme.</h2><div class="rit"><i>01</i><div><h3>Bouger</h3><p>Une heure par jour en moyenne (OMS 2020). Pour l’acné ou le poids, parlez-en à votre médecin traitant.</p></div></div>';
@@ -293,6 +294,43 @@
       .map(function(r){ return { r:r, n:r.ing.filter(function(i){ return ids.indexOf(i) >= 0; }).length }; }).sort(function(p, q){ return q.n - p.n; })[0];
     if(!ok) return '';
     return '<h2>Recette.</h2><div class="rit"><i>01</i><div><h3>' + esc(ok.r.n) + '</h3><p>' + esc(ok.r.t) + '</p><div class="prec" style="color:#52716f">Allergènes : ' + (ok.r.al.length ? ok.r.al.map(function(z){ return AL_NOM[z]; }).join(', ') : 'aucun des 14 allergènes réglementés') + '.</div></div></div>'; }
+
+  /* ---- PRES DE VOUS : ou acheter ces aliments, autour de soi (OpenStreetMap, sans compte) ----
+     La position est arrondie a environ 1 km avant d'etre envoyee, et n'est jamais enregistree. */
+  /* 30/09 (Charles) : pour le moment, seulement les magasins bio et supermarches bio */
+  var ENSEIGNES_BIO = "Biocoop|Naturalia|La Vie Claire|Bio c.? ?Bon|Comptoirs de la Bio|Eau Vive|Satoriz|Natur.?O|Biomonde|Marcel ?& ?Fils|Mon Bio";
+  var TYPES = [
+    { id:'bio', nom:'Magasins bio', q:'nwr["shop"="organic"];nwr["organic"="only"]["shop"];nwr["shop"~"supermarket|convenience|health_food|greengrocer"]["name"~"' + ENSEIGNES_BIO + '",i];nwr["shop"]["brand"~"' + ENSEIGNES_BIO + '",i]', pour:['*'] } ];
+  function presDeVous(pris){ var z = document.getElementById('vy-as-geo'); if(!z) return;
+    var cats = {}; pris.forEach(function(c){ cats[c.f.categorie] = 1; });
+    var types = TYPES.filter(function(t){ return t.pour.indexOf('*') >= 0 || t.pour.some(function(c){ return cats[c]; }); });
+    z.innerHTML = '<h2>Près de vous.</h2><p class="lead">Les magasins bio autour de vous, pour trouver ces aliments.</p>'
+      + '<button class="btn" type="button" id="vy-as-geo-go">Trouver près de moi</button>'
+      + '<p class="fine">Votre position est arrondie à environ 1 km, sert seulement à cette recherche sur la carte ouverte OpenStreetMap, et n’est jamais enregistrée.</p>';
+    document.getElementById('vy-as-geo-go').onclick = function(){ var b = this; b.disabled = true; b.textContent = 'Recherche autour de vous…';
+      if(!navigator.geolocation){ b.textContent = 'Localisation indisponible sur cet appareil'; return; }
+      navigator.geolocation.getCurrentPosition(function(pos){ chercher(z, types, Math.round(pos.coords.latitude*100)/100, Math.round(pos.coords.longitude*100)/100, 1500); },
+        function(){ b.disabled = false; b.textContent = 'Trouver près de moi'; var p2 = document.createElement('div'); p2.className = 'alerte'; p2.textContent = 'La localisation est refusée. Vous pouvez l’autoriser dans les réglages du navigateur.'; z.appendChild(p2); },
+        { enableHighAccuracy:false, timeout:12000, maximumAge:600000 }); }; }
+  function horaires(h){ var J = { Mo:'lun.', Tu:'mar.', We:'mer.', Th:'jeu.', Fr:'ven.', Sa:'sam.', Su:'dim.', PH:'fériés' };
+    return String(h).replace(/\b(Mo|Tu|We|Th|Fr|Sa|Su|PH)\b/g, function(m){ return J[m]; }).replace(/(\d{2}):(\d{2})/g, function(m, H, M){ return (+H) + ' h' + (M === '00' ? '' : ' ' + M); })
+      .replace(/-/g, '–').replace(/;\s*/g, ' · ').replace(/\boff\b/g, 'fermé'); }
+  function distance(a1, o1, a2, o2){ var R = 6371000, r = Math.PI/180, d1 = (a2 - a1)*r, d2 = (o2 - o1)*r, h = Math.sin(d1/2)*Math.sin(d1/2) + Math.cos(a1*r)*Math.cos(a2*r)*Math.sin(d2/2)*Math.sin(d2/2); return 2*R*Math.asin(Math.sqrt(h)); }
+  function chercher(z, types, lat, lon, rayon){
+    var q = '[out:json][timeout:20];(' + types.map(function(t){ return t.q.split(';').map(function(x){ return x + '(around:' + rayon + ',' + lat + ',' + lon + ');'; }).join(''); }).join('') + ');out center tags 200;';
+    var essai = function(url){ return fetch(url + '?data=' + encodeURIComponent(q)).then(function(r){ if(!r.ok) throw 0; return r.json(); }); };
+    essai('https://overpass-api.de/api/interpreter').catch(function(){ return essai('https://overpass.kumi.systems/api/interpreter'); }).then(function(j){
+      var el = (j.elements || []).map(function(e){ var t = e.tags || {}, la = e.lat || (e.center && e.center.lat), lo = e.lon || (e.center && e.center.lon); if(!la) return null;
+        var type = 'bio';
+        if(!type) return null; return { type:type, nom:t.name || t.brand || (type === 'marche' ? 'Marché' : ''), h:t.opening_hours || '', la:la, lo:lo, d:distance(lat, lon, la, lo) }; }).filter(function(x){ return x && x.nom; });
+      if(el.length < 4 && rayon < 5000) return chercher(z, types, lat, lon, 4000);
+      var ios = /iP(hone|ad|od)/.test(navigator.userAgent);
+      var lien = function(x){ return ios ? 'https://maps.apple.com/?daddr=' + x.la + ',' + x.lo + '&q=' + encodeURIComponent(x.nom) : 'https://www.google.com/maps/dir/?api=1&destination=' + x.la + ',' + x.lo; };
+      var html = types.map(function(t){ var l = el.filter(function(x){ return x.type === t.id; }).sort(function(p, q2){ return p.d - q2.d; }).slice(0, 5); if(!l.length) return '';
+        return '<div class="rit"><i>' + t.nom.slice(0, 2).toLowerCase() + '</i><div><h3>' + esc(t.nom) + '</h3>' + l.map(function(x){ return '<a class="prod" style="background:rgba(24,59,62,.06);color:#183b3e" href="' + lien(x) + '" target="_blank" rel="noopener"><span><b>' + (x.d < 1000 ? Math.round(x.d/10)*10 + ' m' : String(Math.round(x.d/100)/10).replace('.', ',') + ' km') + ' · itinéraire</b>' + esc(x.nom) + (x.h ? '<br><small style="opacity:.7">' + esc(horaires(x.h)) + '</small>' : '') + '</span></a>'; }).join('') + '</div></div>'; }).join('');
+      z.innerHTML = '<h2>Près de vous.</h2>' + (html || '<p class="lead">Aucun commerce référencé autour de vous sur la carte ouverte.</p>')
+        + '<p class="fine">Distances à vol d’oiseau depuis votre position arrondie. Commerces et horaires : © contributeurs OpenStreetMap (licence ODbL), à vérifier avant de vous déplacer.</p>'; })
+    .catch(function(){ var b = document.getElementById('vy-as-geo-go'); if(b){ b.disabled = false; b.textContent = 'Réessayer'; } }); }
 
   window.vyAliment = { entree:entree, ouvrir:ouvrir };
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape') fermer(); });
