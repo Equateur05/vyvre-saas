@@ -68,7 +68,7 @@
     r.q10 = REP.q10p ? [REP.q10p] : []; REP = r; }
   function charger(){ if(DATA) return Promise.resolve();
     return fetch(BASE + 'aliments_v4.json?v=1').then(function(r){ return r.json(); }).then(function(j){ DATA = j.aliments; })
-      .then(function(){ return fetch(BASE + 'recettes.json?v=1').then(function(r){ return r.json(); }).then(function(j){ RECS = j.recettes || []; }).catch(function(){ RECS = []; }); })
+      .then(function(){ return fetch(BASE + 'recettes.json?v=2').then(function(r){ return r.json(); }).then(function(j){ RECS = j.recettes || []; }).catch(function(){ RECS = []; }); })
       .then(function(){ return fetch(BASE + 'tendances.json?v=1').then(function(r){ return r.json(); }).then(function(j){ TEND = j.tendances || []; }).catch(function(){ TEND = []; }); })
       .then(function(){ return fetch(BASE + 'photos/credits.json?v=2').then(function(r){ return r.json(); }).then(function(j){ CREDITS = j || {}; }).catch(function(){ CREDITS = {}; }); })
       .then(function(){ return fetch(BASE + 'combos.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(j){ COMBOS = j; }).catch(function(){}); }); }

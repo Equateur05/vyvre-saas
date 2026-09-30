@@ -68,7 +68,7 @@
     r.q10 = REP.q10p ? [REP.q10p] : []; REP = r; }
   function charger(){ if(DATA) return Promise.resolve();
     return fetch(BASE + 'aliments_v4.json?v=1').then(function(r){ return r.json(); }).then(function(j){ DATA = j.aliments; })
-      .then(function(){ return fetch(BASE + 'recettes.json?v=1').then(function(r){ return r.json(); }).then(function(j){ RECS = j.recettes || []; }).catch(function(){ RECS = []; }); })
+      .then(function(){ return fetch(BASE + 'recettes.json?v=2').then(function(r){ return r.json(); }).then(function(j){ RECS = j.recettes || []; }).catch(function(){ RECS = []; }); })
       .then(function(){ return fetch(BASE + 'tendances.json?v=1').then(function(r){ return r.json(); }).then(function(j){ TEND = j.tendances || []; }).catch(function(){ TEND = []; }); })
       .then(function(){ return fetch(BASE + 'photos/credits.json?v=2').then(function(r){ return r.json(); }).then(function(j){ CREDITS = j || {}; }).catch(function(){ CREDITS = {}; }); })
       .then(function(){ return fetch(BASE + 'combos.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(j){ COMBOS = j; }).catch(function(){}); }); }
@@ -634,7 +634,7 @@
       if(AFFINE.usage === 'quotidien') sc += r.usage === 'quotidien' ? .5 : -1; return sc; };
     var liste = sures.filter(function(r){ return r.type === ONGLET; }).sort(function(p, q){ return note(q) - note(p); });
     var carte = function(r, k){ var cout = ['', '€', '€€', '€€€'][r.prix_niveau] || '';
-      return '<div class="rit"><i>' + n2(k) + '</i><div><h3>' + esc(r.nom) + '</h3><div class="sous">' + r.temps_min + ' min · ' + r.personnes + ' pers. · ' + (cout ? esc(cout) + ' · ' : '') + esc((CUISINES.filter(function(c){ return c[0] === r.cuisine; })[0] || ['', 'Universelle'])[1]) + '</div>'
+      return '<div class="rit"><i>' + n2(k) + '</i><div><h3>' + esc(r.nom) + '</h3>' + (r.accroche ? '<p style="margin:4px 0 6px;line-height:1.55">' + esc(r.accroche) + '</p>' : '') + '<div class="sous">' + r.temps_min + ' min · ' + r.personnes + ' pers. · ' + (cout ? esc(cout) + ' · ' : '') + esc((CUISINES.filter(function(c){ return c[0] === r.cuisine; })[0] || ['', 'Universelle'])[1]) + '</div>'
         + '<details><summary>Ingrédients et étapes</summary><p>' + r.ingredients.map(function(g){ return esc(g.quantite + ' ' + g.libelle); }).join(' · ') + '</p>' + r.etapes.map(function(e2, m){ return '<p><b style="font-weight:500">' + (m + 1) + '.</b> ' + esc(e2); }).join('</p>') + '</p>'
         + (r.notes || []).map(function(t){ return '<div class="prec" style="color:#52716f">' + esc(t) + '</div>'; }).join('') + '</details>'
         + '<div class="prec" style="color:#52716f">Allergènes : ' + ((r.allergenes_UE || []).length ? r.allergenes_UE.map(function(z){ return NOMS_AL[z] || z; }).join(', ') : 'aucun des 14 allergènes réglementés') + ((r.allergenes_possibles || []).length ? ' ; selon la marque : ' + r.allergenes_possibles.map(function(z){ return NOMS_AL[z] || z; }).join(', ') : '') + '.</div></div></div>'; };
