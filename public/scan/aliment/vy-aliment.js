@@ -41,7 +41,7 @@
     { n:'Porridge d’avoine, kiwi et noix', ing:['flocons_avoine','kiwi','noix','yaourt_nature'], al:['cereales_gluten','fruits_a_coque','lait'], t:'Cuire les flocons d’avoine cinq minutes, servir avec un kiwi en dés, quelques noix et une cuillère de yaourt nature.' },
     { n:'Patate douce rôtie, pois chiches et épinards', ing:['patate_douce','pois_chiche','epinard','huile_olive'], al:[], t:'Rôtir la patate douce en cubes 30 minutes, ajouter les pois chiches, puis les épinards juste fondus à la poêle.' } ];
 
-  var DATA = null, COMBOS = null, RECS = [], TEND = [], REP = {}, ouvert = null;
+  var DATA = null, COMBOS = null, RECS = [], TEND = [], CREDITS = {}, REP = {}, ouvert = null;
   var TEINTE = { legume:'#5f8f5b', fruit:'#c8563f', poisson:'#4f7896', fruit_de_mer:'#6b8fa8', legumineuse:'#b58a3c', cereale_complete:'#c9a45c', feculent:'#c9a45c', graine:'#a99270', fruit_a_coque:'#9b7650', fruit_sec:'#8a5a3c', cacao:'#5b3a29', boisson:'#6aa39b', matiere_grasse:'#9aa04a', produit_laitier_fermente:'#d7cdb8', produit_laitier:'#d7cdb8', fromage:'#e0c98a', oeuf:'#e6c27a', epice_herbe:'#7a9a55', viande:'#a3473f', volaille:'#c9956b', condiment:'#8d7a5c', sucre:'#caa46a' };
   /* 30/09 : questionnaire v2 (_nutrition/QUESTIONNAIRE_V2.md). Une seule question, « Quelque chose a eviter ? ».
      Les reponses vivent en memoire ; elles ne sont gardees sur l'appareil que si la personne allume « Garder ». */
@@ -70,6 +70,7 @@
     return fetch(BASE + 'aliments_v4.json?v=1').then(function(r){ return r.json(); }).then(function(j){ DATA = j.aliments; })
       .then(function(){ return fetch(BASE + 'recettes.json?v=1').then(function(r){ return r.json(); }).then(function(j){ RECS = j.recettes || []; }).catch(function(){ RECS = []; }); })
       .then(function(){ return fetch(BASE + 'tendances.json?v=1').then(function(r){ return r.json(); }).then(function(j){ TEND = j.tendances || []; }).catch(function(){ TEND = []; }); })
+      .then(function(){ return fetch(BASE + 'photos/credits.json?v=1').then(function(r){ return r.json(); }).then(function(j){ CREDITS = j || {}; }).catch(function(){ CREDITS = {}; }); })
       .then(function(){ return fetch(BASE + 'combos.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(j){ COMBOS = j; }).catch(function(){}); }); }
   function esc(t){ return String(t == null ? '' : t).replace(/([A-Za-zÀ-ÿ])'([A-Za-zÀ-ÿ])/g, '$1’$2').replace(/[&<>"]/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]; }); }
   function a(cle, v){ var r = REP[cle]; return Array.isArray(r) ? r.indexOf(v) >= 0 : r === v; }
@@ -171,6 +172,9 @@
     if(riche.length) txt += ' riche en ' + riche.slice(0, 3).join(', ');
     if(source.length) txt += (riche.length ? ', source de ' : ' source de ') + source.slice(0, 3).join(', ');
     return txt === cat ? cat + ', pour varier votre assiette.' : txt + ' (pour 100 g, table CIQUAL).'; }
+  /* credit photo : obligatoire pour les licences CC BY et CC BY-SA (la photo detouree garde la meme licence) */
+  function credit(id){ var c = CREDITS[id]; if(!c) return ''; var lic = String(c.licence || '').toUpperCase().replace('BY-SA', 'BY-SA').replace(/^CC0$/, 'CC0');
+    return '<div class="preuve" style="text-transform:none;letter-spacing:.2px;font-size:10.5px;opacity:.7;margin-top:10px">Photo : ' + esc(c.auteur || 'auteur inconnu') + ', ' + (c.licence_url ? '<a href="' + esc(c.licence_url) + '" target="_blank" rel="noopener" style="color:inherit">' + esc(lic) + '</a>' : esc(lic)) + (c.source_url ? ', <a href="' + esc(c.source_url) + '" target="_blank" rel="noopener" style="color:inherit">source</a>' : '') + (/SA/.test(lic) ? ' ; détourée par vyvre, même licence.' : ' ; détourée par vyvre.') + '</div>'; }
   function allegation(f){ var t = f.allegation_UE_autorisee; if(!t || /vitamine A|cuivre|pigmentation/i.test(t)) return null; return t; }   // vitamine A vegetale : avis juridique d'abord ; cuivre : jamais pour les taches
   function saison(f){ var s = (f.saison || []).slice().sort(function(a1, b1){ return a1 - b1; }); if(!s.length) return 'saison non renseignée'; if(s.length >= 12) return 'toute l’année';
     var p = [], d = s[0], pr = s[0]; for(var i = 1; i <= s.length; i++){ if(i < s.length && s[i] === pr + 1){ pr = s[i]; continue; } p.push([d, pr]); if(i < s.length){ d = s[i]; pr = s[i]; } }
@@ -530,6 +534,7 @@
             + (f.allergenes_UE.length ? '<div class="prec">Allergènes : ' + f.allergenes_UE.map(function(z){ return AL_NOM[z] || z; }).join(', ') + ((f.allergenes_possibles || []).length ? ' ; selon la marque : ' + f.allergenes_possibles.map(function(z){ return AL_NOM[z] || z; }).join(', ') : '') + '.</div>' : '')
             + pr.map(function(t){ return '<div class="prec">' + esc(t) + '</div>'; }).join('')
             + (f.etudes.length ? '<details><summary>Ce que disent les études (' + f.etudes.length + ')</summary><p style="font-size:12.5px">' + esc(f.mecanisme_simple) + ' Information scientifique générale : ce n’est pas un effet attendu de cet aliment sur votre peau.</p>' + f.etudes.map(function(s){ return '<a href="' + esc(s.lien) + '" target="_blank" rel="noopener">' + esc(s.ref) + ' ↗</a>'; }).join('') + '</details>' : '')
+            + credit(f.id)
             + (prudent ? '' : '<a href="#" class="vy-as-pas" data-id="' + f.id + '" style="display:inline-block;margin-top:12px;font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:#52716f">Retirer cet aliment</a>')
             + '</div></div>'; }).join('')
       + (une ? '<p class="fine">À intégrer dans une alimentation variée et équilibrée et un mode de vie sain.</p>' : '')
