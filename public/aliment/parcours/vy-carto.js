@@ -50,7 +50,7 @@ function mesurer(L){
   let bouge = 0; if(prec){ for(let i = 0; i < L.length; i += 12) bouge += Math.hypot((L[i].x - prec[i].x)*W, (L[i].y - prec[i].y)*H); bouge /= Math.ceil(L.length/12); }
   prec = L.map(p => ({ x:p.x, y:p.y }));
   const lisse = (k, v) => MES && MES[k] != null ? MES[k] + (v - MES[k])*.25 : v;
-  MES = { lumiere:lisse('lumiere', tot.n ? tot.L/tot.n : 0), cadrage:lisse('cadrage', (x1 - x0)*100), stabilite:lisse('stabilite', bouge), relief:lisse('relief', (zmax - zmin)*1000), points:L.length, zones:out };
+  window.__vyMES = MES = { lumiere:lisse('lumiere', tot.n ? tot.L/tot.n : 0), cadrage:lisse('cadrage', (x1 - x0)*100), stabilite:lisse('stabilite', bouge), relief:lisse('relief', (zmax - zmin)*1000), points:L.length, zones:out };
 }
 let tPanneau = 0;
 function panneau(now){
