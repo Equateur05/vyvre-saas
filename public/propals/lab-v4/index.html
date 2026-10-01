@@ -1,0 +1,627 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VYVRE · Lab V4</title>
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&family=Newsreader:opsz,wght@6..72,400;6..72,500&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* 01/10 (Charles) : propale « VYVRE · Lab », dans l'esprit d'un laboratoire de mesure filme comme un documentaire :
+   ecrans turquoise et rouille, traces blancs lumineux, grille de points, grands chiffres au trait, etiquettes machine a ecrire,
+   corps en trame de points, ecran photographie (perspective, flou de profondeur, grain). Tout est VYVRE : aucun nom ni logo tiers.
+   Parcours complet : intro, accueil, prenom, preparation, imagerie (vraie camera), trame, organisation, lecture terminee, resultats. */
+*{box-sizing:border-box;margin:0;padding:0}
+:root{--ligne:#e6fbf9;--glow:0 0 12px rgba(230,251,249,.55);--mono:'IBM Plex Mono',ui-monospace,monospace;--sans:Figtree,-apple-system,sans-serif;--serif:Newsreader,Georgia,serif;--jaune:#f0c84f}
+html,body{height:100%;overflow:hidden;background:#0d0b09}
+body{font-family:var(--sans);color:var(--ligne);-webkit-font-smoothing:antialiased;background:radial-gradient(120% 90% at 50% 40%,#2a241d 0%,#120f0c 60%,#080706 100%)}
+.scene{position:fixed;inset:0;perspective:1800px;perspective-origin:50% 45%;display:grid;place-items:center}
+.pivot{transform-style:preserve-3d;transform:rotateY(var(--my,0deg)) rotateX(var(--mx,0deg));transition:transform .9s cubic-bezier(.2,.7,.2,1);will-change:transform}
+.ecran{--W:min(1500px,113vw);--H:min(900px,111svh);--px:max(30px,calc((var(--W) - 100vw)/2 + 34px));--py:max(26px,calc((var(--H) - 100svh)/2 + 30px));position:relative;flex:none;width:var(--W);height:var(--H);border-radius:30px;overflow:hidden;transform-style:preserve-3d;
+  transform:rotateY(var(--ry,0deg)) rotateX(var(--rx,0deg)) rotateZ(var(--rz,0deg)) translateZ(var(--tz,0px));transition:transform 1.8s cubic-bezier(.3,.7,.2,1),background 1.2s ease;
+  box-shadow:0 0 0 10px #e7dfcf,0 0 0 11px rgba(0,0,0,.25),0 60px 120px -30px rgba(0,0,0,.8);animation:derive 14s ease-in-out infinite alternate}
+@keyframes derive{0%{translate:0 0}100%{translate:6px -4px}}
+.t-teal{background:radial-gradient(120% 95% at 28% 18%,#5dbbbd 0%,#2f9097 45%,#1b6c75 100%)}
+.t-bleu{background:radial-gradient(110% 90% at 50% 45%,#2a9cb8 0%,#16799a 50%,#0c5470 100%)}
+.t-rouille{background:radial-gradient(120% 95% at 30% 20%,#b5532f 0%,#8f3820 50%,#6a2414 100%)}
+.t-aqua{background:linear-gradient(170deg,#c3eceb 0%,#a2dcdd 45%,#83cbd0 100%)}
+/* matieres de l'ecran filme : points LED, lignes de balayage, grain, reflet, flou de profondeur */
+.ecran::before{content:'';position:absolute;inset:0;pointer-events:none;z-index:5;background-image:radial-gradient(rgba(255,255,255,.07) .8px,transparent 1.3px),repeating-linear-gradient(0deg,rgba(0,0,0,.035) 0 1px,transparent 1px 3px);background-size:6px 6px,100% 3px}
+.ecran::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:6;background:linear-gradient(115deg,rgba(255,255,255,.10) 0%,rgba(255,255,255,0) 32%),url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='.16'/></svg>");mix-blend-mode:overlay}
+.vignette{position:absolute;inset:0;z-index:7;pointer-events:none;background:radial-gradient(120% 100% at 50% 50%,transparent 60%,rgba(0,0,0,.28) 100%)}
+.flou{display:none;position:absolute;inset:0;z-index:7;pointer-events:none;backdrop-filter:blur(var(--fl,5px));-webkit-backdrop-filter:blur(var(--fl,5px));-webkit-mask-image:linear-gradient(var(--fd,90deg),#000 0%,transparent 34%,transparent 74%,#000 100%);mask-image:linear-gradient(var(--fd,90deg),#000 0%,transparent 34%,transparent 74%,#000 100%)}
+.vue{position:absolute;inset:0;padding:var(--py) var(--px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .6s ease,visibility 0s linear .6s}
+.vue.on{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .6s ease .15s,visibility 0s}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase}
+.lum{color:var(--ligne);text-shadow:var(--glow),.7px 0 rgba(255,90,90,.22),-.7px 0 rgba(90,210,255,.22)}
+.dof{transition:filter 1.2s ease}
+.fleche{display:inline-grid;place-items:center;width:52px;height:52px;border-radius:12px;background:rgba(255,255,255,.18);box-shadow:inset 0 0 0 1px rgba(255,255,255,.35);color:var(--ligne);font-size:22px;cursor:pointer;transition:transform .3s,background .3s;border:0}
+.fleche:hover{transform:translateX(3px);background:rgba(255,255,255,.28)}
+.fleche{position:relative;overflow:hidden}.fleche::before{content:'';position:absolute;inset:0;background:rgba(255,255,255,.55);transform:scaleX(0);transform-origin:left}
+.fleche.remplit::before{animation:remplit var(--d,2.5s) linear forwards}@keyframes remplit{to{transform:scaleX(1)}}
+.statut .fleche{width:64px;height:64px;font-size:26px}
+.sous-titre{position:absolute;left:0;right:0;bottom:12%;text-align:center;font:500 clamp(20px,2.4vw,30px) var(--sans);color:var(--jaune);text-shadow:0 2px 14px rgba(0,0,0,.45);opacity:0;transition:opacity .8s;z-index:4}
+.sous-titre.on{opacity:1}.sous-titre i{font-style:italic}
+.points{position:absolute;inset:0;background-image:radial-gradient(rgba(230,251,249,.38) 1.1px,transparent 1.8px);background-size:38px 38px;pointer-events:none;opacity:.55}
+.cam-box{overflow:hidden}.cam-box video{position:absolute;left:0;top:0;width:100%;height:100%;object-fit:fill;transform:scaleX(-1);filter:grayscale(1) contrast(1.25) brightness(1.15);mix-blend-mode:luminosity;opacity:.6;border-radius:inherit}.cam-box canvas{position:absolute;inset:0;width:100%;height:100%}
+.grille{position:absolute;inset:calc(var(--py) + 70px) var(--px) calc(var(--py) + 52px) var(--px);border-radius:18px;box-shadow:inset 0 0 0 1.5px rgba(230,251,249,.35);background-image:linear-gradient(rgba(230,251,249,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(230,251,249,.10) 1px,transparent 1px);background-size:100% 25%,16.66% 100%}
+.grille::before{content:'';position:absolute;inset:-3px;pointer-events:none;background-image:radial-gradient(circle,rgba(230,251,249,.85) 2.2px,transparent 3.2px);background-size:calc((100% - 6px)/6) calc((100% - 6px)/4);background-position:0 0;filter:drop-shadow(0 0 4px rgba(230,251,249,.8))}
+/* 0 · intro */
+.anneau{position:absolute;left:50%;top:50%;width:min(64vh,560px);aspect-ratio:1;translate:-50% -50%;border-radius:50%;border:2px dotted rgba(230,251,249,.35);animation:tourne 60s linear infinite}
+.anneau.vite{animation-duration:9s;border-width:3px}
+.charge{position:absolute;left:50%;top:50%;width:min(56vh,480px);aspect-ratio:1;translate:-50% -50%;rotate:-90deg;overflow:visible}.charge circle{fill:none;stroke-width:1.6}.charge .fond-c{stroke:rgba(230,251,249,.18)}.charge .arc-c{stroke:#e6fbf9;stroke-linecap:round;stroke-dasharray:603;stroke-dashoffset:603;filter:drop-shadow(0 0 6px rgba(230,251,249,.9))}
+.charge .rot{transform-origin:100px 100px;animation:tourne 14s linear infinite}.charge .r2{animation-duration:7s;animation-direction:reverse}.charge .r3{animation-duration:22s}
+.charge .grad{stroke:rgba(230,251,249,.55);stroke-width:2.4;stroke-dasharray:.6 4.5}.charge .seg{stroke:rgba(230,251,249,.6);stroke-width:1.2;stroke-dasharray:38 22 6 22;stroke-linecap:round;filter:drop-shadow(0 0 4px rgba(230,251,249,.8))}.charge .pointil{stroke:rgba(230,251,249,.35);stroke-width:1;stroke-dasharray:1 3}
+.charge .tete{fill:#fff;stroke:none}.charge .halo{fill:rgba(230,251,249,.25);stroke:none;animation:halo 1.2s ease-in-out infinite}@keyframes halo{50%{opacity:.25}}
+.anneau.souffle{animation:souffle 3.2s ease-in-out infinite}.anneau.s2{animation-delay:-1.6s}@keyframes souffle{50%{scale:1.06;opacity:.7}}
+.anneau.a2{width:min(40vh,350px);border:0;background:radial-gradient(circle,rgba(255,255,255,.10),rgba(255,255,255,.03) 70%,transparent 71%)}
+.anneau.a3{width:min(29vh,255px);border:0;background:radial-gradient(circle,rgba(255,255,255,.08),transparent 70%)}
+@keyframes tourne{to{rotate:360deg}}
+.centre{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
+.marque{font:600 clamp(64px,10vw,140px)/1 var(--sans);letter-spacing:.02em}
+.marque small{display:block;margin-top:14px;font:500 13px var(--mono);letter-spacing:.3em;opacity:.8}
+/* 1 · accueil */
+h1.grand{font:600 clamp(44px,6vw,86px)/1 var(--sans);letter-spacing:-.025em}
+.cartes{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.6vw,22px);margin-top:clamp(18px,3vh,34px)}
+.carte{position:relative;border-radius:20px;padding:18px;min-height:clamp(170px,30vh,280px);background:rgba(255,255,255,.07);box-shadow:inset 0 0 0 1.5px rgba(230,251,249,.28);cursor:pointer;transition:background .3s,transform .3s;overflow:hidden}
+.carte:hover{background:rgba(255,255,255,.12);transform:translateY(-3px)}
+.carte svg{position:absolute;inset:18% 12% 22% 12%;width:76%;height:60%}
+.carte svg path,.carte svg circle,.carte svg ellipse{fill:none;stroke:var(--ligne);stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round;filter:drop-shadow(0 0 5px rgba(230,251,249,.6));stroke-dasharray:900;stroke-dashoffset:900;animation:trace 2.6s ease forwards}
+@keyframes trace{to{stroke-dashoffset:0}}
+.carte .mono{position:absolute;left:18px;bottom:16px}
+.carte b{font:600 22px var(--sans)}
+.bande{position:absolute;left:var(--px);right:var(--px);bottom:var(--py);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 18px;border-radius:16px;box-shadow:inset 0 0 0 1.5px rgba(230,251,249,.25);background:rgba(0,0,0,.06)}
+.bande .nom{font:600 22px var(--sans)}
+.liste.menu button{font-size:clamp(44px,min(6.6vw,9svh),118px);padding:min(12px,1.4svh) 2px;opacity:.6}.liste.menu button em{font-size:13px}
+.membre{position:absolute;left:var(--px);bottom:var(--py);display:flex;gap:16px;align-items:stretch;padding:16px 20px;min-width:min(520px,70%);border-radius:16px;background:linear-gradient(160deg,rgba(255,255,255,.10),rgba(255,255,255,.03));box-shadow:inset 0 0 0 1.5px rgba(172,214,150,.55)}
+.membre .hach{width:60px;border-radius:8px;background:repeating-linear-gradient(110deg,rgba(172,214,150,.75) 0 2px,transparent 2px 7px)}
+.membre .nom{font:600 30px var(--sans);color:#f6ead6}.membre .lig{display:flex;justify-content:space-between;gap:30px;margin-top:6px;border-top:1px solid rgba(172,214,150,.45);padding-top:6px;font:600 14px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:#d8efb9}
+.auto{position:absolute;left:var(--px);right:var(--px);bottom:calc(var(--py) - 14px);height:2px;background:rgba(255,255,255,.12);border-radius:2px;overflow:hidden;z-index:4}
+.auto i{display:block;height:100%;width:0;background:rgba(255,255,255,.75)}
+.auto.run i{animation:auto var(--d,3s) linear forwards}@keyframes auto{to{width:100%}}
+/* 2, 3 · rouille */
+.t-rouille .lum,.t-rouille{color:#f6ead6}
+.etiq{display:inline-block;padding:4px 10px;border-radius:7px;box-shadow:inset 0 0 0 1px rgba(246,234,214,.5);font:500 11.5px var(--mono);letter-spacing:.18em}
+h2.liste-t{font:600 clamp(40px,6.2vw,104px)/1.02 var(--sans);letter-spacing:-.025em;margin:14px 0 14px;white-space:nowrap}
+.liste{display:grid;gap:0}
+.liste{max-width:min(980px,72%)}
+.liste button{display:flex;align-items:center;justify-content:space-between;gap:12px;background:none;border:0;border-bottom:1px solid rgba(246,234,214,.22);color:#f6ead6;font:600 clamp(20px,min(2.6vw,3.6svh),40px) var(--sans);padding:min(9px,1svh) 2px;cursor:pointer;text-align:left;opacity:.55;transition:opacity .3s}
+.liste button.on,.liste button:hover{opacity:1}
+.liste button em{font:500 11px var(--mono);letter-spacing:.16em;font-style:normal;opacity:.8}
+.statut{position:absolute;right:var(--px);bottom:var(--py);display:flex;align-items:center;gap:16px}
+input.prenom{background:none;border:0;border-bottom:2px solid rgba(246,234,214,.5);color:#fff;font:600 clamp(40px,6vw,78px) var(--sans);width:min(640px,100%);padding:6px 0;outline:none}
+.genre{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}.genre button{font:600 clamp(16px,1.6vw,20px) var(--sans);color:#f6ead6;background:rgba(246,234,214,.08);border:0;box-shadow:inset 0 0 0 1.5px rgba(246,234,214,.45);border-radius:999px;padding:10px 20px;cursor:pointer;transition:background .3s}.genre button.on{background:#f6ead6;color:#7a2a19}
+input.prenom::placeholder{color:rgba(246,234,214,.35)}
+/* 4 · imagerie */
+.titre-persp{position:absolute;left:var(--px);top:var(--py);font:700 clamp(40px,5.4vw,84px) var(--sans);letter-spacing:-.02em;transform:perspective(600px) rotateY(18deg) rotateZ(-4deg);transform-origin:left;color:#f2fffd;text-shadow:var(--glow)}
+canvas.plein{position:absolute;inset:0;width:100%;height:100%}
+.lecture{position:absolute;right:var(--px);top:calc(var(--py) + 30px);text-align:right;display:grid;gap:6px}
+.lecture b{font:300 clamp(30px,3.4vw,46px) var(--sans);color:transparent;-webkit-text-stroke:1.4px var(--ligne);text-shadow:var(--glow);font-variant-numeric:tabular-nums}
+.nom5{position:absolute;left:var(--px);top:var(--py);display:grid;gap:8px;color:#0f5f68;z-index:3}.nom5 b{font:600 clamp(48px,7vw,104px)/1 var(--sans);letter-spacing:-.025em}.nom5 .mono{color:#156c74}
+.vue .visible{position:absolute;left:calc(var(--px) - 34px);top:calc(var(--py) - 30px);width:calc(100% - 2*(var(--px) - 34px));height:calc(100% - 2*(var(--py) - 30px))}
+.consigne{position:absolute;left:0;right:0;bottom:calc(var(--py) + 8px);text-align:center;font:500 clamp(17px,1.8vw,22px) var(--sans)}
+/* 6 · organisation */
+.compteurs{position:absolute;right:8%;top:50%;translate:0 -50%;display:grid;gap:clamp(20px,5vh,56px);text-align:center}
+.compteurs b{display:block;font:300 clamp(76px,10vw,140px)/.9 var(--sans);color:transparent;-webkit-text-stroke:2px #f3fbf8;text-shadow:0 0 18px rgba(243,251,248,.45);font-variant-numeric:tabular-nums}
+.compteurs span{font:600 14px var(--mono);letter-spacing:.2em;color:#9fe3e0}
+.compteurs i{display:block;width:120px;height:2px;margin:0 auto;background:rgba(243,251,248,.35)}
+/* 7 · termine */
+.nom-geant{font:500 clamp(54px,7.6vw,108px)/1 var(--sans);letter-spacing:-.02em;color:#cfeff0;text-shadow:0 0 30px rgba(207,239,240,.35)}
+.termine{transition:opacity .6s;display:flex;align-items:center;gap:18px;justify-content:center;margin-top:10px;font:600 clamp(20px,2.4vw,32px) var(--sans);color:#bfe8ea}
+/* 8 · resultats */
+.res{position:absolute;inset:0;overflow-y:auto;padding:var(--py) calc(var(--px) + 7vw) var(--py) var(--px);scrollbar-width:none}
+.res::-webkit-scrollbar{display:none}
+.res h1{font:500 clamp(64px,8vw,118px)/1 var(--serif);letter-spacing:-.02em;color:#effcfb}
+.res hr{border:0;height:2px;background:rgba(230,251,249,.35);margin:clamp(16px,3vh,30px) 0}
+.metriques{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 48px}
+.met h3{display:flex;align-items:center;gap:10px;font:600 clamp(20px,2vw,28px) var(--sans)}
+.met h3 .delta{display:inline-flex;align-items:center;gap:6px;font:600 16px var(--sans);opacity:.85}
+.curseur{position:relative;height:30px;margin-top:22px}
+.curseur .rail{position:absolute;left:0;right:0;top:13px;height:4px;border-radius:4px;background:rgba(230,251,249,.25)}
+.curseur .rempli{position:absolute;left:0;top:13px;height:4px;border-radius:4px;background:#9fe8e6;box-shadow:0 0 10px rgba(159,232,230,.6)}
+.curseur .pt{position:absolute;top:4px;width:22px;height:22px;margin-left:-11px;border-radius:50%;background:#2a8f97;box-shadow:0 0 0 3px #9fe8e6,0 0 14px rgba(159,232,230,.8)}
+.curseur .pt::after{content:'';position:absolute;inset:7px;border-radius:50%;background:#e6fbf9}
+.curseur .val{position:absolute;top:-22px;margin-left:-20px;width:40px;text-align:center;font:600 17px var(--sans)}
+.zones{display:flex;justify-content:space-between;margin-top:6px;font:600 14px var(--sans);opacity:.75}
+.puce{display:inline-block;margin-top:10px;padding:5px 12px;border-radius:8px;font:600 13px var(--mono);letter-spacing:.12em}
+.puce.bon{background:#5fc9cc;color:#0e4f57}.puce.moy{background:rgba(230,251,249,.18);color:var(--ligne)}.puce.suivre{background:var(--jaune);color:#5b4410}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:8px}
+.duo>div{padding:14px 18px 6px 0}.duo>div+div{border-left:2px solid rgba(230,251,249,.25);padding-left:22px}
+.duo small{font:600 15px var(--sans);opacity:.8}.duo b{display:block;font:600 clamp(40px,5vw,64px)/1.1 var(--sans);letter-spacing:-.02em}
+.tete .portrait-gl{width:min(340px,42%);aspect-ratio:4/5;flex:none;border-radius:18px;box-shadow:0 20px 50px -24px rgba(0,0,0,.55);display:block}
+.tete{display:flex;align-items:center;justify-content:space-between;gap:20px}.tete canvas{width:min(340px,42%);aspect-ratio:4/5;flex:none;border-radius:18px;box-shadow:0 20px 50px -24px rgba(0,0,0,.55)}
+.soins{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:12px}
+.soin{display:flex;flex-direction:column;gap:6px;padding:16px;border-radius:18px;background:rgba(255,255,255,.10);box-shadow:inset 0 0 0 1.5px rgba(230,251,249,.28);text-decoration:none;color:var(--ligne)}
+.soin[hidden]{display:none}
+.fiche{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(20px,4vw,60px);align-items:center;margin-top:clamp(24px,5vh,56px);padding:clamp(18px,3vw,36px);border-radius:24px;background:linear-gradient(150deg,rgba(255,255,255,.10),rgba(255,255,255,.03));box-shadow:inset 0 0 0 1.5px rgba(230,251,249,.22)}
+.fiche.inv .fiche-im{order:2}
+.fiche-im{position:relative;aspect-ratio:1;display:grid;place-items:center;border-radius:20px;background:radial-gradient(60% 55% at 50% 45%,rgba(230,251,249,.28),rgba(230,251,249,0) 70%)}
+.fiche-im img{width:78%;height:78%;object-fit:contain;filter:drop-shadow(0 28px 30px rgba(0,0,0,.35));animation:flotte 7s ease-in-out infinite}
+.fiche-tx h4{font:500 clamp(28px,3vw,44px)/1.1 var(--serif);margin:10px 0 18px;color:#effcfb}
+.fl{display:grid;grid-template-columns:150px 1fr;gap:14px;padding:12px 0;border-top:1px solid rgba(230,251,249,.18)}.fl b{font:600 12px var(--mono);letter-spacing:.14em;text-transform:uppercase;opacity:.85;padding-top:3px}.fl span{font:400 16px/1.55 var(--sans)}
+.chips i{display:inline-block;font-style:normal;margin:0 8px 8px 0;padding:4px 12px;border-radius:999px;background:rgba(230,251,249,.14);box-shadow:inset 0 0 0 1px rgba(230,251,249,.3);font-size:14px}
+.fl-lien{display:inline-block;margin-top:14px;color:#effcfb;font:600 15px var(--sans);text-decoration:none;border-bottom:1px solid rgba(230,251,249,.5)}
+@media (max-width:760px){.fiche{grid-template-columns:1fr}.fiche.inv .fiche-im{order:0}.fl{grid-template-columns:1fr;gap:4px}}
+.soin img{width:100%;aspect-ratio:1;object-fit:contain;filter:drop-shadow(0 14px 18px rgba(0,0,0,.35));animation:flotte 6s ease-in-out infinite}
+.soin b{font:600 16px var(--sans);line-height:1.3}.soin em{font-style:normal;font-size:13px;opacity:.75}
+@keyframes flotte{50%{transform:translateY(-8px)}}
+@media (max-width:760px){.soins{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.gp-wrap{display:grid;grid-template-columns:minmax(0,380px) 1fr;gap:clamp(18px,3vw,40px);align-items:center;margin-top:14px}
+.gros-plan{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:4/5;background:radial-gradient(70% 60% at 50% 42%,#2a8fc0 0%,#0f4f78 55%,#082f4c 100%);box-shadow:inset 0 0 0 1.5px rgba(80,220,255,.65),inset 0 0 40px rgba(80,220,255,.25),0 0 46px rgba(80,220,255,.35),0 24px 50px -20px rgba(0,0,0,.6)}
+.gros-plan::after{content:'';position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(80,220,255,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(80,220,255,.10) 1px,transparent 1px);background-size:20% 16.66%}
+.loupes{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}.loupes figure{width:84px}.loupes canvas{width:78px;height:78px;border-radius:10px;box-shadow:0 0 0 1.5px rgba(80,220,255,.6),0 0 16px rgba(80,220,255,.3)}.loupes figcaption{font:600 12px/1.25 var(--sans);margin-top:5px;text-align:center}
+.gp-l{display:flex;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid rgba(230,251,249,.22)}.gp-l b{font:300 54px/1 var(--sans);color:transparent;-webkit-text-stroke:1.4px #8fe9ff;text-shadow:0 0 14px rgba(80,220,255,.5);font-variant-numeric:tabular-nums}.gp-l span{font:600 17px/1.25 var(--sans)}.gp-l em{font:400 13px var(--sans);opacity:.7;font-style:normal}
+@media (max-width:760px){.gp-wrap{grid-template-columns:1fr}.gros-plan{max-width:340px}}
+.gros-plan canvas{position:absolute;inset:0;width:100%;height:100%}
+.suite{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:16px}
+.suite a{display:block;padding:20px;border-radius:18px;text-decoration:none;color:#f6ead6;background:linear-gradient(150deg,#a9492a,#7a2a19);box-shadow:inset 0 0 0 1px rgba(246,234,214,.25)}
+.suite a b{display:block;font:600 24px var(--sans);margin-top:6px}
+.note{font-size:13px;opacity:.7;margin-top:14px;line-height:1.5}
+#nav{position:fixed;left:50%;bottom:calc(10px + env(safe-area-inset-bottom));translate:-50% 0;display:flex;gap:4px;z-index:20;padding:5px;border-radius:999px;background:rgba(20,18,15,.7);backdrop-filter:blur(10px)}
+#nav i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.25);cursor:pointer}#nav i.on{background:#e6fbf9}
+@media (max-width:760px){.ecran{width:calc(100vw - 20px);height:calc(100svh - 70px)}.cartes{grid-template-columns:1fr;gap:10px}.carte{min-height:110px}.carte svg{inset:12% 6% 12% 58%;width:36%;height:76%}.carte .mono{left:18px;right:auto}
+ .metriques{grid-template-columns:1fr}.compteurs{right:6%}.compteurs b{font-size:64px}.suite{grid-template-columns:1fr}.lecture{top:auto;bottom:16%}.titre-persp{font-size:28px}}
+</style>
+</head>
+<body>
+<div class="scene"><div class="pivot" id="pivot"><div class="ecran t-bleu" id="ecran">
+  <!-- 0 · intro -->
+  <section class="vue on" data-t="bleu" data-ry="-6deg" data-rx="2deg" data-fx=".5">
+    <div class="anneau"></div><div class="anneau a2"></div><div class="anneau a3"></div>
+    <div class="centre"><div><div class="marque lum">VYVRE<small>Lecture de peau · 01</small></div></div></div>
+    <div class="sous-titre" id="st0"><i>Votre peau, lue en quelques secondes.</i></div>
+  </section>
+  <!-- 1 · menu -->
+  <section class="vue" data-t="rouille" data-ry="12deg" data-rx="-4deg" data-rz="-1.5deg" data-fx=".38">
+    <span class="etiq dof">VYVRE · Lab</span>
+    <h2 class="liste-t dof">Choisir votre lecture…</h2>
+    <div class="liste menu">
+      <button class="dof on" data-go="2">Peau<em>08 catégories</em></button>
+      <button class="dof" onclick="location.href='/cheveux'">Cheveux<em>05 vues</em></button>
+      <button class="dof" onclick="location.href='/aliment'">Aliment<em>265 aliments</em></button>
+    </div>
+    <div class="compteurs dof"><div><b>03</b><span>Lectures</span></div></div>
+  </section>
+  <!-- 2 · prenom -->
+  <section class="vue" data-t="rouille" data-ry="14deg" data-rx="-3deg" data-rz="-1deg" data-fx=".3">
+    <span class="etiq">Votre lecture</span>
+    <h2 class="liste-t">Comment vous appeler ?</h2>
+    <input class="prenom" id="prenom" maxlength="20" placeholder="Votre prénom" autocomplete="given-name">
+    <p class="note" style="color:#f6ead6">Il reste sur cet appareil. Facultatif.</p>
+    <div class="statut"><span class="mono">Statut [prêt]</span><button class="fleche" data-go="3" aria-label="Continuer">→</button></div>
+  </section>
+  <!-- 3 · preparation -->
+  <section class="vue" data-t="rouille" data-ry="16deg" data-rx="-4deg" data-rz="-1.5deg" data-fx=".3">
+    <span class="etiq">Lab · peau</span>
+    <h2 class="liste-t">Préparation de votre lecture…</h2>
+    <div class="liste" id="prio"></div>
+    <div class="statut"><span class="mono" id="nbprio">Une à trois priorités</span><button class="fleche" data-go="9" aria-label="Continuer">→</button></div>
+  </section>
+  <!-- 4 · imagerie (vraie camera) -->
+  <section class="vue" data-t="teal" data-ry="-18deg" data-rx="6deg" data-rz="2deg" data-fx=".45">
+    <div class="grille cam-box"><video id="vcam" autoplay muted playsinline></video><canvas id="trace"></canvas></div>
+    <div class="titre-persp">Imagerie de la peau</div>
+    <div class="lecture"><span class="mono lum">Points</span><b id="nbpts">000</b><span class="mono lum">Statut</span><span class="mono lum" id="statut">[recherche]</span></div>
+    <div class="consigne lum" id="consigne">Placez votre visage face à l’écran.</div>
+  </section>
+  <!-- 5 · trame de points -->
+  <section class="vue" data-t="aqua" data-ry="8deg" data-rx="2deg" data-fx=".6">
+    <canvas class="plein visible" id="glb"></canvas>
+    <canvas class="plein visible" id="trame"></canvas>
+  </section>
+  <!-- 6 · organisation -->
+  <section class="vue" data-t="rouille" data-ry="-12deg" data-rx="3deg" data-rz="1deg" data-fx=".7">
+    <span class="etiq">Lab · peau</span>
+    <h2 class="liste-t" style="max-width:56%">Organisation de votre lecture…</h2>
+    <div class="liste" id="orga" style="max-width:52%"></div>
+    <div class="compteurs"><div><b id="c1">0</b><span>Points</span></div><i></i><div><b id="c2">00</b><span>Catégories</span></div></div>
+    <div class="statut"><span class="mono" id="st6">Statut [analyse]</span></div>
+  </section>
+  <!-- 7 · termine -->
+  <section class="vue" data-t="bleu" data-ry="4deg" data-rx="-2deg" data-fx=".5">
+    <div class="anneau a2 souffle"></div><div class="anneau a3 souffle s2"></div>
+    <svg class="charge" viewBox="0 0 200 200">
+      <g class="rot r1"><circle cx="100" cy="100" r="98" class="grad"/></g>
+      <g class="rot r2"><circle cx="100" cy="100" r="92" class="seg"/></g>
+      <g class="rot r3"><circle cx="100" cy="100" r="86" class="pointil"/></g>
+      <circle cx="100" cy="100" r="96" class="fond-c"/><circle cx="100" cy="100" r="96" class="arc-c" id="arc7"/>
+      <g id="tete7"><circle cx="196" cy="100" r="2.6" class="tete"/><circle cx="196" cy="100" r="6" class="halo"/></g>
+    </svg>
+    <div class="centre"><div><div class="nom-geant" id="nomg">Vous</div><div class="termine">Lecture terminée <button class="fleche" data-go="8" aria-label="Voir les résultats">→</button></div></div></div>
+    <div class="sous-titre on"><i id="st7">Vos résultats.</i></div>
+  </section>
+  <!-- 8 · resultats -->
+  <section class="vue" data-t="teal" data-ry="-8deg" data-rx="3deg" data-fx=".35">
+    <div class="res" id="res"></div>
+  </section>
+  <!-- 9 · questions (age, provenance, budget) -->
+  <section class="vue" data-t="rouille" data-ry="14deg" data-rx="-3deg" data-rz="-1deg" data-fx=".3">
+    <span class="etiq" id="qEtiq">Lab · peau · 1/3</span>
+    <h2 class="liste-t" id="qTitre">Votre âge</h2>
+    <div class="liste" id="qListe"></div>
+    <div class="statut"><span class="mono" id="qStatut">Un choix</span><button class="fleche" id="qSuite" aria-label="Continuer">→</button></div>
+  </section>
+  <div class="vignette"></div>
+</div></div></div>
+<nav id="nav"></nav>
+<video id="video" autoplay muted playsinline style="position:fixed;width:2px;height:2px;opacity:.01;left:0;top:0"></video>
+<script src="/propals/lab/buste-gl-v10.js?v=10"></script>
+<script type="module">
+import { FilesetResolver, FaceLandmarker, ImageSegmenter } from '/cheveux/vendor/mediapipe/vision_bundle.mjs';
+const $ = id => document.getElementById(id);
+const VUES = [...document.querySelectorAll('.vue')], ecran = $('ecran'), video = $('video');
+const CATS = [['glow','Éclat',false],['redness','Rougeurs',false],['hydration','Hydratation',false],['pores','Pores',false],['sebum','Brillance',true],['pigmentation','Taches',true],['wrinkles','Rides',false],['firmness','Fermeté',false]];
+let fini = false, etape = 0, L = null, nbPts = 0, scores = null, exemple = false, cliché = null, prio = new Set();
+
+/* ---- navigation : chaque ecran a son angle de camera ---- */
+function aller(i){ if(i === etape) return; VUES.forEach(x => x.classList.remove('on')); etape = i; const v = VUES[i]; v.classList.add('on');
+  ecran.className = 'ecran t-' + v.dataset.t; ecran.style.setProperty('--ry', (parseFloat(v.dataset.ry)*.3).toFixed(2) + 'deg'); ecran.style.setProperty('--rx', (parseFloat(v.dataset.rx)*.5).toFixed(2) + 'deg'); ecran.style.setProperty('--rz', (parseFloat(v.dataset.rz || 0)*.3).toFixed(2) + 'deg'); clearTimeout(autoT); setTimeout(() => dof(v), 1850);
+  document.querySelectorAll('#nav i').forEach((n, k) => n.classList.toggle('on', k === i));
+  ENTREE[i] && ENTREE[i](); }
+/* le flou de profondeur : plus un element est loin de la mise au point (data-fx), plus il est flou */
+function dof(v){ if(!v.classList.contains('on')) return; if(v.querySelector('.res')){ v.querySelectorAll('.dof').forEach(el => el.style.filter = ''); return; } const fx = innerWidth*(+v.dataset.fx || .5);
+  v.querySelectorAll('.dof, h1, h2, .liste button, .met, .compteurs > div, .bande, .titre-persp, .lecture, .carte').forEach(el => { const b = el.getBoundingClientRect(); const d = Math.abs(b.left + b.width/2 - fx)/innerWidth; el.classList.add('dof'); el.style.filter = 'blur(' + Math.min(3.2, Math.max(0, (d - .2)*10)).toFixed(2) + 'px)'; }); }
+addEventListener('resize', () => dof(VUES[etape]));
+/* dans les resultats, la molette fait defiler partout (meme sur le portrait anime ou les marges) */
+ecran.addEventListener('wheel', e => { if(etape !== 8) return; e.preventDefault(); $('res').scrollTop += e.deltaY; }, { passive:false });
+/* la souris penche l'ecran, doucement, du cote ou elle passe */
+const pivot = $('pivot'); addEventListener('pointermove', e => { if(e.pointerType !== 'mouse') return; pivot.style.setProperty('--my', ((e.clientX/innerWidth - .5)*18).toFixed(2) + 'deg'); pivot.style.setProperty('--mx', ((.5 - e.clientY/innerHeight)*8).toFixed(2) + 'deg'); });
+document.addEventListener('mouseleave', () => { pivot.style.setProperty('--my', '0deg'); pivot.style.setProperty('--mx', '0deg'); });
+/* tout avance seul : une fine barre montre le temps qui reste ; un geste la relance */
+let autoT = null;
+/* la validation visible : la fleche se remplit, puis on passe a la suite */
+function valide(vers, ms){ clearTimeout(autoT); const f = VUES[etape].querySelector('.statut .fleche'); if(f){ f.classList.remove('remplit'); void f.offsetWidth; f.style.setProperty('--d', ms + 'ms'); f.classList.add('remplit'); } const e0 = etape; autoT = setTimeout(() => { if(etape === e0) aller(vers); }, ms); }
+function auto(vers, ms){ clearTimeout(autoT); const v = VUES[etape]; let b = v.querySelector('.auto'); if(!b){ b = document.createElement('div'); b.className = 'auto'; b.innerHTML = '<i></i>'; v.appendChild(b); }
+  b.classList.remove('run'); void b.offsetWidth; b.style.setProperty('--d', ms + 'ms'); b.classList.add('run'); const e0 = etape; autoT = setTimeout(() => { if(etape === e0) aller(vers); }, ms); }
+$('nav').innerHTML = VUES.map(() => '<i></i>').join(''); $('nav').onclick = e => { const k = [...$('nav').children].indexOf(e.target); if(k >= 0) aller(k); };
+document.addEventListener('click', e => { const g = e.target.closest('[data-go]'); if(g) aller(+g.dataset.go); });
+let genre = null, genreChoisi = false;
+$('prenom').addEventListener('keydown', e => { if(e.key === 'Enter') aller(3); });
+const PF = new Set('marie anne sophie julie camille claire lea emma chloe sarah laura manon pauline marion lucie elodie celine sandrine nathalie isabelle valerie stephanie christine catherine sylvie veronique caroline aurelie emilie charlotte alice louise jeanne ines lina mia jade rose anna eva zoe juliette agathe margaux helene florence delphine patricia martine brigitte monique francoise nadia fatima amina yasmine sara leila myriam stephanie audrey melanie virginie severine laetitia estelle oceane clara victoire capucine diane mathilde constance ambre elise apolline romane louna'.split(' '));
+const PH = new Set('charles pierre philippe jerome stephane guillaume baptiste jean paul louis lucas hugo leo gabriel arthur jules adam raphael nathan thomas nicolas julien antoine alexandre maxime mathieu matthieu romain sebastien olivier christophe frederic laurent eric david michel alain bernard patrick daniel francois vincent benoit damien florian quentin kevin anthony mohamed ahmed karim yanis sami noah ethan tom theo victor martin simon felix oscar marc luc andre rene serge thierry didier pascal cedric gregory jeremy remi achille come gaspard'.split(' '));
+function genreDuPrenom(n){ const k = n.trim().split(/[\s-]/)[0].toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); if(!k) return undefined; if(PF.has(k)) return 'f'; if(PH.has(k)) return 'h'; if(/(a|ine|ette|elle|ie|ee)$/.test(k)) return 'f'; return undefined; }
+$('prenom').addEventListener('input', () => { const el = $('prenom'), v = el.value; if(v && v[0] !== v[0].toUpperCase()){ const c = el.selectionStart; el.value = v[0].toUpperCase() + v.slice(1); el.setSelectionRange(c, c); }
+  { const g = genreDuPrenom(el.value); genre = g === undefined ? null : g; }   /* la silhouette se deduit du prenom ; inconnu = entre-deux */ if($('prenom').value.trim()) valide(3, 2500); else clearTimeout(autoT); });
+/* priorites : un toucher, ca s'allume */
+$('prio').innerHTML = CATS.map(([k, t]) => '<button data-k="' + k + '">' + t + '<em>à suivre</em></button>').join('');
+/* les questions : un ecran, trois etapes ; un toucher remplit la fleche puis on passe ; sans reponse, « tous » au bout de quelques secondes */
+const REP = { age:null, origine:[], budget:[] };
+const QS = [
+  { k:'age', t:'Votre âge', multi:false, o:[['m25','Moins de 25 ans'],['25','25 à 34 ans'],['35','35 à 44 ans'],['45','45 à 54 ans'],['55','55 ans et plus']] },
+  { k:'origine', t:'Vos produits', multi:true, o:[['FR','Français'],['EU','Européens'],['AS','Asiatiques'],['INT','Internationaux'],['*','Tous']] },
+  { k:'budget', t:'Votre budget', multi:true, o:[['petit-prix','Petits prix'],['normal','Du quotidien'],['pharmacie','Pharmacie'],['luxe','Haut de gamme'],['*','Tous']] } ];
+let qi = 0;
+function question(){ const q = QS[qi]; $('qEtiq').textContent = 'Lab · peau · ' + (qi + 1) + '/3'; $('qTitre').textContent = q.t; $('qStatut').textContent = q.multi ? 'Un ou plusieurs choix' : 'Un choix';
+  $('qListe').innerHTML = q.o.map(([v, l]) => '<button data-v="' + v + '">' + l + '<em>' + (v === '*' ? 'sans filtre' : '') + '</em></button>').join(''); auto9(); }
+function suiteQ(){ if(etape !== 9) return; if(qi < QS.length - 1){ qi++; question(); } else aller(4); }
+function auto9(){ clearTimeout(autoT); $('qSuite').classList.remove('remplit'); }
+$('qSuite').onclick = () => suiteQ();
+$('qListe').onclick = e => { const b = e.target.closest('button'); if(!b) return; const q = QS[qi], v = b.dataset.v;
+  if(!q.multi){ $('qListe').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); REP[q.k] = v; }
+  else if(v === '*'){ $('qListe').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); REP[q.k] = []; }
+  else { $('qListe').querySelector('[data-v="*"]').classList.remove('on'); b.classList.toggle('on'); REP[q.k] = [...$('qListe').querySelectorAll('button.on')].map(x => x.dataset.v); }
+  clearTimeout(autoT); const f = $('qSuite'); f.classList.remove('remplit'); void f.offsetWidth; f.style.setProperty('--d', '2200ms'); f.classList.add('remplit'); const e0 = qi; autoT = setTimeout(() => { if(etape === 9 && qi === e0) suiteQ(); }, 2200); };
+$('prio').onclick = e => { const b = e.target.closest('button'); if(!b) return; if(!b.classList.contains('on') && prio.size >= 3){ $('nbprio').textContent = '3 priorités au maximum'; return; } b.classList.toggle('on'); b.classList.contains('on') ? prio.add(b.dataset.k) : prio.delete(b.dataset.k); if(prio.size) valide(9, 2500); else clearTimeout(autoT); $('nbprio').textContent = prio.size ? prio.size + ' priorité' + (prio.size > 1 ? 's' : '') + ' · validation…' : 'Une à trois priorités'; };
+const ENTREE = {
+  0(){ setTimeout(() => $('st0').classList.add('on'), 900); auto(1, 4200); },
+  1(){ prechauffe().catch(() => {}); modeles().catch(() => {}); },
+  2(){ setTimeout(() => $('prenom').focus(), 600); },
+  3(){ },
+  9(){ qi = 0; question(); },
+  4(){ camera(); setTimeout(() => { if(etape === 4 && L) aller(7); }, 7000); },
+  5(){ tourneB = 0; reveleB = 1; if(glb.parentNode !== VUES[5]){ glb.className = 'plein visible'; VUES[5].insertBefore(glb, $('trame')); } t5 = performance.now(); setTimeout(() => { if(etape === 5) aller(6); }, 10200); },
+  6(){ organiser(); },
+  7(){ const n = ($('prenom').value || '').trim(); $('nomg').textContent = n || 'Vous'; $('st7').textContent = n ? n + '.' : 'Vos résultats.';
+    const t0 = performance.now(), D = 3400, arc = $('arc7'), fl = $('nomg').parentNode.querySelector('.termine'); fl.style.opacity = '0'; fl.firstChild.textContent = 'Lecture terminée ';
+    $('st7').parentNode.style.opacity = '0'; let e = 0;
+    const tic = now => { if(etape !== 7) return; const u = Math.min(1, (now - t0)/D); e = Math.max(e, fini ? Math.min(1, e + .02) : .9*(1 - Math.pow(1 - u, 2))); arc.style.strokeDashoffset = (603*(1 - e)).toFixed(1); $('tete7').setAttribute('transform', 'rotate(' + (360*e).toFixed(1) + ' 100 100)');
+      if(e < 1) requestAnimationFrame(tic); else { fl.style.opacity = '1'; $('st7').parentNode.style.opacity = '1'; setTimeout(() => { if(etape === 7) aller(8); }, 1800); } }; requestAnimationFrame(tic); },
+  8(){ resultats(); } };
+setTimeout(() => ENTREE[0](), 50);
+/* ---- camera et maillage du visage ---- */
+let face = null, flux = null;
+async function camera(){
+  if(!flux){ try { flux = await navigator.mediaDevices.getUserMedia({ video:{ facingMode:'user', width:{ ideal:1280 }, height:{ ideal:960 } }, audio:false }); video.srcObject = flux; await video.play(); $('vcam').srcObject = flux; $('vcam').play().catch(() => {}); }
+    catch(e){ $('consigne').textContent = 'Caméra refusée : la suite montre un exemple.'; exemple = true; fini = true; setTimeout(() => aller(7), 2500); return; } }
+  await modeles();
+  moteur(); requestAnimationFrame(boucle);
+}
+const copie = document.createElement('canvas'), cg = copie.getContext('2d', { willReadFrequently:true });
+function image(){ const w = 480, h = Math.round(w*video.videoHeight/video.videoWidth); if(copie.width !== w){ copie.width = w; copie.height = h; } cg.drawImage(video, 0, 0, w, h); return copie; }
+let tL = 0, stable = 0, Lsnap = null;
+function boucle(now){
+  if(face && video.videoWidth && now - tL > 70){ tL = now; let r = null; try { r = face.detectForVideo(image(), now); } catch(e){}
+    const n = r && r.faceLandmarks && r.faceLandmarks[0]; if(n){ if(!L) L = n.map(p => ({ ...p })); else for(let i = 0; i < L.length; i++){ L[i].x += (n[i].x - L[i].x)*.5; L[i].y += (n[i].y - L[i].y)*.5; L[i].z += (n[i].z - L[i].z)*.5; } nbPts = Math.min(478, nbPts + 37); stable++; Lsnap = { points:L.map(p => ({ x:p.x, y:p.y, z:p.z })), w:copie.width, h:copie.height }; } else stable = 0; }
+  if(etape === 4 || etape === 5) cheveux(now);
+  if(etape === 4) traceVisage(now); if(etape === 5) trame(now);
+  requestAnimationFrame(boucle);
+}
+/* 4 et 5 · la forme du corps, lue sur la vraie image : visage (478 points), cheveux (segmentation), cou et epaules deduits du visage */
+const C = FaceLandmarker;
+const SW = 160, SH = 120, OVALE = [10,338,297,332,284,251,389,356,454,323,361,288,397,365,379,378,400,377,152,148,176,149,150,136,172,58,132,93,234,127,162,21,54,103,67,109];
+const pc = document.createElement('canvas'); pc.width = SW; pc.height = SH; const pcx = pc.getContext('2d', { willReadFrequently:true });
+const sc = document.createElement('canvas'); sc.width = SW; sc.height = SH; const scx = sc.getContext('2d', { willReadFrequently:true });
+let seg = null, CHEV = new Float32Array(SW*SH), tS = 0;
+function cheveux(now){ if(!seg || now - tS < 140 || !video.videoWidth) return; tS = now; scx.drawImage(video, 0, 0, SW, SH);
+  try { seg.segmentForVideo(sc, now, r => { const cm = r.confidenceMasks; if(!cm) return; const m = (cm[1] || cm[0]).getAsFloat32Array(); for(let i = 0; i < SW*SH; i++) CHEV[i] = CHEV[i]*.4 + m[i]*.6; }); } catch(e){} }
+function flou(a, w, h, r){ const t = new Float32Array(a.length), o = new Float32Array(a.length), n = 2*r + 1, cl = (v, m) => v < 0 ? 0 : v > m ? m : v;
+  for(let y = 0; y < h; y++){ let s = 0; for(let x = -r; x <= r; x++) s += a[y*w + cl(x, w - 1)]; for(let x = 0; x < w; x++){ t[y*w + x] = s/n; s += a[y*w + cl(x + r + 1, w - 1)] - a[y*w + cl(x - r, w - 1)]; } }
+  for(let x = 0; x < w; x++){ let s = 0; for(let y = -r; y <= r; y++) s += t[cl(y, h - 1)*w + x]; for(let y = 0; y < h; y++){ o[y*w + x] = s/n; s += t[cl(y + r + 1, h - 1)*w + x] - t[cl(y - r, h - 1)*w + x]; } }
+  return o; }
+function boite(Lm){ let x0 = 1, x1 = 0, y0 = 1, y1 = 0; OVALE.forEach(i => { const p = Lm[i]; if(p.x < x0) x0 = p.x; if(p.x > x1) x1 = p.x; if(p.y < y0) y0 = p.y; if(p.y > y1) y1 = p.y; }); return { x0, x1, y0, y1, cx:(x0 + x1)/2, cy:(y0 + y1)/2, fw:x1 - x0, fh:y1 - y0 }; }
+/* les champs, en coordonnees video : lum (lumiere), F (silhouette), V (le seul visage), D (relief) */
+function champs(src, Lm, chev){
+  pcx.drawImage(src, 0, 0, SW, SH); const d = pcx.getImageData(0, 0, SW, SH).data, N = SW*SH, lum = new Float32Array(N);
+  for(let i = 0; i < N; i++) lum[i] = (d[i*4]*.299 + d[i*4 + 1]*.587 + d[i*4 + 2]*.114)/255;
+  const b = Lm ? boite(Lm) : { cx:.5, cy:.42, fw:.26, fh:.36, x0:.37, x1:.63, y0:.24, y1:.6 };
+  pcx.fillStyle = '#000'; pcx.fillRect(0, 0, SW, SH); pcx.fillStyle = '#fff';
+  if(Lm){ pcx.beginPath(); OVALE.forEach((i, k) => { const p = Lm[i]; k ? pcx.lineTo(p.x*SW, p.y*SH) : pcx.moveTo(p.x*SW, p.y*SH); }); pcx.closePath(); pcx.fill(); }
+  else { pcx.beginPath(); pcx.ellipse(b.cx*SW, b.cy*SH, b.fw/2*SW, b.fh/2*SH, 0, 0, 7); pcx.fill(); }
+  const vv = pcx.getImageData(0, 0, SW, SH).data, V0 = new Float32Array(N); for(let i = 0; i < N; i++) V0[i] = vv[i*4]/255;
+  // le cou puis les epaules, sous le menton
+  const mx = Lm ? Lm[152].x : b.cx, my = Lm ? Lm[152].y : b.y1, jy = Lm ? (Lm[172].y + Lm[397].y)/2 : b.y1 - b.fh*.2;
+  const nw = b.fw*.3, y0 = my + b.fh*.18, y1 = my + b.fh*1.15, ep = b.fw*1.3, X = v => v*SW, Yy = v => v*SH;
+  pcx.beginPath(); pcx.moveTo(X(mx - nw), Yy(jy)); pcx.lineTo(X(mx - nw), Yy(y0)); pcx.bezierCurveTo(X(mx - nw*1.1), Yy(y0 + b.fh*.42), X(mx - ep*.75), Yy(y0 + b.fh*.3), X(mx - ep), Yy(y1));
+  pcx.lineTo(X(mx - ep*1.18), SH*2); pcx.lineTo(X(mx + ep*1.18), SH*2); pcx.lineTo(X(mx + ep), Yy(y1));
+  pcx.bezierCurveTo(X(mx + ep*.75), Yy(y0 + b.fh*.3), X(mx + nw*1.1), Yy(y0 + b.fh*.42), X(mx + nw), Yy(y0)); pcx.lineTo(X(mx + nw), Yy(jy)); pcx.closePath(); pcx.fill();
+  const m = pcx.getImageData(0, 0, SW, SH).data, S = new Float32Array(N);
+  const hx0 = b.x0 - b.fw*.55, hx1 = b.x1 + b.fw*.55, hy0 = b.y0 - b.fh*.7, hy1 = b.y1 + b.fh*.9;
+  for(let j = 0; j < SH; j++) for(let i = 0; i < SW; i++){ const k = j*SW + i, u = (i + .5)/SW, v = (j + .5)/SH; let h = chev && u > hx0 && u < hx1 && v > hy0 && v < hy1 ? chev[k] : 0; S[k] = Math.max(m[k*4]/255, h > .45 ? h : 0); }
+  const F = flou(flou(S, SW, SH, 1), SW, SH, 1), V = flou(V0, SW, SH, 1);
+  // relief : un dome sur la silhouette, plus la vraie profondeur du visage (z des 478 points)
+  const bombe = flou(flou(flou(S, SW, SH, 6), SW, SH, 6), SW, SH, 6), Z = new Float32Array(N), Wt = new Float32Array(N);
+  if(Lm){ let ze = 0; OVALE.forEach(i => ze += Lm[i].z); ze /= OVALE.length;
+    for(const p of Lm){ const cx = Math.round(p.x*SW), cy = Math.round(p.y*SH); for(let dy = -3; dy <= 3; dy++) for(let dx = -3; dx <= 3; dx++){ const x = cx + dx, y = cy + dy; if(x < 0 || y < 0 || x >= SW || y >= SH) continue; const g = Math.exp(-(dx*dx + dy*dy)/4.5), k = y*SW + x; Z[k] += (ze - p.z)/b.fw*g; Wt[k] += g; } }
+    for(let k = 0; k < N; k++) Z[k] = Wt[k] > .05 ? Z[k]/Wt[k]*V0[k] : 0; }
+  const Zf = flou(Z, SW, SH, 2), D = new Float32Array(N); for(let k = 0; k < N; k++) D[k] = bombe[k]*.5 + Zf[k]*1.6;
+  return { lum, F, V, D, b };
+}
+/* les lignes de niveau (marching squares), tracees en un seul chemin */
+const CAS = [null, [3,0], [0,1], [3,1], [1,2], [3,0,1,2], [0,2], [3,2], [2,3], [2,0], [0,1,2,3], [2,1], [1,3], [1,0], [0,3]];
+function iso(x, F, lev, P){ x.beginPath();
+  for(let j = 0; j < SH - 1; j++) for(let i = 0; i < SW - 1; i++){ const a = F[j*SW + i], b = F[j*SW + i + 1], c = F[(j + 1)*SW + i + 1], d = F[(j + 1)*SW + i];
+    const k = (a > lev) | ((b > lev) << 1) | ((c > lev) << 2) | ((d > lev) << 3); if(!k || k === 15) continue;
+    const pt = e => e === 0 ? [i + (lev - a)/(b - a), j] : e === 1 ? [i + 1, j + (lev - b)/(c - b)] : e === 2 ? [i + (lev - d)/(c - d), j + 1] : [i, j + (lev - a)/(d - a)];
+    const s = CAS[k]; for(let q = 0; q < s.length; q += 2){ const p0 = P(pt(s[q])), p1 = P(pt(s[q + 1])); x.moveTo(p0.x, p0.y); x.lineTo(p1.x, p1.y); } }
+  x.stroke(); }
+function cadre(cv){ const d = Math.min(2, devicePixelRatio || 1), w = cv.clientWidth, h = cv.clientHeight; if(cv.width !== Math.round(w*d)){ cv.width = Math.round(w*d); cv.height = Math.round(h*d); } const x = cv.getContext('2d'); x.setTransform(d, 0, 0, d, 0, 0); return { x, w, h }; }
+/* cadrage qui suit le visage : il tient en entier dans la grille (cheveux compris), centre, sans saut ; la video suit le meme cadrage */
+let CV = null;
+function proj(w, h){ const vw = video.videoWidth || 4, vh = video.videoHeight || 3, cover = Math.max(w/vw, h/vh);
+  let cible = { s:cover, ox:(w - vw*cover)/2, oy:(h - vh*cover)/2 };
+  if(L){ const b = boite(L), sc = Math.min(cover, h*.58/(b.fh*vh), w*.5/(b.fw*vw)); cible = { s:sc, ox:w/2 - (1 - b.cx)*vw*sc, oy:h*.54 - b.cy*vh*sc }; }
+  if(!CV || CV.w !== w) CV = { ...cible, w }; else { CV.s += (cible.s - CV.s)*.08; CV.ox += (cible.ox - CV.ox)*.08; CV.oy += (cible.oy - CV.oy)*.08; }
+  const v = $('vcam'); v.style.left = CV.ox + 'px'; v.style.top = CV.oy + 'px'; v.style.width = vw*CV.s + 'px'; v.style.height = vh*CV.s + 'px';
+  const dw = vw*CV.s, dh = vh*CV.s, ox = CV.ox, oy = CV.oy; return p => ({ x: ox + (1 - p.x)*dw, y: oy + p.y*dh }); }
+/* 4 · imagerie : la silhouette en double trait lumineux, les reliefs du visage en lignes organiques, sur la grille */
+function traceVisage(now){
+  const { x, w, h } = cadre($('trace')); x.clearRect(0, 0, w, h);
+  $('nbpts').textContent = String(nbPts).padStart(3, '0');
+  if(!video.videoWidth){ $('statut').textContent = '[recherche]'; return; }
+  const c = champs(video, L, CHEV), pr = proj(w, h), t = now/1000, G = g => pr({ x:(g[0] + .5)/SW, y:(g[1] + .5)/SH });
+  x.lineCap = 'round'; x.lineJoin = 'round'; x.shadowColor = 'rgba(230,251,249,.85)';
+  if(!L){ $('statut').textContent = '[recherche]'; x.strokeStyle = 'rgba(230,251,249,.35)'; x.lineWidth = 1.4; x.shadowBlur = 8; iso(x, c.F, .5, G); return; }
+  // les reliefs : lignes de niveau de la lumiere, seulement dans le visage (yeux, sourcils, narines, levres)
+  let s = 0, n = 0; for(let k = 0; k < SW*SH; k++) if(c.V[k] > .9){ s += c.lum[k]; n++; } const peau = n ? s/n : .5;
+  const lb = flou(c.lum, SW, SH, 1), G2 = new Float32Array(SW*SH); for(let k = 0; k < SW*SH; k++){ const a = Math.min(1, Math.max(0, (c.V[k] - .55)/.35)); G2[k] = lb[k]*a + peau*(1 - a); }
+  x.shadowBlur = 9; x.strokeStyle = 'rgba(230,251,249,.88)'; x.lineWidth = 1.9; iso(x, G2, peau*.74, G);
+  x.strokeStyle = 'rgba(230,251,249,.45)'; x.lineWidth = 1.2; iso(x, G2, peau*.86, G);
+  // la topographie du relief, tres legere
+  x.shadowBlur = 0; x.strokeStyle = 'rgba(230,251,249,.16)'; x.lineWidth = 1; [.45, .7, .95].forEach(l => iso(x, c.D, l, G));
+  // la silhouette : deux traits paralleles, le second plus doux
+  x.shadowBlur = 14; x.strokeStyle = 'rgba(236,253,251,.97)'; x.lineWidth = 3.2; iso(x, c.F, .5, G);
+  x.shadowBlur = 8; x.strokeStyle = 'rgba(230,251,249,.5)'; x.lineWidth = 1.5; iso(x, flou(c.F, SW, SH, 2), .2, G);
+  // le faisceau qui balaie le visage, de haut en bas puis remonte
+  const hb = pr(L[10]), bb = pr(L[152]), gx0 = pr(L[234]).x, gx1 = pr(L[454]).x, xa = Math.min(gx0, gx1) - 30, xb = Math.max(gx0, gx1) + 30, ph = (Math.sin(t*1.7) + 1)/2, ys = hb.y - 20 + (bb.y - hb.y + 40)*ph;
+  const gf = x.createLinearGradient(0, ys - 46, 0, ys + 46); gf.addColorStop(0, 'rgba(230,251,249,0)'); gf.addColorStop(.5, 'rgba(230,251,249,.28)'); gf.addColorStop(1, 'rgba(230,251,249,0)'); x.fillStyle = gf; x.fillRect(xa, ys - 46, xb - xa, 92);
+  x.fillStyle = 'rgba(244,255,254,.95)'; x.shadowColor = 'rgba(160,255,250,.95)'; x.shadowBlur = 14; x.fillRect(xa, ys - 1, xb - xa, 2); x.shadowBlur = 0;
+  // les zones mesurees, une a une : un cadre qui se pose, un nom, une valeur qui bouge avec la vraie image
+  const MES = [[151, 'Front', 'éclat'], [50, 'Pommette', 'rougeur'], [280, 'Pommette', 'rougeur'], [4, 'Nez', 'pores'], [205, 'Joue', 'hydratation'], [425, 'Joue', 'texture'], [152, 'Menton', 'brillance'], [33, 'Contour de l’œil', 'ridules']];
+  const act = Math.floor(t/.55) % MES.length; x.font = '600 11px "IBM Plex Mono", monospace'; x.lineWidth = 1.6;
+  MES.forEach(([i, nom, crit], k) => { const p = pr(L[i]), age = ((act - k) + MES.length) % MES.length; if(age > 4) return; const al = 1 - age*.2, s2 = 26 + (age === 0 ? 6*Math.sin(t*12) : 0);
+    const q = Math.min(SW*SH - 1, Math.max(0, Math.floor(L[i].y*SH)*SW + Math.floor(L[i].x*SW))), v = Math.round(c.lum[q]*100);
+    x.strokeStyle = 'rgba(230,251,249,' + al + ')'; x.shadowColor = 'rgba(230,251,249,.9)'; x.shadowBlur = age === 0 ? 14 : 6; const o = s2/2, l = 8;
+    x.beginPath(); [[-1,-1],[1,-1],[1,1],[-1,1]].forEach(([sx2, sy2]) => { x.moveTo(p.x + sx2*o, p.y + sy2*(o - l)); x.lineTo(p.x + sx2*o, p.y + sy2*o); x.lineTo(p.x + sx2*(o - l), p.y + sy2*o); }); x.stroke();
+    x.shadowBlur = 0; x.fillStyle = 'rgba(240,255,253,' + al + ')'; x.fillText(nom.toUpperCase() + ' · ' + crit, p.x + o + 8, p.y - 4); x.fillText(String(age === 0 ? v + Math.round(3*Math.sin(t*20)) : v).padStart(3, '0'), p.x + o + 8, p.y + 10); });
+  // reperes : quelques points du maillage, qui respirent
+  x.fillStyle = 'rgba(230,251,249,.95)'; x.shadowBlur = 10;
+  [10, 151, 4, 152, 234, 454, 50, 280, 61, 291].forEach((i, k) => { const p = pr(L[i]); x.globalAlpha = .45 + .55*Math.abs(Math.sin(t*1.6 + k)); x.beginPath(); x.arc(p.x, p.y, 3, 0, 7); x.fill(); });
+  x.globalAlpha = 1; x.shadowBlur = 0;
+  $('statut').textContent = scores ? '[lu]' : '[lecture]';
+}
+/* 5 · la trame : des rangees de points qui epousent le relief (lumiere structuree) ; taille = ombre ; le bas se dissout en particules */
+const hache = (a, b) => { const v = Math.sin(a*127.1 + b*311.7)*43758.5453; return v - Math.floor(v); };
+/* le buste en points (WebGL) : un seul canvas, qui passe de l'ecran 5 aux resultats */
+let glPret = false, zoomB = 0, tourneB = 0, reveleB = 1; const glb = $('glb');
+function buste(t){ if(!window.Buste) return; if(!glPret){ try { Buste.init(glb); glPret = true; } catch(e){ console.warn('webgl', e); return; } } Buste.dessine(Lsnap, t, { genre, cheveux: seg ? { masque:CHEV, mw:SW, mh:SH } : null, zoom:zoomB, tourne:tourneB, revele:reveleB, photo: video.videoWidth ? { image:video, miroir:false } : null }); }
+let t5 = 0; const mc = document.createElement('canvas'), mg = mc.getContext('2d');
+/* l'animation : la photo de la camera, puis un balayage facon radiographie qui la decoupe en pixels et la recompose en points */
+function trame(now){ const { x, w, h } = cadre($('trame')), p = (now - t5)/1000, zz = p < 4.6 ? 0 : p < 6 ? (p - 4.6)/1.4 : p < 8.6 ? 1 : Math.max(0, 1 - (p - 8.6)/1.2); zoomB = zz*zz*(3 - 2*zz);
+  const u = Math.min(1, Math.max(0, (p - .3)/3.6)), e = u < .5 ? 2*u*u : 1 - Math.pow(-2*u + 2, 2)/2, pc = -3 + 106*e, t = now/1000;
+  // le buste se decouvre de haut en bas sous la ligne lumineuse (masque), puis reste entier
+  buste(t); const m = u >= 1 ? 'none' : 'linear-gradient(180deg,#000 ' + (pc - 3) + '%,rgba(0,0,0,.55) ' + pc + '%,transparent ' + (pc + .6) + '%)'; glb.style.webkitMaskImage = m; glb.style.maskImage = m;
+  x.clearRect(0, 0, w, h); if(u >= 1) return; const sy = h*pc/100;
+  const gl = x.createLinearGradient(0, sy - 90, 0, sy + 3); gl.addColorStop(0, 'rgba(235,255,253,0)'); gl.addColorStop(1, 'rgba(235,255,253,.45)'); x.fillStyle = gl; x.fillRect(0, sy - 90, w, 93);
+  x.fillStyle = '#f4fffe'; x.shadowColor = 'rgba(160,255,250,.95)'; x.shadowBlur = 18; x.fillRect(0, sy - 1.5, w, 3); x.shadowBlur = 0; }
+function dessineTrame(x, w, h, src, Lm, chev, t, pas, fond, sp = null){
+  x.clearRect(0, 0, w, h);
+  if(fond){ const g = x.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#cdeff0'); g.addColorStop(1, '#93d3d6'); x.fillStyle = g; x.beginPath(); if(x.roundRect) x.roundRect(0, 0, w, h, 18); else x.rect(0, 0, w, h); x.fill(); }
+  const vw = src.videoWidth || src.width, vh = src.videoHeight || src.height; if(!vw || vw < 3) return;
+  const c = champs(src, Lm, chev), b = c.b, k = h*(fond ? .42 : .34)/(b.fh*vh), ox = w*.5, oy = h*(fond ? .37 : .33), fhp = b.fh*vh*k, ych = oy + ((Lm ? Lm[152].y : b.y1) - b.cy)*vh*k;
+  const toU = X => b.cx - (X - ox)/(vw*k), toV = Y => b.cy + (Y - oy)/(vh*k);
+  // contraste : la lumiere ramenee entre le 3e et le 97e centile de la silhouette
+  const bornes = (M, s0) => { const hist = new Uint32Array(64); let tot = 0; for(let q = 0; q < SW*SH; q++) if(M[q] > s0){ hist[Math.min(63, c.lum[q]*64 | 0)]++; tot++; }
+    let lo = 0, hi = 1, acc = 0; for(let q = 0; q < 64; q++){ acc += hist[q]; if(acc < tot*.04) lo = (q + 1)/64; if(acc < tot*.96) hi = (q + 1)/64; } if(hi - lo < .08) hi = lo + .08; return [lo, hi]; };
+  const [lo, hi] = bornes(c.F, .6), [vlo, vhi] = bornes(c.V, .85);
+  const ombre = new Float32Array(SW*SH); for(let j = 1; j < SH - 1; j++) for(let i = 1; i < SW - 1; i++){ const q = j*SW + i, gx = c.D[q + 1] - c.D[q - 1], gy = c.D[q + SW] - c.D[q - SW];
+    ombre[q] = Math.min(1, Math.max(0, .62 + (gx*.55 + gy*.85)*-9 - (1 - Math.min(1, c.F[q]*1.6))*.5)); }
+  const L1 = flou(c.lum, SW, SH, 1), amp = pas*2.1, dx = pas*.6, bas = Math.min(h*.8, ych + fhp*.45), fin = Math.min(h*1.02, bas + fhp*1.05);
+  let sy = null; const band = Math.max(60, h*.13);
+  if(sp != null){ sy = (oy - fhp*1.25) + (h + band - (oy - fhp*1.25))*sp;
+    const photo = (g, f) => { g.save(); g.translate((ox + b.cx*vw*k)*f, (oy - b.cy*vh*k)*f); g.scale(-k*f, k*f); g.filter = 'grayscale(1) sepia(.55) hue-rotate(130deg) saturate(1.5) contrast(1.15)'; g.drawImage(src, 0, 0); g.restore(); };
+    // sous le balayage : la photo intacte
+    x.save(); x.beginPath(); x.rect(0, sy, w, h); x.clip(); x.globalAlpha = .9; photo(x, 1); x.restore();
+    // dans le balayage : la meme photo, decoupee en pixels de plus en plus gros
+    const blk = pas*1.4; mc.width = Math.ceil(w/blk); mc.height = Math.ceil(h/blk); mg.clearRect(0, 0, mc.width, mc.height); photo(mg, 1/blk);
+    x.save(); x.beginPath(); x.rect(0, sy - band, w, band); x.clip(); x.imageSmoothingEnabled = false; const gm = x.createLinearGradient(0, sy - band, 0, sy); gm.addColorStop(0, 'rgba(0,0,0,0)'); gm.addColorStop(1, '#000');
+    x.globalAlpha = .85; x.drawImage(mc, 0, 0, mc.width*blk, mc.height*blk); x.globalCompositeOperation = 'destination-in'; x.fillStyle = gm; x.fillRect(0, sy - band, w, band); x.restore(); }
+  x.fillStyle = '#0f6670'; x.beginPath();
+  for(let Y0 = -pas*4, r0 = 0; Y0 < h + pas*4; Y0 += pas, r0++){ const v = toV(Y0), j = Math.min(SH - 1, Math.max(0, v*SH | 0)); if(v < 0) continue;
+    for(let X = (r0 % 2)*dx*.5; X < w; X += dx){ const u = toU(X); if(u < 0 || u > 1) continue; const i = u*SW | 0, q = j*SW + i, f = c.F[q]; if(f < .28) continue;
+      const bord = Math.min(1, (f - .28)/.4); if(hache(X, Y0) > bord*1.05) continue;
+      let Y = Y0 - c.D[q]*amp + Math.sin(X*.012 + t*1.4)*pas*.12, ln0 = ombre[q], ln1 = (L1[q] - vlo)/(vhi - vlo), vv = c.V[q], ln = Math.min(1, Math.max(0, ln0*(1 - vv) + ln1*vv));
+      const base = .3 - .12*vv; let r = pas*.5*(base + (1 - base)*Math.pow(1 - ln, 1.15))*(.55 + .45*bord);
+      if(Y > bas){ const e = Math.min(1, (Y - bas)/(fin - bas)), hz = hache(Y0, X); if(hz < e*1.05) continue; Y += e*e*pas*3*hache(X, Y0 + 1); r *= 1 - e*.55; }
+      if(sy != null){ const e2 = (sy - band*.35 - Y0)/band; if(e2 < 0) continue; if(e2 < 1){ r *= .25 + .75*e2; X += (hache(Y0, X + 3) - .5)*pas*3*(1 - e2); Y += (hache(X, Y0 + 5) - .5)*pas*3*(1 - e2); } }
+      if(r < .35) continue; x.moveTo(X + r, Y); x.arc(X, Y, r, 0, 6.2832); } }
+  x.fill();
+  // la ligne du scanner, lumineuse
+  if(sy != null){ const gl = x.createLinearGradient(0, sy - 60, 0, sy + 4); gl.addColorStop(0, 'rgba(255,255,255,0)'); gl.addColorStop(1, 'rgba(235,255,253,.55)'); x.fillStyle = gl; x.fillRect(0, sy - 60, w, 64);
+    x.fillStyle = '#f4fffe'; x.shadowColor = 'rgba(160,255,250,.95)'; x.shadowBlur = 18; x.fillRect(0, sy - 1.5, w, 3); x.shadowBlur = 0; if(sy < bas) return; }
+  // la poussiere qui tombe sous le buste
+  x.fillStyle = 'rgba(15,102,112,.55)'; x.beginPath(); const lw = b.fw*vw*k*3.4;
+  for(let p = 0; p < 260; p++){ const a = hache(p, 1), e = hache(p, 2), X = ox + (a - .5)*lw*(.6 + e*.6), Y = bas + ((hache(p, 3)*(h - bas + pas*6) + t*(6 + e*14)) % (h - bas + pas*6)), r = pas*.1 + e*pas*.22;
+    x.moveTo(X + r, Y); x.arc(X, Y, r, 0, 6.2832); }
+  x.fill();
+}
+/* ---- la vraie lecture de peau (le meme moteur que vyvre.fr), en tache de fond pendant l'imagerie ---- */
+const script = src => new Promise((ok, ko) => { const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = ko; document.head.appendChild(s); });
+let mods = null;
+function modeles(){ return mods || (mods = (async () => { const fs = await FilesetResolver.forVisionTasks('/cheveux/vendor/mediapipe/wasm');
+    const o = d => ({ baseOptions:{ modelAssetPath:'/cheveux/vendor/mediapipe/modeles/face_landmarker.task', delegate:d }, runningMode:'VIDEO', numFaces:1 });
+    try { face = await FaceLandmarker.createFromOptions(fs, o('GPU')); } catch(e){ face = await FaceLandmarker.createFromOptions(fs, o('CPU')); }
+    try { seg = await ImageSegmenter.createFromOptions(fs, { baseOptions:{ modelAssetPath:'/cheveux/vendor/mediapipe/modeles/hair_segmenter.tflite', delegate:'CPU' }, runningMode:'VIDEO', outputConfidenceMasks:true, outputCategoryMask:false }); } catch(e){ console.warn('cheveux', e); } })()); }
+/* prechauffage : le moteur et ses modeles se chargent des l'accueil, le scan n'attend plus */
+let pret = null;
+function prechauffe(){ return pret || (pret = (async () => { if(!window.faceapi) await script('/scan/vendor/face-api-1.7.15.min.js'); if(!window.VYVRE_SCAN_ENGINE) await script('/scan/vyvre-scan-engine.js?v=10.7');
+  await Promise.all([faceapi.nets.tinyFaceDetector.loadFromUri('/scan/models/faceapi'), faceapi.nets.faceLandmark68Net.loadFromUri('/scan/models/faceapi')]); })()); }
+async function moteur(){
+  try { await prechauffe();
+    // on attend un visage stable avant de lancer
+    for(let i = 0; i < 25 && stable < 8; i++) await new Promise(r => setTimeout(r, 100));
+    $('consigne').textContent = 'Ne bougez plus, la lecture commence.';
+    let essais = 0;
+    while(!scores && essais < 2){ essais++;
+      const r = await window.VYVRE_SCAN_ENGINE.runRealScanWithFeedback(video, ev => { if(ev.phase === 'positioning' && ev.distance === 'too_far') $('consigne').textContent = 'Rapprochez-vous un peu.'; else if(ev.phase === 'analyzing') $('consigne').textContent = 'Analyse de la lumière de votre peau…'; }, { skipGate:true, skipAge:true, fast:true });
+      document.getElementById('vyvre-v9-reject')?.remove();
+      if(r && r.scores && !r.rejected){ scores = r.scores; break; }
+      $('consigne').textContent = 'Regardez droit vers l’écran, on recommence.'; }
+  } catch(e){ console.warn(e); }
+  if(!scores){ try { const z = JSON.parse(localStorage.getItem('vyvre_scan_scores') || 'null'); if(z && typeof z.glow === 'number'){ scores = z; } } catch(e){} }
+  if(!scores){ exemple = true; scores = { glow:58, redness:64, hydration:52, pores:61, sebum:38, pigmentation:30, wrinkles:66, firmness:63 }; }
+  cliché = document.createElement('canvas'); cliché.width = video.videoWidth || 1; cliché.height = video.videoHeight || 1; try { cliché.getContext('2d').drawImage(video, 0, 0); } catch(e){}
+  cliché.L = L && L.map(p => ({ ...p })); cliché.chev = CHEV.slice(); cliché.Lsnap = Lsnap;
+  fini = true; if(etape === 4) aller(7);
+}
+/* 6 · organisation : la liste se remplit, les compteurs montent */
+function organiser(){ const o = $('orga'); o.innerHTML = ''; CATS.forEach(([k, t], i) => setTimeout(() => { const b = document.createElement('button'); b.className = 'on'; b.innerHTML = t + '<em>' + (prio.has(k) ? 'priorité' : 'lu') + '</em>'; o.appendChild(b); }, 260*i));
+  const fin = 478, t0 = performance.now(); const monte = now => { const u = Math.min(1, (now - t0)/2200), e = 1 - Math.pow(1 - u, 3); $('c1').textContent = Math.round(fin*e); $('c2').textContent = String(Math.round(8*e)).padStart(2, '0'); if(u < 1 && etape === 6) requestAnimationFrame(monte); else if(etape === 6){ $('st6').textContent = 'Statut [prêt]'; setTimeout(() => { if(etape === 6) aller(7); }, 1100); } }; requestAnimationFrame(monte); }
+/* 8 · resultats : la peau en curseurs, grands chiffres, et un gros plan avec ses reperes */
+function secours(){ if(scores) return; try { const z = JSON.parse(localStorage.getItem('vyvre_scan_scores') || 'null'); if(z && typeof z.glow === 'number'){ scores = z; return; } } catch(e){} exemple = true; scores = { glow:58, redness:64, hydration:52, pores:61, sebum:38, pigmentation:30, wrinkles:66, firmness:63 }; }
+function resultats(){
+  secours();
+  if(!cliché && video.videoWidth && L){ cliché = document.createElement('canvas'); cliché.width = video.videoWidth; cliché.height = video.videoHeight; cliché.getContext('2d').drawImage(video, 0, 0); cliché.L = L.map(p => ({ ...p })); cliché.chev = CHEV.slice(); }
+  const val = (k, inv) => { const v = Number(scores[k]); if(!isFinite(v)) return null; return Math.round(inv ? 100 - v : v); };
+  const lignes = CATS.map(([k, t, inv]) => [k, t, val(k, inv)]).filter(x => x[2] != null);
+  const etat = v => v >= 70 ? ['bon', 'Favorable'] : v >= 45 ? ['moy', 'Dans la moyenne'] : ['suivre', 'À suivre'];
+  const ordre = lignes.slice().sort((a, b) => (prio.has(b[0]) - prio.has(a[0])) || (a[2] - b[2]));
+  const n = ($('prenom').value || '').trim();
+  $('res').innerHTML = '<div class="mono lum">' + (n ? esc(n) + ' · ' : '') + new Date().toLocaleDateString('fr-FR') + (exemple ? ' · exemple' : '') + '</div><div class="tete"><h1>Peau' + (n ? '<br>' + esc(n.charAt(0).toUpperCase() + n.slice(1)) : '') + '</h1><canvas id="portrait"></canvas></div><hr>'
+    + '<div class="metriques">' + ordre.map(([k, t, v]) => { const [c, l] = etat(v); return '<div class="met"><h3>' + t + (prio.has(k) ? ' <span class="delta">◉ priorité</span>' : '') + '</h3><div class="curseur"><div class="rail"></div><div class="rempli" style="width:' + v + '%"></div><div class="val" style="left:' + v + '%">' + v + '</div><div class="pt" style="left:' + v + '%"></div></div><div class="zones"><span>À travailler</span><span>Moyenne</span><span>Favorable</span></div><span class="puce ' + c + '">' + l.toUpperCase() + '</span></div>'; }).join('') + '</div><hr>'
+    + '<div class="duo"><div><small>Points mesurés</small><b>' + (L ? L.length : 478) + '</b></div><div><small>Catégories</small><b>08</b></div></div><hr>'
+    + '<h3 style="font:600 26px var(--sans)">Ce que la lecture a repéré</h3><div class="gp-wrap"><div class="gros-plan"><canvas id="gp"></canvas></div><div><div id="gpListe"></div><p class="note">Repères visuels sur votre cliché, pour les retrouver d’une lecture à l’autre. Pas un diagnostic.</p></div></div><hr>'
+    + '<h3 style="font:600 26px var(--sans)">Vos soins</h3><p class="note">Choisis dans le catalogue pour vos deux points à travailler en priorité.</p><div class="soins" id="soins"><p class="note">Chargement du catalogue…</p></div><div id="fiches"></div><hr>'
+    + '<div class="suite"><a href="/aliment"><span class="mono">Ensuite</span><b>Votre assiette →</b></a><a href="/scan/"><span class="mono">Ensuite</span><b>Vos soins →</b></a></div>'
+    + '<p class="note">Lecture optique de l’image, faite sur cet appareil. Elle ne remplace pas l’avis d’un dermatologue.' + (exemple ? ' Ces valeurs sont un exemple : la caméra n’a pas pu lire votre peau.' : '') + '</p>';
+  requestAnimationFrame(grosPlan);
+  // le meme buste anime, en haut a droite : on y deplace le canvas WebGL (son contexte le suit)
+  const pc2 = $('portrait'); if(pc2){ glb.className = 'portrait-gl'; glb.style.webkitMaskImage = glb.style.maskImage = 'none'; pc2.replaceWith(glb); const t8 = performance.now();
+    // 1. le buste se dessine de haut en bas ; 2. zoom sur le visage ; 3. la tete tourne lentement a gauche et a droite
+    const anime = now => { if(etape !== 8 || glb.className !== 'portrait-gl') return; const p = (now - t8)/1000;
+      reveleB = Math.min(1, p/7); const z = Math.min(1, Math.max(0, (p - 9.5)/3)); zoomB = z*z*(3 - 2*z); tourneB = Math.min(1, Math.max(0, (p - 12.8)/1.5));
+      buste(now/1000); requestAnimationFrame(anime); }; requestAnimationFrame(anime); }
+  soins(ordre);
+}
+/* le detail de chaque soin, comme le scan classique : grande photo, pourquoi pour vous, ce qu'en dit la marque (court), ses actifs, comment l'utiliser */
+const USAGE = { serum:'Matin et/ou soir, quelques gouttes sur peau propre, avant la crème.', creme:'Matin et soir, sur le visage et le cou, après le sérum.', 'contour-yeux':'Matin et soir, une petite quantité en tapotant du bout du doigt autour de l’œil.', nettoyant:'Matin et soir, sur peau humide, puis rincer.', masque:'Une à deux fois par semaine, sur peau propre, selon la notice.', 'solaire-visage':'Le matin, en dernier geste, et à renouveler en cas d’exposition.', lotion:'Après le nettoyage, sur un coton ou au creux des mains.', exfoliant:'Le soir, une à trois fois par semaine ; une protection solaire le lendemain.', huile:'Le soir, quelques gouttes réchauffées entre les mains, en dernier geste.', 'autre-visage':'Selon la notice de la marque.' };
+const ACTIF = r => { const m = String(r).match(/^(.+?) \(INCI/); if(!m) return null; let a = m[1].replace(/^glycerine en tete$/, 'glycérine').replace(/^sans parfum$/, '').replace(/^filtres UV$/, 'filtres UV'); return a || null; };
+const phrases = (t, max) => { if(!t) return ''; const ps = String(t).replace(/\s+/g, ' ').match(/[^.!?]+[.!?]/g) || [t]; let o = ''; for(const p of ps){ if((o + p).length > max) break; o += p; } return (o || ps[0].slice(0, max)).trim(); };
+const marquesJ = {};
+async function fiches(liste, faibles, lab){ const z = $('fiches'); if(!z || !liste.length) return;
+  const det = await Promise.all(liste.map(async p => { try { if(!marquesJ[p.brand]) marquesJ[p.brand] = fetch('/scan/catalogue/' + p.brand + '.json').then(r => r.json()); const j = await marquesJ[p.brand]; return (j.products || []).find(q => q.id === p.id) || {}; } catch(e){ return {}; } }));
+  z.innerHTML = '<h3 style="font:600 26px var(--sans);margin-top:30px">Le détail de vos soins</h3>' + liste.map((p, k) => { const d = det[k], pour = (p.targets || []).filter(t => faibles.includes(t)).map(t => lab[t]),
+      actifs = [...new Set((p.score_raisons || []).map(ACTIF).filter(Boolean))].slice(0, 4), txt = /\b(les|des|votre|pour|une|avec|peau)\b/i.test(d.description || '') && !/[A-Z]{4,}\s+[A-Z]{4,}/.test(d.description || '') ? phrases(d.description, 260) : '', us = USAGE[p.categorie] || USAGE['autre-visage'];
+    return '<article class="fiche' + (k % 2 ? ' inv' : '') + '"><div class="fiche-im"><img alt="" src="' + esc(p.cutout_url) + '"></div><div class="fiche-tx"><span class="mono">' + String(k + 1).padStart(2, '0') + ' · ' + esc(p.brand_name || p.brand) + '</span><h4>' + esc(p.name) + '</h4>'
+      + (pour.length ? '<div class="fl"><b>Pour vous</b><span>Choisi pour ' + pour.join(' et ').toLowerCase() + ', vos points à travailler.</span></div>' : '')
+      + (txt ? '<div class="fl"><b>La marque</b><span>« ' + esc(txt) + ' »</span></div>' : '')
+      + (actifs.length ? '<div class="fl"><b>Ses actifs</b><span class="chips">' + actifs.map(a => '<i>' + esc(a) + '</i>').join('') + '</span></div>' : '')
+      + '<div class="fl"><b>Comment l’utiliser</b><span>' + us + '</span></div>'
+      + '<a class="fl-lien" href="' + esc(p.url || '#') + '" target="_blank" rel="noopener">Voir chez ' + esc(p.brand_name || p.brand) + ' →</a></div></article>'; }).join('')
+    + '<p class="note">Le texte entre guillemets vient de la marque. Les conseils d’usage sont généraux : suivez la notice du produit.</p>'; }
+/* de vrais soins du catalogue (le meme que vyvre.fr), pour les deux categories les plus faibles */
+const EUR = { DE:1, CH:1, SE:1, BE:1, NL:1, ES:1, IT:1, AT:1, DK:1, PT:1, MC:1, HU:1, IE:1, PL:1, GB:1 };
+const zoneDe = pays => pays === 'FR' ? 'FR' : EUR[pays] ? 'EU' : (pays === 'KR' || pays === 'JP') ? 'AS' : pays ? 'INT' : null;
+async function soins(ordre){ const z = $('soins'); try { const [j, mj] = await Promise.all([fetch('/scan/catalogue/all.json').then(r => r.json()), fetch('/scan/catalogue/marques.json').then(r => r.json()).catch(() => ({ marques:{} }))]); const MQ = mj.marques || {};
+  const dansPerimetre = (p, lache) => { const b = MQ[p.brand] || {}; if(lache < 1 && REP.origine.length && REP.origine.indexOf(zoneDe(b.pays)) < 0) return false; if(lache < 2 && REP.budget.length && REP.budget.indexOf(b.univers) < 0) return false; return true; }; const faibles = ordre.slice().sort((a, b) => a[2] - b[2]).slice(0, 2).map(x => x[0]);
+  let lache = 0; const base = p => p.cutout_url && !/sothys/i.test(p.brand || '') && !/US ONLY/i.test(p.name || '') && (p.targets || []).some(t => faibles.includes(t)); let liste = j.products.filter(p => base(p) && dansPerimetre(p, 0)); if(liste.length < 6){ lache = 1; liste = j.products.filter(p => base(p) && dansPerimetre(p, 1)); } if(liste.length < 6){ lache = 2; liste = j.products.filter(base); }
+  const cand = liste.map(p => ({ p, sc:faibles.reduce((s2, t) => s2 + ((p.concern_scores || {})[t] || 0), 0) })).sort((a, b) => b.sc - a.sc);
+  const pris = [], marques = new Set(), cats = new Set(); for(const c of cand){ if(pris.length >= 8) break; if(marques.has(c.p.brand) || cats.has(c.p.categorie)) continue; pris.push(c.p); marques.add(c.p.brand); cats.add(c.p.categorie); }
+  const lab = Object.fromEntries(CATS.map(c => [c[0], c[1]]));
+  z.innerHTML = pris.map(p => '<a class="soin" href="' + esc(p.url || '#') + '" target="_blank" rel="noopener"><img alt="" src="' + esc(p.cutout_url) + '"><span class="mono">' + esc(p.brand_name || p.brand) + '</span><b>' + esc(p.name) + '</b><em>' + (p.targets || []).filter(t => faibles.includes(t)).map(t => lab[t]).join(' · ') + '</em></a>').join('') || '<p class="note">Aucun soin trouvé.</p>';
+  // un produit sur fond blanc (pas detoure) est retire ; on garde les 4 premiers bons
+  const cartes = [...z.querySelectorAll('.soin')]; cartes.forEach((a, k) => { a.hidden = true; const im = a.querySelector('img'); const juge = () => { let bon = true; try { const c2 = document.createElement('canvas'); c2.width = 40; c2.height = 40; const g = c2.getContext('2d'); g.drawImage(im, 0, 0, 40, 40); const d = g.getImageData(0, 0, 40, 40).data; let ob = 0; for(let q = 0; q < 40; q++){ [[q,0],[q,39],[0,q],[39,q]].forEach(([a2, b2]) => { if(d[(b2*40 + a2)*4 + 3] > 200) ob++; }); } bon = ob/160 < .4; let n2 = 0, x0 = 40, x1 = -1, y0 = 40, y1 = -1, bl = 0; for(let q = 0; q < 1600; q++){ if(d[q*4 + 3] > 200){ n2++; const i = q % 40, j = (q/40) | 0; if(i < x0) x0 = i; if(i > x1) x1 = i; if(j < y0) y0 = j; if(j > y1) y1 = j; if(d[q*4] > 215 && d[q*4 + 1] > 215 && d[q*4 + 2] > 215) bl++; } } a.dataset.boite = (n2/Math.max(1, (x1 - x0 + 1)*(y1 - y0 + 1)) > .82 && bl/Math.max(1, n2) > .25) ? '1' : '0'; } catch(e){} a.dataset.bon = bon ? '1' : '0'; montre(); }; if(im.complete && im.naturalWidth) juge(); else { im.onload = juge; im.onerror = () => { a.dataset.bon = '0'; montre(); }; } });
+  let tf = null; function montre(){ let n = 0; cartes.forEach(a => a.hidden = true); [cartes.filter(a => a.dataset.bon === '1' && a.dataset.boite !== '1'), cartes.filter(a => a.dataset.bon === '1' && a.dataset.boite === '1')].flat().forEach(a => { if(n < 4){ a.hidden = false; n++; } });
+    clearTimeout(tf); tf = setTimeout(() => fiches(cartes.filter(a => !a.hidden).map(a => pris[cartes.indexOf(a)]), faibles, lab), 400); } } catch(e){ z.innerHTML = '<p class="note">Catalogue indisponible.</p>'; } }
+const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' })[c]);
+/* le gros plan : votre vrai visage en transparence, dans un petit ecran retroeclaire ; carres bleus = zones reperees sur le cliche
+   (rougeur locale : rouge nettement au-dessus du voisinage ; point sombre : lumiere nettement en dessous). Yeux, sourcils, levres et narines exclus. */
+function grosPlan(){
+  const cv = $('gp'); if(!cv) return; const { x, w, h } = cadre(cv); x.clearRect(0, 0, w, h);
+  if(!cliché || !cliché.L){ x.fillStyle = 'rgba(230,251,249,.6)'; x.font = '15px Figtree'; x.fillText('Gros plan indisponible sans caméra.', 20, 30); $('gpListe').innerHTML = ''; return; }
+  const Lm = cliché.L, W = cliché.width, H = cliché.height, b = boite(Lm);
+  let sh = b.fh*H*1.32, sw = sh*w/h; if(sw < b.fw*W*1.3){ sw = b.fw*W*1.3; sh = sw*h/w; } const sx = b.cx*W - sw/2, sy = b.cy*H - sh/2 - sh*.02;
+  // le visage, a moitie transparent, sur le fond bleu
+  x.save(); x.globalAlpha = .5; x.filter = 'saturate(.75) contrast(1.12)'; x.translate(w, 0); x.scale(-1, 1); x.drawImage(cliché, sx, sy, sw, sh, 0, 0, w, h); x.restore();
+  // analyse sur une grille 120 x ...
+  const aw = 120, ah = Math.round(aw*h/w), a = document.createElement('canvas'); a.width = aw; a.height = ah; const ag = a.getContext('2d', { willReadFrequently:true });
+  ag.drawImage(cliché, sx, sy, sw, sh, 0, 0, aw, ah); const dd = ag.getImageData(0, 0, aw, ah).data;
+  const P = p => [(p.x*W - sx)/sw*aw, (p.y*H - sy)/sh*ah];
+  ag.fillStyle = '#000'; ag.fillRect(0, 0, aw, ah); ag.fillStyle = '#fff'; ag.beginPath(); OVALE.forEach((i, k) => { const [px, py] = P(Lm[i]); k ? ag.lineTo(px, py) : ag.moveTo(px, py); }); ag.closePath(); ag.fill();
+  ag.strokeStyle = '#000'; ag.lineWidth = aw*.06; ag.stroke(); ag.fillStyle = '#000';
+  const trou = (ids, k) => { let cx = 0, cy = 0, r = 0; const pts = ids.map(i => P(Lm[i])); pts.forEach(([px, py]) => { cx += px; cy += py; }); cx /= pts.length; cy /= pts.length; pts.forEach(([px, py]) => r = Math.max(r, Math.hypot(px - cx, py - cy))); ag.beginPath(); ag.ellipse(cx, cy, r*k, r*k*.8, 0, 0, 7); ag.fill(); };
+  trou([33, 133, 159, 145], 1.9); trou([362, 263, 386, 374], 1.9); trou([70, 63, 105, 66, 107], 1.05); trou([300, 293, 334, 296, 336], 1.05); trou([61, 291, 0, 17], 1.55); trou([98, 2, 327, 4], 1.0);
+  const mk = ag.getImageData(0, 0, aw, ah).data, n = aw*ah, Y = new Float32Array(n), R = new Float32Array(n), M = new Float32Array(n);
+  for(let i = 0; i < n; i++){ Y[i] = dd[i*4]*.299 + dd[i*4 + 1]*.587 + dd[i*4 + 2]*.114; R[i] = dd[i*4] - (dd[i*4 + 1] + dd[i*4 + 2])/2; M[i] = mk[i*4] > 128 ? 1 : 0; }
+  const Yb = flou(Y, aw, ah, 5), Rb = flou(R, aw, ah, 5), Y1 = flou(Y, aw, ah, 1), R1 = flou(R, aw, ah, 1);
+  // la peau de reference : mediane de la lumiere dans le visage ; la barbe, les sourcils et les ombres (bien plus sombres) sont ignores
+  const vals = []; for(let k = 0; k < n; k++) if(M[k]) vals.push(Yb[k]); vals.sort((p, q) => p - q); const peau = vals.length ? vals[vals.length >> 1] : 128;
+  const ZONES = [[151,'front'],[108,'front'],[337,'front'],[50,'pommette'],[280,'pommette'],[205,'joue'],[425,'joue'],[4,'nez'],[195,'nez'],[98,'aile du nez'],[327,'aile du nez'],[152,'menton'],[175,'menton'],[33,'coin de l’œil'],[263,'coin de l’œil']].map(([i, z]) => [P(Lm[i]), z]);
+  const zone = (i, j) => { let m = 1e9, z = ''; ZONES.forEach(([[px, py], nz]) => { const d = Math.hypot(px - i, py - j); if(d < m){ m = d; z = nz; } }); return z; };
+  const allonge = (i, j) => { let sw2 = 0, mx = 0, my = 0; const pts = []; for(let b2 = -3; b2 <= 3; b2++) for(let a2 = -3; a2 <= 3; a2++){ const k = (j + b2)*aw + i + a2; const v = Math.max(0, Yb[k] - Y1[k] - 3); if(v > 0){ pts.push([a2, b2, v]); sw2 += v; mx += a2*v; my += b2*v; } }
+    if(sw2 <= 0) return 1; mx /= sw2; my /= sw2; let xx = 0, yy = 0, xy = 0; pts.forEach(([a2, b2, v]) => { xx += v*(a2 - mx)**2; yy += v*(b2 - my)**2; xy += v*(a2 - mx)*(b2 - my); });
+    const tr = xx + yy, de = Math.sqrt(Math.max(0, (xx - yy)**2/4 + xy*xy)), l1 = tr/2 + de, l2 = Math.max(.01, tr/2 - de); return l1/l2; };
+  const cand = [];
+  for(let j = 4; j < ah - 4; j++) for(let i = 4; i < aw - 4; i++){ const k = j*aw + i; if(!M[k] || Yb[k] < peau*.82) continue; const er = R1[k] - Rb[k], es = Yb[k] - Y1[k], eb = Y1[k] - Yb[k], z = zone(i, j);
+    if(er > 6) cand.push({ i, j, s:er, t:'rougeur', z });
+    if(es > 7){ const t = (z === 'nez' || z === 'aile du nez') ? 'pore' : ((z === 'coin de l’œil' || z === 'front') && allonge(i, j) > 2.2) ? 'ridule' : 'tache'; cand.push({ i, j, s:es, t, z }); }
+    if(eb > 14 && (z === 'front' || z === 'nez' || z === 'menton')) cand.push({ i, j, s:eb*.6, t:'brillance', z }); }
+  const TYPES = { rougeur:['Rougeur','Rougeurs','plus rouge que la peau autour'], tache:['Tache','Taches','petite zone plus foncée'], pore:['Pore','Pores visibles','pore plus marqué'], ridule:['Ridule','Ridules','fine ligne d’expression'], brillance:['Brillance','Brillance','reflet de sébum'] };
+  const pris = []; Object.keys(TYPES).forEach(ty => { let m = 0; cand.filter(c => c.t === ty).sort((p, q) => q.s - p.s).forEach(c => { if(m < 2 && pris.length < 8 && pris.every(q => Math.hypot(q.i - c.i, q.j - c.j) > aw*.1)){ pris.push(c); m++; } }); });
+  // les carres bleus, en miroir comme le visage, avec le nom de ce qui est repere
+  x.lineWidth = 2.4; x.strokeStyle = 'rgba(80,220,255,.98)'; x.fillStyle = 'rgba(80,220,255,.10)'; x.shadowColor = 'rgba(80,220,255,.9)'; x.shadowBlur = 12; x.font = '600 10px "IBM Plex Mono", monospace';
+  pris.forEach((p, k) => { const px = w - (p.i + .5)/aw*w, py = (p.j + .5)/ah*h, s = Math.max(16, w*.055) + Math.min(8, p.s*.5);
+    x.beginPath(); if(x.roundRect) x.roundRect(px - s/2, py - s/2, s, s, 4); else x.rect(px - s/2, py - s/2, s, s); x.fill(); x.stroke();
+    x.shadowBlur = 0; x.fillStyle = 'rgba(210,248,255,.98)'; const lab = TYPES[p.t][0].toUpperCase(), tw = x.measureText(lab).width, lx = px + s/2 + 4 + tw > w - 4 ? px - s/2 - 4 - tw : px + s/2 + 4; x.fillText(lab, lx, py - s/2 + 9); x.fillStyle = 'rgba(80,220,255,.10)'; x.shadowBlur = 12; });
+  x.shadowBlur = 0;
+  const parType = Object.keys(TYPES).map(ty => [ty, pris.filter(p => p.t === ty)]).filter(([, l]) => l.length);
+  $('gpListe').innerHTML = (parType.length ? parType.map(([ty, l]) => '<div class="gp-l"><b>' + String(l.length).padStart(2, '0') + '</b><span>' + TYPES[ty][1] + '<br><em>' + [...new Set(l.map(p => p.z))].join(', ') + ' · ' + TYPES[ty][2] + '</em></span></div>').join('') : '<div class="gp-l"><span>Rien de marqué sur ce cliché.<br><em>Peau homogène à cette distance.</em></span></div>')
+    + '<div class="loupes">' + pris.map((p, k) => '<figure><canvas data-k="' + k + '"></canvas><figcaption>' + TYPES[p.t][0] + '<br>' + p.z + '</figcaption></figure>').join('') + '</div>';
+  // les loupes : chaque repere agrandi, net et a pleine opacite, pour juger a l'oeil
+  document.querySelectorAll('.loupes canvas').forEach(lc => { const p = pris[+lc.dataset.k], z = sw*.09, cx = sx + (p.i + .5)/aw*sw, cy = sy + (p.j + .5)/ah*sh; lc.width = 160; lc.height = 160; const g = lc.getContext('2d');
+    g.save(); g.translate(160, 0); g.scale(-1, 1); g.imageSmoothingQuality = 'high'; g.drawImage(cliché, cx - z/2, cy - z/2, z, z, 0, 0, 160, 160); g.restore();
+    g.strokeStyle = 'rgba(80,220,255,.95)'; g.lineWidth = 3; g.strokeRect(52, 52, 56, 56); });
+}
+</script>
+</body>
+</html>
