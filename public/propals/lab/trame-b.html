@@ -23,7 +23,7 @@ video,canvas#det{position:fixed;left:-9999px;top:0;width:2px;height:2px;opacity:
 <canvas id="buste"></canvas>
 <video id="cam" playsinline muted autoplay></video>
 <canvas id="det"></canvas>
-<script src="/propals/lab/buste-gl.js?v=9" id="lib"></script>
+<script src="/propals/lab/buste-gl.js?v=10" id="lib"></script>
 <script>/* banc d'essai : ?lib=buste-gl-v8.js pour comparer avec une version figee */
 (function(){ const l = new URLSearchParams(location.search).get('lib'); if(l && /^buste-gl[-\w.]*\.js$/.test(l)){ window.Buste = undefined; document.write('<script src="/propals/lab/' + l + '?ancien=1"><\/script>'); } })();</script>
 <script type="module">
