@@ -50,9 +50,13 @@ body{font-family:var(--sans);color:var(--ligne);-webkit-font-smoothing:antialias
 /* 0 · intro */
 .anneau{position:absolute;left:50%;top:50%;width:min(64vh,560px);aspect-ratio:1;translate:-50% -50%;border-radius:50%;border:2px dotted rgba(230,251,249,.35);animation:tourne 60s linear infinite}
 .anneau.vite{animation-duration:9s;border-width:3px}
-.charge{position:absolute;left:50%;top:50%;width:min(72vh,640px);aspect-ratio:1;translate:-50% -50%;rotate:-90deg;overflow:visible}.charge circle{fill:none;stroke-width:1.6}.charge .fond-c{stroke:rgba(230,251,249,.18)}.charge .arc-c{stroke:#e6fbf9;stroke-linecap:round;stroke-dasharray:603;stroke-dashoffset:603;filter:drop-shadow(0 0 6px rgba(230,251,249,.9))}
-.anneau.a2{width:min(46vh,400px);border:0;background:radial-gradient(circle,rgba(255,255,255,.10),rgba(255,255,255,.03) 70%,transparent 71%)}
-.anneau.a3{width:min(34vh,300px);border:0;background:radial-gradient(circle,rgba(255,255,255,.08),transparent 70%)}
+.charge{position:absolute;left:50%;top:50%;width:min(56vh,480px);aspect-ratio:1;translate:-50% -50%;rotate:-90deg;overflow:visible}.charge circle{fill:none;stroke-width:1.6}.charge .fond-c{stroke:rgba(230,251,249,.18)}.charge .arc-c{stroke:#e6fbf9;stroke-linecap:round;stroke-dasharray:603;stroke-dashoffset:603;filter:drop-shadow(0 0 6px rgba(230,251,249,.9))}
+.charge .rot{transform-origin:100px 100px;animation:tourne 14s linear infinite}.charge .r2{animation-duration:7s;animation-direction:reverse}.charge .r3{animation-duration:22s}
+.charge .grad{stroke:rgba(230,251,249,.55);stroke-width:2.4;stroke-dasharray:.6 4.5}.charge .seg{stroke:rgba(230,251,249,.6);stroke-width:1.2;stroke-dasharray:38 22 6 22;stroke-linecap:round;filter:drop-shadow(0 0 4px rgba(230,251,249,.8))}.charge .pointil{stroke:rgba(230,251,249,.35);stroke-width:1;stroke-dasharray:1 3}
+.charge .tete{fill:#fff;stroke:none}.charge .halo{fill:rgba(230,251,249,.25);stroke:none;animation:halo 1.2s ease-in-out infinite}@keyframes halo{50%{opacity:.25}}
+.anneau.souffle{animation:souffle 3.2s ease-in-out infinite}.anneau.s2{animation-delay:-1.6s}@keyframes souffle{50%{scale:1.06;opacity:.7}}
+.anneau.a2{width:min(40vh,350px);border:0;background:radial-gradient(circle,rgba(255,255,255,.10),rgba(255,255,255,.03) 70%,transparent 71%)}
+.anneau.a3{width:min(29vh,255px);border:0;background:radial-gradient(circle,rgba(255,255,255,.08),transparent 70%)}
 @keyframes tourne{to{rotate:360deg}}
 .centre{position:absolute;inset:0;display:grid;place-items:center;text-align:center}
 .marque{font:600 clamp(64px,10vw,140px)/1 var(--sans);letter-spacing:.02em}
@@ -103,7 +107,7 @@ canvas.plein{position:absolute;inset:0;width:100%;height:100%}
 .compteurs span{font:600 14px var(--mono);letter-spacing:.2em;color:#9fe3e0}
 .compteurs i{display:block;width:120px;height:2px;margin:0 auto;background:rgba(243,251,248,.35)}
 /* 7 · termine */
-.nom-geant{font:500 clamp(70px,11vw,150px)/1 var(--sans);letter-spacing:-.02em;color:#cfeff0;text-shadow:0 0 30px rgba(207,239,240,.35)}
+.nom-geant{font:500 clamp(54px,7.6vw,108px)/1 var(--sans);letter-spacing:-.02em;color:#cfeff0;text-shadow:0 0 30px rgba(207,239,240,.35)}
 .termine{transition:opacity .6s;display:flex;align-items:center;gap:18px;justify-content:center;margin-top:10px;font:600 clamp(20px,2.4vw,32px) var(--sans);color:#bfe8ea}
 /* 8 · resultats */
 .res{position:absolute;inset:0;overflow-y:auto;padding:var(--py) calc(var(--px) + 7vw) var(--py) var(--px);scrollbar-width:none}
@@ -207,8 +211,14 @@ canvas.plein{position:absolute;inset:0;width:100%;height:100%}
   </section>
   <!-- 7 · termine -->
   <section class="vue" data-t="bleu" data-ry="4deg" data-rx="-2deg" data-fx=".5">
-    <div class="anneau vite"></div><div class="anneau a2"></div><div class="anneau a3"></div>
-    <svg class="charge" viewBox="0 0 200 200"><circle cx="100" cy="100" r="96" class="fond-c"/><circle cx="100" cy="100" r="96" class="arc-c" id="arc7"/></svg>
+    <div class="anneau a2 souffle"></div><div class="anneau a3 souffle s2"></div>
+    <svg class="charge" viewBox="0 0 200 200">
+      <g class="rot r1"><circle cx="100" cy="100" r="98" class="grad"/></g>
+      <g class="rot r2"><circle cx="100" cy="100" r="92" class="seg"/></g>
+      <g class="rot r3"><circle cx="100" cy="100" r="86" class="pointil"/></g>
+      <circle cx="100" cy="100" r="96" class="fond-c"/><circle cx="100" cy="100" r="96" class="arc-c" id="arc7"/>
+      <g id="tete7"><circle cx="196" cy="100" r="2.6" class="tete"/><circle cx="196" cy="100" r="6" class="halo"/></g>
+    </svg>
     <div class="centre"><div><div class="nom-geant" id="nomg">Vous</div><div class="termine">Lecture terminée <button class="fleche" data-go="8" aria-label="Voir les résultats">→</button></div></div></div>
     <div class="sous-titre on"><i id="st7">Vos résultats.</i></div>
   </section>
@@ -227,7 +237,7 @@ canvas.plein{position:absolute;inset:0;width:100%;height:100%}
 </div></div></div>
 <nav id="nav"></nav>
 <video id="video" autoplay muted playsinline style="position:fixed;width:2px;height:2px;opacity:.01;left:0;top:0"></video>
-<script src="/propals/lab/buste-gl-v6.js?v=6"></script>
+<script src="/propals/lab/buste-gl-v7.js?v=7"></script>
 <script type="module">
 import { FilesetResolver, FaceLandmarker, ImageSegmenter } from '/cheveux/vendor/mediapipe/vision_bundle.mjs';
 const $ = id => document.getElementById(id);
@@ -263,7 +273,7 @@ const PF = new Set('marie anne sophie julie camille claire lea emma chloe sarah 
 const PH = new Set('charles pierre philippe jerome stephane guillaume baptiste jean paul louis lucas hugo leo gabriel arthur jules adam raphael nathan thomas nicolas julien antoine alexandre maxime mathieu matthieu romain sebastien olivier christophe frederic laurent eric david michel alain bernard patrick daniel francois vincent benoit damien florian quentin kevin anthony mohamed ahmed karim yanis sami noah ethan tom theo victor martin simon felix oscar marc luc andre rene serge thierry didier pascal cedric gregory jeremy remi achille come gaspard'.split(' '));
 function genreDuPrenom(n){ const k = n.trim().split(/[\s-]/)[0].toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); if(!k) return undefined; if(PF.has(k)) return 'f'; if(PH.has(k)) return 'h'; if(/(a|ine|ette|elle|ie|ee)$/.test(k)) return 'f'; return undefined; }
 $('prenom').addEventListener('input', () => { const el = $('prenom'), v = el.value; if(v && v[0] !== v[0].toUpperCase()){ const c = el.selectionStart; el.value = v[0].toUpperCase() + v.slice(1); el.setSelectionRange(c, c); }
-  { const g = genreDuPrenom(el.value); genre = g === undefined ? null : g; }   // la silhouette se deduit du prenom ; inconnu = entre-deux if($('prenom').value.trim()) valide(3, 2500); else clearTimeout(autoT); });
+  { const g = genreDuPrenom(el.value); genre = g === undefined ? null : g; }   /* la silhouette se deduit du prenom ; inconnu = entre-deux */ if($('prenom').value.trim()) valide(3, 2500); else clearTimeout(autoT); });
 /* priorites : un toucher, ca s'allume */
 $('prio').innerHTML = CATS.map(([k, t]) => '<button data-k="' + k + '">' + t + '<em>à suivre</em></button>').join('');
 /* les questions : un ecran, trois etapes ; un toucher remplit la fleche puis on passe ; sans reponse, « tous » au bout de quelques secondes */
@@ -296,7 +306,7 @@ const ENTREE = {
   7(){ const n = ($('prenom').value || '').trim(); $('nomg').textContent = n || 'Vous'; $('st7').textContent = n ? n + '.' : 'Vos résultats.';
     const t0 = performance.now(), D = 3400, arc = $('arc7'), fl = $('nomg').parentNode.querySelector('.termine'); fl.style.opacity = '0'; fl.firstChild.textContent = 'Lecture terminée ';
     $('st7').parentNode.style.opacity = '0'; let e = 0;
-    const tic = now => { if(etape !== 7) return; const u = Math.min(1, (now - t0)/D); e = Math.max(e, fini ? Math.min(1, e + .02) : .9*(1 - Math.pow(1 - u, 2))); arc.style.strokeDashoffset = (603*(1 - e)).toFixed(1);
+    const tic = now => { if(etape !== 7) return; const u = Math.min(1, (now - t0)/D); e = Math.max(e, fini ? Math.min(1, e + .02) : .9*(1 - Math.pow(1 - u, 2))); arc.style.strokeDashoffset = (603*(1 - e)).toFixed(1); $('tete7').setAttribute('transform', 'rotate(' + (360*e).toFixed(1) + ' 100 100)');
       if(e < 1) requestAnimationFrame(tic); else { fl.style.opacity = '1'; $('st7').parentNode.style.opacity = '1'; setTimeout(() => { if(etape === 7) aller(8); }, 1800); } }; requestAnimationFrame(tic); },
   8(){ resultats(); } };
 setTimeout(() => ENTREE[0](), 50);
