@@ -91,6 +91,7 @@ input.prenom::placeholder{color:rgba(246,234,214,.35)}
 canvas.plein{position:absolute;inset:0;width:100%;height:100%}
 .lecture{position:absolute;right:var(--px);top:calc(var(--py) + 30px);text-align:right;display:grid;gap:6px}
 .lecture b{font:300 clamp(30px,3.4vw,46px) var(--sans);color:transparent;-webkit-text-stroke:1.4px var(--ligne);text-shadow:var(--glow);font-variant-numeric:tabular-nums}
+.nom5{position:absolute;left:var(--px);top:var(--py);display:grid;gap:8px;color:#0f5f68;z-index:3}.nom5 b{font:600 clamp(48px,7vw,104px)/1 var(--sans);letter-spacing:-.025em}.nom5 .mono{color:#156c74}
 .consigne{position:absolute;left:0;right:0;bottom:8%;text-align:center;font:500 clamp(17px,1.8vw,22px) var(--sans)}
 /* 6 · organisation */
 .compteurs{position:absolute;right:8%;top:50%;translate:0 -50%;display:grid;gap:clamp(20px,5vh,56px);text-align:center}
@@ -189,6 +190,7 @@ canvas.plein{position:absolute;inset:0;width:100%;height:100%}
   <!-- 5 · trame de points -->
   <section class="vue" data-t="aqua" data-ry="8deg" data-rx="2deg" data-fx=".6">
     <canvas class="plein" id="trame"></canvas>
+    <div class="nom5"><span class="mono">Lecture · 01 · peau</span><b id="nom5">Vous</b><span class="mono" id="st5b">[balayage]</span></div>
     <div class="sous-titre on" id="st5"><i>Votre lecture prend forme.</i></div>
   </section>
   <!-- 6 · organisation -->
@@ -251,7 +253,7 @@ const ENTREE = {
   2(){ setTimeout(() => $('prenom').focus(), 600); auto(3, 7000); },
   3(){ auto(4, 6500); },
   4(){ camera(); },
-  5(){ setTimeout(() => { if(etape === 5) aller(6); }, 5200); },
+  5(){ t5 = performance.now(); $('nom5').textContent = ($('prenom').value || '').trim() || 'Vous'; $('st5b').textContent = '[balayage]'; setTimeout(() => { if(etape === 5) $('st5b').textContent = '[recomposé]'; }, 4300); setTimeout(() => { if(etape === 5) aller(6); }, 7800); },
   6(){ organiser(); },
   7(){ const n = ($('prenom').value || '').trim(); $('nomg').textContent = n || 'Vous'; $('st7').textContent = n ? n + '.' : 'Vos résultats.'; auto(8, 3200); },
   8(){ resultats(); } };
@@ -301,10 +303,10 @@ function champs(src, Lm, chev){
   const vv = pcx.getImageData(0, 0, SW, SH).data, V0 = new Float32Array(N); for(let i = 0; i < N; i++) V0[i] = vv[i*4]/255;
   // le cou puis les epaules, sous le menton
   const mx = Lm ? Lm[152].x : b.cx, my = Lm ? Lm[152].y : b.y1, jy = Lm ? (Lm[172].y + Lm[397].y)/2 : b.y1 - b.fh*.2;
-  const nw = b.fw*.3, y0 = my + b.fh*.22, y1 = my + b.fh*.9, ep = b.fw*1.5, X = v => v*SW, Yy = v => v*SH;
-  pcx.beginPath(); pcx.moveTo(X(mx - nw), Yy(jy)); pcx.lineTo(X(mx - nw), Yy(y0)); pcx.bezierCurveTo(X(mx - nw), Yy(y0 + b.fh*.3), X(mx - ep*.85), Yy(y0 + b.fh*.18), X(mx - ep), Yy(y1));
-  pcx.lineTo(X(mx - ep*1.06), SH*2); pcx.lineTo(X(mx + ep*1.06), SH*2); pcx.lineTo(X(mx + ep), Yy(y1));
-  pcx.bezierCurveTo(X(mx + ep*.85), Yy(y0 + b.fh*.18), X(mx + nw), Yy(y0 + b.fh*.3), X(mx + nw), Yy(y0)); pcx.lineTo(X(mx + nw), Yy(jy)); pcx.closePath(); pcx.fill();
+  const nw = b.fw*.3, y0 = my + b.fh*.18, y1 = my + b.fh*1.15, ep = b.fw*1.3, X = v => v*SW, Yy = v => v*SH;
+  pcx.beginPath(); pcx.moveTo(X(mx - nw), Yy(jy)); pcx.lineTo(X(mx - nw), Yy(y0)); pcx.bezierCurveTo(X(mx - nw*1.1), Yy(y0 + b.fh*.42), X(mx - ep*.75), Yy(y0 + b.fh*.3), X(mx - ep), Yy(y1));
+  pcx.lineTo(X(mx - ep*1.18), SH*2); pcx.lineTo(X(mx + ep*1.18), SH*2); pcx.lineTo(X(mx + ep), Yy(y1));
+  pcx.bezierCurveTo(X(mx + ep*.75), Yy(y0 + b.fh*.3), X(mx + nw*1.1), Yy(y0 + b.fh*.42), X(mx + nw), Yy(y0)); pcx.lineTo(X(mx + nw), Yy(jy)); pcx.closePath(); pcx.fill();
   const m = pcx.getImageData(0, 0, SW, SH).data, S = new Float32Array(N);
   const hx0 = b.x0 - b.fw*.55, hx1 = b.x1 + b.fw*.55, hy0 = b.y0 - b.fh*.7, hy1 = b.y1 + b.fh*.9;
   for(let j = 0; j < SH; j++) for(let i = 0; i < SW; i++){ const k = j*SW + i, u = (i + .5)/SW, v = (j + .5)/SH; let h = chev && u > hx0 && u < hx1 && v > hy0 && v < hy1 ? chev[k] : 0; S[k] = Math.max(m[k*4]/255, h > .45 ? h : 0); }
@@ -353,8 +355,10 @@ function traceVisage(now){
 }
 /* 5 · la trame : des rangees de points qui epousent le relief (lumiere structuree) ; taille = ombre ; le bas se dissout en particules */
 const hache = (a, b) => { const v = Math.sin(a*127.1 + b*311.7)*43758.5453; return v - Math.floor(v); };
-function trame(now){ const { x, w, h } = cadre($('trame')); dessineTrame(x, w, h, video, L, CHEV, now/1000, w < 600 ? 6 : 8, false); }
-function dessineTrame(x, w, h, src, Lm, chev, t, pas, fond){
+let t5 = 0; const mc = document.createElement('canvas'), mg = mc.getContext('2d');
+/* l'animation : la photo de la camera, puis un balayage facon radiographie qui la decoupe en pixels et la recompose en points */
+function trame(now){ const { x, w, h } = cadre($('trame')), p = (now - t5)/1000, sp = p < 1 ? 0 : Math.min(1.08, (p - 1)/3.2); dessineTrame(x, w, h, video, L, CHEV, now/1000, w < 600 ? 6 : 8, false, sp >= 1.08 ? null : sp); }
+function dessineTrame(x, w, h, src, Lm, chev, t, pas, fond, sp = null){
   x.clearRect(0, 0, w, h);
   if(fond){ const g = x.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#cdeff0'); g.addColorStop(1, '#93d3d6'); x.fillStyle = g; x.beginPath(); if(x.roundRect) x.roundRect(0, 0, w, h, 18); else x.rect(0, 0, w, h); x.fill(); }
   const vw = src.videoWidth || src.width, vh = src.videoHeight || src.height; if(!vw || vw < 3) return;
@@ -367,6 +371,15 @@ function dessineTrame(x, w, h, src, Lm, chev, t, pas, fond){
   const ombre = new Float32Array(SW*SH); for(let j = 1; j < SH - 1; j++) for(let i = 1; i < SW - 1; i++){ const q = j*SW + i, gx = c.D[q + 1] - c.D[q - 1], gy = c.D[q + SW] - c.D[q - SW];
     ombre[q] = Math.min(1, Math.max(0, .62 + (gx*.55 + gy*.85)*-9 - (1 - Math.min(1, c.F[q]*1.6))*.5)); }
   const L1 = flou(c.lum, SW, SH, 1), amp = pas*2.1, dx = pas*.6, bas = Math.min(h*.8, ych + fhp*.45), fin = Math.min(h*1.02, bas + fhp*1.05);
+  let sy = null; const band = Math.max(60, h*.13);
+  if(sp != null){ sy = (oy - fhp*1.25) + (h + band - (oy - fhp*1.25))*sp;
+    const photo = (g, f) => { g.save(); g.translate((ox + b.cx*vw*k)*f, (oy - b.cy*vh*k)*f); g.scale(-k*f, k*f); g.filter = 'grayscale(1) sepia(.55) hue-rotate(130deg) saturate(1.5) contrast(1.15)'; g.drawImage(src, 0, 0); g.restore(); };
+    // sous le balayage : la photo intacte
+    x.save(); x.beginPath(); x.rect(0, sy, w, h); x.clip(); x.globalAlpha = .9; photo(x, 1); x.restore();
+    // dans le balayage : la meme photo, decoupee en pixels de plus en plus gros
+    const blk = pas*1.4; mc.width = Math.ceil(w/blk); mc.height = Math.ceil(h/blk); mg.clearRect(0, 0, mc.width, mc.height); photo(mg, 1/blk);
+    x.save(); x.beginPath(); x.rect(0, sy - band, w, band); x.clip(); x.imageSmoothingEnabled = false; const gm = x.createLinearGradient(0, sy - band, 0, sy); gm.addColorStop(0, 'rgba(0,0,0,0)'); gm.addColorStop(1, '#000');
+    x.globalAlpha = .85; x.drawImage(mc, 0, 0, mc.width*blk, mc.height*blk); x.globalCompositeOperation = 'destination-in'; x.fillStyle = gm; x.fillRect(0, sy - band, w, band); x.restore(); }
   x.fillStyle = '#0f6670'; x.beginPath();
   for(let Y0 = -pas*4, r0 = 0; Y0 < h + pas*4; Y0 += pas, r0++){ const v = toV(Y0), j = Math.min(SH - 1, Math.max(0, v*SH | 0)); if(v < 0) continue;
     for(let X = (r0 % 2)*dx*.5; X < w; X += dx){ const u = toU(X); if(u < 0 || u > 1) continue; const i = u*SW | 0, q = j*SW + i, f = c.F[q]; if(f < .28) continue;
@@ -374,8 +387,12 @@ function dessineTrame(x, w, h, src, Lm, chev, t, pas, fond){
       let Y = Y0 - c.D[q]*amp + Math.sin(X*.012 + t*1.4)*pas*.12, ln0 = ombre[q], ln1 = (L1[q] - vlo)/(vhi - vlo), vv = c.V[q], ln = Math.min(1, Math.max(0, ln0*(1 - vv) + ln1*vv));
       const base = .3 - .12*vv; let r = pas*.5*(base + (1 - base)*Math.pow(1 - ln, 1.15))*(.55 + .45*bord);
       if(Y > bas){ const e = Math.min(1, (Y - bas)/(fin - bas)), hz = hache(Y0, X); if(hz < e*1.05) continue; Y += e*e*pas*3*hache(X, Y0 + 1); r *= 1 - e*.55; }
+      if(sy != null){ const e2 = (sy - band*.35 - Y0)/band; if(e2 < 0) continue; if(e2 < 1){ r *= .25 + .75*e2; X += (hache(Y0, X + 3) - .5)*pas*3*(1 - e2); Y += (hache(X, Y0 + 5) - .5)*pas*3*(1 - e2); } }
       if(r < .35) continue; x.moveTo(X + r, Y); x.arc(X, Y, r, 0, 6.2832); } }
   x.fill();
+  // la ligne du scanner, lumineuse
+  if(sy != null){ const gl = x.createLinearGradient(0, sy - 60, 0, sy + 4); gl.addColorStop(0, 'rgba(255,255,255,0)'); gl.addColorStop(1, 'rgba(235,255,253,.55)'); x.fillStyle = gl; x.fillRect(0, sy - 60, w, 64);
+    x.fillStyle = '#f4fffe'; x.shadowColor = 'rgba(160,255,250,.95)'; x.shadowBlur = 18; x.fillRect(0, sy - 1.5, w, 3); x.shadowBlur = 0; if(sy < bas) return; }
   // la poussiere qui tombe sous le buste
   x.fillStyle = 'rgba(15,102,112,.55)'; x.beginPath(); const lw = b.fw*vw*k*3.4;
   for(let p = 0; p < 260; p++){ const a = hache(p, 1), e = hache(p, 2), X = ox + (a - .5)*lw*(.6 + e*.6), Y = bas + ((hache(p, 3)*(h - bas + pas*6) + t*(6 + e*14)) % (h - bas + pas*6)), r = pas*.1 + e*pas*.22;
