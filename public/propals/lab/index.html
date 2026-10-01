@@ -237,7 +237,7 @@ canvas.plein{position:absolute;inset:0;width:100%;height:100%}
 </div></div></div>
 <nav id="nav"></nav>
 <video id="video" autoplay muted playsinline style="position:fixed;width:2px;height:2px;opacity:.01;left:0;top:0"></video>
-<script src="/propals/lab/buste-gl-v8.js?v=8"></script>
+<script src="/propals/lab/buste-gl-v9.js?v=9"></script>
 <script type="module">
 import { FilesetResolver, FaceLandmarker, ImageSegmenter } from '/cheveux/vendor/mediapipe/vision_bundle.mjs';
 const $ = id => document.getElementById(id);
@@ -301,7 +301,7 @@ const ENTREE = {
   3(){ },
   9(){ qi = 0; question(); },
   4(){ camera(); setTimeout(() => { if(etape === 4 && L) aller(7); }, 7000); },
-  5(){ tourneB = 0; if(glb.parentNode !== VUES[5]){ glb.className = 'plein visible'; VUES[5].insertBefore(glb, $('trame')); } t5 = performance.now(); setTimeout(() => { if(etape === 5) aller(6); }, 10200); },
+  5(){ tourneB = 0; reveleB = 1; if(glb.parentNode !== VUES[5]){ glb.className = 'plein visible'; VUES[5].insertBefore(glb, $('trame')); } t5 = performance.now(); setTimeout(() => { if(etape === 5) aller(6); }, 10200); },
   6(){ organiser(); },
   7(){ const n = ($('prenom').value || '').trim(); $('nomg').textContent = n || 'Vous'; $('st7').textContent = n ? n + '.' : 'Vos résultats.';
     const t0 = performance.now(), D = 3400, arc = $('arc7'), fl = $('nomg').parentNode.querySelector('.termine'); fl.style.opacity = '0'; fl.firstChild.textContent = 'Lecture terminée ';
@@ -424,8 +424,8 @@ function traceVisage(now){
 /* 5 · la trame : des rangees de points qui epousent le relief (lumiere structuree) ; taille = ombre ; le bas se dissout en particules */
 const hache = (a, b) => { const v = Math.sin(a*127.1 + b*311.7)*43758.5453; return v - Math.floor(v); };
 /* le buste en points (WebGL) : un seul canvas, qui passe de l'ecran 5 aux resultats */
-let glPret = false, zoomB = 0, tourneB = 0; const glb = $('glb');
-function buste(t){ if(!window.Buste) return; if(!glPret){ try { Buste.init(glb); glPret = true; } catch(e){ console.warn('webgl', e); return; } } Buste.dessine(Lsnap, t, { genre, cheveux: seg ? { masque:CHEV, mw:SW, mh:SH } : null, zoom:zoomB, tourne:tourneB, photo: video.videoWidth ? { image:video, miroir:false } : null }); }
+let glPret = false, zoomB = 0, tourneB = 0, reveleB = 1; const glb = $('glb');
+function buste(t){ if(!window.Buste) return; if(!glPret){ try { Buste.init(glb); glPret = true; } catch(e){ console.warn('webgl', e); return; } } Buste.dessine(Lsnap, t, { genre, cheveux: seg ? { masque:CHEV, mw:SW, mh:SH } : null, zoom:zoomB, tourne:tourneB, revele:reveleB, photo: video.videoWidth ? { image:video, miroir:false } : null }); }
 let t5 = 0; const mc = document.createElement('canvas'), mg = mc.getContext('2d');
 /* l'animation : la photo de la camera, puis un balayage facon radiographie qui la decoupe en pixels et la recompose en points */
 function trame(now){ const { x, w, h } = cadre($('trame')), p = (now - t5)/1000, zz = p < 4.6 ? 0 : p < 6 ? (p - 4.6)/1.4 : p < 8.6 ? 1 : Math.max(0, 1 - (p - 8.6)/1.2); zoomB = zz*zz*(3 - 2*zz);
@@ -529,9 +529,8 @@ function resultats(){
   // le meme buste anime, en haut a droite : on y deplace le canvas WebGL (son contexte le suit)
   const pc2 = $('portrait'); if(pc2){ glb.className = 'portrait-gl'; glb.style.webkitMaskImage = glb.style.maskImage = 'none'; pc2.replaceWith(glb); const t8 = performance.now();
     // 1. le buste se dessine de haut en bas ; 2. zoom sur le visage ; 3. la tete tourne lentement a gauche et a droite
-    const anime = now => { if(etape !== 8 || glb.className !== 'portrait-gl') return; const p = (now - t8)/1000, u = Math.min(1, p/3.4), e = u < .5 ? 2*u*u : 1 - Math.pow(-2*u + 2, 2)/2, pc = -3 + 106*e;
-      const m = u >= 1 ? 'none' : 'linear-gradient(180deg,#000 ' + (pc - 3) + '%,rgba(0,0,0,.55) ' + pc + '%,transparent ' + (pc + .8) + '%)'; glb.style.webkitMaskImage = m; glb.style.maskImage = m;
-      const z = Math.min(1, Math.max(0, (p - 3.8)/1.6)); zoomB = z*z*(3 - 2*z); tourneB = Math.min(1, Math.max(0, (p - 5.6)/1.2));
+    const anime = now => { if(etape !== 8 || glb.className !== 'portrait-gl') return; const p = (now - t8)/1000;
+      reveleB = Math.min(1, p/7); const z = Math.min(1, Math.max(0, (p - 9.5)/3)); zoomB = z*z*(3 - 2*z); tourneB = Math.min(1, Math.max(0, (p - 12.8)/1.5));
       buste(now/1000); requestAnimationFrame(anime); }; requestAnimationFrame(anime); }
   soins(ordre);
 }

@@ -23,11 +23,13 @@ video,canvas#det{position:fixed;left:-9999px;top:0;width:2px;height:2px;opacity:
 <canvas id="buste"></canvas>
 <video id="cam" playsinline muted autoplay></video>
 <canvas id="det"></canvas>
-<script src="/propals/lab/buste-gl.js?v=8"></script>
+<script src="/propals/lab/buste-gl.js?v=9" id="lib"></script>
+<script>/* banc d'essai : ?lib=buste-gl-v8.js pour comparer avec une version figee */
+(function(){ const l = new URLSearchParams(location.search).get('lib'); if(l && /^buste-gl[-\w.]*\.js$/.test(l)){ window.Buste = undefined; document.write('<script src="/propals/lab/' + l + '?ancien=1"><\/script>'); } })();</script>
 <script type="module">
 /* banc d'essai de buste-gl.js : vraie camera, detecteur de visage + segmenteur de cheveux, zoom qui alterne tout seul.
    Sequence automatique : buste entier, zoom sur le visage, la tete tourne, retour (24 s).
-   URL : ?genre=f|h|n (defaut f), ?cheveux=0 pour les couper, ?photo=0 pour le visage sculpte seul, ?zoom=0..1 et ?tourne=0..1 pour les figer. Touches : G (genre), C (cheveux), Z (zoom). */
+   URL : ?genre=f|h|n (defaut f), ?cheveux=0 pour les couper, ?photo=0 pour le visage sculpte seul, ?zoom=0..1, ?tourne=0..1 et ?revele=0..1 pour les figer ; ?simul=barbe,court,photobarbe,sombre pour fabriquer un homme barbu sous faible lumiere. Touches : G (genre), C (cheveux), Z (zoom). */
 import { FilesetResolver, FaceLandmarker, ImageSegmenter } from '/cheveux/vendor/mediapipe/vision_bundle.mjs';
 
 const Q = new URLSearchParams(location.search);
@@ -61,6 +63,38 @@ function simuleMasque(m, w, h, lm){
     }
   }
 }
+let reveleFixe = Q.has('revele') ? Math.min(1, Math.max(0, +Q.get('revele') || 0)) : null;
+/* photo simulee pour le banc d'essai : ?simul=...,photobarbe (fausse barbe sombre dans l'image), sombre (eclairage -40 %) */
+const phc = window.__phc = document.createElement("canvas"), phx = phc.getContext('2d', { willReadFrequently:true });
+let tPhc = 0;
+function photoSimulee(){
+  const W = 480, H = Math.round(480*video.videoHeight/video.videoWidth);
+  if(phc.width !== W){ phc.width = W; phc.height = H; }
+  phx.drawImage(video, 0, 0, W, H);
+  const lm = dernier && dernier.points; if(!lm) return phc;
+  const im = phx.getImageData(0, 0, W, H), d = im.data;
+  const P = i => [lm[i].x*W, lm[i].y*H];
+  const L = P(234), R = P(454), hi = P(10), lo = P(152), ne = P(2), lb = P(17), lh = P(0);
+  let X = [R[0]-L[0], R[1]-L[1]]; const fw = Math.hypot(X[0], X[1]); X = [X[0]/fw, X[1]/fw];
+  let Y = [hi[0]-lo[0], hi[1]-lo[1]]; const yx = Y[0]*X[0]+Y[1]*X[1]; Y = [Y[0]-X[0]*yx, Y[1]-X[1]*yx]; const yl = Math.hypot(Y[0],Y[1]); Y = [Y[0]/yl, Y[1]/yl];
+  const c = [(L[0]+R[0])/2, (L[1]+R[1])/2];
+  const vv = q => ((q[0]-c[0])*Y[0] + (q[1]-c[1])*Y[1])/fw;
+  const vNez = vv(ne), vMenton = vv(lo), vLb = vv(lb), vLh = vv(lh);
+  const barbe = SIMUL.includes('photobarbe'), sombre = SIMUL.includes('sombre');
+  for(let j=0;j<H;j++) for(let i=0;i<W;i++){
+    const k = (j*W+i)*4; let f = sombre ? 0.6 : 1;
+    if(barbe){ const dx = i+0.5-c[0], dy = j+0.5-c[1], u = (dx*X[0]+dy*X[1])/fw, v = (dx*Y[0]+dy*Y[1])/fw, au = Math.abs(u);
+      /* barbe et moustache : sous le nez, joues basses, menton (les levres restent visibles) */
+      const bord = 0.47 - 0.12*Math.max(0, (vNez - v)/(vNez - vMenton + 1e-3))**2;
+      const dansB = v < vNez - 0.02 && v > vMenton - 0.06 && au < bord;
+      const levres = au < 0.17 && v < vLh + 0.005 && v > vLb - 0.005;
+      if(dansB && !levres){ const t = 0.5 + 0.5*Math.sin(i*1.7)*Math.sin(j*2.3); f *= 0.5 + 0.12*t; }
+    }
+    d[k] *= f; d[k+1] *= f; d[k+2] *= f;
+  }
+  phx.putImageData(im, 0, 0);
+  return phc;
+}
 let tourneFixe = Q.has('tourne') ? Math.min(1, Math.max(0, +Q.get('tourne') || 0)) : null;
 
 const canvas = document.getElementById('buste');
@@ -91,12 +125,16 @@ async function detecteurInit(){
 camera().then(() => detecteurInit()).catch(e => { info.erreur = 'detecteur: ' + (e.message||e); });
 
 /* sequence de demonstration (24 s) : buste entier 5 s, zoom sur le visage, la tete tourne 2 allers-retours, puis retour */
+/* sequence de la page des resultats (32 s) : la forme se construit (7 s), pause sur le torse entier (2,5 s),
+   zoom sur le visage (3 s), la tete tourne (2 allers-retours), puis retour au buste et on recommence */
+const T0 = performance.now()/1000;
 function sequence(t){
-  const u = t % 24;
+  const u = (t - T0) % 32;
   const r = (a, b) => Math.min(1, Math.max(0, (u - a)/(b - a)));
-  const zoom = u < 22 ? r(5, 7.5) : 1 - r(22, 24);
-  const tourne = r(8, 9) * (1 - r(20.5, 22));
-  return { zoom, tourne };
+  const revele = r(0, 7);
+  const zoom = u < 28 ? r(9.5, 12.5) : 1 - r(28, 30.5);
+  const tourne = r(12.5, 13.5) * (1 - r(25.5, 27.5));
+  return { revele, zoom, tourne };
 }
 addEventListener('keydown', e => {
   const k = e.key.toLowerCase();
@@ -138,12 +176,15 @@ function boucle(){
     }
   }
   const seq = sequence(t);
+  const revele = reveleFixe !== null ? reveleFixe : (zoomFixe !== null ? 1 : seq.revele);
+  let photoImg = video;
+  if(SIMUL.includes('photobarbe') || SIMUL.includes('sombre')){ if(now - tPhc > 70 && video.readyState >= 2){ tPhc = now; photoSimulee(); } photoImg = phc; }
   const zoom = zoomFixe !== null ? zoomFixe : seq.zoom;
   const tourne = tourneFixe !== null ? tourneFixe : (zoomFixe !== null ? 0 : seq.tourne);
   if(info.webgl) Buste.dessine(dernier, t, { genre, cheveux: (avecCheveux && masque) ? { masque, mw, mh } : null, zoom, tourne,
     /* la video brute : les landmarks viennent de la meme image (non retournee), donc miroir: false */
-    photo: (avecPhoto && video.readyState >= 2) ? { image: video, miroir: false } : null });
-  info.fps = Buste.etat.fps; info.echelle = Buste.etat.echelle; info.genre = genre; info.zoom = zoom; info.tourne = tourne;
+    photo: (avecPhoto && video.readyState >= 2) ? { image: photoImg, miroir: false } : null, revele });
+  info.fps = Buste.etat.fps; info.echelle = Buste.etat.echelle; info.genre = genre; info.zoom = zoom; info.tourne = tourne; info.revele = revele;
   requestAnimationFrame(boucle);
 }
 requestAnimationFrame(boucle);
