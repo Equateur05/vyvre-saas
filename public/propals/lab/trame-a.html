@@ -1,0 +1,592 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Trame A</title>
+<style>
+  html, body { margin: 0; height: 100%; overflow: hidden; background: #a3d6da; }
+  canvas { position: fixed; inset: 0; width: 100vw; height: 100vh; display: block; }
+  video, #det { position: fixed; width: 1px; height: 1px; opacity: 0; pointer-events: none; left: -10px; top: -10px; }
+</style>
+</head>
+<body>
+<canvas id="scene"></canvas>
+<video id="cam" playsinline muted autoplay></video>
+<canvas id="det"></canvas>
+<script>
+/* ============================================================
+   BUSTE EN MATRICE DE POINTS
+   Surface Z(x,y) vue de face (mannequin procedural + visage reel),
+   echantillonnee a pas regulier SUR la surface, puis tournee,
+   projetee en perspective, ombree par la normale.
+   API : window.dessineBuste(ctx, w, h, landmarks, t)
+   ============================================================ */
+(function () {
+  'use strict';
+  const TAU = Math.PI * 2;
+  const NEG = -1e9;               // "pas de surface ici"
+  const G = 0.022, GU = 0.017, GV = 0.027;   // rangees plus serrees en largeur                // pas de la grille sur la surface (unites corps ; tete menton-sommet ~ 1)
+
+  // ---------- outils ----------
+  const clamp = (v, a, b) => v < a ? a : v > b ? b : v;
+  const ss = (a, b, x) => { const t = clamp((x - a) / (b - a), 0, 1); return t * t * (3 - 2 * t); };
+  const fract = v => v - Math.floor(v);
+  const hash = n => fract(Math.sin(n * 12.9898 + 78.233) * 43758.5453);
+  function smax(a, b, k) {
+    if (a <= NEG) return b; if (b <= NEG) return a;
+    const h = Math.max(k - Math.abs(a - b), 0) / k;
+    return Math.max(a, b) + h * h * k * 0.25;
+  }
+  function smin(a, b, k) {
+    const h = Math.max(k - Math.abs(a - b), 0) / k;
+    return Math.min(a, b) - h * h * k * 0.25;
+  }
+  function sdSeg(px, py, ax, ay, bx, by) {
+    const pax = px - ax, pay = py - ay, bax = bx - ax, bay = by - ay;
+    const h = clamp((pax * bax + pay * bay) / (bax * bax + bay * bay), 0, 1);
+    const dx = pax - bax * h, dy = pay - bay * h;
+    return [Math.sqrt(dx * dx + dy * dy), h];
+  }
+  function sdRoundBox(px, py, bx, by, r) {
+    const qx = Math.abs(px) - bx + r, qy = Math.abs(py) - by + r;
+    return Math.min(Math.max(qx, qy), 0) + Math.hypot(Math.max(qx, 0), Math.max(qy, 0)) - r;
+  }
+  const g2 = (dx, sx, dy, sy) => Math.exp(-(dx * dx) / (sx * sx) - (dy * dy) / (sy * sy));
+
+  // ---------- TORSE (silhouette gonflee + muscles) ----------
+  function torsoSD(x, y) {
+    let d = sdRoundBox(x, y + 1.0, 0.86, 1.0, 0.5);
+    for (const s of [-1, 1]) {
+      d = smin(d, sdSeg(x, y, 0, 0.50, s * 1.02, -0.06)[0] - 0.18, 0.26);   // trapezes -> epaules
+      d = smin(d, Math.hypot(x - s * 1.06, y + 0.2) - 0.30, 0.16);       // deltoides
+    }
+    return d;
+  }
+  function torsoZ(x, y) {
+    if (y < -1.35) return NEG;
+    const sd = torsoSD(x, y);
+    if (sd > 0) return NEG;
+    // le haut du torse (clavicules, dessus des epaules) tourne plus vite que les flancs
+    const dSide = -torsoSD(x, Math.min(y, -0.3));
+    const R = 0.55, d = Math.min(Math.max(0, dSide), -sd * 2.2, R) / R;
+    let z = -0.27 + R * Math.pow(Math.max(0, 1 - (1 - d) * (1 - d)), 0.75);
+    const ax = Math.abs(x);
+    z += 0.10 * Math.max(0, 1 - (x / 0.95) * (x / 0.95)) * ss(0.35, -0.2, y);  // bombe du thorax
+    for (const s of [-1, 1]) {
+      // pectoraux : bord inferieur net
+      const px = x - s * 0.40, py = y + 0.36;
+      z += 0.17 * g2(px, 0.34, py, py < 0 ? 0.085 : 0.26) * ss(1.0, 0.0, ax);
+      // clavicules + creux sus-claviculaire
+      const [dc, hc] = sdSeg(x, y, s * 0.07, 0.19, s * 0.96, 0.07);
+      const above = (y - (0.19 - 0.12 * hc)) > 0;
+      z += 0.022 * Math.exp(-(dc * dc) / (0.035 * 0.035));
+      if (above) z -= 0.022 * Math.exp(-((dc - 0.08) * (dc - 0.08)) / (0.045 * 0.045)) * ss(0.95, 0.6, ax);
+      // deltoide
+      z += 0.15 * g2(x - s * 1.04, 0.2, y + 0.17, 0.26);
+      // sillon delto-pectoral
+      z -= 0.02 * Math.exp(-Math.pow(sdSeg(x, y, s * 0.80, 0.06, s * 0.88, -0.42)[0] / 0.06, 2));
+      // abdominaux
+      for (const ry of [-0.72, -0.93, -1.14]) z += 0.065 * g2(x - s * 0.12, 0.085, y - ry, 0.075);
+      for (let r = 0; r < 4; r++) z += 0.03 * g2(x - s * (0.55 + 0.04 * r), 0.07, y + 0.5 + 0.11 * r, 0.04);   // grand dentele
+      // grand dentele / cotes en biais sur les flancs
+    }
+    z -= 0.032 * Math.exp(-(x * x) / (0.045 * 0.045)) * ss(0.15, -0.05, y) * ss(-1.5, -0.6, y);     // sternum, ligne blanche
+    z -= 0.05 * g2(x, 0.07, y - 0.20, 0.06);                                                          // fourchette sternale
+    if (ax > 0.4 && y < -0.38) z += 0.03 * Math.sin((y - 0.45 * ax) * 30) * ss(0.4, 0.6, ax) * ss(-0.38, -0.55, y);
+    z += (0.03 * Math.sin(x * 9.1 + y * 4.3) * Math.sin(y * 13.7 - x * 3.1) + 0.016 * Math.sin(x * 17.3 - y * 6.1) * Math.sin(y * 21.7 + x * 5.3)) * ss(0.1, -0.3, y);   // ondulations de peau
+    return z;
+  }
+  function armZ(x, y) {
+    if (y > 0.05) return NEG;
+    let best = NEG;
+    for (const s of [-1, 1]) {
+      const [d] = sdSeg(x, y, s * 1.12, -0.3, s * 1.2, -2.6);
+      const r = 0.27;
+      if (d < r) {
+        let z = -0.14 + 1.15 * Math.sqrt(r * r - d * d);
+        z += 0.035 * g2(x - s * 1.14, 0.1, y + 0.8, 0.25); // biceps
+        best = Math.max(best, z);
+      }
+    }
+    return best;
+  }
+  function neckZ(x, y) {
+    if (y < 0.05 || y > 0.9) return NEG;
+    const rx = 0.25 + 0.13 * ss(0.62, 0.18, y);
+    if (Math.abs(x) >= rx) return NEG;
+    let z = -0.10 + 0.28 * Math.sqrt(1 - (x / rx) * (x / rx));
+    for (const s of [-1, 1]) {   // sterno-cleido-mastoidiens
+      const [d] = sdSeg(x, y, s * 0.2, 1.0, s * 0.04, 0.3);
+      z += 0.045 * Math.exp(-(d * d) / (0.032 * 0.032));
+    }
+    z += 0.018 * g2(x, 0.035, y - 0.5, 0.05);  // larynx
+    z -= 0.25 * ss(0.68, 0.9, y);              // le haut du cou se perd dans la tete
+    return z;
+  }
+  const UP = 0.12, BS = 1.28;   // corps remonte (cou court) et plus large que la tete
+  function staticZ(x, y) {
+    x /= BS; y = (y - UP) / BS;
+    let z = torsoZ(x, y);
+    z = smax(z, armZ(x, y), 0.12);
+    z = smax(z, neckZ(x, y), 0.16);
+    return z <= NEG ? NEG : z * BS;
+  }
+
+  // ---------- TETE : crane + museau + decalage du visage (grille) ----------
+  // tete = crane(x,y) + museau(x,y) + OFF(x,y) ; OFF = traits (defaut) ou visage reel
+  const FX0 = -0.42, FY0 = 0.64, FS = 0.015, FNX = 57, FNY = 71;
+  const curO = new Float32Array(FNX * FNY), tgtO = new Float32Array(FNX * FNY), defO = new Float32Array(FNX * FNY);
+  const HC = { y: 1.255, z: -0.16, rx: 0.37, ry: 0.515, rz: 0.56 };
+  function skullZ(x, y) {
+    const q = 1 - (x / HC.rx) ** 2 - ((y - HC.y) / HC.ry) ** 2;
+    return q <= 0 ? NEG : HC.z + HC.rz * Math.sqrt(q);
+  }
+  // avancee du bas du visage (machoire, bouche, menton) ; dessous du menton net
+  function muzzle(x, y) {
+    return 0.20 * Math.exp(-((x / 0.2) ** 2)) * ss(1.22, 0.9, y) * ss(0.745, 0.80, y)
+         + 0.05 * Math.exp(-((x / 0.3) ** 2)) * ss(1.5, 1.2, y) * ss(0.9, 1.15, y);
+  }
+  const baseZ = (x, y) => { const sk = skullZ(x, y); return sk <= NEG ? NEG : sk + muzzle(x, y); };
+  function defaultOff(x, y) { return 1.5 * defaultOff0(x, y); }
+  function defaultOff0(x, y) {
+    const ax = Math.abs(x);
+    let z = 0;
+    if (y > 1.0 && y < 1.4) {          // nez
+      const t = clamp((1.37 - y) / 0.29, 0, 1);
+      let hN = 0.02 + 0.115 * Math.pow(t, 1.4);
+      if (y < 1.08) hN *= Math.exp(-(((1.08 - y) / 0.022) ** 2));
+      z += hN * Math.exp(-((x / (0.032 + 0.028 * t)) ** 2));
+    }
+    for (const s of [-1, 1]) {
+      z += 0.028 * g2(x - s * 0.05, 0.028, y - 1.085, 0.025);   // ailes du nez
+      z -= 0.07 * g2(x - s * 0.13, 0.085, y - 1.27, 0.055);     // orbites
+      z += 0.028 * g2(x - s * 0.13, 0.045, y - 1.265, 0.024);   // globes
+      z += 0.03 * g2(ax - 0.20, 0.07, y - 1.15, 0.06);          // pommettes
+    }
+    z += 0.03 * Math.exp(-(((y - 1.36) / 0.04) ** 2)) * Math.exp(-((x / 0.24) ** 2));   // arcades
+    z += 0.034 * g2(x, 0.085, y - 0.985, 0.02);                // levre sup
+    z -= 0.018 * g2(x, 0.08, y - 0.962, 0.009);                // commissure
+    z += 0.032 * g2(x, 0.08, y - 0.935, 0.022);                // levre inf
+    z -= 0.02 * g2(x, 0.07, y - 0.895, 0.02);                  // sillon mentonnier
+    z += 0.035 * g2(x, 0.09, y - 0.835, 0.045);                // menton
+    return z;
+  }
+  for (let j = 0; j < FNY; j++) for (let i = 0; i < FNX; i++) {
+    const k = j * FNX + i; defO[k] = tgtO[k] = curO[k] = defaultOff(FX0 + i * FS, FY0 + j * FS);
+  }
+  function offAt(x, y) {
+    const fi = (x - FX0) / FS, fj = (y - FY0) / FS;
+    if (fi < 0 || fj < 0 || fi >= FNX - 1 || fj >= FNY - 1) return 0;
+    const i = fi | 0, j = fj | 0, u = fi - i, v = fj - j, k = j * FNX + i;
+    return (curO[k] * (1 - u) + curO[k + 1] * u) * (1 - v) + (curO[k + FNX] * (1 - u) + curO[k + FNX + 1] * u) * v;
+  }
+  function headZ(x, y) {
+    const b = baseZ(x, y);
+    return b <= NEG ? NEG : b + offAt(x, y);
+  }
+  const fullZ = (x, y) => smax(staticZ(x, y), headZ(x, y), 0.07);
+
+  // ---------- visage reel : landmarks -> decalage par rapport a la base ----------
+  const EXAG = 1.6, ZNOSE = 0.61;
+  const OVAL = [10, 338, 297, 332, 284, 251, 389, 356, 454, 323, 361, 288, 397, 365, 379, 378, 400, 377, 152, 148, 176, 149, 150, 136, 172, 58, 132, 93, 234, 127, 162, 21, 54, 103, 67, 109];
+  let lastLm = null, lmMissing = 0;
+  function landmarksToTarget(lm) {
+    const asp = lm.aspect || window.bustAspect || 4 / 3;
+    const P = i => [lm[i].x * asp, lm[i].y, (lm[i].z || 0) * asp];
+    const sub = (a, b) => [a[0] - b[0], a[1] - b[1], a[2] - b[2]];
+    const dot = (a, b) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
+    const nrm = a => { const l = Math.hypot(a[0], a[1], a[2]) || 1; return [a[0] / l, a[1] / l, a[2] / l]; };
+    const ex = nrm(sub(P(263), P(33)));
+    let ey = sub(P(152), P(10)); const pr = dot(ey, ex);
+    ey = nrm([ey[0] - pr * ex[0], ey[1] - pr * ex[1], ey[2] - pr * ex[2]]);
+    const ez = [ex[1] * ey[2] - ex[2] * ey[1], ex[2] * ey[0] - ex[0] * ey[2], ex[0] * ey[1] - ex[1] * ey[0]];
+    const e1 = P(33), e2 = P(263);
+    const O = [(e1[0] + e2[0]) / 2, (e1[1] + e2[1]) / 2, (e1[2] + e2[2]) / 2];
+    const loc = i => { const d = sub(P(i), O); return [dot(d, ex), dot(d, ey), dot(d, ez)]; };
+    const chin = loc(152), fore = loc(10), nose = loc(1);
+    const s = 0.78 / Math.max(1e-6, chin[1] - fore[1]);
+    const zn = -nose[2] * s * EXAG;
+    const BX = new Float32Array(478), BY = new Float32Array(478);
+    const sumW = new Float32Array(FNX * FNY), sumZ = new Float32Array(FNX * FNY);
+    const sig = 1.7, R = 4;
+    const nL = Math.min(lm.length, 478);
+    for (let n = 0; n < nL; n++) {
+      const L = loc(n);
+      const bx = L[0] * s, by = 0.78 + (chin[1] - L[1]) * s, bz = ZNOSE + (-L[2] * s * EXAG - zn);
+      BX[n] = bx; BY[n] = by;
+      const gi = (bx - FX0) / FS, gj = (by - FY0) / FS;
+      const i0 = Math.round(gi), j0 = Math.round(gj);
+      for (let j = j0 - R; j <= j0 + R; j++) {
+        if (j < 0 || j >= FNY) continue;
+        for (let i = i0 - R; i <= i0 + R; i++) {
+          if (i < 0 || i >= FNX) continue;
+          const w = Math.exp(-((i - gi) ** 2 + (j - gj) ** 2) / (2 * sig * sig));
+          const k = j * FNX + i; sumW[k] += w; sumZ[k] += w * bz;
+        }
+      }
+    }
+    // distance signee a l'ovale du visage (positive dedans)
+    const ox = OVAL.map(i => BX[i]), oy = OVAL.map(i => BY[i]), no = OVAL.length;
+    for (let j = 0; j < FNY; j++) for (let i = 0; i < FNX; i++) {
+      const x = FX0 + i * FS, y = FY0 + j * FS, k = j * FNX + i;
+      let inside = false, dmin = 1e9;
+      for (let a = 0, b = no - 1; a < no; b = a++) {
+        if (((oy[a] > y) !== (oy[b] > y)) && (x < (ox[b] - ox[a]) * (y - oy[a]) / (oy[b] - oy[a]) + ox[a])) inside = !inside;
+        dmin = Math.min(dmin, sdSeg(x, y, ox[a], oy[a], ox[b], oy[b])[0]);
+      }
+      const dIn = inside ? dmin : -dmin;
+      const wIn = ss(0.0, 0.085, dIn) * ss(0.02, 0.6, sumW[k]);
+      const base = baseZ(x, y);
+      if (wIn <= 0 || base <= NEG || sumW[k] < 1e-5) { tgtO[k] = 0; continue; }
+      const D = sumZ[k] / sumW[k];
+      tgtO[k] = wIn * clamp(D - base, -0.16, 0.24);
+    }
+    // lissage leger
+    const T = tgtO.slice();
+    for (let j = 1; j < FNY - 1; j++) for (let i = 1; i < FNX - 1; i++) {
+      const k = j * FNX + i;
+      tgtO[k] = (4 * T[k] + T[k - 1] + T[k + 1] + T[k - FNX] + T[k + FNX]) / 8;
+    }
+  }
+
+  // ---------- echantillonnage regulier SUR la surface ----------
+  // grille fine -> longueurs d'arc (U le long des rangees, V le long des colonnes)
+  // -> on place un point a chaque noeud (kG, mG) du reseau (U,V).
+  const X0 = -1.62, X1 = 1.62, Y0 = -1.95, Y1 = 1.9, H = GU / 2.5;
+  const NX = Math.round((X1 - X0) / H) + 1, NY = Math.round((Y1 - Y0) / H) + 1;
+  const pts = [];
+  (function build() {
+    const Zf = new Float32Array(NX * NY);
+    for (let j = 0; j < NY; j++) for (let i = 0; i < NX; i++) Zf[j * NX + i] = fullZ(X0 + i * H, Y0 + j * H);
+    const U = new Float32Array(NX * NY), V = new Float32Array(NX * NY);
+    const seg = (a, b) => (a <= NEG || b <= NEG) ? H : Math.sqrt(H * H + Math.min((a - b) * (a - b), 9 * H * H));
+    const ic = Math.round((0 - X0) / H), jc = Math.round((0.45 - Y0) / H);
+    for (let j = 0; j < NY; j++) {
+      const r = j * NX; U[r + ic] = 0;
+      for (let i = ic + 1; i < NX; i++) U[r + i] = U[r + i - 1] + seg(Zf[r + i], Zf[r + i - 1]);
+      for (let i = ic - 1; i >= 0; i--) U[r + i] = U[r + i + 1] - seg(Zf[r + i], Zf[r + i + 1]);
+    }
+    for (let i = 0; i < NX; i++) {
+      V[jc * NX + i] = 0;
+      for (let j = jc + 1; j < NY; j++) V[j * NX + i] = V[(j - 1) * NX + i] + seg(Zf[j * NX + i], Zf[(j - 1) * NX + i]);
+      for (let j = jc - 1; j >= 0; j--) V[j * NX + i] = V[(j + 1) * NX + i] - seg(Zf[j * NX + i], Zf[(j + 1) * NX + i]);
+    }
+    // lissage croise : U lisse le long des colonnes, V le long des rangees (evite les plis du reseau)
+    const blur = (A, stride, len, count, cstride, rad) => {
+      const tmp = new Float32Array(len);
+      for (let c = 0; c < count; c++) {
+        const o = c * cstride;
+        for (let q = 0; q < len; q++) tmp[q] = A[o + q * stride];
+        let acc = 0, nn = 0; const pre = new Float64Array(len + 1);
+        for (let q = 0; q < len; q++) pre[q + 1] = pre[q] + tmp[q];
+        for (let q = 0; q < len; q++) { const a0 = Math.max(0, q - rad), a1 = Math.min(len - 1, q + rad); A[o + q * stride] = (pre[a1 + 1] - pre[a0]) / (a1 - a0 + 1); }
+      }
+    };
+    for (let pass = 0; pass < 2; pass++) { blur(U, NX, NY, NX, 1, 7); blur(V, 1, NX, NY, NX, 7); }
+    const seen = new Set();
+    const tri = (a, b, c) => {
+      const ua = U[a], va = V[a], ub = U[b], vb = V[b], uc = U[c], vc = V[c];
+      const det = (vb - vc) * (ua - uc) + (uc - ub) * (va - vc);
+      if (Math.abs(det) < 1e-12) return;
+      const k0 = Math.ceil(Math.min(ua, ub, uc) / GU), k1 = Math.floor(Math.max(ua, ub, uc) / GU);
+      const m0 = Math.ceil(Math.min(va, vb, vc) / GV), m1 = Math.floor(Math.max(va, vb, vc) / GV);
+      for (let m = m0; m <= m1; m++) for (let k = k0; k <= k1; k++) {
+        const pu = k * GU, pv = m * GV;
+        const l1 = ((vb - vc) * (pu - uc) + (uc - ub) * (pv - vc)) / det;
+        const l2 = ((vc - va) * (pu - uc) + (ua - uc) * (pv - vc)) / det;
+        const l3 = 1 - l1 - l2;
+        if (l1 < -1e-7 || l2 < -1e-7 || l3 < -1e-7) continue;
+        const key = k * 100003 + m; if (seen.has(key)) continue; seen.add(key);
+        const xa = X0 + (a % NX) * H, ya = Y0 + ((a / NX) | 0) * H;
+        const xb = X0 + (b % NX) * H, yb = Y0 + ((b / NX) | 0) * H;
+        const xc = X0 + (c % NX) * H, yc = Y0 + ((c / NX) | 0) * H;
+        pts.push(l1 * xa + l2 * xb + l3 * xc, l1 * ya + l2 * yb + l3 * yc);
+      }
+    };
+    for (let j = 0; j < NY - 1; j++) for (let i = 0; i < NX - 1; i++) {
+      const a = j * NX + i, b = a + 1, c = a + NX + 1, d = a + NX;
+      if (Zf[a] <= NEG || Zf[b] <= NEG || Zf[c] <= NEG || Zf[d] <= NEG) continue;
+      tri(a, b, c); tri(a, c, d);
+    }
+  })();
+
+  // on ne garde pas ce qui ne sera jamais vu (torse sous la dissolution, bras hors cadre)
+  (function trier() {
+    let w = 0;
+    for (let r = 0; r < pts.length; r += 2) {
+      const x = pts[r], y = pts[r + 1];
+      if (y < -1.75) continue;
+      if (y < -0.95) { const bx = x / BS, by = (y - UP) / BS; if (!(armZ(bx, by) > torsoZ(bx, by))) continue; }
+      pts[w++] = x; pts[w++] = y;
+    }
+    pts.length = w;
+  })();
+
+  // ---------- donnees par point ----------
+  const N = pts.length / 2;
+  const PX = new Float32Array(N), PY = new Float32Array(N), PZ = new Float32Array(N);
+  const NXa = new Float32Array(N), NYa = new Float32Array(N), NZa = new Float32Array(N);
+  const KIND = new Uint8Array(N);          // 0 torse, 1 bras, 2 cou, 3 tete (dynamique)
+  const SEED = new Float32Array(N), CL = new Float32Array(N), AO = new Float32Array(N);   // AO : creux -> plus sombre
+  const DYN = [];                          // indices des points recalcules (zone tete)
+  const SZ = new Float32Array(N * 5);      // statique au point et voisins (pour les dynamiques)
+  const HB = new Float32Array(N * 5);      // base de la tete (crane + museau), fixe aussi
+  const E = 0.007;
+  function normalAt(fz, x, y, z0) {
+    let zxp = fz(x + E, y), zxm = fz(x - E, y), zyp = fz(x, y + E), zym = fz(x, y - E);
+    let dx, dy;
+    if (zxp > NEG && zxm > NEG) dx = (zxp - zxm) / (2 * E); else if (zxp > NEG) dx = (zxp - z0) / E; else if (zxm > NEG) dx = (z0 - zxm) / E; else dx = 0;
+    if (zyp > NEG && zym > NEG) dy = (zyp - zym) / (2 * E); else if (zyp > NEG) dy = (zyp - z0) / E; else if (zym > NEG) dy = (z0 - zym) / E; else dy = 0;
+    dx = clamp(dx, -40, 40); dy = clamp(dy, -40, 40);
+    const l = Math.hypot(dx, dy, 1);
+    const lap = (zxp > NEG && zxm > NEG && zyp > NEG && zym > NEG) ? (zxp + zxm + zyp + zym - 4 * z0) / (E * E) : 0;
+    return [-dx / l, -dy / l, 1 / l, lap];
+  }
+  for (let n = 0; n < N; n++) {
+    const x = pts[2 * n], y = pts[2 * n + 1];
+    PX[n] = x; PY[n] = y;
+    const z = fullZ(x, y); PZ[n] = z;
+    const nn = normalAt(fullZ, x, y, z); NXa[n] = nn[0]; NYa[n] = nn[1]; NZa[n] = nn[2]; AO[n] = clamp(nn[3] / 170, 0, 0.4);
+    const bx = x / BS, by = (y - UP) / BS;
+    const tz = torsoZ(bx, by), az = armZ(bx, by), nz = neckZ(bx, by), hz = headZ(x, y);
+    let kind = 0, best = tz;
+    if (az > best) { best = az; kind = 1; }
+    if (nz > best) { best = nz; kind = 2; }
+    if (hz > best - 0.08 || (y > 0.62 && Math.abs(x) < 0.46)) { if (y > 0.6) kind = 3; }
+    KIND[n] = kind;
+    SEED[n] = hash(n * 1.37 + 0.5);
+    CL[n] = hash(Math.floor((x + 5) / 0.055) * 31.7 + Math.floor((y + 5) / 0.045) * 7.3);
+    if (kind === 3) {
+      DYN.push(n);
+      SZ[n * 5] = staticZ(x, y); SZ[n * 5 + 1] = staticZ(x + E, y); SZ[n * 5 + 2] = staticZ(x - E, y);
+      SZ[n * 5 + 3] = staticZ(x, y + E); SZ[n * 5 + 4] = staticZ(x, y - E);
+      HB[n * 5] = baseZ(x, y); HB[n * 5 + 1] = baseZ(x + E, y); HB[n * 5 + 2] = baseZ(x - E, y);
+      HB[n * 5 + 3] = baseZ(x, y + E); HB[n * 5 + 4] = baseZ(x, y - E);
+    }
+  }
+  function updateHead() {
+    for (const n of DYN) {
+      const x = PX[n], y = PY[n], o = n * 5;
+      const hz = (k, xx, yy) => HB[o + k] <= NEG ? NEG : HB[o + k] + offAt(xx, yy);
+      const z0 = smax(SZ[o], hz(0, x, y), 0.07);
+      const zxp = smax(SZ[o + 1], hz(1, x + E, y), 0.07), zxm = smax(SZ[o + 2], hz(2, x - E, y), 0.07);
+      const zyp = smax(SZ[o + 3], hz(3, x, y + E), 0.07), zym = smax(SZ[o + 4], hz(4, x, y - E), 0.07);
+      PZ[n] = z0;
+      if (z0 <= NEG) continue;
+      let dx, dy;
+      if (zxp > NEG && zxm > NEG) dx = (zxp - zxm) / (2 * E); else if (zxp > NEG) dx = (zxp - z0) / E; else if (zxm > NEG) dx = (z0 - zxm) / E; else dx = 0;
+      if (zyp > NEG && zym > NEG) dy = (zyp - zym) / (2 * E); else if (zyp > NEG) dy = (zyp - z0) / E; else if (zym > NEG) dy = (z0 - zym) / E; else dy = 0;
+      dx = clamp(dx, -40, 40); dy = clamp(dy, -40, 40);
+      const l = Math.hypot(dx, dy, 1);
+      NXa[n] = -dx / l; NYa[n] = -dy / l; NZa[n] = 1 / l;
+      AO[n] = (zxp > NEG && zxm > NEG && zyp > NEG && zym > NEG) ? clamp((zxp + zxm + zyp + zym - 4 * z0) / (E * E) / 170, 0, 0.4) : 0;
+    }
+  }
+
+  // ---------- palette ----------
+  const NC = 10, NR = 12;
+  const COLS = [];
+  for (let c = 0; c < NC; c++) {
+    const t = c / (NC - 1);
+    const r = Math.round(44 + (10 - 44) * t), g = Math.round(140 + (82 - 140) * t), b = Math.round(148 + (91 - 148) * t);
+    COLS.push(`rgba(${r},${g},${b},${(0.58 + 0.4 * Math.pow(t, 0.8)).toFixed(3)})`);
+  }
+  const R0 = 0.7, RS = 0.25;
+  const RAD = i => R0 + RS * i;
+  const BIN_N = new Int32Array(NC * NR);
+  const OUT_X = new Float32Array(N), OUT_Y = new Float32Array(N), OUT_B = new Int16Array(N);
+  const SORTED = new Int32Array(N);
+  const VX = new Float32Array(N), VY = new Float32Array(N), VZ = new Float32Array(N), VS = new Float32Array(N), VR = new Float32Array(N);
+  let zbuf = null, zbW = 0, zbH = 0;
+  const ZC = 3;
+
+  function fond(ctx, w, h) {
+    const lg = ctx.createLinearGradient(0, 0, 0, h);
+    lg.addColorStop(0, '#9dd1d4'); lg.addColorStop(0.5, '#a3d6da'); lg.addColorStop(1, '#78c6cc');
+    ctx.fillStyle = lg; ctx.fillRect(0, 0, w, h);
+    const rg = ctx.createRadialGradient(w * 0.3, h * 0.45, 0, w * 0.3, h * 0.45, Math.max(w, h) * 0.6);
+    rg.addColorStop(0, 'rgba(196,224,236,0.75)'); rg.addColorStop(0.45, 'rgba(186,220,230,0.3)'); rg.addColorStop(1, 'rgba(180,220,226,0)');
+    ctx.fillStyle = rg; ctx.fillRect(0, 0, w, h);
+  }
+
+  let lastT = null, headReady = false;
+  const P = window.bustReglages = { corps: 31, tete: 19, plongee: 11, echelle: 0.32, cx: 0.52, cy: 0.53 };
+  window.dessineBuste = function (ctx, w, h, landmarks, t) {
+    // --- visage : cible + lissage ---
+    if (landmarks && landmarks.length >= 468) {
+      if (landmarks !== lastLm) { lastLm = landmarks; landmarksToTarget(landmarks); }
+      lmMissing = 0;
+    } else if (++lmMissing > 150) { tgtO.set(defO); }
+    const dt = lastT == null ? 0.016 : clamp(t - lastT, 0, 0.1); lastT = t;
+    const a = 1 - Math.exp(-dt * 5);
+    let moved = 0;
+    for (let k = 0; k < curO.length; k++) { const d = (tgtO[k] - curO[k]) * a; curO[k] += d; if (d > moved) moved = d; else if (-d > moved) moved = -d; }
+    if (moved > 2e-5 || !headReady) { updateHead(); headReady = true; }
+
+    if (window.dessineBuste.fond !== false) fond(ctx, w, h);
+
+    // --- camera ---
+    const portrait = h > w * 1.15;
+    const S = portrait ? Math.min(h * 0.29, w * 0.6) : Math.min(h * P.echelle, w * 0.62);
+    const cx = w * (portrait ? 0.53 : P.cx), cy = h * (portrait ? 0.47 : P.cy);
+    const ay = (P.corps + 5 * Math.sin(t * 0.33) + 1 * Math.sin(t * 0.81)) * Math.PI / 180;
+    const hy = (P.tete + 3.5 * Math.sin(t * 0.29 + 1.0)) * Math.PI / 180;
+    const ax = (P.plongee + 1.2 * Math.sin(t * 0.27)) * Math.PI / 180;
+    const cY = Math.cos(ay), sY = Math.sin(ay), cX = Math.cos(ax), sX = Math.sin(ax);
+    const D = 3.8, PIV = 0.35, HZ = -0.12;
+    let Lx = -0.55, Ly = 0.62, Lz = 0.56; const ll = Math.hypot(Lx, Ly, Lz); Lx /= ll; Ly /= ll; Lz /= ll;
+    const breath = Math.sin(t * 1.25);
+    const kR = S * GU;          // pas de la grille, en px
+
+    // --- z-buffer ---
+    const zw = Math.ceil(w / ZC) + 2, zh = Math.ceil(h / ZC) + 2;
+    if (!zbuf || zw !== zbW || zh !== zbH) { zbuf = new Float32Array(zw * zh); zbW = zw; zbH = zh; }
+    zbuf.fill(-1e9);
+
+    for (let n = 0; n < N; n++) {
+      let z = PZ[n]; if (z <= NEG) { VS[n] = -1; continue; }
+      let x = PX[n], y = PY[n];
+      let nx = NXa[n], ny = NYa[n], nz = NZa[n];
+      const kind = KIND[n];
+      let size = 1, dark = 0, alphaK = 1;
+      // dissolution du bas du torse : grappes qui se detachent et tombent
+      if (kind === 0 && y < -0.2) {
+        const yd = -0.50 - 0.12 * x + 0.05 * Math.sin(x * 7.3 + 1.1) + 0.03 * Math.sin(x * 17.1 + t * 0.4);
+        const f = clamp((yd - y) / 0.17, 0, 1.5);
+        if (f > 0) {
+          if (f >= 1.3 || SEED[n] < f * 0.1 || CL[n] < (f - 0.75) * 0.8) { VS[n] = -1; continue; }
+          const c = CL[n];
+          const ox = hash(Math.floor((y + 5) / 0.045) * 3.7) * 0.055;
+          const ccx = (Math.floor((x + 5 + ox) / 0.055) + 0.5) * 0.055 - 5 - ox + (c - 0.5) * 0.03, ccy = (Math.floor((y + 5) / 0.045) + 0.5) * 0.045 - 5 + (hash(c * 9.1) - 0.5) * 0.03;
+          const gather = Math.min(1, f * 1.6) * 0.7;
+          x += (ccx - x) * gather; y += (ccy - y) * gather;
+          const p = fract(t * 0.07 + c * 3.17);
+          y -= f * (0.015 + 0.22 * p * p) * (0.4 + c);
+          x += (SEED[n] - 0.5) * 0.02 * f + 0.02 * f * Math.sin(t * 0.6 + c * 20);
+          z += (c - 0.5) * 0.08 * f;
+          size = 1 + 1.1 * Math.min(f, 1) * (0.5 + c);
+          dark = Math.min(1, 0.5 + f * 1.5);
+          alphaK = 1 - ss(0.6, 1.0, p) * ss(0.35, 0.9, f);
+          if (alphaK < 0.08) { VS[n] = -1; continue; }
+        }
+      }
+      // respiration
+      if (kind !== 3) { z *= 1 + 0.012 * breath; y += 0.004 * breath; }
+      // la tete tourne un peu plus que le corps (torsion du cou)
+      if (y > 0.55 && Math.abs(x) < 0.6) {
+        const wq = ss(0.6, 0.95, y) * ss(0.8, 0.55, Math.abs(x)) * hy, c = Math.cos(wq), s = Math.sin(wq);
+        const zz = z - HZ; const xr = x * c + zz * s; z = -x * s + zz * c + HZ; x = xr;
+        const nxr = nx * c + nz * s; nz = -nx * s + nz * c; nx = nxr;
+      }
+      // rotation Y puis X autour du pivot
+      const yy = y - PIV;
+      const x1 = x * cY + z * sY, z1 = -x * sY + z * cY;
+      const y2 = yy * cX - z1 * sX, z2 = yy * sX + z1 * cX;
+      const nx1 = nx * cY + nz * sY, nz1 = -nx * sY + nz * cY;
+      const ny2 = ny * cX - nz1 * sX, nz2 = ny * sX + nz1 * cX;
+      if (nz2 < -0.03 && dark === 0) { VS[n] = -1; continue; }
+      const persp = D / (D - z2);
+      const sx = cx + x1 * S * persp, sy = cy - y2 * S * persp;
+      if (sx < -10 || sy < -10 || sx > w + 10 || sy > h + 10) { VS[n] = -1; continue; }
+      // ombrage : Lambert + liseré sombre aux silhouettes
+      const lam = Math.max(0, nx1 * Lx + ny2 * Ly + nz2 * Lz);
+      const edge = 1 - ss(0.03, 0.45, nz2);
+      let s = 0.14 + 0.78 * Math.pow(1 - lam, 1.1) + 0.45 * edge + AO[n];
+      s = Math.max(s, dark);
+      s += (SEED[n] - 0.5) * 0.06 + 0.04 * Math.sin(t * 1.7 + SEED[n] * 40);
+      s = clamp(s * (0.55 + 0.45 * alphaK), 0, 1);
+      VX[n] = sx; VY[n] = sy; VZ[n] = z2; VS[n] = s;
+      VR[n] = kR * (0.21 + 0.15 * s) * size * persp * (1 + 0.03 * breath);
+      const zi = ((sy / ZC) | 0) * zbW + ((sx / ZC) | 0);
+      if (z2 > zbuf[zi]) zbuf[zi] = z2;
+    }
+    // tri par bacs (couleur x rayon), en ne gardant que les points non caches
+    BIN_N.fill(0);
+    let m = 0;
+    for (let n = 0; n < N; n++) {
+      const s = VS[n]; if (s < 0) continue;
+      const zi = ((VY[n] / ZC) | 0) * zbW + ((VX[n] / ZC) | 0);
+      if (VZ[n] < zbuf[zi] - 0.045) continue;
+      const c = Math.min(NC - 1, (s * NC) | 0);
+      const r = Math.min(NR - 1, Math.max(0, Math.round((VR[n] - R0) / RS)));
+      const b = c * NR + r;
+      OUT_X[m] = VX[n]; OUT_Y[m] = VY[n]; OUT_B[m] = b; BIN_N[b]++; m++;
+    }
+    const start = new Int32Array(NC * NR + 1);
+    for (let b = 0; b < NC * NR; b++) start[b + 1] = start[b] + BIN_N[b];
+    const fill = start.slice(0, NC * NR);
+    for (let i = 0; i < m; i++) SORTED[fill[OUT_B[i]]++] = i;
+    for (let b = 0; b < NC * NR; b++) {
+      if (start[b] === start[b + 1]) continue;
+      const c = (b / NR) | 0, rr = RAD(b % NR);
+      ctx.fillStyle = COLS[c];
+      ctx.beginPath();
+      for (let q = start[b]; q < start[b + 1]; q++) {
+        const i = SORTED[q];
+        ctx.moveTo(OUT_X[i] + rr, OUT_Y[i]);
+        ctx.arc(OUT_X[i], OUT_Y[i], rr, 0, TAU);
+      }
+      ctx.fill();
+    }
+    window.bustStats = { points: N, dessines: m, tete: DYN.length };
+  };
+  window.dessineBuste.fond = true;
+})();
+</script>
+<script type="module">
+  const scene = document.getElementById('scene');
+  const ctx = scene.getContext('2d');
+  const video = document.getElementById('cam');
+  const det = document.getElementById('det');
+  const dctx = det.getContext('2d', { willReadFrequently: true });
+  let W = 0, Hh = 0, dpr = 1;
+  function taille() {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = innerWidth; Hh = innerHeight;
+    scene.width = Math.round(W * dpr); scene.height = Math.round(Hh * dpr);
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  }
+  addEventListener('resize', taille); taille();
+
+  let lm = null, landmarker = null, lastVT = -1, lastDet = 0, detMs = 0;
+  window.etatVisage = 'defaut';
+  const t0 = performance.now();
+  function boucle(now) {
+    // la detection tourne a ~15 i/s au plus (le visage est lisse ensuite) : le rendu garde ses 60 i/s
+    if (landmarker && video.readyState >= 2 && video.currentTime !== lastVT && now - lastDet > Math.max(66, detMs * 3)) {
+      lastVT = video.currentTime; lastDet = now;
+      try {
+        dctx.drawImage(video, 0, 0, det.width, det.height);
+        const d0 = performance.now();
+        const r = landmarker.detectForVideo(det, now);
+        detMs = detMs * 0.8 + (performance.now() - d0) * 0.2;
+        if (r && r.faceLandmarks && r.faceLandmarks[0]) {
+          lm = r.faceLandmarks[0]; lm.aspect = det.width / det.height; window.etatVisage = 'reel';
+        } else lm = null;
+      } catch (e) { /* on garde le rendu */ }
+    }
+    window.dessineBuste(ctx, W, Hh, lm, (now - t0) / 1000);
+    requestAnimationFrame(boucle);
+  }
+  requestAnimationFrame(boucle);
+
+  (async () => {
+    try {
+      const flux = await navigator.mediaDevices.getUserMedia({ video: { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } }, audio: false });
+      video.srcObject = flux; await video.play();
+      await new Promise(r => video.videoWidth ? r() : video.addEventListener('loadedmetadata', r, { once: true }));
+      det.width = 480; det.height = Math.round(480 * video.videoHeight / video.videoWidth);
+      window.bustAspect = det.width / det.height;
+    } catch (e) { window.etatVisage = 'sans camera'; return; }
+    try {
+      const { FilesetResolver, FaceLandmarker } = await import('/cheveux/vendor/mediapipe/vision_bundle.mjs');
+      const fs = await FilesetResolver.forVisionTasks('/cheveux/vendor/mediapipe/wasm');
+      const opts = d => ({ baseOptions: { modelAssetPath: '/cheveux/vendor/mediapipe/modeles/face_landmarker.task', delegate: d }, runningMode: 'VIDEO', numFaces: 1 });
+      try { landmarker = await FaceLandmarker.createFromOptions(fs, opts('GPU')); }
+      catch (e) { landmarker = await FaceLandmarker.createFromOptions(fs, opts('CPU')); }
+    } catch (e) { window.etatVisage = 'detecteur indisponible'; }
+  })();
+</script>
+</body>
+</html>

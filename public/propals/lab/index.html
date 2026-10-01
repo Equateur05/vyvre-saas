@@ -215,6 +215,7 @@ canvas.plein{position:absolute;inset:0;width:100%;height:100%}
 </div></div></div>
 <nav id="nav"></nav>
 <video id="video" autoplay muted playsinline style="position:fixed;width:2px;height:2px;opacity:.01;left:0;top:0"></video>
+<script src="/propals/lab/buste.js?v=1"></script>
 <script type="module">
 import { FilesetResolver, FaceLandmarker, ImageSegmenter } from '/cheveux/vendor/mediapipe/vision_bundle.mjs';
 const $ = id => document.getElementById(id);
@@ -268,10 +269,10 @@ async function camera(){
 }
 const copie = document.createElement('canvas'), cg = copie.getContext('2d', { willReadFrequently:true });
 function image(){ const w = 480, h = Math.round(w*video.videoHeight/video.videoWidth); if(copie.width !== w){ copie.width = w; copie.height = h; } cg.drawImage(video, 0, 0, w, h); return copie; }
-let tL = 0, stable = 0;
+let tL = 0, stable = 0, Lsnap = null;
 function boucle(now){
   if(face && video.videoWidth && now - tL > 70){ tL = now; let r = null; try { r = face.detectForVideo(image(), now); } catch(e){}
-    const n = r && r.faceLandmarks && r.faceLandmarks[0]; if(n){ if(!L) L = n.map(p => ({ ...p })); else for(let i = 0; i < L.length; i++){ L[i].x += (n[i].x - L[i].x)*.5; L[i].y += (n[i].y - L[i].y)*.5; L[i].z += (n[i].z - L[i].z)*.5; } nbPts = Math.min(478, nbPts + 37); stable++; } else stable = 0; }
+    const n = r && r.faceLandmarks && r.faceLandmarks[0]; if(n){ if(!L) L = n.map(p => ({ ...p })); else for(let i = 0; i < L.length; i++){ L[i].x += (n[i].x - L[i].x)*.5; L[i].y += (n[i].y - L[i].y)*.5; L[i].z += (n[i].z - L[i].z)*.5; } nbPts = Math.min(478, nbPts + 37); stable++; Lsnap = L.map(p => ({ x:p.x, y:p.y, z:p.z })); Lsnap.aspect = copie.width/copie.height; } else stable = 0; }
   if(etape === 4 || etape === 5) cheveux(now);
   if(etape === 4) traceVisage(now); if(etape === 5) trame(now);
   requestAnimationFrame(boucle);
@@ -366,7 +367,22 @@ function traceVisage(now){
 const hache = (a, b) => { const v = Math.sin(a*127.1 + b*311.7)*43758.5453; return v - Math.floor(v); };
 let t5 = 0; const mc = document.createElement('canvas'), mg = mc.getContext('2d');
 /* l'animation : la photo de la camera, puis un balayage facon radiographie qui la decoupe en pixels et la recompose en points */
-function trame(now){ const { x, w, h } = cadre($('trame')), p = (now - t5)/1000, sp = p < 1 ? 0 : Math.min(1.08, (p - 1)/3.2); dessineTrame(x, w, h, video, L, CHEV, now/1000, w < 600 ? 6 : 8, false, sp >= 1.08 ? null : sp); }
+function trame(now){ const { x, w, h } = cadre($('trame')), p = (now - t5)/1000, sp = p < 1 ? 0 : Math.min(1.08, (p - 1)/3.2), t = now/1000;
+  if(sp >= 1.08){ window.dessineBuste.fond = true; window.dessineBuste(x, w, h, Lsnap, t); return; }
+  const band = Math.max(60, h*.13), sy = -band + (h + band*2)*sp;
+  // au-dessus de la ligne : le buste en points
+  x.save(); x.beginPath(); x.rect(0, 0, w, Math.max(0, sy)); x.clip(); window.dessineBuste.fond = true; window.dessineBuste(x, w, h, Lsnap, t); x.restore();
+  // en dessous : la photo de la camera, intacte
+  const vw = video.videoWidth || 4, vh = video.videoHeight || 3, k = h*.92/vh, pw = vw*k, px = (w - pw)/2, py = h*.04;
+  const photo = (g, f) => { g.save(); g.translate((px + pw)*f, py*f); g.scale(-k*f, k*f); g.filter = 'grayscale(1) sepia(.55) hue-rotate(130deg) saturate(1.5) contrast(1.15)'; if(video.videoWidth) g.drawImage(video, 0, 0); g.restore(); };
+  x.save(); x.beginPath(); x.rect(0, sy, w, h - sy); x.clip(); const gb = x.createLinearGradient(0, 0, 0, h); gb.addColorStop(0, '#bfe9ea'); gb.addColorStop(1, '#8fd3d6'); x.fillStyle = gb; x.fillRect(0, 0, w, h); x.globalAlpha = .92; photo(x, 1); x.restore();
+  // dans la bande : la photo decoupee en pixels, qui s'efface dans les points
+  const blk = (w < 600 ? 6 : 8)*1.4; mc.width = Math.ceil(w/blk); mc.height = Math.ceil(h/blk); mg.clearRect(0, 0, mc.width, mc.height); photo(mg, 1/blk);
+  x.save(); x.beginPath(); x.rect(0, sy - band, w, band); x.clip(); const gm = x.createLinearGradient(0, sy - band, 0, sy); gm.addColorStop(0, 'rgba(0,0,0,0)'); gm.addColorStop(1, 'rgba(0,0,0,.9)');
+  const tmp = x.getTransform(); x.imageSmoothingEnabled = false; x.drawImage(mc, 0, 0, mc.width*blk, mc.height*blk); x.globalCompositeOperation = 'destination-in'; x.fillStyle = gm; x.fillRect(0, sy - band, w, band); x.restore();
+  // la ligne du scanner
+  const gl = x.createLinearGradient(0, sy - 60, 0, sy + 4); gl.addColorStop(0, 'rgba(255,255,255,0)'); gl.addColorStop(1, 'rgba(235,255,253,.55)'); x.fillStyle = gl; x.fillRect(0, sy - 60, w, 64);
+  x.fillStyle = '#f4fffe'; x.shadowColor = 'rgba(160,255,250,.95)'; x.shadowBlur = 18; x.fillRect(0, sy - 1.5, w, 3); x.shadowBlur = 0; }
 function dessineTrame(x, w, h, src, Lm, chev, t, pas, fond, sp = null){
   x.clearRect(0, 0, w, h);
   if(fond){ const g = x.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#cdeff0'); g.addColorStop(1, '#93d3d6'); x.fillStyle = g; x.beginPath(); if(x.roundRect) x.roundRect(0, 0, w, h, 18); else x.rect(0, 0, w, h); x.fill(); }
@@ -434,7 +450,7 @@ async function moteur(){
   if(!scores){ try { const z = JSON.parse(localStorage.getItem('vyvre_scan_scores') || 'null'); if(z && typeof z.glow === 'number'){ scores = z; } } catch(e){} }
   if(!scores){ exemple = true; scores = { glow:58, redness:64, hydration:52, pores:61, sebum:38, pigmentation:30, wrinkles:66, firmness:63 }; }
   cliché = document.createElement('canvas'); cliché.width = video.videoWidth || 1; cliché.height = video.videoHeight || 1; try { cliché.getContext('2d').drawImage(video, 0, 0); } catch(e){}
-  cliché.L = L && L.map(p => ({ ...p })); cliché.chev = CHEV.slice();
+  cliché.L = L && L.map(p => ({ ...p })); cliché.chev = CHEV.slice(); cliché.Lsnap = Lsnap;
   if(etape === 4) aller(5);
 }
 /* 6 · organisation : la liste se remplit, les compteurs montent */
@@ -458,7 +474,7 @@ function resultats(){
     + '<div class="suite"><a href="/aliment"><span class="mono">Ensuite</span><b>Votre assiette →</b></a><a href="/scan/"><span class="mono">Ensuite</span><b>Vos soins →</b></a></div>'
     + '<p class="note">Lecture optique de l’image, faite sur cet appareil. Elle ne remplace pas l’avis d’un dermatologue.' + (exemple ? ' Ces valeurs sont un exemple : la caméra n’a pas pu lire votre peau.' : '') + '</p>';
   requestAnimationFrame(grosPlan);
-  requestAnimationFrame(() => { const cv = $('portrait'); const src = cliché && cliché.width > 2 ? cliché : (video.videoWidth ? video : null); if(cv && src){ const { x, w, h } = cadre(cv); dessineTrame(x, w, h, src, (cliché && cliché.L) || L, (cliché && cliché.chev) || CHEV, 0, w < 260 ? 4.5 : 5.5, true); } });
+  const lmP = (cliché && cliché.Lsnap) || Lsnap; const anime = now => { const cv = $('portrait'); if(!cv || etape !== 8) return; const { x, w, h } = cadre(cv); x.save(); x.beginPath(); if(x.roundRect) x.roundRect(0, 0, w, h, 18); else x.rect(0, 0, w, h); x.clip(); window.dessineBuste.fond = true; window.dessineBuste(x, w, h, lmP, now/1000); x.restore(); requestAnimationFrame(anime); }; requestAnimationFrame(anime);
   soins(ordre);
 }
 /* de vrais soins du catalogue (le meme que vyvre.fr), pour les deux categories les plus faibles */
