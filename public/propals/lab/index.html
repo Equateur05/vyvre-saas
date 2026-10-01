@@ -134,6 +134,15 @@ canvas.plein{position:absolute;inset:0;width:100%;height:100%}
 .soins{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:12px}
 .soin{display:flex;flex-direction:column;gap:6px;padding:16px;border-radius:18px;background:rgba(255,255,255,.10);box-shadow:inset 0 0 0 1.5px rgba(230,251,249,.28);text-decoration:none;color:var(--ligne)}
 .soin[hidden]{display:none}
+.fiche{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.15fr);gap:clamp(20px,4vw,60px);align-items:center;margin-top:clamp(24px,5vh,56px);padding:clamp(18px,3vw,36px);border-radius:24px;background:linear-gradient(150deg,rgba(255,255,255,.10),rgba(255,255,255,.03));box-shadow:inset 0 0 0 1.5px rgba(230,251,249,.22)}
+.fiche.inv .fiche-im{order:2}
+.fiche-im{position:relative;aspect-ratio:1;display:grid;place-items:center;border-radius:20px;background:radial-gradient(60% 55% at 50% 45%,rgba(230,251,249,.28),rgba(230,251,249,0) 70%)}
+.fiche-im img{width:78%;height:78%;object-fit:contain;filter:drop-shadow(0 28px 30px rgba(0,0,0,.35));animation:flotte 7s ease-in-out infinite}
+.fiche-tx h4{font:500 clamp(28px,3vw,44px)/1.1 var(--serif);margin:10px 0 18px;color:#effcfb}
+.fl{display:grid;grid-template-columns:150px 1fr;gap:14px;padding:12px 0;border-top:1px solid rgba(230,251,249,.18)}.fl b{font:600 12px var(--mono);letter-spacing:.14em;text-transform:uppercase;opacity:.85;padding-top:3px}.fl span{font:400 16px/1.55 var(--sans)}
+.chips i{display:inline-block;font-style:normal;margin:0 8px 8px 0;padding:4px 12px;border-radius:999px;background:rgba(230,251,249,.14);box-shadow:inset 0 0 0 1px rgba(230,251,249,.3);font-size:14px}
+.fl-lien{display:inline-block;margin-top:14px;color:#effcfb;font:600 15px var(--sans);text-decoration:none;border-bottom:1px solid rgba(230,251,249,.5)}
+@media (max-width:760px){.fiche{grid-template-columns:1fr}.fiche.inv .fiche-im{order:0}.fl{grid-template-columns:1fr;gap:4px}}
 .soin img{width:100%;aspect-ratio:1;object-fit:contain;filter:drop-shadow(0 14px 18px rgba(0,0,0,.35));animation:flotte 6s ease-in-out infinite}
 .soin b{font:600 16px var(--sans);line-height:1.3}.soin em{font-style:normal;font-size:13px;opacity:.75}
 @keyframes flotte{50%{transform:translateY(-8px)}}
@@ -522,7 +531,7 @@ function resultats(){
     + '<div class="metriques">' + ordre.map(([k, t, v]) => { const [c, l] = etat(v); return '<div class="met"><h3>' + t + (prio.has(k) ? ' <span class="delta">◉ priorité</span>' : '') + '</h3><div class="curseur"><div class="rail"></div><div class="rempli" style="width:' + v + '%"></div><div class="val" style="left:' + v + '%">' + v + '</div><div class="pt" style="left:' + v + '%"></div></div><div class="zones"><span>À travailler</span><span>Moyenne</span><span>Favorable</span></div><span class="puce ' + c + '">' + l.toUpperCase() + '</span></div>'; }).join('') + '</div><hr>'
     + '<div class="duo"><div><small>Points mesurés</small><b>' + (L ? L.length : 478) + '</b></div><div><small>Catégories</small><b>08</b></div></div><hr>'
     + '<h3 style="font:600 26px var(--sans)">Ce que la lecture a repéré</h3><div class="gp-wrap"><div class="gros-plan"><canvas id="gp"></canvas></div><div><div id="gpListe"></div><p class="note">Repères visuels sur votre cliché, pour les retrouver d’une lecture à l’autre. Pas un diagnostic.</p></div></div><hr>'
-    + '<h3 style="font:600 26px var(--sans)">Vos soins</h3><p class="note">Choisis dans le catalogue pour vos deux points à travailler en priorité.</p><div class="soins" id="soins"><p class="note">Chargement du catalogue…</p></div><hr>'
+    + '<h3 style="font:600 26px var(--sans)">Vos soins</h3><p class="note">Choisis dans le catalogue pour vos deux points à travailler en priorité.</p><div class="soins" id="soins"><p class="note">Chargement du catalogue…</p></div><div id="fiches"></div><hr>'
     + '<div class="suite"><a href="/aliment"><span class="mono">Ensuite</span><b>Votre assiette →</b></a><a href="/scan/"><span class="mono">Ensuite</span><b>Vos soins →</b></a></div>'
     + '<p class="note">Lecture optique de l’image, faite sur cet appareil. Elle ne remplace pas l’avis d’un dermatologue.' + (exemple ? ' Ces valeurs sont un exemple : la caméra n’a pas pu lire votre peau.' : '') + '</p>';
   requestAnimationFrame(grosPlan);
@@ -534,6 +543,22 @@ function resultats(){
       buste(now/1000); requestAnimationFrame(anime); }; requestAnimationFrame(anime); }
   soins(ordre);
 }
+/* le detail de chaque soin, comme le scan classique : grande photo, pourquoi pour vous, ce qu'en dit la marque (court), ses actifs, comment l'utiliser */
+const USAGE = { serum:'Matin et/ou soir, quelques gouttes sur peau propre, avant la crème.', creme:'Matin et soir, sur le visage et le cou, après le sérum.', 'contour-yeux':'Matin et soir, une petite quantité en tapotant du bout du doigt autour de l’œil.', nettoyant:'Matin et soir, sur peau humide, puis rincer.', masque:'Une à deux fois par semaine, sur peau propre, selon la notice.', 'solaire-visage':'Le matin, en dernier geste, et à renouveler en cas d’exposition.', lotion:'Après le nettoyage, sur un coton ou au creux des mains.', exfoliant:'Le soir, une à trois fois par semaine ; une protection solaire le lendemain.', huile:'Le soir, quelques gouttes réchauffées entre les mains, en dernier geste.', 'autre-visage':'Selon la notice de la marque.' };
+const ACTIF = r => { const m = String(r).match(/^(.+?) \(INCI/); if(!m) return null; let a = m[1].replace(/^glycerine en tete$/, 'glycérine').replace(/^sans parfum$/, '').replace(/^filtres UV$/, 'filtres UV'); return a || null; };
+const phrases = (t, max) => { if(!t) return ''; const ps = String(t).replace(/\s+/g, ' ').match(/[^.!?]+[.!?]/g) || [t]; let o = ''; for(const p of ps){ if((o + p).length > max) break; o += p; } return (o || ps[0].slice(0, max)).trim(); };
+const marquesJ = {};
+async function fiches(liste, faibles, lab){ const z = $('fiches'); if(!z || !liste.length) return;
+  const det = await Promise.all(liste.map(async p => { try { if(!marquesJ[p.brand]) marquesJ[p.brand] = fetch('/scan/catalogue/' + p.brand + '.json').then(r => r.json()); const j = await marquesJ[p.brand]; return (j.products || []).find(q => q.id === p.id) || {}; } catch(e){ return {}; } }));
+  z.innerHTML = '<h3 style="font:600 26px var(--sans);margin-top:30px">Le détail de vos soins</h3>' + liste.map((p, k) => { const d = det[k], pour = (p.targets || []).filter(t => faibles.includes(t)).map(t => lab[t]),
+      actifs = [...new Set((p.score_raisons || []).map(ACTIF).filter(Boolean))].slice(0, 4), txt = /\b(les|des|votre|pour|une|avec|peau)\b/i.test(d.description || '') && !/[A-Z]{4,}\s+[A-Z]{4,}/.test(d.description || '') ? phrases(d.description, 260) : '', us = USAGE[p.categorie] || USAGE['autre-visage'];
+    return '<article class="fiche' + (k % 2 ? ' inv' : '') + '"><div class="fiche-im"><img alt="" src="' + esc(p.cutout_url) + '"></div><div class="fiche-tx"><span class="mono">' + String(k + 1).padStart(2, '0') + ' · ' + esc(p.brand_name || p.brand) + '</span><h4>' + esc(p.name) + '</h4>'
+      + (pour.length ? '<div class="fl"><b>Pour vous</b><span>Choisi pour ' + pour.join(' et ').toLowerCase() + ', vos points à travailler.</span></div>' : '')
+      + (txt ? '<div class="fl"><b>La marque</b><span>« ' + esc(txt) + ' »</span></div>' : '')
+      + (actifs.length ? '<div class="fl"><b>Ses actifs</b><span class="chips">' + actifs.map(a => '<i>' + esc(a) + '</i>').join('') + '</span></div>' : '')
+      + '<div class="fl"><b>Comment l’utiliser</b><span>' + us + '</span></div>'
+      + '<a class="fl-lien" href="' + esc(p.url || '#') + '" target="_blank" rel="noopener">Voir chez ' + esc(p.brand_name || p.brand) + ' →</a></div></article>'; }).join('')
+    + '<p class="note">Le texte entre guillemets vient de la marque. Les conseils d’usage sont généraux : suivez la notice du produit.</p>'; }
 /* de vrais soins du catalogue (le meme que vyvre.fr), pour les deux categories les plus faibles */
 const EUR = { DE:1, CH:1, SE:1, BE:1, NL:1, ES:1, IT:1, AT:1, DK:1, PT:1, MC:1, HU:1, IE:1, PL:1, GB:1 };
 const zoneDe = pays => pays === 'FR' ? 'FR' : EUR[pays] ? 'EU' : (pays === 'KR' || pays === 'JP') ? 'AS' : pays ? 'INT' : null;
@@ -546,7 +571,8 @@ async function soins(ordre){ const z = $('soins'); try { const [j, mj] = await P
   z.innerHTML = pris.map(p => '<a class="soin" href="' + esc(p.url || '#') + '" target="_blank" rel="noopener"><img alt="" src="' + esc(p.cutout_url) + '"><span class="mono">' + esc(p.brand_name || p.brand) + '</span><b>' + esc(p.name) + '</b><em>' + (p.targets || []).filter(t => faibles.includes(t)).map(t => lab[t]).join(' · ') + '</em></a>').join('') || '<p class="note">Aucun soin trouvé.</p>';
   // un produit sur fond blanc (pas detoure) est retire ; on garde les 4 premiers bons
   const cartes = [...z.querySelectorAll('.soin')]; cartes.forEach((a, k) => { a.hidden = true; const im = a.querySelector('img'); const juge = () => { let bon = true; try { const c2 = document.createElement('canvas'); c2.width = 40; c2.height = 40; const g = c2.getContext('2d'); g.drawImage(im, 0, 0, 40, 40); const d = g.getImageData(0, 0, 40, 40).data; let ob = 0; for(let q = 0; q < 40; q++){ [[q,0],[q,39],[0,q],[39,q]].forEach(([a2, b2]) => { if(d[(b2*40 + a2)*4 + 3] > 200) ob++; }); } bon = ob/160 < .4; let n2 = 0, x0 = 40, x1 = -1, y0 = 40, y1 = -1, bl = 0; for(let q = 0; q < 1600; q++){ if(d[q*4 + 3] > 200){ n2++; const i = q % 40, j = (q/40) | 0; if(i < x0) x0 = i; if(i > x1) x1 = i; if(j < y0) y0 = j; if(j > y1) y1 = j; if(d[q*4] > 215 && d[q*4 + 1] > 215 && d[q*4 + 2] > 215) bl++; } } a.dataset.boite = (n2/Math.max(1, (x1 - x0 + 1)*(y1 - y0 + 1)) > .82 && bl/Math.max(1, n2) > .25) ? '1' : '0'; } catch(e){} a.dataset.bon = bon ? '1' : '0'; montre(); }; if(im.complete && im.naturalWidth) juge(); else { im.onload = juge; im.onerror = () => { a.dataset.bon = '0'; montre(); }; } });
-  function montre(){ let n = 0; cartes.forEach(a => a.hidden = true); [cartes.filter(a => a.dataset.bon === '1' && a.dataset.boite !== '1'), cartes.filter(a => a.dataset.bon === '1' && a.dataset.boite === '1')].flat().forEach(a => { if(n < 4){ a.hidden = false; n++; } }); } } catch(e){ z.innerHTML = '<p class="note">Catalogue indisponible.</p>'; } }
+  let tf = null; function montre(){ let n = 0; cartes.forEach(a => a.hidden = true); [cartes.filter(a => a.dataset.bon === '1' && a.dataset.boite !== '1'), cartes.filter(a => a.dataset.bon === '1' && a.dataset.boite === '1')].flat().forEach(a => { if(n < 4){ a.hidden = false; n++; } });
+    clearTimeout(tf); tf = setTimeout(() => fiches(cartes.filter(a => !a.hidden).map(a => pris[cartes.indexOf(a)]), faibles, lab), 400); } } catch(e){ z.innerHTML = '<p class="note">Catalogue indisponible.</p>'; } }
 const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' })[c]);
 /* le gros plan : votre vrai visage en transparence, dans un petit ecran retroeclaire ; carres bleus = zones reperees sur le cliche
    (rougeur locale : rouge nettement au-dessus du voisinage ; point sombre : lumiere nettement en dessous). Yeux, sourcils, levres et narines exclus. */
