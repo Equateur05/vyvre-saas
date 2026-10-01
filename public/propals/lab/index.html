@@ -121,6 +121,7 @@ canvas.plein{position:absolute;inset:0;width:100%;height:100%}
 .duo{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:8px}
 .duo>div{padding:14px 18px 6px 0}.duo>div+div{border-left:2px solid rgba(230,251,249,.25);padding-left:22px}
 .duo small{font:600 15px var(--sans);opacity:.8}.duo b{display:block;font:600 clamp(40px,5vw,64px)/1.1 var(--sans);letter-spacing:-.02em}
+.tete .portrait-gl{width:min(340px,42%);aspect-ratio:4/5;flex:none;border-radius:18px;box-shadow:0 20px 50px -24px rgba(0,0,0,.55);display:block}
 .tete{display:flex;align-items:center;justify-content:space-between;gap:20px}.tete canvas{width:min(340px,42%);aspect-ratio:4/5;flex:none;border-radius:18px;box-shadow:0 20px 50px -24px rgba(0,0,0,.55)}
 .soins{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:12px}
 .soin{display:flex;flex-direction:column;gap:6px;padding:16px;border-radius:18px;background:rgba(255,255,255,.10);box-shadow:inset 0 0 0 1.5px rgba(230,251,249,.28);text-decoration:none;color:var(--ligne)}
@@ -189,6 +190,7 @@ canvas.plein{position:absolute;inset:0;width:100%;height:100%}
   </section>
   <!-- 5 · trame de points -->
   <section class="vue" data-t="aqua" data-ry="8deg" data-rx="2deg" data-fx=".6">
+    <canvas class="plein" id="glb"></canvas>
     <canvas class="plein" id="trame"></canvas>
     <div class="nom5"><span class="mono">Lecture · 01 · peau</span><b id="nom5">Vous</b><span class="mono" id="st5b">[balayage]</span></div>
     <div class="sous-titre on" id="st5"><i>Votre lecture prend forme.</i></div>
@@ -215,7 +217,7 @@ canvas.plein{position:absolute;inset:0;width:100%;height:100%}
 </div></div></div>
 <nav id="nav"></nav>
 <video id="video" autoplay muted playsinline style="position:fixed;width:2px;height:2px;opacity:.01;left:0;top:0"></video>
-<script src="/propals/lab/buste.js?v=1"></script>
+<script src="/propals/lab/buste-gl.js?v=1"></script>
 <script type="module">
 import { FilesetResolver, FaceLandmarker, ImageSegmenter } from '/cheveux/vendor/mediapipe/vision_bundle.mjs';
 const $ = id => document.getElementById(id);
@@ -254,7 +256,7 @@ const ENTREE = {
   2(){ setTimeout(() => $('prenom').focus(), 600); auto(3, 7000); },
   3(){ auto(4, 6500); },
   4(){ camera(); },
-  5(){ t5 = performance.now(); $('nom5').textContent = ($('prenom').value || '').trim() || 'Vous'; $('st5b').textContent = '[balayage]'; setTimeout(() => { if(etape === 5) $('st5b').textContent = '[recomposé]'; }, 4300); setTimeout(() => { if(etape === 5) aller(6); }, 7800); },
+  5(){ if(glb.parentNode !== VUES[5]){ glb.className = 'plein'; VUES[5].insertBefore(glb, $('trame')); } t5 = performance.now(); $('nom5').textContent = ($('prenom').value || '').trim() || 'Vous'; $('st5b').textContent = '[balayage]'; setTimeout(() => { if(etape === 5) $('st5b').textContent = '[recomposé]'; }, 4300); setTimeout(() => { if(etape === 5) aller(6); }, 7800); },
   6(){ organiser(); },
   7(){ const n = ($('prenom').value || '').trim(); $('nomg').textContent = n || 'Vous'; $('st7').textContent = n ? n + '.' : 'Vos résultats.'; auto(8, 3200); },
   8(){ resultats(); } };
@@ -272,7 +274,7 @@ function image(){ const w = 480, h = Math.round(w*video.videoHeight/video.videoW
 let tL = 0, stable = 0, Lsnap = null;
 function boucle(now){
   if(face && video.videoWidth && now - tL > 70){ tL = now; let r = null; try { r = face.detectForVideo(image(), now); } catch(e){}
-    const n = r && r.faceLandmarks && r.faceLandmarks[0]; if(n){ if(!L) L = n.map(p => ({ ...p })); else for(let i = 0; i < L.length; i++){ L[i].x += (n[i].x - L[i].x)*.5; L[i].y += (n[i].y - L[i].y)*.5; L[i].z += (n[i].z - L[i].z)*.5; } nbPts = Math.min(478, nbPts + 37); stable++; Lsnap = L.map(p => ({ x:p.x, y:p.y, z:p.z })); Lsnap.aspect = copie.width/copie.height; } else stable = 0; }
+    const n = r && r.faceLandmarks && r.faceLandmarks[0]; if(n){ if(!L) L = n.map(p => ({ ...p })); else for(let i = 0; i < L.length; i++){ L[i].x += (n[i].x - L[i].x)*.5; L[i].y += (n[i].y - L[i].y)*.5; L[i].z += (n[i].z - L[i].z)*.5; } nbPts = Math.min(478, nbPts + 37); stable++; Lsnap = { points:L.map(p => ({ x:p.x, y:p.y, z:p.z })), w:copie.width, h:copie.height }; } else stable = 0; }
   if(etape === 4 || etape === 5) cheveux(now);
   if(etape === 4) traceVisage(now); if(etape === 5) trame(now);
   requestAnimationFrame(boucle);
@@ -365,13 +367,14 @@ function traceVisage(now){
 }
 /* 5 · la trame : des rangees de points qui epousent le relief (lumiere structuree) ; taille = ombre ; le bas se dissout en particules */
 const hache = (a, b) => { const v = Math.sin(a*127.1 + b*311.7)*43758.5453; return v - Math.floor(v); };
+/* le buste en points (WebGL) : un seul canvas, qui passe de l'ecran 5 aux resultats */
+let glPret = false; const glb = $('glb');
+function buste(t){ if(!window.Buste) return; if(!glPret){ try { Buste.init(glb); glPret = true; } catch(e){ console.warn('webgl', e); return; } } Buste.dessine(Lsnap, t); }
 let t5 = 0; const mc = document.createElement('canvas'), mg = mc.getContext('2d');
 /* l'animation : la photo de la camera, puis un balayage facon radiographie qui la decoupe en pixels et la recompose en points */
 function trame(now){ const { x, w, h } = cadre($('trame')), p = (now - t5)/1000, sp = p < 1 ? 0 : Math.min(1.08, (p - 1)/3.2), t = now/1000;
-  if(sp >= 1.08){ window.dessineBuste.fond = true; window.dessineBuste(x, w, h, Lsnap, t); return; }
+  buste(t); x.clearRect(0, 0, w, h); if(sp >= 1.08) return;
   const band = Math.max(60, h*.13), sy = -band + (h + band*2)*sp;
-  // au-dessus de la ligne : le buste en points
-  x.save(); x.beginPath(); x.rect(0, 0, w, Math.max(0, sy)); x.clip(); window.dessineBuste.fond = true; window.dessineBuste(x, w, h, Lsnap, t); x.restore();
   // en dessous : la photo de la camera, intacte
   const vw = video.videoWidth || 4, vh = video.videoHeight || 3, k = h*.92/vh, pw = vw*k, px = (w - pw)/2, py = h*.04;
   const photo = (g, f) => { g.save(); g.translate((px + pw)*f, py*f); g.scale(-k*f, k*f); g.filter = 'grayscale(1) sepia(.55) hue-rotate(130deg) saturate(1.5) contrast(1.15)'; if(video.videoWidth) g.drawImage(video, 0, 0); g.restore(); };
@@ -474,7 +477,8 @@ function resultats(){
     + '<div class="suite"><a href="/aliment"><span class="mono">Ensuite</span><b>Votre assiette →</b></a><a href="/scan/"><span class="mono">Ensuite</span><b>Vos soins →</b></a></div>'
     + '<p class="note">Lecture optique de l’image, faite sur cet appareil. Elle ne remplace pas l’avis d’un dermatologue.' + (exemple ? ' Ces valeurs sont un exemple : la caméra n’a pas pu lire votre peau.' : '') + '</p>';
   requestAnimationFrame(grosPlan);
-  const lmP = (cliché && cliché.Lsnap) || Lsnap; const anime = now => { const cv = $('portrait'); if(!cv || etape !== 8) return; const { x, w, h } = cadre(cv); x.save(); x.beginPath(); if(x.roundRect) x.roundRect(0, 0, w, h, 18); else x.rect(0, 0, w, h); x.clip(); window.dessineBuste.fond = true; window.dessineBuste(x, w, h, lmP, now/1000); x.restore(); requestAnimationFrame(anime); }; requestAnimationFrame(anime);
+  // le meme buste anime, en haut a droite : on y deplace le canvas WebGL (son contexte le suit)
+  const pc2 = $('portrait'); if(pc2){ glb.className = 'portrait-gl'; pc2.replaceWith(glb); const anime = now => { if(etape !== 8 || glb.className !== 'portrait-gl') return; buste(now/1000); requestAnimationFrame(anime); }; requestAnimationFrame(anime); }
   soins(ordre);
 }
 /* de vrais soins du catalogue (le meme que vyvre.fr), pour les deux categories les plus faibles */

@@ -1,33 +1,5 @@
-<!doctype html>
-<html lang="fr">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>VYVRE · Trame B</title>
-<meta name="robots" content="noindex">
-<style>
-/* 01/10 : variante B du « corps en matrice de points ».
-   Mannequin en SDF (raymarching dans le fragment shader), visage = carte de profondeur 64x64
-   construite a partir des 478 points 3D du detecteur de visage. Les points sont une grille posee
-   SUR la surface (grille d'un « capteur » attache au corps), vue de biais par la camera : colonnes droites,
-   rangees qui ondulent avec le relief et se tassent la ou la surface fuit. Ombrage = Lambert + occlusion + bord.
-   API : window.Buste = { init(canvas), dessine(landmarks, t) }
-     - landmarks : null (visage par defaut), ou { points: [478 x {x,y,z}] du detecteur, w, h } (taille de l'image
-       donnee au detecteur), ou directement le tableau de points (alors w=480, h=360 supposes). Lissage interne.
-     - t : temps en secondes (animation : rotation lente aller-retour, respiration, chute des grains).
-     - Buste.etat.r : reglages (cadrage, rotation, espacement, houle) ; Buste.etat.echelle : resolution (auto). */
-*{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%;overflow:hidden;background:#a6dfe1}
-canvas#buste{position:fixed;inset:0;width:100vw;height:100vh;display:block}
-video,canvas#det{position:fixed;left:-9999px;top:0;width:2px;height:2px;opacity:0;pointer-events:none}
-</style>
-</head>
-<body>
-<canvas id="buste"></canvas>
-<video id="cam" playsinline muted autoplay></video>
-<canvas id="det"></canvas>
-<script type="module">
-import { FilesetResolver, FaceLandmarker } from '/cheveux/vendor/mediapipe/vision_bundle.mjs';
+/* Buste en points (WebGL), variante B choisie par Charles le 01/10. API : window.Buste = { init(canvas), dessine({ points, w, h } | null, t), etat } */
+(function(){
 
 /* ------------------------------------------------------------------ */
 /*  GLSL commun (SDF du mannequin)                                     */
@@ -513,72 +485,4 @@ const Buste = (() => {
   return { init, dessine, etat };
 })();
 window.Buste = Buste;
-
-/* ------------------------------------------------------------------ */
-/*  Camera + detecteur                                                */
-/* ------------------------------------------------------------------ */
-const canvas = document.getElementById('buste');
-const video = document.getElementById('cam');
-const det = document.getElementById('det');
-const dctx = det.getContext('2d', { willReadFrequently:false });
-const info = window.__trameB = { webgl:false, camera:false, detecteur:null, visage:false, nbVisages:0, fps:0, erreur:null };
-let detecteur = null, dernier = null, tDet = -1, dernierTemps = -1;
-
-try { Buste.init(canvas); info.webgl = true; } catch(e){ info.erreur = String(e.message||e); console.log('ERREUR GL', info.erreur); }
-
-async function camera(){
-  try {
-    const st = await navigator.mediaDevices.getUserMedia({ video:{ facingMode:'user', width:{ideal:640}, height:{ideal:480} }, audio:false });
-    video.srcObject = st; await video.play(); info.camera = true;
-  } catch(e){ info.erreur = 'camera: ' + (e.message||e); }
-}
-async function detecteurInit(){
-  const fs = await FilesetResolver.forVisionTasks('/cheveux/vendor/mediapipe/wasm');
-  const opts = d => ({ baseOptions:{ modelAssetPath:'/cheveux/vendor/mediapipe/modeles/face_landmarker.task', delegate:d }, runningMode:'VIDEO', numFaces:1 });
-  try { detecteur = await FaceLandmarker.createFromOptions(fs, opts('GPU')); info.detecteur = 'GPU'; }
-  catch(e){ detecteur = await FaceLandmarker.createFromOptions(fs, opts('CPU')); info.detecteur = 'CPU'; }
-}
-camera().then(() => detecteurInit()).catch(e => { info.erreur = 'detecteur: ' + (e.message||e); });
-
-let nImg = 0, tFps = performance.now(), lents = 0;
-function boucle(){
-  const now = performance.now();
-  const t = now/1000;
-  if(detecteur && video.readyState >= 2 && video.videoWidth && now - tDet > 60){
-    tDet = now;
-    const W = 480, H = Math.round(480*video.videoHeight/video.videoWidth);
-    if(det.width !== W){ det.width = W; det.height = H; }
-    dctx.drawImage(video, 0, 0, W, H);
-    try {
-      const ts = Math.max(now, dernierTemps + 1); dernierTemps = ts;
-      const res = detecteur.detectForVideo(det, ts);
-      info.nbVisages = res.faceLandmarks ? res.faceLandmarks.length : 0;
-      if(info.nbVisages){ dernier = { points: res.faceLandmarks[0], w: W, h: H }; info.visage = true; }
-    } catch(e){ info.erreur = 'detect: ' + (e.message||e); }
-  }
-  if(info.webgl) Buste.dessine(dernier, t);
-  nImg++; if(now - tFps > 1000){ info.fps = Math.round(nImg*1000/(now-tFps)); nImg = 0; tFps = now;
-    /* resolution adaptative : si la machine peine, on calcule moins de pixels */
-    if(info.fps < 40) lents++; else lents = 0;
-    if(lents >= 2 && Buste.etat.echelle > 0.6){ Buste.etat.echelle = Math.round((Buste.etat.echelle-0.1)*10)/10; lents = 0; }
-    info.echelle = Buste.etat.echelle; }
-  requestAnimationFrame(boucle);
-}
-requestAnimationFrame(boucle);
-</script>
-<div id="balai"></div>
-<style>
-/* le balayage : la forme se decouvre de haut en bas, sous une ligne lumineuse, puis recommence */
-:root{--p:-3}
-#scene,#buste{-webkit-mask-image:linear-gradient(180deg,#000 calc(var(--p)*1% - 3%),rgba(0,0,0,.55) calc(var(--p)*1%),transparent calc(var(--p)*1% + .6%));mask-image:linear-gradient(180deg,#000 calc(var(--p)*1% - 3%),rgba(0,0,0,.55) calc(var(--p)*1%),transparent calc(var(--p)*1% + .6%))}
-#balai{position:fixed;left:0;right:0;top:calc(var(--p)*1%);height:3px;margin-top:-1.5px;background:#f4fffe;box-shadow:0 0 18px 4px rgba(160,255,250,.85);pointer-events:none;z-index:5;opacity:var(--o,1);transition:opacity .5s}
-#balai::before{content:'';position:absolute;left:0;right:0;bottom:3px;height:90px;background:linear-gradient(180deg,rgba(235,255,253,0),rgba(235,255,253,.45))}
-</style>
-<script>
-(function(){ const r = document.documentElement.style, DUREE = 4800, PAUSE = 6000; let t0 = performance.now();
-  const f = now => { const u = (now - t0)/DUREE; if(u <= 1){ const e = u < .5 ? 2*u*u : 1 - Math.pow(-2*u + 2, 2)/2; r.setProperty('--p', (-3 + 106*e).toFixed(2)); r.setProperty('--o', u > .96 ? '0' : '1'); }
-    else if(now - t0 > DUREE + PAUSE){ t0 = now; r.setProperty('--o', '1'); } requestAnimationFrame(f); };
-  requestAnimationFrame(f); addEventListener('pointerdown', () => { t0 = performance.now(); }); })();
-</script>
-</body>
-</html>
+})();
