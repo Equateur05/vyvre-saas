@@ -1,0 +1,488 @@
+/* Buste en points (WebGL), variante B choisie par Charles le 01/10. API : window.Buste = { init(canvas), dessine({ points, w, h } | null, t), etat } */
+(function(){
+
+/* ------------------------------------------------------------------ */
+/*  GLSL commun (SDF du mannequin)                                     */
+/* ------------------------------------------------------------------ */
+const COMMUN = `
+uniform vec2  uRes;
+uniform vec2  uPP;
+uniform float uT;
+uniform vec3  uCam;
+uniform mat3  uCamM;
+uniform float uFocal;
+uniform mat3  uBody;
+uniform mat3  uHead;
+uniform vec3  uHeadPos;
+uniform sampler2D uFace;
+uniform float uS;
+uniform float uCut;
+uniform float uDbg;
+uniform float uDot;
+uniform mat3 uScan;
+uniform float uWave;
+
+float sdE(vec3 p, vec3 r){ float k0=length(p/r); float k1=length(p/(r*r)); return k0*(k0-1.0)/max(k1,1e-6); }
+float sdC(vec3 p, vec3 a, vec3 b, float r){ vec3 pa=p-a, ba=b-a; float h=clamp(dot(pa,ba)/dot(ba,ba),0.,1.); return length(pa-ba*h)-r; }
+float smin(float a, float b, float k){ float h=max(k-abs(a-b),0.)/k; return min(a,b)-h*h*k*0.25; }
+float h21(vec2 p){ p=fract(p*vec2(123.34,456.21)); p+=dot(p,p+45.32); return fract(p.x*p.y); }
+float vnoise(vec2 p){ vec2 i=floor(p), f=fract(p); f=f*f*(3.-2.*f);
+  return mix(mix(h21(i),h21(i+vec2(1,0)),f.x), mix(h21(i+vec2(0,1)),h21(i+vec2(1,1)),f.x), f.y); }
+
+/* tete etoilee : rayon lu dans une carte equirectangulaire (visage reel devant, crane de base derriere) */
+float sHead(vec3 q){
+  vec3 v = q - vec3(0.,-0.012,-0.039);
+  float r = length(v); vec3 dn = v/max(r,1e-5);
+  vec2 uv = vec2(atan(dn.x, dn.z)/6.2831853+0.5, asin(clamp(dn.y,-1.,1.))/3.1415927+0.5);
+  float R = textureLod(uFace, uv, 0.).r;
+  return (r - R)*0.5;
+}
+float cutY(vec3 p){
+  return uCut - 0.22*p.x + 0.045*(vnoise(p.xz*vec2(16.,22.)+vec2(0.,uT*0.12))-0.5) + 0.012*sin(p.x*31.+uT*0.5);
+}
+float fbm2(vec2 p){ return 0.6*vnoise(p) + 0.3*vnoise(p*2.03+7.1) + 0.1*vnoise(p*4.1+3.3); }
+float sBody(vec3 p){
+  vec3 m = vec3(abs(p.x), p.y, p.z);
+  float br = 1.0 + 0.006*sin(uT*1.25);
+  float chest = sdE(p-vec3(0.,1.262,-0.025), vec3(0.19,0.2,0.112)*br);
+  float pec   = sdE(m-vec3(0.086,1.322,0.05), vec3(0.096,0.066,0.052)*br);
+  float ab    = sdE(p-vec3(0.,1.08,-0.012), vec3(0.16,0.19,0.102));
+  float d = smin(chest, pec, 0.045);
+  d = smin(d, ab, 0.06);
+  /* sillon sternal et ligne blanche */
+  d += 0.0035*exp(-p.x*p.x/0.0001)*smoothstep(1.44,1.36,p.y);
+  /* abdominaux / dentele */
+  float abm = smoothstep(1.27,1.22,p.y)*(1.-smoothstep(0.08,0.12,abs(p.x)));
+  d -= 0.006*abm*(0.5+0.5*cos((p.y-1.24)*6.2832/0.055))*(0.5+0.5*sin(abs(p.x)*6.2832/0.13+0.6));
+  /* bord inferieur des pectoraux, marque */
+  d += 0.005*exp(-pow((p.y-1.258+0.03*abs(p.x))/0.01,2.))*(1.-smoothstep(0.03,0.18,abs(p.x)));
+  /* fibres : relief musculaire qui fait onduler les rangees */
+  float fr = smoothstep(-0.02,0.06,p.z)*(1.-smoothstep(1.43,1.47,p.y));
+  d -= fr*0.016*(fbm2(vec2(p.x*19., p.y*23.) + vec2(uT*0.03, 0.)) - 0.45);
+  float clav = sdC(m, vec3(0.028,1.452,0.052), vec3(0.175,1.465,0.0), 0.013);
+  d = smin(d, clav, 0.03);
+  float trap = sdC(m, vec3(0.03,1.475,-0.045), vec3(0.205,1.435,-0.03), 0.034);
+  d = smin(d, trap, 0.06);
+  float del = sdE(m-vec3(0.232,1.384,-0.004), vec3(0.072,0.09,0.076));
+  d = smin(d, del, 0.05);
+  float arm = sdC(m, vec3(0.245,1.37,-0.016), vec3(0.28,0.55,-0.06), 0.056);
+  d = smin(d, arm, 0.02);
+  float scm = sdC(m, vec3(0.016,1.455,0.045), vec3(0.046,1.6,0.008), 0.017);
+  float neck = sdC(p, vec3(0.,1.42,-0.02), vec3(0.,1.6,0.0), 0.06 - 0.06*clamp((p.y-1.45)/0.4,0.,1.)*0.2);
+  neck = smin(neck, scm, 0.02);
+  d = smin(d, neck, 0.04);
+  /* dissolution du bas : seulement le tronc, pas les bras */
+  float mt = p.x < 0. ? smoothstep(0.0, 0.006, arm) : 1.;
+  d = max(d, mix(-1., cutY(p)-p.y, mt));
+  return d;
+}
+float mapS(vec3 p){
+  float b = sBody(p);
+  vec3 hp = p - uHeadPos;
+  float hb = length(hp) - 0.175;
+  float h = hb > 0.04 ? hb : sHead(transpose(uHead)*hp/0.88)*0.88;
+  return smin(b, h, 0.016);
+}
+vec2 proj(vec3 w){
+  vec3 c = transpose(uCamM)*(w-uCam);
+  return uRes*0.5 + uPP + c.xy*uFocal/c.z;
+}
+`;
+
+const VS_PLEIN = `#version 300 es
+in vec2 aPos; void main(){ gl_Position = vec4(aPos,0.,1.); }`;
+
+const FS_BUSTE = `#version 300 es
+precision highp float;
+${COMMUN}
+out vec4 o;
+
+vec3 nrm(vec3 p){
+  const vec2 k = vec2(1.,-1.); float e = 0.0007;
+  return normalize(k.xyy*mapS(p+k.xyy*e) + k.yyx*mapS(p+k.yyx*e) + k.yxy*mapS(p+k.yxy*e) + k.xxx*mapS(p+k.xxx*e));
+}
+void main(){
+  vec2 fc = gl_FragCoord.xy;
+  vec2 uv = fc/uRes;
+  /* fond aqua (mesure sur la reference) */
+  vec3 bg = mix(vec3(0.553,0.784,0.824), vec3(0.557,0.796,0.812), smoothstep(0.,1.,uv.y));
+  vec2 dq = (uv-vec2(0.30,0.62))*vec2(uRes.x/uRes.y,1.);
+  bg = mix(bg, vec3(0.675,0.824,0.866), 0.85*exp(-dot(dq,dq)/0.06));
+  vec2 dq2 = (uv-vec2(0.62,0.12))*vec2(uRes.x/uRes.y,1.);
+  bg = mix(bg, vec3(0.62,0.80,0.82), 0.5*exp(-dot(dq2,dq2)/0.05));
+  vec3 col = bg;
+
+  vec3 rdw = normalize(uCamM*vec3((fc-uRes*0.5-uPP)/uFocal, 1.));
+  vec3 ro = transpose(uBody)*uCam;
+  vec3 rd = transpose(uBody)*rdw;
+  vec3 bmin = vec3(-0.38,0.55,-0.26), bmax = vec3(0.38,1.95,0.3);
+  vec3 t0 = (bmin-ro)/rd, t1 = (bmax-ro)/rd;
+  vec3 tmn = min(t0,t1), tmx = max(t0,t1);
+  float tn = max(max(tmn.x,tmn.y),tmn.z), tf = min(min(tmx.x,tmx.y),tmx.z);
+  if(tf > max(tn,0.)){
+    float t = max(tn,0.); bool hit=false; vec3 p;
+    for(int i=0;i<130;i++){
+      p = ro+rd*t; float d = mapS(p);
+      if(d < 0.00025*t){ hit=true; break; }
+      t += d*0.85;
+      if(t>tf) break;
+    }
+    if(hit){
+      vec3 n = nrm(p);
+      vec3 nw = uBody*n;
+      vec3 L = normalize(vec3(-0.75,0.6,0.22));
+      float lam = max(dot(nw,L),0.);
+      float fac = clamp(dot(nw,-rdw),0.,1.);
+      float fres = 1.-fac;
+      float ao = clamp(mapS(p+n*0.016)/0.008, 0., 1.);
+      float dark = clamp(1.1 - 1.3*lam + 0.45*fres*fres + 1.2*(1.-ao), 0., 1.);
+      float band = clamp((p.y-cutY(p))/0.055, 0., 1.);
+      float mt = p.x > 0. ? 1. : smoothstep(0.0, 0.006, sdC(vec3(abs(p.x),p.y,p.z), vec3(0.245,1.37,-0.016), vec3(0.28,0.55,-0.06), 0.056));
+      band = mix(1., band, mt);
+      /* grille de balayage : reguliere vue du capteur (axe uScan), puis vue de biais par la camera :
+         les colonnes restent droites, les rangees ondulent avec le relief et se tassent la ou la surface fuit */
+      float s = uS;
+      vec3 ps = uScan*p, ns = uScan*n;
+      float nz = ns.z >= 0. ? max(ns.z, 0.07) : min(ns.z, -0.07);
+      vec2 g0 = floor(ps.xy/s);
+      float cov = 0.;
+      float rr = uDot*mix(0.19, 0.33, dark);
+      float al = mix(0.12, 1.0, smoothstep(0.1,0.6,dark));
+      float sx = fract(ps.x/s) < 0.5 ? -1. : 1.;
+      float wv = uWave*(1.-smoothstep(1.43,1.5,p.y))*smoothstep(-0.06,0.04,n.z);
+      for(int jy=-2; jy<=2; jy++){
+        for(int jx=0; jx<=1; jx++){
+          vec2 g = g0 + vec2(float(jx)*sx, float(jy));
+          vec2 cxy = (g+0.5)*s;
+          float dz = clamp(-(ns.x*(cxy.x-ps.x) + ns.y*(cxy.y-ps.y))/nz, -2.5*s, 2.5*s);
+          vec3 cs = vec3(cxy, ps.z + dz);
+          /* houle du balayage : la profondeur de chaque point ondule (rangees en vagues) */
+          cs.z += wv*(fbm2(cxy*vec2(19.,23.) + vec2(uT*0.05, -uT*0.03)) - 0.45);
+          float hh = h21(g*0.731+3.1);
+          float r = rr*(1.+0.08*sin(uT*1.6+hh*6.28));
+          float keep = 1.;
+          if(band < 1.){
+            /* pres de la coupure : grains plus gros, plus sombres, qui se detachent et tombent */
+            cs.y -= (1.-band)*(0.3+1.2*hh)*s*(0.8+0.4*sin(uT*0.9+hh*6.28));
+            r *= mix(1.6, 1., band);
+            keep = step(hh, 0.2+0.8*band);
+          }
+          vec3 c = transpose(uScan)*cs;
+          float dpx = length(proj(uBody*c)-fc);
+          cov += keep*(1.-smoothstep(r-0.6, r+0.6, dpx));
+        }
+      }
+      float dk = clamp(dark + (1.-band)*0.4, 0., 1.);
+      vec3 cl = mix(vec3(0.20,0.58,0.62), vec3(0.11,0.48,0.52), smoothstep(0.,0.6,dk));
+      cl = mix(cl, vec3(0.0,0.30,0.33), clamp((cov-1.)*0.7 + 0.45*smoothstep(0.7,1.,dk), 0., 1.));
+      col = mix(col, cl, min(cov,1.)*al);
+      if(uDbg>1.5) col = vec3(1.-dark); else if(uDbg>0.5) col = vec3(0.15+0.85*lam)*(0.6+0.4*fac);
+    }
+  }
+  o = vec4(col,1.);
+}`;
+
+const VS_PART = `#version 300 es
+precision highp float;
+${COMMUN}
+in vec4 aP;   /* theta, dy, phase, taille */
+in vec3 aO;   /* decalage dans la grappe */
+out float vA; out float vD;
+void main(){
+  float th = aP.x;
+  vec3 dir = vec3(cos(th),0.,sin(th));
+  vec3 base = vec3(0.152*cos(th), 0., 0.098*sin(th)-0.008);
+  base.y = cutY(base) + aP.y;
+  float ph = fract(uT*0.06 + aP.z);
+  vec3 pos = base + aO + dir*(0.003+ph*0.008) + vec3(0., -ph*ph*0.05 - ph*0.01, 0.);
+  vec3 w = uBody*pos;
+  float face = dot(uBody*dir, normalize(uCam-w));
+  vA = smoothstep(0.,0.06,ph)*pow(1.-ph,1.4)*smoothstep(-0.05,0.25,face);
+  vD = aP.w;
+  vec2 sp = proj(w);
+  gl_Position = vec4(sp/uRes*2.-1., 0., 1.);
+  gl_PointSize = aP.w*(1.+ph*0.35)*(uFocal/1400.)*1.2;
+}`;
+const FS_PART = `#version 300 es
+precision highp float;
+in float vA; in float vD; out vec4 o;
+void main(){
+  vec2 q = gl_PointCoord*2.-1.; float r = dot(q,q);
+  float a = (1.-smoothstep(0.55,1.,r))*vA;
+  vec3 c = mix(vec3(0.122,0.490,0.525), vec3(0.051,0.353,0.384), clamp((vD-2.)/2.5,0.,1.));
+  o = vec4(c, a*0.92);
+}`;
+
+/* ------------------------------------------------------------------ */
+/*  Carte de profondeur du visage                                     */
+/* ------------------------------------------------------------------ */
+const N = 64;
+const X0 = -0.085, XW = 0.17, Y0 = -0.14, YH = 0.24, ZMAX = 0.12;
+/* tete de base (meme formule que le shader), en coordonnees du visage */
+function sdE3(px,py,pz,rx,ry,rz){ const k0=Math.hypot(px/rx,py/ry,pz/rz), k1=Math.hypot(px/(rx*rx),py/(ry*ry),pz/(rz*rz)); return k0*(k0-1)/Math.max(k1,1e-6); }
+function smin1(a,b,k){ const h=Math.max(k-Math.abs(a-b),0)/k; return Math.min(a,b)-h*h*k*0.25; }
+/* tete etoilee : rayon depuis le centre de la tete, carte equirectangulaire NT x NP */
+const NT = 192, NP = 96, OC = [0, 0.0, -0.035];
+const dirTex = (i,j) => { const th = -Math.PI + 2*Math.PI*(i+0.5)/NT, ph = -Math.PI/2 + Math.PI*(j+0.5)/NP;
+  return [Math.cos(ph)*Math.sin(th), Math.sin(ph), Math.cos(ph)*Math.cos(th), th]; };
+function teteBase0(x,y,z){ return smin1(sdE3(x,y-0.022,z+0.025,0.08,0.1,0.1), sdE3(x,y+0.062,z-0.002,0.07,0.068,0.078), 0.035); }
+const BASER = (() => { const b = new Float32Array(NT*NP);
+  for(let j=0;j<NP;j++) for(let i=0;i<NT;i++){ const d = dirTex(i,j); let r = 0;
+    const f = r => teteBase0(OC[0]+d[0]*r, OC[1]+d[1]*r, OC[2]+d[2]*r);
+    for(; r<0.2; r+=0.004){ if(f(r) > 0) break; }
+    let a = r-0.004, c = r; for(let k=0;k<14;k++){ const mid=(a+c)/2; if(f(mid) > 0) c = mid; else a = mid; }
+    b[j*NT+i] = (a+c)/2; }
+  return b; })();
+function echant(a, x, y){ /* bilineaire sur la grille du visage, -1 hors domaine */
+  const gx = (x-X0)/XW*N-0.5, gy = (y-Y0)/YH*N-0.5;
+  if(gx < 0 || gy < 0 || gx > N-1 || gy > N-1) return -1;
+  const i = Math.floor(gx), j = Math.floor(gy), fx = gx-i, fy = gy-j, i1 = Math.min(i+1,N-1), j1 = Math.min(j+1,N-1);
+  return (a[j*N+i]*(1-fx)+a[j*N+i1]*fx)*(1-fy) + (a[j1*N+i]*(1-fx)+a[j1*N+i1]*fx)*fy;
+}
+function versRadial(h, m){
+  const R = BASER.slice();
+  for(let j=0;j<NP;j++) for(let i=0;i<NT;i++){
+    const d = dirTex(i,j); if(Math.abs(d[3]) > 1.7 || d[2] <= 0.05) continue;
+    const g = r => { const x = OC[0]+d[0]*r, y = OC[1]+d[1]*r, z = OC[2]+d[2]*r; const hz = echant(h, x, y); return hz < -0.5 ? 1 : z - hz; };
+    let r0 = 0.02, r1 = -1, g0 = g(r0);
+    if(g0 > 0) continue;
+    for(let r=0.022; r<0.17; r+=0.002){ const v = g(r); if(v > 0){ r1 = r; break; } r0 = r; }
+    if(r1 < 0) continue;
+    for(let k=0;k<7;k++){ const rm = (r0+r1)/2; if(g(rm) > 0) r1 = rm; else r0 = rm; }
+    const rr = (r0+r1)/2, x = OC[0]+d[0]*rr, y = OC[1]+d[1]*rr;
+    const r2 = (x/0.076)**2 + ((y+0.022)/0.122)**2;
+    let w = Math.min(1, Math.max(0, (1-r2)/0.55)); w = w*w*(3-2*w);
+    const mm = Math.max(0, echant(m, x, y));
+    const wm = w*mm, k = j*NT+i;
+    R[k] = R[k]*(1-wm) + Math.max(R[k]*0.86, rr)*wm;
+  }
+  /* lissage leger de la carte (supprime l'escalier du balayage) */
+  const Q = R.slice();
+  for(let j=1;j<NP-1;j++) for(let i=0;i<NT;i++){ let sm=0, n=0;
+    for(let b=-1;b<=1;b++) for(let a=-1;a<=1;a++){ const ii=(i+a+NT)%NT, w=(a||b)?1:4; sm += R[(j+b)*NT+ii]*w; n += w; }
+    Q[j*NT+i] = sm/n; }
+  return Q;
+}
+const DETAIL = new Float32Array(N*N);
+function visageParDefaut(){
+  const h = new Float32Array(N*N), mk = new Float32Array(N*N);
+  const g = (x,y,cx,cy,sx,sy) => Math.exp(-(((x-cx)/sx)**2 + ((y-cy)/sy)**2));
+  for(let j=0;j<N;j++) for(let i=0;i<N;i++){
+    const x = X0 + XW*(i+0.5)/N, y = Y0 + YH*(j+0.5)/N, ax = Math.abs(x);
+    const ov = (x/0.074)**2 + ((y+0.03)/0.108)**2;
+    const mask = Math.min(1, Math.max(0, (1.1-ov)/0.35));
+    let base = 0.064*Math.pow(Math.max(0, 1 - (x/0.078)**2 - ((y+0.02)/0.15)**2*0.6), 0.75);
+    base -= 0.012*Math.max(0, y-0.03)/0.04;              /* front fuyant */
+    base -= 0.010*Math.max(0, -0.085-y)/0.04;            /* sous le menton */
+    let f = 0;
+    f -= 0.013*g(ax,y,0.031,0.002,0.016,0.010);          /* orbites */
+    f += 0.007*g(ax,y,0.029,0.019,0.024,0.007);          /* arcades */
+    f += 0.009*g(ax,y,0.047,-0.018,0.016,0.016);         /* pommettes */
+    f -= 0.006*g(ax,y,0.040,-0.050,0.014,0.020);         /* creux des joues */
+    /* nez : arete puis pointe */
+    const tn = Math.min(1, Math.max(0, (0.012-y)/0.054));
+    const wn = 0.0065 + 0.0075*tn;
+    const inN = y < 0.016 && y > -0.05 ? 1 : 0;
+    f += inN*(0.004 + 0.03*Math.pow(tn,1.2))*Math.exp(-((x/wn)**2))*(y<-0.042 ? Math.max(0,1-(-0.042-y)/0.008) : 1);
+    f += 0.008*g(ax,y,0.014,-0.04,0.007,0.006);          /* ailes du nez */
+    f += 0.006*g(x,y,0,-0.057,0.012,0.006);              /* philtrum */
+    f += 0.009*g(x,y,0,-0.064,0.022,0.0055);             /* levre sup */
+    f -= 0.004*g(x,y,0,-0.0705,0.02,0.0022);             /* commissure */
+    f += 0.008*g(x,y,0,-0.077,0.019,0.006);              /* levre inf */
+    f -= 0.003*g(x,y,0,-0.088,0.016,0.005);              /* creux sous la levre */
+    f += 0.010*g(x,y,0,-0.104,0.022,0.012);              /* menton */
+    h[j*N+i] = base+f; mk[j*N+i] = mask*mask*(3-2*mask);
+    /* details sculpturaux (sans le nez) reutilises pour accentuer le vrai visage */
+    DETAIL[j*N+i] = (-0.013*g(ax,y,0.031,0.002,0.016,0.010) + 0.007*g(ax,y,0.029,0.019,0.024,0.007) + 0.009*g(ax,y,0.047,-0.018,0.016,0.016)
+      - 0.006*g(ax,y,0.040,-0.050,0.014,0.020) + 0.009*g(x,y,0,-0.064,0.022,0.0055) - 0.004*g(x,y,0,-0.0705,0.02,0.0022)
+      + 0.008*g(x,y,0,-0.077,0.019,0.006) - 0.003*g(x,y,0,-0.088,0.016,0.005) + 0.006*g(x,y,0,-0.104,0.022,0.012))*mask;
+  }
+  return versRadial(h, mk);
+}
+
+const LM_GAUCHE = 234, LM_DROITE = 454, LM_HAUT = 10, LM_MENTON = 152;
+function visageDepuisPoints(lm, W, H){
+  const P = lm.map(p => [p.x*W, p.y*H, p.z*W]);
+  const sub = (a,b)=>[a[0]-b[0],a[1]-b[1],a[2]-b[2]], dot=(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2];
+  const nor = a => { const l=Math.hypot(a[0],a[1],a[2])||1; return [a[0]/l,a[1]/l,a[2]/l]; };
+  const cr = (a,b)=>[a[1]*b[2]-a[2]*b[1], a[2]*b[0]-a[0]*b[2], a[0]*b[1]-a[1]*b[0]];
+  const L = P[LM_GAUCHE], R = P[LM_DROITE];
+  let X = sub(R,L); const fw = Math.hypot(X[0],X[1],X[2]); if(fw < 1) return null; X = nor(X);
+  let Y = sub(P[LM_HAUT], P[LM_MENTON]); const yx = dot(Y,X); Y = nor([Y[0]-X[0]*yx, Y[1]-X[1]*yx, Y[2]-X[2]*yx]);
+  const Z = cr(X,Y);
+  const c = [(L[0]+R[0])/2, (L[1]+R[1])/2, (L[2]+R[2])/2];
+  const sc = 0.14/fw;
+  const acc = new Float32Array(N*N), wsum = new Float32Array(N*N), accF = new Float32Array(N*N), wF = new Float32Array(N*N);
+  const sig = 2.4, rad = 8, sigF = 1.3;
+  for(const p of P){
+    const d = sub(p,c);
+    const lx = -dot(d,X)*sc, ly = dot(d,Y)*sc, lz = dot(d,Z)*sc;
+    const gx = (lx-X0)/XW*N-0.5, gy = (ly-Y0)/YH*N-0.5;
+    const i0 = Math.round(gx), j0 = Math.round(gy);
+    for(let j=j0-rad;j<=j0+rad;j++){ if(j<0||j>=N) continue;
+      for(let i=i0-rad;i<=i0+rad;i++){ if(i<0||i>=N) continue;
+        const r2 = (i-gx)**2+(j-gy)**2;
+        const w = Math.exp(-r2/(2*sig*sig)), wf = Math.exp(-r2/(2*sigF*sigF));
+        acc[j*N+i] += w*lz; wsum[j*N+i] += w; accF[j*N+i] += wf*lz; wF[j*N+i] += wf; } }
+  }
+  for(let k=0;k<N*N;k++){ if(wsum[k] > 0){ const t = 0; acc[k] = (acc[k]/wsum[k])*(1-t) + (wF[k]>1e-4 ? accF[k]/wF[k] : 0)*t; acc[k] *= wsum[k]; } }
+  const h = new Float32Array(N*N), mk = new Float32Array(N*N);
+  let mx = 0;
+  for(let k=0;k<N*N;k++){
+    const w = wsum[k]; if(w < 0.015){ h[k]=0; mk[k]=0; continue; }
+    const m = Math.min(1, Math.max(0, (w-0.015)/0.12)); mk[k] = m*m*(3-2*m);
+    h[k] = acc[k]/w + 0.004; if(m > 0.5) mx = Math.max(mx, h[k]);
+  }
+  /* l'echelle de profondeur du detecteur varie : on ramene le nez a ~9,5 cm du plan des pommettes */
+  if(mx > 0){ const sc = Math.min(1.6, Math.max(0.5, 0.095/mx)); for(let k=0;k<N*N;k++) h[k] *= sc; }
+  const e0 = h;
+  /* un flou leger */
+  const o = new Float32Array(N*N);
+  for(let j=0;j<N;j++) for(let i=0;i<N;i++){
+    let s=0, n=0; for(let b=-1;b<=1;b++) for(let a=-1;a<=1;a++){ const ii=i+a, jj=j+b; if(ii<0||jj<0||ii>=N||jj>=N) continue; const w=(a||b)?1:2; s+=e0[jj*N+ii]*w; n+=w; }
+    o[j*N+i] = s/n;
+  }
+  /* accentue le relief (masque flou) : visage plus sculpte */
+  const o2 = new Float32Array(N*N);
+  for(let j=0;j<N;j++) for(let i=0;i<N;i++){ let sm=0, n=0;
+    for(let b=-3;b<=3;b++) for(let a=-3;a<=3;a++){ const ii=i+a, jj=j+b; if(ii<0||jj<0||ii>=N||jj>=N) continue; sm+=o[jj*N+ii]; n++; }
+    o2[j*N+i] = o[j*N+i] + 1.0*(o[j*N+i] - sm/n)*mk[j*N+i]**3 + 0.6*DETAIL[j*N+i]*mk[j*N+i]; }
+  return versRadial(o2, mk);
+}
+
+/* ------------------------------------------------------------------ */
+/*  Rendu                                                             */
+/* ------------------------------------------------------------------ */
+const rotY = a => { const c=Math.cos(a), s=Math.sin(a); return [c,0,-s, 0,1,0, s,0,c]; };
+const rotX = a => { const c=Math.cos(a), s=Math.sin(a); return [1,0,0, 0,c,s, 0,-s,c]; };
+const mul3 = (A,B) => { const R=new Array(9); for(let c=0;c<3;c++) for(let r=0;r<3;r++){ let s=0; for(let k=0;k<3;k++) s+=A[k*3+r]*B[c*3+k]; R[c*3+r]=s; } return R; };
+
+const Buste = (() => {
+  let gl, cv, progB, progP, uB, uP, texFace, vaoB, vaoP, nPart = 0;
+  const cible = visageParDefaut(), cour = cible.slice();
+  let dernierLm = null;
+  const etat = { echelle: 1, temps: [], r: { yaw:0.52, hyaw:0.18, hpitch:0.16, visH:0.72, dist:1.2, pitch:0.3, T:[-0.05,1.465,0.0], headPos:[0.0,1.67,0.075], esp:0.0068, cut:1.19, scan:0.2, scanP:0.2, wave:0.045 } };
+
+  function compile(vs, fs){
+    const mk = (type, src) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s);
+      if(!gl.getShaderParameter(s, gl.COMPILE_STATUS)) throw new Error(gl.getShaderInfoLog(s)); return s; };
+    const p = gl.createProgram(); gl.attachShader(p, mk(gl.VERTEX_SHADER, vs)); gl.attachShader(p, mk(gl.FRAGMENT_SHADER, fs)); gl.linkProgram(p);
+    if(!gl.getProgramParameter(p, gl.LINK_STATUS)) throw new Error(gl.getProgramInfoLog(p));
+    return p;
+  }
+  function uniformes(p){
+    const u = {}; for(const n of ['uRes','uPP','uT','uCam','uCamM','uFocal','uBody','uHead','uHeadPos','uFace','uS','uCut','uDbg','uDot','uScan','uWave']) u[n] = gl.getUniformLocation(p, n);
+    return u;
+  }
+  function particules(){
+    /* grappes accrochees au bord de la coupure, sur l'avant du tronc */
+    const A = [], O = []; let seed = 7;
+    const rnd = () => (seed = (seed*16807) % 2147483647) / 2147483647;
+    for(let g=0; g<340; g++){
+      const th = 0.12*Math.PI + rnd()*0.76*Math.PI;
+      const nb = 4 + Math.floor(rnd()*rnd()*16);
+      const ph = rnd(), dy = -0.004 + rnd()*0.01;
+      const sx = 0.004+rnd()*0.009;
+      for(let k=0;k<nb;k++){
+        A.push(th, dy, ph + rnd()*0.05, 2.6 + rnd()*2.8);
+        O.push((rnd()-0.5)*sx*2, (rnd()-0.5)*sx*1.4, (rnd()-0.5)*sx);
+      }
+    }
+    nPart = A.length/4;
+    return { A: new Float32Array(A), O: new Float32Array(O) };
+  }
+
+  function init(canvas){
+    cv = canvas;
+    gl = cv.getContext('webgl2', { antialias:false, alpha:false, premultipliedAlpha:false, powerPreference:'high-performance' });
+    if(!gl) throw new Error('WebGL2 indisponible');
+    progB = compile(VS_PLEIN, FS_BUSTE); uB = uniformes(progB);
+    progP = compile(VS_PART, FS_PART); uP = uniformes(progP);
+
+    vaoB = gl.createVertexArray(); gl.bindVertexArray(vaoB);
+    const vb = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, vb);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 3,-1, -1,3]), gl.STATIC_DRAW);
+    const la = gl.getAttribLocation(progB, 'aPos'); gl.enableVertexAttribArray(la); gl.vertexAttribPointer(la, 2, gl.FLOAT, false, 0, 0);
+
+    const pd = particules();
+    vaoP = gl.createVertexArray(); gl.bindVertexArray(vaoP);
+    const pa = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, pa); gl.bufferData(gl.ARRAY_BUFFER, pd.A, gl.STATIC_DRAW);
+    const lp = gl.getAttribLocation(progP, 'aP'); gl.enableVertexAttribArray(lp); gl.vertexAttribPointer(lp, 4, gl.FLOAT, false, 0, 0);
+    const po = gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER, po); gl.bufferData(gl.ARRAY_BUFFER, pd.O, gl.STATIC_DRAW);
+    const lo = gl.getAttribLocation(progP, 'aO'); gl.enableVertexAttribArray(lo); gl.vertexAttribPointer(lo, 3, gl.FLOAT, false, 0, 0);
+    gl.bindVertexArray(null);
+
+    texFace = gl.createTexture(); gl.bindTexture(gl.TEXTURE_2D, texFace);
+    gl.pixelStorei(gl.UNPACK_ALIGNMENT, 1);
+    gl.texImage2D(gl.TEXTURE_2D, 0, gl.R16F, NT, NP, 0, gl.RED, gl.FLOAT, cour);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.LINEAR);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.REPEAT);
+    gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+    return Buste;
+  }
+
+  function taille(){
+    const w = Math.max(1, Math.round(cv.clientWidth*etat.echelle)), h = Math.max(1, Math.round(cv.clientHeight*etat.echelle));
+    if(cv.width !== w || cv.height !== h){ cv.width = w; cv.height = h; }
+    return [w, h];
+  }
+
+  function dessine(landmarks, t){
+    if(!gl) return;
+    const t0 = performance.now();
+    /* visage : nouvelle cible si nouveaux points, puis lissage */
+    if(etat.r.sansVisage) { landmarks = null; if(!etat.defaut){ etat.defaut = visageParDefaut(); } cible.set(etat.defaut); }
+    if(landmarks && landmarks !== dernierLm){
+      dernierLm = landmarks;
+      const lm = landmarks.points || landmarks;
+      const v = visageDepuisPoints(lm, landmarks.w || 480, landmarks.h || 360);
+      if(v) cible.set(v);
+    }
+    for(let k=0;k<NT*NP;k++) cour[k] += (cible[k]-cour[k])*0.12;
+    gl.bindTexture(gl.TEXTURE_2D, texFace);
+    gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, NT, NP, gl.RED, gl.FLOAT, cour);
+
+    const [W, H] = taille();
+    /* cadrage : la composition de reference (portrait 0.72) tient dans l'ecran */
+    const R = etat.r;
+    const ppu = Math.min(H/R.visH, W/(R.visH*0.56));  /* pixels par unite au point vise */
+    const ppy = Math.max(0, (H - R.visH*ppu)*0.32);     /* ecran etroit : on garde la tete en haut */
+    const dist = R.dist;
+    const focal = ppu*dist;
+    const pitch = R.pitch;                             /* plongee */
+    const T = R.T;
+    const cam = [T[0], T[1] + dist*Math.sin(pitch), T[2] + dist*Math.cos(pitch)];
+    const f = [T[0]-cam[0], T[1]-cam[1], T[2]-cam[2]]; const fl = Math.hypot(...f); f[0]/=fl; f[1]/=fl; f[2]/=fl;
+    const rl = Math.hypot(f[0], f[2]); const r = [-f[2]/rl, 0, f[0]/rl];   /* cross(f, haut) */
+    const u = [r[1]*f[2]-r[2]*f[1], r[2]*f[0]-r[0]*f[2], r[0]*f[1]-r[1]*f[0]];
+    const camM = [r[0],r[1],r[2], u[0],u[1],u[2], f[0],f[1],f[2]];
+    /* mouvement lent : rotation aller-retour */
+    const yaw = R.yaw + 0.07*Math.sin(t*0.33);
+    const body = rotY(yaw);
+    const head = mul3(rotY(R.hyaw + 0.05*Math.sin(t*0.33+0.6)), rotX(R.hpitch + 0.02*Math.sin(t*0.27)));
+    const headPos = R.headPos;
+    const s = R.esp*H/ppu;
+
+    gl.viewport(0, 0, W, H);
+    const set = (u) => {
+      gl.uniform2f(u.uRes, W, H); gl.uniform2f(u.uPP, 0, ppy); gl.uniform1f(u.uT, t);
+      gl.uniform3fv(u.uCam, cam); gl.uniformMatrix3fv(u.uCamM, false, camM); gl.uniform1f(u.uFocal, focal);
+      gl.uniformMatrix3fv(u.uBody, false, body); gl.uniformMatrix3fv(u.uHead, false, head); gl.uniform3fv(u.uHeadPos, headPos);
+      gl.uniform1i(u.uFace, 0); gl.uniform1f(u.uS, s); gl.uniform1f(u.uCut, R.cut); gl.uniform1f(u.uDbg, R.dbg||0); gl.uniform1f(u.uDot, R.esp*H); gl.uniformMatrix3fv(u.uScan, false, mul3(rotX(R.scanP), rotY(R.scan))); gl.uniform1f(u.uWave, R.wave);
+    };
+    gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, texFace);
+    gl.disable(gl.BLEND);
+    gl.useProgram(progB); set(uB); gl.bindVertexArray(vaoB); gl.drawArrays(gl.TRIANGLES, 0, 3);
+    gl.enable(gl.BLEND); gl.blendFunc(gl.SRC_ALPHA, gl.ONE_MINUS_SRC_ALPHA);
+    gl.useProgram(progP); set(uP); gl.bindVertexArray(vaoP); gl.drawArrays(gl.POINTS, 0, nPart);
+    gl.bindVertexArray(null);
+
+    /* resolution adaptative si la machine peine */
+    etat.temps.push(performance.now()-t0); if(etat.temps.length > 40) etat.temps.shift();
+    return Buste;
+  }
+  return { init, dessine, etat };
+})();
+window.Buste = Buste;
+})();
