@@ -16,9 +16,9 @@
 :root{--ligne:#e6fbf9;--glow:0 0 12px rgba(230,251,249,.55);--mono:'IBM Plex Mono',ui-monospace,monospace;--sans:Figtree,-apple-system,sans-serif;--serif:Newsreader,Georgia,serif;--jaune:#f0c84f}
 html,body{height:100%;overflow:hidden;background:#0d0b09}
 body{font-family:var(--sans);color:var(--ligne);-webkit-font-smoothing:antialiased;background:radial-gradient(120% 90% at 50% 40%,#2a241d 0%,#120f0c 60%,#080706 100%)}
-.scene{position:fixed;inset:0;perspective:1800px;perspective-origin:50% 45%;display:grid;place-items:center}
+.scene{position:fixed;inset:0 0 34px 0;perspective:2200px;perspective-origin:50% 50%;display:grid;place-items:center}
 .pivot{transform-style:preserve-3d;transform:rotateY(var(--my,0deg)) rotateX(var(--mx,0deg));transition:transform .9s cubic-bezier(.2,.7,.2,1);will-change:transform}
-.ecran{--W:min(1500px,113vw);--H:min(900px,111svh);--px:max(30px,calc((var(--W) - 100vw)/2 + 34px));--py:max(26px,calc((var(--H) - 100svh)/2 + 30px));position:relative;flex:none;width:var(--W);height:var(--H);border-radius:30px;overflow:hidden;transform-style:preserve-3d;
+.ecran{--W:min(1500px,calc(100vw - 90px));--H:min(900px,calc(100svh - 84px));--px:clamp(22px,3vw,44px);--py:clamp(20px,3.4svh,36px);position:relative;flex:none;width:var(--W);height:var(--H);border-radius:30px;overflow:hidden;transform-style:preserve-3d;
   transform:rotateY(var(--ry,0deg)) rotateX(var(--rx,0deg)) rotateZ(var(--rz,0deg)) translateZ(var(--tz,0px));transition:transform 1.8s cubic-bezier(.3,.7,.2,1),background 1.2s ease;
   box-shadow:0 0 0 10px #e7dfcf,0 0 0 11px rgba(0,0,0,.25),0 60px 120px -30px rgba(0,0,0,.8);animation:derive 14s ease-in-out infinite alternate}
 @keyframes derive{0%{translate:0 0}100%{translate:6px -4px}}
@@ -44,7 +44,7 @@ body{font-family:var(--sans);color:var(--ligne);-webkit-font-smoothing:antialias
 .sous-titre{position:absolute;left:0;right:0;bottom:12%;text-align:center;font:500 clamp(20px,2.4vw,30px) var(--sans);color:var(--jaune);text-shadow:0 2px 14px rgba(0,0,0,.45);opacity:0;transition:opacity .8s;z-index:4}
 .sous-titre.on{opacity:1}.sous-titre i{font-style:italic}
 .points{position:absolute;inset:0;background-image:radial-gradient(rgba(230,251,249,.38) 1.1px,transparent 1.8px);background-size:38px 38px;pointer-events:none;opacity:.55}
-.cam-box{overflow:hidden}.cam-box video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1);filter:grayscale(1) contrast(1.2);mix-blend-mode:screen;opacity:.1;border-radius:inherit}.cam-box canvas{position:absolute;inset:0;width:100%;height:100%}
+.cam-box{overflow:hidden}.cam-box video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1);filter:grayscale(1) contrast(1.25) brightness(1.15);mix-blend-mode:luminosity;opacity:.6;border-radius:inherit}.cam-box canvas{position:absolute;inset:0;width:100%;height:100%}
 .grille{position:absolute;inset:calc(var(--py) + 70px) var(--px) calc(var(--py) + 40px) var(--px);border-radius:18px;box-shadow:inset 0 0 0 1.5px rgba(230,251,249,.35);background-image:linear-gradient(rgba(230,251,249,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(230,251,249,.10) 1px,transparent 1px);background-size:100% 25%,16.66% 100%}
 .grille::before{content:'';position:absolute;inset:-3px;pointer-events:none;background-image:radial-gradient(circle,rgba(230,251,249,.85) 2.2px,transparent 3.2px);background-size:calc((100% - 6px)/6) calc((100% - 6px)/4);background-position:0 0;filter:drop-shadow(0 0 4px rgba(230,251,249,.8))}
 /* 0 · intro */
@@ -130,6 +130,7 @@ canvas.plein{position:absolute;inset:0;width:100%;height:100%}
 .gp-wrap{display:grid;grid-template-columns:minmax(0,380px) 1fr;gap:clamp(18px,3vw,40px);align-items:center;margin-top:14px}
 .gros-plan{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:4/5;background:radial-gradient(70% 60% at 50% 42%,#2a8fc0 0%,#0f4f78 55%,#082f4c 100%);box-shadow:inset 0 0 0 1.5px rgba(80,220,255,.65),inset 0 0 40px rgba(80,220,255,.25),0 0 46px rgba(80,220,255,.35),0 24px 50px -20px rgba(0,0,0,.6)}
 .gros-plan::after{content:'';position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(80,220,255,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(80,220,255,.10) 1px,transparent 1px);background-size:20% 16.66%}
+.loupes{display:flex;flex-wrap:wrap;gap:10px;margin-top:14px}.loupes figure{width:78px}.loupes canvas{width:78px;height:78px;border-radius:10px;box-shadow:0 0 0 1.5px rgba(80,220,255,.6),0 0 16px rgba(80,220,255,.3)}.loupes figcaption{font:500 11px var(--mono);letter-spacing:.12em;margin-top:4px;text-align:center}
 .gp-l{display:flex;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid rgba(230,251,249,.22)}.gp-l b{font:300 54px/1 var(--sans);color:transparent;-webkit-text-stroke:1.4px #8fe9ff;text-shadow:0 0 14px rgba(80,220,255,.5);font-variant-numeric:tabular-nums}.gp-l span{font:600 17px/1.25 var(--sans)}.gp-l em{font:400 13px var(--sans);opacity:.7;font-style:normal}
 @media (max-width:760px){.gp-wrap{grid-template-columns:1fr}.gros-plan{max-width:340px}}
 .gros-plan canvas{position:absolute;inset:0;width:100%;height:100%}
@@ -363,13 +364,15 @@ function dessineTrame(x, w, h, src, Lm, chev, t, pas, fond){
   const bornes = (M, s0) => { const hist = new Uint32Array(64); let tot = 0; for(let q = 0; q < SW*SH; q++) if(M[q] > s0){ hist[Math.min(63, c.lum[q]*64 | 0)]++; tot++; }
     let lo = 0, hi = 1, acc = 0; for(let q = 0; q < 64; q++){ acc += hist[q]; if(acc < tot*.04) lo = (q + 1)/64; if(acc < tot*.96) hi = (q + 1)/64; } if(hi - lo < .08) hi = lo + .08; return [lo, hi]; };
   const [lo, hi] = bornes(c.F, .6), [vlo, vhi] = bornes(c.V, .85);
+  const ombre = new Float32Array(SW*SH); for(let j = 1; j < SH - 1; j++) for(let i = 1; i < SW - 1; i++){ const q = j*SW + i, gx = c.D[q + 1] - c.D[q - 1], gy = c.D[q + SW] - c.D[q - SW];
+    ombre[q] = Math.min(1, Math.max(0, .62 + (gx*.55 + gy*.85)*-9 - (1 - Math.min(1, c.F[q]*1.6))*.5)); }
   const L1 = flou(c.lum, SW, SH, 1), amp = pas*2.1, dx = pas*.6, bas = Math.min(h*.8, ych + fhp*.45), fin = Math.min(h*1.02, bas + fhp*1.05);
   x.fillStyle = '#0f6670'; x.beginPath();
   for(let Y0 = -pas*4, r0 = 0; Y0 < h + pas*4; Y0 += pas, r0++){ const v = toV(Y0), j = Math.min(SH - 1, Math.max(0, v*SH | 0)); if(v < 0) continue;
     for(let X = (r0 % 2)*dx*.5; X < w; X += dx){ const u = toU(X); if(u < 0 || u > 1) continue; const i = u*SW | 0, q = j*SW + i, f = c.F[q]; if(f < .28) continue;
       const bord = Math.min(1, (f - .28)/.4); if(hache(X, Y0) > bord*1.05) continue;
-      let Y = Y0 - c.D[q]*amp + Math.sin(X*.012 + t*1.4)*pas*.12, ln0 = (L1[q] - lo)/(hi - lo), ln1 = (L1[q] - vlo)/(vhi - vlo), vv = c.V[q], ln = Math.min(1, Math.max(0, ln0*(1 - vv) + ln1*vv));
-      const base = .34 - .14*vv; let r = pas*.5*(base + (1 - base)*Math.pow(1 - ln, 1.15))*(.55 + .45*bord);
+      let Y = Y0 - c.D[q]*amp + Math.sin(X*.012 + t*1.4)*pas*.12, ln0 = ombre[q], ln1 = (L1[q] - vlo)/(vhi - vlo), vv = c.V[q], ln = Math.min(1, Math.max(0, ln0*(1 - vv) + ln1*vv));
+      const base = .3 - .12*vv; let r = pas*.5*(base + (1 - base)*Math.pow(1 - ln, 1.15))*(.55 + .45*bord);
       if(Y > bas){ const e = Math.min(1, (Y - bas)/(fin - bas)), hz = hache(Y0, X); if(hz < e*1.05) continue; Y += e*e*pas*3*hache(X, Y0 + 1); r *= 1 - e*.55; }
       if(r < .35) continue; x.moveTo(X + r, Y); x.arc(X, Y, r, 0, 6.2832); } }
   x.fill();
@@ -452,7 +455,7 @@ function grosPlan(){
   for(let i = 0; i < n; i++){ Y[i] = dd[i*4]*.299 + dd[i*4 + 1]*.587 + dd[i*4 + 2]*.114; R[i] = dd[i*4] - (dd[i*4 + 1] + dd[i*4 + 2])/2; M[i] = mk[i*4] > 128 ? 1 : 0; }
   const Yb = flou(Y, aw, ah, 5), Rb = flou(R, aw, ah, 5), Y1 = flou(Y, aw, ah, 1), R1 = flou(R, aw, ah, 1), cand = [];
   for(let j = 2; j < ah - 2; j++) for(let i = 2; i < aw - 2; i++){ const k = j*aw + i; if(!M[k]) continue; const er = R1[k] - Rb[k], es = Yb[k] - Y1[k];
-    if(er > 4) cand.push({ i, j, s:er, t:'rouge' }); if(es > 5) cand.push({ i, j, s:es, t:'sombre' }); }
+    if(er > 6) cand.push({ i, j, s:er, t:'rouge' }); if(es > 7) cand.push({ i, j, s:es, t:'sombre' }); }
   const pris = []; ['rouge', 'sombre'].forEach(ty => { let m = 0; cand.filter(c => c.t === ty).sort((p, q) => q.s - p.s).forEach(c => { if(m < 4 && pris.every(q => Math.hypot(q.i - c.i, q.j - c.j) > aw*.12)){ pris.push(c); m++; } }); });
   // les carres bleus, en miroir comme le visage
   x.lineWidth = 2.4; x.strokeStyle = 'rgba(80,220,255,.98)'; x.fillStyle = 'rgba(80,220,255,.10)'; x.shadowColor = 'rgba(80,220,255,.9)'; x.shadowBlur = 12; x.font = '500 10px "IBM Plex Mono", monospace';
@@ -461,7 +464,12 @@ function grosPlan(){
     x.shadowBlur = 0; x.fillStyle = 'rgba(200,245,255,.95)'; x.fillText((p.t === 'rouge' ? 'R' : 'S') + String(k + 1).padStart(2, '0'), px + s/2 + 4, py - s/2 + 9); x.fillStyle = 'rgba(80,220,255,.10)'; x.shadowBlur = 12; });
   x.shadowBlur = 0;
   const nr = pris.filter(p => p.t === 'rouge').length, ns = pris.length - nr;
-  $('gpListe').innerHTML = '<div class="gp-l"><b>' + String(nr).padStart(2, '0') + '</b><span>R · Zones plus rouges<br><em>que la peau autour</em></span></div><div class="gp-l"><b>' + String(ns).padStart(2, '0') + '</b><span>S · Points plus sombres<br><em>que la peau autour</em></span></div>';
+  $('gpListe').innerHTML = '<div class="gp-l"><b>' + String(nr).padStart(2, '0') + '</b><span>R · Zones plus rouges<br><em>que la peau autour</em></span></div><div class="gp-l"><b>' + String(ns).padStart(2, '0') + '</b><span>S · Points plus sombres<br><em>que la peau autour</em></span></div>'
+    + '<div class="loupes">' + pris.map((p, k) => '<figure><canvas data-k="' + k + '"></canvas><figcaption>' + (p.t === 'rouge' ? 'R' : 'S') + String(k + 1).padStart(2, '0') + '</figcaption></figure>').join('') + '</div>';
+  // les loupes : chaque repere agrandi, net et a pleine opacite, pour juger a l'oeil
+  document.querySelectorAll('.loupes canvas').forEach(lc => { const p = pris[+lc.dataset.k], z = sw*.09, cx = sx + (p.i + .5)/aw*sw, cy = sy + (p.j + .5)/ah*sh; lc.width = 160; lc.height = 160; const g = lc.getContext('2d');
+    g.save(); g.translate(160, 0); g.scale(-1, 1); g.imageSmoothingQuality = 'high'; g.drawImage(cliché, cx - z/2, cy - z/2, z, z, 0, 0, 160, 160); g.restore();
+    g.strokeStyle = 'rgba(80,220,255,.95)'; g.lineWidth = 3; g.strokeRect(52, 52, 56, 56); });
 }
 </script>
 </body>
