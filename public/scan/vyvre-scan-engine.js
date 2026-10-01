@@ -4181,16 +4181,17 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
           }
 
           // ─── PHASE 2 : capturing (countdown 3-2-1 + scan principal) ─────
+          // 01/10 : opts.fast (parcours aliment, qui verifie deja le visage en direct) : compte a rebours court
           for (let cd = 3; cd >= 1; cd--) {
             emit({ phase: 'capturing', countdown: cd });
-            await new Promise(r => setTimeout(r, 600));
+            await new Promise(r => setTimeout(r, opts.fast ? 150 : 600));
           }
 
           emit({ phase: 'capturing', countdown: 0, message: 'scanning' });
 
           // ─── PHASE 3 : analyzing (biomarkers + CNN ensemble + clinical) ──
           emit({ phase: 'analyzing', subprocess: 'biomarkers', progress: 0.1 });
-          const result = await analyzeMultiFrame(videoEl);
+          const result = await analyzeMultiFrame(videoEl, opts.fast ? 2400 : undefined, opts.fast ? 6 : undefined);   // 01/10 : mode rapide, 6 images sur 2,4 s
 
           emit({ phase: 'analyzing', subprocess: 'biomarkers', progress: 0.5 });
           const scores = mapToScores(result.raw);
@@ -4200,6 +4201,7 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
           // CNN ensemble (avec multi-frame averaging v10.0)
           emit({ phase: 'analyzing', subprocess: 'cnn', progress: 0.85 });
           try {
+            if (opts.skipAge) throw new Error('age non demande (opts.skipAge)');   // 01/10 : l'assiette n'utilise pas l'age
             const ensembleAge = await estimateAgeEnsemble(videoEl, scores, scores.phototype);
             if (ensembleAge && ensembleAge.point !== null) {
               scores.cellAge = ensembleAge.point;
