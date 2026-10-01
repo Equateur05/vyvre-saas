@@ -1,4 +1,14 @@
-/* Buste en points (WebGL), variante B choisie par Charles le 01/10. API : window.Buste = { init(canvas), dessine({ points, w, h } | null, t), etat } */
+/* Buste en points (WebGL), variante B choisie par Charles le 01/10.
+   API : window.Buste = { init(canvas), dessine(lm, t, opts), etat }
+     lm   : { points: 478 x {x,y,z} (normalises), w, h } | tableau de points | null (visage par defaut)
+     t    : temps en secondes
+     opts : { genre: 'f' | 'h' | null, cheveux: { masque: Float32Array, mw, mh } | null, zoom: 0..1 }  (facultatif)
+            genre 'h' = mannequin masculin, 'f' = silhouette feminine de couture, null = entre-deux ; absent = 'h'.
+            cheveux = masque de confiance du segmenteur (categorie 1), coordonnees de l'image camera, non miroir,
+                      les memes que les landmarks ; absent/null = crane nu.
+            zoom 0 = buste entier, 1 = gros plan sur le visage (~70 % de la hauteur).
+            tourne 0 = mouvement lent habituel, 1 = la tete (et un peu le buste) pivote +-28 degres, aller-retour ~6 s.
+            Tout est lisse dans le temps (genre, cheveux, zoom, tourne) : on peut passer des valeurs en marches. */
 (function(){
 
 /* ------------------------------------------------------------------ */
@@ -21,6 +31,12 @@ uniform float uDbg;
 uniform float uDot;
 uniform mat3 uScan;
 uniform float uWave;
+uniform float uFem;
+uniform float uZoom;
+uniform mat3 uHeadY;   /* rotation de la tete autour de la verticale seulement (pour la longueur des cheveux) */
+uniform float uHeadS;
+uniform vec4 uHairA;   /* quantite, volume dessus, largeur cotes, frange */
+uniform vec4 uHairB;   /* longueur sous le centre de la tete (m), balancement */
 
 float sdE(vec3 p, vec3 r){ float k0=length(p/r); float k1=length(p/(r*r)); return k0*(k0-1.0)/max(k1,1e-6); }
 float sdC(vec3 p, vec3 a, vec3 b, float r){ vec3 pa=p-a, ba=b-a; float h=clamp(dot(pa,ba)/dot(ba,ba),0.,1.); return length(pa-ba*h)-r; }
@@ -41,48 +57,109 @@ float cutY(vec3 p){
   return uCut - 0.22*p.x + 0.045*(vnoise(p.xz*vec2(16.,22.)+vec2(0.,uT*0.12))-0.5) + 0.012*sin(p.x*31.+uT*0.5);
 }
 float fbm2(vec2 p){ return 0.6*vnoise(p) + 0.3*vnoise(p*2.03+7.1) + 0.1*vnoise(p*4.1+3.3); }
+/* bras : partage entre le corps et le masque de coupure */
+float sArm(vec3 m){
+  float F = uFem;
+  return sdC(m, vec3(mix(0.245,0.198,F),1.37,-0.016), vec3(mix(0.28,0.228,F),0.55,-0.06), mix(0.056,0.04,F));
+}
 float sBody(vec3 p){
+  float F = uFem, M = 1.-F;
   vec3 m = vec3(abs(p.x), p.y, p.z);
   float br = 1.0 + 0.006*sin(uT*1.25);
-  float chest = sdE(p-vec3(0.,1.262,-0.025), vec3(0.19,0.2,0.112)*br);
-  float pec   = sdE(m-vec3(0.086,1.322,0.05), vec3(0.096,0.066,0.052)*br);
-  float ab    = sdE(p-vec3(0.,1.08,-0.012), vec3(0.16,0.19,0.102));
-  float d = smin(chest, pec, 0.045);
+  float chest = sdE(p-vec3(0.,1.262,-0.025), mix(vec3(0.19,0.2,0.112), vec3(0.152,0.198,0.1), F)*br);
+  /* pectoraux (h) / poitrine en volumes doux, sans detail (f) */
+  float pecH  = sdE(m-vec3(0.086,1.322,0.05), vec3(0.096,0.066,0.052)*br);
+  float pecF  = sdE(m-vec3(0.072,1.285,0.04), vec3(0.064,0.06,0.05)*br);
+  float ab    = sdE(p-vec3(0.,1.08,-0.012), mix(vec3(0.16,0.19,0.102), vec3(0.126,0.19,0.093), F));
+  float d = smin(chest, mix(pecH, pecF, F), mix(0.045,0.09,F));
   d = smin(d, ab, 0.06);
-  /* sillon sternal et ligne blanche */
-  d += 0.0035*exp(-p.x*p.x/0.0001)*smoothstep(1.44,1.36,p.y);
-  /* abdominaux / dentele */
+  /* sillon sternal et ligne blanche (h seulement) */
+  d += M*0.0035*exp(-p.x*p.x/0.0001)*smoothstep(1.44,1.36,p.y);
+  /* abdominaux / dentele (h seulement) */
   float abm = smoothstep(1.27,1.22,p.y)*(1.-smoothstep(0.08,0.12,abs(p.x)));
-  d -= 0.006*abm*(0.5+0.5*cos((p.y-1.24)*6.2832/0.055))*(0.5+0.5*sin(abs(p.x)*6.2832/0.13+0.6));
-  /* bord inferieur des pectoraux, marque */
-  d += 0.005*exp(-pow((p.y-1.258+0.03*abs(p.x))/0.01,2.))*(1.-smoothstep(0.03,0.18,abs(p.x)));
-  /* fibres : relief musculaire qui fait onduler les rangees */
+  d -= M*0.006*abm*(0.5+0.5*cos((p.y-1.24)*6.2832/0.055))*(0.5+0.5*sin(abs(p.x)*6.2832/0.13+0.6));
+  /* bord inferieur des pectoraux, marque (h seulement) */
+  d += M*0.005*exp(-pow((p.y-1.258+0.03*abs(p.x))/0.01,2.))*(1.-smoothstep(0.03,0.18,abs(p.x)));
+  /* fibres : relief qui fait onduler les rangees (tres adouci en f) */
   float fr = smoothstep(-0.02,0.06,p.z)*(1.-smoothstep(1.43,1.47,p.y));
-  d -= fr*0.016*(fbm2(vec2(p.x*19., p.y*23.) + vec2(uT*0.03, 0.)) - 0.45);
-  float clav = sdC(m, vec3(0.028,1.452,0.052), vec3(0.175,1.465,0.0), 0.013);
-  d = smin(d, clav, 0.03);
-  float trap = sdC(m, vec3(0.03,1.475,-0.045), vec3(0.205,1.435,-0.03), 0.034);
+  d -= fr*mix(0.016,0.005,F)*(fbm2(vec2(p.x*19., p.y*23.) + vec2(uT*0.03, 0.)) - 0.45);
+  float clav = sdC(m, vec3(0.028,1.452,0.052), vec3(mix(0.175,0.15,F),mix(1.465,1.455,F),0.0), mix(0.013,0.0075,F));
+  d = smin(d, clav, mix(0.03,0.022,F));
+  float trap = sdC(m, vec3(0.03,1.475,-0.045), vec3(mix(0.205,0.165,F),mix(1.435,1.42,F),-0.03), mix(0.034,0.024,F));
   d = smin(d, trap, 0.06);
-  float del = sdE(m-vec3(0.232,1.384,-0.004), vec3(0.072,0.09,0.076));
+  float del = sdE(m-vec3(mix(0.232,0.192,F),mix(1.384,1.39,F),-0.004), mix(vec3(0.072,0.09,0.076), vec3(0.05,0.064,0.054), F));
   d = smin(d, del, 0.05);
-  float arm = sdC(m, vec3(0.245,1.37,-0.016), vec3(0.28,0.55,-0.06), 0.056);
+  float arm = sArm(m);
   d = smin(d, arm, 0.02);
-  float scm = sdC(m, vec3(0.016,1.455,0.045), vec3(0.046,1.6,0.008), 0.017);
-  float neck = sdC(p, vec3(0.,1.42,-0.02), vec3(0.,1.6,0.0), 0.06 - 0.06*clamp((p.y-1.45)/0.4,0.,1.)*0.2);
+  float scm = sdC(m, vec3(0.016,1.455,0.045), vec3(mix(0.046,0.034,F),mix(1.6,1.63,F),0.008), mix(0.017,0.009,F));
+  float nr = mix(0.06, 0.044, F);
+  float neck = sdC(p, vec3(0.,1.42,-0.02), vec3(0.,mix(1.6,1.635,F),0.0), nr - nr*clamp((p.y-1.45)/0.4,0.,1.)*0.2);
   neck = smin(neck, scm, 0.02);
-  d = smin(d, neck, 0.04);
-  /* dissolution du bas : seulement le tronc, pas les bras */
+  d = smin(d, neck, mix(0.04,0.05,F));
+  /* dissolution du bas : seulement le tronc, pas le bras proche */
   float mt = p.x < 0. ? smoothstep(0.0, 0.006, arm) : 1.;
   d = max(d, mix(-1., cutY(p)-p.y, mt));
   return d;
 }
-float mapS(vec3 p){
+/* cheveux : calotte (repere de la tete) + longueur qui tombe (repere du corps), d'apres le masque */
+float smax(float a, float b, float k){ return -smin(-a, -b, k); }
+float sHairCap(vec3 q){
+  float A = uHairA.x;
+  float top = uHairA.y*A, side = uHairA.z*A, fr = uHairA.w*A, L = uHairB.x*A;
+  vec3 c = vec3(0., 0.014 + top*0.45, -0.034);
+  vec3 r = vec3(0.081 + side, 0.1 + top*0.55, 0.1 + side*0.3)*mix(0.86, 1.0, A);
+  float cap = sdE(q - c, r);
+  /* meches : sur le dessus elles vont d'avant en arriere, sur les cotes elles descendent */
+  float dessus = smoothstep(0.02, 0.07, q.y);
+  cap += 0.0012*mix(sin(q.z*170. + q.y*40.), sin(q.x*170.), dessus);
+  float hl = mix(0.066, 0.018, fr);                        /* ligne du front (frange : plus bas) */
+  float zb = mix(0.006, -0.01, clamp(1.-side*6.,0.,1.));   /* devant les oreilles */
+  float ybot = mix(-0.02, -0.1, clamp(L/0.12, 0., 1.));    /* bas de la calotte */
+  float d = smax(cap, min(hl + 5.*q.x*q.x - q.y, q.z - zb + 0.3*(q.y - 0.02)), 0.012);
+  return smax(d, ybot - q.y, 0.02);
+}
+float sHairLong(vec3 hp){
+  float A = uHairA.x, L = uHairB.x*A, side = uHairA.z*A;
+  if(L < 0.03) return 1.;
+  float tY = clamp(-hp.y/max(L,0.01), 0., 1.);
+  float sw = uHairB.y*sin(uT*0.7 + hp.y*6.)*0.004*tY;      /* leger balancement */
+  vec3 h = transpose(uHeadY)*hp - vec3(sw, 0., 0.);
+  /* colonne elliptique qui prolonge la calotte vers le bas, evidee devant (visage, cou) : la chevelure tombe en U */
+  float rx = 0.088 + side*0.8 + 0.028*tY, rz = 0.088 + 0.012*tY, cz = -0.062;
+  float e = (length(vec2(h.x/rx, (h.z - cz)/rz)) - 1.)*min(rx, rz);
+  float bas = -L*(1. - 0.1*vnoise(vec2(h.x*55., 3.1)));     /* pointes de longueurs inegales */
+  float col = smax(smax(e, bas - h.y, 0.02), h.y - 0.0, 0.03);
+  float creux = smax(abs(h.x) - (0.062 + 0.012*tY), -(h.z + 0.085 - 0.02*tY), 0.02);
+  col = smax(col, -creux, 0.018);
+  /* meches qui passent devant les epaules (cheveux longs) */
+  float lf = smoothstep(0.2, 0.32, L);
+  vec3 hm = vec3(abs(h.x), h.y, h.z);
+  float front = sdC(hm, vec3(0.078+side*0.7, -0.06, -0.05), vec3(0.096+side*0.7, -L*0.92, -0.015), 0.018 + 0.004*tY);
+  col = mix(col, smin(col, front, 0.035), lf);
+  col += 0.0016*sin(h.x*230. + h.z*120. + sin(h.y*30.)*2.5);  /* meches */
+  return col;
+}
+float sHair(vec3 p){
+  if(uHairA.x < 0.02) return 1.;
+  vec3 hp = p - uHeadPos;
+  /* boite englobante : on ne calcule les cheveux que pres de la tete (gros gain sur le torse) */
+  float Lb = uHairB.x*uHairA.x;
+  vec3 bq = abs(hp - vec3(0., (0.17 - Lb - 0.06)*0.5, -0.03)) - vec3(0.2, (0.17 + Lb + 0.06)*0.5, 0.19);
+  float bb = length(max(bq,0.)) + min(max(bq.x,max(bq.y,bq.z)),0.);
+  if(bb > 0.02) return bb;
+  float cap = sHairCap(transpose(uHead)*hp/uHeadS)*uHeadS;
+  float lng = sHairLong(hp);
+  float d = min(cap, lng);
+  return max(d, cutY(p) - p.y);
+}
+float mapBH(vec3 p){
   float b = sBody(p);
   vec3 hp = p - uHeadPos;
   float hb = length(hp) - 0.175;
-  float h = hb > 0.04 ? hb : sHead(transpose(uHead)*hp/0.88)*0.88;
+  float h = hb > 0.04 ? hb : sHead(transpose(uHead)*hp/uHeadS)*uHeadS;
   return smin(b, h, 0.016);
 }
+float mapS(vec3 p){ return min(mapBH(p), sHair(p)); }
 vec2 proj(vec3 w){
   vec3 c = transpose(uCamM)*(w-uCam);
   return uRes*0.5 + uPP + c.xy*uFocal/c.z;
@@ -130,14 +207,16 @@ void main(){
     if(hit){
       vec3 n = nrm(p);
       vec3 nw = uBody*n;
-      vec3 L = normalize(vec3(-0.75,0.6,0.22));
+      vec3 L = normalize(mix(vec3(-0.75,0.6,0.22), vec3(-0.5,0.5,0.7), uZoom));   /* en gros plan, un peu plus de face : le visage garde son modele */
       float lam = max(dot(nw,L),0.);
       float fac = clamp(dot(nw,-rdw),0.,1.);
       float fres = 1.-fac;
       float ao = clamp(mapS(p+n*0.016)/0.008, 0., 1.);
       float dark = clamp(1.1 - 1.3*lam + 0.45*fres*fres + 1.2*(1.-ao), 0., 1.);
       float band = clamp((p.y-cutY(p))/0.055, 0., 1.);
-      float mt = p.x > 0. ? 1. : smoothstep(0.0, 0.006, sdC(vec3(abs(p.x),p.y,p.z), vec3(0.245,1.37,-0.016), vec3(0.28,0.55,-0.06), 0.056));
+      float mt = p.x > 0. ? 1. : smoothstep(0.0, 0.006, sArm(vec3(abs(p.x),p.y,p.z)));
+      /* matiere cheveux : points etires en traits verticaux (on lit des meches) */
+      float isH = (uHairA.x > 0.02 && sHair(p) <= mapBH(p) + 0.0005) ? 1. : 0.;
       band = mix(1., band, mt);
       /* grille de balayage : reguliere vue du capteur (axe uScan), puis vue de biais par la camera :
          les colonnes restent droites, les rangees ondulent avec le relief et se tassent la ou la surface fuit */
@@ -149,7 +228,8 @@ void main(){
       float rr = uDot*mix(0.19, 0.33, dark);
       float al = mix(0.12, 1.0, smoothstep(0.1,0.6,dark));
       float sx = fract(ps.x/s) < 0.5 ? -1. : 1.;
-      float wv = uWave*(1.-smoothstep(1.43,1.5,p.y))*smoothstep(-0.06,0.04,n.z);
+      float wv = uWave*(1.-smoothstep(1.43,1.5,p.y))*smoothstep(-0.06,0.04,n.z)*(1.-isH);
+      float ety = mix(1., 0.42, isH);
       for(int jy=-2; jy<=2; jy++){
         for(int jx=0; jx<=1; jx++){
           vec2 g = g0 + vec2(float(jx)*sx, float(jy));
@@ -168,11 +248,12 @@ void main(){
             keep = step(hh, 0.2+0.8*band);
           }
           vec3 c = transpose(uScan)*cs;
-          float dpx = length(proj(uBody*c)-fc);
+          vec2 dd = proj(uBody*c)-fc;
+          float dpx = length(vec2(dd.x, dd.y*ety));
           cov += keep*(1.-smoothstep(r-0.6, r+0.6, dpx));
         }
       }
-      float dk = clamp(dark + (1.-band)*0.4, 0., 1.);
+      float dk = clamp(dark + (1.-band)*0.4 + isH*0.12, 0., 1.);
       vec3 cl = mix(vec3(0.20,0.58,0.62), vec3(0.11,0.48,0.52), smoothstep(0.,0.6,dk));
       cl = mix(cl, vec3(0.0,0.30,0.33), clamp((cov-1.)*0.7 + 0.45*smoothstep(0.7,1.,dk), 0., 1.));
       col = mix(col, cl, min(cov,1.)*al);
@@ -191,7 +272,7 @@ out float vA; out float vD;
 void main(){
   float th = aP.x;
   vec3 dir = vec3(cos(th),0.,sin(th));
-  vec3 base = vec3(0.152*cos(th), 0., 0.098*sin(th)-0.008);
+  vec3 base = vec3(mix(0.152,0.128,uFem)*cos(th), 0., mix(0.098,0.09,uFem)*sin(th)-0.008);
   base.y = cutY(base) + aP.y;
   float ph = fract(uT*0.06 + aP.z);
   vec3 pos = base + aO + dir*(0.003+ph*0.008) + vec3(0., -ph*ph*0.05 - ph*0.01, 0.);
@@ -225,14 +306,20 @@ function smin1(a,b,k){ const h=Math.max(k-Math.abs(a-b),0)/k; return Math.min(a,
 const NT = 192, NP = 96, OC = [0, 0.0, -0.035];
 const dirTex = (i,j) => { const th = -Math.PI + 2*Math.PI*(i+0.5)/NT, ph = -Math.PI/2 + Math.PI*(j+0.5)/NP;
   return [Math.cos(ph)*Math.sin(th), Math.sin(ph), Math.cos(ph)*Math.cos(th), th]; };
-function teteBase0(x,y,z){ return smin1(sdE3(x,y-0.022,z+0.025,0.08,0.1,0.1), sdE3(x,y+0.062,z-0.002,0.07,0.068,0.078), 0.035); }
-const BASER = (() => { const b = new Float32Array(NT*NP);
+function teteBaseH(x,y,z){ return smin1(sdE3(x,y-0.022,z+0.025,0.08,0.1,0.1), sdE3(x,y+0.062,z-0.002,0.07,0.068,0.078), 0.035); }
+/* f : crane un peu plus petit, machoire plus etroite et plus douce */
+function teteBaseF(x,y,z){ return smin1(sdE3(x,y-0.024,z+0.026,0.077,0.098,0.098), sdE3(x,y+0.058,z-0.0,0.06,0.064,0.07), 0.045); }
+const baseRad = tb => { const b = new Float32Array(NT*NP);
   for(let j=0;j<NP;j++) for(let i=0;i<NT;i++){ const d = dirTex(i,j); let r = 0;
-    const f = r => teteBase0(OC[0]+d[0]*r, OC[1]+d[1]*r, OC[2]+d[2]*r);
+    const f = r => tb(OC[0]+d[0]*r, OC[1]+d[1]*r, OC[2]+d[2]*r);
     for(; r<0.2; r+=0.004){ if(f(r) > 0) break; }
     let a = r-0.004, c = r; for(let k=0;k<14;k++){ const mid=(a+c)/2; if(f(mid) > 0) c = mid; else a = mid; }
     b[j*NT+i] = (a+c)/2; }
-  return b; })();
+  return b; };
+const BASER_H = baseRad(teteBaseH), BASER_F = baseRad(teteBaseF);
+let BASER = BASER_H;
+function baseMix(fem){ const b = new Float32Array(NT*NP); for(let k=0;k<NT*NP;k++) b[k] = BASER_H[k]*(1-fem) + BASER_F[k]*fem; BASER = b; }
+let dernierHM = null;   /* derniere carte (hauteurs, masque) pour reconstruire quand le genre change */
 function echant(a, x, y){ /* bilineaire sur la grille du visage, -1 hors domaine */
   const gx = (x-X0)/XW*N-0.5, gy = (y-Y0)/YH*N-0.5;
   if(gx < 0 || gy < 0 || gx > N-1 || gy > N-1) return -1;
@@ -240,6 +327,7 @@ function echant(a, x, y){ /* bilineaire sur la grille du visage, -1 hors domaine
   return (a[j*N+i]*(1-fx)+a[j*N+i1]*fx)*(1-fy) + (a[j1*N+i]*(1-fx)+a[j1*N+i1]*fx)*fy;
 }
 function versRadial(h, m){
+  dernierHM = [h, m];
   const R = BASER.slice();
   for(let j=0;j<NP;j++) for(let i=0;i<NT;i++){
     const d = dirTex(i,j); if(Math.abs(d[3]) > 1.7 || d[2] <= 0.05) continue;
@@ -351,6 +439,54 @@ function visageDepuisPoints(lm, W, H){
 }
 
 /* ------------------------------------------------------------------ */
+/*  Cheveux : parametres simples d'apres le masque du segmenteur      */
+/* ------------------------------------------------------------------ */
+/* retourne { quantite, dessus, cotes, longueur, frange } (metres, relatifs au visage) ou null */
+function paramsCheveux(lm, W, H, ch){
+  const M = ch.masque, mw = ch.mw, mh = ch.mh; if(!M || !mw || !mh || !lm || lm.length < 455) return null;
+  const P = i => [lm[i].x*W, lm[i].y*H];
+  const L = P(234), R = P(454), hi = P(10), lo = P(152);
+  let X = [R[0]-L[0], R[1]-L[1]]; const fw = Math.hypot(X[0], X[1]); if(fw < 4) return null; X = [X[0]/fw, X[1]/fw];
+  let Y = [hi[0]-lo[0], hi[1]-lo[1]]; const yx = Y[0]*X[0]+Y[1]*X[1]; Y = [Y[0]-X[0]*yx, Y[1]-X[1]*yx]; const yl = Math.hypot(Y[0],Y[1]) || 1; Y = [Y[0]/yl, Y[1]/yl];
+  const c = [(L[0]+R[0])/2, (L[1]+R[1])/2];
+  const v10 = ((hi[0]-c[0])*Y[0] + (hi[1]-c[1])*Y[1])/fw;
+  /* valeur du masque au point (u,v) du repere du visage (unites = largeur du visage) ; -1 hors image */
+  const val = (u, v) => { const x = (c[0] + (X[0]*u + Y[0]*v)*fw)/W, y = (c[1] + (X[1]*u + Y[1]*v)*fw)/H;
+    if(x < 0 || y < 0 || x >= 1 || y >= 1) return -1; return M[Math.floor(y*mh)*mw + Math.floor(x*mw)]; };
+  const S = 0.5;
+  /* presence : anneau juste a l'exterieur du visage, du haut du crane aux tempes (l'image peut couper le haut) */
+  let n = 0, o = 0;
+  for(let k=0; k<=24; k++){ const an = Math.PI*k/24;
+    for(const e of [1.12, 1.25, 1.4]){ const u = Math.cos(an)*0.52*e, v = 0.05 + Math.sin(an)*(v10 + 0.22)*e; const a = val(u, v); if(a < 0) continue; n++; if(a > S) o++; } }
+  const pres = n >= 6 ? o/n : 0;
+  /* parcours le long d'une direction, renvoie la derniere position de cheveux (tolere de petits trous) */
+  const parcours = (u0, v0, du, dv, pas, maxi, trou) => { let last = null, vide = 0;
+    for(let k=0; k*pas <= maxi; k++){ const u = u0 + du*k*pas, v = v0 + dv*k*pas, a = val(u, v);
+      if(a < 0){ if(last !== null && vide === 0) last = k*pas; break; }
+      if(a > S){ last = k*pas; vide = 0; } else { vide += pas; if(last !== null && vide > trou) break; } }
+    return last; };
+  /* volume au-dessus du crane */
+  let tops = [], coupe = 0; for(const u of [-0.15, 0, 0.15]){ const r = parcours(u, v10-0.05, 0, 1, 0.02, 1.0, 0.08); if(r !== null){ tops.push(v10 - 0.05 + r); if(val(u, v10 - 0.05 + r + 0.03) < 0) coupe++; } }
+  const topV = tops.length ? tops.reduce((a,b)=>a+b,0)/tops.length : v10;
+  /* si l'image coupe le haut de la tete, on ne sait pas : volume moyen */
+  const dessus = coupe >= 2 ? 0.018 : Math.min(0.06, Math.max(0, (topV - v10)*0.14 - 0.047));
+  /* largeur sur les cotes */
+  let sides = []; for(const v of [0.0, 0.25, 0.45]) for(const sg of [-1, 1]){ const r = parcours(sg*0.42, v, sg, 0, 0.02, 1.2, 0.1); if(r !== null) sides.push(0.42 + r); }
+  const sideU = sides.length ? sides.reduce((a,b)=>a+b,0)/sides.length : 0.5;
+  const cotes = Math.min(0.05, Math.max(0, (sideU - 0.56)*0.14));
+  /* longueur : colonnes juste a l'exterieur du visage, on descend */
+  let lows = []; for(const u of [-0.9, -0.75, -0.6, 0.6, 0.75, 0.9]){ const r = parcours(u, 0.2, 0, -1, 0.03, 4.2, 0.15);
+    if(r !== null){ let v = 0.2 - r; if(val(u, v - 0.04) < 0) v = Math.min(v, -2.3); lows.push(v); } }   /* coupe par le bas de l'image : cheveux longs */
+  lows.sort((a,b)=>a-b); const lowV = lows.length ? lows.slice(0, 3).reduce((a,b)=>a+b,0)/Math.min(3, lows.length) : 0.2;
+  const longueur = Math.min(0.45, Math.max(0, -lowV*0.14 + 0.012));
+  /* frange : cheveux sur le front, sous le point 10 */
+  n = 0; o = 0; for(let u=-0.25; u<=0.26; u+=0.05) for(let v=v10-0.35; v<=v10-0.1; v+=0.04){ const a = val(u,v); if(a < 0) continue; n++; if(a > S) o++; }
+  const fr = n ? o/n : 0;
+  const ss = (a,b,x) => { const t = Math.min(1, Math.max(0, (x-a)/(b-a))); return t*t*(3-2*t); };
+  return { quantite: ss(0.12, 0.4, pres), dessus, cotes, longueur, frange: ss(0.2, 0.6, fr) };
+}
+
+/* ------------------------------------------------------------------ */
 /*  Rendu                                                             */
 /* ------------------------------------------------------------------ */
 const rotY = a => { const c=Math.cos(a), s=Math.sin(a); return [c,0,-s, 0,1,0, s,0,c]; };
@@ -360,7 +496,9 @@ const mul3 = (A,B) => { const R=new Array(9); for(let c=0;c<3;c++) for(let r=0;r
 const Buste = (() => {
   let gl, cv, progB, progP, uB, uP, texFace, vaoB, vaoP, nPart = 0;
   const cible = visageParDefaut(), cour = cible.slice();
-  let dernierLm = null;
+  let dernierLm = null, tPrec = -1, fem = 0, femBati = 0, zoomC = 0, tCh = 0, tourneC = 0;
+  const chev = { quantite:0, dessus:0, cotes:0, longueur:0, frange:0 }, chevCible = { quantite:0, dessus:0, cotes:0, longueur:0, frange:0 };
+  const perf = { n:0, t0:0, lents:0, rapides:0 };
   const etat = { echelle: 1, temps: [], r: { yaw:0.52, hyaw:0.18, hpitch:0.16, visH:0.72, dist:1.2, pitch:0.3, T:[-0.05,1.465,0.0], headPos:[0.0,1.67,0.075], esp:0.0068, cut:1.19, scan:0.2, scanP:0.2, wave:0.045 } };
 
   function compile(vs, fs){
@@ -371,7 +509,7 @@ const Buste = (() => {
     return p;
   }
   function uniformes(p){
-    const u = {}; for(const n of ['uRes','uPP','uT','uCam','uCamM','uFocal','uBody','uHead','uHeadPos','uFace','uS','uCut','uDbg','uDot','uScan','uWave']) u[n] = gl.getUniformLocation(p, n);
+    const u = {}; for(const n of ['uRes','uPP','uT','uCam','uCamM','uFocal','uBody','uHead','uHeadPos','uFace','uS','uCut','uDbg','uDot','uScan','uWave','uFem','uZoom','uHeadY','uHeadS','uHairA','uHairB']) u[n] = gl.getUniformLocation(p, n);
     return u;
   }
   function particules(){
@@ -428,11 +566,26 @@ const Buste = (() => {
     return [w, h];
   }
 
-  function dessine(landmarks, t){
+  function dessine(landmarks, t, opts){
     if(!gl) return;
-    const t0 = performance.now();
+    opts = opts || {};
+    const now = performance.now();
+    const dt = tPrec < 0 ? 0.016 : Math.min(0.1, Math.max(0.001, (now - tPrec)/1000)); tPrec = now;
+    const lisse = v => 1 - Math.exp(-dt*v);
+    /* resolution adaptative : si la machine peine, on calcule moins de pixels (et on remonte si elle respire) */
+    if(etat.auto !== false){ perf.n++; if(!perf.t0) perf.t0 = now;
+      if(now - perf.t0 > 1000){ const fps = perf.n*1000/(now - perf.t0); etat.fps = Math.round(fps); perf.n = 0; perf.t0 = now;
+        if(fps < 40){ perf.lents++; perf.rapides = 0; } else if(fps > 57){ perf.rapides++; perf.lents = 0; } else { perf.lents = 0; perf.rapides = 0; }
+        if(perf.lents >= 2 && etat.echelle > 0.6){ etat.echelle = Math.round((etat.echelle-0.1)*10)/10; perf.lents = 0; }
+        if(perf.rapides >= 6 && etat.echelle < 1){ etat.echelle = Math.round((etat.echelle+0.1)*10)/10; perf.rapides = 0; } } }
+    /* genre : fondu continu (h = 0, f = 1, null = 0,5 ; absent = h) */
+    const g = opts.genre === undefined ? 'h' : opts.genre;
+    const femC = g === 'f' ? 1 : g === 'h' ? 0 : 0.5;
+    if(!etat.demarre){ fem = femC; etat.demarre = true; }   /* premier appel : pas de fondu depuis 'h' */
+    fem += (femC - fem)*lisse(2.2); if(Math.abs(femC - fem) < 0.002) fem = femC;
+    if(Math.abs(fem - femBati) > 0.04 || (fem === femC && fem !== femBati)){ femBati = fem; baseMix(fem); if(dernierHM) cible.set(versRadial(dernierHM[0], dernierHM[1])); }
     /* visage : nouvelle cible si nouveaux points, puis lissage */
-    if(etat.r.sansVisage) { landmarks = null; if(!etat.defaut){ etat.defaut = visageParDefaut(); } cible.set(etat.defaut); }
+    if(etat.r.sansVisage){ landmarks = null; if(!etat.defaut || etat.defautFem !== femBati){ etat.defaut = visageParDefaut(); etat.defautFem = femBati; } cible.set(etat.defaut); }
     if(landmarks && landmarks !== dernierLm){
       dernierLm = landmarks;
       const lm = landmarks.points || landmarks;
@@ -442,26 +595,53 @@ const Buste = (() => {
     for(let k=0;k<NT*NP;k++) cour[k] += (cible[k]-cour[k])*0.12;
     gl.bindTexture(gl.TEXTURE_2D, texFace);
     gl.texSubImage2D(gl.TEXTURE_2D, 0, 0, 0, NT, NP, gl.RED, gl.FLOAT, cour);
+    /* cheveux : parametres recalcules ~8 fois par seconde, puis lisses */
+    if(!opts.cheveux) chevCible.quantite = 0;
+    else if(now - tCh > 120 && dernierLm){ tCh = now;
+      const lm = dernierLm.points || dernierLm;
+      const pc = paramsCheveux(lm, dernierLm.w || 480, dernierLm.h || 360, opts.cheveux);
+      if(pc) Object.assign(chevCible, pc); }
+    const kc = lisse(2.0);
+    for(const k in chev) chev[k] += (chevCible[k] - chev[k])*kc;
+    if(chevCible.quantite > 0.02){ /* la forme suit vite quand les cheveux apparaissent */ }
+    etat.cheveux = chev; etat.genre = fem;
+    /* zoom : glisse en douceur */
+    const zc = Math.min(1, Math.max(0, +opts.zoom || 0));
+    zoomC += (zc - zoomC)*lisse(4.0); if(Math.abs(zc - zoomC) < 0.0005) zoomC = zc;
+    const z = zoomC*zoomC*(3 - 2*zoomC);
+    etat.zoom = zoomC;
+    /* tourne : la tete (et un peu le buste) pivote de gauche a droite, +-28 degres, aller-retour ~6 s */
+    const tc = Math.min(1, Math.max(0, +opts.tourne || 0));
+    tourneC += (tc - tourneC)*lisse(1.6); if(Math.abs(tc - tourneC) < 0.0005) tourneC = tc;
+    const wT = tourneC*tourneC*(3 - 2*tourneC);
+    const pivot = Math.sin(t*2*Math.PI/6);
+    etat.tourne = tourneC;
 
     const [W, H] = taille();
     /* cadrage : la composition de reference (portrait 0.72) tient dans l'ecran */
     const R = etat.r;
-    const ppu = Math.min(H/R.visH, W/(R.visH*0.56));  /* pixels par unite au point vise */
-    const ppy = Math.max(0, (H - R.visH*ppu)*0.32);     /* ecran etroit : on garde la tete en haut */
+    /* mouvement lent : rotation aller-retour */
+    const yaw = R.yaw + 0.07*Math.sin(t*0.33)*(1 - wT) + 0.1*wT*pivot;
+    const body = rotY(yaw);
+    const headS = 0.88 + (0.85 - 0.88)*fem;
+    const headPos = [R.headPos[0], R.headPos[1] + 0.03*fem*0.5, R.headPos[2]];
+    /* cible du gros plan : le centre du visage, dans le monde */
+    const hc = [headPos[0], headPos[1] - 0.02, headPos[2] + 0.03];
+    const hw = [body[0]*hc[0] + body[3]*hc[1] + body[6]*hc[2], body[1]*hc[0] + body[4]*hc[1] + body[7]*hc[2], body[2]*hc[0] + body[5]*hc[1] + body[8]*hc[2]];
+    const visH = Math.exp(Math.log(R.visH) + (Math.log(R.visHZoom || 0.29) - Math.log(R.visH))*z);
+    const ppu = Math.min(H/visH, W/(visH*0.56));      /* pixels par unite au point vise */
+    const ppy = Math.max(0, (H - visH*ppu)*0.32)*(1 - z);   /* ecran etroit : on garde la tete en haut */
     const dist = R.dist;
     const focal = ppu*dist;
-    const pitch = R.pitch;                             /* plongee */
-    const T = R.T;
+    const pitch = R.pitch + ((R.pitchZoom || 0.14) - R.pitch)*z;   /* plongee */
+    const T = [R.T[0] + (hw[0] - R.T[0])*z, R.T[1] + (hw[1] - R.T[1])*z, R.T[2] + (hw[2] - R.T[2])*z];
     const cam = [T[0], T[1] + dist*Math.sin(pitch), T[2] + dist*Math.cos(pitch)];
     const f = [T[0]-cam[0], T[1]-cam[1], T[2]-cam[2]]; const fl = Math.hypot(...f); f[0]/=fl; f[1]/=fl; f[2]/=fl;
     const rl = Math.hypot(f[0], f[2]); const r = [-f[2]/rl, 0, f[0]/rl];   /* cross(f, haut) */
     const u = [r[1]*f[2]-r[2]*f[1], r[2]*f[0]-r[0]*f[2], r[0]*f[1]-r[1]*f[0]];
     const camM = [r[0],r[1],r[2], u[0],u[1],u[2], f[0],f[1],f[2]];
-    /* mouvement lent : rotation aller-retour */
-    const yaw = R.yaw + 0.07*Math.sin(t*0.33);
-    const body = rotY(yaw);
-    const head = mul3(rotY(R.hyaw + 0.05*Math.sin(t*0.33+0.6)), rotX(R.hpitch + 0.02*Math.sin(t*0.27)));
-    const headPos = R.headPos;
+    const hyaw = R.hyaw + 0.05*Math.sin(t*0.33+0.6)*(1 - wT) + wT*(0.489*pivot - 0.1*pivot);   /* total tete ~ +-28 degres */
+    const head = mul3(rotY(hyaw), rotX(R.hpitch + 0.02*Math.sin(t*0.27)));
     const s = R.esp*H/ppu;
 
     gl.viewport(0, 0, W, H);
@@ -469,7 +649,9 @@ const Buste = (() => {
       gl.uniform2f(u.uRes, W, H); gl.uniform2f(u.uPP, 0, ppy); gl.uniform1f(u.uT, t);
       gl.uniform3fv(u.uCam, cam); gl.uniformMatrix3fv(u.uCamM, false, camM); gl.uniform1f(u.uFocal, focal);
       gl.uniformMatrix3fv(u.uBody, false, body); gl.uniformMatrix3fv(u.uHead, false, head); gl.uniform3fv(u.uHeadPos, headPos);
-      gl.uniform1i(u.uFace, 0); gl.uniform1f(u.uS, s); gl.uniform1f(u.uCut, R.cut); gl.uniform1f(u.uDbg, R.dbg||0); gl.uniform1f(u.uDot, R.esp*H); gl.uniformMatrix3fv(u.uScan, false, mul3(rotX(R.scanP), rotY(R.scan))); gl.uniform1f(u.uWave, R.wave);
+      gl.uniform1i(u.uFace, 0); gl.uniform1f(u.uS, s); gl.uniform1f(u.uCut, R.cut); gl.uniform1f(u.uDbg, R.dbg||0); gl.uniform1f(u.uDot, R.esp*H); gl.uniformMatrix3fv(u.uScan, false, mul3(rotX(R.scanP), rotY(R.scan))); gl.uniform1f(u.uWave, R.wave*(1 - 0.6*z));
+      gl.uniform1f(u.uFem, fem); gl.uniform1f(u.uZoom, z); gl.uniformMatrix3fv(u.uHeadY, false, rotY(hyaw)); gl.uniform1f(u.uHeadS, headS);
+      gl.uniform4f(u.uHairA, chev.quantite, chev.dessus, chev.cotes, chev.frange); gl.uniform4f(u.uHairB, chev.longueur, 1, 0, 0);
     };
     gl.activeTexture(gl.TEXTURE0); gl.bindTexture(gl.TEXTURE_2D, texFace);
     gl.disable(gl.BLEND);
@@ -478,8 +660,6 @@ const Buste = (() => {
     gl.useProgram(progP); set(uP); gl.bindVertexArray(vaoP); gl.drawArrays(gl.POINTS, 0, nPart);
     gl.bindVertexArray(null);
 
-    /* resolution adaptative si la machine peine */
-    etat.temps.push(performance.now()-t0); if(etat.temps.length > 40) etat.temps.shift();
     return Buste;
   }
   return { init, dessine, etat };
