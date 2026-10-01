@@ -17,7 +17,8 @@
 html,body{height:100%;overflow:hidden;background:#0d0b09}
 body{font-family:var(--sans);color:var(--ligne);-webkit-font-smoothing:antialiased;background:radial-gradient(120% 90% at 50% 40%,#2a241d 0%,#120f0c 60%,#080706 100%)}
 .scene{position:fixed;inset:0;perspective:1800px;perspective-origin:50% 45%;display:grid;place-items:center}
-.ecran{--W:min(1560px,124vw);--H:min(940px,120svh);--px:max(30px,calc((var(--W) - 100vw)/2 + 34px));--py:max(26px,calc((var(--H) - 100svh)/2 + 30px));position:relative;flex:none;width:var(--W);height:var(--H);border-radius:30px;overflow:hidden;transform-style:preserve-3d;
+.pivot{transform-style:preserve-3d;transform:rotateY(var(--my,0deg)) rotateX(var(--mx,0deg));transition:transform 1.1s cubic-bezier(.2,.7,.2,1)}
+.ecran{--W:min(1500px,113vw);--H:min(900px,111svh);--px:max(30px,calc((var(--W) - 100vw)/2 + 34px));--py:max(26px,calc((var(--H) - 100svh)/2 + 30px));position:relative;flex:none;width:var(--W);height:var(--H);border-radius:30px;overflow:hidden;transform-style:preserve-3d;
   transform:rotateY(var(--ry,0deg)) rotateX(var(--rx,0deg)) rotateZ(var(--rz,0deg)) translateZ(var(--tz,0px));transition:transform 1.8s cubic-bezier(.3,.7,.2,1),background 1.2s ease;
   box-shadow:0 0 0 10px #e7dfcf,0 0 0 11px rgba(0,0,0,.25),0 60px 120px -30px rgba(0,0,0,.8);animation:derive 14s ease-in-out infinite alternate}
 @keyframes derive{0%{translate:0 0}100%{translate:6px -4px}}
@@ -30,18 +31,22 @@ body{font-family:var(--sans);color:var(--ligne);-webkit-font-smoothing:antialias
 .ecran::after{content:'';position:absolute;inset:0;pointer-events:none;z-index:6;background:linear-gradient(115deg,rgba(255,255,255,.10) 0%,rgba(255,255,255,0) 32%),url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='.16'/></svg>");mix-blend-mode:overlay}
 .vignette{position:absolute;inset:0;z-index:7;pointer-events:none;background:radial-gradient(120% 100% at 50% 50%,transparent 60%,rgba(0,0,0,.28) 100%)}
 .flou{display:none;position:absolute;inset:0;z-index:7;pointer-events:none;backdrop-filter:blur(var(--fl,5px));-webkit-backdrop-filter:blur(var(--fl,5px));-webkit-mask-image:linear-gradient(var(--fd,90deg),#000 0%,transparent 34%,transparent 74%,#000 100%);mask-image:linear-gradient(var(--fd,90deg),#000 0%,transparent 34%,transparent 74%,#000 100%)}
-.vue{position:absolute;inset:0;padding:var(--py) var(--px);opacity:0;pointer-events:none;transition:opacity .9s ease}
-.vue.on{opacity:1;pointer-events:auto}
+.vue{position:absolute;inset:0;padding:var(--py) var(--px);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .6s ease,visibility 0s linear .6s}
+.vue.on{opacity:1;visibility:visible;pointer-events:auto;transition:opacity .6s ease .15s,visibility 0s}
 .mono{font-family:var(--mono);font-size:12px;letter-spacing:.18em;text-transform:uppercase}
 .lum{color:var(--ligne);text-shadow:var(--glow),.7px 0 rgba(255,90,90,.22),-.7px 0 rgba(90,210,255,.22)}
 .dof{transition:filter 1.2s ease}
 .fleche{display:inline-grid;place-items:center;width:52px;height:52px;border-radius:12px;background:rgba(255,255,255,.18);box-shadow:inset 0 0 0 1px rgba(255,255,255,.35);color:var(--ligne);font-size:22px;cursor:pointer;transition:transform .3s,background .3s;border:0}
 .fleche:hover{transform:translateX(3px);background:rgba(255,255,255,.28)}
+.fleche{position:relative;overflow:hidden}.fleche::before{content:'';position:absolute;inset:0;background:rgba(255,255,255,.55);transform:scaleX(0);transform-origin:left}
+.fleche.remplit::before{animation:remplit var(--d,2.5s) linear forwards}@keyframes remplit{to{transform:scaleX(1)}}
+.statut .fleche{width:64px;height:64px;font-size:26px}
 .sous-titre{position:absolute;left:0;right:0;bottom:12%;text-align:center;font:500 clamp(20px,2.4vw,30px) var(--sans);color:var(--jaune);text-shadow:0 2px 14px rgba(0,0,0,.45);opacity:0;transition:opacity .8s;z-index:4}
 .sous-titre.on{opacity:1}.sous-titre i{font-style:italic}
 .points{position:absolute;inset:0;background-image:radial-gradient(rgba(230,251,249,.38) 1.1px,transparent 1.8px);background-size:38px 38px;pointer-events:none;opacity:.55}
-.cam-box{overflow:hidden}.cam-box video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1);filter:saturate(.9) contrast(1.04) brightness(1.04);opacity:.92;border-radius:inherit}.cam-box canvas{position:absolute;inset:0;width:100%;height:100%}
+.cam-box{overflow:hidden}.cam-box video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1);filter:grayscale(1) contrast(1.2);mix-blend-mode:screen;opacity:.1;border-radius:inherit}.cam-box canvas{position:absolute;inset:0;width:100%;height:100%}
 .grille{position:absolute;inset:calc(var(--py) + 70px) var(--px) calc(var(--py) + 40px) var(--px);border-radius:18px;box-shadow:inset 0 0 0 1.5px rgba(230,251,249,.35);background-image:linear-gradient(rgba(230,251,249,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(230,251,249,.10) 1px,transparent 1px);background-size:100% 25%,16.66% 100%}
+.grille::before{content:'';position:absolute;inset:-3px;pointer-events:none;background-image:radial-gradient(circle,rgba(230,251,249,.85) 2.2px,transparent 3.2px);background-size:calc((100% - 6px)/6) calc((100% - 6px)/4);background-position:0 0;filter:drop-shadow(0 0 4px rgba(230,251,249,.8))}
 /* 0 · intro */
 .anneau{position:absolute;left:50%;top:50%;width:min(64vh,560px);aspect-ratio:1;translate:-50% -50%;border-radius:50%;border:2px dotted rgba(230,251,249,.35);animation:tourne 60s linear infinite}
 .anneau.a2{width:min(46vh,400px);border:0;background:radial-gradient(circle,rgba(255,255,255,.10),rgba(255,255,255,.03) 70%,transparent 71%)}
@@ -115,14 +120,18 @@ canvas.plein{position:absolute;inset:0;width:100%;height:100%}
 .duo{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:8px}
 .duo>div{padding:14px 18px 6px 0}.duo>div+div{border-left:2px solid rgba(230,251,249,.25);padding-left:22px}
 .duo small{font:600 15px var(--sans);opacity:.8}.duo b{display:block;font:600 clamp(40px,5vw,64px)/1.1 var(--sans);letter-spacing:-.02em}
-.tete{display:flex;align-items:center;justify-content:space-between;gap:20px}.tete canvas{width:min(300px,38%);aspect-ratio:3/4;flex:none}
+.tete{display:flex;align-items:center;justify-content:space-between;gap:20px}.tete canvas{width:min(340px,42%);aspect-ratio:4/5;flex:none;border-radius:18px;box-shadow:0 20px 50px -24px rgba(0,0,0,.55)}
 .soins{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:12px}
 .soin{display:flex;flex-direction:column;gap:6px;padding:16px;border-radius:18px;background:rgba(255,255,255,.10);box-shadow:inset 0 0 0 1.5px rgba(230,251,249,.28);text-decoration:none;color:var(--ligne)}
 .soin img{width:100%;aspect-ratio:1;object-fit:contain;filter:drop-shadow(0 14px 18px rgba(0,0,0,.35));animation:flotte 6s ease-in-out infinite}
 .soin b{font:600 16px var(--sans);line-height:1.3}.soin em{font-style:normal;font-size:13px;opacity:.75}
 @keyframes flotte{50%{transform:translateY(-8px)}}
 @media (max-width:760px){.soins{grid-template-columns:repeat(2,minmax(0,1fr))}}
-.gros-plan{position:relative;border-radius:18px;overflow:hidden;margin-top:12px;aspect-ratio:16/9;background:#e9d2c6;box-shadow:0 0 0 8px #121212}
+.gp-wrap{display:grid;grid-template-columns:minmax(0,380px) 1fr;gap:clamp(18px,3vw,40px);align-items:center;margin-top:14px}
+.gros-plan{position:relative;border-radius:22px;overflow:hidden;aspect-ratio:4/5;background:radial-gradient(70% 60% at 50% 42%,#2a8fc0 0%,#0f4f78 55%,#082f4c 100%);box-shadow:inset 0 0 0 1.5px rgba(80,220,255,.65),inset 0 0 40px rgba(80,220,255,.25),0 0 46px rgba(80,220,255,.35),0 24px 50px -20px rgba(0,0,0,.6)}
+.gros-plan::after{content:'';position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(80,220,255,.10) 1px,transparent 1px),linear-gradient(90deg,rgba(80,220,255,.10) 1px,transparent 1px);background-size:20% 16.66%}
+.gp-l{display:flex;align-items:center;gap:16px;padding:12px 0;border-bottom:1px solid rgba(230,251,249,.22)}.gp-l b{font:300 54px/1 var(--sans);color:transparent;-webkit-text-stroke:1.4px #8fe9ff;text-shadow:0 0 14px rgba(80,220,255,.5);font-variant-numeric:tabular-nums}.gp-l span{font:600 17px/1.25 var(--sans)}.gp-l em{font:400 13px var(--sans);opacity:.7;font-style:normal}
+@media (max-width:760px){.gp-wrap{grid-template-columns:1fr}.gros-plan{max-width:340px}}
 .gros-plan canvas{position:absolute;inset:0;width:100%;height:100%}
 .suite{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:16px}
 .suite a{display:block;padding:20px;border-radius:18px;text-decoration:none;color:#f6ead6;background:linear-gradient(150deg,#a9492a,#7a2a19);box-shadow:inset 0 0 0 1px rgba(246,234,214,.25)}
@@ -135,7 +144,7 @@ canvas.plein{position:absolute;inset:0;width:100%;height:100%}
 </style>
 </head>
 <body>
-<div class="scene"><div class="ecran t-bleu" id="ecran">
+<div class="scene"><div class="pivot" id="pivot"><div class="ecran t-bleu" id="ecran">
   <!-- 0 · intro -->
   <section class="vue on" data-t="bleu" data-ry="-6deg" data-rx="2deg" data-fx=".5">
     <div class="anneau"></div><div class="anneau a2"></div><div class="anneau a3"></div>
@@ -167,7 +176,7 @@ canvas.plein{position:absolute;inset:0;width:100%;height:100%}
     <span class="etiq">Lab · peau</span>
     <h2 class="liste-t">Préparation de votre lecture…</h2>
     <div class="liste" id="prio"></div>
-    <div class="statut"><span class="mono" id="nbprio">Touchez ce qui compte pour vous</span><button class="fleche" data-go="4" aria-label="Lancer la lecture">→</button></div>
+    <div class="statut"><span class="mono" id="nbprio">Une à trois priorités</span><button class="fleche" data-go="4" aria-label="Lancer la lecture">→</button></div>
   </section>
   <!-- 4 · imagerie (vraie camera) -->
   <section class="vue" data-t="teal" data-ry="-18deg" data-rx="6deg" data-rz="2deg" data-fx=".45">
@@ -200,18 +209,18 @@ canvas.plein{position:absolute;inset:0;width:100%;height:100%}
     <div class="res" id="res"></div>
   </section>
   <div class="vignette"></div>
-</div></div>
+</div></div></div>
 <nav id="nav"></nav>
 <video id="video" autoplay muted playsinline style="position:fixed;width:2px;height:2px;opacity:.01;left:0;top:0"></video>
 <script type="module">
-import { FilesetResolver, FaceLandmarker } from '/cheveux/vendor/mediapipe/vision_bundle.mjs';
+import { FilesetResolver, FaceLandmarker, ImageSegmenter } from '/cheveux/vendor/mediapipe/vision_bundle.mjs';
 const $ = id => document.getElementById(id);
 const VUES = [...document.querySelectorAll('.vue')], ecran = $('ecran'), video = $('video');
 const CATS = [['glow','Éclat',false],['redness','Rougeurs',false],['hydration','Hydratation',false],['pores','Pores',false],['sebum','Brillance',true],['pigmentation','Taches',true],['wrinkles','Rides',false],['firmness','Fermeté',false]];
 let etape = 0, L = null, nbPts = 0, scores = null, exemple = false, cliché = null, prio = new Set();
 const lune = new Date(); $('depuis').textContent = lune.toLocaleDateString('fr-FR', { month:'long', year:'numeric' }).replace(/^./, c => c.toUpperCase());
 /* ---- navigation : chaque ecran a son angle de camera ---- */
-function aller(i){ if(i === etape) return; VUES[etape].classList.remove('on'); etape = i; const v = VUES[i]; v.classList.add('on');
+function aller(i){ if(i === etape) return; VUES.forEach(x => x.classList.remove('on')); etape = i; const v = VUES[i]; v.classList.add('on');
   ecran.className = 'ecran t-' + v.dataset.t; ecran.style.setProperty('--ry', v.dataset.ry); ecran.style.setProperty('--rx', v.dataset.rx); ecran.style.setProperty('--rz', v.dataset.rz || '0deg'); clearTimeout(autoT); setTimeout(() => dof(v), 1850);
   document.querySelectorAll('#nav i').forEach((n, k) => n.classList.toggle('on', k === i));
   ENTREE[i] && ENTREE[i](); }
@@ -219,17 +228,22 @@ function aller(i){ if(i === etape) return; VUES[etape].classList.remove('on'); e
 function dof(v){ if(!v.classList.contains('on')) return; const fx = innerWidth*(+v.dataset.fx || .5);
   v.querySelectorAll('.dof, h1, h2, .liste button, .met, .compteurs > div, .bande, .titre-persp, .lecture, .carte').forEach(el => { const b = el.getBoundingClientRect(); const d = Math.abs(b.left + b.width/2 - fx)/innerWidth; el.classList.add('dof'); el.style.filter = 'blur(' + Math.min(3.2, Math.max(0, (d - .2)*10)).toFixed(2) + 'px)'; }); }
 addEventListener('resize', () => dof(VUES[etape]));
+/* la souris penche l'ecran, doucement, du cote ou elle passe */
+const pivot = $('pivot'); addEventListener('pointermove', e => { if(e.pointerType !== 'mouse') return; pivot.style.setProperty('--my', ((e.clientX/innerWidth - .5)*9).toFixed(2) + 'deg'); pivot.style.setProperty('--mx', ((.5 - e.clientY/innerHeight)*6).toFixed(2) + 'deg'); });
+document.addEventListener('mouseleave', () => { pivot.style.setProperty('--my', '0deg'); pivot.style.setProperty('--mx', '0deg'); });
 /* tout avance seul : une fine barre montre le temps qui reste ; un geste la relance */
 let autoT = null;
+/* la validation visible : la fleche se remplit, puis on passe a la suite */
+function valide(vers, ms){ clearTimeout(autoT); const f = VUES[etape].querySelector('.statut .fleche'); if(f){ f.classList.remove('remplit'); void f.offsetWidth; f.style.setProperty('--d', ms + 'ms'); f.classList.add('remplit'); } const e0 = etape; autoT = setTimeout(() => { if(etape === e0) aller(vers); }, ms); }
 function auto(vers, ms){ clearTimeout(autoT); const v = VUES[etape]; let b = v.querySelector('.auto'); if(!b){ b = document.createElement('div'); b.className = 'auto'; b.innerHTML = '<i></i>'; v.appendChild(b); }
   b.classList.remove('run'); void b.offsetWidth; b.style.setProperty('--d', ms + 'ms'); b.classList.add('run'); const e0 = etape; autoT = setTimeout(() => { if(etape === e0) aller(vers); }, ms); }
 $('nav').innerHTML = VUES.map(() => '<i></i>').join(''); $('nav').onclick = e => { const k = [...$('nav').children].indexOf(e.target); if(k >= 0) aller(k); };
 document.addEventListener('click', e => { const g = e.target.closest('[data-go]'); if(g) aller(+g.dataset.go); });
 $('prenom').addEventListener('keydown', e => { if(e.key === 'Enter') aller(3); });
-$('prenom').addEventListener('input', () => { $('nomMembre').textContent = $('prenom').value.trim() || 'Vous'; if($('prenom').value.trim()) auto(3, 1600); else auto(3, 6000); });
+$('prenom').addEventListener('input', () => { $('nomMembre').textContent = $('prenom').value.trim() || 'Vous'; if($('prenom').value.trim()) valide(3, 2000); else auto(3, 6000); });
 /* priorites : un toucher, ca s'allume */
 $('prio').innerHTML = CATS.map(([k, t]) => '<button data-k="' + k + '">' + t + '<em>à suivre</em></button>').join('');
-$('prio').onclick = e => { const b = e.target.closest('button'); if(!b) return; b.classList.toggle('on'); b.classList.contains('on') ? prio.add(b.dataset.k) : prio.delete(b.dataset.k); auto(4, 2200); $('nbprio').textContent = prio.size ? prio.size + ' priorité' + (prio.size > 1 ? 's' : '') : 'Touchez ce qui compte pour vous'; };
+$('prio').onclick = e => { const b = e.target.closest('button'); if(!b) return; if(!b.classList.contains('on') && prio.size >= 3){ $('nbprio').textContent = '3 priorités au maximum'; return; } b.classList.toggle('on'); b.classList.contains('on') ? prio.add(b.dataset.k) : prio.delete(b.dataset.k); if(prio.size) valide(4, 2500); else clearTimeout(autoT); $('nbprio').textContent = prio.size ? prio.size + ' priorité' + (prio.size > 1 ? 's' : '') + ' · validation…' : 'Une à trois priorités'; };
 const ENTREE = {
   0(){ setTimeout(() => $('st0').classList.add('on'), 900); auto(1, 4200); },
   1(){ auto(2, 4500); },
@@ -248,7 +262,8 @@ async function camera(){
     catch(e){ $('consigne').textContent = 'Caméra refusée : la suite montre un exemple.'; exemple = true; setTimeout(() => aller(6), 2500); return; } }
   if(!face){ const fs = await FilesetResolver.forVisionTasks('/cheveux/vendor/mediapipe/wasm');
     const o = d => ({ baseOptions:{ modelAssetPath:'/cheveux/vendor/mediapipe/modeles/face_landmarker.task', delegate:d }, runningMode:'VIDEO', numFaces:1 });
-    try { face = await FaceLandmarker.createFromOptions(fs, o('GPU')); } catch(e){ face = await FaceLandmarker.createFromOptions(fs, o('CPU')); } }
+    try { face = await FaceLandmarker.createFromOptions(fs, o('GPU')); } catch(e){ face = await FaceLandmarker.createFromOptions(fs, o('CPU')); }
+    try { seg = await ImageSegmenter.createFromOptions(fs, { baseOptions:{ modelAssetPath:'/cheveux/vendor/mediapipe/modeles/hair_segmenter.tflite', delegate:'CPU' }, runningMode:'VIDEO', outputConfidenceMasks:true, outputCategoryMask:false }); } catch(e){ console.warn('cheveux', e); } }
   moteur(); requestAnimationFrame(boucle);
 }
 const copie = document.createElement('canvas'), cg = copie.getContext('2d', { willReadFrequently:true });
@@ -257,50 +272,112 @@ let tL = 0, stable = 0;
 function boucle(now){
   if(face && video.videoWidth && now - tL > 70){ tL = now; let r = null; try { r = face.detectForVideo(image(), now); } catch(e){}
     const n = r && r.faceLandmarks && r.faceLandmarks[0]; if(n){ if(!L) L = n.map(p => ({ ...p })); else for(let i = 0; i < L.length; i++){ L[i].x += (n[i].x - L[i].x)*.5; L[i].y += (n[i].y - L[i].y)*.5; L[i].z += (n[i].z - L[i].z)*.5; } nbPts = Math.min(478, nbPts + 37); stable++; } else stable = 0; }
+  if(etape === 4 || etape === 5) cheveux(now);
   if(etape === 4) traceVisage(now); if(etape === 5) trame(now);
   requestAnimationFrame(boucle);
 }
-/* 4 · le visage en traces blancs lumineux, doubles, sur la grille ; quelques points de reperes */
+/* 4 et 5 · la forme du corps, lue sur la vraie image : visage (478 points), cheveux (segmentation), cou et epaules deduits du visage */
 const C = FaceLandmarker;
-const CONTOURS = [C.FACE_LANDMARKS_FACE_OVAL, C.FACE_LANDMARKS_LIPS, C.FACE_LANDMARKS_LEFT_EYE, C.FACE_LANDMARKS_RIGHT_EYE, C.FACE_LANDMARKS_LEFT_EYEBROW, C.FACE_LANDMARKS_RIGHT_EYEBROW].filter(Boolean);
+const SW = 160, SH = 120, OVALE = [10,338,297,332,284,251,389,356,454,323,361,288,397,365,379,378,400,377,152,148,176,149,150,136,172,58,132,93,234,127,162,21,54,103,67,109];
+const pc = document.createElement('canvas'); pc.width = SW; pc.height = SH; const pcx = pc.getContext('2d', { willReadFrequently:true });
+const sc = document.createElement('canvas'); sc.width = SW; sc.height = SH; const scx = sc.getContext('2d', { willReadFrequently:true });
+let seg = null, CHEV = new Float32Array(SW*SH), tS = 0;
+function cheveux(now){ if(!seg || now - tS < 140 || !video.videoWidth) return; tS = now; scx.drawImage(video, 0, 0, SW, SH);
+  try { seg.segmentForVideo(sc, now, r => { const cm = r.confidenceMasks; if(!cm) return; const m = (cm[1] || cm[0]).getAsFloat32Array(); for(let i = 0; i < SW*SH; i++) CHEV[i] = CHEV[i]*.4 + m[i]*.6; }); } catch(e){} }
+function flou(a, w, h, r){ const t = new Float32Array(a.length), o = new Float32Array(a.length), n = 2*r + 1, cl = (v, m) => v < 0 ? 0 : v > m ? m : v;
+  for(let y = 0; y < h; y++){ let s = 0; for(let x = -r; x <= r; x++) s += a[y*w + cl(x, w - 1)]; for(let x = 0; x < w; x++){ t[y*w + x] = s/n; s += a[y*w + cl(x + r + 1, w - 1)] - a[y*w + cl(x - r, w - 1)]; } }
+  for(let x = 0; x < w; x++){ let s = 0; for(let y = -r; y <= r; y++) s += t[cl(y, h - 1)*w + x]; for(let y = 0; y < h; y++){ o[y*w + x] = s/n; s += t[cl(y + r + 1, h - 1)*w + x] - t[cl(y - r, h - 1)*w + x]; } }
+  return o; }
+function boite(Lm){ let x0 = 1, x1 = 0, y0 = 1, y1 = 0; OVALE.forEach(i => { const p = Lm[i]; if(p.x < x0) x0 = p.x; if(p.x > x1) x1 = p.x; if(p.y < y0) y0 = p.y; if(p.y > y1) y1 = p.y; }); return { x0, x1, y0, y1, cx:(x0 + x1)/2, cy:(y0 + y1)/2, fw:x1 - x0, fh:y1 - y0 }; }
+/* les champs, en coordonnees video : lum (lumiere), F (silhouette), V (le seul visage), D (relief) */
+function champs(src, Lm, chev){
+  pcx.drawImage(src, 0, 0, SW, SH); const d = pcx.getImageData(0, 0, SW, SH).data, N = SW*SH, lum = new Float32Array(N);
+  for(let i = 0; i < N; i++) lum[i] = (d[i*4]*.299 + d[i*4 + 1]*.587 + d[i*4 + 2]*.114)/255;
+  const b = Lm ? boite(Lm) : { cx:.5, cy:.42, fw:.26, fh:.36, x0:.37, x1:.63, y0:.24, y1:.6 };
+  pcx.fillStyle = '#000'; pcx.fillRect(0, 0, SW, SH); pcx.fillStyle = '#fff';
+  if(Lm){ pcx.beginPath(); OVALE.forEach((i, k) => { const p = Lm[i]; k ? pcx.lineTo(p.x*SW, p.y*SH) : pcx.moveTo(p.x*SW, p.y*SH); }); pcx.closePath(); pcx.fill(); }
+  else { pcx.beginPath(); pcx.ellipse(b.cx*SW, b.cy*SH, b.fw/2*SW, b.fh/2*SH, 0, 0, 7); pcx.fill(); }
+  const vv = pcx.getImageData(0, 0, SW, SH).data, V0 = new Float32Array(N); for(let i = 0; i < N; i++) V0[i] = vv[i*4]/255;
+  // le cou puis les epaules, sous le menton
+  const mx = Lm ? Lm[152].x : b.cx, my = Lm ? Lm[152].y : b.y1, jy = Lm ? (Lm[172].y + Lm[397].y)/2 : b.y1 - b.fh*.2;
+  const nw = b.fw*.3, y0 = my + b.fh*.22, y1 = my + b.fh*.9, ep = b.fw*1.5, X = v => v*SW, Yy = v => v*SH;
+  pcx.beginPath(); pcx.moveTo(X(mx - nw), Yy(jy)); pcx.lineTo(X(mx - nw), Yy(y0)); pcx.bezierCurveTo(X(mx - nw), Yy(y0 + b.fh*.3), X(mx - ep*.85), Yy(y0 + b.fh*.18), X(mx - ep), Yy(y1));
+  pcx.lineTo(X(mx - ep*1.06), SH*2); pcx.lineTo(X(mx + ep*1.06), SH*2); pcx.lineTo(X(mx + ep), Yy(y1));
+  pcx.bezierCurveTo(X(mx + ep*.85), Yy(y0 + b.fh*.18), X(mx + nw), Yy(y0 + b.fh*.3), X(mx + nw), Yy(y0)); pcx.lineTo(X(mx + nw), Yy(jy)); pcx.closePath(); pcx.fill();
+  const m = pcx.getImageData(0, 0, SW, SH).data, S = new Float32Array(N);
+  const hx0 = b.x0 - b.fw*.55, hx1 = b.x1 + b.fw*.55, hy0 = b.y0 - b.fh*.7, hy1 = b.y1 + b.fh*.9;
+  for(let j = 0; j < SH; j++) for(let i = 0; i < SW; i++){ const k = j*SW + i, u = (i + .5)/SW, v = (j + .5)/SH; let h = chev && u > hx0 && u < hx1 && v > hy0 && v < hy1 ? chev[k] : 0; S[k] = Math.max(m[k*4]/255, h > .45 ? h : 0); }
+  const F = flou(flou(S, SW, SH, 1), SW, SH, 1), V = flou(V0, SW, SH, 1);
+  // relief : un dome sur la silhouette, plus la vraie profondeur du visage (z des 478 points)
+  const bombe = flou(flou(flou(S, SW, SH, 6), SW, SH, 6), SW, SH, 6), Z = new Float32Array(N), Wt = new Float32Array(N);
+  if(Lm){ let ze = 0; OVALE.forEach(i => ze += Lm[i].z); ze /= OVALE.length;
+    for(const p of Lm){ const cx = Math.round(p.x*SW), cy = Math.round(p.y*SH); for(let dy = -3; dy <= 3; dy++) for(let dx = -3; dx <= 3; dx++){ const x = cx + dx, y = cy + dy; if(x < 0 || y < 0 || x >= SW || y >= SH) continue; const g = Math.exp(-(dx*dx + dy*dy)/4.5), k = y*SW + x; Z[k] += (ze - p.z)/b.fw*g; Wt[k] += g; } }
+    for(let k = 0; k < N; k++) Z[k] = Wt[k] > .05 ? Z[k]/Wt[k]*V0[k] : 0; }
+  const Zf = flou(Z, SW, SH, 2), D = new Float32Array(N); for(let k = 0; k < N; k++) D[k] = bombe[k]*.5 + Zf[k]*1.6;
+  return { lum, F, V, D, b };
+}
+/* les lignes de niveau (marching squares), tracees en un seul chemin */
+const CAS = [null, [3,0], [0,1], [3,1], [1,2], [3,0,1,2], [0,2], [3,2], [2,3], [2,0], [0,1,2,3], [2,1], [1,3], [1,0], [0,3]];
+function iso(x, F, lev, P){ x.beginPath();
+  for(let j = 0; j < SH - 1; j++) for(let i = 0; i < SW - 1; i++){ const a = F[j*SW + i], b = F[j*SW + i + 1], c = F[(j + 1)*SW + i + 1], d = F[(j + 1)*SW + i];
+    const k = (a > lev) | ((b > lev) << 1) | ((c > lev) << 2) | ((d > lev) << 3); if(!k || k === 15) continue;
+    const pt = e => e === 0 ? [i + (lev - a)/(b - a), j] : e === 1 ? [i + 1, j + (lev - b)/(c - b)] : e === 2 ? [i + (lev - d)/(c - d), j + 1] : [i, j + (lev - a)/(d - a)];
+    const s = CAS[k]; for(let q = 0; q < s.length; q += 2){ const p0 = P(pt(s[q])), p1 = P(pt(s[q + 1])); x.moveTo(p0.x, p0.y); x.lineTo(p1.x, p1.y); } }
+  x.stroke(); }
 function cadre(cv){ const d = Math.min(2, devicePixelRatio || 1), w = cv.clientWidth, h = cv.clientHeight; if(cv.width !== Math.round(w*d)){ cv.width = Math.round(w*d); cv.height = Math.round(h*d); } const x = cv.getContext('2d'); x.setTransform(d, 0, 0, d, 0, 0); return { x, w, h }; }
 function proj(w, h){ const vw = video.videoWidth || 4, vh = video.videoHeight || 3, s = Math.max(w/vw, h/vh), dw = vw*s, dh = vh*s, ox = (w - dw)/2, oy = (h - dh)/2; return p => ({ x: ox + (1 - p.x)*dw, y: oy + p.y*dh }); }
+/* 4 · imagerie : la silhouette en double trait lumineux, les reliefs du visage en lignes organiques, sur la grille */
 function traceVisage(now){
   const { x, w, h } = cadre($('trace')); x.clearRect(0, 0, w, h);
   $('nbpts').textContent = String(nbPts).padStart(3, '0');
-  if(!L){ $('statut').textContent = '[recherche]'; return; }
-  const P = proj(w, h), t = now/1000;
-  x.lineCap = 'round'; x.lineJoin = 'round';
-  [[1.0, 3, .95], [1.03, 1.6, .5], [1.065, 1, .22]].forEach(([k, lw, al]) => {   // le double contour
-    x.save(); const c = P(L[1]); x.translate(c.x, c.y); x.scale(k, k); x.translate(-c.x, -c.y);
-    x.strokeStyle = 'rgba(230,251,249,' + al + ')'; x.lineWidth = lw; x.shadowColor = 'rgba(230,251,249,.8)'; x.shadowBlur = 10;
-    CONTOURS.forEach(set => { x.beginPath(); set.forEach(e => { const a = P(L[e.start]), b = P(L[e.end]); x.moveTo(a.x, a.y); x.lineTo(b.x, b.y); }); x.stroke(); }); x.restore(); });
-  // l'arete du nez et les narines, en un seul trait
-  x.strokeStyle = 'rgba(230,251,249,.9)'; x.lineWidth = 2.4; x.shadowColor = 'rgba(230,251,249,.8)'; x.shadowBlur = 10; x.beginPath(); [168, 6, 197, 195, 5, 4, 1, 2, 98].forEach((i, k) => { const p = P(L[i]); k ? x.lineTo(p.x, p.y) : x.moveTo(p.x, p.y); }); x.moveTo(P(L[2]).x, P(L[2]).y); x.lineTo(P(L[327]).x, P(L[327]).y); x.stroke();
+  if(!video.videoWidth){ $('statut').textContent = '[recherche]'; return; }
+  const c = champs(video, L, CHEV), pr = proj(w, h), t = now/1000, G = g => pr({ x:(g[0] + .5)/SW, y:(g[1] + .5)/SH });
+  x.lineCap = 'round'; x.lineJoin = 'round'; x.shadowColor = 'rgba(230,251,249,.85)';
+  if(!L){ $('statut').textContent = '[recherche]'; x.strokeStyle = 'rgba(230,251,249,.35)'; x.lineWidth = 1.4; x.shadowBlur = 8; iso(x, c.F, .5, G); return; }
+  // les reliefs : lignes de niveau de la lumiere, seulement dans le visage (yeux, sourcils, narines, levres)
+  let s = 0, n = 0; for(let k = 0; k < SW*SH; k++) if(c.V[k] > .9){ s += c.lum[k]; n++; } const peau = n ? s/n : .5;
+  const lb = flou(c.lum, SW, SH, 1), G2 = new Float32Array(SW*SH); for(let k = 0; k < SW*SH; k++){ const a = Math.min(1, Math.max(0, (c.V[k] - .55)/.35)); G2[k] = lb[k]*a + peau*(1 - a); }
+  x.shadowBlur = 9; x.strokeStyle = 'rgba(230,251,249,.88)'; x.lineWidth = 1.9; iso(x, G2, peau*.74, G);
+  x.strokeStyle = 'rgba(230,251,249,.45)'; x.lineWidth = 1.2; iso(x, G2, peau*.86, G);
+  // la topographie du relief, tres legere
+  x.shadowBlur = 0; x.strokeStyle = 'rgba(230,251,249,.16)'; x.lineWidth = 1; [.45, .7, .95].forEach(l => iso(x, c.D, l, G));
+  // la silhouette : deux traits paralleles, le second plus doux
+  x.shadowBlur = 14; x.strokeStyle = 'rgba(236,253,251,.97)'; x.lineWidth = 3.2; iso(x, c.F, .5, G);
+  x.shadowBlur = 8; x.strokeStyle = 'rgba(230,251,249,.5)'; x.lineWidth = 1.5; iso(x, flou(c.F, SW, SH, 2), .2, G);
   // reperes : quelques points du maillage, qui respirent
-  x.fillStyle = 'rgba(230,251,249,.9)'; x.shadowBlur = 8;
-  [10, 151, 9, 4, 1, 152, 234, 454, 50, 280, 61, 291, 33, 263].forEach((i, k) => { const p = P(L[i]); x.globalAlpha = .55 + .45*Math.sin(t*2 + k); x.beginPath(); x.arc(p.x, p.y, 3.2, 0, 7); x.fill(); });
+  x.fillStyle = 'rgba(230,251,249,.95)'; x.shadowBlur = 10;
+  [10, 151, 4, 152, 234, 454, 50, 280, 61, 291].forEach((i, k) => { const p = pr(L[i]); x.globalAlpha = .45 + .55*Math.abs(Math.sin(t*1.6 + k)); x.beginPath(); x.arc(p.x, p.y, 3, 0, 7); x.fill(); });
   x.globalAlpha = 1; x.shadowBlur = 0;
   $('statut').textContent = scores ? '[lu]' : '[lecture]';
 }
-/* 5 · le corps en trame de points : la vraie image, en points turquoise ; les bords se dissolvent */
-const petit = document.createElement('canvas'), pg = petit.getContext('2d', { willReadFrequently:true });
-function trame(now){ const { x, w, h } = cadre($('trame')); dessineTrame(x, w, h, video, L, now/1000, true, w < 600 ? 8 : 11); }
-function dessineTrame(x, w, h, src, Lm, t, miroir, pas){
-  x.clearRect(0, 0, w, h); const vw = src.videoWidth || src.width, vh = src.videoHeight || src.height; if(!vw) return;
-  const nx = Math.ceil(w/pas), ny = Math.ceil(h/pas); if(petit.width !== nx || petit.height !== ny){ petit.width = nx; petit.height = ny; }
-  const s = Math.max(nx/vw, ny/vh)*.95; pg.save(); pg.clearRect(0, 0, nx, ny); if(miroir){ pg.translate(nx, 0); pg.scale(-1, 1); } pg.drawImage(src, (nx - vw*s)/2, (ny - vh*s)/2 + ny*.06, vw*s, vh*s); pg.restore();
-  const d = pg.getImageData(0, 0, nx, ny).data;
-  let cx = .5, cy = .38, rx = .16, ry = .22; if(Lm){ const U = p => { const u = ((nx - vw*s)/2 + p.x*vw*s)/nx; return miroir ? 1 - u : u; }, V = p => ((ny - vh*s)/2 + ny*.06 + p.y*vh*s)/ny; let x0 = 1, x1 = 0, y0 = 1, y1 = 0; for(const p of Lm){ const px = U(p), py = V(p); if(px < x0) x0 = px; if(px > x1) x1 = px; if(py < y0) y0 = py; if(py > y1) y1 = py; } cx = (x0 + x1)/2; cy = (y0 + y1)/2; rx = (x1 - x0)*.62; ry = (y1 - y0)*.66; }
-  x.fillStyle = '#16737b';
-  for(let j = 0; j < ny; j++) for(let i = 0; i < nx; i++){
-    const u = i/nx, v = j/ny, k = (j*nx + i)*4, lum = (d[k]*.299 + d[k + 1]*.587 + d[k + 2]*.114)/255;
-    const dv = ((u - cx)/rx)**2 + ((v - cy)/ry)**2, buste = v > cy + ry*.7 ? Math.abs(u - cx)/(rx*(1.1 + (v - cy - ry*.7)*5.5)) : 9;
-    const dedans = Math.min(dv, buste*buste); if(dedans > 1.6) continue;
-    const bord = dedans > 1 ? (1.6 - dedans)/.6 : 1; if(Math.random() > bord + .15) continue;
-    const r = pas*.5*Math.pow(1 - lum, .9)*(.55 + .45*bord) + .35, ond = Math.sin(i*.35 + t*2.2)*1.2*(1 - bord + .3);
-    x.globalAlpha = .55 + .45*bord; x.beginPath(); x.arc(i*pas + pas/2, j*pas + pas/2 + ond + (1 - bord)*6*Math.sin(t*3 + i), r, 0, 7); x.fill(); }
-  x.globalAlpha = 1;
+/* 5 · la trame : des rangees de points qui epousent le relief (lumiere structuree) ; taille = ombre ; le bas se dissout en particules */
+const hache = (a, b) => { const v = Math.sin(a*127.1 + b*311.7)*43758.5453; return v - Math.floor(v); };
+function trame(now){ const { x, w, h } = cadre($('trame')); dessineTrame(x, w, h, video, L, CHEV, now/1000, w < 600 ? 6 : 8, false); }
+function dessineTrame(x, w, h, src, Lm, chev, t, pas, fond){
+  x.clearRect(0, 0, w, h);
+  if(fond){ const g = x.createLinearGradient(0, 0, 0, h); g.addColorStop(0, '#cdeff0'); g.addColorStop(1, '#93d3d6'); x.fillStyle = g; x.beginPath(); if(x.roundRect) x.roundRect(0, 0, w, h, 18); else x.rect(0, 0, w, h); x.fill(); }
+  const vw = src.videoWidth || src.width, vh = src.videoHeight || src.height; if(!vw || vw < 3) return;
+  const c = champs(src, Lm, chev), b = c.b, k = h*(fond ? .42 : .34)/(b.fh*vh), ox = w*.5, oy = h*(fond ? .37 : .33), fhp = b.fh*vh*k, ych = oy + ((Lm ? Lm[152].y : b.y1) - b.cy)*vh*k;
+  const toU = X => b.cx - (X - ox)/(vw*k), toV = Y => b.cy + (Y - oy)/(vh*k);
+  // contraste : la lumiere ramenee entre le 3e et le 97e centile de la silhouette
+  const bornes = (M, s0) => { const hist = new Uint32Array(64); let tot = 0; for(let q = 0; q < SW*SH; q++) if(M[q] > s0){ hist[Math.min(63, c.lum[q]*64 | 0)]++; tot++; }
+    let lo = 0, hi = 1, acc = 0; for(let q = 0; q < 64; q++){ acc += hist[q]; if(acc < tot*.04) lo = (q + 1)/64; if(acc < tot*.96) hi = (q + 1)/64; } if(hi - lo < .08) hi = lo + .08; return [lo, hi]; };
+  const [lo, hi] = bornes(c.F, .6), [vlo, vhi] = bornes(c.V, .85);
+  const L1 = flou(c.lum, SW, SH, 1), amp = pas*2.1, dx = pas*.6, bas = Math.min(h*.8, ych + fhp*.45), fin = Math.min(h*1.02, bas + fhp*1.05);
+  x.fillStyle = '#0f6670'; x.beginPath();
+  for(let Y0 = -pas*4, r0 = 0; Y0 < h + pas*4; Y0 += pas, r0++){ const v = toV(Y0), j = Math.min(SH - 1, Math.max(0, v*SH | 0)); if(v < 0) continue;
+    for(let X = (r0 % 2)*dx*.5; X < w; X += dx){ const u = toU(X); if(u < 0 || u > 1) continue; const i = u*SW | 0, q = j*SW + i, f = c.F[q]; if(f < .28) continue;
+      const bord = Math.min(1, (f - .28)/.4); if(hache(X, Y0) > bord*1.05) continue;
+      let Y = Y0 - c.D[q]*amp + Math.sin(X*.012 + t*1.4)*pas*.12, ln0 = (L1[q] - lo)/(hi - lo), ln1 = (L1[q] - vlo)/(vhi - vlo), vv = c.V[q], ln = Math.min(1, Math.max(0, ln0*(1 - vv) + ln1*vv));
+      const base = .34 - .14*vv; let r = pas*.5*(base + (1 - base)*Math.pow(1 - ln, 1.15))*(.55 + .45*bord);
+      if(Y > bas){ const e = Math.min(1, (Y - bas)/(fin - bas)), hz = hache(Y0, X); if(hz < e*1.05) continue; Y += e*e*pas*3*hache(X, Y0 + 1); r *= 1 - e*.55; }
+      if(r < .35) continue; x.moveTo(X + r, Y); x.arc(X, Y, r, 0, 6.2832); } }
+  x.fill();
+  // la poussiere qui tombe sous le buste
+  x.fillStyle = 'rgba(15,102,112,.55)'; x.beginPath(); const lw = b.fw*vw*k*3.4;
+  for(let p = 0; p < 260; p++){ const a = hache(p, 1), e = hache(p, 2), X = ox + (a - .5)*lw*(.6 + e*.6), Y = bas + ((hache(p, 3)*(h - bas + pas*6) + t*(6 + e*14)) % (h - bas + pas*6)), r = pas*.1 + e*pas*.22;
+    x.moveTo(X + r, Y); x.arc(X, Y, r, 0, 6.2832); }
+  x.fill();
 }
 /* ---- la vraie lecture de peau (le meme moteur que vyvre.fr), en tache de fond pendant l'imagerie ---- */
 const script = src => new Promise((ok, ko) => { const s = document.createElement('script'); s.src = src; s.onload = ok; s.onerror = ko; document.head.appendChild(s); });
@@ -320,7 +397,7 @@ async function moteur(){
   if(!scores){ try { const z = JSON.parse(localStorage.getItem('vyvre_scan_scores') || 'null'); if(z && typeof z.glow === 'number'){ scores = z; } } catch(e){} }
   if(!scores){ exemple = true; scores = { glow:58, redness:64, hydration:52, pores:61, sebum:38, pigmentation:30, wrinkles:66, firmness:63 }; }
   cliché = document.createElement('canvas'); cliché.width = video.videoWidth || 1; cliché.height = video.videoHeight || 1; try { cliché.getContext('2d').drawImage(video, 0, 0); } catch(e){}
-  cliché.L = L && L.map(p => ({ ...p }));
+  cliché.L = L && L.map(p => ({ ...p })); cliché.chev = CHEV.slice();
   if(etape === 4) aller(5);
 }
 /* 6 · organisation : la liste se remplit, les compteurs montent */
@@ -330,6 +407,7 @@ function organiser(){ const o = $('orga'); o.innerHTML = ''; CATS.forEach(([k, t
 function secours(){ if(scores) return; try { const z = JSON.parse(localStorage.getItem('vyvre_scan_scores') || 'null'); if(z && typeof z.glow === 'number'){ scores = z; return; } } catch(e){} exemple = true; scores = { glow:58, redness:64, hydration:52, pores:61, sebum:38, pigmentation:30, wrinkles:66, firmness:63 }; }
 function resultats(){
   secours();
+  if(!cliché && video.videoWidth && L){ cliché = document.createElement('canvas'); cliché.width = video.videoWidth; cliché.height = video.videoHeight; cliché.getContext('2d').drawImage(video, 0, 0); cliché.L = L.map(p => ({ ...p })); cliché.chev = CHEV.slice(); }
   const val = (k, inv) => { const v = Number(scores[k]); if(!isFinite(v)) return null; return Math.round(inv ? 100 - v : v); };
   const lignes = CATS.map(([k, t, inv]) => [k, t, val(k, inv)]).filter(x => x[2] != null);
   const etat = v => v >= 70 ? ['bon', 'Favorable'] : v >= 45 ? ['moy', 'Dans la moyenne'] : ['suivre', 'À suivre'];
@@ -338,12 +416,12 @@ function resultats(){
   $('res').innerHTML = '<div class="mono lum">' + (n ? esc(n) + ' · ' : '') + new Date().toLocaleDateString('fr-FR') + (exemple ? ' · exemple' : '') + '</div><div class="tete"><h1>Peau</h1><canvas id="portrait"></canvas></div><hr>'
     + '<div class="metriques">' + ordre.map(([k, t, v]) => { const [c, l] = etat(v); return '<div class="met"><h3>' + t + (prio.has(k) ? ' <span class="delta">◉ priorité</span>' : '') + '</h3><div class="curseur"><div class="rail"></div><div class="rempli" style="width:' + v + '%"></div><div class="val" style="left:' + v + '%">' + v + '</div><div class="pt" style="left:' + v + '%"></div></div><div class="zones"><span>À travailler</span><span>Moyenne</span><span>Favorable</span></div><span class="puce ' + c + '">' + l.toUpperCase() + '</span></div>'; }).join('') + '</div><hr>'
     + '<div class="duo"><div><small>Points mesurés</small><b>' + (L ? L.length : 478) + '</b></div><div><small>Catégories</small><b>08</b></div></div><hr>'
-    + '<h3 style="font:600 26px var(--sans)">Gros plan</h3><p class="note">Une zone de votre joue, agrandie. Les carrés marquent des repères visuels contrastés, pour les retrouver d’une lecture à l’autre. Pas un diagnostic.</p><div class="gros-plan"><canvas id="gp"></canvas></div>'
+    + '<h3 style="font:600 26px var(--sans)">Ce que la lecture a repéré</h3><div class="gp-wrap"><div class="gros-plan"><canvas id="gp"></canvas></div><div><div id="gpListe"></div><p class="note">Repères visuels sur votre cliché, pour les retrouver d’une lecture à l’autre. Pas un diagnostic.</p></div></div><hr>'
     + '<h3 style="font:600 26px var(--sans)">Vos soins</h3><p class="note">Choisis dans le catalogue pour vos deux points à travailler en priorité.</p><div class="soins" id="soins"><p class="note">Chargement du catalogue…</p></div><hr>'
     + '<div class="suite"><a href="/aliment"><span class="mono">Ensuite</span><b>Votre assiette →</b></a><a href="/scan/"><span class="mono">Ensuite</span><b>Vos soins →</b></a></div>'
     + '<p class="note">Lecture optique de l’image, faite sur cet appareil. Elle ne remplace pas l’avis d’un dermatologue.' + (exemple ? ' Ces valeurs sont un exemple : la caméra n’a pas pu lire votre peau.' : '') + '</p>';
   requestAnimationFrame(grosPlan);
-  requestAnimationFrame(() => { const cv = $('portrait'); const src = cliché && cliché.width > 2 ? cliché : (video.videoWidth ? video : null); if(cv && src){ const { x, w, h } = cadre(cv); petit.width = 0; dessineTrame(x, w, h, src, (cliché && cliché.L) || L, 0, true, 6); } });
+  requestAnimationFrame(() => { const cv = $('portrait'); const src = cliché && cliché.width > 2 ? cliché : (video.videoWidth ? video : null); if(cv && src){ const { x, w, h } = cadre(cv); dessineTrame(x, w, h, src, (cliché && cliché.L) || L, (cliché && cliché.chev) || CHEV, 0, w < 260 ? 4.5 : 5.5, true); } });
   soins(ordre);
 }
 /* de vrais soins du catalogue (le meme que vyvre.fr), pour les deux categories les plus faibles */
@@ -353,22 +431,37 @@ async function soins(ordre){ const z = $('soins'); try { const j = await (await 
   const lab = Object.fromEntries(CATS.map(c => [c[0], c[1]]));
   z.innerHTML = pris.map(p => '<a class="soin" href="' + esc(p.url || '#') + '" target="_blank" rel="noopener"><img alt="" src="' + esc(p.cutout_url) + '"><span class="mono">' + esc(p.brand_name || p.brand) + '</span><b>' + esc(p.name) + '</b><em>' + (p.targets || []).filter(t => faibles.includes(t)).map(t => lab[t]).join(' · ') + '</em></a>').join('') || '<p class="note">Aucun soin trouvé.</p>'; } catch(e){ z.innerHTML = '<p class="note">Catalogue indisponible.</p>'; } }
 const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' })[c]);
-/* le gros plan : la joue agrandie depuis le vrai cliche ; reperes = petites zones nettement plus sombres que leur voisinage */
+/* le gros plan : votre vrai visage en transparence, dans un petit ecran retroeclaire ; carres bleus = zones reperees sur le cliche
+   (rougeur locale : rouge nettement au-dessus du voisinage ; point sombre : lumiere nettement en dessous). Yeux, sourcils, levres et narines exclus. */
 function grosPlan(){
-  const cv = $('gp'); if(!cv) return; const { x, w, h } = cadre(cv); x.fillStyle = '#e8d3c7'; x.fillRect(0, 0, w, h);
-  if(!cliché || !cliché.L){ x.fillStyle = 'rgba(0,0,0,.35)'; x.font = '15px Figtree'; x.fillText('Gros plan indisponible sans caméra.', 20, 30); return; }
-  const Lm = cliché.L, W = cliché.width, H = cliché.height, joue = [50, 205, 187, 123, 116, 117, 101, 36, 129, 98, 1].map(i => Lm[i]);
-  let x0 = 1, x1 = 0, y0 = 1, y1 = 0; joue.forEach(p => { x0 = Math.min(x0, p.x); x1 = Math.max(x1, p.x); y0 = Math.min(y0, p.y); y1 = Math.max(y1, p.y); });
-  const sw = Math.max((x1 - x0)*W*1.05, (y1 - y0)*H*1.05*w/h), sh = sw*h/w, sx = ((x0 + x1)/2)*W - sw/2, sy = ((y0 + y1)/2)*H - sh/2;
-  x.save(); x.imageSmoothingQuality = 'high'; x.filter = 'saturate(.8) contrast(1.22) brightness(1.06)'; x.translate(w, 0); x.scale(-1, 1); x.drawImage(cliché, sx, sy, sw, sh, 0, 0, w, h); x.restore();
-  // reperes : carte de luminance 80 x 45, moyenne locale, ecarts negatifs les plus marques et separes
-  const gw = 80, gh = 45, c2 = document.createElement('canvas'); c2.width = gw; c2.height = gh; const g2 = c2.getContext('2d'); g2.drawImage(cv, 0, 0, gw, gh);
-  const dd = g2.getImageData(0, 0, gw, gh).data, Y = new Float32Array(gw*gh); for(let i = 0; i < gw*gh; i++) Y[i] = dd[i*4]*.299 + dd[i*4 + 1]*.587 + dd[i*4 + 2]*.114;
-  const cand = []; for(let j = 4; j < gh - 4; j++) for(let i = 4; i < gw - 4; i++){ let m = 0, c = 0; for(let b = -4; b <= 4; b++) for(let a = -4; a <= 4; a++){ m += Y[(j + b)*gw + i + a]; c++; } const ec = m/c - Y[j*gw + i]; if(ec > 4) cand.push({ i, j, ec }); }
-  cand.sort((a, b) => b.ec - a.ec); const pris = []; for(const p of cand){ if(pris.length >= 7) break; if(pris.every(q => Math.hypot(q.i - p.i, q.j - p.j) > 9)) pris.push(p); }
-  x.strokeStyle = 'rgba(64,214,240,.95)'; x.shadowColor = 'rgba(64,214,240,.8)'; x.shadowBlur = 10; x.lineWidth = 3;
-  pris.forEach((p, k) => { const px = (p.i + .5)/gw*w, py = (p.j + .5)/gh*h, s = 18 + Math.min(16, p.ec); x.beginPath(); if(x.roundRect) x.roundRect(px - s/2, py - s/2, s, s, 5); else x.rect(px - s/2, py - s/2, s, s); x.stroke(); });
+  const cv = $('gp'); if(!cv) return; const { x, w, h } = cadre(cv); x.clearRect(0, 0, w, h);
+  if(!cliché || !cliché.L){ x.fillStyle = 'rgba(230,251,249,.6)'; x.font = '15px Figtree'; x.fillText('Gros plan indisponible sans caméra.', 20, 30); $('gpListe').innerHTML = ''; return; }
+  const Lm = cliché.L, W = cliché.width, H = cliché.height, b = boite(Lm);
+  let sh = b.fh*H*1.32, sw = sh*w/h; if(sw < b.fw*W*1.3){ sw = b.fw*W*1.3; sh = sw*h/w; } const sx = b.cx*W - sw/2, sy = b.cy*H - sh/2 - sh*.02;
+  // le visage, a moitie transparent, sur le fond bleu
+  x.save(); x.globalAlpha = .5; x.filter = 'saturate(.75) contrast(1.12)'; x.translate(w, 0); x.scale(-1, 1); x.drawImage(cliché, sx, sy, sw, sh, 0, 0, w, h); x.restore();
+  // analyse sur une grille 120 x ...
+  const aw = 120, ah = Math.round(aw*h/w), a = document.createElement('canvas'); a.width = aw; a.height = ah; const ag = a.getContext('2d', { willReadFrequently:true });
+  ag.drawImage(cliché, sx, sy, sw, sh, 0, 0, aw, ah); const dd = ag.getImageData(0, 0, aw, ah).data;
+  const P = p => [(p.x*W - sx)/sw*aw, (p.y*H - sy)/sh*ah];
+  ag.fillStyle = '#000'; ag.fillRect(0, 0, aw, ah); ag.fillStyle = '#fff'; ag.beginPath(); OVALE.forEach((i, k) => { const [px, py] = P(Lm[i]); k ? ag.lineTo(px, py) : ag.moveTo(px, py); }); ag.closePath(); ag.fill();
+  ag.strokeStyle = '#000'; ag.lineWidth = aw*.06; ag.stroke(); ag.fillStyle = '#000';
+  const trou = (ids, k) => { let cx = 0, cy = 0, r = 0; const pts = ids.map(i => P(Lm[i])); pts.forEach(([px, py]) => { cx += px; cy += py; }); cx /= pts.length; cy /= pts.length; pts.forEach(([px, py]) => r = Math.max(r, Math.hypot(px - cx, py - cy))); ag.beginPath(); ag.ellipse(cx, cy, r*k, r*k*.8, 0, 0, 7); ag.fill(); };
+  trou([33, 133, 159, 145], 1.9); trou([362, 263, 386, 374], 1.9); trou([70, 63, 105, 66, 107], 1.05); trou([300, 293, 334, 296, 336], 1.05); trou([61, 291, 0, 17], 1.55); trou([98, 2, 327, 4], 1.0);
+  const mk = ag.getImageData(0, 0, aw, ah).data, n = aw*ah, Y = new Float32Array(n), R = new Float32Array(n), M = new Float32Array(n);
+  for(let i = 0; i < n; i++){ Y[i] = dd[i*4]*.299 + dd[i*4 + 1]*.587 + dd[i*4 + 2]*.114; R[i] = dd[i*4] - (dd[i*4 + 1] + dd[i*4 + 2])/2; M[i] = mk[i*4] > 128 ? 1 : 0; }
+  const Yb = flou(Y, aw, ah, 5), Rb = flou(R, aw, ah, 5), Y1 = flou(Y, aw, ah, 1), R1 = flou(R, aw, ah, 1), cand = [];
+  for(let j = 2; j < ah - 2; j++) for(let i = 2; i < aw - 2; i++){ const k = j*aw + i; if(!M[k]) continue; const er = R1[k] - Rb[k], es = Yb[k] - Y1[k];
+    if(er > 4) cand.push({ i, j, s:er, t:'rouge' }); if(es > 5) cand.push({ i, j, s:es, t:'sombre' }); }
+  const pris = []; ['rouge', 'sombre'].forEach(ty => { let m = 0; cand.filter(c => c.t === ty).sort((p, q) => q.s - p.s).forEach(c => { if(m < 4 && pris.every(q => Math.hypot(q.i - c.i, q.j - c.j) > aw*.12)){ pris.push(c); m++; } }); });
+  // les carres bleus, en miroir comme le visage
+  x.lineWidth = 2.4; x.strokeStyle = 'rgba(80,220,255,.98)'; x.fillStyle = 'rgba(80,220,255,.10)'; x.shadowColor = 'rgba(80,220,255,.9)'; x.shadowBlur = 12; x.font = '500 10px "IBM Plex Mono", monospace';
+  pris.forEach((p, k) => { const px = w - (p.i + .5)/aw*w, py = (p.j + .5)/ah*h, s = Math.max(16, w*.055) + Math.min(10, p.s*.6);
+    x.beginPath(); if(x.roundRect) x.roundRect(px - s/2, py - s/2, s, s, 4); else x.rect(px - s/2, py - s/2, s, s); x.fill(); x.stroke();
+    x.shadowBlur = 0; x.fillStyle = 'rgba(200,245,255,.95)'; x.fillText((p.t === 'rouge' ? 'R' : 'S') + String(k + 1).padStart(2, '0'), px + s/2 + 4, py - s/2 + 9); x.fillStyle = 'rgba(80,220,255,.10)'; x.shadowBlur = 12; });
   x.shadowBlur = 0;
+  const nr = pris.filter(p => p.t === 'rouge').length, ns = pris.length - nr;
+  $('gpListe').innerHTML = '<div class="gp-l"><b>' + String(nr).padStart(2, '0') + '</b><span>R · Zones plus rouges<br><em>que la peau autour</em></span></div><div class="gp-l"><b>' + String(ns).padStart(2, '0') + '</b><span>S · Points plus sombres<br><em>que la peau autour</em></span></div>';
 }
 </script>
 </body>
