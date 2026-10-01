@@ -175,8 +175,7 @@ canvas.plein{position:absolute;inset:0;width:100%;height:100%}
     <span class="etiq">Votre lecture</span>
     <h2 class="liste-t">Comment vous appeler ?</h2>
     <input class="prenom" id="prenom" maxlength="20" placeholder="Votre prénom" autocomplete="given-name">
-    <div class="genre" id="genre"><button data-g="f">Femme</button><button data-g="h">Homme</button><button data-g="">Ne pas préciser</button></div>
-    <p class="note" style="color:#f6ead6">Pour la silhouette de votre lecture. Rien ne quitte cet appareil. Facultatif.</p>
+    <p class="note" style="color:#f6ead6">Il reste sur cet appareil. Facultatif.</p>
     <div class="statut"><span class="mono">Statut [prêt]</span><button class="fleche" data-go="3" aria-label="Continuer">→</button></div>
   </section>
   <!-- 3 · preparation -->
@@ -259,13 +258,12 @@ function auto(vers, ms){ clearTimeout(autoT); const v = VUES[etape]; let b = v.q
 $('nav').innerHTML = VUES.map(() => '<i></i>').join(''); $('nav').onclick = e => { const k = [...$('nav').children].indexOf(e.target); if(k >= 0) aller(k); };
 document.addEventListener('click', e => { const g = e.target.closest('[data-go]'); if(g) aller(+g.dataset.go); });
 let genre = null, genreChoisi = false;
-$('genre').onclick = e => { const b = e.target.closest('button'); if(!b) return; $('genre').querySelectorAll('button').forEach(x => x.classList.toggle('on', x === b)); genre = b.dataset.g || null; genreChoisi = true; valide(3, 2200); };
 $('prenom').addEventListener('keydown', e => { if(e.key === 'Enter') aller(3); });
 const PF = new Set('marie anne sophie julie camille claire lea emma chloe sarah laura manon pauline marion lucie elodie celine sandrine nathalie isabelle valerie stephanie christine catherine sylvie veronique caroline aurelie emilie charlotte alice louise jeanne ines lina mia jade rose anna eva zoe juliette agathe margaux helene florence delphine patricia martine brigitte monique francoise nadia fatima amina yasmine sara leila myriam stephanie audrey melanie virginie severine laetitia estelle oceane clara victoire capucine diane mathilde constance ambre elise apolline romane louna'.split(' '));
 const PH = new Set('charles pierre philippe jerome stephane guillaume baptiste jean paul louis lucas hugo leo gabriel arthur jules adam raphael nathan thomas nicolas julien antoine alexandre maxime mathieu matthieu romain sebastien olivier christophe frederic laurent eric david michel alain bernard patrick daniel francois vincent benoit damien florian quentin kevin anthony mohamed ahmed karim yanis sami noah ethan tom theo victor martin simon felix oscar marc luc andre rene serge thierry didier pascal cedric gregory jeremy remi achille come gaspard'.split(' '));
 function genreDuPrenom(n){ const k = n.trim().split(/[\s-]/)[0].toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); if(!k) return undefined; if(PF.has(k)) return 'f'; if(PH.has(k)) return 'h'; if(/(a|ine|ette|elle|ie|ee)$/.test(k)) return 'f'; return undefined; }
 $('prenom').addEventListener('input', () => { const el = $('prenom'), v = el.value; if(v && v[0] !== v[0].toUpperCase()){ const c = el.selectionStart; el.value = v[0].toUpperCase() + v.slice(1); el.setSelectionRange(c, c); }
-  if(!genreChoisi){ const g = genreDuPrenom(el.value); $('genre').querySelectorAll('button').forEach(x => x.classList.toggle('on', g !== undefined && x.dataset.g === g)); genre = g === undefined ? null : g; } if($('prenom').value.trim()) valide(3, 2500); else clearTimeout(autoT); });
+  { const g = genreDuPrenom(el.value); genre = g === undefined ? null : g; }   // la silhouette se deduit du prenom ; inconnu = entre-deux if($('prenom').value.trim()) valide(3, 2500); else clearTimeout(autoT); });
 /* priorites : un toucher, ca s'allume */
 $('prio').innerHTML = CATS.map(([k, t]) => '<button data-k="' + k + '">' + t + '<em>à suivre</em></button>').join('');
 /* les questions : un ecran, trois etapes ; un toucher remplit la fleche puis on passe ; sans reponse, « tous » au bout de quelques secondes */
