@@ -314,7 +314,7 @@ const ENTREE = {
   2(){ setTimeout(() => $('prenom').focus(), 600); },
   3(){ },
   9(){ qi = 0; question(); },
-  4(){ camera(); setTimeout(() => { if(etape === 4 && L) aller(7); }, 7000); },
+  4(){ camera(); },
   5(){ tourneB = 0; reveleB = 1; if(glb.parentNode !== VUES[5]){ glb.className = 'plein visible'; VUES[5].insertBefore(glb, $('trame')); } t5 = performance.now(); setTimeout(() => { if(etape === 5) aller(6); }, 10200); },
   6(){ organiser(); },
   7(){ const n = ($('prenom').value || '').trim(); $('nomg').textContent = n || 'Vous'; $('st7').textContent = n ? n + '.' : 'Vos résultats.';
@@ -508,11 +508,12 @@ async function moteur(){
     $('consigne').textContent = 'Ne bougez plus, la lecture commence.';
     let essais = 0;
     while(!scores && essais < 2){ essais++;
-      const r = await window.VYVRE_SCAN_ENGINE.runRealScanWithFeedback(video, ev => { if(ev.phase === 'positioning' && ev.distance === 'too_far') $('consigne').textContent = 'Rapprochez-vous un peu.'; else if(ev.phase === 'analyzing') $('consigne').textContent = 'Analyse de la lumière de votre peau…'; }, { skipGate:true, skipAge:true, fast:true });
+      const r = await window.VYVRE_SCAN_ENGINE.runRealScanWithFeedback(video, ev => { if(ev.phase === 'positioning' && ev.distance === 'too_far') $('consigne').textContent = 'Rapprochez-vous un peu.'; else if(ev.phase === 'analyzing') $('consigne').textContent = 'Analyse de la lumière de votre peau…'; }, { skipAge:true });   /* 02/10 (Charles) : la lecture complete du scan classique (controle de qualite, 8 images sur 5 s) ; seul l'age, non affiche ici, est saute */
       document.getElementById('vyvre-v9-reject')?.remove();
       if(r && r.scores && !r.rejected){ scores = r.scores; break; }
       $('consigne').textContent = 'Regardez droit vers l’écran, on recommence.'; }
-  } catch(e){ console.warn(e); }
+  } catch(e){ console.warn(e); window.__labErreur = String(e && e.message || e); }
+  window.__labSource = scores ? 'moteur' : 'secours';
   if(!scores){ try { const z = JSON.parse(localStorage.getItem('vyvre_scan_scores') || 'null'); if(z && typeof z.glow === 'number'){ scores = z; } } catch(e){} }
   if(!scores){ exemple = true; scores = { glow:58, redness:64, hydration:52, pores:61, sebum:38, pigmentation:30, wrinkles:66, firmness:63 }; }
   cliché = document.createElement('canvas'); cliché.width = video.videoWidth || 1; cliché.height = video.videoHeight || 1; try { cliché.getContext('2d').drawImage(video, 0, 0); } catch(e){}
