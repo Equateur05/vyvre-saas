@@ -501,21 +501,24 @@ function modeles(){ return mods || (mods = (async () => { const fs = await Files
 let pret = null;
 function prechauffe(){ return pret || (pret = (async () => { if(!window.faceapi) await script('/scan/vendor/face-api-1.7.15.min.js'); if(!window.VYVRE_SCAN_ENGINE) await script('/scan/vyvre-scan-engine.js?v=10.7');
   await Promise.all([faceapi.nets.tinyFaceDetector.loadFromUri('/scan/models/faceapi'), faceapi.nets.faceLandmark68Net.loadFromUri('/scan/models/faceapi')]); })()); }
+/* la vraie lecture, sinon rien : si le moteur refuse (lumiere, distance, angle...), on dit pourquoi et on recommence ; jamais d'ancien resultat ni d'exemple deguise */
+const RAISONS = { NO_FACE:'Aucun visage net dans l’image.', MULTIPLE_FACES:'Plusieurs visages dans l’image : restez seul face à l’écran.', FACE_TOO_SMALL:'Vous êtes trop loin : rapprochez-vous.', FACE_TOO_LARGE:'Vous êtes trop près : reculez un peu.', OFF_CENTER:'Centrez votre visage.', OCCLUDED_LANDMARKS:'Une partie du visage est cachée (cheveux, main, lunettes).', WRONG_ANGLE:'Regardez droit vers l’écran, la tête droite.', LOW_LUMINANCE:'Trop sombre : tournez-vous vers une lumière.', HIGH_LUMINANCE:'Trop de lumière directe : évitez le contre-jour ou le soleil.', LOW_VARIANCE:'Image trop floue ou trop uniforme : nettoyez la caméra.', INSUFFICIENT_FRAMES:'Image instable : ne bougez plus pendant la lecture.' };
 async function moteur(){
+  let raison = '';
   try { await prechauffe();
     // on attend un visage stable avant de lancer
     for(let i = 0; i < 25 && stable < 8; i++) await new Promise(r => setTimeout(r, 100));
     $('consigne').textContent = 'Ne bougez plus, la lecture commence.';
     let essais = 0;
-    while(!scores && essais < 2){ essais++;
+    while(!scores && essais < 3){ essais++;
       const r = await window.VYVRE_SCAN_ENGINE.runRealScanWithFeedback(video, ev => { if(ev.phase === 'positioning' && ev.distance === 'too_far') $('consigne').textContent = 'Rapprochez-vous un peu.'; else if(ev.phase === 'analyzing') $('consigne').textContent = 'Analyse de la lumière de votre peau…'; }, { skipAge:true });   /* 02/10 (Charles) : la lecture complete du scan classique (controle de qualite, 8 images sur 5 s) ; seul l'age, non affiche ici, est saute */
       document.getElementById('vyvre-v9-reject')?.remove();
       if(r && r.scores && !r.rejected){ scores = r.scores; break; }
-      $('consigne').textContent = 'Regardez droit vers l’écran, on recommence.'; }
-  } catch(e){ console.warn(e); window.__labErreur = String(e && e.message || e); }
-  window.__labSource = scores ? 'moteur' : 'secours';
-  if(!scores){ try { const z = JSON.parse(localStorage.getItem('vyvre_scan_scores') || 'null'); if(z && typeof z.glow === 'number'){ scores = z; } } catch(e){} }
-  if(!scores){ exemple = true; scores = { glow:58, redness:64, hydration:52, pores:61, sebum:38, pigmentation:30, wrinkles:66, firmness:63 }; }
+      const codes = (r && r.issues || []).map(x => x.code); raison = codes.map(c => RAISONS[c]).filter(Boolean)[0] || 'La lecture n’a pas pu se faire.';
+      $('consigne').textContent = raison + ' On recommence…'; await new Promise(r2 => setTimeout(r2, 1800)); }
+  } catch(e){ console.warn(e); window.__labErreur = String(e && e.message || e); raison = 'La lecture n’a pas pu se faire sur cet appareil.'; }
+  window.__labSource = scores ? 'moteur' : 'refus'; window.__labScores = scores;
+  if(!scores){ $('consigne').innerHTML = esc(raison || 'La lecture n’a pas pu se faire.') + ' <button class="fleche" id="refaire" style="width:auto;padding:0 18px;font-size:16px;height:44px;margin-left:10px">Recommencer</button>'; $('refaire').onclick = () => { $('consigne').textContent = 'On recommence…'; moteur(); }; return; }
   cliché = document.createElement('canvas'); cliché.width = video.videoWidth || 1; cliché.height = video.videoHeight || 1; try { cliché.getContext('2d').drawImage(video, 0, 0); } catch(e){}
   cliché.L = L && L.map(p => ({ ...p })); cliché.chev = CHEV.slice(); cliché.Lsnap = Lsnap;
   fini = true; if(etape === 4) aller(7);
@@ -524,7 +527,7 @@ async function moteur(){
 function organiser(){ const o = $('orga'); o.innerHTML = ''; CATS.forEach(([k, t], i) => setTimeout(() => { const b = document.createElement('button'); b.className = 'on'; b.innerHTML = t + '<em>' + (prio.has(k) ? 'priorité' : 'lu') + '</em>'; o.appendChild(b); }, 260*i));
   const fin = 478, t0 = performance.now(); const monte = now => { const u = Math.min(1, (now - t0)/2200), e = 1 - Math.pow(1 - u, 3); $('c1').textContent = Math.round(fin*e); $('c2').textContent = String(Math.round(8*e)).padStart(2, '0'); if(u < 1 && etape === 6) requestAnimationFrame(monte); else if(etape === 6){ $('st6').textContent = 'Statut [prêt]'; setTimeout(() => { if(etape === 6) aller(7); }, 1100); } }; requestAnimationFrame(monte); }
 /* 8 · resultats : la peau en curseurs, grands chiffres, et un gros plan avec ses reperes */
-function secours(){ if(scores) return; try { const z = JSON.parse(localStorage.getItem('vyvre_scan_scores') || 'null'); if(z && typeof z.glow === 'number'){ scores = z; return; } } catch(e){} exemple = true; scores = { glow:58, redness:64, hydration:52, pores:61, sebum:38, pigmentation:30, wrinkles:66, firmness:63 }; }
+function secours(){ if(scores) return; /* sans vraie lecture (camera refusee, navigation directe) : un exemple, toujours annonce comme tel */ exemple = true; scores = { glow:58, redness:64, hydration:52, pores:61, sebum:38, pigmentation:30, wrinkles:66, firmness:63 }; }
 function resultats(){
   secours();
   if(!cliché && video.videoWidth && L){ cliché = document.createElement('canvas'); cliché.width = video.videoWidth; cliché.height = video.videoHeight; cliché.getContext('2d').drawImage(video, 0, 0); cliché.L = L.map(p => ({ ...p })); cliché.chev = CHEV.slice(); }
