@@ -4125,7 +4125,8 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
             emit({ phase: 'positioning', progress: 0.0, light: 'checking', distance: 'checking', stability: 'checking' });
 
             const gateFrames = [];
-            const interval = V9_THRESHOLDS.PRESCAN_DURATION_MS / V9_THRESHOLDS.PRESCAN_TARGET_FRAMES;
+            // 02/10 : opts.gateMs (propale Lab) : les memes 15 images de controle, moins espacees ; sans l'option, rien ne change
+            const interval = (opts.gateMs || V9_THRESHOLDS.PRESCAN_DURATION_MS) / V9_THRESHOLDS.PRESCAN_TARGET_FRAMES;
             const faceApiReady = !!(typeof window !== 'undefined' && window.faceapi &&
                                   window.faceapi.nets && window.faceapi.nets.tinyFaceDetector &&
                                   window.faceapi.nets.tinyFaceDetector.params);
@@ -4184,14 +4185,14 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
           // 01/10 : opts.fast (parcours aliment, qui verifie deja le visage en direct) : compte a rebours court
           for (let cd = 3; cd >= 1; cd--) {
             emit({ phase: 'capturing', countdown: cd });
-            await new Promise(r => setTimeout(r, opts.fast ? 150 : 600));
+            await new Promise(r => setTimeout(r, opts.sansDecompte ? 0 : opts.fast ? 150 : 600));   // 02/10 : opts.sansDecompte, le 3-2-1 n'est qu'un affichage
           }
 
           emit({ phase: 'capturing', countdown: 0, message: 'scanning' });
 
           // ─── PHASE 3 : analyzing (biomarkers + CNN ensemble + clinical) ──
           emit({ phase: 'analyzing', subprocess: 'biomarkers', progress: 0.1 });
-          const result = await analyzeMultiFrame(videoEl, opts.fast ? 2400 : undefined, opts.fast ? 6 : undefined);   // 01/10 : mode rapide, 6 images sur 2,4 s
+          const result = await analyzeMultiFrame(videoEl, opts.fast ? 2400 : (opts.analyseMs || undefined), opts.fast ? 6 : undefined);   // 01/10 : mode rapide, 6 images sur 2,4 s ; 02/10 : opts.analyseMs garde les 8 images, moins espacees
 
           emit({ phase: 'analyzing', subprocess: 'biomarkers', progress: 0.5 });
           const scores = mapToScores(result.raw);

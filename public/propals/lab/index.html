@@ -499,7 +499,7 @@ function modeles(){ return mods || (mods = (async () => { const fs = await Files
     try { seg = await ImageSegmenter.createFromOptions(fs, { baseOptions:{ modelAssetPath:'/cheveux/vendor/mediapipe/modeles/hair_segmenter.tflite', delegate:'CPU' }, runningMode:'VIDEO', outputConfidenceMasks:true, outputCategoryMask:false }); } catch(e){ console.warn('cheveux', e); } })()); }
 /* prechauffage : le moteur et ses modeles se chargent des l'accueil, le scan n'attend plus */
 let pret = null;
-function prechauffe(){ return pret || (pret = (async () => { if(!window.faceapi) await script('/scan/vendor/face-api-1.7.15.min.js'); if(!window.VYVRE_SCAN_ENGINE) await script('/scan/vyvre-scan-engine.js?v=10.7');
+function prechauffe(){ return pret || (pret = (async () => { if(!window.faceapi) await script('/scan/vendor/face-api-1.7.15.min.js'); if(!window.VYVRE_SCAN_ENGINE) await script('/scan/vyvre-scan-engine.js?v=10.8');
   await Promise.all([faceapi.nets.tinyFaceDetector.loadFromUri('/scan/models/faceapi'), faceapi.nets.faceLandmark68Net.loadFromUri('/scan/models/faceapi')]); })()); }
 /* la vraie lecture, sinon rien : si le moteur refuse (lumiere, distance, angle...), on dit pourquoi et on recommence ; jamais d'ancien resultat ni d'exemple deguise */
 const RAISONS = { NO_FACE:'Aucun visage net dans l’image.', MULTIPLE_FACES:'Plusieurs visages dans l’image : restez seul face à l’écran.', FACE_TOO_SMALL:'Vous êtes trop loin : rapprochez-vous.', FACE_TOO_LARGE:'Vous êtes trop près : reculez un peu.', OFF_CENTER:'Centrez votre visage.', OCCLUDED_LANDMARKS:'Une partie du visage est cachée (cheveux, main, lunettes).', WRONG_ANGLE:'Regardez droit vers l’écran, la tête droite.', LOW_LUMINANCE:'Trop sombre : tournez-vous vers une lumière.', HIGH_LUMINANCE:'Trop de lumière directe : évitez le contre-jour ou le soleil.', LOW_VARIANCE:'Image trop floue ou trop uniforme : nettoyez la caméra.', INSUFFICIENT_FRAMES:'Image instable : ne bougez plus pendant la lecture.' };
@@ -507,11 +507,11 @@ async function moteur(){
   let raison = '';
   try { await prechauffe();
     // on attend un visage stable avant de lancer
-    for(let i = 0; i < 25 && stable < 8; i++) await new Promise(r => setTimeout(r, 100));
+    for(let i = 0; i < 10 && stable < 2; i++) await new Promise(r => setTimeout(r, 100));
     $('consigne').textContent = 'Ne bougez plus, la lecture commence.';
     let essais = 0;
     while(!scores && essais < 3){ essais++;
-      const r = await window.VYVRE_SCAN_ENGINE.runRealScanWithFeedback(video, ev => { if(ev.phase === 'positioning' && ev.distance === 'too_far') $('consigne').textContent = 'Rapprochez-vous un peu.'; else if(ev.phase === 'analyzing') $('consigne').textContent = 'Analyse de la lumière de votre peau…'; }, { skipAge:true });   /* 02/10 (Charles) : la lecture complete du scan classique (controle de qualite, 8 images sur 5 s) ; seul l'age, non affiche ici, est saute */
+      const r = await window.VYVRE_SCAN_ENGINE.runRealScanWithFeedback(video, ev => { if(ev.phase === 'positioning' && ev.distance === 'too_far') $('consigne').textContent = 'Rapprochez-vous un peu.'; else if(ev.phase === 'analyzing') $('consigne').textContent = 'Analyse de la lumière de votre peau…'; }, { skipAge:true, sansDecompte:true, gateMs:1100, analyseMs:2400 });   /* 02/10 (Charles) : la lecture du scan classique, memes 15 images de controle et memes 8 images analysees, sans temps morts ; seul l'age, non affiche ici, est saute */
       document.getElementById('vyvre-v9-reject')?.remove();
       if(r && r.scores && !r.rejected){ scores = r.scores; break; }
       const codes = (r && r.issues || []).map(x => x.code); raison = codes.map(c => RAISONS[c]).filter(Boolean)[0] || 'La lecture n’a pas pu se faire.';
