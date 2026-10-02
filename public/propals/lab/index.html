@@ -161,7 +161,12 @@ canvas.plein{position:absolute;inset:0;width:100%;height:100%}
 #nav{position:fixed;left:50%;bottom:calc(10px + env(safe-area-inset-bottom));translate:-50% 0;display:flex;gap:4px;z-index:20;padding:5px;border-radius:999px;background:rgba(20,18,15,.7);backdrop-filter:blur(10px)}
 #nav i{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.25);cursor:pointer}#nav i.on{background:#e6fbf9}
 @media (max-width:760px){.ecran{width:calc(100vw - 20px);height:calc(100svh - 70px)}.cartes{grid-template-columns:1fr;gap:10px}.carte{min-height:110px}.carte svg{inset:12% 6% 12% 58%;width:36%;height:76%}.carte .mono{left:18px;right:auto}
- .metriques{grid-template-columns:1fr}.compteurs{right:6%}.compteurs b{font-size:64px}.suite{grid-template-columns:1fr}.lecture{top:auto;bottom:16%}.titre-persp{font-size:28px}}
+ .metriques{grid-template-columns:1fr}
+ h2.liste-t{white-space:normal;font-size:clamp(30px,8.6vw,44px)}.liste,.liste.menu{max-width:100%}.liste.menu button{font-size:clamp(34px,10.5vw,52px)}.liste button em{font-size:10px;text-align:right}
+ .vue:nth-of-type(2) .compteurs{display:none}.lecture{display:none}
+ .anneau{width:min(64vh,86vw)}.anneau.a2{width:min(40vh,66vw)}.anneau.a3{width:min(29vh,50vw)}.charge{width:min(56vh,80vw)}.nom-geant{font-size:clamp(40px,11vw,64px)}
+ .res{padding-left:calc(var(--px) - 16px);padding-right:calc(var(--px) - 16px)} .tete{flex-direction:column;align-items:flex-start}.tete .portrait-gl,.tete canvas{width:100%;max-width:360px;align-self:center}.res h1{font-size:clamp(52px,15vw,72px)}
+ .marque{font-size:clamp(52px,15vw,80px)}.sous-titre{font-size:18px;padding:0 18px}.consigne{padding:0 18px;font-size:16px}.compteurs{right:6%}.compteurs b{font-size:64px}.suite{grid-template-columns:1fr}.lecture{top:auto;bottom:16%}.titre-persp{font-size:28px}}
 </style>
 </head>
 <body>
@@ -256,7 +261,7 @@ let fini = false, etape = 0, L = null, nbPts = 0, scores = null, exemple = false
 
 /* ---- navigation : chaque ecran a son angle de camera ---- */
 function aller(i){ if(i === etape) return; VUES.forEach(x => x.classList.remove('on')); etape = i; const v = VUES[i]; v.classList.add('on');
-  ecran.className = 'ecran t-' + v.dataset.t; ecran.style.setProperty('--ry', (parseFloat(v.dataset.ry)*.3).toFixed(2) + 'deg'); ecran.style.setProperty('--rx', (parseFloat(v.dataset.rx)*.5).toFixed(2) + 'deg'); ecran.style.setProperty('--rz', (parseFloat(v.dataset.rz || 0)*.3).toFixed(2) + 'deg'); clearTimeout(autoT); setTimeout(() => dof(v), 1850);
+  ecran.className = 'ecran t-' + v.dataset.t; const tel = innerWidth < 760 ? .35 : 1; ecran.style.setProperty('--ry', (parseFloat(v.dataset.ry)*.3*tel).toFixed(2) + 'deg'); ecran.style.setProperty('--rx', (parseFloat(v.dataset.rx)*.5*tel).toFixed(2) + 'deg'); ecran.style.setProperty('--rz', (parseFloat(v.dataset.rz || 0)*.3*tel).toFixed(2) + 'deg'); clearTimeout(autoT); setTimeout(() => dof(v), 1850);
   document.querySelectorAll('#nav i').forEach((n, k) => n.classList.toggle('on', k === i));
   ENTREE[i] && ENTREE[i](); }
 /* le flou de profondeur : plus un element est loin de la mise au point (data-fx), plus il est flou */
@@ -610,9 +615,12 @@ function grosPlan(){
   const pris = []; Object.keys(TYPES).forEach(ty => { let m = 0; cand.filter(c => c.t === ty).sort((p, q) => q.s - p.s).forEach(c => { if(m < 2 && pris.length < 8 && pris.every(q => Math.hypot(q.i - c.i, q.j - c.j) > aw*.1)){ pris.push(c); m++; } }); });
   // les carres bleus, en miroir comme le visage, avec le nom de ce qui est repere
   x.lineWidth = 2.4; x.strokeStyle = 'rgba(80,220,255,.98)'; x.fillStyle = 'rgba(80,220,255,.10)'; x.shadowColor = 'rgba(80,220,255,.9)'; x.shadowBlur = 12; x.font = '600 10px "IBM Plex Mono", monospace';
+  const etiq = [];
   pris.forEach((p, k) => { const px = w - (p.i + .5)/aw*w, py = (p.j + .5)/ah*h, s = Math.max(16, w*.055) + Math.min(8, p.s*.5);
     x.beginPath(); if(x.roundRect) x.roundRect(px - s/2, py - s/2, s, s, 4); else x.rect(px - s/2, py - s/2, s, s); x.fill(); x.stroke();
-    x.shadowBlur = 0; x.fillStyle = 'rgba(210,248,255,.98)'; const lab = TYPES[p.t][0].toUpperCase(), tw = x.measureText(lab).width, lx = px + s/2 + 4 + tw > w - 4 ? px - s/2 - 4 - tw : px + s/2 + 4; x.fillText(lab, lx, py - s/2 + 9); x.fillStyle = 'rgba(80,220,255,.10)'; x.shadowBlur = 12; });
+    x.shadowBlur = 0; x.fillStyle = 'rgba(210,248,255,.98)'; const lab = TYPES[p.t][0].toUpperCase(), tw = x.measureText(lab).width; let lx = px + s/2 + 4 + tw > w - 4 ? px - s/2 - 4 - tw : px + s/2 + 4, ly = py - s/2 + 9;
+    for(let essai = 0; essai < 6 && etiq.some(r => lx < r.x + r.w + 4 && lx + tw + 4 > r.x && Math.abs(ly - r.y) < 13); essai++) ly += 13;
+    etiq.push({ x:lx, y:ly, w:tw }); x.fillText(lab, lx, ly); x.fillStyle = 'rgba(80,220,255,.10)'; x.shadowBlur = 12; });
   x.shadowBlur = 0;
   const parType = Object.keys(TYPES).map(ty => [ty, pris.filter(p => p.t === ty)]).filter(([, l]) => l.length);
   $('gpListe').innerHTML = (parType.length ? parType.map(([ty, l]) => '<div class="gp-l"><b>' + String(l.length).padStart(2, '0') + '</b><span>' + TYPES[ty][1] + '<br><em>' + [...new Set(l.map(p => p.z))].join(', ') + ' · ' + TYPES[ty][2] + '</em></span></div>').join('') : '<div class="gp-l"><span>Rien de marqué sur ce cliché.<br><em>Peau homogène à cette distance.</em></span></div>')
