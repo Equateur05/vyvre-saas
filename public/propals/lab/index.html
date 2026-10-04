@@ -289,7 +289,7 @@ function genreDuPrenom(n){ const k = n.trim().split(/[\s-]/)[0].toLowerCase().no
 $('prenom').addEventListener('input', () => { const el = $('prenom'), v = el.value; if(v && v[0] !== v[0].toUpperCase()){ const c = el.selectionStart; el.value = v[0].toUpperCase() + v.slice(1); el.setSelectionRange(c, c); }
   { const g = genreDuPrenom(el.value); genre = g === undefined ? null : g; }   /* la silhouette se deduit du prenom ; inconnu = entre-deux */ if($('prenom').value.trim()) valide(3, 2500); else clearTimeout(autoT); });
 /* priorites : un toucher, ca s'allume */
-$('prio').innerHTML = CATS.map(([k, t]) => '<button data-k="' + k + '">' + t + '<em>à suivre</em></button>').join('');
+$('prio').innerHTML = CATS.map(([k, t]) => '<button data-k="' + k + '">' + t + '<em>à suivre</em></button>').join('') + '<button data-k="yeux">Contour des yeux<em>cernes, poches</em></button>';
 /* les questions : un ecran, trois etapes ; un toucher remplit la fleche puis on passe ; sans reponse, « tous » au bout de quelques secondes */
 const REP = { age:null, origine:[], budget:[] };
 const QS = [
@@ -400,6 +400,14 @@ function proj(w, h){ const vw = video.videoWidth || 4, vh = video.videoHeight ||
   const v = $('vcam'); v.style.left = CV.ox + 'px'; v.style.top = CV.oy + 'px'; v.style.width = vw*CV.s + 'px'; v.style.height = vh*CV.s + 'px';
   const dw = vw*CV.s, dh = vh*CV.s, ox = CV.ox, oy = CV.oy; return p => ({ x: ox + (1 - p.x)*dw, y: oy + p.y*dh }); }
 /* 4 · imagerie : la silhouette en double trait lumineux, les reliefs du visage en lignes organiques, sur la grille */
+function lab3(R, G, B){ const f = c => { c /= 255; return c <= .04045 ? c/12.92 : Math.pow((c + .055)/1.055, 2.4); }, r = f(R), g = f(G), b = f(B), X = (r*.4124 + g*.3576 + b*.1805)/.95047, Y = r*.2126 + g*.7152 + b*.0722, Z = (r*.0193 + g*.1192 + b*.9505)/1.08883, h = t => t > .008856 ? Math.cbrt(t) : 7.787*t + 16/116; return [116*h(Y) - 16, 500*(h(X) - h(Y)), 200*(h(Y) - h(Z))]; }
+let pixT = 0, pixD = null; const LISSE = {};
+function lisseMes(k, v){ if(v == null || !isFinite(v)) return LISSE[k] ?? null; LISSE[k] = LISSE[k] == null ? v : LISSE[k]*.8 + v*.2; return LISSE[k]; }
+/* un petit carre de peau autour d'un des 478 points, lu sur la copie de la camera */
+function mesurePixels(idx){ if(!L || !copie.width) return null; const now = performance.now(); if(!pixD || now - pixT > 200){ pixT = now; try { pixD = cg.getImageData(0, 0, copie.width, copie.height).data; } catch(e){ pixD = null; } } if(!pixD) return null;
+  const W = copie.width, H = copie.height, b = boite(L), rr = Math.max(2, Math.round(b.fw*W*.035)), cx = Math.round(L[idx].x*W), cy = Math.round(L[idx].y*H); let n = 0, sL = 0, sa = 0, sb = 0, s2 = 0;
+  for(let y = cy - rr; y <= cy + rr; y++) for(let x2 = cx - rr; x2 <= cx + rr; x2++){ if(x2 < 0 || y < 0 || x2 >= W || y >= H) continue; const o = (y*W + x2)*4, c3 = lab3(pixD[o], pixD[o + 1], pixD[o + 2]); sL += c3[0]; sa += c3[1]; sb += c3[2]; s2 += c3[0]*c3[0]; n++; }
+  if(!n) return null; const Lm = sL/n; return { L:Lm, a:sa/n, b:sb/n, sd:Math.sqrt(Math.max(0, s2/n - Lm*Lm)) }; }
 function traceVisage(now){
   const { x, w, h } = cadre($('trace')); x.clearRect(0, 0, w, h);
   $('nbpts').textContent = String(nbPts).padStart(3, '0');
@@ -422,13 +430,14 @@ function traceVisage(now){
   const gf = x.createLinearGradient(0, ys - 46, 0, ys + 46); gf.addColorStop(0, 'rgba(230,251,249,0)'); gf.addColorStop(.5, 'rgba(230,251,249,.28)'); gf.addColorStop(1, 'rgba(230,251,249,0)'); x.fillStyle = gf; x.fillRect(xa, ys - 46, xb - xa, 92);
   x.fillStyle = 'rgba(244,255,254,.95)'; x.shadowColor = 'rgba(160,255,250,.95)'; x.shadowBlur = 14; x.fillRect(xa, ys - 1, xb - xa, 2); x.shadowBlur = 0;
   // les zones mesurees, une a une : un cadre qui se pose, un nom, une valeur qui bouge avec la vraie image
-  const MES = [[151, 'Front', 'éclat'], [50, 'Pommette', 'rougeur'], [280, 'Pommette', 'rougeur'], [4, 'Nez', 'pores'], [205, 'Joue', 'hydratation'], [425, 'Joue', 'texture'], [152, 'Menton', 'brillance'], [33, 'Contour de l’œil', 'ridules']];
+  /* 04/10 (audit) : chaque valeur est mesuree sur les vrais pixels (CIE Lab) ; plus d'oscillation ajoutee. Sous l'oeil : ombre = clarte de la joue moins clarte sous l'oeil */
+  const MES = [[151, 'Front', 'clarté L*', 'L'], [50, 'Pommette', 'rougeur a*', 'a'], [280, 'Pommette', 'rougeur a*', 'a'], [4, 'Nez', 'texture σ', 'sd'], [205, 'Joue', 'clarté L*', 'L'], [425, 'Joue', 'texture σ', 'sd'], [152, 'Menton', 'texture σ', 'sd'], [119, 'Sous l’œil', 'ombre ΔL*', 'dL']];
   const act = Math.floor(t/.55) % MES.length; x.font = '600 11px "IBM Plex Mono", monospace'; x.lineWidth = 1.6;
-  MES.forEach(([i, nom, crit], k) => { const p = pr(L[i]), age = ((act - k) + MES.length) % MES.length; if(age > 4) return; const al = 1 - age*.2, s2 = 26 + (age === 0 ? 6*Math.sin(t*12) : 0);
-    const q = Math.min(SW*SH - 1, Math.max(0, Math.floor(L[i].y*SH)*SW + Math.floor(L[i].x*SW))), v = Math.round(c.lum[q]*100);
+  MES.forEach(([i, nom, crit, cle], k) => { const p = pr(L[i]), age = ((act - k) + MES.length) % MES.length; if(age > 4) return; const al = 1 - age*.2, s2 = 26 + (age === 0 ? 6*Math.sin(t*12) : 0);
+    const m = mesurePixels(i), mj = cle === 'dL' ? mesurePixels(50) : null, brut = !m ? null : cle === 'dL' ? (mj ? mj.L - m.L : null) : m[cle], v = lisseMes('m' + k, brut);
     x.strokeStyle = 'rgba(230,251,249,' + al + ')'; x.shadowColor = 'rgba(230,251,249,.9)'; x.shadowBlur = age === 0 ? 14 : 6; const o = s2/2, l = 8;
     x.beginPath(); [[-1,-1],[1,-1],[1,1],[-1,1]].forEach(([sx2, sy2]) => { x.moveTo(p.x + sx2*o, p.y + sy2*(o - l)); x.lineTo(p.x + sx2*o, p.y + sy2*o); x.lineTo(p.x + sx2*(o - l), p.y + sy2*o); }); x.stroke();
-    x.shadowBlur = 0; x.fillStyle = 'rgba(240,255,253,' + al + ')'; x.fillText(nom.toUpperCase() + ' · ' + crit, p.x + o + 8, p.y - 4); x.fillText(String(age === 0 ? v + Math.round(3*Math.sin(t*20)) : v).padStart(3, '0'), p.x + o + 8, p.y + 10); });
+    x.shadowBlur = 0; x.fillStyle = 'rgba(240,255,253,' + al + ')'; x.fillText(nom.toUpperCase() + ' · ' + crit, p.x + o + 8, p.y - 4); x.fillText(v == null ? '—' : v.toFixed(1), p.x + o + 8, p.y + 10); });
   // reperes : quelques points du maillage, qui respirent
   x.fillStyle = 'rgba(230,251,249,.95)'; x.shadowBlur = 10;
   [10, 151, 4, 152, 234, 454, 50, 280, 61, 291].forEach((i, k) => { const p = pr(L[i]); x.globalAlpha = .45 + .55*Math.abs(Math.sin(t*1.6 + k)); x.beginPath(); x.arc(p.x, p.y, 3, 0, 7); x.fill(); });
@@ -548,7 +557,7 @@ function resultats(){
   const pc2 = $('portrait'); if(pc2){ glb.className = 'portrait-gl'; glb.style.webkitMaskImage = glb.style.maskImage = 'none'; pc2.replaceWith(glb); const t8 = performance.now();
     // 1. le buste se dessine de haut en bas ; 2. zoom sur le visage ; 3. la tete tourne lentement a gauche et a droite
     const anime = now => { if(etape !== 8 || glb.className !== 'portrait-gl') return; const p = (now - t8)/1000;
-      reveleB = Math.min(1, p/7); const z = Math.min(1, Math.max(0, (p - 9.5)/3)); zoomB = z*z*(3 - 2*z); tourneB = Math.min(1, Math.max(0, (p - 12.8)/1.5));
+      reveleB = Math.min(1, p/1.1); zoomB = 1; tourneB = Math.min(1, Math.max(0, (p - 1.6)/1.2));
       buste(now/1000); requestAnimationFrame(anime); }; requestAnimationFrame(anime); }
   soins(ordre);
 }
@@ -562,7 +571,7 @@ async function fiches(liste, faibles, lab){ const z = $('fiches'); if(!z || !lis
   z.innerHTML = '<h3 style="font:600 26px var(--sans);margin-top:30px">Le détail de vos soins</h3>' + liste.map((p, k) => { const d = det[k], pour = (p.targets || []).filter(t => faibles.includes(t)).map(t => lab[t]),
       actifs = [...new Set((p.score_raisons || []).map(ACTIF).filter(Boolean))].slice(0, 4), txt = /\b(les|des|votre|pour|une|avec|peau)\b/i.test(d.description || '') && !/[A-Z]{4,}\s+[A-Z]{4,}/.test(d.description || '') ? phrases(d.description, 260) : '', us = USAGE[p.categorie] || USAGE['autre-visage'];
     return '<article class="fiche' + (k % 2 ? ' inv' : '') + '"><div class="fiche-im"><img alt="" src="' + esc(p.cutout_url) + '"></div><div class="fiche-tx"><span class="mono">' + String(k + 1).padStart(2, '0') + ' · ' + esc(p.brand_name || p.brand) + '</span><h4>' + esc(p.name) + '</h4>'
-      + (pour.length ? '<div class="fl"><b>Pour vous</b><span>Choisi pour ' + pour.join(' et ').toLowerCase() + ', vos points à travailler.</span></div>' : '')
+      + (p.__yeux ? '<div class="fl"><b>Pour vous</b><span>Un soin dédié au contour des yeux, comme vous l’avez demandé. La lecture ne mesure pas les poches : c’est votre choix qui le place ici.</span></div>' : pour.length ? '<div class="fl"><b>Pour vous</b><span>Choisi pour ' + pour.join(' et ').toLowerCase() + ', vos points à travailler.</span></div>' : '')
       + (txt ? '<div class="fl"><b>La marque</b><span>« ' + esc(txt) + ' »</span></div>' : '')
       + (actifs.length ? '<div class="fl"><b>Ses actifs</b><span class="chips">' + actifs.map(a => '<i>' + esc(a) + '</i>').join('') + '</span></div>' : '')
       + '<div class="fl"><b>Comment l’utiliser</b><span>' + us + '</span></div>'
@@ -573,11 +582,15 @@ const EUR = { DE:1, CH:1, SE:1, BE:1, NL:1, ES:1, IT:1, AT:1, DK:1, PT:1, MC:1, 
 const zoneDe = pays => pays === 'FR' ? 'FR' : EUR[pays] ? 'EU' : (pays === 'KR' || pays === 'JP') ? 'AS' : pays ? 'INT' : null;
 async function soins(ordre){ const z = $('soins'); try { const [j, mj] = await Promise.all([fetch('/scan/catalogue/all.json').then(r => r.json()), fetch('/scan/catalogue/marques.json').then(r => r.json()).catch(() => ({ marques:{} }))]); const MQ = mj.marques || {};
   const dansPerimetre = (p, lache) => { const b = MQ[p.brand] || {}; if(lache < 1 && REP.origine.length && REP.origine.indexOf(zoneDe(b.pays)) < 0) return false; if(lache < 2 && REP.budget.length && REP.budget.indexOf(b.univers) < 0) return false; return true; }; const faibles = ordre.slice().sort((a, b) => a[2] - b[2]).slice(0, 2).map(x => x[0]);
-  let lache = 0; const base = p => p.cutout_url && !/sothys/i.test(p.brand || '') && !/US ONLY/i.test(p.name || '') && (p.targets || []).some(t => faibles.includes(t)); let liste = j.products.filter(p => base(p) && dansPerimetre(p, 0)); if(liste.length < 6){ lache = 1; liste = j.products.filter(p => base(p) && dansPerimetre(p, 1)); } if(liste.length < 6){ lache = 2; liste = j.products.filter(base); }
+  const yeuxOk = prio.has('yeux'), pasYeux = p => p.categorie !== 'contour-yeux' && !/patch|eye|yeux|regard|contour/i.test(p.name || '');
+  let lache = 0; const base = p => pasYeux(p) && p.cutout_url && !/sothys/i.test(p.brand || '') && !/US ONLY/i.test(p.name || '') && (p.targets || []).some(t => faibles.includes(t)); let liste = j.products.filter(p => base(p) && dansPerimetre(p, 0)); if(liste.length < 6){ lache = 1; liste = j.products.filter(p => base(p) && dansPerimetre(p, 1)); } if(liste.length < 6){ lache = 2; liste = j.products.filter(base); }
   const cand = liste.map(p => ({ p, sc:faibles.reduce((s2, t) => s2 + ((p.concern_scores || {})[t] || 0), 0) })).sort((a, b) => b.sc - a.sc);
-  const pris = [], marques = new Set(), cats = new Set(); for(const c of cand){ if(pris.length >= 8) break; if(marques.has(c.p.brand) || cats.has(c.p.categorie)) continue; pris.push(c.p); marques.add(c.p.brand); cats.add(c.p.categorie); }
+  const pris = [], marques = new Set(), cats = new Set();
+  if(yeuxOk){ const yeux = j.products.filter(p => p.categorie === 'contour-yeux' && p.cutout_url && !/patch/i.test(p.name || '') && !/sothys/i.test(p.brand || '') && dansPerimetre(p, 0)).concat(j.products.filter(p => p.categorie === 'contour-yeux' && p.cutout_url && !/patch/i.test(p.name || '') && !/sothys/i.test(p.brand || ''))).map(p => ({ p, sc:faibles.reduce((s2, t) => s2 + ((p.concern_scores || {})[t] || 0), 0) })).sort((a, b) => b.sc - a.sc);
+    if(yeux.length){ yeux[0].p.__yeux = true; pris.push(yeux[0].p); marques.add(yeux[0].p.brand); cats.add('contour-yeux'); } }
+  for(const c of cand){ if(pris.length >= 8) break; if(marques.has(c.p.brand) || cats.has(c.p.categorie)) continue; pris.push(c.p); marques.add(c.p.brand); cats.add(c.p.categorie); }
   const lab = Object.fromEntries(CATS.map(c => [c[0], c[1]]));
-  z.innerHTML = pris.map(p => '<a class="soin" href="' + esc(p.url || '#') + '" target="_blank" rel="noopener"><img alt="" src="' + esc(p.cutout_url) + '"><span class="mono">' + esc(p.brand_name || p.brand) + '</span><b>' + esc(p.name) + '</b><em>' + (p.targets || []).filter(t => faibles.includes(t)).map(t => lab[t]).join(' · ') + '</em></a>').join('') || '<p class="note">Aucun soin trouvé.</p>';
+  z.innerHTML = pris.map(p => '<a class="soin" href="' + esc(p.url || '#') + '" target="_blank" rel="noopener"><img alt="" src="' + esc(p.cutout_url) + '"><span class="mono">' + esc(p.brand_name || p.brand) + '</span><b>' + esc(p.name) + '</b><em>' + (p.__yeux ? 'Contour des yeux, à votre demande' : (p.targets || []).filter(t => faibles.includes(t)).map(t => lab[t]).join(' · ')) + '</em></a>').join('') || '<p class="note">Aucun soin trouvé.</p>';
   // un produit sur fond blanc (pas detoure) est retire ; on garde les 4 premiers bons
   const cartes = [...z.querySelectorAll('.soin')]; cartes.forEach((a, k) => { a.hidden = true; const im = a.querySelector('img'); const juge = () => { let bon = true; try { const c2 = document.createElement('canvas'); c2.width = 40; c2.height = 40; const g = c2.getContext('2d'); g.drawImage(im, 0, 0, 40, 40); const d = g.getImageData(0, 0, 40, 40).data; let ob = 0; for(let q = 0; q < 40; q++){ [[q,0],[q,39],[0,q],[39,q]].forEach(([a2, b2]) => { if(d[(b2*40 + a2)*4 + 3] > 200) ob++; }); } bon = ob/160 < .4; let n2 = 0, x0 = 40, x1 = -1, y0 = 40, y1 = -1, bl = 0; for(let q = 0; q < 1600; q++){ if(d[q*4 + 3] > 200){ n2++; const i = q % 40, j = (q/40) | 0; if(i < x0) x0 = i; if(i > x1) x1 = i; if(j < y0) y0 = j; if(j > y1) y1 = j; if(d[q*4] > 215 && d[q*4 + 1] > 215 && d[q*4 + 2] > 215) bl++; } } a.dataset.boite = (n2/Math.max(1, (x1 - x0 + 1)*(y1 - y0 + 1)) > .82 && bl/Math.max(1, n2) > .25) ? '1' : '0'; } catch(e){} a.dataset.bon = bon ? '1' : '0'; montre(); }; if(im.complete && im.naturalWidth) juge(); else { im.onload = juge; im.onerror = () => { a.dataset.bon = '0'; montre(); }; } });
   let tf = null; function montre(){ let n = 0; cartes.forEach(a => a.hidden = true); [cartes.filter(a => a.dataset.bon === '1' && a.dataset.boite !== '1'), cartes.filter(a => a.dataset.bon === '1' && a.dataset.boite === '1')].flat().forEach(a => { if(n < 4){ a.hidden = false; n++; } });
