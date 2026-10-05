@@ -40,6 +40,14 @@ video{display:none}
 .aide.on{opacity:1}
 .total{position:absolute;right:4vw;bottom:9vh;font-family:'IBM Plex Mono',monospace;font-weight:300;font-size:clamp(40px,5vw,84px);letter-spacing:-.04em;text-align:right}
 .total i{display:block;font-style:normal;font-size:10px;letter-spacing:.3em;color:rgba(223,234,242,.5);margin-top:8px}
+/* 05/10 (Charles) : le pourcentage prend la matiere des cheveux lus : bleu lumineux qui coule, liseré blanc, halo */
+#pct{background:linear-gradient(180deg,#f2f8ff 0%,#9cc6ff 22%,#3f6fe0 48%,#9cc6ff 74%,#f2f8ff 100%);background-size:100% 220%;
+  -webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 0 2px rgba(225,240,255,.85)) drop-shadow(0 0 14px rgba(90,150,255,.55));animation:pctCoule 2.6s linear infinite}
+@keyframes pctCoule{from{background-position:0 0}to{background-position:0 220%}}
+#pct.monte{animation:pctCoule 2.6s linear infinite,pctMonte .5s ease-out}
+@keyframes pctMonte{0%{filter:drop-shadow(0 0 3px #fff) drop-shadow(0 0 26px rgba(120,175,255,.95))}100%{filter:drop-shadow(0 0 2px rgba(225,240,255,.85)) drop-shadow(0 0 14px rgba(90,150,255,.55))}}
+@media (prefers-reduced-motion:reduce){#pct{animation:none}}
 .debug{position:absolute;left:4vw;top:124px;font-family:'IBM Plex Mono',monospace;font-size:10px;color:#7fd8ff;white-space:pre;opacity:.7}
 body.g3 .total{right:50%;transform:translateX(50%);bottom:auto;top:44%;text-align:center;font-size:clamp(60px,9vw,150px)}
 body.g3 .phrase{display:none}
@@ -1393,7 +1401,9 @@ function image(now){
   const tt = total();
   /* « Lu. » ne doit pas etre reecrit par le pourcentage ; il est repeint a
      chaque image pour suivre un changement de langue arrive apres coup. */
-  if(!finiDepuis) $('pct').textContent = Math.round(tt*100) + ' %';
+  if(!finiDepuis){ const v = Math.round(tt*100), el = $('pct'); el.textContent = v + ' %';
+    /* un éclat à chaque dizaine franchie */
+    const d = Math.floor(v/10); if(d !== (el._d ?? 0)){ el._d = d; el.classList.remove('monte'); void el.offsetWidth; el.classList.add('monte'); } }
   else $('pct').textContent = T('hcg.lu') ?? 'Lu.';
   /* secours : bloque 5 s, on nomme ce qui manque (et seulement a ce moment-la) */
   const m = manquante();

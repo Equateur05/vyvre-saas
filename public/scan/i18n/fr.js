@@ -437,7 +437,7 @@ VY.add('fr', {
     'hcp.et': 'et',
     'hcp.p0': 'Voici ce que la caméra a lu sur votre fibre.',
     'hcp.p1': 'Vos cheveux sont {e}.',
-    'hcp.p2': 'La routine se construit autour de {a}.',
+    'hcp.p2': 'La routine s’appuie sur : {a}.',
     'hcl.pourquoi': 'Pourquoi lui',
     'hcl.k3': 'Ce que fait chaque produit',
     'hcd.pour': 'Pour les',

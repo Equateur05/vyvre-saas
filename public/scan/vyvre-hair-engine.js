@@ -3359,6 +3359,15 @@
           !(besoins.densite !== null && besoins.densite < 0.4)) {
         moins(2.5, 'traitement chute alors qu aucune chute n est declaree');
       }
+      // 05/10 (Charles : « verifie que c'est bien pour moi ») : un soin dedie a la couleur
+      // (protection de couleur, cheveux colores) n'a pas de sens sur des cheveux naturels.
+      if (besoins.colore !== 1 && /bouclier couleur|protect(ion|eur)? (de la )?couleur|colou?r[- ]?(shield|protect|safe|care|lock)|cheveux colorés|color[- ]treated|colou?red hair/i.test(t)) {
+        moins(2.2, 'soin pour cheveux colores alors que les cheveux sont naturels');
+      }
+      // Un shampooing sec absorbe le sebum des racines : a eviter sans racines grasses.
+      if ((gras === null || gras < 0.55) && /shampo(o|oi)ng sec|dry shampoo/i.test(t)) {
+        moins(2.5, 'shampooing sec sans racines grasses');
+      }
       // Produit pour boucles sur cheveux mesures raides.
       if (boucle !== null && boucle < 0.35 && compte(t, MOTS.boucles) > 1) {
         moins(2.0, 'produit boucles sur des cheveux raides');
