@@ -4526,12 +4526,14 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
 
             const gateFrames = [];
             // 02/10 : opts.gateMs (propale Lab) : les memes 15 images de controle, moins espacees ; sans l'option, rien ne change
-            const interval = (opts.gateMs || V9_THRESHOLDS.PRESCAN_DURATION_MS) / V9_THRESHOLDS.PRESCAN_TARGET_FRAMES;
+            /* 05/10 : opts.gateFrames (10 au lieu de 15 : meme controle, au moins 8 images valables exigees) */
+            const nGate = Math.max(V9_THRESHOLDS.PRESCAN_MIN_FRAMES, opts.gateFrames || V9_THRESHOLDS.PRESCAN_TARGET_FRAMES);
+            const interval = (opts.gateMs || V9_THRESHOLDS.PRESCAN_DURATION_MS) / nGate;
             const faceApiReady = !!(typeof window !== 'undefined' && window.faceapi &&
                                   window.faceapi.nets && window.faceapi.nets.tinyFaceDetector &&
                                   window.faceapi.nets.tinyFaceDetector.params);
 
-            for (let i = 0; i < V9_THRESHOLDS.PRESCAN_TARGET_FRAMES; i++) {
+            for (let i = 0; i < nGate; i++) {
               await new Promise(r => setTimeout(r, interval));
               try {
                 const frame = await v9CaptureGatingFrame(videoEl);
@@ -4557,7 +4559,7 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
                   emit({
                     phase: 'positioning',
                     light, distance, stability,
-                    progress: (i + 1) / V9_THRESHOLDS.PRESCAN_TARGET_FRAMES,
+                    progress: (i + 1) / nGate,
                     luminance: Math.round(lum),
                     variance: Math.round(vari)
                   });

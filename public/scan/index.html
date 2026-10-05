@@ -1012,6 +1012,8 @@ const videoContainer = document.getElementById('thermal-vid-container');
 const depthUI = document.getElementById('depth-ui');
 let calibFrames = 0;
 
+/* 05/10 : les modeles du visage se chargent des que la page est au repos, pas au clic (gain d'environ 1 s) */
+setTimeout(function(){ try { (window.requestIdleCallback || function(f){ setTimeout(f, 0); })(function(){ if (window.faceapi) loadAI().catch(function(){}); }); } catch(e) {} }, 1500);
 async function loadAI() {
   if(STATE.modelsLoaded) return true;
   vyHud('hud.boot');
@@ -1516,7 +1518,7 @@ function launchComputation() {
       realScanPromise = scanFromImage(scanSource);
     } else {
       /* 05/10 (audit) : la lecture complete (controle de qualite + 8 images), sans temps morts ; memes scores que la lecture longue */
-      realScanPromise = window.__vyLecture || window.VYVRE_SCAN_ENGINE.runRealScanWithFeedback(scanSource, function(){}, { sansDecompte: true, gateMs: 1100, analyseMs: 2400, skipAge: true }).catch(err => {
+      realScanPromise = window.__vyLecture || window.VYVRE_SCAN_ENGINE.runRealScanWithFeedback(scanSource, function(){}, { sansDecompte: true, gateMs: 900, gateFrames: 10, analyseMs: 2400, skipAge: true }).catch(err => {
         console.warn('[CHARLOTTE_TILBURY] real scan failed:', err);
         return null;
       });
@@ -2086,7 +2088,7 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
   });
 </script>
 <!-- VYVRE V10: TF.js removed from eager load — handled by /vyvre-loader.js -->
-<script src="/scan/vyvre-scan-engine.js?v=10.11" defer></script>
+<script src="/scan/vyvre-scan-engine.js?v=10.12" defer></script>
 <!-- VYVRE_V10_TRACKER_BEGIN -->
 <script src="/scan/vyvre-tracker.js?v=10.1" defer></script>
 <!-- VYVRE_V10_TRACKER_END -->
@@ -2689,16 +2691,16 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
       var stale=!STATE.lastDetectionAt||(performance.now()-STATE.lastDetectionAt)>1200;
       if(st&&!STATE.scanning){vyHud(!STATE.modelsLoaded?'hud.load':(vid.paused?'hud.pause':(stale?'hud.search':'hud.lock')));}
       /* départ du scan : 1,2 s de verrouillage continu suffisent, sans dépendre du compteur du moteur */
-      if(!stale&&!STATE.scanning){if(!lockSince)lockSince=performance.now();if(performance.now()-lockSince>1200){STATE.scanning=true;startThermalScan();}}else if(stale)lockSince=0;
+      if(!stale&&!STATE.scanning){if(!lockSince)lockSince=performance.now();if(performance.now()-lockSince>700){STATE.scanning=true;startThermalScan();}}else if(stale)lockSince=0;
       if(false){ownBusy=true;
         faceapi.detectSingleFace(vid,new faceapi.TinyFaceDetectorOptions({inputSize:320,scoreThreshold:.35})).withFaceLandmarks().then(function(r){ownBusy=false;if(r){STATE.box=r.detection.box;STATE.landmarks=r.landmarks.positions;STATE.detectionScore=r.detection.score||0;STATE.lastDetectionAt=performance.now();var hn=document.getElementById('hud-nodes');if(hn)hn.innerText=STATE.landmarks.length;if(typeof handleCalibration==='function')handleCalibration();}}).catch(function(){ownBusy=false;});}
     },250);
     /* le scan du moteur : on remplace sa mise en scène thermique par la nôtre, puis on rend la main à executeCapture */
     var _startThermal=startThermalScan;startThermalScan=function(){STATE.thermalMode=true;vyHud('hud.read');T0=performance.now();for(var i=0;i<68;i++)LIT[i]=0;
       /* 05/10 : la vraie lecture demarre des le verrouillage, pendant l'animation (plus d'attente apres) ; l.animation passe de 9,6 s a 5 s */
-      try{var vv=document.getElementById('liveVideo');if(vv&&vv.videoWidth&&vv.style.display!=='none'&&window.VYVRE_SCAN_ENGINE&&!window.__vyLecture){window.__vyMoteur=true;var moi=window.__vyLecture=window.VYVRE_SCAN_ENGINE.runRealScanWithFeedback(vv,function(){},{sansDecompte:true,gateMs:1100,analyseMs:2400,skipAge:true}).catch(function(){return null;}).then(function(r){if(window.__vyLecture===moi)window.__vyMoteur=false;return r;});}}catch(e){}
+      try{var vv=document.getElementById('liveVideo');if(vv&&vv.videoWidth&&vv.style.display!=='none'&&window.VYVRE_SCAN_ENGINE&&!window.__vyLecture){window.__vyMoteur=true;var moi=window.__vyLecture=window.VYVRE_SCAN_ENGINE.runRealScanWithFeedback(vv,function(){},{sansDecompte:true,gateMs:900,gateFrames:10,analyseMs:2400,skipAge:true}).catch(function(){return null;}).then(function(r){if(window.__vyLecture===moi)window.__vyMoteur=false;return r;});}}catch(e){}
       setTimeout(function(){executeCapture();},DUR*1000/1.92);};
-    (function frame(now){var t=now/1000;x.clearRect(0,0,W2,H2);var P=pts();if(P&&document.getElementById('view-scanner').classList.contains('active')){if(T0){var T=(now-T0)/1000*1.92;if(T<DUR+.5)scene(t,P,T);}else attente(t,P);}if(!reduce)requestAnimationFrame(frame);})(0);
+    var hudDer=0;(function frame(now){if(window.__vyMoteur&&now-hudDer<32){requestAnimationFrame(frame);return;}hudDer=now;var t=now/1000;x.clearRect(0,0,W2,H2);var P=pts();if(P&&document.getElementById('view-scanner').classList.contains('active')){if(T0){var T=(now-T0)/1000*1.92;if(T<DUR+.5)scene(t,P,T);}else attente(t,P);}if(!reduce)requestAnimationFrame(frame);})(0);
   }
   /* ---- LE CALCUL : LA GALAXIE — les points du visage montent en orbite, la spirale tourne, le cœur s'effondre en lumière ---- */
   var proc=document.getElementById('view-process');
