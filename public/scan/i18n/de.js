@@ -792,6 +792,7 @@ VY.add('de', {
     "hcg.c.gauche": "Drehen Sie den Kopf langsam nach links.",
     "hcg.c.droite": "Drehen Sie den Kopf langsam nach rechts.",
     "hcg.c.dessus": "Senken Sie den Kopf, um den Oberkopf zu zeigen.",
+    "hcg.prepa": "Die Analyse wird vorbereitet…",
     "hcg.presque": "Fast fertig.",
     "hcx.u.semmin": "Mindestens {n}-mal pro Woche",
     "hcx.u.puis2": "danach {a}- bis {b}-mal pro Woche",

@@ -792,6 +792,7 @@ VY.add('en', {
     "hcg.c.gauche": "Slowly turn your head to the left.",
     "hcg.c.droite": "Slowly turn your head to the right.",
     "hcg.c.dessus": "Lower your head to show the top.",
+    "hcg.prepa": "Getting the reading ready…",
     "hcg.presque": "Almost done.",
     "hcx.u.semmin": "At least {n} times a week",
     "hcx.u.puis2": "then {a} to {b} times a week",

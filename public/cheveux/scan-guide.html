@@ -1456,11 +1456,26 @@ function image(now){
   taille(); tailleTrainee();
   document.body.className = TETE ? 'g1' : 'encre';
   if(TETE) await monterTete();          /* et seulement la, three.js */
+  /* 05/10 (iPhone de Charles : « mon visage s'affiche puis ca bloque quelques secondes ») : les modeles se chargent
+     pendant que la camera s'ouvre, puis on les met en route sur une petite image AVANT d'afficher la lecture.
+     Le premier calcul (compilation sur le processeur graphique) figeait l'ecran ; il se fait maintenant pendant
+     « Preparation de la lecture ». */
+  const lecture = ouvrirLecture();
   await ouvrirSource();
   if(!src) return;        /* camera refusee : le parcours a deja repris la main */
   tailles();
   if(!TETE) allouer(PW*PH);   /* les tampons du dessin, a la taille du masque */
-  await ouvrirLecture();
+  dit($('phraseTxt'), 'hcg.prepa'); if(!T('hcg.prepa')) $('phraseTxt').textContent = 'Préparation de la lecture…';
+  await lecture;
+  await new Promise(r => setTimeout(r, 30));
+  try {
+    const c = document.createElement('canvas'); c.width = PW; c.height = PH; const g = c.getContext('2d');
+    if(miroir){ g.translate(PW, 0); g.scale(-1, 1); } g.drawImage(src, 0, 0, PW, PH);
+    const t0 = performance.now();
+    if(segH) segH.segmentForVideo(c, t0, () => {});
+    if(face) face.detectForVideo(c, t0 + 1);
+  } catch(e) {}
+  dit($('phraseTxt'), 'hcg.remplir'); if(!T('hcg.remplir')) $('phraseTxt').textContent = 'Remplissez vos cheveux de bleu.';
   bloqueDepuis = performance.now();
   requestAnimationFrame(image);
 })();

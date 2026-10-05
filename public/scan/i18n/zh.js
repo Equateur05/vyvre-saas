@@ -792,6 +792,7 @@ VY.add('zh', {
     "hcg.c.gauche": "请慢慢向左转头。",
     "hcg.c.droite": "请慢慢向右转头。",
     "hcg.c.dessus": "请低头露出头顶。",
+    "hcg.prepa": "正在准备读取…",
     "hcg.presque": "快完成了。",
     "hcx.u.semmin": "每周至少{n}次",
     "hcx.u.puis2": "之后每周{a}至{b}次",

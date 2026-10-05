@@ -792,6 +792,7 @@ VY.add('ko', {
     "hcg.c.gauche": "천천히 고개를 왼쪽으로 돌려 주세요.",
     "hcg.c.droite": "천천히 고개를 오른쪽으로 돌려 주세요.",
     "hcg.c.dessus": "고개를 숙여 정수리를 보여 주세요.",
+    "hcg.prepa": "분석을 준비하고 있습니다…",
     "hcg.presque": "거의 끝났어요.",
     "hcx.u.semmin": "주 {n}회 이상",
     "hcx.u.puis2": "이후 주 {a}~{b}회",

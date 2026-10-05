@@ -792,6 +792,7 @@ VY.add('nl', {
     "hcg.c.gauche": "Draai uw hoofd langzaam naar links.",
     "hcg.c.droite": "Draai uw hoofd langzaam naar rechts.",
     "hcg.c.dessus": "Buig uw hoofd om de bovenkant te tonen.",
+    "hcg.prepa": "De analyse wordt voorbereid…",
     "hcg.presque": "Bijna klaar.",
     "hcx.u.semmin": "Minstens {n} keer per week",
     "hcx.u.puis2": "daarna {a} tot {b} keer per week",

@@ -792,6 +792,7 @@ VY.add('pt', {
     "hcg.c.gauche": "Vire devagar a cabeça para a esquerda.",
     "hcg.c.droite": "Vire devagar a cabeça para a direita.",
     "hcg.c.dessus": "Baixe a cabeça para mostrar o topo.",
+    "hcg.prepa": "A preparar a leitura…",
     "hcg.presque": "Quase pronto.",
     "hcx.u.semmin": "Pelo menos {n} vezes por semana",
     "hcx.u.puis2": "depois {a} a {b} vezes por semana",

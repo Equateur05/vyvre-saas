@@ -792,6 +792,7 @@ VY.add('ja', {
     "hcg.c.gauche": "ゆっくり左を向いてください。",
     "hcg.c.droite": "ゆっくり右を向いてください。",
     "hcg.c.dessus": "頭を下げて頭頂部を見せてください。",
+    "hcg.prepa": "読み取りを準備しています…",
     "hcg.presque": "もう少しで完了です。",
     "hcx.u.semmin": "週{n}回以上",
     "hcx.u.puis2": "その後は週{a}〜{b}回",
