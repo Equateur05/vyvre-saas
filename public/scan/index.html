@@ -359,7 +359,7 @@
   #view-scanner .label-sm{top:calc(env(safe-area-inset-top) + 160px)!important}
   #view-scanner h2{top:calc(env(safe-area-inset-top) + 178px)!important}
 }
-#view-scanner .video-container.vy-cadre .thermal-base{inset:auto!important;left:var(--vy-l)!important;top:var(--vy-t)!important;width:var(--vy-w)!important;height:var(--vy-h)!important;object-fit:fill!important;
+#view-scanner .video-container.vy-cadre .thermal-base{inset:auto!important;left:var(--vy-l)!important;top:var(--vy-t)!important;width:var(--vy-w)!important;height:var(--vy-h)!important;object-fit:cover!important;
   -webkit-mask-image:radial-gradient(ellipse var(--vy-rx) var(--vy-ry) at var(--vy-mx) var(--vy-my),#000 64%,rgba(0,0,0,.6) 82%,transparent 100%)!important;
   mask-image:radial-gradient(ellipse var(--vy-rx) var(--vy-ry) at var(--vy-mx) var(--vy-my),#000 64%,rgba(0,0,0,.6) 82%,transparent 100%)!important}
 #view-scanner .video-container.vy-cadre::after{background:radial-gradient(ellipse var(--vy-rx) var(--vy-ry) at 50% 47%,transparent 72%,rgba(4,5,10,.22) 100%)!important}
@@ -377,6 +377,15 @@ window.vyCadrer=function(){
 };
 addEventListener('resize',function(){setTimeout(window.vyCadrer,60);});
 addEventListener('orientationchange',function(){setTimeout(window.vyCadrer,300);});
+/* 05/10 (iPhone de Charles : « au bout d'une seconde, ca zoome plus haut ») : iOS livre une image paysage puis portrait
+   sans toujours le signaler ; le cadre restait en paysage et etirait l'image. On le recalcule a chaque image video,
+   a chaque changement de format et a chaque changement de taille de l'ecran de scan (barre de Safari). */
+(function brancher(){var v=document.getElementById('liveVideo'),vc=document.getElementById('thermal-vid-container');
+  if(!v||!vc){document.addEventListener('DOMContentLoaded',brancher,{once:true});return;}
+  var dw=0,dh=0,cw=0,ch=0;var suivre=function(){var W=vc.clientWidth,H=vc.clientHeight;if(v.videoWidth!==dw||v.videoHeight!==dh||W!==cw||H!==ch){dw=v.videoWidth;dh=v.videoHeight;cw=W;ch=H;try{window.vyCadrer();}catch(e){}}};
+  ['resize','loadedmetadata','playing','timeupdate'].forEach(function(e){v.addEventListener(e,suivre);});setInterval(suivre,400);
+  if(window.ResizeObserver)new ResizeObserver(suivre).observe(vc);
+  var rvfc=false;if(v.requestVideoFrameCallback)v.addEventListener('playing',function(){if(rvfc)return;rvfc=true;var image=function(){suivre();v.requestVideoFrameCallback(image);};v.requestVideoFrameCallback(image);});})();
 </script>
 <style id="sg-scan-verre">
 /* Charles 17/09 : plus de noir autour du visage. La fumee du fond continue autour du cercle,
@@ -1008,13 +1017,13 @@ async function loadAI() {
   vyHud('hud.boot');
   try {
     const URL = '/scan/models/faceapi';
-    await faceapi.nets.tinyFaceDetector.loadFromUri(URL);
-    await faceapi.nets.faceLandmark68Net.loadFromUri(URL);
+    await Promise.race([Promise.all([faceapi.nets.tinyFaceDetector.loadFromUri(URL), faceapi.nets.faceLandmark68Net.loadFromUri(URL)]), new Promise((_, rej) => setTimeout(() => rej(new Error('modeles lents')), 20000))]);
     STATE.modelsLoaded = true;
     vyHud('hud.ready');
     return true;
   } catch(e) {
     vyHud('hud.err');
+    try { const st=document.getElementById('step-3'); if(st) st.textContent='La lecture n’a pas pu se faire.'; const b=document.createElement('button'); b.className='spatial-btn'; b.textContent='Réessayer'; b.style.cssText='position:fixed;left:50%;bottom:120px;transform:translateX(-50%);z-index:2147483646'; b.onclick=()=>location.reload(); document.body.appendChild(b); } catch(_) {}
     return false;
   }
 }
@@ -1314,6 +1323,7 @@ function executeCapture() {
     // Visage absent ou mal détecté → alerte AVANT scan, pas après
     console.warn('[CHARLOTTE_TILBURY] face check failed:', { score, landmarksCount, boxSize, minBox });
     showNoFaceBanner(VY.t('ban.main2'));
+    window.__vyLecture = null; window.__vyMoteur = false;
     // Reset pour permettre une nouvelle calibration
     STATE.scanning = false;
     STATE.thermalMode = false;
@@ -1483,6 +1493,7 @@ function drawEpigeneticMatrix(){
 
 window.vyvreLastScanResult = null;
 
+window.addEventListener('vyvre:scan-rejected-dismissed', function(){ location.reload(); });
 function launchComputation() {
   switchView('view-process');
   // NOTE: on garde STATE.stream actif pendant le real scan (besoin de capturer 8 frames)
@@ -1535,7 +1546,8 @@ function launchComputation() {
                   let result = null;
                   if (realScanPromise) {
                     const lent = setTimeout(() => { const st = document.getElementById('step-3'); if (st) st.textContent = 'Lecture en cours, ne bougez pas…'; }, 1200);
-                    try { result = await realScanPromise; } catch (e) { console.error('[VYVRE] lecture :', e); result = null; }
+                    try { result = await Promise.race([realScanPromise, new Promise(r => setTimeout(() => r({ rejected: true, issues: [{ code: 'INSUFFICIENT_FRAMES' }], delai: true }), 45000))]); } catch (e) { console.error('[VYVRE] lecture :', e); result = null; }
+                    window.__vyMoteur = false;
                     clearTimeout(lent);
                   }
                   const refus = !result || result.rejected || !result.scores || result.scores.error;
@@ -1545,7 +1557,7 @@ function launchComputation() {
                     if (!document.getElementById('vyvre-v9-reject') && window.VYVRE_SCAN_ENGINE && window.VYVRE_SCAN_ENGINE.showRejectUI) {
                       const codes = (result && result.issues) || [{ code: result && result.scores && result.scores.error ? 'LOW_VARIANCE' : 'INSUFFICIENT_FRAMES' }];
                       window.VYVRE_SCAN_ENGINE.showRejectUI(codes);
-                    }
+                    } else if (!document.getElementById('vyvre-v9-reject')) { const st=document.getElementById('step-3'); if(st) st.textContent='La lecture n’a pas pu se faire.'; const b=document.createElement('button'); b.className='spatial-btn'; b.textContent='Réessayer'; b.style.cssText='position:fixed;left:50%;bottom:120px;transform:translateX(-50%);z-index:2147483646'; b.onclick=()=>location.reload(); document.body.appendChild(b); }
                     return;
                   }
                   window.vyvreLastScanResult = result;
@@ -2073,7 +2085,7 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
   });
 </script>
 <!-- VYVRE V10: TF.js removed from eager load — handled by /vyvre-loader.js -->
-<script src="/scan/vyvre-scan-engine.js?v=10.10" defer></script>
+<script src="/scan/vyvre-scan-engine.js?v=10.11" defer></script>
 <!-- VYVRE_V10_TRACKER_BEGIN -->
 <script src="/scan/vyvre-tracker.js?v=10.1" defer></script>
 <!-- VYVRE_V10_TRACKER_END -->
@@ -2664,7 +2676,7 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     function attente(t,P){var b=bounds(P);P.forEach(function(p,i){x.beginPath();x.arc(p[0],p[1],.6,0,6.283);x.fillStyle=rgba(BL,.18+.12*Math.sin(t*2+i));x.fill();});var m=26,L=22;[[b.x0-m,b.y0-m*1.2,1,1],[b.x1+m,b.y0-m*1.2,-1,1],[b.x0-m,b.y1+m,1,-1],[b.x1+m,b.y1+m,-1,-1]].forEach(function(c2){x.beginPath();x.moveTo(c2[0],c2[1]+c2[3]*L);x.lineTo(c2[0],c2[1]);x.lineTo(c2[0]+c2[2]*L,c2[1]);stroke(rgba(BL,.35),1);});txt('CENTREZ VOTRE VISAGE',b.cx,b.y0-m*1.2-12,.6,9,'center');}
     /* détection comme sur Sothys : sur un tampon de 256 px, une à la fois, jamais deux en même temps */
     var dbuf=document.createElement('canvas'),dctx=dbuf.getContext('2d',{willReadFrequently:true}),dopts=null,dbusy=false;
-    detectAndDraw=function(){ if(!STATE.modelsLoaded||vid.paused||!vid.videoWidth||dbusy||!window.faceapi)return; dbusy=true;
+    detectAndDraw=function(){ if(!STATE.modelsLoaded||vid.paused||!vid.videoWidth||dbusy||!window.faceapi||window.__vyMoteur)return; dbusy=true;
       try{ if(!dopts)dopts=new faceapi.TinyFaceDetectorOptions({inputSize:320,scoreThreshold:.3}); var bw=512,bh=Math.max(32,Math.round(bw*vid.videoHeight/vid.videoWidth)); if(dbuf.width!==bw||dbuf.height!==bh){dbuf.width=bw;dbuf.height=bh;} dctx.drawImage(vid,0,0,bw,bh);
         faceapi.detectSingleFace(dbuf,dopts).withFaceLandmarks().then(function(r){dbusy=false; if(r&&r.landmarks&&r.landmarks.positions.length>=68){var kx=vid.videoWidth/bw,ky=vid.videoHeight/bh;STATE.landmarks=r.landmarks.positions.map(function(q){return {x:q.x*kx,y:q.y*ky};});var bx=r.detection.box;STATE.box={x:bx.x*kx,y:bx.y*ky,width:bx.width*kx,height:bx.height*ky};STATE.detectionScore=r.detection.score||0;STATE.lastDetectionAt=performance.now();var hn=document.getElementById('hud-nodes');if(hn)hn.innerText='68';}else{STATE.detectionScore=0;}}).catch(function(){dbusy=false;});
       }catch(e){dbusy=false;} };
@@ -2682,7 +2694,7 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     /* le scan du moteur : on remplace sa mise en scène thermique par la nôtre, puis on rend la main à executeCapture */
     var _startThermal=startThermalScan;startThermalScan=function(){STATE.thermalMode=true;vyHud('hud.read');T0=performance.now();for(var i=0;i<68;i++)LIT[i]=0;
       /* 05/10 : la vraie lecture demarre des le verrouillage, pendant l'animation (plus d'attente apres) ; l.animation passe de 9,6 s a 5 s */
-      try{var vv=document.getElementById('liveVideo');if(vv&&vv.videoWidth&&vv.style.display!=='none'&&window.VYVRE_SCAN_ENGINE&&!window.__vyLecture){window.__vyLecture=window.VYVRE_SCAN_ENGINE.runRealScanWithFeedback(vv,function(){},{sansDecompte:true,gateMs:1100,analyseMs:2400,skipAge:true}).catch(function(){return null;});}}catch(e){}
+      try{var vv=document.getElementById('liveVideo');if(vv&&vv.videoWidth&&vv.style.display!=='none'&&window.VYVRE_SCAN_ENGINE&&!window.__vyLecture){window.__vyMoteur=true;var moi=window.__vyLecture=window.VYVRE_SCAN_ENGINE.runRealScanWithFeedback(vv,function(){},{sansDecompte:true,gateMs:1100,analyseMs:2400,skipAge:true}).catch(function(){return null;}).then(function(r){if(window.__vyLecture===moi)window.__vyMoteur=false;return r;});}}catch(e){}
       setTimeout(function(){executeCapture();},DUR*1000/1.92);};
     (function frame(now){var t=now/1000;x.clearRect(0,0,W2,H2);var P=pts();if(P&&document.getElementById('view-scanner').classList.contains('active')){if(T0){var T=(now-T0)/1000*1.92;if(T<DUR+.5)scene(t,P,T);}else attente(t,P);}if(!reduce)requestAnimationFrame(frame);})(0);
   }
@@ -2695,7 +2707,7 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     function eo(k){return 1-Math.pow(1-k,3);}function rgba2(k,a){return 'rgba('+k+','+a+')';}
     function st2(col,w,blur){g2.strokeStyle=col;g2.lineWidth=w||1;if(blur){g2.shadowBlur=blur;g2.shadowColor=col;}g2.stroke();g2.shadowBlur=0;}
     new MutationObserver(function(){ if(proc.classList.contains('active')&&!T0g){T0g=performance.now();lastP=(SM||[]).map(function(p){return p.slice();});} if(!proc.classList.contains('active'))T0g=0; }).observe(proc,{attributes:true,attributeFilter:['class']});
-    (function gal(now){ if(T0g){ var t=now/1000,T=(now-T0g)/1000; var cx=SW/2,cy=SH*.47,R=Math.min(SW,SH)*.46,k=Math.min(1,T/1.6),ek=eo(k),spin=t*.22,col=Math.max(0,Math.min(1,(T-2.2)/1.3)),Rk=R*(1-col*.93),tilt=.5+.06*Math.sin(t*.2);
+    var galDer=0;(function gal(now){ if(T0g&&!(window.__vyMoteur&&now-galDer<250)){ galDer=now; var t=now/1000,T=(now-T0g)/1000; var cx=SW/2,cy=SH*.47,R=Math.min(SW,SH)*.46,k=Math.min(1,T/1.6),ek=eo(k),spin=t*.22,col=Math.max(0,Math.min(1,(T-2.2)/1.3)),Rk=R*(1-col*.93),tilt=.5+.06*Math.sin(t*.2);
         g2.clearRect(0,0,SW,SH);g2.globalAlpha=Math.min(1,T/1.4);
         BG.forEach(function(s,i){var tw=.5+.5*Math.sin(t*(.6+s.z)+i);g2.beginPath();g2.arc(s.x*SW,s.y*SH,.4+s.z*1.1,0,6.283);g2.fillStyle=rgba2(s.h<.2?IC:(s.h<.35?OR:BL),(.08+.32*s.z)*tw);g2.fill();});
         var hy=SH*.62;g2.save();g2.beginPath();g2.rect(0,hy,SW,SH-hy);g2.clip();for(var q=-12;q<=12;q++){g2.beginPath();g2.moveTo(cx,hy);g2.lineTo(cx+q*SW*.14,SH);st2(rgba2(IC,.035),.6);}for(var r=0;r<9;r++){var kk=((r+(t*.15)%1)/9),yy=hy+kk*kk*(SH-hy);g2.beginPath();g2.moveTo(0,yy);g2.lineTo(SW,yy);st2(rgba2(IC,.05*(.3+kk)),.6);}g2.restore();

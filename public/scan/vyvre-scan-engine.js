@@ -2211,7 +2211,10 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
           inputSize: 224,  // plus petit que scan principal (perf gating)
           scoreThreshold: 0.45
         });
-        const detected = await fa.detectAllFaces(canvas, tinyOpts);
+        /* 05/10 : une seule detection par image (visages + reperes ensemble) au lieu de deux : controle deux fois plus rapide sur telephone */
+        const avecLm = !!(fa.nets.faceLandmark68Net && fa.nets.faceLandmark68Net.params);
+        const brut = avecLm ? await fa.detectAllFaces(canvas, tinyOpts).withFaceLandmarks() : await fa.detectAllFaces(canvas, tinyOpts);
+        const detected = brut.map(d => d.detection || d);
         faces = detected.map(d => ({
           x: d.box.x, y: d.box.y, w: d.box.width, h: d.box.height,
           score: d.score
@@ -2220,7 +2223,7 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
         // Tentative landmarks si modèle chargé (n'arrête pas si absent)
         if (fa.nets.faceLandmark68Net && fa.nets.faceLandmark68Net.params && detected.length === 1) {
           try {
-            const withLm = await fa.detectSingleFace(canvas, tinyOpts).withFaceLandmarks((fa.nets.faceLandmark68TinyNet && fa.nets.faceLandmark68TinyNet.isLoaded) ? true : false);
+            const withLm = brut[0];
             if (withLm && withLm.landmarks) {
               landmarks = withLm.landmarks.positions.length;
               // Estime yaw approximatif : asymétrie nose-eye
