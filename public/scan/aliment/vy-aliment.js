@@ -580,6 +580,7 @@
     if((REP.q1 || []).some(function(v){ return v !== 'aucune'; })) al.push('Cela ne remplace pas l’avis de votre allergologue.');
     if(a('q7','vegan')) al.push('Pensez à la vitamine B12 : parlez-en à un professionnel de santé.');
     var h = HAUT + editTete(pris, ind, e, prudent, titres)
+      + (window.VyWrap && pris.length ? '<div id="vy-as-wrap" class="vyw-zone"></div>' : '')   /* 05/10 : le Wrap */
       + (prudent ? '<p class="lead">Sans vos réponses, nous ne gardons que des aliments sans aucun des 14 allergènes majeurs ni précaution médicale connue. Pour une assiette sur mesure, répondez à une seule question. <a href="#" id="vy-as-rep2" style="color:inherit">Répondre</a></p>' : '')
       + (prudent ? '' : affiner())
       + (pris.length ? '<div class="m" id="vy-as-detail" style="margin-top:44px">Le détail</div><h2 style="margin-top:8px">Aliment par aliment.</h2>' : '')
@@ -614,6 +615,13 @@
       + '<p class="fine">Eczéma ou psoriasis : n’éliminez aucun aliment sans avis médical, surtout chez l’enfant. Certains aliments interagissent avec des médicaments : parlez-en à votre pharmacien.</p>'
       + '<p class="fine">Information générale, pas un avis médical. Composition : table CIQUAL 2020 (ANSES). Allégations : registre de l’Union européenne, règlement (CE) n° 1924/2006.</p>';
     feuille(h, 'jour'); ecrireMemoire();
+    /* 05/10 : le Wrap (story de 5 s) : les aliments retenus et les vrais comptes de cette assiette */
+    var zw = document.getElementById('vy-as-wrap');
+    if(zw && window.VyWrap){ var mois0 = new Date().getMonth() + 1, nEx = Object.keys(e.x).length, p4 = pris.slice(0, 4);
+      zw.appendChild(VyWrap.bouton(function(){ return { type:'aliment', prenom:'', titre:'Mon assiette', exemple:!!window.__vyDemo,
+        chiffres:[ { label:'Aliments passés en revue', valeur:DATA.length, unite:'' }, { label:'Écartés pour vous', valeur:nEx, unite:'' },
+                   { label:'De saison', valeur:p4.filter(function(c){ var sa = c.f.saison || []; return sa.length && sa.length < 12 && sa.indexOf(mois0) >= 0; }).length, unite:'' }, { label:'Retenus', valeur:p4.length, unite:'' } ],
+        items:p4.map(function(c){ var f = c.f; return { nom:f.nom.split(' (')[0].split(',')[0], marque:NOM_CAT[f.categorie] || '', etape:(f.portion_type || '').split(' (')[0], image:BASE + 'photos/' + f.id + '.png' }; }) }; }, { type:'aliment' })); }
     document.getElementById('vy-as-rep').onclick = function(){ eviter(SANTE ? JSON.parse(JSON.stringify(SANTE)) : null); };
     var r2 = document.getElementById('vy-as-rep2'); if(r2) r2.onclick = function(ev){ ev.preventDefault(); eviter(); };
     ouvert.querySelectorAll('[data-af]').forEach(function(z){ z.onclick = function(){ var k = z.dataset.af, v = z.dataset.v;

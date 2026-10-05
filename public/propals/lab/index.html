@@ -251,6 +251,7 @@ canvas.plein{position:absolute;inset:0;width:100%;height:100%}
 </div></div></div>
 <nav id="nav"></nav>
 <video id="video" autoplay muted playsinline style="position:fixed;width:2px;height:2px;opacity:.01;left:0;top:0"></video>
+<script src="/wrap/vy-wrap.js?v=2"></script>
 <script src="/propals/lab/buste-gl-v10.js?v=10"></script>
 <script type="module">
 import { FilesetResolver, FaceLandmarker, ImageSegmenter } from '/cheveux/vendor/mediapipe/vision_bundle.mjs';
@@ -323,7 +324,8 @@ const ENTREE = {
     const tic = now => { if(etape !== 7) return; const u = Math.min(1, (now - t0)/D); e = Math.max(e, fini ? Math.min(1, e + .02) : .9*(1 - Math.pow(1 - u, 2))); arc.style.strokeDashoffset = (603*(1 - e)).toFixed(1); $('tete7').setAttribute('transform', 'rotate(' + (360*e).toFixed(1) + ' 100 100)');
       if(e < 1) requestAnimationFrame(tic); else { fl.style.opacity = '1'; $('st7').parentNode.style.opacity = '1'; setTimeout(() => { if(etape === 7) aller(8); }, 1800); } }; requestAnimationFrame(tic); },
   8(){ resultats(); } };
-setTimeout(() => ENTREE[0](), 50);
+/* ?vue=res : ouvre directement les resultats (test ; sans lecture, l'exemple est annonce comme tel) */
+if(/[?&]vue=res\b/.test(location.search)) setTimeout(() => aller(8), 50); else setTimeout(() => ENTREE[0](), 50);
 /* ---- camera et maillage du visage ---- */
 let face = null, flux = null;
 async function camera(){
@@ -550,6 +552,7 @@ function resultats(){
     + '<div class="duo"><div><small>Points du visage suivis</small><b>' + (L ? L.length : 478) + '</b></div><div><small>Catégories</small><b>08</b></div></div><hr>'
     + '<h3 style="font:600 26px var(--sans)">Ce que la lecture a repéré</h3><div class="gp-wrap"><div class="gros-plan"><canvas id="gp"></canvas></div><div><div id="gpListe"></div><p class="note">Repères visuels sur votre cliché, pour les retrouver d’une lecture à l’autre. Pas un diagnostic.</p></div></div><hr>'
     + '<h3 style="font:600 26px var(--sans)">Vos soins</h3><p class="note">Choisis dans le catalogue pour vos deux points à travailler en priorité.</p><div class="soins" id="soins"><p class="note">Chargement du catalogue…</p></div><div id="fiches"></div><hr>'
+    + (window.VyWrap ? '<div id="vyLabWrap" class="vyw-zone"></div>' : '')
     + '<div class="suite"><a href="/aliment"><span class="mono">Ensuite</span><b>Votre assiette →</b></a><a href="/scan/"><span class="mono">Ensuite</span><b>Vos soins →</b></a></div>'
     + '<p class="note">Lecture optique de l’image, faite sur cet appareil. Elle ne remplace pas l’avis d’un dermatologue.' + (exemple ? ' Ces valeurs sont un exemple : la caméra n’a pas pu lire votre peau.' : '') + '</p>';
   requestAnimationFrame(grosPlan);
@@ -560,6 +563,10 @@ function resultats(){
       reveleB = Math.min(1, p/1.1); zoomB = 1; tourneB = Math.min(1, Math.max(0, (p - 1.6)/1.2));
       buste(now/1000); requestAnimationFrame(anime); }; requestAnimationFrame(anime); }
   soins(ordre);
+  /* 05/10 : le Wrap (story de 5 s) : le prenom, les vrais chiffres de la lecture, les quatre soins affiches */
+  const zw = $('vyLabWrap');
+  if(zw && window.VyWrap) zw.appendChild(VyWrap.bouton(() => { const ch = lignes.map(([k, t, v]) => ({ label:t, valeur:v, unite:'/100' })).sort((a, b) => b.valeur - a.valeur);
+    return { type:'peau', prenom:n, titre:'Ma peau', chiffres:ch, phare:ch[0], exemple, items:(window.__vyLabSoins || []).slice(0, 4) }; }, { type:'peau' }));
 }
 /* le detail de chaque soin, comme le scan classique : grande photo, pourquoi pour vous, ce qu'en dit la marque (court), ses actifs, comment l'utiliser */
 const USAGE = { serum:'Matin et/ou soir, quelques gouttes sur peau propre, avant la crème.', creme:'Matin et soir, sur le visage et le cou, après le sérum.', 'contour-yeux':'Matin et soir, une petite quantité en tapotant du bout du doigt autour de l’œil.', nettoyant:'Matin et soir, sur peau humide, puis rincer.', masque:'Une à deux fois par semaine, sur peau propre, selon la notice.', 'solaire-visage':'Le matin, en dernier geste, et à renouveler en cas d’exposition.', lotion:'Après le nettoyage, sur un coton ou au creux des mains.', exfoliant:'Le soir, une à trois fois par semaine ; une protection solaire le lendemain.', huile:'Le soir, quelques gouttes réchauffées entre les mains, en dernier geste.', 'autre-visage':'Selon la notice de la marque.' };
@@ -597,6 +604,7 @@ async function soins(ordre){ const z = $('soins'); try { const [j, mj] = await P
   // un produit sur fond blanc (pas detoure) est retire ; on garde les 4 premiers bons
   const cartes = [...z.querySelectorAll('.soin')]; cartes.forEach((a, k) => { a.hidden = true; const im = a.querySelector('img'); const juge = () => { let bon = true; try { const c2 = document.createElement('canvas'); c2.width = 40; c2.height = 40; const g = c2.getContext('2d'); g.drawImage(im, 0, 0, 40, 40); const d = g.getImageData(0, 0, 40, 40).data; let ob = 0; for(let q = 0; q < 40; q++){ [[q,0],[q,39],[0,q],[39,q]].forEach(([a2, b2]) => { if(d[(b2*40 + a2)*4 + 3] > 200) ob++; }); } bon = ob/160 < .4; let n2 = 0, x0 = 40, x1 = -1, y0 = 40, y1 = -1, bl = 0; for(let q = 0; q < 1600; q++){ if(d[q*4 + 3] > 200){ n2++; const i = q % 40, j = (q/40) | 0; if(i < x0) x0 = i; if(i > x1) x1 = i; if(j < y0) y0 = j; if(j > y1) y1 = j; if(d[q*4] > 215 && d[q*4 + 1] > 215 && d[q*4 + 2] > 215) bl++; } } a.dataset.boite = (n2/Math.max(1, (x1 - x0 + 1)*(y1 - y0 + 1)) > .82 && bl/Math.max(1, n2) > .25) ? '1' : '0'; } catch(e){} a.dataset.bon = bon ? '1' : '0'; montre(); }; if(im.complete && im.naturalWidth) juge(); else { im.onload = juge; im.onerror = () => { a.dataset.bon = '0'; montre(); }; } });
   let tf = null; function montre(){ let n = 0; cartes.forEach(a => a.hidden = true); [cartes.filter(a => a.dataset.bon === '1' && a.dataset.boite !== '1'), cartes.filter(a => a.dataset.bon === '1' && a.dataset.boite === '1')].flat().forEach(a => { if(n < 4){ a.hidden = false; n++; } });
+    try { window.__vyLabSoins = cartes.filter(a => !a.hidden).map(a => pris[cartes.indexOf(a)]).map(p => ({ nom:p.name, marque:p.brand_name || p.brand || '', image:p.cutout_url || '', etape:p.__yeux ? 'Contour des yeux' : (p.targets || []).filter(t => faibles.includes(t)).map(t => lab[t]).join(' · ') })); } catch(e){}
     clearTimeout(tf); tf = setTimeout(() => fiches(cartes.filter(a => !a.hidden).map(a => pris[cartes.indexOf(a)]), faibles, lab), 400); } } catch(e){ z.innerHTML = '<p class="note">Catalogue indisponible.</p>'; } }
 const esc = t => String(t).replace(/[&<>"]/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' })[c]);
 /* le gros plan : votre vrai visage en transparence, dans un petit ecran retroeclaire ; carres bleus = zones reperees sur le cliche
