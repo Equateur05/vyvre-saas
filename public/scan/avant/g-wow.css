@@ -215,6 +215,9 @@ body.part .scene,body.part .pied{transition:opacity 1s var(--e),filter 1s var(--
   .q em{flex-basis:100%;order:3}
   .vy-go{padding:18px 40px}
   .pied{padding:0 16px calc(18px + env(safe-area-inset-bottom));gap:12px}
+  /* 05/10 : le bouton Continuer reste toujours visible en bas de l'ecran */
+  .suite.vue{position:sticky;bottom:calc(14px + env(safe-area-inset-bottom));z-index:60}
+  body{padding-bottom:calc(30px + env(safe-area-inset-bottom))}
   .pied .sp{display:none}
   .reglages{width:100%;justify-content:space-between}
 }

@@ -1975,7 +1975,8 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     const fort = p => FORT.test((p.name || '') + ' ' + (p.score_raisons || []).join(' '));
     const sensible = faibles.indexOf('redness') >= 0;
     const note = p => { const cs = p.concern_scores || {}; let m = 0; for (const tc of topConcerns) m += ((cs[tc.concern] || 0) + ((p.targets || []).includes(tc.concern) ? .3 : 0)) * tc.severity; return m; };
-    const pool = products.filter(p => p.cutout_url || p.image_url).map(p => Object.assign({}, p, { matchScore: typeof p.matchScore === 'number' ? p.matchScore : note(p) }));
+    let fondPlein = {}; try { ((await (await fetch('/scan/catalogue/fond_plein.json')).json()).images || []).forEach(u => fondPlein[u] = 1); } catch (_) {}
+    const pool = products.filter(p => (p.cutout_url || p.image_url) && !fondPlein[String(p.cutout_url || '').split('?')[0]]).map(p => Object.assign({}, p, { matchScore: typeof p.matchScore === 'number' ? p.matchScore : note(p) }));
     const PAS = /patch|\bpads?\b|mask|masque|sheet|\blip\b|l[èe]vres/i;
     const pris = [];
     const choisir = (cat, ok) => pool.filter(p => p.categorie === cat && !PAS.test(p.name || '') && !pris.some(x => memeProduit(x, p) || (x.brand && x.brand === p.brand)) && (ok ? ok(p) : true)).sort((a, b) => b.matchScore - a.matchScore)[0] || null;
@@ -2491,7 +2492,8 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
   #view-process{padding:0}
   #view-process .computation-layout{background:none;border:0;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none;max-width:none;height:100vh;position:absolute;inset:0}
   #epigenetic-canvas{display:none!important}
-  #sig-soleil{position:absolute;inset:0;width:100%;height:100%}
+  #sig-soleil{position:absolute;inset:0;width:100%;height:100%;animation:galRespire 7s ease-in-out infinite;will-change:transform}
+  @keyframes galRespire{0%,100%{transform:scale(1) rotate(0deg)}50%{transform:scale(1.045) rotate(1.6deg)}}
   #view-process .label-sm,#view-process h2{position:absolute;left:50%;transform:translateX(-50%);z-index:3;margin:0;text-align:center}
   #view-process .label-sm{display:none}
   #view-process h2{top:132px;font-size:22px;font-weight:200;color:rgba(255,255,255,.85)}
@@ -3083,7 +3085,7 @@ header{backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important;-webki
      pose en fenetre plein ecran. Il rend les reponses par postMessage ; ce bloc garde
      la logique qui s'en sert : filtre du catalogue, poids des objectifs, barre de resume. -->
 <style id="vy-prefs-css">
-#vy-avant{position:fixed;inset:0;z-index:9000;width:100vw;height:100vh;border:0;background:#030405;opacity:0;transition:opacity .7s cubic-bezier(.22,1,.36,1)}
+#vy-avant{position:fixed;inset:0;z-index:9000;width:100vw;height:100vh;height:100dvh;border:0;background:#030405;opacity:0;transition:opacity .7s cubic-bezier(.22,1,.36,1)}
 #vy-avant.vis{opacity:1}
 #vy-prefs-bar{grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin:0 auto 26px;padding:0 16px;font:400 11px var(--font-data);letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55);text-align:center}
 #vy-prefs-bar b{color:#fff;font-weight:400}
@@ -3168,7 +3170,7 @@ header{backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important;-webki
   function open(m){
     mode=m; if(cadre) return;
     cadre=document.createElement('iframe'); cadre.id='vy-avant'; cadre.title='Avant votre scan';
-    cadre.src='/scan/avant/index.html?v=4&lang='+encodeURIComponent((window.VY&&VY.lang)||'fr'); cadre.setAttribute('allow','autoplay');
+    cadre.src='/scan/avant/index.html?v=5&lang='+encodeURIComponent((window.VY&&VY.lang)||'fr'); cadre.setAttribute('allow','autoplay');
     document.body.appendChild(cadre);
     cadre.setAttribute('tabindex','-1');
     cadre.addEventListener('load',function(){ try{ cadre.focus(); cadre.contentWindow.focus(); }catch(e){} });
