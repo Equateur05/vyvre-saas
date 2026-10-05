@@ -442,7 +442,15 @@
      rang = position de l'actif dans la liste, donc sa concentration probable) */
   var PRODUITS = null;
   function catalogue(){ if(PRODUITS) return Promise.resolve(PRODUITS);
-    return fetch(BASE + 'actifs_produits.json').then(function(r){ return r.json(); }).then(function(j){ PRODUITS = j.actifs || {}; return PRODUITS; }).catch(function(){ PRODUITS = {}; return PRODUITS; }); }
+    /* 05/10 (audit) : on retire les photos a fond blanc plein (pas de vrai detourage) et on applique la provenance et le budget choisis avant le scan */
+    var plein = fetch('/scan/catalogue/fond_plein.json').then(function(r){ return r.json(); }).catch(function(){ return { images:[] }; }),
+        marques = fetch('/scan/catalogue/marques.json').then(function(r){ return r.json(); }).catch(function(){ return { marques:{} }; });
+    return Promise.all([fetch(BASE + 'actifs_produits.json').then(function(r){ return r.json(); }), plein, marques]).then(function(t){ var ex = {}; (t[1].images || []).forEach(function(u){ ex[u] = 1; });
+      var M = t[2].marques || {}, pr = {}; try { pr = JSON.parse(localStorage.getItem('vyvre-prefs-v1') || '{}') || {}; } catch(e){}
+      var EU = { DE:1, CH:1, SE:1, BE:1, NL:1, ES:1, IT:1, AT:1, DK:1, PT:1, MC:1, HU:1, IE:1, PL:1 }, region = function(b){ var m = M[b]; return !m ? null : EU[m.pays] ? 'EU' : m.pays; };
+      var garde = function(p, lache){ var m = M[p.brand] || {}; if((pr.marques || []).length && lache < 1) return pr.marques.indexOf(p.brand) >= 0; if(lache < 1 && (pr.origine || []).length && pr.origine.indexOf(region(p.brand)) < 0) return false; if(lache < 2 && (pr.univers || []).length && pr.univers.indexOf(m.univers) < 0) return false; return true; };
+      PRODUITS = {}; Object.keys(t[0].actifs || {}).forEach(function(k){ var l = (t[0].actifs[k] || []).filter(function(p){ return !ex[String(p.img || '').split('?')[0]]; }), f = l.filter(function(p){ return garde(p, 0); }); if(f.length < 2) f = l.filter(function(p){ return garde(p, 1); }); if(f.length < 2) f = l; PRODUITS[k] = f; });
+      return PRODUITS; }).catch(function(){ PRODUITS = {}; return PRODUITS; }); }
   function produitsPour(actif){ var l = (PRODUITS && PRODUITS[actif.id]) || [];
     if(window.vyPrefs && window.vyPrefs.filter){ try { var f = window.vyPrefs.filter(l.map(function(p){ return { id:p.id, brand:p.brand, pays:p.pays, categorie:p.cat, name:p.n }; })); var ok = {}; f.forEach(function(p){ ok[p.id] = 1; }); if(f.length) l = l.filter(function(p){ return ok[p.id]; }); } catch(e){} }
     var serum = l.filter(function(p){ return /serum|sérum/i.test(p.cat || '') ; })[0], creme = l.filter(function(p){ return /creme|crème|soin|hydratant/i.test(p.cat || '') && p !== serum; })[0];
@@ -607,7 +615,7 @@
             + (prix(f) ? '<div class="preuve" style="text-transform:none;letter-spacing:.2px;font-size:12.5px">' + esc(prix(f)) + (AFFINE.bio && f.bio_disponible ? ' Existe en bio.' : '') + '</div>' : '')
             + (f.allergenes_UE.length ? '<div class="prec">Allergènes : ' + f.allergenes_UE.map(function(z){ return AL_NOM[z] || z; }).join(', ') + ((f.allergenes_possibles || []).length ? ' ; selon la marque : ' + f.allergenes_possibles.map(function(z){ return AL_NOM[z] || z; }).join(', ') : '') + '.</div>' : '')
             + pr.map(function(t){ return '<div class="prec">' + esc(t) + '</div>'; }).join('')
-            + (f.etudes.length ? '<details><summary>Ce que disent les études (' + f.etudes.length + ')</summary><p style="font-size:12.5px">' + esc(f.mecanisme_simple) + ' Information scientifique générale : ce n’est pas un effet attendu de cet aliment sur votre peau.</p>' + f.etudes.map(function(s){ return '<a href="' + esc(s.lien) + '" target="_blank" rel="noopener">' + esc(s.ref) + ' ↗</a>'; }).join('') + '</details>' : '')
+            + (f.etudes.length ? '<details><summary>Ce que disent les études (' + f.etudes.length + ')</summary><p style="font-size:12.5px">Les références ci-dessous sont données pour information. Elles ne permettent pas de promettre un effet de cet aliment sur votre peau ; seules les mentions autorisées par l’Union européenne, affichées plus haut, décrivent un rôle d’un nutriment.</p>' + f.etudes.map(function(s){ return '<a href="' + esc(s.lien) + '" target="_blank" rel="noopener">' + esc(s.ref) + ' ↗</a>'; }).join('') + '</details>' : '')
             + credit(f.id)
             + (prudent ? '' : '<a href="#" class="vy-as-pas" data-id="' + f.id + '" style="display:inline-block;margin-top:12px;font-size:12.5px;letter-spacing:1.4px;text-transform:uppercase;color:#52716f">Retirer cet aliment</a>')
             + '</div></div>'; }).join('')
