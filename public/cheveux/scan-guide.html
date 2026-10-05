@@ -252,6 +252,8 @@ function tailles(){
 }
 function lire(now){
   if(!segH || now - dern < 60) return; dern = now;
+  /* 05/10 : iOS passe de paysage a portrait apres l'ouverture ; l'image d'analyse suit le vrai format (sinon elle etait ecrasee) */
+  if(SW() && Math.round(PW * SH() / SW()) !== PH) tailles();
   pctx.save(); if(miroir){ pctx.translate(PW,0); pctx.scale(-1,1); } pctx.drawImage(src,0,0,PW,PH); pctx.restore();
   try{
     if(tour++ % 2 === 0){
