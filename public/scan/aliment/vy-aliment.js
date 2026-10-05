@@ -740,7 +740,7 @@
      a partir du dernier scan garde sur cet appareil, sans refaire le scan */
   if(/[?&]assiette=1/.test(location.search)){
     var direct = function(){ if(window.__vyScores || ouvert) return;
-      var sc = null; try { sc = JSON.parse(localStorage.getItem('vyvre_scan_scores') || 'null'); } catch(e){}
+      var sc = null; try { var at = +localStorage.getItem('vyvre_scan_at') || 0; if(at && Date.now() - at < 864e5) sc = JSON.parse(localStorage.getItem('vyvre_scan_scores') || 'null'); } catch(e){}   /* 05/10 : plus de 24 h = pas de scan */
       if(!sc || !Object.keys(sc).length){ sc = { glow:47, redness:58, hydration:52, pores:58, sebum:36, pigmentation:25, wrinkles:61, firmness:66 }; window.__vyDemo = true; }   // aucun scan sur cet appareil : un exemple, signale
       window.__vyScores = sc; entree.fait = 1; ouvrir(); };
     if(document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ setTimeout(direct, 300); }); else setTimeout(direct, 300); }
