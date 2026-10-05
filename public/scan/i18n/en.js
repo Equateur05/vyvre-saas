@@ -79,6 +79,8 @@ VY.add('en', {
 'c.pores': 'Pores',
 'c.sebum': 'Sebum control',
 'c.pigmentation': 'Evenness',
+'e.nettoyer': 'Cleanse',
+'e.proteger': 'Sun protection',
 'c.default': 'Signature care',
 'p.action': 'Targeted action: {t}.',
 'p.open': 'View on the brand’s official site',

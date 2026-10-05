@@ -79,6 +79,8 @@ VY.add('nl', {
 'c.pores': 'Poriën',
 'c.sebum': 'Talgregulatie',
 'c.pigmentation': 'Egaliteit',
+'e.nettoyer': 'Reinigen',
+'e.proteger': 'Zonbescherming',
 'c.default': 'Signatuurverzorging',
 'p.action': 'Gerichte werking: {t}.',
 'p.open': 'Bekijken op de officiële site van het merk',

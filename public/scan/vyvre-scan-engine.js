@@ -2492,6 +2492,8 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
   };
 
   function v9ShowRejectUI(issues, options) {
+    /* 05/10 (audit) : une raison une seule fois */
+    issues = (issues || []).filter(function(it, k, a){ return a.findIndex(function(z){ return z && it && z.code === it.code; }) === k; });
     if (typeof document === 'undefined') return;
     options = options || {};
     const locale = v9Locale();
@@ -4129,12 +4131,11 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
     ));
 
     // ─── PIGMENTATION (Takiwaki 1998, phototype-adjusted) ────────────────
-    const pigmentClamps = PHOTOTYPE_PIGMENT_CLAMPS[phototype] || PHOTOTYPE_PIGMENT_CLAMPS[3];
+    /* 05/10 (audit) : plus de plancher ni de plafond selon la couleur de peau (une peau foncee ne pouvait jamais
+       depasser 40-50 en uniformite). Valeur provisoire ici ; remplacee plus bas par la mesure RELATIVE a la peau
+       de la personne (zones plus foncees que son propre teint, petites taches) des que les pixels sont disponibles. */
     const pigmentRaw = (raw.MI - PIGMENT_MI_OFFSET) / PIGMENT_MI_DIVISOR;
-    const pigmentation = Math.round(clamp(
-      pigmentClamps.min, pigmentClamps.max,
-      pigmentRaw
-    ));
+    let pigmentation = Math.round(clamp(0, 100, pigmentRaw));
 
     // ─── PORES (proxy σL*) ───────────────────────────────────────────────
     const pores = Math.round(clamp(
@@ -4243,6 +4244,18 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
         melasma:  { score: 0, severity: 'none', patches: 0, meanMI: 0 },
         lentigos: { score: 0, severity: 'none', spots: 0, meanL: 0 }
       };
+    }
+
+    /* 05/10 (audit) : taches et uniformite = ecarts par rapport au teint de la personne elle-meme
+       (melasma : plaques au-dessus de sa moyenne + 2 ecarts types ; lentigos : points 15 L* sous sa moyenne).
+       Meme regle quelle que soit la couleur de peau. */
+    if (raw && raw._pixelBundle && (raw._pixelBundle.cheekPixels || []).length > 80) {
+      // part de la peau des joues nettement plus foncee (7 L* sous la mediane) que le teint de la personne
+      const Ls = raw._pixelBundle.cheekPixels.map(p => rgbToLab(p.r, p.g, p.b).L).sort((x, y) => x - y);
+      const med = Ls[Ls.length >> 1];
+      const frac = Ls.filter(v => v < med - 7).length / Ls.length;
+      pigmentation = Math.round(clamp(0, 100, frac * 250));
+      raw.pigmentRelative = { mediane: +med.toFixed(1), partPlusFoncee: +frac.toFixed(3) };
     }
 
     // ─── GLOBAL SCORE (moyenne pondérée) ─────────────────────────────────

@@ -79,6 +79,8 @@ VY.add('zh', {
 'c.pores': '毛孔',
 'c.sebum': '控油',
 'c.pigmentation': '均匀度',
+'e.nettoyer': '清洁',
+'e.proteger': '防晒',
 'c.default': '标志性护理',
 'p.action': '针对性作用：{t}。',
 'p.open': '前往品牌官方网站查看',

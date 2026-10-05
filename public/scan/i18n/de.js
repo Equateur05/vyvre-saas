@@ -79,6 +79,8 @@ VY.add('de', {
 'c.pores': 'Poren',
 'c.sebum': 'Talgregulierung',
 'c.pigmentation': 'Ebenmäßigkeit',
+'e.nettoyer': 'Reinigen',
+'e.proteger': 'Sonnenschutz',
 'c.default': 'Signaturpflege',
 'p.action': 'Gezielte Wirkung: {t}.',
 'p.open': 'Auf der offiziellen Website der Marke ansehen',

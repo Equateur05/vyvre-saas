@@ -79,6 +79,8 @@ VY.add('ko', {
 'c.pores': '모공',
 'c.sebum': '피지 조절',
 'c.pigmentation': '균일함',
+'e.nettoyer': '세안',
+'e.proteger': '자외선 차단',
 'c.default': '시그니처 케어',
 'p.action': '겨냥한 작용: {t}.',
 'p.open': '브랜드 공식 사이트에서 보기',

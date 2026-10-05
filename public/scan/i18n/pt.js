@@ -79,6 +79,8 @@ VY.add('pt', {
 'c.pores': 'Poros',
 'c.sebum': 'Sebo regulado',
 'c.pigmentation': 'Uniformidade',
+'e.nettoyer': 'Limpar',
+'e.proteger': 'Proteção solar',
 'c.default': 'Cuidado assinatura',
 'p.action': 'Ação direcionada: {t}.',
 'p.open': 'Ver no site oficial da marca',

@@ -67,7 +67,7 @@
     r.q9 = [REP.q9s === 'moins7' ? '6_7' : REP.q9s === 'plus9' ? 'plus9' : REP.q9s === '7_9' ? '7_9' : null, REP.q9d ? 'irregulier' : null].filter(Boolean);
     r.q10 = REP.q10p ? [REP.q10p] : []; REP = r; }
   function charger(){ if(DATA) return Promise.resolve();
-    return fetch(BASE + 'aliments_v4.json?v=2').then(function(r){ return r.json(); }).then(function(j){ DATA = j.aliments; })
+    return fetch(BASE + 'aliments_v4.json?v=3').then(function(r){ return r.json(); }).then(function(j){ DATA = j.aliments; })
       .then(function(){ return fetch(BASE + 'recettes.json?v=2').then(function(r){ return r.json(); }).then(function(j){ RECS = j.recettes || []; }).catch(function(){ RECS = []; }); })
       .then(function(){ return fetch(BASE + 'tendances.json?v=1').then(function(r){ return r.json(); }).then(function(j){ TEND = j.tendances || []; }).catch(function(){ TEND = []; }); })
       .then(function(){ return fetch(BASE + 'photos/credits.json?v=2').then(function(r){ return r.json(); }).then(function(j){ CREDITS = j || {}; }).catch(function(){ CREDITS = {}; }); })
@@ -499,10 +499,10 @@
       return (c.indice === ind.i1 || c.indice === ind.i2) && !ex[c.aliment_id] && ac && !(sensible && ['aha','retinoide'].indexOf(ac.id) >= 0) && !(enceinte && ac.grossesse === 'eviter') && !(MODE === 'prudent' && ac.grossesse !== 'ok') && !(MODE === 'mineur' && ac.id !== 'protection_solaire'); })
       .sort(function(p, q){ return (ids[q.aliment_id] ? 1 : 0) - (ids[p.aliment_id] ? 1 : 0) || (p.ordre || 9) - (q.ordre || 9); }).slice(0, 3);
     var oeil = soinYeux(ind);   /* 04/10 : le contour des yeux, a part, sans aliment */
-    if(!lignes.length) return oeil;
+    if(!lignes.length) return oeil; var dejaProd = {};
     return '<div class="prem"><div class="m">Premium · Un aliment, un soin</div><h2>Combo.</h2><p class="lead" style="color:#b6cdc8">Pour une même cible, un aliment à table et un actif en soin. Chacun a ses propres preuves. Aucune étude n’a testé les deux ensemble : nous ne promettons donc aucun effet combiné.</p>'
       + lignes.map(function(c, k){ var f = DATA.filter(function(z){ return z.id === c.aliment_id; })[0], ac = actifs[c.actif_id]; if(!f) return '';
-        var prods = produitsPour(ac);
+        var prods = produitsPour(ac).filter(function(p){ if(dejaProd[p.id]) return false; dejaProd[p.id] = 1; return true; });   /* 05/10 : un produit une seule fois dans les combos */
         return '<div class="rit"><i>' + n2(k) + '</i><div>' + (ids[f.id] ? '' : '<div class="preuve" style="margin:0 0 4px">Un autre aliment pour la même cible</div>') + '<h3>' + esc(f.nom.split(' (')[0]) + ' + ' + (prods.length ? esc((prods[0].b ? prods[0].b + ' ' : '') + (prods[0].n || '')) : esc(ac.nom.split(' (')[0])) + '</h3>' + (prods.length ? '<div class="sous" style="margin-top:-2px">' + esc(minus((ac.nom || '').split(' (')[0])) + ' en soin</div>' : '') + '<div class="sous">' + esc(INDICES[c.indice] || c.indice) + ' · aliment : preuve ' + esc(c.grade_aliment || f.niveau_preuve_peau) + ' · soin : preuve ' + esc(c.grade_actif || ac.grade) + '</div>'
           + '<p>À table : ' + esc(f.nom.split(' (')[0].toLowerCase()) + ', ' + esc(composition(f).charAt(0).toLowerCase() + composition(f).slice(1)) + ' En soin : ' + esc(ac.ce_qu_on_peut_dire || '') + '</p>'
           + '<div class="preuve" style="margin-top:14px">Votre rituel</div><p style="margin-top:4px">'

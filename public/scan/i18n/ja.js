@@ -79,6 +79,8 @@ VY.add('ja', {
 'c.pores': '毛穴',
 'c.sebum': '皮脂コントロール',
 'c.pigmentation': '均一感',
+'e.nettoyer': '洗顔',
+'e.proteger': '日焼け止め',
 'c.default': 'シグネチャーケア',
 'p.action': '狙う働き：{t}。',
 'p.open': 'ブランド公式サイトで見る',

@@ -87,8 +87,7 @@
     6,
     7,
     8,
-    9,
-    10
+    9
    ],
    "ciqual": {
     "code": 20047,
@@ -143,7 +142,7 @@
    ],
    "surgele_ou_conserve_ok": true,
    "surgele_ou_conserve_note": "Surgelé nature ou conserve au naturel : alternatives pratiques ; rincer les conserves salées.",
-   "saison_source": "Saison v1 conservée ; contrôle ADEME, Impact CO2 : calendrier des fruits et légumes de saison en France (API impactco2.fr/api/v1/fruitsetlegumes, consultée le 30/09/2026) (« Tomate ») : mois [6, 7, 8, 9] (écart avec v1, à arbitrer)",
+   "saison_source": "Saison v1 conservée ; contrôle ADEME, Impact CO2 : calendrier des fruits et légumes de saison en France (API impactco2.fr/api/v1/fruitsetlegumes, consultée le 30/09/2026) (« Tomate ») : mois [6, 7, 8, 9] (05/10 : calendrier ADEME retenu)",
    "usage": "quotidien",
    "photo_prompt": "two ripe vine tomatoes, one sliced, on warm beige stone, soft daylight, minimal luxury food photography, top view",
    "tendance": false,
@@ -315,11 +314,6 @@
     1,
     2,
     3,
-    4,
-    5,
-    6,
-    7,
-    8,
     9,
     10,
     11,
@@ -377,7 +371,7 @@
    ],
    "surgele_ou_conserve_ok": true,
    "surgele_ou_conserve_note": "Surgelé nature ou conserve au naturel : alternatives pratiques ; rincer les conserves salées.",
-   "saison_source": "Saison v1 conservée ; contrôle ADEME, Impact CO2 : calendrier des fruits et légumes de saison en France (API impactco2.fr/api/v1/fruitsetlegumes, consultée le 30/09/2026) (« Carotte ») : mois [1, 2, 3, 9, 10, 11, 12] (écart avec v1, à arbitrer)",
+   "saison_source": "Saison v1 conservée ; contrôle ADEME, Impact CO2 : calendrier des fruits et légumes de saison en France (API impactco2.fr/api/v1/fruitsetlegumes, consultée le 30/09/2026) (« Carotte ») : mois [1, 2, 3, 9, 10, 11, 12] (05/10 : calendrier ADEME retenu)",
    "usage": "quotidien",
    "photo_prompt": "a bunch of carrots with green tops, on warm beige stone, soft daylight, minimal luxury food photography, top view",
    "tendance": false,
@@ -434,12 +428,15 @@
     }
    ],
    "saison": [
-    10,
-    11,
-    12,
     1,
     2,
-    3
+    3,
+    4,
+    5,
+    9,
+    10,
+    11,
+    12
    ],
    "ciqual": {
     "code": 4102,
@@ -485,7 +482,7 @@
    ],
    "surgele_ou_conserve_ok": true,
    "surgele_ou_conserve_note": "Surgelé nature ou conserve au naturel : alternatives pratiques ; rincer les conserves salées.",
-   "saison_source": "Saison v1 conservée ; contrôle Interfel/CTIFL, « Le calendrier des fruits et légumes frais » (2025), mois « cœur de saison » seulement ; construit sur les achats des ménages, peut inclure la serre et l'import (ligne « patate douce ») : mois [1, 2, 3, 4, 5, 9, 10, 11, 12] (écart avec v1, à arbitrer)",
+   "saison_source": "Saison v1 conservée ; contrôle Interfel/CTIFL, « Le calendrier des fruits et légumes frais » (2025), mois « cœur de saison » seulement ; construit sur les achats des ménages, peut inclure la serre et l'import (ligne « patate douce ») : mois [1, 2, 3, 4, 5, 9, 10, 11, 12] (05/10 : calendrier ADEME retenu)",
    "usage": "quotidien",
    "photo_prompt": "a sweet potato and roasted orange wedges, on warm beige stone, soft daylight, minimal luxury food photography, top view",
    "tendance": false,
@@ -561,12 +558,15 @@
     }
    ],
    "saison": [
+    1,
+    2,
     3,
     4,
     5,
     9,
     10,
-    11
+    11,
+    12
    ],
    "ciqual": {
     "code": 20059,
@@ -612,7 +612,7 @@
    ],
    "surgele_ou_conserve_ok": true,
    "surgele_ou_conserve_note": "Surgelé nature ou conserve au naturel : alternatives pratiques ; rincer les conserves salées.",
-   "saison_source": "Saison v1 conservée ; contrôle ADEME, Impact CO2 : calendrier des fruits et légumes de saison en France (API impactco2.fr/api/v1/fruitsetlegumes, consultée le 30/09/2026) (« Épinard ») : mois [1, 2, 3, 4, 5, 9, 10, 11, 12] (écart avec v1, à arbitrer)",
+   "saison_source": "Saison v1 conservée ; contrôle ADEME, Impact CO2 : calendrier des fruits et légumes de saison en France (API impactco2.fr/api/v1/fruitsetlegumes, consultée le 30/09/2026) (« Épinard ») : mois [1, 2, 3, 4, 5, 9, 10, 11, 12] (05/10 : calendrier ADEME retenu)",
    "usage": "quotidien",
    "photo_prompt": "a heap of fresh spinach leaves, on warm beige stone, soft daylight, minimal luxury food photography, top view",
    "tendance": false,
@@ -794,9 +794,6 @@
    "allegation_UE_statut_libelle_FR": "traduction officielle confirmée par sources secondaires",
    "autres_allegations_UE": [],
    "saison": [
-    6,
-    7,
-    8,
     9,
     10,
     11
@@ -844,7 +841,7 @@
    ],
    "surgele_ou_conserve_ok": true,
    "surgele_ou_conserve_note": "Surgelé nature ou conserve au naturel : alternatives pratiques ; rincer les conserves salées.",
-   "saison_source": "Saison v1 conservée ; contrôle ADEME, Impact CO2 : calendrier des fruits et légumes de saison en France (API impactco2.fr/api/v1/fruitsetlegumes, consultée le 30/09/2026) (« Brocoli ») : mois [9, 10, 11] (écart avec v1, à arbitrer)",
+   "saison_source": "Saison v1 conservée ; contrôle ADEME, Impact CO2 : calendrier des fruits et légumes de saison en France (API impactco2.fr/api/v1/fruitsetlegumes, consultée le 30/09/2026) (« Brocoli ») : mois [9, 10, 11] (05/10 : calendrier ADEME retenu)",
    "usage": "quotidien",
    "photo_prompt": "a broccoli head and a few florets, on warm beige stone, soft daylight, minimal luxury food photography, top view",
    "tendance": false,
@@ -986,12 +983,9 @@
    "allegation_UE_statut_libelle_FR": "traduction officielle confirmée par sources secondaires",
    "autres_allegations_UE": [],
    "saison": [
-    11,
-    12,
     1,
     2,
-    3,
-    4
+    3
    ],
    "ciqual": {
     "code": 13034,
@@ -1043,7 +1037,7 @@
    ],
    "surgele_ou_conserve_ok": true,
    "surgele_ou_conserve_note": "Surgelé nature : pratique pour les compotes et smoothies ; conserves au sirop plus sucrées.",
-   "saison_source": "Saison v1 conservée ; contrôle ADEME, Impact CO2 : calendrier des fruits et légumes de saison en France (API impactco2.fr/api/v1/fruitsetlegumes, consultée le 30/09/2026) (« Orange ») : mois [1, 2, 3] (écart avec v1, à arbitrer)",
+   "saison_source": "Saison v1 conservée ; contrôle ADEME, Impact CO2 : calendrier des fruits et légumes de saison en France (API impactco2.fr/api/v1/fruitsetlegumes, consultée le 30/09/2026) (« Orange ») : mois [1, 2, 3] (05/10 : calendrier ADEME retenu)",
    "usage": "quotidien",
    "photo_prompt": "an orange and one halved, on warm beige stone, soft daylight, minimal luxury food photography, top view",
    "tendance": false,
@@ -1109,12 +1103,11 @@
     }
    ],
    "saison": [
-    11,
-    12,
     1,
     2,
     3,
-    4
+    11,
+    12
    ],
    "ciqual": {
     "code": 13021,
@@ -1165,7 +1158,7 @@
    ],
    "surgele_ou_conserve_ok": true,
    "surgele_ou_conserve_note": "Surgelé nature : pratique pour les compotes et smoothies ; conserves au sirop plus sucrées.",
-   "saison_source": "Saison v1 conservée ; contrôle ADEME, Impact CO2 : calendrier des fruits et légumes de saison en France (API impactco2.fr/api/v1/fruitsetlegumes, consultée le 30/09/2026) (« Kiwi ») : mois [1, 2, 3, 11, 12] (écart avec v1, à arbitrer)",
+   "saison_source": "Saison v1 conservée ; contrôle ADEME, Impact CO2 : calendrier des fruits et légumes de saison en France (API impactco2.fr/api/v1/fruitsetlegumes, consultée le 30/09/2026) (« Kiwi ») : mois [1, 2, 3, 11, 12] (05/10 : calendrier ADEME retenu)",
    "usage": "quotidien",
    "photo_prompt": "a single ripe kiwi cut in half, on warm beige stone, soft daylight, minimal luxury food photography, top view",
    "tendance": false,
@@ -1225,10 +1218,10 @@
     }
    ],
    "saison": [
+    6,
     7,
     8,
-    9,
-    10
+    9
    ],
    "ciqual": {
     "code": 20087,
@@ -1281,7 +1274,7 @@
    ],
    "surgele_ou_conserve_ok": true,
    "surgele_ou_conserve_note": "Surgelé nature ou conserve au naturel : alternatives pratiques ; rincer les conserves salées.",
-   "saison_source": "Saison v1 conservée ; contrôle ADEME, Impact CO2 : calendrier des fruits et légumes de saison en France (API impactco2.fr/api/v1/fruitsetlegumes, consultée le 30/09/2026) (« Poivron ») : mois [6, 7, 8, 9] (écart avec v1, à arbitrer)",
+   "saison_source": "Saison v1 conservée ; contrôle ADEME, Impact CO2 : calendrier des fruits et légumes de saison en France (API impactco2.fr/api/v1/fruitsetlegumes, consultée le 30/09/2026) (« Poivron ») : mois [6, 7, 8, 9] (05/10 : calendrier ADEME retenu)",
    "usage": "quotidien",
    "photo_prompt": "a glossy red bell pepper and one halved, on warm beige stone, soft daylight, minimal luxury food photography, top view",
    "tendance": false,
@@ -4179,7 +4172,6 @@
    "allegation_UE_statut_libelle_FR": "traduction officielle confirmée par sources secondaires",
    "autres_allegations_UE": [],
    "saison": [
-    4,
     5,
     6,
     7
@@ -4235,7 +4227,7 @@
    ],
    "surgele_ou_conserve_ok": true,
    "surgele_ou_conserve_note": "Surgelé nature : pratique pour les compotes et smoothies ; conserves au sirop plus sucrées.",
-   "saison_source": "Saison v1 conservée ; contrôle ADEME, Impact CO2 : calendrier des fruits et légumes de saison en France (API impactco2.fr/api/v1/fruitsetlegumes, consultée le 30/09/2026) (« Fraise ») : mois [5, 6, 7] (écart avec v1, à arbitrer)",
+   "saison_source": "Saison v1 conservée ; contrôle ADEME, Impact CO2 : calendrier des fruits et légumes de saison en France (API impactco2.fr/api/v1/fruitsetlegumes, consultée le 30/09/2026) (« Fraise ») : mois [5, 6, 7] (05/10 : calendrier ADEME retenu)",
    "usage": "quotidien",
    "photo_prompt": "a small bowl of ripe strawberries, on warm beige stone, soft daylight, minimal luxury food photography, top view",
    "tendance": false,
@@ -4483,12 +4475,11 @@
    "allegation_UE_statut_libelle_FR": "traduction officielle confirmée par sources secondaires",
    "autres_allegations_UE": [],
    "saison": [
-    10,
-    11,
-    12,
     1,
     2,
-    3
+    10,
+    11,
+    12
    ],
    "ciqual": {
     "code": 20099,
@@ -4530,7 +4521,7 @@
    ],
    "surgele_ou_conserve_ok": true,
    "surgele_ou_conserve_note": "Surgelé nature ou conserve au naturel : alternatives pratiques ; rincer les conserves salées.",
-   "saison_source": "Saison v1 conservée ; contrôle ADEME, Impact CO2 : calendrier des fruits et légumes de saison en France (API impactco2.fr/api/v1/fruitsetlegumes, consultée le 30/09/2026) (« Mâche ») : mois [1, 2, 10, 11, 12] (écart avec v1, à arbitrer)",
+   "saison_source": "Saison v1 conservée ; contrôle ADEME, Impact CO2 : calendrier des fruits et légumes de saison en France (API impactco2.fr/api/v1/fruitsetlegumes, consultée le 30/09/2026) (« Mâche ») : mois [1, 2, 10, 11, 12] (05/10 : calendrier ADEME retenu)",
    "usage": "quotidien",
    "photo_prompt": "a small heap of lamb’s lettuce rosettes, on warm beige stone, soft daylight, minimal luxury food photography, top view",
    "tendance": false,
@@ -4586,12 +4577,11 @@
     }
    ],
    "saison": [
+    1,
     9,
     10,
     11,
-    12,
-    1,
-    2
+    12
    ],
    "ciqual": {
     "code": 20138,
@@ -4635,7 +4625,7 @@
    ],
    "surgele_ou_conserve_ok": true,
    "surgele_ou_conserve_note": "Surgelé nature ou conserve au naturel : alternatives pratiques ; rincer les conserves salées.",
-   "saison_source": "Saison v1 conservée ; contrôle ADEME, Impact CO2 : calendrier des fruits et légumes de saison en France (API impactco2.fr/api/v1/fruitsetlegumes, consultée le 30/09/2026) (« Courge ») : mois [1, 9, 10, 11, 12] (écart avec v1, à arbitrer)",
+   "saison_source": "Saison v1 conservée ; contrôle ADEME, Impact CO2 : calendrier des fruits et légumes de saison en France (API impactco2.fr/api/v1/fruitsetlegumes, consultée le 30/09/2026) (« Courge ») : mois [1, 9, 10, 11, 12] (05/10 : calendrier ADEME retenu)",
    "usage": "quotidien",
    "photo_prompt": "a butternut squash cut in half, on warm beige stone, soft daylight, minimal luxury food photography, top view",
    "tendance": false,
@@ -4796,12 +4786,11 @@
    "allegation_UE_statut_libelle_FR": "traduction officielle confirmée par sources secondaires",
    "autres_allegations_UE": [],
    "saison": [
-    11,
-    12,
-    1,
     2,
     3,
-    4
+    4,
+    5,
+    6
    ],
    "ciqual": {
     "code": 13040,
@@ -4851,7 +4840,7 @@
    ],
    "surgele_ou_conserve_ok": true,
    "surgele_ou_conserve_note": "Surgelé nature : pratique pour les compotes et smoothies ; conserves au sirop plus sucrées.",
-   "saison_source": "Saison v1 conservée ; contrôle ADEME, Impact CO2 : calendrier des fruits et légumes de saison en France (API impactco2.fr/api/v1/fruitsetlegumes, consultée le 30/09/2026) (« Pamplemousse ») : mois [2, 3, 4, 5, 6] (écart avec v1, à arbitrer)",
+   "saison_source": "Saison v1 conservée ; contrôle ADEME, Impact CO2 : calendrier des fruits et légumes de saison en France (API impactco2.fr/api/v1/fruitsetlegumes, consultée le 30/09/2026) (« Pamplemousse ») : mois [2, 3, 4, 5, 6] (05/10 : calendrier ADEME retenu)",
    "usage": "quotidien",
    "photo_prompt": "a pink grapefruit cut in half, on warm beige stone, soft daylight, minimal luxury food photography, top view",
    "tendance": false,
