@@ -213,7 +213,7 @@ VY.add('de', {
 'sv.sebum': 'TALG',
 'sv.firm': 'FESTIGKT',
 'lg.1': 'Stirn · Leuchtkraft',
-'lg.2': 'Augenpartie · Falten',
+'lg.2': 'Falten',
 'lg.3': 'Linke Wange · Feuchtigkeit',
 'lg.4': 'Rechte Wange · Poren',
 'lg.5': 'Linker Wangenknochen · Rötungen',
@@ -806,7 +806,7 @@ VY.add('de', {
     "q.routine.short": "3 wesentliche Schritte",
     "q.routine.shortSub": "Reinigung, gezieltes Serum, dann morgens LSF oder abends Creme",
     "q.routine.full": "Vollständige Routine",
-    "q.routine.fullSub": "8 Produkte, mit Tagescreme und Augenpflege",
+    "q.routine.fullSub": "7 Produkte mit Tagescreme, dazu eine Augenpflege, wenn Sie danach gefragt haben",
     "q.day": "Ihr <em>Tag</em>.",
     "q.day.in": "Meist drinnen",
     "q.day.out": "Oft draußen, in der Sonne",
@@ -855,5 +855,14 @@ VY.add('de', {
     "us.src.mix": "laut Marke, ergänzt durch die übliche Anwendung",
     "hc.s.faible": "Wenig Licht: Messung nur als Richtwert.",
     "hcg.r.sombre": "Nicht genug Licht. Gehen Sie an einen hellen Ort, mit dem Gesicht zum Licht.",
-    "hud.sombre": "Nicht genug Licht. Gehen Sie an einen hellen Ort, mit dem Gesicht zum Licht."
+    "hud.sombre": "Nicht genug Licht. Gehen Sie an einen hellen Ort, mit dem Gesicht zum Licht.",
+    /* 04/10 : contour des yeux (objectif avant scan, soin, ombre sous l’œil indicative) */
+    "g.yeux": "Augenpartie",
+    "c.yeux": "Augenpartie",
+    "y.demande": "Sie haben danach gefragt.",
+    "y.mesure": "Schatten unter dem Auge auf Ihrem Bild dunkler als die Wange: Richtwert.",
+    "y.ligne": "Schatten unter den Augen: {n} · Richtwert, je nach Licht",
+    "y.leger": "leicht",
+    "y.marque": "deutlich",
+    "y.net": "stark"
   });

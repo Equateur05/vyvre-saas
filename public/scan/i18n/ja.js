@@ -213,7 +213,7 @@ VY.add('ja', {
 'sv.sebum': '皮脂',
 'sv.firm': 'ハリ',
 'lg.1': '額 · ツヤ',
-'lg.2': '目もと · シワ',
+'lg.2': 'シワ',
 'lg.3': '左頬 · うるおい',
 'lg.4': '右頬 · 毛穴',
 'lg.5': '左頬骨 · 赤み',
@@ -806,7 +806,7 @@ VY.add('ja', {
     "q.routine.short": "3つの基本ステップ",
     "q.routine.shortSub": "洗顔料、目的別美容液、朝はSPF・夜はクリーム",
     "q.routine.full": "フルルーティン",
-    "q.routine.fullSub": "8品、デイクリームとアイケアを含む",
+    "q.routine.fullSub": "デイクリームを含む7品。ご希望があればアイケアも",
     "q.day": "あなたの<em>1日</em>。",
     "q.day.in": "主に屋内",
     "q.day.out": "屋外で日差しを浴びることが多い",
@@ -855,5 +855,14 @@ VY.add('ja', {
     "us.src.mix": "ブランドの推奨と一般的な使い方",
     "hc.s.faible": "光が弱いため、参考値の読み取りです。",
     "hcg.r.sombre": "明るさが足りません。明るい場所で、光のほうを向いてください。",
-    "hud.sombre": "明るさが足りません。明るい場所で、光のほうを向いてください。"
+    "hud.sombre": "明るさが足りません。明るい場所で、光のほうを向いてください。",
+    /* 04/10 : contour des yeux (objectif avant scan, soin, ombre sous l’œil indicative) */
+    "g.yeux": "目元ケア",
+    "c.yeux": "目元ケア",
+    "y.demande": "ご希望に合わせて。",
+    "y.mesure": "画像では目の下の影が頬より濃く見えます（目安）。",
+    "y.ligne": "目の下の影：{n} · 目安、光の当たり方によります",
+    "y.leger": "うすい",
+    "y.marque": "はっきり",
+    "y.net": "濃い"
   });

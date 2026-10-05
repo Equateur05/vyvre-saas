@@ -53,7 +53,15 @@ function mesurer(L){
   /* 01/10 : de face ? (le nez a egale distance des deux joues) ; sert a declencher la lecture au bon moment */
   const dG = Math.hypot(L[1].x - L[234].x, L[1].y - L[234].y), dD = Math.hypot(L[1].x - L[454].x, L[1].y - L[454].y), lacet = (dG - dD)/((dG + dD) || 1);
   const tang = Math.abs(L[33].y - L[263].y)/(Math.abs(L[33].x - L[263].x) || 1);
-  window.__vyMES = MES = { lacet, roulis:tang, lumiere:lisse('lumiere', tot.n ? tot.L/tot.n : 0), cadrage:lisse('cadrage', (x1 - x0)*100), stabilite:lisse('stabilite', bouge), relief:lisse('relief', (zmax - zmin)*1000), points:L.length, zones:out };
+  /* 04/10 (contour des yeux) : l'ombre sous l'oeil en direct, INDICATIVE : clarte L* juste sous la paupiere
+     inferieure (MediaPipe 229-230 et 449-450) comparee a la joue du meme cote (50 et 280). Elle ne choisit rien :
+     le soin contour des yeux suit la mesure du moteur de lecture (result.yeux), pas cet affichage. */
+  const tache = (ids) => { let r = 0, g = 0, b = 0, n = 0; const cx = ids.reduce((s1, i) => s1 + L[i].x, 0)/ids.length*W, cy = ids.reduce((s1, i) => s1 + L[i].y, 0)/ids.length*H;
+    for(let dy = -2; dy <= 2; dy++) for(let dx = -2; dx <= 2; dx++){ const x = cx + dx, y = cy + dy; if(x < 0 || y < 0 || x >= W || y >= H) continue; const p = pix(x, y); r += p[0]; g += p[1]; b += p[2]; n++; }
+    return n ? lab(r/n, g/n, b/n).L : null; };
+  const oG = tache([229, 230]), jG = tache([50]), oD = tache([449, 450]), jD = tache([280]);
+  const dOmbre = [oG != null && jG != null ? jG - oG : null, oD != null && jD != null ? jD - oD : null].filter(v => v != null);
+  window.__vyMES = MES = { lacet, roulis:tang, lumiere:lisse('lumiere', tot.n ? tot.L/tot.n : 0), cadrage:lisse('cadrage', (x1 - x0)*100), stabilite:lisse('stabilite', bouge), relief:lisse('relief', (zmax - zmin)*1000), points:L.length, zones:out, ombre:dOmbre.length ? lisse('ombre', dOmbre.reduce((s1, v) => s1 + v, 0)/dOmbre.length) : null };
   MES.pret = Math.abs(MES.lacet) < .16 && MES.roulis < .12 && MES.stabilite < 2.2 && MES.cadrage > 30 && MES.cadrage < 75 && MES.lumiere > 36 && MES.lumiere < 84;
   MES.conseil = Math.abs(MES.lacet) >= .16 || MES.roulis >= .12 ? 'Regardez droit vers la caméra.' : MES.stabilite >= 2.2 ? 'Ne bougez plus.' : MES.cadrage <= 30 ? 'Rapprochez-vous un peu.' : MES.cadrage >= 75 ? 'Reculez un peu.' : MES.lumiere <= 36 ? 'Un peu plus de lumière.' : MES.lumiere >= 84 ? 'Évitez le contre-jour.' : 'Parfait, on lit votre peau.';
 }
@@ -66,7 +74,8 @@ function panneau(now){
     + ligne('Cadrage', f1(ca) + ' %', ca < 32 ? 'rapprochez-vous' : ca > 72 ? 'reculez' : 'bon', ca)
     + ligne('Stabilité', f1(st) + ' px', st > 2.5 ? 'bougez moins' : 'stable', 100 - st*20)
     + ligne('Points suivis', String(MES.points), 'maillage 3D', 100)
-    + ligne('Relief', f1(MES.relief), 'profondeur relative', MES.relief);
+    + ligne('Relief', f1(MES.relief), 'profondeur relative', MES.relief)
+    + (MES.ombre != null ? ligne('Ombre sous l’œil', 'ΔL* ' + f1(MES.ombre), 'indicatif, selon la lumière', MES.ombre*6) : '');
   h += '<div class="lz">' + Object.entries(MES.zones).map(([z, v]) => `<div><span>${z}</span><b>L* ${f1(v.L)}</b><b>a* ${f1(v.a)}</b><b>b* ${f1(v.b)}</b></div>`).join('') + '</div>';
   el.innerHTML = '<div class="overline">Mesures en direct</div>' + h + '<p class="fine">Mesures optiques de l’image, calculées sur cet appareil. Pas un diagnostic.</p>';
 }

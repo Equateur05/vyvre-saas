@@ -213,7 +213,7 @@ VY.add('zh', {
 'sv.sebum': '皮脂',
 'sv.firm': '紧致',
 'lg.1': '额头 · 光泽',
-'lg.2': '眼周 · 皱纹',
+'lg.2': '皱纹',
 'lg.3': '左脸颊 · 水润',
 'lg.4': '右脸颊 · 毛孔',
 'lg.5': '左颧骨 · 泛红',
@@ -806,7 +806,7 @@ VY.add('zh', {
     "q.routine.short": "3 个基础步骤",
     "q.routine.shortSub": "洁面、针对性精华，早上防晒或晚上面霜",
     "q.routine.full": "完整流程",
-    "q.routine.fullSub": "8 款产品，含日霜和眼部护理",
+    "q.routine.fullSub": "7 款产品，含日霜；如您选择，另加眼部护理",
     "q.day": "您的<em>一天</em>。",
     "q.day.in": "多在室内",
     "q.day.out": "常在户外、阳光下",
@@ -855,5 +855,14 @@ VY.add('zh', {
     "us.src.mix": "品牌建议，并参考常规用法",
     "hc.s.faible": "光线较暗：结果仅供参考。",
     "hcg.r.sombre": "光线不足。请到光线充足的地方，面向光源。",
-    "hud.sombre": "光线不足。请到光线充足的地方，面向光源。"
+    "hud.sombre": "光线不足。请到光线充足的地方，面向光源。",
+    /* 04/10 : contour des yeux (objectif avant scan, soin, ombre sous l’œil indicative) */
+    "g.yeux": "眼周护理",
+    "c.yeux": "眼周护理",
+    "y.demande": "这是您选择的需求。",
+    "y.mesure": "在您的图像中，眼下阴影比脸颊更明显：仅供参考。",
+    "y.ligne": "眼下阴影：{n} · 仅供参考，取决于光线",
+    "y.leger": "轻微",
+    "y.marque": "明显",
+    "y.net": "较重"
   });

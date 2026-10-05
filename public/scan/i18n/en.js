@@ -213,7 +213,7 @@ VY.add('en', {
 'sv.sebum': 'SEBUM',
 'sv.firm': 'FIRMNESS',
 'lg.1': 'Forehead · Radiance',
-'lg.2': 'Eye contour · Lines',
+'lg.2': 'Lines',
 'lg.3': 'Left cheek · Hydration',
 'lg.4': 'Right cheek · Pores',
 'lg.5': 'Left cheekbone · Redness',
@@ -806,7 +806,7 @@ VY.add('en', {
     "q.routine.short": "3 essential steps",
     "q.routine.shortSub": "cleanser, targeted serum, then SPF in the morning or cream at night",
     "q.routine.full": "Full routine",
-    "q.routine.fullSub": "8 products, with day cream and eye contour",
+    "q.routine.fullSub": "7 products with day cream, plus an eye contour if you asked for one",
     "q.day": "Your <em>day</em>.",
     "q.day.in": "Mostly indoors",
     "q.day.out": "Often outdoors, in the sun",
@@ -855,5 +855,14 @@ VY.add('en', {
     "us.src.mix": "according to the brand, completed by common use",
     "hc.s.faible": "Low light: indicative reading.",
     "hcg.r.sombre": "Not enough light. Move to a well-lit spot, facing the light.",
-    "hud.sombre": "Not enough light. Move to a well-lit spot, facing the light."
+    "hud.sombre": "Not enough light. Move to a well-lit spot, facing the light.",
+    /* 04/10 : contour des yeux (objectif avant scan, soin, ombre sous l’œil indicative) */
+    "g.yeux": "Eye contour",
+    "c.yeux": "Eye contour",
+    "y.demande": "You asked for it.",
+    "y.mesure": "Shadow under the eye darker than the cheek on your image: indicative.",
+    "y.ligne": "Under-eye shadow: {n} · indicative, depends on the light",
+    "y.leger": "light",
+    "y.marque": "marked",
+    "y.net": "pronounced"
   });

@@ -7,7 +7,7 @@
 <meta name="description" content="Votre routine matin et soir, composée à partir de votre lecture de peau.">
 <title>Votre protocole · VYVRE × Scan universel</title>
 <!-- VYVRE_I18N : moteur 12 langues, francais par defaut -->
-<script src="/scan/vy-i18n.js?v=28"></script>
+<script src="/scan/vy-i18n.js?v=29"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
@@ -733,6 +733,7 @@ footer{
       <button class="chip quiz-option" data-value="pores"><span class="chip-num">V</span><span class="chip-label" data-i18n="g.pores">Imperfections, pores</span></button>
       <button class="chip quiz-option" data-value="pigmentation"><span class="chip-num">VI</span><span class="chip-label" data-i18n="g.pigmentation">Taches</span></button>
       <button class="chip quiz-option" data-value="sebum"><span class="chip-num">VII</span><span class="chip-label" data-i18n="g.sebum">Peau grasse</span></button>
+      <button class="chip quiz-option" data-value="yeux"><span class="chip-num">VIII</span><span class="chip-label" data-i18n="g.yeux">Contour des yeux</span></button>
     </div>
     <button type="button" class="quiz-next" id="goal-next" data-pt="q.next">Continuer</button>
   </section>
@@ -764,7 +765,7 @@ footer{
     <h3 class="quiz-question" data-pt="q.routine">Votre <em>routine</em> idéale.</h3>
     <div class="quiz-options quiz-options-2">
       <button class="chip quiz-option" data-value="essentiel"><span class="chip-num">I</span><span class="chip-label" data-pt="q.routine.short">3 gestes essentiels</span><span class="chip-sub" data-pt="q.routine.shortSub">nettoyant, sérum ciblé, puis SPF le matin ou crème le soir</span></button>
-      <button class="chip quiz-option" data-value="complete"><span class="chip-num">II</span><span class="chip-label" data-pt="q.routine.full">Routine complète</span><span class="chip-sub" data-pt="q.routine.fullSub">8 soins, avec crème de jour et contour des yeux</span></button>
+      <button class="chip quiz-option" data-value="complete"><span class="chip-num">II</span><span class="chip-label" data-pt="q.routine.full">Routine complète</span><span class="chip-sub" data-pt="q.routine.fullSub">7 soins avec crème de jour, plus un contour des yeux si vous l’avez demandé</span></button>
     </div>
   </section>
 
@@ -888,7 +889,7 @@ footer{
 
     <div class="atlas-legend" id="atlas-legend">
       <div class="row" data-bio="glow"><span class="num">01</span><span data-i18n="lg.1">Front · Éclat</span><b>—</b></div>
-      <div class="row" data-bio="wrinkles"><span class="num">02</span><span data-i18n="lg.2">Contour des yeux · Rides</span><b>—</b></div>
+      <div class="row" data-bio="wrinkles"><span class="num">02</span><span data-i18n="lg.2">Rides</span><b>—</b></div>
       <div class="row" data-bio="hydration"><span class="num">03</span><span data-i18n="lg.3">Joue gauche · Hydratation</span><b>—</b></div>
       <div class="row" data-bio="pores"><span class="num">04</span><span data-i18n="lg.4">Joue droite · Pores</span><b>—</b></div>
       <div class="row" data-bio="redness"><span class="num">05</span><span data-i18n="lg.5">Pommette gauche · Rougeurs</span><b>—</b></div>
@@ -1039,7 +1040,11 @@ footer{
   try { var _cr = document.querySelector('#recap-age + .ci-range'); if (_cr) _cr.style.display = 'none'; } catch(_) {}
 
   /* ---------- ce que la personne a dit avant le scan ---------- */
-  var GOAL_SEV = { antiage:['wrinkles','firmness'], glow:['glow'], hydration:['hydration'], redness:['redness'], pores:['pores'], pigmentation:['pigmentation'], sebum:['sebum'] };
+  /* 04/10 : « yeux » (contour des yeux) ne pese sur aucun score : il ouvre seulement l'etape Contour des yeux */
+  var GOAL_SEV = { antiage:['wrinkles','firmness'], glow:['glow'], hydration:['hydration'], redness:['redness'], pores:['pores'], pigmentation:['pigmentation'], sebum:['sebum'], yeux:[] };
+  /* l'ombre sous l'oeil mesuree par le scan (indicative), deposee par /scan/ */
+  var SCAN_YEUX = null;
+  try { SCAN_YEUX = JSON.parse(localStorage.getItem('vyvre_scan_yeux') || 'null'); } catch(_) { SCAN_YEUX = null; }
   var AGES = { u25:1, '25':1, '35':1, '45':1, '55':1 };
   var EU = { DE:1, CH:1, SE:1, BE:1, NL:1, ES:1, IT:1, AT:1, DK:1, PT:1, MC:1, HU:1, IE:1, PL:1 };
   var PREFS = null;
@@ -1201,11 +1206,17 @@ footer{
     { slot:'pm-0', k:'stp.remove',  fb:'Démaquillage',     ok:function(p){ return p.categorie === 'nettoyant' || (p.categorie === 'huile' && RX.remover.test(p._n)); }, w:function(p){ return RX.remover.test(p._n) ? 1.3 : 1; } },
     { slot:'pm-1', k:'stp.nserum',  fb:'Sérum de nuit',    ok:function(p){ return p.categorie === 'serum' || (p.categorie === 'huile' && !RX.remover.test(p._n)); }, w:function(p){ return RX.night.test(p._n) ? 1.2 : 1; } },
     { slot:'pm-2', k:'stp.ncream',  fb:'Crème de nuit',    ok:function(p){ return p.categorie === 'creme' && !RX.spf.test(p._n); }, w:function(p){ return RX.night.test(p._n) ? 1.3 : 1; } },
-    { slot:'pm-3', k:'stp.eye',     fb:'Contour des yeux', ok:function(p){ return p.categorie === 'contour-yeux'; },         w:function(){ return 1; } }
+    { slot:'pm-3', k:'stp.eye',     fb:'Contour des yeux', ok:function(p){ return p.categorie === 'contour-yeux' && !/patch|\bpads?\b|mask|masque|strips?/.test(p._n); }, w:function(){ return 1; } }
   ];
   /* « 3 gestes essentiels » : nettoyant, serum cible, puis SPF le matin / creme le soir */
   var SHORT = { 'am-0':1, 'am-1':1, 'am-3':1, 'pm-0':1, 'pm-1':1, 'pm-2':1 };
-  function activeSlots(ctx){ return SLOTS.filter(function(s){ return ctx.routine !== 'essentiel' || SHORT[s.slot]; }); }
+  /* 04/10 (contour des yeux) : l'etape Contour des yeux n'existe que si la personne l'a demande, ou si le
+     scan a mesure une ombre sous l'oeil « marquee » ou « nette » avec une lumiere fiable. Jamais pour les rides. */
+  function yeuxDemandes(ctx){
+    if (ctx && ctx.goals && ctx.goals.indexOf('yeux') >= 0) return true;
+    var y = SCAN_YEUX; return !!(y && y.fiable === true && (y.niveau === 'marque' || y.niveau === 'net'));
+  }
+  function activeSlots(ctx){ return SLOTS.filter(function(s){ if (s.slot === 'pm-3' && !yeuxDemandes(ctx)) return false; return ctx.routine !== 'essentiel' || SHORT[s.slot]; }); }
 
   /* ---------- ce qu'est le produit (nom, categorie, raisons du score) ---------- */
   function raisons(p){ if (p._r == null) p._r = (p.score_raisons || []).join(' | ').toLowerCase(); return p._r; }
@@ -1616,7 +1627,7 @@ footer{
   var ORIG = { FR:['o.FR','France'], US:['o.US','États-Unis'], EU:['o.EUrest','Reste de l’Europe'], GB:['o.GB','Royaume-Uni'], JP:['o.JP','Japon'], KR:['O.KR','Corée'], AU:['o.AU','Australie'], CA:['o.CA','Canada'] };
   var UNIV = { luxe:['u.luxe','Luxe'], pharmacie:['u.pharma','Pharmacie'], normal:['u.normal','Quotidien'], 'petit-prix':['u.petit','Petit prix'] };
   var AGE_L = { u25:['pr.age.u25','moins de 25 ans'], '25':['pr.age.25','25–34 ans'], '35':['pr.age.35','35–44 ans'], '45':['pr.age.45','45–54 ans'], '55':['pr.age.55','55 ans et plus'] };
-  var GOAL_L = { antiage:['an.anti','anti-âge'], glow:['an.glow','éclat'], hydration:['an.hydra','hydratation'], redness:['tp.redness','rougeurs'], pores:['tp.pores','pores'], pigmentation:['an.pigm','pigmentation'], sebum:['tp.sebum','sébum'] };
+  var GOAL_L = { antiage:['an.anti','anti-âge'], glow:['an.glow','éclat'], hydration:['an.hydra','hydratation'], redness:['tp.redness','rougeurs'], pores:['tp.pores','pores'], pigmentation:['an.pigm','pigmentation'], sebum:['tp.sebum','sébum'], yeux:['g.yeux','contour des yeux'] };
 
   function renderScope(ctx, R){
     var el = document.getElementById('pr-scope'); if (!el) return;

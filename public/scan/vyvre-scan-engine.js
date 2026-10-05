@@ -3,6 +3,14 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
  * VYVRE Scan Engine v10.5.0-HONEST-AGE — Gabor shading + age-honesty fix (neutralized webcam +32y sigmoid & halved CNN offset 12→6 after due-diligence audit)
  * ═══════════════════════════════════════════════════════════════════════════════════════════
  *
+ * v10.9 (04/10/2026, CONTOUR DES YEUX) — voir la section « CONTOUR DES YEUX » :
+ *   - result.yeux.cernes : ombre sous l'œil comparée à la pommette du même côté (ΔL*, Δa*,
+ *     Δb*, type pigment / vasculaire / ombre, niveau leger / marque / net, fiable). INDICATIF,
+ *     seuils prudents non calibrés ; n'entre dans aucun des 8 scores.
+ *   - filtre de rides réparé : petits carrés de peau (coin de l'œil, front) au lieu des
+ *     rectangles englobants qui saturaient à 100 ; profondeur = contraste avec la joue.
+ *   - zones underEyeL/R et periocularL/R redéfinies (bande sous la paupière, carré au coin).
+ *
  * Goal: peer-reviewed transparent skin diagnostic estimation. Code an auditor (consultant
  * dermato Chanel / Dior / L'Oréal / La Roche-Posay R&D) can review without us blushing.
  *
@@ -861,29 +869,17 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
       extrapolateUp: 0.20
     },
 
-    // Cernes gauche (v10.3 NEW) : sous l'œil gauche, décalage vers le bas.
-    underEyeL: {
-      indices: [36, 37, 38, 39, 40, 41],
-      offsetY: 0.08
-    },
+    // Sous l'œil (v10.9, 04/10/2026) : L = œil à gauche de l'IMAGE (repères 36-41).
+    // Avant : polygone de l'œil décalé de 8 % vers le bas → 40 à 44 % de pixels de l'œil
+    // (cils, pupille). Maintenant : bande de peau sous la paupière inférieure, cils exclus
+    // (voir zonesOeil, section CONTOUR DES YEUX). indices gardés pour la rétrocompat.
+    underEyeL: { indices: [36, 37, 38, 39, 40, 41], construire: 'sousOeil', cote: 'G' },
+    underEyeR: { indices: [42, 43, 44, 45, 46, 47], construire: 'sousOeil', cote: 'D' },
 
-    // Cernes droite (v10.3 NEW).
-    underEyeR: {
-      indices: [42, 43, 44, 45, 46, 47],
-      offsetY: 0.08
-    },
-
-    // Périoculaire gauche (v10.3 NEW) : pattes d'oie, autour œil externe.
-    periocularL: {
-      indices: [17, 36, 41, 48, 0],
-      expand: 1.15
-    },
-
-    // Périoculaire droite (v10.3 NEW).
-    periocularR: {
-      indices: [26, 45, 46, 54, 16],
-      expand: 1.15
-    },
+    // Coin de l'œil (v10.9) : petit carré de peau à côté du canthus externe, sans cils ni
+    // cheveux. Avant : triangle sourcil → coin de la bouche, avec des cheveux.
+    periocularL: { indices: [36, 39], construire: 'coin', cote: 'G' },
+    periocularR: { indices: [42, 45], construire: 'coin', cote: 'D' },
 
     // Sillon nasogénien gauche (v10.3 NEW) : base nez → commissure lèvre.
     nasolabialL: {
@@ -943,6 +939,15 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
   function buildZonePolygon(landmarks, zoneDef, roi) {
     if (!landmarks || landmarks.length < 68 || !zoneDef || !zoneDef.indices) {
       return null;
+    }
+
+    // v10.9 : zones du contour des yeux, construites dans le repère de l'œil
+    if (zoneDef.construire) {
+      const Z = zonesOeil(landmarks, zoneDef.cote);
+      const r = Z && Z[zoneDef.construire];
+      if (!r) return null;
+      const R = Z.R, pt = function (a, b) { return { x: r.o.x + a * R.u.x + b * R.v.x, y: r.o.y + a * R.u.y + b * R.v.y }; };
+      return [pt(r.a0, r.b0), pt(r.a1, r.b0), pt(r.a1, r.b1), pt(r.a0, r.b1)];
     }
 
     // Récupère les vertices de base
@@ -1239,6 +1244,383 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
       maxByScale: maxByScale,
       allResponses: allResponses
     };
+  }
+
+  // ════════════════════════════════════════════════════════════════════════
+  // v10.9 (04/10/2026) — CONTOUR DES YEUX : ombre sous l'œil + filtre de rides réparé
+  // ════════════════════════════════════════════════════════════════════════
+  //
+  // POURQUOI (audit du 04/10/2026) :
+  //   - Les anciennes zones underEyeL/R (indices 36-41 décalés de 8 % vers le bas)
+  //     contenaient 40 à 44 % de pixels de l'œil (cils, pupille) : aucune mesure possible.
+  //   - Les zones periocularL/R formaient un triangle sourcil → coin de la bouche, avec des
+  //     cheveux. Le filtre de Gabor lisait le RECTANGLE ENGLOBANT de ces polygones (œil,
+  //     sourcil, cheveux, bord du visage) : réponse ~20-60 au lieu de 3-23, profondeur
+  //     plafonnée à 100 sur les 5 zones, même sur une image floutée. Le score Rides restait
+  //     à 68 quelle que soit l'image (0,70 × 95 colorimétrique plafonné + 0,30 × 5).
+  //
+  // CE QUI EST FAIT ICI (tout est relatif à la largeur de l'œil w = distance coin interne →
+  // coin externe, mesurée sur les 68 repères face-api ; tout est échantillonné dans le
+  // repère de l'œil, donc insensible à l'inclinaison de la tête) :
+  //
+  //   1. OMBRE SOUS L'ŒIL (indicatif) — une bande de peau SOUS la paupière inférieure :
+  //        de 20 % à 80 % de la largeur de l'œil (on laisse les deux coins),
+  //        de (paupière + 0,12 w) à (paupière + 0,40 w) : les 0,12 w laissent les cils.
+  //      Comparée à la pommette du MÊME côté, sur la MÊME image (même lumière, même
+  //      balance des blancs, même caméra) : médianes de L*, a*, b* (CIE 1976, D65).
+  //        ΔL* = L*(joue) − L*(sous l'œil)   > 0 : le dessous de l'œil est plus sombre
+  //        Δa* = a*(sous l'œil) − a*(joue)    Δb* = b*(sous l'œil) − b*(joue)
+  //      Méthode (comparer la paupière inférieure à la joue en L*a*b*, classer brun /
+  //      bleu-violet / ombre) : Ohshima & Takiwaki 2008, Skin Res Technol 14:135-141 ;
+  //      classification pigmentaire / vasculaire / structurelle : Huang et al. 2014,
+  //      J Chin Med Assoc 77:563-568 ; Park et al. 2016, Ann Dermatol 28(4):458-466.
+  //      ⚠️ LES SEUILS CI-DESSOUS NE VIENNENT PAS DE CES ARTICLES (ils mesurent avec des
+  //      chromamètres et des photos de studio, pas une webcam). Ils sont choisis PRUDENTS
+  //      (au-dessus du bruit d'une webcam, ~1-2 unités L* d'une image à l'autre) et ne sont
+  //      calibrés sur AUCUNE cohorte. C'est pour cela que le résultat est « indicatif ».
+  //
+  //   2. RIDES DU COIN DE L'ŒIL — un petit carré de peau à côté du canthus externe
+  //      (de 0,40 w à 0,80 w vers l'extérieur, de 0 à 0,40 w sous la ligne des coins), borné pour
+  //      rester dans le visage (repères 0 / 16), sans cils ni cheveux. Le filtre est
+  //      appliqué DANS ce carré (les centres de convolution sont tous dans le carré ; le
+  //      noyau lit 0,1 w autour). Grille rééchantillonnée à w = 60 points : λ = 4 et 8
+  //      correspondent à la même taille physique quel que soit le cadrage.
+  //      Même chose sur un carré de front au-dessus de la racine des sourcils.
+  //      Profondeur SANS CONSTANTE INVENTÉE : indice de contraste par rapport à la joue du
+  //      même visage, même image, même noyau :
+  //        profondeur = 100 × max(0, (E_zone − E_joue) / (E_zone + E_joue))
+  //      où E = réponse moyenne absolue du noyau / luminance moyenne du carré (en %).
+  //      0 = pas plus de texture orientée que la joue ; 100 = toute la texture est dans
+  //      la zone. Une image floutée baisse E_zone et E_joue : la valeur change, elle ne
+  //      sature plus. Le sillon nasogénien n'est plus lu (c'est un pli structurel dont le
+  //      rectangle englobant traversait l'aile du nez et la lèvre).
+  //      Zone rejetée si moins de 85 % des points lus (marge du noyau comprise) ont la
+  //      teinte de la joue (cheveux, frange, sourcil, monture, fond, reflets) : voir partPeau.
+  //
+  // Les 8 scores ne dépendent PAS de la mesure de l'ombre sous l'œil (elle est exposée à
+  // part dans result.yeux). Seul le terme Gabor du score Rides change (poids 0,30 inchangé).
+
+  // Ombre sous l'œil : ΔL* (joue − sous l'œil). Prudents, non calibrés (voir plus haut).
+  const CERNES_DL_LEGER  = 5;    // en dessous : rien de notable, niveau null
+  const CERNES_DL_MARQUE = 9;
+  const CERNES_DL_NET    = 13;
+  // Teinte : écart à ce que donnerait une simple ombre (une ombre baisse a* et b* dans la
+  // même proportion que L*). Au-delà du bruit d'une webcam (~1 unité), prudents.
+  const CERNES_TEINTE_BLEU  = -2.0;  // b* plus bas que l'ombre ne l'explique → bleu-violet (vaisseaux)
+  const CERNES_TEINTE_BRUN  = 1.5;   // b* ou a* plus haut que l'ombre ne l'explique → brun (pigment)
+  // Fiabilité : au-delà, la lumière ou la pose fausse la comparaison.
+  const CERNES_ASYM_MAX     = 5;     // |ΔL gauche − ΔL droite| : un côté éclairé, l'autre pas
+  const CERNES_JOUES_MAX    = 10;    // |L* joue gauche − L* joue droite| : lumière latérale
+  const CERNES_LJOUE_MIN    = 35;    // joue trop sombre : sous-exposé
+  const CERNES_LJOUE_MAX    = 85;    // joue trop claire : surexposé, l'ombre est écrasée
+  const CERNES_YEUX_RATIO   = 0.75;  // largeur œil min/max : tête tournée
+  const CERNES_SAT_MAX      = 0.05;  // pixels saturés (≥ 250) dans une bande
+  const CERNES_SOMBRE_MAX   = 0.25;  // pixels très sombres dans la bande (cils, monture)
+  const RIDES_LAMBDAS = [4, 8];      // λ en points de grille (w = 60 points)
+  const YEUX_GRILLE_W = 60;          // nombre de points sur la largeur de l'œil (rides)
+
+  function _px(data, W, H, x, y, out) {
+    if (!(x >= 0 && y >= 0 && x <= W - 1 && y <= H - 1)) return false;
+    const x0 = x | 0, y0 = y | 0, x1 = x0 < W - 1 ? x0 + 1 : x0, y1 = y0 < H - 1 ? y0 + 1 : y0;
+    const fx = x - x0, fy = y - y0;
+    const w00 = (1 - fx) * (1 - fy), w10 = fx * (1 - fy), w01 = (1 - fx) * fy, w11 = fx * fy;
+    const i00 = (y0 * W + x0) * 4, i10 = (y0 * W + x1) * 4, i01 = (y1 * W + x0) * 4, i11 = (y1 * W + x1) * 4;
+    out[0] = data[i00] * w00 + data[i10] * w10 + data[i01] * w01 + data[i11] * w11;
+    out[1] = data[i00 + 1] * w00 + data[i10 + 1] * w10 + data[i01 + 1] * w01 + data[i11 + 1] * w11;
+    out[2] = data[i00 + 2] * w00 + data[i10 + 2] * w10 + data[i01 + 2] * w01 + data[i11 + 2] * w11;
+    return true;
+  }
+
+  function _proj(p, o, d) { return (p.x - o.x) * d.x + (p.y - o.y) * d.y; }
+
+  /** Repère d'un œil. cote 'G' = œil à gauche de l'IMAGE (repères 36-41, 36 = coin
+   *  externe), 'D' = œil à droite de l'image (42-47, 45 = coin externe).
+   *  u : unité du coin interne vers le coin externe ; v : perpendiculaire vers le bas. */
+  function repereOeil(lm, cote) {
+    const G = cote === 'G';
+    const ext = lm[G ? 36 : 45], int = lm[G ? 39 : 42];
+    const b1 = lm[G ? 41 : 46], b2 = lm[G ? 40 : 47];
+    if (!ext || !int || !b1 || !b2) return null;
+    const dx = ext.x - int.x, dy = ext.y - int.y, w = Math.hypot(dx, dy);
+    if (!(w > 4)) return null;
+    const u = { x: dx / w, y: dy / w };
+    let v = { x: -u.y, y: u.x }; if (v.y < 0) v = { x: -v.x, y: -v.y };
+    const paupiere = Math.max(_proj(b1, int, v), _proj(b2, int, v), 0);
+    return { ext, int, w, u, v, paupiere, bord: lm[G ? 0 : 16] };
+  }
+
+  /** Échantillonne un rectangle du repère (origine o, axes u, v) : a ∈ [a0, a1], b ∈ [b0, b1]
+   *  (en pixels image), nx × ny points. Renvoie Float32Array rgb ou null si hors image. */
+  function grilleRepere(imageData, o, u, v, a0, a1, b0, b1, nx, ny) {
+    const W = imageData.width, H = imageData.height, data = imageData.data;
+    const rgb = new Float32Array(nx * ny * 3), t = [0, 0, 0];
+    for (let j = 0; j < ny; j++) {
+      const b = b0 + (b1 - b0) * (ny > 1 ? j / (ny - 1) : 0.5);
+      for (let i = 0; i < nx; i++) {
+        const a = a0 + (a1 - a0) * (nx > 1 ? i / (nx - 1) : 0.5);
+        if (!_px(data, W, H, o.x + a * u.x + b * v.x, o.y + a * u.y + b * v.y, t)) return null;
+        const k = (j * nx + i) * 3; rgb[k] = t[0]; rgb[k + 1] = t[1]; rgb[k + 2] = t[2];
+      }
+    }
+    return rgb;
+  }
+
+  function _mediane(arr) {
+    if (!arr.length) return NaN;
+    const s = arr.slice().sort(function (p, q) { return p - q; }), m = s.length >> 1;
+    return s.length % 2 ? s[m] : (s[m - 1] + s[m]) / 2;
+  }
+
+  /** Statistiques L*a*b* robustes (médianes) d'une grille rgb. */
+  function statsLab(rgb) {
+    const n = rgb.length / 3, L = [], A = [], B = []; let sat = 0;
+    for (let k = 0; k < n; k++) {
+      const r = rgb[k * 3], g = rgb[k * 3 + 1], b = rgb[k * 3 + 2];
+      if (r >= 250 || g >= 250 || b >= 250) sat++;
+      const lab = rgbToLab(r, g, b); L.push(lab.L); A.push(lab.a); B.push(lab.b);
+    }
+    return { L: _mediane(L), a: _mediane(A), b: _mediane(B), n: n, sat: sat / n, Ls: L };
+  }
+
+  function _partSombre(Ls, seuil) { let c = 0; for (let i = 0; i < Ls.length; i++) if (Ls[i] < seuil) c++; return Ls.length ? c / Ls.length : 1; }
+
+  /** Énergie de Gabor normalisée (%) d'un carré : N × N points dont une marge de
+   *  (GABOR_KERNEL_SIZE − 1)/2 de chaque côté ; centres de convolution = le carré seul. */
+  function energiesCarre(rgb, N) {
+    const lum = new Float32Array(N * N); let moy = 0;
+    for (let k = 0; k < N * N; k++) { lum[k] = 0.299 * rgb[k * 3] + 0.587 * rgb[k * 3 + 1] + 0.114 * rgb[k * 3 + 2]; moy += lum[k]; }
+    moy /= N * N;
+    const e = [];
+    for (const theta of GABOR_ORIENTATIONS) {
+      for (const lambda of RIDES_LAMBDAS) {
+        const kernel = _gaborKernelCache[theta.toFixed(3) + '_' + lambda];
+        e.push(100 * applyGaborToPatch(lum, N, N, kernel) / Math.max(moy, 1));
+      }
+    }
+    return e;
+  }
+
+  /** Géométrie des zones du contour des yeux pour un côté (pixels image). */
+  function zonesOeil(lm, cote) {
+    const R = repereOeil(lm, cote); if (!R) return null;
+    const w = R.w, p = R.paupiere;
+    const z = {
+      R: R,
+      // bande sous la paupière inférieure (origine : coin interne)
+      sousOeil: { o: R.int, a0: 0.20 * w, a1: 0.80 * w, b0: p + 0.12 * w, b1: p + 0.40 * w },
+      // pommette du même côté, sous l'œil, au-dessus du nez (origine : coin interne)
+      joue:     { o: R.int, a0: 0.30 * w, a1: 0.90 * w, b0: p + 0.65 * w, b1: p + 0.95 * w }
+    };
+    // carré du coin de l'œil (origine : coin externe), borné par le contour du visage
+    // départ à 0,40 w : au sourire, le pli de la paupière supérieure et les cils dépassent
+    // le repère du coin externe de ~0,3 w (vu sur les vidéos de test)
+    let a0 = 0.40 * w, S = 0.40 * w;
+    if (R.bord) {
+      const dBord = _proj(R.bord, R.ext, R.u);
+      if (dBord > 0) S = Math.min(S, 0.80 * dBord - a0);
+    }
+    if (S >= 0.25 * w) z.coin = { o: R.ext, a0: a0, a1: a0 + S, b0: 0, b1: S, S: S };
+    // carré de joue pour la référence de texture (même taille que le coin)
+    const jc = (z.joue.a0 + z.joue.a1) / 2, jb = (z.joue.b0 + z.joue.b1) / 2, Sj = z.coin ? z.coin.S : 0.40 * w;
+    z.joueCarre = { o: R.int, a0: jc - Sj / 2, a1: jc + Sj / 2, b0: jb - Sj / 2, b1: jb + Sj / 2, S: Sj };
+    return z;
+  }
+
+  /** Carré de front au-dessus de la racine des sourcils (repères 21-22). */
+  function zoneFront(lm, wMoy) {
+    const s1 = lm[21], s2 = lm[22], e1 = lm[36], e2 = lm[45];
+    if (!s1 || !s2 || !e1 || !e2) return null;
+    const dx = e2.x - e1.x, dy = e2.y - e1.y, n = Math.hypot(dx, dy); if (!(n > 4)) return null;
+    const u = { x: dx / n, y: dy / n }; let v = { x: -u.y, y: u.x }; if (v.y < 0) v = { x: -v.x, y: -v.y };
+    const o = { x: (s1.x + s2.x) / 2, y: (s1.y + s2.y) / 2 }, S = 0.50 * wMoy;
+    return { o: o, u: u, v: v, a0: -S / 2, a1: S / 2, b0: -0.35 * wMoy - S, b1: -0.35 * wMoy, S: S };
+  }
+
+  /** Carré + marge du noyau, rééchantillonné à w = YEUX_GRILLE_W points. */
+  function grilleCarre(imageData, Z, u, v, w) {
+    const pas = w / YEUX_GRILLE_W, n = Math.max(8, Math.round(Z.S / pas)), m = (GABOR_KERNEL_SIZE - 1) / 2, N = n + 2 * m;
+    const a0 = Z.a0 - m * pas, b0 = Z.b0 - m * pas, a1 = a0 + (N - 1) * pas, b1 = b0 + (N - 1) * pas;
+    const rgb = grilleRepere(imageData, Z.o, u, v, a0, a1, b0, b1, N, N);
+    if (!rgb) return null;
+    return { rgb: rgb, N: N };
+  }
+
+  /** Part des points de la grille (marge du noyau COMPRISE : c'est ce que le filtre lit)
+   *  qui ont la teinte de la joue : |Δa*| ≤ 6, |Δb*| ≤ 16, et L* entre joue − 35 et joue + 25
+   *  (la tempe et le coin de l'œil sont naturellement plus sombres que la pommette, qui fait
+   *  face à la lumière). Cheveux (gris, blonds ou bruns), fond, sourcil, monture et reflets
+   *  sortent de ces bornes : a* (le rouge de l'hémoglobine) est ce qui sépare le mieux la
+   *  peau des cheveux ; la tempe est souvent plus jaune (b*) que la pommette (≈ +9 sur la vidéo de test), d'où ±16.
+   *  Bornes réglées sur les deux vidéos de test, pas sur une cohorte. */
+  function partPeau(rgb, joue) {
+    const n = rgb.length / 3; let ok = 0, sat = 0;
+    for (let k = 0; k < n; k++) {
+      const r = rgb[k * 3], g = rgb[k * 3 + 1], b = rgb[k * 3 + 2];
+      if (r >= 250 || g >= 250 || b >= 250) { sat++; continue; }
+      const lab = rgbToLab(r, g, b);
+      if (lab.L >= joue.L - 35 && lab.L <= joue.L + 25 && Math.abs(lab.a - joue.a) <= 6 && Math.abs(lab.b - joue.b) <= 16) ok++;
+    }
+    return { peau: n ? ok / n : 0, sat: n ? sat / n : 1 };
+  }
+  const RIDES_PART_PEAU_MIN = 0.85;  // en dessous, le carré lit autre chose que de la peau
+
+  /**
+   * Mesure du contour des yeux sur UNE image (68 repères requis).
+   * @returns {object|null} { cotes:{G,D}, front, geom } — valeurs brutes, sans décision.
+   */
+  function mesurerContourYeux(imageData, landmarks) {
+    if (!imageData || !imageData.data || !landmarks || landmarks.length < 68) return null;
+    const out = { cotes: {}, front: null, geom: {} };
+    const ws = [];
+    for (const cote of ['G', 'D']) {
+      const Z = zonesOeil(landmarks, cote); if (!Z) continue;
+      const R = Z.R, w = R.w; ws.push(w);
+      const nx = 24, ny = 12;
+      const so = grilleRepere(imageData, Z.sousOeil.o, R.u, R.v, Z.sousOeil.a0, Z.sousOeil.a1, Z.sousOeil.b0, Z.sousOeil.b1, nx, ny);
+      const jo = grilleRepere(imageData, Z.joue.o, R.u, R.v, Z.joue.a0, Z.joue.a1, Z.joue.b0, Z.joue.b1, nx, ny);
+      if (!so || !jo) continue;
+      const sSo = statsLab(so), sJo = statsLab(jo);
+      const c = {
+        w: w,
+        sous: { L: sSo.L, a: sSo.a, b: sSo.b, sat: sSo.sat, sombre: _partSombre(sSo.Ls, sJo.L - 30) },
+        joue: { L: sJo.L, a: sJo.a, b: sJo.b, sat: sJo.sat },
+        rides: null
+      };
+      // rides : coin de l'œil vs carré de joue, même noyau
+      if (Z.coin) {
+        const gc = grilleCarre(imageData, Z.coin, R.u, R.v, w);
+        const gj = grilleCarre(imageData, Z.joueCarre, R.u, R.v, w);
+        if (gc && gj) {
+          const pp = partPeau(gc.rgb, sJo), pj = partPeau(gj.rgb, sJo);
+          c.rides = { peau: pp.peau >= RIDES_PART_PEAU_MIN && pj.peau >= RIDES_PART_PEAU_MIN, partPeau: Math.round(pp.peau * 100) / 100, partPeauJoue: Math.round(pj.peau * 100) / 100,
+                      ez: energiesCarre(gc.rgb, gc.N), ej: energiesCarre(gj.rgb, gj.N) };
+        }
+      }
+      out.cotes[cote] = c;
+      out.geom[cote] = Z;
+    }
+    // front (référence : moyenne des deux joues)
+    const G = out.cotes.G, D = out.cotes.D;
+    const refs = [G, D].filter(function (c) { return c && c.rides; });
+    if (ws.length && refs.length) {
+      const wMoy = ws.reduce(function (s, x) { return s + x; }, 0) / ws.length;
+      const F = zoneFront(landmarks, wMoy);
+      if (F) {
+        const gf = grilleCarre(imageData, F, F.u, F.v, wMoy);
+        if (gf) {
+          const moyR = function (f) { return refs.reduce(function (s2, c) { return s2 + f(c); }, 0) / refs.length; };
+          const jm = { L: moyR(function (c) { return c.joue.L; }), a: moyR(function (c) { return c.joue.a; }), b: moyR(function (c) { return c.joue.b; }) };
+          const pf = partPeau(gf.rgb, jm);
+          out.front = { peau: pf.peau >= RIDES_PART_PEAU_MIN, partPeau: Math.round(pf.peau * 100) / 100,
+                        ez: energiesCarre(gf.rgb, gf.N), ej: refs[0].rides.ej.map(function (x, i) { return moyR(function (c) { return c.rides.ej[i]; }); }) };
+          out.geom.front = F;
+        }
+      }
+    }
+    return (out.cotes.G || out.cotes.D) ? out : null;
+  }
+
+  function _profondeur(z) {
+    // noyau où la zone a le plus d'énergie ; contraste avec la joue pour ce même noyau
+    let k = 0; for (let i = 1; i < z.ez.length; i++) if (z.ez[i] > z.ez[k]) k = i;
+    const ez = z.ez[k], ej = z.ej[k];
+    return { d: (ez + ej) > 0 ? 100 * Math.max(0, (ez - ej) / (ez + ej)) : 0, ez: ez, ej: ej, k: k };
+  }
+
+  /**
+   * Synthèse sur plusieurs images (médianes) → { yeux, rides }.
+   * @param {Array} mesures - sorties de mesurerContourYeux (null ignorés)
+   * @param {number} [quality] - score qualité du scan (0-100)
+   */
+  function syntheseContourYeux(mesures, quality) {
+    const M = (mesures || []).filter(Boolean);
+    const vide = { cernes: { deltaL: null, deltaA: null, deltaB: null, type: null, niveau: null, fiable: false, motifs: ['pas_de_reperes'] } };
+    if (!M.length) return { yeux: vide, rides: null };
+
+    const parCote = {};
+    for (const cote of ['G', 'D']) {
+      const l = M.map(function (m) { return m.cotes[cote]; }).filter(Boolean);
+      if (!l.length) continue;
+      const med = function (f) { return _mediane(l.map(f)); };
+      parCote[cote] = {
+        w: med(function (c) { return c.w; }),
+        dL: med(function (c) { return c.joue.L - c.sous.L; }),
+        dA: med(function (c) { return c.sous.a - c.joue.a; }),
+        dB: med(function (c) { return c.sous.b - c.joue.b; }),
+        Lj: med(function (c) { return c.joue.L; }), aj: med(function (c) { return c.joue.a; }), bj: med(function (c) { return c.joue.b; }),
+        Ls: med(function (c) { return c.sous.L; }),
+        sat: Math.max.apply(null, l.map(function (c) { return Math.max(c.sous.sat, c.joue.sat); })),
+        sombre: med(function (c) { return c.sous.sombre; }),
+        n: l.length
+      };
+    }
+    const cotes = Object.keys(parCote).map(function (k) { return parCote[k]; });
+    if (!cotes.length) return { yeux: vide, rides: null };
+    const moy = function (f) { return cotes.reduce(function (s, c) { return s + f(c); }, 0) / cotes.length; };
+    const dL = moy(function (c) { return c.dL; }), dA = moy(function (c) { return c.dA; }), dB = moy(function (c) { return c.dB; });
+    const Lj = moy(function (c) { return c.Lj; }), aj = moy(function (c) { return c.aj; }), bj = moy(function (c) { return c.bj; });
+    const Ls = moy(function (c) { return c.Ls; });
+
+    const motifs = [];
+    if (cotes.length < 2) motifs.push('un_seul_cote');
+    if (parCote.G && parCote.D) {
+      if (Math.abs(parCote.G.dL - parCote.D.dL) > CERNES_ASYM_MAX) motifs.push('ecart_gauche_droite');
+      if (Math.abs(parCote.G.Lj - parCote.D.Lj) > CERNES_JOUES_MAX) motifs.push('lumiere_laterale');
+      const r = Math.min(parCote.G.w, parCote.D.w) / Math.max(parCote.G.w, parCote.D.w);
+      if (r < CERNES_YEUX_RATIO) motifs.push('tete_tournee');
+    }
+    if (Lj < CERNES_LJOUE_MIN) motifs.push('trop_sombre');
+    if (Lj > CERNES_LJOUE_MAX) motifs.push('trop_clair');
+    if (cotes.some(function (c) { return c.sat > CERNES_SAT_MAX; })) motifs.push('reflets');
+    if (cotes.some(function (c) { return c.sombre > CERNES_SOMBRE_MAX; })) motifs.push('cils_ou_monture');
+    if (typeof quality === 'number' && quality < QUALITY_LOW_BUT_USABLE) motifs.push('qualite_image');
+
+    let niveau = null;
+    if (dL >= CERNES_DL_NET) niveau = 'net';
+    else if (dL >= CERNES_DL_MARQUE) niveau = 'marque';
+    else if (dL >= CERNES_DL_LEGER) niveau = 'leger';
+
+    let type = null, resteA = null, resteB = null;
+    if (niveau) {
+      // ce que donnerait une simple ombre : a* et b* baissent dans la même proportion que L*
+      const k = Lj > 0 ? Ls / Lj : 1;
+      resteA = dA - aj * (k - 1);
+      resteB = dB - bj * (k - 1);
+      if (resteB <= CERNES_TEINTE_BLEU) type = 'vasculaire';
+      else if (resteB >= CERNES_TEINTE_BRUN || resteA >= CERNES_TEINTE_BRUN) type = 'pigment';
+      else type = 'ombre';
+    }
+    const r1 = function (x) { return x == null || !isFinite(x) ? null : Math.round(x * 10) / 10; };
+    const yeux = {
+      cernes: {
+        deltaL: r1(dL), deltaA: r1(dA), deltaB: r1(dB),
+        type: type, niveau: niveau, fiable: motifs.length === 0, motifs: motifs,
+        detail: {
+          gauche: parCote.G ? { deltaL: r1(parCote.G.dL), Ljoue: r1(parCote.G.Lj), images: parCote.G.n } : null,
+          droite: parCote.D ? { deltaL: r1(parCote.D.dL), Ljoue: r1(parCote.D.Lj), images: parCote.D.n } : null,
+          resteTeinte: niveau ? { a: r1(resteA), b: r1(resteB) } : null,
+          seuils: { leger: CERNES_DL_LEGER, marque: CERNES_DL_MARQUE, net: CERNES_DL_NET, calibre: false }
+        }
+      }
+    };
+
+    // rides : profondeur par zone = médiane sur les images
+    const zonesR = [['coinOeilG', function (m) { return m.cotes.G && m.cotes.G.rides; }],
+                    ['coinOeilD', function (m) { return m.cotes.D && m.cotes.D.rides; }],
+                    ['front', function (m) { return m.front; }]];
+    const byZone = [];
+    for (const zr of zonesR) {
+      const l = M.map(zr[1]).filter(function (z) { return z && z.peau; }).map(_profondeur);
+      if (!l.length) continue;
+      byZone.push({
+        zone: zr[0],
+        depth: r1(_mediane(l.map(function (x) { return x.d; }))),
+        ez: r1(_mediane(l.map(function (x) { return x.ez; }))),
+        ej: r1(_mediane(l.map(function (x) { return x.ej; }))),
+        images: l.length
+      });
+    }
+    return { yeux: yeux, rides: byZone.length ? byZone : null };
   }
 
   /**
@@ -1558,10 +1940,13 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
           continue;
         }
 
+        // v10.9 : contour des yeux mesuré sur CHAQUE image acceptée (médiane ensuite)
+        let yeux = null;
+        try { yeux = mesurerContourYeux(imageData, lms); } catch (eY) { yeux = null; }
         allFrames.push({
           cheekPixels, tzonePixels, foreheadPixels, allPixels, quality, roi,
           // v10.4 : keep imageData + landmarks for Gabor wrinkle depth analysis on last accepted frame
-          imageData, landmarks: lms
+          imageData, landmarks: lms, yeux
         });
       } catch (e) {
         console.warn(`[vyvre-scan v7] frame ${i} error:`, e.message);
@@ -1664,7 +2049,9 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
         // v10.0 — pixel bundle (transient, ne pas sérialiser ; consommé par clinical detection)
         _pixelBundle: pixelBundle,
         // v10.4 — frame bundle (transient, ne pas sérialiser ; consommé par Gabor wrinkle depth)
-        _frame: frameBundle
+        _frame: frameBundle,
+        // v10.9 — mesures du contour des yeux, une par image acceptée (transient)
+        _yeux: allFrames.map(f => f.yeux).filter(Boolean)
       },
       pixelBundle,                   // v10.0 — exposé aussi au top-level pour clarté
       framesAccepted: allFrames.length,
@@ -2401,6 +2788,10 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
   // 100% colorimétrique (comportement v10.3 préservé, zéro régression).
   const WRINKLES_GABOR_WEIGHT = 0.30;
   const WRINKLES_COLORIMETRIC_WEIGHT = 1.0 - WRINKLES_GABOR_WEIGHT;
+  // v10.9 (04/10/2026) : ces 5 zones (rectangles englobants avec œil, sourcils, cheveux,
+  // aile du nez) saturaient à 100. Elles ne servent plus au score : il lit désormais trois
+  // carrés de peau (coin de l'œil gauche / droit, front), voir syntheseContourYeux.
+  // Constante gardée pour computeGaborWrinkleDepth (audit / tests uniquement).
   const WRINKLES_GABOR_ZONES = ['periocularL', 'periocularR', 'forehead', 'nasolabialL', 'nasolabialR'];
 
   // ────────────────────────────────────────────────────────────────────────
@@ -3788,41 +4179,31 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
       WRINKLES_OFFSET - itaDistanceWrinkles * WRINKLES_ITA_SLOPE - raw.tewl * WRINKLES_SIGMA_SLOPE
     );
 
-    // v10.4 — Optional Gabor spatial blend
+    // v10.9 — Contour des yeux + filtre de rides réparé (voir section CONTOUR DES YEUX).
+    // Mesures par image (analyzeMultiFrame) ou, à défaut, sur l'image unique raw._frame.
     let gaborWrinkleScore = null;
     let gaborDetails = null;
-    if (raw && raw._frame && raw._frame.imageData && raw._frame.roi) {
-      try {
-        const f = raw._frame;
-        const responses = [];
-        for (const zone of WRINKLES_GABOR_ZONES) {
-          const r = computeGaborWrinkleDepth(f.imageData, f.roi, zone, f.landmarks);
-          if (r) responses.push(r);
-        }
-        if (responses.length > 0) {
-          // High depth response = more wrinkles = lower wrinkles score (score 100 = smooth).
-          const avgDepth = responses.reduce(function (s, r) { return s + r.depth; }, 0) / responses.length;
-          gaborWrinkleScore = clamp(WRINKLES_MIN, WRINKLES_MAX, 100 - avgDepth);
-          gaborDetails = {
-            zonesAnalyzed: responses.length,
-            avgDepth: parseFloat(avgDepth.toFixed(2)),
-            byZone: responses.map(function (r, idx) {
-              return {
-                zone: WRINKLES_GABOR_ZONES[idx],
-                depth: parseFloat(r.depth.toFixed(2)),
-                orientation: r.dominantOrientation,
-                wavelength: r.dominantWavelength
-              };
-            })
-          };
-        }
-      } catch (e) {
-        // Graceful fallback — Gabor errors never break wrinkles scoring.
-        if (typeof console !== 'undefined' && console.warn) {
-          console.warn('[ENGINE v10.4] Gabor wrinkle depth failed, falling back to colorimetric:', e.message);
-        }
-        gaborWrinkleScore = null;
+    let syntheseYeux = null;
+    try {
+      let mesuresYeux = Array.isArray(raw._yeux) ? raw._yeux : null;
+      if ((!mesuresYeux || !mesuresYeux.length) && raw._frame && raw._frame.imageData && raw._frame.landmarks) {
+        mesuresYeux = [mesurerContourYeux(raw._frame.imageData, raw._frame.landmarks)];
       }
+      syntheseYeux = syntheseContourYeux(mesuresYeux || [], q);
+    } catch (e) {
+      if (typeof console !== 'undefined' && console.warn) console.warn('[ENGINE v10.9] contour des yeux non mesuré :', e.message);
+      syntheseYeux = null;
+    }
+    if (syntheseYeux && syntheseYeux.rides && syntheseYeux.rides.length) {
+      // Profondeur élevée = plus de rides = score Rides plus bas (100 = lisse).
+      const avgDepth = syntheseYeux.rides.reduce(function (s2, z) { return s2 + z.depth; }, 0) / syntheseYeux.rides.length;
+      gaborWrinkleScore = clamp(WRINKLES_MIN, WRINKLES_MAX, 100 - avgDepth);
+      gaborDetails = {
+        zonesAnalyzed: syntheseYeux.rides.length,
+        avgDepth: parseFloat(avgDepth.toFixed(2)),
+        // ez / ej : énergie de Gabor (%) de la zone et de la joue, même noyau
+        byZone: syntheseYeux.rides
+      };
     }
 
     // Final wrinkles blend (or fallback v10.3 colorimétrique pur)
@@ -3924,8 +4305,10 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
         blendWeights: gaborWrinkleScore !== null
           ? { colorimetric: WRINKLES_COLORIMETRIC_WEIGHT, gabor: WRINKLES_GABOR_WEIGHT }
           : { colorimetric: 1.0, gabor: 0.0 },
-        method: gaborWrinkleScore !== null ? 'v10.4-blend-70-30' : 'v10.3-colorimetric-only'
-      }
+        method: gaborWrinkleScore !== null ? 'v10.9-blend-70-30-carres-de-peau' : 'v10.3-colorimetric-only'
+      },
+      // v10.9 — contour des yeux, INDICATIF (n'entre dans aucun des 8 scores)
+      yeux: (syntheseYeux && syntheseYeux.yeux) || null
     };
 
     // Propagate error/recommendation fields if estimateAge refused (quality < 40)
@@ -4080,6 +4463,7 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
           return {
             scores,
             raw: result.raw,
+            yeux: scores.yeux || null,   // v10.9 — contour des yeux (indicatif)
             framesAccepted: result.framesAccepted,
             framesAttempted: result.framesAttempted
           };
@@ -4227,6 +4611,7 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
           const finalResult = {
             scores,
             raw: result.raw,
+            yeux: scores.yeux || null,   // v10.9 — contour des yeux (indicatif)
             framesAccepted: result.framesAccepted,
             framesAttempted: result.framesAttempted
           };
@@ -4273,6 +4658,8 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
       ZONE_LANDMARKS, ZONE_COORDS,
       // v10.4 — Gabor directional wrinkle depth (exposed for audit / tests)
       computeGaborWrinkleDepth, generateGaborKernel,
+      // v10.9 — contour des yeux (ombre sous l'œil + carrés de peau pour les rides)
+      mesurerContourYeux, syntheseContourYeux, zonesOeil, zoneFront, repereOeil,
       applyGaborToPatch, extractLuminancePatch,
       GABOR_ORIENTATIONS, GABOR_WAVELENGTHS, GABOR_KERNEL_SIZE,
       findBiomarkerBars, updateBiomarkerBars,
@@ -5145,9 +5532,11 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
         }
       },
       {
-        name: 'v10.4:wrinkles-blend-when-frame-provided',
+        // v10.9 : sans les 68 repères, plus de filtre sur des rectangles devinés (ils saturaient) :
+        // le score Rides retombe sur le colorimétrique seul, et le dit.
+        name: 'v10.9:wrinkles-colorimetric-only-without-landmarks',
         check: () => {
-          // Synthetic frame with stripes → Gabor active, blend method
+          // Synthetic frame with stripes, no landmarks → no Gabor, colorimetric fallback
           const W = 120, H = 120;
           const arr = new Uint8ClampedArray(W * H * 4);
           for (let y = 0; y < H; y++) {
@@ -5168,9 +5557,10 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
           };
           const s = mapToScores(raw);
           return s.wrinklesAnalysis &&
-                 s.wrinklesAnalysis.method === 'v10.4-blend-70-30' &&
-                 typeof s.wrinklesAnalysis.gabor === 'number' &&
-                 s.wrinklesAnalysis.blendWeights.gabor === WRINKLES_GABOR_WEIGHT;
+                 s.wrinklesAnalysis.method === 'v10.3-colorimetric-only' &&
+                 s.wrinklesAnalysis.gabor === null &&
+                 s.wrinklesAnalysis.blendWeights.gabor === 0 &&
+                 s.yeux && s.yeux.cernes && s.yeux.cernes.fiable === false;
         }
       },
       {
@@ -5288,6 +5678,8 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
       ZONE_LANDMARKS, ZONE_COORDS,
       // v10.4 — Gabor directional wrinkle depth
       computeGaborWrinkleDepth, generateGaborKernel,
+      // v10.9 — contour des yeux (ombre sous l'œil + carrés de peau pour les rides)
+      mesurerContourYeux, syntheseContourYeux, zonesOeil, zoneFront, repereOeil,
       applyGaborToPatch, extractLuminancePatch,
       GABOR_ORIENTATIONS, GABOR_WAVELENGTHS, GABOR_KERNEL_SIZE,
       // Tests

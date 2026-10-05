@@ -7,7 +7,7 @@
 <meta name="description" content="Votre peau, mesurée en moins de 10 secondes depuis votre caméra. Puis les trois soins qui lui correspondent, parmi 5 883 références de 147 marques.">
 <title>VYVRE — Scan de peau universel</title>
 <!-- VYVRE_I18N : moteur 12 langues, francais par defaut -->
-<script src="/scan/vy-i18n.js?v=28"></script>
+<script src="/scan/vy-i18n.js?v=29"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Police ultra-clean (Silicon Valley DeepTech style) -->
@@ -645,12 +645,14 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{cursor:auto}
         <img class="v6photo" src="https://vyvre-demos.web.app/products/charlotte-tilbury/charlotte-s-magic-cream-moisturiser.jpg" alt="Charlotte's Magic Cream Moisturiser" onerror="this.style.display='none'">
         <div class="v6price">85 €</div>
       </div>
-      <div class="v6card v6prod" data-vyvre-prod-slot="1">
-        <span class="v6lbl" data-i18n="c.wrinkles">Ridules</span>
-        <h3>Magic Eye Rescue Cream with Retinol</h3>
-        <p data-i18n="d.p1">Action ciblée : Ridules · Hydratation.</p>
-        <img class="v6photo" src="https://vyvre-demos.web.app/products/charlotte-tilbury/magic-eye-rescue.jpg" alt="Magic Eye Rescue Cream with Retinol" onerror="this.style.display='none'">
-        <div class="v6price">55 €</div>
+      <!-- 04/10 (contour des yeux) : la creme yeux Charlotte Tilbury en dur (« Ridules ») est retiree.
+           Si le catalogue ne charge pas, cette carte reste cachee ; sinon elle recoit un vrai produit. -->
+      <div class="v6card v6prod" data-vyvre-prod-slot="1" style="display:none">
+        <span class="v6lbl" data-i18n="c.default">Soin signature</span>
+        <h3></h3>
+        <p></p>
+        <img class="v6photo" src="" alt="" style="display:none" onerror="this.style.display='none'">
+        <div class="v6price"></div>
       </div>
       <div class="v6card v6prod" data-vyvre-prod-slot="2">
         <span class="v6lbl" data-i18n="c.glow">Éclat</span>
@@ -1608,10 +1610,12 @@ async function scanFromImage(imgEl) {
     const tZoneSebum = eng.sebumProxy(tzonePixels, avgLum, 0.05);
     const tewlSigma = eng.tewlProxy(labArr);
 
-    const raw = { L: avgL, a: avgA, b: avgB, ita: itaAngle, fitz, MI, EI, sebum: tZoneSebum, tewl: tewlSigma, avgRed, avgGreen, avgLum };
+    const raw = { L: avgL, a: avgA, b: avgB, ita: itaAngle, fitz, MI, EI, sebum: tZoneSebum, tewl: tewlSigma, avgRed, avgGreen, avgLum,
+      /* 04/10 : l'image et ses 68 reperes, pour l'ombre sous l'oeil et les carres de rides (moteur v10.9) */
+      _frame: { imageData, roi, landmarks: roi && roi.landmarks || null } };
     const scores = eng.mapToScores(raw);
     eng.updateBiomarkerBars(scores);
-    return { scores, raw, framesAccepted: 1, framesAttempted: 1, source: 'image' };
+    return { scores, raw, yeux: scores.yeux || null, framesAccepted: 1, framesAttempted: 1, source: 'image' };
   } catch(e) {
     console.error('[CHARLOTTE_TILBURY] scanFromImage error:', e);
     return null;
@@ -1651,10 +1655,11 @@ async function deriveScoresFromPixels(src) {
       MI: eng.melaninIndex(avgRed), EI: eng.erythemaIndex(avgRed, avgGreen),
       sebum: eng.sebumProxy(tzonePixels, 0.5, 0.05),
       tewl: eng.tewlProxy(labArr),
-      avgRed, avgGreen, avgLum: 0.5
+      avgRed, avgGreen, avgLum: 0.5,
+      _frame: { imageData, roi, landmarks: roi && roi.landmarks || null }   /* 04/10 : ombre sous l'oeil + rides (v10.9) */
     };
     const scores = eng.mapToScores(raw);
-    return { scores, raw, framesAccepted: 1, framesAttempted: 1, source: 'fallback' };
+    return { scores, raw, yeux: scores.yeux || null, framesAccepted: 1, framesAttempted: 1, source: 'fallback' };
   } catch(e) {
     console.error('[CHARLOTTE_TILBURY] deriveScoresFromPixels error:', e);
     return null;
@@ -1712,6 +1717,10 @@ function showFinalDashboard() {
       localStorage.setItem('vyvre_score', String(globalScore));
       localStorage.setItem('vyvre_hyd', String(hydration));
       localStorage.setItem('vyvre_scan_at', String(Date.now()));
+      /* 04/10 : l'ombre sous l'oeil (indicative) suit vers le protocole, qui applique la meme regle */
+      const cy = vyCernes();
+      if (cy) localStorage.setItem('vyvre_scan_yeux', JSON.stringify({ niveau: cy.niveau, type: cy.type, fiable: cy.fiable === true, deltaL: cy.deltaL }));
+      else localStorage.removeItem('vyvre_scan_yeux');
       const ag = result.age || result.ageEstimate || null;
       const fourchette = result.age_display || result.ageDisplay || (ag && ag.ageReadable !== false && (ag.ageDisplay || (Array.isArray(ag.range) ? ag.range[0] + '–' + ag.range[1] : ''))) || '';
       if (fourchette) localStorage.setItem('vyvre_age_display', String(fourchette)); else localStorage.removeItem('vyvre_age_display');
@@ -1777,6 +1786,22 @@ function showFinalDashboard() {
  * Identifie les top 3 concerns du user (scores les plus faibles ou pigmentation/sebum
  * élevés = concerns) et fetch + matche les meilleurs produits Charlotte Tilbury.
  */
+/* 04/10 (contour des yeux) : l'ombre sous l'oeil mesuree par le moteur (indicative), ou null */
+function vyCernes() {
+  const r = window.vyvreLastScanResult;
+  const y = r && (r.yeux || (r.scores && r.scores.yeux));
+  return (y && y.cernes && typeof y.cernes.deltaL === 'number') ? y.cernes : null;
+}
+/* La regle, la meme partout (scan, protocole, assiette) : un soin contour des yeux seulement si
+   la personne l'a demande avant le scan, ou si l'ombre sous l'oeil est « marquee » ou « nette »
+   avec une lumiere jugee fiable par le moteur. Jamais pour les rides. */
+function vyReglesYeux() {
+  const demande = !!(window.vyPrefs && window.vyPrefs.yeux && window.vyPrefs.yeux());
+  const c = vyCernes();
+  const mesure = !!(c && c.fiable === true && (c.niveau === 'marque' || c.niveau === 'net'));
+  return { demande, mesure, oui: demande || mesure };
+}
+
 async function matchAndRenderCharlotteTilburyProducts(scores) {
   console.log('[CHARLOTTE_TILBURY] starting product matching with scores', scores);
   window.__vyScores = scores;
@@ -1854,6 +1879,20 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     if (soins.length >= 3) { scoredProducts.length = 0; soins.forEach(p => scoredProducts.push(p)); }
   }
 
+  /* 04/10 (contour des yeux) : un contour des yeux n'entre plus jamais par le score (il arrivait
+     « pour rides » par hasard). Il est mis de cote, puis ajoute seulement si la regle le demande.
+     Jamais de patchs ni de masques. */
+  const regleYeux = vyReglesYeux();
+  const PAS_POUR_YEUX = /patch|\bpads?\b|mask|masque|strips?|gel pads/i;
+  const MOTS_CERNES = /cerne|dark circle|ojera|occhiaie|augenring|olheira|kringen|puff|poche|de-puff/i;
+  let soinYeux = null;
+  if (regleYeux.oui) {
+    const cands = scoredProducts.filter(p => p.categorie === 'contour-yeux' && !PAS_POUR_YEUX.test(p.name || ''));
+    cands.sort((a, b) => (regleYeux.mesure ? (MOTS_CERNES.test(b.name || '') ? 1 : 0) - (MOTS_CERNES.test(a.name || '') ? 1 : 0) : 0) || b.matchScore - a.matchScore);
+    if (cands[0]) soinYeux = Object.assign({}, cands[0], { targets: ['yeux'], _yeux: regleYeux });
+  }
+  { const sansYeux = scoredProducts.filter(p => p.categorie !== 'contour-yeux'); scoredProducts.length = 0; sansYeux.forEach(p => scoredProducts.push(p)); }
+
   // Diversifier : on prend top 1, puis on cherche un produit avec un primary target différent
   const selected = [];
   const usedTargets = new Set();
@@ -1898,6 +1937,13 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
       }
     }
   }
+  /* le contour des yeux : en tete si c'est le seul objectif choisi, sinon a la derniere place */
+  if (soinYeux) {
+    const seul = regleYeux.demande && !(window.vyPrefs && window.vyPrefs.cibles && window.vyPrefs.cibles().length);
+    if (seul) { selected.unshift(soinYeux); if (selected.length > 4) selected.pop(); }
+    else if (selected.length >= 4) selected[3] = soinYeux;
+    else selected.push(soinYeux);
+  }
   console.log('[CHARLOTTE_TILBURY] selected products:', selected.map(p => p.name + ' (match=' + p.matchScore.toFixed(1) + ')'));
   // la liste retenue, telle quelle, pour « LA SALLE » (?salle=1). Lecture seule.
   try { window.__vySelection = selected; } catch(e) {}
@@ -1906,7 +1952,7 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
   const CONCERN_KEYS = {
     wrinkles: 'c.wrinkles', firmness: 'c.firmness', glow: 'c.glow',
     hydration: 'c.hydration', redness: 'c.redness', pores: 'c.pores',
-    sebum: 'c.sebum', pigmentation: 'c.pigmentation'
+    sebum: 'c.sebum', pigmentation: 'c.pigmentation', yeux: 'c.yeux'
   };
   const concernLabel = (k) => CONCERN_KEYS[k] ? VY.t(CONCERN_KEYS[k]) : k;
 
@@ -1927,7 +1973,11 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     if (lblEl) { lblEl.setAttribute('data-i18n', CONCERN_KEYS[primaryTarget] || 'c.default'); lblEl.textContent = CONCERN_KEYS[primaryTarget] ? concernLabel(primaryTarget) : VY.t('c.default'); }
     if (h3) { h3.removeAttribute('data-i18n'); h3.textContent = p.name; }
     card.dataset.marque = p.brand_name || '';
-    if (pEl) {
+    if (pEl && p._yeux) {
+      /* contour des yeux : une phrase honnete, jamais « pour rides » */
+      pEl.removeAttribute('data-i18n');
+      pEl.textContent = `${p.brand_name ? p.brand_name + ' · ' : ''}` + [p._yeux.demande ? VY.t('y.demande') : '', p._yeux.mesure ? VY.t('y.mesure') : ''].filter(Boolean).join(' ');
+    } else if (pEl) {
       const targetWords = (p.targets || []).map(t => concernLabel(t)).join(' · ');
       pEl.removeAttribute('data-i18n');
       pEl.textContent = `${p.brand_name ? p.brand_name + ' · ' : ''}` + VY.t('p.action', { t: targetWords });
@@ -1988,7 +2038,7 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
   });
 </script>
 <!-- VYVRE V10: TF.js removed from eager load — handled by /vyvre-loader.js -->
-<script src="/scan/vyvre-scan-engine.js?v=10.6" defer></script>
+<script src="/scan/vyvre-scan-engine.js?v=10.9" defer></script>
 <!-- VYVRE_V10_TRACKER_BEGIN -->
 <script src="/scan/vyvre-tracker.js?v=10.1" defer></script>
 <!-- VYVRE_V10_TRACKER_END -->
@@ -2323,6 +2373,7 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     .vyvre-v6 .v6grid>.sg-verdict b{font-family:'JetBrains Mono',monospace;font-weight:400;font-size:8.5px;letter-spacing:.3em;color:rgba(217,201,163,.85);white-space:nowrap}
     .vyvre-v6 .v6grid>.sg-verdict p{margin:0;font-size:14px;line-height:1.5;font-weight:300;color:rgba(255,255,255,.85);max-width:none}
     .vyvre-v6 .v6grid>.sg-verdict p em{font-style:normal;color:#fbf0d2}
+    .vyvre-v6 .v6grid>.sg-verdict p.sg-yeux{margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55)}
     .vyvre-v6 .v6grid>[data-vyvre-tracker-slot]{grid-row:7}
     .vyvre-v6 .v6card.sg-std,.vyvre-v6 .v6card.sg-s1,.vyvre-v6 .v6card.sg-s2,.vyvre-v6 .v6card.sg-s3{grid-row:8}
     /* révélation du score : sort du flou, s'élargit, anneau qui se dessine avec traînée, onde de choc, éclat */
@@ -2632,7 +2683,10 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
         var arr=Object.keys(M).map(function(k){return M[k];}).sort(function(a,b){return a[1]-b[1];});var low=arr[0],low2=arr[1],high=arr[arr.length-1],G=(function(){var el=document.querySelector('[data-vyvre-score-large]');var n=el?parseInt(el.dataset.target,10):NaN;return isFinite(n)?n:v('globalScore',61);})();
         var etat=VY.t(G>=80?'v.exc':(G>=65?'v.good':(G>=50?'v.tired':'v.need')));
         var txt2=VY.t('v.txt',{e:etat,g:G,a:low[0],an:low[1],b:low2[0],bn:low2[1],c:high[0],cn:high[1]});
-        var d=document.createElement('div');d.className='sg-verdict';d.innerHTML='<b>'+VY.t('v.h')+'</b><p>'+txt2+'</p>';grid.appendChild(d);
+        var d=document.createElement('div');d.className='sg-verdict';d.innerHTML='<b>'+VY.t('v.h')+'</b><p>'+txt2+'</p>';
+        /* 04/10 : l'ombre sous les yeux, une ligne indicative, seulement si le moteur la juge lisible */
+        (function(){var cy=typeof vyCernes==='function'?vyCernes():null;if(!cy||cy.fiable!==true||!cy.niveau)return;var p2=document.createElement('p');p2.className='sg-yeux';p2.textContent=VY.t('y.ligne',{n:VY.t('y.'+cy.niveau)});d.appendChild(p2);})();
+        grid.appendChild(d);
         var ce=document.querySelector('.sg-centre');if(ce){var e=document.createElement('i');e.className='sg-eclat';ce.appendChild(e);}})();
       /* les pièces suivantes entrent en cascade */
       setTimeout(function(){res.classList.add('sg-vu');},700);}
@@ -2887,7 +2941,7 @@ html,body{background:#030405!important}
 #vy-recap i{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font:300 11px/1.3 Inter,sans-serif;font-style:normal;color:rgba(255,255,255,.85);margin-top:3px}
 @media (min-width:1100px){#vy-recap{display:none!important}}
 </style>
-<script src="/scan/aliment/vy-aliment.js?v=33" defer></script>
+<script src="/scan/aliment/vy-aliment.js?v=34" defer></script>
 <style id="vy-as-place">@media (min-width:1100px){.vyvre-v6 .v6grid>#vy-as-entree{grid-row:9!important;grid-column:1/13!important}}</style>
 <script id="vy-recap-js">
 window.vyRecap = function(){
@@ -3033,7 +3087,7 @@ header{backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important;-webki
   function summary(){
     var t=[], L={luxe:VY.t('u.luxe'),pharmacie:VY.t('u.pharma'),normal:VY.t('u.normal'),'petit-prix':VY.t('u.petit')}, O={};
     P.origine.forEach(function(c){ O[c]=pays(c); });
-    var G={antiage:'g.antiage',glow:'g.glow',hydration:'g.hydration',redness:'g.redness',pores:'g.pores',pigmentation:'g.pigmentation',sebum:'g.sebum'};
+    var G={antiage:'g.antiage',glow:'g.glow',hydration:'g.hydration',redness:'g.redness',pores:'g.pores',pigmentation:'g.pigmentation',sebum:'g.sebum',yeux:'g.yeux'};
     var A={u25:'ag.u25','25':'ag.25','35':'ag.35','45':'ag.45','55':'ag.55'};
     if(P.goals.length) t.push(P.goals.map(function(g){return VY.t(G[g]);}).join(' + '));
     if(P.age&&A[P.age]) t.push(VY.t(A[P.age]));
@@ -3053,12 +3107,14 @@ header{backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important;-webki
   }
   var CIBLES={antiage:['wrinkles','firmness'],glow:['glow'],hydration:['hydration'],redness:['redness'],pores:['pores'],pigmentation:['pigmentation'],sebum:['sebum']};
   function cibles(){ if(!repondu) return []; var o=[]; P.goals.forEach(function(g){ o=o.concat(CIBLES[g]||[]); }); return o; }
-  window.vyPrefs={filter:filter,boostConcerns:boostConcerns,afterRender:afterRender,cibles:cibles,get:function(){return P;},repeindre:function(){}};
+  /* 04/10 : « Contour des yeux » (cernes, poches) ne pese sur aucun des 8 scores : il demande seulement un soin yeux */
+  function yeux(){ return repondu && P.goals.indexOf('yeux')>=0; }
+  window.vyPrefs={filter:filter,boostConcerns:boostConcerns,afterRender:afterRender,cibles:cibles,yeux:yeux,get:function(){return P;},repeindre:function(){}};
 
   function open(m){
     mode=m; if(cadre) return;
     cadre=document.createElement('iframe'); cadre.id='vy-avant'; cadre.title='Avant votre scan';
-    cadre.src='/scan/avant/index.html?v=3&lang='+encodeURIComponent((window.VY&&VY.lang)||'fr'); cadre.setAttribute('allow','autoplay');
+    cadre.src='/scan/avant/index.html?v=4&lang='+encodeURIComponent((window.VY&&VY.lang)||'fr'); cadre.setAttribute('allow','autoplay');
     document.body.appendChild(cadre);
     cadre.setAttribute('tabindex','-1');
     cadre.addEventListener('load',function(){ try{ cadre.focus(); cadre.contentWindow.focus(); }catch(e){} });
@@ -3198,7 +3254,7 @@ if(/[?&]depuis=aliment\b/.test(location.search)) addEventListener('load', functi
 
   var CONCERN = { wrinkles:'c.wrinkles', firmness:'c.firmness', glow:'c.glow',
     hydration:'c.hydration', redness:'c.redness', pores:'c.pores',
-    sebum:'c.sebum', pigmentation:'c.pigmentation' };
+    sebum:'c.sebum', pigmentation:'c.pigmentation', yeux:'c.yeux' };
   var UNIVERS = { luxe:'u.luxe', pharmacie:'u.pharma', normal:'u.normal', 'petit-prix':'u.petit' };
   /* seuls les pays dont le libelle existe dans les douze dictionnaires : on
      n'invente pas un nom de pays qui ne serait pas traduit. */

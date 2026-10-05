@@ -16,7 +16,7 @@ window.VYD=(function(){
   var L=window.VYL, Q=L.d.q;
   function liste(cle,ordre){ return ordre.map(function(v){ return [v, L.mot(cle,v)].concat(cle==='univers'&&L.EX[v]?[L.EX[v]]:[]); }); }
   var ETAPES=[
-    {k:'goals', multi:true, max:3, t:Q[0][0], e:Q[0][1], av:Q[0][2], ap:Q[0][3], opt:liste('goals',['antiage','glow','hydration','redness','pores','pigmentation','sebum'])},
+    {k:'goals', multi:true, max:3, t:Q[0][0], e:Q[0][1], av:Q[0][2], ap:Q[0][3], opt:liste('goals',['antiage','glow','hydration','redness','pores','pigmentation','sebum','yeux'])},
     {k:'age', multi:false, t:Q[1][0], e:Q[1][1], av:Q[1][2], ap:Q[1][3], opt:liste('age',['','u25','25','35','45','55'])},
     {k:'univers', multi:false, t:Q[2][0], e:Q[2][1], av:Q[2][2], ap:Q[2][3], opt:liste('univers',['','luxe','pharmacie','normal','petit-prix'])},
     {k:'origine', multi:false, t:Q[3][0], e:Q[3][1], av:Q[3][2], ap:Q[3][3], opt:[['',L.mot('pays','')]]}

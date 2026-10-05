@@ -427,8 +427,43 @@
   function produitsPour(actif){ var l = (PRODUITS && PRODUITS[actif.id]) || [];
     if(window.vyPrefs && window.vyPrefs.filter){ try { var f = window.vyPrefs.filter(l.map(function(p){ return { id:p.id, brand:p.brand, pays:p.pays, categorie:p.cat, name:p.n }; })); var ok = {}; f.forEach(function(p){ ok[p.id] = 1; }); if(f.length) l = l.filter(function(p){ return ok[p.id]; }); } catch(e){} }
     var serum = l.filter(function(p){ return /serum|sérum/i.test(p.cat || '') ; })[0], creme = l.filter(function(p){ return /creme|crème|soin|hydratant/i.test(p.cat || '') && p !== serum; })[0];
-    var out = [serum, creme].filter(Boolean); l.forEach(function(p){ if(out.length < 2 && out.indexOf(p) < 0) out.push(p); }); return out.slice(0, 2); }
+    var out = [serum, creme].filter(Boolean); l.forEach(function(p){ if(out.length < 2 && out.indexOf(p) < 0 && p.cat !== 'contour-yeux' && !/patch|mask|masque/i.test(p.n || '')) out.push(p); })   /* 04/10 : plus de contour des yeux en depannage */; return out.slice(0, 2); }
   function minus(t){ return /^[A-ZÀ-Ý][a-zà-ÿ]/.test(t) ? t.charAt(0).toLowerCase() + t.slice(1) : t; }   /* « vitamine C », mais « AHA » */
+
+  /* ---- 04/10 (contour des yeux) : la meme regle que le scan. Un soin contour des yeux seulement si la personne
+     l'a demande (besoin « yeux » du parcours, ou objectif « Contour des yeux » avant le scan), ou si le moteur mesure
+     une ombre sous l'oeil « marquee » ou « nette » avec une lumiere jugee fiable. Jamais de patchs ni de masques.
+     Aucun aliment n'est presente pour les yeux : aucune allegation de sante autorisee (reglement UE 432/2012)
+     ne concerne les cernes ou les poches. ---- */
+  function cernesMesures(){ var s = window.__vyScores, r = window.vyvreLastScanResult, y = (s && s.yeux) || (r && (r.yeux || (r.scores && r.scores.yeux))), c = y && y.cernes;
+    if(!c){ try { c = JSON.parse(localStorage.getItem('vyvre_scan_yeux') || 'null'); } catch(e){ c = null; } }
+    return c || null; }
+  function regleYeux(){ var dem = ((AFFINE && AFFINE.besoins) || []).indexOf('yeux') >= 0 || !!(window.vyPrefs && window.vyPrefs.yeux && window.vyPrefs.yeux());
+    var c = cernesMesures(), mes = !!(c && c.fiable === true && (c.niveau === 'marque' || c.niveau === 'net'));
+    return { demande:dem, mesure:mes, oui:dem || mes }; }
+  function soinYeux(ind){ var R = regleYeux(); if(!R.oui || MODE === 'mineur' || !PRODUITS) return '';
+    /* sur /scan/, le rituel porte deja ce soin : pas de doublon dans l'assiette */
+    if((window.__vySelection || []).some(function(p){ return p && p._yeux; })) return '';
+    var enceinte = a('q3','enceinte') || a('q3','allaite') || a('q3','projet'), sensible = ind && (ind.i1 === 'rougeurs' || ind.i2 === 'rougeurs') || ((AFFINE && AFFINE.besoins) || []).indexOf('rougeurs') >= 0;
+    var actifs = {}; ((COMBOS && COMBOS.actifs) || []).forEach(function(z){ actifs[z.id] = z; });
+    var vus = {};
+    Object.keys(PRODUITS).forEach(function(aid){ var ac = actifs[aid]; (PRODUITS[aid] || []).forEach(function(p){
+      if(p.cat !== 'contour-yeux' || /patch|\bpads?\b|mask|masque|strips?/i.test(p.n || '')) return;
+      var e = vus[p.id] || (vus[p.id] = { p:p, ok:true, ac:[] }); if(e.ac.indexOf(aid) < 0) e.ac.push(aid);
+      if(!ac || (sensible && ['aha','retinoide'].indexOf(aid) >= 0) || (enceinte && ac.grossesse === 'eviter') || (MODE === 'prudent' && ac.grossesse !== 'ok')) e.ok = false; }); });
+    var l = Object.keys(vus).map(function(k){ return vus[k]; }).filter(function(e){ return e.ok; });
+    if(window.vyPrefs && window.vyPrefs.filter){ try { var f = window.vyPrefs.filter(l.map(function(e){ return { id:e.p.id, brand:e.p.brand, pays:e.p.pays, categorie:e.p.cat, name:e.p.n }; })); var ok = {}; f.forEach(function(p){ ok[p.id] = 1; }); if(f.length) l = l.filter(function(e){ return ok[e.p.id]; }); } catch(e){} }
+    var CERNES = /cerne|dark circle|ojera|occhiaie|augenring|olheira|puff|poche/i;
+    l.sort(function(x, y){ return (y.p.img ? 1 : 0) - (x.p.img ? 1 : 0) || (R.mesure ? (CERNES.test(y.p.n || '') ? 1 : 0) - (CERNES.test(x.p.n || '') ? 1 : 0) : 0) || (x.p.pos || 99) - (y.p.pos || 99) || (x.p.id < y.p.id ? -1 : 1); });
+    var e = l[0]; if(!e) return '';
+    var p = e.p, spf = e.ac.some(function(k){ return actifs[k] && actifs[k].exige_spf; }), avis = enceinte && e.ac.some(function(k){ return actifs[k] && actifs[k].grossesse === 'avis'; });
+    var pourquoi = [R.demande ? 'Vous l’avez demandé.' : '', R.mesure ? 'Ombre sous l’œil plus marquée que la joue sur votre image : indicatif.' : ''].filter(Boolean).join(' ');
+    return '<div class="prem vy-yeux"><div class="m">Soin · Contour des yeux</div><div class="rit"><i>' + n2(0) + '</i><div><h3>' + esc((p.b ? p.b + ' ' : '') + (p.n || '')) + '</h3><div class="sous">' + esc(pourquoi) + '</div>'
+      + '<p>Un soin cosmétique, seul : aucun aliment n’est proposé pour le contour des yeux, car aucune allégation de santé autorisée ne concerne les cernes ou les poches.</p>'
+      + (spf ? '<div class="prec" style="color:#f3c9a6">Avec cet actif, une protection solaire chaque matin est indispensable.</div>' : '')
+      + (avis ? '<div class="prec" style="color:#f3c9a6">Grossesse ou allaitement : demandez l’avis de votre médecin ou de votre pharmacien avant ce soin.</div>' : '')
+      + '<a class="prod" href="' + esc(p.url || '#') + '" target="_blank" rel="noopener"><img src="' + esc(p.img || '') + '" alt="" onerror="this.style.visibility=\'hidden\'"><span><b>' + esc(p.b || '') + ' · Contour des yeux</b>' + esc(p.n || '') + '</span></a>'
+      + '</div></div><p class="fine" style="color:#b6cdc8">Soin cosmétique : il agit sur l’aspect de la peau, pas sur une maladie. Testez-le d’abord sur une petite zone, sans l’appliquer dans l’œil.</p></div>'; }
   function combos(ind, pris){ if(!COMBOS || !COMBOS.combos) return '';
     var ids = {}; pris.forEach(function(c){ ids[c.f.id] = 1; });
     var ex = exclus().x, enceinte = a('q3','enceinte') || a('q3','allaite') || a('q3','projet');
@@ -436,7 +471,8 @@
     var lignes = COMBOS.combos.filter(function(c){ var ac = actifs[c.actif_id]; if(/tomate/.test(c.aliment_id) && c.actif_id === 'protection_solaire') return false; var sensible = ind.i1 === 'rougeurs' || ind.i2 === 'rougeurs' || ((AFFINE && AFFINE.besoins) || []).indexOf('rougeurs') >= 0;   /* 01/10 (audit) : peau reactive, pas d'AHA ni de retinoide */
       return (c.indice === ind.i1 || c.indice === ind.i2) && !ex[c.aliment_id] && ac && !(sensible && ['aha','retinoide'].indexOf(ac.id) >= 0) && !(enceinte && ac.grossesse === 'eviter') && !(MODE === 'prudent' && ac.grossesse !== 'ok') && !(MODE === 'mineur' && ac.id !== 'protection_solaire'); })
       .sort(function(p, q){ return (ids[q.aliment_id] ? 1 : 0) - (ids[p.aliment_id] ? 1 : 0) || (p.ordre || 9) - (q.ordre || 9); }).slice(0, 3);
-    if(!lignes.length) return '';
+    var oeil = soinYeux(ind);   /* 04/10 : le contour des yeux, a part, sans aliment */
+    if(!lignes.length) return oeil;
     return '<div class="prem"><div class="m">Premium · Un aliment, un soin</div><h2>Combo.</h2><p class="lead" style="color:#b6cdc8">Pour une même cible, un aliment à table et un actif en soin. Chacun a ses propres preuves. Aucune étude n’a testé les deux ensemble : nous ne promettons donc aucun effet combiné.</p>'
       + lignes.map(function(c, k){ var f = DATA.filter(function(z){ return z.id === c.aliment_id; })[0], ac = actifs[c.actif_id]; if(!f) return '';
         var prods = produitsPour(ac);
@@ -454,7 +490,7 @@
           + prods.map(function(p){ var par = /\(([^)]+)\)/.exec(ac.nom || ''), nom = (ac.id === 'humectants' && par ? par[1] : (ac.nom || '').split(' (')[0]).toLowerCase(), CATN = { serum:'Sérum', creme:'Crème', 'solaire-visage':'Solaire visage' }; return '<a class="prod" href="' + esc(p.url || '#') + '" target="_blank" rel="noopener"><img src="' + esc(p.img || '') + '" alt="" onerror="this.style.visibility=\'hidden\'"><span><b>' + esc(p.b || '') + (p.cat ? ' · ' + esc(CATN[p.cat] || p.cat) : '') + '</b>' + esc(p.n || '') + '<br><small style="opacity:.7">' + (ac.id === 'protection_solaire' ? 'Protection solaire du visage' : 'Contient ' + esc(nom) + (p.pos <= 4 ? ', parmi les premiers ingrédients' : '')) + '</small></span></a>'; }).join('')
           + ((ac.etudes || []).length ? '<details><summary>Les études de l’actif (' + ac.etudes.length + ')</summary>' + ac.etudes.map(function(e){ return '<a href="' + esc(e.lien) + '" target="_blank" rel="noopener">' + esc(e.ref) + ' ↗</a>'; }).join('') + '</details>' : '')
           + '</div></div>'; }).join('')
-      + '<p class="fine" style="color:#b6cdc8">Soins cosmétiques : ils agissent sur l’aspect de la peau, pas sur une maladie. Testez chaque nouveau soin sur une petite zone. Protection solaire chaque matin, surtout avec un rétinoïde ou un acide exfoliant.</p></div>'; }
+      + '<p class="fine" style="color:#b6cdc8">Soins cosmétiques : ils agissent sur l’aspect de la peau, pas sur une maladie. Testez chaque nouveau soin sur une petite zone. Protection solaire chaque matin, surtout avec un rétinoïde ou un acide exfoliant.</p></div>' + oeil; }
 
   var CUISINES = [['francaise','Française'],['mediterraneenne','Méditerranéenne'],['orientale','Orientale'],['asiatique','Asiatique'],['latino','Amérique latine'],['africaine','Afrique de l’Ouest'],['nordique','Nordique']];
   function affiner(){ var pu = function(k, v, t, on){ return '<span class="puce' + (on ? ' on' : '') + '" data-af="' + k + '" data-v="' + (v || '') + '" style="flex:none;font-size:12.5px;padding:9px 12px">' + t + '</span>'; };

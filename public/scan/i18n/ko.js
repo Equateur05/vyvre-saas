@@ -213,7 +213,7 @@ VY.add('ko', {
 'sv.sebum': '피지',
 'sv.firm': '탄력',
 'lg.1': '이마 · 광채',
-'lg.2': '눈가 · 주름',
+'lg.2': '주름',
 'lg.3': '왼쪽 볼 · 수분',
 'lg.4': '오른쪽 볼 · 모공',
 'lg.5': '왼쪽 광대 · 붉은기',
@@ -806,7 +806,7 @@ VY.add('ko', {
     "q.routine.short": "3가지 핵심 단계",
     "q.routine.shortSub": "클렌저, 타깃 세럼, 아침엔 SPF 또는 저녁엔 크림",
     "q.routine.full": "풀 루틴",
-    "q.routine.fullSub": "데이 크림과 아이 케어를 포함한 8가지",
+    "q.routine.fullSub": "데이 크림을 포함한 7가지, 요청하시면 눈가 케어 추가",
     "q.day": "당신의 <em>하루</em>.",
     "q.day.in": "주로 실내",
     "q.day.out": "자주 야외, 햇볕 아래",
@@ -855,5 +855,14 @@ VY.add('ko', {
     "us.src.mix": "브랜드 권장과 일반적인 사용법",
     "hc.s.faible": "조명이 약해 참고용 결과입니다.",
     "hcg.r.sombre": "빛이 부족합니다. 밝은 곳으로 이동해 빛을 마주 보세요.",
-    "hud.sombre": "빛이 부족합니다. 밝은 곳으로 이동해 빛을 마주 보세요."
+    "hud.sombre": "빛이 부족합니다. 밝은 곳으로 이동해 빛을 마주 보세요.",
+    /* 04/10 : contour des yeux (objectif avant scan, soin, ombre sous l’œil indicative) */
+    "g.yeux": "눈가 케어",
+    "c.yeux": "눈가 케어",
+    "y.demande": "요청하신 항목입니다.",
+    "y.mesure": "이미지에서 눈 밑 그림자가 볼보다 짙습니다: 참고용.",
+    "y.ligne": "눈 밑 그림자: {n} · 참고용, 조명에 따라 다름",
+    "y.leger": "옅음",
+    "y.marque": "뚜렷함",
+    "y.net": "짙음"
   });

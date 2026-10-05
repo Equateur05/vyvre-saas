@@ -213,7 +213,7 @@ VY.add('nl', {
 'sv.sebum': 'TALG',
 'sv.firm': 'STEVIGH.',
 'lg.1': 'Voorhoofd · Stralendheid',
-'lg.2': 'Oogcontour · Rimpels',
+'lg.2': 'Rimpels',
 'lg.3': 'Linkerwang · Hydratatie',
 'lg.4': 'Rechterwang · Poriën',
 'lg.5': 'Linkerjukbeen · Roodheid',
@@ -806,7 +806,7 @@ VY.add('nl', {
     "q.routine.short": "3 essentiële stappen",
     "q.routine.shortSub": "reiniging, gericht serum, dan ’s ochtends SPF of ’s avonds crème",
     "q.routine.full": "Volledige routine",
-    "q.routine.fullSub": "8 producten, met dagcrème en oogcontour",
+    "q.routine.fullSub": "7 producten met dagcrème, plus een oogcontourproduct als u erom vroeg",
     "q.day": "Uw <em>dag</em>.",
     "q.day.in": "Vooral binnen",
     "q.day.out": "Vaak buiten, in de zon",
@@ -855,5 +855,14 @@ VY.add('nl', {
     "us.src.mix": "volgens het merk, aangevuld met gebruikelijk gebruik",
     "hc.s.faible": "Weinig licht: meting ter indicatie.",
     "hcg.r.sombre": "Te weinig licht. Ga op een goed verlichte plek staan, met uw gezicht naar het licht.",
-    "hud.sombre": "Te weinig licht. Ga op een goed verlichte plek staan, met uw gezicht naar het licht."
+    "hud.sombre": "Te weinig licht. Ga op een goed verlichte plek staan, met uw gezicht naar het licht.",
+    /* 04/10 : contour des yeux (objectif avant scan, soin, ombre sous l’œil indicative) */
+    "g.yeux": "Oogcontour",
+    "c.yeux": "Oogcontour",
+    "y.demande": "U heeft erom gevraagd.",
+    "y.mesure": "Schaduw onder het oog donkerder dan de wang op uw beeld: indicatief.",
+    "y.ligne": "Schaduw onder de ogen: {n} · indicatief, afhankelijk van het licht",
+    "y.leger": "licht",
+    "y.marque": "duidelijk",
+    "y.net": "sterk"
   });

@@ -213,7 +213,7 @@ VY.add('pt', {
 'sv.sebum': 'SEBO',
 'sv.firm': 'FIRMEZA',
 'lg.1': 'Testa · Luminosidade',
-'lg.2': 'Contorno dos olhos · Rugas',
+'lg.2': 'Rugas',
 'lg.3': 'Face esquerda · Hidratação',
 'lg.4': 'Face direita · Poros',
 'lg.5': 'Maçã esquerda · Vermelhidão',
@@ -806,7 +806,7 @@ VY.add('pt', {
     "q.routine.short": "3 gestos essenciais",
     "q.routine.shortSub": "limpeza, sérum específico e depois SPF de manhã ou creme à noite",
     "q.routine.full": "Rotina completa",
-    "q.routine.fullSub": "8 cuidados, com creme de dia e contorno dos olhos",
+    "q.routine.fullSub": "7 cuidados com creme de dia, mais um contorno dos olhos se o pediu",
     "q.day": "O seu <em>dia</em>.",
     "q.day.in": "Sobretudo em interiores",
     "q.day.out": "Muitas vezes ao ar livre, ao sol",
@@ -855,5 +855,14 @@ VY.add('pt', {
     "us.src.mix": "segundo a marca, completado pelo uso habitual",
     "hc.s.faible": "Pouca luz: leitura indicativa.",
     "hcg.r.sombre": "Luz insuficiente. Coloque-se numa zona bem iluminada, de frente para a luz.",
-    "hud.sombre": "Luz insuficiente. Coloque-se numa zona bem iluminada, de frente para a luz."
+    "hud.sombre": "Luz insuficiente. Coloque-se numa zona bem iluminada, de frente para a luz.",
+    /* 04/10 : contour des yeux (objectif avant scan, soin, ombre sous l’œil indicative) */
+    "g.yeux": "Contorno dos olhos",
+    "c.yeux": "Contorno dos olhos",
+    "y.demande": "Foi o que pediu.",
+    "y.mesure": "Sombra sob o olho mais marcada do que a face na sua imagem: indicativo.",
+    "y.ligne": "Sombra sob os olhos: {n} · indicativo, conforme a luz",
+    "y.leger": "ligeira",
+    "y.marque": "marcada",
+    "y.net": "nítida"
   });

@@ -226,7 +226,7 @@ VY.add('fr', {
     'sv.sebum': 'SÉBUM',
     'sv.firm': 'FERMETÉ',
     'lg.1': 'Front · Éclat',
-    'lg.2': 'Contour des yeux · Rides',
+    'lg.2': 'Rides',
     'lg.3': 'Joue gauche · Hydratation',
     'lg.4': 'Joue droite · Pores',
     'lg.5': 'Pommette gauche · Rougeurs',
@@ -820,7 +820,7 @@ VY.add('fr', {
     "q.routine.short": "3 gestes essentiels",
     "q.routine.shortSub": "nettoyant, sérum ciblé, puis SPF le matin ou crème le soir",
     "q.routine.full": "Routine complète",
-    "q.routine.fullSub": "8 soins, avec crème de jour et contour des yeux",
+    "q.routine.fullSub": "7 soins avec crème de jour, plus un contour des yeux si vous l’avez demandé",
     "q.day": "Votre <em>journée</em>.",
     "q.day.in": "Surtout à l’intérieur",
     "q.day.out": "Souvent dehors, au soleil",
@@ -869,5 +869,14 @@ VY.add('fr', {
     "us.src.mix": "selon la marque, complété par l’usage courant",
     "hc.s.faible": "Lumière faible : lecture indicative.",
     "hcg.r.sombre": "Pas assez de lumière. Mettez-vous dans une zone bien éclairée, face à la lumière.",
-    "hud.sombre": "Pas assez de lumière. Mettez-vous dans une zone bien éclairée, face à la lumière."
+    "hud.sombre": "Pas assez de lumière. Mettez-vous dans une zone bien éclairée, face à la lumière.",
+    /* 04/10 : contour des yeux (objectif avant scan, soin, ombre sous l’œil indicative) */
+    "g.yeux": "Contour des yeux",
+    "c.yeux": "Contour des yeux",
+    "y.demande": "Vous l’avez demandé.",
+    "y.mesure": "Ombre sous l’œil plus marquée que la joue sur votre image : indicatif.",
+    "y.ligne": "Ombre sous les yeux : {n} · indicatif, selon la lumière",
+    "y.leger": "légère",
+    "y.marque": "marquée",
+    "y.net": "nette"
   });
