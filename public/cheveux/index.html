@@ -3793,8 +3793,49 @@ function normaliseCatalogue(raw){
   if(!raw) return null;
   var list = Array.isArray(raw) ? raw : (raw.products || raw.produits || null);
   if(!list || !list.length) return null;
-  return list.filter(function(p){ return p && (p.name || p.nom); });
+  return list.filter(function(p){ return p && (p.name || p.nom) && !HORS_CHEVEUX[p.id]; })
+    .map(function(p){
+      /* la photo ne montre pas le produit (logo, main, texture, decor) : on la retire,
+         le moteur passe alors ce produit apres les autres a pertinence egale */
+      var u = String(p.cutout_url || p.image_local || '').replace(/^public\//,'/').replace(/^([^\/])/,'/$1');
+      if(u && IMAGE_CACHEE[u]){ p.cutout_url = null; p.image_local = null; p.image = null; p.image_url = null; p.image_cachee = true; }
+      return p;
+    });
 }
+/* 05/10 : ni appareils, ni accessoires, ni maquillage, ni soin visage dans une routine cheveux
+   (le collecteur les avait ranges en soin ou en apres-shampooing) */
+var HORS_CHEVEUX = {};
+['act-and-acre--scalp-dermastamp','activilong--vaporisateur-activilong','bondi-boost--airburst-styler','bondi-boost--strawberry-gum-shine',
+ 'bondi-boost--aloe-infused-flat-iron-ceramic-25mm-hair-straightener','bondi-boost--wave-wand','innersense--color-mixing-whisk-1',
+ 'kalia-nature--spray-vaporisateur','lavera--calm-comfort-rich-cream-116706','lavera--multi-balm-sunrise-ros-04-114647',
+ 'lavera--multi-balm-sundown-gold-03-114646','lavera--multi-balm-cloudy-pink-02-114645','lavera--multi-balm-sunset-red-01-114644',
+ 'lavera--soft-lipliner-red-03-108379','lavera--soft-eyeliner-white-06-113257','lavera--soft-eyeliner-green-05-113256',
+ 'lavera--soft-eyeliner-blue-04-113255','lavera--soft-eyeliner-grey-03-113254','lavera--soft-eyeliner-black-01-113252',
+ 'les-secrets-de-loly--pic-perfect'].forEach(function(id){ HORS_CHEVEUX[id] = 1; });
+var IMAGE_CACHEE = {};
+[
+ "/scan/products-cheveux/as-i-am/cutout/curl-color-glitter-seafoam-green.webp",
+ "/scan/products-cheveux/as-i-am/cutout/coconut-water.webp",
+ "/scan/products-cheveux/as-i-am/cutout/virgin-jamaican-black-castor-oil.webp",
+ "/scan/products-cheveux/as-i-am/cutout/strengthening-shampoo.webp",
+ "/scan/products-cheveux/bioderma/cutout/abcderm-shampooing.webp",
+ "/scan/products-cheveux/elvive-loreal-paris/cutout/dream-lengths-long-hair-heat-hair-mask.webp",
+ "/scan/products-cheveux/herbal-essences/cutout/herbal-essences-volume-body-grapefruit-conditioner.webp",
+ "/scan/products-cheveux/kerastase/cutout/chronologiste-overnight-youth-serum.webp",
+ "/scan/products-cheveux/klorane/cutout/antichute-traitement-fortifiant-intense.webp",
+ "/scan/products-cheveux/klorane/cutout/apaisant-serum-calmant-et-anti-demangeaisons.webp",
+ "/scan/products-cheveux/luxeol/cutout/huile-brillance-voyage.webp",
+ "/scan/products-cheveux/matrix/cutout/a-curl-can-dream-weightless-moisture-conditioner.webp",
+ "/scan/products-cheveux/matrix/cutout/a-curl-can-dream-weightless-moisture-shampoo.webp",
+ "/scan/products-cheveux/matrix/cutout/glow-mania-glow-sealing-leave-in-conditioner.webp",
+ "/scan/products-cheveux/matrix/cutout/high-amplify-foam-volumizer.webp",
+ "/scan/products-cheveux/matrix/cutout/instacure-anti-breakage-porosity-spray.webp",
+ "/scan/products-cheveux/matrix/cutout/miracle-creator-multi-tasking-hair-treatment.webp",
+ "/scan/products-cheveux/matrix/cutout/unbreak-my-blonde-conditioner.webp",
+ "/scan/products-cheveux/redken/cutout/apres-shampoing-brillance-acidic-color-gloss.webp",
+ "/scan/products-cheveux/redken/cutout/shampoing-brillance-acidic-color-gloss.webp",
+ "/scan/products-cheveux/umberto-giannini/cutout/thirsty-curls-hydrating-conditioner.webp"
+].forEach(function(u){ IMAGE_CACHEE[u] = 1; });
 function loadCatalogue(){
   var urls = (CAT_OVERRIDE ? [CAT_OVERRIDE] : [])
     .concat(S.brand ? brandUrls(S.brand) : [])
