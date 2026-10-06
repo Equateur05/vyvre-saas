@@ -166,7 +166,7 @@
     var out = {
       type:type, prenom:prenom, titre:String(d.titre || '').trim(),
       chiffres:chiffres, phare:phare, autres:autres, items:items,
-      exemple:!!d.exemple, style:/^(A|B|C|D|D[1-4])$/.test(String(d.style || '').toUpperCase()) ? String(d.style).toUpperCase() : 'D',   /* 06/10 : Charles a choisi le D */
+      exemple:!!d.exemple, palette:(d.palette && d.palette in PALETTES) ? d.palette : PAL_DEFAUT, style:/^(A|B|C|D|D[1-4])$/.test(String(d.style || '').toUpperCase()) ? String(d.style).toUpperCase() : 'D',   /* 06/10 : Charles a choisi le D */
       a:hexRgb(d.couleur || th.a), b:hexRgb(d.couleur2 || th.b), fond:th.fond, theme:th
     };
     out.tm = temps(out.style);
@@ -408,7 +408,7 @@
   };
 
   Rendu.prototype.dessine = function(tAbs){
-    var st = this.d.style;
+    var st = this.d.style, K0 = couleurs(this.d); NOIR = K0.noir; BLANC = K0.blanc;
     if (st === 'B') return this.dessineB(tAbs);
     if (st === 'C') return this.dessineC(tAbs);
     if (st === 'D') return this.dessineD(tAbs);
@@ -960,10 +960,28 @@
      couleurs vives par scan, typographie qui remplit l'ecran.
      =================================================================== */
   var VIVES = { peau:[[255, 92, 60], [255, 168, 196]], cheveux:[[58, 92, 255], [170, 128, 255]], aliment:[[178, 240, 60], [30, 196, 110]] };
+  /* 06/10 : palettes facon defiles. c1 et c2 servent de fond sous un texte sombre : toujours clairs ou moyens ;
+     la couleur profonde de la palette est portee par « noir » (le fond sombre). */
+  var PALETTES = {
+    origine:  null,
+    moka:     { nom:'Moka & beurre',          c1:[242, 216, 140], c2:[214, 182, 152], noir:[34, 21, 14],  blanc:[248, 240, 226] },
+    bordeaux: { nom:'Bordeaux & poudre',      c1:[238, 196, 190], c2:[222, 142, 148], noir:[46, 9, 17],   blanc:[251, 241, 237] },
+    sauge:    { nom:'Sauge & lin',            c1:[180, 198, 160], c2:[232, 220, 199], noir:[20, 30, 24],  blanc:[246, 242, 232] },
+    emeraude: { nom:'Vert couture & ivoire',  c1:[236, 227, 207], c2:[52, 160, 104],  noir:[7, 30, 19],   blanc:[248, 244, 234] },
+    cobalt:   { nom:'Cobalt & argent',        c1:[84, 112, 255],  c2:[214, 219, 230], noir:[6, 10, 38],   blanc:[240, 243, 250] },
+    pistache: { nom:'Pistache & chocolat',    c1:[194, 214, 142], c2:[236, 224, 198], noir:[36, 22, 15],  blanc:[247, 242, 226] },
+    rose:     { nom:'Rose poudre & caramel',  c1:[246, 184, 200], c2:[210, 166, 124], noir:[24, 15, 18],  blanc:[252, 244, 240] }
+  };
+  var PAL_DEFAUT = 'origine';
+  try { var qp = (location.search.match(/[?&]pal=([a-z]+)/) || [])[1]; if (qp && qp in PALETTES) PAL_DEFAUT = qp; } catch(e){}
+  function couleurs(d){
+    var P = PALETTES[d.palette], V = VIVES[d.type] || VIVES.peau;
+    return P ? { c1:P.c1, c2:P.c2, noir:P.noir, blanc:P.blanc } : { c1:V[0], c2:V[1], noir:[8, 8, 8], blanc:[250, 246, 238] };
+  }
   var BEAT = .5;
   Rendu.prototype.dessineD = function(tAbs){
     var x = this.x, d = this.d, L = this.L, t = Math.min(tAbs, D); this.n++;
-    var V = VIVES[d.type] || VIVES.peau, c1 = V[0], c2 = V[1], NOIR = [8, 8, 8], BLANC = [250, 246, 238];
+    var K0 = couleurs(d), c1 = K0.c1, c2 = K0.c2, NOIR = K0.noir, BLANC = K0.blanc;
     x.globalAlpha = 1; x.globalCompositeOperation = 'source-over'; x.textBaseline = 'alphabetic'; x.textAlign = 'center';
     /* le coup de zoom a chaque temps */
     var tb = t % BEAT, punch = 1 + .06 * Math.pow(1 - clamp(tb / .18, 0, 1), 2);
@@ -1069,7 +1087,7 @@
     var tm = this.d.tm, t = ((tAbs % tm.D) + tm.D) % tm.D, q = t / tm.beat, bi = Math.min(15, Math.floor(q));
     return { t:t, q:q, bi:bi, ph:q - bi };
   };
-  Rendu.prototype.vives = function(){ var V = VIVES[this.d.type] || VIVES.peau; return { c1:V[0], c2:V[1] }; };
+  Rendu.prototype.vives = function(){ var K0 = couleurs(this.d); return { c1:K0.c1, c2:K0.c2 }; };
   Rendu.prototype.aplat = function(c){ var x = this.x; x.setTransform(1, 0, 0, 1, 0, 0); x.globalAlpha = 1; x.globalCompositeOperation = 'source-over'; x.fillStyle = rgba(c, 1); x.fillRect(0, 0, W, H); };
   /* le coup de zoom sur chaque temps (et la secousse sur le drop) */
   Rendu.prototype.coup = function(ph, force, secousse, bi){
@@ -1320,7 +1338,7 @@
   Rendu.prototype.fondD3 = function(){
     if (this._fD3) return this._fD3;
     var K = this.vives(), b = document.createElement('canvas'); b.width = W; b.height = H; var g = b.getContext('2d');
-    g.fillStyle = '#07070d'; g.fillRect(0, 0, W, H);
+    g.fillStyle = rgba(NOIR, 1); g.fillRect(0, 0, W, H);
     for (var xx = 0; xx <= W; xx += 90){ g.fillStyle = rgba(K.c2, .07); g.fillRect(xx, 0, 2, H); }
     for (var yy = 0; yy <= H; yy += 90){ g.fillStyle = rgba(K.c2, .07); g.fillRect(0, yy, W, 2); }
     var h = g.createRadialGradient(GX, 900, 20, GX, 900, 900); h.addColorStop(0, rgba(K.c1, .22)); h.addColorStop(1, rgba(K.c1, 0));
@@ -1410,7 +1428,7 @@
   Rendu.prototype.fondD4 = function(){
     if (this._fD4) return this._fD4;
     var K = this.vives(), b = document.createElement('canvas'); b.width = W; b.height = H; var g = b.getContext('2d');
-    g.fillStyle = '#060608'; g.fillRect(0, 0, W, H);
+    g.fillStyle = rgba(NOIR, 1); g.fillRect(0, 0, W, H);
     var h = g.createRadialGradient(CX, 900, 40, CX, 900, 1000); h.addColorStop(0, rgba(K.c1, .38)); h.addColorStop(.5, rgba(K.c2, .10)); h.addColorStop(1, 'rgba(0,0,0,0)');
     g.fillStyle = h; g.fillRect(0, 0, W, H);
     return (this._fD4 = b);
@@ -1419,7 +1437,7 @@
     if (this._dos) return this._dos;
     var K = this.vives(), c = document.createElement('canvas'); c.width = CW; c.height = CH; var g = c.getContext('2d');
     rond(g, 0, 0, CW, CH, 42); g.save(); g.clip();
-    g.fillStyle = '#101014'; g.fillRect(0, 0, CW, CH);
+    g.fillStyle = rgba([NOIR[0] + 10, NOIR[1] + 10, NOIR[2] + 10], 1); g.fillRect(0, 0, CW, CH);
     g.save(); g.translate(CW / 2, CH / 2); g.rotate(-.5);
     for (var i = -30; i < 30; i++){ g.fillStyle = rgba(i % 2 ? K.c1 : K.c2, .16); g.fillRect(i * 46, -1200, 22, 2400); }
     g.restore();
@@ -2227,5 +2245,5 @@ font-family:Inter,"Helvetica Neue",Arial,sans-serif;box-shadow:0 18px 44px -20px
     });
   }
 
-  window.VyWrap = { ouvrir:ouvrir, bouton:bouton, amorcer:amorcer, apercu:apercu, styles:['A', 'B', 'C', 'D', 'D1', 'D2', 'D3', 'D4'], version:'2.1', _normalise:normalise, _mesurerDuree:mesurerDuree, _temps:temps };
+  window.VyWrap = { ouvrir:ouvrir, bouton:bouton, amorcer:amorcer, apercu:apercu, styles:['A', 'B', 'C', 'D', 'D1', 'D2', 'D3', 'D4'], palettes:PALETTES, version:'2.1', _normalise:normalise, _mesurerDuree:mesurerDuree, _temps:temps };
 })();

@@ -17,6 +17,11 @@
   .reglages{display:flex;flex-wrap:wrap;gap:10px}
   .choix{display:inline-flex;max-width:100%;padding:4px;border-radius:999px;border:1px solid var(--filet);background:rgba(255,255,255,.02)}
   .choix button{border:0;background:none;color:var(--doux);font:500 11px/1 Inter,"Helvetica Neue",Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;padding:13px 15px;border-radius:999px;cursor:pointer;white-space:nowrap}
+  .palettes{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;max-width:980px;margin:14px auto 0}
+  .palettes button{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--filet);background:rgba(255,255,255,.02);color:var(--doux);font:500 11px/1 Inter,"Helvetica Neue",Arial,sans-serif;letter-spacing:.06em;padding:8px 13px 8px 8px;border-radius:999px;cursor:pointer;white-space:nowrap}
+  .palettes button[aria-pressed=true]{border-color:#d3bf92;color:#f3ead6;background:rgba(211,191,146,.12)}
+  .palettes i{display:inline-flex;border-radius:999px;overflow:hidden;box-shadow:0 0 0 1px rgba(255,255,255,.18)}
+  .palettes i b{display:block;width:12px;height:22px}
   .choix button[aria-pressed=true]{background:linear-gradient(180deg,#efe4c8,#d3bf92);color:#14110b}
   .grille{max-width:1500px;margin:0 auto;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:20px}
   @media (max-width:1300px){.grille{grid-template-columns:repeat(3,minmax(0,1fr))}}
@@ -55,11 +60,12 @@
       <button type="button" data-lang="en" aria-pressed="false">EN</button>
     </div>
   </div>
+  <div class="palettes" id="palettes" role="group"></div>
 </header>
 <main class="grille" id="grille"></main>
 <footer data-t="pied"></footer>
 
-<script src="/wrap/vy-wrap.js?v=3"></script>
+<script src="/wrap/vy-wrap.js?v=4"></script>
 <script src="/wrap/exemples.js?v=2"></script>
 <script>
 (function(){
@@ -91,6 +97,23 @@
       en:{ t:'D4 · The card', d:'“Open my card”: a collectible card spins and flips on the drop. Headline figure, shape of the measures, edition = the date, no invented rarity. <b>Sound:</b> UK garage 2-step 132 BPM, organ.' } }
   ];
   var grille = document.getElementById('grille'), type = 'peau', lang = 'fr', apercus = [];
+  /* 06/10 : les palettes facon defiles (definies dans vy-wrap.js) */
+  var PAL = VyWrap.palettes || { origine:null }, pal = (location.search.match(/[?&]pal=([a-z]+)/) || [])[1];
+  if (!(pal in PAL)) pal = 'origine';
+  var zp = document.getElementById('palettes');
+  function hex(c){ return 'rgb(' + c.join(',') + ')'; }
+  Object.keys(PAL).forEach(function(k){
+    var P = PAL[k], b = document.createElement('button'); b.type = 'button'; b.dataset.pal = k; b.setAttribute('aria-pressed', String(k === pal));
+    var cs = P ? [P.noir, P.c1, P.c2, P.blanc] : [[8, 8, 8], [255, 92, 60], [255, 168, 196], [250, 246, 238]];
+    b.innerHTML = '<i>' + cs.map(function(c){ return '<b style="background:' + hex(c) + '"></b>'; }).join('') + '</i><span></span>';
+    b.querySelector('span').textContent = P ? P.nom : 'Origine';
+    b.addEventListener('click', function(){
+      pal = k; zp.querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed', String(x === b)); });
+      try { var u = new URL(location.href); u.searchParams.set('pal', k); history.replaceState(null, '', u); } catch(e){}
+      construire();
+    });
+    zp.appendChild(b);
+  });
   function lp(){ return TX[lang]; }
   function textes(){
     document.documentElement.lang = lang;
@@ -114,7 +137,7 @@
       c.querySelector('.ecouter').textContent = lp().ecouter;
       c.querySelector('.creer').textContent = lp().creer;
       grille.appendChild(c);
-      var donnees = Object.assign({}, window.VYW_EXEMPLES[type], { style:s.k });
+      var donnees = Object.assign({}, window.VYW_EXEMPLES[type], { style:s.k, palette:pal });
       var ap = VyWrap.apercu(c.querySelector('canvas'), donnees); apercus.push(ap);
       var b = c.querySelector('.ecouter');
       b.addEventListener('click', function(){
