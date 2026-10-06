@@ -963,14 +963,23 @@
   /* 06/10 : palettes facon defiles. c1 et c2 servent de fond sous un texte sombre : toujours clairs ou moyens ;
      la couleur profonde de la palette est portee par « noir » (le fond sombre). */
   var PALETTES = {
-    origine:  null,
-    moka:     { nom:'Moka & beurre',          c1:[242, 216, 140], c2:[214, 182, 152], noir:[34, 21, 14],  blanc:[248, 240, 226] },
-    bordeaux: { nom:'Bordeaux & poudre',      c1:[238, 196, 190], c2:[222, 142, 148], noir:[46, 9, 17],   blanc:[251, 241, 237] },
-    sauge:    { nom:'Sauge & lin',            c1:[180, 198, 160], c2:[232, 220, 199], noir:[20, 30, 24],  blanc:[246, 242, 232] },
-    emeraude: { nom:'Vert couture & ivoire',  c1:[236, 227, 207], c2:[52, 160, 104],  noir:[7, 30, 19],   blanc:[248, 244, 234] },
-    cobalt:   { nom:'Cobalt & argent',        c1:[84, 112, 255],  c2:[214, 219, 230], noir:[6, 10, 38],   blanc:[240, 243, 250] },
-    pistache: { nom:'Pistache & chocolat',    c1:[194, 214, 142], c2:[236, 224, 198], noir:[36, 22, 15],  blanc:[247, 242, 226] },
-    rose:     { nom:'Rose poudre & caramel',  c1:[246, 184, 200], c2:[210, 166, 124], noir:[24, 15, 18],  blanc:[252, 244, 240] }
+    origine:   null,
+    rouge:     { nom:'Rouge couture',          c1:[230, 30, 40],   c2:[255, 150, 170], noir:[10, 6, 6],     blanc:[255, 246, 240] },
+    fuchsia:   { nom:'Fuchsia & rouge',        c1:[255, 40, 140],  c2:[255, 70, 60],   noir:[18, 4, 12],    blanc:[255, 244, 248] },
+    klein:     { nom:'Bleu Klein',             c1:[40, 70, 255],   c2:[255, 255, 255], noir:[4, 6, 30],     blanc:[255, 255, 255] },
+    cobaltrouge:{ nom:'Cobalt & rouge',        c1:[30, 90, 255],   c2:[255, 60, 50],   noir:[6, 6, 14],     blanc:[248, 248, 255] },
+    acide:     { nom:'Vert acide & noir',      c1:[200, 255, 0],   c2:[120, 255, 160], noir:[6, 8, 4],      blanc:[245, 255, 230] },
+    orangerose:{ nom:'Orange & rose choc',     c1:[255, 110, 20],  c2:[255, 120, 200], noir:[20, 8, 4],     blanc:[255, 246, 236] },
+    violet:    { nom:'Violet & jaune acide',   c1:[150, 80, 255],  c2:[240, 255, 60],  noir:[14, 6, 28],    blanc:[250, 246, 255] },
+    cerise:    { nom:'Cerise & bleu bebe',     c1:[220, 20, 60],   c2:[150, 200, 255], noir:[16, 4, 8],     blanc:[255, 246, 248] },
+    emeraudeR: { nom:'Emeraude & rose',        c1:[0, 190, 120],   c2:[255, 110, 180], noir:[2, 18, 12],    blanc:[240, 255, 248] },
+    turquoise: { nom:'Turquoise & corail',     c1:[0, 200, 210],   c2:[255, 110, 90],  noir:[2, 14, 18],    blanc:[240, 255, 255] },
+    tangerine: { nom:'Tangerine & marine',     c1:[255, 130, 0],   c2:[90, 140, 255],  noir:[4, 10, 34],    blanc:[255, 248, 236] },
+    chrome:    { nom:'Chrome & noir',          c1:[210, 214, 222], c2:[150, 156, 170], noir:[4, 4, 6],      blanc:[255, 255, 255] },
+    lime:      { nom:'Fuchsia & lime',         c1:[255, 30, 160],  c2:[190, 255, 40],  noir:[10, 4, 10],    blanc:[255, 248, 252] },
+    lilas:     { nom:'Lilas & aubergine',      c1:[200, 160, 255], c2:[255, 140, 220], noir:[30, 6, 34],    blanc:[252, 246, 255] },
+    soleil:    { nom:'Jaune soleil & rouge',   c1:[255, 210, 0],   c2:[255, 70, 40],   noir:[14, 8, 2],     blanc:[255, 252, 236] },
+    menthe:    { nom:'Menthe & chocolat',      c1:[120, 240, 200], c2:[255, 150, 120], noir:[30, 16, 10],   blanc:[240, 255, 250] }
   };
   var PAL_DEFAUT = 'origine';
   try { var qp = (location.search.match(/[?&]pal=([a-z]+)/) || [])[1]; if (qp && qp in PALETTES) PAL_DEFAUT = qp; } catch(e){}
