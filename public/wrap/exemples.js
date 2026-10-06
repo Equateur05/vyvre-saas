@@ -3,7 +3,8 @@
   window.VYW_EXEMPLES = {
     peau: {
       type:'peau', prenom:'Camille', titre:'Ma peau', exemple:true,
-      phare:{ label:'Hydratation', valeur:82, unite:'/100' },
+      /* comme sur la vraie page : le phare est l'indice global affiche en grand (ici une valeur d'exemple) */
+      phare:{ label:'Indice global', valeur:72, unite:'/100' },
       chiffres:[ { label:'Hydratation', valeur:82, unite:'/100' }, { label:'Éclat', valeur:71, unite:'/100' },
                  { label:'Apaisement', valeur:66, unite:'/100' }, { label:'Fermeté', valeur:74, unite:'/100' },
                  { label:'Pores', valeur:58, unite:'/100' }, { label:'Uniformité', valeur:69, unite:'/100' } ],

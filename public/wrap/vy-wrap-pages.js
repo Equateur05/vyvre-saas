@@ -44,7 +44,11 @@
         var lb = document.querySelector('[data-vyvre-prod-slot="' + i + '"] .v6lbl');
         return { nom:p.name, marque:p.brand_name || p.brand || '', image:p.cutout_url || p.image_url || '', fond:!!p.image_fond, etape:lb ? lb.textContent.trim() : '' };
       });
-      return { type:'peau', prenom:'', titre:FR() ? 'Ma peau' : 'My skin', chiffres:ch, phare:ch[0], items:items };
+      /* 06/10 : le chiffre phare est l'indice global affiche en grand sur la page (lu tel quel, jamais recalcule) ;
+         s'il manque, on garde l'ancien comportement (le meilleur score) */
+      var big = document.querySelector('[data-vyvre-score-large]'), gv = big ? Number(big.dataset.target) : NaN;
+      var phare = (big && big.dataset.target !== '' && isFinite(gv) && gv >= 0 && gv <= 100) ? { label:FR() ? 'Indice global' : 'Global index', valeur:Math.round(gv), unite:'/100' } : ch[0];
+      return { type:'peau', prenom:'', titre:FR() ? 'Ma peau' : 'My skin', chiffres:ch, phare:phare, items:items };
     }
     var fait = false;
     var tm = veille(function(){ return !fait && res.classList.contains('active') && window.vyvreLastScanResult && window.__vySelection && window.__vySelection.length; }, function(){

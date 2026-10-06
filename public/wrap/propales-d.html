@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>vyvre · Wrap D, quatre variantes</title>
+<style>
+  :root{color-scheme:dark;--champ:#d9c9a3;--fond:#050505;--texte:#f3ead6;--doux:rgba(243,234,214,.62);--filet:rgba(217,201,163,.2)}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--fond);color:var(--texte);overflow-x:hidden}
+  body{font:300 15px/1.6 Inter,"Helvetica Neue",Arial,sans-serif;padding:calc(env(safe-area-inset-top) + 30px) 16px calc(env(safe-area-inset-bottom) + 40px)}
+  header{max-width:1500px;margin:0 auto 24px;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px}
+  .sur{font:400 10px/1 "JetBrains Mono",Menlo,monospace;letter-spacing:.3em;text-transform:uppercase;color:var(--champ)}
+  h1{margin:10px 0 6px;font:italic 400 clamp(34px,6vw,64px)/1 Didot,"Bodoni 72",Georgia,serif;color:#efe3c6;letter-spacing:-.01em}
+  header p{margin:0;max-width:560px;color:var(--doux)}
+  .reglages{display:flex;flex-wrap:wrap;gap:10px}
+  .choix{display:inline-flex;max-width:100%;padding:4px;border-radius:999px;border:1px solid var(--filet);background:rgba(255,255,255,.02)}
+  .choix button{border:0;background:none;color:var(--doux);font:500 11px/1 Inter,"Helvetica Neue",Arial,sans-serif;letter-spacing:.16em;text-transform:uppercase;padding:13px 15px;border-radius:999px;cursor:pointer;white-space:nowrap}
+  .choix button[aria-pressed=true]{background:linear-gradient(180deg,#efe4c8,#d3bf92);color:#14110b}
+  .grille{max-width:1500px;margin:0 auto;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:20px}
+  @media (max-width:1300px){.grille{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  @media (max-width:860px){.grille{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 12px}}
+  .carte{display:flex;flex-direction:column;gap:10px;min-width:0}
+  .carte.ref .ecran{box-shadow:0 30px 70px -30px rgba(0,0,0,.95),0 0 0 1px rgba(243,234,214,.12)}
+  .ecran{position:relative;aspect-ratio:9/16;border-radius:16px;overflow:hidden;background:#000;box-shadow:0 30px 70px -30px rgba(0,0,0,.95),0 0 0 1px var(--filet)}
+  .ecran canvas{display:block;width:100%;height:100%}
+  .lettre{position:absolute;left:10px;top:10px;min-width:30px;height:30px;padding:0 8px;border-radius:999px;display:grid;place-items:center;background:rgba(0,0,0,.6);border:1px solid rgba(217,201,163,.45);font:500 12px/1 "JetBrains Mono",Menlo,monospace;color:var(--champ)}
+  .carte h2{margin:2px 0 0;font:500 16px/1.25 Inter,"Helvetica Neue",Arial,sans-serif;color:#f6eedb}
+  .carte p{margin:0;font-size:12.5px;line-height:1.5;color:var(--doux)}
+  .carte p b{font-weight:500;color:rgba(243,234,214,.85)}
+  .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto}
+  .actions button{flex:1 1 110px;min-height:44px;border-radius:999px;cursor:pointer;font:500 10.5px/1 Inter,"Helvetica Neue",Arial,sans-serif;letter-spacing:.14em;text-transform:uppercase;padding:0 10px}
+  .ecouter{border:1px solid rgba(217,201,163,.45);background:transparent;color:var(--champ)}
+  .ecouter[aria-pressed=true]{background:rgba(217,201,163,.16)}
+  .creer{border:0;background:linear-gradient(180deg,#efe4c8,#d3bf92);color:#14110b}
+  footer{max-width:1500px;margin:30px auto 0;color:rgba(243,234,214,.42);font-size:12px}
+</style>
+</head>
+<body>
+<header>
+  <div>
+    <div class="sur" data-t="sur"></div>
+    <h1 data-t="titre"></h1>
+    <p data-t="intro"></p>
+  </div>
+  <div class="reglages">
+    <div class="choix" role="group" id="types">
+      <button type="button" data-type="peau" aria-pressed="true"></button>
+      <button type="button" data-type="cheveux" aria-pressed="false"></button>
+      <button type="button" data-type="aliment" aria-pressed="false"></button>
+    </div>
+    <div class="choix" role="group" id="langues" aria-label="Langue / Language">
+      <button type="button" data-lang="fr" aria-pressed="true">FR</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+</header>
+<main class="grille" id="grille"></main>
+<footer data-t="pied"></footer>
+
+<script src="/wrap/vy-wrap.js?v=3"></script>
+<script src="/wrap/exemples.js?v=2"></script>
+<script>
+(function(){
+  var TX = {
+    fr:{ sur:'vyvre · Le Wrap · variantes du D', titre:'D, puis quatre fois plus loin.', types:{ peau:'Peau', cheveux:'Cheveux', aliment:'Assiette' },
+      intro:'Le D d’origine pour comparer, puis quatre formats pensés pour être partagés : chacun a son idée, son tempo et son son, calés image par image, et boucle sans couture. Un seul son à la fois.',
+      pied:'Données d’exemple, signalées « EXEMPLE » dans chaque Wrap. Les variantes ne montrent que les valeurs transmises par la page de résultats. Ajoutez ?diag=1 à l’adresse pour voir la ligne technique sous la vidéo.',
+      ecouter:'Écouter', couper:'Couper le son', creer:'Créer la vidéo' },
+    en:{ sur:'vyvre · The Wrap · D variations', titre:'D, then four steps further.', types:{ peau:'Skin', cheveux:'Hair', aliment:'Plate' },
+      intro:'The original D for comparison, then four formats built to be shared: each has its own idea, tempo and sound, synced frame by frame, and loops seamlessly. One sound at a time.',
+      pied:'Example data, marked “EXAMPLE” in every Wrap. The variations only show the values passed on by the results page. Add ?diag=1 to the address to see the technical line under the video.',
+      ecouter:'Listen', couper:'Mute', creer:'Create the video' }
+  };
+  var STYLES = [
+    { k:'D', ref:true,
+      fr:{ t:'D · Rythme (l’original)', d:'Montage cut à 120 BPM, un plan par temps. <b>Son :</b> kick, clap, basse, accords.' },
+      en:{ t:'D · Rhythm (original)', d:'Cut edit at 120 BPM, one shot per beat. <b>Sound:</b> kick, clap, bass, chords.' } },
+    { k:'D1',
+      fr:{ t:'D1 · L’archétype', d:'« Ma peau, c’est… » : une roue de noms tourne et s’arrête sur le drop, sur le vôtre, avec sa raison écrite. Fin : « Et toi, t’es qui ? ». <b>Son :</b> future house 126 BPM, voix sans paroles, roulement, drop qui pompe.' },
+      en:{ t:'D1 · The archetype', d:'“My skin is…”: a wheel of names spins and stops on the drop, on yours, with its reason. End: “And you? Who are you?”. <b>Sound:</b> future house 126 BPM, wordless vocal, snare roll, pumping drop.' } },
+    { k:'D2',
+      fr:{ t:'D2 · Le compte à rebours', d:'3 · 2 · 1 sur trois bips : trois vrais chiffres (« top 3 » seulement s’ils sont classés), le nom du chiffre phare tapé lettre à lettre, le drop, le podium. <b>Son :</b> techno 128 BPM, ligne acide.' },
+      en:{ t:'D2 · The countdown', d:'3 · 2 · 1 on three beeps: three real figures (“top 3” only when truly ranked), the headline name typed letter by letter, the drop, the podium. <b>Sound:</b> techno 128 BPM, acid line.' } },
+    { k:'D3',
+      fr:{ t:'D3 · Devine', d:'Un jeu : « Devine mon indice ». Trois essais honnêtes (plus / moins), la jauge se resserre, la réponse tombe sur le drop. Fin : « T’avais dit combien ? ». <b>Son :</b> trap 140 BPM, 808, bruits de jeu.' },
+      en:{ t:'D3 · Guess', d:'A game: “Guess my index”. Three honest guesses (higher / lower), the gauge narrows, the answer lands on the drop. End: “What was your guess?”. <b>Sound:</b> trap 140 BPM, 808, game sounds.' } },
+    { k:'D4',
+      fr:{ t:'D4 · La carte', d:'« Ouvre ma carte » : une carte à collectionner tourne et se retourne sur le drop. Gros chiffre phare, forme des mesures, édition = la date, aucune rareté inventée. <b>Son :</b> UK garage 2-step 132 BPM, orgue.' },
+      en:{ t:'D4 · The card', d:'“Open my card”: a collectible card spins and flips on the drop. Headline figure, shape of the measures, edition = the date, no invented rarity. <b>Sound:</b> UK garage 2-step 132 BPM, organ.' } }
+  ];
+  var grille = document.getElementById('grille'), type = 'peau', lang = 'fr', apercus = [];
+  function lp(){ return TX[lang]; }
+  function textes(){
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-t]').forEach(function(el){ el.textContent = lp()[el.dataset.t]; });
+    document.querySelectorAll('#types button').forEach(function(b){ b.textContent = lp().types[b.dataset.type]; });
+    document.getElementById('types').setAttribute('aria-label', lang === 'fr' ? 'Type de scan' : 'Scan type');
+  }
+  function toutTaire(){
+    apercus.forEach(function(a){ a.taire(); });
+    grille.querySelectorAll('.ecouter').forEach(function(x){ x.setAttribute('aria-pressed', 'false'); x.textContent = lp().ecouter; });
+  }
+  function construire(){
+    apercus.forEach(function(a){ a.arreter(); }); apercus = []; grille.innerHTML = '';
+    STYLES.forEach(function(s){
+      var c = document.createElement('article'); c.className = 'carte' + (s.ref ? ' ref' : '');
+      c.innerHTML = '<div class="ecran"><canvas></canvas><span class="lettre"></span></div><h2></h2><p></p>' +
+        '<div class="actions"><button type="button" class="ecouter" aria-pressed="false"></button><button type="button" class="creer"></button></div>';
+      c.querySelector('.lettre').textContent = s.k;
+      c.querySelector('h2').textContent = s[lang].t;
+      c.querySelector('p').innerHTML = s[lang].d;
+      c.querySelector('.ecouter').textContent = lp().ecouter;
+      c.querySelector('.creer').textContent = lp().creer;
+      grille.appendChild(c);
+      var donnees = Object.assign({}, window.VYW_EXEMPLES[type], { style:s.k });
+      var ap = VyWrap.apercu(c.querySelector('canvas'), donnees); apercus.push(ap);
+      var b = c.querySelector('.ecouter');
+      b.addEventListener('click', function(){
+        var on = b.getAttribute('aria-pressed') !== 'true';
+        toutTaire();
+        if (on && ap.ecouter()){ b.setAttribute('aria-pressed', 'true'); b.textContent = lp().couper; }
+      });
+      c.querySelector('.creer').addEventListener('click', function(){ toutTaire(); VyWrap.amorcer(); VyWrap.ouvrir(donnees); });
+    });
+  }
+  document.querySelectorAll('#types button').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('#types button').forEach(function(x){ x.setAttribute('aria-pressed', String(x === b)); });
+      type = b.dataset.type; construire();
+    });
+  });
+  document.querySelectorAll('#langues button').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('#langues button').forEach(function(x){ x.setAttribute('aria-pressed', String(x === b)); });
+      lang = b.dataset.lang; textes(); construire();
+    });
+  });
+  var q = (location.search.match(/[?&]type=(peau|cheveux|aliment)/) || [])[1], ql = (location.search.match(/[?&]lang=(fr|en)/) || [])[1];
+  if (q){ type = q; document.querySelectorAll('#types button').forEach(function(x){ x.setAttribute('aria-pressed', String(x.dataset.type === q)); }); }
+  if (ql){ lang = ql; document.querySelectorAll('#langues button').forEach(function(x){ x.setAttribute('aria-pressed', String(x.dataset.lang === ql)); }); }
+  textes(); construire();
+  window.__propalesD = function(){ return apercus; };
+})();
+</script>
+</body>
+</html>
