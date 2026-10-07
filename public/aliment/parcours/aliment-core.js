@@ -10,8 +10,9 @@
 (function(){
   'use strict';
   var BASE = window.PARC_DATA_BASE || '/scan/aliment/';
-  var INDICES = { rougeurs:'Rougeurs', eclat:'Éclat', pores_sebum:'Pores et sébum', uniformite:'Uniformité', rides_fermete:'Rides et fermeté', hydratation:'Hydratation', texture:'Texture' };
+  var INDICES = { entretien:'Entretien', rougeurs:'Rougeurs', eclat:'Éclat', pores_sebum:'Pores et sébum', uniformite:'Uniformité', rides_fermete:'Rides et fermeté', hydratation:'Hydratation', texture:'Texture' };
   var PHRASE = {
+    entretien:'Votre lecture ne fait ressortir aucun besoin marqué : une assiette variée, sur les aliments les mieux étudiés.',
     hydratation:'L’hydratation de surface dépend d’abord des soins et de l’environnement. L’eau reste la seule boisson recommandée par le PNNS.',
     eclat:'Des fruits et légumes colorés, variés, chaque jour.',
     rougeurs:'Contre les rougeurs liées au soleil, la protection solaire reste la mesure de référence.',
@@ -77,21 +78,48 @@
   function n2(k){ return String(k + 1).padStart(2, '0'); }
 
   /* ---- les deux indices les plus faibles de la VRAIE lecture ---- */
+
+  /* 07/10 (audit) : VYVRE ne cherche plus un probleme a tout prix. Trois niveaux sur chaque indice, la solidite de la
+     mesure (couleur mesuree directement, lue sur l'image, ou estimation indicative) et la force des preuves alimentaires
+     de chaque besoin entrent dans l'ordre des priorites. Aucun pourcentage de confiance invente. */
+  var MESURE = { rougeurs:'directe', uniformite:'directe', eclat:'image', pores_sebum:'image', rides_fermete:'image', hydratation:'indicative' };
+  var MESURE_W = { directe:1, image:.8, indicative:.6 };
+  var MESURE_L = { directe:'mesure directe de la couleur', image:'lue sur l’image', indicative:'estimation indicative' };
+  var NIV_L = { normal:'dans votre zone', surveiller:'à surveiller', prioritaire:'prioritaire' };
+  function niveau(n){ return n == null ? null : n >= 75 ? 'normal' : n >= 60 ? 'surveiller' : 'prioritaire'; }
+  var PREUVE_C = {};
+  function preuveCible(k){ if(PREUVE_C[k]) return PREUVE_C[k]; if(!DATA) return { f:.5, l:'preuves alimentaires limitées' };
+    var t = DATA.filter(function(f){ return (f.cibles_peau || []).indexOf(k) >= 0 && (f.etudes || []).length; }), b = t.filter(function(f){ return f.niveau_preuve_peau === 'A' || f.niveau_preuve_peau === 'B'; }).length, fr = t.length ? b / t.length : 0;
+    return (PREUVE_C[k] = { f:fr, l:fr >= .5 ? 'preuves alimentaires modérées' : b ? 'preuves alimentaires limitées' : 'preuves alimentaires faibles, surtout des observations' }); }
+  function decision(){ var ind = indicesDuScan(); if(!ind || !ind.niv) return '';
+    var ks = Object.keys(ind.niv).sort(function(x, y){ return ind.sev[y] - ind.sev[x]; });
+    var ordre = ind.entretien ? [] : [ind.i1, ind.i2].concat(ind.suite || []).filter(function(k, i, l){ return k && ind.niv[k] && l.indexOf(k) === i; });
+    var actifs = ordre.concat(ks.filter(function(k){ return ind.niv[k] !== 'normal' && ordre.indexOf(k) < 0; })), zone = ks.filter(function(k){ return ind.niv[k] === 'normal'; });
+    var ligne = function(k){ return '<li class="dec-' + ind.niv[k] + '"><b>' + esc(INDICES[k]) + '</b><span>' + Math.round(100 - ind.sev[k]) + '/100 · ' + NIV_L[ind.niv[k]] + '</span><small>' + esc(MESURE_L[ind.mes[k]]) + ' · ' + esc(preuveCible(k).l) + '</small></li>'; };
+    return '<section class="decision"><div class="m">Pourquoi cette assiette</div>'
+      + (actifs.length ? '<ol>' + actifs.map(ligne).join('') + '</ol>' : '<p class="dec-zone"><b>Aucun besoin marqué.</b> Une assiette d’entretien, sur les aliments les mieux étudiés.</p>')
+      + (zone.length ? '<p class="dec-zone">Dans votre zone : ' + zone.map(function(k){ return esc(INDICES[k].toLowerCase()); }).join(', ') + '. Rien à corriger ici.</p>' : '')
+      + '<p class="dec-seuil">75 et plus : dans votre zone. 60 à 74 : à surveiller. Moins de 60 : prioritaire. L’ordre tient compte de l’écart, de la solidité de la mesure et des preuves disponibles.</p></section>'; }
   function indicesDuScan(){ var s = window.__vyScores || (window.vyvreLastScanResult && window.vyvreLastScanResult.scores) || null; if(!s) return null;
     var v = function(k){ var n = Number(s[k]); return isFinite(n) ? n : null; };
     var sev = {};
+    var rfInd = v('firmness') != null && (v('wrinkles') == null || v('firmness') <= v('wrinkles'));
     var rf = [v('wrinkles'), v('firmness')].filter(function(x){ return x != null; }); if(rf.length) sev.rides_fermete = 100 - Math.min.apply(null, rf);
     if(v('glow') != null) sev.eclat = 100 - v('glow');
     if(v('hydration') != null) sev.hydratation = 100 - v('hydration');
     if(v('redness') != null) sev.rougeurs = 100 - v('redness');
     var ps = []; if(v('pores') != null) ps.push(100 - v('pores')); if(v('sebum') != null) ps.push(v('sebum')); if(ps.length) sev.pores_sebum = Math.max.apply(null, ps);
     if(v('pigmentation') != null) sev.uniformite = v('pigmentation');
-    var t = Object.keys(sev).sort(function(x, y){ return sev[y] - sev[x]; });
+    var mes = {}, niv = {}; Object.keys(sev).forEach(function(k){ mes[k] = k === 'rides_fermete' && rfInd ? 'indicative' : MESURE[k]; niv[k] = niveau(Math.round(100 - sev[k])); });
+    var prio = function(k){ return sev[k] * MESURE_W[mes[k]] * (.6 + .4 * preuveCible(k).f); };
+    var t = Object.keys(sev).filter(function(k){ return niv[k] !== 'normal'; }).sort(function(x, y){ return prio(y) - prio(x); });
+    var bas = Object.keys(sev).sort(function(x, y){ return sev[y] - sev[x]; })[0];
     /* 30/09 (parcours aliment) : les besoins choisis par la personne passent devant ; la lecture complete dans son ordre */
     /* 04/10 : « yeux » n'est pas un besoin alimentaire (aucune allegation autorisee) : il ne choisit aucun aliment */
     var dit = ((AFFINE && AFFINE.besoins) || []).filter(function(k){ return k !== 'yeux'; }); if(dit.length) t = dit.concat(t.filter(function(k){ return dit.indexOf(k) < 0; }));
     var note = function(k){ return sev[k] == null ? null : Math.max(0, Math.min(100, Math.round(100 - sev[k]))); };
-    return t.length ? { i1:t[0], i2:t[1] || null, n1:note(t[0]), n2:t[1] ? note(t[1]) : null, suite:t.slice(2) } : null; }
+    if(!t.length) return bas ? { i1:'entretien', i2:null, n1:note(bas), n2:null, suite:[], entretien:true, niv:niv, mes:mes, sev:sev } : null;
+    return { i1:t[0], i2:t[1] || null, n1:note(t[0]), n2:t[1] ? note(t[1]) : null, suite:t.slice(2), niv:niv, mes:mes, sev:sev }; }
 
   /* ---- exclusions (QUESTIONNAIRE.md) ---- */
   /* assiette prudente : la meme regle que la liste ecrite a la main, appliquee a toute la base :
@@ -146,7 +174,7 @@
   var DECLENCHEURS = /tomate|piment|cannelle|chocolat|cacao|orange|citron|pamplemousse|mandarine|cl[ée]mentine/i;
   function choisir(ind){ var e = exclus(), mois = new Date().getMonth() + 1, G = { A:3, B:2, C:1 };
     var cand = DATA.filter(function(f){ return !e.x[f.id] && G[f.niveau_preuve_peau] && (f.etudes || []).length; })   /* 01/10 (audit) : au moins une etude */.map(function(f){
-      var c1 = f.cibles_peau.indexOf(ind.i1) >= 0, c2 = ind.i2 && f.cibles_peau.indexOf(ind.i2) >= 0, c3 = !c1 && !c2 ? (ind.suite || []).filter(function(k){ return f.cibles_peau.indexOf(k) >= 0; })[0] : null; if(!c1 && !c2 && !c3) return null;
+      var c1 = !!ind.entretien || f.cibles_peau.indexOf(ind.i1) >= 0, c2 = ind.i2 && f.cibles_peau.indexOf(ind.i2) >= 0, c3 = !c1 && !c2 ? (ind.suite || []).filter(function(k){ return f.cibles_peau.indexOf(k) >= 0; })[0] : null; if(!c1 && !c2 && !c3) return null;
       var s = G[f.niveau_preuve_peau] + (c1 ? 2 : 0) + (c2 ? 1 : 0) + (!AFFINE.saison && (f.saison || []).indexOf(mois) >= 0 ? .5 : 0) + (f.allegation_UE_autorisee ? .5 : 0) + bonus(f, mois);
       if(a('q8','acne') && ind.i1 === 'pores_sebum' && f.categorie !== 'legumineuse' && f.categorie !== 'cereale_complete') s -= 1;
       if(c3) s -= 1.5;   // un point plus loin dans la lecture : seulement pour completer l'assiette
@@ -321,7 +349,8 @@
 #vy-as .jour .btn.sec{background:rgba(255,255,255,.35)!important;color:#151413!important;border:1px solid #151413}\
 #vy-as .jour .puce{border-color:rgba(21,20,19,.2)}#vy-as .jour .puce.on{background:#151413;color:#fff;border-color:#151413}\
 #vy-as .jour .fermer{border-color:rgba(21,20,19,.4)}\
-#vy-as .ed-head h1{margin:14px 0 18px}#vy-as .ed-side{font-size:13.5px;line-height:1.65;color:#6f6a64;max-width:44ch}\
+#vy-as .ed-head h1{margin:14px 0 18px}#vy-as .decision{margin:22px 0 0;padding:18px 0 0;border-top:1px solid rgba(21,20,19,.12);max-width:52ch}#vy-as .decision ol{list-style:none;margin:10px 0 0;padding:0}#vy-as .decision li{display:grid;grid-template-columns:auto 1fr;column-gap:10px;padding:8px 0;border-bottom:1px solid rgba(21,20,19,.08)}#vy-as .decision li b{font-weight:500;color:#151413}#vy-as .decision li span{text-align:right;font-size:12.5px}#vy-as .decision li small{grid-column:1/-1;font-size:11.5px;color:#8a847c}#vy-as .decision .dec-prioritaire span{color:#a2401f}#vy-as .decision .dec-surveiller span{color:#8a6a1f}#vy-as .decision .dec-zone{margin:10px 0 0}#vy-as .decision .dec-seuil{margin:10px 0 0;font-size:11px;color:#9a948c}\
+#vy-as .ed-side{font-size:13.5px;line-height:1.65;color:#6f6a64;max-width:44ch}\
 #vy-as .ed-grid{display:grid;grid-template-columns:1fr;gap:14px;margin-top:26px}\
 #vy-as .ed-card{position:relative;overflow:hidden;border:1px solid rgba(21,20,19,.13);border-radius:28px;background:linear-gradient(145deg,rgba(255,255,255,.76),rgba(255,255,255,.27));box-shadow:inset 0 1px rgba(255,255,255,.92),0 28px 60px -54px rgba(28,20,13,.55);padding:24px}\
 #vy-as .ed-score{min-height:360px}#vy-as .ed-score h3{font:400 29px/1 "Playfair Display",Georgia,serif;letter-spacing:-.05em;margin:48px 0 0}\
@@ -587,8 +616,8 @@
     var grades = pris.map(function(c){ return c.f.niveau_preuve_peau; }).sort(), best = grades[0] || '–';
     var prixMoy = pris.length ? Math.round(pris.reduce(function(t, c){ return t + (c.f.prix_niveau || 1); }, 0)/pris.length) : 1;
     var titre = prudent ? 'Assiette<br>prudente.' : pris.length ? ['', 'Un aliment,<br>pour vous.', 'Deux aliments,<br>pour vous.', 'Trois aliments,<br>pour vous.', 'Quatre aliments,<br>pour vous.'][pris.length] : 'Aucun<br>aliment.';
-    var pourquoi = pris.length ? 'Les deux points à soutenir en priorité d’après votre lecture : ' + esc(INDICES[ind.i1].toLowerCase()) + (ind.i2 ? ' et ' + esc(INDICES[ind.i2].toLowerCase()) : '') + '. Parmi ' + DATA.length + ' aliments, nous avons gardé ceux que la littérature relie, même faiblement, à ces aspects de la peau, écarté ' + Object.keys(e.x).length + ' aliments ' + (prudent ? 'par prudence' : 'pour tous ou d’après vos réponses') + ', puis classé par solidité des preuves, saison et goûts. Aucun aliment n’a été étudié sur les indices de votre scan.' : 'Vos réponses écartent tous les aliments étudiés pour vos indices. Plutôt qu’un aliment sans rapport, nous préférons ne rien proposer.';
-    return '<div class="ed-head"><div><div class="m">Votre assiette edit / ' + d.getDate() + ' ' + MOIS[d.getMonth()] + '</div><h1>' + titre + '</h1></div><p class="ed-side">' + pourquoi + '</p></div>'
+    var pourquoi = pris.length ? (ind.entretien ? 'Votre lecture ne fait ressortir aucun besoin marqué. Parmi ' : 'Les points à soutenir en priorité d’après votre lecture : ' + esc(INDICES[ind.i1].toLowerCase()) + (ind.i2 ? ' et ' + esc(INDICES[ind.i2].toLowerCase()) : '') + '. Parmi ') + DATA.length + ' aliments, nous avons gardé ceux que la littérature relie, même faiblement, à ces aspects de la peau, écarté ' + Object.keys(e.x).length + ' aliments ' + (prudent ? 'par prudence' : 'pour tous ou d’après vos réponses') + ', puis classé par solidité des preuves, saison et goûts. Aucun aliment n’a été étudié sur les indices de votre scan.' : 'Vos réponses écartent tous les aliments étudiés pour vos indices. Plutôt qu’un aliment sans rapport, nous préférons ne rien proposer.';
+    return '<div class="ed-head"><div><div class="m">Votre assiette edit / ' + d.getDate() + ' ' + MOIS[d.getMonth()] + '</div><h1>' + titre + '</h1></div><div class="ed-side"><p>' + pourquoi + '</p>' + decision() + '</div></div>'
       + (pris.length ? '<div class="ed-grid"><article class="ed-card ed-score"><div class="m">Votre lecture</div><div class="ed-disc"></div><h3>' + esc(INDICES[ind.i1]) + ',<br>d’abord</h3><div class="ed-num"><span class="vy-as-compte" data-n="' + ind.n1 + '">0</span><sup>/100</sup></div><p class="ed-note">' + esc(PHRASE[ind.i1]) + (ind.i2 ? ' Puis ' + esc(INDICES[ind.i2].toLowerCase()) + ', ' + ind.n2 + ' sur 100.' : '') + '</p></article>'
         + '<aside class="ed-card ed-list"><div class="m">Votre assiette / ' + pris.length + ' aliment' + (pris.length > 1 ? 's' : '') + '</div><h3>L’essentiel,<br>dans l’assiette.</h3>'
         + pris.map(function(c, k){ var f = c.f; return '<a class="ed-row" href="#vy-as-f' + k + '"><img src="' + BASE + 'photos/' + f.id + '.png" alt="" onerror="this.outerHTML=\'<i style=&quot;background:' + (TEINTE[f.categorie] || '#999') + '&quot;></i>\'"><div><b>' + esc(f.nom.split(' (')[0].split(',')[0]) + '</b><span>' + esc(NOM_CAT[f.categorie] || '') + ' · ' + esc((f.portion_type || '').split(' (')[0]) + '</span></div><em>0' + (k + 1) + '</em></a>'; }).join('')
@@ -781,7 +810,7 @@
   window.AlimentCore = {
     skinLinks:lienPeau,
     load:charger, catalogue:catalogue, choose:choisir, exclusions:exclus, prudentOk:prudentOk,
-    indices:indicesDuScan, phrase:phrase, valid:valide, composition:composition, contributions:apports,
+    indices:indicesDuScan, decision:decision, phrase:phrase, valid:valide, composition:composition, contributions:apports,
     claim:allegation, credit:credit, season:saison, fact:fait, recipes:recettes, safeRecipes:recettesSures,
     rhythm:rythme, combos:combos, trends:tendances, near:presDeVous,
     labels:INDICES, evidence:PREUVE, frequency:FREQ, allergens:ALLERG, allergenNames:NOMS_AL,
