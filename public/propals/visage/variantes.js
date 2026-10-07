@@ -63,6 +63,28 @@ function coupe(F, nx, ny, c, kz){
   return o.map((p, i) => { const w = o.slice(Math.max(0, i - 2), i + 3).map(q => q.x*nx + q.y*ny).sort((u, v) => u - v), d = w[w.length >> 1] - (p.x*nx + p.y*ny); return { x:p.x + nx*d, y:p.y + ny*d }; });
 }
 
+/* 07/10 (Charles : « la 1 et la 2, plus stylé ») : un vrai retro-eclairage, commun a V1 et V2.
+   La silhouette du visage est bordee de lumiere, et un reflet tourne lentement autour,
+   comme une source placee derriere la tete. Toujours sur les vrais points du contour. */
+function rimLueur(g, F, t, col, fort){
+  const P = F.P, lw = F.lw, cx = F.box.cx, cy = F.box.cy, R = Math.max(F.box.w, F.box.h), a = t*.55 - 1.2;
+  g.save(); g.beginPath(); lisse(g, OVALE.map(i => P[i]), true);
+  g.lineWidth = 8*lw; g.strokeStyle = rgba(col, .22*fort); g.stroke();
+  const gx = cx + Math.cos(a)*R*.62, gy = cy + Math.sin(a)*R*.62, gr = g.createRadialGradient(gx, gy, 0, gx, gy, R*.75);
+  gr.addColorStop(0, rgba(col, fort)); gr.addColorStop(1, rgba(col, 0));
+  g.lineWidth = 5*lw; g.strokeStyle = gr; g.stroke(); g.restore();
+}
+function rimTrait(x, F, t, col){
+  const P = F.P, lw = F.lw, cx = F.box.cx, cy = F.box.cy, R = Math.max(F.box.w, F.box.h), a = t*.55 - 1.2;
+  const gx = cx + Math.cos(a)*R*.62, gy = cy + Math.sin(a)*R*.62, gr = x.createRadialGradient(gx, gy, 0, gx, gy, R*.8);
+  gr.addColorStop(0, 'rgba(255,255,255,.95)'); gr.addColorStop(.45, rgba(col, .5)); gr.addColorStop(1, rgba(col, .08));
+  x.save(); x.beginPath(); lisse(x, OVALE.map(i => P[i]), true); x.lineJoin = 'round';
+  x.lineWidth = 2.6*lw; x.strokeStyle = 'rgba(0,0,0,.18)'; x.stroke();
+  x.lineWidth = 1.1*lw; x.strokeStyle = gr; x.stroke(); x.restore();
+}
+/* le reflet irise de V1 : la teinte glisse sur le maillage comme sur un film holographique */
+const IRIS = ['120,225,255', '150,170,255', '205,150,255', '255,160,220'];
+
 /* ======================= V1 — MAILLAGE LUMINEUX ======================= */
 const V1 = {
   nom:'Maillage lumineux', court:'Maillage',
@@ -84,9 +106,14 @@ const V1 = {
     }
     const B = m.B || (m.B = [[], [], []]); B[0].length = B[1].length = B[2].length = 0;
     for(const e of F.aretes){ const v = (I[e[0]] + I[e[1]])*.5; if(v > .1) B[v > .62 ? 2 : v > .3 ? 1 : 0].push(e); }
+    /* le reflet irise : chaque arete prend une teinte selon sa place et le temps */
+    const H = m.H || (m.H = IRIS.map(() => [])); H.forEach(h => h.length = 0); const u = F.u, vv = F.v;
+    for(const e of F.aretes){ const a = P[e[0]], b = P[e[1]], mx = (a.x + b.x)/2 - F.box.cx, my = (a.y + b.y)/2 - F.box.cy;
+      const ph = ((mx*u.x + my*u.y)*.8 + (mx*vv.x + my*vv.y)*.5)/E*1.6 + t*.22, f = ph - Math.floor(ph); H[Math.floor(f*IRIS.length)].push(e); }
   },
   lueur(g, F, t, m){
     const P = F.P, A = [.24, .45, .9], lw = F.lw;
+    rimLueur(g, F, t, this.teinte.halo, .85);
     g.lineCap = 'round';
     m.B.forEach((b, j) => { if(!b.length) return; g.beginPath(); seg(g, P, b); g.lineWidth = (1.3 + .8*j)*lw; g.strokeStyle = rgba(this.teinte.halo, A[j]); g.stroke(); });
   },
@@ -96,7 +123,8 @@ const V1 = {
     /* le maillage entier, fin : un liseré sombre puis un fil clair */
     x.beginPath(); seg(x, P, F.aretes);
     x.lineWidth = 1.5*lw; x.strokeStyle = 'rgba(0,0,0,.13)'; x.stroke();
-    x.lineWidth = .55*lw; x.strokeStyle = rgba(c, .34); x.stroke();
+    m.H.forEach((h, j) => { if(!h.length) return; x.beginPath(); seg(x, P, h); x.lineWidth = .6*lw; x.strokeStyle = rgba(IRIS[j], .46); x.stroke(); });
+    rimTrait(x, F, t, this.teinte.halo);
     const A = [.5, .78, 1];
     m.B.forEach((b, j) => { if(!b.length) return; x.beginPath(); seg(x, P, b);
       x.lineWidth = (1.9 + .3*j)*lw; x.strokeStyle = rgba('0,10,20', .22 + .08*j); x.stroke();
@@ -127,12 +155,21 @@ const V2 = {
       m.H[i] = F.N[i] < .3 ? 0 : h*(.1 + .9*F.N[i]*F.N[i]);   /* le relief : ce qui avance vers la camera s'allume plus */
     }
     m.ligne = scan && s > .01 && s < .99 ? coupe(F, v.x, v.y, C.x*v.x + C.y*v.y + vb, .3) : null;
+    /* les lignes de relief laissees derriere le faisceau, comme un releve en 3D : elles s'effacent en s'eloignant */
+    m.topo = []; if(scan){ const pasL = .034*E; for(let y = vb - pasL; y > top && m.topo.length < 16; y -= pasL){ const l = coupe(F, v.x, v.y, C.x*v.x + C.y*v.y + y, .3); if(l.length > 3) m.topo.push({ l, a:Math.max(0, 1 - (vb - y)/(.42*E)) }); } }
+    m.nez = scan ? Math.exp(-Math.pow((pr(P[1]) - vb)/(.05*E), 2)) : 0;
     /* la zone que le faisceau traverse */
     let best = 0, bd = 1e9; F.zones.forEach((z, j) => { const d = Math.abs(pr(z.c) - vb); if(d < bd){ bd = d; best = j; } });
     m.zone = best;
   },
   lueur(g, F, t, m){
     const P = F.P, u = F.u, v = F.v, E = F.ech, lw = F.lw, h = this.teinte.halo, C = m.C;
+    rimLueur(g, F, t, h, .5);
+    for(const k of m.topo){ if(k.a < .05) continue; g.beginPath(); lisse(g, k.l, false); g.lineWidth = 1.6*lw; g.strokeStyle = rgba(h, .35*k.a); g.stroke(); }
+    if(m.nez > .05){ const n = P[1], rg = g.createRadialGradient(n.x, n.y, 0, n.x, n.y, .16*E); rg.addColorStop(0, rgba('255,236,200', .9*m.nez)); rg.addColorStop(1, rgba(h, 0)); g.fillStyle = rg; g.fillRect(n.x - .2*E, n.y - .2*E, .4*E, .4*E);
+      /* trait anamorphique : un eclat horizontal le long du faisceau */
+      const L = F.box.w*.7, a = { x:n.x - u.x*L, y:n.y - u.y*L }, b = { x:n.x + u.x*L, y:n.y + u.y*L }, gl = g.createLinearGradient(a.x, a.y, b.x, b.y);
+      gl.addColorStop(0, rgba(h, 0)); gl.addColorStop(.5, rgba('255,240,215', .8*m.nez)); gl.addColorStop(1, rgba(h, 0)); g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.lineWidth = 2.5*lw; g.strokeStyle = gl; g.stroke(); }
     if(m.scan){
       /* la lumiere deborde un peu au-dessus du faisceau, seulement sur le visage */
       g.save(); g.beginPath(); lisse(g, OVALE.map(i => P[i]), true); g.clip();
@@ -154,6 +191,8 @@ const V2 = {
   },
   trait(x, F, t, m){
     const P = F.P, u = F.u, v = F.v, lw = F.lw, c = this.teinte.coeur, C = m.C, H = m.H, Bk = [.12, .3, .55, .8];
+    rimTrait(x, F, t, this.teinte.halo);
+    x.lineCap = 'round'; for(const k of m.topo){ if(k.a < .05) continue; x.beginPath(); lisse(x, k.l, false); x.lineWidth = .6*lw; x.strokeStyle = rgba(c, .55*k.a); x.stroke(); }
     for(let j = 0; j < 4; j++){ const lo = Bk[j], hi = j < 3 ? Bk[j+1] : 9, pts = [];
       for(let i = 0; i < P.length; i++){ const v2 = H[i]; if(v2 >= lo && v2 < hi) pts.push(i); }
       if(!pts.length) continue;
