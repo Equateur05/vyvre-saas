@@ -1,4 +1,5 @@
-/* Donnees d'exemple du Wrap (pages demo et propales). Elles sont annoncees comme telles : exemple:true. */
+/* Donnees d'exemple du Wrap (pages demo et propales). Elles sont annoncees comme telles : exemple:true.
+   07/10 (soir) : l'assiette d'exemple passe en revue 265 aliments, la taille reelle de la base (aliments_v4.json). */
 (function(){
   window.VYW_EXEMPLES = {
     peau: {
@@ -36,7 +37,7 @@
       lecture:{ i1:'hydratation', n1:58, niv1:'prioritaire', i2:'eclat', n2:66, niv2:'surveiller', entretien:false, bas:'hydratation' },
       phare:{ label:'Hydratation', valeur:58, unite:'/100', cle:'indice' },
       chiffres:[ { label:'Hydratation', valeur:58, unite:'/100', cle:'indice' }, { label:'Éclat', valeur:66, unite:'/100', cle:'indice2' },
-                 { label:'Aliments passés en revue', valeur:312, unite:'', cle:'revue' }, { label:'Écartés pour vous', valeur:41, unite:'', cle:'surmesure' },
+                 { label:'Aliments passés en revue', valeur:265, unite:'', cle:'revue' }, { label:'Écartés pour vous', valeur:41, unite:'', cle:'surmesure' },
                  { label:'De saison', valeur:3, unite:'', cle:'saison' }, { label:'Retenus', valeur:4, unite:'', cle:'selection' } ],
       items:[
         { nom:'Myrtille', marque:'Fruit', etape:'125 g', image:'/scan/aliment/photos/myrtille.png', credit:'Foodie Factor · CC0 1.0' },

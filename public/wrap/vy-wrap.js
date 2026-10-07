@@ -22,6 +22,15 @@
    dans vy-wrap-x.js (module charge a la demande) ; le son, ici. Repli 2D si WebGL manque.
    donnees.visage = { src, pts, box, sujet } (X1 seulement : la vignette du scan, gardee sur
    l'appareil) ; donnees.lecture = { i1, n1, niv1, i2, n2, niv2, entretien, bas } (assiette).
+   07/10 (soir, Charles : « pas de flacon, les aliments au coeur ») : la serie F, pour l'ASSIETTE seulement
+   (le tirage et « Un autre style » n'y proposent plus que F1 a F3 ; peau et cheveux gardent X1 a X4).
+   Le meme arc pour les trois (16 temps) : « Ma peau, lue. » / « Parmi 265 aliments… » (le vrai total de la
+   page), des dizaines de vraies photos qui defilent en 2 s (accelerent puis ralentissent), l'arret net, le BIM
+   (le besoin que la page a lu, ou « Ta peau va bien »), les aliments choisis un par un, « Et toi ? », la boucle.
+   F1 la roulette (une photo geante remplace l'autre), F2 le mur (une grille qui scintille, seuls les retenus
+   restent), F3 les rouleaux (une machine a sous qui s'arrete rouleau par rouleau). Dessin : vy-wrap-f.js
+   (canvas 2D, charge a la demande) ; le son, ici ; le plan commun : d.PF (chaque tic tombe sur une image).
+   donnees.defile = { base, ids } : les photos du defilement (licence reutilisable, voir credits.json).
 
    Regles : aucune photo du visage, aucun prix, aucun chiffre invente (on ne
    dessine que ce qui arrive dans donnees), pas d'emoji.
@@ -89,6 +98,11 @@
           mien:{ peau:'MA PEAU', cheveux:'MES CHEVEUX', aliment:'MON ASSIETTE' },
           produits:{ peau:'Mes soins', cheveux:'Ma routine', aliment:'Mes aliments peau' },
           etToi:'ET TOI ?', aussi:'Aussi', photo:'Photo' },
+      /* F1 a F3 (07/10, soir) : l'assiette. Aucune allegation : on montre le besoin lu et les aliments « choisis d'apres ma peau » */
+      f:{ hook:'Ma peau, lue.', parmi:function(n){ return 'Parmi ' + n + ' aliments…'; },
+          lu:'Mon scan a lu', vaBien:['Ta peau', 'va bien.'], entretien:'Assiette d’entretien',
+          choisi:['VYVRE a choisi ceux-ci', 'd’après ma peau'], etToi:'Et toi ?', site:'vyvre.fr',
+          credits:'Photos : contributeurs Wikimedia Commons / Flickr, licences CC — liste sur vyvre.fr/wrap/credits', photo:'Photo' },
       diagPartage:{ ok:'ok', annule:'annulé', erreur:'erreur', aucun:'aucun', telecharge:'téléchargé (pas de partage)' }
     },
     en: {
@@ -127,6 +141,10 @@
           mien:{ peau:'MY SKIN', cheveux:'MY HAIR', aliment:'MY PLATE' },
           produits:{ peau:'My products', cheveux:'My routine', aliment:'My plate' },
           etToi:'AND YOU?', aussi:'Also', photo:'Photo' },
+      f:{ hook:'My skin, scanned.', parmi:function(n){ return 'Out of ' + n + ' foods…'; },
+          lu:'My scan read', vaBien:['Your skin is', 'doing well.'], entretien:'Maintenance plate',
+          choisi:['VYVRE chose these', 'based on my skin'], etToi:'And you?', site:'vyvre.fr',
+          credits:'Photos: Wikimedia Commons / Flickr contributors, CC licences — list at vyvre.fr/wrap/credits', photo:'Photo' },
       diagPartage:{ ok:'ok', annule:'cancelled', erreur:'error', aucun:'none', telecharge:'downloaded (no share)' }
     }
   };
@@ -221,15 +239,28 @@
     var prenom = String(d.prenom || '').trim().slice(0, 20);
     if (prenom) prenom = prenom.charAt(0).toLocaleUpperCase() + prenom.slice(1);
     var th = THEMES[type];
+    /* 07/10 : Charles valide les 4 Wrap 3D : style et couleur tires au hasard a chaque Wrap.
+       07/10 (soir) : l'assiette tire sa propre famille (F1 a F3, les aliments au coeur) ; un F demande pour la peau ou les cheveux
+       (qui n'ont pas de photos d'aliments) retombe sur leur tirage X. Un X demande pour l'assiette (?wrap=X2, tests) reste possible. */
+    var stD = String(d.style || '').toUpperCase(), stOk = /^(A|B|C|D|D[1-4]|R[1-4]|L[1-4]|X[1-4]|F[1-3])$/.test(stD) && !(/^F/.test(stD) && type !== 'aliment');
+    /* les photos du defilement (F) : des identifiants simples, sous un dossier du site (jamais une adresse exterieure) */
+    var defile = null, df = d.defile;
+    if (df && Array.isArray(df.ids)){
+      var idsF = df.ids.filter(function(i){ return /^[a-z0-9_]{1,40}$/.test(String(i)); }).map(String);
+      var baseF = typeof df.base === 'string' && /^\/[a-z0-9_\/\-]*\/$/i.test(df.base) ? df.base : '/scan/aliment/photos/';
+      if (idsF.length) defile = { base:baseF, ids:idsF };
+    }
     var out = {
       type:type, prenom:prenom, titre:String(d.titre || '').trim(),
       chiffres:chiffres, phare:phare, autres:autres, items:items,
-      exemple:!!d.exemple, palette:(d.palette && d.palette in PALETTES) ? d.palette : (PAL_FIXE ? PAL_DEFAUT : auHasard(Object.keys(PALETTES))), style:/^(A|B|C|D|D[1-4]|R[1-4]|L[1-4]|X[1-4])$/.test(String(d.style || '').toUpperCase()) ? String(d.style).toUpperCase() : auHasard(STYLES_DEFAUT),   /* 07/10 : Charles valide les 4 Wrap 3D : style et couleur tires au hasard a chaque Wrap */
+      exemple:!!d.exemple, palette:(d.palette && d.palette in PALETTES) ? d.palette : (PAL_FIXE ? PAL_DEFAUT : auHasard(Object.keys(PALETTES))), style:stOk ? stD : auHasard(type === 'aliment' ? STYLES_ALIMENT : STYLES_DEFAUT),
       a:hexRgb(d.couleur || th.a), b:hexRgb(d.couleur2 || th.b), fond:th.fond, theme:th,
       besoins:Array.isArray(d.besoins) ? d.besoins.filter(function(b){ return b && b.cle; }) : undefined,
-      lecture:lecture, visage:visage
+      lecture:lecture, visage:visage, defile:defile
     };
     out.tm = temps(out.style);
+    /* F1 a F3 : le plan commun a l'image et au son (instants de chaque photo, de chaque arret), tire une fois */
+    if (/^F/.test(out.style)) out.PF = planF(out);
     /* les variantes D1 a D4 : ce qu'elles revelent, derive une fois des vraies valeurs (rien d'aleatoire) */
     if (VARIANTES[out.style]){ var L = T(); out.P = profil(out, L); out.G = devinettes(out); out.C3 = compteARebours(out); }
     /* R1 a R4 : la phrase du besoin, derivee une fois des vraies valeurs (table BES) */
@@ -248,7 +279,103 @@
                     /* 07/10 : la serie L, 12 temps lents (8,4 s a 8,8 s) */
                     L1:{ bpm:86, temps:12, poster:5.6 }, L2:{ bpm:82, temps:12, poster:5.6 }, L3:{ bpm:88, temps:12, poster:5.6 }, L4:{ bpm:84, temps:12, poster:5.6 },
                     /* 07/10 (nuit) : la serie X, 18 temps (8,2 s a 9 s) */
-                    X1:{ bpm:124, temps:18, poster:5.4 }, X2:{ bpm:126, temps:18, poster:5.4 }, X3:{ bpm:120, temps:18, poster:5.4 }, X4:{ bpm:132, temps:18, poster:5.4 } };
+                    X1:{ bpm:124, temps:18, poster:5.4 }, X2:{ bpm:126, temps:18, poster:5.4 }, X3:{ bpm:120, temps:18, poster:5.4 }, X4:{ bpm:132, temps:18, poster:5.4 },
+                    /* 07/10 (soir) : la serie F (assiette), 16 temps (8 a 8,4 s) ; l'image fixe de repli = les aliments poses */
+                    F1:{ bpm:120, temps:16, poster:11.6 }, F2:{ bpm:114, temps:16, poster:11.6 }, F3:{ bpm:118, temps:16, poster:11.6 } };
+  /* ---------- F1 a F3 : le plan commun (en temps). L'arc : accroche 0 -> 1,5 ; defilement 1,5 -> 5,5 (2 s environ) ;
+     un demi-temps fige ; BIM au temps 6 (le besoin) ; les aliments de 8,25 a 11,5 ; « Et toi ? » de 12 a 15 ; retour a l'accroche. */
+  var F_ARC = { defile:1.5, arret:5.5, bim:6, prod:8.25, cta:12, retour:15, fin:16 };
+  function planF(d){
+    var v = VARIANTES[d.style] || VARIANTES.F1, b = 60 / v.bpm, n = d.items.length;
+    var P = { b:b, n:n, st:d.style, graine:1 + Math.floor(Math.random() * 2147483000) };
+    for (var k in F_ARC) P[k] = F_ARC[k];
+    P.dp = n ? Math.min(.85, 3.25 / n) : 0;
+    /* les aliments choisis se posent un par un (memes instants pour l'image et pour la note de chacun) */
+    P.poses = []; for (var j = 0; j < n; j++) P.poses.push(P.prod + j * P.dp);
+    P.tics = [];
+    if (d.style === 'F1') roueF1(P); else if (d.style === 'F2') vaguesF2(P); else rouleauxF3(P);
+    return P;
+  }
+  /* F1 · la roulette : une roue de 12 aliments (12 cases) qui tourne : un petit recul, l'elan, environ 2,4 tours par seconde,
+     un long freinage, et elle s'arrete pile, un aliment retenu sous le cliquet du sommet (puis un rebond amorti).
+     La position (en tours) suit la meme loi que les rouleaux de F3 (posRouleau) ; un tic par case qui passe le cliquet.
+     07/10 (mesure) : la premiere version (une photo geante coupee 22 fois par seconde) faisait jusqu'a 13 changements
+     forts de luminance par seconde dans une zone de 440 px : des flashs. La roue, aux photos plus petites, n'en fait pas. */
+  var ROUE = { cases:12 };
+  function roueF1(P){
+    var b = P.b, n = ROUE.cases, t0 = P.defile * b, e = P.arret * b;
+    var R = { t0:t0, ar:.12, recul:.015, ta:.3, tb:1.25, ve:.25, V:2.4, cases:n };
+    R.tc = Math.max(.05, e - t0 - R.ar - R.ta - R.tb);
+    var k = R.ta * .5 + R.tc + R.tb / 3, D = Math.round((-R.recul + R.V * k + R.ve * R.tb * 2 / 3) * n) / n;
+    R.V = (D + R.recul - R.ve * R.tb * 2 / 3) / k; R.D = D; R.arret = P.arret;
+    /* la case qui finit sous le cliquet (en haut) */
+    R.gagnante = ((n - Math.round(D * n) % n) % n + n) % n;
+    P.roue = R;
+    var der = 0, qa = P.defile;
+    for (var q = P.defile; q < P.arret - .005; q += .002 / b){
+      var a = posRouleau(R, q, b), c0 = Math.floor(der * n + .5), c1 = Math.floor(a * n + .5);
+      if (c1 !== c0){ var vit = Math.abs(a - der) * n / ((q - qa) * b || 1); P.tics.push({ q:q, i:P.tics.length, v:vit }); }
+      der = a; qa = q;
+    }
+    P.tics.push({ q:P.arret, i:P.tics.length, v:0, fin:true });
+  }
+  /* F2 · le mur : des vagues traversent la grille en diagonale, chaque case change de photo au passage du front.
+     Les vagues accelerent puis ralentissent ; le front de la derniere arrive au bout pile a l'arret. */
+  var MUR = { cols:5, rangs:6 };   /* le meme mur que vy-wrap-f.js (5 x 6 cases) */
+  function vaguesF2(P){
+    var iv = [.2, .15, .12, .1], i, bal = .26;
+    for (i = 0; i < 8; i++) iv.push(.085);
+    var r = .085; for (i = 0; i < 7; i++){ r *= 1.22; iv.push(r); }
+    var T = (P.arret - P.defile) * P.b - bal, tot = iv.reduce(function(a, x){ return a + x; }, 0), t = P.defile * P.b;
+    P.mur = { cols:MUR.cols, rangs:MUR.rangs, balayage:bal / P.b };
+    P.vagues = iv.map(function(x){ t += x * T / tot; return t / P.b; });
+    P.vagues[P.vagues.length - 1] = P.arret - bal / P.b;
+    /* un clic par ligne diagonale qui bascule (le cliquetis d'un tableau a palettes) */
+    var nd = MUR.cols + MUR.rangs - 1;
+    P.vagues.forEach(function(q0, w){ for (var j = 0; j < nd; j++) P.tics.push({ q:q0 + j / (nd - 1) * P.mur.balayage, i:w, j:j, fin:w === P.vagues.length - 1 && j === nd - 1 }); });
+    P.tics.sort(function(a, b){ return a.q - b.q; });
+  }
+  /* F3 · les rouleaux : position de chaque rouleau (en photos) au temps q. Un petit recul, l'elan, la vitesse
+     (13 photos par seconde environ), le freinage, l'arret pile sur l'aliment retenu, puis un rebond amorti.
+     Les rouleaux s'arretent l'un apres l'autre (un demi-temps d'ecart), le dernier a l'arret. */
+  function posRouleau(R, q, b){
+    var t = q * b - R.t0;
+    if (t <= 0) return 0;
+    if (t < R.ar) return -R.recul * Math.sin(Math.PI / 2 * t / R.ar);
+    var u = t - R.ar;
+    if (u < R.ta){ var s = u / R.ta; return -R.recul + R.V * R.ta * (s * s * s - .5 * s * s * s * s); }   /* vitesse en lissage (3s^2 - 2s^3) */
+    var x = -R.recul + R.V * R.ta * .5;
+    if (u < R.ta + R.tc) return x + R.V * (u - R.ta);
+    x += R.V * R.tc;
+    var w = u - R.ta - R.tc;
+    if (w < R.tb){ var z = w / R.tb; return x + R.ve * w + (R.V - R.ve) * R.tb * (1 - Math.pow(1 - z, 3)) / 3; }
+    var e = w - R.tb, om = 2 * Math.PI * 5.5, amo = 9;
+    return R.D + R.ve / om * Math.sin(om * e) * Math.exp(-amo * e);
+  }
+  function rouleauxF3(P){
+    var m = Math.max(1, P.n), b = P.b, ecart = .5;
+    P.rouleaux = [];
+    for (var r = 0; r < m; r++){
+      var e = (P.arret - (m - 1 - r) * ecart) * b, t0 = P.defile * b + r * .045;
+      var R = { t0:t0, ar:.13, recul:.16, ta:.42, tb:.62, ve:2.2, V:13 };
+      R.tc = Math.max(.05, e - t0 - R.ar - R.ta - R.tb);
+      /* la distance parcourue doit tomber sur une photo entiere : on ajuste la vitesse */
+      var k = R.ta * .5 + R.tc + R.tb / 3, D = Math.round(-R.recul + R.V * k + R.ve * R.tb * 2 / 3);
+      R.V = (D + R.recul - R.ve * R.tb * 2 / 3) / k; R.D = D; R.arret = e / b;
+      P.rouleaux.push(R);
+    }
+    /* les tics : chaque photo qui passe la ligne quand le rouleau ralentit (sous 9 photos par seconde), et l'arret */
+    P.rouleaux.forEach(function(R, r){
+      var der = posRouleau(R, P.defile, b), qa = P.defile;
+      for (var q = P.defile; q <= R.arret + .02; q += .004 / b){
+        var p = posRouleau(R, q, b), vit = (p - der) / ((q - qa) * b || 1);
+        if (Math.floor(p) > Math.floor(der) && vit < 9 && q < R.arret - .01) P.tics.push({ q:q, r:r, v:vit });
+        der = p; qa = q;
+      }
+      P.tics.push({ q:R.arret, r:r, arret:true, fin:r === P.rouleaux.length - 1 });
+    });
+    P.tics.sort(function(a, b2){ return a.q - b2.q; });
+  }
   /* X : le decoupage du temps (en temps de la mesure, 18 par boucle) ; les soins se partagent les temps 7 a 13 */
   function planX(d){
     var n = d.items.length;
@@ -1070,6 +1197,8 @@
     menthe:    { nom:'Menthe & chocolat',      c1:[120, 240, 200], c2:[255, 150, 120], noir:[30, 16, 10],   blanc:[240, 255, 250] }
   };
   var PAL_DEFAUT = 'origine', PAL_FIXE = false, STYLES_DEFAUT = ['X1', 'X2', 'X3', 'X4'];
+  /* 07/10 (soir) : l'assiette n'a plus de flacon ni de X : ses trois Wrap « aliments » */
+  var STYLES_ALIMENT = ['F1', 'F2', 'F3'];
   function auHasard(l){ return l[Math.floor(Math.random()*l.length)]; }
   try { var qp = (location.search.match(/[?&]pal=([a-z]+)/) || [])[1]; if (qp && qp in PALETTES){ PAL_DEFAUT = qp; PAL_FIXE = true; } } catch(e){}
   function couleurs(d){
@@ -3024,6 +3153,29 @@
   };
   Rendu.prototype.dessineX1 = Rendu.prototype.dessineX2 = Rendu.prototype.dessineX3 = Rendu.prototype.dessineX4 = function(tAbs){ return this.dessineX(tAbs); };
   Rendu.prototype.liberer = function(){ if (this.X && this.X.liberer){ try { this.X.liberer(); } catch(e){} } this.X = null; };
+  /* ===================================================================
+     F1 a F3 (07/10, soir) : le Wrap des ALIMENTS. Le dessin vit dans vy-wrap-f.js (canvas 2D, script charge a la
+     demande, aucune bibliotheque) ; la scene se pose dans R.X comme une scene X (memes mesures de fluidite, meme
+     liberation). Si le script manque : R2 (le tirage, 2D), pour que le Wrap sorte quand meme.
+     =================================================================== */
+  var MODF = null, VER_F = '1';
+  function chargeF(){
+    if (MODF) return MODF;
+    MODF = new Promise(function(res, rej){
+      if (window.__VYWF) return res(window.__VYWF);
+      var s = document.createElement('script'), fini = false; s.src = BASE_WRAP + 'vy-wrap-f.js?v=' + VER_F; s.async = true;
+      function sortie(ok){ if (fini) return; fini = true; if (ok && window.__VYWF) res(window.__VYWF); else { MODF = null; rej(new Error('module F indisponible')); } }
+      s.onload = function(){ sortie(true); }; s.onerror = function(){ sortie(false); };
+      setTimeout(function(){ sortie(!!window.__VYWF); }, 12000);
+      document.head.appendChild(s);
+    });
+    return MODF;
+  }
+  var REPLI_F = { F1:'R2', F2:'R2', F3:'R2' };
+  function preparerF(R, d, apercu){
+    return chargeF().then(function(M){ return M.creer(R, d, { apercu:!!apercu, V:OUTILS_X, base:BASE_WRAP }); }).then(function(sc){ R.X = sc; return sc; });
+  }
+  Rendu.prototype.dessineF1 = Rendu.prototype.dessineF2 = Rendu.prototype.dessineF3 = function(tAbs){ return this.dessineX(tAbs); };
   /* les outils partages avec le module */
   var OUTILS_X = null;
 
@@ -3039,7 +3191,8 @@
       return CTX;
     } catch(e){ return null; }
   }
-  var GAIN_BUS = { D3:.5, R1:.68, R2:.71, R3:.73, R4:.4, L1:2.3, L2:2.35, L3:2.2, L4:1.65, X1:1.15, X2:1, X3:1.45, X4:1 };   /* X : mesure le 07/10 (nuit) au niveau de D4, R1 et L2 (±1,5 dB), ffmpeg ebur128 */   /* 07/10 : L mesuree au niveau moyen de R (±1,5 dB) */
+  var GAIN_BUS = { D3:.5, R1:.68, R2:.71, R3:.73, R4:.4, L1:2.3, L2:2.35, L3:2.2, L4:1.65, X1:1.15, X2:1, X3:1.45, X4:1,
+                   F1:1, F2:1, F3:1 };   /* X : mesure le 07/10 (nuit) au niveau de D4, R1 et L2 (±1,5 dB), ffmpeg ebur128 */   /* 07/10 : L mesuree au niveau moyen de R (±1,5 dB) */
   function Son(ctx, d){
     this.ctx = ctx; this.th = d.theme; this.style = d.style || 'D'; this.d = d; this.tm = d.tm || temps(this.style);
     var out = ctx.createGain(); out.gain.value = 1.2;
@@ -3050,7 +3203,7 @@
     this.ecoute = ctx.createGain(); this.ecoute.gain.value = 1;
     /* 07/10 : R1 a R4 ont un limiteur en sortie (le BIM empile grosse caisse, impact et basse : pas de saturation) */
     var sortie = out;
-    if (/^[RLX]/.test(this.style)){ var lim = ctx.createDynamicsCompressor(); lim.threshold.value = -2.5; lim.knee.value = 0; lim.ratio.value = 20; lim.attack.value = .001; lim.release.value = .12; out.connect(lim); sortie = lim; }
+    if (/^[RLXF]/.test(this.style)){ var lim = ctx.createDynamicsCompressor(); lim.threshold.value = -2.5; lim.knee.value = 0; lim.ratio.value = 20; lim.attack.value = .001; lim.release.value = .12; out.connect(lim); sortie = lim; }
     sortie.connect(this.ecoute); this.ecoute.connect(ctx.destination);
     this.dest = null; try { this.dest = ctx.createMediaStreamDestination(); sortie.connect(this.dest); } catch(e){}
     /* reverberation synthetisee (pas de fichier d'impulsion) */
@@ -3060,7 +3213,7 @@
     var rv = ctx.createGain(); rv.gain.value = .55; conv.connect(rv); rv.connect(bus);
     this.rev = conv; this.bus = bus; this.out = out;
     /* 07/10 : la serie L a en plus une reverberation longue (4,2 s), plus sombre, pour la timbale et les cordes */
-    if (/^[LX]/.test(this.style)){
+    if (/^[LXF]/.test(this.style)){
       var l2 = Math.floor(ctx.sampleRate * 4.2), ir2 = ctx.createBuffer(2, l2, ctx.sampleRate), att2 = ctx.sampleRate * .015;
       for (var c2 = 0; c2 < 2; c2++){ var d2 = ir2.getChannelData(c2); for (var j2 = 0; j2 < l2; j2++) d2[j2] = (Math.random() * 2 - 1) * Math.pow(1 - j2 / l2, 2.6) * (j2 < att2 ? j2 / att2 : 1); }
       var cv2 = ctx.createConvolver(); cv2.buffer = ir2; var lp2 = ctx.createBiquadFilter(); lp2.type = 'lowpass'; lp2.frequency.value = 4200;
@@ -3911,6 +4064,129 @@
     this.inverse(T(18), b * 1.1, .09);
   };
 
+  /* ---------- le son de la serie F (07/10, soir) : 16 temps, cale sur d.PF (memes instants que l'image : chaque photo
+     du defilement a son tic, chaque arret son claquement, chaque aliment sa note). Synthese pure, aucun fichier. */
+  /* les clics, calcules une fois : le bois (la roulette), la palette (le tableau qui bascule), le cliquet (le rouleau) */
+  Son.prototype.clicsF = function(){
+    if (this._clics) return this._clics;
+    var c = this.ctx, sr = c.sampleRate, out = {};
+    function fab(nom, dur, f){ var n = Math.floor(sr * dur), b = c.createBuffer(1, n, sr), x = b.getChannelData(0); for (var i = 0; i < n; i++) x[i] = f(i / sr, i); out[nom] = b; }
+    var r = 7; function bruit(){ r = (r * 16807) % 2147483647; return r / 1073741823.5 - 1; }
+    fab('bois', .07, function(t){ return (Math.sin(2 * Math.PI * 1780 * t) * .7 + Math.sin(2 * Math.PI * 2930 * t) * .35) * Math.exp(-t * 95) + bruit() * .5 * Math.exp(-t * 900); });
+    fab('palette', .045, function(t){ return bruit() * .8 * Math.exp(-t * 520) + Math.sin(2 * Math.PI * 3150 * t) * .4 * Math.exp(-t * 160) + Math.sin(2 * Math.PI * 190 * t) * .5 * Math.exp(-t * 70); });
+    fab('cliquet', .05, function(t){ return bruit() * .9 * Math.exp(-t * 700) + Math.sin(2 * Math.PI * 4100 * t) * .35 * Math.exp(-t * 120) + Math.sin(2 * Math.PI * 1250 * t) * .3 * Math.exp(-t * 90); });
+    return (this._clics = out);
+  };
+  Son.prototype.clicF = function(t, nom, peak, vit, pan, wet){
+    var c = this.ctx, s = c.createBufferSource(); s.buffer = this.clicsF()[nom]; s.playbackRate.value = vit || 1;
+    var g = c.createGain(); g.gain.value = peak; s.connect(g); var last = g;
+    if (pan && c.createStereoPanner){ var p = c.createStereoPanner(); p.pan.value = pan; g.connect(p); last = p; }
+    this.envoi(last, wet == null ? .12 : wet); s.start(t);
+  };
+  /* le claquement d'un arret (rouleau, roulette) : un coup sourd, un clic, une petite resonance */
+  Son.prototype.arretF = function(t, peak, st){
+    var c = this.ctx, o = c.createOscillator(); o.type = 'sine'; o.frequency.setValueAtTime(150, t); o.frequency.exponentialRampToValueAtTime(58, t + .09);
+    var g = c.createGain(); this.env(g, t, .002, peak, .16); o.connect(g); this.envoi(g, .05); o.start(t); o.stop(t + .22);
+    this.clicF(t, 'cliquet', peak * .55, .72, 0, .2);
+    if (st != null) this.pince(t + .004, st, peak * .22);
+  };
+  /* le ronflement des rouleaux lances : un bruit filtre dont la hauteur suit la vitesse */
+  Son.prototype.ronronF = function(t0, t1, t2, peak){
+    var c = this.ctx, n = c.createBufferSource(); n.buffer = this.bruit; n.loop = true;
+    var bp = c.createBiquadFilter(); bp.type = 'bandpass'; bp.Q.value = 2.2; bp.frequency.setValueAtTime(260, t0); bp.frequency.exponentialRampToValueAtTime(1500, t1); bp.frequency.setValueAtTime(1500, Math.max(t1, t2 - .5)); bp.frequency.exponentialRampToValueAtTime(380, t2);
+    var g = c.createGain(); g.gain.setValueAtTime(.0001, t0); g.gain.exponentialRampToValueAtTime(peak, t1); g.gain.setValueAtTime(peak, Math.max(t1, t2 - .55)); g.gain.exponentialRampToValueAtTime(.0001, t2);
+    n.connect(bp); bp.connect(g); this.envoi(g, .1); n.start(t0); n.stop(t2 + .05);
+  };
+  /* la montee commune du defilement (souffle qui s'ouvre + deux scies qui montent), coupee net a l'arret */
+  Son.prototype.monteeF = function(T, P, pk){
+    var d0 = T(P.defile), d1 = T(P.arret);
+    this.montee(d0, d1 - d0 - .02, .1 * pk);
+    this.tension(d0 + (d1 - d0) * .35, (d1 - d0) * .65, this.th.arp[0] - 24, this.th.arp[0] - 12, .035 * pk, .1);
+  };
+  /* le groove apres le BIM (temps 7 a 15) ; la basse suit une ligne courte ; le temps 15 se vide pour la boucle */
+  Son.prototype.grooveF = function(T, ligne, o){
+    o = o || {};
+    for (var i = 7; i < 15; i++){
+      this.kick(T(i), o.kick || .74);
+      if (i % 2) this.clap(T(i), o.clap || .2);
+      this.hat(T(i + .5), o.hat || .09); this.hat(T(i + .25), .025); this.hat(T(i + .75), .035);
+      if (o.ouvert) this.hatOuvert(T(i + .5), .05);
+      var st = ligne[i % ligne.length] - 12;
+      this.basse(T(i), st, this.tm.beat * .42, o.basse || .13); this.basse(T(i + .5), st, this.tm.beat * .3, (o.basse || .13) * .6);
+    }
+  };
+  /* les aliments qui se posent : une note par aliment (gamme qui monte), et « Et toi ? » */
+  Son.prototype.posesF = function(T, P, voix){
+    var mel = [12, 16, 19, 24]; for (var k = 0; k < P.poses.length; k++) voix(T(P.poses[k]), mel[k % 4] + (k > 3 ? 12 : 0), k);
+  };
+  /* F1 · la roulette : un tic de bois par photo (plus aigu quand ca va vite), la montee, le claquement de l'arret,
+     un demi-temps de silence, BIM ; puis un groove pop 120, une note de marimba par aliment, l'accord de « Et toi ? » */
+  Son.prototype.planifieF1 = function(t0, nItems){
+    var b = this.tm.beat, P = this.d.PF, p = this.th.pad, a = this.th.arp, self = this; function T(q){ return t0 + q * b; }
+    /* l'accroche */
+    this.cloche(T(0), a[0] + 12, .05, 1.8); this.kick(T(0), .5); this.s808(T(0), 0, b * 1.2, .16);
+    this.hat(T(.5), .05); this.hat(T(1), .06); this.hat(T(1.25), .05);
+    /* le defilement */
+    P.tics.forEach(function(e){ if (e.fin) return; var v = Math.min(1, (e.v || 8) / 22); self.clicF(T(e.q), 'bois', .14 + .1 * v, .85 + .45 * v, (e.i % 2 ? -.25 : .25), .08); });
+    this.monteeF(T, P, 1);
+    for (var i = 2; i <= 5; i++) this.kick(T(i), .3 + .08 * (i - 2));
+    var fin = T(P.arret); this.arretF(fin, .5, a[3]); this.cloche(fin, a[2] + 12, .04, 1.2);
+    /* temps 5,5 a 6 : rien que la queue de la reverberation */
+    this.bimR(T(P.bim), b); this.explosion(T(P.bim), .12); this.cloche(T(P.bim) + .01, a[3] + 12, .04, 1.6);
+    this.grooveF(T, [0, 0, 12, 0, 7, 0, 10, 12], { kick:.72, clap:.2, hat:.08 });
+    this.posesF(T, P, function(t, st){ self.marimba(t, st, .11); self.pince(t + .01, st + 12, .04); });
+    this.stab(T(P.cta), [p[0] + 12, p[2] + 12, p[4] + 12], .08, .5); this.crash(T(P.cta), .06, 1.1);
+    [0, .5, 1, 1.5].forEach(function(dq, j){ self.marimba(T(P.cta + 1 + dq), a[j % 4] + 12, .05); });
+    this.inverse(T(P.fin), b * 1.1, .1);
+  };
+  /* F2 · le mur : le cliquetis d'un tableau a palettes (un clic par ligne qui bascule), une note de celesta par vague,
+     les cordes qui montent, le claquement final, silence ; BIM de verre (timbale, basse, cristal) ; deep house 114 */
+  Son.prototype.planifieF2 = function(t0, nItems){
+    var b = this.tm.beat, P = this.d.PF, p = this.th.pad, a = this.th.arp, self = this, i; function T(q){ return t0 + q * b; }
+    this.nappeVerreL(T(0), 1.5 * b, [24, 31, 36], .03, .3 * b, .5); this.verreL(T(0), 24, .045, 2); this.kick(T(0), .42);
+    var gamme = [24, 26, 28, 31, 33, 36, 38, 40, 43, 45];
+    P.tics.forEach(function(e){ if (e.fin) return; self.clicF(T(e.q), 'palette', .05 + .03 * Math.sin(e.j * 1.7) * Math.sin(e.j * 1.7), .9 + .25 * ((e.j * 37 + e.i * 11) % 10) / 10, ((e.j % 5) - 2) * .18, .1); });
+    P.vagues.forEach(function(q, w){ if (w % 2 === 0 || w > P.vagues.length - 5) self.celesteL(T(q), gamme[Math.min(gamme.length - 1, Math.floor(w / 2))], .022 + .012 * w / P.vagues.length); });
+    this.souffleL(T(P.defile), (P.arret - P.defile) * b, .07, 400, 3600);
+    this.crescL(T(P.defile + 1.5), (P.arret - P.defile - 1.5) * b, [-12, -5, 3, 10], .2);
+    for (i = 2; i <= 5; i++) this.kick(T(i), .26 + .06 * (i - 2));
+    var fin = T(P.arret); this.arretF(fin, .42); this.clicF(fin, 'palette', .12, .6, 0, .3);
+    /* temps 5,5 a 6 : rien */
+    this.timbaleL(T(P.bim), 0, .46); this.graveL(T(P.bim), 0, .36, 2.6); this.kick(T(P.bim), .7); this.crash(T(P.bim), .06, 1.4); this.explosion(T(P.bim), .08);
+    [12, 19, 24, 28, 31].forEach(function(st, j){ self.verreL(T(P.bim) + j * .015, st, .045, 3); });
+    for (i = 7; i < 15; i++){
+      this.kick(T(i), .7); if (i % 2) { this.clap(T(i), .16); this.snare(T(i), .05); }
+      this.hat(T(i + .5), .08); this.hat(T(i + .29), .025); this.hat(T(i + .79), .03);
+      var lg = [0, 0, 7, 0, 10, 0, 7, 5][i % 8] - 12; this.basse(T(i + .5), lg, b * .35, .12); if (i % 2 === 0) this.s808(T(i), 0, b * .5, .14);
+    }
+    this.posesF(T, P, function(t, st, k){ self.souffle(t - .06, k % 2 ? -.6 : .6, false, .12); self.verreL(t, st + 12, .05, 2.2); self.pianoL(t, st, .05, 1.6); });
+    this.accordL(T(P.cta + .05), [-12, 0, 4, 7, 14], .055, 2.4, .03); this.choeurL(T(P.cta), [4, 7, 14], 2.6 * b, .03, 'o', .3 * b, .9);
+    this.aspireL(T(P.fin), 1.1 * b, .07);
+  };
+  /* F3 · les rouleaux : le levier, le ronflement des rouleaux, un cliquet par photo quand ils ralentissent, un claquement
+     par arret (une note qui monte d'un rouleau a l'autre), silence ; BIM « jackpot » (cloches) ; disco house 118 */
+  Son.prototype.planifieF3 = function(t0, nItems){
+    var b = this.tm.beat, P = this.d.PF, p = this.th.pad, a = this.th.arp, self = this, i; function T(q){ return t0 + q * b; }
+    this.cloche(T(0), a[2] + 12, .045, 1.6); this.kick(T(0), .45); this.arretF(T(0) + .01, .18);
+    /* le levier, puis les rouleaux */
+    for (i = 0; i < 5; i++) this.clicF(T(P.defile) - .12 + i * .028, 'cliquet', .08, 1.1 - i * .05, 0, .05);
+    var dern = P.rouleaux[P.rouleaux.length - 1];
+    this.ronronF(T(P.defile), T(P.defile) + .55, T(dern.arret), .05);
+    P.tics.forEach(function(e){
+      if (e.arret){ var notes = [a[0], a[1], a[2], a[3] + 12]; self.arretF(T(e.q), e.fin ? .5 : .36, notes[Math.min(3, e.r)] + (e.fin ? 0 : 0)); return; }
+      var pr = P.rouleaux.length > 1 ? (e.r / (P.rouleaux.length - 1) - .5) * .8 : 0; self.clicF(T(e.q), 'cliquet', .06 + .05 * (1 - Math.min(1, e.v / 9)), 1 + .1 * Math.min(1, e.v / 9), pr, .06);
+    });
+    this.monteeF(T, P, .85);
+    for (i = 2; i <= 5; i++) this.kick(T(i), .28 + .07 * (i - 2));
+    /* temps 5,5 a 6 : rien */
+    this.bimR(T(P.bim), b); this.explosion(T(P.bim), .1);
+    [0, 4, 7, 12, 16, 19].forEach(function(st, j){ self.cloche(T(P.bim) + j * .055, a[0] + st + 12, .035, 1.4); });
+    this.grooveF(T, [0, 12, 0, 12, 5, 17, 7, 19], { kick:.74, clap:.21, hat:.085, ouvert:true, basse:.12 });
+    this.posesF(T, P, function(t, st){ self.balai(t - .05, .12, 900, 2600, .02, 6, 'triangle'); self.pince(t, st, .1); self.pince(t + .01, st + 7, .04); });
+    this.stab(T(P.cta), [p[0] + 12, p[2] + 12, p[4] + 12], .08, .5); this.crash(T(P.cta), .06, 1.1);
+    this.inverse(T(P.fin), b * 1.1, .1);
+  };
+
   /* ------------------------------------------------------- l'interface */
   var STYLE = '\
 .vyw{position:fixed;inset:0;z-index:2147483000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;\
@@ -4014,7 +4290,7 @@ font-family:Inter,"Helvetica Neue",Arial,sans-serif;box-shadow:0 18px 44px -20px
     q('.vyw-p').textContent = L.partager; q('.vyw-s').textContent = L.enregistrer;
     /* 07/10 : un autre tirage (style et couleur differents de ceux affiches) */
     q('.vyw-autre').textContent = L.autre;
-    q('.vyw-autre').addEventListener('click', function(){ var st = auHasard(STYLES_DEFAUT.filter(function(x){ return x !== d.style; })), pl = auHasard(Object.keys(PALETTES).filter(function(x){ return x !== d.palette; }));
+    q('.vyw-autre').addEventListener('click', function(){ var st = auHasard((d.type === 'aliment' ? STYLES_ALIMENT : STYLES_DEFAUT).filter(function(x){ return x !== d.style; })),   /* 07/10 (soir) : l'assiette ne tire que F1 a F3 */ pl = auHasard(Object.keys(PALETTES).filter(function(x){ return x !== d.palette; }));
       ouvrir(Object.assign({}, donnees, { style:st, palette:pl })); });
     var canvas = q('canvas'), etatEl = q('.vyw-etat'), prog = q('.vyw-prog i');
     function etat(s){ etatEl.textContent = s || ''; }
@@ -4026,7 +4302,7 @@ font-family:Inter,"Helvetica Neue",Arial,sans-serif;box-shadow:0 18px 44px -20px
       var cs = '?'; try { cs = f && navigator.canShare ? (navigator.canShare({ files:[f] }) ? 'oui' : 'non') : (navigator.canShare ? '?' : 'non'); } catch(e){ cs = 'erreur ' + e.name; }
       el2.textContent = 'rec: ' + (diag.mime || '-') + ' | fichier: ' + (diag.fichier || '-') + ' | durée: ' + (diag.duree || '-') +
         ' | share: ' + (navigator.share ? 'oui' : 'non') + ' | canShare(files): ' + cs + ' | dernier partage: ' + diag.partage + ' | style ' + d.style +
-        (R.X ? ' | 3D: ' + (R.X.gl ? 'webgl ' + R.X.rw + 'x' + R.X.rh : '2D (repli)') + (statsX(R) ? ' · ' + statsX(R).ms + ' ms/img' : '') : '');
+        (R.X ? (/^F/.test(d.style) ? ' | aliments 2D' + (R.X.nPhotos ? ' · ' + R.X.nPhotos + ' photos' : '') : ' | 3D: ' + (R.X.gl ? 'webgl ' + R.X.rw + 'x' + R.X.rh : '2D (repli)')) + (statsX(R) ? ' · ' + statsX(R).ms + ' ms/img' : '') : '');
     }
     document.body.appendChild(el);
     var htmlOv = document.documentElement.style.overflow; document.documentElement.style.overflow = 'hidden';
@@ -4082,7 +4358,7 @@ font-family:Inter,"Helvetica Neue",Arial,sans-serif;box-shadow:0 18px 44px -20px
       } catch(e){ rec = null; return false; }
     }
 
-    var dernierX = 0, estX = /^X/.test(d.style);
+    var dernierX = 0, estX = /^[XF]/.test(d.style);
     function dessiner(t){ if (estX){ var nw = performance.now(); if (nw - dernierX < 29) return; dernierX = nw; } R.dessine(t); }
     function image(){
       if (ferme) return;
@@ -4176,6 +4452,12 @@ font-family:Inter,"Helvetica Neue",Arial,sans-serif;box-shadow:0 18px 44px -20px
     var photos = Promise.all(d.items.map(function(it){ return chargeImage(it.image).then(function(im){ var c = im ? preRendu(im, it.fond) : null; if (c) c.brut = im; return c; }); }));
     /* 07/10 (X) : la scene 3D se prepare apres les photos (elle en fait des textures) ; si le module manque, repli 2D */
     Promise.all([polices, photos]).then(function(r){ R.imgs = r[1];
+        /* 07/10 (soir) : F (assiette) : le module 2D charge ses vignettes et l'Inter ; s'il manque, R2 */
+        if (/^F/.test(d.style)) return preparerF(R, d, false).catch(function(e){
+          console.warn('[VyWrap] F indisponible, repli', e);
+          var d2 = normalise(Object.assign({}, donnees, { style:REPLI_F[d.style] || 'R2' })); Object.keys(d2).forEach(function(k){ d[k] = d2[k]; }); tm = d.tm; estX = false;
+          return null;
+        });
         if (!/^X/.test(d.style)) return null;
         return preparerX(R, d, donnees, false).catch(function(e){
           console.warn('[VyWrap] X indisponible, repli', e);
@@ -4200,7 +4482,7 @@ font-family:Inter,"Helvetica Neue",Arial,sans-serif;box-shadow:0 18px 44px -20px
       amorcer();
       Promise.resolve().then(fournir).then(function(dn){ if (!dn) return;
         /* 07/10 : ?wrap=X2 (ou window.VYW_STYLE) essaie un autre style sur la vraie page, sans changer le style par defaut */
-        var st = (location.search.match(/[?&]wrap=([A-DRLX][1-4]?)(&|$)/i) || [])[1] || window.VYW_STYLE;
+        var st = (location.search.match(/[?&]wrap=([A-DRLXF][1-4]?)(&|$)/i) || [])[1] || window.VYW_STYLE;
         if (st && !dn.style) dn.style = String(st).toUpperCase();
         ouvrir(dn); }).catch(function(e){ console.warn('[VyWrap]', e); });
     });
@@ -4215,6 +4497,11 @@ font-family:Inter,"Helvetica Neue",Arial,sans-serif;box-shadow:0 18px 44px -20px
     R.dessine(0);
     var pret = Promise.all(d.items.map(function(it){ return chargeImage(it.image).then(function(im){ var c = im ? preRendu(im, it.fond) : null; if (c) c.brut = im; return c; }); }).concat([/^[LX]/.test(d.style) ? policesL() : null]))
       .then(function(r){ R.imgs = r.slice(0, d.items.length);
+        if (/^F/.test(d.style) && !arret) return preparerF(R, d, true).then(function(){ if (arret) R.liberer(); }, function(e){
+          console.warn('[VyWrap] F indisponible, repli', e);
+          var d2 = normalise(Object.assign({}, donnees, { style:REPLI_F[d.style] || 'R2' })); Object.keys(d2).forEach(function(k){ d[k] = d2[k]; }); CY = d.tm.CYCLE;
+          return null;
+        });
         if (!/^X/.test(d.style) || arret) return null;
         return preparerX(R, d, donnees, true).then(function(){ if (arret) R.liberer(); }, function(e){
           console.warn('[VyWrap] X indisponible, repli', e);
@@ -4284,7 +4571,9 @@ font-family:Inter,"Helvetica Neue",Arial,sans-serif;box-shadow:0 18px 44px -20px
       return { nom:String(f.nom || '').split(' (')[0].split(',')[0], marque:(o.categories && o.categories[f.categorie]) || '', etape:String(f.portion_type || '').split(' (')[0],
                image:ok ? base + 'photos/' + f.id + '.png' : '', credit:ok ? (c.auteur ? String(c.auteur) + ' · ' : '') + String(c.licence) : '' };
     });
-    return { type:'aliment', prenom:'', titre:'Mes aliments peau', exemple:!!o.exemple, lecture:lecture, phare:ch[0] || null, chiffres:ch, items:items };
+    /* 07/10 (soir) : les photos du defilement (F1 a F3) : toute la base dont la licence permet la reutilisation (credits.json) */
+    var defile = cr ? { base:base + 'photos/', ids:Object.keys(cr).filter(function(id){ return LIC_X.test(String((cr[id] || {}).licence || '')) && /^[a-z0-9_]{1,40}$/.test(id); }) } : null;
+    return { type:'aliment', prenom:'', titre:'Mes aliments peau', exemple:!!o.exemple, lecture:lecture, phare:ch[0] || null, chiffres:ch, items:items, defile:defile };
   }
   /* X : la fluidite mesuree (ms par image : moyenne, 95e centile) et le nombre d'images par seconde que cela permet */
   function statsX(R){
@@ -4297,6 +4586,8 @@ font-family:Inter,"Helvetica Neue",Arial,sans-serif;box-shadow:0 18px 44px -20px
   OUTILS_X = { W:W, H:H, T:T, langue:langue, maj:maj, minusL:minusL, phraseCas:phraseCas, num:num, valTxt:valTxt, formate:formate, unite:unite,
     clamp:clamp, seg:seg, lerp:lerp, eOut3:eOut3, eIn3:eIn3, eInOut:eInOut, eOutExpo:eOutExpo, eOutBack:eOutBack, hash:hash, rgba:rgba,
     couleurs:couleurs, couleursL:couleursL, lumRel:lumRel, policesL:policesL, polEtat:function(){ return POL.etat; },
-    fontD:fontD, fontG:fontG, fontJ:fontJ, traceL:traceL, rond:rond, lignes:lignes, DIDONE:DIDONE, GARA:GARA, FINE:FINE, IND_X:IND_X, chargeImage:chargeImage };
-  window.VyWrap = { ouvrir:ouvrir, bouton:bouton, amorcer:amorcer, apercu:apercu, styles:['A', 'B', 'C', 'D', 'D1', 'D2', 'D3', 'D4', 'R1', 'R2', 'R3', 'R4', 'L1', 'L2', 'L3', 'L4', 'X1', 'X2', 'X3', 'X4'], palettes:PALETTES, version:'2.4', polices:policesL, aliment:donneesAliment, _normalise:normalise, _mesurerDuree:mesurerDuree, _temps:temps, _Son:Son, _chargeX:chargeX };
+    fontD:fontD, fontG:fontG, fontJ:fontJ, traceL:traceL, rond:rond, lignes:lignes, DIDONE:DIDONE, GARA:GARA, FINE:FINE, IND_X:IND_X, chargeImage:chargeImage,
+    /* 07/10 (soir) : pour la serie F (assiette) */
+    NIV_X:NIV_X, LIC_X:LIC_X, posRouleau:posRouleau, dateCourte:dateCourte };
+  window.VyWrap = { ouvrir:ouvrir, bouton:bouton, amorcer:amorcer, apercu:apercu, styles:['A', 'B', 'C', 'D', 'D1', 'D2', 'D3', 'D4', 'R1', 'R2', 'R3', 'R4', 'L1', 'L2', 'L3', 'L4', 'X1', 'X2', 'X3', 'X4', 'F1', 'F2', 'F3'], palettes:PALETTES, version:'2.5', polices:policesL, aliment:donneesAliment, _normalise:normalise, _mesurerDuree:mesurerDuree, _temps:temps, _Son:Son, _chargeX:chargeX };
 })();

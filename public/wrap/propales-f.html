@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>vyvre · Wrap F, les aliments</title>
+<style>
+  /* la typo et les couleurs de l'interface aliments (fond blanc casse, Inter serree, petites capitales grises) */
+  @font-face{font-family:"VY Inter";src:url(/wrap/fonts/inter-400.woff2?v=1) format("woff2");font-weight:400;font-style:normal;font-display:swap}
+  @font-face{font-family:"VY Inter";src:url(/wrap/fonts/inter-500.woff2?v=1) format("woff2");font-weight:500;font-style:normal;font-display:swap}
+  :root{color-scheme:light;--encre:#252622;--gris:#686a61;--doux:#73786c;--trait:#d8dcd1;--fin:#e4e5df;--fond:#fafafa;--sombre:#30362a}
+  *{box-sizing:border-box}
+  html{background:var(--fond);overflow-x:hidden}
+  body{margin:0;background:radial-gradient(ellipse at 60% 40%,#fff,#f5f5f4);color:var(--encre);font:400 15px/1.6 "VY Inter",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;
+    padding:calc(env(safe-area-inset-top) + 28px) 16px calc(env(safe-area-inset-bottom) + 48px);min-height:100vh;overflow-x:hidden}
+  header{max-width:1280px;margin:0 auto 30px;display:grid;gap:18px}
+  .mast{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:10px 24px;border-bottom:1px solid var(--fin);padding-bottom:14px}
+  .sur{font:12px/1.6 ui-monospace,Menlo,monospace;letter-spacing:.15em;text-transform:uppercase;color:#818679}
+  h1{margin:0;font-weight:400;font-size:clamp(44px,8vw,96px);letter-spacing:-.065em;line-height:1.02}
+  h1 em{font-style:normal;color:var(--gris)}
+  .intro{margin:0;max-width:720px;color:var(--doux);font-size:16px}
+  .choix{display:inline-flex;border:1px solid var(--trait);border-radius:999px;overflow:hidden;justify-self:start}
+  .choix button{border:0;background:transparent;color:var(--gris);font:500 12px/1 inherit;letter-spacing:.14em;padding:12px 16px;cursor:pointer;min-height:44px}
+  .choix button[aria-pressed=true]{background:var(--sombre);color:#fff}
+  .grille{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:30px 22px}
+  @media (max-width:980px){.grille{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media (max-width:600px){.grille{grid-template-columns:minmax(0,1fr)}}
+  .carte{display:flex;flex-direction:column;gap:10px;min-width:0}
+  .ecran{position:relative;aspect-ratio:9/16;overflow:hidden;border-radius:18px;background:#fafafa;box-shadow:0 34px 70px -34px rgba(37,31,19,.38),0 0 0 1px #e3e5de}
+  @media (max-width:600px){.ecran{max-width:400px;width:100%;margin:0 auto}}
+  .ecran canvas{display:block;width:100%;height:100%}
+  .lettre{position:absolute;left:10px;top:10px;padding:6px 9px 5px;border-radius:20px;background:rgba(255,255,255,.9);border:1px solid var(--trait);font:500 11px/1 ui-monospace,Menlo,monospace;letter-spacing:.14em;color:var(--gris)}
+  .carte h2{margin:6px 0 0;font-weight:400;font-size:clamp(22px,2.2vw,28px);letter-spacing:-.045em;line-height:1.1}
+  .carte p{margin:0;font-size:14.5px;line-height:1.55;color:var(--doux)}
+  .carte p b{font:500 10.5px/1 ui-monospace,Menlo,monospace;letter-spacing:.14em;text-transform:uppercase;color:#818679}
+  .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:4px}
+  .actions button{flex:1 1 120px;min-height:46px;border-radius:999px;cursor:pointer;font:500 12px/1 inherit;letter-spacing:.14em;text-transform:uppercase;padding:0 10px}
+  .ecouter{border:1px solid #a9afa1;background:transparent;color:#343b2c}
+  .ecouter[aria-pressed=true]{background:#eff1eb;border-color:var(--sombre)}
+  .creer{border:0;background:var(--sombre);color:#fff}
+  footer{max-width:1280px;margin:36px auto 0;border-top:1px solid var(--fin);padding-top:16px;font-size:13px;line-height:1.6;color:#8b8d83}
+  footer a{color:inherit}
+</style>
+</head>
+<body>
+<header>
+  <div class="mast"><div class="sur" data-t="sur"></div><div class="sur" id="date"></div></div>
+  <h1 data-h="titre"></h1>
+  <p class="intro" data-t="intro"></p>
+  <div class="choix" role="group" id="langues" aria-label="Langue / Language">
+    <button type="button" data-lang="fr" aria-pressed="true">FR</button>
+    <button type="button" data-lang="en" aria-pressed="false">EN</button>
+  </div>
+</header>
+<main class="grille" id="grille"></main>
+<footer data-p="pied"></footer>
+
+<script src="/wrap/vy-wrap.js?v=12"></script>
+<script src="/wrap/exemples.js?v=4"></script>
+<script>
+(function(){
+  var TX = {
+    fr:{ sur:'vyvre · Le Wrap · série F, l’assiette', titre:'Les aliments, <em>au cœur.</em>',
+      intro:'Trois Wrap pour l’assiette, sur le même arc de 8 secondes : « Ma peau, lue. » et « Parmi 265 aliments… », des dizaines de vraies photos d’aliments qui défilent en 2 secondes, l’arrêt net, puis BIM : ce que le scan a lu, en très grand ; les aliments choisis se posent un par un avec leur nom ; « Et toi ? ». Fond clair de l’interface aliments, boucle parfaite. Un seul son à la fois.',
+      pied:'Données d’exemple, signalées « EXEMPLE » dans chaque Wrap (sur la vraie page : le vrai besoin lu, le vrai nombre d’aliments passés en revue, les vrais aliments). Photos : Wikimedia Commons et Openverse, seulement celles dont la licence permet la réutilisation, détourées par vyvre ; liste et crédits : <a href="/wrap/credits.html">/wrap/credits</a> (rappelés en fin de vidéo). Aucune allégation : le besoin lu, et des aliments « choisis d’après ma peau ». Sans flash, mesuré image par image : au plus 2 changements forts de luminance par seconde dans toute zone de 440 px. Ajoutez ?diag=1 pour la ligne technique.',
+      ecouter:'Écouter', couper:'Couper le son', creer:'Créer la vidéo' },
+    en:{ sur:'vyvre · The Wrap · F series, the plate', titre:'Food, <em>at the heart.</em>',
+      intro:'Three Wraps for the plate, on the same 8-second arc: “My skin, scanned.” and “Out of 265 foods…”, dozens of real food photos racing by in 2 seconds, a hard stop, then BOOM: what the scan read, huge; the chosen foods land one by one with their names; “And you?”. Light background of the food interface, perfect loop. One sound at a time.',
+      pied:'Example data, marked “EXAMPLE” in every Wrap (on the real page: the real need read, the real number of foods reviewed, the real foods). Photos: Wikimedia Commons and Openverse, only those whose licence allows reuse, cut out by vyvre; list and credits: <a href="/wrap/credits.html?lang=en">/wrap/credits</a> (also credited at the end of the video). No health claim: the need read, and foods “chosen based on my skin”. Flash-safe, measured frame by frame: at most 2 strong luminance changes per second in any 440 px area. Add ?diag=1 for the technical line.',
+      ecouter:'Listen', couper:'Mute', creer:'Create the video' }
+  };
+  var STYLES = [
+    { k:'F1',
+      fr:{ t:'F1 · La roulette', d:'Une grande roue de douze aliments, le cliquet au sommet : elle part, file (les photos deviennent un anneau de couleurs), ralentit, et s’arrête pile sur le premier aliment choisi. BIM : le besoin en très grand, l’aliment gagnant en photo géante ; puis les autres se posent un par un, en nature morte. <b>Son</b> un tic de bois par case, la montée, le claquement de l’arrêt, un silence, BIM, groove pop 120.' },
+      en:{ t:'F1 · The wheel', d:'A big wheel of twelve foods, the clicker on top: it kicks off, spins (the photos blur into a ring of colour), slows down and stops right on the first chosen food. BOOM: the need, huge, and the winning food as a giant photo; then the others land one by one, like a still life. <b>Sound</b> a wood tick per slot, the riser, the clack of the stop, a silence, impact, 120 BPM pop groove.' } },
+    { k:'F2',
+      fr:{ t:'F2 · Le mur', d:'Une grille de trente aliments ; des vagues la traversent et chaque case change de photo au passage, de plus en plus vite. Arrêt net. BIM : tout s’efface sauf les aliments retenus, qui se placent autour du besoin ; puis ils viennent au centre, un par un, en grand. <b>Son</b> le cliquetis d’un tableau à palettes, célesta, cordes, BIM de verre, deep house 114.' },
+      en:{ t:'F2 · The wall', d:'A grid of thirty foods; waves sweep across it and every tile flips to another photo, faster and faster. Hard stop. BOOM: everything fades except the chosen foods, which frame the need; then they fly to the centre, one by one, large. <b>Sound</b> the clatter of a split-flap board, celesta, strings, glass impact, 114 BPM deep house.' } },
+    { k:'F3',
+      fr:{ t:'F3 · Les rouleaux', d:'Une machine à sous claire, un rouleau par aliment : les photos filent sur un tambour, floues, puis les rouleaux s’arrêtent un par un, pile sur les aliments retenus. Au dernier : BIM, la ligne gagnante s’allume, le besoin au-dessus ; puis la liste, comme dans l’interface. <b>Son</b> le levier, le ronflement, un cliquet par photo, un claquement par rouleau, cloches, disco house 118.' },
+      en:{ t:'F3 · The reels', d:'A light slot machine, one reel per food: photos race on a drum, blurred, then the reels stop one by one, right on the chosen foods. On the last one: BOOM, the winning line lights up, the need above; then the list, as in the interface. <b>Sound</b> the lever, the whirr, a ratchet tick per photo, a clunk per reel, bells, 118 BPM disco house.' } }
+  ];
+  var grille = document.getElementById('grille'), lang = 'fr', apercus = [];
+  function lp(){ return TX[lang]; }
+  function textes(){
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-t]').forEach(function(el){ el.textContent = lp()[el.dataset.t]; });
+    document.querySelector('[data-h]').innerHTML = lp().titre;
+    document.querySelector('[data-p]').innerHTML = lp().pied;
+    var d = new Date(); document.getElementById('date').textContent = ('0' + d.getDate()).slice(-2) + '.' + ('0' + (d.getMonth() + 1)).slice(-2) + '.' + d.getFullYear();
+  }
+  function toutTaire(){
+    apercus.forEach(function(a){ a.taire(); });
+    grille.querySelectorAll('.ecouter').forEach(function(x){ x.setAttribute('aria-pressed', 'false'); x.textContent = lp().ecouter; });
+  }
+  function construire(){
+    apercus.forEach(function(a){ a.arreter(); }); apercus = []; grille.innerHTML = '';
+    STYLES.forEach(function(s){
+      var c = document.createElement('article'); c.className = 'carte';
+      c.innerHTML = '<div class="ecran"><canvas></canvas><span class="lettre"></span></div><h2></h2><p></p>' +
+        '<div class="actions"><button type="button" class="ecouter" aria-pressed="false"></button><button type="button" class="creer"></button></div>';
+      c.querySelector('.lettre').textContent = s.k;
+      c.querySelector('h2').textContent = s[lang].t;
+      c.querySelector('p').innerHTML = s[lang].d;
+      c.querySelector('.ecouter').textContent = lp().ecouter;
+      c.querySelector('.creer').textContent = lp().creer;
+      grille.appendChild(c);
+      var donnees = Object.assign({}, window.VYW_EXEMPLES.aliment, { style:s.k });
+      var ap = VyWrap.apercu(c.querySelector('canvas'), donnees); apercus.push(ap);
+      var b = c.querySelector('.ecouter');
+      b.addEventListener('click', function(){
+        var on = b.getAttribute('aria-pressed') !== 'true';
+        toutTaire();
+        if (on && ap.ecouter()){ b.setAttribute('aria-pressed', 'true'); b.textContent = lp().couper; }
+      });
+      c.querySelector('.creer').addEventListener('click', function(){ toutTaire(); VyWrap.amorcer(); VyWrap.ouvrir(donnees); });
+    });
+  }
+  document.querySelectorAll('#langues button').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('#langues button').forEach(function(x){ x.setAttribute('aria-pressed', String(x === b)); });
+      lang = b.dataset.lang; textes(); construire();
+    });
+  });
+  var ql = (location.search.match(/[?&]lang=(fr|en)/) || [])[1];
+  if (ql){ lang = ql; document.querySelectorAll('#langues button').forEach(function(x){ x.setAttribute('aria-pressed', String(x.dataset.lang === ql)); }); }
+  textes(); construire();
+  window.__propalesF = function(){ return apercus; };
+})();
+</script>
+</body>
+</html>

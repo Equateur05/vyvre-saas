@@ -37,6 +37,8 @@ const nextConfig = {
          public/propals/chargement/ et s'ouvre en local, il n'est plus servi en ligne. */
       { source: '/m/:brand', destination: '/m/index.html?b=:brand' },
       { source: '/m/:brand/protocol', destination: '/scan/PROTOCOL_UNIVERSAL.html?b=:brand' },
+      /* 07/10/2026 : la fin de chaque Wrap aliments ecrit « liste sur vyvre.fr/wrap/credits » (credits des photos) */
+      { source: '/wrap/credits', destination: '/wrap/credits.html' },
       ],
       fallback: [],
     };

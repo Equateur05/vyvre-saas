@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>vyvre — Crédits photos</title>
+<meta name="description" content="Les photos d'aliments du Wrap vyvre : auteur, licence et source de chaque photo.">
+<link rel="icon" href="data:,">
+<style>
+  /* la typo et les couleurs de l'interface aliments (design.css) ; page generee par scripts/wrap_credits_aliments.py */
+  @font-face{font-family:"VY Inter";src:url(/wrap/fonts/inter-400.woff2?v=1) format("woff2");font-weight:400;font-style:normal;font-display:swap}
+  @font-face{font-family:"VY Inter";src:url(/wrap/fonts/inter-500.woff2?v=1) format("woff2");font-weight:500;font-style:normal;font-display:swap}
+  :root{color-scheme:light;--encre:#252622;--gris:#686a61;--doux:#73786c;--trait:#d8dcd1;--fin:#e4e5df;--fond:#fafafa}
+  *{box-sizing:border-box}
+  html{background:var(--fond)}
+  body{margin:0;background:radial-gradient(ellipse at 60% 40%,#fff,#f5f5f4);color:var(--encre);font:400 15px/1.6 "VY Inter",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh}
+  header{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 max(16px,5.5%);height:76px}
+  .marque{font-size:26px;font-weight:500;letter-spacing:-1.6px;text-decoration:none;color:var(--encre)}
+  .langues{display:inline-flex;border:1px solid var(--trait);border-radius:999px;overflow:hidden}
+  .langues button{border:0;background:transparent;color:var(--gris);font:500 12px/1 inherit;letter-spacing:.14em;padding:10px 14px;cursor:pointer;min-height:40px}
+  .langues button[aria-pressed=true]{background:#30362a;color:#fff}
+  main{width:min(920px,100% - 32px);margin:12px auto 64px}
+  .sur{font:12px/1.6 ui-monospace,Menlo,monospace;letter-spacing:.15em;text-transform:uppercase;color:#818679}
+  h1{font-weight:400;font-size:clamp(40px,8vw,72px);letter-spacing:-.06em;line-height:1.02;margin:12px 0 18px}
+  .intro{max-width:640px;color:var(--doux);margin:0 0 10px}
+  .intro b{font-weight:500;color:var(--encre)}
+  .resume{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 28px;padding:0;list-style:none}
+  .resume li{border:1px solid var(--trait);border-radius:25px;padding:8px 14px;background:#ffffff85;font-size:13px;color:#34392e}
+  ol{list-style:none;margin:0;padding:0;border-top:1px solid var(--fin)}
+  ol li{display:grid;grid-template-columns:minmax(0,1fr);gap:4px;padding:14px 0;border-bottom:1px solid var(--fin)}
+  ol li .g,ol li .d{display:flex;flex-direction:column;align-items:flex-start;gap:2px;min-width:0}
+  ol li b{font-weight:500;font-size:17px;letter-spacing:-.01em}
+  ol li i{font:500 10px/1 ui-monospace,Menlo,monospace;font-style:normal;letter-spacing:.14em;text-transform:uppercase;color:#818679;border:1px solid var(--trait);border-radius:20px;padding:4px 8px;margin:4px 0 2px}
+  .t{color:var(--doux);font-size:13.5px;overflow-wrap:anywhere}
+  .a{font-size:13.5px;color:#34392e;overflow-wrap:anywhere}
+  .a a{color:inherit;text-underline-offset:3px}
+  .m{font-size:12.5px;color:#8b8d83}
+  @media (min-width:760px){ol li{grid-template-columns:200px minmax(0,1fr);column-gap:24px}}
+  footer{width:min(920px,100% - 32px);margin:0 auto 48px;color:#9a9c92;font-size:12.5px}
+  footer a{color:inherit}
+</style>
+</head>
+<body>
+<header><a class="marque" href="/aliment">vyvre.</a>
+  <div class="langues" role="group" aria-label="Langue / Language"><button type="button" data-l="fr" aria-pressed="true">FR</button><button type="button" data-l="en" aria-pressed="false">EN</button></div></header>
+<main>
+  <div class="sur" data-t="sur">Le Wrap · photos d’aliments</div>
+  <h1 data-t="titre">Crédits photos</h1>
+  <p class="intro" data-t="intro">Les photos d’aliments du Wrap (la vidéo à partager) et de l’assiette viennent de <b>Wikimedia Commons</b> et d’<b>Openverse</b> (Flickr, rawpixel, StockSnap). Seules celles dont la licence permet la réutilisation sont utilisées : CC0, CC BY, CC BY-SA et domaine public. vyvre les a détourées (fond retiré) et réduites ; sous licence CC BY-SA, la photo détourée est partagée sous la même licence.</p>
+  <p class="intro" data-t="intro2">Chaque ligne : l’aliment, le titre de la photo, son auteur, sa licence et sa source. Les photos marquées « défilement » composent aussi le défilement rapide du Wrap.</p>
+  <ul class="resume"><li><span id="n">{{N}}</span> <span data-t="photos">photos</span></li><li data-t="maj">Mise à jour le {{DATE}}</li></ul>
+  <ol id="liste">
+{{LISTE}}
+  </ol>
+</main>
+<footer data-t="pied">Une photo est mal créditée ou vous êtes son auteur ? Écrivez-nous depuis <a href="/">vyvre.fr</a>, nous la corrigeons ou la retirons.</footer>
+<script>
+(function(){
+  /* la liste se remet a jour depuis credits.json (la meme source que la page de l'assiette et que le Wrap) */
+  var NOMS = {{NOMS}}, PLANCHE = {{PLANCHE}}, LIC = /^(CC0|CC BY|Domaine public|Public domain)/i;
+  var TX = {
+    fr:{ sur:'Le Wrap · photos d’aliments', titre:'Crédits photos', photos:'photos', defile:'défilement', inconnu:'auteur inconnu',
+         intro:'Les photos d’aliments du Wrap (la vidéo à partager) et de l’assiette viennent de <b>Wikimedia Commons</b> et d’<b>Openverse</b> (Flickr, rawpixel, StockSnap). Seules celles dont la licence permet la réutilisation sont utilisées : CC0, CC BY, CC BY-SA et domaine public. vyvre les a détourées (fond retiré) et réduites ; sous licence CC BY-SA, la photo détourée est partagée sous la même licence.',
+         intro2:'Chaque ligne : l’aliment, le titre de la photo, son auteur, sa licence et sa source. Les photos marquées « défilement » composent aussi le défilement rapide du Wrap.',
+         sa:'Détourée par vyvre, même licence.', non:'Détourée par vyvre.', maj:'Mise à jour le {{DATE}}',
+         pied:'Une photo est mal créditée ou vous êtes son auteur ? Écrivez-nous depuis <a href="/">vyvre.fr</a>, nous la corrigeons ou la retirons.' },
+    en:{ sur:'The Wrap · food photos', titre:'Photo credits', photos:'photos', defile:'scroll', inconnu:'unknown author',
+         intro:'The food photos in the Wrap (the video to share) and in the plate come from <b>Wikimedia Commons</b> and <b>Openverse</b> (Flickr, rawpixel, StockSnap). Only photos whose licence allows reuse are used: CC0, CC BY, CC BY-SA and public domain. vyvre cut them out (background removed) and resized them; under CC BY-SA, the cut-out photo is shared under the same licence.',
+         intro2:'Each line: the food, the photo title, its author, its licence and its source. Photos marked “scroll” also appear in the Wrap’s fast scroll.',
+         sa:'Cut out by vyvre, same licence.', non:'Cut out by vyvre.', maj:'Updated {{DATE}}',
+         pied:'Is a photo credited wrongly, or are you its author? Write to us from <a href="/">vyvre.fr</a> and we will fix or remove it.' }
+  };
+  var lang = /[?&]lang=en\b/.test(location.search) || (!/[?&]lang=fr\b/.test(location.search) && !/^fr/i.test(navigator.language || 'fr')) ? 'en' : 'fr';
+  var credits = null;
+  function esc(t){ return String(t == null ? '' : t).replace(/[&<>"']/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]; }); }
+  function nom(id){ return NOMS[id] || (id.charAt(0).toUpperCase() + id.slice(1).replace(/_/g, ' ')); }
+  function source(c){ var m = /^https?:\/\/(?:www\.)?([^\/]+)\//.exec(c.source_url || ''), d = m ? m[1] : '', n = { 'commons.wikimedia.org':'Wikimedia Commons', 'flickr.com':'Flickr', 'rawpixel.com':'rawpixel', 'stocksnap.io':'StockSnap' }[d] || d || c.fournisseur || '';
+    return c.fournisseur === 'Openverse' && n !== 'Openverse' ? n + ' (via Openverse)' : n; }
+  function sur(u){ return /^https?:\/\//.test(u || '') ? u : '#'; }
+  function rendre(){
+    var L = TX[lang]; document.documentElement.lang = lang; document.title = 'vyvre — ' + L.titre;
+    document.querySelectorAll('[data-t]').forEach(function(el){ var v = L[el.getAttribute('data-t')]; if (v != null) el.innerHTML = v; });
+    document.querySelectorAll('.langues button').forEach(function(b){ b.setAttribute('aria-pressed', String(b.getAttribute('data-l') === lang)); });
+    if (credits){
+      var ids = Object.keys(credits).filter(function(id){ return LIC.test(String((credits[id] || {}).licence || '')); });
+      ids.sort(function(a, b){ return nom(a).localeCompare(nom(b), 'fr', { sensitivity:'base' }); });
+      document.getElementById('n').textContent = ids.length;
+      document.getElementById('liste').innerHTML = ids.map(function(id){ var c = credits[id], sa = /SA/i.test(c.licence || '');
+        return '<li data-id="' + esc(id) + '"><div class="g"><b>' + esc(nom(id)) + '</b>' + (PLANCHE.indexOf(id) >= 0 ? '<i>' + L.defile + '</i>' : '') + '</div><div class="d"><span class="t">' + esc(c.titre) + '</span><span class="a">' + esc(c.auteur || L.inconnu) + ' · <a href="' + esc(sur(c.licence_url)) + '" rel="noopener license">' + esc(c.licence) + '</a> · <a href="' + esc(sur(c.source_url)) + '" rel="noopener">' + esc(source(c)) + '</a></span><span class="m">' + (sa ? L.sa : L.non) + '</span></div></li>'; }).join('');
+    } else {
+      document.querySelectorAll('#liste .m').forEach(function(m){ m.textContent = m.getAttribute('data-sa') === '1' ? L.sa : L.non; });
+      document.querySelectorAll('#liste i').forEach(function(i){ i.textContent = L.defile; });
+    }
+  }
+  document.querySelectorAll('.langues button').forEach(function(b){ b.addEventListener('click', function(){ lang = b.getAttribute('data-l'); rendre(); }); });
+  rendre();
+  fetch('/scan/aliment/photos/credits.json?v=2').then(function(r){ if (!r.ok) throw new Error('credits'); return r.json(); }).then(function(j){ credits = j; rendre(); }).catch(function(){});
+})();
+</script>
+</body>
+</html>
