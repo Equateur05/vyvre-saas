@@ -69,18 +69,18 @@ function coupe(F, nx, ny, c, kz){
 function rimLueur(g, F, t, col, fort){
   const P = F.P, lw = F.lw, cx = F.box.cx, cy = F.box.cy, R = Math.max(F.box.w, F.box.h), a = t*.55 - 1.2;
   g.save(); g.beginPath(); lisse(g, OVALE.map(i => P[i]), true);
-  g.lineWidth = 8*lw; g.strokeStyle = rgba(col, .22*fort); g.stroke();
+  g.lineWidth = 3*lw; g.strokeStyle = rgba(col, .12*fort); g.stroke();
   const gx = cx + Math.cos(a)*R*.62, gy = cy + Math.sin(a)*R*.62, gr = g.createRadialGradient(gx, gy, 0, gx, gy, R*.75);
   gr.addColorStop(0, rgba(col, fort)); gr.addColorStop(1, rgba(col, 0));
-  g.lineWidth = 5*lw; g.strokeStyle = gr; g.stroke(); g.restore();
+  g.lineWidth = 2.2*lw; g.strokeStyle = gr; g.stroke(); g.restore();
 }
 function rimTrait(x, F, t, col){
   const P = F.P, lw = F.lw, cx = F.box.cx, cy = F.box.cy, R = Math.max(F.box.w, F.box.h), a = t*.55 - 1.2;
   const gx = cx + Math.cos(a)*R*.62, gy = cy + Math.sin(a)*R*.62, gr = x.createRadialGradient(gx, gy, 0, gx, gy, R*.8);
-  gr.addColorStop(0, 'rgba(255,255,255,.95)'); gr.addColorStop(.45, rgba(col, .5)); gr.addColorStop(1, rgba(col, .08));
+  gr.addColorStop(0, 'rgba(255,255,255,.85)'); gr.addColorStop(.4, rgba(col, .3)); gr.addColorStop(1, rgba(col, 0));
   x.save(); x.beginPath(); lisse(x, OVALE.map(i => P[i]), true); x.lineJoin = 'round';
-  x.lineWidth = 2.6*lw; x.strokeStyle = 'rgba(0,0,0,.18)'; x.stroke();
-  x.lineWidth = 1.1*lw; x.strokeStyle = gr; x.stroke(); x.restore();
+  x.lineWidth = 1.2*lw; x.strokeStyle = 'rgba(0,0,0,.08)'; x.stroke();
+  x.lineWidth = .5*lw; x.strokeStyle = gr; x.stroke(); x.restore();
 }
 /* le reflet irise de V1 : la teinte glisse sur le maillage comme sur un film holographique */
 const IRIS = ['120,225,255', '150,170,255', '205,150,255', '255,160,220'];
@@ -89,7 +89,7 @@ const IRIS = ['120,225,255', '150,170,255', '205,150,255', '255,160,220'];
 const V1 = {
   nom:'Maillage lumineux', court:'Maillage',
   texte:'Le vrai maillage du visage, éclairé de l’intérieur. Une vague de lumière part de la zone lue et traverse la peau ; la zone lue reste allumée.',
-  teinte:{ halo:'60,190,255', coeur:'226,247,255' }, voile:.30, ombre:.6,
+  teinte:{ halo:'60,190,255', coeur:'226,247,255' }, voile:.18, ombre:.3,
   prep(F, t, m){
     const P = F.P, Z = F.zpx, n = P.length, lec = F.lec, E = F.ech, zone = F.topo.zone;
     if(!m.I || m.I.length !== n) m.I = new Float32Array(n);
@@ -108,31 +108,31 @@ const V1 = {
     for(const e of F.aretes){ const v = (I[e[0]] + I[e[1]])*.5; if(v > .1) B[v > .62 ? 2 : v > .3 ? 1 : 0].push(e); }
     /* le reflet irise : chaque arete prend une teinte selon sa place et le temps */
     const H = m.H || (m.H = IRIS.map(() => [])); H.forEach(h => h.length = 0); const u = F.u, vv = F.v;
-    for(const e of F.aretes){ const a = P[e[0]], b = P[e[1]], mx = (a.x + b.x)/2 - F.box.cx, my = (a.y + b.y)/2 - F.box.cy;
+    for(let q = 0; q < F.aretes.length; q += 2){ const e = F.aretes[q], a = P[e[0]], b = P[e[1]], mx = (a.x + b.x)/2 - F.box.cx, my = (a.y + b.y)/2 - F.box.cy;
       const ph = ((mx*u.x + my*u.y)*.8 + (mx*vv.x + my*vv.y)*.5)/E*1.6 + t*.22, f = ph - Math.floor(ph); H[Math.floor(f*IRIS.length)].push(e); }
   },
   lueur(g, F, t, m){
-    const P = F.P, A = [.24, .45, .9], lw = F.lw;
+    const P = F.P, A = [.1, .2, .42], lw = F.lw;
     rimLueur(g, F, t, this.teinte.halo, .85);
     g.lineCap = 'round';
-    m.B.forEach((b, j) => { if(!b.length) return; g.beginPath(); seg(g, P, b); g.lineWidth = (1.3 + .8*j)*lw; g.strokeStyle = rgba(this.teinte.halo, A[j]); g.stroke(); });
+    m.B.forEach((b, j) => { if(!b.length) return; g.beginPath(); seg(g, P, b); g.lineWidth = (.9 + .4*j)*lw; g.strokeStyle = rgba(this.teinte.halo, A[j]); g.stroke(); });
   },
   trait(x, F, t, m){
     const P = F.P, c = this.teinte.coeur, lw = F.lw, I = m.I;
     x.lineCap = 'round';
     /* le maillage entier, fin : un liseré sombre puis un fil clair */
-    x.beginPath(); seg(x, P, F.aretes);
-    x.lineWidth = 1.5*lw; x.strokeStyle = 'rgba(0,0,0,.13)'; x.stroke();
-    m.H.forEach((h, j) => { if(!h.length) return; x.beginPath(); seg(x, P, h); x.lineWidth = .6*lw; x.strokeStyle = rgba(IRIS[j], .46); x.stroke(); });
+    x.beginPath(); for(let q = 0; q < F.aretes.length; q += 2){ const e = F.aretes[q]; x.moveTo(P[e[0]].x, P[e[0]].y); x.lineTo(P[e[1]].x, P[e[1]].y); }
+    x.lineWidth = .8*lw; x.strokeStyle = 'rgba(0,0,0,.06)'; x.stroke();
+    m.H.forEach((h, j) => { if(!h.length) return; x.beginPath(); seg(x, P, h); x.lineWidth = .3*lw; x.strokeStyle = rgba(IRIS[j], .26); x.stroke(); });
     rimTrait(x, F, t, this.teinte.halo);
-    const A = [.5, .78, 1];
+    const A = [.32, .55, .85];
     m.B.forEach((b, j) => { if(!b.length) return; x.beginPath(); seg(x, P, b);
-      x.lineWidth = (1.9 + .3*j)*lw; x.strokeStyle = rgba('0,10,20', .22 + .08*j); x.stroke();
-      x.lineWidth = (.7 + .25*j)*lw; x.strokeStyle = rgba(c, A[j]); x.stroke(); });
+      x.lineWidth = (1 + .2*j)*lw; x.strokeStyle = rgba('0,10,20', .08 + .04*j); x.stroke();
+      x.lineWidth = (.35 + .15*j)*lw; x.strokeStyle = rgba(c, A[j]); x.stroke(); });
     /* les sommets traverses par la vague scintillent */
-    x.beginPath(); const r = 1.25*lw;
+    x.beginPath(); const r = .7*lw;
     for(let i = 0; i < P.length; i++) if(I[i] > .55){ x.moveTo(P[i].x + r, P[i].y); x.arc(P[i].x, P[i].y, r, 0, TAU); }
-    x.fillStyle = 'rgba(255,255,255,.95)'; x.fill();
+    x.fillStyle = 'rgba(255,255,255,.8)'; x.fill();
   },
 };
 
@@ -140,7 +140,7 @@ const V1 = {
 const V2 = {
   nom:'Lumière rasante', court:'Rasante',
   texte:'Un faisceau chaud balaie le visage de haut en bas. La ligne de lumière épouse le vrai relief (elle monte sur le nez) et les points du relief restent allumés après son passage.',
-  teinte:{ halo:'255,172,84', coeur:'255,240,218' }, voile:.42, ombre:.62,
+  teinte:{ halo:'255,172,84', coeur:'255,240,218' }, voile:.2, ombre:.3,
   prep(F, t, m){
     const P = F.P, v = F.v, E = F.ech, C = { x:F.box.cx, y:F.box.cy }, n = P.length;
     const pr = p => (p.x - C.x)*v.x + (p.y - C.y)*v.y;
@@ -165,49 +165,49 @@ const V2 = {
   lueur(g, F, t, m){
     const P = F.P, u = F.u, v = F.v, E = F.ech, lw = F.lw, h = this.teinte.halo, C = m.C;
     rimLueur(g, F, t, h, .5);
-    for(const k of m.topo){ if(k.a < .05) continue; g.beginPath(); lisse(g, k.l, false); g.lineWidth = 1.6*lw; g.strokeStyle = rgba(h, .35*k.a); g.stroke(); }
-    if(m.nez > .05){ const n = P[1], rg = g.createRadialGradient(n.x, n.y, 0, n.x, n.y, .16*E); rg.addColorStop(0, rgba('255,236,200', .9*m.nez)); rg.addColorStop(1, rgba(h, 0)); g.fillStyle = rg; g.fillRect(n.x - .2*E, n.y - .2*E, .4*E, .4*E);
+    for(const k of m.topo){ if(k.a < .05) continue; g.beginPath(); lisse(g, k.l, false); g.lineWidth = .9*lw; g.strokeStyle = rgba(h, .16*k.a); g.stroke(); }
+    if(m.nez > .05){ const n = P[1], rg = g.createRadialGradient(n.x, n.y, 0, n.x, n.y, .16*E); rg.addColorStop(0, rgba('255,236,200', .45*m.nez)); rg.addColorStop(1, rgba(h, 0)); g.fillStyle = rg; g.fillRect(n.x - .2*E, n.y - .2*E, .4*E, .4*E);
       /* trait anamorphique : un eclat horizontal le long du faisceau */
       const L = F.box.w*.7, a = { x:n.x - u.x*L, y:n.y - u.y*L }, b = { x:n.x + u.x*L, y:n.y + u.y*L }, gl = g.createLinearGradient(a.x, a.y, b.x, b.y);
-      gl.addColorStop(0, rgba(h, 0)); gl.addColorStop(.5, rgba('255,240,215', .8*m.nez)); gl.addColorStop(1, rgba(h, 0)); g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.lineWidth = 2.5*lw; g.strokeStyle = gl; g.stroke(); }
+      gl.addColorStop(0, rgba(h, 0)); gl.addColorStop(.5, rgba('255,240,215', .45*m.nez)); gl.addColorStop(1, rgba(h, 0)); g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.lineWidth = 1.2*lw; g.strokeStyle = gl; g.stroke(); }
     if(m.scan){
       /* la lumiere deborde un peu au-dessus du faisceau, seulement sur le visage */
       g.save(); g.beginPath(); lisse(g, OVALE.map(i => P[i]), true); g.clip();
       const a = { x:C.x + v.x*(m.vb - .3*E), y:C.y + v.y*(m.vb - .3*E) }, b = { x:C.x + v.x*(m.vb + .02*E), y:C.y + v.y*(m.vb + .02*E) };
       const gr = g.createLinearGradient(a.x, a.y, b.x, b.y);
-      gr.addColorStop(0, rgba(h, 0)); gr.addColorStop(.85, rgba(h, .16)); gr.addColorStop(1, rgba(h, 0));
+      gr.addColorStop(0, rgba(h, 0)); gr.addColorStop(.85, rgba(h, .07)); gr.addColorStop(1, rgba(h, 0));
       g.fillStyle = gr; g.fillRect(F.box.x0 - E*.2, F.box.y0 - E*.2, F.box.w + E*.4, F.box.h + E*.4);
       g.restore();
       const L = F.box.w*.95, B0 = { x:C.x + v.x*m.vb - u.x*L, y:C.y + v.y*m.vb - u.y*L }, B1 = { x:C.x + v.x*m.vb + u.x*L, y:C.y + v.y*m.vb + u.y*L };
-      const gl = g.createLinearGradient(B0.x, B0.y, B1.x, B1.y); gl.addColorStop(0, rgba(h, 0)); gl.addColorStop(.5, rgba(h, .55)); gl.addColorStop(1, rgba(h, 0));
-      g.beginPath(); g.moveTo(B0.x, B0.y); g.lineTo(B1.x, B1.y); g.lineWidth = 2.2*lw; g.strokeStyle = gl; g.stroke();
-      if(m.ligne && m.ligne.length > 3){ g.beginPath(); lisse(g, m.ligne, false); g.lineWidth = 3.4*lw; g.lineCap = 'round'; g.strokeStyle = rgba(h, 1); g.stroke(); }
+      const gl = g.createLinearGradient(B0.x, B0.y, B1.x, B1.y); gl.addColorStop(0, rgba(h, 0)); gl.addColorStop(.5, rgba(h, .3)); gl.addColorStop(1, rgba(h, 0));
+      g.beginPath(); g.moveTo(B0.x, B0.y); g.lineTo(B1.x, B1.y); g.lineWidth = 1.2*lw; g.strokeStyle = gl; g.stroke();
+      if(m.ligne && m.ligne.length > 3){ g.beginPath(); lisse(g, m.ligne, false); g.lineWidth = 1.6*lw; g.lineCap = 'round'; g.strokeStyle = rgba(h, 1); g.stroke(); }
     }
     /* les braises du relief */
     const H = m.H, Bk = [.2, .45, .7, .9];
     for(let j = 0; j < 4; j++){ g.beginPath(); const lo = Bk[j], hi = j < 3 ? Bk[j+1] : 9;
-      for(let i = 0; i < P.length; i++){ const v2 = H[i]; if(v2 < lo || v2 >= hi) continue; const r = (1.4 + 2*F.N[i])*lw; g.moveTo(P[i].x + r, P[i].y); g.arc(P[i].x, P[i].y, r, 0, TAU); }
-      g.fillStyle = rgba(h, .28 + .17*j); g.fill(); }
+      for(let i = 0; i < P.length; i++){ const v2 = H[i]; if(v2 < lo || v2 >= hi) continue; const r = (.8 + 1*F.N[i])*lw; g.moveTo(P[i].x + r, P[i].y); g.arc(P[i].x, P[i].y, r, 0, TAU); }
+      g.fillStyle = rgba(h, .12 + .08*j); g.fill(); }
   },
   trait(x, F, t, m){
     const P = F.P, u = F.u, v = F.v, lw = F.lw, c = this.teinte.coeur, C = m.C, H = m.H, Bk = [.12, .3, .55, .8];
     rimTrait(x, F, t, this.teinte.halo);
-    x.lineCap = 'round'; for(const k of m.topo){ if(k.a < .05) continue; x.beginPath(); lisse(x, k.l, false); x.lineWidth = .6*lw; x.strokeStyle = rgba(c, .55*k.a); x.stroke(); }
+    x.lineCap = 'round'; for(const k of m.topo){ if(k.a < .05) continue; x.beginPath(); lisse(x, k.l, false); x.lineWidth = .32*lw; x.strokeStyle = rgba(c, .42*k.a); x.stroke(); }
     for(let j = 0; j < 4; j++){ const lo = Bk[j], hi = j < 3 ? Bk[j+1] : 9, pts = [];
       for(let i = 0; i < P.length; i++){ const v2 = H[i]; if(v2 >= lo && v2 < hi) pts.push(i); }
       if(!pts.length) continue;
-      const rr = i => (.5 + .9*F.N[i])*lw*(.8 + .25*j);
-      x.beginPath(); for(const i of pts){ const r = rr(i) + .9*lw; x.moveTo(P[i].x + r, P[i].y); x.arc(P[i].x, P[i].y, r, 0, TAU); }
-      x.fillStyle = rgba('25,10,0', .18 + .1*j); x.fill();
+      const rr = i => (.3 + .45*F.N[i])*lw*(.8 + .2*j);
+      x.beginPath(); for(const i of pts){ const r = rr(i) + .45*lw; x.moveTo(P[i].x + r, P[i].y); x.arc(P[i].x, P[i].y, r, 0, TAU); }
+      x.fillStyle = rgba('25,10,0', .06 + .04*j); x.fill();
       x.beginPath(); for(const i of pts){ const r = rr(i); x.moveTo(P[i].x + r, P[i].y); x.arc(P[i].x, P[i].y, r, 0, TAU); }
-      x.fillStyle = rgba(c, .45 + .18*j); x.fill(); }
+      x.fillStyle = rgba(c, .32 + .14*j); x.fill(); }
     if(m.scan){
       const L = F.box.w*.95, B0 = { x:C.x + v.x*m.vb - u.x*L, y:C.y + v.y*m.vb - u.y*L }, B1 = { x:C.x + v.x*m.vb + u.x*L, y:C.y + v.y*m.vb + u.y*L };
       const gl = x.createLinearGradient(B0.x, B0.y, B1.x, B1.y); gl.addColorStop(0, rgba(c, 0)); gl.addColorStop(.3, rgba(c, .75)); gl.addColorStop(.7, rgba(c, .75)); gl.addColorStop(1, rgba(c, 0));
-      x.beginPath(); x.moveTo(B0.x, B0.y); x.lineTo(B1.x, B1.y); x.lineWidth = .8*lw; x.strokeStyle = gl; x.stroke();
+      x.beginPath(); x.moveTo(B0.x, B0.y); x.lineTo(B1.x, B1.y); x.lineWidth = .4*lw; x.strokeStyle = gl; x.stroke();
       if(m.ligne && m.ligne.length > 3){ x.lineCap = 'round'; x.lineJoin = 'round';
-        x.beginPath(); lisse(x, m.ligne, false); x.lineWidth = 2.8*lw; x.strokeStyle = 'rgba(40,16,0,.5)'; x.stroke();
-        x.lineWidth = 1.2*lw; x.strokeStyle = rgba(c, .97); x.stroke(); }
+        x.beginPath(); lisse(x, m.ligne, false); x.lineWidth = 1.3*lw; x.strokeStyle = 'rgba(40,16,0,.2)'; x.stroke();
+        x.lineWidth = .55*lw; x.strokeStyle = rgba(c, .92); x.stroke(); }
     }
   },
   bulle(F, t, m){
