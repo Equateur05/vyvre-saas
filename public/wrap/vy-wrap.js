@@ -51,7 +51,7 @@
   var TXT = {
     fr: {
       creer:'Créer mon Wrap', creerSous:'Story vidéo à partager',
-      partager:'Partager', enregistrer:'Enregistrer', fermer:'Fermer', son:'Son',
+      partager:'Partager', autre:'Un autre style', enregistrer:'Enregistrer', fermer:'Fermer', son:'Son',
       prep:'Préparation de votre Wrap…', creation:'Création de votre Wrap…',
       pret:'Votre Wrap est prêt.', pretTouchez:'Prêt : touchez Partager',
       partage:'Partagé.', enregistre:'Fichier enregistré sur cet appareil.',
@@ -93,7 +93,7 @@
     },
     en: {
       creer:'Create my Wrap', creerSous:'Video story to share',
-      partager:'Share', enregistrer:'Save', fermer:'Close', son:'Sound',
+      partager:'Share', autre:'Another style', enregistrer:'Save', fermer:'Close', son:'Sound',
       prep:'Preparing your Wrap…', creation:'Creating your Wrap…',
       pret:'Your Wrap is ready.', pretTouchez:'Ready: tap Share',
       partage:'Shared.', enregistre:'File saved on this device.',
@@ -224,7 +224,7 @@
     var out = {
       type:type, prenom:prenom, titre:String(d.titre || '').trim(),
       chiffres:chiffres, phare:phare, autres:autres, items:items,
-      exemple:!!d.exemple, palette:(d.palette && d.palette in PALETTES) ? d.palette : PAL_DEFAUT, style:/^(A|B|C|D|D[1-4]|R[1-4]|L[1-4]|X[1-4])$/.test(String(d.style || '').toUpperCase()) ? String(d.style).toUpperCase() : 'D',   /* 06/10 : Charles a choisi le D */
+      exemple:!!d.exemple, palette:(d.palette && d.palette in PALETTES) ? d.palette : (PAL_FIXE ? PAL_DEFAUT : auHasard(Object.keys(PALETTES))), style:/^(A|B|C|D|D[1-4]|R[1-4]|L[1-4]|X[1-4])$/.test(String(d.style || '').toUpperCase()) ? String(d.style).toUpperCase() : auHasard(STYLES_DEFAUT),   /* 07/10 : Charles valide les 4 Wrap 3D : style et couleur tires au hasard a chaque Wrap */
       a:hexRgb(d.couleur || th.a), b:hexRgb(d.couleur2 || th.b), fond:th.fond, theme:th,
       besoins:Array.isArray(d.besoins) ? d.besoins.filter(function(b){ return b && b.cle; }) : undefined,
       lecture:lecture, visage:visage
@@ -1069,8 +1069,9 @@
     soleil:    { nom:'Jaune soleil & rouge',   c1:[255, 210, 0],   c2:[255, 70, 40],   noir:[14, 8, 2],     blanc:[255, 252, 236] },
     menthe:    { nom:'Menthe & chocolat',      c1:[120, 240, 200], c2:[255, 150, 120], noir:[30, 16, 10],   blanc:[240, 255, 250] }
   };
-  var PAL_DEFAUT = 'origine';
-  try { var qp = (location.search.match(/[?&]pal=([a-z]+)/) || [])[1]; if (qp && qp in PALETTES) PAL_DEFAUT = qp; } catch(e){}
+  var PAL_DEFAUT = 'origine', PAL_FIXE = false, STYLES_DEFAUT = ['X1', 'X2', 'X3', 'X4'];
+  function auHasard(l){ return l[Math.floor(Math.random()*l.length)]; }
+  try { var qp = (location.search.match(/[?&]pal=([a-z]+)/) || [])[1]; if (qp && qp in PALETTES){ PAL_DEFAUT = qp; PAL_FIXE = true; } } catch(e){}
   function couleurs(d){
     var P = PALETTES[d.palette], V = VIVES[d.type] || VIVES.peau;
     return P ? { c1:P.c1, c2:P.c2, noir:P.noir, blanc:P.blanc } : { c1:V[0], c2:V[1], noir:[8, 8, 8], blanc:[250, 246, 238] };
@@ -3935,6 +3936,7 @@ background:#000;box-shadow:0 40px 90px -30px rgba(0,0,0,.95),0 0 0 1px rgba(217,
 .vyw-b:active{transform:scale(.97)}\
 .vyw-p{border:0;color:#14110b;background:linear-gradient(180deg,#efe4c8 0%,#d3bf92 100%);box-shadow:0 14px 34px -14px rgba(217,201,163,.6)}\
 .vyw-s{border:1px solid rgba(217,201,163,.45);background:transparent;color:#d9c9a3}\
+.vyw-autre{display:block;margin:12px auto 0;border:0;background:none;color:rgba(217,201,163,.85);font:500 11px/1 Inter,"Helvetica Neue",Arial,sans-serif;letter-spacing:.2em;text-transform:uppercase;text-decoration:underline;text-underline-offset:5px;padding:10px;cursor:pointer}\
 .vyw-b.attente{opacity:.6}\
 .vyw-p.go{animation:vywGo 1.1s ease-in-out infinite}\
 .vyw-diag{margin:0;max-width:360px;text-align:left;font:400 10px/1.45 "JetBrains Mono","SF Mono",Menlo,monospace;color:#9fe0c0;word-break:break-word;white-space:normal}\
@@ -3991,11 +3993,16 @@ font-family:Inter,"Helvetica Neue",Arial,sans-serif;box-shadow:0 18px 44px -20px
         '<button type="button" class="vyw-ic vyw-x"></button></span></div>' +
       '<div class="vyw-scene"><canvas width="' + W + '" height="' + H + '"></canvas><div class="vyw-prog"><i></i></div></div>' +
       '<p class="vyw-etat" aria-live="polite"></p>' + (DIAG ? '<p class="vyw-diag"></p>' : '') +
-      '<div class="vyw-actions"><button type="button" class="vyw-b vyw-p"></button><button type="button" class="vyw-b vyw-s"></button></div>';
+      '<div class="vyw-actions"><button type="button" class="vyw-b vyw-p"></button><button type="button" class="vyw-b vyw-s"></button></div>' +
+      '<button type="button" class="vyw-autre"></button>';
     var q = function(s){ return el.querySelector(s); };
     q('.vyw-son span').textContent = L.son;
     q('.vyw-x').innerHTML = IC_X; q('.vyw-x').setAttribute('aria-label', L.fermer);
     q('.vyw-p').textContent = L.partager; q('.vyw-s').textContent = L.enregistrer;
+    /* 07/10 : un autre tirage (style et couleur differents de ceux affiches) */
+    q('.vyw-autre').textContent = L.autre;
+    q('.vyw-autre').addEventListener('click', function(){ var st = auHasard(STYLES_DEFAUT.filter(function(x){ return x !== d.style; })), pl = auHasard(Object.keys(PALETTES).filter(function(x){ return x !== d.palette; }));
+      ouvrir(Object.assign({}, donnees, { style:st, palette:pl })); });
     var canvas = q('canvas'), etatEl = q('.vyw-etat'), prog = q('.vyw-prog i');
     function etat(s){ etatEl.textContent = s || ''; }
     etat(L.prep);
