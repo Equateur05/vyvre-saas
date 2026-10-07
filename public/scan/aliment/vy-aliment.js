@@ -140,12 +140,15 @@
     if(AFFINE.saison){ if(sa.length && sa.length < 12) b += sa.indexOf(mois) >= 0 ? 1 : -1; if(f.origine_possible_france) b += .5; }
     if(AFFINE.usage === 'quotidien') b += f.usage === 'quotidien' ? .5 : -1; else if(AFFINE.usage === 'decouverte' && f.usage === 'rare') b += .5; else if(AFFINE.usage === 'tendance' && f.tendance) b += 1;
     return Math.max(-2, Math.min(2, b)); }
+  var DECLENCHEURS = /tomate|piment|cannelle|chocolat|cacao|orange|citron|pamplemousse|mandarine|cl[ée]mentine/i;
   function choisir(ind){ var e = exclus(), mois = new Date().getMonth() + 1, G = { A:3, B:2, C:1 };
     var cand = DATA.filter(function(f){ return !e.x[f.id] && G[f.niveau_preuve_peau] && (f.etudes || []).length; })   /* 01/10 (audit) : au moins une etude */.map(function(f){
       var c1 = f.cibles_peau.indexOf(ind.i1) >= 0, c2 = ind.i2 && f.cibles_peau.indexOf(ind.i2) >= 0, c3 = !c1 && !c2 ? (ind.suite || []).filter(function(k){ return f.cibles_peau.indexOf(k) >= 0; })[0] : null; if(!c1 && !c2 && !c3) return null;
       var s = G[f.niveau_preuve_peau] + (c1 ? 2 : 0) + (c2 ? 1 : 0) + (!AFFINE.saison && (f.saison || []).indexOf(mois) >= 0 ? .5 : 0) + (f.allegation_UE_autorisee ? .5 : 0) + bonus(f, mois);
       if(a('q8','acne') && ind.i1 === 'pores_sebum' && f.categorie !== 'legumineuse' && f.categorie !== 'cereale_complete') s -= 1;
       if(c3) s -= 1.5;   // un point plus loin dans la lecture : seulement pour completer l'assiette
+      /* 07/10 (audit Charles) : peau qui rougit, les aliments souvent cites comme declencheurs passent derriere (jamais exclus) */
+      if((ind.i1 === 'rougeurs' || ind.i2 === 'rougeurs') && DECLENCHEURS.test(f.nom || '')) s -= 1.5;
       return { f:f, s:s, pour:c1 ? ind.i1 : c2 ? ind.i2 : c3 }; }).filter(Boolean).sort(function(p, q){ return q.s - p.s; });
     var pris = [], cats = {}, nut = {}, sansEtude = 0, rares = 0;
     cand.forEach(function(c){ if(pris.length >= 4) return; var f = c.f, n1 = (f.nutriments_cles[0] || '').toLowerCase();
@@ -161,6 +164,9 @@
 
   function fait(f){ var t = (f.ciqual && f.ciqual.teneurs_pour_100g) || {};
     for(var i = 0; i < f.nutriments_cles.length; i++){ var l = f.nutriments_cles[i].toLowerCase();
+      /* 07/10 : si le compose qui justifie le choix n'est pas dans la table CIQUAL (lycopene, polyphenols...), on le nomme
+         au lieu de citer un nutriment sans rapport avec le besoin (la tomate « pour les rougeurs » par sa vitamine E) */
+      if(i === 0 && /lycop|polyph|acide ol[ée]ique|flavono|cat[ée]chine|anthocyan|curcum|sulforaphane/.test(l) && !NUTR.some(function(n){ return l.indexOf(n[0]) >= 0; })) return 'Composé étudié : ' + f.nutriments_cles[0].replace(/\s*\(.*\)\s*$/, '') + ' (voir les études ci-dessous).';
       for(var j = 0; j < NUTR.length; j++){ var m = NUTR[j][0], k = NUTR[j][1];
         if((l.indexOf(m) >= 0 || (m === 'oméga-3' && l.indexOf('epa') >= 0)) && t[k] > 0){ if(k === 'epa_dha_mg' && !(t[k] > 50)) continue; if(k === 'ala_g' && !(t[k] > .3)) continue;
           var val = t[k] >= 10 ? Math.round(t[k]) : Math.round(t[k]*10)/10; return '100 g apportent environ ' + String(val).replace('.', ',') + ' ' + NUTR[j][2] + ' (table CIQUAL).'; } } }
@@ -477,7 +483,7 @@
     var ex = exclus().x, enceinte = a('q3','enceinte') || a('q3','allaite') || a('q3','projet');
     var actifs = {}; (COMBOS.actifs || []).forEach(function(z){ actifs[z.id] = z; });
     var lignes = COMBOS.combos.filter(function(c){ var ac = actifs[c.actif_id]; if(/tomate/.test(c.aliment_id) && c.actif_id === 'protection_solaire') return false; var sensible = ind.i1 === 'rougeurs' || ind.i2 === 'rougeurs' || ((AFFINE && AFFINE.besoins) || []).indexOf('rougeurs') >= 0;   /* 01/10 (audit) : peau reactive, pas d'AHA ni de retinoide */
-      return (c.indice === ind.i1 || c.indice === ind.i2) && !ex[c.aliment_id] && ac && !(sensible && ['aha','retinoide'].indexOf(ac.id) >= 0) && !(enceinte && ac.grossesse === 'eviter') && !(MODE === 'prudent' && ac.grossesse !== 'ok') && !(MODE === 'mineur' && ac.id !== 'protection_solaire'); })
+      return (c.indice === ind.i1 || c.indice === ind.i2) && !ex[c.aliment_id] && ac && !(sensible && ['aha','retinoide','vitamine_c','acide_salicylique'].indexOf(ac.id) >= 0) && !(enceinte && ac.grossesse === 'eviter') && !(MODE === 'prudent' && ac.grossesse !== 'ok') && !(MODE === 'mineur' && ac.id !== 'protection_solaire'); })
       .sort(function(p, q){ return (ids[q.aliment_id] ? 1 : 0) - (ids[p.aliment_id] ? 1 : 0) || (p.ordre || 9) - (q.ordre || 9); }).slice(0, 3);
     var oeil = soinYeux(ind);   /* 04/10 : le contour des yeux, a part, sans aliment */
     if(!lignes.length) return oeil; var dejaProd = {};
