@@ -12,10 +12,11 @@
    donnees = { type:'peau'|'cheveux'|'aliment', prenom, titre,
                chiffres:[{label, valeur, unite}], phare:{label, valeur, unite} (sinon chiffres[0]),
                items:[{nom, marque, image, etape, fond}], couleur, exemple,
-               style:'A'|'B'|'C'|'D'|'D1'..'D4'|'R1'..'R4' (defaut 'D'), palette }
+               style:'A'|'B'|'C'|'D'|'D1'..'D4'|'R1'..'R4'|'L1'..'L4' (defaut 'D'), palette }
    07/10 : chaque chiffre peut porter une cle (hydration, glow... ; boucle ; saison...),
    et le cheveu une liste besoins:[{cle, source:'reponses'|'photo'|'lecture'}] :
    la serie R (la revelation) en tire la phrase du besoin (table BES).
+   07/10 (soir) : la serie L (luxe), memes phrases, polices de mode locales (fonts/, OFL).
 
    Regles : aucune photo du visage, aucun prix, aucun chiffre invente (on ne
    dessine que ce qui arrive dans donnees), pas d'emoji.
@@ -70,6 +71,13 @@
       r:{ hook:'LE VERDICT…', aussi:'AUSSI', priorite:'TA PRIORITÉ', plusBasse:'LA PLUS BASSE', reponses:'D’APRÈS TES RÉPONSES', lectureReponses:'TA LECTURE ET TES RÉPONSES',
           reponsesCourt:'TES RÉPONSES', lues:'LUES', taLecture:'TA LECTURE', tirage:'LE TIRAGE', n1:'MON BESOIN N°1', lecture:'LECTURE', analyse:'ANALYSE', routine:'MA ROUTINE', assiette:'MON ASSIETTE',
           cta:{ peau:['ET TOI,', 'TA PEAU VEUT QUOI\u202f?'], cheveux:['ET TOI,', 'TES CHEVEUX VEULENT QUOI\u202f?'], aliment:['ET TOI,', 'TU METS QUOI DANS TON ASSIETTE\u202f?'] } },
+      /* L1 a L4 (07/10) */
+      l:{ hook:{ peau:'Ce que ta peau demande', cheveux:'Ce que tes cheveux demandent', aliment:'Ce que dit ton assiette' },
+          edition:{ peau:'Édition peau', cheveux:'Édition cheveux', aliment:'Édition assiette' },
+          soins:{ peau:'Les soins', cheveux:'Les soins', aliment:'L’assiette' }, aussi:'Aussi',
+          cta:{ peau:['Et toi,', 'ta peau veut quoi\u202f?'], cheveux:['Et toi,', 'tes cheveux veulent quoi\u202f?'], aliment:['Et toi,', 'tu mets quoi dans ton assiette\u202f?'] },
+          plusBasse:'ta mesure la plus basse', mesures:'mesures', mesure:'mesure', lectures:'lectures', lecture:'lecture', aliments:'aliments,', uneAssiette:'une assiette.', unePriorite:'une priorité.',
+          enCouv:'En couverture', defile:'Défilé', look:'Look', dernier:'Dernier passage' },
       diagPartage:{ ok:'ok', annule:'annulé', erreur:'erreur', aucun:'aucun', telecharge:'téléchargé (pas de partage)' }
     },
     en: {
@@ -97,6 +105,12 @@
       r:{ hook:'THE VERDICT…', aussi:'ALSO', priorite:'YOUR PRIORITY', plusBasse:'THE LOWEST', reponses:'FROM YOUR ANSWERS', lectureReponses:'YOUR READING AND ANSWERS',
           reponsesCourt:'YOUR ANSWERS', lues:'READ', taLecture:'YOUR READING', tirage:'THE DRAW', n1:'MY NO. 1 NEED', lecture:'READING', analyse:'ANALYSIS', routine:'MY ROUTINE', assiette:'MY PLATE',
           cta:{ peau:['AND YOU?', 'WHAT DOES YOUR SKIN NEED?'], cheveux:['AND YOU?', 'WHAT DOES YOUR HAIR NEED?'], aliment:['AND YOU?', 'WHAT’S ON YOUR PLATE?'] } },
+      l:{ hook:{ peau:'What your skin asks for', cheveux:'What your hair asks for', aliment:'What your plate says' },
+          edition:{ peau:'Skin edition', cheveux:'Hair edition', aliment:'Plate edition' },
+          soins:{ peau:'The ritual', cheveux:'The ritual', aliment:'The plate' }, aussi:'Also',
+          cta:{ peau:['And you,', 'what does your skin need?'], cheveux:['And you,', 'what does your hair need?'], aliment:['And you,', 'what’s on your plate?'] },
+          plusBasse:'your lowest measure', mesures:'measures', mesure:'measure', lectures:'readings', lecture:'reading', aliments:'foods,', uneAssiette:'one plate.', unePriorite:'one priority.',
+          enCouv:'Cover story', defile:'Runway', look:'Look', dernier:'Final look' },
       diagPartage:{ ok:'ok', annule:'cancelled', erreur:'error', aucun:'none', telecharge:'downloaded (no share)' }
     }
   };
@@ -177,7 +191,7 @@
     var out = {
       type:type, prenom:prenom, titre:String(d.titre || '').trim(),
       chiffres:chiffres, phare:phare, autres:autres, items:items,
-      exemple:!!d.exemple, palette:(d.palette && d.palette in PALETTES) ? d.palette : PAL_DEFAUT, style:/^(A|B|C|D|D[1-4]|R[1-4])$/.test(String(d.style || '').toUpperCase()) ? String(d.style).toUpperCase() : 'D',   /* 06/10 : Charles a choisi le D */
+      exemple:!!d.exemple, palette:(d.palette && d.palette in PALETTES) ? d.palette : PAL_DEFAUT, style:/^(A|B|C|D|D[1-4]|R[1-4]|L[1-4])$/.test(String(d.style || '').toUpperCase()) ? String(d.style).toUpperCase() : 'D',   /* 06/10 : Charles a choisi le D */
       a:hexRgb(d.couleur || th.a), b:hexRgb(d.couleur2 || th.b), fond:th.fond, theme:th,
       besoins:Array.isArray(d.besoins) ? d.besoins.filter(function(b){ return b && b.cle; }) : undefined
     };
@@ -185,18 +199,22 @@
     /* les variantes D1 a D4 : ce qu'elles revelent, derive une fois des vraies valeurs (rien d'aleatoire) */
     if (VARIANTES[out.style]){ var L = T(); out.P = profil(out, L); out.G = devinettes(out); out.C3 = compteARebours(out); }
     /* R1 a R4 : la phrase du besoin, derivee une fois des vraies valeurs (table BES) */
-    if (/^R/.test(out.style)) out.B = besoinsR(out, T());
+    if (/^[RL]/.test(out.style)) out.B = besoinsR(out, T());
+    /* L1 a L4 : les memes besoins, ecrits en titre de une, et le decoupage du temps */
+    if (/^L/.test(out.style)){ out.LX = luxeL(out); out.PL = planL(out); }
     return out;
   }
 
   /* ------------------------------------------- D1 a D4 : tempo et donnees */
   /* chaque variante dure exactement 4 mesures (16 temps) a son propre tempo : la fin retombe sur le debut */
   var VARIANTES = { D1:{ bpm:126 }, D2:{ bpm:128 }, D3:{ bpm:140 }, D4:{ bpm:132 },
-                    R1:{ bpm:120, poster:7.6 }, R2:{ bpm:124, poster:7.6 }, R3:{ bpm:128, poster:7.6 }, R4:{ bpm:116, poster:7.6 } };
+                    R1:{ bpm:120, poster:7.6 }, R2:{ bpm:124, poster:7.6 }, R3:{ bpm:128, poster:7.6 }, R4:{ bpm:116, poster:7.6 },
+                    /* 07/10 : la serie L, 12 temps lents (8,4 s a 8,8 s) */
+                    L1:{ bpm:86, temps:12, poster:5.6 }, L2:{ bpm:82, temps:12, poster:5.6 }, L3:{ bpm:88, temps:12, poster:5.6 }, L4:{ bpm:84, temps:12, poster:5.6 } };
   function temps(st){
     var v = VARIANTES[st];
     if (!v) return { D:D, HOLD:HOLD, CYCLE:CYCLE, FIN_REC:FIN_REC, poster:D - .02, boucle:false };
-    var b = 60 / v.bpm, dv = 16 * b;
+    var b = 60 / v.bpm, dv = (v.temps || 16) * b;
     return { D:dv, HOLD:0, CYCLE:dv, FIN_REC:dv, beat:b, poster:b * (v.poster || 8.6), boucle:true, bpm:v.bpm };
   }
   function est100(c){ return !!c && /100|%/.test(c.unite || ''); }
@@ -1985,6 +2003,925 @@
     this.finD(r.sig, r.sansSite);
   };
 
+
+  /* ===================================================================
+     L1 a L4 · LA SERIE LUXE (07/10/2026). Charles, sur R1-R4 : « pas assez
+     stylé… ça doit faire luxe, plus tendance, plus wow ». Meme arc et memes
+     phrases que R (meme derivation des vraies valeurs : besoinsR, table BES),
+     mais un autre langage :
+       - polices de mode chargees localement (dossier fonts/, licence OFL) :
+         Bodoni Moda (Didone), Cormorant Garamond (italique), Jost (capitales fines) ;
+         rien n'est dessine tant qu'elles ne sont pas chargees (repli propre sinon) ;
+       - noir profond, ivoire, or ; un seul accent ; grain, vignettage, halos ;
+       - mouvement lent, puis la revelation nette sur le temps fort ;
+       - son de film : piano, cordes, timbale, jamais d'EDM.
+     12 temps (7 a 9 s selon le tempo) :
+       0-4      : le suspense (la toute premiere image est deja l'accroche) ;
+       4        : la revelation, la phrase du besoin en titre ;
+       4-6.5    : sa preuve (la vraie mesure), puis les autres besoins ;
+       6.5-10   : les soins, un a la fois ; 10-11.2 : « Et toi ? » ;
+       11.2-12  : retour a la toute premiere image (boucle parfaite).
+     Zone sure : rien d'important au-dessus de y = 280 ni sous y = 1510,
+     colonne centree a x = 520 (le bord droit reste libre).
+     =================================================================== */
+  var LX = 520, LMW = 790, L_SIG = 1500;
+  var DIDONE = '"VY Bodoni Moda","Bodoni 72","Didot","Bodoni MT",Georgia,serif';
+  var GARA = '"VY Cormorant Garamond","Cormorant Garamond","Iowan Old Style",Georgia,serif';
+  var FINE = '"VY Jost",Jost,Futura,"Avenir Next","Helvetica Neue",Arial,sans-serif';
+  var OR_L = [205, 172, 110];
+  /* ---------- les polices, chargees une fois (FontFace), avant le premier dessin */
+  var POL = { etat:'attente', promesse:null };
+  var BASE_POL = (function(){ try { var s = document.currentScript && document.currentScript.src; if (s) return new URL('fonts/', s).href; } catch(e){} return '/wrap/fonts/'; })();
+  var FACES_L = [
+    ['VY Bodoni Moda', 'bodoni-moda-display-400.woff2', { weight:'400', style:'normal' }],
+    ['VY Bodoni Moda', 'bodoni-moda-display-600.woff2', { weight:'600', style:'normal' }],
+    ['VY Bodoni Moda', 'bodoni-moda-display-400-italic.woff2', { weight:'400', style:'italic' }],
+    ['VY Cormorant Garamond', 'cormorant-garamond-300.woff2', { weight:'300', style:'normal' }],
+    ['VY Cormorant Garamond', 'cormorant-garamond-300-italic.woff2', { weight:'300', style:'italic' }],
+    ['VY Cormorant Garamond', 'cormorant-garamond-500-italic.woff2', { weight:'500', style:'italic' }],
+    ['VY Jost', 'jost-300.woff2', { weight:'300', style:'normal' }],
+    ['VY Jost', 'jost-500.woff2', { weight:'500', style:'normal' }]
+  ];
+  function policesL(){
+    if (POL.promesse) return POL.promesse;
+    if (!window.FontFace || !document.fonts){ POL.etat = 'repli'; return (POL.promesse = Promise.resolve(false)); }
+    var tout = Promise.all(FACES_L.map(function(f){
+      var ff = new FontFace(f[0], 'url("' + BASE_POL + f[1] + '") format("woff2")', f[2]);
+      return ff.load().then(function(l){ try { document.fonts.add(l); } catch(e){} return true; });
+    }));
+    /* au-dela de 6 s, ou si un fichier manque : repli sur les polices du systeme (le texte reste visible) */
+    POL.promesse = Promise.race([tout, attendre(6000).then(function(){ throw new Error('delai'); })])
+      .then(function(){ POL.etat = 'ok'; return true; }, function(){ POL.etat = 'repli'; return false; });
+    return POL.promesse;
+  }
+
+  /* ---------- les phrases, en titre de une : les memes besoins que R (memes cles), ecrites en bas de casse */
+  var LUXE = {
+    peau: {
+      hydration:    { fr:['Hydrater.', 'ta peau a soif'], en:['Hydrate.', 'your skin is thirsty'] },
+      glow:         { fr:['Plus d’éclat.', 'réveiller ton teint'], en:['More glow.', 'wake up your skin'] },
+      redness:      { fr:['Apaiser.', 'ta peau veut du calme'], en:['Soothe.', 'your skin wants calm'] },
+      sebum:        { fr:['Réguler.', 'moins de brillance'], en:['Balance.', 'less shine'] },
+      pores:        { fr:['Le grain, affiné.', 'affiner le grain de ta peau'], en:['Texture, refined.', 'refine your skin texture'] },
+      wrinkles:     { fr:['Lisser.', 'les ridules'], en:['Smooth.', 'fine lines'] },
+      pigmentation: { fr:['Unifier.', 'ton teint'], en:['Even out.', 'your skin tone'] },
+      firmness:     { fr:['Raffermir.', 'ta peau veut du ressort'], en:['Firm up.', 'your skin wants bounce'] },
+      _pos:         { fr:['Garder ce niveau.', 'ta peau va bien'], en:['Keep it up.', 'your skin is doing well'] }
+    },
+    cheveux: {
+      secheresse:     { fr:['Nourrir.', 'tes cheveux ont soif'], en:['Nourish.', 'your hair is thirsty'] },
+      casse:          { fr:['Fortifier.', 'moins de casse'], en:['Strengthen.', 'less breakage'] },
+      racinesGrasses: { fr:['Équilibrer.', 'des racines plus légères'], en:['Balance.', 'lighter roots'] },
+      frizz:          { fr:['Discipliner.', 'moins de frisottis'], en:['Smooth.', 'less frizz'] },
+      couleur:        { fr:['Protéger la couleur.', 'tes cheveux colorés'], en:['Protect your colour.', 'coloured hair'] },
+      boucles:        { fr:['Définir tes boucles.', 'des boucles à sublimer'], en:['Define your curls.', 'curls to show off'] },
+      _pos:           { fr:['Garder l’équilibre.', 'tes cheveux vont bien'], en:['Keep the balance.', 'your hair is doing well'] }
+    },
+    aliment: {
+      saison:    { fr:['Plus de saison.', 'ce mois-ci'], en:['More in season.', 'this month'] },
+      surmesure: { fr:['Sur mesure.', 'faite pour toi'], en:['Tailor-made.', 'made for you'] },
+      selection: { fr:['Triée pour toi.', 'mon assiette'], en:['Hand-picked.', 'my plate'] }
+    }
+  };
+  function minusL(s){ try { return String(s).toLocaleLowerCase(langue()); } catch(e){ return String(s).toLowerCase(); } }
+  function phraseCas(s){ s = minusL(s); return s.charAt(0).toLocaleUpperCase() + s.slice(1); }
+  /* la version « luxe » des besoins deja derives par besoinsR (rien n'est recalcule) */
+  function luxeL(d){
+    var lg = langue() === 'fr' ? 'fr' : 'en', tb = LUXE[d.type] || LUXE.peau, B = d.B, LL = T().l;
+    var liste = B.liste.map(function(e, i){
+      var t = e.cle && tb[e.cle] ? tb[e.cle][lg] : null;
+      var titre = t ? t[0] : phraseCas(String(e.gros).replace(/[\s.…]+$/, '')) + '.';
+      var sous = t ? t[1] : (e.constat ? minusL(e.constat) : '');
+      /* la preuve : le libelle de la vraie mesure, puis sa valeur telle que R l'ecrit */
+      var c = e.ref && typeof e.ref === 'object' ? e.ref : null, pr = { label:'', val:'', note:'', texte:'' };
+      var cap = c ? maj(c.label) : '';
+      if (c && e.preuve && e.preuve.indexOf(cap) === 0){
+        var reste = e.preuve.slice(cap.length).trim(), morceaux = reste.split(' · ');
+        pr.label = c.label; pr.val = morceaux[0] || ''; pr.note = morceaux.slice(1).join(' · ');
+        if (d.type === 'peau' && i === 0 && !B.positif && num(c.valeur) !== null) pr.note = LL.plusBasse;
+      } else pr.texte = e.preuve || '';
+      return { cle:e.cle, titre:titre, sous:sous, preuve:pr };
+    });
+    var cta = LL.cta[d.type] || LL.cta.peau;
+    return { liste:liste, cta:cta };
+  }
+  /* le decoupage du temps (en temps de la mesure, 12 par boucle) */
+  function planL(d){
+    var n = d.items.length;
+    return { rev:4, aut:5.3, prod:n ? 6.5 : 8, cta:n ? 10 : 8, bouc:11.2, n:n, dp:n ? 3.5 / n : 0 };
+  }
+  function couleursL(d){
+    var P = PALETTES[d.palette];
+    return { noir:P ? P.noir : [10, 9, 8], ivoire:P ? P.blanc : [244, 238, 226], or:OR_L,
+             acc:P ? (lumRel(P.c1) >= .12 ? P.c1 : P.c2) : OR_L, accP:P ? P.c1 : [150, 112, 52] };
+  }
+  function couleurCss(c, a){ return Array.isArray(c) ? rgba(c, a == null ? 1 : a) : c; }
+  /* l'or : un degrade metallique, avec un reflet qui passe (p de -0,2 a 1,2) */
+  function orL(x, x0, y0, x1, y1, p, base){
+    var B = base || OR_L, g = x.createLinearGradient(x0, y0, x1, y1);
+    var fonce = 'rgb(' + Math.round(B[0] * .66) + ',' + Math.round(B[1] * .58) + ',' + Math.round(B[2] * .46) + ')';
+    var moy = rgba(B, 1), clair = 'rgb(' + Math.min(255, Math.round(B[0] * 1.2 + 10)) + ',' + Math.min(255, Math.round(B[1] * 1.2 + 14)) + ',' + Math.min(255, Math.round(B[2] * 1.25 + 22)) + ')';
+    var st = [[0, fonce], [.28, moy], [.52, clair], [.74, moy], [1, fonce]];
+    if (p != null && p > -.25 && p < 1.25){ st = [[0, fonce], [p - .2, moy], [p, '#fff4d6'], [p + .2, moy], [1, fonce]]; }
+    var last = -1;
+    st.forEach(function(s){ var o = clamp(s[0], 0, 1); if (o < last) o = last; last = o; g.addColorStop(o, s[1]); });
+    return g;
+  }
+  /* un texte espace qui garde le crenage de la police (position de chaque lettre mesuree sur le debut du mot) */
+  function traceL(x, txt, cx, y, sp, align){
+    txt = String(txt);
+    if (!sp){ var ta = x.textAlign; x.textAlign = align || 'center'; x.fillText(txt, cx, y); x.textAlign = ta; return x.measureText(txt).width; }
+    var ch = Array.from(txt), pos = [], acc = '';
+    for (var i = 0; i < ch.length; i++){ pos.push(x.measureText(acc + ch[i]).width - x.measureText(ch[i]).width + sp * i); acc += ch[i]; }
+    var w = x.measureText(txt).width + sp * (ch.length - 1), px = align === 'left' ? cx : align === 'right' ? cx - w : cx - w / 2;
+    var ta2 = x.textAlign; x.textAlign = 'left';
+    for (var j = 0; j < ch.length; j++) if (ch[j] !== ' ') x.fillText(ch[j], px + pos[j], y);
+    x.textAlign = ta2; return w;
+  }
+  function fontD(size, it, poids){ return (it ? 'italic ' : '') + (poids || 400) + ' ' + size + 'px ' + DIDONE; }
+  function fontG(size, it, poids){ return (it ? 'italic ' : '') + (poids || 300) + ' ' + size + 'px ' + GARA; }
+  function fontJ(size, poids){ return (poids || 500) + ' ' + size + 'px ' + FINE; }
+
+  Rendu.prototype.debutL = function(){ var x = this.x; this.n++; this.ga = 1; x.setTransform(1, 0, 0, 1, 0, 0); x.globalAlpha = 1; x.globalCompositeOperation = 'source-over'; x.textBaseline = 'alphabetic'; x.textAlign = 'center'; };
+  Rendu.prototype.tempoL = function(tAbs){ var tm = this.d.tm, t = ((tAbs % tm.D) + tm.D) % tm.D; return t / tm.beat + 1e-6; };
+  /* petites capitales fines, tres espacees (Jost) */
+  Rendu.prototype.capsL = function(txt, cx, y, size, col, a, o){
+    o = o || {}; var x = this.x, s = size, sp = o.sp == null ? .32 : o.sp, maxW = o.maxW || LMW, poids = o.poids || 500, n = 0;
+    txt = maj(txt); n = Array.from(txt).length;
+    function larg(){ x.font = fontJ(s, poids); return x.measureText(txt).width + sp * s * (n - 1); }
+    var sp0 = sp; while (larg() > maxW && sp > sp0 * .35) sp -= .02;
+    while (larg() > maxW && s > size * .6) s -= 1;
+    x.globalAlpha = (a == null ? 1 : a) * this.ga; x.fillStyle = couleurCss(col);
+    var w = traceL(x, txt, cx, y, sp * s, o.align); x.globalAlpha = 1; return w;
+  };
+  /* Cormorant (romain ou italique), reduit pour tenir */
+  Rendu.prototype.garaL = function(txt, cx, y, size, col, a, o){
+    o = o || {}; var x = this.x, s = size, maxW = o.maxW || LMW;
+    x.font = fontG(s, o.it, o.poids); while (x.measureText(txt).width > maxW && s > size * .55){ s -= 2; x.font = fontG(s, o.it, o.poids); }
+    x.globalAlpha = (a == null ? 1 : a) * this.ga; x.fillStyle = couleurCss(col);
+    var w = traceL(x, txt, cx, y, (o.sp || 0) * s, o.align); x.globalAlpha = 1; return { w:w, s:s };
+  };
+  /* Bodoni Moda (Didone), reduit pour tenir */
+  Rendu.prototype.didL = function(txt, cx, y, size, col, a, o){
+    o = o || {}; var x = this.x, s = size, maxW = o.maxW || LMW, sp = o.sp || 0;
+    function larg(){ x.font = fontD(s, o.it, o.poids); return x.measureText(txt).width + sp * s * (Array.from(txt).length - 1); }
+    while (larg() > maxW && s > size * .5) s -= 2;
+    x.globalAlpha = (a == null ? 1 : a) * this.ga; x.fillStyle = couleurCss(col);
+    var w = traceL(x, txt, cx, y, sp * s, o.align); x.globalAlpha = 1; return { w:w, s:s };
+  };
+  /* un texte en lignes de mots (Cormorant), jusqu'a n lignes */
+  Rendu.prototype.lignesL = function(txt, cx, y, size, lh, col, a, o){
+    o = o || {}; var x = this.x; x.font = fontG(size, o.it, o.poids);
+    var ls = lignes(x, txt, o.maxW || LMW, o.n || 2);
+    x.globalAlpha = (a == null ? 1 : a) * this.ga; x.fillStyle = couleurCss(col); x.textAlign = o.align || 'center';
+    for (var i = 0; i < ls.length; i++) x.fillText(ls[i], cx, y + i * lh);
+    x.textAlign = 'center'; x.globalAlpha = 1; return ls.length;
+  };
+  /* la phrase en titre : le decoupage (1 a 3 lignes) qui donne les plus grandes lettres, sans jamais deformer */
+  Rendu.prototype.uneL = function(txt, maxW, maxH, fmax, o){
+    o = o || {}; var x = this.x, cle = txt + '|' + maxW + '|' + maxH + '|' + fmax + '|' + (o.caps ? 1 : 0) + '|' + (o.ital || '') + '|' + (o.nmax || 3) + '|' + (o.sp || 0) + '|' + POL.etat;
+    this._uL = this._uL || {}; if (this._uL[cle]) return this._uL[cle];
+    var T0 = o.caps ? maj(txt) : String(txt), mots = T0.split(' ').filter(Boolean), nmax = o.nmax || 3, cands = [[mots.join(' ')]], i, j;
+    if (nmax >= 2) for (i = 1; i < mots.length; i++) cands.push([mots.slice(0, i).join(' '), mots.slice(i).join(' ')]);
+    if (nmax >= 3) for (i = 1; i < mots.length; i++) for (j = i + 1; j < mots.length; j++) cands.push([mots.slice(0, i).join(' '), mots.slice(i, j).join(' '), mots.slice(j).join(' ')]);
+    var sp = o.sp || 0, best = null;
+    cands.forEach(function(ls){
+      var n = ls.length, it = ls.map(function(l, k){ return o.ital === 'tout' ? true : (o.ital === 'fin' && n > 1 && k === n - 1); });
+      var f = fmax;
+      ls.forEach(function(l, k){ x.font = fontD(100, it[k], o.poids); var w = x.measureText(l).width + sp * 100 * (Array.from(l).length - 1); f = Math.min(f, 100 * maxW / Math.max(1, w)); });
+      f = Math.min(f, maxH / (n * (o.lh || 1.02)));
+      var sc = f * [0, 1, .9, .76][n];
+      if (n > 1 && ls.some(function(l){ return l.replace(/[.,’']/g, '').length <= 2; })) sc *= .72;
+      /* une ligne ne finit pas sur un petit mot (« Plus de / saison » devient « Plus / de saison ») */
+      if (n > 1 && ls.slice(0, -1).some(function(l){ var m = l.split(' '); return m.length > 1 && m[m.length - 1].replace(/[’']/g, '').length <= 3; })) sc *= .8;
+      if (!best || sc > best.sc) best = { ls:ls, it:it, f:f, sc:sc, sp:sp, lh:o.lh || 1.02, poids:o.poids };
+    });
+    return (this._uL[cle] = best);
+  };
+  /* la phrase dessinee : le point final prend l'accent ; fill = couleur ou degrade */
+  Rendu.prototype.dessineUneL = function(lay, cx, cy, fill, acc, a){
+    var x = this.x, f = lay.f, n = lay.ls.length, lh = f * lay.lh, top = cy - n * lh / 2, out = { haut:top, bas:top + n * lh, f:f, larg:0 };
+    x.globalAlpha = (a == null ? 1 : a) * this.ga; x.textAlign = 'left';
+    for (var i = 0; i < n; i++){
+      var ln = lay.ls[i], corps = ln, pt = '', sp = lay.sp * f;
+      x.font = fontD(f, lay.it[i], lay.poids);
+      if (acc && i === n - 1 && /\.$/.test(ln)){ corps = ln.slice(0, -1); pt = '.'; }
+      var wc = x.measureText(corps).width + sp * Math.max(0, Array.from(corps).length - 1), wp = pt ? x.measureText(pt).width + sp : 0;
+      var x0 = cx - (wc + wp) / 2, y = top + i * lh + f * .8;
+      out.larg = Math.max(out.larg, wc + wp);
+      x.fillStyle = couleurCss(fill); traceL(x, corps, x0, y, sp, 'left');
+      if (pt){ x.fillStyle = couleurCss(acc); x.fillText('.', x0 + wc + sp, y); }
+    }
+    x.textAlign = 'center'; x.globalAlpha = 1;
+    return out;
+  };
+  /* la preuve : LIBELLE (capitales fines) + valeur (Didone), et la note en italique */
+  Rendu.prototype.preuveL = function(pr, cx, y, col, colV, a, o){
+    if (!pr || a <= 0) return; o = o || {}; var x = this.x;
+    if (!pr.label){ if (pr.texte) this.capsL(pr.texte, cx, y, o.size || 22, col, .9 * a, { sp:.3 }); return; }
+    var sl = o.size || 22, sv = Math.round(sl * 2.6), lab = maj(pr.label), sp = .3 * sl;
+    x.font = fontJ(sl, 500); var wl = x.measureText(lab).width + sp * (Array.from(lab).length - 1);
+    x.font = fontD(sv, false); var wv = x.measureText(pr.val).width, gap = 26, tot = wl + gap + wv, k = 1;
+    if (tot > LMW){ k = LMW / tot; }
+    var x0 = cx - tot * k / 2;
+    x.save(); x.translate(x0, y); x.scale(k, k);
+    x.globalAlpha = .82 * a * this.ga; x.fillStyle = couleurCss(col); x.font = fontJ(sl, 500); traceL(x, lab, 0, -sv * .06, sp, 'left');
+    x.globalAlpha = a * this.ga; x.fillStyle = couleurCss(colV || col); x.font = fontD(sv, false); x.textAlign = 'left'; x.fillText(pr.val, wl + gap, 0);
+    x.restore(); x.textAlign = 'center'; x.globalAlpha = 1;
+    if (pr.note) this.garaL(pr.note, cx, y + (o.noteDy || 54), o.noteSize || 38, col, .85 * a, { it:true });
+  };
+  /* « Aussi : … » les autres besoins, en une ligne italique */
+  Rendu.prototype.aussiL = function(LX2, cx, y, col, colT, a, o){
+    o = o || {}; var au = LX2.liste.slice(1, 3); if (!au.length || a <= 0) return;
+    var x = this.x, lab = maj(T().l.aussi), s = o.size || 40, txt = au.map(function(e){ return e.titre; }).join('   ');
+    x.font = fontJ(20, 500); var sp = 6, wl = x.measureText(lab).width + sp * (lab.length - 1);
+    x.font = fontG(s, true); while (x.measureText(txt).width + wl + 30 > LMW && s > 24){ s -= 2; x.font = fontG(s, true); }
+    var wt = x.measureText(txt).width, x0 = cx - (wl + 30 + wt) / 2;
+    x.globalAlpha = .75 * a * this.ga; x.fillStyle = couleurCss(col); x.font = fontJ(20, 500); traceL(x, lab, x0, y - s * .1, sp, 'left');
+    x.globalAlpha = a * this.ga; x.fillStyle = couleurCss(colT || col); x.font = fontG(s, true); x.textAlign = 'left'; x.fillText(txt, x0 + wl + 30, y); x.textAlign = 'center'; x.globalAlpha = 1;
+  };
+  /* la signature, toujours la : (EXEMPLE ·) VYVRE.FR */
+  Rendu.prototype.signeL = function(col, a){
+    var x = this.x; x.setTransform(1, 0, 0, 1, 0, 0); x.globalCompositeOperation = 'source-over';
+    var s = (this.d.exemple ? T().exemple + '   ·   ' : '') + this.L.site;
+    this.ga = 1; this.capsL(s, LX, L_SIG, 23, col, a == null ? .9 : a, { sp:.36 });
+  };
+  /* un calque : une scene entiere rendue a part, posee avec une opacite (les fondus d'une scene a l'autre) */
+  Rendu.prototype.calqueL = function(fn, a){
+    if (a <= .001) return; var x0 = this.x;
+    if (a >= .999){ fn.call(this); this.x = x0; return; }
+    if (!this._cq){ this._cq = document.createElement('canvas'); this._cq.width = W; this._cq.height = H; }
+    var cx = this._cq.getContext('2d'); cx.setTransform(1, 0, 0, 1, 0, 0); cx.globalAlpha = 1; cx.globalCompositeOperation = 'source-over'; cx.textBaseline = 'alphabetic'; cx.textAlign = 'center';
+    this.x = cx; var ga = this.ga; this.ga = 1;
+    try { fn.call(this); } finally { this.x = x0; this.ga = ga; }
+    x0.save(); x0.setTransform(1, 0, 0, 1, 0, 0); x0.globalAlpha = a; x0.globalCompositeOperation = 'source-over'; x0.drawImage(this._cq, 0, 0); x0.restore();
+  };
+  /* les fonds, calcules une fois par palette */
+  Rendu.prototype.fondNoirL = function(K, cy){
+    var k = 'n' + K.noir.join(',') + (cy || 0); this._fL = this._fL || {};
+    if (!this._fL[k]){
+      var b = document.createElement('canvas'); b.width = W; b.height = H; var g = b.getContext('2d'), N = K.noir;
+      g.fillStyle = rgba(N, 1); g.fillRect(0, 0, W, H);
+      var c2 = [Math.min(255, N[0] + 16), Math.min(255, N[1] + 14), Math.min(255, N[2] + 12)];
+      var h1 = g.createRadialGradient(LX, cy || 860, 30, LX, cy || 860, 900); h1.addColorStop(0, rgba(c2, 1)); h1.addColorStop(1, rgba(N, 1));
+      g.fillStyle = h1; g.fillRect(0, 0, W, H);
+      var v = g.createRadialGradient(W / 2, H / 2, H * .26, W / 2, H / 2, H * .74); v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(1, 'rgba(0,0,0,.72)');
+      g.fillStyle = v; g.fillRect(0, 0, W, H);
+      this._fL[k] = b;
+    }
+    this.x.drawImage(this._fL[k], 0, 0);
+  };
+  Rendu.prototype.fondPapierL = function(K){
+    var k = 'p' + K.ivoire.join(',') + K.noir.join(','); this._fL = this._fL || {};
+    if (!this._fL[k]){
+      var b = document.createElement('canvas'); b.width = W; b.height = H; var g = b.getContext('2d'), P = K.ivoire, N = K.noir;
+      g.fillStyle = rgba(P, 1); g.fillRect(0, 0, W, H);
+      var h1 = g.createRadialGradient(W * .38, H * .3, 40, W * .38, H * .3, 1300); h1.addColorStop(0, 'rgba(255,255,255,.22)'); h1.addColorStop(1, 'rgba(255,255,255,0)');
+      g.fillStyle = h1; g.fillRect(0, 0, W, H);
+      var v = g.createRadialGradient(W / 2, H * .48, H * .3, W / 2, H * .48, H * .8); v.addColorStop(0, rgba(N, 0)); v.addColorStop(1, rgba(N, .16));
+      g.fillStyle = v; g.fillRect(0, 0, W, H);
+      /* une fibre de papier, tres legere (fixe : elle ne scintille pas) */
+      var rnd = 7; function r01(){ rnd = (rnd * 16807) % 2147483647; return rnd / 2147483647; }
+      g.globalAlpha = .035; g.fillStyle = rgba(N, 1);
+      for (var i = 0; i < 2600; i++){ g.fillRect(r01() * W, r01() * H, 1 + r01() * 2.2, 1); }
+      g.globalAlpha = 1;
+      this._fL[k] = b;
+    }
+    this.x.drawImage(this._fL[k], 0, 0);
+  };
+  /* la lumiere en douche (un cone doux venu d'en haut) et sa flaque au sol */
+  Rendu.prototype.doucheL = function(cx, sol, a, larg){
+    if (a <= 0) return; var x = this.x;
+    if (!this._dch){
+      var c = document.createElement('canvas'); c.width = 900; c.height = 1300; var g = c.getContext('2d');
+      for (var i = 0; i < 34; i++){ var k = .3 + i * .036, tw = 120 * k, bw = 720 * k;
+        var gr = g.createLinearGradient(0, 0, 0, 1300); gr.addColorStop(0, 'rgba(255,246,228,.036)'); gr.addColorStop(.55, 'rgba(255,246,228,.015)'); gr.addColorStop(1, 'rgba(255,246,228,.004)');
+        g.fillStyle = gr; g.beginPath(); g.moveTo(450 - tw / 2, 0); g.lineTo(450 + tw / 2, 0); g.lineTo(450 + bw / 2, 1300); g.lineTo(450 - bw / 2, 1300); g.closePath(); g.fill(); }
+      this._dch = c;
+      var p = document.createElement('canvas'); p.width = 900; p.height = 200; var pg = p.getContext('2d');
+      pg.translate(450, 100); pg.scale(1, .17); var rg = pg.createRadialGradient(0, 0, 0, 0, 0, 440); rg.addColorStop(0, 'rgba(255,244,222,.5)'); rg.addColorStop(.5, 'rgba(255,244,222,.14)'); rg.addColorStop(1, 'rgba(255,244,222,0)');
+      pg.fillStyle = rg; pg.fillRect(-450, -600, 900, 1200); this._sol = p;
+    }
+    var s = larg || 1;
+    x.save(); x.globalCompositeOperation = 'lighter'; x.globalAlpha = a * this.ga;
+    x.drawImage(this._dch, cx - 450 * s, sol - 1300, 900 * s, 1300);
+    x.globalAlpha = a * .9 * this.ga; x.drawImage(this._sol, cx - 450 * s, sol - 100, 900 * s, 200);
+    x.restore();
+  };
+  /* la poussiere dans la lumiere : periodique sur la boucle (meme place au debut et a la fin) */
+  Rendu.prototype.poussiereL = function(q, cx, haut, bas, larg, a){
+    if (a <= 0) return; var x = this.x; x.save(); x.globalCompositeOperation = 'lighter';
+    for (var i = 0; i < 26; i++){
+      var r1 = hash(i, 41), r2 = hash(i, 43), r3 = hash(i, 47), k = 1 + (i % 2);
+      var y = haut + ((((r2 + q / 12 * k) % 1) + 1) % 1) * (bas - haut), xx = cx + (r1 - .5) * larg * (.4 + .6 * (y - haut) / (bas - haut)) + Math.sin(2 * Math.PI * (q / 12 * 2 + r3)) * 14;
+      var tw = .5 + .5 * Math.sin(2 * Math.PI * (q / 12 * (3 + i % 3) + r1)), sz = 4 + r3 * 9;
+      x.globalAlpha = a * .5 * tw * this.ga; x.drawImage(this.point, xx - sz / 2, y - sz / 2, sz, sz);
+    }
+    x.restore();
+  };
+  /* un soin en vitrine : la photo detouree, posee sur sa ligne de sol, avec son reflet (calcule une fois) */
+  Rendu.prototype.vitrineL = function(k, mode){
+    var key = k + '|' + mode; this._vit = this._vit || {}; if (key in this._vit) return this._vit[key];
+    var im = this.imgs[k], src = im ? (im.brut || im) : null, it = this.d.items[k] || {}, out = null;
+    if (src){
+      var S = 600, c = document.createElement('canvas'); c.width = S; c.height = Math.round(S * 1.55); var g = c.getContext('2d');
+      var sx = 0, sy = 0, iw = src.naturalWidth || src.width, ih = src.naturalHeight || src.height;
+      if (!im.brut && im.boite){ sx = im.boite.x; sy = im.boite.y; iw = im.boite.w; ih = im.boite.h; }
+      var fond = !!it.fond, r = Math.min(S * (fond ? .74 : .9) / iw, S * (fond ? .8 : .94) / ih), w = iw * r, h = ih * r, x0 = (S - w) / 2, y0 = S - h - (fond ? 28 : 4);
+      function pose(gg){
+        if (fond){ var p = 22, rx = x0 - p, ry = y0 - p, rw = w + 2 * p, rh = h + 2 * p; gg.fillStyle = '#f4f0e8'; rond(gg, rx, ry, rw, rh, 18); gg.fill(); }
+        gg.drawImage(src, sx, sy, iw, ih, x0, y0, w, h);
+      }
+      pose(g);
+      g.save(); g.translate(0, 2 * S); g.scale(1, -1); g.globalAlpha = mode === 'papier' ? 0 : .34; pose(g); g.restore();
+      g.globalCompositeOperation = 'destination-out';
+      var gr = g.createLinearGradient(0, S, 0, S + h * .5); gr.addColorStop(0, 'rgba(0,0,0,.15)'); gr.addColorStop(1, 'rgba(0,0,0,1)');
+      g.fillStyle = gr; g.fillRect(0, S, S, c.height - S); g.globalCompositeOperation = 'source-over';
+      c.S = S; c.boite = { x:x0, y:y0, w:w, h:h };
+      out = c;
+    }
+    return (this._vit[key] = out);
+  };
+  /* pose le soin k : base au sol (cx, sol), hauteur de boite « taille » */
+  Rendu.prototype.soinL = function(k, cx, sol, taille, a, mode, col){
+    if (a <= 0) return; var x = this.x, v = this.vitrineL(k, mode);
+    if (v){ var s = taille / v.S; x.globalAlpha = a * this.ga; x.drawImage(v, cx - v.S * s / 2, sol - v.S * s, v.S * s, v.height * s); x.globalAlpha = 1; return; }
+    /* pas d'image : un ecrin vide au trait fin, avec son numero */
+    x.globalAlpha = a * .7 * this.ga; x.strokeStyle = couleurCss(col); x.lineWidth = 1.5;
+    x.beginPath(); x.arc(cx, sol - taille * .42, taille * .2, 0, Math.PI * 2); x.stroke(); x.globalAlpha = 1;
+    this.didL(['I', 'II', 'III', 'IV'][k] || '', cx, sol - taille * .42 + 22, 64, col, .8 * a, { it:true });
+  };
+  /* la legende d'un soin : chiffre romain et etape, nom, marque */
+  Rendu.prototype.legendeL = function(k, cx, y, col, colN, a, o){
+    if (a <= 0) return; o = o || {}; var x = this.x, it = this.d.items[k], rom = ['I', 'II', 'III', 'IV'][k] || String(k + 1);
+    var et = it.etape ? phraseCas(it.etape) : '', s1 = o.s1 || 60, s2 = o.s2 || 52;
+    x.font = fontD(s1, true); var wr = x.measureText(rom + '.').width;
+    x.font = fontG(42, true); var we = et ? x.measureText(et).width : 0, gap = et ? 22 : 0, x0 = cx - (wr + gap + we) / 2;
+    if (wr + gap + we > LMW){ x0 = cx - LMW / 2; }
+    x.globalAlpha = a * this.ga; x.textAlign = 'left';
+    x.fillStyle = couleurCss(colN || col); x.font = fontD(s1, true); x.fillText(rom + '.', x0, y);
+    if (et){ x.fillStyle = couleurCss(col); x.font = fontG(42, true); var maxE = LMW - wr - gap, ee = et; while (x.measureText(ee).width > maxE && ee.length > 2) ee = ee.slice(0, -2) + '…'; x.fillText(ee, x0 + wr + gap, y); }
+    x.textAlign = 'center'; x.globalAlpha = 1;
+    var nl = this.lignesL(it.nom, cx, y + (o.dy1 || 72), s2, s2 * 1.08, col, a, { n:2 });
+    if (it.marque) this.capsL(it.marque, cx, y + (o.dy1 || 72) + nl * s2 * 1.08 + 4, 21, col, .78 * a, { sp:.34 });
+  };
+  /* une transition de soin a soin : un fondu enchaine (alpha) et une avancee lente (u) */
+  function fenetreL(q, PL, k){
+    var s = PL.prod + k * PL.dp, e = s + PL.dp, a = k === 0 ? 1 : seg(q, s - .12, s + .22), b = k === PL.n - 1 ? 0 : seg(q, e - .12, e + .22);
+    /* la legende ne se superpose jamais a la suivante : elle sort avant que l'autre entre */
+    var la = k === 0 ? 1 : seg(q, s + .1, s + .36), lb = k === PL.n - 1 ? 0 : seg(q, e - .2, e - .02);
+    return { a:a * (1 - b), u:clamp((q - s) / PL.dp, 0, 1.3), leg:la * (1 - lb) };
+  }
+
+  /* ---------- L1 · LA UNE (86 BPM) : une couverture de magazine sur papier ivoire qui se compose ;
+     le titre de une = le besoin. Puis les pages interieures (les soins), puis la une « Et toi ? ». */
+  Rendu.prototype.uneTxtL1 = function(){
+    var d = this.d, L = T().l, n = d.B.lignes.length, lg = langue() === 'fr' ? 'fr' : 'en';
+    if (d.type === 'aliment'){ var rv = d.chiffres.filter(function(c){ return (c.cle === 'revue' || /revue|review/i.test(c.label)) && num(c.valeur) !== null; })[0];
+      if (rv) return [valTxt(rv) + ' ' + L.aliments, L.uneAssiette]; return null; }
+    n = d.B.lignes.filter(function(r){ return r.ref !== 'rep'; }).length; if (!n) return null;
+    return [n + ' ' + (d.type === 'cheveux' ? (n > 1 ? L.lectures : L.lecture) : (n > 1 ? L.mesures : L.mesure)) + ',', L.unePriorite];
+  };
+  Rendu.prototype.couvL1 = function(q, K, etat){
+    /* etat : 'suspense' | 'titre' | 'cta' ; q dans la boucle */
+    var x = this.x, d = this.d, L = T().l, LXd = d.LX, PL = d.PL, encre = K.noir, acc = K.accP;
+    this.fondPapierL(K);
+    /* la lumiere qui glisse sur la couverture (hors champ au debut et a la fin de la boucle) */
+    var lp = lerp(-.35, 1.35, q / 12), gx = lp * W;
+    x.save(); x.globalCompositeOperation = 'soft-light'; x.translate(gx, H / 2); x.rotate(-.42);
+    var gl = x.createLinearGradient(-360, 0, 360, 0); gl.addColorStop(0, 'rgba(255,255,255,0)'); gl.addColorStop(.5, 'rgba(255,255,255,.55)'); gl.addColorStop(1, 'rgba(255,255,255,0)');
+    x.fillStyle = gl; x.fillRect(-360, -H, 720, H * 2); x.restore();
+    /* le travelling lent vers la une, coupe net a la revelation */
+    var z = etat === 'suspense' ? 1 + .04 * eInOut(clamp(q / PL.rev, 0, 1)) : 1;
+    x.save(); x.translate(LX, 900); x.scale(z, z); x.translate(-LX, -900);
+    /* le titre du magazine */
+    var ms = this.didL('VYVRE', LX, 498, 248, encre, 1, { poids:600, sp:.035, maxW:770 });
+    /* la ligne d'edition, entre deux filets */
+    x.fillStyle = rgba(encre, .85); x.fillRect(130, 540, 780, 2); x.fillRect(130, 600, 780, 1);
+    this.capsL(L.edition[d.type] + '   ·   ' + this.date, LX, 579, 21, encre, .9, { sp:.36 });
+    var aCta = etat === 'cta' ? 1 - eInOut(seg(q, PL.bouc, 11.62)) : 0;
+    /* les filets qui encadrent la une */
+    var fl = etat === 'suspense' ? eInOut(seg(q, 1.5, 2.6)) : etat === 'titre' ? 1 : aCta;
+    if (fl > 0){ var lw = 780 * fl; x.fillStyle = rgba(acc, .95 * (etat === 'cta' ? aCta : 1)); x.fillRect(LX - lw / 2, 680, lw, 2); x.fillRect(LX - lw / 2, 1124, lw, 2);
+      if (fl > .9){ x.save(); x.translate(LX, 681); x.rotate(Math.PI / 4); x.fillStyle = rgba(K.ivoire, 1); x.fillRect(-11, -11, 22, 22); x.strokeStyle = rgba(acc, .95); x.lineWidth = 2; x.strokeRect(-8, -8, 16, 16); x.restore(); } }
+    if (etat === 'suspense'){
+      /* l'accroche en italique, mot par mot */
+      var hk = L.hook[d.type], mots = hk.split(' '), cut = Math.ceil(mots.length / 2), l1 = mots.slice(0, cut).join(' '), l2 = mots.slice(cut).join(' ') + '…';
+      var aH = 1 - seg(q, 3.05, 3.7);
+      var a1 = aH, a2 = aH;
+      if (a1 > 0) this.garaL(l1, LX, 872 - (1 - a1) * 14, 118, encre, a1, { it:true, maxW:760 });
+      if (a2 > 0) this.garaL(l2, LX, 1000 - (1 - a2) * 14, 118, encre, a2, { it:true, maxW:760 });
+      /* la ligne de couverture, a gauche */
+      var ul = this.uneTxtL1();
+      if (ul){ var c1 = eOut3(seg(q, .9, 1.6)), c2 = eOut3(seg(q, 1.2, 1.9)), c3 = eOut3(seg(q, 1.45, 2.15));
+        this.capsL(L.enCouv, 130, 1230, 20, acc, c1, { sp:.32, align:'left' });
+        this.didL(ul[0], 130, 1306, 62, encre, c2, { align:'left', maxW:640 });
+        this.garaL(ul[1], 130, 1366, 58, encre, c3, { it:true, align:'left', maxW:640 }); }
+    } else if (etat === 'titre'){
+      var LXt = d.LX.liste[0], lay = this.uneL(LXt.titre, 780, 400, 250, { ital:'fin' });
+      var e = seg(q, PL.rev, PL.rev + .5), k = 1 + .025 * (1 - eOut3(e));
+      x.save(); x.translate(LX, 902); x.scale(k, k); x.translate(-LX, -902);
+      this.dessineUneL(lay, LX, 902, encre, acc, 1);
+      x.restore();
+      var ps = eOut3(seg(q, PL.rev + .3, PL.rev + .8)), pp = eOut3(seg(q, PL.rev + .6, PL.rev + 1.1)), pa = eOut3(seg(q, PL.aut, PL.aut + .5));
+      if (LXt.sous) this.garaL(LXt.sous, LX, 1196 - (1 - ps) * 10, 50, encre, ps, { it:true });
+      this.preuveL(LXt.preuve, LX, 1290 - (1 - pp) * 10, encre, encre, pp, { noteDy:46, noteSize:34, size:21 });
+      if (LXt.preuve.note && LXt.preuve.label){ /* la note de la preuve passe sous la ligne */ }
+      this.aussiL(d.LX, LX, 1402, acc, encre, pa, { size:40 });
+    } else {
+      /* la fin de boucle : l'accroche revient, exactement comme a la premiere image */
+      var hk2 = L.hook[d.type].split(' '), ct2 = Math.ceil(hk2.length / 2), aT = eInOut(seg(q, 11.6, 12));
+      if (aT > 0){ this.garaL(hk2.slice(0, ct2).join(' '), LX, 872, 118, encre, aT, { it:true, maxW:760 }); this.garaL(hk2.slice(ct2).join(' ') + '…', LX, 1000, 118, encre, aT, { it:true, maxW:760 }); }
+      var cta = d.LX.cta, ec = eOut3(seg(q, PL.cta + .35, PL.cta + .9)) * aCta, ec2 = eOut3(seg(q, PL.cta + .5, PL.cta + 1.05)) * aCta;
+      this.garaL(cta[0], LX, 846, 112, encre, ec, { it:true });
+      var lc = this.uneL(cta[1], 760, 260, 132, { nmax:2 });
+      this.dessineUneL(lc, LX, 1000, encre, null, ec2);
+      this.capsL(this.L.site, LX, 1268, 34, acc, ec2, { sp:.34 });
+    }
+    x.restore();
+  };
+  Rendu.prototype.pageL1 = function(q, K){
+    var x = this.x, d = this.d, L = T().l, PL = d.PL, encre = K.noir, acc = K.accP, n = PL.n;
+    this.fondPapierL(K);
+    this.didL('VYVRE', LX, 352, 66, encre, 1, { poids:600, sp:.05 });
+    x.fillStyle = rgba(encre, .8); x.fillRect(130, 378, 780, 1);
+    var k = clamp(Math.floor((q - PL.prod) / PL.dp), 0, n - 1);
+    this.capsL(L.soins[d.type] + '   ·   ' + ['I', 'II', 'III', 'IV'][k] + ' / ' + ['I', 'II', 'III', 'IV'][n - 1], LX, 416, 20, encre, .85, { sp:.36 });
+    for (var i = 0; i < n; i++){
+      var f = fenetreL(q, PL, i); if (f.a <= 0) continue;
+      var u = eOut3(clamp(f.u, 0, 1)), sz = 660 * (.965 + .035 * u), sol = 1092 - (1 - u) * 12;
+      /* l'ombre de contact sur le papier */
+      x.save(); x.globalAlpha = f.a * .5; x.translate(LX, sol + 2); x.scale(1, .12); var og = x.createRadialGradient(0, 0, 0, 0, 0, 230); og.addColorStop(0, rgba(encre, .55)); og.addColorStop(1, rgba(encre, 0)); x.fillStyle = og; x.fillRect(-240, -240, 480, 480); x.restore();
+      this.soinL(i, LX, sol, sz, f.a, 'papier', encre);
+      this.legendeL(i, LX, 1186, encre, acc, f.leg);
+    }
+  };
+  Rendu.prototype.dessineL1 = function(tAbs){
+    this.debutL(); var x = this.x, d = this.d, K = couleursL(d), q = this.tempoL(tAbs), PL = d.PL;
+    if (POL.etat === 'attente'){ this.fondPapierL(K); return; }
+    var self = this;
+    if (q < PL.rev) this.couvL1(q, K, 'suspense');
+    else if (q < PL.prod) this.couvL1(q, K, 'titre');
+    else if (PL.n && q < PL.cta){
+      /* la page tourne : la une glisse vers la gauche, la page des soins arrive */
+      var e = eInOut(seg(q, PL.prod, PL.prod + .62));
+      if (e < 1){ x.save(); x.translate(-W * .62 * e, 0); this.couvL1(q, K, 'titre'); x.restore(); }
+      x.save(); x.translate(W * (1 - e), 0); this.pageL1(q, K);
+      if (e < 1){ var sg = x.createLinearGradient(-60, 0, 0, 0); sg.addColorStop(0, rgba(K.noir, 0)); sg.addColorStop(1, rgba(K.noir, .14)); x.fillStyle = sg; x.fillRect(-60, 0, 60, H); }
+      x.restore();
+    } else {
+      var e2 = PL.n ? eInOut(seg(q, PL.cta, PL.cta + .62)) : 1;
+      if (e2 < 1){ x.save(); x.translate(-W * .62 * e2, 0); this.pageL1(Math.min(q, PL.cta - .001), K); x.restore(); }
+      x.save(); x.translate(W * (1 - e2), 0); this.couvL1(q, K, 'cta');
+      if (e2 < 1){ var sg2 = x.createLinearGradient(-60, 0, 0, 0); sg2.addColorStop(0, rgba(K.noir, 0)); sg2.addColorStop(1, rgba(K.noir, .14)); x.fillStyle = sg2; x.fillRect(-60, 0, 60, H); }
+      x.restore();
+    }
+    this.grain();
+    this.signeL(K.noir, .85);
+  };
+
+  /* ---------- L2 · LE FLACON (82 BPM) : un flacon en lumiere sculptee ; une goutte d'or tombe au
+     ralenti ; elle touche le sol-miroir sur le temps fort : la phrase, en or, avec son reflet. */
+  var FL_X = 452, FL_SOL = 1250, GO_X = 728;   /* le flacon un peu a gauche, la goutte tombe a sa droite (devant le sol) */
+  Rendu.prototype.flaconStatL = function(K){
+    var k = K.noir.join(','); if (this._flc && this._flck === k) return this._flc;
+    var Wc = 420, Hc = 790 + 520, c = document.createElement('canvas'); c.width = Wc; c.height = Hc; var g = c.getContext('2d');
+    var ox = Wc / 2, oy = 790;   /* le pied du flacon dans le calque */
+    function corps(gg){ rond(gg, ox - 165, oy - 540, 330, 540, 34); }
+    function dessin(gg, reflet){
+      /* le verre : sombre au centre, eclaire sur les bords (lumiere de contour) */
+      corps(gg); var gv = gg.createLinearGradient(ox - 165, 0, ox + 165, 0);
+      gv.addColorStop(0, 'rgba(255,248,235,.30)'); gv.addColorStop(.06, 'rgba(255,248,235,.08)'); gv.addColorStop(.2, 'rgba(18,16,14,.86)');
+      gv.addColorStop(.8, 'rgba(18,16,14,.86)'); gv.addColorStop(.94, 'rgba(255,248,235,.05)'); gv.addColorStop(1, 'rgba(255,248,235,.16)');
+      gg.fillStyle = gv; gg.fill();
+      /* le jus, dore */
+      gg.save(); rond(gg, ox - 138, oy - 430, 276, 372, 14); gg.clip();
+      var gj = gg.createLinearGradient(0, oy - 430, 0, oy - 58); gj.addColorStop(0, 'rgba(232,196,120,.62)'); gj.addColorStop(.5, 'rgba(178,128,52,.62)'); gj.addColorStop(1, 'rgba(112,72,26,.72)');
+      gg.fillStyle = gj; gg.fillRect(ox - 140, oy - 432, 280, 376);
+      var gs = gg.createLinearGradient(ox - 140, 0, ox + 140, 0); gs.addColorStop(0, 'rgba(0,0,0,.5)'); gs.addColorStop(.3, 'rgba(0,0,0,0)'); gs.addColorStop(.7, 'rgba(0,0,0,0)'); gs.addColorStop(1, 'rgba(0,0,0,.55)');
+      gg.fillStyle = gs; gg.fillRect(ox - 140, oy - 432, 280, 376);
+      gg.restore();
+      gg.fillStyle = 'rgba(255,236,190,.7)'; gg.fillRect(ox - 132, oy - 431, 264, 2);
+      /* le fond epais du verre */
+      gg.fillStyle = 'rgba(255,226,160,.32)'; gg.fillRect(ox - 150, oy - 58, 300, 3);
+      gg.fillStyle = 'rgba(255,248,235,.18)'; gg.fillRect(ox - 160, oy - 6, 320, 2);
+      /* le contour */
+      corps(gg); gg.lineWidth = 2; var gc = gg.createLinearGradient(ox - 165, 0, ox + 165, 0); gc.addColorStop(0, 'rgba(255,248,235,.62)'); gc.addColorStop(.5, 'rgba(255,248,235,.12)'); gc.addColorStop(1, 'rgba(255,248,235,.32)');
+      gg.strokeStyle = gc; gg.stroke();
+      /* le col et la bague */
+      gg.fillStyle = 'rgba(30,27,24,.95)'; gg.fillRect(ox - 50, oy - 592, 100, 54);
+      gg.fillStyle = 'rgba(255,248,235,.2)'; gg.fillRect(ox - 50, oy - 592, 3, 54); gg.fillRect(ox + 47, oy - 592, 2, 54);
+      gg.fillStyle = orL(gg, ox - 62, 0, ox + 62, 0, null); gg.fillRect(ox - 62, oy - 604, 124, 14);
+      /* le bouchon dore, cannele */
+      gg.fillStyle = orL(gg, ox - 80, 0, ox + 80, 0, .3); rond(gg, ox - 80, oy - 782, 160, 180, 6); gg.fill();
+      for (var i = 0; i < 13; i++){ gg.fillStyle = i % 2 ? 'rgba(60,40,12,.22)' : 'rgba(255,240,200,.12)'; gg.fillRect(ox - 72 + i * 11.5, oy - 770, 2, 156); }
+      gg.fillStyle = 'rgba(255,244,214,.55)'; gg.fillRect(ox - 78, oy - 781, 156, 2);
+      gg.fillStyle = 'rgba(40,26,8,.5)'; gg.fillRect(ox - 80, oy - 604, 160, 3);
+      /* la gravure : VYVRE, sur le verre */
+      if (!reflet){ gg.fillStyle = 'rgba(250,242,228,.72)'; gg.font = fontJ(30, 500); traceL(gg, 'VYVRE', ox, oy - 250, 30 * .55); gg.fillRect(ox - 30, oy - 222, 60, 1); }
+    }
+    dessin(g, false);
+    /* le reflet dans le sol-miroir */
+    g.save(); g.translate(0, 2 * oy); g.scale(1, -1); g.globalAlpha = .26; dessin(g, true); g.restore();
+    g.globalCompositeOperation = 'destination-out';
+    var gr = g.createLinearGradient(0, oy, 0, oy + 420); gr.addColorStop(0, 'rgba(0,0,0,.2)'); gr.addColorStop(1, 'rgba(0,0,0,1)');
+    g.fillStyle = gr; g.fillRect(0, oy, Wc, Hc - oy); g.globalCompositeOperation = 'source-over';
+    c.ox = ox; c.oy = oy; this._flc = c; this._flck = k; return c;
+  };
+  Rendu.prototype.flaconL = function(q, K, lum, spec){
+    var x = this.x, c = this.flaconStatL(K), s = 1;
+    x.globalAlpha = (.62 + .38 * lum) * this.ga; x.drawImage(c, FL_X - c.ox, FL_SOL - c.oy); x.globalAlpha = 1;
+    /* la lumiere qui glisse sur le verre */
+    x.save(); rond(x, FL_X - 165, FL_SOL - 540, 330, 540, 34); x.clip(); x.globalCompositeOperation = 'lighter';
+    var sx = FL_X - 165 + spec * 330, gs = x.createLinearGradient(sx - 40, 0, sx + 40, 0);
+    gs.addColorStop(0, 'rgba(255,248,232,0)'); gs.addColorStop(.5, 'rgba(255,248,232,' + (.3 * lum) + ')'); gs.addColorStop(1, 'rgba(255,248,232,0)');
+    x.globalAlpha = this.ga; x.fillStyle = gs; x.fillRect(sx - 40, FL_SOL - 540, 80, 540);
+    x.fillStyle = 'rgba(255,248,232,' + (.22 * lum) + ')'; x.fillRect(sx + 52, FL_SOL - 520, 4, 500);
+    x.restore();
+    /* et sur le bouchon */
+    x.save(); x.beginPath(); x.rect(FL_X - 80, FL_SOL - 782, 160, 180); x.clip(); x.globalCompositeOperation = 'lighter';
+    var cx2 = FL_X - 80 + spec * 160, gc = x.createLinearGradient(cx2 - 30, 0, cx2 + 30, 0); gc.addColorStop(0, 'rgba(255,240,200,0)'); gc.addColorStop(.5, 'rgba(255,240,200,' + (.4 * lum) + ')'); gc.addColorStop(1, 'rgba(255,240,200,0)');
+    x.globalAlpha = this.ga; x.fillStyle = gc; x.fillRect(cx2 - 30, FL_SOL - 782, 60, 180); x.restore();
+  };
+  /* la goutte d'or, en forme de larme, etiree par la vitesse */
+  Rendu.prototype.goutteL = function(cx, cy, r, etire, a){
+    if (a <= 0) return; var x = this.x;
+    x.save(); x.globalAlpha = a * this.ga; x.globalCompositeOperation = 'lighter'; x.drawImage(this.point, cx - r * 4, cy - r * 4, r * 8, r * 8); x.globalCompositeOperation = 'source-over';
+    x.translate(cx, cy); x.beginPath(); x.moveTo(0, -r * (2.6 + etire)); x.bezierCurveTo(r * .35, -r * 1.4, r, -r * .55, r, 0); x.arc(0, 0, r, 0, Math.PI); x.bezierCurveTo(-r, -r * .55, -r * .35, -r * 1.4, 0, -r * (2.6 + etire)); x.closePath();
+    var g = x.createRadialGradient(-r * .35, -r * .4, 0, 0, 0, r * 1.6); g.addColorStop(0, '#fff2cc'); g.addColorStop(.35, '#e2b866'); g.addColorStop(1, '#6e4a18');
+    x.fillStyle = g; x.fill(); x.fillStyle = 'rgba(255,255,255,.85)'; x.beginPath(); x.ellipse(-r * .35, -r * .35, r * .18, r * .28, -.4, 0, Math.PI * 2); x.fill();
+    x.restore();
+  };
+  Rendu.prototype.ondesL = function(cx, cy, e, a){
+    if (a <= 0 || e <= 0) return; var x = this.x;
+    for (var i = 0; i < 3; i++){ var u = clamp(e - i * .16, 0, 1); if (u <= 0) continue;
+      var rx = 30 + 640 * eOut3(u); x.globalAlpha = a * (1 - u) * .7 * this.ga; x.strokeStyle = orL(x, cx - rx, cy, cx + rx, cy, null); x.lineWidth = 2.5 * (1 - u) + .8;
+      x.beginPath(); x.ellipse(cx, cy, rx, rx * .1, 0, 0, Math.PI * 2); x.stroke(); }
+    x.globalAlpha = 1;
+  };
+  Rendu.prototype.solL = function(y, a){ var x = this.x, g = x.createLinearGradient(110, 0, 930, 0); g.addColorStop(0, 'rgba(255,246,228,0)'); g.addColorStop(.5, 'rgba(255,246,228,' + (.2 * a) + ')'); g.addColorStop(1, 'rgba(255,246,228,0)'); x.globalAlpha = this.ga; x.fillStyle = g; x.fillRect(110, y, 820, 1.5); x.globalAlpha = 1; };
+  /* la phrase en or et son reflet (le reflet est calcule une fois par phrase) */
+  Rendu.prototype.phraseOrL = function(lay, cx, cy, sol, p, K, a){
+    var x = this.x, key = lay.ls.join('|') + lay.f + '|' + sol + '|' + cy;
+    if (!this._rfl || this._rflk !== key){
+      var c = document.createElement('canvas'); c.width = W; c.height = 560; var g = c.getContext('2d'), x0 = this.x;
+      this.x = g; g.translate(0, -sol); var ga = this.ga; this.ga = 1;
+      g.save(); g.translate(0, 2 * sol); g.scale(1, -1);
+      var hh = lay.f * lay.lh * lay.ls.length; this.dessineUneL(lay, cx, cy, orL(g, cx - 400, cy - hh / 2, cx + 400, cy + hh / 2, null), K.acc, .3);
+      g.restore(); this.x = x0; this.ga = ga;
+      g.setTransform(1, 0, 0, 1, 0, 0); g.globalCompositeOperation = 'destination-out';
+      var gr = g.createLinearGradient(0, 0, 0, 300); gr.addColorStop(0, 'rgba(0,0,0,.1)'); gr.addColorStop(1, 'rgba(0,0,0,1)'); g.fillStyle = gr; g.fillRect(0, 0, W, 560);
+      this._rfl = c; this._rflk = key;
+    }
+    x.globalAlpha = a * this.ga; x.drawImage(this._rfl, 0, sol); x.globalAlpha = 1;
+    var hh2 = lay.f * lay.lh * lay.ls.length;
+    return this.dessineUneL(lay, cx, cy, orL(x, cx - 400, cy - hh2 / 2, cx + 400, cy + hh2 / 2, p), K.acc, a);
+  };
+  Rendu.prototype.sceneFlaconL = function(q, K, lumF){
+    /* l'image d'ouverture et du suspense : le flacon en lumiere sculptee, la goutte qui tombe */
+    var x = this.x, d = this.d, L = T().l, PL = d.PL;
+    this.fondNoirL(K, 980);
+    var lum = lumF == null ? .25 + .75 * eInOut(clamp(q / 3.2, 0, 1)) : lumF;
+    this.doucheL(FL_X + 60, FL_SOL, .55 * lum + .12, 1.15);
+    this.poussiereL(q, FL_X, 300, FL_SOL, 520, .5 + .5 * lum);
+    this.solL(FL_SOL, .6 + .4 * lum);
+    var z = 1 + .05 * eInOut(clamp(q / PL.rev, 0, 1)) * (lumF == null ? 1 : 0);
+    x.save(); x.translate(FL_X, 1000); x.scale(z, z); x.translate(-FL_X, -1000);
+    this.flaconL(q, K, lum, lumF == null ? lerp(.08, .9, eInOut(clamp(q / 4, 0, 1))) : .08);
+    /* la goutte : elle apparait au temps 1,9 et touche le sol au temps 4 */
+    if (lumF == null){
+      var gd = seg(q, 1.9, PL.rev), yy = lerp(150, FL_SOL + 46, Math.pow(gd, 1.7)), vit = gd > 0 ? 1.7 * Math.pow(gd, .7) : 0;
+      if (gd > 0 && gd < 1){ this.goutteL(GO_X, yy, 22, vit * 1.4, eOut3(seg(q, 1.9, 2.3)));
+        var dr = FL_SOL + 46 - yy; if (dr < 360){ x.save(); x.translate(0, 2 * (FL_SOL + 46)); x.scale(1, -1); this.goutteL(GO_X, yy, 22, vit * 1.4, .28 * (1 - dr / 360)); x.restore(); } }
+    }
+    x.restore();
+    /* l'accroche */
+    var aH = lumF == null ? 1 - seg(q, 3.2, 3.8) : 1;
+    this.capsL(L.edition[d.type] + '   ·   ' + this.date, LX, 330, 20, K.or, .85 * aH, { sp:.38 });
+    this.garaL(L.hook[d.type] + '…', LX, 408, 64, K.ivoire, .95 * aH, { it:true });
+  };
+  Rendu.prototype.dessineL2 = function(tAbs){
+    this.debutL(); var x = this.x, d = this.d, K = couleursL(d), q = this.tempoL(tAbs), PL = d.PL, L = T().l, LXd = d.LX;
+    if (POL.etat === 'attente'){ this.aplat(K.noir); return; }
+    if (q < PL.rev){ this.sceneFlaconL(q, K); }
+    else if (q < PL.cta){
+      this.fondNoirL(K, 900);
+      var e1 = LXd.liste[0], lay = this.uneL(e1.titre, 780, 380, 240, { ital:'fin' }), SOL2 = 1112;
+      var aP = PL.n ? 1 - eInOut(seg(q, PL.prod - .2, PL.prod + .4)) : 1;
+      if (aP > 0){
+        this.ga = 1;
+        var hal = x.createRadialGradient(LX, 900, 0, LX, 900, 640); hal.addColorStop(0, 'rgba(205,172,110,' + (.12 * aP) + ')'); hal.addColorStop(1, 'rgba(205,172,110,0)'); x.fillStyle = hal; x.fillRect(0, 200, W, 1400);
+        this.solL(SOL2, aP);
+        this.ondesL(LX, SOL2 + 6, seg(q, PL.rev, PL.rev + 2.2), aP);
+        var ps = eOut3(seg(q, PL.rev + .25, PL.rev + .8)), pp = eOut3(seg(q, PL.rev + .6, PL.rev + 1.1)), pa = eOut3(seg(q, PL.aut, PL.aut + .5));
+        if (e1.sous) this.garaL(e1.sous, LX, 650 - (1 - ps) * 10, 52, K.ivoire, .9 * ps * aP, { it:true });
+        this.phraseOrL(lay, LX, 896, SOL2, lerp(-.25, 1.25, seg(q, PL.rev + .1, PL.rev + 1.9)), K, aP);
+        this.preuveL(e1.preuve, LX, 1300 - (1 - pp) * 10, K.ivoire, K.or, pp * aP, { size:21, noteDy:52, noteSize:36 });
+        this.aussiL(LXd, LX, 1420, K.or, K.ivoire, pa * aP, { size:38 });
+      }
+      if (PL.n && q >= PL.prod - .2){
+        var aS = eInOut(seg(q, PL.prod - .1, PL.prod + .5)), SOLP = 1140;
+        this.ga = aS;
+        this.doucheL(LX, SOLP, .7, 1); this.poussiereL(q, LX, 300, SOLP, 520, .8); this.solL(SOLP, 1);
+        var nI = PL.n, k0 = clamp(Math.floor((q - PL.prod) / PL.dp), 0, nI - 1);
+        this.capsL(L.soins[d.type], LX, 352, 21, K.or, .9, { sp:.4 });
+        this.didL(['I', 'II', 'III', 'IV'][k0] + '  /  ' + ['I', 'II', 'III', 'IV'][nI - 1], LX, 410, 40, K.ivoire, .8, { it:true });
+        for (var i = 0; i < nI; i++){
+          var f = fenetreL(q, PL, i); if (f.a <= 0) continue; var u = eOut3(clamp(f.u, 0, 1));
+          this.soinL(i, LX, SOLP, 560 * (.96 + .04 * u), f.a, 'noir', K.ivoire);
+          this.legendeL(i, LX, 1232, K.ivoire, K.or, f.leg, { s2:48 });
+        }
+        this.ga = 1;
+      }
+    } else {
+      var aB = eInOut(seg(q, 11.55, 12)), aX = 1 - eInOut(seg(q, PL.bouc, 11.6));
+      var self = this;
+      this.calqueL(function(){
+        var x2 = this.x; this.fondNoirL(K, 900);
+        var ec = eOut3(seg(q, PL.cta + .1, PL.cta + .6)) * aX, ec2 = eOut3(seg(q, PL.cta + .3, PL.cta + .8)) * aX;
+        this.doucheL(LX, 1150, .35, 1.2); this.solL(1150, 1);
+        this.garaL(d.LX.cta[0], LX, 790, 112, K.ivoire, ec, { it:true });
+        var lc = this.uneL(d.LX.cta[1], 760, 260, 132, { nmax:2 });
+        this.dessineUneL(lc, LX, 960, orL(x2, LX - 380, 860, LX + 380, 1060, lerp(-.2, 1.2, seg(q, PL.cta + .3, PL.bouc))), null, ec2);
+        this.capsL(this.L.site, LX, 1250, 34, K.or, ec2, { sp:.36 });
+      }, 1);
+      this.calqueL(function(){ this.sceneFlaconL(0, K); }, aB);
+    }
+    this.grain();
+    this.signeL(K.ivoire, .8);
+  };
+
+  /* ---------- L3 · LE DEFILE (88 BPM) : un podium dans le noir ; tes vraies mesures passent comme des
+     looks ; une silhouette de lumiere s'avance : le dernier passage, c'est la phrase. */
+  var VPX = 520, VPY = 610, KP = 1080;
+  function ySol(dd){ return VPY + KP / dd; }
+  Rendu.prototype.podiumL = function(q, K, allume, aLooks){
+    var x = this.x, i;
+    this.fondNoirL(K, 700);
+    /* la scene : le passage du fond (la porte des coulisses), en lumiere */
+    var por = .55 + .45 * allume;
+    x.save(); x.globalCompositeOperation = 'lighter';
+    x.globalAlpha = .5 * por * this.ga; x.drawImage(this.point, VPX - 170, VPY - 230, 340, 300);
+    var gp = x.createLinearGradient(0, VPY - 190, 0, VPY + 4); gp.addColorStop(0, 'rgba(255,246,228,0)'); gp.addColorStop(1, 'rgba(255,246,228,' + (.55 * por) + ')');
+    x.globalAlpha = this.ga; x.fillStyle = gp; x.fillRect(VPX - 26, VPY - 190, 52, 194);
+    x.restore();
+    /* le podium, laque noire, en perspective */
+    var dF = 40, dN = .5;
+    x.globalAlpha = this.ga; x.fillStyle = 'rgba(255,248,236,.035)';
+    x.beginPath(); x.moveTo(VPX - 430 / dF, ySol(dF)); x.lineTo(VPX + 430 / dF, ySol(dF)); x.lineTo(VPX + 430 / dN, ySol(dN)); x.lineTo(VPX - 430 / dN, ySol(dN)); x.closePath(); x.fill();
+    /* le reflet de la porte sur la laque */
+    var gr = x.createLinearGradient(0, VPY, 0, H); gr.addColorStop(0, 'rgba(255,246,228,' + (.2 * por) + ')'); gr.addColorStop(1, 'rgba(255,246,228,0)');
+    x.save(); x.globalCompositeOperation = 'lighter'; x.fillStyle = gr;
+    for (var lr = 0; lr < 10; lr++){ var kk = .4 + lr * .16; x.globalAlpha = .16 * this.ga; x.beginPath(); x.moveTo(VPX - 14 * kk, VPY); x.lineTo(VPX + 14 * kk, VPY); x.lineTo(VPX + 120 * kk, H); x.lineTo(VPX - 120 * kk, H); x.closePath(); x.fill(); }
+    x.restore();
+    /* les bords du podium */
+    x.strokeStyle = 'rgba(255,246,228,.22)'; x.lineWidth = 1.5;
+    x.beginPath(); x.moveTo(VPX - 430 / dF, ySol(dF)); x.lineTo(VPX - 430 / dN, ySol(dN)); x.moveTo(VPX + 430 / dF, ySol(dF)); x.lineTo(VPX + 430 / dN, ySol(dN)); x.stroke();
+    /* les lumieres de podium, qui s'allument du fond vers nous */
+    x.save(); x.globalCompositeOperation = 'lighter';
+    for (i = 0; i < 11; i++){
+      var dd = 1.12 * Math.pow(1.36, i), on = allume >= 1 ? 1 : clamp((allume * 11 - (10 - i)) / 1.2, 0, 1), sz = 70 / dd + 8;
+      var lum = .18 + .82 * on;
+      [-1, 1].forEach(function(sg){ var px = VPX + sg * 452 / dd, py = ySol(dd);
+        x.globalAlpha = lum * .9 * this.ga; x.drawImage(this.point, px - sz, py - sz * .55, sz * 2, sz * 1.1);
+        x.globalAlpha = lum * .3 * this.ga; x.drawImage(this.point, px - sz * 2.4, py - sz * 1.3, sz * 4.8, sz * 2.6); }, this);
+    }
+    /* les faisceaux d'en haut */
+    [[2.1, .9], [3.6, .6], [6.4, .4]].forEach(function(f, j){ var dd = f[0], on = clamp(allume * 3 - (2 - j), 0, 1); if (on <= 0) return;
+      var y = ySol(dd), hw = 300 / dd, g = x.createLinearGradient(0, 0, 0, y); g.addColorStop(0, 'rgba(255,246,228,0)'); g.addColorStop(1, 'rgba(255,246,228,' + (.07 * on * f[1]) + ')');
+      x.globalAlpha = this.ga; x.fillStyle = g; x.beginPath(); x.moveTo(VPX - hw * .12, 0); x.lineTo(VPX + hw * .12, 0); x.lineTo(VPX + hw, y); x.lineTo(VPX - hw, y); x.closePath(); x.fill();
+      x.globalAlpha = on * .5 * f[1] * this.ga; x.drawImage(this._sol || this.point, VPX - hw * 1.3, y - hw * .2, hw * 2.6, hw * .4); }, this);
+    /* le public, flou, de chaque cote */
+    for (i = 0; i < 26; i++){ var r1 = hash(i, 61), r2 = hash(i, 67), sd = i % 2 ? 1 : -1, px2 = VPX + sd * (380 + r1 * 260), py2 = 760 + r2 * 520, s2 = 14 + r1 * 22;
+      x.globalAlpha = (.05 + .05 * r2) * this.ga; x.drawImage(this.point, px2 - s2, py2 - s2, s2 * 2, s2 * 2); }
+    x.restore(); x.globalAlpha = 1;
+  };
+  /* un look qui avance sur le podium : sa mesure (libelle, valeur) et sa flaque de lumiere */
+  Rendu.prototype.lookL = function(rw, num0, dd, a, K){
+    if (a <= 0) return; var x = this.x, y = ySol(dd), s = 2.3 / dd;
+    x.save(); x.globalCompositeOperation = 'lighter'; x.globalAlpha = a * .7 * this.ga; x.drawImage(this._sol || this.point, VPX - 300 * s, y - 40 * s, 600 * s, 80 * s); x.restore();
+    x.save(); x.translate(VPX, y - 250 * s); x.scale(s, s);
+    var ga = this.ga; this.ga = ga * a;
+    this.capsL(T().l.look + ' ' + (num0 < 10 ? '0' : '') + num0, 0, -96, 22, K.or, .9, { sp:.4 });
+    var lb = phraseCas(rw.label); this.garaL(lb, 0, -14, 64, K.ivoire, 1, { it:true, maxW:620 });
+    if (rw.v === null) this.garaL(phraseCas(rw.txt), 0, 80, 70, K.or, 1, { maxW:620 }); else this.didL(rw.txt.replace(/\s+/g, ' '), 0, 84, 74, K.or, 1, { maxW:620 });
+    this.ga = ga; x.restore();
+  };
+  /* la silhouette de lumiere : une colonne de lumiere qui marche (un leger balancement a chaque pas) */
+  Rendu.prototype.silhouetteL = function(dd, a, q){
+    if (a <= 0) return; var x = this.x, y = ySol(dd), s = 1.9 / dd, sw = Math.sin(q * Math.PI) * 6 * s;
+    x.save(); x.globalCompositeOperation = 'lighter';
+    x.globalAlpha = a * .7 * this.ga; x.drawImage(this._sol || this.point, VPX - 260 * s, y - 34 * s, 520 * s, 68 * s);
+    var hgt = 640 * s, wd = 92 * s;
+    for (var i = 0; i < 4; i++){ var k = 1 + i * .55; x.globalAlpha = a * (.42 / k) * this.ga; x.drawImage(this.point, VPX - wd * k + sw, y - hgt - wd * (k - 1) * .5, wd * 2 * k, hgt + wd * (k - 1)); }
+    x.globalAlpha = a * .9 * this.ga; var gc = x.createLinearGradient(0, y - hgt, 0, y); gc.addColorStop(0, 'rgba(255,250,238,0)'); gc.addColorStop(.18, 'rgba(255,250,238,.9)'); gc.addColorStop(.85, 'rgba(255,250,238,.65)'); gc.addColorStop(1, 'rgba(255,250,238,0)');
+    x.fillStyle = gc; x.beginPath(); x.ellipse(VPX + sw, y - hgt / 2, wd * .2, hgt / 2, 0, 0, Math.PI * 2); x.fill();
+    /* son reflet dans la laque */
+    x.globalAlpha = a * .18 * this.ga; x.drawImage(this.point, VPX - wd + sw, y, wd * 2, hgt * .5);
+    x.restore();
+  };
+  Rendu.prototype.sceneDefileL = function(q, K, repos){
+    var x = this.x, d = this.d, L = T().l, PL = d.PL, B = d.B;
+    this.podiumL(q, K, repos ? 0 : eInOut(clamp(q / 3.6, 0, 1)));
+    if (!repos){
+      /* les looks : tes vraies mesures, de la meilleure vers la plus basse ; la plus basse passe en dernier, en lumiere */
+      var rows = B.lignes.map(function(r, i){ return { r:r, i:i }; }).filter(function(o){ return o.i !== B.cible; });
+      rows.sort(function(a, b){ return (b.r.v === null ? -1 : b.r.v) - (a.r.v === null ? -1 : a.r.v); }); rows = rows.slice(0, 3);
+      for (var j = rows.length - 1; j >= 0; j--){
+        var s0 = .1 + j * .72, u = seg(q, s0, s0 + 1.1); if (u <= 0 || u >= 1) continue;
+        this.lookL(rows[j].r, j + 1, lerp(6.5, 1.75, eInOut(u)), eOut3(seg(u, 0, .22)) * (1 - seg(u, .66, .94)), K);
+      }
+      var us = seg(q, 2.25, PL.rev);
+      if (us > 0) this.silhouetteL(lerp(14, 1.55, Math.pow(us, 1.15)), eOut3(seg(us, 0, .2)), q);
+    }
+    var aH = repos ? 1 : 1 - seg(q, 2.6, 3.3);
+    this.capsL(L.defile + '   ·   ' + T().types[d.type] + '   ·   ' + this.date, LX, 330, 20, K.or, .88 * aH, { sp:.38 });
+    this.garaL(L.hook[d.type] + '…', LX, 404, 62, K.ivoire, .95 * aH, { it:true });
+  };
+  Rendu.prototype.dessineL3 = function(tAbs){
+    this.debutL(); var x = this.x, d = this.d, K = couleursL(d), q = this.tempoL(tAbs), PL = d.PL, L = T().l, LXd = d.LX;
+    if (POL.etat === 'attente'){ this.aplat(K.noir); return; }
+    if (q < PL.rev) this.sceneDefileL(q, K, false);
+    else if (q < PL.cta){
+      var aP = PL.n ? 1 - eInOut(seg(q, PL.prod - .25, PL.prod + .3)) : 1;
+      this.podiumL(q, K, 1);
+      if (aP > 0){
+        /* le voile sombre qui porte la phrase */
+        var vg = x.createRadialGradient(LX, 900, 100, LX, 900, 760); vg.addColorStop(0, rgba(K.noir, .78 * aP)); vg.addColorStop(1, rgba(K.noir, .35 * aP)); x.fillStyle = vg; x.fillRect(0, 0, W, H);
+        var e1 = LXd.liste[0], lay = this.uneL(e1.titre, 790, 360, 190, { caps:true, sp:.06, nmax:3, lh:1.08 });
+        var e = seg(q, PL.rev, PL.rev + .55), k = 1.035 - .035 * eOut3(e);
+        var ps = eOut3(seg(q, PL.rev + .3, PL.rev + .8)), pp = eOut3(seg(q, PL.rev + .6, PL.rev + 1.1)), pa = eOut3(seg(q, PL.aut, PL.aut + .5));
+        this.capsL(L.dernier, LX, 640, 22, K.or, aP * eOut3(seg(q, PL.rev, PL.rev + .4)), { sp:.5 });
+        x.save(); x.translate(LX, 890); x.scale(k, k); x.translate(-LX, -890);
+        var r = this.dessineUneL(lay, LX, 890, K.ivoire, K.acc, aP); x.restore();
+        if (e1.sous) this.garaL(e1.sous, LX, 1150 - (1 - ps) * 10, 50, K.ivoire, .9 * ps * aP, { it:true });
+        this.preuveL(e1.preuve, LX, 1250 - (1 - pp) * 10, K.ivoire, K.or, pp * aP, { size:21, noteDy:50, noteSize:36 });
+        this.aussiL(LXd, LX, 1396, K.or, K.ivoire, pa * aP, { size:38 });
+        /* le seul flash : doux, sur le temps fort */
+        var fl = seg(q, PL.rev, PL.rev + .22); if (fl < 1){ x.globalAlpha = .26 * (1 - fl) * (1 - fl); x.fillStyle = rgba(K.ivoire, 1); x.fillRect(0, 0, W, H); x.globalAlpha = 1; }
+      }
+      if (PL.n && q >= PL.prod - .25){
+        var aS = eInOut(seg(q, PL.prod - .15, PL.prod + .4)); this.ga = aS;
+        this.capsL(L.soins[d.type], LX, 352, 21, K.or, .9, { sp:.4 });
+        for (var i = PL.n - 1; i >= 0; i--){
+          var f = fenetreL(q, PL, i); if (f.a <= 0) continue;
+          var u = eOut3(clamp(f.u / .75, 0, 1)), dd = lerp(3.3, 1.72, u), sz = 560 * 1.72 / dd * .92;
+          var y = ySol(dd);
+          x.save(); x.globalCompositeOperation = 'lighter'; x.globalAlpha = f.a * .8 * this.ga; x.drawImage(this._sol || this.point, LX - 330 * 1.72 / dd, y - 40, 660 * 1.72 / dd, 80); x.restore();
+          this.soinL(i, LX, y, sz, f.a, 'noir', K.ivoire);
+          this.legendeL(i, LX, 1306, K.ivoire, K.or, f.leg, { s1:54, s2:44, dy1:60 });
+        }
+        this.ga = 1;
+      }
+    } else {
+      var aB = eInOut(seg(q, 11.55, 12)), aX = 1 - eInOut(seg(q, PL.bouc, 11.6));
+      this.calqueL(function(){
+        var x2 = this.x; this.podiumL(q, K, 1 - .6 * seg(q, PL.cta, PL.bouc));
+        var vg2 = x2.createRadialGradient(LX, 900, 100, LX, 900, 760); vg2.addColorStop(0, rgba(K.noir, .75)); vg2.addColorStop(1, rgba(K.noir, .3)); x2.fillStyle = vg2; x2.fillRect(0, 0, W, H);
+        var ec = eOut3(seg(q, PL.cta + .1, PL.cta + .6)) * aX, ec2 = eOut3(seg(q, PL.cta + .3, PL.cta + .8)) * aX;
+        this.garaL(d.LX.cta[0], LX, 800, 112, K.ivoire, ec, { it:true });
+        var lc = this.uneL(d.LX.cta[1], 760, 260, 132, { nmax:2 });
+        this.dessineUneL(lc, LX, 970, K.ivoire, null, ec2);
+        this.capsL(this.L.site, LX, 1250, 34, K.or, ec2, { sp:.36 });
+      }, 1);
+      this.calqueL(function(){ this.sceneDefileL(0, K, true); }, aB);
+    }
+    this.grain();
+    this.signeL(K.ivoire, .8);
+  };
+
+  /* ---------- L4 · LE MONOGRAMME (84 BPM) : un monogramme VYVRE grave a froid ; l'or le trace trait
+     par trait, la lumiere accroche la feuille d'or ; le sceau s'ouvre en deux sur la phrase. */
+  var MO_Y = 860, MO_HX = 280, MO_HY = 380;
+  function losangeL(x, s){ x.beginPath(); x.moveTo(LX, MO_Y - MO_HY * s); x.lineTo(LX + MO_HX * s, MO_Y); x.lineTo(LX, MO_Y + MO_HY * s); x.lineTo(LX - MO_HX * s, MO_Y); x.closePath(); }
+  var MO_LET = [['V', -62, 72], ['Y', 64, 116]];
+  Rendu.prototype.monoL = function(K, mode, p, q){
+    /* mode : 'relief' (gaufrage a froid) | 'trace' (le trait d'or qui avance, p = [p1..p4]) | 'or' (la feuille d'or, p = reflet) */
+    var x = this.x, f = 330;
+    x.save(); x.textAlign = 'center'; x.font = fontD(f, false);
+    if (mode === 'relief'){
+      var N = K.noir, hi = 'rgba(255,248,236,.11)', lo = 'rgba(0,0,0,.65)', base = rgba([Math.min(255, N[0] + 15), Math.min(255, N[1] + 13), Math.min(255, N[2] + 11)], 1);
+      [[-1.5, -1.5, hi], [1.5, 1.5, lo]].forEach(function(o){ x.lineWidth = 3; x.strokeStyle = o[2]; x.save(); x.translate(o[0], o[1]);
+        losangeL(x, 1); x.stroke(); losangeL(x, .9); x.stroke(); x.fillStyle = o[2]; MO_LET.forEach(function(l){ x.fillText(l[0], LX + l[1], MO_Y + l[2]); }); x.restore(); });
+      x.fillStyle = base; MO_LET.forEach(function(l){ x.fillText(l[0], LX + l[1], MO_Y + l[2]); });
+      x.strokeStyle = base; x.lineWidth = 3; losangeL(x, 1); x.stroke(); losangeL(x, .9); x.stroke();
+    } else if (mode === 'trace'){
+      var gl = orL(x, LX - 300, MO_Y - 380, LX + 300, MO_Y + 380, null), per = 4 * Math.sqrt(MO_HX * MO_HX + MO_HY * MO_HY);
+      x.strokeStyle = gl; x.lineCap = 'round';
+      [[1, p[0], 2.6], [.9, p[1], 1.6]].forEach(function(o){ if (o[1] <= 0) return; x.lineWidth = o[2]; x.setLineDash([per * o[0] * o[1], per * 2]); x.lineDashOffset = 0; losangeL(x, o[0]); x.stroke(); });
+      MO_LET.forEach(function(l, i){ var pp = p[2 + i]; if (pp <= 0) return; x.lineWidth = 2.2; x.setLineDash([2600 * pp, 5000]); x.strokeText(l[0], LX + l[1], MO_Y + l[2]); });
+      x.setLineDash([]);
+    } else {
+      var g2 = orL(x, LX - 320, MO_Y - 400, LX + 320, MO_Y + 400, p);
+      x.fillStyle = g2; MO_LET.forEach(function(l){ x.fillText(l[0], LX + l[1], MO_Y + l[2]); });
+      x.strokeStyle = g2; x.lineWidth = 3; losangeL(x, 1); x.stroke(); x.lineWidth = 1.6; losangeL(x, .9); x.stroke();
+      /* les quatre pointes, un grain d'or */
+      [[0, -1], [1, 0], [0, 1], [-1, 0]].forEach(function(v){ x.save(); x.translate(LX + v[0] * MO_HX, MO_Y + v[1] * MO_HY); x.rotate(Math.PI / 4); x.fillStyle = g2; x.fillRect(-7, -7, 14, 14); x.restore(); });
+    }
+    x.restore();
+  };
+  /* la pointe du trait : un point de lumiere qui court sur le losange */
+  function pointeL(s, p){ var pts = [[0, -1], [1, 0], [0, 1], [-1, 0], [0, -1]], u = clamp(p, 0, 1) * 4, i = Math.min(3, Math.floor(u)), f = u - i;
+    return [LX + lerp(pts[i][0], pts[i + 1][0], f) * MO_HX * s, MO_Y + lerp(pts[i][1], pts[i + 1][1], f) * MO_HY * s]; }
+  Rendu.prototype.sceneMonoL = function(q, K, repos){
+    var x = this.x, d = this.d, L = T().l, PL = d.PL;
+    this.fondNoirL(K, MO_Y);
+    var sp = x.createRadialGradient(LX, MO_Y, 0, LX, MO_Y, 620); sp.addColorStop(0, 'rgba(255,240,214,' + (.06 + (repos ? 0 : .06 * seg(q, 2.4, 3.4))) + ')'); sp.addColorStop(1, 'rgba(255,240,214,0)');
+    x.globalAlpha = this.ga; x.fillStyle = sp; x.fillRect(0, 200, W, 1500); x.globalAlpha = 1;
+    var z = repos ? 1 : 1 + .05 * eIn3(seg(q, 2.9, PL.rev));
+    x.save(); x.translate(LX, MO_Y); x.scale(z, z); x.translate(-LX, -MO_Y);
+    this.monoL(K, 'relief');
+    if (!repos){
+      var p = [seg(q, .15, 1.05), seg(q, .65, 1.4), seg(q, 1.15, 2.05), seg(q, 1.65, 2.55)], aOr = eInOut(seg(q, 2.45, 3.2));
+      if (aOr < 1) this.monoL(K, 'trace', p);
+      if (p[0] > 0 && p[0] < 1){ var pt = pointeL(1, p[0]); x.save(); x.globalCompositeOperation = 'lighter'; x.drawImage(this.point, pt[0] - 26, pt[1] - 26, 52, 52); x.restore(); }
+      if (p[1] > 0 && p[1] < 1){ var pt2 = pointeL(.9, p[1]); x.save(); x.globalCompositeOperation = 'lighter'; x.drawImage(this.point, pt2[0] - 18, pt2[1] - 18, 36, 36); x.restore(); }
+      if (aOr > 0){ x.globalAlpha = aOr; this.monoL(K, 'or', lerp(-.25, 1.25, seg(q, 2.6, 3.9))); x.globalAlpha = 1; }
+      /* la fente de lumiere au milieu, juste avant l'ouverture */
+      var fe = eIn3(seg(q, 3.35, PL.rev));
+      if (fe > 0){ x.save(); x.globalCompositeOperation = 'lighter'; var hh = MO_HY * 1.08 * fe; var gf = x.createLinearGradient(0, MO_Y - hh, 0, MO_Y + hh); gf.addColorStop(0, 'rgba(255,246,226,0)'); gf.addColorStop(.5, 'rgba(255,246,226,.95)'); gf.addColorStop(1, 'rgba(255,246,226,0)');
+        x.fillStyle = gf; x.fillRect(LX - 1.5, MO_Y - hh, 3, hh * 2); x.globalAlpha = .5 * fe; x.drawImage(this.point, LX - 40, MO_Y - hh, 80, hh * 2); x.restore(); }
+    }
+    x.restore();
+    var aH = repos ? 1 : 1 - seg(q, 3.1, 3.7);
+    this.garaL(L.hook[d.type] + '…', LX, 372, 62, K.ivoire, .95 * aH, { it:true });
+    this.capsL('VYVRE', LX, 1338, 28, K.or, .9 * aH, { sp:.62 });
+    this.capsL(L.edition[d.type] + '   ·   ' + this.date, LX, 1390, 18, K.ivoire, .6 * aH, { sp:.38 });
+  };
+  /* les feuilles d'or qui tombent apres l'ouverture */
+  Rendu.prototype.feuillesL = function(q, q0, a){
+    var x = this.x, e = q - q0; if (e <= 0 || e > 3 || a <= 0) return;
+    for (var i = 0; i < 18; i++){
+      var r1 = hash(i, 71), r2 = hash(i, 73), r3 = hash(i, 79), an = -Math.PI / 2 + (r1 - .5) * 2.6, v = 260 + r2 * 520;
+      var px = LX + Math.cos(an) * v * eOut3(clamp(e / 1.2, 0, 1)) + Math.sin(e * 2 + i) * 16, py = MO_Y + Math.sin(an) * v * .5 * eOut3(clamp(e / 1.2, 0, 1)) + e * e * 70 * (.5 + r3);
+      var sz = 10 + r3 * 18, rot = e * (1.5 + r1 * 3) + i, fl = Math.cos(e * (3 + r2 * 4) + i);
+      x.save(); x.globalAlpha = a * (1 - clamp((e - 1.6) / 1.4, 0, 1)) * this.ga; x.translate(px, py); x.rotate(rot); x.scale(1, Math.abs(fl) * .9 + .1);
+      x.fillStyle = orL(x, -sz, -sz, sz, sz, fl * .6 + .5); x.beginPath(); x.moveTo(-sz, -sz * .3); x.lineTo(sz * .6, -sz * .6); x.lineTo(sz, sz * .4); x.lineTo(-sz * .4, sz * .6); x.closePath(); x.fill(); x.restore();
+    }
+  };
+  Rendu.prototype.dessineL4 = function(tAbs){
+    this.debutL(); var x = this.x, d = this.d, K = couleursL(d), q = this.tempoL(tAbs), PL = d.PL, L = T().l, LXd = d.LX;
+    if (POL.etat === 'attente'){ this.aplat(K.noir); return; }
+    if (q < PL.rev) this.sceneMonoL(q, K, false);
+    else if (q < PL.cta){
+      this.fondNoirL(K, MO_Y);
+      var aP = PL.n ? 1 - eInOut(seg(q, PL.prod - .25, PL.prod + .3)) : 1;
+      if (aP > 0){
+        var e1 = LXd.liste[0], lay = this.uneL(e1.titre, 780, 400, 240, { ital:'fin' });
+        var ps = eOut3(seg(q, PL.rev + .4, PL.rev + .9)), pp = eOut3(seg(q, PL.rev + .7, PL.rev + 1.2)), pa = eOut3(seg(q, PL.aut, PL.aut + .5));
+        var hal = x.createRadialGradient(LX, MO_Y, 0, LX, MO_Y, 700); hal.addColorStop(0, 'rgba(255,236,200,' + (.1 * aP) + ')'); hal.addColorStop(1, 'rgba(255,236,200,0)'); x.fillStyle = hal; x.fillRect(0, 200, W, 1400);
+        this.dessineUneL(lay, LX, MO_Y + 10, K.ivoire, K.acc, aP);
+        x.fillStyle = orL(x, LX - 200, 0, LX + 200, 0, null); x.globalAlpha = aP * ps; x.fillRect(LX - 70 * ps, 1150, 140 * ps, 2); x.globalAlpha = 1;
+        if (e1.sous) this.garaL(e1.sous, LX, 1222 - (1 - ps) * 10, 50, K.ivoire, .9 * ps * aP, { it:true });
+        this.preuveL(e1.preuve, LX, 1316 - (1 - pp) * 10, K.ivoire, K.or, pp * aP, { size:21, noteDy:50, noteSize:36 });
+        this.aussiL(LXd, LX, 1440, K.or, K.ivoire, pa * aP, { size:36 });
+        /* le sceau qui s'ouvre en deux, la lumiere dans la fente, les feuilles d'or */
+        var eo = eOutExpo(seg(q, PL.rev, PL.rev + .7)), ao = 1 - eInOut(seg(q, PL.rev + .05, PL.rev + .6));
+        if (ao > 0){
+          [-1, 1].forEach(function(sg){ x.save(); x.beginPath(); if (sg < 0) x.rect(0, 0, LX, H); else x.rect(LX, 0, W - LX, H); x.clip();
+            x.translate(sg * 640 * eo, 0); x.globalAlpha = ao; this.monoL(K, 'relief'); this.monoL(K, 'or', null); x.restore(); }, this);
+          x.save(); x.globalCompositeOperation = 'lighter'; var lw2 = 60 + 1100 * eo; x.globalAlpha = .55 * ao;
+          x.drawImage(this.point, LX - lw2 / 2, MO_Y - 640, lw2, 1280); x.restore();
+        }
+        this.feuillesL(q, PL.rev, aP);
+        /* le seul flash, doux et chaud */
+        var fl = seg(q, PL.rev, PL.rev + .25); if (fl < 1){ x.globalAlpha = .22 * (1 - fl) * (1 - fl); x.fillStyle = 'rgb(255,242,218)'; x.fillRect(0, 0, W, H); x.globalAlpha = 1; }
+      }
+      if (PL.n && q >= PL.prod - .25){
+        var aS = eInOut(seg(q, PL.prod - .15, PL.prod + .4)); this.ga = aS;
+        /* la niche en arche, au filet d'or */
+        var AR = 250, AY = 640, BOT = 1170;
+        x.save(); x.beginPath(); x.moveTo(LX - AR, BOT); x.lineTo(LX - AR, AY); x.arc(LX, AY, AR, Math.PI, 0); x.lineTo(LX + AR, BOT); x.closePath();
+        var gn = x.createLinearGradient(0, AY - AR, 0, BOT); gn.addColorStop(0, 'rgba(255,244,224,.07)'); gn.addColorStop(1, 'rgba(255,244,224,.02)');
+        x.globalAlpha = aS; x.fillStyle = gn; x.fill(); x.strokeStyle = orL(x, LX - AR, 0, LX + AR, 0, null); x.lineWidth = 2; x.stroke(); x.clip();
+        this.doucheL(LX, BOT, .75, .75); this.poussiereL(q, LX, AY - AR, BOT, 380, .7);
+        x.restore();
+        x.globalAlpha = aS; x.fillStyle = orL(x, LX - AR - 40, 0, LX + AR + 40, 0, null); x.fillRect(LX - AR - 40, BOT, 2 * AR + 80, 2); x.globalAlpha = 1;
+        this.capsL(L.soins[d.type], LX, 330, 21, K.or, .9, { sp:.4 });
+        for (var i = 0; i < PL.n; i++){
+          var f = fenetreL(q, PL, i); if (f.a <= 0) continue; var u = eOut3(clamp(f.u, 0, 1));
+          this.soinL(i, LX, BOT - 6, 470 * (.96 + .04 * u), f.a, 'noir', K.ivoire);
+          this.legendeL(i, LX, 1262, K.ivoire, K.or, f.leg, { s2:46, dy1:64 });
+        }
+        this.ga = 1;
+      }
+    } else {
+      var aB = eInOut(seg(q, 11.55, 12)), aX = 1 - eInOut(seg(q, PL.bouc, 11.6));
+      this.calqueL(function(){
+        var x2 = this.x; this.fondNoirL(K, MO_Y);
+        var ec = eOut3(seg(q, PL.cta + .1, PL.cta + .6)) * aX, ec2 = eOut3(seg(q, PL.cta + .3, PL.cta + .8)) * aX;
+        this.garaL(d.LX.cta[0], LX, 790, 112, K.ivoire, ec, { it:true });
+        var lc = this.uneL(d.LX.cta[1], 760, 260, 132, { nmax:2 });
+        this.dessineUneL(lc, LX, 960, K.ivoire, null, ec2);
+        x2.fillStyle = orL(x2, LX - 200, 0, LX + 200, 0, null); x2.globalAlpha = ec2; x2.fillRect(LX - 70, 1150, 140, 2); x2.globalAlpha = 1;
+        this.capsL(this.L.site, LX, 1250, 34, K.or, ec2, { sp:.36 });
+      }, 1);
+      this.calqueL(function(){ this.sceneMonoL(0, K, true); }, aB);
+    }
+    this.grain();
+    this.signeL(K.ivoire, .8);
+  };
+
   /* ------------------------------------------------------------- le son */
   var CTX = null;
   function amorcer(){
@@ -1997,7 +2934,7 @@
       return CTX;
     } catch(e){ return null; }
   }
-  var GAIN_BUS = { D3:.5, R1:.68, R2:.71, R3:.73, R4:.4 };
+  var GAIN_BUS = { D3:.5, R1:.68, R2:.71, R3:.73, R4:.4, L1:2.3, L2:2.35, L3:2.2, L4:1.65 };   /* 07/10 : L mesuree au niveau moyen de R (±1,5 dB) */
   function Son(ctx, d){
     this.ctx = ctx; this.th = d.theme; this.style = d.style || 'D'; this.d = d; this.tm = d.tm || temps(this.style);
     var out = ctx.createGain(); out.gain.value = 1.2;
@@ -2008,7 +2945,7 @@
     this.ecoute = ctx.createGain(); this.ecoute.gain.value = 1;
     /* 07/10 : R1 a R4 ont un limiteur en sortie (le BIM empile grosse caisse, impact et basse : pas de saturation) */
     var sortie = out;
-    if (/^R/.test(this.style)){ var lim = ctx.createDynamicsCompressor(); lim.threshold.value = -2.5; lim.knee.value = 0; lim.ratio.value = 20; lim.attack.value = .001; lim.release.value = .12; out.connect(lim); sortie = lim; }
+    if (/^[RL]/.test(this.style)){ var lim = ctx.createDynamicsCompressor(); lim.threshold.value = -2.5; lim.knee.value = 0; lim.ratio.value = 20; lim.attack.value = .001; lim.release.value = .12; out.connect(lim); sortie = lim; }
     sortie.connect(this.ecoute); this.ecoute.connect(ctx.destination);
     this.dest = null; try { this.dest = ctx.createMediaStreamDestination(); sortie.connect(this.dest); } catch(e){}
     /* reverberation synthetisee (pas de fichier d'impulsion) */
@@ -2017,6 +2954,13 @@
     var conv = ctx.createConvolver(); conv.buffer = ir;
     var rv = ctx.createGain(); rv.gain.value = .55; conv.connect(rv); rv.connect(bus);
     this.rev = conv; this.bus = bus; this.out = out;
+    /* 07/10 : la serie L a en plus une reverberation longue (4,2 s), plus sombre, pour la timbale et les cordes */
+    if (/^L/.test(this.style)){
+      var l2 = Math.floor(ctx.sampleRate * 4.2), ir2 = ctx.createBuffer(2, l2, ctx.sampleRate), att2 = ctx.sampleRate * .015;
+      for (var c2 = 0; c2 < 2; c2++){ var d2 = ir2.getChannelData(c2); for (var j2 = 0; j2 < l2; j2++) d2[j2] = (Math.random() * 2 - 1) * Math.pow(1 - j2 / l2, 2.6) * (j2 < att2 ? j2 / att2 : 1); }
+      var cv2 = ctx.createConvolver(); cv2.buffer = ir2; var lp2 = ctx.createBiquadFilter(); lp2.type = 'lowpass'; lp2.frequency.value = 4200;
+      var rg2 = ctx.createGain(); rg2.gain.value = .5; cv2.connect(lp2); lp2.connect(rg2); rg2.connect(bus); this.revL = cv2;
+    }
     var nl = ctx.sampleRate * 2, nb = ctx.createBuffer(1, nl, ctx.sampleRate), nd = nb.getChannelData(0);
     for (var k = 0; k < nl; k++) nd[k] = Math.random() * 2 - 1;
     this.bruit = nb;
@@ -2523,6 +3467,239 @@
     this.suiteR(T, nItems);
   };
 
+
+  /* ---------- le son de la serie L (07/10) : un film de luxe. Piano feutre, cordes, verre, choeur,
+     tic-tac d'horlogerie ; la tension monte, un vrai silence, puis la timbale et la basse profonde
+     sur la revelation, dans une reverberation longue ; l'accord se resout en majeur. Aucun fichier. */
+  Son.prototype.envoiL = function(node, wet, wetL){
+    node.connect(this.bus);
+    if (wet){ var s = this.ctx.createGain(); s.gain.value = wet; node.connect(s); s.connect(this.rev); }
+    if (wetL && this.revL){ var s2 = this.ctx.createGain(); s2.gain.value = wetL; node.connect(s2); s2.connect(this.revL); }
+  };
+  /* piano feutre : partiels legerement inharmoniques, marteau doux */
+  Son.prototype.pianoL = function(t, st, peak, dur, clair){
+    var c = this.ctx, f0 = this.f(st), D2 = dur || 2.6, lp = c.createBiquadFilter(); lp.type = 'lowpass'; lp.Q.value = .3;
+    var fc = Math.min(8000, (clair || 1) * (700 + f0 * 3.2)); lp.frequency.setValueAtTime(fc, t); lp.frequency.exponentialRampToValueAtTime(Math.max(260, fc * .3), t + D2);
+    var g = c.createGain(); g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + .006); g.gain.exponentialRampToValueAtTime(peak * .38, t + .2); g.gain.exponentialRampToValueAtTime(.0001, t + D2);
+    lp.connect(g); this.envoiL(g, .18, .32);
+    [[1, 1, 0], [2, .36, 1.2], [3, .14, -.8], [4, .08, 1.6], [5, .04, 0], [6, .02, 0]].forEach(function(h){
+      var o = c.createOscillator(); o.type = 'sine'; o.frequency.value = f0 * h[0] * Math.sqrt(1 + .0003 * h[0] * h[0]); o.detune.value = h[2];
+      var v = c.createGain(); v.gain.setValueAtTime(h[1], t); v.gain.exponentialRampToValueAtTime(Math.max(1e-4, h[1] * .02), t + D2 / (.7 + h[0] * .4));
+      o.connect(v); v.connect(lp); o.start(t); o.stop(t + D2 + .05); });
+    var n = this.noise(t, .03), bp = c.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = Math.min(3500, f0 * 5); bp.Q.value = 1;
+    var gn = c.createGain(); this.env(gn, t, .001, peak * .1, .03); n.connect(bp); bp.connect(gn); gn.connect(lp);
+  };
+  Son.prototype.accordL = function(t, notes, peak, dur, ecart){ var self = this; notes.forEach(function(st, i){ self.pianoL(t + i * (ecart || 0), st, peak * (i ? .8 : 1), dur); }); };
+  /* cordes : ensemble de scies desaccordees, vibrato lent, attaque et release longues */
+  Son.prototype.cordesL = function(t, notes, dur, peak, att, rel, f1, f2){
+    var c = this.ctx, A = att || .7, R2 = rel || 1.2, fin = t + Math.max(A, dur) + R2 + .05, lp = c.createBiquadFilter(); lp.type = 'lowpass'; lp.Q.value = .5;
+    lp.frequency.setValueAtTime(f1 || 900, t); lp.frequency.linearRampToValueAtTime(f2 || 1500, t + Math.max(A, dur));
+    var hp = c.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 110;
+    var g = c.createGain(); g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + A); g.gain.setValueAtTime(peak, t + Math.max(A, dur)); g.gain.exponentialRampToValueAtTime(.0001, t + Math.max(A, dur) + R2);
+    lp.connect(hp); hp.connect(g); this.envoiL(g, .25, .45);
+    var lfo = c.createOscillator(); lfo.frequency.value = 4.8; var lg = c.createGain(); lg.gain.value = 6; lfo.connect(lg); lfo.start(t); lfo.stop(fin);
+    var self = this; notes.forEach(function(st){ [-8, 0, 8].forEach(function(dt){ var o = c.createOscillator(); o.type = 'sawtooth'; o.frequency.value = self.f(st); o.detune.value = dt; lg.connect(o.detune);
+      var v = c.createGain(); v.gain.value = 1 / (3 * notes.length); o.connect(v); v.connect(lp); o.start(t); o.stop(fin); }); });
+  };
+  /* le crescendo : les cordes s'ouvrent et montent, puis se coupent net (le silence avant l'impact) */
+  Son.prototype.crescL = function(t, dur, notes, peak){
+    var c = this.ctx, lp = c.createBiquadFilter(); lp.type = 'lowpass'; lp.Q.value = .8; lp.frequency.setValueAtTime(320, t); lp.frequency.exponentialRampToValueAtTime(3200, t + dur);
+    var g = c.createGain(); g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + dur * .97); g.gain.linearRampToValueAtTime(0, t + dur);
+    lp.connect(g); this.envoiL(g, .2, .2);
+    var lfo = c.createOscillator(); lfo.frequency.setValueAtTime(4, t); lfo.frequency.linearRampToValueAtTime(6.5, t + dur); var lg = c.createGain(); lg.gain.value = 9; lfo.connect(lg); lfo.start(t); lfo.stop(t + dur + .05);
+    var self = this; notes.forEach(function(st){ [-10, 0, 10].forEach(function(dt){ var o = c.createOscillator(); o.type = 'sawtooth'; o.frequency.value = self.f(st); o.detune.value = dt; lg.connect(o.detune);
+      var v = c.createGain(); v.gain.value = 1 / (3 * notes.length); o.connect(v); v.connect(lp); o.start(t); o.stop(t + dur + .02); }); });
+  };
+  /* l'aspiration : un souffle qui monte et s'arrete net sur le temps */
+  Son.prototype.aspireL = function(tFin, dur, peak){
+    var c = this.ctx, t = tFin - dur, n = this.noise(t, dur), lp = c.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.setValueAtTime(260, t); lp.frequency.exponentialRampToValueAtTime(5200, tFin);
+    var g = c.createGain(); g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(peak, tFin - .02); g.gain.linearRampToValueAtTime(0, tFin);
+    n.connect(lp); lp.connect(g); this.envoiL(g, .1, .1);
+  };
+  /* la timbale : fondamentale grave, partiels de membrane, peau feutree ; reverberation longue */
+  Son.prototype.timbaleL = function(t, st, peak){
+    var c = this.ctx, f0 = this.fb(st); if (f0 < 58) f0 *= 1.5;
+    [[1, 1, 2.8], [1.5, .42, 1.6], [1.98, .26, 1.2], [2.44, .12, .9]].forEach(function(h){
+      var o = c.createOscillator(); o.type = 'sine'; o.frequency.setValueAtTime(f0 * h[0] * 1.05, t); o.frequency.exponentialRampToValueAtTime(f0 * h[0], t + .14);
+      var g = c.createGain(); g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(peak * h[1], t + .006); g.gain.exponentialRampToValueAtTime(.0001, t + h[2]);
+      o.connect(g); this.envoiL(g, .08, .55); o.start(t); o.stop(t + h[2] + .05); }, this);
+    var n = this.noise(t, .2), lp = c.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 380;
+    var gn = c.createGain(); this.env(gn, t, .002, peak * .45, .16); n.connect(lp); lp.connect(gn); this.envoiL(gn, .1, .35);
+  };
+  /* la basse profonde, longue */
+  Son.prototype.graveL = function(t, st, peak, dur){
+    var c = this.ctx, f = this.fb(st), o = c.createOscillator(); o.type = 'sine'; o.frequency.setValueAtTime(f * 1.12, t); o.frequency.exponentialRampToValueAtTime(f, t + .2);
+    var g = c.createGain(); g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + .01); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+    o.connect(g); this.envoiL(g, 0, .12); o.start(t); o.stop(t + dur + .05);
+  };
+  /* le tic-tac d'horlogerie, feutre */
+  Son.prototype.ticL = function(t, haut, peak){
+    var c = this.ctx, n = this.noise(t, .025), bp = c.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = haut ? 3400 : 2300; bp.Q.value = 7;
+    var g = c.createGain(); this.env(g, t, .0008, peak, .02); n.connect(bp); bp.connect(g); this.envoiL(g, .12, .06);
+    var o = c.createOscillator(); o.type = 'sine'; o.frequency.value = haut ? 1900 : 1400; var g2 = c.createGain(); this.env(g2, t, .0008, peak * .35, .03); o.connect(g2); this.envoiL(g2, .08, 0); o.start(t); o.stop(t + .05);
+  };
+  /* le souffle, lent */
+  Son.prototype.souffleL = function(t, dur, peak, f1, f2){
+    var c = this.ctx, n = this.noise(t, dur + .1), bp = c.createBiquadFilter(); bp.type = 'bandpass'; bp.Q.value = .7; bp.frequency.setValueAtTime(f1 || 600, t); bp.frequency.exponentialRampToValueAtTime(f2 || 1500, t + dur);
+    var g = c.createGain(); g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + dur * .55); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+    n.connect(bp); bp.connect(g); this.envoiL(g, .2, .3);
+  };
+  /* le verre : une cloche de cristal (partiels de verre), longue */
+  Son.prototype.verreL = function(t, st, peak, dur){
+    var c = this.ctx, f0 = this.f(st), D2 = dur || 3.2;
+    [[1, 1, 0], [2.32, .42, 3], [4.25, .2, -4], [6.63, .08, 2]].forEach(function(h, i){
+      var o = c.createOscillator(); o.type = 'sine'; o.frequency.value = f0 * h[0]; o.detune.value = h[2];
+      var g = c.createGain(); g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(peak * h[1], t + .004); g.gain.exponentialRampToValueAtTime(.0001, t + D2 / (1 + i * .7));
+      o.connect(g); this.envoiL(g, .25, .5); o.start(t); o.stop(t + D2 + .05); }, this);
+  };
+  /* la nappe de verre : des sinus qui battent lentement (harmonica de verre) */
+  Son.prototype.nappeVerreL = function(t, dur, notes, peak, att, rel){
+    var c = this.ctx, A = att || 1, R2 = rel || 1, g = c.createGain(); g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + A); g.gain.setValueAtTime(peak, t + dur); g.gain.exponentialRampToValueAtTime(.0001, t + dur + R2);
+    this.envoiL(g, .3, .5); var self = this, fin = t + dur + R2 + .05;
+    notes.forEach(function(st, i){ [0, 1.6 + i * .4].forEach(function(bt){ var o = c.createOscillator(); o.type = 'sine'; o.frequency.value = self.f(st) + bt; var v = c.createGain(); v.gain.value = 1 / (2 * notes.length); o.connect(v); v.connect(g); o.start(t); o.stop(fin); }); });
+  };
+  /* la goutte : un « plic » de verre (hauteur qui monte vite) */
+  Son.prototype.plicL = function(t, st, peak){
+    var c = this.ctx, f = this.f(st), o = c.createOscillator(); o.type = 'sine'; o.frequency.setValueAtTime(f * .55, t); o.frequency.exponentialRampToValueAtTime(f * 1.3, t + .035);
+    var g = c.createGain(); this.env(g, t, .002, peak, .11); o.connect(g); this.envoiL(g, .35, .4); o.start(t); o.stop(t + .16);
+  };
+  /* le choeur sans paroles : scies filtrees par deux formants, attaque lente */
+  Son.prototype.choeurL = function(t, notes, dur, peak, voy, att, rel){
+    var c = this.ctx, F = voy === 'o' ? [430, 820] : [760, 1150], A = att || .8, R2 = rel || 1.4, fin = t + dur + R2 + .05, mix = c.createGain(), g = c.createGain();
+    g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + A); g.gain.setValueAtTime(peak, t + Math.max(A, dur)); g.gain.exponentialRampToValueAtTime(.0001, t + Math.max(A, dur) + R2);
+    F.forEach(function(fr, i){ var bp = c.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = fr; bp.Q.value = 5; var gg = c.createGain(); gg.gain.value = i ? 2.2 : 3; mix.connect(bp); bp.connect(gg); gg.connect(g); });
+    var lfo = c.createOscillator(); lfo.frequency.value = 5.1; var lg = c.createGain(); lg.gain.value = 10; lfo.connect(lg); lfo.start(t); lfo.stop(fin);
+    var self = this; notes.forEach(function(st){ [-9, 9].forEach(function(dt){ var o = c.createOscillator(); o.type = 'sawtooth'; o.frequency.value = self.f(st); o.detune.value = dt; lg.connect(o.detune); o.connect(mix); o.start(t); o.stop(fin); }); });
+    this.envoiL(g, .3, .55);
+  };
+  /* le celesta : une note claire, courte, qui sonne */
+  Son.prototype.celesteL = function(t, st, peak){
+    var c = this.ctx, f0 = this.f(st);
+    [[1, 1, 1.3], [2, .3, .7], [3.98, .1, .35]].forEach(function(h){ var o = c.createOscillator(); o.type = 'sine'; o.frequency.value = f0 * h[0];
+      var g = c.createGain(); g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(peak * h[1], t + .003); g.gain.exponentialRampToValueAtTime(.0001, t + h[2]);
+      o.connect(g); this.envoiL(g, .3, .45); o.start(t); o.stop(t + h[2] + .05); }, this);
+  };
+  /* la plume : le frottement fin du trait d'or */
+  Son.prototype.plumeL = function(t, dur, peak){
+    var c = this.ctx, n = this.noise(t, dur), bp = c.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = 5200; bp.Q.value = 1.4;
+    var g = c.createGain(); g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + .08); g.gain.setValueAtTime(peak, t + dur - .1); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+    var tr = c.createGain(); tr.gain.value = .6; var lfo = c.createOscillator(); lfo.frequency.value = 17; var lg = c.createGain(); lg.gain.value = .4; lfo.connect(lg); lg.connect(tr.gain); lfo.start(t); lfo.stop(t + dur + .05);
+    n.connect(bp); bp.connect(tr); tr.connect(g); this.envoiL(g, .15, .1);
+  };
+  /* le pas, feutre (un talon sur la moquette du podium) */
+  Son.prototype.pasL = function(t, peak){
+    var c = this.ctx, o = c.createOscillator(); o.type = 'sine'; o.frequency.setValueAtTime(120, t); o.frequency.exponentialRampToValueAtTime(58, t + .09);
+    var g = c.createGain(); this.env(g, t, .003, peak, .14); o.connect(g); this.envoiL(g, .05, .05); o.start(t); o.stop(t + .2);
+    var n = this.noise(t, .02), hp = c.createBiquadFilter(); hp.type = 'bandpass'; hp.frequency.value = 2600; hp.Q.value = 2; var gn = c.createGain(); this.env(gn, t, .0008, peak * .12, .015); n.connect(hp); hp.connect(gn); this.envoiL(gn, .1, 0);
+  };
+  /* le violoncelle en ostinato, court */
+  Son.prototype.celloL = function(t, st, dur, peak){
+    var c = this.ctx, o = c.createOscillator(); o.type = 'sawtooth'; o.frequency.value = this.f(st);
+    var lp = c.createBiquadFilter(); lp.type = 'lowpass'; lp.Q.value = 1.2; lp.frequency.setValueAtTime(1100, t); lp.frequency.exponentialRampToValueAtTime(420, t + dur);
+    var g = c.createGain(); g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + .025); g.gain.exponentialRampToValueAtTime(.0001, t + dur);
+    o.connect(lp); lp.connect(g); this.envoiL(g, .12, .2); o.start(t); o.stop(t + dur + .05);
+  };
+  /* le passage d'un look : un souffle d'air qui traverse */
+  Son.prototype.passeL = function(t, peak, pan){
+    var c = this.ctx, n = this.noise(t, .5), bp = c.createBiquadFilter(); bp.type = 'bandpass'; bp.Q.value = 1.1; bp.frequency.setValueAtTime(420, t); bp.frequency.exponentialRampToValueAtTime(1500, t + .22); bp.frequency.exponentialRampToValueAtTime(500, t + .45);
+    var g = c.createGain(); g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + .2); g.gain.exponentialRampToValueAtTime(.0001, t + .46);
+    n.connect(bp); bp.connect(g); var last = g;
+    if (c.createStereoPanner){ var p = c.createStereoPanner(); p.pan.setValueAtTime(-(pan || .5), t); p.pan.linearRampToValueAtTime(pan || .5, t + .45); g.connect(p); last = p; }
+    this.envoiL(last, .2, .15);
+  };
+  /* le declic, un seul (l'appareil photo du premier rang) */
+  Son.prototype.declicL = function(t, peak){
+    var c = this.ctx; [0, .042].forEach(function(dt, i){ var n = this.noise(t + dt, .012), hp = c.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 1800;
+      var g = c.createGain(); this.env(g, t + dt, .0006, peak * (i ? .7 : 1), .012); n.connect(hp); hp.connect(g); this.envoiL(g, .2, .1); }, this);
+  };
+  /* la revelation commune : timbale, basse profonde, accord majeur ample (avec neuvieme) */
+  Son.prototype.revelationL = function(t, k){
+    k = k || 1;
+    this.timbaleL(t, 0, .5 * k); this.graveL(t, 0, .34 * k, 3.2);
+    this.accordL(t, [-12, -5, 4, 7, 14], .1 * k, 3.4, .012);
+  };
+  /* la suite, commune : une note par preuve, deux pour les autres besoins, une par soin, l'accord de « Et toi ? » */
+  Son.prototype.suiteL = function(T, nItems, voix){
+    var d = this.d, PL = d.PL || planL(d), self = this, nA = d.LX ? Math.min(2, d.LX.liste.length - 1) : 0;
+    var jouer = voix || function(t, st, pk){ self.pianoL(t, st, pk, 2.2); };
+    jouer(T(PL.rev + .62), 19, .07);
+    for (var a = 0; a < nA; a++) jouer(T(PL.aut + .1 + a * .3), [16, 14][a], .055);
+    var mel = [19, 16, 21, 24];
+    for (var k = 0; k < Math.min(4, nItems); k++) jouer(T(PL.prod + k * PL.dp + .05), mel[k], .06);
+    this.accordL(T(PL.cta + .2), [-12, 0, 4, 7, 14], .05, 2.6, .03);
+  };
+
+  /* L1 · la une : tic-tac d'horlogerie, piano en pedale, cordes qui montent (i, VI, V sus4), un vrai silence ;
+     timbale et basse sur la une ; piano clair ensuite */
+  Son.prototype.planifieL1 = function(t0, nItems){
+    var b = this.tm.beat, PL = this.d.PL, i, self = this; function T(q){ return t0 + q * b; }
+    for (i = 0; i < 8; i++){ var q = i * .5; if (q < 3.75) this.ticL(T(q), i % 2 === 0, .055 + .05 * q / 4); }
+    [11, 11.5].forEach(function(q, j){ self.ticL(T(q), j === 0, .05); });
+    [0, 1, 2, 3].forEach(function(q){ self.pianoL(T(q), q < 3 ? 12 : 14, .055 + .015 * q, 1.4, .8); self.pianoL(T(q), q < 3 ? 0 : 2, .04, 1.4, .7); });
+    this.cordesL(T(0), [-12, 7, 15], 1.9 * b, .05, .9 * b, .5 * b, 700, 1100);
+    this.cordesL(T(2), [-16, 3, 12], .95 * b, .065, .3 * b, .3 * b, 900, 1400);
+    this.crescL(T(2.9), .85 * b, [-17, 7, 12, 14], .22);
+    this.aspireL(T(3.75), .8 * b, .1);
+    /* temps 3,75 a 4 : rien */
+    this.revelationL(T(PL.rev), 1);
+    this.cordesL(T(PL.rev), [4, 7, 14, 16], (PL.prod - PL.rev + .5) * b, .045, .25 * b, 1.4, 1200, 1800);
+    if (nItems) this.cordesL(T(PL.prod), [5, 9, 12, 16], (PL.cta - PL.prod) * b, .036, .6 * b, 1, 1000, 1500);
+    this.suiteL(T, nItems);
+    this.pianoL(T(11.25), -4, .04, 2); this.pianoL(T(11.25), 3, .03, 2);
+  };
+  /* L2 · le flacon : nappe de verre qui bat, souffles, des gouttes ; violoncelles qui montent ; un silence ;
+     la goutte touche le sol : timbale, basse, cloches de cristal */
+  Son.prototype.planifieL2 = function(t0, nItems){
+    var b = this.tm.beat, PL = this.d.PL, i, self = this; function T(q){ return t0 + q * b; }
+    this.nappeVerreL(T(0), 3.68 * b, [24, 31, 36], .045, .9 * b, .06);
+    this.souffleL(T(0), 2 * b, .05, 500, 1300); this.souffleL(T(2), 1.8 * b, .06, 700, 1800);
+    [[.6, 36], [1.35, 31], [2.1, 38]].forEach(function(g){ self.plicL(T(g[0]), g[1], .05); });
+    this.cordesL(T(.5), [-12, -5], 1.6 * b, .045, .8 * b, .4 * b, 500, 900);
+    this.crescL(T(2.1), 1.65 * b, [-12, -5, 3, 10], .22);
+    this.aspireL(T(3.75), 1.1 * b, .1);
+    /* temps 3,75 a 4 : rien. Puis la goutte */
+    this.plicL(T(PL.rev), 7, .18);
+    this.revelationL(T(PL.rev), 1);
+    [12, 16, 19, 26].forEach(function(st, j){ self.verreL(T(PL.rev) + j * .02, st, .045, 3.4); });
+    this.nappeVerreL(T(PL.rev + .4), (12 - PL.rev - .4) * b, [24, 28, 31], .03, 1.2 * b, .35);
+    this.suiteL(T, nItems, function(t, st, pk){ self.verreL(t, st, pk * .8, 2.4); self.pianoL(t, st - 12, pk * .5, 1.8); });
+  };
+  /* L3 · le defile : pas feutres, violoncelle en ostinato, un souffle a chaque look, les cordes montent ;
+     un silence ; timbale, declic unique et basse sur le dernier passage */
+  Son.prototype.planifieL3 = function(t0, nItems){
+    var b = this.tm.beat, PL = this.d.PL, i, self = this, B = this.d.B || { lignes:[], cible:0 }; function T(q){ return t0 + q * b; }
+    for (i = 0; i < 4; i++) this.pasL(T(i), .3 + .05 * i);
+    var ost = [-12, -12, -5, -12, -12, -9, -5, -7];
+    for (i = 0; i < 8; i++){ var q = i * .5; if (q < 3.7) this.celloL(T(q), ost[i], .42 * b, .05 + .025 * q / 4); }
+    var nL = Math.min(4, Math.max(0, B.lignes.length - 1));
+    for (i = 0; i < nL; i++) this.passeL(T(.1 + i * .55 + 1.25), .07, i % 2 ? -.5 : .5);
+    this.souffleL(T(2.25), 1.6 * b, .06, 400, 1400);
+    this.crescL(T(2.2), 1.55 * b, [-5, 7, 12, 14], .22);
+    this.aspireL(T(3.75), 1 * b, .1);
+    this.revelationL(T(PL.rev), 1); this.declicL(T(PL.rev), .06);
+    this.cordesL(T(PL.rev), [4, 7, 14, 16], (PL.prod - PL.rev + .5) * b, .045, .25 * b, 1.3, 1200, 1800);
+    if (nItems){ for (i = 0; i < Math.min(4, nItems); i++) this.pasL(T(PL.prod + i * PL.dp + .05), .2); this.cordesL(T(PL.prod), [5, 9, 12, 16], (PL.cta - PL.prod) * b, .034, .6 * b, 1, 1000, 1500); }
+    this.suiteL(T, nItems);
+    this.pasL(T(11), .2); this.pasL(T(11.5), .22);
+    this.celloL(T(11.5), -12, .42 * b, .04);
+  };
+  /* L4 · le monogramme : choeur grave, un frottement de plume et une note de celesta par trait,
+     un scintillement quand l'or prend ; la fente s'allume ; le sceau s'ouvre : timbale, choeur, celesta */
+  Son.prototype.planifieL4 = function(t0, nItems){
+    var b = this.tm.beat, PL = this.d.PL, i, self = this; function T(q){ return t0 + q * b; }
+    this.choeurL(T(0), [-12, -5, 3], 3.55 * b, .05, 'o', 1.1 * b, .12);
+    [[.15, .9, 12], [.65, .75, 16], [1.15, .9, 19], [1.65, .9, 24]].forEach(function(s){ self.plumeL(T(s[0]), s[1] * b, .025); self.celesteL(T(s[0]), s[2], .05); });
+    [24, 28, 31, 36].forEach(function(st, j){ self.celesteL(T(2.5 + j * .12), st, .03); });
+    this.crescL(T(2.6), 1.15 * b, [-5, 7, 12, 14], .22);
+    this.aspireL(T(3.75), 1 * b, .1);
+    this.revelationL(T(PL.rev), 1);
+    this.choeurL(T(PL.rev), [4, 7, 14], (PL.prod - PL.rev) * b, .055, 'a', .2 * b, 1.6);
+    [19, 23, 26].forEach(function(st, j){ self.celesteL(T(PL.rev + .05) + j * .06, st, .045); });
+    if (nItems) this.cordesL(T(PL.prod), [5, 9, 12, 16], (PL.cta - PL.prod) * b, .034, .6 * b, 1, 1000, 1500);
+    this.suiteL(T, nItems, function(t, st, pk){ self.celesteL(t, st, pk * .9); self.pianoL(t, st - 12, pk * .5, 1.8); });
+    this.choeurL(T(10.9), [-12, -5, 3], 1.1 * b, .03, 'o', .9 * b, .3);
+  };
+
   /* ------------------------------------------------------- l'interface */
   var STYLE = '\
 .vyw{position:fixed;inset:0;z-index:2147483000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;\
@@ -2758,8 +3935,9 @@ font-family:Inter,"Helvetica Neue",Arial,sans-serif;box-shadow:0 18px 44px -20px
     try { window.VyWrap.dernier = ctrl; } catch(e){}
 
     /* les polices et les photos d'abord, puis on lance */
-    var polices = (document.fonts && document.fonts.ready) ? Promise.race([document.fonts.ready, attendre(900)]) : Promise.resolve();
-    var photos = Promise.all(d.items.map(function(it){ return chargeImage(it.image).then(function(im){ return im ? preRendu(im, it.fond) : null; }); }));
+    /* 07/10 : la serie L attend ses polices (FontFace) avant de lancer l'image et l'enregistrement */
+    var polices = /^L/.test(d.style) ? policesL() : (document.fonts && document.fonts.ready) ? Promise.race([document.fonts.ready, attendre(900)]) : Promise.resolve();
+    var photos = Promise.all(d.items.map(function(it){ return chargeImage(it.image).then(function(im){ var c = im ? preRendu(im, it.fond) : null; if (c) c.brut = im; return c; }); }));
     Promise.all([polices, photos]).then(function(r){ R.imgs = r[1]; setTimeout(function(){ q('.vyw-p').focus({ preventScroll:true }); }, 50); lancer(); })
       .catch(function(){ lancer(); });
     return Promise.resolve(ctrl);
@@ -2786,8 +3964,8 @@ font-family:Inter,"Helvetica Neue",Arial,sans-serif;box-shadow:0 18px 44px -20px
     var d = normalise(donnees), R = new Rendu(canvas, d), raf = 0, arret = false, debut = performance.now(), dernier = 0, visible = true, CY = d.tm.CYCLE;
     var son = null, ctx = null, t0 = 0, prochain = 0, fige = false;
     R.dessine(0);
-    var pret = Promise.all(d.items.map(function(it){ return chargeImage(it.image).then(function(im){ return im ? preRendu(im, it.fond) : null; }); }))
-      .then(function(r){ R.imgs = r; debut = performance.now(); });
+    var pret = Promise.all(d.items.map(function(it){ return chargeImage(it.image).then(function(im){ var c = im ? preRendu(im, it.fond) : null; if (c) c.brut = im; return c; }); }).concat([/^L/.test(d.style) ? policesL() : null]))
+      .then(function(r){ R.imgs = r.slice(0, d.items.length); debut = performance.now(); });
     function boucle(now){
       if (arret) return; raf = requestAnimationFrame(boucle);
       if (!visible || fige || now - dernier < 31) return; dernier = now;
@@ -2823,5 +4001,5 @@ font-family:Inter,"Helvetica Neue",Arial,sans-serif;box-shadow:0 18px 44px -20px
     });
   }
 
-  window.VyWrap = { ouvrir:ouvrir, bouton:bouton, amorcer:amorcer, apercu:apercu, styles:['A', 'B', 'C', 'D', 'D1', 'D2', 'D3', 'D4', 'R1', 'R2', 'R3', 'R4'], palettes:PALETTES, version:'2.2', _normalise:normalise, _mesurerDuree:mesurerDuree, _temps:temps, _Son:Son };
+  window.VyWrap = { ouvrir:ouvrir, bouton:bouton, amorcer:amorcer, apercu:apercu, styles:['A', 'B', 'C', 'D', 'D1', 'D2', 'D3', 'D4', 'R1', 'R2', 'R3', 'R4', 'L1', 'L2', 'L3', 'L4'], palettes:PALETTES, version:'2.3', polices:policesL, _normalise:normalise, _mesurerDuree:mesurerDuree, _temps:temps, _Son:Son };
 })();

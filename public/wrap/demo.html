@@ -20,7 +20,7 @@
   <div class="ligne"><span>Peau</span><div id="z-peau"></div></div>
   <div class="ligne"><span>Cheveux</span><div id="z-cheveux"></div></div>
   <div class="ligne"><span>Assiette</span><div id="z-aliment"></div></div>
-<script src="/wrap/vy-wrap.js?v=6"></script>
+<script src="/wrap/vy-wrap.js?v=7"></script>
 <script src="/wrap/exemples.js?v=2"></script>
 <script>
   var EXEMPLES = window.VYW_EXEMPLES;
@@ -28,7 +28,7 @@
     document.getElementById('z-' + k).appendChild(VyWrap.bouton(function(){ return EXEMPLES[k]; }, { type:k }));
   });
   /* ?ouvrir=peau|cheveux|aliment : ouvre directement (tests) */
-  var o = (location.search.match(/[?&]ouvrir=(\w+)/) || [])[1], st = (location.search.match(/[?&]style=([A-DR][1-4]?)/) || [])[1] || 'A';
+  var o = (location.search.match(/[?&]ouvrir=(\w+)/) || [])[1], st = (location.search.match(/[?&]style=([A-DRL][1-4]?)/) || [])[1] || 'A';
   if (o && EXEMPLES[o]) VyWrap.ouvrir(Object.assign({}, EXEMPLES[o], { style:st })).then(function(c){ window.__wrap = c; });
 </script>
 </body>

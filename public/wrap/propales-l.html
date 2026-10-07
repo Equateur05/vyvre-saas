@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>vyvre · Wrap L, la série luxe</title>
+<style>
+  /* les polices du Wrap L, servies depuis /wrap/fonts/ (licence OFL, voir fonts/SOURCES.txt) */
+  @font-face{font-family:"VY Bodoni Moda";src:url(/wrap/fonts/bodoni-moda-display-400.woff2) format("woff2");font-weight:400;font-style:normal;font-display:swap}
+  @font-face{font-family:"VY Bodoni Moda";src:url(/wrap/fonts/bodoni-moda-display-600.woff2) format("woff2");font-weight:600;font-style:normal;font-display:swap}
+  @font-face{font-family:"VY Bodoni Moda";src:url(/wrap/fonts/bodoni-moda-display-400-italic.woff2) format("woff2");font-weight:400;font-style:italic;font-display:swap}
+  @font-face{font-family:"VY Cormorant Garamond";src:url(/wrap/fonts/cormorant-garamond-300-italic.woff2) format("woff2");font-weight:300;font-style:italic;font-display:swap}
+  @font-face{font-family:"VY Cormorant Garamond";src:url(/wrap/fonts/cormorant-garamond-300.woff2) format("woff2");font-weight:300;font-style:normal;font-display:swap}
+  @font-face{font-family:"VY Jost";src:url(/wrap/fonts/jost-300.woff2) format("woff2");font-weight:300;font-style:normal;font-display:swap}
+  @font-face{font-family:"VY Jost";src:url(/wrap/fonts/jost-500.woff2) format("woff2");font-weight:500;font-style:normal;font-display:swap}
+  :root{color-scheme:dark;--noir:#0a0908;--ivoire:#f4eee2;--doux:rgba(244,238,226,.6);--or:#cdac6e;--filet:rgba(205,172,110,.28);
+    --didone:"VY Bodoni Moda","Bodoni 72",Didot,Georgia,serif;--gara:"VY Cormorant Garamond","Cormorant Garamond",Georgia,serif;--fine:"VY Jost",Jost,"Avenir Next","Helvetica Neue",Arial,sans-serif}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--noir);color:var(--ivoire);overflow-x:hidden}
+  body{font:300 17px/1.55 var(--gara);padding:calc(env(safe-area-inset-top) + 40px) 16px calc(env(safe-area-inset-bottom) + 48px);
+    background:radial-gradient(1200px 700px at 50% -10%,rgba(205,172,110,.09),transparent 70%),var(--noir)}
+  header{max-width:1560px;margin:0 auto 34px;display:grid;gap:22px}
+  .mast{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:10px 24px;border-bottom:1px solid var(--filet);padding-bottom:16px}
+  .sur{font:500 10.5px/1.4 var(--fine);letter-spacing:.38em;text-transform:uppercase;color:var(--or)}
+  h1{margin:0;font:400 clamp(44px,8.4vw,112px)/.95 var(--didone);letter-spacing:-.01em;color:var(--ivoire)}
+  h1 em{font-style:italic;color:var(--or)}
+  .intro{margin:0;max-width:720px;font:300 italic clamp(18px,2.2vw,22px)/1.45 var(--gara);color:var(--doux)}
+  .reglages{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center}
+  .choix{display:inline-flex;max-width:100%;border:1px solid var(--filet)}
+  .choix button{border:0;background:none;color:var(--doux);font:500 10.5px/1 var(--fine);letter-spacing:.28em;text-transform:uppercase;padding:14px 14px 13px;cursor:pointer;white-space:nowrap}
+  .choix button+button{border-left:1px solid var(--filet)}
+  .choix button[aria-pressed=true]{background:var(--ivoire);color:var(--noir)}
+  .palettes{display:flex;flex-wrap:wrap;gap:8px}
+  .palettes button{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--filet);background:transparent;color:var(--doux);font:300 italic 15px/1 var(--gara);padding:6px 12px 6px 6px;cursor:pointer;white-space:nowrap}
+  .palettes button[aria-pressed=true]{border-color:var(--or);color:var(--ivoire);background:rgba(205,172,110,.1)}
+  .palettes i{display:inline-flex;overflow:hidden;box-shadow:0 0 0 1px rgba(255,255,255,.16)}
+  .palettes i b{display:block;width:10px;height:20px}
+  .grille{max-width:1560px;margin:0 auto;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:26px 18px}
+  @media (max-width:1300px){.grille{grid-template-columns:repeat(3,minmax(0,1fr))}}
+  @media (max-width:860px){.grille{grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 12px}}
+  .carte{display:flex;flex-direction:column;gap:10px;min-width:0}
+  .ecran{position:relative;aspect-ratio:9/16;overflow:hidden;background:#000;box-shadow:0 34px 70px -34px rgba(0,0,0,.95),0 0 0 1px var(--filet)}
+  .carte.ref .ecran{opacity:.9;box-shadow:0 34px 70px -34px rgba(0,0,0,.95),0 0 0 1px rgba(244,238,226,.12)}
+  .ecran canvas{display:block;width:100%;height:100%}
+  .lettre{position:absolute;left:8px;top:8px;padding:6px 8px 5px;background:rgba(10,9,8,.72);border:1px solid var(--filet);font:500 10px/1 var(--fine);letter-spacing:.24em;color:var(--or)}
+  .carte h2{margin:4px 0 0;font:400 clamp(19px,1.7vw,24px)/1.15 var(--didone);color:var(--ivoire)}
+  .carte h2 em{font-style:italic;color:var(--or)}
+  .carte p{margin:0;font:300 15px/1.45 var(--gara);color:var(--doux)}
+  .carte p b{font:500 9.5px/1 var(--fine);letter-spacing:.24em;text-transform:uppercase;color:var(--or)}
+  .actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:auto;padding-top:4px}
+  .actions button{flex:1 1 104px;min-height:44px;cursor:pointer;font:500 10px/1 var(--fine);letter-spacing:.24em;text-transform:uppercase;padding:0 8px}
+  .ecouter{border:1px solid var(--filet);background:transparent;color:var(--ivoire)}
+  .ecouter[aria-pressed=true]{background:rgba(205,172,110,.16);border-color:var(--or)}
+  .creer{border:0;background:var(--ivoire);color:var(--noir)}
+  .sep{grid-column:1/-1;display:flex;align-items:center;gap:14px;font:500 10px/1 var(--fine);letter-spacing:.34em;text-transform:uppercase;color:var(--or);margin:4px 0 -6px}
+  @media (min-width:1301px){.sep{display:none}}
+  .sep::after{content:"";flex:1;height:1px;background:var(--filet)}
+  footer{max-width:1560px;margin:36px auto 0;border-top:1px solid var(--filet);padding-top:16px;font:300 italic 15px/1.5 var(--gara);color:rgba(244,238,226,.45)}
+</style>
+</head>
+<body>
+<header>
+  <div class="mast">
+    <div class="sur" data-t="sur"></div>
+    <div class="sur" id="date"></div>
+  </div>
+  <h1 data-h="titre"></h1>
+  <p class="intro" data-t="intro"></p>
+  <div class="reglages">
+    <div class="choix" role="group" id="types">
+      <button type="button" data-type="peau" aria-pressed="true"></button>
+      <button type="button" data-type="cheveux" aria-pressed="false"></button>
+      <button type="button" data-type="aliment" aria-pressed="false"></button>
+    </div>
+    <div class="choix" role="group" id="langues" aria-label="Langue / Language">
+      <button type="button" data-lang="fr" aria-pressed="true">FR</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    </div>
+  </div>
+  <div class="palettes" id="palettes" role="group"></div>
+</header>
+<main class="grille" id="grille"></main>
+<footer data-t="pied"></footer>
+
+<script src="/wrap/vy-wrap.js?v=7"></script>
+<script src="/wrap/exemples.js?v=2"></script>
+<script>
+(function(){
+  var TX = {
+    fr:{ sur:'vyvre · Le Wrap · série L', titre:'La série <em>luxe.</em>', types:{ peau:'Peau', cheveux:'Cheveux', aliment:'Assiette' },
+      intro:'Le même arc que la série R (suspense, révélation du besoin, la preuve, les soins, « Et toi ? »), les mêmes phrases tirées des vraies mesures, mais un autre langage : Didone, italique, noir, ivoire et or, mouvement lent, son de film. Le D4 et le R1 à gauche pour comparer. Un seul son à la fois.',
+      pied:'Données d’exemple, signalées « EXEMPLE » dans chaque Wrap. La phrase vient de la mesure la plus basse, par une table écrite à l’avance : rien d’aléatoire, aucune valeur inventée. Polices Bodoni Moda, Cormorant Garamond et Jost, licence SIL OFL, chargées depuis vyvre (aucun service tiers). Ajoutez ?diag=1 pour la ligne technique sous la vidéo.',
+      ecouter:'Écouter', couper:'Couper le son', creer:'Créer la vidéo', ref:'Pour comparer', luxe:'La série luxe' },
+    en:{ sur:'vyvre · The Wrap · L series', titre:'The <em>luxury</em> series.', types:{ peau:'Skin', cheveux:'Hair', aliment:'Plate' },
+      intro:'The same arc as the R series (suspense, the need revealed, the proof, the products, “And you?”), the same phrases drawn from the real measures, in another language: Didone, italics, black, ivory and gold, slow motion, film sound. D4 and R1 on the left for comparison. One sound at a time.',
+      pied:'Example data, marked “EXAMPLE” in every Wrap. The phrase comes from the lowest measure, through a table written in advance: nothing random, no invented value. Typefaces Bodoni Moda, Cormorant Garamond and Jost, SIL OFL licence, served by vyvre (no third-party service). Add ?diag=1 for the technical line under the video.',
+      ecouter:'Listen', couper:'Mute', creer:'Create the video', ref:'For comparison', luxe:'The luxury series' }
+  };
+  var STYLES = [
+    { k:'D4', ref:true,
+      fr:{ t:'D4 · La carte', d:'Le format actuel. <b>Son</b> UK garage 132 BPM.' },
+      en:{ t:'D4 · The card', d:'The current format. <b>Sound</b> UK garage 132 BPM.' } },
+    { k:'R1', ref:true,
+      fr:{ t:'R1 · Le roulement', d:'La révélation, version poster. <b>Son</b> caisse claire, impact, groove 120 BPM.' },
+      en:{ t:'R1 · The drum roll', d:'The reveal, poster version. <b>Sound</b> snare roll, impact, 120 BPM groove.' } },
+    { k:'L1',
+      fr:{ t:'L1 · <em>La Une</em>', d:'Une couverture de magazine sur papier ivoire se compose ; le titre de une, c’est votre besoin. Puis les pages intérieures, un soin par page. <b>Son</b> tic-tac d’horlogerie, piano feutré, cordes qui montent, silence, timbale.' },
+      en:{ t:'L1 · <em>The Cover</em>', d:'A magazine cover on ivory paper composes itself; the cover line is your need. Then the inside pages, one product per page. <b>Sound</b> clockwork tick, felt piano, rising strings, silence, timpani.' } },
+    { k:'L2',
+      fr:{ t:'L2 · <em>Le Flacon</em>', d:'Un flacon en lumière sculptée, la lumière glisse sur le verre ; une goutte d’or tombe au ralenti et touche le sol-miroir : la phrase, en or, avec son reflet. <b>Son</b> verre, souffle, violoncelles, la goutte, cloches de cristal.' },
+      en:{ t:'L2 · <em>The Flacon</em>', d:'A bottle in sculpted light, light gliding over the glass; a gold drop falls in slow motion onto the mirror floor: the phrase, in gold, with its reflection. <b>Sound</b> glass, breath, cellos, the drop, crystal bells.' } },
+    { k:'L3',
+      fr:{ t:'L3 · <em>Le Défilé</em>', d:'Un podium dans le noir, ses lumières s’allument ; vos vraies mesures défilent comme des looks, une silhouette de lumière s’avance : le dernier passage, c’est la phrase. <b>Son</b> pas feutrés, violoncelle, un seul déclic, timbale.' },
+      en:{ t:'L3 · <em>The Runway</em>', d:'A runway in the dark, its lights coming on; your real measures walk as looks, a silhouette of light steps forward: the final look is the phrase. <b>Sound</b> soft steps, cello, a single shutter click, timpani.' } },
+    { k:'L4',
+      fr:{ t:'L4 · <em>Le Monogramme</em>', d:'Un monogramme VYVRE gravé à froid ; l’or le trace trait par trait, la lumière accroche la feuille d’or, une fente s’allume, le sceau s’ouvre sur la phrase. <b>Son</b> chœur grave, plume, célesta, timbale.' },
+      en:{ t:'L4 · <em>The Monogram</em>', d:'A blind-embossed VYVRE monogram; gold traces it stroke by stroke, light catches the gold leaf, a slit lights up, the seal opens on the phrase. <b>Sound</b> low choir, pen, celesta, timpani.' } }
+  ];
+  var grille = document.getElementById('grille'), type = 'peau', lang = 'fr', apercus = [];
+  var PAL = VyWrap.palettes || { origine:null }, pal = (location.search.match(/[?&]pal=([a-z]+)/) || [])[1];
+  if (!(pal in PAL)) pal = 'origine';
+  var zp = document.getElementById('palettes');
+  function hex(c){ return 'rgb(' + c.join(',') + ')'; }
+  Object.keys(PAL).forEach(function(k){
+    var P = PAL[k], b = document.createElement('button'); b.type = 'button'; b.dataset.pal = k; b.setAttribute('aria-pressed', String(k === pal));
+    var cs = P ? [P.noir, P.c1, P.blanc] : [[10, 9, 8], [205, 172, 110], [244, 238, 226]];
+    b.innerHTML = '<i>' + cs.map(function(c){ return '<b style="background:' + hex(c) + '"></b>'; }).join('') + '</i><span></span>';
+    b.querySelector('span').textContent = P ? P.nom : 'Origine';
+    b.addEventListener('click', function(){
+      pal = k; zp.querySelectorAll('button').forEach(function(x){ x.setAttribute('aria-pressed', String(x === b)); });
+      try { var u = new URL(location.href); u.searchParams.set('pal', k); history.replaceState(null, '', u); } catch(e){}
+      construire();
+    });
+    zp.appendChild(b);
+  });
+  function lp(){ return TX[lang]; }
+  function textes(){
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-t]').forEach(function(el){ el.textContent = lp()[el.dataset.t]; });
+    document.querySelector('[data-h]').innerHTML = lp().titre;
+    document.querySelectorAll('#types button').forEach(function(b){ b.textContent = lp().types[b.dataset.type]; });
+    document.getElementById('types').setAttribute('aria-label', lang === 'fr' ? 'Type de scan' : 'Scan type');
+    var d = new Date(); document.getElementById('date').textContent = ('0' + d.getDate()).slice(-2) + '.' + ('0' + (d.getMonth() + 1)).slice(-2) + '.' + d.getFullYear();
+  }
+  function toutTaire(){
+    apercus.forEach(function(a){ a.taire(); });
+    grille.querySelectorAll('.ecouter').forEach(function(x){ x.setAttribute('aria-pressed', 'false'); x.textContent = lp().ecouter; });
+  }
+  function construire(){
+    apercus.forEach(function(a){ a.arreter(); }); apercus = []; grille.innerHTML = '';
+    STYLES.forEach(function(s, i){
+      if (i === 0 || i === 2){ var sp = document.createElement('div'); sp.className = 'sep'; sp.textContent = i ? lp().luxe : lp().ref; grille.appendChild(sp); }
+      var c = document.createElement('article'); c.className = 'carte' + (s.ref ? ' ref' : '');
+      c.innerHTML = '<div class="ecran"><canvas></canvas><span class="lettre"></span></div><h2></h2><p></p>' +
+        '<div class="actions"><button type="button" class="ecouter" aria-pressed="false"></button><button type="button" class="creer"></button></div>';
+      c.querySelector('.lettre').textContent = s.k;
+      c.querySelector('h2').innerHTML = s[lang].t;
+      c.querySelector('p').innerHTML = s[lang].d;
+      c.querySelector('.ecouter').textContent = lp().ecouter;
+      c.querySelector('.creer').textContent = lp().creer;
+      grille.appendChild(c);
+      var donnees = Object.assign({}, window.VYW_EXEMPLES[type], { style:s.k, palette:pal });
+      var ap = VyWrap.apercu(c.querySelector('canvas'), donnees); apercus.push(ap);
+      var b = c.querySelector('.ecouter');
+      b.addEventListener('click', function(){
+        var on = b.getAttribute('aria-pressed') !== 'true';
+        toutTaire();
+        if (on && ap.ecouter()){ b.setAttribute('aria-pressed', 'true'); b.textContent = lp().couper; }
+      });
+      c.querySelector('.creer').addEventListener('click', function(){ toutTaire(); VyWrap.amorcer(); VyWrap.ouvrir(donnees); });
+    });
+  }
+  /* grand ecran : une seule rangee, les deux references a gauche ; plus petit : deux intertitres */
+  document.querySelectorAll('#types button').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('#types button').forEach(function(x){ x.setAttribute('aria-pressed', String(x === b)); });
+      type = b.dataset.type; construire();
+    });
+  });
+  document.querySelectorAll('#langues button').forEach(function(b){
+    b.addEventListener('click', function(){
+      document.querySelectorAll('#langues button').forEach(function(x){ x.setAttribute('aria-pressed', String(x === b)); });
+      lang = b.dataset.lang; textes(); construire();
+    });
+  });
+  var q = (location.search.match(/[?&]type=(peau|cheveux|aliment)/) || [])[1], ql = (location.search.match(/[?&]lang=(fr|en)/) || [])[1];
+  if (q){ type = q; document.querySelectorAll('#types button').forEach(function(x){ x.setAttribute('aria-pressed', String(x.dataset.type === q)); }); }
+  if (ql){ lang = ql; document.querySelectorAll('#langues button').forEach(function(x){ x.setAttribute('aria-pressed', String(x.dataset.lang === ql)); }); }
+  textes(); construire();
+  window.__propalesL = function(){ return apercus; };
+})();
+</script>
+</body>
+</html>
