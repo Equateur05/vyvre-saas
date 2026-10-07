@@ -354,11 +354,29 @@
     if(document.getElementById('vy-as-css')) return; var s = document.createElement('style'); s.id = 'vy-as-css'; s.textContent = CSS; document.head.appendChild(s); }
 
   /* ---- l'entree, dans les resultats du scan ---- */
+  var CARTE_LANGUES = {
+    en:['New · Foods for my skin', 'Foods for my skin.', 'Up to four foods, chosen from your reading. For each one, what the studies show. Nothing more.', 'Available in French for now.', 'Compose my plate'],
+    es:['Nuevo · Alimentos para mi piel', 'Alimentos para mi piel.', 'Hasta cuatro alimentos, elegidos según su lectura. Para cada uno, lo que muestran los estudios. Nada más.', 'Disponible en francés por ahora.', 'Componer mi plato'],
+    it:['Novità · Alimenti per la mia pelle', 'Alimenti per la mia pelle.', 'Fino a quattro alimenti, scelti in base alla sua lettura. Per ciascuno, ciò che mostrano gli studi. Niente di più.', 'Disponibile in francese per ora.', 'Componi il mio piatto'],
+    de:['Neu · Lebensmittel für meine Haut', 'Lebensmittel für meine Haut.', 'Bis zu vier Lebensmittel, ausgewählt nach Ihrer Messung. Zu jedem, was die Studien zeigen. Mehr nicht.', 'Vorerst nur auf Französisch verfügbar.', 'Meinen Teller zusammenstellen'],
+    pt:['Novo · Alimentos para a minha pele', 'Alimentos para a minha pele.', 'Até quatro alimentos, escolhidos de acordo com a sua leitura. Para cada um, o que os estudos mostram. Nada mais.', 'Disponível em francês por enquanto.', 'Compor o meu prato'],
+    nl:['Nieuw · Voeding voor mijn huid', 'Voeding voor mijn huid.', 'Tot vier voedingsmiddelen, gekozen op basis van uw meting. Bij elk wat de studies laten zien. Meer niet.', 'Voorlopig alleen in het Frans beschikbaar.', 'Mijn bord samenstellen'],
+    ru:['Новое · Продукты для моей кожи', 'Продукты для моей кожи.', 'До четырёх продуктов, подобранных по вашему анализу. Для каждого — что показывают исследования. Ничего лишнего.', 'Пока доступно только на французском.', 'Собрать мою тарелку'],
+    ar:['جديد · أطعمة لبشرتي', 'أطعمة لبشرتي.', 'حتى أربعة أطعمة، مختارة وفق قراءة بشرتك. لكلٍّ منها، ما تُظهره الدراسات. لا أكثر.', 'متاح بالفرنسية فقط حاليًا.', 'كوّن طبقي'],
+    ja:['新着 · 肌のための食べもの', '肌のための食べもの。', 'あなたの測定結果から選んだ、最大4つの食べもの。それぞれについて、研究が示していることだけを。', '現在はフランス語のみでご利用いただけます。', '私のお皿をつくる'],
+    ko:['새 기능 · 내 피부를 위한 음식', '내 피부를 위한 음식.', '측정 결과에 따라 고른 최대 네 가지 음식. 각각에 대해 연구가 보여 주는 것만.', '현재는 프랑스어로만 제공됩니다.', '내 접시 구성하기'],
+    zh:['新功能 · 为我的肌肤选择的食物', '为我的肌肤选择的食物。', '根据您的检测结果挑选，最多四种食物。每一种都附上研究所显示的内容，仅此而已。', '目前仅提供法语版本。', '组合我的餐盘']
+  };
   function entree(){ var ind = indicesDuScan(); if(!ind) return; style();
     var grid = document.querySelector('.vyvre-v6 .v6grid'); if(!grid) return;
     var e = document.getElementById('vy-as-entree');
     if(!e){ e = document.createElement('section'); e.id = 'vy-as-entree'; grid.appendChild(e); e.addEventListener('click', ouvrir); }
     e.innerHTML = '<div class="m">Nouveau · Aliments pour ma peau</div><h3>Aliments pour ma peau.</h3><p>Jusqu’à quatre aliments, choisis d’après votre lecture : ' + esc(INDICES[ind.i1].toLowerCase()) + (ind.i2 ? ', ' + esc(INDICES[ind.i2].toLowerCase()) : '') + '. Pour chacun, ce que les études montrent. Rien de plus.</p><button type="button">Composer mon assiette</button>';
+    /* 07/10 (verification des langues) : hors francais, la carte parle la langue de la page et dit que la suite est en francais */
+    var lgc = String((window.VY && VY.lang) || document.documentElement.lang || 'fr').slice(0, 2).toLowerCase();
+    if(lgc !== 'fr'){ var C = CARTE_LANGUES[lgc] || CARTE_LANGUES.en;
+      e.innerHTML = '<div class="m">' + C[0] + '</div><h3>' + C[1] + '</h3><p>' + C[2] + '</p><p style="font-size:12px;opacity:.7;margin-top:6px">' + C[3] + '</p><button type="button">' + C[4] + '</button>';
+      if(lgc === 'ar') e.setAttribute('dir', 'rtl'); }
     if(/[?&](assiette=1|depuis=aliment)\b/.test(location.search) && !entree.fait){ entree.fait = 1; setTimeout(ouvrir, /depuis=aliment/.test(location.search) ? 1600 : 900); } }
 
   /* ---- la feuille plein ecran ---- */
