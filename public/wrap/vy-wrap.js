@@ -3000,7 +3000,7 @@
      interne reduite, puis le texte net par-dessus) : l'enregistrement et le partage ne changent pas.
      =================================================================== */
   var BASE_WRAP = (function(){ try { var s = document.currentScript && document.currentScript.src; if (s) return new URL('./', s).href; } catch(e){} return '/wrap/'; })();
-  var MODX = null, VER_X = '1';
+  var MODX = null, VER_X = '2';   /* 07/10 (soir) : les aliments en clair */
   function chargeX(){
     if (MODX) return MODX;
     MODX = new Promise(function(res, rej){
@@ -3020,7 +3020,7 @@
   }
   Rendu.prototype.dessineX = function(tAbs){
     if (this.X){ var t0 = performance.now(); this.X.dessine(tAbs); this.X.ms = (this.X.ms || []); this.X.ts = (this.X.ts || []); this.X.ms.push(performance.now() - t0); this.X.ts.push(t0); if (this.X.ms.length > 240){ this.X.ms.shift(); this.X.ts.shift(); } return; }
-    var x = this.x; x.setTransform(1, 0, 0, 1, 0, 0); x.globalAlpha = 1; x.globalCompositeOperation = 'source-over'; x.fillStyle = '#060606'; x.fillRect(0, 0, W, H);
+    var x = this.x; x.setTransform(1, 0, 0, 1, 0, 0); x.globalAlpha = 1; x.globalCompositeOperation = 'source-over'; x.fillStyle = this.d.type === 'aliment' ? '#fafafa' : '#060606'; x.fillRect(0, 0, W, H);
   };
   Rendu.prototype.dessineX1 = Rendu.prototype.dessineX2 = Rendu.prototype.dessineX3 = Rendu.prototype.dessineX4 = function(tAbs){ return this.dessineX(tAbs); };
   Rendu.prototype.liberer = function(){ if (this.X && this.X.liberer){ try { this.X.liberer(); } catch(e){} } this.X = null; };
@@ -3955,6 +3955,19 @@ font-family:Inter,"Helvetica Neue",Arial,sans-serif;box-shadow:0 18px 44px -20px
 .vyw-cta .vyw-t b{white-space:nowrap;font:500 15px/1.1 Inter,"Helvetica Neue",Arial,sans-serif;letter-spacing:.01em;color:#f6eedb}\
 .vyw-cta .vyw-t small{font:400 9.5px/1 "JetBrains Mono","SF Mono",Menlo,monospace;letter-spacing:.24em;text-transform:uppercase;color:rgba(217,201,163,.8)}\
 .vyw-zone{display:flex;justify-content:center;padding:18px 0}\
+.vyw.vyw-clair{background:rgba(250,250,249,.96);color:#252622}\
+.vyw-clair .vyw-haut b{color:#252622}\
+.vyw-clair .vyw-ic{border-color:#d8dcd1;background:#fff;color:#34392e}\
+.vyw-clair .vyw-scene{background:#fafafa;box-shadow:0 34px 70px -34px rgba(37,31,19,.38),0 0 0 1px #e3e5de}\
+.vyw-clair .vyw-prog{background:rgba(37,38,34,.08)}\
+.vyw-clair .vyw-prog i{background:#30362a}\
+.vyw-clair .vyw-etat{color:#6b6f66}\
+.vyw-clair .vyw-p{background:#272d22;color:#fff;box-shadow:0 14px 30px -16px rgba(37,31,19,.5)}\
+.vyw-clair .vyw-p.go{animation:vywGoC 1.1s ease-in-out infinite}\
+.vyw-clair .vyw-s{border-color:#a9afa1;color:#343b2c}\
+.vyw-clair .vyw-autre{color:#5f6458}\
+.vyw-clair .vyw-diag{color:#3f6b4f}\
+@keyframes vywGoC{50%{box-shadow:0 0 0 6px rgba(39,45,34,.14),0 14px 30px -16px rgba(37,31,19,.5)}}\
 ';
   function style(){
     if (document.getElementById('vyw-style')) return;
@@ -3986,7 +3999,7 @@ font-family:Inter,"Helvetica Neue",Arial,sans-serif;box-shadow:0 18px 44px -20px
     var ctx = amorcer();
     var DIAG = /[?&]diag=1(&|$)/.test(location.search), diag = { mime:'', fichier:'', duree:'', partage:L.diagPartage.aucun };
 
-    var el = document.createElement('div'); el.className = 'vyw'; el.setAttribute('role', 'dialog'); el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-label', 'Wrap vyvre');
+    var el = document.createElement('div'); el.className = 'vyw' + (d.type === 'aliment' ? ' vyw-clair' : ''); el.setAttribute('role', 'dialog');   /* 07/10 (soir) : les aliments en clair, comme leur interface */ el.setAttribute('aria-modal', 'true'); el.setAttribute('aria-label', 'Wrap vyvre');
     el.innerHTML =
       '<div class="vyw-haut"><b>VYVRE</b><span style="display:flex;gap:8px">' +
         '<button type="button" class="vyw-ic vyw-son" aria-pressed="true">' + IC_SON + '<span></span></button>' +

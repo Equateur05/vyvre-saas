@@ -39,6 +39,81 @@ function spriteHalo(couleur, opacite){
   const m = new THREE.SpriteMaterial({ map:texCanvas(halo()), color:couleur, transparent:true, opacity:opacite, blending:THREE.AdditiveBlending, depthWrite:false, depthTest:false });
   return new THREE.Sprite(m);
 }
+/* ---------- 07/10 (soir) : le Wrap des ALIMENTS passe en clair, comme l'interface « Aliments pour ma peau »
+   (fond blanc casse, texte gris-noir, typo sans serif serree, petites capitales grises, les aliments qui flottent) */
+const CLAIR = { encre:[37, 38, 34], gris:[104, 106, 97], trait:[216, 220, 209] };   /* gris un peu plus fonce que #77796f : 5:1 sur le blanc, meme pour les petites capitales */
+const SANS = '"VY Inter",Inter,-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif';
+let INTER = null, INTER_OK = false;
+function chargeInter(){
+  if (INTER) return INTER;
+  if (!window.FontFace || !document.fonts) return (INTER = Promise.resolve(false));
+  const un = (w, f) => new FontFace('VY Inter', 'url("' + new URL('fonts/' + f + '?v=1', import.meta.url).href + '") format("woff2")', { weight:w, style:'normal' }).load().then(l => { document.fonts.add(l); });
+  INTER = Promise.race([Promise.all([un('400', 'inter-400.woff2'), un('500', 'inter-500.woff2')]).then(() => { INTER_OK = true; return true; }), new Promise(r => setTimeout(() => r(false), 5000))]).catch(() => false);
+  return INTER;
+}
+function fontS(size, poids){ return (poids || 400) + ' ' + Math.round(size) + 'px ' + SANS; }
+/* le fond de l'interface aliments : #fafafa, un degrade radial du blanc (60 % / 40 %) vers #f5f5f4 */
+function peintFondClair(g, w, h){
+  g.fillStyle = '#fafafa'; g.fillRect(0, 0, w, h);
+  const rg = g.createRadialGradient(w * .6, h * .4, 0, w * .6, h * .4, h * .78);
+  rg.addColorStop(0, '#ffffff'); rg.addColorStop(.42, '#fcfcfb'); rg.addColorStop(1, '#f2f2f0');
+  g.fillStyle = rg; g.fillRect(0, 0, w, h);
+}
+function fondClair(){ const c = canvas(270, 480); peintFondClair(c.getContext('2d'), 270, 480); return texCanvas(c); }
+/* une ombre portee douce (au sol), en melange normal : elle se voit sur le blanc */
+let OMBRE = null;
+function ombre(){ if (OMBRE) return OMBRE; const c = canvas(128, 128), g = c.getContext('2d'), rg = g.createRadialGradient(64, 64, 0, 64, 64, 64);
+  rg.addColorStop(0, 'rgba(37,31,19,1)'); rg.addColorStop(.45, 'rgba(37,31,19,.45)'); rg.addColorStop(1, 'rgba(37,31,19,0)'); g.fillStyle = rg; g.fillRect(0, 0, 128, 128); OMBRE = c; return c; }
+function spriteOmbre(opacite){ return new THREE.Sprite(new THREE.SpriteMaterial({ map:texCanvas(ombre()), color:0xffffff, transparent:true, opacity:opacite, depthWrite:false, depthTest:false })); }
+/* la couleur d'un aliment : la moyenne de ses pixels, ponderee par la saturation (la peau de l'avocat, pas son reflet) */
+function rgbHsl(c){ const r = c[0] / 255, g = c[1] / 255, b = c[2] / 255, mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2; let h = 0, s = 0;
+  if (mx !== mn){ const d = mx - mn; s = l > .5 ? d / (2 - mx - mn) : d / (mx + mn); h = mx === r ? (g - b) / d + (g < b ? 6 : 0) : mx === g ? (b - r) / d + 2 : (r - g) / d + 4; h /= 6; }
+  return [h, s, l]; }
+function hslRgb(h, s, l){ const f = (p, q, t) => { t = (t + 1) % 1; return t < 1 / 6 ? p + (q - p) * 6 * t : t < .5 ? q : t < 2 / 3 ? p + (q - p) * (2 / 3 - t) * 6 : p; };
+  if (!s) return [l, l, l].map(v => Math.round(v * 255)); const q = l < .5 ? l * (1 + s) : l + s - l * s, p = 2 * l - q; return [f(p, q, h + 1 / 3), f(p, q, h), f(p, q, h - 1 / 3)].map(v => Math.round(v * 255)); }
+function couleurAliment(im){
+  /* la teinte dominante (histogramme de teintes pondere par la chroma) : l'orange de la carotte, pas le vert de ses fanes */
+  try {
+    const src = im.brut || im, c = canvas(64, 64), g = c.getContext('2d', { willReadFrequently:true }); g.drawImage(src, 0, 0, 64, 64);
+    const p = g.getImageData(0, 0, 64, 64).data, B = []; for (let i = 0; i < 24; i++) B.push([0, 0, 0, 0]);
+    for (let i = 0; i < p.length; i += 4){
+      if (p[i + 3] < 200) continue;
+      const hsl = rgbHsl([p[i], p[i + 1], p[i + 2]]), l = hsl[2]; if (l < .08 || l > .94) continue;
+      const k = Math.pow(hsl[1] * (1 - Math.abs(2 * l - 1)), 2.5), b = B[Math.floor(hsl[0] * 24) % 24];
+      b[0] += p[i] * k; b[1] += p[i + 1] * k; b[2] += p[i + 2] * k; b[3] += k;
+    }
+    let m = 0, best = -1; for (let i = 0; i < 24; i++){ const t = B[i][3] + .5 * B[(i + 23) % 24][3] + .5 * B[(i + 1) % 24][3]; if (t > best){ best = t; m = i; } }
+    let r = 0, gg = 0, bb = 0, w = 0; for (const j of [(m + 23) % 24, m, (m + 1) % 24]){ r += B[j][0]; gg += B[j][1]; bb += B[j][2]; w += B[j][3]; }
+    return w > 1e-4 ? [r / w, gg / w, bb / w].map(Math.round) : null;
+  } catch(e){ return null; }
+}
+const COUL_REPLI = [[104, 150, 64], [226, 124, 44], [206, 86, 80], [150, 112, 190]];
+function lumR(c){ const f = v => { v /= 255; return v <= .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); }; return .2126 * f(c[0]) + .7152 * f(c[1]) + .0722 * f(c[2]); }
+/* vive : la couleur pour la 3D (saturee, ni trop claire ni trop sombre) ; texte : la meme, assez sombre pour se lire sur le blanc (contraste >= 4,5) */
+function palAliments(imgs, n){
+  const out = { vives:[], textes:[], pastels:[], prim:0 }; let chroma = -1;
+  for (let k = 0; k < Math.max(1, n); k++){
+    const c0 = (imgs && imgs[k] && couleurAliment(imgs[k])) || COUL_REPLI[k % 4], hsl = rgbHsl(c0), ch = hsl[1] * (1 - Math.abs(2 * hsl[2] - 1));
+    if (ch > chroma){ chroma = ch; out.prim = k; }   /* l'accent : l'aliment le plus colore (l'huile d'olive plutot que le gris-bleu du maquereau) */
+    const s = Math.max(hsl[1], .5), l = Math.min(.56, Math.max(.4, hsl[2]));
+    const vive = hslRgb(hsl[0], Math.min(.85, s), l); let lt = l, t = vive;
+    while (lumR(t) > .16 && lt > .12){ lt -= .02; t = hslRgb(hsl[0], Math.min(.8, s), lt); }
+    out.vives.push(vive); out.textes.push(t); out.pastels.push(mel(vive, [255, 255, 255], .88));
+  }
+  return out;
+}
+/* l'aliment detoure, pret a dessiner net (720 px de haut au plus) et son reflet (retourne, qui s'efface) */
+function prepAliment(im){
+  if (!im) return null;
+  const src = im.brut || im, iw = src.naturalWidth || src.width, ih = src.naturalHeight || src.height; if (!iw || !ih) return null;
+  const k = Math.min(1, 720 / ih, 900 / iw), w = Math.max(1, Math.round(iw * k)), h = Math.max(1, Math.round(ih * k));
+  const net = canvas(w, h); net.getContext('2d').drawImage(src, 0, 0, w, h);
+  const rh = Math.round(h * .42), rf = canvas(w, rh), g = rf.getContext('2d');
+  g.save(); g.translate(0, h); g.scale(1, -1); g.drawImage(net, 0, 0); g.restore();
+  g.globalCompositeOperation = 'destination-in'; const gr = g.createLinearGradient(0, 0, 0, rh); gr.addColorStop(0, 'rgba(0,0,0,.65)'); gr.addColorStop(1, 'rgba(0,0,0,0)'); g.fillStyle = gr; g.fillRect(0, 0, w, rh);
+  return { net, rf, w, h };
+}
+
 /* un fond en degrade vertical (texture), pour scene.background */
 function fondDegrade(stops){ const c = canvas(4, 512), g = c.getContext('2d'), gr = g.createLinearGradient(0, 0, 0, 512);
   stops.forEach(s => gr.addColorStop(s[0], 'rgb(' + s[1].join(',') + ')')); g.fillStyle = gr; g.fillRect(0, 0, 4, 512); return texCanvas(c); }
@@ -46,20 +121,21 @@ function fondDegrade(stops){ const c = canvas(4, 512), g = c.getContext('2d'), g
 /* ------------------------------------------------------------- le texte en volume */
 const POL3D = {};
 function police3D(nom){ return POL3D[nom] || (POL3D[nom] = fetch(new URL('fonts/3d/' + nom + '.json?v=1', import.meta.url)).then(r => { if (!r.ok) throw new Error('police ' + nom); return r.json(); })); }
-const CSS3D = { 'bodoni-600':'600 100px "VY Bodoni Moda"', 'bodoni-400-italic':'italic 400 100px "VY Bodoni Moda"', 'jost-500':'500 100px "VY Jost"' };
+const CSS3D = { 'bodoni-600':'600 100px "VY Bodoni Moda"', 'bodoni-400-italic':'italic 400 100px "VY Bodoni Moda"', 'jost-500':'500 100px "VY Jost"', 'inter-400':'400 100px "VY Inter"' };
+const TRACK3D = { 'inter-400':-.045 };   /* l'approche serree de l'interface aliments (letter-spacing negatif), en em */
 let MES = null;
 const espaceFin = c => c === ' ' || c === ' ' ? ' ' : c;
 /* la position de chaque lettre (en em) : mesuree par le navigateur sur la meme police (crenage compris) ; sinon les avances du fichier */
 function avances(font, nom, txt, V){
-  const ch = Array.from(txt).map(espaceFin), x = [];
-  if (V.polEtat() === 'ok'){
+  const ch = Array.from(txt).map(espaceFin), x = [], tr = TRACK3D[nom] || 0, nn = Math.max(0, ch.length - 1);
+  if (nom === 'inter-400' ? INTER_OK : V.polEtat() === 'ok'){
     MES = MES || canvas(4, 4).getContext('2d'); MES.font = CSS3D[nom];
     let acc = '';
-    for (const c of ch){ acc += c; x.push((MES.measureText(acc).width - MES.measureText(c).width) / 100); }
-    return { x, tot:MES.measureText(ch.join('')).width / 100 };
+    for (const c of ch){ acc += c; x.push((MES.measureText(acc).width - MES.measureText(c).width) / 100 + tr * x.length); }
+    return { x, tot:MES.measureText(ch.join('')).width / 100 + tr * nn };
   }
-  let p = 0; for (const c of ch){ x.push(p); const g = font.glyphs[c]; p += (g ? g.ha : font.resolution * .3) / font.resolution; }
-  return { x, tot:p };
+  let p = 0; for (const c of ch){ x.push(p + tr * x.length); const g = font.glyphs[c]; p += (g ? g.ha : font.resolution * .3) / font.resolution; }
+  return { x, tot:p + tr * nn };
 }
 function formesGlyphe(font, c, taille){
   const g = font.glyphs[c]; if (!g || !g.o) return [];
@@ -102,6 +178,8 @@ function bloc3D(font, nom, lay, mat, o, V){
       const geo = new THREE.ExtrudeGeometry(shapes, { depth:(o.depth || .1) * f, curveSegments:o.seg || 5, bevelEnabled:!!o.bevel, bevelThickness:(o.bevel || 0) * f, bevelSize:(o.bevelSize != null ? o.bevelSize : (o.bevel || 0)) * f, bevelSegments:o.bevelSeg || 2 });
       geo.computeBoundingBox(); const bb = geo.boundingBox, cx = (bb.min.x + bb.max.x) / 2, cy = (bb.min.y + bb.max.y) / 2, cz = (bb.min.z + bb.max.z) / 2;
       geo.translate(-cx, -cy, -cz);
+      /* typo serree (Inter) : deux lettres voisines peuvent se toucher (« tt ») ; un decalage infime en profondeur evite qu'elles se disputent le meme plan */
+      if (TRACK3D[nom]) geo.translate(0, 0, (lettres.length % 2) * .006 * f);
       const m = new THREE.Mesh(geo, mat), px = x0 + pos.x[ci] * f + cx, py = yb + cy;
       m.position.set(px, py, 0); m.userData = { x:px, y:py, i:lettres.length, li, n:0 };
       g.add(m); lettres.push(m);
@@ -204,6 +282,17 @@ class Base {
     this.jetables = [];
     this.lay = { kickY:300, hookY:1268, constatY:820, preuveY:1300, autY:1410, titreY:318, legY:1170, ctaY:760 };
     this.encre = [244, 238, 226]; this.acc = this.KL.acc;
+    /* les aliments : en clair, la palette tiree au hasard est ignoree ; les couleurs viennent des 4 aliments retenus */
+    this.clair = d.type === 'aliment';
+    if (this.clair){
+      this.AL = palAliments(R.imgs, this.n);
+      this.K = { c1:this.AL.vives[0], c2:this.AL.vives[1 % this.AL.vives.length] };
+      this.KL = Object.assign({}, this.KL, { noir:[250, 250, 249], ivoire:CLAIR.encre, or:[190, 152, 88], acc:this.AL.textes[0] });
+      const pr = this.AL.prim; this.encre = CLAIR.encre; this.acc = this.AL.textes[pr];
+      this.KL.acc = this.acc; this.K = { c1:this.AL.vives[pr], c2:this.AL.vives[(pr + 1) % this.AL.vives.length] };
+      this.al2 = (R.imgs || []).slice(0, this.n).map(prepAliment);
+      this.heroH = 1.95; this.ctaEtagere = true;
+    }
   }
   async init(){
     this.rw = this.ap ? 360 : 720; this.rh = this.ap ? 640 : 1280;
@@ -232,6 +321,7 @@ class Base {
   }
   /* les soins : une texture par photo detouree ; sans photo, un ecrin vide (jamais une image inventee) */
   async produits3D(){
+    if (this.clair){ this.prods = null; return; }   /* en clair, les aliments sont dessines nets par-dessus la 3D (aliments2D) */
     this.prods = [];
     for (let k = 0; k < this.n; k++){
       const im = this.R.imgs && this.R.imgs[k], it = this.d.items[k], g = new THREE.Group();
@@ -253,8 +343,11 @@ class Base {
     const fin = 1 - V.seg(q, P.cta - .35, P.cta + .05);
     return { a:entre * fin, heros:1 - part, etagere:part, actif:q >= s - .12 && q < e + .3 && q < P.cta, e:q - s, s };
   }
-  posEtagere(k){ const n = this.n, pas = Math.min(160, 760 / Math.max(1, n)); return { x:wx(CX + (k - (n - 1) / 2) * pas), y:wy(492), z:1.2, h:.34 }; }
+  /* « Et toi ? » : les aliments se posent en rang sous la question, comme sur l'accueil aliments */
+  posCta(k){ const n = this.n, pas = Math.min(215, 820 / Math.max(1, n)); return { x:wx(CX + (k - (n - 1) / 2) * pas), y:wy(this.ctaSol || 1395), z:1.2, h:.4 }; }
+  posEtagere(k){ const n = this.n, pas = this.clair ? Math.min(205, 800 / Math.max(1, n)) : Math.min(160, 760 / Math.max(1, n)); return { x:wx(CX + (k - (n - 1) / 2) * pas), y:wy(this.clair ? 500 : 492), z:1.2, h:this.clair ? .42 : .34 }; }
   majProduits(q, heros){
+    this._heros = heros;
     if (!this.prods) return;
     const V = this.V, P = this.P;
     this.prods.forEach((pr, k) => {
@@ -280,17 +373,103 @@ class Base {
     const q = R.tempoL(tAbs);
     if (this.gl){ this.maj(q); this.gl.render(this.scene, this.cam); const x = R.x; x.setTransform(1, 0, 0, 1, 0, 0); x.globalAlpha = 1; x.globalCompositeOperation = 'source-over'; x.drawImage(this.gl.domElement, 0, 0, W, H); }
     else this.dessine2D(q);
+    if (this.clair) this.aliments2D(q);
     this.surcouche(q);
     this.flash(q);
-    R.signeL(this.encreA(q), .9);
+    if (this.clair) this.signe(); else R.signeL(this.encreA(q), .9);
+  }
+  /* ---------- les aliments, en clair : nets (pleine resolution), qui flottent, ombre douce au sol et leger reflet (comme l'accueil aliments) */
+  aliments2D(q){
+    const P = this.P, V = this.V, x = this.R.x, n = this.n;
+    if (!n || !this.al2 || q < P.prod - .2 || q > P.retour + .5) return;
+    const hp = this._heros || { x:wx(CX), y:wy(1100), z:.6 }, H0 = this.heroH || 1.95, ph = q / 18 * 6.2832;
+    const vers = this.ctaEtagere ? V.eInOut(V.seg(q, P.cta - .45, P.cta + .35)) : 0;
+    const garde = this.ctaEtagere ? 1 - V.seg(q, P.retour - .1, P.retour + .45) : 1 - V.seg(q, P.cta - .35, P.cta + .05);
+    const ordre = []; for (let k = 0; k < n; k++) ordre.push(k);
+    ordre.sort((a, b) => this.etatProduit(b, q).etagere - this.etatProduit(a, q).etagere);   /* le heros par-dessus l'etagere */
+    x.setTransform(1, 0, 0, 1, 0, 0); x.globalCompositeOperation = 'source-over';
+    for (const k of ordre){
+      const A = this.al2[k], st = this.etatProduit(k, q), s0 = st.s;
+      const entre = V.eOut3(V.seg(q, s0 - .12, s0 + .38)), a = entre * garde;
+      if (a <= .003) continue;
+      const E = this.posEtagere(k), u = st.etagere, Cx = this.posCta ? this.posCta(k) : E;
+      let X = V.lerp(hp.x, E.x, u), Y = V.lerp(hp.y, E.y, u), Z = V.lerp(hp.z, E.z, u), h = V.lerp(H0, E.h, u);
+      if (vers > 0){ X = V.lerp(X, Cx.x, vers); Y = V.lerp(Y, Cx.y, vers); Z = V.lerp(Z, Cx.z, vers); h = V.lerp(h, Cx.h * (this.ctaH || 1.15), vers); }
+      const kz = 12 / (12 - Z), px = 540 + X * PXU * kz, sol = 960 - Y * PXU * kz + 38 * (1 - entre), sc = .93 + .07 * entre;
+      let hh = h * PXU * kz * sc;
+      const flot = (5 + 7 * (1 - u) * (1 - vers)) * (Math.sin(ph * 3 + k * 1.7) * .5 + .5), rot = .021 * Math.sin(ph * 3 + k * 1.7 + .6) * (1 - u * .6);
+      if (!A){
+        /* sans photo (licence) : un ecrin vide, jamais une image inventee */
+        x.globalAlpha = a * .7; x.strokeStyle = V.rgba(CLAIR.trait, 1); x.lineWidth = 2; x.beginPath(); x.arc(px, sol - hh * .5 - flot, hh * .32, 0, 6.2832); x.stroke(); x.globalAlpha = 1; continue;
+      }
+      let w = hh * A.w / A.h; const wMax = Math.min(hh * 1.6, (this.largeMax || 860) * (1 - .55 * u * (1 - vers)) ); if (w > wMax){ hh *= wMax / w; w = wMax; }
+      /* l'ombre au sol : plus petite et plus legere quand l'aliment monte */
+      const oy = sol + 4, ow = w * (.66 - .08 * flot / 12), oh = Math.max(7, hh * .05);
+      x.save(); x.globalAlpha = a * (.26 - .1 * flot / 12); x.translate(px, oy); x.scale(1, oh / ow);
+      const og = x.createRadialGradient(0, 0, 0, 0, 0, ow / 2); og.addColorStop(0, 'rgba(37,31,19,1)'); og.addColorStop(.5, 'rgba(37,31,19,.42)'); og.addColorStop(1, 'rgba(37,31,19,0)');
+      x.fillStyle = og; x.beginPath(); x.arc(0, 0, ow / 2, 0, 6.2832); x.fill(); x.restore();
+      /* le reflet (retourne, 9 %) */
+      x.globalAlpha = a * .1 * (1 - .5 * u); x.drawImage(A.rf, px - w / 2, sol + 2 + flot * .4, w, hh * .42); x.globalAlpha = 1;
+      /* l'aliment */
+      x.save(); x.globalAlpha = a; x.translate(px, sol - flot); x.rotate(rot); x.drawImage(A.net, -w / 2, -hh, w, hh); x.restore();
+    }
+    x.globalAlpha = 1;
+  }
+  /* ---------- le texte, en clair (typo de l'interface aliments) */
+  caps(txt, cx, y, size, col, a, o){
+    o = o || {}; if (!this.clair) return this.R.capsL(txt, cx, y, size, col, a, o);
+    if (a <= 0) return 0;
+    const x = this.R.x, V = this.V, t = V.maj(txt), nc = Array.from(t).length, maxW = o.maxW || 800, poids = o.poids || 500; let s = size * .92, sp = o.spC != null ? o.spC : .2;
+    const larg = () => { x.font = fontS(s, poids); return x.measureText(t).width + sp * s * (nc - 1); };
+    while (larg() > maxW && sp > .06) sp -= .02;
+    while (larg() > maxW && s > size * .55) s -= 1;
+    x.globalAlpha = Math.max(0, Math.min(1, a)); x.fillStyle = V.rgba(col, 1); const w = V.traceL(x, t, cx, y, sp * s, o.align); x.globalAlpha = 1; return w;
+  }
+  sans(txt, cx, y, size, col, a, o){
+    o = o || {}; if (a <= 0) return size;
+    const x = this.R.x, V = this.V, t = String(txt), nc = Array.from(t).length, maxW = o.maxW || 820, poids = o.poids || 400, tr = o.tr != null ? o.tr : -.045; let s = size;
+    const larg = () => { x.font = fontS(s, poids); return x.measureText(t).width + tr * s * (nc - 1); };
+    while (larg() > maxW && s > size * .5) s -= 2;
+    x.globalAlpha = Math.max(0, Math.min(1, a)); x.fillStyle = V.rgba(col, 1); V.traceL(x, t, cx, y, tr * s, o.align); x.globalAlpha = 1; return s;
+  }
+  /* un texte en lignes (au plus n), qui reduit pour tenir ; les espaces fines (« assiette ? ») ne coupent pas */
+  lignes(txt, cx, y, size, lh, col, a, o){
+    o = o || {}; const x = this.R.x, maxW = o.maxW || 820, n = o.n || 2, poids = o.poids || 400, tr = o.tr != null ? o.tr : -.045, mots = String(txt).split(/[ \t\n]+/).filter(Boolean);
+    let s = size, ls = [];
+    const w = t => x.measureText(t).width + tr * s * (Array.from(t).length - 1);
+    for (;;){
+      x.font = fontS(s, poids); ls = []; let cur = '';
+      for (const m of mots){ const t = cur ? cur + ' ' + m : m; if (!cur || w(t) <= maxW) cur = t; else { ls.push(cur); cur = m; } }
+      if (cur) ls.push(cur);
+      if ((ls.length <= n && ls.every(l => w(l) <= maxW)) || s <= size * .5) break;
+      s -= 2;
+    }
+    /* une ligne ne finit pas sur un petit mot : on le passe a la ligne suivante */
+    for (let i = 0; i < ls.length - 1; i++){ const m = ls[i].split(' '); if (m.length > 1 && m[m.length - 1].replace(/[’']/g, '').length <= 3){ const nx = m.pop() + ' ' + ls[i + 1]; x.font = fontS(s, poids); if (w(nx) <= maxW){ ls[i] = m.join(' '); ls[i + 1] = nx; } } }
+    if (a > 0) ls.forEach((l, i) => this.sans(l, cx, y + i * lh * s / size, s, col, a, { maxW, poids, tr }));
+    return { n:ls.length, s };
+  }
+  signe(){
+    const V = this.V; this.R.x.setTransform(1, 0, 0, 1, 0, 0); this.R.x.globalCompositeOperation = 'source-over';
+    this.caps((this.d.exemple ? V.T().exemple + '   ·   ' : '') + this.R.L.site, CX, 1500, 23, CLAIR.gris, .95, { spC:.24 });
+  }
+  /* le repli 2D en clair : le fond, la phrase */
+  dessine2DC(q){
+    const x = this.R.x, V = this.V, P = this.P; x.setTransform(1, 0, 0, 1, 0, 0); peintFondClair(x, W, H);
+    if (q >= P.rev && q < (this.n ? P.prod : P.cta)) this.lignes(this.tx.titre, CX, 1000, 130, 130, CLAIR.encre, V.eOut3(V.seg(q, P.rev, P.rev + .4)), { n:2, maxW:820 });
+    this._heros = { x:wx(CX), y:wy(1100), z:.6 };
   }
   encreA(){ return this.encre; }
   /* le flash de la revelation : un seul, doux (moins de 3 par seconde, toujours) */
-  flash(q){ const e = q - this.P.rev; if (e < 0 || e > .22) return; const x = this.R.x; x.setTransform(1, 0, 0, 1, 0, 0); x.globalAlpha = .32 * (1 - e / .22); x.globalCompositeOperation = 'lighter'; x.fillStyle = '#fff'; x.fillRect(0, 0, W, H); x.globalCompositeOperation = 'source-over'; x.globalAlpha = 1; }
+  flash(q){ const e = q - this.P.rev; if (e < 0 || e > .22) return; const x = this.R.x;
+    if (this.clair){   /* sur le blanc : une seule bouffee douce de la couleur du premier aliment */
+      x.setTransform(1, 0, 0, 1, 0, 0); x.globalAlpha = .22 * (1 - e / .22); const rg = x.createRadialGradient(CX, 900, 0, CX, 900, 900);
+      rg.addColorStop(0, this.V.rgba(this.AL.pastels[this.AL.prim], 1)); rg.addColorStop(1, this.V.rgba(this.AL.pastels[this.AL.prim], 0)); x.fillStyle = rg; x.fillRect(0, 0, W, H); x.globalAlpha = 1; return; } x.setTransform(1, 0, 0, 1, 0, 0); x.globalAlpha = .32 * (1 - e / .22); x.globalCompositeOperation = 'lighter'; x.fillStyle = '#fff'; x.fillRect(0, 0, W, H); x.globalCompositeOperation = 'source-over'; x.globalAlpha = 1; }
   aHook(q){ const V = this.V; return q < 2 ? 1 - V.seg(q, .78, 1.12) : V.seg(q, 16.5, 17.45); }
   /* la pastille de la preuve : LIBELLE (capitales fines) + valeur (Didone) ; la note dessous */
   pastille(pr, cy, a, ink, fondPill){
     if (!pr || a <= 0) return; const R = this.R, V = this.V, x = R.x;
+    if (this.clair) return this.pastilleC(pr, cy, a, ink);
     const lab = pr.label ? V.maj(pr.label) : '', val = pr.label ? pr.val : '';
     x.font = V.fontJ(24, 500); const wl = lab ? x.measureText(lab).width + 24 * .3 * (Array.from(lab).length - 1) : 0;
     x.font = V.fontJ(60, 500); const wv = val ? x.measureText(val).width : 0;
@@ -307,8 +486,82 @@ class Base {
     } else R.capsL(pr.texte || '', CX, cy + 9, 24, ink, a, { sp:.3, maxW:w - 80 });
     if (pr.note){ const bas = pr.note === V.maj(pr.note); if (bas) R.capsL(pr.note, CX, cy + h / 2 + 46, 21, ink, .8 * a, { sp:.34 }); else R.garaL(pr.note, CX, cy + h / 2 + 52, 40, ink, .85 * a, { it:true }); }
   }
+  /* la preuve en clair : une pilule blanche au filet fin (comme les choix de l'interface), libelle gris + valeur */
+  pastilleC(pr, cy, a, ink){
+    const V = this.V, x = this.R.x, G = CLAIR.gris;
+    const lab = pr.label ? V.maj(pr.label) : '', val = pr.label ? String(pr.val) : '';
+    x.font = fontS(21, 500); const wl = lab ? x.measureText(lab).width + 21 * .18 * (Array.from(lab).length - 1) : 0;
+    x.font = fontS(58, 400); const wv = val ? x.measureText(val).width - 58 * .04 * (Array.from(val).length - 1) : 0;
+    let w = pr.label ? wl + 28 + wv + 96 : 0;
+    if (!pr.label){ x.font = fontS(21, 500); w = x.measureText(V.maj(pr.texte || '')).width + 21 * .18 * Array.from(pr.texte || '').length + 96; }
+    w = Math.min(820, w); const h = 104;
+    x.save(); x.globalAlpha = a * .94; x.fillStyle = '#ffffff'; V.rond(x, CX - w / 2, cy - h / 2, w, h, h / 2); x.fill();
+    x.globalAlpha = a; x.strokeStyle = V.rgba(CLAIR.trait, 1); x.lineWidth = 2; x.stroke(); x.restore();
+    if (pr.label){
+      const k = Math.min(1, (w - 96) / (wl + 28 + wv)), x0 = CX - (wl + 28 + wv) * k / 2;
+      x.save(); x.translate(x0, cy + 20); x.scale(k, k);
+      x.globalAlpha = a; x.fillStyle = V.rgba(G, 1); x.font = fontS(21, 500); V.traceL(x, lab, 0, -6, 21 * .18, 'left');
+      x.fillStyle = V.rgba(ink, 1); x.font = fontS(58, 400); V.traceL(x, val, wl + 28, 0, -58 * .04, 'left'); x.restore(); x.textAlign = 'center';
+    } else this.caps(pr.texte || '', CX, cy + 8, 22, G, a, { spC:.18, maxW:w - 80 });
+    if (pr.note){ const bas = pr.note === V.maj(pr.note); if (bas) this.caps(pr.note, CX, cy + h / 2 + 46, 20, G, a, { spC:.2 }); else this.sans(pr.note, CX, cy + h / 2 + 52, 40, G, a); }
+  }
+  /* ---------- le texte en clair : la meme chronologie, la typo et les couleurs de l'interface aliments */
+  surcoucheC(q){
+    const V = this.V, P = this.P, tx = this.tx, L = this.lay, ink = this.encreA(q), acc = this.accA ? this.accA(q) : this.acc, G = CLAIR.gris;
+    const aH = this.aHook(q);
+    if (aH > 0){
+      this.caps(tx.kicker, CX, L.kickY, 21, G, aH, { spC:.2 });
+      if (!this.hook3D){
+        const m = tx.hook.split(' '), c = Math.ceil(m.length / 2);
+        this.sans(m.slice(0, c).join(' '), CX, L.hookY - (1 - aH) * 12, 94, ink, aH, { maxW:820 });
+        this.sans(m.slice(c).join(' '), CX, L.hookY + 98 - (1 - aH) * 12, 94, ink, aH, { maxW:820 });
+      }
+    }
+    const fin1 = this.n ? P.prod : P.cta, sortie = 1 - V.seg(q, fin1 - .3, fin1 - .02);
+    if (q >= P.rev && q < fin1){
+      const ac = V.eOut3(V.seg(q, P.rev + .2, P.rev + .55)) * sortie;
+      if (tx.constat && ac > 0 && !this.sansConstat) this.caps(tx.constat, CX, L.constatY + (1 - ac) * 14, 26, acc, ac, { spC:.2 });
+      const ap = V.eOut3(V.seg(q, P.preuve, P.preuve + .35)) * sortie;
+      this.pastille(tx.preuve, L.preuveY + (1 - ap) * 16, ap, ink);
+      const aa = V.eOut3(V.seg(q, P.aut, P.aut + .35)) * sortie;
+      if (tx.aussi.length && aa > 0){
+        this.caps(tx.aussiMot, CX, L.autY - 48, 19, G, aa, { spC:.2 });
+        this.sans(tx.aussi.join('   '), CX, L.autY + 8, 44, ink, aa, { maxW:820 });
+      }
+    }
+    if (this.n && q >= P.prod - .2 && q < P.cta + .1){
+      const k = Math.max(0, Math.min(this.n - 1, Math.floor((q - P.prod) / P.dp)));
+      const at = V.eOut3(V.seg(q, P.prod - .2, P.prod + .2)) * (1 - V.seg(q, P.cta - .3, P.cta));
+      const num = n => (n < 10 ? '0' : '') + n;
+      this.caps(V.maj(tx.produits) + '   ·   ' + num(k + 1) + ' / ' + num(this.n), CX, L.titreY, 21, G, at, { spC:.2 });
+      for (let j = 0; j < this.n; j++){
+        const st = this.etatProduit(j, q), s0 = st.s, e = s0 + P.dp;
+        const la = V.seg(q, s0 + .08, s0 + .34) * (j < this.n - 1 ? 1 - V.seg(q, e - .22, e - .02) : 1 - V.seg(q, P.cta - .3, P.cta));
+        if (la > 0) this.legendeC(j, L.legY, la, ink);
+      }
+    }
+    if (q >= P.cta - .05 && q < P.retour + .6) this.ctaC(q, ink, acc);
+  }
+  legendeC(k, y, a, ink){
+    const it = this.d.items[k], G = CLAIR.gris;
+    const haut = [it.marque, it.etape].filter(Boolean).join('  ·  ');
+    if (haut) this.caps(haut, CX, y, 20, G, a, { spC:.2 });
+    const r = this.lignes(it.nom, CX, y + 74, 62, 64, ink, a, { n:2, maxW:820 });
+    const yb = y + 74 + (r.n - 1) * 64 * r.s / 62;
+    if (it.credit) this.caps(this.tx.photo + ' · ' + it.credit, CX, yb + 44, 15, G, .85 * a, { spC:.1, maxW:760 });
+  }
+  ctaC(q, ink, acc){
+    const V = this.V, P = this.P, tx = this.tx, L = this.lay;
+    const a = V.eOut3(V.seg(q, P.cta + .15, P.cta + .55)) * (1 - V.seg(q, P.retour - .1, P.retour + .45));
+    const a2 = V.eOut3(V.seg(q, P.cta + .35, P.cta + .8)) * (1 - V.seg(q, P.retour - .1, P.retour + .45));
+    if (a <= 0) return;
+    if (!this.cta3D) this.sans(tx.cta[0], CX, L.ctaY, 118, ink, a);
+    const y1 = L.ctaY + (this.cta3D ? 215 : 140), r = this.lignes(tx.cta[1], CX, y1, 84, 90, ink, a2, { n:2, maxW:800 });
+    this.caps(tx.site, CX, y1 + (r.n - 1) * 90 * r.s / 84 + 96, 32, acc, a2, { spC:.24 });
+  }
   /* ---------- le texte, par-dessus la 3D (commun ; chaque variante regle les positions) */
   surcouche(q){
+    if (this.clair) return this.surcoucheC(q);
     const R = this.R, V = this.V, P = this.P, tx = this.tx, L = this.lay, ink = this.encreA(q), acc = this.accA ? this.accA(q) : this.acc;
     /* l'accroche */
     const aH = this.aHook(q);
@@ -372,6 +625,7 @@ class Base {
   dessine2D(q){ const x = this.R.x; x.setTransform(1, 0, 0, 1, 0, 0); x.fillStyle = this.V.rgba(this.KL.noir, 1); x.fillRect(0, 0, W, H); }
   /* le soin en 2D (repli) : la photo, posee comme dans la 3D */
   produits2D(q, heros){
+    if (this.clair) return;
     const R = this.R, V = this.V, x = R.x, P = this.P;
     if (!this.n || q < P.prod - .2 || q > P.cta + .1) return;
     for (let k = 0; k < this.n; k++){
@@ -397,7 +651,7 @@ class Base {
 }
 
 /* ===================================================================== X1 · TON VISAGE EN LUMIERE */
-const VS_PART = `uniform float uPh, uDisp, uSwirl, uSize, uMix, uAlpha, uPulse, uImp, uFres;
+const VS_PART = `uniform float uPh, uDisp, uSwirl, uSize, uMix, uAlpha, uPulse, uImp, uFres, uClair;
 uniform vec3 uC1, uC2;
 attribute vec3 aFace; attribute vec3 aCloud; attribute vec3 aCol; attribute vec4 aRnd;
 varying vec3 vCol; varying float vA;
@@ -413,16 +667,21 @@ void main(){
   gl_Position = projectionMatrix * mv;
   gl_PointSize = uSize * (0.65 + aRnd.y * 0.7) * (1.0 + uPulse * 0.5 + k * 0.6) / -mv.z;
   vec3 pal = mix(uC1, uC2, aRnd.z);
-  vCol = mix(aCol, pal, clamp(uMix + k * 0.7, 0.0, 1.0)) * (1.0 + uPulse * 0.8 + k * 0.5);
+  vCol = mix(aCol, pal, clamp(uMix + k * 0.7 * (1.0 - uClair), 0.0, 1.0)) * mix(1.0 + uPulse * 0.8 + k * 0.5, 1.0, uClair);
   vec3 nv = normalize((modelViewMatrix * vec4(normalize(aFace + vec3(0.0001)), 0.0)).xyz);
   float fr = 1.0 - abs(nv.z);
   vA = uAlpha * (0.72 + 0.28 * sin(uPh * 4.0 + aRnd.w * 50.0)) * mix(1.0, 0.35 + 1.5 * fr * fr, uFres * (1.0 - k));
 }`;
 const FS_PART = `varying vec3 vCol; varying float vA;
 void main(){ float d = length(gl_PointCoord - 0.5); float a = smoothstep(0.5, 0.1, d) * vA; if (a < 0.003) discard; gl_FragColor = vec4(vCol * a, 1.0); }`;
+/* en clair : des points fins et colores, en melange normal (une lueur blanche disparaitrait sur le blanc) */
+const FS_PART_C = `varying vec3 vCol; varying float vA;
+void main(){ float d = length(gl_PointCoord - 0.5); float a = smoothstep(0.5, 0.32, d) * vA; if (a < 0.003) discard; gl_FragColor = vec4(vCol, a);
+  #include <colorspace_fragment>
+}`;
 
 /* la vignette du scan -> des points 3D (dans le repere du visage : hauteur du visage = 2) */
-async function echantillonVisage(vis, N, graine){
+async function echantillonVisage(vis, N, graine, clair){
   const im = await chargeImg(vis.src); if (!im) return null;
   const w = 360, h = Math.round(360 * im.naturalHeight / im.naturalWidth), c = canvas(w, h), g = c.getContext('2d', { willReadFrequently:true });
   g.drawImage(im, 0, 0, w, h); let px; try { px = g.getImageData(0, 0, w, h).data; } catch(e){ return null; }
@@ -436,7 +695,7 @@ async function echantillonVisage(vis, N, graine){
   } else if (vis.box){ const b = vis.box; cx = (b.x + b.w / 2) * w; cy = (b.y + b.h * .42) * h; rx = b.w * w * .62; ry = b.h * h * .8; }
   else { cx = w * .5; cy = h * .46; ry = h * .32; rx = ry * .78; }
   if (vis.sujet === 'cheveux'){ rx *= 1.75; ry *= 1.42; cy -= ry * .1; }
-  const rnd = alea(graine), face = new Float32Array(N * 3), col = new Float32Array(N * 3);
+  const rnd = alea(graine), face = new Float32Array(N * 3), col = new Float32Array(N * 3), lum = new Float32Array(N);
   const gauss = (x, y, p, s) => { if (!p) return 0; const dx = (x - p[0]) / ry, dy = (y - p[1]) / ry; return Math.exp(-(dx * dx + dy * dy) / (2 * s * s)); };
   /* la luminance du visage, etiree entre ses 5 % et 95 % (une photo terne garde des traits lisibles) */
   const ech = []; for (let k = 0; k < 900; k++){ const a = rnd() * 6.2832, rr = Math.sqrt(rnd()) * .85, X = (cx + Math.cos(a) * rx * rr) | 0, Y = (cy + Math.sin(a) * ry * rr) | 0; if (X < 0 || Y < 0 || X >= w || Y >= h) continue; const j = (Y * w + X) * 4; ech.push((.299 * px[j] + .587 * px[j + 1] + .114 * px[j + 2]) / 255); }
@@ -449,18 +708,19 @@ async function echantillonVisage(vis, N, graine){
     const ex = (x - cx) / rx, ey = (y - cy) / ry, e = Math.sqrt(ex * ex + ey * ey); if (e > 1.1) continue;
     const i = ((y | 0) * w + (x | 0)) * 4, r = px[i] / 255, gg = px[i + 1] / 255, b = px[i + 2] / 255, l = .299 * r + .587 * gg + .114 * b;
     const ln = Math.min(1, Math.max(0, (l - lo) / Math.max(.05, hi - lo)));
-    const p = lisse(1.1, .8, e) * (vis.sujet === 'cheveux' ? .4 + .6 * ln : .08 + .92 * Math.pow(ln, 1.3));
+    /* en clair, une gravure : les points se serrent dans les ombres (sourcils, yeux, contours), la peau claire respire */
+    const p = lisse(1.1, .8, e) * (clair ? .1 + .9 * Math.pow(1 - ln, 1.15) : vis.sujet === 'cheveux' ? .4 + .6 * ln : .08 + .92 * Math.pow(ln, 1.3));
     if (rnd() > p) continue;
     let z = .62 * Math.sqrt(Math.max(0, 1 - Math.min(1, e) ** 2)) + .1 * (l - .5);
     z += .22 * gauss(x, y, nez, .1) - .07 * gauss(x, y, yeux[0], .07) - .07 * gauss(x, y, yeux[1], .07) + .03 * gauss(x, y, bouche, .08);
     face[n * 3] = (x - cx) / ry; face[n * 3 + 1] = -(y - cy) / ry; face[n * 3 + 2] = z;
     /* la couleur de la photo, un peu plus lumineuse (c'est de la lumiere) */
     const kk = (.3 + .62 * ln) / Math.max(.08, l);
-    col[n * 3] = Math.min(1, r * kk * 1.04); col[n * 3 + 1] = Math.min(1, gg * kk); col[n * 3 + 2] = Math.min(1, b * kk * .96);
+    col[n * 3] = Math.min(1, r * kk * 1.04); col[n * 3 + 1] = Math.min(1, gg * kk); col[n * 3 + 2] = Math.min(1, b * kk * .96); lum[n] = ln;
     n++;
   }
   if (n < N * .3) return null;
-  return { face, col, n };
+  return { face, col, lum, n };
 }
 /* sans photo : une sphere de lumiere, modulee par les vraies mesures (aucun trait de visage) */
 function nuageAbstrait(N, vals, c1, c2, graine){
@@ -479,12 +739,24 @@ class X1 extends Base {
   constructor(R, d, o){ super(R, d, o); this.lay = Object.assign(this.lay, { constatY:1080, preuveY:1335, autY:330, hookY:1250 }); this.fondPill = [0, 0, 0]; this.aussiHaut = true; }
   async construire(){
     const s = this.scene, K = this.KL, V = this.V;
-    s.background = srgb(mel(K.noir, [0, 0, 0], .4));
-    const N = this.ap ? 9000 : 26000, graine = 7 + this.d.type.length * 31;
-    let pts = this.d.visage ? await echantillonVisage(this.d.visage, N, graine) : null;
+    const C = this.clair;
+    s.background = C ? fondClair() : srgb(mel(K.noir, [0, 0, 0], .4));
+    const N = this.ap ? (C ? 7000 : 9000) : (C ? 20000 : 26000), graine = 7 + this.d.type.length * 31;
+    let pts = this.d.visage ? await echantillonVisage(this.d.visage, N, graine, C) : null;
     this.abstrait = !pts;
     const c1 = this.K.c1, c2 = this.K.c2;
     if (!pts) pts = nuageAbstrait(N, this.R.vals, mel(c1, [255, 255, 255], .25), mel(c2, [255, 255, 255], .25), graine);
+    if (C){
+      /* chaque point prend la couleur d'un des aliments retenus (plus sombre dans les ombres du visage) */
+      const rc = alea(graine + 5), Vv = this.AL.vives, lin = v => { v /= 255; return v <= .04045 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); };
+      for (let i = 0; i < pts.n; i++){
+        /* sur la sphere : quatre zones de couleur qui se fondent (elles tournent avec elle) ; sur un visage : un pointille melange */
+        let ix = Math.floor(rc() * Vv.length) % Vv.length;
+        if (!pts.lum){ const fx = pts.face[i * 3], fy = pts.face[i * 3 + 1], fz = pts.face[i * 3 + 2], t = ((Math.atan2(fz, fx) / 6.2832 + .5) + .1 * fy + (rc() - .5) * .16 + 1) % 1; ix = Math.floor(t * Vv.length) % Vv.length; }
+        const base = Vv[ix], fonce = pts.lum ? .45 * (1 - pts.lum[i]) : .12 * rc(), c = mel(base, CLAIR.encre, fonce);
+        pts.col[i * 3] = lin(c[0]); pts.col[i * 3 + 1] = lin(c[1]); pts.col[i * 3 + 2] = lin(c[2]);
+      }
+    }
     const n = pts.n, rnd = alea(graine + 1), cloud = new Float32Array(n * 3), rr = new Float32Array(n * 4);
     for (let i = 0; i < n; i++){
       /* une galaxie : un disque incline a deux bras (la lumiere tourbillonne avant de reformer le visage) */
@@ -498,21 +770,23 @@ class X1 extends Base {
     geo.setAttribute('aCloud', new THREE.BufferAttribute(cloud, 3));
     geo.setAttribute('aCol', new THREE.BufferAttribute(pts.col.slice(0, n * 3), 3));
     geo.setAttribute('aRnd', new THREE.BufferAttribute(rr, 4));
-    this.u = { uPh:{ value:0 }, uDisp:{ value:0 }, uSwirl:{ value:0 }, uSize:{ value:(this.abstrait ? 46 : 40) * this.rw / 720 }, uMix:{ value:this.abstrait ? .2 : .12 },
-               uAlpha:{ value:.95 }, uPulse:{ value:0 }, uImp:{ value:1 }, uFres:{ value:this.abstrait ? 1 : 0 }, uC1:{ value:srgb(mel(c1, [255, 255, 255], .3)) }, uC2:{ value:srgb(mel(c2, [255, 255, 255], .3)) } };
-    const mat = new THREE.ShaderMaterial({ uniforms:this.u, vertexShader:VS_PART, fragmentShader:FS_PART, transparent:true, depthWrite:false, blending:THREE.AdditiveBlending });
+    this.u = { uPh:{ value:0 }, uDisp:{ value:0 }, uSwirl:{ value:0 }, uSize:{ value:(this.abstrait ? 46 : 40) * this.rw / 720 * (C ? .74 : 1) }, uMix:{ value:C ? 0 : this.abstrait ? .2 : .12 },
+               uAlpha:{ value:.95 }, uPulse:{ value:0 }, uImp:{ value:1 }, uFres:{ value:this.abstrait ? (C ? .25 : 1) : 0 }, uClair:{ value:C ? 1 : 0 }, uC1:{ value:srgb(mel(c1, [255, 255, 255], .3)) }, uC2:{ value:srgb(mel(c2, [255, 255, 255], .3)) } };
+    const mat = C ? new THREE.ShaderMaterial({ uniforms:this.u, vertexShader:VS_PART, fragmentShader:FS_PART_C, transparent:true, depthWrite:false, blending:THREE.NormalBlending })
+                  : new THREE.ShaderMaterial({ uniforms:this.u, vertexShader:VS_PART, fragmentShader:FS_PART, transparent:true, depthWrite:false, blending:THREE.AdditiveBlending });
     this.points = new THREE.Points(geo, mat); this.points.frustumCulled = false;
     this.tete = new THREE.Group(); this.tete.add(this.points); s.add(this.tete);
     this.sTete = this.abstrait ? 1.08 : 1.27;
     /* le halo derriere la tete */
     this.haloT = spriteHalo(srgb(mel(this.acc, [255, 255, 255], .2)), .14); this.haloT.scale.set(7, 7, 1); this.haloT.position.set(0, 0, -2); this.tete.add(this.haloT);
-    /* la phrase, en lettres de lumiere (Didone), devant le visage */
-    const font = await police3D('bodoni-600');
-    const lay = coupe3D(font, 'bodoni-600', this.tx.titre, 2.75, .8, .56, 3, 1.08, V);
-    const mt = new THREE.MeshBasicMaterial({ color:srgb([255, 246, 228], 1.15), transparent:true, opacity:0, toneMapped:false });
-    this.phrase = bloc3D(font, 'bodoni-600', lay, mt, { depth:.06, seg:6 }, V);
+    if (C){ this.haloT.visible = false; this.ombreT = spriteOmbre(0); s.add(this.ombreT); }
+    /* la phrase, en lettres de lumiere (Didone), devant le visage ; en clair, la typo de l'interface, en gris-noir */
+    const nomP = C ? 'inter-400' : 'bodoni-600', font = await police3D(nomP);
+    const lay = coupe3D(font, nomP, this.tx.titre, 2.75, .8, C ? .6 : .56, 3, 1.08, V);
+    const mt = new THREE.MeshBasicMaterial({ color:C ? srgb(CLAIR.encre) : srgb([255, 246, 228], 1.15), transparent:true, opacity:0, toneMapped:false });
+    this.phrase = bloc3D(font, nomP, lay, mt, { depth:.06, seg:6 }, V);
     const yP = 1182; this.phrase.groupe.position.set(wx(CX), wy(yP), 0); s.add(this.phrase.groupe); this.matPhrase = mt;
-    this.haloP = spriteHalo(srgb(this.acc), 0); this.haloP.scale.set(4.6, 1.8, 1); this.haloP.position.set(wx(CX), wy(yP), -.3); s.add(this.haloP);
+    this.haloP = spriteHalo(srgb(this.acc), 0); this.haloP.scale.set(4.6, 1.8, 1); this.haloP.position.set(wx(CX), wy(yP), -.3); s.add(this.haloP); if (C) this.haloP.visible = false;
     const dem = this.phrase.haut / 2 * PXU;
     this.lay.constatY = yP - dem - 46; this.lay.preuveY = Math.min(1338, yP + dem + 84);
   }
@@ -526,7 +800,7 @@ class X1 extends Base {
     u.uPulse.value = Math.max(0, 1 - (q - P.rev) / .8) * (q >= P.rev ? 1 : 0);
     const prod = this.n ? V.seg(q, P.prod - .3, P.prod + .3) * (1 - V.seg(q, P.cta - .3, P.cta + .4)) : 0;
     const cta = V.seg(q, P.cta - .2, P.cta + .3) * (1 - V.seg(q, P.retour, P.retour + .6));
-    u.uAlpha.value = (.8 + .5 * disp) * (1 - .8 * prod) * (1 - .68 * cta);
+    u.uAlpha.value = this.clair ? (.86 + .1 * disp) * (1 - .82 * prod) * (1 - .86 * cta) : (.8 + .5 * disp) * (1 - .8 * prod) * (1 - .68 * cta);
     u.uMix.value = (this.abstrait ? .2 : .12) + .5 * prod;
     /* la camera tourne lentement autour du visage (periodique sur la boucle) */
     const yaw = .34 * Math.sin(q / 18 * 6.2832), dz = -1.1 * V.eInOut(V.seg(q, 1, 3.75)) * (q < P.rev ? 1 : 0);
@@ -534,6 +808,12 @@ class X1 extends Base {
     this.tete.position.set(wx(CX), wy(680) + .45 * prod, dz - 2.2 * prod);
     this.tete.scale.setScalar(this.sTete * (1 + .03 * Math.sin(q / 18 * 6.2832 * 2)));
     this.haloT.material.opacity = (.12 + .1 * u.uPulse.value) * (1 - .6 * prod);
+    if (this.ombreT){   /* l'ombre douce au sol, sous la sphere (ou le visage) ; elle s'efface quand la lumiere tourbillonne */
+      const p = this.tete.position, sc = this.sTete * this.tete.scale.x / this.sTete;
+      this.ombreT.position.set(p.x, p.y - 1.28 * sc, p.z - .2); this.ombreT.scale.set(2.3 * sc, .3 * sc, 1);
+      const finP = this.n ? P.prod : P.cta, txt = q >= P.rev - .1 && q < finP + .3 ? 1 : 0;   /* pas d'ombre sous la phrase */
+      this.ombreT.material.opacity = .2 * (1 - disp) * (1 - .85 * prod) * (1 - cta) * (1 - txt);
+    }
     /* la phrase : lettres qui montent de la profondeur, une a une */
     const fin = this.n ? P.prod : P.cta, out = V.seg(q, fin - .3, fin + .05);
     this.phrase.lettres.forEach((m, i) => {
@@ -554,6 +834,7 @@ class X1 extends Base {
     this.p2 = pts;
   }
   dessine2D(q){
+    if (this.clair) return this.dessine2DC(q);
     const x = this.R.x, V = this.V, P = this.P, p = this.p2; x.setTransform(1, 0, 0, 1, 0, 0); x.fillStyle = V.rgba(mel(this.KL.noir, [0, 0, 0], .4), 1); x.fillRect(0, 0, W, H);
     const disp = q < P.rev ? V.eInOut(V.seg(q, 1.55, 3.45)) : 1 - V.eOutExpo(V.seg(q, P.rev, P.rev + .5)), yaw = .34 * Math.sin(q / 18 * 6.2832), cs = Math.cos(yaw), sn = Math.sin(yaw);
     const prod = this.n ? V.seg(q, P.prod - .3, P.prod + .3) * (1 - V.seg(q, P.cta - .3, P.cta + .4)) : 0, S = (this.abstrait ? 1.25 : 1.45) * PXU, cy = 745 - 140 * prod;
@@ -577,18 +858,28 @@ class X2 extends Base {
   constructor(R, d, o){ super(R, d, o); this.lay = Object.assign(this.lay, { constatY:842, preuveY:1312, autY:262, hookY:1300, ctaY:760 }); this.cta3D = true; this.fondPill = [6, 6, 10]; }
   async construire(){
     const s = this.scene, K = this.K, KL = this.KL, V = this.V, gl = this.gl;
+    const C = this.clair;
     gl.toneMapping = THREE.ACESFilmicToneMapping; gl.toneMappingExposure = 1.05;
     const n0 = KL.noir;
+    if (C){
+      /* en clair : un studio blanc (fond infini), deux drapeaux sombres qui dessinent le metal, et la couleur des aliments en reflets */
+      s.background = fondClair();
+      const AV = this.AL.vives;
+      this.env = studio(gl, [srgb([255, 255, 255], 1.2), srgb([214, 214, 210]), srgb([92, 92, 88])], [
+        { c:srgb([255, 255, 255], 4), x:0, y:7, z:3, w:7, h:1.6 }, { c:srgb([255, 255, 255], 3), x:-7, y:1, z:2, w:2, h:12 },
+        { c:srgb([255, 255, 255], 2.2), x:5, y:-1, z:-6, w:3, h:6 } ]);
+    } else {
     s.background = fondDegrade([[0, mel([8, 8, 10], K.c1, .16)], [.5, [6, 6, 8]], [1, mel([4, 4, 6], K.c2, .12)]]);
     const ciel = [srgb([150, 155, 170], .9), srgb([28, 28, 34]), srgb([4, 4, 6])];
     this.env = studio(gl, ciel, [
       { c:srgb([255, 255, 255], 6), x:0, y:7, z:3, w:7, h:1.6 }, { c:srgb([255, 255, 255], 4), x:-7, y:1, z:2, w:2, h:12 }, { c:srgb([255, 255, 255], 3.5), x:7, y:0, z:-1, w:2, h:12 },
       { c:srgb(K.c1, 3), x:4, y:-3, z:6, w:5, h:3 }, { c:srgb(K.c2, 3), x:-5, y:-4, z:-5, w:6, h:3 }, { c:srgb([120, 210, 255], 2.5), x:2, y:3, z:-8, w:4, h:5 } ]);
+    }
     this.jetables.push(this.env);
     s.environment = this.env.texture;
     /* la goutte : une sphere deformee par un bruit qui boucle (meme forme au debut et a la fin) */
     this.u = { uOff:{ value:new THREE.Vector3() }, uOff2:{ value:new THREE.Vector3() }, uAmp:{ value:.12 }, uFreq:{ value:1.1 } };
-    const mb = new THREE.MeshPhysicalMaterial({ color:0xffffff, metalness:1, roughness:.04, iridescence:1, iridescenceIOR:1.7, iridescenceThicknessRange:[280, 900], envMapIntensity:1.25 });
+    const mb = new THREE.MeshPhysicalMaterial({ color:0xffffff, metalness:1, roughness:C ? .06 : .04, iridescence:C ? .55 : 1, iridescenceIOR:1.7, iridescenceThicknessRange:[280, 900], envMapIntensity:C ? 1 : 1.25 });
     mb.onBeforeCompile = sh => {
       Object.assign(sh.uniforms, this.u);
       sh.vertexShader = 'uniform vec3 uOff, uOff2; uniform float uAmp, uFreq;\n' + NOISE +
@@ -605,19 +896,21 @@ class X2 extends Base {
     const seg = this.ap ? [96, 64] : [160, 112];
     this.goutte = new THREE.Mesh(new THREE.SphereGeometry(1, seg[0], seg[1]), mb); s.add(this.goutte);
     this.haloG = spriteHalo(srgb(K.c1), .18); this.haloG.scale.set(6, 6, 1); s.add(this.haloG);
-    /* la phrase, en lettres chromees (Didone capitales) */
-    const font = await police3D('bodoni-600');
-    const mc = new THREE.MeshPhysicalMaterial({ color:0xffffff, metalness:1, roughness:.16, iridescence:.5, iridescenceIOR:1.5, iridescenceThicknessRange:[200, 600], envMapIntensity:2.4 });
-    const lay = coupe3D(font, 'bodoni-600', this.tx.gros, 2.85, 1.45, .95, 3, 1.04, V);
-    this.phrase = bloc3D(font, 'bodoni-600', lay, mc, { depth:.26, bevel:.026, bevelSize:.016, bevelSeg:3, seg:6 }, V);
+    if (C){ this.haloG.visible = false; this.ombreG = spriteOmbre(0); s.add(this.ombreG); }
+    /* la phrase, en lettres chromees (Didone capitales) ; en clair, une laque gris-noir brillante, dans la typo de l'interface */
+    const nomP = C ? 'inter-400' : 'bodoni-600', font = await police3D(nomP);
+    const mc = C ? new THREE.MeshPhysicalMaterial({ color:srgb([30, 31, 28]), metalness:.1, roughness:.34, clearcoat:1, clearcoatRoughness:.14, envMapIntensity:.55 })
+                 : new THREE.MeshPhysicalMaterial({ color:0xffffff, metalness:1, roughness:.16, iridescence:.5, iridescenceIOR:1.5, iridescenceThicknessRange:[200, 600], envMapIntensity:2.4 });
+    const lay = C ? coupe3D(font, nomP, this.tx.titre, 2.85, 1.3, .9, 2, 1.02, V) : coupe3D(font, 'bodoni-600', this.tx.gros, 2.85, 1.45, .95, 3, 1.04, V);
+    this.phrase = bloc3D(font, nomP, lay, mc, { depth:C ? .2 : .26, bevel:.026, bevelSize:C ? .01 : .016, bevelSeg:3, seg:6 }, V);
     this.phrase.groupe.position.set(wx(CX), wy(1060), 0); s.add(this.phrase.groupe);
     this.lay.constatY = 1060 - this.phrase.haut / 2 * PXU - 58; this.lay.preuveY = Math.min(1340, Math.max(1290, 1060 + this.phrase.haut / 2 * PXU + 92));
     /* « Et toi ? » en chrome aussi */
-    const lc = coupe3D(font, 'bodoni-600', this.tx.etToi, 2.8, .9, .9, 1, 1.04, V);
-    this.etToi = bloc3D(font, 'bodoni-600', lc, mc, { depth:.22, bevel:.018, bevelSize:.012, seg:6 }, V);
+    const tE = C ? V.phraseCas(this.tx.etToi) : this.tx.etToi, lc = coupe3D(font, nomP, tE, 2.8, .9, .9, 1, 1.04, V);
+    this.etToi = bloc3D(font, nomP, lc, mc, { depth:.22, bevel:.018, bevelSize:.012, seg:6 }, V);
     this.etToi.groupe.position.set(wx(CX), wy(this.lay.ctaY - 40), 0); s.add(this.etToi.groupe);
     /* un anneau chrome derriere chaque soin */
-    this.anneau = new THREE.Mesh(new THREE.TorusGeometry(1.05, .045, 24, 160), mc); this.anneau.visible = false; s.add(this.anneau);
+    this.anneau = new THREE.Mesh(new THREE.TorusGeometry(1.05, .045, 24, 160), C ? new THREE.MeshPhysicalMaterial({ color:0xffffff, metalness:1, roughness:.12, envMapIntensity:1 }) : mc); this.anneau.visible = false; s.add(this.anneau);
   }
   posGoutte(q){
     const V = this.V, P = this.P, rev = V.eInOut(V.seg(q, P.rev - .05, P.rev + .6)), ret = V.eInOut(V.seg(q, P.retour, P.fin - .3));
@@ -640,6 +933,7 @@ class X2 extends Base {
     this.goutte.position.set(wx(CX), g.y, g.z); this.goutte.scale.setScalar(g.s * sil * (1 + .25 * choc));
     this.goutte.rotation.y = ph; this.goutte.rotation.x = .3 * Math.sin(ph);
     this.haloG.position.set(wx(CX), g.y, g.z - 1.5); this.haloG.material.opacity = .14 + .2 * tens + .25 * choc;
+    if (this.ombreG){ const r = g.s * sil * (1 + .25 * choc), haut = .5 + .25 * Math.sin(ph * 2); this.ombreG.position.set(wx(CX), g.y - r * (1.15 + haut * .3) - .25, g.z - .3); this.ombreG.scale.set(2.5 * r, .34 * r, 1); this.ombreG.material.opacity = .26 * (1 - .4 * haut) * (q < P.retour ? 1 - V.seg(q, P.cta - .4, P.cta) : V.seg(q, P.retour, P.fin - .4)); }
     this.scene.environmentRotation.y = ph; this.scene.environmentRotation.x = .25 * Math.sin(ph);
     /* les lettres sortent de la goutte, une a une, et prennent leur place */
     const fin = this.n ? P.prod : P.cta, out = V.eIn3(V.seg(q, fin - .35, fin + .1));
@@ -665,6 +959,7 @@ class X2 extends Base {
   }
   async construire2D(){}
   dessine2D(q){
+    if (this.clair) return this.dessine2DC(q);
     const x = this.R.x, V = this.V, P = this.P, K = this.K; x.setTransform(1, 0, 0, 1, 0, 0);
     const bg = x.createLinearGradient(0, 0, 0, H); bg.addColorStop(0, V.rgba(mel(this.KL.noir, K.c1, .22), 1)); bg.addColorStop(.55, V.rgba(this.KL.noir, 1)); bg.addColorStop(1, V.rgba(mel(this.KL.noir, K.c2, .14), 1));
     x.fillStyle = bg; x.fillRect(0, 0, W, H);
@@ -682,18 +977,27 @@ class X3 extends Base {
   constructor(R, d, o){ super(R, d, o); this.lay = Object.assign(this.lay, { constatY:1252, preuveY:1345, autY:236, hookY:1262, ctaY:1300 }); this.fondPill = [8, 7, 6]; }
   async construire(){
     const s = this.scene, K = this.K, KL = this.KL, V = this.V, gl = this.gl;
-    gl.toneMapping = THREE.ACESFilmicToneMapping; gl.toneMappingExposure = 1.1;
-    s.background = fondDegrade([[0, mel(KL.noir, [0, 0, 0], .5)], [.62, mel(KL.noir, this.acc, .1)], [1, mel(KL.noir, [0, 0, 0], .6)]]);
+    const C = this.clair;
+    gl.toneMapping = THREE.ACESFilmicToneMapping; gl.toneMappingExposure = C ? 1 : 1.1;
+    s.background = C ? fondClair() : fondDegrade([[0, mel(KL.noir, [0, 0, 0], .5)], [.62, mel(KL.noir, this.acc, .1)], [1, mel(KL.noir, [0, 0, 0], .6)]]);
+    if (C){
+      /* en clair : un studio blanc ; deux bandes sombres sur les cotes dessinent le bord du verre (fond clair, eclairage de packshot) */
+      this.env = studio(gl, [srgb([236, 236, 233]), srgb([206, 205, 200]), srgb([120, 118, 112])], [
+        { c:srgb([255, 252, 246], 3.5), x:-5, y:1, z:3, w:1, h:10 }, { c:srgb([255, 252, 246], 3), x:5, y:1, z:3, w:1, h:10 },
+        { c:srgb([20, 20, 19]), x:-6, y:0, z:-1.5, w:2.4, h:14 }, { c:srgb([20, 20, 19]), x:6, y:0, z:-1.5, w:2.4, h:14 },
+        { c:srgb([40, 40, 38]), x:0, y:0, z:-8, w:3, h:14 }, { c:srgb([255, 250, 240], 2.2), x:0, y:7, z:0, w:6, h:6 } ]);
+    } else {
     const ciel = [srgb([30, 28, 26]), srgb([6, 6, 6]), srgb([2, 2, 2])];
     this.env = studio(gl, ciel, [
       { c:srgb([255, 250, 240], 6), x:-5, y:1, z:3, w:1.2, h:10 }, { c:srgb([255, 250, 240], 5), x:5, y:1, z:3, w:1.2, h:10 },
       { c:srgb([255, 244, 226], 3), x:0, y:7, z:0, w:6, h:6 }, { c:srgb(this.acc, 3), x:-2, y:0, z:-7, w:5, h:5 }, { c:srgb([255, 255, 255], 3.5), x:3, y:2, z:-5, w:1, h:8 } ]);
+    }
     this.jetables.push(this.env); s.environment = this.env.texture;
     /* le flacon : un profil tourne (lathe), verre plein, et son bouchon d'or */
     const prof = [[0, -1.3], [.6, -1.3], [.68, -1.26], [.71, -1.16], [.71, .52], [.69, .66], [.6, .8], [.44, .9], [.27, .97], [.22, 1.03], [.22, 1.22], [0, 1.22]].map(p => new THREE.Vector2(p[0], p[1]));
     const seg = this.ap ? 48 : 96;
-    const verre = new THREE.MeshPhysicalMaterial({ color:0xffffff, metalness:0, roughness:.03, transmission:1, thickness:.9, ior:1.45, attenuationColor:srgb(mel(this.acc, [255, 255, 255], .55)), attenuationDistance:4,
-      specularIntensity:1, clearcoat:1, clearcoatRoughness:.04, envMapIntensity:1.5 });
+    const verre = new THREE.MeshPhysicalMaterial({ color:0xffffff, metalness:0, roughness:.03, transmission:1, thickness:C ? 1.2 : .9, ior:C ? 1.5 : 1.45, attenuationColor:srgb(mel(C ? this.AL.vives[0] : this.acc, [255, 255, 255], C ? .72 : .55)), attenuationDistance:C ? 5 : 4,
+      specularIntensity:1, clearcoat:1, clearcoatRoughness:.04, envMapIntensity:C ? 1 : 1.5 });
     this.flacon = new THREE.Group();
     const corps = new THREE.Mesh(new THREE.LatheGeometry(prof, seg), verre); this.flacon.add(corps);
     const or = new THREE.MeshStandardMaterial({ color:srgb([214, 178, 112]), metalness:1, roughness:.22, envMapIntensity:1.3 });
@@ -702,25 +1006,33 @@ class X3 extends Base {
     this.flacon.position.set(wx(CX), wy(800), 0); s.add(this.flacon);
     this.sF = .92; this.flacon.scale.setScalar(this.sF);
     /* le reflet au sol (sans transmission : il ne coute presque rien) */
-    const mr = new THREE.MeshStandardMaterial({ color:srgb(mel(this.acc, [255, 255, 255], .5)), metalness:1, roughness:.12, transparent:true, opacity:.07, envMapIntensity:1.2, depthWrite:false });
+    const mr = new THREE.MeshStandardMaterial({ color:srgb(mel(this.acc, [255, 255, 255], .5)), metalness:1, roughness:.12, transparent:true, opacity:C ? .045 : .07, envMapIntensity:1.2, depthWrite:false });
     this.reflet = new THREE.Mesh(corps.geometry, mr); this.reflet.scale.y = -1; this.reflet.position.y = -2.6; this.flacon.add(this.reflet);
-    this.flaque = spriteHalo(srgb([255, 240, 220]), .2); this.flaque.scale.set(3.6, .55, 1); this.flaque.position.set(0, -1.32, .2); this.flacon.add(this.flaque);
-    /* la lumiere dans le verre, avant la phrase */
-    this.lueur = spriteHalo(srgb(mel(this.acc, [255, 255, 255], .45)), 0); this.lueur.scale.set(1.6, 2.4, 1); this.lueur.position.set(0, -.2, 0); this.flacon.add(this.lueur);
+    if (C){ this.flaque = spriteOmbre(.3); this.flaque.scale.set(2.6, .3, 1); this.flaque.position.set(0, -1.31, .1); }
+    else { this.flaque = spriteHalo(srgb([255, 240, 220]), .2); this.flaque.scale.set(3.6, .55, 1); this.flaque.position.set(0, -1.32, .2); }
+    this.flacon.add(this.flaque);
+    /* la lumiere dans le verre, avant la phrase (en clair : une teinte douce du premier aliment) */
+    if (C){ this.lueur = new THREE.Sprite(new THREE.SpriteMaterial({ map:texCanvas(halo()), color:srgb(mel(this.AL.vives[0], [255, 255, 255], .2)), transparent:true, opacity:0, depthWrite:false, depthTest:false })); }
+    else this.lueur = spriteHalo(srgb(mel(this.acc, [255, 255, 255], .45)), 0);
+    this.lueur.scale.set(1.6, 2.4, 1); this.lueur.position.set(0, -.2, 0); this.flacon.add(this.lueur);
     /* la phrase, DANS le verre (opaque : le verre la refracte) */
-    const font = await police3D('bodoni-400-italic');
+    const nomP = C ? 'inter-400' : 'bodoni-400-italic', font = await police3D(nomP);
     /* la phrase est dessinee apres le verre (sans refraction : elle reste lisible), comme une lumiere prise dedans */
-    const mt = new THREE.MeshBasicMaterial({ color:srgb(mel(this.KL.noir, [70, 50, 26], .7)), transparent:true, opacity:.92, depthTest:false, depthWrite:false });
-    const lay = coupe3D(font, 'bodoni-400-italic', this.tx.titre, 1.3, 1.3, .64, 3, 1.08, V);
-    this.phrase = bloc3D(font, 'bodoni-400-italic', lay, mt, { depth:.03, seg:6 }, V);
+    const mt = new THREE.MeshBasicMaterial({ color:C ? srgb(CLAIR.encre) : srgb(mel(this.KL.noir, [70, 50, 26], .7)), transparent:true, opacity:C ? .96 : .92, depthTest:false, depthWrite:false, toneMapped:!C });
+    const lay = coupe3D(font, nomP, this.tx.titre, 1.3, 1.3, C ? .56 : .64, 3, 1.08, V);
+    this.phrase = bloc3D(font, nomP, lay, mt, { depth:.03, seg:6 }, V);
     this.phrase.groupe.position.set(0, -.18, .2); this.phrase.groupe.renderOrder = 10; this.phrase.lettres.forEach(m => { m.renderOrder = 10; }); this.flacon.add(this.phrase.groupe);
-    const lc = coupe3D(font, 'bodoni-400-italic', this.tx.cta[0].replace(/,$/, '') + (V.langue() === 'fr' ? '\u202f?' : '?'), 1.0, .6, .5, 1, 1.1, V);
-    this.etToi = bloc3D(font, 'bodoni-400-italic', lc, mt, { depth:.03, seg:6 }, V);
+    const lc = coupe3D(font, nomP, this.tx.cta[0].replace(/,$/, '') + (V.langue() === 'fr' ? '\u202f?' : '?'), 1.0, .6, .5, 1, 1.1, V);
+    this.etToi = bloc3D(font, nomP, lc, mt, { depth:.03, seg:6 }, V);
     this.etToi.groupe.position.set(0, -.18, .2); this.etToi.lettres.forEach(m => { m.renderOrder = 10; }); this.flacon.add(this.etToi.groupe);
     /* le fond de studio : un mur eclaire derriere le flacon (c'est lui que le verre refracte) */
     const cm = canvas(512, 512), gm = cm.getContext('2d'), rg = gm.createRadialGradient(256, 230, 10, 256, 256, 300), ca = mel(this.acc, [255, 240, 220], .45);
-    rg.addColorStop(0, 'rgb(' + mel(ca, [255, 255, 255], .2).join(',') + ')'); rg.addColorStop(.2, 'rgb(' + mel(ca, KL.noir, .35).join(',') + ')'); rg.addColorStop(.48, 'rgb(' + mel(ca, KL.noir, .9).join(',') + ')'); rg.addColorStop(1, 'rgb(' + mel(KL.noir, [0, 0, 0], .6).join(',') + ')');
-    gm.fillStyle = rg; gm.fillRect(0, 0, 512, 512);
+    if (C){ rg.addColorStop(0, '#ffffff'); rg.addColorStop(.45, '#fbfbfa'); rg.addColorStop(1, '#f1f1ee');
+      gm.fillStyle = rg; gm.fillRect(0, 0, 512, 512);   /* le fond infini : le mur blanc qui s'arrondit en sol a peine plus gris (le verre refracte cette ligne douce) */
+      const sol = gm.createLinearGradient(0, 300, 0, 512); sol.addColorStop(0, 'rgba(232,231,226,0)'); sol.addColorStop(.25, 'rgba(232,231,226,.75)'); sol.addColorStop(1, 'rgba(238,237,233,1)'); gm.fillStyle = sol; gm.fillRect(0, 300, 512, 212); }
+    else {
+      rg.addColorStop(0, 'rgb(' + mel(ca, [255, 255, 255], .2).join(',') + ')'); rg.addColorStop(.2, 'rgb(' + mel(ca, KL.noir, .35).join(',') + ')'); rg.addColorStop(.48, 'rgb(' + mel(ca, KL.noir, .9).join(',') + ')'); rg.addColorStop(1, 'rgb(' + mel(KL.noir, [0, 0, 0], .6).join(',') + ')');
+      gm.fillStyle = rg; gm.fillRect(0, 0, 512, 512); }
     this.mur = new THREE.Mesh(new THREE.PlaneGeometry(13, 13), new THREE.MeshBasicMaterial({ map:texCanvas(cm), toneMapped:false })); this.mur.position.set(wx(CX), wy(760), -5); s.add(this.mur);
     this.cta3D = true;
     /* un rai de lumiere pour les soins (lumiere de pub) */
@@ -730,6 +1042,7 @@ class X3 extends Base {
       fragmentShader:'uniform float uA; uniform vec3 uC; varying vec2 vUv; varying vec3 vN; varying vec3 vV; void main(){ float f = pow(abs(dot(vN, vV)), 1.6); float a = uA * f * smoothstep(0.0, 0.9, vUv.y) * 0.22; gl_FragColor = vec4(uC * a, a); }' }));
     cone.position.set(wx(CX), wy(860) + 1.6, .6); this.cone = cone; s.add(cone);
     this.lay.ctaY = 1330;
+    if (C){ this.ctaEtagere = false; this.heroH = 1.75; this.lay.kickY = 1428; this.largeMax = 500;   /* le bouchon cachait l'edition : elle passe sous l'accroche */ this.posEtagere = k => { const pas = Math.min(150, 600 / Math.max(1, this.n)); return { x:wx(CX + 150 + (k - (this.n - 1) / 2) * pas), y:wy(500), z:1.2, h:.38 }; }; }
   }
   maj(q){
     const V = this.V, P = this.P, ph = q / 18 * 6.2832;
@@ -742,7 +1055,7 @@ class X3 extends Base {
     this.flacon.rotation.y = .5 * Math.sin(ph) + .9 * tens;
     this.flacon.rotation.z = .03 * Math.sin(ph * 2);
     const choc = q >= P.rev ? Math.max(0, 1 - (q - P.rev) / .6) : 0;
-    this.lueur.material.opacity = (.12 + .5 * tens) * (q < P.rev ? 1 : 0) + .6 * choc + .08 * (q < P.rev ? 0 : 1) * (1 - prod);
+    this.lueur.material.opacity = ((.12 + .5 * tens) * (q < P.rev ? 1 : 0) + .6 * choc + .08 * (q < P.rev ? 0 : 1) * (1 - prod)) * (this.clair ? .55 : 1);
     this.lueur.scale.set(1.5 + .5 * tens, 2.3 + .8 * tens, 1);
     const fin = this.n ? P.prod : P.cta, out = V.seg(q, fin - .4, fin);
     this.phrase.groupe.visible = q >= P.rev && q < fin + .05;
@@ -753,12 +1066,13 @@ class X3 extends Base {
     this.etToi.lettres.forEach((m, i) => { const e = V.eOut3(V.seg(q, P.cta + .1 + i * .03, P.cta + .6 + i * .03)); m.scale.setScalar(Math.max(.001, e * (1 - ao))); });
     this.etToi.groupe.rotation.y = -this.flacon.rotation.y * .85;
     this.cone.material.uniforms.uA.value = prod;
-    this.cone.visible = prod > .001;
-    this.majProduits(q, { x:wx(CX) + .35 * prod, y:wy(1100), z:.6, h:1.42, dz:1.5, dy:0, ry:.4, halo:.22 });
+    this.cone.visible = prod > .001 && !this.clair;
+    this.majProduits(q, { x:wx(CX) + (this.clair ? .62 : .35) * prod, y:wy(1100), z:.6, h:1.42, dz:1.5, dy:0, ry:.4, halo:.22 });
     this.mur.position.x = wx(CX) - .6 * prod;
     this.flacon.visible = true;
   }
   dessine2D(q){
+    if (this.clair) return this.dessine2DC(q);
     const x = this.R.x, V = this.V, P = this.P; x.setTransform(1, 0, 0, 1, 0, 0);
     const bg = x.createLinearGradient(0, 0, 0, H); bg.addColorStop(0, '#050505'); bg.addColorStop(.62, V.rgba(mel(this.KL.noir, this.acc, .12), 1)); bg.addColorStop(1, '#040404'); x.fillStyle = bg; x.fillRect(0, 0, W, H);
     const prod = this.n ? V.eInOut(V.seg(q, P.prod - .4, P.prod + .3)) * (1 - V.eInOut(V.seg(q, P.cta - .4, P.cta + .3))) : 0;
@@ -779,6 +1093,13 @@ class X3 extends Base {
     const lay = R.uneL(tx.cta[1], 800, 170, 92, { nmax:2 }); R.dessineUneL(lay, CX, 1330, ink, null, a2);
   }
   aHook(q){ const V = this.V; return q < 2 ? 1 - V.seg(q, .78, 1.12) : V.seg(q, 16.5, 17.45); }
+  ctaC(q, ink, acc){
+    const V = this.V, P = this.P, tx = this.tx;
+    const a2 = V.eOut3(V.seg(q, P.cta + .35, P.cta + .8)) * (1 - V.seg(q, P.retour - .1, P.retour + .45));
+    if (a2 <= 0) return;
+    if (!this.gl) this.sans(tx.cta[0].replace(/,$/, '') + (V.langue() === 'fr' ? '\u202f?' : '?'), CX, 880, 92, ink, a2, { maxW:330 });
+    this.lignes(tx.cta[1], CX, 1312, 74, 80, ink, a2, { n:2, maxW:800 });
+  }
 }
 
 /* ===================================================================== X4 · TYPO GEANTE */
@@ -804,6 +1125,10 @@ class X4 extends Base {
     return out.slice(0, 3);
   }
   couleursPhase(){
+    if (this.clair){   /* en clair : le blanc de l'interface ; la revelation et « Et toi ? » a peine teintees par les aliments */
+      const b = [250, 250, 249], A = this.AL.pastels;
+      return { hook:b, nombres:b, rev:mel(A[this.AL.prim], [252, 252, 251], .55), prod:b, cta:b };   /* cta = hook : la boucle retombe sur la premiere image */
+    }
     const K = this.K, noir = this.KL.noir.map(v => Math.min(v, 14));
     return { hook:K.c1, nombres:noir, rev:K.c2, prod:noir, cta:K.c1 };
   }
@@ -816,39 +1141,44 @@ class X4 extends Base {
     if (q < P.retour) return x(this.n ? C.prod : C.rev, C.cta, P.cta - .14);
     return C.cta;
   }
-  encreA(q){ const f = this.fondA(q), V = this.V; return V.lumRel(f) > .32 ? [12, 12, 12] : [252, 248, 240]; }
-  accA(q){ return this.encreA(q); }
+  encreA(q){ if (this.clair) return CLAIR.encre; const f = this.fondA(q), V = this.V; return V.lumRel(f) > .32 ? [12, 12, 12] : [252, 248, 240]; }
+  accA(q){ return this.clair ? this.acc : this.encreA(q); }
   async construire(){
-    const s = this.scene, K = this.K, V = this.V, font = await police3D('jost-500');
+    const CL = this.clair, nomF = CL ? 'inter-400' : 'jost-500';
+    const s = this.scene, K = this.K, V = this.V, font = await police3D(nomF);
     this.font = font; s.background = new THREE.Color();
-    const C = this.couleursPhase();
+    const C = this.couleursPhase(), AV = CL ? this.AL.vives : null;
     const mk = c => { const m = new THREE.MeshMatcapMaterial({ matcap:matcap(c) }); return m; };
-    const ink = c => V.lumRel(c) > .32 ? [16, 16, 16] : [250, 246, 238];
-    const op = { depth:.55, bevel:.035, bevelSize:.02, bevelSeg:2, seg:4 };
+    const ink = c => CL ? [44, 45, 40] : V.lumRel(c) > .32 ? [16, 16, 16] : [250, 246, 238];
+    const op = { depth:CL ? .42 : .55, bevel:CL ? .024 : .035, bevelSize:CL ? .012 : .02, bevelSeg:2, seg:4 };
+    /* en clair : la typo de l'interface aliments (sans serif serree, bas de casse) */
+    const casse = t => CL ? V.phraseCas(t) : t;
     /* l'accroche : MA / PEAU, enorme */
-    const lh = coupe3D(font, 'jost-500', this.tx.mien, 2.95, 3.2, 1.9, 2, .96, V);
-    this.hook = bloc3D(font, 'jost-500', lh, mk(ink(C.hook)), Object.assign({ lh:.96 }, op), V); s.add(this.hook.groupe);
-    /* les chiffres */
-    this.nb = this.nombres().map((c, i) => { const l = coupe3D(font, 'jost-500', c.v, 3.0, 2.2, 2.4, 1, 1, V); const b = bloc3D(font, 'jost-500', l, mk(i % 2 ? K.c2 : K.c1), op, V); s.add(b.groupe); b.c = c; return b; });
+    const lh = coupe3D(font, nomF, casse(this.tx.mien), 2.95, 3.2, 1.9, 2, .96, V);
+    this.hook = bloc3D(font, nomF, lh, mk(ink(C.hook)), Object.assign({ lh:.96 }, op), V); s.add(this.hook.groupe);
+    /* les chiffres (en clair : chacun dans la couleur d'un aliment) */
+    this.nb = this.nombres().map((c, i) => { const l = coupe3D(font, nomF, c.v, 3.0, 2.2, 2.4, 1, 1, V); const b = bloc3D(font, nomF, l, mk(CL ? AV[i % AV.length] : i % 2 ? K.c2 : K.c1), op, V); s.add(b.groupe); b.c = c; return b; });
     this.passages = [1.05]; const nN = this.nb.length; this.nb.forEach((b, i) => this.passages.push(1.75 + i * (1.5 / Math.max(1, nN - 1 || 1)) * (nN > 1 ? 1 : 0)));
     if (nN === 1) this.passages[1] = 2.6;
     this.d.PX.passages = this.passages.slice();
     /* la phrase */
-    const lp = coupe3D(font, 'jost-500', this.tx.gros, 2.9, 2.3, 1.45, 3, .98, V);
-    this.phrase = bloc3D(font, 'jost-500', lp, mk(ink(C.rev)), Object.assign({ lh:.98 }, op), V); s.add(this.phrase.groupe);
+    const lp = CL ? coupe3D(font, nomF, this.tx.titre, 2.9, 2.3, 1.3, 3, .98, V) : coupe3D(font, 'jost-500', this.tx.gros, 2.9, 2.3, 1.45, 3, .98, V);
+    this.phrase = bloc3D(font, nomF, lp, mk(CL ? this.acc : ink(C.rev)), Object.assign({ lh:.98 }, op), V); s.add(this.phrase.groupe);
     this.phrase.groupe.position.set(wx(CX), wy(960), 0);
     this.lay.constatY = 960 - this.phrase.haut / 2 * PXU - 64; this.lay.preuveY = Math.min(1340, Math.max(1290, 960 + this.phrase.haut / 2 * PXU + 95)); this.lay.autY = 330;
     /* et toi ? */
-    const lc = coupe3D(font, 'jost-500', this.tx.etToi, 2.9, 1.2, 1.2, 1, 1, V);
-    this.etToi = bloc3D(font, 'jost-500', lc, mk(ink(C.cta)), op, V); this.etToi.groupe.position.set(wx(CX), wy(this.lay.ctaY - 30), 0); s.add(this.etToi.groupe);
-    /* les numeros geants des soins */
+    const lc = coupe3D(font, nomF, casse(this.tx.etToi), 2.9, 1.2, 1.2, 1, 1, V);
+    this.etToi = bloc3D(font, nomF, lc, mk(ink(C.cta)), op, V); this.etToi.groupe.position.set(wx(CX), wy(this.lay.ctaY - 30), 0); s.add(this.etToi.groupe);
+    /* les numeros geants des soins (en clair : le numero prend la couleur de son aliment, en retrait derriere la photo) */
     this.nums = [];
-    for (let k = 0; k < this.n; k++){ const l = coupe3D(font, 'jost-500', '0' + (k + 1), 4.4, 3.2, 3.4, 1, 1, V); const b = bloc3D(font, 'jost-500', l, mk(k % 2 ? K.c2 : K.c1), op, V); s.add(b.groupe); this.nums.push(b); }
+    for (let k = 0; k < this.n; k++){ const l = coupe3D(font, nomF, '0' + (k + 1), 4.4, 3.2, 3.4, 1, 1, V); const b = bloc3D(font, nomF, l, mk(CL ? mel(AV[k % AV.length], [255, 255, 255], .18) : k % 2 ? K.c2 : K.c1), op, V); s.add(b.groupe); this.nums.push(b); }
     /* la vitesse : des eclats qui filent */
     const N = this.ap ? 250 : 600, rnd = alea(11), pos = new Float32Array(N * 3);
     for (let i = 0; i < N; i++){ const a = rnd() * 6.2832, r = 2 + rnd() * 5; pos[i * 3] = Math.cos(a) * r; pos[i * 3 + 1] = Math.sin(a) * r * 1.6; pos[i * 3 + 2] = -rnd() * 60; }
     const gp = new THREE.BufferGeometry(); gp.setAttribute('position', new THREE.BufferAttribute(pos, 3)); this.pos0 = pos.slice();
-    this.eclats = new THREE.Points(gp, new THREE.PointsMaterial({ color:0xffffff, size:3 * this.rw / 720, sizeAttenuation:false, transparent:true, opacity:.7 })); this.eclats.frustumCulled = false; s.add(this.eclats);
+    /* en clair : chaque lettre a sa matiere (pour s'effacer quand elle fonce vers nous : jamais un ecran rempli d'un coup) */
+    if (CL) [this.hook, this.phrase, this.etToi].concat(this.nb).forEach(b => b.lettres.forEach(m => { m.material = m.material.clone(); }));
+    this.eclats = new THREE.Points(gp, new THREE.PointsMaterial({ color:CL ? srgb([150, 152, 144]) : 0xffffff, size:(CL ? 2.4 : 3) * this.rw / 720, sizeAttenuation:false, transparent:true, opacity:.7 })); this.eclats.frustumCulled = false; s.add(this.eclats);
   }
   /* un objet qui fonce vers la camera et la traverse a l'instant qp */
   traverse(g, q, qp, avance, sx){ const dz = qp - q; const z = 12.6 - 34 * Math.sign(dz) * Math.pow(Math.abs(dz), 1.25); g.position.z = Math.min(13, z); g.visible = dz > -.05 && dz < avance; g.position.x = wx(CX) + (sx || 0) * (1 - Math.min(1, Math.max(0, dz)) ) ; }
@@ -875,7 +1205,7 @@ class X4 extends Base {
     this.phrase.lettres.forEach((m, i) => { const e = V.eOut3(V.seg(q, P.rev + i * .018, P.rev + .32 + i * .018)), ud = m.userData; m.position.z = 14 * (1 - e) - 14 * out; m.position.x = ud.x * (1 + .8 * (1 - e)); m.position.y = ud.y; m.rotation.y = .05 * Math.sin(ph * 2 + i) + .6 * (1 - e); m.visible = m.position.z < 12.2; });
     this.phrase.groupe.rotation.y = .1 * Math.sin(ph);
     /* les soins : un numero geant derriere chacun */
-    const heros = { x:wx(CX), y:wy(1100), z:1, h:1.42, dz:2.5, dy:0, ry:.0, halo:.0 };
+    const heros = { x:wx(CX), y:wy(this.clair ? 1110 : 1100), z:1, h:1.42, dz:2.5, dy:0, ry:.0, halo:.0 };
     this.majProduits(q, heros);
     this.nums.forEach((b, k) => { const st = this.etatProduit(k, q), a = st.a * st.heros; b.groupe.scale.setScalar(Math.max(.001, st.a)); b.groupe.visible = a > .01 && q >= P.prod - .2 && q < P.cta; b.groupe.position.set(wx(CX), wy(860), -4 - 14 * (1 - V.eOut3(V.seg(q, st.s - .15, st.s + .3))) - 8 * V.eIn3(st.etagere)); b.groupe.scale.multiplyScalar(1 - st.etagere); b.groupe.rotation.y = .15 * Math.sin(ph * 2 + k); });
     /* et toi ? */
@@ -883,8 +1213,13 @@ class X4 extends Base {
     this.etToi.groupe.visible = q >= P.cta && q < P.retour + .35;
     this.etToi.lettres.forEach((m, i) => { const e = V.eOut3(V.seg(q, P.cta + i * .03, P.cta + .35 + i * .03)); m.position.z = 10 * (1 - e) + 12 * ao; m.visible = m.position.z < 12.2; });
     this.etToi.groupe.scale.setScalar(Math.max(.001, ac));
+    /* en clair : ce qui s'approche trop de la camera se dissout (au lieu de la traverser) ; moins de 3 variations fortes par seconde */
+    if (this.clair) [this.hook, this.phrase, this.etToi].concat(this.nb).forEach(b => { const g = b.groupe, sc = g.scale.z, z0 = b === this.hook ? 1 : this.nb.indexOf(b) >= 0 ? 1.4 : 2.6, z1 = b === this.hook ? 3.6 : this.nb.indexOf(b) >= 0 ? 4.8 : 6;
+      b.lettres.forEach(m => { const z = g.position.z + m.position.z * sc, o = 1 - V.seg(z, z0, z1); m.material.opacity = o; m.material.transparent = o < .999;
+        if (b === this.hook || this.nb.indexOf(b) >= 0) m.visible = o > .01; else if (o <= .01) m.visible = false; }); });
   }
   dessine2D(q){
+    if (this.clair) return this.dessine2DC(q);
     const x = this.R.x, V = this.V, P = this.P, f = this.fondA(q), ink = this.encreA(q); x.setTransform(1, 0, 0, 1, 0, 0); x.fillStyle = V.rgba(f, 1); x.fillRect(0, 0, W, H);
     const big = (t, y, s, a) => { if (a <= 0) return; x.save(); x.globalAlpha = a; x.font = V.fontJ(260, 500); const k = Math.min(1, 900 / Math.max(1, x.measureText(t).width)); x.translate(CX, y); x.scale(s * k, s * k); x.textAlign = 'center'; x.fillStyle = V.rgba(ink, 1); x.fillText(t, 0, 90); x.restore(); };
     if (q < 1.2) big(this.tx.mien, 960, 1 + 6 * V.eIn3(V.seg(q, .8, 1.15)), 1 - V.seg(q, 1.05, 1.15));
@@ -897,7 +1232,15 @@ class X4 extends Base {
     super.surcouche(q);
     /* le libelle de chaque chiffre traverse */
     const R = this.R, V = this.V, ink = this.encreA(q);
-    (this.nb || []).forEach((b, i) => { const qp = this.passages[i + 1], a = V.seg(q, qp - .75, qp - .45) * (1 - V.seg(q, qp - .2, qp - .02)); if (a > 0) R.capsL(b.c.label, CX, 1250, 36, ink, a, { sp:.28 }); });
+    (this.nb || []).forEach((b, i) => { const qp = this.passages[i + 1], a = V.seg(q, qp - .75, qp - .45) * (1 - V.seg(q, qp - .2, qp - .02)); if (a > 0) this.caps(b.c.label, CX, 1250, 36, this.clair ? CLAIR.gris : ink, a, { sp:.28, spC:.16 }); });
+  }
+  ctaC(q, ink, acc){
+    const V = this.V, P = this.P, tx = this.tx;
+    const a2 = V.eOut3(V.seg(q, P.cta + .3, P.cta + .7)) * (1 - V.seg(q, P.retour - .1, P.retour + .35));
+    if (a2 <= 0) return;
+    if (!this.gl) this.sans(V.phraseCas(tx.etToi), CX, 800, 150, ink, a2, { maxW:880 });
+    const r = this.lignes(tx.cta[1], CX, 1040, 84, 90, ink, a2, { n:2, maxW:840 });
+    this.caps(tx.site, CX, 1040 + (r.n - 1) * 90 * r.s / 84 + 110, 34, this.acc, a2, { spC:.24 });
   }
   cta(q, ink, acc){
     const R = this.R, V = this.V, P = this.P, tx = this.tx;
@@ -915,6 +1258,7 @@ const CLASSES = { X1, X2, X3, X4 };
 export async function creer(R, d, o){
   const V = o.V;
   await V.policesL();
+  if (d.type === 'aliment') await chargeInter();
   const C = CLASSES[d.style] || X1;
   const sc = new C(R, d, o);
   await sc.init();

@@ -11,3 +11,8 @@ Aucune de ces polices n'a de nom reserve (Reserved Font Name). Elles ne sont pas
 07/10/2026 (Wrap X, 3D) : fonts/3d/*.json = contours des glyphes tires de ces memes fichiers (fontTools,
   format « typeface » de three.js) pour le texte en volume : bodoni-600.json (Bodoni Moda 600),
   bodoni-400-italic.json (Bodoni Moda 400 italique), jost-500.json (Jost 500). Meme licence SIL OFL 1.1.
+
+07/10/2026 (Wrap aliments, fond clair) : Inter 4.001 (Rasmus Andersson, The Inter Project Authors), SIL OFL 1.1
+  -> OFL-Inter.txt. Fichiers statiques Inter-Regular et Inter-Medium (version 4.001), sous-ensemble latin en woff2
+  (fontTools) : inter-400.woff2, inter-500.woff2 ; fonts/3d/inter-400.json = contours de inter-400.woff2.
+  Pas de nom reserve (Reserved Font Name). Utilisee seulement par le Wrap des aliments (la typo de l'interface aliments).
