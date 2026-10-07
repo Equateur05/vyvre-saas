@@ -7,7 +7,8 @@
 <meta name="description" content="Votre peau, mesurée en moins de 10 secondes depuis votre caméra. Puis les trois soins qui lui correspondent, parmi 5 883 références de 147 marques.">
 <title>VYVRE — Scan de peau universel</title>
 <!-- VYVRE_I18N : moteur 12 langues, francais par defaut -->
-<script src="/scan/vy-i18n.js?v=29"></script>
+<script src="/scan/vy-i18n.js?v=30"></script>
+<script src="/scan/vy-choix.js?v=1"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Police ultra-clean (Silicon Valley DeepTech style) -->
@@ -611,6 +612,14 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{cursor:auto}
         <p data-i18n="d.p2">Action ciblée : Éclat · Ridules.</p>
         <img class="v6photo" src="https://vyvre-demos.web.app/products/charlotte-tilbury/magic-serum-crystal-elixir.jpg" alt="Charlotte's Magic Serum Crystal Elixir" onerror="this.style.display='none'">
         <div class="v6price">75 €</div>
+      </div>
+      <!-- 07/10 : le rituel a quatre soins (nettoyer, serum, creme, proteger), comme le scan. Cachee tant qu'elle n'est pas remplie. -->
+      <div class="v6card v6prod" data-vyvre-prod-slot="3" style="display:none">
+        <span class="v6lbl" data-i18n="c.default">Soin signature</span>
+        <h3></h3>
+        <p></p>
+        <img class="v6photo" src="" alt="" style="display:none" onerror="this.style.display='none'">
+        <div class="v6price"></div>
       </div>
     </div>
 
@@ -1379,6 +1388,28 @@ function showFinalDashboard() {
 
     console.log('[CHARLOTTE_TILBURY] computed: globalScore=' + globalScore + ' cellAge=' + cellAge + ' hydration=' + hydration);
     console.log('[CHARLOTTE_TILBURY] vyvre-scan-engine: real CIE LAB analysis complete', { raw: result.raw, scores: s });
+    /* 07/10 (« un seul cerveau ») : comme /scan, la page de marque laisse son scan sur l'appareil pour le
+       protocole complet (/m/<marque>/protocol) : scores, heure, ombre sous l'oeil, vignette. Le rituel de la
+       marque est enregistre par le choix des soins, lie a ce scan. */
+    try {
+      const garder = {}; ['wrinkles','firmness','glow','hydration','redness','pores','sebum','pigmentation'].forEach(k => { if (typeof s[k] === 'number') garder[k] = Math.round(s[k]); });
+      localStorage.setItem('vyvre_scan_scores', JSON.stringify(garder));
+      localStorage.setItem('vyvre_score', String(globalScore));
+      localStorage.setItem('vyvre_hyd', String(Math.round(s.hydration)));
+      localStorage.setItem('vyvre_scan_at', String(Date.now()));
+      const cy = vyCernesMarque();
+      if (cy) localStorage.setItem('vyvre_scan_yeux', JSON.stringify({ niveau: cy.niveau, type: cy.type, fiable: cy.fiable === true, deltaL: cy.deltaL }));
+      else localStorage.removeItem('vyvre_scan_yeux');
+      /* l'age affiche par le protocole vient du moteur seulement ; jamais celui d'un scan precedent */
+      const ag = result.age || result.ageEstimate || null;
+      const fourchette = result.age_display || result.ageDisplay || (ag && ag.ageReadable !== false && (ag.ageDisplay || (Array.isArray(ag.range) ? ag.range[0] + '–' + ag.range[1] : ''))) || '';
+      if (fourchette) localStorage.setItem('vyvre_age_display', String(fourchette)); else localStorage.removeItem('vyvre_age_display');
+      const src = document.getElementById('capturedImg'), vid = document.getElementById('liveVideo');
+      const c = document.createElement('canvas'), W = 360; let ok = false;
+      if (src && src.naturalWidth) { c.width = W; c.height = Math.round(W * src.naturalHeight / src.naturalWidth); c.getContext('2d').drawImage(src, 0, 0, c.width, c.height); ok = true; }
+      else if (vid && vid.videoWidth) { c.width = W; c.height = Math.round(W * vid.videoHeight / vid.videoWidth); c.getContext('2d').drawImage(vid, 0, 0, c.width, c.height); ok = true; }
+      if (ok) localStorage.setItem('vyvre_scan_face', c.toDataURL('image/jpeg', 0.72)); else localStorage.removeItem('vyvre_scan_face');
+    } catch (e) { console.warn('[VYVRE] scan non transmis au protocole', e); }
   } else {
     console.warn('[CHARLOTTE_TILBURY] no scan result available — using defaults (this should NOT happen in prod)');
   }
@@ -1431,6 +1462,12 @@ function showFinalDashboard() {
  * Identifie les top 3 concerns du user (scores les plus faibles ou pigmentation/sebum
  * élevés = concerns) et fetch + matche les meilleurs produits Charlotte Tilbury.
  */
+/* 07/10 : l'ombre sous l'oeil mesuree par le moteur (indicative), ou null — meme lecture que /scan */
+function vyCernesMarque() {
+  const r = window.vyvreLastScanResult;
+  const y = r && (r.yeux || (r.scores && r.scores.yeux));
+  return (y && y.cernes && typeof y.cernes.deltaL === 'number') ? y.cernes : null;
+}
 async function matchAndRenderCharlotteTilburyProducts(scores) {
   window.__vyScores = scores; // memorise pour pouvoir re-rendre au changement de langue
   console.log('[CHARLOTTE_TILBURY] starting product matching with scores', scores);
@@ -1536,7 +1573,7 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
   scoredProducts.sort((a, b) => b.matchScore - a.matchScore);
 
   // Diversifier : on prend top 1, puis on cherche un produit avec un primary target différent
-  const selected = [];
+  let selected = [];
   const usedTargets = new Set();
   for (const p of scoredProducts) {
     if (selected.length === 3) break;
@@ -1555,30 +1592,53 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     else break;
   }
 
+  /* 07/10 (« un seul cerveau ») : le rituel de la marque, choisi par la meme regle que le scan
+     (/scan/vy-choix.js) : nettoyer, serum sur le point faible n°1, creme, proteger. Le protocole complet
+     de la marque reprend exactement ces soins pour le matin. Si la marque n'a pas de quoi composer
+     trois etapes, on garde les trois soins les mieux notes. */
+  let topRituel = topConcerns;
+  if (window.VyChoix) {
+    let fondPlein = {}; try { ((await (await fetch('/scan/catalogue/fond_plein.json')).json()).images || []).forEach(u => fondPlein[u] = 1); } catch (_) {}
+    const cy = vyCernesMarque();
+    const mesure = !!(cy && cy.fiable === true && (cy.niveau === 'marque' || cy.niveau === 'net'));
+    const R = window.VyChoix.rituel({ scores: scores, produits: products, fondPlein: fondPlein, prefs: null, cibles: [],
+      yeux: { demande: false, mesure: mesure, oui: mesure }, marque: !!window.VYVRE_MARQUE });
+    if (R && R.selected.length >= 3) { selected = R.selected; topRituel = R.top; }
+  }
+  try { window.__vySelection = selected; } catch(e) {}
+  try { window.VyChoix && window.VyChoix.enregistrer(selected, { scores: scores, marque: window.VYVRE_MARQUE || null }); } catch(e) {}
+
   console.log('[CHARLOTTE_TILBURY] selected products:', selected.map(p => p.name + ' (match=' + p.matchScore.toFixed(1) + ')'));
 
-  // Re-render les 3 cards de Row 3
+  // Re-render les cartes du rituel
   const CONCERN_KEYS = {
     wrinkles: 'c.wrinkles', firmness: 'c.firmness', glow: 'c.glow',
     hydration: 'c.hydration', redness: 'c.redness', pores: 'c.pores',
-    sebum: 'c.sebum', pigmentation: 'c.pigmentation'
+    sebum: 'c.sebum', pigmentation: 'c.pigmentation', yeux: 'c.yeux'
   };
   const concernLabel = (k) => CONCERN_KEYS[k] ? VY.t(CONCERN_KEYS[k]) : k;
 
+  document.querySelectorAll('[data-vyvre-prod-slot]').forEach(c => { c.style.display = (+c.dataset.vyvreProdSlot < selected.length) ? '' : 'none'; });
+  { const rw = document.getElementById('vyvre-product-row'); if (rw && rw.dataset.ritual) rw.dataset.ritual = rw.dataset.ritual.replace(/\d+/, selected.length); }
   selected.forEach((p, idx) => {
     const card = document.querySelector(`[data-vyvre-prod-slot="${idx}"]`);
     if (!card) return;
-    const primaryTarget = (p.targets || [])[0] || 'wrinkles';
+    const primaryTarget = (p.targets || []).find(t => topRituel.some(c => c.concern === t)) || (p.targets || [])[0] || 'wrinkles';
     const lblEl = card.querySelector('.v6lbl');
     const h3 = card.querySelector('h3');
     const pEl = card.querySelector('p');
     const img = card.querySelector('img');
     const price = card.querySelector('.v6price');
 
-    if (lblEl) { lblEl.setAttribute('data-i18n', CONCERN_KEYS[primaryTarget] || 'c.default'); lblEl.textContent = CONCERN_KEYS[primaryTarget] ? concernLabel(primaryTarget) : VY.t('c.default'); }
+    if (lblEl && p._etape) { lblEl.setAttribute('data-i18n', p._etape); lblEl.textContent = VY.t(p._etape); }
+    else if (lblEl) { lblEl.setAttribute('data-i18n', CONCERN_KEYS[primaryTarget] || 'c.default'); lblEl.textContent = CONCERN_KEYS[primaryTarget] ? concernLabel(primaryTarget) : VY.t('c.default'); }
     if (h3) { h3.removeAttribute('data-i18n'); h3.textContent = p.name; }
     card.dataset.marque = p.brand_name || '';
-    if (pEl) {
+    card.classList.remove('vyvre-slot-attente');
+    if (pEl && p._yeux) {
+      pEl.removeAttribute('data-i18n');
+      pEl.textContent = `${p.brand_name ? p.brand_name + ' · ' : ''}` + (p._yeux.mesure ? VY.t('y.mesure') : '');
+    } else if (pEl) {
       const targetWords = (p.targets || []).map(t => concernLabel(t)).join(' · ');
       pEl.removeAttribute('data-i18n');
       pEl.textContent = `${p.brand_name ? p.brand_name + ' · ' : ''}` + VY.t('p.action', { t: targetWords });
@@ -3017,6 +3077,21 @@ document.addEventListener('vy:lang', function(){
 })();
 </script>
 <script src="/scan/retour.js?v=2"></script>
+<style id="vy-quatre-produits">
+/* 07/10 : quatre soins, comme /scan. Ordinateur : une colonne par produit visible (jamais de colonne vide) ;
+   entre 1100 et 1500 px, photo au-dessus du nom. Tablette : 2 x 2. */
+@media (min-width:1100px){
+  .vyvre-v6 .v6grid>#vyvre-product-row{grid-template-columns:repeat(auto-fit,minmax(0,1fr))!important}
+}
+@media (min-width:1100px) and (max-width:1499px){
+  .vyvre-v6 .v6card.v6prod{grid-template-columns:1fr!important;justify-items:center;text-align:center;row-gap:10px}
+  .vyvre-v6 .v6card.v6prod>*{grid-column:1!important}
+  .vyvre-v6 .v6card.v6prod .v6photo{grid-row:auto!important;order:-1;width:110px!important;height:120px!important;margin-top:8px}
+}
+@media (min-width:769px) and (max-width:1099px){
+  .vyvre-v6 #vyvre-product-row{grid-template-columns:repeat(2,1fr)!important}
+}
+</style>
 <script id="vy-rituel-compte">
 (function(){ var row=document.getElementById('vyvre-product-row'); if(!row) return;
   function juste(){ var n=[].filter.call(document.querySelectorAll('[data-vyvre-prod-slot]'),function(c){return c.style.display!=='none';}).length, t=row.getAttribute('data-ritual')||'', u=t.replace(/\d+/, n);

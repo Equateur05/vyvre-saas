@@ -867,5 +867,8 @@ VY.add('nl', {
     "y.ligne": "Schaduw onder de ogen: {n} · indicatief, afhankelijk van het licht",
     "y.leger": "licht",
     "y.marque": "duidelijk",
-    "y.net": "sterk"
+    "y.net": "sterk",
+    "pp.rituel": "Uw ritueel, <em>aangevuld voor ochtend en avond</em>",
+    "rt.scan": "Uw producten uit de scan",
+    "pr.noscan": "Uw ritueel vertrekt vanuit uw scan. Doe eerst uw scan op dit apparaat: uw ochtend en avond verschijnen dan hier."
   });

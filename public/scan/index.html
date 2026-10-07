@@ -7,7 +7,8 @@
 <meta name="description" content="Votre peau, mesurée en moins de 10 secondes depuis votre caméra. Puis les trois soins qui lui correspondent, parmi 5 883 références de 147 marques.">
 <title>VYVRE — Scan de peau universel</title>
 <!-- VYVRE_I18N : moteur 12 langues, francais par defaut -->
-<script src="/scan/vy-i18n.js?v=29"></script>
+<script src="/scan/vy-i18n.js?v=30"></script>
+<script src="/scan/vy-choix.js?v=1"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Police ultra-clean (Silicon Valley DeepTech style) -->
@@ -1829,27 +1830,6 @@ function vyReglesYeux() {
 async function matchAndRenderCharlotteTilburyProducts(scores) {
   console.log('[CHARLOTTE_TILBURY] starting product matching with scores', scores);
   window.__vyScores = scores;
-  // Concerns "négatifs" : pour wrinkles/firmness/glow/hydration/redness/pores → score BAS = concern
-  // Pour sebum/pigmentation → score HAUT = concern (sebum élevé = peau grasse)
-  const concernSeverity = {
-    wrinkles:    100 - scores.wrinkles,    // bas wrinkles = rides présentes
-    firmness:    100 - scores.firmness,
-    glow:        100 - scores.glow,
-    hydration:   100 - scores.hydration,
-    redness:     100 - scores.redness,
-    pores:       100 - scores.pores,
-    sebum:       scores.sebum,             // sebum élevé = peau grasse = concern
-    pigmentation: scores.pigmentation      // pigment élevé = taches = concern
-  };
-
-  // Top 3 concerns
-  if (window.vyPrefs && window.vyPrefs.boostConcerns) window.vyPrefs.boostConcerns(concernSeverity);
-  const topConcerns = Object.entries(concernSeverity)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 3)
-    .map(([concern, severity]) => ({ concern, severity }));
-
-  console.log('[CHARLOTTE_TILBURY] top concerns:', topConcerns);
 
   // Fetch produits
   let products = [];
@@ -1877,122 +1857,24 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
   products = products.filter(p => !/\b(US|USA|U\.S\.)\s*ONLY\b|\bONLY\s+(IN|FOR)\s+(THE\s+)?(US|USA)\b|^\s*\[subscr/i.test(p.name || ''));
   if (products.length === 0) return;
 
-  // Score chaque produit selon les top concerns
-  // Score produit = somme pondérée (concern_scores[concern] * severity_user)
-  const scoredProducts = products.map(p => {
-    const cs = p.concern_scores || {};
-    let matchScore = 0;
-    for (const tc of topConcerns) {
-      // concern_scores ∈ [0..1] dans l'API ; severity_user ∈ [0..100]
-      const productEfficacy = cs[tc.concern] || 0;
-      // Si le produit cible explicitement ce concern (targets array), bonus
-      const isTarget = (p.targets || []).includes(tc.concern);
-      const targetBonus = isTarget ? 0.3 : 0;
-      matchScore += (productEfficacy + targetBonus) * tc.severity;
-    }
-    return { ...p, matchScore };
-  });
-
-  // Top 3 produits, en évitant les doublons de "famille" (préfère diversité)
-  scoredProducts.sort((a, b) => b.matchScore - a.matchScore);
-  // 26/09 (audit) : un nettoyant ou un masque n'est pas un des trois soins. On les ecarte
-  // tant qu'il reste au moins 3 vrais soins dans le perimetre.
-  {
-    const PAS_UN_SOIN = /cleans|nettoy|d[ée]maquill|micell|face wash|\bwash\b|foam|mousse nettoy|masque|\bmask|sheet|patch|gommage|scrub|\blip\b|l[èe]vres|lip balm/i;
-    const soins = scoredProducts.filter(p => !PAS_UN_SOIN.test(p.name || ''));
-    if (soins.length >= 3) { scoredProducts.length = 0; soins.forEach(p => scoredProducts.push(p)); }
-  }
-
-  /* 04/10 (contour des yeux) : un contour des yeux n'entre plus jamais par le score (il arrivait
-     « pour rides » par hasard). Il est mis de cote, puis ajoute seulement si la regle le demande.
-     Jamais de patchs ni de masques. */
+  /* 07/10 (« un seul cerveau ») : le choix des soins vit dans /scan/vy-choix.js, partage avec les pages de
+     marque et le protocole complet. Le rituel : nettoyer, traiter (serum sur votre point faible n°1, ou
+     l'objectif choisi avant le scan), hydrater (creme de jour, hydratante si l'hydratation est un point
+     faible), proteger (SPF 30 au moins quand l'indice est lisible). Un seul actif fort sur les quatre
+     soins, nettoyant compris, aucun si les rougeurs sont un point faible ; aucun soin du soir le jour.
+     Le contour des yeux remplace le nettoyant quand la regle des yeux le retient. */
+  let fondPlein = {}; try { ((await (await fetch('/scan/catalogue/fond_plein.json')).json()).images || []).forEach(u => fondPlein[u] = 1); } catch (_) {}
   const regleYeux = vyReglesYeux();
-  const PAS_POUR_YEUX = /patch|\bpads?\b|mask|masque|strips?|gel pads/i;
-  const MOTS_CERNES = /cerne|dark circle|ojera|occhiaie|augenring|olheira|kringen|puff|poche|de-puff/i;
-  let soinYeux = null;
-  if (regleYeux.oui) {
-    const cands = scoredProducts.filter(p => p.categorie === 'contour-yeux' && !PAS_POUR_YEUX.test(p.name || ''));
-    cands.sort((a, b) => (regleYeux.mesure ? (MOTS_CERNES.test(b.name || '') ? 1 : 0) - (MOTS_CERNES.test(a.name || '') ? 1 : 0) : 0) || b.matchScore - a.matchScore);
-    if (cands[0]) soinYeux = Object.assign({}, cands[0], { targets: ['yeux'], _yeux: regleYeux });
-  }
-  { const sansYeux = scoredProducts.filter(p => p.categorie !== 'contour-yeux'); scoredProducts.length = 0; sansYeux.forEach(p => scoredProducts.push(p)); }
-
-  // Diversifier : on prend top 1, puis on cherche un produit avec un primary target différent
-  const selected = [];
-  const usedTargets = new Set();
-  /* meme photo, ou meme marque + meme nom complet : c'est le meme produit.
-     (le nom complet : « [C20] Biotic » et « [HYALU] Biotic » sont deux produits differents) */
-  const photoDe = q => q.cutout_url || q.image_url || '';
-  const cleDe = q => (String(q.brand || '') + '|' + String(q.name || '')).trim().toLowerCase();
-  const memeProduit = (x, p) => x.id === p.id || (photoDe(x) && photoDe(x) === photoDe(p)) || cleDe(x) === cleDe(p);
-  for (const p of scoredProducts) {
-    if (selected.length === 4) break;
-    const primaryTarget = (p.targets || [])[0];
-    // Évite 3 fois le même primary target si on a le choix
-    if (selected.some(x => x.brand && x.brand === p.brand) && new Set(products.map(q => q.brand)).size >= 3) continue;
-    if (selected.some(x => x.id === p.id)) continue;
-    if (selected.some(x => memeProduit(x, p))) continue;
-    if (selected.length < 2 || !usedTargets.has(primaryTarget) || scoredProducts.length < 6) {
-      selected.push(p);
-      if (primaryTarget) usedTargets.add(primaryTarget);
-    }
-  }
-  // Si manque (peu probable), complète
-  while (selected.length < 4 && scoredProducts.length > selected.length) {
-    const next = scoredProducts.find(p => !selected.some(x => memeProduit(x, p)));
-    if (next) selected.push(next);
-    else break;
-  }
-
-  // 26/09 (audit) : l'objectif choisi avant le scan tient la premiere place, avec son etiquette.
-  let cibleObjectif = null;
-  if (window.vyPrefs && window.vyPrefs.cibles) {
-    const cibles = window.vyPrefs.cibles();
-    if (cibles.length) {
-      /* d'abord un produit dont c'est la cible principale, sinon le plus efficace sur cette cible */
-      const vise = scoredProducts.find(p => cibles.indexOf((p.targets || [])[0]) >= 0)
-        || scoredProducts.filter(p => (p.targets || []).some(t => cibles.indexOf(t) >= 0))
-             .sort((a, b) => Math.max(...cibles.map(c => (b.concern_scores || {})[c] || 0)) - Math.max(...cibles.map(c => (a.concern_scores || {})[c] || 0)))[0];
-      if (vise) {
-        const i = selected.findIndex(x => memeProduit(x, vise));
-        if (i > 0) { selected.splice(i, 1); selected.unshift(vise); }
-        else if (i < 0) { selected.pop(); selected.unshift(vise); }
-        cibleObjectif = (vise.targets || []).find(t => cibles.indexOf(t) >= 0) || null;
-      }
-    }
-  }
-  /* le contour des yeux : en tete si c'est le seul objectif choisi, sinon a la derniere place */
-  if (soinYeux) {
-    const seul = regleYeux.demande && !(window.vyPrefs && window.vyPrefs.cibles && window.vyPrefs.cibles().length);
-    if (seul) { selected.unshift(soinYeux); if (selected.length > 4) selected.pop(); }
-    else if (selected.length >= 4) selected[3] = soinYeux;
-    else selected.push(soinYeux);
-  }
-  /* 05/10 (audit) : un vrai rituel par etapes au lieu de quatre serums : nettoyer, traiter (serum sur votre point
-     le plus faible), hydrater (creme), proteger (solaire). Jamais deux actifs forts ensemble ; aucun acide ni retinoide
-     si les rougeurs font partie de vos points a travailler. Le contour des yeux remplace le nettoyant quand il est retenu. */
-  {
-    const faibles = topConcerns.map(t => t.concern);
-    const FORT = /r[ée]tin|retinal|glycol|salicyl|lactic|lactique|mand[ée]l|\bAHA\b|\bBHA\b|\bPHA\b|peel|exfoli|vitamin(e)? ?c\b|ascorb/i;
-    const fort = p => FORT.test((p.name || '') + ' ' + (p.score_raisons || []).join(' '));
-    const sensible = faibles.indexOf('redness') >= 0;
-    const note = p => { const cs = p.concern_scores || {}; let m = 0; for (const tc of topConcerns) m += ((cs[tc.concern] || 0) + ((p.targets || []).includes(tc.concern) ? .3 : 0)) * tc.severity; return m; };
-    let fondPlein = {}; try { ((await (await fetch('/scan/catalogue/fond_plein.json')).json()).images || []).forEach(u => fondPlein[u] = 1); } catch (_) {}
-    const pool = products.filter(p => (p.cutout_url || p.image_url) && !fondPlein[String(p.cutout_url || '').split('?')[0]]).map(p => Object.assign({}, p, { matchScore: typeof p.matchScore === 'number' ? p.matchScore : note(p) }));
-    const PAS = /patch|\bpads?\b|mask|masque|sheet|\blip\b|l[èe]vres/i;
-    const pris = [];
-    const choisir = (cat, ok) => pool.filter(p => p.categorie === cat && !PAS.test(p.name || '') && !pris.some(x => memeProduit(x, p) || (x.brand && x.brand === p.brand)) && (ok ? ok(p) : true)).sort((a, b) => b.matchScore - a.matchScore)[0] || null;
-    let serum = null;
-    if (cibleObjectif) serum = choisir('serum', p => (p.targets || [])[0] === cibleObjectif && !(sensible && fort(p)));
-    if (!serum) serum = choisir('serum', p => faibles.indexOf((p.targets || [])[0]) >= 0 && !(sensible && fort(p)));
-    if (serum) pris.push(serum);
-    const doux = p => !fort(p) || (!sensible && !(serum && fort(serum)));
-    const creme = choisir('creme', p => doux(p) && p.categorie !== 'contour-yeux'); if (creme) pris.push(creme);
-    const solaire = choisir('solaire-visage', p => !/r[ée]tin|glycol|salicyl/i.test(p.name || '')); if (solaire) pris.push(Object.assign({}, solaire, { _etape: 'e.proteger' }));
-    const nettoyant = soinYeux ? null : choisir('nettoyant', p => !fort(p) || !sensible); if (nettoyant) pris.unshift(Object.assign({}, nettoyant, { _etape: 'e.nettoyer' }));
-    if (soinYeux) pris.splice(serum ? 1 : 0, 0, soinYeux);
-    if (pris.length >= 3) { selected.length = 0; pris.slice(0, 4).forEach(p => selected.push(p)); if (serum && cibleObjectif && (serum.targets || [])[0] !== cibleObjectif) cibleObjectif = null; }
-  }
+  const R = window.VyChoix.rituel({
+    scores: scores, produits: products, fondPlein: fondPlein,
+    boost: function(sev){ if (window.vyPrefs && window.vyPrefs.boostConcerns) window.vyPrefs.boostConcerns(sev); },
+    cibles: (window.vyPrefs && window.vyPrefs.cibles) ? window.vyPrefs.cibles() : [],
+    yeux: regleYeux
+  });
+  if (!R || !R.selected.length) return;
+  const selected = R.selected, topConcerns = R.top;
+  let cibleObjectif = R.cibleObjectif;
+  console.log('[CHARLOTTE_TILBURY] top concerns:', topConcerns);
   console.log('[CHARLOTTE_TILBURY] selected products:', selected.map(p => p.name + ' (match=' + p.matchScore.toFixed(1) + ')'));
   // la liste retenue, telle quelle, pour « LA SALLE » (?salle=1). Lecture seule.
   try { window.__vySelection = selected; } catch(e) {}
@@ -2008,7 +1890,8 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
   document.querySelectorAll('[data-vyvre-prod-slot]').forEach(c => { c.style.display = (+c.dataset.vyvreProdSlot < selected.length) ? '' : 'none'; });
   { const rw = document.getElementById('vyvre-product-row'); if (rw && rw.dataset.ritual) rw.dataset.ritual = rw.dataset.ritual.replace(/\d+/, selected.length); }
   /* 30/09 : le rituel choisi reste sur cet appareil (pour la page de resultats et ses propositions) */
-  try { localStorage.setItem('vyvre_rituel', JSON.stringify(selected.map(p => ({ id:p.id, name:p.name, brand:p.brand_name || p.brand, img:p.cutout_url || p.image_url, url:p.url, cible:(p.targets || [])[0] || null, categorie:p.categorie || null })))); } catch (e) {}
+  /* 07/10 : lie au scan qui l'a produit (vyvre_rituel_lien) : le protocole complet le reprend tel quel pour le matin */
+  try { window.VyChoix.enregistrer(selected, { scores: scores, marque: null }); } catch (e) {}
   selected.forEach((p, idx) => {
     const card = document.querySelector(`[data-vyvre-prod-slot="${idx}"]`);
     if (!card) return;
@@ -2999,7 +2882,7 @@ html,body{background:#030405!important}
 #vy-recap i{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font:300 11px/1.3 Inter,sans-serif;font-style:normal;color:rgba(255,255,255,.85);margin-top:3px}
 @media (min-width:1100px){#vy-recap{display:none!important}}
 </style>
-<script src="/scan/aliment/vy-aliment.js?v=39" defer></script>
+<script src="/scan/aliment/vy-aliment.js?v=40" defer></script>
 <style id="vy-as-place">@media (min-width:1100px){.vyvre-v6 .v6grid>#vy-as-entree{grid-row:9!important;grid-column:1/13!important}}</style>
 <script id="vy-recap-js">
 window.vyRecap = function(){
@@ -3120,23 +3003,18 @@ header{backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important;-webki
   /* si le perimetre laisse moins de 3 produits, on relache d'abord le pays, puis l'univers, et on le dit */
   var LADDER=[{},{origine:1},{origine:1,univers:1}];
   var LADDER_NOTE=['','ld.2','ld.3'];
+  /* 07/10 (« un seul cerveau ») : le perimetre et le poids des objectifs viennent de /scan/vy-choix.js,
+     la meme regle que le protocole complet (qui relit vyvre-prefs-v1). */
   function filter(list){
     if(!repondu) return list;
-    for(var i=0;i<LADDER.length;i++){
-      var out=list.filter(function(p){return match(p,LADDER[i]);});
-      if(out.length>=3){note=LADDER_NOTE[i]?VY.t(LADDER_NOTE[i]):''; return out;}
-    }
-    note=''; return list;
+    var r=window.VyChoix.filtrePrefs(list,P,BR);
+    note=(r.niveau>0&&LADDER_NOTE[r.niveau])?VY.t(LADDER_NOTE[r.niveau]):'';
+    return r.list;
   }
   function boostConcerns(sev){
     if(!repondu) return;
-    var map={antiage:['wrinkles','firmness'],glow:['glow'],hydration:['hydration'],redness:['redness'],pores:['pores'],pigmentation:['pigmentation'],sebum:['sebum']};
-    P.goals.forEach(function(g){(map[g]||[]).forEach(function(c){ if(sev[c]!=null) sev[c]=sev[c]+40; });});
     /* 26/09 (audit) : chaque tranche d'age pese differemment ; avant, 25-34, 35-44 et « tout age » ne changeaient rien */
-    var AGE={u25:{wrinkles:-20,firmness:-20,sebum:10,pores:10},'25':{wrinkles:-10,firmness:-10,glow:10,pores:8},
-             '35':{wrinkles:14,firmness:10,pigmentation:10,glow:6},'45':{wrinkles:20,firmness:20,pigmentation:12},
-             '55':{wrinkles:26,firmness:28,hydration:14,pigmentation:8}}[P.age];
-    if(AGE) for(var c in AGE) if(sev[c]!=null) sev[c]=sev[c]+AGE[c];
+    window.VyChoix.booster(sev,P);
   }
   function pays(code){
     if(code==='EU') return VY.t('O.EU');

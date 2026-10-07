@@ -7,7 +7,8 @@
 <meta name="description" content="Votre routine matin et soir, composée à partir de votre lecture de peau.">
 <title>Votre protocole · VYVRE × Scan universel</title>
 <!-- VYVRE_I18N : moteur 12 langues, francais par defaut -->
-<script src="/scan/vy-i18n.js?v=29"></script>
+<script src="/scan/vy-i18n.js?v=30"></script>
+<script src="/scan/vy-choix.js?v=1"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
@@ -681,6 +682,15 @@ footer{
 </style>
   <link rel="stylesheet" href="/scan/vyvre-mobile.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500&display=swap">
+<style id="vy-cerveau-css">
+/* 07/10 (« un seul cerveau ») : le matin = les soins du scan ; sans scan, pas de routine */
+.routine-sub{margin:-8px 0 0;font-family:var(--sans);font-size:12px;font-weight:300;letter-spacing:0.01em;color:var(--champagne-soft)}
+#pr-noscan{max-width:620px;margin:8px auto 0;padding:34px 26px;text-align:center;border:1px solid rgba(255,255,255,0.14);border-radius:22px;background:rgba(255,255,255,0.03)}
+#pr-noscan[hidden]{display:none}
+#pr-noscan p{margin:0 0 20px;font-family:var(--sans);font-size:15px;font-weight:300;line-height:1.55;color:var(--ink)}
+#pr-noscan a{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 26px;border-radius:100px;background:#fff;color:#000;text-decoration:none;font-family:var(--sans);font-size:13px;font-weight:500;letter-spacing:0.02em}
+body.vy-sans-scan .routines-wrap,body.vy-sans-scan #summary-bandeau,body.vy-sans-scan #protocol-trace,body.vy-sans-scan #pr-scope{display:none!important}
+</style>
 <style id="sans-prix">.v6price,.r-price{display:none!important}</style>
 </head>
 <body>
@@ -796,7 +806,7 @@ footer{
 
   <!-- Titre minimal en haut (1 seul titre Inter weight 100) -->
   <div class="protocol-title">
-    <h2 class="protocol-h2" data-i18n="pp.title">Protocole <em>personnel</em>.</h2>
+    <h2 class="protocol-h2" data-i18n="pp.rituel">Votre rituel, <em>complété matin et soir</em></h2>
   </div>
 
   <!-- Analyse-section (hidden mais nécessaire pour le JS engine) -->
@@ -899,6 +909,12 @@ footer{
     </div>
   </div>
 
+  <!-- 07/10 : sans scan sur cet appareil, aucune routine (plus de valeurs par defaut) : on propose le scan -->
+  <section id="pr-noscan" hidden>
+    <p data-i18n="pr.noscan">Votre rituel part de votre scan. Faites d’abord votre scan sur cet appareil : votre matin et votre soir s’écriront ici.</p>
+    <a id="pr-noscan-go" href="/scan/" data-i18n="at.doscan">Faire mon scan</a>
+  </section>
+
   <!-- Perimetre reel : selection, reprise des reponses, elargissements, exclusions -->
   <p id="pr-scope" style="display:none"></p>
 
@@ -906,6 +922,7 @@ footer{
   <div class="routines-wrap">
     <section class="routine-section" id="routine-matin">
       <h2 class="routine-title" data-i18n="rt.am">Matin</h2>
+      <p class="routine-sub" data-i18n="rt.scan">Vos soins du scan</p>
       <div class="routine-grid" id="grid-matin">
         <div class="routine-card" data-protocol-slot="am-0"><div class="routine-step"><span class="step-num">01</span><span data-i18n="stp.cleanse">·Nettoyage</span></div><div class="routine-img"><img class="r-img" src="" alt=""></div><div class="r-brand"></div><h4 class="r-name">—</h4><div class="r-cat">—</div><p class="r-desc">—</p><div class="r-price">—</div></div>
         <div class="routine-card" data-protocol-slot="am-1"><div class="routine-step"><span class="step-num">02</span><span data-i18n="stp.serum">·Sérum</span></div><div class="routine-img"><img class="r-img" src="" alt=""></div><div class="r-brand"></div><h4 class="r-name">—</h4><div class="r-cat">—</div><p class="r-desc">—</p><div class="r-price">—</div></div>
@@ -1032,6 +1049,8 @@ footer{
   var encoded = params.get('scores');
   if (encoded) { try { scanScores = JSON.parse(atob(encoded)); } catch(_) {} }
   if (!scanScores) { try { scanScores = JSON.parse(localStorage.getItem('vyvre_scan_scores') || 'null'); } catch(_) {} }
+  /* 07/10 : sans les 8 scores d'un vrai scan, aucune routine (plus de severites par defaut) */
+  var HAS_SCAN = !!(window.VyChoix && VyChoix.scoresValides(scanScores));
   document.getElementById('recap-score').textContent = scoreNum > 0 ? scoreNum : '—';
   document.getElementById('recap-age').innerHTML    = ageTxt ? ageTxt + ' <i data-i18n="pp.yrs" style="font-style:normal">' + T('pp.yrs', 'ans') + '</i>' : '—';
   document.getElementById('recap-hyd').textContent   = hydNum > 0 ? hydNum + ' %' : '—';
@@ -1139,8 +1158,14 @@ footer{
       closeStep(chips.filter(function(c){ return c.classList.contains('selected'); }));
     });
   });
+  /* 07/10 : sans scan, pas de questions (elles ne servent qu'au soir et au format) : on montre tout de suite
+     qu'il faut d'abord faire le scan */
+  if (!HAS_SCAN) setTimeout(function(){
+    var st = document.querySelector('.stage'); if (st) st.style.display = 'none';
+    revealProtocol();
+  }, 0);
   /* Hero -> questions au meme endroit, apres l'animation du titre */
-  setTimeout(function(){
+  else setTimeout(function(){
     var heroLayer = document.getElementById('hero-layer');
     var quizContainer = document.getElementById('quiz-container');
     if (heroLayer && quizContainer) { heroLayer.classList.add('exit'); setTimeout(function(){ quizContainer.classList.add('enter'); }, 350); }
@@ -1150,12 +1175,16 @@ footer{
     advance: function(){ if (currentStep < NQ - 1) { currentStep++; showStep(); return true; } return false; },
     reveal:  function(){ return revealProtocol(); },
     state:   function(){ return { currentStep: currentStep, steps: NQ, answers: Object.assign({}, answers), prefs: PREFS, brand: BRAND }; },
-    /* banc d'essai : la routine qu'on obtiendrait avec d'autres reponses, sans rien afficher */
+    /* banc d'essai : la routine qu'on obtiendrait avec d'autres reponses, sans rien afficher.
+       Matin = le rituel du scan (source 'scan' = relu tel quel, 'recalcul' = meme regle sur les memes scores). */
     simulate: async function(over){
-      await loadCatalogue();
+      if (!HAS_SCAN) return [{ slot: null, sansScan: true }];
       var ctx = Object.assign({ peau: 'normale', reactive: false, goals: (PREFS && PREFS.goals.length) ? PREFS.goals.slice() : [], age: PREFS ? PREFS.age : null, routine: 'complete', jour: null }, over || {});
-      var R = await composeRoutine(computeSeverity(scanScores, ctx), ctx);
-      return activeSlots(ctx).map(function(s){ var p = R.picks[s.slot]; var u = p ? usageFor(p, s, ctx) : null; return { slot: s.slot, id: p ? p.id : null, use: u ? u.text : null, src: u ? u.src : null }; });
+      var R = await composer(ctx);
+      var M = R.matin.filter(function(p){ return ctx.routine !== 'essentiel' || p._pas !== 'creme'; }).slice(0, 4);
+      var out = M.map(function(p, i){ return { slot: 'am-' + i, etape: p._pas, id: p.id, source: R.source, fort: VyChoix.estFort(p), spf: VyChoix.niveauSpf(p), img: p.cutout_url || p.image_url }; });
+      ['pm-0', 'pm-1', 'pm-2', 'pm-3'].forEach(function(k){ if (R.picks[k] !== undefined && (ctx.routine !== 'essentiel' || SHORT[k])) { var p = R.picks[k]; out.push({ slot: k, id: p ? p.id : null, source: R.source, fort: p ? VyChoix.estFort(p) : false, spf: p ? VyChoix.niveauSpf(p) : null, img: p ? (p.cutout_url || p.image_url) : null }); } });
+      return out;
     }
   };
 
@@ -1272,22 +1301,6 @@ footer{
   }
   function spfLevel(p){ var m = p._n.match(/\b(?:spf|fps|lsf)\s?(\d{2,3})/); return m ? +m[1] : null; }
   function isAntiox(p){ return K.vitc.test(p._n) || /antioxid|antioxyd/.test(p._n) || K.antiox.test(raisons(p)); }
-  /* ce que les reponses changent au classement, etape par etape (multiplicateur du score) */
-  function modW(p, s, ctx){
-    var w = 1, am = s.slot.indexOf('am') === 0, rw = ruleWhen(p);
-    /* un soin du soir (retinoide, acide, soin de nuit) n'a rien a faire le matin, et l'inverse */
-    if (am && rw === 'pm') w *= 0.05;
-    if (!am && rw === 'am' && kindOf(p) !== 'vitc') w *= 0.3;
-    /* l'etape SPF suit : la creme de jour n'a pas a etre un second ecran solaire */
-    if (s.slot === 'am-2' && kindOf(p) === 'spf') w *= 0.3;
-    /* chaque etape est un geste quotidien : un masque ou un patch (1 a 2 fois par semaine) passe apres */
-    if (K.mask.test(p._n) || kindOf(p) === 'scrub') w *= 0.4;
-    if (ctx.jour === 'dehors') {
-      if (s.slot === 'am-3') { var l = spfLevel(p); w *= l == null ? 0.9 : l >= 50 ? 1.6 : l >= 30 ? 1 : 0.55; }
-      if (s.slot === 'am-1' && isAntiox(p)) w *= 1.5;
-    }
-    return w;
-  }
 
   /* ---------- posologie : ce que la marque ecrit dans sa description ----------
      On ne retient qu'une consigne d'usage (un verbe d'usage a cote du moment), jamais un resultat
@@ -1469,123 +1482,58 @@ footer{
     });
     return bad;
   }
-  async function composeRoutine(sev, ctx){
-    var banned = {}, R = null;
-    for (var round = 0; round < 4; round++) {
-      R = buildRoutine(sev, ctx, banned);
-      var brands = []; Object.keys(R.picks).forEach(function(k){ var p = R.picks[k]; if (p && brands.indexOf(p.brand) < 0) brands.push(p.brand); });
-      await Promise.race([loadDescs(brands), new Promise(function(r){ setTimeout(r, 2500); })]);
-      var bad = conflicts(R);
-      if (!bad.length) break;
-      console.log('[PROTOCOL] écarté : la marque indique un autre moment de la journée', bad);
-      bad.forEach(function(id){ banned[id] = 1; });
+  /* ---------- 07/10 (« un seul cerveau ») : matin = le rituel du scan, soir = la meme logique ciblee ---------- */
+  var FOND = null;
+  function loadFond(){
+    if (FOND) return Promise.resolve(FOND);
+    return fetch('/scan/catalogue/fond_plein.json').then(function(r){ return r.ok ? r.json() : { images: [] }; }).catch(function(){ return { images: [] }; })
+      .then(function(j){ FOND = {}; (j.images || []).forEach(function(u){ FOND[u] = 1; }); return FOND; });
+  }
+  function yeuxMesure(){ var y = SCAN_YEUX; return !!(y && y.fiable === true && (y.niveau === 'marque' || y.niveau === 'net')); }
+  async function composer(ctx){
+    await Promise.all([loadCatalogue(), loadFond()]);
+    var brandMode = !!(BRAND && BRAND !== 'all' && CAT.products.some(function(p){ return p.brand === BRAND; }));
+    var prefs = brandMode ? null : PREFS;
+    var base, niveau = 0;
+    if (brandMode) base = CAT.products.filter(function(p){ return p.brand === BRAND; });
+    else { var f = VyChoix.filtrePrefs(CAT.products, prefs, CAT.marques); base = f.list; niveau = f.niveau; }
+    var byId = {}; CAT.products.forEach(function(p){ byId[p.id] = p; });
+
+    /* le matin : exactement les soins du scan enregistre sur cet appareil (meme scan, meme marque) */
+    var matin = null, source = 'scan';
+    var lu = VyChoix.lire({ scores: scanScores, marque: brandMode ? BRAND : null });
+    if (lu && lu.every(function(x){ return x && byId[x.id]; })) {
+      matin = lu.map(function(x){ return Object.assign({}, byId[x.id], { _pas: VyChoix.etapeDe(x) || VyChoix.etapeDe(byId[x.id]) }); });
     }
-    return R;
+    if (!matin) {
+      /* rituel absent ou venu d'un autre scan : la meme regle que le scan, sur les memes scores */
+      source = 'recalcul';
+      var demande = !!(prefs && prefs.goals.indexOf('yeux') >= 0), mesure = yeuxMesure();
+      var RR = VyChoix.rituel({ scores: scanScores, produits: base, fondPlein: FOND, prefs: prefs, cibles: VyChoix.cibles(prefs),
+        yeux: { demande: demande, mesure: mesure, oui: demande || mesure }, marque: brandMode });
+      matin = RR ? RR.selected.map(function(p){ return Object.assign({}, p, { _pas: VyChoix.etapeDe(p) }); }) : [];
+    }
+
+    /* le soir : choisi apres le matin, sans le repeter ; ce que la marque reserve au matin est ecarte */
+    var bannis = {}, S = null;
+    for (var round = 0; round < 4; round++) {
+      S = VyChoix.soir({ scores: scanScores, produits: base, fondPlein: FOND, prefs: prefs, goals: ctx.goals, peau: ctx.peau, reactive: ctx.reactive,
+        matin: matin, yeux: yeuxDemandes(ctx), mesure: yeuxMesure(), marque: brandMode, bannis: bannis });
+      var brands = [];
+      matin.concat(Object.keys(S.picks).map(function(k){ return S.picks[k]; })).forEach(function(p){ if (p && brands.indexOf(p.brand) < 0) brands.push(p.brand); });
+      await Promise.race([loadDescs(brands), new Promise(function(r){ setTimeout(r, 2500); })]);
+      var bad = [];
+      Object.keys(S.picks).forEach(function(k){ var p = S.picks[k]; if (!p) return; var bw = (brandUsage(p) || {}).when; if (bw === 'am') bad.push(p.id); });
+      if (!bad.length) break;
+      console.log('[PROTOCOL] écarté le soir : la marque indique le matin', bad);
+      bad.forEach(function(id){ bannis[id] = 1; });
+    }
+    var mont = VyChoix.montrables(base, FOND);
+    var mb = new Set(mont.map(function(p){ return p.brand; }));
+    return { matin: matin, picks: S.picks, top: S.top, source: source, niveau: niveau, brandMode: brandMode,
+             poolN: mont.length, poolBrands: mb.size, poolBrand1: mont.length ? mont[0]._brandName : '' };
   }
 
-  function region(slug){ var b = CAT.marques[slug]; if (!b) return null; return EU[b.pays] ? 'EU' : b.pays; }
-  /* niveaux, dans l'ordre du scan : 0 = tout ce qui a ete choisi, 1 = sans le pays,
-     2 = sans le pays ni la famille (marques choisies gardees), 3 = tout le catalogue */
-  function inScope(p, lvl){
-    if (!PREFS) return true;
-    var b = CAT.marques[p.brand] || {};
-    if (lvl < 3 && PREFS.marques.length && PREFS.marques.indexOf(p.brand) < 0) return false;
-    if (lvl < 2 && PREFS.univers.length && PREFS.univers.indexOf(b.univers) < 0) return false;
-    if (lvl < 1 && PREFS.origine.length && PREFS.origine.indexOf(region(p.brand)) < 0) return false;
-    return true;
-  }
-  function levels(){
-    if (!PREFS) return [0];
-    var L = [0];
-    if (PREFS.origine.length) L.push(1);
-    if (PREFS.univers.length) L.push(2);
-    if (PREFS.marques.length || PREFS.univers.length || PREFS.origine.length) L.push(3);
-    return L;
-  }
-
-  function computeSeverity(scores, ctx) {
-    var sev = {
-      wrinkles:     scores ? Math.max(0, 100 - scores.wrinkles)   : 50,
-      firmness:     scores ? Math.max(0, 100 - scores.firmness)   : 45,
-      glow:         scores ? Math.max(0, 100 - scores.glow)       : 40,
-      hydration:    scores ? Math.max(0, 100 - scores.hydration)  : 50,
-      redness:      scores ? Math.max(0, 100 - scores.redness)    : 25,
-      pores:        scores ? Math.max(0, 100 - scores.pores)      : 35,
-      sebum:        scores ? scores.sebum                          : 35,
-      pigmentation: scores ? scores.pigmentation                   : 25
-    };
-    Object.keys(sev).forEach(function(k){ if (typeof sev[k] !== 'number' || isNaN(sev[k])) sev[k] = 35; });
-    /* objectifs : meme poids que le scan (+40) */
-    ctx.goals.forEach(function(g){ (GOAL_SEV[g] || []).forEach(function(c){ sev[c] += 40; }); });
-    /* age declare avant le scan : meme regle que le scan */
-    if (ctx.age === '45' || ctx.age === '55') { sev.wrinkles += 15; sev.firmness += 15; }
-    if (ctx.age === 'u25') { sev.wrinkles -= 20; sev.firmness -= 20; }
-    if (ctx.peau === 'sèche')  { sev.hydration += 18; }
-    if (ctx.peau === 'grasse') { sev.sebum += 22; sev.pores += 16; }
-    if (ctx.peau === 'mixte')  { sev.sebum += 10; sev.hydration += 8; }
-    if (ctx.reactive)          { sev.redness += 35; }
-    return sev;
-  }
-  function matchScore(p, sev){
-    var cs = p.concern_scores || {}, s = 0;
-    for (var k in sev) s += (sev[k] || 0) * (cs[k] || 0);
-    return s;
-  }
-
-  function buildRoutine(sev, ctx, banned){
-    banned = banned || {};
-    var brandMode = BRAND && BRAND !== 'all' && CAT.products.some(function(p){ return p.brand === BRAND; });
-    var ACT = activeSlots(ctx);
-    var face = CAT.products.filter(function(p){ return !banned[p.id] && !isExcluded(p._n) && SLOTS.some(function(s){ return s.ok(p); }); });
-    var base = face;
-    if (brandMode) base = base.filter(function(p){ return p.brand === BRAND; });
-    var baseAll = base, removedIds = {};
-    if (ctx.reactive) base = base.filter(function(p){ return !RX.reactive.test(p._n); });
-    var L = brandMode ? [0] : levels();
-    var used = {}, pool = {}, picks = {}, widened = {}, brandCount = {}, CAP = 3;
-    /* un seul actif fort (retinoide ou acide exfoliant) par routine : on ne les empile pas le meme soir */
-    var strong = false, isStrong = function(p){ var k = kindOf(p); return k === 'retino' || k === 'acid'; };
-    var capOff = brandMode || !!(PREFS && PREFS.marques && PREFS.marques.length);
-    ACT.forEach(function(s){
-      /* moins de 3 references a ce niveau : on relache d'un cran (les niveaux s'emboitent) */
-      var chosen = [], lvl = L[L.length - 1];
-      for (var i = 0; i < L.length; i++) {
-        var c = base.filter(function(p){ return s.ok(p) && (brandMode || inScope(p, L[i])); });
-        if (c.length >= 3) { chosen = c; lvl = L[i]; break; }
-        if (i === L.length - 1) chosen = c;
-      }
-      chosen.forEach(function(p){ pool[p.id] = p; });
-      /* peau reactive : on compte ce qui a vraiment ete ecarte de cette etape, a ce niveau */
-      if (ctx.reactive) baseAll.forEach(function(p){ if (s.ok(p) && (brandMode || inScope(p, lvl)) && RX.reactive.test(p._n)) removedIds[p.id] = 1; });
-      var rang = function(list){ return list.filter(function(p){ return !used[p.id]; })
-        .map(function(p){ return { p: p, sc: matchScore(p, sev) * s.w(p) * modW(p, s, ctx) * (strong && isStrong(p) ? 0.1 : 1) }; })
-        .sort(function(a, b){ return b.sc - a.sc; }); };
-      var ranked = rang(chosen);
-      /* 26/09 : jamais plus de 3 soins d'une meme maison sur la routine (sauf page de marque ou marques
-         choisies). Si le perimetre n'a qu'une ou deux maisons, on elargit d'un cran pour les etapes
-         suivantes, et on le dit. */
-      var libre = function(p){ return capOff || (brandCount[p.brand] || 0) < CAP; };
-      var pick = null;
-      for (var r = 0; r < ranked.length; r++) if (libre(ranked[r].p)) { pick = ranked[r].p; break; }
-      if (!pick && !capOff) {
-        for (var j = L.indexOf(lvl) + 1; j < L.length && !pick; j++) {
-          var large = rang(base.filter(function(p){ return s.ok(p) && inScope(p, L[j]); }));
-          for (var r2 = 0; r2 < large.length; r2++) if (libre(large[r2].p)) { pick = large[r2].p; lvl = L[j]; break; }
-        }
-      }
-      if (!pick && ranked.length) pick = ranked[0].p;
-      if (pick) { used[pick.id] = 1; brandCount[pick.brand] = (brandCount[pick.brand] || 0) + 1; if (isStrong(pick)) strong = true; }
-      picks[s.slot] = pick;
-      if (lvl > 0 && pick) (widened[lvl] = widened[lvl] || []).push(s);
-    });
-    var poolList = Object.keys(pool).map(function(k){ return pool[k]; });
-    return {
-      picks: picks, widened: widened, removed: Object.keys(removedIds).length, brandMode: brandMode,
-      poolN: poolList.length,
-      poolBrands: new Set(poolList.map(function(p){ return p.brand; })).size,
-      poolBrand1: poolList.length ? poolList[0]._brandName : ''
-    };
-  }
 
   function renderProduct(slotKey, product, emptyMsg, use) {
     var card = document.querySelector('[data-protocol-slot="' + slotKey + '"]');
@@ -1629,7 +1577,7 @@ footer{
   var AGE_L = { u25:['pr.age.u25','moins de 25 ans'], '25':['pr.age.25','25–34 ans'], '35':['pr.age.35','35–44 ans'], '45':['pr.age.45','45–54 ans'], '55':['pr.age.55','55 ans et plus'] };
   var GOAL_L = { antiage:['an.anti','anti-âge'], glow:['an.glow','éclat'], hydration:['an.hydra','hydratation'], redness:['tp.redness','rougeurs'], pores:['tp.pores','pores'], pigmentation:['an.pigm','pigmentation'], sebum:['tp.sebum','sébum'], yeux:['g.yeux','contour des yeux'] };
 
-  function renderScope(ctx, R){
+  function renderScope(ctx, R, M, PMON){
     var el = document.getElementById('pr-scope'); if (!el) return;
     var lines = [];
     if (R.brandMode) {
@@ -1650,12 +1598,8 @@ footer{
       if (PREFS.age && AGE_L[PREFS.age]) r.push(T(AGE_L[PREFS.age][0], AGE_L[PREFS.age][1]));
       lines.push(T('pr.from', 'Repris de vos réponses avant le scan :') + ' <b>' + esc(r.join(' · ')) + '</b>');
     }
-    var wid = [];
-    var WL = { 1:['pr.wide1','Élargi aux autres pays pour : {s}.'], 2:['pr.wide2','Élargi aux autres familles de maisons pour : {s}.'], 3:['pr.wide3','Élargi à tout le catalogue pour : {s}.'] };
-    [1, 2, 3].forEach(function(l){
-      if (R.widened[l]) wid.push(T(WL[l][0], WL[l][1], { s: R.widened[l].map(function(s){ return stepLabel(s.k, s.fb); }).join(', ') }));
-    });
-    if (wid.length) lines.push('<em>' + wid.join(' ') + '</em>');
+    /* le perimetre relache (meme echelle que le scan : pays, puis famille de maisons) */
+    if (!R.brandMode && R.niveau > 0) lines.push('<em>' + T(R.niveau === 1 ? 'ld.2' : 'ld.3', '') + '</em>');
     /* ce que la personne vient de repondre ici, et ce que cela a change */
     var said = [];
     if (!(PREFS && PREFS.goals.length) && ctx.goals.length) said.push(ctx.goals.map(function(g){ return T(GOAL_L[g][0], GOAL_L[g][1]); }).join(' + '));
@@ -1670,7 +1614,7 @@ footer{
     if (ctx.routine === 'essentiel') fx.push(T('pr.fx.short', 'Routine réduite à 3 gestes matin et soir.'));
     if (ctx.jour === 'dehors') {
       /* on n'ecrit que ce qui s'est vraiment produit dans cette routine */
-      var sp = R.picks['am-3'], se = R.picks['am-1'];
+      var sp = M.filter(function(p){ return p._pas === 'proteger'; })[0], se = M.filter(function(p){ return p._pas === 'serum'; })[0];
       var hi = sp && (spfLevel(sp) || 0) >= 50, ao = se && isAntiox(se);
       fx.push(hi && ao ? T('pr.fx.out', 'Protection SPF 50 privilégiée, antioxydant le matin.')
             : hi ? T('pr.fx.out50', 'Protection SPF 50 privilégiée.')
@@ -1679,11 +1623,9 @@ footer{
     }
     fx = fx.filter(Boolean);
     if (fx.length) lines.push('<em>' + fx.join(' ') + '</em>');
-    var empty = activeSlots(ctx).filter(function(s){ return !R.picks[s.slot]; });
+    var empty = PMON.filter(function(s){ return !R.picks[s.slot]; });
     if (empty.length) lines.push('<em>' + T('pr.none', 'Aucune référence dans ce périmètre pour : {s}.', { s: empty.map(function(s){ return stepLabel(s.k, s.fb); }).join(', ') }) + '</em>');
-    if (ctx.reactive) lines.push(R.removed > 1
-      ? T('pr.react', 'Peau réactive : {n} références écartées (acides, rétinoïdes, exfoliants).', { n: nf(R.removed) })
-      : T('pr.react0', 'Peau réactive : acides, rétinoïdes et exfoliants écartés.'));
+    if (ctx.reactive) lines.push(T('pr.react0', 'Peau réactive : acides, rétinoïdes et exfoliants écartés.'));
     el.innerHTML = lines.map(function(l){ return '<span>' + l + '</span>'; }).join('');
     el.style.display = '';
   }
@@ -1876,31 +1818,64 @@ footer{
       console.warn('[PROTOCOL] atlas init fail:', e);
     }
 
+    /* 07/10 : sans scan sur cet appareil, aucune routine : on dit qu'il faut d'abord faire le scan */
+    var sansScan = document.getElementById('pr-noscan');
+    if (!HAS_SCAN) {
+      document.body.classList.add('vy-sans-scan');
+      if (sansScan) sansScan.hidden = false;
+      var go = document.getElementById('pr-noscan-go'); if (go) go.href = (BRAND && BRAND !== 'all') ? '/m/' + BRAND : '/scan/';
+      window.__vyProtocol = { sansScan: true, picks: [] };
+      return;
+    }
+    if (sansScan) sansScan.hidden = true;
+    document.body.classList.remove('vy-sans-scan');
+
     try {
-      var got = await Promise.all([loadCatalogue(), new Promise(function(r){ setTimeout(r, 350); })]);
-      var sev = computeSeverity(scanScores, ctx);
-      var R = await composeRoutine(sev, ctx);
-      var ACT = activeSlots(ctx);
-      var am = 0, pm = 0, ids = {}, uses = {}, na = 0, np = 0;
+      var got = await Promise.all([composer(ctx), new Promise(function(r){ setTimeout(r, 350); })]);
+      var R = got[0];
+      var am = 0, pm = 0, ids = {}, rows = [];
       var wrap = document.querySelector('.routines-wrap'); if (wrap) wrap.classList.toggle('is-short', ctx.routine === 'essentiel');
+      /* LE MATIN : les soins du scan, dans l'ordre du scan (3 gestes : sans la creme) */
+      var ETK = { nettoyer: ['stp.cleanse', 'Nettoyage'], serum: ['stp.serum', 'Sérum'], creme: ['stp.day', 'Crème de jour'], proteger: ['stp.spf', 'SPF'], yeux: ['stp.eye', 'Contour des yeux'] };
+      var M = R.matin.filter(function(p){ return ctx.routine !== 'essentiel' || p._pas !== 'creme'; }).slice(0, 4);
+      for (var i = 0; i < 4; i++) {
+        var slot = 'am-' + i, card = document.querySelector('[data-protocol-slot="' + slot + '"]'), p = M[i];
+        if (!card) continue;
+        if (!p) { card.classList.add('is-off'); continue; }
+        var et = ETK[p._pas] || ETK.serum;
+        var lab = card.querySelector('.routine-step [data-i18n]'); if (lab) { lab.setAttribute('data-i18n', et[0]); lab.textContent = T(et[0], '·' + et[1]); }
+        var sd = { slot: slot, k: et[0], fb: et[1] };
+        var u = usageFor(p, sd, ctx);
+        renderProduct(slot, p, '', u);
+        var num = card.querySelector('.step-num'); if (num) num.textContent = pad(i + 1);
+        ids[p.id] = 1; am++;
+        rows.push({ slot: slot, etape: p._pas, id: p.id, brand: p.brand, name: p._name, use: u && u.text, src: u && u.src });
+      }
+      /* LE SOIR : demaquillage, serum de nuit, creme de nuit ; contour des yeux selon la regle des yeux */
+      var PMON = SLOTS.filter(function(s){
+        if (s.slot.indexOf('pm') !== 0) return false;
+        if (s.slot === 'pm-3' && R.picks['pm-3'] === undefined) return false;
+        return ctx.routine !== 'essentiel' || SHORT[s.slot];
+      });
+      var np = 0;
       SLOTS.forEach(function(s){
+        if (s.slot.indexOf('pm') !== 0) return;
         var card = document.querySelector('[data-protocol-slot="' + s.slot + '"]');
-        if (ACT.indexOf(s) < 0) { if (card) card.classList.add('is-off'); return; }
-        var p = R.picks[s.slot];
-        var u = p ? usageFor(p, s, ctx) : null; if (u) uses[s.slot] = u;
+        if (PMON.indexOf(s) < 0) { if (card) card.classList.add('is-off'); return; }
+        var p = R.picks[s.slot] || null;
+        var u = p ? usageFor(p, s, ctx) : null;
         renderProduct(s.slot, p, T('pr.noneCard', 'Aucune référence dans ce périmètre'), u);
-        /* numeros d'etape suivis, meme quand une etape est retiree */
-        var num = card && card.querySelector('.step-num'); if (num) num.textContent = pad(s.slot.indexOf('am') === 0 ? ++na : ++np);
-        if (p) { ids[p.id] = 1; if (s.slot.indexOf('am') === 0) am++; else pm++; }
+        var num = card && card.querySelector('.step-num'); if (num) num.textContent = pad(++np);
+        if (p) { ids[p.id] = 1; pm++; }
+        rows.push(p ? { slot: s.slot, id: p.id, brand: p.brand, name: p._name, use: u && u.text, src: u && u.src } : { slot: s.slot });
       });
       var n = Object.keys(ids).length;
-      var kp = document.getElementById('kpi-products'); if (kp) kp.innerHTML = n + '<span class="kpi-u">/' + ACT.length + '</span>';
+      var kp = document.getElementById('kpi-products'); if (kp) kp.innerHTML = n + '<span class="kpi-u">/' + (M.length + PMON.length) + '</span>';
       var ka = document.getElementById('kpi-am'); if (ka) ka.textContent = am;
       var kq = document.getElementById('kpi-pm'); if (kq) kq.textContent = pm;
-      renderScope(ctx, R);
-      window.__vyProtocol = { ctx: ctx, pool: R.poolN, picks: ACT.map(function(s){ var p = R.picks[s.slot]; var u = uses[s.slot]; return p ? { slot: s.slot, id: p.id, brand: p.brand, name: p._name, use: u && u.text, src: u && u.src } : { slot: s.slot }; }) };
-      var top3 = Object.entries(sev).sort(function(a, b){ return b[1] - a[1]; }).slice(0, 3)
-        .map(function(e){ return T('tp.' + e[0], e[0]); }).join(' · ');
+      renderScope(ctx, R, M, PMON);
+      window.__vyProtocol = { ctx: ctx, source: R.source, pool: R.poolN, picks: rows };
+      var top3 = R.top.map(function(e){ return T('tp.' + e.concern, e.concern); }).join(' · ');
       var trace = document.getElementById('protocol-trace');
       if (trace) {
         trace.textContent = R.poolBrands === 1
@@ -1910,7 +1885,7 @@ footer{
               { t: top3, n: n, p: nf(R.poolN), b: nf(R.poolBrands) });
         trace.style.display = 'block';
       }
-      console.log('[PROTOCOL] routine', { ctx: ctx, picks: ACT.map(function(s){ var p = R.picks[s.slot]; return s.slot + ' ' + (p ? p.brand + ' / ' + p._name : '—'); }), widened: Object.keys(R.widened), pool: R.poolN });
+      console.log('[PROTOCOL] routine', { ctx: ctx, source: R.source, picks: rows.map(function(r){ return r.slot + ' ' + (r.id ? r.brand + ' / ' + r.name : '—'); }), pool: R.poolN });
     } catch (e) { console.error('[PROTOCOL] compile failed:', e); }
   }
 })();

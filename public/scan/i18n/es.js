@@ -867,5 +867,8 @@ VY.add('es', {
     "y.ligne": "Sombra bajo los ojos: {n} · orientativo, según la luz",
     "y.leger": "leve",
     "y.marque": "marcada",
-    "y.net": "pronunciada"
+    "y.net": "pronunciada",
+    "pp.rituel": "Su ritual, <em>completado mañana y noche</em>",
+    "rt.scan": "Sus cuidados del escaneo",
+    "pr.noscan": "Su ritual parte de su escaneo. Haga primero su escaneo en este dispositivo: su mañana y su noche aparecerán aquí."
   });

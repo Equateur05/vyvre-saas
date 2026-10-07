@@ -867,5 +867,8 @@ VY.add('de', {
     "y.ligne": "Schatten unter den Augen: {n} · Richtwert, je nach Licht",
     "y.leger": "leicht",
     "y.marque": "deutlich",
-    "y.net": "stark"
+    "y.net": "stark",
+    "pp.rituel": "Ihr Ritual, <em>ergänzt für morgens und abends</em>",
+    "rt.scan": "Ihre Pflege aus dem Scan",
+    "pr.noscan": "Ihr Ritual beruht auf Ihrem Scan. Machen Sie zuerst Ihren Scan auf diesem Gerät: Ihr Morgen und Ihr Abend erscheinen dann hier."
   });

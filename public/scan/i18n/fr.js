@@ -881,5 +881,8 @@ VY.add('fr', {
     "y.ligne": "Ombre sous les yeux : {n} · indicatif, selon la lumière",
     "y.leger": "légère",
     "y.marque": "marquée",
-    "y.net": "nette"
+    "y.net": "nette",
+    "pp.rituel": "Votre rituel, <em>complété matin et soir</em>",
+    "rt.scan": "Vos soins du scan",
+    "pr.noscan": "Votre rituel part de votre scan. Faites d’abord votre scan sur cet appareil : votre matin et votre soir s’écriront ici."
   });

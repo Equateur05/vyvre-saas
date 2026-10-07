@@ -360,9 +360,9 @@
     if(m){ SANTE = m.sante; PASPOUR = m.paspour || []; REP.q9s = m.rythme && m.rythme.sommeil; REP.q9d = m.rythme && m.rythme.decale; REP.q10p = m.rythme && m.rythme.pas; GARDER = true; pareil(m); }
     else { SANTE = null; GARDER = false; eviter(); } }); }
 
-  function pareil(m){ var d = new Date(m.le); feuille(HAUT + '<div class="m">Vos réponses du ' + d.getDate() + ' ' + MOIS[d.getMonth()] + '</div><h1>Rien n’a changé ?</h1>'
+  function pareil(m){ var d = new Date(m.le); feuille(HAUT + '<div class="m">On reprend vos réponses du ' + d.getDate() + ' ' + MOIS[d.getMonth()] + '</div><h1>Rien n’a changé ?</h1>'
       + '<p class="alleg" style="font:italic 19px/1.5 Georgia,serif;border-left:1px solid;padding-left:14px">« ' + esc(phrase(SANTE)) + ' »</p>'
-      + '<button class="btn" type="button" id="vy-as-oui">Oui, voir mon assiette</button><button class="btn sec" type="button" id="vy-as-change">Modifier mes réponses</button>'
+      + '<button class="btn" type="button" id="vy-as-oui">Oui, voir mon assiette</button><button class="btn sec" type="button" id="vy-as-change">Refaire les questions</button>'
       + '<p class="fine" style="display:flex;justify-content:space-between;gap:12px"><a href="#" id="vy-as-autre" style="color:inherit">Pour une autre personne</a><a href="#" id="vy-as-eff" style="color:inherit">Effacer mes réponses de cet appareil</a></p>', 'jour');
     document.getElementById('vy-as-oui').onclick = function(){ MODE = 'normal'; versRep(indicesDuScan()); lancer(); };
     document.getElementById('vy-as-change').onclick = function(){ eviter(JSON.parse(JSON.stringify(SANTE))); };

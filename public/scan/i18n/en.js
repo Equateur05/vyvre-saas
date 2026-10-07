@@ -867,5 +867,8 @@ VY.add('en', {
     "y.ligne": "Under-eye shadow: {n} · indicative, depends on the light",
     "y.leger": "light",
     "y.marque": "marked",
-    "y.net": "pronounced"
+    "y.net": "pronounced",
+    "pp.rituel": "Your ritual, <em>completed morning and evening</em>",
+    "rt.scan": "Your scan products",
+    "pr.noscan": "Your ritual starts from your scan. Take your scan on this device first: your morning and evening will be written here."
   });
