@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex">
-<title>vyvre · Wrap D, quatre variantes</title>
+<title>vyvre · Wrap R, la révélation</title>
 <style>
   :root{color-scheme:dark;--champ:#d9c9a3;--fond:#050505;--texte:#f3ead6;--doux:rgba(243,234,214,.62);--filet:rgba(217,201,163,.2)}
   *{box-sizing:border-box}
@@ -70,31 +70,31 @@
 <script>
 (function(){
   var TX = {
-    fr:{ sur:'vyvre · Le Wrap · variantes du D', titre:'D, puis quatre fois plus loin.', types:{ peau:'Peau', cheveux:'Cheveux', aliment:'Assiette' },
-      intro:'Le D d’origine pour comparer, puis quatre formats pensés pour être partagés : chacun a son idée, son tempo et son son, calés image par image, et boucle sans couture. Un seul son à la fois.',
-      pied:'Données d’exemple, signalées « EXEMPLE » dans chaque Wrap. Les variantes ne montrent que les valeurs transmises par la page de résultats. Ajoutez ?diag=1 à l’adresse pour voir la ligne technique sous la vidéo.',
+    fr:{ sur:'vyvre · Le Wrap · série R', titre:'La révélation.', types:{ peau:'Peau', cheveux:'Cheveux', aliment:'Assiette' },
+      intro:'Plus de prénom en vedette : la phrase de votre besoin, en géant. Trois secondes de suspense, le BIM sur la phrase, la preuve (la vraie mesure), puis les soins et « Et toi ? ». Le D4 à gauche pour comparer. Un seul son à la fois.',
+      pied:'Données d’exemple, signalées « EXEMPLE » dans chaque Wrap. La phrase vient de la mesure la plus basse, par une table écrite à l’avance : rien d’aléatoire, aucune valeur inventée. Ajoutez ?diag=1 à l’adresse pour voir la ligne technique sous la vidéo.',
       ecouter:'Écouter', couper:'Couper le son', creer:'Créer la vidéo' },
-    en:{ sur:'vyvre · The Wrap · D variations', titre:'D, then four steps further.', types:{ peau:'Skin', cheveux:'Hair', aliment:'Plate' },
-      intro:'The original D for comparison, then four formats built to be shared: each has its own idea, tempo and sound, synced frame by frame, and loops seamlessly. One sound at a time.',
-      pied:'Example data, marked “EXAMPLE” in every Wrap. The variations only show the values passed on by the results page. Add ?diag=1 to the address to see the technical line under the video.',
+    en:{ sur:'vyvre · The Wrap · R series', titre:'The reveal.', types:{ peau:'Skin', cheveux:'Hair', aliment:'Plate' },
+      intro:'No more first name in the spotlight: the phrase of your need, giant. Three seconds of suspense, the BIM on the phrase, the proof (the real measure), then the products and “And you?”. D4 on the left for comparison. One sound at a time.',
+      pied:'Example data, marked “EXAMPLE” in every Wrap. The phrase comes from the lowest measure, through a table written in advance: nothing random, no invented value. Add ?diag=1 to the address to see the technical line under the video.',
       ecouter:'Listen', couper:'Mute', creer:'Create the video' }
   };
   var STYLES = [
-    { k:'D', ref:true,
-      fr:{ t:'D · Rythme (l’original)', d:'Montage cut à 120 BPM, un plan par temps. <b>Son :</b> kick, clap, basse, accords.' },
-      en:{ t:'D · Rhythm (original)', d:'Cut edit at 120 BPM, one shot per beat. <b>Sound:</b> kick, clap, bass, chords.' } },
-    { k:'D1',
-      fr:{ t:'D1 · L’archétype', d:'« Ma peau, c’est… » : une roue de noms tourne et s’arrête sur le drop, sur le vôtre, avec sa raison écrite. Fin : « Et toi, t’es qui ? ». <b>Son :</b> future house 126 BPM, voix sans paroles, roulement, drop qui pompe.' },
-      en:{ t:'D1 · The archetype', d:'“My skin is…”: a wheel of names spins and stops on the drop, on yours, with its reason. End: “And you? Who are you?”. <b>Sound:</b> future house 126 BPM, wordless vocal, snare roll, pumping drop.' } },
-    { k:'D2',
-      fr:{ t:'D2 · Le compte à rebours', d:'3 · 2 · 1 sur trois bips : trois vrais chiffres (« top 3 » seulement s’ils sont classés), le nom du chiffre phare tapé lettre à lettre, le drop, le podium. <b>Son :</b> techno 128 BPM, ligne acide.' },
-      en:{ t:'D2 · The countdown', d:'3 · 2 · 1 on three beeps: three real figures (“top 3” only when truly ranked), the headline name typed letter by letter, the drop, the podium. <b>Sound:</b> techno 128 BPM, acid line.' } },
-    { k:'D3',
-      fr:{ t:'D3 · Devine', d:'Un jeu : « Devine mon indice ». Trois essais honnêtes (plus / moins), la jauge se resserre, la réponse tombe sur le drop. Fin : « T’avais dit combien ? ». <b>Son :</b> trap 140 BPM, 808, bruits de jeu.' },
-      en:{ t:'D3 · Guess', d:'A game: “Guess my index”. Three honest guesses (higher / lower), the gauge narrows, the answer lands on the drop. End: “What was your guess?”. <b>Sound:</b> trap 140 BPM, 808, game sounds.' } },
-    { k:'D4',
-      fr:{ t:'D4 · La carte', d:'« Ouvre ma carte » : une carte à collectionner tourne et se retourne sur le drop. Gros chiffre phare, forme des mesures, édition = la date, aucune rareté inventée. <b>Son :</b> UK garage 2-step 132 BPM, orgue.' },
-      en:{ t:'D4 · The card', d:'“Open my card”: a collectible card spins and flips on the drop. Headline figure, shape of the measures, edition = the date, no invented rarity. <b>Sound:</b> UK garage 2-step 132 BPM, organ.' } }
+    { k:'D4', ref:true,
+      fr:{ t:'D4 · La carte (référence)', d:'Le format actuel, pour comparer. <b>Son :</b> UK garage 2-step 132 BPM.' },
+      en:{ t:'D4 · The card (reference)', d:'The current format, for comparison. <b>Sound:</b> UK garage 2-step 132 BPM.' } },
+    { k:'R1',
+      fr:{ t:'R1 · Le roulement', d:'Rideau fermé, projecteur qui se resserre, l’accroche qui tremble à chaque coup puis se cache ; la salle s’éteint un demi-temps ; BIM : le rideau s’envole, la phrase en géant. <b>Son :</b> caisse claire qui accélère, grondement, silence, impact, puis groove 120 BPM.' },
+      en:{ t:'R1 · The drum roll', d:'Closed curtain, a tightening spotlight, the hook shaking at every hit then hiding; the room goes dark for half a beat; BIM: the curtain flies off, the phrase goes giant. <b>Sound:</b> accelerating snare roll, rumble, silence, impact, then a 120 BPM groove.' } },
+    { k:'R2',
+      fr:{ t:'R2 · Le tirage', d:'Une machine à sous : les besoins défilent, ralentissent, passent un par un au cliquet… et s’arrêtent sur le vôtre au BIM. <b>Son :</b> un tic par mot qui passe, pièces qui montent, cloches du gros lot, disco house 124 BPM.' },
+      en:{ t:'R2 · The draw', d:'A slot machine: the needs spin, slow down, click past one by one… and stop on yours on the BIM. <b>Sound:</b> a tick per passing word, rising coins, jackpot bells, disco house 124 BPM.' } },
+    { k:'R3',
+      fr:{ t:'R3 · Le scan', d:'Une barre de lecture balaie vos vraies mesures, les chiffres montent, elle revient lentement se poser sur la plus basse. Un temps de silence, puis BIM. <b>Son :</b> balayage, un bip par mesure lue, techno 128 BPM, vrai silence avant l’impact.' },
+      en:{ t:'R3 · The scan', d:'A reading bar sweeps your real measures, the numbers climb, it slowly comes back to rest on the lowest. One beat of silence, then BIM. <b>Sound:</b> sweep, a beep per measure read, techno 128 BPM, real silence before the hit.' } },
+    { k:'R4',
+      fr:{ t:'R4 · Le battement', d:'Un cœur de lumière bat de plus en plus vite, l’écran se resserre autour de lui, puis explose : les lettres de la phrase claquent en place. <b>Son :</b> battements qui accélèrent, tension qui monte, aspiration, explosion, groove 116 BPM.' },
+      en:{ t:'R4 · The heartbeat', d:'A heart of light beats faster and faster, the screen closes in around it, then bursts: the letters of the phrase slam into place. <b>Sound:</b> accelerating heartbeats, rising tension, a suck-in, an explosion, 116 BPM groove.' } }
   ];
   var grille = document.getElementById('grille'), type = 'peau', lang = 'fr', apercus = [];
   /* 06/10 : les palettes facon defiles (definies dans vy-wrap.js) */
@@ -164,7 +164,7 @@
   if (q){ type = q; document.querySelectorAll('#types button').forEach(function(x){ x.setAttribute('aria-pressed', String(x.dataset.type === q)); }); }
   if (ql){ lang = ql; document.querySelectorAll('#langues button').forEach(function(x){ x.setAttribute('aria-pressed', String(x.dataset.lang === ql)); }); }
   textes(); construire();
-  window.__propalesD = function(){ return apercus; };
+  window.__propalesR = function(){ return apercus; };
 })();
 </script>
 </body>

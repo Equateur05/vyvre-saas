@@ -11,7 +11,11 @@
 
    donnees = { type:'peau'|'cheveux'|'aliment', prenom, titre,
                chiffres:[{label, valeur, unite}], phare:{label, valeur, unite} (sinon chiffres[0]),
-               items:[{nom, marque, image, etape, fond}], couleur, exemple }
+               items:[{nom, marque, image, etape, fond}], couleur, exemple,
+               style:'A'|'B'|'C'|'D'|'D1'..'D4'|'R1'..'R4' (defaut 'D'), palette }
+   07/10 : chaque chiffre peut porter une cle (hydration, glow... ; boucle ; saison...),
+   et le cheveu une liste besoins:[{cle, source:'reponses'|'photo'|'lecture'}] :
+   la serie R (la revelation) en tire la phrase du besoin (table BES).
 
    Regles : aucune photo du visage, aucun prix, aucun chiffre invente (on ne
    dessine que ce qui arrive dans donnees), pas d'emoji.
@@ -62,6 +66,10 @@
       d2cta:['ET TON','TOP 3 ?'], d2cta2:['ET','LES TIENS ?'], rang:'N°',
       devine:'DEVINE', d3q:['TU DIS','COMBIEN ?'], plus:'PLUS', moins:'MOINS', reponse:'RÉPONSE', d3b:['T’AVAIS DIT','COMBIEN ?'], d3cta:['À TOI','DE JOUER'],
       d4:'OUVRE MA CARTE', edition:'ÉDITION', d4cta:['MONTRE','LA TIENNE'],
+      /* R1 a R4 (07/10) */
+      r:{ hook:'LE VERDICT…', aussi:'AUSSI', priorite:'TA PRIORITÉ', plusBasse:'LA PLUS BASSE', reponses:'D’APRÈS TES RÉPONSES', lectureReponses:'TA LECTURE ET TES RÉPONSES',
+          reponsesCourt:'TES RÉPONSES', lues:'LUES', taLecture:'TA LECTURE', tirage:'LE TIRAGE', n1:'MON BESOIN N°1', lecture:'LECTURE', analyse:'ANALYSE', routine:'MA ROUTINE', assiette:'MON ASSIETTE',
+          cta:{ peau:['ET TOI,', 'TA PEAU VEUT QUOI\u202f?'], cheveux:['ET TOI,', 'TES CHEVEUX VEULENT QUOI\u202f?'], aliment:['ET TOI,', 'TU METS QUOI DANS TON ASSIETTE\u202f?'] } },
       diagPartage:{ ok:'ok', annule:'annulé', erreur:'erreur', aucun:'aucun', telecharge:'téléchargé (pas de partage)' }
     },
     en: {
@@ -86,6 +94,9 @@
       d2cta:['YOUR','TOP 3?'], d2cta2:['AND','YOURS?'], rang:'#',
       devine:'GUESS', d3q:['YOUR','GUESS?'], plus:'HIGHER', moins:'LOWER', reponse:'ANSWER', d3b:['WHAT WAS','YOUR GUESS?'], d3cta:['YOUR','TURN'],
       d4:'OPEN MY CARD', edition:'EDITION', d4cta:['SHOW','YOURS'],
+      r:{ hook:'THE VERDICT…', aussi:'ALSO', priorite:'YOUR PRIORITY', plusBasse:'THE LOWEST', reponses:'FROM YOUR ANSWERS', lectureReponses:'YOUR READING AND ANSWERS',
+          reponsesCourt:'YOUR ANSWERS', lues:'READ', taLecture:'YOUR READING', tirage:'THE DRAW', n1:'MY NO. 1 NEED', lecture:'READING', analyse:'ANALYSIS', routine:'MY ROUTINE', assiette:'MY PLATE',
+          cta:{ peau:['AND YOU?', 'WHAT DOES YOUR SKIN NEED?'], cheveux:['AND YOU?', 'WHAT DOES YOUR HAIR NEED?'], aliment:['AND YOU?', 'WHAT’S ON YOUR PLATE?'] } },
       diagPartage:{ ok:'ok', annule:'cancelled', erreur:'error', aucun:'none', telecharge:'downloaded (no share)' }
     }
   };
@@ -153,7 +164,7 @@
     d = d || {};
     var type = THEMES[d.type] ? d.type : 'peau';
     var chiffres = (d.chiffres || []).filter(function(c){ return c && c.label && c.valeur !== null && c.valeur !== undefined && c.valeur !== ''; })
-      .map(function(c){ return { label:String(c.label), valeur:c.valeur, unite:c.unite ? String(c.unite) : '' }; });
+      .map(function(c){ var o = { label:String(c.label), valeur:c.valeur, unite:c.unite ? String(c.unite) : '' }; if (c.cle) o.cle = String(c.cle); return o; });
     var phare = d.phare && d.phare.label && num(d.phare.valeur) !== null ? { label:String(d.phare.label), valeur:d.phare.valeur, unite:d.phare.unite || '' } : null;
     if (!phare) phare = chiffres.filter(function(c){ return num(c.valeur) !== null; })[0] || null;
     var autres = chiffres.filter(function(c){ return !phare || !(c.label === phare.label && String(c.valeur) === String(phare.valeur)); }).slice(0, 3);
@@ -166,23 +177,27 @@
     var out = {
       type:type, prenom:prenom, titre:String(d.titre || '').trim(),
       chiffres:chiffres, phare:phare, autres:autres, items:items,
-      exemple:!!d.exemple, palette:(d.palette && d.palette in PALETTES) ? d.palette : PAL_DEFAUT, style:/^(A|B|C|D|D[1-4])$/.test(String(d.style || '').toUpperCase()) ? String(d.style).toUpperCase() : 'D',   /* 06/10 : Charles a choisi le D */
-      a:hexRgb(d.couleur || th.a), b:hexRgb(d.couleur2 || th.b), fond:th.fond, theme:th
+      exemple:!!d.exemple, palette:(d.palette && d.palette in PALETTES) ? d.palette : PAL_DEFAUT, style:/^(A|B|C|D|D[1-4]|R[1-4])$/.test(String(d.style || '').toUpperCase()) ? String(d.style).toUpperCase() : 'D',   /* 06/10 : Charles a choisi le D */
+      a:hexRgb(d.couleur || th.a), b:hexRgb(d.couleur2 || th.b), fond:th.fond, theme:th,
+      besoins:Array.isArray(d.besoins) ? d.besoins.filter(function(b){ return b && b.cle; }) : undefined
     };
     out.tm = temps(out.style);
     /* les variantes D1 a D4 : ce qu'elles revelent, derive une fois des vraies valeurs (rien d'aleatoire) */
     if (VARIANTES[out.style]){ var L = T(); out.P = profil(out, L); out.G = devinettes(out); out.C3 = compteARebours(out); }
+    /* R1 a R4 : la phrase du besoin, derivee une fois des vraies valeurs (table BES) */
+    if (/^R/.test(out.style)) out.B = besoinsR(out, T());
     return out;
   }
 
   /* ------------------------------------------- D1 a D4 : tempo et donnees */
   /* chaque variante dure exactement 4 mesures (16 temps) a son propre tempo : la fin retombe sur le debut */
-  var VARIANTES = { D1:{ bpm:126 }, D2:{ bpm:128 }, D3:{ bpm:140 }, D4:{ bpm:132 } };
+  var VARIANTES = { D1:{ bpm:126 }, D2:{ bpm:128 }, D3:{ bpm:140 }, D4:{ bpm:132 },
+                    R1:{ bpm:120, poster:7.6 }, R2:{ bpm:124, poster:7.6 }, R3:{ bpm:128, poster:7.6 }, R4:{ bpm:116, poster:7.6 } };
   function temps(st){
     var v = VARIANTES[st];
     if (!v) return { D:D, HOLD:HOLD, CYCLE:CYCLE, FIN_REC:FIN_REC, poster:D - .02, boucle:false };
     var b = 60 / v.bpm, dv = 16 * b;
-    return { D:dv, HOLD:0, CYCLE:dv, FIN_REC:dv, beat:b, poster:b * 8.6, boucle:true, bpm:v.bpm };
+    return { D:dv, HOLD:0, CYCLE:dv, FIN_REC:dv, beat:b, poster:b * (v.poster || 8.6), boucle:true, bpm:v.bpm };
   }
   function est100(c){ return !!c && /100|%/.test(c.unite || ''); }
   function memeChiffre(a, b){ return !!a && !!b && a.label === b.label && String(a.valeur) === String(b.valeur); }
@@ -1545,6 +1560,431 @@
     this.finD(sig, sansSite);
   };
 
+  /* ===================================================================
+     R1 a R4 · LA REVELATION (07/10/2026). Charles : « des phrases plutot
+     que mon prenom (hydrater, eclat...), en plus gros ; un truc qui
+     devoile, roulement de tambour et bim ». Le meme arc pour les quatre :
+       temps 0-6   : le suspense (l'image et le son montent ensemble) ;
+       temps 6     : BIM, la phrase du besoin en geant ;
+       temps 6-8   : la phrase tient, avec sa preuve (la vraie mesure) ;
+       temps 8-10  : un ou deux autres besoins, plus vite ;
+       temps 10-13 : les soins (ou les aliments) ; 13-15 : « Et toi ? » ;
+       temps 15    : l'accroche, la meme image que la toute premiere.
+     La phrase vient des vraies valeurs, par la table BES ecrite en dur :
+     le besoin n°1 = la mesure la plus basse (toutes les mesures de peau
+     arrivent dans le sens « haut = bien »). Jamais d'aleatoire.
+     =================================================================== */
+  var RX = 530, RW = 800, SEUIL_R = 80;
+  /* mesure -> [phrase geante, constat], en francais et en anglais */
+  var BES = {
+    peau: {
+      hydration:    { re:/hydra|moist|feucht|hidrat|idrat/i, fr:['HYDRATER', 'TA PEAU A SOIF'], en:['HYDRATE', 'YOUR SKIN IS THIRSTY'] },
+      glow:         { re:/[ée]clat|glow|radian|lumin|leucht|stralend/i, fr:['PLUS D’ÉCLAT', 'RÉVEILLER TON TEINT'], en:['MORE GLOW', 'WAKE UP YOUR SKIN'] },
+      redness:      { re:/apais|calm|sooth|redness|rougeur|beruhig|kalmer/i, fr:['APAISER', 'TA PEAU VEUT DU CALME'], en:['SOOTHE', 'YOUR SKIN WANTS CALM'] },
+      sebum:        { re:/s[ée]b|talg|oil|sebo/i, fr:['RÉGULER', 'MOINS DE BRILLANCE'], en:['BALANCE', 'LESS SHINE'] },
+      pores:        { re:/pore|poro|pori/i, fr:['AFFINER', 'LE GRAIN DE TA PEAU'], en:['REFINE', 'YOUR SKIN TEXTURE'] },
+      wrinkles:     { re:/ridul|wrinkl|fine line|linhas|lijn|feine/i, fr:['LISSER', 'LES RIDULES'], en:['SMOOTH', 'FINE LINES'] },
+      pigmentation: { re:/uniform|even|pigment|ebenm/i, fr:['UNIFIER', 'TON TEINT'], en:['EVEN OUT', 'YOUR SKIN TONE'] },
+      firmness:     { re:/ferm|firm|festig|stevig/i, fr:['RAFFERMIR', 'TA PEAU VEUT DU RESSORT'], en:['FIRM UP', 'YOUR SKIN WANTS BOUNCE'] },
+      _pos:         { fr:['GARDER CE NIVEAU', 'TA PEAU VA BIEN'], en:['KEEP IT UP', 'YOUR SKIN IS DOING WELL'] }
+    },
+    cheveux: {
+      secheresse:     { fr:['NOURRIR', 'TES CHEVEUX ONT SOIF'], en:['NOURISH', 'YOUR HAIR IS THIRSTY'] },
+      casse:          { fr:['FORTIFIER', 'MOINS DE CASSE'], en:['STRENGTHEN', 'LESS BREAKAGE'] },
+      racinesGrasses: { fr:['ÉQUILIBRER', 'DES RACINES PLUS LÉGÈRES'], en:['BALANCE', 'LIGHTER ROOTS'] },
+      frizz:          { fr:['DISCIPLINER', 'MOINS DE FRISOTTIS'], en:['SMOOTH', 'LESS FRIZZ'] },
+      couleur:        { fr:['PROTÉGER LA COULEUR', 'TES CHEVEUX COLORÉS'], en:['PROTECT YOUR COLOUR', 'COLOURED HAIR'] },
+      boucles:        { re:/boucle|curl|rizo|locken|krul|ricci/i, fr:['DÉFINIR TES BOUCLES', 'DES BOUCLES À SUBLIMER'], en:['DEFINE YOUR CURLS', 'CURLS TO SHOW OFF'] },
+      _pos:           { fr:['GARDER L’ÉQUILIBRE', 'TES CHEVEUX VONT BIEN'], en:['KEEP THE BALANCE', 'YOUR HAIR IS DOING WELL'] }
+    },
+    aliment: {
+      saison:    { re:/saison|season/i, fr:['PLUS DE SAISON', 'CE MOIS-CI'], en:['MORE IN SEASON', 'THIS MONTH'] },
+      surmesure: { re:/[ée]cart|exclu/i, fr:['SUR MESURE', 'FAITE POUR TOI'], en:['TAILOR-MADE', 'MADE FOR YOU'] },
+      selection: { re:/retenu|retain|chosen|kept/i, fr:['TRIÉE POUR TOI', 'MON ASSIETTE'], en:['HAND-PICKED', 'MY PLATE'] }
+    }
+  };
+  function besoinsR(d, L){
+    var lg = langue() === 'fr' ? 'fr' : 'en', tb = BES[d.type] || BES.peau, R = L.r, out = { liste:[], lignes:[], positif:false, cible:-1, roue:[] };
+    function cleDe(c){ if (c.cle && tb[c.cle]) return c.cle; for (var k in tb) if (tb[k].re && tb[k].re.test(c.label)) return k; return null; }
+    function preuve(c){ return maj(c.label) + ' ' + valTxt(c) + (num(c.valeur) !== null ? unite(c) : ''); }
+    function a(k){ return out.liste.some(function(e){ return e.cle === k; }); }
+    function pousse(k, ref, pr, defaut){ var e = (k && tb[k] && !a(k)) ? tb[k][lg] : defaut; out.liste.push({ cle:k, gros:e[0], constat:e[1] || '', preuve:pr || '', ref:ref || null }); }
+    function ligne(c, max){ var v = num(c.valeur); return { label:maj(c.label), v:v, max:max || (est100(c) ? 100 : 0), txt:v !== null ? valTxt(c) + unite(c) : maj(String(c.valeur)), ref:c }; }
+    var cent = d.chiffres.filter(function(c){ return num(c.valeur) !== null && est100(c) && c.cle !== 'global' && !/indice|index|global/i.test(c.label); });
+    if (d.type === 'peau'){
+      var m = cent.map(function(c, i){ return { c:c, i:i, v:num(c.valeur) }; }).sort(function(x, y){ return x.v - y.v || x.i - y.i; });
+      if (!m.length) pousse(null, d.phare, d.phare ? preuve(d.phare) : '', [maj(d.titre || L.types[d.type]), '']);
+      else if (m[0].v >= SEUIL_R){ out.positif = true; pousse('_pos', m[0].c, preuve(m[0].c) + ' · ' + R.plusBasse); }
+      else m.filter(function(o){ return o.v < SEUIL_R; }).slice(0, 3).forEach(function(o){ pousse(cleDe(o.c), o.c, preuve(o.c), [maj(o.c.label), R.priorite]); });
+      out.lignes = cent.slice(0, 8).map(function(c){ return ligne(c); });
+    } else if (d.type === 'cheveux'){
+      /* les besoins viennent de la page (memes seuils que sa propre phrase), dans son ordre ; la boucle, de la photo */
+      var bc = d.chiffres.filter(function(c){ return (c.cle === 'boucle' || BES.cheveux.boucles.re.test(c.label)) && num(c.valeur) !== null; })[0];
+      (Array.isArray(d.besoins) ? d.besoins : []).forEach(function(b){
+        if (b && tb[b.cle] && b.cle.charAt(0) !== '_' && !a(b.cle) && out.liste.length < 3) pousse(b.cle, 'rep', b.source === 'reponses' ? R.reponses : b.source === 'photo' ? R.taLecture : R.lectureReponses);
+      });
+      if (bc && num(bc.valeur) >= 55 && out.liste.length < 3) pousse('boucles', bc, preuve(bc));
+      if (!out.liste.length){
+        if (Array.isArray(d.besoins)){ out.positif = true; pousse('_pos', bc || null, R.lectureReponses); }
+        else pousse(null, null, '', [R.routine, d.items.length ? maj(L.rituel(d.items.length, d.type)) : '']);
+      }
+      out.lignes = d.chiffres.slice(0, 7).map(function(c){ return ligne(c); });
+      if (out.liste.some(function(e){ return e.ref === 'rep'; })) out.lignes.push({ label:R.reponsesCourt, v:null, max:100, txt:R.lues, ref:'rep' });
+    } else {
+      var get = function(k){ return d.chiffres.filter(function(c){ return (c.cle === k || (BES.aliment[k] && BES.aliment[k].re.test(c.label))) && num(c.valeur) !== null; })[0]; };
+      var rv = d.chiffres.filter(function(c){ return (c.cle === 'revue' || /revue|review/i.test(c.label)) && num(c.valeur) !== null; })[0];
+      var sa = get('saison'), ec = get('surmesure'), re = get('selection');
+      if (sa && num(sa.valeur) >= 1) pousse('saison', sa, maj(sa.label) + ' ' + valTxt(sa) + (re ? '/' + valTxt(re) : ''));
+      if (ec && num(ec.valeur) >= 1) pousse('surmesure', ec, preuve(ec));
+      if (re && rv) pousse('selection', re, maj(re.label) + ' ' + valTxt(re) + ' ' + L.sur + ' ' + valTxt(rv));
+      if (!out.liste.length) pousse(null, null, '', [R.assiette, '']);
+      var mx = 1; d.chiffres.forEach(function(c){ var v = num(c.valeur); if (v !== null && v > mx) mx = v; });
+      out.lignes = d.chiffres.slice(0, 8).map(function(c){ return ligne(c, est100(c) ? 100 : mx); });
+    }
+    var n1 = out.liste[0];
+    for (var i = 0; i < out.lignes.length; i++) if (n1 && out.lignes[i].ref === n1.ref) out.cible = i;
+    /* le tirage (R2) : les autres phrases de la table, puis la bonne, en dernier */
+    var mots = [];
+    Object.keys(tb).forEach(function(k){ if (k.charAt(0) !== '_' && tb[k][lg][0] !== n1.gros) mots.push(tb[k][lg][0]); });
+    if (d.type === 'aliment') d.items.forEach(function(it){ var w = maj(it.nom); if (w !== n1.gros && w.length <= 18) mots.push(w); });
+    if (!mots.length) mots = [maj(L.types[d.type])];
+    while (out.roue.length < 20) out.roue = out.roue.concat(mots);
+    out.roue.push(n1.gros);
+    out.cta = R.cta[d.type] || R.cta.peau;
+    return out;
+  }
+
+  function lumRel(c){ function f(v){ v /= 255; return v <= .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); } return .2126 * f(c[0]) + .7152 * f(c[1]) + .0722 * f(c[2]); }
+  /* l'encre la plus lisible sur un fond (noir ou blanc de la palette) */
+  function encre(c){ var l = lumRel(c); return (l + .05) / (lumRel(NOIR) + .05) >= (lumRel(BLANC) + .05) / (l + .05) ? NOIR : BLANC; }
+  /* la couleur vive lisible sur le noir (le bleu Klein, trop sombre, passe la main a sa seconde couleur) */
+  function vif(K){ return lumRel(K.c1) >= .15 ? K.c1 : K.c2; }
+  /* le meilleur decoupage d'une phrase (1 a 3 lignes) : celui qui donne les plus grosses lettres */
+  function coupesR(x, txt, maxW, fmax, nmax){
+    var mots = String(txt).split(' ').filter(Boolean), cands = [[mots.join(' ')]], i, j;
+    if (nmax >= 2) for (i = 1; i < mots.length; i++) cands.push([mots.slice(0, i).join(' '), mots.slice(i).join(' ')]);
+    if (nmax >= 3) for (i = 1; i < mots.length; i++) for (j = i + 1; j < mots.length; j++) cands.push([mots.slice(0, i).join(' '), mots.slice(i, j).join(' '), mots.slice(j).join(' ')]);
+    x.font = '900 100px ' + SANS; var best = null;
+    cands.forEach(function(ls){
+      var f = fmax; ls.forEach(function(l){ f = Math.min(f, 100 * maxW / Math.max(1, x.measureText(l).width)); });
+      var sc = f * [0, 1.3, 1, .82][ls.length];
+      if (!best || sc > best.sc) best = { ls:ls, f:f, sc:sc };
+    });
+    return best;
+  }
+  /* la phrase en bloc : la ligne la plus longue remplit la largeur, puis le tout s'etire en hauteur (lettres hautes) */
+  Rendu.prototype.bloc = function(txt, cx, cy, maxW, maxH, col, o){
+    o = o || {}; var x = this.x, fm = o.fmax || 330, nm = o.nmax || 3, k = txt + '|' + maxW + '|' + fm + '|' + nm;
+    this._cR = this._cR || {}; var b = this._cR[k] || (this._cR[k] = coupesR(x, txt, maxW, fm, nm));
+    /* les accents des capitales depassent la hauteur de capitale : on leur garde la place (au-dessus et entre les lignes) */
+    var ACC = /[ÀÂÄÉÈÊËÎÏÔÖÙÛÜŸ]/, n = b.ls.length, f = b.f, cap = f * .73, gap = f * .2, acc = ACC.test(b.ls[0]) ? f * .24 : 0, ga = [];
+    for (var gi = 1; gi < n; gi++) ga.push(gap + (ACC.test(b.ls[gi]) ? f * .2 : 0));
+    var H0 = acc + n * cap + ga.reduce(function(s1, v){ return s1 + v; }, 0), sy = Math.min(o.smax || 2.1, maxH / H0), ech = 1;
+    if (sy < 1){ ech = sy; f *= sy; cap *= sy; acc *= sy; H0 *= sy; ga = ga.map(function(v){ return v * ech; }); sy = 1; }
+    var Ht = H0 * sy, y = cy - Ht / 2 + acc * sy, out = { f:f, sy:sy, haut:cy - Ht / 2, bas:cy + Ht / 2 }, idx = 0;
+    x.font = '900 ' + f + 'px ' + SANS; x.textAlign = 'center'; x.fillStyle = rgba(col, 1);
+    var a0 = x.globalAlpha;
+    for (var i = 0; i < n; i++){
+      var yb = y + cap * sy, ln = b.ls[i];
+      if (o.lettre){
+        var tot = x.measureText(ln).width, ch = Array.from(ln), acc = ''; x.textAlign = 'left';
+        for (var c = 0; c < ch.length; c++){
+          var x0 = x.measureText(acc).width, cw = x.measureText(ch[c]).width; acc += ch[c];
+          if (ch[c] === ' '){ idx++; continue; }
+          var lx = cx - tot / 2 + x0 + cw / 2, ly = yb - cap * sy / 2, tr = o.lettre(idx++, lx, ly);
+          if (!tr || tr.a <= 0) continue;
+          x.save(); x.globalAlpha = a0 * tr.a; x.translate(lx + tr.dx, ly + tr.dy); x.rotate(tr.r); x.scale(tr.s, tr.s); x.translate(0, cap * sy / 2); x.scale(1, sy); x.fillText(ch[c], -cw / 2, 0); x.restore();
+        }
+        x.textAlign = 'center';
+      } else { x.save(); x.translate(cx, yb); x.scale(1, sy); x.fillText(ln, 0, 0); x.restore(); }
+      y = yb + (ga[i] || 0) * sy;
+    }
+    return out;
+  };
+  /* la preuve : une pastille, la vraie mesure et sa valeur */
+  Rendu.prototype.puce = function(txt, cx, y, fond, col, a, size){
+    if (!txt || a <= 0) return; var x = this.x;
+    size = size || 38; x.font = '700 ' + size + 'px ' + MONO; var sp = 6, w = Math.min(RW, x.measureText(txt).width + sp * (txt.length - 1) + 80), h = size + 42;
+    x.globalAlpha = a == null ? 1 : a; x.fillStyle = rgba(fond, 1); rond(x, cx - w / 2, y - h / 2, w, h, h / 2); x.fill();
+    x.fillStyle = rgba(col, 1); espaceTenu(x, txt, cx, y + size * .36, sp, w - 60, '700', size, MONO); x.globalAlpha = 1;
+  };
+  /* apres le BIM, commun aux quatre : la phrase et sa preuve, les autres besoins, les soins, « Et toi ? » */
+  Rendu.prototype.suiteR = function(q, o){
+    var x = this.x, d = this.d, L = this.L, B = d.B, n1 = B.liste[0], au = B.liste.slice(1), nI = d.items.length, K = this.vives(), cv = vif(K), res = { sig:NOIR, sansSite:false };
+    var finP = au.length ? 8 : (nI ? 10 : 13), finA = nI ? 10 : 13;
+    if (q < finP){
+      var fd = o.fond || K.c1, ink = encre(fd), e = q - 6;
+      this.aplat(fd);
+      if (o.avant) o.avant(q, fd, ink);
+      x.save();
+      var k = 1 + .09 * Math.pow(1 - clamp(e / .4, 0, 1), 2), sx = e < .3 ? (hash(9, Math.floor(e * 60)) - .5) * 26 * (1 - e / .3) : 0;
+      x.translate(RX + sx, 880); x.scale(k, k); x.translate(-RX, -880);
+      var pc = eOut3(clamp((e - .55) / .35, 0, 1));
+      if (n1.constat && pc > 0){ x.globalAlpha = pc; this.bloc(n1.constat, RX, 452 + (1 - pc) * 20, RW, 64, ink, { fmax:76, nmax:1, smax:1.15 }); x.globalAlpha = 1; }
+      this.bloc(n1.gros, RX, 895, RW, 660, ink, { lettre:o.lettre ? o.lettre(q) : null, smax:3 });
+      x.restore();
+      this.puce(n1.preuve, RX, 1305 + (1 - eOut3(clamp((e - .9) / .35, 0, 1))) * 24, ink, fd, eOut3(clamp((e - .9) / .35, 0, 1)));
+      if (o.apres) o.apres(q, fd, ink);
+      res.sig = ink;
+    } else if (q < finA){
+      var dur = (finA - finP) / au.length, k2 = clamp(Math.floor((q - finP) / dur), 0, au.length - 1), e2 = (q - finP) - k2 * dur, en = au[k2], pk = eOut3(clamp(e2 / .25, 0, 1));
+      this.aplat(NOIR); if (o.avant2) o.avant2(q, k2, e2);
+      this.etiq(this.L.r.aussi + ' · ' + (k2 + 2) + '/' + B.liste.length, RX, 455, BLANC, 32, RW, .85);
+      /* fondu enchaine d'un besoin au suivant : la luminosite ne saute pas (pas de flash) */
+      if (k2 > 0 && pk < 1){ x.save(); x.globalAlpha = 1 - pk; this.bloc(au[k2 - 1].gros, RX, 800, RW, 520, cv, { fmax:280, smax:2.8 }); x.restore(); }
+      x.save(); x.globalAlpha = k2 > 0 ? pk : 1; x.translate(0, k2 > 0 ? 0 : (1 - pk) * 140 * (o.sens || 1));
+      this.bloc(en.gros, RX, 800, RW, 520, cv, { fmax:280, smax:2.8 });
+      x.restore(); x.globalAlpha = 1;
+      if (en.constat) this.etiq(en.constat, RX, 1135, BLANC, 34, RW, .8 * pk);
+      this.puce(en.preuve, RX, 1250, cv, encre(cv), pk);
+      res.sig = BLANC;
+    } else if (q < 13){
+      var fd3 = o.fond3 || K.c2, ink3 = encre(fd3); this.aplat(fd3);
+      this.grilleProduits(finA + .25, q, ink3, ink3); res.sig = ink3;
+    } else {
+      this.aplat(NOIR); var cta = B.cta, pe = eOut3(clamp((q - 13) / .3, 0, 1));
+      x.globalAlpha = pe;
+      this.bloc(cta[0], RX, 520, RW, 110, BLANC, { nmax:1, fmax:130, smax:1.2 });
+      this.bloc(cta[1], RX, 860, RW, 470, cv, { fmax:260, smax:2 });
+      this.mot(L.site, '900', 120, RW, RX, 1262, BLANC); x.globalAlpha = 1;
+      res.sig = BLANC; res.sansSite = true;
+    }
+    return res;
+  };
+  Rendu.prototype.flashR = function(q){ var e = q - 6; if (e < 0 || e > .2) return; var x = this.x; x.setTransform(1, 0, 0, 1, 0, 0); x.globalAlpha = .42 * (1 - e / .2); x.fillStyle = '#fff'; x.fillRect(0, 0, W, H); x.globalAlpha = 1; };
+  Rendu.prototype.entete = function(y, a, col){ this.etiq(maj(this.typeMot) + ' · ' + this.date, RX, y, col || BLANC, 28, RW, .8 * a); };
+
+  /* ---------- R1 · LE ROULEMENT (120 BPM) : le rideau ferme, la caisse claire accelere,
+     le projecteur se resserre, la salle s'eteint un demi-temps, BIM : le rideau s'envole. */
+  function coupsR1(){ var c = [], q; for (q = 0; q < 2; q += .5) c.push(q); for (q = 2; q < 3.5 - 1e-6; q += .25) c.push(q); for (q = 3.5; q < 4.5 - 1e-6; q += 1 / 6) c.push(q); for (q = 4.5; q < 5.5 - 1e-6; q += 1 / 12) c.push(q); return c; }
+  var COUPS_R1 = coupsR1();
+  function forceR1(q){ return .2 + .8 * Math.pow(clamp(q / 5.5, 0, 1), 1.6); }
+  Rendu.prototype.rideau = function(ouv, q, trem){
+    var x = this.x, K = this.vives(), PW = W / 2 + 60;
+    if (!this._rid){
+      var c = document.createElement('canvas'); c.width = PW; c.height = H; var g = c.getContext('2d');
+      for (var i = 0; i < PW; i += 4){ var sh = .5 + .5 * Math.cos(i / 118 * Math.PI * 2), k = .16 + .5 * sh; g.fillStyle = 'rgb(' + Math.round(K.c1[0] * k) + ',' + Math.round(K.c1[1] * k) + ',' + Math.round(K.c1[2] * k) + ')'; g.fillRect(i, 0, 4, H); }
+      var v = g.createLinearGradient(0, 0, 0, H); v.addColorStop(0, 'rgba(0,0,0,.6)'); v.addColorStop(.25, 'rgba(0,0,0,0)'); v.addColorStop(.8, 'rgba(0,0,0,0)'); v.addColorStop(1, 'rgba(0,0,0,.55)');
+      g.fillStyle = v; g.fillRect(0, 0, PW, H); this._rid = c;
+    }
+    if (ouv >= 1) return;
+    var dx = ouv * PW * 1.05, w = Math.sin(q * 47) * trem * 10;
+    x.save(); x.setTransform(1, 0, 0, 1, 0, 0);
+    x.drawImage(this._rid, -60 - dx + w, 0);
+    x.save(); x.translate(W + 60 + dx - w, 0); x.scale(-1, 1); x.drawImage(this._rid, 0, 0); x.restore();
+    x.restore();
+  };
+  Rendu.prototype.suspenseR1 = function(q, repos){
+    var x = this.x, L = this.L, K = this.vives();
+    this.aplat(NOIR);
+    var z = 1 + .12 * eIn3(clamp(q / 5.5, 0, 1)), choc = 0;
+    if (!repos) for (var i = 0; i < COUPS_R1.length; i++){ var h = COUPS_R1[i]; if (h > q) break; choc += forceR1(h) * Math.exp(-(q - h) * 16) * (i % 2 ? 1 : -1); }
+    x.save(); x.translate(RX + choc * 16, 900 + Math.abs(choc) * 5); x.scale(z, z); x.translate(-RX, -900);
+    this.rideau(0, q, Math.abs(choc));
+    /* le projecteur se resserre */
+    var rS = lerp(820, 240, eInOut(clamp(q / 5.3, 0, 1))), fo = .55 + .45 * clamp(q / 5.5, 0, 1);
+    x.globalCompositeOperation = 'lighter';
+    var sp = x.createRadialGradient(RX, 900, 0, RX, 900, rS); sp.addColorStop(0, rgba(BLANC, .3 * fo)); sp.addColorStop(.7, rgba(BLANC, .12 * fo)); sp.addColorStop(1, rgba(BLANC, 0));
+    x.fillStyle = sp; x.fillRect(0, 0, W, H); x.globalCompositeOperation = 'source-over';
+    var om = x.createRadialGradient(RX, 900, rS * .75, RX, 900, rS * 1.9); om.addColorStop(0, 'rgba(0,0,0,0)'); om.addColorStop(1, rgba(NOIR, .82));
+    x.fillStyle = om; x.fillRect(-200, -200, W + 400, H + 400);
+    /* l'accroche, qui se cache dans l'ombre a la fin */
+    var at = 1 - seg(q, 4.6, 5.3);
+    if (at > 0){ this.entete(640, at); x.globalAlpha = at; this.bloc(L.r.hook, RX, 900, RW, 260, BLANC, { nmax:1, smax:1.8 }); x.globalAlpha = 1; }
+    x.restore();
+    var nr = seg(q, 5.2, 5.5);
+    if (nr > 0){ x.globalAlpha = nr; x.fillStyle = rgba(NOIR, 1); x.fillRect(0, 0, W, H); x.globalAlpha = 1; }
+    return { sig:BLANC, sansSite:false };
+  };
+  Rendu.prototype.dessineR1 = function(tAbs){
+    this.debutD();
+    var x = this.x, self = this, tp = this.tempo(tAbs), q = tp.q + 1e-6, r, K = this.vives();
+    if (q < 6 || q >= 15) r = this.suspenseR1(q >= 15 ? 0 : q, q >= 15);
+    else {
+      r = this.suiteR(q, {
+        avant:function(qq){ if (qq >= 8) return; x.save(); x.translate(RX, 880); x.rotate(qq * .1); x.fillStyle = rgba(K.c2, .4);
+          for (var i = 0; i < 14; i++){ x.rotate(Math.PI * 2 / 14); x.beginPath(); x.moveTo(0, 0); x.lineTo(1700, -180); x.lineTo(1700, 180); x.closePath(); x.fill(); } x.restore(); }
+      });
+      if (q < 6.3) this.rideau(.8 + .2 * eOut3(seg(q, 6, 6.28)), q, 0);
+      if (q >= 14.5) this.rideau(1 - eInOut(seg(q, 14.5, 15)), q, 0);
+      this.flashR(q);
+    }
+    this.finD(r.sig, r.sansSite);
+  };
+
+  /* ---------- R2 · LE TIRAGE (124 BPM) : les mots-besoins defilent comme une machine a sous,
+     ralentissent, s'arretent sur LE besoin : BIM. Un tic par mot qui passe. */
+  var FY = 640, FH = 520;
+  /* le premier mot reste net un quart de temps (l'accroche), puis le rouleau part et ralentit jusqu'au temps 6 */
+  /* puis, sur la fin, un cliquet : les quatre derniers mots passent un par un (le spectateur croit que ca s'arrete) */
+  var CRAN_R2 = [[3.9, .24], [4.5, .26], [5.08, .3], [5.72, .28]];
+  function posR2(q, N){
+    var M = Math.max(0, N - CRAN_R2.length);
+    if (q < 3.9){ var p = clamp((q - .25) / 3.65, 0, 1); return M * (1 - Math.pow(1 - p, 2)); }
+    var s = M; CRAN_R2.forEach(function(c){ s += eOut3(clamp((q - c[0]) / c[1], 0, 1)); }); return Math.min(N, s);
+  }
+  function vitR2(q, N){ return q < .25 || q >= 3.9 ? 0 : 2 * Math.max(0, N - CRAN_R2.length) / 3.65 * (1 - (q - .25) / 3.65); }
+  /* les instants ou un mot passe le milieu de la fenetre (le son y met un tic) */
+  function croisementsR2(N){ var out = [], prev = posR2(0, N); for (var q = .002; q <= 6; q += .002){ var s = posR2(q, N); if (Math.floor(s - .5) > Math.floor(prev - .5)) out.push(q); prev = s; } return out; }
+  Rendu.prototype.ampoules = function(s, fd, on, off, ext){
+    var x = this.x, pts = [], i, n = 30, P = 2 * (800 + FH), cx0 = 130, cy0 = FY;
+    for (i = 0; i < n; i++){ var u = i / n * P, px, py;
+      if (u < 800){ px = cx0 + u; py = cy0; } else if (u < 800 + FH){ px = cx0 + 800; py = cy0 + u - 800; } else if (u < 1600 + FH){ px = cx0 + 800 - (u - 800 - FH); py = cy0 + FH; } else { px = cx0; py = cy0 + FH - (u - 1600 - FH); }
+      pts.push([px, py]); }
+    for (i = 0; i < n; i++){ var lit = ((i + Math.floor(s * 2)) % 3) === 0, p = pts[i], dx = 0, dy = 0, al = 1;
+      if (ext > 0){ var vx = p[0] - RX, vy = p[1] - (FY + FH / 2), m = Math.sqrt(vx * vx + vy * vy) || 1; dx = vx / m * ext * 900; dy = vy / m * ext * 900; al = 1 - ext; lit = true; }
+      x.globalAlpha = al * (lit ? .95 : .35); x.fillStyle = rgba(lit ? on : off, 1); x.beginPath(); x.arc(p[0] + dx, p[1] + dy, lit ? 10 : 8, 0, Math.PI * 2); x.fill(); }
+    x.globalAlpha = 1;
+  };
+  Rendu.prototype.suspenseR2 = function(q){
+    var x = this.x, d = this.d, L = this.L, K = this.vives(), cv = vif(K), R = d.B.roue, N = R.length - 1, s = posR2(q, N), v = vitR2(q, N);
+    this.aplat(NOIR); x.drawImage(this.fondD4(), 0, 0);
+    var z = 1 + .07 * eIn3(clamp(q / 6, 0, 1));
+    x.save(); x.translate(RX, 900); x.scale(z, z); x.translate(-RX, -900);
+    this.entete(350, 1);
+    this.bloc(L.r.tirage, RX, 480, RW, 120, cv, { nmax:1, fmax:140, smax:1.4 });
+    /* la fenetre et son rouleau */
+    x.save(); rond(x, 130, FY, 800, FH, 40); x.fillStyle = rgba(BLANC, .06); x.fill(); x.clip();
+    var i0 = Math.floor(s), ng = v > 2 ? 4 : 1, pas = Math.min(FH * .45, v * 16);
+    for (var j = i0 - 1; j <= i0 + 2; j++){
+      if (j < 0 || j > N) continue;
+      /* les mots qui defilent restent pales (pas de clignotement), le dernier s'allume en se posant */
+      var ar = q < .25 ? 1 : lerp(1, .42, seg(q, .25, .7)) + .58 * seg(q, 5.72, 6);
+      for (var g = 0; g < ng; g++){ x.save(); x.globalAlpha = ar * (ng > 1 ? .32 : 1); x.translate(0, (j - s) * FH - g * pas); this.bloc(R[j], RX, FY + FH / 2, 700, 300, BLANC, { fmax:240, nmax:2, smax:2 }); x.restore(); }
+    }
+    var ombre = x.createLinearGradient(0, FY, 0, FY + FH); ombre.addColorStop(0, 'rgba(0,0,0,.75)'); ombre.addColorStop(.22, 'rgba(0,0,0,0)'); ombre.addColorStop(.78, 'rgba(0,0,0,0)'); ombre.addColorStop(1, 'rgba(0,0,0,.75)');
+    x.fillStyle = ombre; x.fillRect(130, FY, 800, FH);
+    x.restore();
+    x.strokeStyle = rgba(cv, .25 + .6 * clamp(q / 6, 0, 1)); x.lineWidth = 8; rond(x, 130, FY, 800, FH, 40); x.stroke();
+    this.ampoules(s, null, BLANC, cv, 0);
+    this.etiq(L.r.n1, RX, 1290, BLANC, 30, RW, .8);
+    x.restore();
+    return { sig:BLANC, sansSite:false };
+  };
+  Rendu.prototype.dessineR2 = function(tAbs){
+    this.debutD();
+    var x = this.x, self = this, tp = this.tempo(tAbs), q = tp.q + 1e-6, r, K = this.vives();
+    if (q < 6 || q >= 15) r = this.suspenseR2(q >= 15 ? 0 : q);
+    else {
+      r = this.suiteR(q, {
+        sens:-1,
+        avant:function(qq, fd, ink){ if (qq < 7.2){ var e = eOut3(clamp((qq - 6) / .9, 0, 1)); self.ampoules(0, null, ink, ink, e); } },
+        apres:function(qq, fd, ink){ if (qq >= 8) return; x.globalAlpha = .9; x.strokeStyle = rgba(ink, 1); x.lineWidth = 6; rond(x, 70, 300, 920, 1150, 46); x.stroke(); x.globalAlpha = 1; }
+      });
+      this.flashR(q);
+    }
+    this.finD(r.sig, r.sansSite);
+  };
+
+  /* ---------- R3 · LE SCAN (128 BPM) : une barre de lecture balaie les vraies mesures, les chiffres
+     montent, elle revient lentement se poser sur la plus basse, un temps de silence, BIM. */
+  function planR3(n, cible){
+    var pas = Math.min(116, 860 / Math.max(1, n)), y0 = 500 + (860 - pas * n) / 2, yc = [], ti = [];
+    for (var i = 0; i < n; i++){ yc.push(y0 + pas * (i + .5)); ti.push(.3 + 2.4 * clamp((y0 + pas * (i + .5) - 440) / 950, 0, 1)); }
+    return { pas:pas, yc:yc, ti:ti, cible:cible < 0 ? 0 : cible };
+  }
+  function barreR3(q, P){ if (q < .3) return 440; if (q < 2.7) return lerp(440, 1390, (q - .3) / 2.4); if (q < 4.5) return lerp(1390, P.yc[P.cible] || 900, eOut3((q - 2.7) / 1.8)); return P.yc[P.cible] || 900; }
+  Rendu.prototype.suspenseR3 = function(q, repos){
+    var x = this.x, d = this.d, L = this.L, K = this.vives(), cv = vif(K), rows = d.B.lignes, P = this._pR3 || (this._pR3 = planR3(rows.length, d.B.cible));
+    this.aplat(NOIR); x.drawImage(this.fondD3(), 0, 0);
+    var sil = seg(q, 5, 5.3), zoom = eInOut(seg(q, 4.5, 6)), yT = P.yc[P.cible] || 900;
+    x.save(); x.translate(RX, lerp(yT, 900, zoom)); x.scale(1 + .22 * zoom, 1 + .22 * zoom); x.translate(-RX, -yT);
+    var ah = 1 - sil;
+    if (ah > 0){
+      x.globalAlpha = ah; this.etiq(L.r.lecture + ' · ' + maj(this.typeMot) + ' · ' + this.date, RX, 345, cv, 28, RW, .9 * ah);
+      x.globalAlpha = ah; this.etiq(L.r.analyse + '  ' + Math.round(100 * clamp(q / 4.5, 0, 1)) + ' %', RX, 400, BLANC, 28, RW, .7 * ah);
+    }
+    for (var i = 0; i < rows.length; i++){
+      var rw = rows[i], yc = P.yc[i], cib = i === P.cible, pr = repos ? 0 : eOut3(clamp((q - P.ti[i]) / .6, 0, 1)), vu = !repos && q >= P.ti[i];
+      var dim = cib ? 1 : (1 - .7 * seg(q, 4.5, 5)) * ah;
+      if (dim <= 0) continue;
+      x.globalAlpha = dim;
+      if (cib && q >= 4.5){ var hl = seg(q, 4.5, 4.75); x.fillStyle = rgba(cv, .16 * hl); x.fillRect(110, yc - P.pas * .46, 840, P.pas * .92); x.strokeStyle = rgba(cv, hl); x.lineWidth = 4; x.strokeRect(110, yc - P.pas * .46, 840, P.pas * .92); }
+      x.textAlign = 'left'; x.font = '700 ' + Math.min(30, P.pas * .27) + 'px ' + MONO; x.fillStyle = rgba(cib && q >= 4.5 ? cv : BLANC, .9);
+      var lb = rw.label; if (lb.length > 26) lb = lb.slice(0, 25) + '…'; espace(x, lb, 140, yc - 6, 4, 'left');
+      x.fillStyle = rgba(BLANC, .12); x.fillRect(140, yc + 14, 780, 8);
+      if (rw.v !== null && rw.max > 0){ x.fillStyle = rgba(cib && q >= 4.5 ? cv : K.c2, .95); x.fillRect(140, yc + 14, 780 * clamp(rw.v / rw.max, 0, 1) * pr, 8); }
+      x.textAlign = 'right'; x.font = '900 ' + Math.min(50, P.pas * .44) + 'px ' + SANS; x.fillStyle = rgba(BLANC, 1);
+      var tv = vu ? (rw.v !== null ? formate(rw.v * pr, Math.round(rw.v) !== rw.v) + (/\/100|%/.test(rw.txt) ? rw.txt.replace(/^[^/%]*/, '') : '') : rw.txt) : '—';
+      x.fillText(tv, 920, yc + 2); x.textAlign = 'center';
+    }
+    x.globalAlpha = 1;
+    /* la barre de lecture */
+    if (ah > 0){
+      var by = barreR3(repos ? 0 : q, P); x.globalAlpha = ah;
+      var gl = x.createLinearGradient(0, by - 120, 0, by); gl.addColorStop(0, rgba(cv, 0)); gl.addColorStop(1, rgba(cv, .22));
+      x.fillStyle = gl; x.fillRect(100, by - 120, 860, 120); x.fillStyle = rgba(BLANC, .9); x.fillRect(100, by - 2, 860, 4);
+      x.globalAlpha = 1;
+    }
+    x.restore();
+    return { sig:BLANC, sansSite:false };
+  };
+  Rendu.prototype.dessineR3 = function(tAbs){
+    this.debutD();
+    var x = this.x, tp = this.tempo(tAbs), q = tp.q + 1e-6, r, K = this.vives();
+    if (q < 6 || q >= 15) r = this.suspenseR3(q >= 15 ? 0 : q, q >= 15);
+    else {
+      r = this.suiteR(q, {
+        avant:function(qq, fd, ink){ if (qq >= 8) return; var a = 1 - seg(qq, 6, 6.6); for (var yy = 0; yy <= H; yy += 90){ x.fillStyle = rgba(ink, .07); x.fillRect(0, yy, W, 2); }
+          if (a > 0){ x.globalAlpha = a; x.fillStyle = rgba(BLANC, 1); x.fillRect(0, 878, W, 4); x.globalAlpha = 1; } }
+      });
+      this.flashR(q);
+    }
+    this.finD(r.sig, r.sansSite);
+  };
+
+  /* ---------- R4 · LE BATTEMENT (116 BPM) : un coeur de lumiere bat de plus en plus vite,
+     l'ecran se resserre autour de lui, puis explose : les lettres de la phrase volent en place. */
+  var HB_R4 = [0, 1.6, 2.9, 3.9, 4.6, 5.1, 5.45, 5.7, 5.88];
+  function battementsR4(){ return HB_R4.map(function(h, i){ var g = (i + 1 < HB_R4.length ? HB_R4[i + 1] : 6) - h; return [h, h + Math.min(.3, g * .42)]; }); }
+  var BAT_R4 = battementsR4();
+  function eOutBack(p){ var c = 1.9; return 1 + (c + 1) * Math.pow(p - 1, 3) + c * Math.pow(p - 1, 2); }
+  Rendu.prototype.suspenseR4 = function(q, repos){
+    var x = this.x, L = this.L, K = this.vives(), cv = vif(K), te = eIn3(clamp(q / 6, 0, 1)), env = 0, i;
+    if (!repos) BAT_R4.forEach(function(b){ if (q >= b[0]) env += Math.exp(-(q - b[0]) * 8); if (q >= b[1]) env += .6 * Math.exp(-(q - b[1]) * 8); });
+    this.aplat(NOIR);
+    var sx = (hash(4, Math.floor(q * 40)) - .5) * 10 * te * env;
+    x.save(); x.translate(sx, 0);
+    /* les ondes, une par battement */
+    if (!repos) for (i = 0; i < BAT_R4.length; i++){ var dq = q - BAT_R4[i][0]; if (dq < 0 || dq > 1.2) continue; x.strokeStyle = rgba(cv, .5 * (1 - dq / 1.2)); x.lineWidth = 6; x.beginPath(); x.arc(RX, 900, 240 + dq * 430, 0, Math.PI * 2); x.stroke(); }
+    var R0 = 236 * (1 + .1 * Math.min(1.6, env));
+    x.globalCompositeOperation = 'lighter';
+    var gl = x.createRadialGradient(RX, 900, R0 * .6, RX, 900, R0 * 1.9); gl.addColorStop(0, rgba(cv, .35)); gl.addColorStop(1, rgba(cv, 0)); x.fillStyle = gl; x.fillRect(RX - R0 * 2, 900 - R0 * 2, R0 * 4, R0 * 4);
+    x.globalCompositeOperation = 'source-over';
+    x.fillStyle = rgba(cv, 1); x.beginPath(); x.arc(RX, 900, R0, 0, Math.PI * 2); x.fill();
+    /* l'accroche dans le coeur : les lettres se serrent */
+    var ink = encre(cv);
+    var kz = 1 + .1 * Math.min(1.6, env); x.save(); x.translate(RX, 900); x.scale(kz, kz); x.translate(-RX, -900);
+    this.bloc(L.r.hook, RX, 900, 400, 120, ink, { nmax:1, smax:1.6, lettre:function(k, lx){ return { dx:(lx - RX) * -.3 * te, dy:0, s:1, r:0, a:1 }; } });
+    x.restore();
+    var ah = 1 - seg(q, 3, 4.5);
+    if (ah > 0) this.entete(560, ah);
+    x.restore();
+    /* l'ecran se resserre */
+    var rI = lerp(1350, 400, eInOut(clamp(q / 5.9, 0, 1)));
+    if (rI < 1300){ x.fillStyle = rgba(NOIR, 1); x.beginPath(); x.rect(0, 0, W, H); x.arc(RX, 900, rI, 0, Math.PI * 2, true); x.fill('evenodd');
+      var bo = x.createRadialGradient(RX, 900, rI * .82, RX, 900, rI); bo.addColorStop(0, rgba(NOIR, 0)); bo.addColorStop(1, rgba(NOIR, 1)); x.fillStyle = bo; x.fillRect(RX - rI, 900 - rI, rI * 2, rI * 2); }
+    return { sig:BLANC, sansSite:false };
+  };
+  Rendu.prototype.dessineR4 = function(tAbs){
+    this.debutD();
+    var x = this.x, tp = this.tempo(tAbs), q = tp.q + 1e-6, r, K = this.vives();
+    if (q < 6 || q >= 15) r = this.suspenseR4(q >= 15 ? 0 : q, q >= 15);
+    else {
+      r = this.suiteR(q, {
+        lettre:function(qq){ var e = clamp((qq - 6) / .42, 0, 1); if (e >= 1) return null; var eb = eOutBack(e);
+          return function(k, lx, ly){ var u = 1 - eb;
+            return { dx:(lx - RX) * .1 * u + (hash(k, 7) - .5) * 40 * u, dy:(hash(k, 3) - .5) * 40 * u, s:1 + .1 * u, r:u * (hash(k, 5) - .5) * .25, a:1 }; }; },
+        avant:function(qq, fd, ink){ var e = qq - 6; if (e > 1.4) return; var p = eOut3(clamp(e / 1, 0, 1));
+          x.strokeStyle = rgba(ink, .5 * (1 - p)); x.lineWidth = 44 * (1 - p) + 2; x.beginPath(); x.arc(RX, 880, 120 + p * 1100, 0, Math.PI * 2); x.stroke();
+          for (var i = 0; i < 36; i++){ var an = hash(i, 13) * Math.PI * 2, dd = (150 + hash(i, 17) * 900) * eOut3(clamp(e / 1.2, 0, 1)), sz = 14 + hash(i, 19) * 30;
+            x.save(); x.globalAlpha = .8 * (1 - clamp(e / 1.4, 0, 1)); x.translate(RX + Math.cos(an) * dd, 880 + Math.sin(an) * dd); x.rotate(e * 6 * (hash(i, 23) - .5)); x.fillStyle = rgba(ink, 1); x.fillRect(-sz / 2, -sz / 5, sz, sz / 2.5); x.restore(); } }
+      });
+      this.flashR(q);
+    }
+    this.finD(r.sig, r.sansSite);
+  };
+
   /* ------------------------------------------------------------- le son */
   var CTX = null;
   function amorcer(){
@@ -1557,16 +1997,20 @@
       return CTX;
     } catch(e){ return null; }
   }
+  var GAIN_BUS = { D3:.5, R1:.68, R2:.71, R3:.73, R4:.4 };
   function Son(ctx, d){
     this.ctx = ctx; this.th = d.theme; this.style = d.style || 'D'; this.d = d; this.tm = d.tm || temps(this.style);
     var out = ctx.createGain(); out.gain.value = 1.2;
     var comp = ctx.createDynamicsCompressor();
     comp.threshold.value = -18; comp.knee.value = 12; comp.ratio.value = 3.2; comp.attack.value = .004; comp.release.value = .25;
-    var bus = ctx.createGain(); bus.gain.value = this.style === 'D3' ? .5 : .9;   /* 06/10 : D3 mesuree 4 a 6 dB plus forte que les autres */
+    var bus = ctx.createGain(); bus.gain.value = GAIN_BUS[this.style] || .9;   /* 06/10 : D3 mesuree 4 a 6 dB plus forte que les autres ; 07/10 : R1 a R4 alignees sur D1-D4 */
     bus.connect(comp); comp.connect(out);
     this.ecoute = ctx.createGain(); this.ecoute.gain.value = 1;
-    out.connect(this.ecoute); this.ecoute.connect(ctx.destination);
-    this.dest = null; try { this.dest = ctx.createMediaStreamDestination(); out.connect(this.dest); } catch(e){}
+    /* 07/10 : R1 a R4 ont un limiteur en sortie (le BIM empile grosse caisse, impact et basse : pas de saturation) */
+    var sortie = out;
+    if (/^R/.test(this.style)){ var lim = ctx.createDynamicsCompressor(); lim.threshold.value = -2.5; lim.knee.value = 0; lim.ratio.value = 20; lim.attack.value = .001; lim.release.value = .12; out.connect(lim); sortie = lim; }
+    sortie.connect(this.ecoute); this.ecoute.connect(ctx.destination);
+    this.dest = null; try { this.dest = ctx.createMediaStreamDestination(); sortie.connect(this.dest); } catch(e){}
     /* reverberation synthetisee (pas de fichier d'impulsion) */
     var len = Math.floor(ctx.sampleRate * 2.6), ir = ctx.createBuffer(2, len, ctx.sampleRate);
     for (var ch = 0; ch < 2; ch++){ var dd = ir.getChannelData(ch); for (var i = 0; i < len; i++) dd[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 3.2); }
@@ -1954,6 +2398,131 @@
     this.inverse(T(16), b * 1.1, .1);
   };
 
+
+  /* ---------- outils de son des variantes R1 a R4 (07/10) */
+  /* le BIM : grosse caisse, impact, crash, basse profonde et accord, tous sur le meme instant */
+  Son.prototype.bimR = function(t, b){
+    var p = this.th.pad;
+    this.kick(t, .68); this.impact(t); this.crash(t, .1, 1.6);
+    this.s808(t, 0, b * 2.2, .3);
+    this.stab(t, [p[0] + 12, p[2] + 12, p[3] + 12, p[4] + 12], .1, b * 1.6);
+  };
+  Son.prototype.grondement = function(t, dur, peak){
+    var c = this.ctx, n = c.createBufferSource(); n.buffer = this.bruit; n.loop = true;
+    var lp = c.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.setValueAtTime(90, t); lp.frequency.exponentialRampToValueAtTime(340, t + dur);
+    var g = c.createGain(); g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + dur * .95); g.gain.linearRampToValueAtTime(0, t + dur);
+    n.connect(lp); lp.connect(g); this.envoi(g, .15); n.start(t); n.stop(t + dur + .05);
+  };
+  Son.prototype.hatOuvert = function(t, peak){
+    var c = this.ctx, n = this.noise(t, .22), hp = c.createBiquadFilter(); hp.type = 'highpass'; hp.frequency.value = 6800;
+    var g = c.createGain(); this.env(g, t, .002, peak || .06, .18); n.connect(hp); hp.connect(g); this.envoi(g, .1);
+  };
+  Son.prototype.coeur = function(t, peak){
+    var c = this.ctx, o = c.createOscillator(); o.type = 'sine'; o.frequency.setValueAtTime(74, t); o.frequency.exponentialRampToValueAtTime(38, t + .16);
+    var g = c.createGain(); this.env(g, t, .006, peak, .24); o.connect(g); this.envoi(g, .04); o.start(t); o.stop(t + .32);
+    var n = this.noise(t, .06), lp = c.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = 700;
+    var gn = c.createGain(); this.env(gn, t, .002, peak * .22, .05); n.connect(lp); lp.connect(gn); this.envoi(gn, 0);
+  };
+  /* la tension : deux scies sombres qui s'ouvrent et montent, coupees net */
+  Son.prototype.tension = function(t, dur, st0, st1, peak, wet){
+    var c = this.ctx, lp = c.createBiquadFilter(); lp.type = 'lowpass'; lp.Q.value = 3; lp.frequency.setValueAtTime(180, t); lp.frequency.exponentialRampToValueAtTime(2600, t + dur);
+    var g = c.createGain(); g.gain.setValueAtTime(.0001, t); g.gain.exponentialRampToValueAtTime(peak, t + dur * .96); g.gain.linearRampToValueAtTime(0, t + dur);
+    lp.connect(g); this.envoi(g, wet == null ? .2 : wet);
+    var self = this; [-8, 8].forEach(function(dt){ var o = c.createOscillator(); o.type = 'sawtooth'; o.frequency.setValueAtTime(self.f(st0), t); o.frequency.exponentialRampToValueAtTime(self.f(st1), t + dur); o.detune.value = dt; o.connect(lp); o.start(t); o.stop(t + dur + .02); });
+  };
+  Son.prototype.explosion = function(t, peak){
+    var c = this.ctx, n = this.noise(t, 1.5), lp = c.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.setValueAtTime(9000, t); lp.frequency.exponentialRampToValueAtTime(140, t + 1.4);
+    var g = c.createGain(); this.env(g, t, .004, peak || .3, 1.4); n.connect(lp); lp.connect(g); this.envoi(g, .3);
+  };
+  /* les accents apres le drop : un accord a chaque autre besoin, une note par produit */
+  Son.prototype.suiteR = function(T, nItems){
+    var d = this.d, B = d.B || { liste:[] }, nA = Math.max(0, B.liste.length - 1), p = this.th.pad, a = this.th.arp, k;
+    var finP = nA ? 8 : (nItems ? 10 : 13), finA = nItems ? 10 : 13;
+    for (k = 0; k < nA; k++) this.stab(T(finP + k * (finA - finP) / nA), [p[1] + 12, p[3] + 12, p[4] + 12], .07, .3);
+    if (nItems) for (k = 0; k < Math.min(4, nItems); k++) this.pince(T(finA + .25 + k * .5), a[k % a.length] + 12, .06);
+    this.stab(T(13), [p[0] + 12, p[2] + 12, p[4] + 12], .07, .5);
+  };
+
+  /* R1 · le roulement : caisse claire qui accelere (memes instants que l'image), grondement,
+     montee, un demi-temps de silence, BIM ; puis groove 120 */
+  Son.prototype.planifieR1 = function(t0, nItems){
+    var b = this.tm.beat, p = this.th.pad, i, self = this; function T(q){ return t0 + q * b; }
+    COUPS_R1.forEach(function(q){ self.snare(T(q), .05 + .2 * forceR1(q)); });
+    for (i = 0; i < 5; i++) this.s808(T(i), -12, b * .5, .1 + .04 * i);
+    this.grondement(T(0), 5.5 * b, .12);
+    this.montee(T(2.5), 3 * b - .02, .13);
+    this.inverse(T(5.5), 1.4 * b, .08);
+    this.bimR(T(6), b);
+    var ligne = [0, 0, 0, 0, 0, 0, 0, 0, 12, 7, 0, 10, 0, 7, 0];
+    for (i = 7; i < 15; i++){
+      this.kick(T(i), .78); if (i % 2) this.clap(T(i), .22);
+      this.hat(T(i + .5), .1); this.hat(T(i + .25), .03); this.hat(T(i + .75), .04);
+      this.basse(T(i), ligne[i] - 12, b * .42, .14); this.basse(T(i + .5), ligne[i] - 12, b * .3, .08);
+    }
+    this.suiteR(T, nItems);
+    this.snare(T(15.5), .05); this.snare(T(15.75), .06);
+  };
+  /* R2 · le tirage : un tic par mot qui passe (les instants exacts du rouleau), petite house,
+     pieces qui montent, cloches du gros lot sur le BIM ; puis disco house 124 */
+  Son.prototype.planifieR2 = function(t0, nItems){
+    var b = this.tm.beat, p = this.th.pad, a = this.th.arp, i, k, self = this, N = Math.max(1, ((this.d.B && this.d.B.roue) ? this.d.B.roue.length : 2) - 1); function T(q){ return t0 + q * b; }
+    var der = -1;
+    croisementsR2(N).forEach(function(q){ var t = T(q); if (t - der < .045) return; der = t; var lent = q >= 3.9; self.bip(t, lent ? 1900 : 2700, lent ? .05 : .016, lent ? .09 : .05, 'triangle', .05); if (lent) self.kick(t, .14); });
+    for (i = 0; i < 4; i++){ this.kick(T(i), .72); this.hat(T(i + .5), .07); this.basse(T(i), -12, b * .4, .12); this.basse(T(i + .5), 0, b * .3, .08); }
+    this.montee(T(4), 2 * b - .02, .14);
+    for (k = 0; k < 8; k++) this.bip(T(4 + k * .25), this.f(a[k % 4] + 12 + 12 * Math.floor(k / 4)), .08, .035 + .004 * k, 'square', .25);
+    [.12, .26, .4].forEach(function(dq, j){ self.cloche(T(6 + dq), a[j] + 12, .06, 1.6); });
+    this.bimR(T(6), b);
+    var rac = [0, 0, 0, 0, 0, 0, 0, 0, 5, 5, 0, 0, 7, 7, 0];
+    for (i = 7; i < 15; i++){
+      this.kick(T(i), .8); if (i % 2) this.clap(T(i), .22);
+      this.hatOuvert(T(i + .5), .07); this.hat(T(i + .25), .03); this.hat(T(i + .75), .03);
+      for (k = 0; k < 2; k++) this.basse(T(i + k * .5), rac[i] + (k ? 0 : -12), b * .3, .12);
+    }
+    this.suiteR(T, nItems);
+    this.balai(T(15), b * .95, 180, 1300, .04, 5);
+  };
+  /* R3 · le scan : balayage, un bip par mesure lue (memes instants que l'image), techno 128,
+     verrou sur la plus basse, un temps de vrai silence, BIM */
+  Son.prototype.planifieR3 = function(t0, nItems){
+    var b = this.tm.beat, p = this.th.pad, a = this.th.arp, i, self = this, B = this.d.B || { lignes:[], cible:0 }, P = planR3(B.lignes.length, B.cible); function T(q){ return t0 + q * b; }
+    this.balai(T(.3), 2.4 * b, 150, 900, .03, 8);
+    P.ti.forEach(function(q, j){ self.bip(T(q), 880 + j * 150, .06, .045, 'sine', .25); });
+    for (i = 0; i < 4; i++){ this.kick(T(i), .74); this.hat(T(i + .5), .08); this.acid(T(i + .5), -12, b * .3, .05, 500, i % 2); }
+    this.balai(T(2.7), 1.8 * b, 1300, 260, .028, 8, 'sine');
+    for (i = 0; i < 6; i++) this.bip(T(2.8 + 1.7 * (1 - Math.pow(1 - i / 6, 2))), 1500 - i * 90, .03, .03, 'triangle', 0);
+    this.bip(T(4.5), 1760, .07, .06, 'sine', 0); this.bip(T(4.62), 2350, .1, .06, 'sine', 0);
+    this.tension(T(4.5), .5 * b, a[0] - 12, a[0] - 7, .05, 0);
+    /* temps 5 a 6 : rien. Le silence est le roulement de tambour. */
+    this.bimR(T(6), b);
+    var seq = [0, 0, 12, 0, 7, 0, 10, 12];
+    for (i = 7; i < 15; i++){
+      this.kick(T(i), .8); if (i % 2) this.clap(T(i), .2);
+      for (var k = 0; k < 4; k++) this.hat(T(i + k / 4), k === 2 ? .08 : .025);
+      this.acid(T(i + .5), seq[i % 8] - 12, b * .28, .05, 700 + 120 * (i - 7), i % 3 === 0);
+    }
+    this.suiteR(T, nItems);
+    this.balai(T(15.35), .6 * b, 260, 1400, .03, 8);
+  };
+  /* R4 · le battement : le coeur (memes instants que l'image) qui accelere, une tension qui monte,
+     l'aspiration, l'explosion ; puis groove 116 chaloupe */
+  Son.prototype.planifieR4 = function(t0, nItems){
+    var b = this.tm.beat, p = this.th.pad, a = this.th.arp, i, self = this; function T(q){ return t0 + q * b; }
+    BAT_R4.forEach(function(bt, j){ var k = .6 + .4 * j / (BAT_R4.length - 1); self.coeur(T(bt[0]), .75 * k); self.coeur(T(bt[1]), .5 * k); });
+    this.tension(T(.5), 5.4 * b, a[0] - 24, a[0] - 21, .045);
+    this.sable(T(2), 1.5 * b, .05, .5); this.sable(T(4), 1.2 * b, .07, -.5);
+    this.inverse(T(6), b, .13);
+    this.explosion(T(6), .28); this.bimR(T(6), b);
+    var bas = [[7, 0, .7], [7.75, 0, .25], [8.5, 0, .5], [9, p[1] - 12, .7], [10, 0, .7], [10.75, 0, .25], [11.5, -2, .5], [12, p[1] - 12, .9], [13, 0, .7], [14, 0, .5], [14.5, 0, .4]];
+    bas.forEach(function(n){ self.s808(T(n[0]), n[1], n[2] * b, .3); });
+    for (i = 7; i < 15; i++){
+      this.kick(T(i), .74); this.bip(T(i + .75), 1700, .025, .03, 'triangle', .1);
+      for (var k = 0; k < 4; k++) this.hat(T(i + k / 4), k % 2 ? .02 : .045);
+      if (i % 2) this.clap(T(i), .18);
+    }
+    this.suiteR(T, nItems);
+  };
+
   /* ------------------------------------------------------- l'interface */
   var STYLE = '\
 .vyw{position:fixed;inset:0;z-index:2147483000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;\
@@ -2254,5 +2823,5 @@ font-family:Inter,"Helvetica Neue",Arial,sans-serif;box-shadow:0 18px 44px -20px
     });
   }
 
-  window.VyWrap = { ouvrir:ouvrir, bouton:bouton, amorcer:amorcer, apercu:apercu, styles:['A', 'B', 'C', 'D', 'D1', 'D2', 'D3', 'D4'], palettes:PALETTES, version:'2.1', _normalise:normalise, _mesurerDuree:mesurerDuree, _temps:temps };
+  window.VyWrap = { ouvrir:ouvrir, bouton:bouton, amorcer:amorcer, apercu:apercu, styles:['A', 'B', 'C', 'D', 'D1', 'D2', 'D3', 'D4', 'R1', 'R2', 'R3', 'R4'], palettes:PALETTES, version:'2.2', _normalise:normalise, _mesurerDuree:mesurerDuree, _temps:temps, _Son:Son };
 })();

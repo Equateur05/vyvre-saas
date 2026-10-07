@@ -37,7 +37,7 @@
       var r = window.vyvreLastScanResult, sc = r && r.scores; if (!sc) return null;
       /* les memes libelles que la page ; sebum et pigmentation inverses, comme a l'ecran */
       var K = [['glow','c.glow'], ['redness','c.redness'], ['hydration','c.hydration'], ['pores','c.pores'], ['sebum','c.sebum',1], ['pigmentation','c.pigmentation',1], ['wrinkles','c.wrinkles'], ['firmness','c.firmness']];
-      var ch = K.map(function(k){ var v = n(sc[k[0]]); if (v === null) return null; v = Math.max(0, Math.min(100, Math.round(k[2] ? 100 - v : v))); return { label:t(k[1]), valeur:v, unite:'/100' }; }).filter(Boolean);
+      var ch = K.map(function(k){ var v = n(sc[k[0]]); if (v === null) return null; v = Math.max(0, Math.min(100, Math.round(k[2] ? 100 - v : v))); return { label:t(k[1]), valeur:v, unite:'/100', cle:k[0] }; }).filter(Boolean);   /* 07/10 : la cle sert aux phrases du Wrap R (independante de la langue) */
       ch.sort(function(a, b){ return b.valeur - a.valeur; });   /* le chiffre phare : le meilleur score */
       var sel = (window.__vySelection || []).slice(0, 4);
       var items = sel.map(function(p, i){
@@ -68,7 +68,7 @@
       var ch = [];
       /* la boucle telle que la PHOTO l'a donnee (meme regle que la page : jamais le declare) */
       var mb = out.mesures && out.mesures.boucle, vb = mb && (mb.valeur != null ? mb.valeur : (mb.detail && mb.detail.valeur));
-      if (vb != null && n(vb) !== null) ch.push({ label:T('hc.m.boucle'), valeur:Math.round(vb <= 1 ? vb * 100 : vb), unite:'/100' });
+      if (vb != null && n(vb) !== null) ch.push({ label:T('hc.m.boucle'), valeur:Math.round(vb <= 1 ? vb * 100 : vb), unite:'/100', cle:'boucle' });
       var fam = sc.couleur && window.FAMILLES && window.FAMILLES[String(sc.couleur.famille || '').toLowerCase()];
       if (fam) ch.push({ label:T('hc.m.couleur'), valeur:T(fam), unite:'' });
       if (typeof q.score === 'number') ch.push({ label:T('hc.rel.2'), valeur:Math.round(q.score), unite:'/100' });
@@ -79,7 +79,16 @@
         var et = typeof window.stepKey === 'function' ? T(window.stepKey(p, p.etape)) : '';
         return { nom:p.nom || p.name || '', marque:p.marque || p.brand_name || '', image:img || '', fond:!!p.image_fond, etape:et };
       });
-      return { type:'cheveux', prenom:'', titre:FR() ? 'Mes cheveux' : 'My hair', chiffres:ch, phare:phare, items:items, exemple:!!window.DEMO };
+      /* 07/10 : les besoins pour les phrases du Wrap R, avec les MEMES seuils que la phrase de la page
+         (ecrirePhrase) ; la provenance est dite : « reponses » quand l'etat vient a 100 % des questions */
+      var bes = [], seuils = [['secheresse', 55], ['casse', 55], ['racinesGrasses', 60], ['frizz', 55]];
+      seuils.forEach(function(sq, i){ var x = sc[sq[0]], v = x && n(x.valeur);
+        if (v !== null && v >= sq[1]) bes.push({ cle:sq[0], v:v, i:i, source:x.partDeclaree === 1 ? 'reponses' : (x.partDeclaree === 0 ? 'photo' : 'lecture') }); });
+      bes.sort(function(a, b){ return b.v - a.v || a.i - b.i; });
+      var rep = S.answers || {};
+      if (rep.etat === 'colores' || rep.etat === 'decolores') bes.push({ cle:'couleur', source:'reponses' });
+      return { type:'cheveux', prenom:'', titre:FR() ? 'Mes cheveux' : 'My hair', chiffres:ch, phare:phare, items:items, exemple:!!window.DEMO,
+               besoins:bes.map(function(b){ return { cle:b.cle, source:b.source }; }) };
     }
     var tm = veille(function(){ var g = document.getElementById('rfGestes'); return g && g.children.length && window.S && window.S.out; }, function(){
       var z = document.getElementById('vy-wrap-cheveux') || zone('vy-wrap-cheveux', document.getElementById('rfMot'));
@@ -99,10 +108,10 @@
       var base = (typeof DATA_BASE === 'string') ? DATA_BASE : '/scan/aliment/';
       var credits = null; try { credits = Core.get().credits; } catch(e){}
       var ch = [
-        { label:'Aliments passés en revue', valeur:z.data.length, unite:'' },
-        { label:'Écartés pour vous', valeur:z.excluded, unite:'' },
-        { label:'De saison', valeur:saison, unite:'' },
-        { label:'Retenus', valeur:chosen.length, unite:'' }
+        { label:'Aliments passés en revue', valeur:z.data.length, unite:'', cle:'revue' },
+        { label:'Écartés pour vous', valeur:z.excluded, unite:'', cle:'surmesure' },
+        { label:'De saison', valeur:saison, unite:'', cle:'saison' },
+        { label:'Retenus', valeur:chosen.length, unite:'', cle:'selection' }
       ];
       var items = chosen.map(function(c){ var f = c.f;
         return { nom:String(f.nom || '').split(' (')[0].split(',')[0], marque:'', etape:String(f.portion_type || '').split(' (')[0],
