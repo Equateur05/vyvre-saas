@@ -27,6 +27,90 @@ function moteur(){
   return facePromesse;
 }
 
+/* 07/10 (Charles) : l'animation V1 « Maillage lumineux » des propositions (/propals/visage), a valider.
+   Active avec ?visage=v1 (garde ensuite sur cet appareil ; ?visage=0 revient a l'ancienne).
+   Elle ne change que le DESSIN : les mesures en direct et le declenchement de la lecture restent ceux d'ici. */
+let MODE_V1 = false;
+try { const qv = (location.search.match(/[?&]visage=(v1|0)\b/) || [])[1]; if(qv) localStorage.setItem('vy-visage', qv); MODE_V1 = (qv || localStorage.getItem('vy-visage')) === 'v1'; } catch(e){ MODE_V1 = /[?&]visage=v1\b/.test(location.search); }
+let V1M = null, ARETES2 = null;
+if(MODE_V1) import('/propals/visage/variantes.js?v=4').then(m => { V1M = m; }).catch(() => { MODE_V1 = false; });
+function aretes2(){ if(ARETES2) return ARETES2; const vu = new Set(); ARETES2 = []; for(const e of ARETES){ const a = Math.min(e.start, e.end), b = Math.max(e.start, e.end), k = a*1000 + b; if(!vu.has(k)){ vu.add(k); ARETES2.push([a, b]); } } return ARETES2; }
+function dedansV(p, poly){ let c = false; for(let i = 0, j = poly.length - 1; i < poly.length; j = i++){ const a = poly[i], b = poly[j]; if((a.y > p.y) !== (b.y > p.y) && p.x < (b.x - a.x)*(p.y - a.y)/(b.y - a.y) + a.x) c = !c; } return c; }
+const tailleV = (c, w, h) => { w = Math.max(1, Math.round(w)); h = Math.max(1, Math.round(h)); if(c.width !== w || c.height !== h){ c.width = w; c.height = h; } };
+const GV = { g1:document.createElement('canvas'), g2:document.createElement('canvas'), g3:document.createElement('canvas'), dk:document.createElement('canvas') };
+let MESV = [], tMesV = 0;
+function mesurerV(L){
+  let d; try { d = cg.getImageData(0, 0, copie.width, copie.height).data; } catch(e){ return; }
+  const W = copie.width, H = copie.height;
+  MESV = V1M.ETAPES.map(e => { let r = 0, g = 0, b = 0, n = 0;
+    e.polys.forEach(ids => { const cxp = ids.reduce((q, i) => q + L[i].x, 0)/ids.length*W, cyp = ids.reduce((q, i) => q + L[i].y, 0)/ids.length*H;
+      [[cxp, cyp], ...ids.filter((_, q) => q % 2 === 0).map(i => [cxp + (L[i].x*W - cxp)*.45, cyp + (L[i].y*H - cyp)*.45])].forEach(([px, py]) => {
+        for(let dy = -1; dy <= 1; dy++) for(let dx = -1; dx <= 1; dx++){ const x = Math.round(px + dx), y = Math.round(py + dy); if(x < 0 || y < 0 || x >= W || y >= H) continue; const k = (y*W + x)*4; r += d[k]; g += d[k + 1]; b += d[k + 2]; n++; } }); });
+    if(!n) return null; const v = lab(r/n, g/n, b/n); return { L:v.L, a:v.a }; });
+}
+function bulleV(x, F, b, teinte){
+  const s = F.s, pad = 8*s;
+  x.font = '600 ' + (10.5*s).toFixed(1) + 'px -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif';
+  const w1 = x.measureText(b.titre).width + b.titre.length*1.6*s;
+  x.font = '500 ' + (10*s).toFixed(1) + 'px "IBM Plex Mono", ui-monospace, Menlo, monospace';
+  const w2 = b.sous ? x.measureText(b.sous).width : 0, pw = Math.max(w1, w2) + pad*2 + 3*s, ph = (b.sous ? 32 : 20)*s + pad*.6;
+  let lx = F.box.x1 + 16*s; if(lx + pw > F.W - 8) lx = F.W - 8 - pw;
+  let ly = Math.max(8, Math.min(F.H - 8 - ph, b.ancre.y - ph/2));
+  const ax = b.ancre.x, ay = b.ancre.y, ey = Math.max(ly + 4, Math.min(ly + ph - 4, ay));
+  if(lx > ax + 6){ x.beginPath(); x.moveTo(ax, ay); x.lineTo(lx, ey); x.lineWidth = .7*F.lw; x.strokeStyle = 'rgba(255,255,255,.7)'; x.stroke(); }
+  x.beginPath(); x.arc(ax, ay, 1.8*F.lw, 0, 7); x.fillStyle = 'rgba(255,255,255,.95)'; x.fill();
+  x.beginPath(); x.roundRect ? x.roundRect(lx, ly, pw, ph, 4*s) : x.rect(lx, ly, pw, ph); x.fillStyle = 'rgba(8,10,12,.55)'; x.fill();
+  x.fillStyle = 'rgba(' + teinte.halo + ',.95)'; x.fillRect(lx, ly + 4*s, 1.4*s, ph - 8*s);
+  x.textBaseline = 'middle'; x.textAlign = 'left';
+  x.font = '600 ' + (10.5*s).toFixed(1) + 'px -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif'; x.fillStyle = '#fff';
+  if('letterSpacing' in x) x.letterSpacing = (1.6*s) + 'px'; x.fillText(b.titre, lx + pad + 3*s, ly + pad*.6 + 7*s); if('letterSpacing' in x) x.letterSpacing = '0px';
+  if(b.sous){ x.font = '500 ' + (10*s).toFixed(1) + 'px "IBM Plex Mono", ui-monospace, Menlo, monospace'; x.fillStyle = 'rgba(228,234,232,.9)'; x.fillText(b.sous, lx + pad + 3*s, ly + pad*.6 + 21*s); }
+}
+function dessinerV1(a, now, sw, sh){
+  const M = V1M, V = M.VARIANTES[0], r = a.boite.getBoundingClientRect(), d = Math.min(2, devicePixelRatio || 1), W = r.width, H = r.height;
+  if(a.cv.width !== Math.round(W*d)){ a.cv.width = Math.round(W*d); a.cv.height = Math.round(H*d); }
+  const x = a.x; x.setTransform(d, 0, 0, d, 0, 0); x.clearRect(0, 0, W, H);
+  const vivant = a.L && now - a.vu < 1500; a.cv.style.opacity = vivant ? '1' : '0'; if(!a.L || !sw) return;
+  const cs = getComputedStyle(a.media), op = (cs.objectPosition || '50% 50%').split(' ').map(v => parseFloat(v)/100);
+  const s = Math.max(W/sw, H/sh), dw = sw*s, dh = sh*s, ox = (W - dw)*(isNaN(op[0]) ? .5 : op[0]), oy = (H - dh)*(isNaN(op[1]) ? .5 : op[1]);
+  const mir = a.media.tagName === 'VIDEO', L = a.L, n = L.length, m = a.memV || (a.memV = {});
+  if(!m.P || m.P.length !== n){ m.P = L.map(() => ({ x:0, y:0 })); m.Z = new Float32Array(n); m.N = new Float32Array(n); m.topo = null; }
+  const P = m.P, Z = m.Z, N = m.N; let zmin = 1e9, zmax = -1e9;
+  for(let i = 0; i < n; i++){ P[i].x = ox + (mir ? 1 - L[i].x : L[i].x)*dw; P[i].y = oy + L[i].y*dh; Z[i] = L[i].z*dw; if(Z[i] < zmin) zmin = Z[i]; if(Z[i] > zmax) zmax = Z[i]; }
+  for(let i = 0; i < n; i++) N[i] = (zmax - Z[i])/((zmax - zmin) || 1);
+  if(!m.topo){ const zone = new Int8Array(n).fill(-1); M.ETAPES.forEach((e, j) => e.polys.forEach(ids => { const poly = ids.map(i => ({ x:L[i].x, y:L[i].y })); for(let i = 0; i < n; i++) if(zone[i] < 0 && dedansV(L[i], poly)) zone[i] = j; ids.forEach(i => { if(zone[i] < 0) zone[i] = j; }); })); m.topo = { zone }; }
+  let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9, zr = 0;
+  for(const i of M.OVALE){ const p = P[i]; x0 = Math.min(x0, p.x); x1 = Math.max(x1, p.x); y0 = Math.min(y0, p.y); y1 = Math.max(y1, p.y); zr += Z[i]; }
+  const box = { x0, y0, x1, y1, w:x1 - x0, h:y1 - y0, cx:(x0 + x1)/2, cy:(y0 + y1)/2 };
+  let u = { x:P[263].x - P[33].x, y:P[263].y - P[33].y }; const ul = Math.hypot(u.x, u.y) || 1; u = { x:u.x/ul, y:u.y/ul }; if(u.x < 0) u = { x:-u.x, y:-u.y };
+  const v = { x:-u.y, y:u.x }, ech = Math.hypot(P[10].x - P[152].x, P[10].y - P[152].y);
+  const zones = M.ETAPES.map(e => { const polys = e.polys.map(ids => ids.map(i => P[i]));
+    const csz = e.polys.map(ids => { let q = 0, b = 0, c = 0; ids.forEach(i => { q += P[i].x; b += P[i].y; c += Z[i]; }); return { x:q/ids.length, y:b/ids.length, z:c/ids.length }; });
+    const c = { x:csz.reduce((q, p) => q + p.x, 0)/csz.length, y:csz.reduce((q, p) => q + p.y, 0)/csz.length }, droite = csz.reduce((q, b) => b.x > q.x ? b : q);
+    return { nom:e.nom, polys, cs:csz, c, droite }; });
+  const f1 = q => q.toFixed(1).replace('.', ','), mesTxt = j => { const q = MESV[j]; return q ? 'L* ' + f1(q.L) + '  ·  a* ' + f1(q.a) : 'lecture…'; };
+  const t = (now - a.debut)/1000;
+  const F = { P, Z, zpx:Z, N, W, H, box, u, v, ech, zref:zr/M.OVALE.length, zones, aretes:aretes2(), topo:m.topo, lec:M.lecture(t), mesTxt,
+    lw:Math.max(.75, Math.min(1.7, ech/230)), s:Math.max(.78, Math.min(1.15, Math.min(W, H)/430)) };
+  if(V.voile){ x.save(); x.translate(box.cx, box.cy); x.rotate(Math.atan2(u.y, u.x)); x.scale(1, box.h/box.w*1.02);
+    const Rr = box.w*.5, gr = x.createRadialGradient(0, 0, Rr*1.05, 0, 0, Rr*2.3); gr.addColorStop(0, 'rgba(4,6,8,0)'); gr.addColorStop(1, 'rgba(4,6,8,' + V.voile + ')');
+    x.fillStyle = gr; x.fillRect(-W*3, -H*3, W*6, H*6); x.restore(); }
+  V.prep(F, t, m);
+  const g1w = Math.ceil(W/3), g1h = Math.ceil(H/3);
+  tailleV(GV.g1, g1w, g1h); tailleV(GV.g2, g1w/2, g1h/2); tailleV(GV.g3, g1w/6, g1h/6); tailleV(GV.dk, g1w/2, g1h/2);
+  const g = GV.g1.getContext('2d'); g.setTransform(1, 0, 0, 1, 0, 0); g.clearRect(0, 0, g1w, g1h); g.setTransform(1/3, 0, 0, 1/3, 0, 0);
+  V.lueur(g, F, t, m);
+  const g2 = GV.g2.getContext('2d'); g2.globalCompositeOperation = 'copy'; g2.drawImage(GV.g1, 0, 0, GV.g2.width, GV.g2.height);
+  const g3 = GV.g3.getContext('2d'); g3.globalCompositeOperation = 'copy'; g3.drawImage(GV.g2, 0, 0, GV.g3.width, GV.g3.height);
+  const dk = GV.dk.getContext('2d'); dk.globalCompositeOperation = 'copy'; dk.drawImage(GV.g2, 0, 0); dk.globalCompositeOperation = 'source-in'; dk.fillStyle = '#000'; dk.fillRect(0, 0, GV.dk.width, GV.dk.height);
+  x.globalAlpha = V.ombre; x.drawImage(GV.dk, 0, ech*.012, W, H);
+  x.globalCompositeOperation = 'lighter'; x.globalAlpha = .9; x.drawImage(GV.g3, 0, 0, W, H); x.globalAlpha = .85; x.drawImage(GV.g2, 0, 0, W, H); x.globalAlpha = .45; x.drawImage(GV.g1, 0, 0, W, H);
+  x.globalCompositeOperation = 'source-over'; x.globalAlpha = 1;
+  V.trait(x, F, t, m);
+  /* pas de « lecture complete » ici : la vraie fin de lecture, c'est le moteur qui la dit */
+  const lec = F.lec; if(!lec.fini) bulleV(x, F, { ancre:zones[lec.i].droite, titre:zones[lec.i].nom, sous:mesTxt(lec.i), k:lec.k }, V.teinte);
+}
+
 let actif = null;   // { boite, media, cv, x, L, PC, debut, t0 }
 const copie = document.createElement('canvas'), cg = copie.getContext('2d');
 /* ---- 30/09 (Charles : « a droite, des trucs en temps reel au lieu d'infos a la con ») ----
@@ -105,7 +189,8 @@ function boucle(now){
       else for(let i = 0; i < a.L.length; i++){ a.L[i].x += (n[i].x - a.L[i].x)*.45; a.L[i].y += (n[i].y - a.L[i].y)*.45; a.L[i].z += (n[i].z - a.L[i].z)*.45; }
       a.vu = now; if(a.debut === null) a.debut = now; mesurer(a.L); }
   }
-  dessiner(a, now, sw, sh); panneau(now);
+  if(MODE_V1 && V1M){ if(now - tMesV > 400 && a.L){ tMesV = now; mesurerV(a.L); } dessinerV1(a, now, sw, sh); } else dessiner(a, now, sw, sh);
+  panneau(now);
   requestAnimationFrame(boucle);
 }
 
