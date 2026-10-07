@@ -19,6 +19,26 @@
     z = document.createElement('div'); z.id = id; z.className = 'vyw-zone';
     apres.parentNode.insertBefore(z, apres.nextSibling); return z;
   }
+  /* 07/10 (X1) : la vignette du visage n'est reprise que si elle a ete ecrite PENDANT cette visite (jamais celle
+     d'un scan precedent, peut-etre d'une autre personne sur le meme appareil). Elle reste dans la page. */
+  var FACE0 = null; try { FACE0 = localStorage.getItem('vyvre_scan_face'); } catch(e){}
+  function vignette(src, box, sujet){
+    /* les 68 reperes du visage, si le detecteur de la page est la (aucun envoi) */
+    return new Promise(function(res){
+      var out = { src:src, sujet:sujet || 'visage' }; if (box) out.box = box;
+      var fa = window.faceapi, fini = false; function sortie(){ if (!fini){ fini = true; res(out); } }
+      try {
+        if (!fa || !fa.nets || !fa.nets.tinyFaceDetector || !fa.nets.tinyFaceDetector.isLoaded || !fa.nets.faceLandmark68Net || !fa.nets.faceLandmark68Net.isLoaded) return sortie();
+        var im = new Image(); im.onload = function(){
+          fa.detectSingleFace(im, new fa.TinyFaceDetectorOptions({ inputSize:320, scoreThreshold:.35 })).withFaceLandmarks().then(function(r){
+            if (r && r.landmarks){ var w = im.naturalWidth, h = im.naturalHeight; out.pts = r.landmarks.positions.map(function(q){ return [q.x / w, q.y / h]; }); }
+            sortie();
+          }).catch(sortie);
+        }; im.onerror = sortie; im.src = src;
+        setTimeout(sortie, 2500);
+      } catch(e){ sortie(); }
+    });
+  }
   function veille(test, poser, ms){
     var t = setInterval(function(){ try { if (test()){ poser(); } } catch(e){} }, ms || 800);
     return t;
@@ -48,7 +68,10 @@
          s'il manque, on garde l'ancien comportement (le meilleur score) */
       var big = document.querySelector('[data-vyvre-score-large]'), gv = big ? Number(big.dataset.target) : NaN;
       var phare = (big && big.dataset.target !== '' && isFinite(gv) && gv >= 0 && gv <= 100) ? { label:FR() ? 'Indice global' : 'Global index', valeur:Math.round(gv), unite:'/100' } : ch[0];
-      return { type:'peau', prenom:'', titre:FR() ? 'Ma peau' : 'My skin', chiffres:ch, phare:phare, items:items };
+      var dn = { type:'peau', prenom:'', titre:FR() ? 'Ma peau' : 'My skin', chiffres:ch, phare:phare, items:items };
+      var f = null; try { f = localStorage.getItem('vyvre_scan_face'); } catch(e){}
+      if (f && f !== FACE0 && /^data:image\//.test(f)) return vignette(f, null, 'visage').then(function(v){ dn.visage = v; return dn; });
+      return dn;
     }
     var fait = false;
     var tm = veille(function(){ return !fait && res.classList.contains('active') && window.vyvreLastScanResult && window.__vySelection && window.__vySelection.length; }, function(){
@@ -72,7 +95,7 @@
       var fam = sc.couleur && window.FAMILLES && window.FAMILLES[String(sc.couleur.famille || '').toLowerCase()];
       if (fam) ch.push({ label:T('hc.m.couleur'), valeur:T(fam), unite:'' });
       if (typeof q.score === 'number') ch.push({ label:T('hc.rel.2'), valeur:Math.round(q.score), unite:'/100' });
-      if (liste.length) ch.push({ label:T('hc.rel.3'), valeur:liste.length, unite:T('hc.rf.gestesu') });
+      if (liste.length) ch.push({ label:T('hc.rel.3'), valeur:liste.length, unite:T('hc.rf.gestesu'), cle:'routine' });
       var phare = ch.filter(function(c){ return n(c.valeur) !== null; })[0] || null;
       var items = liste.map(function(p){
         var img = typeof window.imageUrl === 'function' ? window.imageUrl(p) : (p.cutout_url || p.image || '');
@@ -87,8 +110,21 @@
       bes.sort(function(a, b){ return b.v - a.v || a.i - b.i; });
       var rep = S.answers || {};
       if (rep.etat === 'colores' || rep.etat === 'decolores') bes.push({ cle:'couleur', source:'reponses' });
-      return { type:'cheveux', prenom:'', titre:FR() ? 'Mes cheveux' : 'My hair', chiffres:ch, phare:phare, items:items, exemple:!!window.DEMO,
-               besoins:bes.map(function(b){ return { cle:b.cle, source:b.source }; }) };
+      /* 07/10 (X) : le nom de la mesure accompagne chaque besoin (la preuve : « SÉCHERESSE · D'APRÈS TES RÉPONSES ») */
+      var NOMS = { secheresse:'hc.m.secheresse', casse:'hc.m.casse', racinesGrasses:'hc.m.gras', frizz:'hc.m.frizz', couleur:'hc.m.couleur' };
+      var dn = { type:'cheveux', prenom:'', titre:FR() ? 'Mes cheveux' : 'My hair', chiffres:ch, phare:phare, items:items, exemple:!!window.DEMO,
+               besoins:bes.map(function(b){ var lb = NOMS[b.cle] ? T(NOMS[b.cle]) : ''; return { cle:b.cle, source:b.source, label:lb && lb !== NOMS[b.cle] ? lb : '' }; }) };
+      /* X1 : l'image capturee par la camera (pose de face), si elle existe ; jamais en demonstration */
+      try {
+        var po = (S.poses || []).filter(function(x){ return x && x.canvas && x.canvas.width; })[0];
+        if (po && !window.DEMO){
+          var c = document.createElement('canvas'), k = 360 / po.canvas.width; c.width = 360; c.height = Math.round(po.canvas.height * k);
+          c.getContext('2d').drawImage(po.canvas, 0, 0, c.width, c.height);
+          var fb = po.faceBox, bx = fb ? { x:fb.x / po.canvas.width, y:fb.y / po.canvas.height, w:fb.width / po.canvas.width, h:fb.height / po.canvas.height } : null;
+          dn.visage = { src:c.toDataURL('image/jpeg', .8), sujet:'cheveux', box:bx };
+        }
+      } catch(e){}
+      return dn;
     }
     var tm = veille(function(){ var g = document.getElementById('rfGestes'); return g && g.children.length && window.S && window.S.out; }, function(){
       var z = document.getElementById('vy-wrap-cheveux') || zone('vy-wrap-cheveux', document.getElementById('rfMot'));
@@ -99,25 +135,18 @@
   /* ---------------------------- assiette (/aliment/parcours/04-*.html) */
   function parcours(){
     var page = window.PAGE; if (page !== 'result' && page !== 'resultSolo') return;
+    var CAT = { legume:'Légume', fruit:'Fruit', legumineuse:'Légumineuse', poisson:'Poisson', fruit_de_mer:'Fruit de mer', cereale_complete:'Céréale complète', feculent:'Féculent', fruit_a_coque:'Fruit à coque', graine:'Graine', fruit_sec:'Fruit sec', cacao:'Cacao', boisson:'Boisson', matiere_grasse:'Huile', produit_laitier_fermente:'Produit laitier fermenté', produit_laitier:'Produit laitier', fromage:'Fromage', oeuf:'Œuf', epice_herbe:'Épice ou herbe', volaille:'Volaille', viande:'Viande', condiment:'Condiment', sucre:'Produit sucré' };
     function donnees(){
-      /* prepareSelection, Core et DATA_BASE sont ceux de parcours.js (portee globale) */
-      if (typeof prepareSelection !== 'function') return null;
+      /* prepareSelection, Core et DATA_BASE sont ceux de parcours.js (portee globale).
+         07/10 (X) : la revelation = le besoin que la page a lu (Core.indices : i1, son niveau, sa valeur ; entretien sinon),
+         puis les aliments retenus avec leurs photos (licence verifiee, credit joint). Avant : « 265 aliments passés en revue ». */
+      if (typeof prepareSelection !== 'function' || !VyWrap.aliment) return null;
       var z = prepareSelection(); if (!z) return null;
-      var chosen = z.chosen.slice(0, 4), mois = new Date().getMonth() + 1;
-      var saison = chosen.filter(function(c){ return (c.f.saison || []).indexOf(mois) >= 0; }).length;
       var base = (typeof DATA_BASE === 'string') ? DATA_BASE : '/scan/aliment/';
       var credits = null; try { credits = Core.get().credits; } catch(e){}
-      var ch = [
-        { label:'Aliments passés en revue', valeur:z.data.length, unite:'', cle:'revue' },
-        { label:'Écartés pour vous', valeur:z.excluded, unite:'', cle:'surmesure' },
-        { label:'De saison', valeur:saison, unite:'', cle:'saison' },
-        { label:'Retenus', valeur:chosen.length, unite:'', cle:'selection' }
-      ];
-      var items = chosen.map(function(c){ var f = c.f;
-        return { nom:String(f.nom || '').split(' (')[0].split(',')[0], marque:'', etape:String(f.portion_type || '').split(' (')[0],
-                 image:(credits && !credits[f.id]) ? '' : base + 'photos/' + f.id + '.png' }; });
       var demoPhoto = false; try { demoPhoto = !!demo; } catch(e){}
-      return { type:'aliment', prenom:'', titre:'Mes aliments peau', chiffres:ch, phare:ch[0], items:items, exemple:demoPhoto };
+      return VyWrap.aliment({ ind:z.ind, aliments:z.chosen.slice(0, 4).map(function(c){ return c.f; }), total:z.data.length, ecartes:z.excluded,
+                              credits:credits, base:base, categories:CAT, exemple:demoPhoto });
     }
     var app = document.getElementById('app'); if (!app) return;
     function poser(){

@@ -17,6 +17,11 @@
    et le cheveu une liste besoins:[{cle, source:'reponses'|'photo'|'lecture'}] :
    la serie R (la revelation) en tire la phrase du besoin (table BES).
    07/10 (soir) : la serie L (luxe), memes phrases, polices de mode locales (fonts/, OFL).
+   07/10 (nuit) : la serie X (vraie 3D, three.js local dans vendor/, licence MIT) : X1 le visage
+   en lumiere, X2 le chrome liquide, X3 le flacon de verre, X4 la typo geante. Le rendu 3D vit
+   dans vy-wrap-x.js (module charge a la demande) ; le son, ici. Repli 2D si WebGL manque.
+   donnees.visage = { src, pts, box, sujet } (X1 seulement : la vignette du scan, gardee sur
+   l'appareil) ; donnees.lecture = { i1, n1, niv1, i2, n2, niv2, entretien, bas } (assiette).
 
    Regles : aucune photo du visage, aucun prix, aucun chiffre invente (on ne
    dessine que ce qui arrive dans donnees), pas d'emoji.
@@ -78,6 +83,12 @@
           cta:{ peau:['Et toi,', 'ta peau veut quoi\u202f?'], cheveux:['Et toi,', 'tes cheveux veulent quoi\u202f?'], aliment:['Et toi,', 'tu mets quoi dans ton assiette\u202f?'] },
           plusBasse:'ta mesure la plus basse', mesures:'mesures', mesure:'mesure', lectures:'lectures', lecture:'lecture', aliments:'aliments,', uneAssiette:'une assiette.', unePriorite:'une priorité.',
           enCouv:'En couverture', defile:'Défilé', look:'Look', dernier:'Dernier passage' },
+      /* X1 a X4 (07/10, nuit) */
+      x:{ hook:{ peau:'Ce que ta peau demande', cheveux:'Ce que tes cheveux demandent', aliment:'Ma lecture, mon assiette' },
+          kicker:{ peau:'Édition peau', cheveux:'Édition cheveux', aliment:'Édition assiette' },
+          mien:{ peau:'MA PEAU', cheveux:'MES CHEVEUX', aliment:'MON ASSIETTE' },
+          produits:{ peau:'Mes soins', cheveux:'Ma routine', aliment:'Mes aliments peau' },
+          etToi:'ET TOI ?', aussi:'Aussi', photo:'Photo' },
       diagPartage:{ ok:'ok', annule:'annulé', erreur:'erreur', aucun:'aucun', telecharge:'téléchargé (pas de partage)' }
     },
     en: {
@@ -111,6 +122,11 @@
           cta:{ peau:['And you,', 'what does your skin need?'], cheveux:['And you,', 'what does your hair need?'], aliment:['And you,', 'what’s on your plate?'] },
           plusBasse:'your lowest measure', mesures:'measures', mesure:'measure', lectures:'readings', lecture:'reading', aliments:'foods,', uneAssiette:'one plate.', unePriorite:'one priority.',
           enCouv:'Cover story', defile:'Runway', look:'Look', dernier:'Final look' },
+      x:{ hook:{ peau:'What your skin asks for', cheveux:'What your hair asks for', aliment:'My reading, my plate' },
+          kicker:{ peau:'Skin edition', cheveux:'Hair edition', aliment:'Plate edition' },
+          mien:{ peau:'MY SKIN', cheveux:'MY HAIR', aliment:'MY PLATE' },
+          produits:{ peau:'My products', cheveux:'My routine', aliment:'My plate' },
+          etToi:'AND YOU?', aussi:'Also', photo:'Photo' },
       diagPartage:{ ok:'ok', annule:'cancelled', erreur:'error', aucun:'none', telecharge:'downloaded (no share)' }
     }
   };
@@ -183,25 +199,45 @@
     if (!phare) phare = chiffres.filter(function(c){ return num(c.valeur) !== null; })[0] || null;
     var autres = chiffres.filter(function(c){ return !phare || !(c.label === phare.label && String(c.valeur) === String(phare.valeur)); }).slice(0, 3);
     var items = (d.items || []).filter(function(it){ return it && it.nom; }).slice(0, 4).map(function(it){
-      return { nom:String(it.nom), marque:it.marque ? String(it.marque) : '', image:it.image || '', etape:it.etape ? String(it.etape).replace(/^\s*0?\d+\s*[·.\-]\s*/, '') : '', fond:!!it.fond };
+      return { nom:String(it.nom), marque:it.marque ? String(it.marque) : '', image:it.image || '', etape:it.etape ? String(it.etape).replace(/^\s*0?\d+\s*[·.\-]\s*/, '') : '', fond:!!it.fond, credit:it.credit ? String(it.credit).slice(0, 90) : '' };
     });
+    /* 07/10 (X) : l'assiette transmet la lecture de peau qui a decide les aliments (memes niveaux que la page) */
+    var lecture = null, lu = d.lecture;
+    if (lu && typeof lu === 'object' && (lu.entretien || IND_X[lu.i1])){
+      lecture = { i1:lu.entretien ? 'entretien' : String(lu.i1), n1:num(lu.n1), niv1:NIV_X[lu.niv1] ? lu.niv1 : null, i2:IND_X[lu.i2] ? String(lu.i2) : null, n2:num(lu.n2), niv2:NIV_X[lu.niv2] ? lu.niv2 : null,
+                  entretien:!!lu.entretien, bas:IND_X[lu.bas] ? String(lu.bas) : null };
+      var lgI = langue() === 'fr' ? 'fr' : 'en';
+      /* les libelles des indices suivent la langue du Wrap */
+      chiffres.forEach(function(c){ if (c.cle === 'indice'){ var k = lecture.entretien ? lecture.bas : lecture.i1; if (IND_X[k]) c.label = IND_X[k][lgI]; } if (c.cle === 'indice2' && IND_X[lecture.i2]) c.label = IND_X[lecture.i2][lgI]; });
+      if (phare && d.phare && d.phare.cle === 'indice'){ var kp = lecture.entretien ? lecture.bas : lecture.i1; if (IND_X[kp]) phare.label = IND_X[kp][lgI]; }
+    }
+    /* X1 : la vignette du scan (jamais envoyee : elle reste dans la page) ; sans elle, X1 ne dessine aucun visage */
+    var visage = null, vs = d.visage;
+    if (vs && typeof vs.src === 'string' && (/^data:image\/(jpeg|png|webp);base64,/.test(vs.src) || /^blob:/.test(vs.src))){
+      visage = { src:vs.src, sujet:vs.sujet === 'cheveux' ? 'cheveux' : 'visage',
+                 pts:Array.isArray(vs.pts) && vs.pts.length === 68 && vs.pts.every(function(p){ return p && isFinite(p[0]) && isFinite(p[1]); }) ? vs.pts : null,
+                 box:vs.box && isFinite(vs.box.x) && isFinite(vs.box.y) && vs.box.w > 0 && vs.box.h > 0 ? { x:+vs.box.x, y:+vs.box.y, w:+vs.box.w, h:+vs.box.h } : null };
+    }
     var prenom = String(d.prenom || '').trim().slice(0, 20);
     if (prenom) prenom = prenom.charAt(0).toLocaleUpperCase() + prenom.slice(1);
     var th = THEMES[type];
     var out = {
       type:type, prenom:prenom, titre:String(d.titre || '').trim(),
       chiffres:chiffres, phare:phare, autres:autres, items:items,
-      exemple:!!d.exemple, palette:(d.palette && d.palette in PALETTES) ? d.palette : PAL_DEFAUT, style:/^(A|B|C|D|D[1-4]|R[1-4]|L[1-4])$/.test(String(d.style || '').toUpperCase()) ? String(d.style).toUpperCase() : 'D',   /* 06/10 : Charles a choisi le D */
+      exemple:!!d.exemple, palette:(d.palette && d.palette in PALETTES) ? d.palette : PAL_DEFAUT, style:/^(A|B|C|D|D[1-4]|R[1-4]|L[1-4]|X[1-4])$/.test(String(d.style || '').toUpperCase()) ? String(d.style).toUpperCase() : 'D',   /* 06/10 : Charles a choisi le D */
       a:hexRgb(d.couleur || th.a), b:hexRgb(d.couleur2 || th.b), fond:th.fond, theme:th,
-      besoins:Array.isArray(d.besoins) ? d.besoins.filter(function(b){ return b && b.cle; }) : undefined
+      besoins:Array.isArray(d.besoins) ? d.besoins.filter(function(b){ return b && b.cle; }) : undefined,
+      lecture:lecture, visage:visage
     };
     out.tm = temps(out.style);
     /* les variantes D1 a D4 : ce qu'elles revelent, derive une fois des vraies valeurs (rien d'aleatoire) */
     if (VARIANTES[out.style]){ var L = T(); out.P = profil(out, L); out.G = devinettes(out); out.C3 = compteARebours(out); }
     /* R1 a R4 : la phrase du besoin, derivee une fois des vraies valeurs (table BES) */
-    if (/^[RL]/.test(out.style)) out.B = besoinsR(out, T());
+    if (/^[RLX]/.test(out.style)) out.B = besoinsR(out, T());
     /* L1 a L4 : les memes besoins, ecrits en titre de une, et le decoupage du temps */
     if (/^L/.test(out.style)){ out.LX = luxeL(out); out.PL = planL(out); }
+    /* X1 a X4 : les memes phrases (capitales de R, bas de casse de L) et le decoupage en 18 temps */
+    if (/^X/.test(out.style)){ out.LX = luxeL(out); out.PX = planX(out); }
     return out;
   }
 
@@ -210,7 +246,19 @@
   var VARIANTES = { D1:{ bpm:126 }, D2:{ bpm:128 }, D3:{ bpm:140 }, D4:{ bpm:132 },
                     R1:{ bpm:120, poster:7.6 }, R2:{ bpm:124, poster:7.6 }, R3:{ bpm:128, poster:7.6 }, R4:{ bpm:116, poster:7.6 },
                     /* 07/10 : la serie L, 12 temps lents (8,4 s a 8,8 s) */
-                    L1:{ bpm:86, temps:12, poster:5.6 }, L2:{ bpm:82, temps:12, poster:5.6 }, L3:{ bpm:88, temps:12, poster:5.6 }, L4:{ bpm:84, temps:12, poster:5.6 } };
+                    L1:{ bpm:86, temps:12, poster:5.6 }, L2:{ bpm:82, temps:12, poster:5.6 }, L3:{ bpm:88, temps:12, poster:5.6 }, L4:{ bpm:84, temps:12, poster:5.6 },
+                    /* 07/10 (nuit) : la serie X, 18 temps (8,2 s a 9 s) */
+                    X1:{ bpm:124, temps:18, poster:5.4 }, X2:{ bpm:126, temps:18, poster:5.4 }, X3:{ bpm:120, temps:18, poster:5.4 }, X4:{ bpm:132, temps:18, poster:5.4 } };
+  /* X : le decoupage du temps (en temps de la mesure, 18 par boucle) ; les soins se partagent les temps 7 a 13 */
+  function planX(d){
+    var n = d.items.length;
+    return { tens:1, sil:3.75, rev:4, preuve:4.85, aut:5.6, prod:7, dp:n ? 6 / n : 0, n:n, cta:n ? 13 : 8.5, retour:16, fin:18 };
+  }
+  /* l'assiette : les indices de la lecture de peau (memes noms que la page) et les trois niveaux */
+  var IND_X = { hydratation:{ fr:'Hydratation', en:'Hydration' }, eclat:{ fr:'Éclat', en:'Radiance' }, rougeurs:{ fr:'Rougeurs', en:'Redness' },
+                pores_sebum:{ fr:'Pores et sébum', en:'Pores and sebum' }, uniformite:{ fr:'Uniformité', en:'Evenness' },
+                rides_fermete:{ fr:'Rides et fermeté', en:'Lines and firmness' }, texture:{ fr:'Texture', en:'Texture' } };
+  var NIV_X = { prioritaire:{ fr:'PRIORITAIRE', en:'PRIORITY' }, surveiller:{ fr:'À SURVEILLER', en:'TO WATCH' }, normal:{ fr:'DANS MA ZONE', en:'IN MY RANGE' } };
   function temps(st){
     var v = VARIANTES[st];
     if (!v) return { D:D, HOLD:HOLD, CYCLE:CYCLE, FIN_REC:FIN_REC, poster:D - .02, boucle:false };
@@ -242,6 +290,13 @@
     if (d.type === 'cheveux'){
       c = d.chiffres.filter(function(c){ return num(c.valeur) === null; })[0];
       if (c){ var v = maj(String(c.valeur)); return { nom:v, raison:maj(c.label), roll:L.couleurs.filter(function(n){ return n !== v; }).concat([v]) }; }
+    }
+    if (d.type === 'aliment' && d.lecture){
+      /* 07/10 : l'assiette revele le besoin lu sur la peau (l'indice qui a decide les aliments), plus le nombre d'aliments passes en revue */
+      var lgP = langue() === 'fr' ? 'fr' : 'en', lu = d.lecture, ci = d.chiffres.filter(function(c){ return c.cle === 'indice' && num(c.valeur) !== null; })[0];
+      var nomP = lu.entretien ? (lgP === 'fr' ? 'ENTRETIEN' : 'MAINTENANCE') : maj(IND_X[lu.i1][lgP]);
+      var raisonP = ci ? maj(ci.label) + ' ' + valTxt(ci) + '/100' + (NIV_X[lu.entretien ? 'normal' : lu.niv1] ? ' · ' + NIV_X[lu.entretien ? 'normal' : lu.niv1][lgP] : '') : '';
+      return { nom:nomP, raison:raisonP, roll:d.items.map(function(it){ return maj(it.nom); }).concat([nomP]) };
     }
     if (d.type === 'aliment'){
       var ret = d.chiffres.filter(function(c){ return /retenu|retain|chosen|kept/i.test(c.label) && num(c.valeur) !== null; })[0];
@@ -1639,7 +1694,8 @@
       /* les besoins viennent de la page (memes seuils que sa propre phrase), dans son ordre ; la boucle, de la photo */
       var bc = d.chiffres.filter(function(c){ return (c.cle === 'boucle' || BES.cheveux.boucles.re.test(c.label)) && num(c.valeur) !== null; })[0];
       (Array.isArray(d.besoins) ? d.besoins : []).forEach(function(b){
-        if (b && tb[b.cle] && b.cle.charAt(0) !== '_' && !a(b.cle) && out.liste.length < 3) pousse(b.cle, 'rep', b.source === 'reponses' ? R.reponses : b.source === 'photo' ? R.taLecture : R.lectureReponses);
+        /* 07/10 : la preuve nomme la mesure (« SÉCHERESSE · D'APRÈS TES RÉPONSES ») quand la page la transmet */
+        if (b && tb[b.cle] && b.cle.charAt(0) !== '_' && !a(b.cle) && out.liste.length < 3) pousse(b.cle, 'rep', (b.label ? maj(String(b.label)) + ' · ' : '') + (b.source === 'reponses' ? R.reponses : b.source === 'photo' ? R.taLecture : R.lectureReponses));
       });
       if (bc && num(bc.valeur) >= 55 && out.liste.length < 3) pousse('boucles', bc, preuve(bc));
       if (!out.liste.length){
@@ -1648,6 +1704,19 @@
       }
       out.lignes = d.chiffres.slice(0, 7).map(function(c){ return ligne(c); });
       if (out.liste.some(function(e){ return e.ref === 'rep'; })) out.lignes.push({ label:R.reponsesCourt, v:null, max:100, txt:R.lues, ref:'rep' });
+    } else if (d.lecture){
+      /* 07/10 : l'assiette revele le besoin que la page a lu (Core.indices) : l'indice, son niveau, sa valeur ;
+         en entretien, aucun faux probleme. Jamais d'effet promis : on nomme le besoin, pas un resultat. */
+      var lu = d.lecture, ci1 = d.chiffres.filter(function(c){ return c.cle === 'indice' && num(c.valeur) !== null; })[0], ci2 = d.chiffres.filter(function(c){ return c.cle === 'indice2' && num(c.valeur) !== null; })[0];
+      var pr = function(c, niv){ return c ? maj(c.label) + ' ' + valTxt(c) + '/100' + (NIV_X[niv] ? ' · ' + NIV_X[niv][lg] : '') : ''; };
+      if (lu.entretien){
+        out.positif = true;
+        out.liste.push({ cle:'_entretien', gros:lg === 'fr' ? 'TA PEAU VA BIEN' : 'YOUR SKIN IS DOING WELL', constat:lg === 'fr' ? 'ASSIETTE D’ENTRETIEN' : 'A MAINTENANCE PLATE', preuve:pr(ci1, 'normal'), ref:ci1 || null });
+      } else {
+        out.liste.push({ cle:'ind_' + lu.i1, gros:maj(IND_X[lu.i1][lg]), constat:lu.niv1 === 'prioritaire' ? (lg === 'fr' ? 'MA PRIORITÉ N°1' : 'MY NO. 1 PRIORITY') : NIV_X.surveiller[lg], preuve:pr(ci1, lu.niv1), ref:ci1 || null });
+        if (lu.i2 && IND_X[lu.i2] && lu.i2 !== lu.i1) out.liste.push({ cle:'ind_' + lu.i2, gros:maj(IND_X[lu.i2][lg]), constat:NIV_X[lu.niv2] ? NIV_X[lu.niv2][lg] : '', preuve:pr(ci2, lu.niv2), ref:ci2 || null });
+      }
+      out.lignes = d.chiffres.slice(0, 8).map(function(c){ return ligne(c, est100(c) ? 100 : Math.max.apply(null, d.chiffres.map(function(z){ return num(z.valeur) || 1; }))); });
     } else {
       var get = function(k){ return d.chiffres.filter(function(c){ return (c.cle === k || (BES.aliment[k] && BES.aliment[k].re.test(c.label))) && num(c.valeur) !== null; })[0]; };
       var rv = d.chiffres.filter(function(c){ return (c.cle === 'revue' || /revue|review/i.test(c.label)) && num(c.valeur) !== null; })[0];
@@ -1664,6 +1733,8 @@
     /* le tirage (R2) : les autres phrases de la table, puis la bonne, en dernier */
     var mots = [];
     Object.keys(tb).forEach(function(k){ if (k.charAt(0) !== '_' && tb[k][lg][0] !== n1.gros) mots.push(tb[k][lg][0]); });
+    /* 07/10 : l'assiette qui revele un indice de peau tire parmi les autres indices (pas les anciennes phrases de comptes) */
+    if (d.type === 'aliment' && d.lecture){ mots = Object.keys(IND_X).map(function(k){ return maj(IND_X[k][lg]); }).filter(function(w){ return w !== n1.gros; }); }
     if (d.type === 'aliment') d.items.forEach(function(it){ var w = maj(it.nom); if (w !== n1.gros && w.length <= 18) mots.push(w); });
     if (!mots.length) mots = [maj(L.types[d.type])];
     while (out.roue.length < 20) out.roue = out.roue.concat(mots);
@@ -2922,6 +2993,39 @@
     this.signeL(K.ivoire, .8);
   };
 
+  /* ===================================================================
+     X1 a X4 (07/10, nuit) : la vraie 3D. La scene vit dans vy-wrap-x.js (module ES charge a la
+     demande, three.js local) ; elle dessine dans ce meme canvas 2D (le rendu WebGL, a resolution
+     interne reduite, puis le texte net par-dessus) : l'enregistrement et le partage ne changent pas.
+     =================================================================== */
+  var BASE_WRAP = (function(){ try { var s = document.currentScript && document.currentScript.src; if (s) return new URL('./', s).href; } catch(e){} return '/wrap/'; })();
+  var MODX = null, VER_X = '1';
+  function chargeX(){
+    if (MODX) return MODX;
+    MODX = new Promise(function(res, rej){
+      if (window.__VYWX) return res(window.__VYWX);
+      var s = document.createElement('script'), fini = false; s.type = 'module'; s.src = BASE_WRAP + 'vy-wrap-x.js?v=' + VER_X;
+      function sortie(ok){ if (fini) return; fini = true; if (ok && window.__VYWX) res(window.__VYWX); else { MODX = null; rej(new Error('module X indisponible')); } }
+      s.onload = function(){ sortie(true); }; s.onerror = function(){ sortie(false); };
+      setTimeout(function(){ sortie(!!window.__VYWX); }, 12000);
+      document.head.appendChild(s);
+    });
+    return MODX;
+  }
+  /* si le module ne se charge pas du tout : un style 2D de la meme famille (le Wrap sort quand meme) */
+  var REPLI_X = { X1:'L4', X2:'R3', X3:'L2', X4:'R1' };
+  function preparerX(R, d, donnees, apercu){
+    return chargeX().then(function(M){ return M.creer(R, d, { apercu:!!apercu, V:OUTILS_X }); }).then(function(sc){ R.X = sc; return sc; });
+  }
+  Rendu.prototype.dessineX = function(tAbs){
+    if (this.X){ var t0 = performance.now(); this.X.dessine(tAbs); this.X.ms = (this.X.ms || []); this.X.ts = (this.X.ts || []); this.X.ms.push(performance.now() - t0); this.X.ts.push(t0); if (this.X.ms.length > 240){ this.X.ms.shift(); this.X.ts.shift(); } return; }
+    var x = this.x; x.setTransform(1, 0, 0, 1, 0, 0); x.globalAlpha = 1; x.globalCompositeOperation = 'source-over'; x.fillStyle = '#060606'; x.fillRect(0, 0, W, H);
+  };
+  Rendu.prototype.dessineX1 = Rendu.prototype.dessineX2 = Rendu.prototype.dessineX3 = Rendu.prototype.dessineX4 = function(tAbs){ return this.dessineX(tAbs); };
+  Rendu.prototype.liberer = function(){ if (this.X && this.X.liberer){ try { this.X.liberer(); } catch(e){} } this.X = null; };
+  /* les outils partages avec le module */
+  var OUTILS_X = null;
+
   /* ------------------------------------------------------------- le son */
   var CTX = null;
   function amorcer(){
@@ -2934,7 +3038,7 @@
       return CTX;
     } catch(e){ return null; }
   }
-  var GAIN_BUS = { D3:.5, R1:.68, R2:.71, R3:.73, R4:.4, L1:2.3, L2:2.35, L3:2.2, L4:1.65 };   /* 07/10 : L mesuree au niveau moyen de R (±1,5 dB) */
+  var GAIN_BUS = { D3:.5, R1:.68, R2:.71, R3:.73, R4:.4, L1:2.3, L2:2.35, L3:2.2, L4:1.65, X1:1.15, X2:1, X3:1.45, X4:1 };   /* X : mesure le 07/10 (nuit) au niveau de D4, R1 et L2 (±1,5 dB), ffmpeg ebur128 */   /* 07/10 : L mesuree au niveau moyen de R (±1,5 dB) */
   function Son(ctx, d){
     this.ctx = ctx; this.th = d.theme; this.style = d.style || 'D'; this.d = d; this.tm = d.tm || temps(this.style);
     var out = ctx.createGain(); out.gain.value = 1.2;
@@ -2945,7 +3049,7 @@
     this.ecoute = ctx.createGain(); this.ecoute.gain.value = 1;
     /* 07/10 : R1 a R4 ont un limiteur en sortie (le BIM empile grosse caisse, impact et basse : pas de saturation) */
     var sortie = out;
-    if (/^[RL]/.test(this.style)){ var lim = ctx.createDynamicsCompressor(); lim.threshold.value = -2.5; lim.knee.value = 0; lim.ratio.value = 20; lim.attack.value = .001; lim.release.value = .12; out.connect(lim); sortie = lim; }
+    if (/^[RLX]/.test(this.style)){ var lim = ctx.createDynamicsCompressor(); lim.threshold.value = -2.5; lim.knee.value = 0; lim.ratio.value = 20; lim.attack.value = .001; lim.release.value = .12; out.connect(lim); sortie = lim; }
     sortie.connect(this.ecoute); this.ecoute.connect(ctx.destination);
     this.dest = null; try { this.dest = ctx.createMediaStreamDestination(); sortie.connect(this.dest); } catch(e){}
     /* reverberation synthetisee (pas de fichier d'impulsion) */
@@ -2955,7 +3059,7 @@
     var rv = ctx.createGain(); rv.gain.value = .55; conv.connect(rv); rv.connect(bus);
     this.rev = conv; this.bus = bus; this.out = out;
     /* 07/10 : la serie L a en plus une reverberation longue (4,2 s), plus sombre, pour la timbale et les cordes */
-    if (/^L/.test(this.style)){
+    if (/^[LX]/.test(this.style)){
       var l2 = Math.floor(ctx.sampleRate * 4.2), ir2 = ctx.createBuffer(2, l2, ctx.sampleRate), att2 = ctx.sampleRate * .015;
       for (var c2 = 0; c2 < 2; c2++){ var d2 = ir2.getChannelData(c2); for (var j2 = 0; j2 < l2; j2++) d2[j2] = (Math.random() * 2 - 1) * Math.pow(1 - j2 / l2, 2.6) * (j2 < att2 ? j2 / att2 : 1); }
       var cv2 = ctx.createConvolver(); cv2.buffer = ir2; var lp2 = ctx.createBiquadFilter(); lp2.type = 'lowpass'; lp2.frequency.value = 4200;
@@ -3700,6 +3804,112 @@
     this.choeurL(T(10.9), [-12, -5, 3], 1.1 * b, .03, 'o', .9 * b, .3);
   };
 
+  /* ---------- le son de la serie X (07/10, nuit) : 18 temps, calés sur l'image (meme plan d.PX).
+     Accroche, montee, un quart de temps de vrai silence, la revelation (temps 4), la preuve,
+     une note par soin, « Et toi ? », puis le raccord de boucle. Aucun fichier. */
+  Son.prototype.produitsX = function(T, nItems, voix){
+    var P = this.d.PX, mel = [19, 24, 21, 28];
+    for (var k = 0; k < Math.min(4, nItems); k++) voix(T(P.prod + k * P.dp + .04), mel[k], k);
+  };
+  /* X1 · le visage en lumiere : verre qui bat, poussiere de celesta qui s'accelere pendant la dispersion,
+     souffle et cordes qui montent, silence ; le visage se reforme : basse, timbale, accord de verre, choeur.
+     Ensuite une pulsation douce, comme un coeur de lumiere. */
+  Son.prototype.planifieX1 = function(t0, nItems){
+    var b = this.tm.beat, P = this.d.PX, i, self = this; function T(q){ return t0 + q * b; }
+    this.nappeVerreL(T(0), 3.55 * b, [24, 31, 36], .04, .5 * b, .12);
+    [[0, 24], [.5, 31], [1, 28], [1.5, 36]].forEach(function(n){ self.celesteL(T(n[0]), n[1], .045); });
+    this.souffleL(T(1.6), 2.15 * b, .1, 400, 3800);
+    for (i = 0; i < 22; i++){ var u = i / 22; this.celesteL(T(1.7 + 2.0 * Math.sqrt(u)), [24, 28, 31, 35, 36, 40, 43][i % 7] + (i > 14 ? 12 : 0), .016 + .022 * u); }
+    this.crescL(T(2), 1.72 * b, [-12, -5, 3, 10], .2);
+    this.aspireL(T(3.75), .9 * b, .1);
+    /* temps 3,75 a 4 : rien */
+    this.graveL(T(P.rev), 0, .42, 2.6); this.timbaleL(T(P.rev), 0, .44); this.explosion(T(P.rev), .1);
+    [12, 19, 24, 28, 31].forEach(function(st, j){ self.verreL(T(P.rev) + j * .015, st, .05, 3); });
+    this.choeurL(T(P.rev), [0, 7, 16], (P.prod - P.rev) * b, .045, 'a', .15 * b, 1.2);
+    this.celesteL(T(P.preuve), 31, .05);
+    if (this.d.B && this.d.B.liste.length > 1) [36, 33].forEach(function(st, j){ self.celesteL(T(P.aut + .1 + j * .3), st, .04); });
+    for (i = 5; i < 16; i++){ this.kick(T(i), (i >= P.prod && i < P.cta) ? .46 : .36); if (i >= P.prod) this.hat(T(i + .5), .035); }
+    this.produitsX(T, nItems, function(t, st){ self.verreL(t, st + 12, .04, 2); self.pianoL(t, st, .065, 1.8); });
+    if (nItems) this.cordesL(T(P.prod), [4, 7, 11, 16], (P.cta - P.prod) * b, .03, .6 * b, 1, 1000, 1600);
+    this.accordL(T(P.cta + .1), [-12, 0, 4, 7, 14], .065, 2.6, .03); this.choeurL(T(P.cta), [4, 7, 14], 2.5 * b, .035, 'o', .3 * b, 1);
+    this.nappeVerreL(T(16.1), 1.7 * b, [24, 31, 36], .03, 1.3 * b, .25);
+  };
+  /* X2 · le chrome liquide : basse qui ondule, gouttes de metal, sirene et caisse claire qui accelerent,
+     silence ; le metal eclate (BIM) ; puis un groove electro 126, une note metallique par soin */
+  Son.prototype.planifieX2 = function(t0, nItems){
+    var b = this.tm.beat, P = this.d.PX, p = this.th.pad, a = this.th.arp, i, self = this; function T(q){ return t0 + q * b; }
+    this.wob(T(0), [p[0], p[2]], 2 * b, .045); this.wob(T(2), [p[0], p[3]], 1.72 * b, .05);
+    [[.5, 31], [1.25, 36], [1.75, 28], [2.25, 38], [2.75, 33]].forEach(function(g){ self.plicL(T(g[0]), g[1], .07); });
+    for (i = 0; i < 4; i++){ this.kick(T(i), .62); this.hat(T(i + .5), .06); }
+    this.tension(T(1), 2.75 * b, a[0] - 24, a[0] - 19, .04);
+    this.sirene(T(2), 1.73 * b, a[0] - 24, a[0] - 12, .03);
+    var roll = []; for (i = 0; i < 4; i++) roll.push(2.5 + i * .125); for (i = 0; i < 6; i++) roll.push(3 + i / 8);
+    roll.forEach(function(q, n){ if (q < 3.74) self.snare(T(q), .06 + .12 * n / roll.length); });
+    this.inverse(T(P.rev), .9 * b, .1);
+    /* temps 3,75 a 4 : rien */
+    this.explosion(T(P.rev), .24); this.bimR(T(P.rev), b); this.cloche(T(P.rev), a[3] + 12, .05, 2);
+    var seq = [0, 0, 12, 0, 7, 0, 10, 12];
+    for (i = 5; i < 18; i++){
+      var fort = i < 16;
+      this.kick(T(i), fort ? .74 : .6); if (i % 2 && fort) this.clap(T(i), .2);
+      for (var k = 0; k < 4; k++) this.hat(T(i + k / 4), k === 2 ? .07 : .022);
+      if (fort) this.acid(T(i + .5), seq[i % 8] - 12, b * .28, .048, 650 + 90 * (i - 5), i % 3 === 0);
+    }
+    this.wob(T(16), [p[0], p[2]], 2 * b, .035);
+    this.celesteL(T(P.preuve), 31, .05);
+    this.produitsX(T, nItems, function(t, st){ self.pince(t, st + 12, .07); self.cloche(t, st + 12, .03, 1.2); });
+    this.stab(T(P.cta), [p[0] + 12, p[2] + 12, p[4] + 12], .08, .5); this.crash(T(P.cta), .07, 1.2);
+  };
+  /* X3 · le flacon : harmonica de verre, la lumiere qui passe (souffles), cordes qui montent, silence ;
+     la phrase apparait dans le verre : timbale, basse, cloches de cristal ; une pulsation feutree, du piano */
+  Son.prototype.planifieX3 = function(t0, nItems){
+    var b = this.tm.beat, P = this.d.PX, i, self = this; function T(q){ return t0 + q * b; }
+    this.nappeVerreL(T(0), 3.65 * b, [24, 31, 36], .045, .9 * b, .06);
+    [[0, 24], [1.5, 31], [2.5, 36]].forEach(function(g){ self.verreL(T(g[0]), g[1], .045, 2.6); });
+    [.5, 1.5, 2.5].forEach(function(q, j){ self.souffleL(T(q), .9 * b, .05 + .01 * j, 500, 1800); });
+    this.cordesL(T(.5), [-12, -5], 1.6 * b, .045, .8 * b, .4 * b, 500, 900);
+    this.crescL(T(2.1), 1.65 * b, [-12, -5, 3, 10], .22);
+    this.aspireL(T(3.75), 1.1 * b, .1);
+    /* temps 3,75 a 4 : rien */
+    this.timbaleL(T(P.rev), 0, .5); this.graveL(T(P.rev), 0, .34, 3.2); this.plicL(T(P.rev), 7, .16);
+    this.accordL(T(P.rev), [-12, -5, 4, 7, 14], .1, 3.4, .012);
+    [12, 16, 19, 26].forEach(function(st, j){ self.verreL(T(P.rev) + j * .02, st, .045, 3.4); });
+    this.cordesL(T(P.rev), [4, 7, 14, 16], (P.prod - P.rev + .5) * b, .04, .25 * b, 1.4, 1200, 1800);
+    for (i = 5; i < 16; i += 1){ this.kick(T(i), .3); this.hat(T(i + .5), .028); }
+    this.pianoL(T(P.preuve), 19, .06, 2);
+    this.produitsX(T, nItems, function(t, st){ self.verreL(t, st, .05, 2.4); self.pianoL(t, st - 12, .05, 1.8); });
+    if (nItems) this.cordesL(T(P.prod), [5, 9, 12, 16], (P.cta - P.prod) * b, .034, .6 * b, 1, 1000, 1500);
+    this.accordL(T(P.cta + .15), [-12, 0, 4, 7, 14], .055, 2.6, .03);
+    this.nappeVerreL(T(16.2), 1.6 * b, [24, 31, 36], .035, 1.2 * b, .2);
+  };
+  /* X4 · la typo geante : house 132, un souffle a chaque mot ou chiffre que la camera traverse,
+     roulement et montee, silence, BIM ; groove, accords hachés sur chaque soin */
+  Son.prototype.planifieX4 = function(t0, nItems){
+    var b = this.tm.beat, P = this.d.PX, p = this.th.pad, a = this.th.arp, i, self = this; function T(q){ return t0 + q * b; }
+    var ligne = [0, 0, 12, 0, 7, 0, 10, 12];
+    for (i = 0; i < 18; i++){
+      if (i >= 4 && i < 5) continue;
+      var drop = i >= 5;
+      this.kick(T(i), drop ? .8 : .68);
+      if (i % 2) this.clap(T(i), drop ? .22 : .16);
+      this.hat(T(i + .5), drop ? .1 : .06); if (drop){ this.hat(T(i + .25), .03); this.hat(T(i + .75), .035); }
+      if (drop || i < 3) this.basse(T(i), ligne[i % 8] - 12, b * .42, .13);
+    }
+    this.chop(T(0), [a[0] - 12, a[2] - 12], b * .7, .09, 'a'); this.chop(T(.75), [a[1] - 12], b * .4, .08, 'a');
+    (this.d.PX.passages || [1, 1.6, 2.3, 3]).forEach(function(q, j){ self.souffle(T(q - .12), j % 2 ? -.7 : .7, false, .2); });
+    var roll = []; for (i = 0; i < 4; i++) roll.push(2.75 + i * .125); for (i = 0; i < 4; i++) roll.push(3.25 + i / 8);
+    roll.forEach(function(q, n){ if (q < 3.74) self.snare(T(q), .06 + .14 * n / roll.length); });
+    this.montee(T(2), 1.73 * b, .13);
+    this.inverse(T(P.rev), b, .11);
+    /* temps 3,75 a 4 : rien (ni grosse caisse, ni charleston) */
+    this.explosion(T(P.rev), .26); this.bimR(T(P.rev), b);
+    this.chop(T(P.preuve), [a[3] - 12], b * .4, .08, 'o');
+    this.produitsX(T, nItems, function(t, st, k){ self.chop(t, [p[k % p.length] + 12, p[(k + 2) % p.length] + 12], b * .5, .085, k % 2 ? 'o' : 'a'); });
+    this.stab(T(P.cta), [p[0] + 12, p[2] + 12, p[4] + 12], .085, .5); this.crash(T(P.cta), .08, 1.2);
+    this.chop(T(16), [a[0] - 12, a[2] - 12], b * .7, .07, 'a');
+    this.inverse(T(18), b * 1.1, .09);
+  };
+
   /* ------------------------------------------------------- l'interface */
   var STYLE = '\
 .vyw{position:fixed;inset:0;z-index:2147483000;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;\
@@ -3795,7 +4005,8 @@ font-family:Inter,"Helvetica Neue",Arial,sans-serif;box-shadow:0 18px 44px -20px
       var f = null; try { f = resultat && resultat.blob ? new File([resultat.blob], resultat.nom, { type:resultat.type }) : null; } catch(e){}
       var cs = '?'; try { cs = f && navigator.canShare ? (navigator.canShare({ files:[f] }) ? 'oui' : 'non') : (navigator.canShare ? '?' : 'non'); } catch(e){ cs = 'erreur ' + e.name; }
       el2.textContent = 'rec: ' + (diag.mime || '-') + ' | fichier: ' + (diag.fichier || '-') + ' | durée: ' + (diag.duree || '-') +
-        ' | share: ' + (navigator.share ? 'oui' : 'non') + ' | canShare(files): ' + cs + ' | dernier partage: ' + diag.partage + ' | style ' + d.style;
+        ' | share: ' + (navigator.share ? 'oui' : 'non') + ' | canShare(files): ' + cs + ' | dernier partage: ' + diag.partage + ' | style ' + d.style +
+        (R.X ? ' | 3D: ' + (R.X.gl ? 'webgl ' + R.X.rw + 'x' + R.X.rh : '2D (repli)') + (statsX(R) ? ' · ' + statsX(R).ms + ' ms/img' : '') : '');
     }
     document.body.appendChild(el);
     var htmlOv = document.documentElement.style.overflow; document.documentElement.style.overflow = 'hidden';
@@ -3851,6 +4062,8 @@ font-family:Inter,"Helvetica Neue",Arial,sans-serif;box-shadow:0 18px 44px -20px
       } catch(e){ rec = null; return false; }
     }
 
+    var dernierX = 0, estX = /^X/.test(d.style);
+    function dessiner(t){ if (estX){ var nw = performance.now(); if (nw - dernierX < 29) return; dernierX = nw; } R.dessine(t); }
     function image(){
       if (ferme) return;
       raf = requestAnimationFrame(image);
@@ -3867,10 +4080,10 @@ font-family:Inter,"Helvetica Neue",Arial,sans-serif;box-shadow:0 18px 44px -20px
           if (rec && rec.state !== 'inactive'){ try { rec.stop(); } catch(e){ versImage(); } }
           else if (!enregistre) versImage();
         }
-        R.dessine(tm.boucle ? t % tm.CYCLE : Math.min(t, tm.CYCLE - .001));
+        dessiner(tm.boucle ? t % tm.CYCLE : Math.min(t, tm.CYCLE - .001));
         return;
       }
-      R.dessine(t % tm.CYCLE);
+      dessiner(t % tm.CYCLE);
     }
 
     function lancer(){
@@ -3920,25 +4133,37 @@ font-family:Inter,"Helvetica Neue",Arial,sans-serif;box-shadow:0 18px 44px -20px
       el: el, canvas: canvas,
       /* pour les tests : fige l'animation a un instant donne */
       figer: function(t){ cancelAnimationFrame(raf); raf = 0; R.dessine(t); },
+      /* X : la mesure de fluidite (temps de rendu de chaque image, en ms) */
+      stats: function(){ return statsX(R); },
       fermer: function(){
         if (ferme) return; ferme = true; cancelAnimationFrame(raf);
         try { if (rec && rec.state !== 'inactive') rec.stop(); } catch(e){}
         try { if (son){ son.ecoute.gain.setTargetAtTime(0, ctx.currentTime, .04); son.out.disconnect(); } } catch(e){}
         try { if (navigator.audioSession) navigator.audioSession.type = 'auto'; } catch(e){}
+        setTimeout(function(){ R.liberer(); }, 400);
         document.removeEventListener('keydown', clavier);
         document.documentElement.style.overflow = htmlOv;
         el.classList.remove('on'); setTimeout(function(){ el.remove(); }, 380);
         if (OUVERT === ctrl) OUVERT = null;
       }
     };
-    OUVERT = ctrl; ctrl.donnees = d;
+    OUVERT = ctrl; ctrl.donnees = d; ctrl._R = R;   /* _R : pour les tests (images figees) */
     try { window.VyWrap.dernier = ctrl; } catch(e){}
 
     /* les polices et les photos d'abord, puis on lance */
     /* 07/10 : la serie L attend ses polices (FontFace) avant de lancer l'image et l'enregistrement */
     var polices = /^L/.test(d.style) ? policesL() : (document.fonts && document.fonts.ready) ? Promise.race([document.fonts.ready, attendre(900)]) : Promise.resolve();
     var photos = Promise.all(d.items.map(function(it){ return chargeImage(it.image).then(function(im){ var c = im ? preRendu(im, it.fond) : null; if (c) c.brut = im; return c; }); }));
-    Promise.all([polices, photos]).then(function(r){ R.imgs = r[1]; setTimeout(function(){ q('.vyw-p').focus({ preventScroll:true }); }, 50); lancer(); })
+    /* 07/10 (X) : la scene 3D se prepare apres les photos (elle en fait des textures) ; si le module manque, repli 2D */
+    Promise.all([polices, photos]).then(function(r){ R.imgs = r[1];
+        if (!/^X/.test(d.style)) return null;
+        return preparerX(R, d, donnees, false).catch(function(e){
+          console.warn('[VyWrap] X indisponible, repli', e);
+          var d2 = normalise(Object.assign({}, donnees, { style:REPLI_X[d.style] || 'L2' })); Object.keys(d2).forEach(function(k){ d[k] = d2[k]; }); tm = d.tm;
+          return /^L/.test(d.style) ? policesL() : null;
+        });
+      })
+      .then(function(){ setTimeout(function(){ q('.vyw-p').focus({ preventScroll:true }); }, 50); lancer(); })
       .catch(function(){ lancer(); });
     return Promise.resolve(ctrl);
   }
@@ -3953,7 +4178,11 @@ font-family:Inter,"Helvetica Neue",Arial,sans-serif;box-shadow:0 18px 44px -20px
     b.querySelector('b').textContent = L.creer; b.querySelector('small').textContent = L.creerSous;
     b.addEventListener('click', function(){
       amorcer();
-      Promise.resolve().then(fournir).then(function(dn){ if (dn) ouvrir(dn); }).catch(function(e){ console.warn('[VyWrap]', e); });
+      Promise.resolve().then(fournir).then(function(dn){ if (!dn) return;
+        /* 07/10 : ?wrap=X2 (ou window.VYW_STYLE) essaie un autre style sur la vraie page, sans changer le style par defaut */
+        var st = (location.search.match(/[?&]wrap=([A-DRLX][1-4]?)(&|$)/i) || [])[1] || window.VYW_STYLE;
+        if (st && !dn.style) dn.style = String(st).toUpperCase();
+        ouvrir(dn); }).catch(function(e){ console.warn('[VyWrap]', e); });
     });
     return b;
   }
@@ -3964,8 +4193,16 @@ font-family:Inter,"Helvetica Neue",Arial,sans-serif;box-shadow:0 18px 44px -20px
     var d = normalise(donnees), R = new Rendu(canvas, d), raf = 0, arret = false, debut = performance.now(), dernier = 0, visible = true, CY = d.tm.CYCLE;
     var son = null, ctx = null, t0 = 0, prochain = 0, fige = false;
     R.dessine(0);
-    var pret = Promise.all(d.items.map(function(it){ return chargeImage(it.image).then(function(im){ var c = im ? preRendu(im, it.fond) : null; if (c) c.brut = im; return c; }); }).concat([/^L/.test(d.style) ? policesL() : null]))
-      .then(function(r){ R.imgs = r.slice(0, d.items.length); debut = performance.now(); });
+    var pret = Promise.all(d.items.map(function(it){ return chargeImage(it.image).then(function(im){ var c = im ? preRendu(im, it.fond) : null; if (c) c.brut = im; return c; }); }).concat([/^[LX]/.test(d.style) ? policesL() : null]))
+      .then(function(r){ R.imgs = r.slice(0, d.items.length);
+        if (!/^X/.test(d.style) || arret) return null;
+        return preparerX(R, d, donnees, true).then(function(){ if (arret) R.liberer(); }, function(e){
+          console.warn('[VyWrap] X indisponible, repli', e);
+          var d2 = normalise(Object.assign({}, donnees, { style:REPLI_X[d.style] || 'L2' })); Object.keys(d2).forEach(function(k){ d[k] = d2[k]; }); CY = d.tm.CYCLE;
+          return /^L/.test(d.style) ? policesL() : null;
+        });
+      })
+      .then(function(){ debut = performance.now(); });
     function boucle(now){
       if (arret) return; raf = requestAnimationFrame(boucle);
       if (!visible || fige || now - dernier < 31) return; dernier = now;
@@ -3983,7 +4220,8 @@ font-family:Inter,"Helvetica Neue",Arial,sans-serif;box-shadow:0 18px 44px -20px
       taire:function(){ if (!son) return; try { son.ecoute.gain.setTargetAtTime(0, ctx.currentTime, .03); var o = son.out; setTimeout(function(){ try { o.disconnect(); } catch(e){} }, 200); } catch(e){} son = null; debut = performance.now(); },
       figer:function(t){ fige = true; R.dessine(t); },
       reprendre:function(){ fige = false; },
-      arreter:function(){ arret = true; cancelAnimationFrame(raf); c.taire(); if (io) io.disconnect(); }
+      stats:function(){ return statsX(R); },
+      arreter:function(){ arret = true; cancelAnimationFrame(raf); c.taire(); if (io) io.disconnect(); R.liberer(); }
     };
     return c;
   }
@@ -4001,5 +4239,44 @@ font-family:Inter,"Helvetica Neue",Arial,sans-serif;box-shadow:0 18px 44px -20px
     });
   }
 
-  window.VyWrap = { ouvrir:ouvrir, bouton:bouton, amorcer:amorcer, apercu:apercu, styles:['A', 'B', 'C', 'D', 'D1', 'D2', 'D3', 'D4', 'R1', 'R2', 'R3', 'R4', 'L1', 'L2', 'L3', 'L4'], palettes:PALETTES, version:'2.3', polices:policesL, _normalise:normalise, _mesurerDuree:mesurerDuree, _temps:temps, _Son:Son };
+  /* 07/10 (X) : les donnees du Wrap de l'assiette, les memes pour la page « parcours » (04-assiette) et pour
+     l'assiette ouverte depuis le scan (vy-aliment.js). Lecture seule : rien n'est recalcule.
+     o = { ind:Core.indices(), aliments:[f], total, ecartes, credits, base, categories, exemple }
+     La revelation = le besoin que la page a lu (i1, son niveau, sa valeur) ; en entretien, « ta peau va bien ».
+     Les photos : seulement celles dont la licence permet la reutilisation (credits.json), avec leur credit. */
+  var LIC_X = /^(CC0|CC BY|Domaine public|Public domain)/i;
+  function donneesAliment(o){
+    var ind = o && o.ind; if (!ind) return null;
+    var fs = (o.aliments || []).filter(Boolean).slice(0, 4), mois = new Date().getMonth() + 1, cr = o.credits || null, base = o.base || '/scan/aliment/';
+    var sev = ind.sev || {}, bas = null; Object.keys(sev).forEach(function(k){ if (IND_X[k] && num(sev[k]) !== null && (bas === null || sev[k] > sev[bas])) bas = k; });
+    var ent = !!ind.entretien || ind.i1 === 'entretien', k1 = ent ? bas : ind.i1, niv = ind.niv || {};
+    var lecture = { i1:ent ? 'entretien' : ind.i1, n1:num(ind.n1), niv1:ent ? 'normal' : niv[ind.i1] || null, i2:ent ? null : (ind.i2 || null), n2:ent ? null : num(ind.n2),
+                    niv2:(!ent && ind.i2) ? niv[ind.i2] || null : null, entretien:ent, bas:bas };
+    var ch = [];
+    if (k1 && IND_X[k1] && num(ind.n1) !== null) ch.push({ label:IND_X[k1].fr, valeur:Math.round(ind.n1), unite:'/100', cle:'indice' });
+    if (lecture.i2 && IND_X[lecture.i2] && num(ind.n2) !== null) ch.push({ label:IND_X[lecture.i2].fr, valeur:Math.round(ind.n2), unite:'/100', cle:'indice2' });
+    if (num(o.total) !== null) ch.push({ label:'Aliments passés en revue', valeur:Math.round(o.total), unite:'', cle:'revue' });
+    if (num(o.ecartes) !== null) ch.push({ label:'Écartés pour vous', valeur:Math.round(o.ecartes), unite:'', cle:'surmesure' });
+    ch.push({ label:'De saison', valeur:fs.filter(function(f){ var sa = f.saison || []; return sa.length && sa.length < 12 && sa.indexOf(mois) >= 0; }).length, unite:'', cle:'saison' });
+    ch.push({ label:'Retenus', valeur:fs.length, unite:'', cle:'selection' });
+    var items = fs.map(function(f){
+      var c = cr && cr[f.id], ok = !!(c && LIC_X.test(String(c.licence || '')));
+      return { nom:String(f.nom || '').split(' (')[0].split(',')[0], marque:(o.categories && o.categories[f.categorie]) || '', etape:String(f.portion_type || '').split(' (')[0],
+               image:ok ? base + 'photos/' + f.id + '.png' : '', credit:ok ? (c.auteur ? String(c.auteur) + ' · ' : '') + String(c.licence) : '' };
+    });
+    return { type:'aliment', prenom:'', titre:'Mes aliments peau', exemple:!!o.exemple, lecture:lecture, phare:ch[0] || null, chiffres:ch, items:items };
+  }
+  /* X : la fluidite mesuree (ms par image : moyenne, 95e centile) et le nombre d'images par seconde que cela permet */
+  function statsX(R){
+    var m = R.X && R.X.ms; if (!m || m.length < 10) return null;
+    var s = m.slice().sort(function(a, b){ return a - b; }), moy = m.reduce(function(a, b){ return a + b; }, 0) / m.length;
+    var ts = (R.X.ts || []).slice(-90), fps = ts.length > 10 ? Math.round((ts.length - 1) / ((ts[ts.length - 1] - ts[0]) / 1000) * 10) / 10 : null;
+    var ec = 0; for (var i = 1; i < ts.length; i++) ec = Math.max(ec, ts[i] - ts[i - 1]);
+    return { n:m.length, ms:Math.round(moy * 10) / 10, p95:Math.round(s[Math.floor(s.length * .95)] * 10) / 10, fps:fps, pireEcart:Math.round(ec), gl:!!R.X.gl, rw:R.X.rw, rh:R.X.rh };
+  }
+  OUTILS_X = { W:W, H:H, T:T, langue:langue, maj:maj, minusL:minusL, phraseCas:phraseCas, num:num, valTxt:valTxt, formate:formate, unite:unite,
+    clamp:clamp, seg:seg, lerp:lerp, eOut3:eOut3, eIn3:eIn3, eInOut:eInOut, eOutExpo:eOutExpo, eOutBack:eOutBack, hash:hash, rgba:rgba,
+    couleurs:couleurs, couleursL:couleursL, lumRel:lumRel, policesL:policesL, polEtat:function(){ return POL.etat; },
+    fontD:fontD, fontG:fontG, fontJ:fontJ, traceL:traceL, rond:rond, lignes:lignes, DIDONE:DIDONE, GARA:GARA, FINE:FINE, IND_X:IND_X, chargeImage:chargeImage };
+  window.VyWrap = { ouvrir:ouvrir, bouton:bouton, amorcer:amorcer, apercu:apercu, styles:['A', 'B', 'C', 'D', 'D1', 'D2', 'D3', 'D4', 'R1', 'R2', 'R3', 'R4', 'L1', 'L2', 'L3', 'L4', 'X1', 'X2', 'X3', 'X4'], palettes:PALETTES, version:'2.4', polices:policesL, aliment:donneesAliment, _normalise:normalise, _mesurerDuree:mesurerDuree, _temps:temps, _Son:Son, _chargeX:chargeX };
 })();

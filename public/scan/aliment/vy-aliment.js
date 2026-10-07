@@ -654,10 +654,11 @@
     var zw = document.getElementById('vy-as-wrap');
     if(zw && window.VyWrap){ var mois0 = new Date().getMonth() + 1, nEx = Object.keys(e.x).length, p4 = pris.slice(0, 4);
       zw.appendChild(VyWrap.bouton(function(){
-        /* 06/10 : le chiffre phare du Wrap = le grand chiffre de cette page (« Votre lecture »), lu dans la page ; sinon le premier compte */
-        var gN = document.querySelector('#vy-as .ed-score .vy-as-compte'), gV = gN ? Number(gN.getAttribute('data-n')) : NaN;
-        var gPh = (gN && isFinite(gV)) ? { label:INDICES[ind.i1] || 'Votre lecture', valeur:Math.round(gV), unite:'/100' } : null;
-        return { type:'aliment', prenom:'', titre:'Mes aliments peau', exemple:!!window.__vyDemo,   /* le phare reste un chiffre de l'assiette (gPh est un score de peau) */
+        /* 07/10 (X) : la revelation = le besoin que cette page a lu (indicesDuScan : i1, son niveau, sa valeur ; entretien sinon),
+           la preuve = l'indice et sa valeur, puis les aliments avec leurs photos (licence verifiee dans credits.json, credit joint).
+           Avant : « Aliments passés en revue » en chiffre phare (pas personnel). Jamais d'effet promis. */
+        if (VyWrap.aliment) return VyWrap.aliment({ ind:ind, aliments:p4.map(function(c){ return c.f; }), total:DATA.length, ecartes:nEx, credits:CREDITS, base:BASE, categories:NOM_CAT, exemple:!!window.__vyDemo });
+        return { type:'aliment', prenom:'', titre:'Mes aliments peau', exemple:!!window.__vyDemo,
         chiffres:[ { label:'Aliments passés en revue', valeur:DATA.length, unite:'' }, { label:'Écartés pour vous', valeur:nEx, unite:'' },
                    { label:'De saison', valeur:p4.filter(function(c){ var sa = c.f.saison || []; return sa.length && sa.length < 12 && sa.indexOf(mois0) >= 0; }).length, unite:'' }, { label:'Retenus', valeur:p4.length, unite:'' } ],
         items:p4.map(function(c){ var f = c.f; return { nom:f.nom.split(' (')[0].split(',')[0], marque:NOM_CAT[f.categorie] || '', etape:(f.portion_type || '').split(' (')[0], image:BASE + 'photos/' + f.id + '.png' }; }) }; }, { type:'aliment' })); }

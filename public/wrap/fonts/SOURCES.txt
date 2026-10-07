@@ -7,3 +7,7 @@ Modifications : instances statiques tirees des polices variables (fontTools) -
   Bodoni Moda en taille optique 96 (graisses 400, 600, italique 400), Cormorant Garamond 300,
   300 italique, 500 italique, Jost 300 et 500 - puis sous-ensemble latin + latin etendu, en woff2.
 Aucune de ces polices n'a de nom reserve (Reserved Font Name). Elles ne sont pas vendues seules.
+
+07/10/2026 (Wrap X, 3D) : fonts/3d/*.json = contours des glyphes tires de ces memes fichiers (fontTools,
+  format « typeface » de three.js) pour le texte en volume : bodoni-600.json (Bodoni Moda 600),
+  bodoni-400-italic.json (Bodoni Moda 400 italique), jost-500.json (Jost 500). Meme licence SIL OFL 1.1.

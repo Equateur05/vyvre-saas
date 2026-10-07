@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="robots" content="noindex">
-<title>vyvre · Wrap L, la série luxe</title>
+<title>vyvre · Wrap X, la série 3D</title>
 <style>
   /* les polices du Wrap L, servies depuis /wrap/fonts/ (licence OFL, voir fonts/SOURCES.txt) */
   @font-face{font-family:"VY Bodoni Moda";src:url(/wrap/fonts/bodoni-moda-display-400.woff2) format("woff2");font-weight:400;font-style:normal;font-display:swap}
@@ -36,7 +36,7 @@
   .palettes button[aria-pressed=true]{border-color:var(--or);color:var(--ivoire);background:rgba(205,172,110,.1)}
   .palettes i{display:inline-flex;overflow:hidden;box-shadow:0 0 0 1px rgba(255,255,255,.16)}
   .palettes i b{display:block;width:10px;height:20px}
-  .grille{max-width:1560px;margin:0 auto;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:26px 18px}
+  .grille{max-width:1560px;margin:0 auto;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:26px 18px}
   @media (max-width:1300px){.grille{grid-template-columns:repeat(3,minmax(0,1fr))}}
   @media (max-width:860px){.grille{grid-template-columns:repeat(2,minmax(0,1fr));gap:26px 12px}}
   .carte{display:flex;flex-direction:column;gap:10px;min-width:0}
@@ -88,34 +88,31 @@
 <script>
 (function(){
   var TX = {
-    fr:{ sur:'vyvre · Le Wrap · série L', titre:'La série <em>luxe.</em>', types:{ peau:'Peau', cheveux:'Cheveux', aliment:'Assiette' },
-      intro:'Le même arc que la série R (suspense, révélation du besoin, la preuve, les soins, « Et toi ? »), les mêmes phrases tirées des vraies mesures, mais un autre langage : Didone, italique, noir, ivoire et or, mouvement lent, son de film. Le D4 et le R1 à gauche pour comparer. Un seul son à la fois.',
-      pied:'Données d’exemple, signalées « EXEMPLE » dans chaque Wrap. La phrase vient de la mesure la plus basse, par une table écrite à l’avance : rien d’aléatoire, aucune valeur inventée. Polices Bodoni Moda, Cormorant Garamond et Jost, licence SIL OFL, chargées depuis vyvre (aucun service tiers). Ajoutez ?diag=1 pour la ligne technique sous la vidéo.',
-      ecouter:'Écouter', couper:'Couper le son', creer:'Créer la vidéo', ref:'Pour comparer', luxe:'La série luxe' },
-    en:{ sur:'vyvre · The Wrap · L series', titre:'The <em>luxury</em> series.', types:{ peau:'Skin', cheveux:'Hair', aliment:'Plate' },
-      intro:'The same arc as the R series (suspense, the need revealed, the proof, the products, “And you?”), the same phrases drawn from the real measures, in another language: Didone, italics, black, ivory and gold, slow motion, film sound. D4 and R1 on the left for comparison. One sound at a time.',
-      pied:'Example data, marked “EXAMPLE” in every Wrap. The phrase comes from the lowest measure, through a table written in advance: nothing random, no invented value. Typefaces Bodoni Moda, Cormorant Garamond and Jost, SIL OFL licence, served by vyvre (no third-party service). Add ?diag=1 for the technical line under the video.',
-      ecouter:'Listen', couper:'Mute', creer:'Create the video', ref:'For comparison', luxe:'The luxury series' }
+    fr:{ sur:'vyvre · Le Wrap · série X', titre:'La série <em>3D.</em>', types:{ peau:'Peau', cheveux:'Cheveux', aliment:'Assiette' },
+      intro:'De la vraie 3D, animée en direct, dans la même vidéo de 8 à 9 secondes : l’accroche, la montée, la révélation du besoin (tirée des vraies mesures), la preuve, les quatre soins avec leurs photos, « Et toi ? », et une boucle parfaite. Le D4 à gauche pour comparer. Un seul son à la fois.',
+      pied:'Données d’exemple, signalées « EXEMPLE » dans chaque Wrap. X1 dessine le vrai visage seulement quand la page du scan le transmet (la vignette reste sur l’appareil) ; sans photo, une sphère de lumière, jamais un visage inventé. 3D : three.js (licence MIT), servi par vyvre. Polices Bodoni Moda et Jost, licence SIL OFL. Ajoutez ?diag=1 pour la ligne technique, ?x2d=1 pour voir le repli sans WebGL.',
+      ecouter:'Écouter', couper:'Couper le son', creer:'Créer la vidéo', ref:'Pour comparer', luxe:'La série 3D' },
+    en:{ sur:'vyvre · The Wrap · X series', titre:'The <em>3D</em> series.', types:{ peau:'Skin', cheveux:'Hair', aliment:'Plate' },
+      intro:'Real 3D, animated live, in the same 8 to 9 second video: the hook, the build-up, the need revealed (drawn from the real measures), the proof, the four products with their photos, “And you?”, and a perfect loop. D4 on the left for comparison. One sound at a time.',
+      pied:'Example data, marked “EXAMPLE” in every Wrap. X1 draws the real face only when the scan page passes it on (the thumbnail stays on the device); without a photo, a sphere of light, never an invented face. 3D: three.js (MIT licence), served by vyvre. Typefaces Bodoni Moda and Jost, SIL OFL licence. Add ?diag=1 for the technical line, ?x2d=1 to see the no-WebGL fallback.',
+      ecouter:'Listen', couper:'Mute', creer:'Create the video', ref:'For comparison', luxe:'The 3D series' }
   };
   var STYLES = [
     { k:'D4', ref:true,
       fr:{ t:'D4 · La carte', d:'Le format actuel. <b>Son</b> UK garage 132 BPM.' },
       en:{ t:'D4 · The card', d:'The current format. <b>Sound</b> UK garage 132 BPM.' } },
-    { k:'R1', ref:true,
-      fr:{ t:'R1 · Le roulement', d:'La révélation, version poster. <b>Son</b> caisse claire, impact, groove 120 BPM.' },
-      en:{ t:'R1 · The drum roll', d:'The reveal, poster version. <b>Sound</b> snare roll, impact, 120 BPM groove.' } },
-    { k:'L1',
-      fr:{ t:'L1 · <em>La Une</em>', d:'Une couverture de magazine sur papier ivoire se compose ; le titre de une, c’est votre besoin. Puis les pages intérieures, un soin par page. <b>Son</b> tic-tac d’horlogerie, piano feutré, cordes qui montent, silence, timbale.' },
-      en:{ t:'L1 · <em>The Cover</em>', d:'A magazine cover on ivory paper composes itself; the cover line is your need. Then the inside pages, one product per page. <b>Sound</b> clockwork tick, felt piano, rising strings, silence, timpani.' } },
-    { k:'L2',
-      fr:{ t:'L2 · <em>Le Flacon</em>', d:'Un flacon en lumière sculptée, la lumière glisse sur le verre ; une goutte d’or tombe au ralenti et touche le sol-miroir : la phrase, en or, avec son reflet. <b>Son</b> verre, souffle, violoncelles, la goutte, cloches de cristal.' },
-      en:{ t:'L2 · <em>The Flacon</em>', d:'A bottle in sculpted light, light gliding over the glass; a gold drop falls in slow motion onto the mirror floor: the phrase, in gold, with its reflection. <b>Sound</b> glass, breath, cellos, the drop, crystal bells.' } },
-    { k:'L3',
-      fr:{ t:'L3 · <em>Le Défilé</em>', d:'Un podium dans le noir, ses lumières s’allument ; vos vraies mesures défilent comme des looks, une silhouette de lumière s’avance : le dernier passage, c’est la phrase. <b>Son</b> pas feutrés, violoncelle, un seul déclic, timbale.' },
-      en:{ t:'L3 · <em>The Runway</em>', d:'A runway in the dark, its lights coming on; your real measures walk as looks, a silhouette of light steps forward: the final look is the phrase. <b>Sound</b> soft steps, cello, a single shutter click, timpani.' } },
-    { k:'L4',
-      fr:{ t:'L4 · <em>Le Monogramme</em>', d:'Un monogramme VYVRE gravé à froid ; l’or le trace trait par trait, la lumière accroche la feuille d’or, une fente s’allume, le sceau s’ouvre sur la phrase. <b>Son</b> chœur grave, plume, célesta, timbale.' },
-      en:{ t:'L4 · <em>The Monogram</em>', d:'A blind-embossed VYVRE monogram; gold traces it stroke by stroke, light catches the gold leaf, a slit lights up, the seal opens on the phrase. <b>Sound</b> low choir, pen, celesta, timpani.' } }
+    { k:'X1',
+      fr:{ t:'X1 · <em>Ton visage en lumière</em>', d:'La vraie photo du scan devient des milliers de particules en 3D ; la caméra tourne, elles se dispersent, se reforment : la phrase. Sans photo, une sphère de lumière. <b>Son</b> verre, poussière de célesta, souffle, timbale, chœur, pulsation.' },
+      en:{ t:'X1 · <em>Your face in light</em>', d:'The real scan photo becomes thousands of 3D particles; the camera turns, they scatter and re-form: the phrase. Without a photo, a sphere of light. <b>Sound</b> glass, celesta dust, breath, timpani, choir, pulse.' } },
+    { k:'X2',
+      fr:{ t:'X2 · <em>Chrome liquide</em>', d:'Une goutte de métal iridescent qui ondule et se tord ; elle éclate et la phrase en sort, en lettres chromées. <b>Son</b> basse qui ondule, gouttes de métal, sirène, BIM, groove électro 126.' },
+      en:{ t:'X2 · <em>Liquid chrome</em>', d:'A drop of iridescent metal that ripples and twists; it bursts and the phrase comes out in chrome letters. <b>Sound</b> wobbling bass, metal drops, siren, impact, 126 BPM electro groove.' } },
+    { k:'X3',
+      fr:{ t:'X3 · <em>Le flacon</em>', d:'Un vrai flacon de verre en 3D : la lumière tourne, le verre réfracte ; la phrase apparaît dans le verre. Puis les soins, en lumière de pub. <b>Son</b> harmonica de verre, cordes, silence, timbale, cristal, piano.' },
+      en:{ t:'X3 · <em>The bottle</em>', d:'A real 3D glass bottle: the light turns, the glass refracts; the phrase appears inside the glass. Then the products, in ad lighting. <b>Sound</b> glass harmonica, strings, silence, timpani, crystal, piano.' } },
+    { k:'X4',
+      fr:{ t:'X4 · <em>Typo géante</em>', d:'Des lettres en volume, énormes, que la caméra traverse à toute vitesse ; tes vrais chiffres en 3D, puis la phrase qui claque. <b>Son</b> house 132, souffles à chaque passage, roulement, BIM.' },
+      en:{ t:'X4 · <em>Giant type</em>', d:'Huge letters in volume that the camera flies through at full speed; your real numbers in 3D, then the phrase slams in. <b>Sound</b> 132 BPM house, whooshes at each pass, drum roll, impact.' } }
   ];
   var grille = document.getElementById('grille'), type = 'peau', lang = 'fr', apercus = [];
   var PAL = VyWrap.palettes || { origine:null }, pal = (location.search.match(/[?&]pal=([a-z]+)/) || [])[1];
@@ -150,7 +147,7 @@
   function construire(){
     apercus.forEach(function(a){ a.arreter(); }); apercus = []; grille.innerHTML = '';
     STYLES.forEach(function(s, i){
-      if (i === 0 || i === 2){ var sp = document.createElement('div'); sp.className = 'sep'; sp.textContent = i ? lp().luxe : lp().ref; grille.appendChild(sp); }
+      if (i === 0 || i === 1){ var sp = document.createElement('div'); sp.className = 'sep'; sp.textContent = i ? lp().luxe : lp().ref; grille.appendChild(sp); }
       var c = document.createElement('article'); c.className = 'carte' + (s.ref ? ' ref' : '');
       c.innerHTML = '<div class="ecran"><canvas></canvas><span class="lettre"></span></div><h2></h2><p></p>' +
         '<div class="actions"><button type="button" class="ecouter" aria-pressed="false"></button><button type="button" class="creer"></button></div>';
@@ -171,7 +168,7 @@
       c.querySelector('.creer').addEventListener('click', function(){ toutTaire(); VyWrap.amorcer(); VyWrap.ouvrir(donnees); });
     });
   }
-  /* grand ecran : une seule rangee, les deux references a gauche ; plus petit : deux intertitres */
+  /* grand ecran : une seule rangee, la reference a gauche ; plus petit : deux intertitres */
   document.querySelectorAll('#types button').forEach(function(b){
     b.addEventListener('click', function(){
       document.querySelectorAll('#types button').forEach(function(x){ x.setAttribute('aria-pressed', String(x === b)); });
@@ -188,7 +185,7 @@
   if (q){ type = q; document.querySelectorAll('#types button').forEach(function(x){ x.setAttribute('aria-pressed', String(x.dataset.type === q)); }); }
   if (ql){ lang = ql; document.querySelectorAll('#langues button').forEach(function(x){ x.setAttribute('aria-pressed', String(x.dataset.lang === ql)); }); }
   textes(); construire();
-  window.__propalesL = function(){ return apercus; };
+  window.__propalesX = function(){ return apercus; };
 })();
 </script>
 </body>
