@@ -60,7 +60,7 @@
   /* les textes fixes, dans la langue de la page */
   (function(){ var T=VYL.t, q=function(s){return document.querySelector(s);};
     q('.vy-head .ct').textContent=T('head'); q('#ret').textContent=T('revenir'); q('#ok').textContent=T('continuer');
-    q('#son').innerHTML=T('son')+' <b>'+T('off')+'</b>'; q('#passer').textContent=T('passer'); document.title='VYVRE — '+T('head');
+    q('#son').innerHTML=T('son')+' <b>'+T('off')+'</b>'; q('#son').title=T('son'); q('#passer').textContent=T('passer'); document.title='VYVRE — '+T('head');
   })();
   /* production : la page vit dans une fenetre posee sur /scan ; elle parle a la page mere */
   function dire(m){ try{ parent.postMessage(Object.assign({vyvreAvant:m},arguments[1]||{}), location.origin); }catch(e){} }

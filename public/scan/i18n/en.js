@@ -870,5 +870,10 @@ VY.add('en', {
     "y.net": "pronounced",
     "pp.rituel": "Your ritual, <em>completed morning and evening</em>",
     "rt.scan": "Your scan products",
-    "pr.noscan": "Your ritual starts from your scan. Take your scan on this device first: your morning and evening will be written here."
+    "pr.noscan": "Your ritual starts from your scan. Take your scan on this device first: your morning and evening will be written here.",
+    /* 07/10 (langues) : cles ajoutees */
+    "hc.rf.kick": "01 · GLASS FIBRE",
+    "hcf.voir": "View details",
+    "pr.react0": "Reactive skin: acids, retinoids and exfoliants left out.",
+    "an.react": ", reactive"
   });

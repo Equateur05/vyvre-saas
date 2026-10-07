@@ -884,5 +884,10 @@ VY.add('fr', {
     "y.net": "nette",
     "pp.rituel": "Votre rituel, <em>complété matin et soir</em>",
     "rt.scan": "Vos soins du scan",
-    "pr.noscan": "Votre rituel part de votre scan. Faites d’abord votre scan sur cet appareil : votre matin et votre soir s’écriront ici."
+    "pr.noscan": "Votre rituel part de votre scan. Faites d’abord votre scan sur cet appareil : votre matin et votre soir s’écriront ici.",
+    /* 07/10 (langues) : cles ajoutees */
+    "hc.rf.kick": "01 · FIBRE DE VERRE",
+    "hcf.voir": "Voir la fiche",
+    "pr.react0": "Peau réactive : acides, rétinoïdes et exfoliants écartés.",
+    "an.react": ", réactive"
   });

@@ -8,7 +8,7 @@
 <meta name="description" content="Vos cheveux lus par la caméra : la boucle, la couleur. Puis une routine de quatre produits.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<script src="/scan/vy-i18n.js?v=28"></script>
+<script src="/scan/vy-i18n.js?v=31"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&family=JetBrains+Mono:wght@100;300;400;500&family=Playfair+Display:ital,wght@1,500&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
 /* ============================================================================
@@ -1484,7 +1484,9 @@ header .menu a.vy-autre{font-size:12px!important;color:#fff!important;opacity:1!
   border-radius:999px;background:rgba(255,255,255,.06);letter-spacing:.2em;transition:background .3s,border-color .3s}
 header .menu a.vy-autre:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.55)}
 @media (max-width:600px){header .menu a{font-size:9.5px!important}
-  header .menu a.vy-autre{font-size:10.5px!important;padding:5px 12px;margin-right:100%;margin-top:6px;white-space:nowrap;flex-shrink:0}}
+  header .menu a.vy-autre{font-size:10.5px!important;padding:5px 12px;margin-right:100%;margin-top:6px;white-space:nowrap;flex-shrink:0}
+  /* 07/10 : en arabe (droite a gauche) la marge poussait la pastille hors de l'ecran */
+  [dir="rtl"] header .menu a.vy-autre{margin-right:0;margin-left:100%}}
 </style>
 </head>
 <body>
@@ -1679,7 +1681,7 @@ header .menu a.vy-autre:hover{background:rgba(255,255,255,.14);border-color:rgba
          Le detail honnete (mesure / declare / non lisible) reste disponible
          sous un seul lien, au lieu d'occuper l'ecran. -->
     <section class="rfibre" id="resFibre">
-      <div class="rf-kick">01 &middot; FIBRE DE VERRE</div>
+      <div class="rf-kick" data-i18n="hc.rf.kick">01 &middot; FIBRE DE VERRE</div>
       <h2 class="rf-titre" data-i18n="hc.rf.titre">Ce que la fibre a renvoy&eacute;</h2>
       <!-- 23/09 — la phrase d'ouverture : ce que la camera a detecte, et sur
            quoi la routine est batie. Ecrite avec les mesures, jamais inventee. -->
@@ -1697,7 +1699,7 @@ header .menu a.vy-autre:hover{background:rgba(255,255,255,.14);border-color:rgba
     </section>
     <!-- la fiche d'un produit, quand on clique dessus -->
     <aside class="rf-fiche" id="rfFiche" hidden>
-      <button class="rff-x" id="rfFicheX" type="button" aria-label="Fermer">&times;</button>
+      <button class="rff-x" id="rfFicheX" type="button" aria-label="Fermer" data-i18n-attr="aria-label:vp.close">&times;</button>
       <div class="rff-in" id="rfFicheIn"></div>
     </aside>
 
@@ -4136,15 +4138,29 @@ var ACTIF_EN = {
   "huile d'amla":'amla oil', 'huile de macadamia':'macadamia oil', 'vitamine b6':'vitamin B6',
   'bisabolol':'bisabolol', 'charbon':'charcoal', 'huile de marula':'marula oil',
   'huile de pracaxi':'pracaxi oil', 'huile de figue de barbarie':'prickly pear oil',
-  'ortie':'nettle', 'acide maléique':'maleic acid', 'acide maleique':'maleic acid'
+  'ortie':'nettle', 'acide maléique':'maleic acid', 'acide maleique':'maleic acid',
+  'menthol':'menthol', 'arginine':'arginine', 'huile de lin':'linseed oil', 'hibiscus':'hibiscus',
+  'huile de moringa':'moringa oil', 'inuline':'inulin', 'beurre de cacao':'cocoa butter',
+  'allantoïne':'allantoin', 'allantoine':'allantoin', 'vitamine c':'vitamin C', 'huile de menthe poivrée':'peppermint oil'
 };
+/* 07/10 (langues) : le nom d'un actif dans la langue affichee. Le catalogue l'ecrit en
+   francais ; l'anglais vient d'ACTIF_EN, les dix autres langues des dictionnaires
+   (cles hca.<nom francais>). Sans traduction, on ne le cite pas : jamais de francais
+   au milieu d'une phrase allemande ou japonaise. */
+function actifLangue(a){
+  var s = String(a).trim(), l = (window.VY && VY.lang) || 'fr';
+  if(l === 'fr') return s;
+  var k = s.toLowerCase();
+  if(l === 'en') return ACTIF_EN[k] || '';
+  return T('hca.' + k) || '';
+}
 function actifs(list){
   var fr = !window.VY || VY.lang === 'fr';
   var out = [];
   (list || []).forEach(function(a){
     var s = String(a).trim();
     if(fr){ if(out.indexOf(s) === -1) out.push(s); return; }
-    var en = ACTIF_EN[s.toLowerCase()];
+    var en = actifLangue(s);
     if(en && out.indexOf(en) === -1) out.push(en);
   });
   return out.slice(0,3).join(', ');
@@ -4303,10 +4319,16 @@ function ecrirePhrase(liste){
       compte[k] = (compte[k]||0)+1;
     });
   });
-  var actifs = Object.keys(compte).sort(function(x,y){ return compte[y]-compte[x]; }).slice(0,2);
-  var etat = etats.slice(0,2).join(' ' + T('hcp.et') + ' ');
+  /* 07/10 : dans la langue affichee ; un actif sans traduction laisse sa place au suivant */
+  var actifs = [];
+  Object.keys(compte).sort(function(x,y){ return compte[y]-compte[x]; }).forEach(function(k){
+    var n = actifLangue(k); if(n && actifs.length < 2 && actifs.indexOf(n) === -1) actifs.push(n);
+  });
+  /* 07/10 : le japonais et le chinois n'espacent ni les mots ni les phrases (hcx.esp vide) */
+  var esp = (T('hcx.esp') === '' ? '' : ' ');
+  var etat = etats.slice(0,2).join(esp + T('hcp.et') + esp);
   var txt = etat ? ((!mesure && T('hcx.ph.decl', { e: etat })) || T('hcp.p1', { e: etat })) : T('hcp.p0');
-  if(actifs.length) txt += ' ' + T('hcp.p2', { a: actifs.join(' ' + T('hcp.et') + ' ') });
+  if(actifs.length) txt += esp + T('hcp.p2', { a: actifs.join(esp + T('hcp.et') + esp) });
   z.innerHTML = esc(txt).replace(esc(etat), '<b>' + esc(etat) + '</b>');
 }
 /* Les descriptions des marques sont souvent en anglais, et ce sont des pavés.

@@ -7,7 +7,7 @@
 <meta name="description" content="Votre peau, mesurée en moins de 10 secondes depuis votre caméra. Puis les trois soins qui lui correspondent, parmi 5 883 références de 147 marques.">
 <title>VYVRE — Scan de peau universel</title>
 <!-- VYVRE_I18N : moteur 12 langues, francais par defaut -->
-<script src="/scan/vy-i18n.js?v=30"></script>
+<script src="/scan/vy-i18n.js?v=31"></script>
 <script src="/scan/vy-choix.js?v=1"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -430,10 +430,10 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{cursor:auto}
     <span class="brand-x">×</span>
     <span class="brand-partner" data-i18n="hd.partner">SCAN UNIVERSEL</span>
     <nav class="vy-menu">
-      <a href="/cheveux">Scan cheveux</a>
-      <a href="/manifeste">Manifeste</a>
-      <a href="/accuracy">Méthode</a>
-      <a href="/marques">Pour les marques</a>
+      <a href="/cheveux" data-i18n="nav.hair">Scan cheveux</a>
+      <a href="/manifeste" data-i18n="nav.man">Manifeste</a>
+      <a href="/accuracy" data-i18n="nav.meth">Méthode</a>
+      <a href="/marques" data-i18n="nav.brands">Pour les marques</a>
     </nav>
   </div>
   <div class="label-sm" data-i18n="hd.free">Lecture de peau offerte · 147 marques</div>
@@ -2402,7 +2402,10 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
       return {src:src, nom:((c.querySelector('h3')||{}).textContent||'').trim(), lbl:(c.dataset.marque||((c.querySelector('.v6lbl')||{}).textContent||'')).trim()}; }).filter(function(p){return p.src&&p.nom;});
     if(!prods.length) return;
     var el=document.createElement('div'); el.id='sg-intro';
-    var mots=function(t,d0){ return t.split('').map(function(ch,i){ return '<span style="animation-delay:'+(d0+i*.035).toFixed(3)+'s">'+(ch===' '?'&nbsp;':ch)+'</span>'; }).join(''); };
+    var mots=function(t,d0){
+      /* 07/10 : l'arabe s'ecrit lettres liees ; une lettre par span les detachait. On l'anime mot a mot. */
+      if(/[\u0600-\u06FF]/.test(t)) return t.split(' ').map(function(w,i){ return '<span style="animation-delay:'+(d0+i*.12).toFixed(3)+'s">'+w+'</span>'; }).join(' ');
+      return t.split('').map(function(ch,i){ return '<span style="animation-delay:'+(d0+i*.035).toFixed(3)+'s">'+(ch===' '?'&nbsp;':ch)+'</span>'; }).join(''); };
     el.innerHTML='<canvas></canvas><div class="si-voile"></div><div class="si-k" data-i18n="si.k">'+VY.t('si.k')+'</div>'
       +'<div class="si-t"><div class="l1">'+mots(VY.t('si.t1'),.35)+'</div><div class="l2" data-i18n="si.t2">'+VY.t('si.t2')+'</div></div>'
       +'<div class="si-p">'+prods.map(function(p,i){ var d=(1.3+i*.38).toFixed(2)+'s';
@@ -2462,6 +2465,8 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
 #sg-intro .si-refl{display:none}
 #sg-intro .si-n{margin-top:22px}
 #sg-intro .si-n i{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+/* 07/10 : en arabe, les noms de produits (latins) se coupaient par le debut ; ils gardent leur sens de lecture */
+[dir="rtl"] #sg-intro .si-n i,[dir="rtl"] #sg-intro .si-n b{unicode-bidi:plaintext}
 </style>
 <style id="sg-fix-0915">
 html,body{background:#030405!important}
@@ -3076,7 +3081,7 @@ document.addEventListener('vy:lang', function(){
   window.sgProduitsLisibles = { mesurer: mesurer, resoudre: resoudre, detourageSain: detourageSain, packshot: packshot };
 })();
 </script>
-<script src="/scan/retour.js?v=2"></script>
+<script src="/scan/retour.js?v=3"></script>
 <style id="vy-quatre-produits">
 /* 07/10 : quatre soins, comme /scan. Ordinateur : une colonne par produit visible (jamais de colonne vide) ;
    entre 1100 et 1500 px, photo au-dessus du nom. Tablette : 2 x 2. */

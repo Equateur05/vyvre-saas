@@ -26,6 +26,8 @@
     b.style.display=v==='view-hero'?'none':'inline-flex';
     b.innerHTML='<i>&#8592;</i>'+(v==='view-results'?t[1]:t[0]);
     b.setAttribute('aria-label', v==='view-results'?t[1]:t[0]);
+    /* 07/10 : le titre du logo suit aussi la langue (il restait « Accueil ») */
+    var br=document.querySelector('.brand'); if(br&&br.hasAttribute('title')) br.setAttribute('title',t[2]);
   }
   function brancher(){
     document.body.appendChild(b); peindre();
@@ -35,7 +37,8 @@
     var br=document.querySelector('.brand');
     if(br){ br.setAttribute('role','link'); br.setAttribute('tabindex','0'); br.setAttribute('title',TXT[lang()][2]);
       br.addEventListener('click',accueil); br.addEventListener('keydown',function(e){ if(e.key==='Enter') accueil(); }); }
-    addEventListener('vy:lang',peindre);
+    /* 07/10 : vy-i18n.js emet vy:lang sur document, sans remontee : ecouter window ne suffisait pas */
+    document.addEventListener('vy:lang',peindre);
   }
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',brancher); else brancher();
 })();
