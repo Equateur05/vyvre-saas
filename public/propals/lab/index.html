@@ -184,7 +184,7 @@ canvas.plein{position:absolute;inset:0;width:100%;height:100%}
     <div class="liste menu">
       <button class="dof on" data-go="2">Peau<em>08 catégories</em></button>
       <button class="dof" onclick="location.href='/cheveux'">Cheveux<em>05 vues</em></button>
-      <button class="dof" onclick="location.href='/aliment'">Aliment<em>265 aliments</em></button>
+      <button class="dof" onclick="location.href='/aliment'">Aliments pour ma peau<em>265 aliments</em></button>
     </div>
     <div class="compteurs dof"><div><b>03</b><span>Lectures</span></div></div>
   </section>
@@ -251,7 +251,7 @@ canvas.plein{position:absolute;inset:0;width:100%;height:100%}
 </div></div></div>
 <nav id="nav"></nav>
 <video id="video" autoplay muted playsinline style="position:fixed;width:2px;height:2px;opacity:.01;left:0;top:0"></video>
-<script src="/wrap/vy-wrap.js?v=7"></script>
+<script src="/wrap/vy-wrap.js?v=8"></script>
 <script src="/propals/lab/buste-gl-v10.js?v=10"></script>
 <script type="module">
 import { FilesetResolver, FaceLandmarker, ImageSegmenter } from '/cheveux/vendor/mediapipe/vision_bundle.mjs';
@@ -553,7 +553,7 @@ function resultats(){
     + '<h3 style="font:600 26px var(--sans)">Ce que la lecture a repéré</h3><div class="gp-wrap"><div class="gros-plan"><canvas id="gp"></canvas></div><div><div id="gpListe"></div><p class="note">Repères visuels sur votre cliché, pour les retrouver d’une lecture à l’autre. Pas un diagnostic.</p></div></div><hr>'
     + '<h3 style="font:600 26px var(--sans)">Vos soins</h3><p class="note">Choisis dans le catalogue pour vos deux points à travailler en priorité.</p><div class="soins" id="soins"><p class="note">Chargement du catalogue…</p></div><div id="fiches"></div><hr>'
     + (window.VyWrap ? '<div id="vyLabWrap" class="vyw-zone"></div>' : '')
-    + '<div class="suite"><a href="/aliment"><span class="mono">Ensuite</span><b>Votre assiette →</b></a><a href="/scan/"><span class="mono">Ensuite</span><b>Vos soins →</b></a></div>'
+    + '<div class="suite"><a href="/aliment"><span class="mono">Ensuite</span><b>Vos aliments pour la peau →</b></a><a href="/scan/"><span class="mono">Ensuite</span><b>Vos soins →</b></a></div>'
     + '<p class="note">Lecture optique de l’image, faite sur cet appareil. Elle ne remplace pas l’avis d’un dermatologue.' + (exemple ? ' Ces valeurs sont un exemple : la caméra n’a pas pu lire votre peau.' : '') + '</p>';
   requestAnimationFrame(grosPlan);
   // le meme buste anime, en haut a droite : on y deplace le canvas WebGL (son contexte le suit)

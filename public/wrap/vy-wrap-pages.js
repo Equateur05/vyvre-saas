@@ -117,7 +117,7 @@
         return { nom:String(f.nom || '').split(' (')[0].split(',')[0], marque:'', etape:String(f.portion_type || '').split(' (')[0],
                  image:(credits && !credits[f.id]) ? '' : base + 'photos/' + f.id + '.png' }; });
       var demoPhoto = false; try { demoPhoto = !!demo; } catch(e){}
-      return { type:'aliment', prenom:'', titre:'Mon assiette', chiffres:ch, phare:ch[0], items:items, exemple:demoPhoto };
+      return { type:'aliment', prenom:'', titre:'Mes aliments peau', chiffres:ch, phare:ch[0], items:items, exemple:demoPhoto };
     }
     var app = document.getElementById('app'); if (!app) return;
     function poser(){

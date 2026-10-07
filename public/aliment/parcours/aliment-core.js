@@ -377,7 +377,7 @@
     var grid = document.querySelector('.vyvre-v6 .v6grid'); if(!grid) return;
     var e = document.getElementById('vy-as-entree');
     if(!e){ e = document.createElement('section'); e.id = 'vy-as-entree'; grid.appendChild(e); e.addEventListener('click', ouvrir); }
-    e.innerHTML = '<div class="m">Nouveau · Votre assiette</div><h3>Assiette.</h3><p>Jusqu’à quatre aliments, choisis d’après votre lecture : ' + esc(INDICES[ind.i1].toLowerCase()) + (ind.i2 ? ', ' + esc(INDICES[ind.i2].toLowerCase()) : '') + '. Pour chacun, ce que les études montrent. Rien de plus.</p><button type="button">Composer mon assiette</button>';
+    e.innerHTML = '<div class="m">Nouveau · Aliments pour ma peau</div><h3>Aliments pour ma peau.</h3><p>Jusqu’à quatre aliments, choisis d’après votre lecture : ' + esc(INDICES[ind.i1].toLowerCase()) + (ind.i2 ? ', ' + esc(INDICES[ind.i2].toLowerCase()) : '') + '. Pour chacun, ce que les études montrent. Rien de plus.</p><button type="button">Composer mon assiette</button>';
     if(/[?&]assiette=1/.test(location.search) && !entree.fait){ entree.fait = 1; setTimeout(ouvrir, 900); } }
 
   /* ---- la feuille plein ecran ---- */

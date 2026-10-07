@@ -28,7 +28,7 @@
       ]
     },
     aliment: {
-      type:'aliment', prenom:'Léa', titre:'Mon assiette', exemple:true,
+      type:'aliment', prenom:'Léa', titre:'Mes aliments peau', exemple:true,
       phare:{ label:'Aliments passés en revue', valeur:312, unite:'' },
       chiffres:[ { label:'Aliments passés en revue', valeur:312, unite:'' }, { label:'Écartés pour vous', valeur:41, unite:'' },
                  { label:'De saison', valeur:3, unite:'' }, { label:'Retenus', valeur:4, unite:'' } ],

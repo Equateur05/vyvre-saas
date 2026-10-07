@@ -56,7 +56,7 @@
       exemple:'EXEMPLE',
       types:{ peau:'Peau', cheveux:'Cheveux', aliment:'Assiette' },
       wrapDe:'Le Wrap de',
-      rituel:function(n, type){ return type === 'aliment' ? 'Mon assiette · ' + n + (n > 1 ? ' aliments' : ' aliment') : 'Mon rituel · ' + n + (n > 1 ? ' gestes' : ' geste'); },
+      rituel:function(n, type){ return type === 'aliment' ? 'Mes aliments peau · ' + n + (n > 1 ? ' aliments' : ' aliment') : 'Mon rituel · ' + n + (n > 1 ? ' gestes' : ' geste'); },
       fin1:'Mon rituel', fin2:'vyvre', site:'vyvre.fr',
       /* D1 a D4 (06/10) */
       d1hook:{ peau:['MA','PEAU,','C’EST…'], cheveux:['MES','CHEVEUX,','C’EST…'], aliment:['MON','ASSIETTE,','C’EST…'] },

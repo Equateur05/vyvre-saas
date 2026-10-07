@@ -358,7 +358,7 @@
     var grid = document.querySelector('.vyvre-v6 .v6grid'); if(!grid) return;
     var e = document.getElementById('vy-as-entree');
     if(!e){ e = document.createElement('section'); e.id = 'vy-as-entree'; grid.appendChild(e); e.addEventListener('click', ouvrir); }
-    e.innerHTML = '<div class="m">Nouveau · Votre assiette</div><h3>Assiette.</h3><p>Jusqu’à quatre aliments, choisis d’après votre lecture : ' + esc(INDICES[ind.i1].toLowerCase()) + (ind.i2 ? ', ' + esc(INDICES[ind.i2].toLowerCase()) : '') + '. Pour chacun, ce que les études montrent. Rien de plus.</p><button type="button">Composer mon assiette</button>';
+    e.innerHTML = '<div class="m">Nouveau · Aliments pour ma peau</div><h3>Aliments pour ma peau.</h3><p>Jusqu’à quatre aliments, choisis d’après votre lecture : ' + esc(INDICES[ind.i1].toLowerCase()) + (ind.i2 ? ', ' + esc(INDICES[ind.i2].toLowerCase()) : '') + '. Pour chacun, ce que les études montrent. Rien de plus.</p><button type="button">Composer mon assiette</button>';
     if(/[?&](assiette=1|depuis=aliment)\b/.test(location.search) && !entree.fait){ entree.fait = 1; setTimeout(ouvrir, /depuis=aliment/.test(location.search) ? 1600 : 900); } }
 
   /* ---- la feuille plein ecran ---- */
@@ -657,7 +657,7 @@
         /* 06/10 : le chiffre phare du Wrap = le grand chiffre de cette page (« Votre lecture »), lu dans la page ; sinon le premier compte */
         var gN = document.querySelector('#vy-as .ed-score .vy-as-compte'), gV = gN ? Number(gN.getAttribute('data-n')) : NaN;
         var gPh = (gN && isFinite(gV)) ? { label:INDICES[ind.i1] || 'Votre lecture', valeur:Math.round(gV), unite:'/100' } : null;
-        return { type:'aliment', prenom:'', titre:'Mon assiette', exemple:!!window.__vyDemo,   /* le phare reste un chiffre de l'assiette (gPh est un score de peau) */
+        return { type:'aliment', prenom:'', titre:'Mes aliments peau', exemple:!!window.__vyDemo,   /* le phare reste un chiffre de l'assiette (gPh est un score de peau) */
         chiffres:[ { label:'Aliments passés en revue', valeur:DATA.length, unite:'' }, { label:'Écartés pour vous', valeur:nEx, unite:'' },
                    { label:'De saison', valeur:p4.filter(function(c){ var sa = c.f.saison || []; return sa.length && sa.length < 12 && sa.indexOf(mois0) >= 0; }).length, unite:'' }, { label:'Retenus', valeur:p4.length, unite:'' } ],
         items:p4.map(function(c){ var f = c.f; return { nom:f.nom.split(' (')[0].split(',')[0], marque:NOM_CAT[f.categorie] || '', etape:(f.portion_type || '').split(' (')[0], image:BASE + 'photos/' + f.id + '.png' }; }) }; }, { type:'aliment' })); }
