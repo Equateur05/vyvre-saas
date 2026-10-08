@@ -494,7 +494,7 @@ function modeles(){ return mods || (mods = (async () => { const fs = await Files
     try { seg = await ImageSegmenter.createFromOptions(fs, { baseOptions:{ modelAssetPath:'/cheveux/vendor/mediapipe/modeles/hair_segmenter.tflite', delegate:'CPU' }, runningMode:'VIDEO', outputConfidenceMasks:true, outputCategoryMask:false }); } catch(e){ console.warn('cheveux', e); } })()); }
 /* prechauffage : le moteur et ses modeles se chargent des l'accueil, le scan n'attend plus */
 let pret = null;
-function prechauffe(){ return pret || (pret = (async () => { if(!window.faceapi) await script('/scan/vendor/face-api-1.7.15.min.js'); if(!window.VYVRE_SCAN_ENGINE) await script('/scan/vyvre-scan-engine.js?v=10.7');
+function prechauffe(){ return pret || (pret = (async () => { if(!window.faceapi) await script('/scan/vendor/face-api-1.7.15.min.js'); if(!window.VYVRE_SCAN_ENGINE) await script('/scan/vyvre-scan-engine.js?v=10.13');
   await Promise.all([faceapi.nets.tinyFaceDetector.loadFromUri('/scan/models/faceapi'), faceapi.nets.faceLandmark68Net.loadFromUri('/scan/models/faceapi')]); })()); }
 async function moteur(){
   try { await prechauffe();

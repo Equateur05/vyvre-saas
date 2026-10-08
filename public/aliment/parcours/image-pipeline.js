@@ -48,10 +48,13 @@ async function scanFromImage(imgEl) {
     const fitz = eng.itaToFitzpatrick(itaAngle);
     const MI = eng.melaninIndex(avgRed);
     const EI = eng.erythemaIndex(avgRed, avgGreen);
-    const tZoneSebum = eng.sebumProxy(tzonePixels, avgLum, 0.05);
+    /* 07/10 (moteur v10.13) : seuil des reflets rapporte au niveau des joues (peau seule), comme la camera */
+    const tZoneSebum = eng.sebumProxy(tzonePixels, (eng.niveauIntensite && eng.niveauIntensite(cheekPixels)) || avgLum, 0.05);
     const tewlSigma = eng.tewlProxy(labArr);
 
-    const raw = { L: avgL, a: avgA, b: avgB, ita: itaAngle, fitz, MI, EI, sebum: tZoneSebum, tewl: tewlSigma, avgRed, avgGreen, avgLum };
+    const raw = { L: avgL, a: avgA, b: avgB, ita: itaAngle, fitz, MI, EI, sebum: tZoneSebum, tewl: tewlSigma, avgRed, avgGreen, avgLum,
+      /* 07/10 (moteur v10.13) : l'image et ses 68 reperes ; sans eux, fermete, eclat, pores, hydratation et rides restent neutres */
+      _frame: { imageData, roi, landmarks: roi && roi.landmarks || null } };
     const scores = eng.mapToScores(raw);
     eng.updateBiomarkerBars(scores);
     return { scores, raw, framesAccepted: 1, framesAttempted: 1, source: 'image' };

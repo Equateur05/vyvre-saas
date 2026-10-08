@@ -123,7 +123,7 @@ const nl = {
   /* ─────────── /accuracy ─────────── */
   'acc.meta.title': 'Methodologie & precisie · VYVRE',
   'acc.meta.desc':
-    'Peer-reviewed bronnen (5 toegepast, 4 op de roadmap), berekeningsmethode, betrouwbaarheidsintervallen, beperkingen. De wetenschappelijke transparantie achter de VYVRE v7.0-motor.',
+    'Peer-reviewed bronnen (5 geciteerd, 4 op de roadmap), rekenmethode, betrouwbaarheidsintervallen, grenzen. De wetenschappelijke transparantie achter de VYVRE-engine.',
 
   'acc.hero.eyebrow': 'Methodologie · Bronnen · Beperkingen',
   'acc.hero.h1a': 'De wetenschap',
@@ -137,22 +137,22 @@ const nl = {
 
   'acc.s1.eyebrow': '01 · Bibliografie · Toegepaste bronnen',
   'acc.s1.h2a': '5 peer-reviewed bronnen',
-  'acc.s1.h2b': 'actief toegepast.',
-  'acc.s1.p1': 'Deze 5 bronnen worden rechtstreeks gebruikt in de berekeningsformules van de motor (zie',
+  'acc.s1.h2b': 'en wat de engine ervan toepast.',
+  'acc.s1.p1': 'Wat elk van deze 5 bronnen bijdraagt aan de engine, controleerbaar in de code (zie',
   'acc.s1.p2': ', functie',
   'acc.s1.p3': 'en',
-  'acc.s1.p4': '). Elke biomarker is traceerbaar tot een wetenschappelijk artikel dat op PubMed geïndexeerd is.',
-  'acc.s1.foot1': 'Motor v7 — herziening mei 2026',
+  'acc.s1.p4': '). Sinds oktober 2026 hangt geen van de acht metingen af van huidskleur of beeldhelderheid: elke meting vergelijkt de huid met zichzelf, op hetzelfde beeld.',
+  'acc.s1.foot1': 'Engine v10.13 — relatieve metingen, oktober 2026',
   'acc.s1.foot2': 'Toegepaste bronnen regel voor regel verifieerbaar in',
 
   'acc.src1.c':
     'ITA° (Individual Typology Angle) — basis van de automatische detectie van het Fitzpatrick I-VI-fototype',
   'acc.src2.c':
-    'Melanin Index (MI) en Erythema Index (EI) — kwantificering van de pigmentatie en de roodheid',
+    'Melanine-index en erytheem-index: ter informatie berekend. Roodheid wordt gelezen als a* (CIE L*a*b*) op de wangen; pigmentatie wordt gemeten ten opzichte van de eigen huidtint (zones die 10 % donkerder zijn dan de eigen huid).',
   'acc.src3.c':
-    'TEWL-proxy (transepidermaal waterverlies) via σL* → indices hydratatie en poriën. Regressie tabel 3.',
+    'Vroegere σL*-indicator (hydratatie en poriën), in oktober 2026 verwijderd: hij las vooral de schaduw van het reliëf. Hydratatie: fijnste microtextuur van de wangen, zonder poriën, ten opzichte van het niveau van de huid. Poriën: kleine donkere puntjes die afsteken tegen de omliggende huidstructuur.',
   'acc.src4.c':
-    'Speculaire reflecties → stralendheid / talg. Detectie van speculaire reflecties op het gezicht',
+    'Spiegelende glans → talg, met een drempel ten opzichte van het huidniveau van de wangen. Uitstraling leest geen ruwe helderheid meer: gelijkmatigheid van het licht op jukbeenderen en voorhoofd, zachte glans van de jukbeenderen, ten opzichte van de eigen huid.',
   'acc.src5.c':
     'Verschil waargenomen leeftijd / biologische leeftijd (Kaukasisch cohort ~1 700 personen). v7: leeftijdsafhankelijk verschil (−2 tot −6 jaar naargelang de biologische leeftijd), niet gebonden aan het fototype.',
 
@@ -200,7 +200,7 @@ const nl = {
   'acc.s3.std5': 'Detectie van huidpixels YCbCr',
   'acc.s3.std6': 'Laplaciaanse scherptemeting',
   'acc.s3.std7':
-    'Correlatie stevigheid ↔ waargenomen leeftijd (r=0,65 tussen ITA°-afstand en waargenomen stevigheid)',
+    'wordt niet meer gebruikt: sinds oktober 2026 hangt stevigheid niet meer af van de huidskleur (reliëf van de neus-lipplooi, contour van het onderste deel van het gezicht, mondhoeken).',
 
   'acc.s4.eyebrow': '04 · Verwerkingsketen',
   'acc.s4.h2': 'Berekeningsmethode.',
@@ -212,16 +212,16 @@ const nl = {
     'Keten sRGB → XYZ → CIE L*a*b* (IEC 61966-2-1, CIE 015:2004). Zelftest op 6 referentiekleuren bij elke scan. Precisie op pixelniveau.',
   'acc.st3.t': 'Extractie van de signalen',
   'acc.st3.d':
-    'ITA° + Melanin Index + Erythema Index + TEWL-proxy + speculaire ratio. 4 zones van het gezicht geanalyseerd (voorhoofd, linker- en rechterwang, T-zone).',
+    'Kleur (L*a*b*: ITA° voor het fototype, a* voor roodheid), glans (talg) en relatieve texturen: kleine donkere puntjes (poriën), microtextuur (hydratatie), plooien bij de ooghoeken en op het voorhoofd (rimpels), neus-lipplooi en onderste deel van het gezicht (stevigheid), gelijkmatigheid van het licht (uitstraling). Wangen, neus, voorhoofd, oogcontour.',
   'acc.st4.t': 'Omzetting in biomarkers',
   'acc.st4.d':
-    'Elk ruw signaal omgezet in een score 0-100 door peer-reviewed formules (citaten hierboven). Constanten benoemd met hun bron, of aangeduid als empirisch.',
+    'Elk signaal is een afwijking van de huid ten opzichte van zichzelf, op hetzelfde beeld: nooit een huidskleur of een absolute helderheid. Omgezet naar een score van 0-100 met benoemde constanten, afgesteld op testfoto’s en als zodanig gemarkeerd; een onleesbare meting geeft een neutrale, gemarkeerde score.',
   'acc.st5.t': 'Detectie van het fototype',
   'acc.st5.d':
-    'Automatische Fitzpatrick I-VI-classificatie via ITA° (Chardon 1991). Pigmentatiegrenzen aangepast aan het fototype om bias op donkere huid te vermijden.',
+    'Fitzpatrick-classificatie I-VI via ITA° (Chardon 1991), ter informatie getoond. Geen van de acht metingen gebruikt het fototype of de huidskleur.',
   'acc.st6.t': 'Leeftijdsschatting + interval',
   'acc.st6.d':
-    'Formule met één biomarker (dominante periorbitale rimpels, Bazin 2007). Leeftijdsafhankelijk verschil van de waargenomen leeftijd (Vierkötter 2012). Interval ±5 jaar (95 %, intern cohort n=12).',
+    'De leeftijd wordt niet getoond: de combinatie van metingen volgt de werkelijke leeftijd nog niet betrouwbaar. Ze wordt pas getoond na validatie op gezichten met een bekende leeftijd.',
 
   'acc.s5.eyebrow': '05 · Huidleeftijd · Methode v7',
   'acc.s5.h2a': 'Waargenomen huidleeftijd',

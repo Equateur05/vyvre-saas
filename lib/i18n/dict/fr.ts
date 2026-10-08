@@ -123,7 +123,7 @@ const fr = {
   /* ─────────── /accuracy ─────────── */
   'acc.meta.title': 'Méthodologie & précision · VYVRE',
   'acc.meta.desc':
-    'Sources revues par les pairs (5 appliquées, 4 en feuille de route), méthode de calcul, intervalles de confiance, limites. La transparence scientifique derrière le moteur VYVRE v7.0.',
+    'Sources revues par les pairs (5 citées, 4 en feuille de route), méthode de calcul, intervalles de confiance, limites. La transparence scientifique derrière le moteur VYVRE.',
 
   'acc.hero.eyebrow': 'Méthodologie · Sources · Limites',
   'acc.hero.h1a': 'La science',
@@ -137,22 +137,22 @@ const fr = {
 
   'acc.s1.eyebrow': '01 · Bibliographie · Sources appliquées',
   'acc.s1.h2a': '5 sources revues par les pairs',
-  'acc.s1.h2b': 'activement appliquées.',
-  'acc.s1.p1': 'Ces 5 sources sont directement utilisées dans les formules de calcul du moteur (cf.',
+  'acc.s1.h2b': 'et ce que le moteur en applique.',
+  'acc.s1.p1': 'Ce que chacune de ces 5 sources apporte au moteur, vérifiable dans le code (cf.',
   'acc.s1.p2': ', fonction',
   'acc.s1.p3': 'et',
-  'acc.s1.p4': '). Chaque biomarqueur est traçable à un article scientifique indexé sur PubMed.',
-  'acc.s1.foot1': 'Moteur v7 — refonte mai 2026',
+  'acc.s1.p4': '). Depuis octobre 2026, aucune des huit mesures ne dépend de la couleur de la peau ni de la luminosité de l’image : chaque mesure compare la peau à elle-même, sur la même image.',
+  'acc.s1.foot1': 'Moteur v10.13 — mesures relatives, octobre 2026',
   'acc.s1.foot2': 'Sources appliquées vérifiables ligne par ligne dans',
 
   'acc.src1.c':
     'ITA° (Individual Typology Angle) — base de la détection automatique du phototype Fitzpatrick I-VI',
   'acc.src2.c':
-    'Melanin Index (MI) et Erythema Index (EI) — quantification de la pigmentation et de la rougeur',
+    'Indice de mélanine et indice d’érythème — calculés pour information. La rougeur est lue en a* (CIE L*a*b*) sur les joues ; la pigmentation est mesurée par rapport au teint de la personne (zones 10 % plus foncées que sa propre peau).',
   'acc.src3.c':
-    'Proxy TEWL (perte insensible en eau) via σL* → indices hydratation et pores. Régression table 3.',
+    'Ancien indicateur σL* (hydratation et pores), retiré en octobre 2026 : il lisait surtout l’ombre du relief. Hydratation : micro-texture la plus fine des joues, pores exclus, rapportée au niveau de la peau. Pores : petits points sombres qui se détachent du grain voisin.',
   'acc.src4.c':
-    'Reflets spéculaires → éclat / sébum. Détection des reflets spéculaires sur le visage',
+    'Reflets spéculaires → sébum, avec un seuil relatif au niveau de la peau des joues. L’éclat ne lit plus la luminosité brute : uniformité de la lumière sur les pommettes et le front, reflet doux des pommettes, rapportés à la peau de la personne.',
   'acc.src5.c':
     'Écart âge perçu / âge biologique (cohorte caucasienne ~1 700 sujets). v7 : écart dépendant de l’âge (−2 à −6 ans selon l’âge biologique), non lié au phototype.',
 
@@ -200,7 +200,7 @@ const fr = {
   'acc.s3.std5': 'Détection des pixels de peau YCbCr',
   'acc.s3.std6': 'Mesure de netteté laplacienne',
   'acc.s3.std7':
-    'Corrélation fermeté ↔ âge perçu (r=0,65 entre distance ITA° et fermeté perçue)',
+    'n’est plus utilisé : depuis octobre 2026, la fermeté ne dépend plus de la couleur de la peau (relief du sillon nez-bouche, contour du bas du visage, coins de la bouche).',
 
   'acc.s4.eyebrow': '04 · Chaîne de traitement',
   'acc.s4.h2': 'Méthode de calcul.',
@@ -212,16 +212,16 @@ const fr = {
     'Chaîne sRGB → XYZ → CIE L*a*b* (IEC 61966-2-1, CIE 015:2004). Autotest sur 6 couleurs de référence à chaque scan. Précision au pixel.',
   'acc.st3.t': 'Extraction des signaux',
   'acc.st3.d':
-    'ITA° + Melanin Index + Erythema Index + proxy TEWL + ratio spéculaire. 4 zones du visage analysées (front, joues gauche et droite, zone T).',
+    'Couleur (L*a*b* : ITA° pour le phototype, a* pour la rougeur), reflets (sébum) et textures relatives : petits points sombres (pores), micro-texture (hydratation), plis du coin des yeux et du front (rides), sillon nez-bouche et bas du visage (fermeté), uniformité de la lumière (éclat). Joues, nez, front, contour des yeux.',
   'acc.st4.t': 'Conversion en biomarqueurs',
   'acc.st4.d':
-    'Chaque signal brut converti en score 0-100 par des formules revues par les pairs (citations ci-dessus). Constantes nommées avec leur source, ou signalées comme empiriques.',
+    'Chaque signal est un écart de la peau par rapport à elle-même, sur la même image : jamais une couleur de peau ni une luminosité absolue. Conversion en score 0-100 par des constantes nommées, réglées sur des photos de test et signalées comme telles ; une mesure illisible donne un score neutre, signalé.',
   'acc.st5.t': 'Détection du phototype',
   'acc.st5.d':
-    'Classification automatique Fitzpatrick I-VI par ITA° (Chardon 1991). Bornes de pigmentation adaptées au phototype pour éviter le biais sur peaux foncées.',
+    'Classification Fitzpatrick I-VI par ITA° (Chardon 1991), affichée pour information. Aucune des huit mesures n’utilise le phototype ni la couleur de peau.',
   'acc.st6.t': 'Estimation de l’âge + intervalle',
   'acc.st6.d':
-    'Formule à biomarqueur unique (rides périorbitaires dominantes, Bazin 2007). Écart d’âge perçu dépendant de l’âge (Vierkötter 2012). Intervalle ±5 ans (95 %, cohorte interne n=12).',
+    'L’âge n’est pas affiché : la combinaison des mesures ne suit pas encore l’âge réel de façon fiable. Il ne sera affiché qu’après une validation sur des visages d’âges connus.',
 
   'acc.s5.eyebrow': '05 · Âge de la peau · Méthode v7',
   'acc.s5.h2a': 'Âge de peau perçu',

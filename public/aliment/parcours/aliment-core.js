@@ -99,9 +99,13 @@
     return '<section class="decision"><div class="m">Pourquoi cette assiette</div>'
       + (actifs.length ? '<ol>' + actifs.map(ligne).join('') + '</ol>' : '<p class="dec-zone"><b>Aucun besoin marqué.</b> Une assiette d’entretien, sur les aliments les mieux étudiés.</p>')
       + (zone.length ? '<p class="dec-zone">Dans votre zone : ' + zone.map(function(k){ return esc(INDICES[k].toLowerCase()); }).join(', ') + '. Rien à corriger ici.</p>' : '')
+      + ((ind.nonLus || []).length ? '<p class="dec-zone">Non lu sur cette image : ' + ind.nonLus.map(function(k){ return { wrinkles:'rides', firmness:'fermeté', glow:'éclat', hydration:'hydratation', pores:'pores' }[k]; }).join(', ') + (ind.nonLus.length > 1 ? '. Ces points ne choisissent aucun aliment.</p>' : '. Ce point ne choisit aucun aliment.</p>') : '')
       + '<p class="dec-seuil">75 et plus : dans votre zone. 60 à 74 : à surveiller. Moins de 60 : prioritaire. L’ordre tient compte de l’écart, de la solidité de la mesure et des preuves disponibles.</p></section>'; }
   function indicesDuScan(){ var s = window.__vyScores || (window.vyvreLastScanResult && window.vyvreLastScanResult.scores) || null; if(!s) return null;
-    var v = function(k){ var n = Number(s[k]); return isFinite(n) ? n : null; };
+    /* 08/10 (moteur v10.13) : une mesure que le moteur n'a pas pu lire sur cette image (analyses[k].neutre) ne devient jamais un besoin */
+    var an = s.analyses || (window.vyvreLastScanResult && window.vyvreLastScanResult.scores && window.vyvreLastScanResult.scores.analyses) || {};
+    var nonLu = function(k){ return !!(an[k] && an[k].neutre); };
+    var v = function(k){ if(nonLu(k)) return null; var n = Number(s[k]); return isFinite(n) ? n : null; };
     var sev = {};
     var rfInd = v('firmness') != null && (v('wrinkles') == null || v('firmness') <= v('wrinkles'));
     var rf = [v('wrinkles'), v('firmness')].filter(function(x){ return x != null; }); if(rf.length) sev.rides_fermete = 100 - Math.min.apply(null, rf);
@@ -118,8 +122,9 @@
     /* 04/10 : « yeux » n'est pas un besoin alimentaire (aucune allegation autorisee) : il ne choisit aucun aliment */
     var dit = ((AFFINE && AFFINE.besoins) || []).filter(function(k){ return k !== 'yeux'; }); if(dit.length) t = dit.concat(t.filter(function(k){ return dit.indexOf(k) < 0; }));
     var note = function(k){ return sev[k] == null ? null : Math.max(0, Math.min(100, Math.round(100 - sev[k]))); };
-    if(!t.length) return bas ? { i1:'entretien', i2:null, n1:note(bas), n2:null, suite:[], entretien:true, niv:niv, mes:mes, sev:sev } : null;
-    return { i1:t[0], i2:t[1] || null, n1:note(t[0]), n2:t[1] ? note(t[1]) : null, suite:t.slice(2), niv:niv, mes:mes, sev:sev }; }
+    var nl = ['wrinkles', 'firmness', 'glow', 'hydration', 'pores'].filter(nonLu);
+    if(!t.length) return bas ? { i1:'entretien', i2:null, n1:note(bas), n2:null, suite:[], entretien:true, niv:niv, mes:mes, sev:sev, nonLus:nl } : null;
+    return { i1:t[0], i2:t[1] || null, n1:note(t[0]), n2:t[1] ? note(t[1]) : null, suite:t.slice(2), niv:niv, mes:mes, sev:sev, nonLus:nl }; }
 
   /* ---- exclusions (QUESTIONNAIRE.md) ---- */
   /* assiette prudente : la meme regle que la liste ecrite a la main, appliquee a toute la base :

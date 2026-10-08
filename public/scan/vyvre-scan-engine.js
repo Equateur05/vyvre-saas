@@ -1,7 +1,28 @@
 var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind(console):function(){};
 /**
- * VYVRE Scan Engine v10.5.0-HONEST-AGE — Gabor shading + age-honesty fix (neutralized webcam +32y sigmoid & halved CNN offset 12→6 after due-diligence audit)
+ * VYVRE Scan Engine v10.13.0-MESURES-RELATIVES — Gabor shading + age-honesty fix (neutralized webcam +32y sigmoid & halved CNN offset 12→6 after due-diligence audit)
  * ═══════════════════════════════════════════════════════════════════════════════════════════
+ *
+ * v10.13 (07/10/2026, MESURES RELATIVES, AUDIT DU 07/10) — voir la section « QUATRE MESURES REFAITES » :
+ *   Plus aucune des 8 mesures ne dépend de la couleur de la peau ni de la luminosité de l'image.
+ *   - fermeté : n'est plus 82 − |ITA° − 35| × 0,32 + 5 (couleur seule). Relief et contour : sillon
+ *     nez-bouche (filtre de Gabor comparé à la joue de la personne), bas du visage (repères 3-13 vs
+ *     une courbe régulière), coins de la bouche ; sourire ou tête tournée → termes écartés (neutres).
+ *   - éclat : n'est plus L* × 0,7 + matité × 18. Uniformité de la lumière sur pommettes et front
+ *     rapportée au niveau de la peau de la personne, reflet doux des pommettes ; aucun L* absolu.
+ *   - pores : petits points sombres (différence de gaussiennes, 1-3 points de grille à 60 points par
+ *     largeur d'œil), profondeur rapportée à la peau voisine ; joues + nez.
+ *   - hydratation (indicative) : micro-texture la plus fine des joues, pores détectés EXCLUS, rapportée
+ *     au niveau de la peau. Ce n'est plus la même droite que les pores (σL* commun supprimé).
+ *   - rides : 100 % filtre de Gabor des plis (coins des yeux, front) : contraste avec la joue + orientation ;
+ *     l'ITA° et σL* sont retirés. Contour des yeux non mesurable → score neutre, signalé.
+ *   - bugs de teint corrigés au passage (signalés) : rougeurs = a* CIE (l'indice EI sur RVB montait de
+ *     ~20 points quand seule la clarté de la peau baissait), sébum = seuil relatif au niveau de la peau
+ *     (le plancher absolu 0,55 effaçait les reflets des peaux foncées), taches = seuil relatif (L*+16)
+ *     au lieu de « 7 L* sous la médiane », et calcul des taches aussi en mode photo (il retombait sur
+ *     l'indice de mélanine, c'est-à-dire la couleur de peau).
+ *   - âge : reste non publié (null) — voir AGE_ALGO_PUBLIABLE.
+ *   Le détail par mesure est exposé dans scores.analyses (fiable / neutre / valeurs brutes).
  *
  * v10.9 (04/10/2026, CONTOUR DES YEUX) — voir la section « CONTOUR DES YEUX » :
  *   - result.yeux.cernes : ombre sous l'œil comparée à la pommette du même côté (ΔL*, Δa*,
@@ -401,7 +422,7 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
  * ─────────────────────────────────────────────────────────────────────────────────────────
  *
  *   window.VYVRE_SCAN_ENGINE = {
- *     version: 'v10.5.0-honest-age',
+ *     version: 'v10.13.0-mesures-relatives',
  *     // High-level entry points :
  *     runRealScan(videoEl),       // → { scores, raw, ... } — auto-utilise CNN si dispo (v8)
  *     preloadCNN(),               // → { loaded, modelURL } — warm-up explicite (v8 NEW)
@@ -644,13 +665,27 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
   const SEBUM_THRESHOLD_MIN = 0.55;  // ⚠️ ad-hoc calibration empirique webcam — to validate on cohort
   const SEBUM_THRESHOLD_MAX = 0.92;  // ⚠️ ad-hoc calibration empirique webcam — to validate on cohort
 
+  // v10.13 (07/10/2026) : le seuil est RELATIF au niveau de la peau de la personne. Avant, il était
+  // borné à [0,55 ; 0,92] en absolu : une peau foncée (niveau moyen ~0,25) devait atteindre 2,2 fois
+  // son niveau pour qu'un reflet compte, une peau claire (0,60) 1,1 fois. Même peau, même brillance,
+  // sébum lu ~20 points plus bas sur peau foncée (banc du 07/10). Les marges d'origine sont gardées,
+  // exprimées en proportion d'un niveau de référence 0,5 (même seuil qu'avant pour une peau à 0,5).
+  // Niveau de référence : le moteur passe la médiane de l'intensité des JOUES (peau seule, même
+  // définition que l'intensité testée) ; la moyenne de tout le visage (avgLum) mêlait cheveux,
+  // sourcils et fond, qui ne suivent pas la peau. Les appels externes qui passent encore avgLum
+  // gardent le seuil relatif (plus de plancher absolu).
+  const SEBUM_NIVEAU_REF = 0.5;
+  function niveauIntensite(pixels) {
+    if (!pixels || pixels.length < 30) return null;
+    const pas = Math.max(1, Math.floor(pixels.length / 3000)), it = [];
+    for (let i = 0; i < pixels.length; i += pas) it.push((pixels[i].r + pixels[i].g + pixels[i].b) / 765);
+    it.sort(function (p, q) { return p - q; }); return it[it.length >> 1];
+  }
   function sebumProxy(pixels, avgLum, lumStd) {
     if (!pixels.length) return 0;
-    let threshold = Math.max(
-      avgLum + SEBUM_SIGMA_FACTOR * lumStd,
-      avgLum + SEBUM_MIN_OFFSET
-    );
-    threshold = clamp(SEBUM_THRESHOLD_MIN, SEBUM_THRESHOLD_MAX, threshold);
+    const niveau = avgLum;
+    const marge = Math.max(SEBUM_SIGMA_FACTOR * lumStd, SEBUM_MIN_OFFSET) / SEBUM_NIVEAU_REF;
+    const threshold = clamp(niveau + 0.01, 0.97, niveau * (1 + marge));
     let hi = 0;
     for (const p of pixels) {
       const intensity = (p.r + p.g + p.b) / 3 / 255;
@@ -1623,6 +1658,601 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
     return { yeux: yeux, rides: byZone.length ? byZone : null };
   }
 
+  // ════════════════════════════════════════════════════════════════════════
+  // v10.13 (07/10/2026) — FERMETÉ, ÉCLAT, PORES, HYDRATATION, RIDES : mesures refaites
+  // ════════════════════════════════════════════════════════════════════════
+  //
+  // POURQUOI (audit du 07/10/2026, lu dans le code) :
+  //   - fermeté = 82 − |ITA° − 35| × 0,32 + 5 : elle ne dépendait QUE de la couleur de peau
+  //     (une peau foncée perdait ~15 points d'office) ;
+  //   - éclat = L* × 0,7 + matité × 18 : une peau claire « brillait » plus, par construction ;
+  //   - hydratation = 78 − σL* × 1,8 et pores = 78 − σL* × 1,4 : deux droites du MÊME signal
+  //     (l'écart-type de L* sur la joue, surtout l'ombre du relief), donc toujours corrélées ;
+  //   - rides = 70 % couleur (ITA° + σL*) + 30 % plis (Gabor) : la part liée au teint dominait.
+  //
+  // RÈGLE COMMUNE : aucune luminosité absolue, aucune couleur de peau. Chaque mesure compare la
+  // peau de la personne à sa propre peau, sur la même image (même lumière, même appareil) :
+  //   - un contraste est rapporté au niveau de la peau voisine, en L* + 16 (∝ Y^1/3) : si toute
+  //     la peau est plus foncée ou plus claire d'un même facteur (mélanine, exposition), le
+  //     contraste ne bouge pas ;
+  //   - ou deux zones / deux orientations sont comparées avec le même filtre : (E1 − E2) / (E1 + E2).
+  // Échelle : tout est rééchantillonné dans le repère de l'œil (w = largeur de l'œil, repères
+  // 36-39 / 42-45), donc à la même taille physique quel que soit le cadrage.
+  // Si les repères ne suffisent pas (tête tournée, barbe, cheveux, mèche, monture ; sourire pour
+  // le sillon et les coins de la bouche), la mesure est écartée : le score reste NEUTRE plutôt
+  // qu'inventé, et le résultat le dit (scores.analyses.<mesure>.fiable / .neutre).
+  // Coût : ~4 ms par image complète (grain + éclat + fermeté, une image sur deux) et ~0,5 ms pour
+  // l'éclat seul sur les autres : ~20 ms de plus pour une lecture de 8 images (petites grilles).
+  //
+  // ⚠️ RÉGLAGES : les centres et pentes des scores (MESURES_CALAGE) sont calés sur les photos de
+  // test du dépôt (public/_test_masque, 17 visages acceptés par le contrôle), PAS sur une cohorte
+  // avec mesures de référence (cornéomètre, Visiometer...). Les mesures sont relatives et stables ;
+  // leur lien avec l'état réel de la peau reste à valider. Résultat indicatif, non médical.
+
+  const _LIN8 = (function () { const t = new Float32Array(256); for (let i = 0; i < 256; i++) t[i] = srgbToLinear(i); return t; })();
+  function _Lstar(Y) { return Y > LAB_DELTA3 ? LAB_L_SCALE * Math.cbrt(Y) - LAB_L_OFFSET : 903.3 * Y; }
+
+  /** Grille L* (et a*, b* si demandé) dans un repère (o, u, v), en px image : point (i, j) au centre
+   *  a0 + i·pas, b0 + j·pas. Si le pas dépasse 1,25 px, chaque case est la moyenne (en lumière
+   *  linéaire) de k × k points : pas de crénelage quand on réduit. null si la grille sort de l'image. */
+  function grilleLumiere(imageData, o, u, v, a0, b0, nx, ny, pas, couleur, kMax) {
+    const W = imageData.width, H = imageData.height, d = imageData.data;
+    const k = pas > 1.25 ? Math.min(kMax || 4, Math.ceil(pas)) : 1;
+    const n = nx * ny, L = new Float32Array(n), sat = new Uint8Array(n);
+    const A = couleur ? new Float32Array(n) : null, B = couleur ? new Float32Array(n) : null;
+    for (let j = 0; j < ny; j++) {
+      for (let i = 0; i < nx; i++) {
+        let R = 0, G = 0, Bl = 0, s = 0;
+        for (let sj = 0; sj < k; sj++) {
+          const bb = b0 + j * pas + ((sj + 0.5) / k - 0.5) * pas;
+          for (let si = 0; si < k; si++) {
+            const aa = a0 + i * pas + ((si + 0.5) / k - 0.5) * pas;
+            const x = o.x + aa * u.x + bb * v.x, y = o.y + aa * u.y + bb * v.y;
+            if (!(x >= 0 && y >= 0 && x <= W - 1 && y <= H - 1)) return null;
+            const x0 = x | 0, y0 = y | 0, x1 = x0 < W - 1 ? x0 + 1 : x0, y1 = y0 < H - 1 ? y0 + 1 : y0;
+            const fx = x - x0, fy = y - y0;
+            const w00 = (1 - fx) * (1 - fy), w10 = fx * (1 - fy), w01 = (1 - fx) * fy, w11 = fx * fy;
+            const i00 = (y0 * W + x0) * 4, i10 = (y0 * W + x1) * 4, i01 = (y1 * W + x0) * 4, i11 = (y1 * W + x1) * 4;
+            R += _LIN8[d[i00]] * w00 + _LIN8[d[i10]] * w10 + _LIN8[d[i01]] * w01 + _LIN8[d[i11]] * w11;
+            G += _LIN8[d[i00 + 1]] * w00 + _LIN8[d[i10 + 1]] * w10 + _LIN8[d[i01 + 1]] * w01 + _LIN8[d[i11 + 1]] * w11;
+            Bl += _LIN8[d[i00 + 2]] * w00 + _LIN8[d[i10 + 2]] * w10 + _LIN8[d[i01 + 2]] * w01 + _LIN8[d[i11 + 2]] * w11;
+            if (d[i00] >= 250 || d[i00 + 1] >= 250 || d[i00 + 2] >= 250) s++;
+          }
+        }
+        const kk = k * k, q = j * nx + i;
+        R /= kk; G /= kk; Bl /= kk;
+        const Y = R * M_RGB2XYZ.Yr + G * M_RGB2XYZ.Yg + Bl * M_RGB2XYZ.Yb;
+        L[q] = _Lstar(Y);
+        if (s * 2 >= kk) sat[q] = 1;
+        if (couleur) {
+          const X = (R * M_RGB2XYZ.Xr + G * M_RGB2XYZ.Xg + Bl * M_RGB2XYZ.Xb) * XYZ_SCALE, Z = (R * M_RGB2XYZ.Zr + G * M_RGB2XYZ.Zg + Bl * M_RGB2XYZ.Zb) * XYZ_SCALE;
+          const fx = labF(X / D65_Xn), fy = labF(Y * XYZ_SCALE / D65_Yn), fz = labF(Z / D65_Zn);
+          A[q] = LAB_A_SCALE * (fx - fy); B[q] = LAB_B_SCALE * (fy - fz);
+        }
+      }
+    }
+    return { L: L, a: A, b: B, sat: sat, nx: nx, ny: ny };
+  }
+
+  const _noyauxFlou = {};
+  /** Flou gaussien séparable sur une grille (bords répliqués). */
+  function flouGrille(src, nx, ny, sigma) {
+    let ker = _noyauxFlou[sigma];
+    if (!ker) {
+      const r = Math.max(1, Math.ceil(3 * sigma)); ker = new Float32Array(2 * r + 1); let s = 0;
+      for (let i = -r; i <= r; i++) { ker[i + r] = Math.exp(-i * i / (2 * sigma * sigma)); s += ker[i + r]; }
+      for (let i = 0; i < ker.length; i++) ker[i] /= s;
+      _noyauxFlou[sigma] = ker;
+    }
+    const r = (ker.length - 1) >> 1, tmp = new Float32Array(nx * ny), out = new Float32Array(nx * ny);
+    for (let j = 0; j < ny; j++) for (let i = 0; i < nx; i++) {
+      let acc = 0; for (let t = -r; t <= r; t++) { let ii = i + t; ii = ii < 0 ? 0 : ii >= nx ? nx - 1 : ii; acc += src[j * nx + ii] * ker[t + r]; }
+      tmp[j * nx + i] = acc;
+    }
+    for (let j = 0; j < ny; j++) for (let i = 0; i < nx; i++) {
+      let acc = 0; for (let t = -r; t <= r; t++) { let jj = j + t; jj = jj < 0 ? 0 : jj >= ny ? ny - 1 : jj; acc += tmp[jj * nx + i] * ker[t + r]; }
+      out[j * nx + i] = acc;
+    }
+    return out;
+  }
+
+  /** Masque « peau » d'une grille : teinte proche de la pommette de référence (même image), non saturé. */
+  function masquePeauGrille(g, ref, tolA, tolB) {
+    const n = g.nx * g.ny, m = new Uint8Array(n); let ok = 0;
+    for (let q = 0; q < n; q++) {
+      if (g.sat[q]) continue;
+      if (g.L[q] < ref.L - 30 || g.L[q] > ref.L + 25) continue;
+      if (g.a && (Math.abs(g.a[q] - ref.a) > tolA || Math.abs(g.b[q] - ref.b) > tolB)) continue;
+      m[q] = 1; ok++;
+    }
+    return { m: m, part: n ? ok / n : 0 };
+  }
+
+  function _medianeMasque(arr, masque) {
+    const t = []; for (let q = 0; q < arr.length; q++) if (!masque || masque[q]) t.push(arr[q]);
+    return t.length ? _mediane(t) : NaN;
+  }
+
+  /** Repère du visage : origine au milieu des coins externes des yeux (36, 45), unité D = leur distance. */
+  function repereVisage(lm) {
+    const e1 = lm[36], e2 = lm[45]; if (!e1 || !e2) return null;
+    const dx = e2.x - e1.x, dy = e2.y - e1.y, D = Math.hypot(dx, dy); if (!(D > 20)) return null;
+    const U = { x: dx / D, y: dy / D }; let V = { x: -U.y, y: U.x }; if (V.y < 0) V = { x: -V.x, y: -V.y };
+    const O = { x: (e1.x + e2.x) / 2, y: (e1.y + e2.y) / 2 };
+    return { O: O, U: U, V: V, D: D, P: function (p) { return { x: ((p.x - O.x) * U.x + (p.y - O.y) * U.y) / D, y: ((p.x - O.x) * V.x + (p.y - O.y) * V.y) / D }; } };
+  }
+
+  // ─── PORES + HYDRATATION : le grain de la peau ──────────────────────────────────────────
+  // Grille fine : 60 points par largeur d'œil (≈ 0,5 mm). Joues (sous l'œil, entre le nez et la
+  // pommette, des deux côtés) et nez (dos du nez, au-dessus de la pointe).
+  // PORES = petits points sombres de 1 à 3 points de grille : carte « différence de gaussiennes »
+  //   (σ 0,8 − σ 2) ; on lit la profondeur des 2 % de points les plus sombres de cette carte
+  //   (plus il y a de points sombres et plus ils sont marqués, plus elle est grande : densité et
+  //   contraste ensemble), rapportée surtout à la micro-texture de la peau voisine (70 %) — un pore
+  //   compte s'il se détache du grain qui l'entoure, ce qui ne dépend ni du teint, ni de la lumière,
+  //   ni du bruit de l'appareil — et pour 30 % au niveau de la peau (L* + 16). Les minima locaux à
+  //   plus de 3 écarts robustes (MAD) sont aussi comptés (densité, contraste : détail affiché).
+  // HYDRATATION (indicative) : micro-texture la plus fine (L* − flou σ 0,7) sur les joues, EN
+  //   EXCLUANT les pores détectés et 2 points autour, en % du niveau de la peau. Ce n'est plus
+  //   la même mesure que les pores (autre échelle, pores retirés) ; elle reste sensible au bruit
+  //   de l'appareil (une image très bruitée paraît plus « sèche »).
+  const GRAIN_PTS_OEIL = 60;          // points de grille par largeur d'œil
+  const PORE_SIGMA_1 = 0.8, PORE_SIGMA_2 = 2.0, PORE_SEUIL_MAD = 3.0, PORE_QUANTILE = 0.02, GRAIN_BORD = 3;
+  const HYDRA_SIGMA = 0.7;
+  const GRAIN_PEAU_MIN_JOUE = 0.85, GRAIN_PEAU_MIN_NEZ = 0.70;
+
+  function analyserGrain(g, peau, avecHydra) {
+    const nx = g.nx, ny = g.ny, n = nx * ny, L = g.L;
+    const g1 = flouGrille(L, nx, ny, PORE_SIGMA_1), g2 = flouGrille(L, nx, ny, PORE_SIGMA_2);
+    const D = new Float32Array(n); for (let q = 0; q < n; q++) D[q] = g1[q] - g2[q];
+    const val = new Uint8Array(n); const vals = [], Lv = [];
+    for (let j = GRAIN_BORD; j < ny - GRAIN_BORD; j++) for (let i = GRAIN_BORD; i < nx - GRAIN_BORD; i++) { const q = j * nx + i; if (peau[q]) { val[q] = 1; vals.push(D[q]); Lv.push(L[q]); } }
+    if (vals.length < 120) return null;
+    const niveau = _mediane(Lv) + LAB_L_OFFSET;
+    const tri = vals.slice().sort(function (p, q) { return p - q; });
+    const medD = tri[tri.length >> 1];
+    const dev = vals.map(function (x) { return Math.abs(x - medD); });
+    const s = 1.4826 * _mediane(dev);
+    // profondeur des 2 % de points les plus sombres, en % du niveau de la peau
+    const q2 = tri[Math.max(0, Math.round(PORE_QUANTILE * (tri.length - 1)))];
+    const profondeur = 100 * Math.max(0, medD - q2) / niveau;
+    // minima locaux nets (détail) + masque des pores pour l'hydratation
+    let nPores = 0, sommeC = 0; const pore = new Uint8Array(n);
+    if (s > 1e-4) {
+      for (let j = GRAIN_BORD; j < ny - GRAIN_BORD; j++) for (let i = GRAIN_BORD; i < nx - GRAIN_BORD; i++) {
+        const q = j * nx + i; if (!val[q]) continue;
+        const x = D[q]; if (x > medD - PORE_SEUIL_MAD * s) continue;
+        if (x >= D[q - 1] || x >= D[q + 1] || x >= D[q - nx] || x >= D[q + nx] || x >= D[q - nx - 1] || x >= D[q - nx + 1] || x >= D[q + nx - 1] || x >= D[q + nx + 1]) continue;
+        pore[q] = 1; nPores++; sommeC += 100 * (medD - x) / niveau;
+      }
+    }
+    const out = { profondeur: profondeur, densite: 1000 * nPores / vals.length, contraste: nPores ? sommeC / nPores : 0, n: vals.length };
+    if (avecHydra) {
+      const exclu = new Uint8Array(n);
+      for (let q = 0; q < n; q++) if (pore[q]) { const i = q % nx, j = (q / nx) | 0; for (let dj = -2; dj <= 2; dj++) for (let di = -2; di <= 2; di++) { const ii = i + di, jj = j + dj; if (ii >= 0 && jj >= 0 && ii < nx && jj < ny) exclu[jj * nx + ii] = 1; } }
+      const f = flouGrille(L, nx, ny, HYDRA_SIGMA);
+      let se = 0, c = 0;
+      for (let q = 0; q < n; q++) { if (!val[q] || exclu[q]) continue; const r = L[q] - f[q]; se += r * r; c++; }
+      if (c >= 100) out.microTexture = 100 * Math.sqrt(se / c) / niveau;   // % du niveau de la peau
+    }
+    return out;
+  }
+
+  function mesurerGrain(imageData, lm, cotes, ref, RV) {
+    const res = { cotes: {}, nez: null, pasPx: null };
+    const ws = [];
+    for (const cote of ['G', 'D']) {
+      const Z = cotes[cote]; if (!Z) continue;
+      const R = Z.R, w = R.w, p = R.paupiere, pas = w / GRAIN_PTS_OEIL; ws.push(w);
+      const nx = Math.round(0.70 * GRAIN_PTS_OEIL), ny = Math.round(0.50 * GRAIN_PTS_OEIL);
+      // de 0,15 w à 0,85 w du coin interne vers l'extérieur, de 0,50 w à 1,00 w sous la paupière :
+      // joue sous l'œil, à distance de l'arête du nez et du sillon
+      const g = grilleLumiere(imageData, R.int, R.u, R.v, 0.15 * w, p + 0.50 * w, nx, ny, pas, true);
+      if (!g) continue;
+      const mk = masquePeauGrille(g, ref, 9, 14);
+      if (mk.part < GRAIN_PEAU_MIN_JOUE) { res.cotes[cote] = { fiable: false, partPeau: +mk.part.toFixed(2) }; continue; }
+      const a = analyserGrain(g, mk.m, true);
+      res.cotes[cote] = a ? Object.assign({ fiable: true, partPeau: +mk.part.toFixed(2) }, a) : { fiable: false, partPeau: +mk.part.toFixed(2) };
+    }
+    if (ws.length && RV && lm[29] && lm[30]) {
+      const w = ws.reduce(function (s, x) { return s + x; }, 0) / ws.length, pas = w / GRAIN_PTS_OEIL;
+      // dos du nez, au-dessus de la pointe (repères 29-30) : 0,30 w de large, à l'écart des ailes
+      const c = { x: (lm[29].x + lm[30].x) / 2, y: (lm[29].y + lm[30].y) / 2 };
+      const nnx = Math.round(0.30 * GRAIN_PTS_OEIL), nny = Math.round(0.36 * GRAIN_PTS_OEIL);
+      const o = { x: c.x - 0.15 * w * RV.U.x - 0.18 * w * RV.V.x, y: c.y - 0.15 * w * RV.U.y - 0.18 * w * RV.V.y };
+      const g = grilleLumiere(imageData, o, RV.U, RV.V, 0, 0, nnx, nny, pas, true);
+      if (g) {
+        const mk = masquePeauGrille(g, ref, 12, 14);
+        if (mk.part >= GRAIN_PEAU_MIN_NEZ) { const a = analyserGrain(g, mk.m, true); res.nez = a ? Object.assign({ fiable: true, partPeau: +mk.part.toFixed(2) }, a) : { fiable: false }; }
+        else res.nez = { fiable: false, partPeau: +mk.part.toFixed(2) };
+      }
+    }
+    if (ws.length) res.pasPx = (ws.reduce(function (s, x) { return s + x; }, 0) / ws.length) / GRAIN_PTS_OEIL;
+    return res;
+  }
+
+  // ─── ÉCLAT : la lumière de la peau rapportée à SA propre peau ────────────────────────────
+  //   - uniformité des pommettes à moyenne échelle (8 points par largeur d'œil ≈ 4 mm, chaque
+  //     point = moyenne de 16 pixels : le grain et les pores n'y entrent pas) : après retrait de
+  //     la forme douce de la lumière (surface du 2ᵉ degré : relief + reflet large), ce qui reste
+  //     (marbrures, taches, ombres) en % du niveau de la peau. Plus c'est faible, plus c'est net.
+  //   - uniformité du front, même calcul (16 points par largeur d'œil) ;
+  //   - reflet des pommettes : bombé lumineux du 2ᵉ degré (reflet doux et large), en % du niveau ;
+  //     les reflets durs (points saturés) ne comptent pas : c'est le sébum, mesuré à part.
+  //   La chroma (régularité de a*, b*) a été essayée : trop instable d'une image à l'autre, écartée.
+  const ECLAT_PTS_OEIL = 16, ECLAT_PTS_OEIL_LARGE = 8;
+
+  function ajusterSurface(g, nx, ny, masque, degre2) {
+    // moindres carrés v ≈ c0 + c1 x + c2 y (+ c3 x² + c4 y² + c5 xy), x, y centrés réduits à ±1
+    const P = degre2 ? 6 : 3;
+    const M = new Float64Array(P * P), V = new Float64Array(P), f = new Float64Array(P);
+    const cx = (nx - 1) / 2, cy = (ny - 1) / 2, sx = Math.max(1, cx), sy = Math.max(1, cy);
+    let c = 0;
+    for (let j = 0; j < ny; j++) for (let i = 0; i < nx; i++) {
+      const q = j * nx + i; if (!masque[q]) continue;
+      const x = (i - cx) / sx, y = (j - cy) / sy;
+      f[0] = 1; f[1] = x; f[2] = y; if (degre2) { f[3] = x * x; f[4] = y * y; f[5] = x * y; }
+      for (let r = 0; r < P; r++) { V[r] += f[r] * g[q]; for (let s = 0; s < P; s++) M[r * P + s] += f[r] * f[s]; }
+      c++;
+    }
+    if (c < P + 4) return null;
+    const A = []; for (let r = 0; r < P; r++) { const row = []; for (let s = 0; s < P; s++) row.push(M[r * P + s]); row.push(V[r]); A.push(row); }
+    for (let col = 0; col < P; col++) {
+      let piv = col; for (let r = col + 1; r < P; r++) if (Math.abs(A[r][col]) > Math.abs(A[piv][col])) piv = r;
+      if (Math.abs(A[piv][col]) < 1e-9) return null;
+      const t = A[col]; A[col] = A[piv]; A[piv] = t;
+      for (let r = 0; r < P; r++) { if (r === col) continue; const k = A[r][col] / A[col][col]; for (let s = col; s <= P; s++) A[r][s] -= k * A[col][s]; }
+    }
+    const coef = []; for (let r = 0; r < P; r++) coef.push(A[r][P] / A[r][r]);
+    return { coef: coef, ajuste: function (i, j) { const x = (i - cx) / sx, y = (j - cy) / sy; let v = coef[0] + coef[1] * x + coef[2] * y; if (degre2) v += coef[3] * x * x + coef[4] * y * y + coef[5] * x * y; return v; } };
+  }
+
+  function analyserEclatZone(g, mk, avecReflet) {
+    const nx = g.nx, ny = g.ny, m = mk.m;
+    const Lm = _medianeMasque(g.L, m); if (!isFinite(Lm)) return null;
+    const niveau = Lm + LAB_L_OFFSET;
+    const S2 = ajusterSurface(g.L, nx, ny, m, true); if (!S2) return null;
+    let se = 0, c = 0;
+    for (let j = 0; j < ny; j++) for (let i = 0; i < nx; i++) { const q = j * nx + i; if (!m[q]) continue; const r = g.L[q] - S2.ajuste(i, j); se += r * r; c++; }
+    const out = { uniformite: 100 * Math.sqrt(se / c) / niveau, a: g.a ? _medianeMasque(g.a, m) : null };
+    // bombé : −(c3 + c4) en unités de L* (x, y réduits à ±1) ; positif = centre plus lumineux
+    if (avecReflet) out.reflet = Math.max(0, -(S2.coef[3] + S2.coef[4])) * 100 / niveau;
+    return out;
+  }
+
+  function mesurerEclat(imageData, lm, cotes, ref, RV) {
+    const res = { pommettes: {}, front: null };
+    const ws = [];
+    for (const cote of ['G', 'D']) {
+      const Z = cotes[cote]; if (!Z) continue;
+      const R = Z.R, w = R.w, p = R.paupiere; ws.push(w);
+      // reflet : pommette, 16 points par largeur d'œil (≈ 2 mm)
+      const pas = w / ECLAT_PTS_OEIL;
+      const g = grilleLumiere(imageData, R.int, R.u, R.v, 0.25 * w + pas / 2, p + 0.55 * w + pas / 2, Math.round(0.70 * ECLAT_PTS_OEIL), Math.round(0.50 * ECLAT_PTS_OEIL), pas, true);
+      // uniformité : même région, plus large, 8 points par largeur d'œil (≈ 4 mm)
+      const pas8 = w / ECLAT_PTS_OEIL_LARGE;
+      const g8 = grilleLumiere(imageData, R.int, R.u, R.v, 0.15 * w + pas8 / 2, p + 0.45 * w + pas8 / 2, 7, 5, pas8, true);
+      if (!g || !g8) continue;
+      const mk = masquePeauGrille(g, ref, 9, 14), mk8 = masquePeauGrille(g8, ref, 9, 14);
+      if (mk.part < 0.80 || mk8.part < 0.80) { res.pommettes[cote] = { fiable: false, partPeau: +Math.min(mk.part, mk8.part).toFixed(2) }; continue; }
+      const a = analyserEclatZone(g, mk, true), a8 = analyserEclatZone(g8, mk8, false);
+      res.pommettes[cote] = (a && a8) ? { fiable: true, uniformite: a8.uniformite, reflet: a.reflet, a: a.a, partPeau: +mk.part.toFixed(2) } : { fiable: false };
+    }
+    if (ws.length && RV && lm[21] && lm[22]) {
+      const w = ws.reduce(function (s, x) { return s + x; }, 0) / ws.length, pas = w / ECLAT_PTS_OEIL;
+      const c = { x: (lm[21].x + lm[22].x) / 2, y: (lm[21].y + lm[22].y) / 2 };
+      const nx = Math.round(0.90 * ECLAT_PTS_OEIL), ny = Math.round(0.45 * ECLAT_PTS_OEIL);
+      const g = grilleLumiere(imageData, c, RV.U, RV.V, -0.45 * w + pas / 2, -(0.35 + 0.45) * w + pas / 2, nx, ny, pas, true);
+      if (g) {
+        const mk = masquePeauGrille(g, ref, 9, 16);
+        if (mk.part >= 0.70) { const a = analyserEclatZone(g, mk, false); res.front = a ? Object.assign({ fiable: true, partPeau: +mk.part.toFixed(2) }, a) : { fiable: false }; }
+        else res.front = { fiable: false, partPeau: +mk.part.toFixed(2) };
+      }
+    }
+    return res;
+  }
+
+  // ─── FERMETÉ : relief et contour, jamais la couleur ──────────────────────────────────────
+  //   1. sillon nez-bouche : carré (0,16 D ≈ 15 mm) posé sur le pli, de l'aile du nez (repère
+  //      31 / 35) vers le coin de la bouche (48 / 54), orienté le long du pli ; énergie de Gabor
+  //      comparée à celle d'un carré de pommette de la MÊME personne, même taille, même
+  //      orientation, mêmes noyaux : profondeur relative = (E_pli − E_joue) / (E_pli + E_joue).
+  //   2. contour du bas du visage (repères 3 à 13) : écart moyen des points 4-7 et 9-12 sous la
+  //      courbe régulière (parabole par 3, 8, 13), en unités de D (coins externes des yeux) :
+  //      positif = contour qui descend sous la courbe (relâchement des bajoues).
+  //   3. coins de la bouche (48, 54) par rapport à la ligne des lèvres (62, 66), rapporté à la
+  //      largeur de la bouche : positif = coins tombants.
+  //   Sourire ou bouche ouverte : 1 et 3 sont écartés (neutres). Tête tournée : 2 et 3 écartés.
+  //   ⚠️ Les 68 repères donnent la forme du visage autant que son relâchement : un visage carré
+  //   n'est pas un visage relâché. Poids modestes, mesure indicative, à valider sur cohorte.
+  const FERM_SOURIRE_LARGEUR = 0.72;   // largeur de bouche / D au-delà : sourire (photos de test : 0,52-0,70 bouche neutre, 0,73-0,81 grand sourire)
+  const FERM_BOUCHE_OUVERTE = 0.20;    // écart des lèvres / largeur de bouche au-delà : bouche nettement ouverte (lèvres entrouvertes : 0,1-0,2, gardées)
+  const FERM_SOURIRE_COINS = -0.10;    // coins nettement au-dessus de la ligne des lèvres
+  const FERM_LACET_MAX = 0.10;         // pointe du nez décalée de plus de 0,10 D du milieu des yeux : tête tournée
+  const PLI_PTS_OEIL = 30, PLI_COTE = 0.16;
+  const PLI_THETAS = [Math.PI / 4, Math.PI / 2, 3 * Math.PI / 4], PLI_LAMBDA = 8;   // λ = 8 points (≈ 8 mm) : l'échelle d'un pli
+
+  function energiesPli(L, N) {
+    let moy = 0; for (let k = 0; k < N * N; k++) moy += L[k];
+    moy /= N * N;
+    const e = [];
+    for (const theta of PLI_THETAS) e.push(100 * applyGaborToPatch(L, N, N, _gaborKernelCache[theta.toFixed(3) + '_' + PLI_LAMBDA]) / Math.max(moy + LAB_L_OFFSET, 1));
+    return e;
+  }
+
+  function grillePli(imageData, centre, t, nrm, S, pas) {
+    // carré de côté S centré sur `centre`, axe x le long du pli (t), axe y en travers (nrm), + marge du noyau
+    const m = (GABOR_KERNEL_SIZE - 1) / 2, nIn = Math.max(8, Math.round(S / pas)), N = nIn + 2 * m;
+    const a0 = -(N - 1) / 2 * pas;
+    const g = grilleLumiere(imageData, centre, t, nrm, a0, a0, N, N, pas, true, 2);
+    return g ? { g: g, N: N } : null;
+  }
+
+  function mesurerFermete(imageData, lm, cotes, ref, RV) {
+    const P = RV.P, D = RV.D, out = { pli: {}, contour: null, bouche: null };
+    // pose (tête tournée) et expression
+    const nez = P(lm[30]);
+    const wG = cotes.G ? cotes.G.R.w : null, wD = cotes.D ? cotes.D.R.w : null;
+    const ratioYeux = (wG && wD) ? Math.min(wG, wD) / Math.max(wG, wD) : null;
+    const tourne = Math.abs(nez.x) > FERM_LACET_MAX || (ratioYeux != null && ratioYeux < 0.80);
+    // poids doux (0 à 1) : un terme s'efface progressivement près des seuils, sans saut d'une image à l'autre
+    const rampe = function (x, plein, nul) { return Math.max(0, Math.min(1, (nul - x) / (nul - plein))); };
+    const poidsPose = rampe(Math.abs(nez.x), 0.06, FERM_LACET_MAX) * (ratioYeux != null ? rampe(-ratioYeux, -0.86, -0.80) : 1);
+    const b48 = P(lm[48]), b54 = P(lm[54]), b62 = P(lm[62]), b66 = P(lm[66]);
+    const largBouche = Math.hypot(b54.x - b48.x, b54.y - b48.y);
+    const ouverture = (b66.y - b62.y) / Math.max(1e-6, largBouche);
+    const coins = ((b48.y + b54.y) / 2 - (b62.y + b66.y) / 2) / Math.max(1e-6, largBouche);
+    const sourire = largBouche > FERM_SOURIRE_LARGEUR || ouverture > FERM_BOUCHE_OUVERTE || coins < FERM_SOURIRE_COINS;
+    const poidsExpr = rampe(largBouche, FERM_SOURIRE_LARGEUR - 0.06, FERM_SOURIRE_LARGEUR) * rampe(ouverture, FERM_BOUCHE_OUVERTE - 0.08, FERM_BOUCHE_OUVERTE) * rampe(-coins, -FERM_SOURIRE_COINS - 0.05, -FERM_SOURIRE_COINS);
+    out.pose = { lacet: +nez.x.toFixed(3), ratioYeux: ratioYeux != null ? +ratioYeux.toFixed(3) : null, tourne: tourne };
+    out.expression = { largeurBouche: +largBouche.toFixed(3), ouverture: +ouverture.toFixed(3), sourire: sourire };
+
+    // 1. sillons nez-bouche (écartés si sourire : le sourire creuse le pli)
+    const wMoy = (wG && wD) ? (wG + wD) / 2 : (wG || wD);
+    if (wMoy && !sourire && poidsExpr > 0) {
+      const pas = wMoy / PLI_PTS_OEIL, S = PLI_COTE * D;
+      for (const cote of ['G', 'D']) {
+        const Z = cotes[cote]; if (!Z || !Z.joueCarre) continue;
+        const A = lm[cote === 'G' ? 31 : 35], C = lm[cote === 'G' ? 48 : 54], mil = lm[33];
+        if (!A || !C || !mil) continue;
+        const dx = C.x - A.x, dy = C.y - A.y, l = Math.hypot(dx, dy); if (!(l > 4)) continue;
+        const t = { x: dx / l, y: dy / l };
+        let nrm = { x: -t.y, y: t.x };
+        if ((A.x - mil.x) * nrm.x + (A.y - mil.y) * nrm.y < 0) nrm = { x: -nrm.x, y: -nrm.y };   // vers l'extérieur du visage
+        const centre = { x: A.x + 0.45 * dx + 0.06 * D * nrm.x, y: A.y + 0.45 * dy + 0.06 * D * nrm.y };
+        const R = Z.R, J = Z.joueCarre;
+        const cj = { x: J.o.x + ((J.a0 + J.a1) / 2) * R.u.x + ((J.b0 + J.b1) / 2) * R.v.x, y: J.o.y + ((J.a0 + J.a1) / 2) * R.u.y + ((J.b0 + J.b1) / 2) * R.v.y };
+        const gp = grillePli(imageData, centre, t, nrm, S, pas), gj = grillePli(imageData, cj, t, nrm, S, pas);
+        if (!gp || !gj) continue;
+        const mp = masquePeauGrille(gp.g, ref, 7, 14), mj = masquePeauGrille(gj.g, ref, 7, 14);
+        if (mp.part < 0.75 || mj.part < 0.75) { out.pli[cote] = { fiable: false, partPeau: +mp.part.toFixed(2), partPeauJoue: +mj.part.toFixed(2) }; continue; }
+        const ep = energiesPli(gp.g.L, gp.N), ej = energiesPli(gj.g.L, gj.N);
+        let k = 0; for (let i = 1; i < ep.length; i++) if (ep[i] > ep[k]) k = i;
+        const fp = function (x) { return Math.max(0, Math.min(1, (x - 0.75) / 0.12)); };
+        out.pli[cote] = { fiable: true, profondeur: (ep[k] + ej[k]) > 0 ? (ep[k] - ej[k]) / (ep[k] + ej[k]) : 0, poids: poidsExpr * fp(mp.part) * fp(mj.part) };
+      }
+    }
+
+    // 2. contour du bas du visage
+    if (!tourne && poidsPose > 0) {
+      const J = []; for (let i = 0; i <= 16; i++) { if (!lm[i]) break; J.push(P(lm[i])); }
+      if (J.length === 17) {
+        const x1 = J[3].x, y1 = J[3].y, x2 = J[8].x, y2 = J[8].y, x3 = J[13].x, y3 = J[13].y;
+        const den = (x1 - x2) * (x1 - x3) * (x2 - x3);
+        if (Math.abs(den) > 1e-6) {
+          const c2 = (x3 * (y2 - y1) + x2 * (y1 - y3) + x1 * (y3 - y2)) / den;
+          const c1 = (x3 * x3 * (y1 - y2) + x2 * x2 * (y3 - y1) + x1 * x1 * (y2 - y3)) / den;
+          const c0 = (x2 * x3 * (x2 - x3) * y1 + x3 * x1 * (x3 - x1) * y2 + x1 * x2 * (x1 - x2) * y3) / den;
+          let s = 0; const idx = [4, 5, 6, 7, 9, 10, 11, 12];
+          for (const i of idx) s += J[i].y - (c0 + c1 * J[i].x + c2 * J[i].x * J[i].x);
+          out.contour = { fiable: true, affaissement: s / idx.length, poids: poidsPose };
+        }
+      }
+    }
+
+    // 3. coins de la bouche (bouche fermée, sans sourire, tête de face)
+    if (!sourire && !tourne) out.bouche = { fiable: true, coins: coins, poids: poidsExpr * poidsPose };
+    return out;
+  }
+
+  /**
+   * Mesures de la peau sur UNE image (68 repères requis) : grain (pores, micro-texture),
+   * éclat, fermeté. Valeurs brutes, sans décision ; la synthèse prend les médianes.
+   * @param {ImageData} imageData
+   * @param {Array} landmarks - 68 repères face-api
+   * @param {object} [yeux] - sortie de mesurerContourYeux pour la même image (réutilise la pommette)
+   * @param {boolean} [eclatSeul] - ne mesure que l'éclat (images intermédiaires de la lecture)
+   */
+  function mesurerPeau(imageData, landmarks, yeux, eclatSeul) {
+    if (!imageData || !imageData.data || !landmarks || landmarks.length < 68) return null;
+    const RV = repereVisage(landmarks); if (!RV) return null;
+    const cotes = { G: zonesOeil(landmarks, 'G'), D: zonesOeil(landmarks, 'D') };
+    if (!cotes.G && !cotes.D) return null;
+    // référence de teinte (pour reconnaître la peau, jamais pour noter) : la pommette du contour des yeux
+    const jl = [];
+    for (const cote of ['G', 'D']) {
+      const c = yeux && yeux.cotes && yeux.cotes[cote];
+      if (c && c.joue) { jl.push(c.joue); continue; }
+      const Z = cotes[cote]; if (!Z) continue;
+      const R = Z.R, jo = grilleRepere(imageData, Z.joue.o, R.u, R.v, Z.joue.a0, Z.joue.a1, Z.joue.b0, Z.joue.b1, 24, 12);
+      if (jo) { const s = statsLab(jo); jl.push({ L: s.L, a: s.a, b: s.b }); }
+    }
+    if (!jl.length) return null;
+    const moyJ = function (f) { return jl.reduce(function (s, c) { return s + f(c); }, 0) / jl.length; };
+    const ref = { L: moyJ(function (c) { return c.L; }), a: moyJ(function (c) { return c.a; }), b: moyJ(function (c) { return c.b; }) };
+    const out = { D: RV.D };
+    // eclatSeul : l'éclat (≈ 0,5 ms) sur toutes les images, le grain et la fermeté une image sur deux
+    if (!eclatSeul) { try { out.grain = mesurerGrain(imageData, landmarks, cotes, ref, RV); } catch (e) { out.grain = null; } }
+    try { out.eclat = mesurerEclat(imageData, landmarks, cotes, ref, RV); } catch (e) { out.eclat = null; }
+    if (!eclatSeul) { try { out.fermete = mesurerFermete(imageData, landmarks, cotes, ref, RV); } catch (e) { out.fermete = null; } }
+    return out;
+  }
+
+  // ─── RIDES : la mesure de Gabor des plis (coins des yeux, front) porte tout le score ───────
+  // Par zone (carrés de peau du contour des yeux, section v10.9), deux lectures du MÊME filtre :
+  //   - contraste avec la pommette de la même personne, même noyau (v10.9) ;
+  //   - orientation : énergie dans la direction la plus marquée contre la moins marquée, à
+  //     l'échelle des plis (λ = 8) : un pli est orienté, le bruit et le grain ne le sont pas.
+  //     Cette lecture ne dépend pas de la joue (chez une personne âgée, la joue a aussi des plis
+  //     et le seul contraste avec elle sous-estimait les rides).
+  //   profondeur de la zone = moyenne des deux (0-100). Une zone compte selon sa part de peau
+  //   (0,75 → 0 ; 0,90 et plus → 1) : pas de saut quand une mèche entre ou sort du carré.
+  //   Aucune couleur, aucun ITA°.
+  function profondeurZoneRides(z) {
+    const ez = z.ez, ej = z.ej; if (!ez || !ej || ez.length !== 8) return null;
+    let k = 0; for (let i = 1; i < 8; i++) if (ez[i] > ez[k]) k = i;
+    const contraste = (ez[k] + ej[k]) > 0 ? 100 * Math.max(0, (ez[k] - ej[k]) / (ez[k] + ej[k])) : 0;
+    let emax = -Infinity, emin = Infinity;
+    for (let t = 0; t < 4; t++) { const e = ez[2 * t + 1]; if (e > emax) emax = e; if (e < emin) emin = e; }
+    const orientation = (emax + emin) > 0 ? 100 * (emax - emin) / (emax + emin) : 0;
+    return 0.5 * contraste + 0.5 * orientation;
+  }
+  function poidsPeauRides(pp, pj) {
+    const f = function (x) { return x == null ? 1 : Math.max(0, Math.min(1, (x - 0.75) / 0.15)); };
+    return f(pp) * f(pj);
+  }
+  /** Profondeur des rides sur plusieurs images (médiane par zone, moyenne pondérée des zones). */
+  function syntheseRides(mesures) {
+    const M = (mesures || []).filter(Boolean);
+    const zones = [['coinOeilG', function (m) { return m.cotes.G && m.cotes.G.rides; }],
+                   ['coinOeilD', function (m) { return m.cotes.D && m.cotes.D.rides; }],
+                   ['front', function (m) { return m.front; }]];
+    const parZone = []; let sp = 0, sw = 0;
+    for (const zr of zones) {
+      const vals = [], wts = [];
+      for (const m of M) {
+        const z = zr[1](m); if (!z) continue;
+        const w = poidsPeauRides(z.partPeau, z.partPeauJoue); if (!(w > 0)) continue;
+        const p = profondeurZoneRides(z); if (p == null) continue;
+        vals.push(p); wts.push(w);
+      }
+      if (!vals.length) continue;
+      const p = _mediane(vals), w = _mediane(wts);
+      parZone.push({ zone: zr[0], profondeur: Math.round(p * 10) / 10, poids: Math.round(w * 100) / 100, images: vals.length });
+      sp += p * w; sw += w;
+    }
+    return sw > 0 ? { profondeur: sp / sw, zones: parZone, poids: sw } : null;
+  }
+
+  /** Synthèse des mesures de peau sur plusieurs images : médianes par mesure. */
+  function synthesePeau(mesures) {
+    const M = (mesures || []).filter(Boolean);
+    const med = function (f) { const t = []; for (const m of M) { let v = null; try { v = f(m); } catch (e) { v = null; } if (v != null && isFinite(v)) t.push(v); } return t.length ? { v: _mediane(t), n: t.length } : null; };
+    const moyFiables = function (objs, cle) { let s = 0, c = 0; for (const o of objs) if (o && o.fiable && o[cle] != null && isFinite(o[cle])) { s += o[cle]; c++; } return c ? s / c : null; };
+    const zonesPores = function (m, f) {
+      const g = m.grain; if (!g) return null;
+      let s = 0, w = 0;
+      for (const c of ['G', 'D']) { const x = g.cotes[c]; if (x && x.fiable) { const v = f(x); if (v != null && isFinite(v)) { s += v * x.n; w += x.n; } } }
+      if (g.nez && g.nez.fiable) { const v = f(g.nez); if (v != null && isFinite(v)) { s += 0.3 * v * g.nez.n; w += 0.3 * g.nez.n; } }
+      return w ? s / w : null;
+    };
+    const pores = med(function (m) { return zonesPores(m, function (x) { return x.profondeur; }); });
+    // points sombres rapportés au grain voisin (log) : 1 = se détachent comme une fois le grain
+    const poresRel = med(function (m) { return zonesPores(m, function (x) { return (x.profondeur > 0 && x.microTexture > 0) ? Math.log(x.profondeur / x.microTexture) : null; }); });
+    const densite = med(function (m) { return m.grain ? moyFiables([m.grain.cotes.G, m.grain.cotes.D], 'densite') : null; });
+    const contraste = med(function (m) { return m.grain ? moyFiables([m.grain.cotes.G, m.grain.cotes.D], 'contraste') : null; });
+    const micro = med(function (m) { return m.grain ? moyFiables([m.grain.cotes.G, m.grain.cotes.D], 'microTexture') : null; });
+    const pasPx = med(function (m) { return m.grain ? m.grain.pasPx : null; });
+    const uni = med(function (m) { return m.eclat ? moyFiables([m.eclat.pommettes.G, m.eclat.pommettes.D], 'uniformite') : null; });
+    const reflet = med(function (m) { return m.eclat ? moyFiables([m.eclat.pommettes.G, m.eclat.pommettes.D], 'reflet') : null; });
+    const uniF = med(function (m) { return m.eclat && m.eclat.front && m.eclat.front.fiable ? m.eclat.front.uniformite : null; });
+    const aJoues = med(function (m) { return m.eclat ? moyFiables([m.eclat.pommettes.G, m.eclat.pommettes.D], 'a') : null; });
+    const aFront = med(function (m) { return m.eclat && m.eclat.front && m.eclat.front.fiable ? m.eclat.front.a : null; });
+    // fermeté : moyenne pondérée sur les images (poids doux d'expression, de pose, de part de peau)
+    const pond = function (get) {
+      let sv = 0, sw = 0, n = 0;
+      for (const m of M) { const r = m.fermete ? get(m.fermete) : null; if (!r) continue; for (const x of r) { if (!x || !(x.poids > 0) || x.v == null || !isFinite(x.v)) continue; sv += x.v * x.poids; sw += x.poids; n++; } }
+      const nF = M.filter(function (m) { return m.fermete; }).length;   // images où la fermeté a été mesurée
+      return sw > 0 ? { v: sv / sw, poids: Math.min(1, sw / Math.max(1, nF)), n: n } : null;
+    };
+    const pli = pond(function (f) { return ['G', 'D'].map(function (c) { const x = f.pli[c]; return (x && x.fiable) ? { v: x.profondeur, poids: x.poids / 2 } : null; }); });
+    const contour = pond(function (f) { return f.contour ? [{ v: f.contour.affaissement, poids: f.contour.poids }] : null; });
+    const coins = pond(function (f) { return f.bouche ? [{ v: f.bouche.coins, poids: f.bouche.poids }] : null; });
+    const sourire = M.filter(function (m) { return m.fermete && m.fermete.expression && m.fermete.expression.sourire; }).length;
+    return { images: M.length, pores: pores, poresRel: poresRel, densite: densite, contraste: contraste, microTexture: micro, pasPx: pasPx,
+             uniformite: uni, uniformiteFront: uniF, reflet: reflet, aJoues: aJoues, aFront: aFront,
+             pli: pli, contour: contour, coins: coins, imagesSourire: sourire };
+  }
+
+  // ─── SCORES : centres et pentes (calés sur les photos de test, voir ⚠️ RÉGLAGES plus haut) ───
+  // Chaque terme : z = (mesure − centre) / échelle, borné à ±2,5 ; score = centre du score ± pente × z.
+  // Les mesures d'amplitude (en % du niveau de la peau) sont lues en logarithme (écarts relatifs).
+  const MESURES_CALAGE = {
+    rides:      { centre: 23, echelle: 24, score: 72, pente: 10 },          // profondeur 0-100 (contraste + orientation)
+    pores:      { centre: 0.87, echelle: 0.99, score: 62, pente: 9 },       // ln(profondeur des points sombres, % du niveau) : 30 %
+    poresRel:   { centre: 1.46, echelle: 0.65 },                           // ln(profondeur / micro-texture voisine) : 70 %
+    hydratation:{ centre: -0.40, echelle: 0.90, score: 55, pente: 9 },      // ln(micro-texture, %)
+    eclatUni:   { centre: 0.95, echelle: 1.01, pente: 6 },                  // ln(irrégularité des pommettes, %)
+    eclatFront: { centre: 0.71, echelle: 0.60, pente: 3 },                  // ln(irrégularité du front, %)
+    eclatReflet:{ centre: 1.7, echelle: 5.1, pente: 4 },                    // bombé lumineux des pommettes, %
+    eclat:      { score: 60 },
+    fermPli:    { centre: 0.24, echelle: 0.55, pente: 7 },                  // profondeur relative du sillon (−1..1)
+    fermContour:{ centre: 0.045, echelle: 0.030, pente: 7 },                // affaissement (unités de D)
+    fermCoins:  { centre: 0.0, echelle: 0.10, pente: 5 },               // coins de la bouche (/ largeur)
+    fermete:    { score: 70 }
+  };
+  // résolution : en dessous de 0,65 px d'image par point de grille fine (œil de moins de ~40 px), le
+  // grain est lissé par l'agrandissement ; pores et micro-texture sont rapprochés du neutre (0,35 px → neutre)
+  const GRAIN_PAS_PLEIN = 0.65, GRAIN_PAS_NUL = 0.35;
+  function _z(v, c) { return Math.max(-2.5, Math.min(2.5, (v - c.centre) / c.echelle)); }
+
+  function scoresPeau(syn, rides) {
+    const C = MESURES_CALAGE, out = { analyses: {} };
+    const resol = (syn && syn.pasPx) ? Math.max(0, Math.min(1, (syn.pasPx.v - GRAIN_PAS_NUL) / (GRAIN_PAS_PLEIN - GRAIN_PAS_NUL))) : 0;
+    // RIDES
+    if (rides) {
+      const z = _z(rides.profondeur, C.rides);
+      out.wrinkles = Math.round(clamp(WRINKLES_MIN, WRINKLES_MAX, C.rides.score - C.rides.pente * z));
+      out.analyses.wrinkles = { fiable: true, profondeur: Math.round(rides.profondeur * 10) / 10, zones: rides.zones, methode: 'v10.13-gabor-plis' };
+    } else {
+      out.wrinkles = C.rides.score;
+      out.analyses.wrinkles = { fiable: false, neutre: true, methode: 'v10.13-repli-neutre', raison: 'contour des yeux et front non mesurables (repères, cheveux, monture)' };
+    }
+    // PORES
+    if (syn && syn.pores && syn.pores.v > 0) {
+      const zAbs = _z(Math.log(Math.max(0.05, syn.pores.v)), C.pores);
+      const z = (syn.poresRel ? 0.7 * _z(syn.poresRel.v, C.poresRel) + 0.3 * zAbs : zAbs) * resol;
+      out.pores = Math.round(clamp(PORES_MIN, PORES_MAX, C.pores.score - C.pores.pente * z));
+      out.analyses.pores = { fiable: resol >= 1, profondeurPoints: +syn.pores.v.toFixed(2), rapportAuGrain: syn.poresRel ? +Math.exp(syn.poresRel.v).toFixed(2) : null, densite: syn.densite ? +syn.densite.v.toFixed(1) : null, contraste: syn.contraste ? +syn.contraste.v.toFixed(2) : null, resolution: +resol.toFixed(2), images: syn.pores.n };
+    } else {
+      out.pores = C.pores.score;
+      out.analyses.pores = { fiable: false, neutre: true, raison: 'joues et nez non mesurables' };
+    }
+    // HYDRATATION
+    if (syn && syn.microTexture && syn.microTexture.v > 0) {
+      const z = _z(Math.log(Math.max(0.02, syn.microTexture.v)), C.hydratation) * resol;
+      out.hydration = Math.round(clamp(HYDRATION_MIN, HYDRATION_MAX, C.hydratation.score - C.hydratation.pente * z));
+      out.analyses.hydration = { fiable: resol >= 1, microTexture: +syn.microTexture.v.toFixed(3), resolution: +resol.toFixed(2), images: syn.microTexture.n, indicatif: true };
+    } else {
+      out.hydration = C.hydratation.score;
+      out.analyses.hydration = { fiable: false, neutre: true, raison: 'joues non mesurables' };
+    }
+    // ÉCLAT
+    if (syn && (syn.uniformite || syn.uniformiteFront)) {
+      let s = C.eclat.score; const det = {};
+      if (syn.uniformite) { s -= C.eclatUni.pente * _z(Math.log(Math.max(0.05, syn.uniformite.v)), C.eclatUni); det.uniformitePommettes = +syn.uniformite.v.toFixed(2); }
+      if (syn.uniformiteFront) { s -= C.eclatFront.pente * _z(Math.log(Math.max(0.05, syn.uniformiteFront.v)), C.eclatFront); det.uniformiteFront = +syn.uniformiteFront.v.toFixed(2); }
+      if (syn.reflet) { s += C.eclatReflet.pente * Math.max(-1, Math.min(2, (syn.reflet.v - C.eclatReflet.centre) / C.eclatReflet.echelle)); det.reflet = +syn.reflet.v.toFixed(2); }
+      out.glow = Math.round(clamp(GLOW_MIN, GLOW_MAX, s));
+      out.analyses.glow = Object.assign({ fiable: !!syn.uniformite }, det);
+    } else {
+      out.glow = C.eclat.score;
+      out.analyses.glow = { fiable: false, neutre: true, raison: 'pommettes et front non mesurables' };
+    }
+    // FERMETÉ
+    {
+      let s = C.fermete.score, n = 0; const det = {};
+      // chaque terme compte en proportion de son poids (images valides, expression, pose)
+      const pw = function (t) { return t.poids != null ? t.poids : 1; };
+      if (syn && syn.pli) { s -= C.fermPli.pente * _z(syn.pli.v, C.fermPli) * pw(syn.pli); n++; det.sillon = +syn.pli.v.toFixed(3); }
+      if (syn && syn.contour) { s -= C.fermContour.pente * _z(syn.contour.v, C.fermContour) * pw(syn.contour); n++; det.contour = +syn.contour.v.toFixed(4); }
+      if (syn && syn.coins) { s -= C.fermCoins.pente * _z(syn.coins.v, C.fermCoins) * pw(syn.coins); n++; det.coinsBouche = +syn.coins.v.toFixed(3); }
+      out.firmness = Math.round(clamp(FIRMNESS_MIN, FIRMNESS_MAX, s));
+      out.analyses.firmness = Object.assign({ fiable: n >= 2, neutre: n === 0, termes: n, sourire: syn ? syn.imagesSourire : 0 }, det);
+    }
+    return out;
+  }
+
   /**
    * Échantillonne les pixels RGB dans une ROI anatomique.
    *
@@ -1943,10 +2573,14 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
         // v10.9 : contour des yeux mesuré sur CHAQUE image acceptée (médiane ensuite)
         let yeux = null;
         try { yeux = mesurerContourYeux(imageData, lms); } catch (eY) { yeux = null; }
+        // v10.13 : éclat sur chaque image acceptée, grain et fermeté une image sur deux (médianes ensuite) :
+        // ~4 ms par image complète, ~0,5 ms sinon, soit ~20 ms de plus pour une lecture de 8 images
+        let peau = null;
+        try { peau = mesurerPeau(imageData, lms, yeux, allFrames.length % 2 === 1); } catch (eP) { peau = null; }
         allFrames.push({
           cheekPixels, tzonePixels, foreheadPixels, allPixels, quality, roi,
           // v10.4 : keep imageData + landmarks for Gabor wrinkle depth analysis on last accepted frame
-          imageData, landmarks: lms, yeux
+          imageData, landmarks: lms, yeux, peau
         });
       } catch (e) {
         console.warn(`[vyvre-scan v7] frame ${i} error:`, e.message);
@@ -1998,7 +2632,9 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
     const EI = erythemaIndex(avgRed, avgGreen);
 
     const allTZonePx = allFrames.reduce((acc, f) => acc.concat(f.tzonePixels), []);
-    const tZoneSebum = sebumProxy(allTZonePx, avgLumOverall, lumStd);
+    // v10.13 : seuil des reflets relatif au niveau des JOUES (peau seule), plus à la moyenne du visage
+    const niveauJoues = niveauIntensite(allCheekPixels);
+    const tZoneSebum = sebumProxy(allTZonePx, niveauJoues != null ? niveauJoues : avgLumOverall, lumStd);
     const tewlSigma = tewlProxy(labArr);
 
     // Quality score scan-level
@@ -2051,7 +2687,11 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
         // v10.4 — frame bundle (transient, ne pas sérialiser ; consommé par Gabor wrinkle depth)
         _frame: frameBundle,
         // v10.9 — mesures du contour des yeux, une par image acceptée (transient)
-        _yeux: allFrames.map(f => f.yeux).filter(Boolean)
+        _yeux: allFrames.map(f => f.yeux).filter(Boolean),
+        // v10.13 — mesures de peau (grain, éclat, fermeté), une par image acceptée (transient)
+        _peau: allFrames.map(f => f.peau).filter(Boolean),
+        // v10.13 — pixels des DEUX joues, toutes images (sous-échantillonnés, ≤ 4000), pour les taches
+        _joues: (function () { const pas = Math.max(1, Math.ceil(allCheekPixels.length / 4000)); const o = []; for (let i = 0; i < allCheekPixels.length; i += pas) o.push(allCheekPixels[i]); return o; })()
       },
       pixelBundle,                   // v10.0 — exposé aussi au top-level pour clarté
       framesAccepted: allFrames.length,
@@ -2613,7 +3253,8 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
     const fitz = detectPhototype(itaAngle);
     const MI = melaninIndex(avgRed);
     const EI = erythemaIndex(avgRed, avgGreen);
-    const sebum = sebumProxy(tzonePixels, avgLum, 0.05);
+    const niveauJoues = niveauIntensite(cheekPixels);   // v10.13 : référence = joues (peau seule)
+    const sebum = sebumProxy(tzonePixels, niveauJoues != null ? niveauJoues : avgLum, 0.05);
     const tewl = tewlProxy(labArr);
 
     // Quality score one-shot (pas de frameVariance, on suppose steady)
@@ -2651,7 +3292,8 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
       quality: qScore.score,
       qualityBreakdown: qScore.breakdown,
       _pixelBundle: pixelBundle,     // v10.0 — pour clinical detectors
-      _frame: frameBundle            // v10.4 — pour Gabor wrinkle depth
+      _frame: frameBundle,           // v10.4 — pour Gabor wrinkle depth
+      _joues: cheekPixels            // v10.13 — les deux joues, pour les taches
     };
   }
 
@@ -2660,6 +3302,10 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
   //    PEER-REVIEWED CONSTANTS WITH CITATIONS
   // ════════════════════════════════════════════════════════════════════════
 
+  // ⚠️ v10.13 (07/10/2026) : les formules hydratation / pores / éclat / fermeté / rides ci-dessous
+  // (σL*, L*, ITA°) NE SONT PLUS UTILISÉES pour les scores : voir « QUATRE MESURES REFAITES ».
+  // Seules les bornes *_MIN / *_MAX servent encore (bornes d'affichage inchangées). Les constantes
+  // sont gardées pour la traçabilité et pour generateSyntheticSignals (tests d'arithmétique de l'âge).
   // ────────────────────────────────────────────────────────────────────────
   // HYDRATION : TEWL proxy via σL* (Stamatas 2011)
   // ────────────────────────────────────────────────────────────────────────
@@ -2679,6 +3325,8 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
   // Normalisation : (MI - 75) / 2.5 ramène [100..400] → [10..130], clampé [8..95].
   // ⚠️ Les clamps sont PHOTOTYPE-DEPENDENT (cf. PHOTOTYPE_PIGMENT_CLAMPS).
   const PIGMENT_MI_OFFSET = 75;      // Takiwaki 1998 baseline MI
+  const PIGMENT_SEUIL_RELATIF = 0.90; // v10.13 : « plus foncé de 10 % que son teint » en L*+16 (= 7 L* à L* 54)
+  const PIGMENT_ECHELLE_RELATIVE = 220; // v10.13 : part des pixels plus foncés × 220 (était × 250, voir mapToScores)
   const PIGMENT_MI_DIVISOR = 2.5;    // Normalisation à 0-100 sur MI réaliste [100..400]
 
   // Clamps de pigmentation selon phototype Fitzpatrick (Del Bino 2013, Flament 2023).
@@ -2735,6 +3383,16 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
   const REDNESS_EI_SCALE = 3;        // EI 0→95, EI 8→71, EI 12→59, EI 20→35
   const REDNESS_MIN = 30;
   const REDNESS_MAX = 92;
+  // v10.13 (07/10/2026) : ROUGEURS = a* CIE des joues (le paramètre d'érythème des chromamètres).
+  // L'indice EI = 100·log10(R/V) calculé sur les valeurs RVB de l'image dépend de la CLARTÉ de la
+  // peau : à a* égal, une peau plus foncée a un rapport R/V plus grand (banc du 07/10 : ~20 points
+  // de « rougeur » en plus quand seule la clarté baisse). Correspondance gardée avec l'ancienne
+  // échelle sur les photos de test (EI ≈ 0,66 a* + 5,5 ; r = 0,89) : 95 − 3·EI ≈ 78,6 − 2·a*.
+  // ⚠️ a* suit la balance des blancs de la caméra (comme l'ancien EI) : ±3 unités de a* pour une
+  // dominante chaude / froide nette, soit ±6 points. Une correction par l'écart joues − front a été
+  // essayée (07/10) : le front (frange, bandeau) rendait la mesure instable, écartée.
+  const REDNESS_A_OFFSET = 78.6;
+  const REDNESS_A_SLOPE = 2.0;
 
   // ────────────────────────────────────────────────────────────────────────
   // SEBUM : specular ratio (Mizukoshi 2013)
@@ -2977,6 +3635,15 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
 
   const AGE_MIN_USABLE_SPAN = 25;   // ans d'amplitude atteignable minimum pour oser un chiffre
 
+  // v10.13 (07/10/2026) — PUBLICATION DE L'ÂGE (chemin algo) SUSPENDUE.
+  // Les 4 entrées (rides, fermeté, hydratation, éclat) ne dépendent plus du teint, et leur amplitude
+  // atteignable dépasse désormais 25 ans (ageSpanDiagnostic). Mais l'amplitude ne prouve pas la
+  // justesse : sur les photos de test (public/_test_masque), l'âge calculé reste serré autour de
+  // 35-45 ans quel que soit le visage (une enfant et un homme d'environ 80 ans lus dans la même
+  // fourchette). Un faux âge est pire que pas d'âge : false tant qu'une validation sur des visages
+  // d'âges connus n'existe pas. Passer à true SEULEMENT après cette validation.
+  const AGE_ALGO_PUBLIABLE = false;
+
   // Classes honnêtes — c'est le maximum de ce que le moteur peut prétendre
   // affirmer tant qu'il n'a pas été validé sur des visages d'âges connus.
   const AGE_CLASS_BOUNDS = [
@@ -3004,29 +3671,29 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
    * @returns {{min:number,max:number,span:number,degenerate:boolean,n:number,median:number}}
    */
   function ageSpanDiagnostic(opts) {
+    // v10.13 : balaie les signaux bruts des nouvelles mesures (profondeur des plis, sillon, contour,
+    // coins de la bouche, micro-texture, uniformité, reflet) sur toute leur plage plausible, les passe
+    // par les mêmes fonctions de score (scoresPeau), puis par estimateAge. Propriété des formules,
+    // aucune image requise. (Avant v10.13 : ITA°, σL*, L*, sébum.)
     opts = opts || {};
-    const stepIta = opts.coarse ? 10 : 5;
-    const stepTewl = opts.coarse ? 3 : 1;
+    const C = MESURES_CALAGE;
+    const pas = opts.coarse ? 2.5 : 1.25;
+    const zs = []; for (let z = -2.5; z <= 2.5001; z += pas) zs.push(z);
     const ages = [];
-    for (let ita = -10; ita <= 60; ita += stepIta) {
-      for (let t = 1; t <= 20; t += stepTewl) {
-        for (let L = 35; L <= 75; L += 10) {
-          for (let sb = 0; sb <= 0.6; sb += 0.2) {
-            const raw = { ita, L, a: 12, b: 16, MI: 35, EI: 12, tewl: t, sebum: sb, fitz: 0, quality: 95 };
-            let s;
-            try { s = mapToScores(raw); } catch (e) { continue; }
-            if (!s || s.error) continue;
-            const r = estimateAge(
-              { wrinkles: s.wrinkles, firmness: s.firmness, hydration: s.hydration, glow: s.glow, quality: 95 },
-              s.phototype,
-              { __spanProbe: true }   // évite la récursion (cf. estimateAge)
-            );
-            const a = (r && typeof r.rawPerceivedAge === 'number') ? r.rawPerceivedAge
-                    : (r && typeof r.perceivedAge === 'number') ? r.perceivedAge : null;
-            if (a !== null) ages.push(a);
-          }
-        }
-      }
+    const val = function (c, z) { return c.centre + z * c.echelle; };
+    for (const zR of zs) for (const zP of zs) for (const zC of zs) for (const zH of zs) for (const zU of zs) {
+      const syn = {
+        pores: { v: 2, n: 1 }, microTexture: { v: Math.exp(val(C.hydratation, zH)), n: 1 }, pasPx: { v: 1, n: 1 },
+        uniformite: { v: Math.exp(val(C.eclatUni, zU)), n: 1 }, uniformiteFront: { v: Math.exp(val(C.eclatFront, zU)), n: 1 },
+        reflet: { v: Math.max(0, val(C.eclatReflet, -zU)), n: 1 },
+        pli: { v: val(C.fermPli, zP), n: 1 }, contour: { v: val(C.fermContour, zC), n: 1 }, coins: { v: val(C.fermCoins, zC), n: 1 },
+        imagesSourire: 0
+      };
+      let s;
+      try { s = scoresPeau(syn, { profondeur: Math.max(0, val(C.rides, zR)), zones: [] }); } catch (e) { continue; }
+      const r = estimateAge({ wrinkles: s.wrinkles, firmness: s.firmness, hydration: s.hydration, glow: s.glow, quality: 95 }, 2, { __spanProbe: true });
+      const a = (r && typeof r.rawPerceivedAge === 'number') ? r.rawPerceivedAge : null;
+      if (a !== null) ages.push(a);
     }
     if (!ages.length) {
       return { min: null, max: null, span: 0, degenerate: true, n: 0, median: null };
@@ -3060,11 +3727,12 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
           '[vyvre-scan v11.1] ÂGE NON LISIBLE : amplitude atteignable ' +
           __ageSpanCache.min + '–' + __ageSpanCache.max + ' ans (' + __ageSpanCache.span +
           ' ans, minimum requis ' + AGE_MIN_USABLE_SPAN + '). Le moteur ne publiera pas de chiffre — ' +
-          'seulement une classe. Cause : wrinkles et firmness saturent (cf. AGE_RECALIBRATION_2026-09.md).'
+          'seulement une classe.'
         );
       }
     }
-    return !__ageSpanCache.degenerate;
+    // v10.13 : lisible seulement si l'amplitude suffit ET si la publication est validée (AGE_ALGO_PUBLIABLE)
+    return AGE_ALGO_PUBLIABLE && !__ageSpanCache.degenerate;
   }
 
   // ────────────────────────────────────────────────────────────────────────
@@ -3950,6 +4618,30 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
       return { rawPerceivedAge: perceivedAge, rawBioAge: bioAge };
     }
 
+    // ─── Step 5bis (v10.13) : pas de chiffre sans mesure, pas de chiffre non validé ───
+    // (a) si rides OU fermeté n'ont pas été mesurées sur ce scan (repli neutre), le composite n'est
+    //     qu'une constante déguisée : refus ;
+    // (b) AGE_ALGO_PUBLIABLE (voir sa définition) : la combinaison n'a jamais été comparée à des âges
+    //     connus, et sur les photos de test elle ne suit pas l'âge apparent : refus.
+    if (options.entreesMesurees === false || !AGE_ALGO_PUBLIABLE) {
+      const clsR = ageClassFor(null);
+      return {
+        point: null, perceivedAge: null, bioAge: null, range: null,
+        ageReadable: false,
+        ageClass: clsR.key, ageClassLabel: clsR.label, ageClassHint: clsR.hint,
+        ageDisplay: null,
+        rawPerceivedAge: perceivedAge, rawBioAge: bioAge,   // debug / télémétrie UNIQUEMENT
+        method: methodLabel + (options.entreesMesurees === false
+          ? ' [v10.13 REFUS : rides ou fermeté non mesurées sur ce scan]'
+          : ' [v10.13 REFUS : combinaison non validée sur des âges connus (AGE_ALGO_PUBLIABLE = false)]'),
+        error: 'age_not_measurable',
+        recommendation: options.entreesMesurees === false
+          ? "Contour des yeux ou bas du visage non mesurable sur ce scan : ne rien afficher."
+          : "Les 4 mesures sont indépendantes du teint depuis v10.13, mais leur combinaison ne suit pas l'âge apparent sur les photos de test : ne rien afficher tant qu'elle n'est pas validée sur des visages d'âges connus.",
+        confidence: 'none'
+      };
+    }
+
     // ─── Step 6 (v11.1) : garde d'amplitude — un faux âge est pire que pas d'âge ───
     // Si le moteur ne peut pas physiquement produire plus de AGE_MIN_USABLE_SPAN
     // ans d'écart entre la peau la plus jeune et la plus marquée, alors le chiffre
@@ -4127,101 +4819,55 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
       ? clamp(ITA_CLAMP_MIN, ITA_CLAMP_MAX, isFinite(raw.ita) ? raw.ita : 35)
       : (isFinite(raw.ita) ? raw.ita : 35);
 
-    // ─── HYDRATION (Stamatas 2011) ───────────────────────────────────────
-    const hydration = Math.round(clamp(
-      HYDRATION_MIN, HYDRATION_MAX,
-      HYDRATION_OFFSET - raw.tewl * HYDRATION_SLOPE
-    ));
-
-    // ─── PIGMENTATION (Takiwaki 1998, phototype-adjusted) ────────────────
+    // ─── PIGMENTATION (valeur provisoire, remplacée plus bas par la mesure relative) ──────
     /* 05/10 (audit) : plus de plancher ni de plafond selon la couleur de peau (une peau foncee ne pouvait jamais
        depasser 40-50 en uniformite). Valeur provisoire ici ; remplacee plus bas par la mesure RELATIVE a la peau
        de la personne (zones plus foncees que son propre teint, petites taches) des que les pixels sont disponibles. */
     const pigmentRaw = (raw.MI - PIGMENT_MI_OFFSET) / PIGMENT_MI_DIVISOR;
     let pigmentation = Math.round(clamp(0, 100, pigmentRaw));
 
-    // ─── PORES (proxy σL*) ───────────────────────────────────────────────
-    const pores = Math.round(clamp(
-      PORES_MIN, PORES_MAX,
-      PORES_OFFSET - raw.tewl * PORES_SLOPE
-    ));
-
-    // ─── GLOW (Mizukoshi 2013 : L* + matte) ──────────────────────────────
-    const glowRaw = (raw.L * GLOW_LUM_WEIGHT) + ((1 - raw.sebum) * GLOW_MATTE_WEIGHT);
-    const glow = Math.round(clamp(GLOW_MIN, GLOW_MAX, glowRaw));
-
-    // ─── FIRMNESS (Nkengne 2008 : ITA° distance + shadow boost) ──────────
-    const itaDistanceFirmness = Math.abs(itaClamped - FIRMNESS_ITA_PIVOT);
-    const firmness = Math.round(clamp(
-      FIRMNESS_MIN, FIRMNESS_MAX,
-      FIRMNESS_OFFSET - itaDistanceFirmness * FIRMNESS_SLOPE + FIRMNESS_SHADOW_BOOST
-    ));
-
-    // ─── REDNESS (Yamamoto 2008 : EI) ────────────────────────────────────
-    const redness = Math.round(clamp(
-      REDNESS_MIN, REDNESS_MAX,
-      REDNESS_BASELINE - raw.EI * REDNESS_EI_SCALE
-    ));
-
-    // ─── SEBUM (Mizukoshi 2013 : specular ratio) ─────────────────────────
+    // ─── SEBUM (Mizukoshi 2013 : specular ratio, seuil relatif depuis v10.13) ──
     const sebum = Math.round(clamp(
       SEBUM_MIN, SEBUM_MAX,
       raw.sebum * SEBUM_SCALE
     ));
 
-    // ─── WRINKLES (Bazin 2007 : ITA° distance + σL* surface roughness) ───
-    // v10.4 : colorimetric base + optional Gabor spatial blend (70/30).
-    //
-    // The colorimetric score (ITA° distance + σL* TEWL proxy) remains the
-    // peer-reviewed dominant signal. When imageData + landmarks are available
-    // (raw._frame populated by analyzeMultiFrame / extractRawSignals), we
-    // compute a directional Gabor depth score on 5 key wrinkle zones and
-    // blend it in at 30%. Otherwise → 100% colorimetric (v10.3 fallback).
-    const itaDistanceWrinkles = Math.abs(itaClamped - WRINKLES_ITA_PIVOT);
-    const colorimetricWrinkles = clamp(
-      WRINKLES_MIN, WRINKLES_MAX,
-      WRINKLES_OFFSET - itaDistanceWrinkles * WRINKLES_ITA_SLOPE - raw.tewl * WRINKLES_SIGMA_SLOPE
-    );
-
-    // v10.9 — Contour des yeux + filtre de rides réparé (voir section CONTOUR DES YEUX).
+    // ─── v10.13 : FERMETÉ, ÉCLAT, PORES, HYDRATATION, RIDES (mesures relatives) ──────────
     // Mesures par image (analyzeMultiFrame) ou, à défaut, sur l'image unique raw._frame.
-    let gaborWrinkleScore = null;
-    let gaborDetails = null;
-    let syntheseYeux = null;
+    let syntheseYeux = null, mesuresYeux = null;
     try {
-      let mesuresYeux = Array.isArray(raw._yeux) ? raw._yeux : null;
-      if ((!mesuresYeux || !mesuresYeux.length) && raw._frame && raw._frame.imageData && raw._frame.landmarks) {
+      mesuresYeux = (Array.isArray(raw._yeux) && raw._yeux.length) ? raw._yeux : null;
+      if (!mesuresYeux && raw._frame && raw._frame.imageData && raw._frame.landmarks) {
         mesuresYeux = [mesurerContourYeux(raw._frame.imageData, raw._frame.landmarks)];
       }
       syntheseYeux = syntheseContourYeux(mesuresYeux || [], q);
     } catch (e) {
-      if (typeof console !== 'undefined' && console.warn) console.warn('[ENGINE v10.9] contour des yeux non mesuré :', e.message);
+      if (typeof console !== 'undefined' && console.warn) console.warn('[ENGINE v10.13] contour des yeux non mesuré :', e.message);
       syntheseYeux = null;
     }
-    if (syntheseYeux && syntheseYeux.rides && syntheseYeux.rides.length) {
-      // Profondeur élevée = plus de rides = score Rides plus bas (100 = lisse).
-      const avgDepth = syntheseYeux.rides.reduce(function (s2, z) { return s2 + z.depth; }, 0) / syntheseYeux.rides.length;
-      gaborWrinkleScore = clamp(WRINKLES_MIN, WRINKLES_MAX, 100 - avgDepth);
-      gaborDetails = {
-        zonesAnalyzed: syntheseYeux.rides.length,
-        avgDepth: parseFloat(avgDepth.toFixed(2)),
-        // ez / ej : énergie de Gabor (%) de la zone et de la joue, même noyau
-        byZone: syntheseYeux.rides
-      };
+    let mesuresPeau = (Array.isArray(raw._peau) && raw._peau.length) ? raw._peau : null;
+    if (!mesuresPeau && raw._frame && raw._frame.imageData && raw._frame.landmarks) {
+      try { mesuresPeau = [mesurerPeau(raw._frame.imageData, raw._frame.landmarks, mesuresYeux && mesuresYeux[0])]; }
+      catch (e) { mesuresPeau = null; }
     }
+    const synPeau = synthesePeau(mesuresPeau || []);
+    const synRides = syntheseRides(mesuresYeux || []);
+    const sp = scoresPeau(synPeau, synRides);
+    const hydration = sp.hydration, pores = sp.pores, glow = sp.glow, firmness = sp.firmness, wrinkles = sp.wrinkles;
+    // l'âge n'est calculable que si rides ET fermeté ont été mesurées sur CE scan
+    const entreesAgeMesurees = !!(sp.analyses.wrinkles.fiable && !sp.analyses.firmness.neutre);
 
-    // Final wrinkles blend (or fallback v10.3 colorimétrique pur)
-    let wrinklesBlended;
-    if (gaborWrinkleScore !== null) {
-      wrinklesBlended = WRINKLES_COLORIMETRIC_WEIGHT * colorimetricWrinkles + WRINKLES_GABOR_WEIGHT * gaborWrinkleScore;
-    } else {
-      wrinklesBlended = colorimetricWrinkles;
-    }
-    const wrinkles = Math.round(clamp(WRINKLES_MIN, WRINKLES_MAX, wrinklesBlended));
+    // ─── ROUGEURS (v10.13 : a* CIE des joues, voir REDNESS_A_OFFSET) ─────────
+    let redness;
+    const aJ = (typeof raw.a === 'number' && isFinite(raw.a)) ? raw.a : null;
+    if (aJ != null) redness = Math.round(clamp(REDNESS_MIN, REDNESS_MAX, REDNESS_A_OFFSET - REDNESS_A_SLOPE * aJ));
+    else redness = Math.round(clamp(REDNESS_MIN, REDNESS_MAX, REDNESS_BASELINE - raw.EI * REDNESS_EI_SCALE));
+    sp.analyses.redness = { aJoues: aJ != null ? +aJ.toFixed(2) : null, methode: aJ != null ? 'a* CIE des joues' : 'repli EI (a* absent)' };
+    sp.analyses.sebum = { ratioReflets: (typeof raw.sebum === 'number') ? +raw.sebum.toFixed(4) : null, seuil: 'relatif au niveau de la peau' };
 
     // ─── AGE ESTIMATION (v7.7 balanced anchorless multi-biomarker) ─────
     // v7.7: passe wrinkles + firmness + hydration + glow (composite multi-biomarqueurs)
-    const ageResult = estimateAge({ wrinkles, firmness, hydration, glow, quality: q }, phototype);
+    const ageResult = estimateAge({ wrinkles, firmness, hydration, glow, quality: q }, phototype, { entreesMesurees: entreesAgeMesurees });
 
     // ─── CLINICAL DETECTORS v10.0 — Acne / Rosacea / Melasma / Lentigos ──
     // Disclaimer: indicatif cosméto/wellness, PAS diagnostic. Si pixelBundle
@@ -4252,13 +4898,31 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
     /* 05/10 (audit) : taches et uniformite = ecarts par rapport au teint de la personne elle-meme
        (melasma : plaques au-dessus de sa moyenne + 2 ecarts types ; lentigos : points 15 L* sous sa moyenne).
        Meme regle quelle que soit la couleur de peau. */
-    if (raw && raw._pixelBundle && (raw._pixelBundle.cheekPixels || []).length > 80) {
-      // part de la peau des joues nettement plus foncee (7 L* sous la mediane) que le teint de la personne
-      const Ls = raw._pixelBundle.cheekPixels.map(p => rgbToLab(p.r, p.g, p.b).L).sort((x, y) => x - y);
+    /* 07/10 (v10.13) : (1) seuil RELATIF : « plus foncé de 10 % que le teint de la personne » en L*+16
+       (∝ Y^1/3), au lieu de « 7 L* sous la médiane » : 7 L* pèsent plus lourd sur une peau foncée (L* 35)
+       que sur une peau claire (L* 70) ; même seuil qu'avant pour une peau à L* 54. (2) en mode photo
+       (pas de paquet de pixels), les joues sont lues sur l'image : avant, le score retombait sur l'indice
+       de mélanine, c'est-à-dire sur la couleur de peau. */
+    // (3) les DEUX joues, toutes les images (raw._joues) : avant, les 600 premiers pixels du paquet,
+    //     c'est-à-dire le haut de la joue GAUCHE seulement (ordre de balayage), sur une seule image.
+    let pixJoues = (raw && Array.isArray(raw._joues) && raw._joues.length > 80) ? raw._joues : null;
+    if (!pixJoues && raw && raw._frame && raw._frame.imageData && raw._frame.landmarks) {
+      try {
+        const fr = raw._frame, roiF = fr.roi || { x: 0, y: 0, w: fr.imageData.width, h: fr.imageData.height };
+        pixJoues = samplePixelsInROI(fr.imageData, roiF, 'cheekL', null, fr.landmarks)
+          .concat(samplePixelsInROI(fr.imageData, roiF, 'cheekR', null, fr.landmarks));
+      } catch (e) { pixJoues = null; }
+    }
+    if (!pixJoues) pixJoues = (raw && raw._pixelBundle && raw._pixelBundle.cheekPixels) || null;
+    if (pixJoues && pixJoues.length > 80) {
+      const Ls = pixJoues.map(p => rgbToLab(p.r, p.g, p.b).L).sort((x, y) => x - y);
       const med = Ls[Ls.length >> 1];
-      const frac = Ls.filter(v => v < med - 7).length / Ls.length;
-      pigmentation = Math.round(clamp(0, 100, frac * 250));
-      raw.pigmentRelative = { mediane: +med.toFixed(1), partPlusFoncee: +frac.toFixed(3) };
+      const seuil = PIGMENT_SEUIL_RELATIF * (med + LAB_L_OFFSET) - LAB_L_OFFSET;
+      const frac = Ls.filter(v => v < seuil).length / Ls.length;
+      // × 220 (était × 250) : la mesure lit maintenant les deux joues entières (ombres du bas de joue
+      // comprises) ; 220 garde la même échelle qu'avant sur les photos de test (médiane ~70)
+      pigmentation = Math.round(clamp(0, 100, frac * PIGMENT_ECHELLE_RELATIVE));
+      raw.pigmentRelative = { mediane: +med.toFixed(1), seuil: +seuil.toFixed(1), partPlusFoncee: +frac.toFixed(3) };
     }
 
     // ─── GLOBAL SCORE (moyenne pondérée) ─────────────────────────────────
@@ -4314,15 +4978,17 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
       confidence: ageResult.confidence,
       clinical,                                 // v10.0 — { acne, rosacea, melasma, lentigos }
       // v10.4 — Gabor directional wrinkle depth analysis (null si pas d'imageData/landmarks)
+      // v10.13 — rides : 100 % filtre de Gabor des plis ; plus de part colorimétrique (ITA°, σL*)
       wrinklesAnalysis: {
-        colorimetric: Math.round(colorimetricWrinkles),
-        gabor: gaborWrinkleScore !== null ? Math.round(gaborWrinkleScore) : null,
-        gaborDetails: gaborDetails,
-        blendWeights: gaborWrinkleScore !== null
-          ? { colorimetric: WRINKLES_COLORIMETRIC_WEIGHT, gabor: WRINKLES_GABOR_WEIGHT }
-          : { colorimetric: 1.0, gabor: 0.0 },
-        method: gaborWrinkleScore !== null ? 'v10.9-blend-70-30-carres-de-peau' : 'v10.3-colorimetric-only'
+        colorimetric: null,
+        gabor: sp.analyses.wrinkles.fiable ? wrinkles : null,
+        gaborDetails: synRides ? { zonesAnalyzed: synRides.zones.length, avgDepth: Math.round(synRides.profondeur * 10) / 10, byZone: synRides.zones,
+          contourDesYeux: (syntheseYeux && syntheseYeux.rides) || null } : null,
+        blendWeights: sp.analyses.wrinkles.fiable ? { colorimetric: 0, gabor: 1.0 } : { colorimetric: 0, gabor: 0 },
+        method: sp.analyses.wrinkles.methode
       },
+      // v10.13 — détail des mesures : fiable / neutre (non mesurable) / valeurs brutes relatives
+      analyses: sp.analyses,
       // v10.9 — contour des yeux, INDICATIF (n'entre dans aucun des 8 scores)
       yeux: (syntheseYeux && syntheseYeux.yeux) || null
     };
@@ -4420,7 +5086,7 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
 
   function buildPublicAPI() {
     return {
-      version: 'v10.5.0-honest-age',
+      version: 'v10.13.0-mesures-relatives',
 
       // High-level scan flow — v9 : pré-scan gate (3s) avant le scan principal.
       // Si conditions insuffisantes → overlay reject + result { rejected: true }
@@ -4444,7 +5110,7 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
                 issues: gate.issues,
                 frames: gate.frames.length,
                 faceApiReady: gate.faceApiReady,
-                version: 'v10.5.0-honest-age'
+                version: 'v10.13.0-mesures-relatives'
               };
             }
             VYVRE_LOG('[vyvre-scan v9] gate PASSED — proceeding to scan');
@@ -4578,7 +5244,7 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
                 issues,
                 frames: gateFrames.length,
                 faceApiReady,
-                version: 'v10.5.0-honest-age'
+                version: 'v10.13.0-mesures-relatives'
               };
             }
           }
@@ -4678,6 +5344,9 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
       computeGaborWrinkleDepth, generateGaborKernel,
       // v10.9 — contour des yeux (ombre sous l'œil + carrés de peau pour les rides)
       mesurerContourYeux, syntheseContourYeux, zonesOeil, zoneFront, repereOeil,
+      // v10.13 — mesures relatives (grain, éclat, fermeté, rides)
+      mesurerPeau, synthesePeau, syntheseRides, scoresPeau, repereVisage, grilleLumiere, MESURES_CALAGE,
+      niveauIntensite,              // v10.13 — niveau de la peau des joues (référence du seuil de sébum)
       applyGaborToPatch, extractLuminancePatch,
       GABOR_ORIENTATIONS, GABOR_WAVELENGTHS, GABOR_KERNEL_SIZE,
       findBiomarkerBars, updateBiomarkerBars,
@@ -5534,7 +6203,7 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
         }
       },
       {
-        name: 'v10.4:wrinkles-fallback-without-frame',
+        name: 'v10.13:wrinkles-neutre-sans-image',
         check: () => {
           // mapToScores avec raw sans _frame → 100% colorimétrique (fallback v10.3)
           const raw = {
@@ -5544,15 +6213,17 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
             quality: 80
           };
           const s = mapToScores(raw);
+          // v10.13 : sans image, plus de repli colorimétrique (ITA°) : score neutre, signalé
           return s.wrinklesAnalysis &&
-                 s.wrinklesAnalysis.method === 'v10.3-colorimetric-only' &&
-                 s.wrinklesAnalysis.gabor === null;
+                 s.wrinklesAnalysis.method === 'v10.13-repli-neutre' &&
+                 s.wrinklesAnalysis.gabor === null &&
+                 s.analyses && s.analyses.wrinkles && s.analyses.wrinkles.neutre === true;
         }
       },
       {
         // v10.9 : sans les 68 repères, plus de filtre sur des rectangles devinés (ils saturaient) :
         // le score Rides retombe sur le colorimétrique seul, et le dit.
-        name: 'v10.9:wrinkles-colorimetric-only-without-landmarks',
+        name: 'v10.13:wrinkles-neutre-sans-reperes',
         check: () => {
           // Synthetic frame with stripes, no landmarks → no Gabor, colorimetric fallback
           const W = 120, H = 120;
@@ -5575,7 +6246,7 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
           };
           const s = mapToScores(raw);
           return s.wrinklesAnalysis &&
-                 s.wrinklesAnalysis.method === 'v10.3-colorimetric-only' &&
+                 s.wrinklesAnalysis.method === 'v10.13-repli-neutre' &&
                  s.wrinklesAnalysis.gabor === null &&
                  s.wrinklesAnalysis.blendWeights.gabor === 0 &&
                  s.yeux && s.yeux.cernes && s.yeux.cernes.fiable === false;
@@ -5606,6 +6277,43 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
       }
     ];
 
+    // ─── v10.13 : aucune mesure ne suit la couleur de peau ───────────────
+    v10_4Tests.push(
+      {
+        name: 'v10.13:aucune-mesure-ne-suit-ita',
+        check: () => {
+          const base = { a: 13, EI: 10, sebum: 0.1, tewl: 6, avgRed: 0.5, avgGreen: 0.42, avgLum: 0.5, quality: 85 };
+          const clair = mapToScores(Object.assign({}, base, { L: 70, b: 15, ita: 53, fitz: 2, MI: 140, tewl: 9 }));
+          const fonce = mapToScores(Object.assign({}, base, { L: 38, b: 18, ita: -34, fitz: 6, MI: 330, tewl: 3 }));
+          return ['firmness', 'glow', 'hydration', 'pores', 'wrinkles', 'redness', 'sebum'].every(function (k) { return clair[k] === fonce[k]; });
+        }
+      },
+      {
+        name: 'v10.13:sebum-seuil-relatif',
+        check: () => {
+          // même visage : reflets à 1,3 × le niveau de la peau, peau claire (0,6) puis foncée (0,25)
+          const faire = function (niv) { const px = []; for (let i = 0; i < 200; i++) { const v = Math.round(255 * niv * (i % 10 === 0 ? 1.3 : 1)); px.push({ r: v, g: v, b: v }); } return px; };
+          const r1 = sebumProxy(faire(0.6), 0.6, 0.005), r2 = sebumProxy(faire(0.25), 0.25, 0.005);
+          return Math.abs(r1 - r2) < 0.02 && r1 > 0.05;
+        }
+      },
+      {
+        name: 'v10.13:rougeurs-a-star',
+        check: () => {
+          const base = { b: 16, ita: 30, fitz: 3, MI: 200, EI: 10, sebum: 0.1, tewl: 6, avgRed: 0.5, avgGreen: 0.42, avgLum: 0.5, quality: 85 };
+          const r1 = mapToScores(Object.assign({}, base, { L: 65, a: 10 })), r2 = mapToScores(Object.assign({}, base, { L: 40, a: 10 })), r3 = mapToScores(Object.assign({}, base, { L: 65, a: 20 }));
+          return r1.redness === r2.redness && r3.redness < r1.redness;
+        }
+      },
+      {
+        name: 'v10.13:repli-neutre-borne',
+        check: () => {
+          const s = scoresPeau(synthesePeau([]), null);
+          return s.analyses.pores.neutre && s.analyses.hydration.neutre && s.analyses.glow.neutre && s.analyses.firmness.neutre &&
+                 s.firmness === MESURES_CALAGE.fermete.score && s.wrinkles >= WRINKLES_MIN && s.wrinkles <= WRINKLES_MAX;
+        }
+      }
+    );
     for (const t of v10_4Tests) {
       let ok = false;
       try {
@@ -5679,6 +6387,7 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
       melaninIndex, erythemaIndex, sebumProxy, tewlProxy,
       // Mapping & age
       mapToScores, extractRawSignals, estimateAge,
+      ageSpanDiagnostic, ageIsReadable,   // v10.13 : exposés pour l'audit (Node)
       vierkotterAdjustedBias,
       webcamSmoothingCalibration,
       computeGlobalScore,
@@ -5698,6 +6407,8 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
       computeGaborWrinkleDepth, generateGaborKernel,
       // v10.9 — contour des yeux (ombre sous l'œil + carrés de peau pour les rides)
       mesurerContourYeux, syntheseContourYeux, zonesOeil, zoneFront, repereOeil,
+      // v10.13 — mesures relatives
+      mesurerPeau, synthesePeau, syntheseRides, scoresPeau, repereVisage, grilleLumiere, MESURES_CALAGE, niveauIntensite,
       applyGaborToPatch, extractLuminancePatch,
       GABOR_ORIENTATIONS, GABOR_WAVELENGTHS, GABOR_KERNEL_SIZE,
       // Tests
@@ -5710,7 +6421,7 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
       v9PreScanGate, v9ValidateFrames, v9ShowRejectUI,
       v9CaptureGatingFrame, V9_THRESHOLDS, V9_MESSAGES,
       // Version
-      version: 'v10.5.0-honest-age'
+      version: 'v10.13.0-mesures-relatives'
     };
   }
 

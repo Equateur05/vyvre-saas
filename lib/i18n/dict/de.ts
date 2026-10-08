@@ -123,7 +123,7 @@ const de = {
   /* ─────────── /accuracy ─────────── */
   'acc.meta.title': 'Methodik & Präzision · VYVRE',
   'acc.meta.desc':
-    'Peer-reviewte Quellen (5 angewandt, 4 auf der Roadmap), Berechnungsmethode, Konfidenzintervalle, Grenzen. Die wissenschaftliche Transparenz hinter dem Motor VYVRE v7.0.',
+    'Begutachtete Quellen (5 zitiert, 4 auf der Roadmap), Berechnungsmethode, Konfidenzintervalle, Grenzen. Die wissenschaftliche Transparenz hinter der VYVRE-Engine.',
 
   'acc.hero.eyebrow': 'Methodik · Quellen · Grenzen',
   'acc.hero.h1a': 'Die Wissenschaft',
@@ -137,22 +137,22 @@ const de = {
 
   'acc.s1.eyebrow': '01 · Bibliografie · Angewandte Quellen',
   'acc.s1.h2a': '5 peer-reviewte Quellen',
-  'acc.s1.h2b': 'aktiv angewandt.',
-  'acc.s1.p1': 'Diese 5 Quellen fließen direkt in die Berechnungsformeln des Motors ein (vgl.',
+  'acc.s1.h2b': 'und was die Engine davon anwendet.',
+  'acc.s1.p1': 'Was jede dieser 5 Quellen zur Engine beiträgt, im Code überprüfbar (siehe',
   'acc.s1.p2': ', Funktion',
   'acc.s1.p3': 'und',
-  'acc.s1.p4': '). Jeder Biomarker ist bis zu einem auf PubMed indexierten wissenschaftlichen Artikel rückverfolgbar.',
-  'acc.s1.foot1': 'Motor v7 — Überarbeitung Mai 2026',
+  'acc.s1.p4': '). Seit Oktober 2026 hängt keine der acht Messungen von der Hautfarbe oder der Bildhelligkeit ab: Jede Messung vergleicht die Haut mit sich selbst, auf demselben Bild.',
+  'acc.s1.foot1': 'Engine v10.13 — relative Messungen, Oktober 2026',
   'acc.s1.foot2': 'Angewandte Quellen Zeile für Zeile überprüfbar in',
 
   'acc.src1.c':
     'ITA° (Individual Typology Angle) — Grundlage der automatischen Erkennung des Fitzpatrick-Hauttyps I-VI',
   'acc.src2.c':
-    'Melanin Index (MI) und Erythema Index (EI) — Quantifizierung von Pigmentierung und Rötung',
+    'Melanin- und Erythem-Index – nur zur Information berechnet. Rötung wird als a* (CIE L*a*b*) auf den Wangen gelesen; Pigmentierung wird am eigenen Hautton der Person gemessen (Bereiche, die 10 % dunkler sind als die eigene Haut).',
   'acc.src3.c':
-    'TEWL-Proxy (unmerklicher Wasserverlust) über σL* → Indizes Feuchtigkeit und Poren. Regression Tabelle 3.',
+    'Früherer σL*-Indikator (Feuchtigkeit und Poren), im Oktober 2026 entfernt: Er las vor allem den Schatten des Reliefs. Feuchtigkeit: feinste Mikrotextur der Wangen, ohne Poren, bezogen auf das Niveau der Haut. Poren: kleine dunkle Punkte, die sich von der umgebenden Hautstruktur abheben.',
   'acc.src4.c':
-    'Spiegelnde Reflexe → Leuchtkraft / Talg. Erkennung spiegelnder Reflexe im Gesicht',
+    'Spiegelnde Glanzpunkte → Talg, mit einer Schwelle relativ zum Hautniveau der Wangen. Ausstrahlung liest keine rohe Helligkeit mehr: Gleichmäßigkeit des Lichts auf Wangenknochen und Stirn, weicher Glanz der Wangenknochen, bezogen auf die eigene Haut.',
   'acc.src5.c':
     'Abstand gefühltes Alter / biologisches Alter (kaukasische Kohorte ~1.700 Probanden). v7: altersabhängiger Abstand (−2 bis −6 Jahre je nach biologischem Alter), nicht an den Hauttyp gebunden.',
 
@@ -200,7 +200,7 @@ const de = {
   'acc.s3.std5': 'Erkennung von Hautpixeln in YCbCr',
   'acc.s3.std6': 'Laplace-Schärfemessung',
   'acc.s3.std7':
-    'Korrelation Festigkeit ↔ gefühltes Alter (r=0,65 zwischen ITA°-Abstand und gefühlter Festigkeit)',
+    'wird nicht mehr verwendet: Seit Oktober 2026 hängt die Festigkeit nicht mehr von der Hautfarbe ab (Relief der Nasolabialfalte, Kontur des unteren Gesichts, Mundwinkel).',
 
   'acc.s4.eyebrow': '04 · Verarbeitungskette',
   'acc.s4.h2': 'Berechnungsmethode.',
@@ -212,16 +212,16 @@ const de = {
     'Kette sRGB → XYZ → CIE L*a*b* (IEC 61966-2-1, CIE 015:2004). Selbsttest an 6 Referenzfarben bei jedem Scan. Pixelgenau.',
   'acc.st3.t': 'Extraktion der Signale',
   'acc.st3.d':
-    'ITA° + Melanin Index + Erythema Index + TEWL-Proxy + Spiegelanteil. 4 Gesichtszonen analysiert (Stirn, linke und rechte Wange, T-Zone).',
+    'Farbe (L*a*b*: ITA° für den Hauttyp, a* für Rötung), Glanz (Talg) und relative Texturen: kleine dunkle Punkte (Poren), Mikrotextur (Feuchtigkeit), Falten an den Augenwinkeln und der Stirn (Falten), Nasolabialfalte und unteres Gesicht (Festigkeit), Gleichmäßigkeit des Lichts (Ausstrahlung). Wangen, Nase, Stirn, Augenpartie.',
   'acc.st4.t': 'Umwandlung in Biomarker',
   'acc.st4.d':
-    'Jedes Rohsignal wird durch peer-reviewte Formeln in einen Wert von 0-100 umgewandelt (Quellen oben). Konstanten mit ihrer Quelle benannt oder als empirisch gekennzeichnet.',
+    'Jedes Signal ist eine Abweichung der Haut von sich selbst, auf demselben Bild: nie eine Hautfarbe oder eine absolute Helligkeit. Umrechnung in einen Wert von 0-100 mit benannten Konstanten, an Testfotos eingestellt und als solche gekennzeichnet; eine nicht lesbare Messung ergibt einen neutralen, gekennzeichneten Wert.',
   'acc.st5.t': 'Erkennung des Hauttyps',
   'acc.st5.d':
-    'Automatische Fitzpatrick-Klassifizierung I-VI über ITA° (Chardon 1991). Pigmentierungsgrenzen an den Hauttyp angepasst, um Verzerrungen bei dunkler Haut zu vermeiden.',
+    'Fitzpatrick-Klassifikation I-VI über ITA° (Chardon 1991), nur zur Information angezeigt. Keine der acht Messungen verwendet den Hauttyp oder die Hautfarbe.',
   'acc.st6.t': 'Altersschätzung + Intervall',
   'acc.st6.d':
-    'Formel mit einem einzigen Biomarker (dominante periorbitale Falten, Bazin 2007). Altersabhängiger Abstand des gefühlten Alters (Vierkötter 2012). Intervall ±5 Jahre (95 %, interne Kohorte n=12).',
+    'Das Alter wird nicht angezeigt: Die Kombination der Messungen folgt dem tatsächlichen Alter noch nicht zuverlässig. Es wird erst nach einer Validierung an Gesichtern bekannten Alters angezeigt.',
 
   'acc.s5.eyebrow': '05 · Hautalter · Methode v7',
   'acc.s5.h2a': 'Gefühltes Hautalter',

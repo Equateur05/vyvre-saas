@@ -123,7 +123,7 @@ const en = {
   /* ─────────── /accuracy ─────────── */
   'acc.meta.title': 'Methodology & accuracy · VYVRE',
   'acc.meta.desc':
-    'Peer-reviewed sources (5 applied, 4 on the roadmap), calculation method, confidence intervals, limits. The scientific transparency behind the VYVRE v7.0 engine.',
+    'Peer-reviewed sources (5 cited, 4 on the roadmap), calculation method, confidence intervals, limits. The scientific transparency behind the VYVRE engine.',
 
   'acc.hero.eyebrow': 'Methodology · Sources · Limits',
   'acc.hero.h1a': 'The science',
@@ -137,22 +137,22 @@ const en = {
 
   'acc.s1.eyebrow': '01 · Bibliography · Applied sources',
   'acc.s1.h2a': '5 peer-reviewed sources',
-  'acc.s1.h2b': 'actively applied.',
-  'acc.s1.p1': 'These 5 sources are used directly in the engine’s calculation formulas (see',
+  'acc.s1.h2b': 'and what the engine applies.',
+  'acc.s1.p1': 'What each of these 5 sources contributes to the engine, verifiable in the code (see',
   'acc.s1.p2': ', function',
   'acc.s1.p3': 'and',
-  'acc.s1.p4': '). Each biomarker is traceable to a scientific article indexed on PubMed.',
-  'acc.s1.foot1': 'Engine v7 — rebuilt May 2026',
+  'acc.s1.p4': '). Since October 2026, none of the eight measures depends on skin colour or image brightness: each measure compares the skin with itself, on the same image.',
+  'acc.s1.foot1': 'Engine v10.13 — relative measures, October 2026',
   'acc.s1.foot2': 'Applied sources verifiable line by line in',
 
   'acc.src1.c':
     'ITA° (Individual Typology Angle) — basis of automatic Fitzpatrick I-VI phototype detection',
   'acc.src2.c':
-    'Melanin Index (MI) and Erythema Index (EI) — quantification of pigmentation and redness',
+    'Melanin Index and Erythema Index — computed for information. Redness is read as a* (CIE L*a*b*) on the cheeks; pigmentation is measured against the person’s own skin tone (areas 10 % darker than their own skin).',
   'acc.src3.c':
-    'TEWL proxy (transepidermal water loss) via σL* → hydration and pore indices. Table 3 regression.',
+    'Former σL* indicator (hydration and pores), withdrawn in October 2026: it mostly read the shading of facial relief. Hydration: finest micro-texture of the cheeks, pores excluded, relative to the skin’s own level. Pores: small dark dots standing out from the surrounding skin grain.',
   'acc.src4.c':
-    'Specular highlights → radiance / sebum. Detection of specular highlights on the face',
+    'Specular highlights → sebum, with a threshold relative to the cheek skin level. Radiance no longer reads raw brightness: evenness of light on the cheekbones and forehead, soft cheekbone highlight, relative to the person’s own skin.',
   'acc.src5.c':
     'Gap between perceived age and biological age (Caucasian cohort ~1,700 subjects). v7: age-dependent gap (−2 to −6 years depending on biological age), not linked to phototype.',
 
@@ -200,7 +200,7 @@ const en = {
   'acc.s3.std5': 'YCbCr skin pixel detection',
   'acc.s3.std6': 'Laplacian sharpness measurement',
   'acc.s3.std7':
-    'Firmness ↔ perceived age correlation (r=0.65 between ITA° distance and perceived firmness)',
+    'no longer used: since October 2026, firmness no longer depends on skin colour (nasolabial fold relief, lower-face contour, mouth corners).',
 
   'acc.s4.eyebrow': '04 · Processing chain',
   'acc.s4.h2': 'Calculation method.',
@@ -212,16 +212,16 @@ const en = {
     'sRGB → XYZ → CIE L*a*b* chain (IEC 61966-2-1, CIE 015:2004). Self-test on 6 reference colours at every scan. Pixel-level precision.',
   'acc.st3.t': 'Signal extraction',
   'acc.st3.d':
-    'ITA° + Melanin Index + Erythema Index + TEWL proxy + specular ratio. 4 zones of the face analysed (forehead, left and right cheeks, T-zone).',
+    'Colour (L*a*b*: ITA° for the phototype, a* for redness), highlights (sebum) and relative textures: small dark dots (pores), micro-texture (hydration), folds at the eye corners and forehead (wrinkles), nasolabial fold and lower face (firmness), evenness of light (radiance). Cheeks, nose, forehead, eye area.',
   'acc.st4.t': 'Conversion into biomarkers',
   'acc.st4.d':
-    'Each raw signal converted into a 0-100 score by peer-reviewed formulas (citations above). Constants named with their source, or flagged as empirical.',
+    'Each signal is a deviation of the skin from itself, on the same image: never a skin colour or an absolute brightness. Converted into a 0-100 score with named constants, tuned on test photos and flagged as such; an unreadable measure gives a neutral score, flagged.',
   'acc.st5.t': 'Phototype detection',
   'acc.st5.d':
-    'Automatic Fitzpatrick I-VI classification by ITA° (Chardon 1991). Pigmentation thresholds adapted to the phototype to avoid bias on dark skin.',
+    'Fitzpatrick I-VI classification by ITA° (Chardon 1991), shown for information. None of the eight measures uses the phototype or skin colour.',
   'acc.st6.t': 'Age estimate + interval',
   'acc.st6.d':
-    'Single-biomarker formula (dominant periorbital wrinkles, Bazin 2007). Age-dependent perceived-age gap (Vierkötter 2012). Interval ±5 years (95 %, internal cohort n=12).',
+    'Age is not displayed: the combination of measures does not yet follow real age reliably. It will only be shown after validation on faces of known ages.',
 
   'acc.s5.eyebrow': '05 · Skin age · v7 method',
   'acc.s5.h2a': 'Perceived skin age',
