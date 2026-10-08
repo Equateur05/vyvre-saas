@@ -27,13 +27,13 @@ function moteur(){
   return facePromesse;
 }
 
-/* 07/10 (Charles) : l'animation V1 « Maillage lumineux » des propositions (/propals/visage), a valider.
-   Active avec ?visage=v1 (garde ensuite sur cet appareil ; ?visage=0 revient a l'ancienne).
+/* 08/10 (Charles) : l'animation V1 « Maillage lumineux » est maintenant celle du scan, pour tout le monde.
+   ?visage=0 revient a l'ancienne (garde sur cet appareil), ?visage=v1 la remet.
    Elle ne change que le DESSIN : les mesures en direct et le declenchement de la lecture restent ceux d'ici. */
 let MODE_V1 = false;
-try { const qv = (location.search.match(/[?&]visage=(v1|0)\b/) || [])[1]; if(qv) localStorage.setItem('vy-visage', qv); MODE_V1 = (qv || localStorage.getItem('vy-visage')) === 'v1'; } catch(e){ MODE_V1 = /[?&]visage=v1\b/.test(location.search); }
+try { const qv = (location.search.match(/[?&]visage=(v1|0)\b/) || [])[1]; if(qv) localStorage.setItem('vy-visage', qv); MODE_V1 = (qv || localStorage.getItem('vy-visage') || 'v1') !== '0'; } catch(e){ MODE_V1 = !/[?&]visage=0\b/.test(location.search); }
 let V1M = null, ARETES2 = null;
-if(MODE_V1) import('/propals/visage/variantes.js?v=4').then(m => { V1M = m; }).catch(() => { MODE_V1 = false; });
+if(MODE_V1) import('/propals/visage/variantes.js?v=6').then(m => { V1M = m; }).catch(() => { MODE_V1 = false; });
 function aretes2(){ if(ARETES2) return ARETES2; const vu = new Set(); ARETES2 = []; for(const e of ARETES){ const a = Math.min(e.start, e.end), b = Math.max(e.start, e.end), k = a*1000 + b; if(!vu.has(k)){ vu.add(k); ARETES2.push([a, b]); } } return ARETES2; }
 function dedansV(p, poly){ let c = false; for(let i = 0, j = poly.length - 1; i < poly.length; j = i++){ const a = poly[i], b = poly[j]; if((a.y > p.y) !== (b.y > p.y) && p.x < (b.x - a.x)*(p.y - a.y)/(b.y - a.y) + a.x) c = !c; } return c; }
 const tailleV = (c, w, h) => { w = Math.max(1, Math.round(w)); h = Math.max(1, Math.round(h)); if(c.width !== w || c.height !== h){ c.width = w; c.height = h; } };

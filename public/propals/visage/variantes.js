@@ -69,7 +69,9 @@ function coupe(F, nx, ny, c, kz){
 function rimLueur(g, F, t, col, fort){
   const P = F.P, lw = F.lw, cx = F.box.cx, cy = F.box.cy, R = Math.max(F.box.w, F.box.h), a = t*.55 - 1.2;
   g.save(); g.beginPath(); lisse(g, OVALE.map(i => P[i]), true);
-  g.lineWidth = 3*lw; g.strokeStyle = rgba(col, .12*fort); g.stroke();
+  /* 08/10 (Charles : « plus rétro-éclairé ») : un halo large et doux autour de la silhouette, comme une lumiere derriere la tete ; les traits restent fins */
+  g.lineWidth = 22*lw; g.strokeStyle = rgba(col, .05*fort); g.stroke();
+  g.lineWidth = 10*lw; g.strokeStyle = rgba(col, .07*fort); g.stroke();
   const gx = cx + Math.cos(a)*R*.62, gy = cy + Math.sin(a)*R*.62, gr = g.createRadialGradient(gx, gy, 0, gx, gy, R*.75);
   gr.addColorStop(0, rgba(col, fort)); gr.addColorStop(1, rgba(col, 0));
   g.lineWidth = 2.2*lw; g.strokeStyle = gr; g.stroke(); g.restore();
@@ -113,7 +115,7 @@ const V1 = {
   },
   lueur(g, F, t, m){
     const P = F.P, A = [.1, .2, .42], lw = F.lw;
-    rimLueur(g, F, t, this.teinte.halo, .85);
+    rimLueur(g, F, t, this.teinte.halo, 1);
     g.lineCap = 'round';
     m.B.forEach((b, j) => { if(!b.length) return; g.beginPath(); seg(g, P, b); g.lineWidth = (.9 + .4*j)*lw; g.strokeStyle = rgba(this.teinte.halo, A[j]); g.stroke(); });
   },

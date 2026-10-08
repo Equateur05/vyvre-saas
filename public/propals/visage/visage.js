@@ -4,7 +4,7 @@
    dans les pixels de l'image, zone par zone.
    Parametres : ?photo=p_192 · ?v=1..4 · ?mode=quad · ?nu=1 (la scene seule) · ?debug=1 */
 import { FilesetResolver, FaceLandmarker } from '/cheveux/vendor/mediapipe/vision_bundle.mjs';
-import { VARIANTES, ETAPES, OVALE, lecture, rgba, lisse } from '/propals/visage/variantes.js?v=4';
+import { VARIANTES, ETAPES, OVALE, lecture, rgba, lisse } from '/propals/visage/variantes.js?v=6';
 
 const Q = new URLSearchParams(location.search);
 const DEBUG = Q.has('debug');
