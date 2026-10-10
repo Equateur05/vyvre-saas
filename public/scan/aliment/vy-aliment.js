@@ -295,6 +295,13 @@
 #vy-as .rit .alleg{font:italic 16px/1.5 Georgia,serif;color:#183b3e;border-left:1px solid #183b3e;padding-left:12px;margin:12px 0}\
 #vy-as .rit .preuve{font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:#52716f;margin-top:10px}\
 #vy-as .rit .prec{font-size:12.5px;color:#8a4b1c;margin-top:8px;line-height:1.55}\
+#vy-as .rit>img{margin-top:2px}\
+#vy-as .ess{margin:6px 0 0;display:grid;gap:0}#vy-as .ess>div{display:grid;grid-template-columns:96px minmax(0,1fr);gap:12px;align-items:baseline;padding:7px 0;border-top:1px solid rgba(21,20,19,.1)}\
+#vy-as .ess dt{font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:#6f6a64}#vy-as .ess dd{margin:0;font-size:14px;line-height:1.5}#vy-as .ess dd.ess-alleg{font:italic 15px/1.5 "Playfair Display",Georgia,serif}\
+#vy-as .ess-prec{font-size:12.5px;color:#8a4b1c;margin-top:8px;line-height:1.5}\
+#vy-as details.det{margin-top:10px;border-top:1px solid rgba(21,20,19,.1);padding-top:10px}#vy-as details.det>summary{font-size:11px}#vy-as details.det>summary::before{content:"+ "}#vy-as details.det[open]>summary::before{content:"– "}\
+#vy-as .rit p b,#vy-as .rit p strong,#vy-as .decision .dec-zone b,#vy-as .ed-side p b{font-weight:inherit}\
+@media(max-width:520px){#vy-as .ess>div{grid-template-columns:1fr;gap:2px}#vy-as .rit>img{width:48px!important;height:48px!important}}\
 #vy-as details{margin-top:10px}#vy-as summary{font-size:10px;letter-spacing:1.6px;text-transform:uppercase;color:#52716f;cursor:pointer;list-style:none}\
 #vy-as summary::-webkit-details-marker{display:none}\
 #vy-as details a{display:block;color:#183b3e;font-size:12.5px;line-height:1.5;margin-top:7px;text-decoration:none;border-bottom:1px solid rgba(24,59,62,.15);padding-bottom:6px}\
@@ -620,7 +627,7 @@
     var grades = pris.map(function(c){ return c.f.niveau_preuve_peau; }).sort(), best = grades[0] || '–';
     var prixMoy = pris.length ? Math.round(pris.reduce(function(t, c){ return t + (c.f.prix_niveau || 1); }, 0)/pris.length) : 1;
     var titre = prudent ? 'Assiette<br>prudente.' : pris.length ? ['', 'Un aliment,<br>pour vous.', 'Deux aliments,<br>pour vous.', 'Trois aliments,<br>pour vous.', 'Quatre aliments,<br>pour vous.'][pris.length] : 'Aucun<br>aliment.';
-    var pourquoi = pris.length ? (ind.entretien ? 'Votre lecture ne fait ressortir aucun besoin marqué. Parmi ' : 'Les points à soutenir en priorité d’après votre lecture : ' + esc(INDICES[ind.i1].toLowerCase()) + (ind.i2 ? ' et ' + esc(INDICES[ind.i2].toLowerCase()) : '') + '. Parmi ') + DATA.length + ' aliments, nous avons gardé ceux que la littérature relie, même faiblement, à ces aspects de la peau, écarté ' + Object.keys(e.x).length + ' aliments ' + (prudent ? 'par prudence' : 'pour tous ou d’après vos réponses') + ', puis classé par solidité des preuves, saison et goûts. Aucun aliment n’a été étudié sur les indices de votre scan.' : 'Vos réponses écartent tous les aliments étudiés pour vos indices. Plutôt qu’un aliment sans rapport, nous préférons ne rien proposer.';
+    var pourquoi = pris.length ? (ind.entretien ? 'Aucun besoin marqué dans votre lecture. ' : 'Priorités de votre lecture : ' + esc(INDICES[ind.i1].toLowerCase()) + (ind.i2 ? ' et ' + esc(INDICES[ind.i2].toLowerCase()) : '') + '. ') + 'Sur ' + DATA.length + ' aliments : ceux que la littérature relie, même faiblement, à ces aspects ; ' + Object.keys(e.x).length + ' écartés ' + (prudent ? 'par prudence' : 'pour tous ou d’après vos réponses') + ' ; classés par preuves, saison et goûts. Aucun aliment n’a été étudié sur les indices de votre scan.' : 'Vos réponses écartent tous les aliments étudiés pour vos indices. Plutôt qu’un aliment sans rapport, nous préférons ne rien proposer.';
     return '<div class="ed-head"><div><div class="m">Votre assiette edit / ' + d.getDate() + ' ' + MOIS[d.getMonth()] + '</div><h1>' + titre + '</h1></div><div class="ed-side"><p>' + pourquoi + '</p>' + decision() + '</div></div>'
       + (pris.length ? '<div class="ed-grid"><article class="ed-card ed-score"><div class="m">Votre lecture</div><div class="ed-disc"></div><h3>' + esc(INDICES[ind.i1]) + ',<br>d’abord</h3><div class="ed-num"><span class="vy-as-compte" data-n="' + ind.n1 + '">0</span><sup>/100</sup></div><p class="ed-note">' + esc(PHRASE[ind.i1]) + (ind.i2 ? ' Puis ' + esc(INDICES[ind.i2].toLowerCase()) + ', ' + ind.n2 + ' sur 100.' : '') + '</p></article>'
         + '<aside class="ed-card ed-list"><div class="m">Votre assiette / ' + pris.length + ' aliment' + (pris.length > 1 ? 's' : '') + '</div><h3>L’essentiel,<br>dans l’assiette.</h3>'
@@ -645,20 +652,27 @@
       + al.map(function(t){ return '<div class="alerte">' + esc(t) + '</div>'; }).join('')
       + pris.map(function(c, k){ var f = c.f, a2 = allegation(f), fa = fait(f); if(a2) une = true;
           var pr = (e.notes[f.id] || []).concat((f.precautions || []).filter(function(t){ return !/allégation|afficher|juriste/i.test(t); }));   // toutes les precautions de securite s'affichent
-          return '<div class="rit" id="vy-as-f' + k + '"><i>' + n2(k) + '</i><div><h3>' + esc(f.nom) + '</h3><div class="sous">Idée pour votre assiette · ' + esc(f.portion_type) + ' · ' + saison(f) + '</div>'
-            + (f.accroche ? '<p style="font:italic 400 17px/1.45 \'Playfair Display\',Georgia,serif;color:#151413">' + esc(f.accroche) + '</p>' : '')
+          /* 08/10 (Charles : « trop de texte, trop descriptif ») : l'essentiel visible (photo, nom, pourquoi, combien, allégation UE mot pour mot,
+             une ligne de sécurité) ; tout le reste dans un seul repli « Détails », fermé. */
+          var note = c.pour === ind.i1 ? ind.n1 : c.pour === ind.i2 ? ind.n2 : null;
+          var pq = c.pour === 'entretien' ? 'Assiette d’entretien · aucun besoin marqué dans votre lecture' : 'Pour ' + (INDICES[c.pour] || 'cet aspect').toLowerCase() + (note != null ? ' · votre lecture : ' + note + '/100' : '');
+          var al2 = (f.allergenes_UE || []).map(function(z){ return AL_NOM[z] || z; }), txt = pr.concat(f.reactions_croisees || []);
+          [['grossesse', /grossesse|enceinte|allait/i], ['reins', /r[ée]nal|rein|n[ée]phro/i], ['anticoagulant', /anticoag|\bAVK\b/i], ['latex', /latex/i], ['pollen de bouleau', /bouleau/i], ['enfants', /enfant/i], ['médicaments', /m[ée]dicament|interaction/i], ['thyroïde', /thyro/i]].forEach(function(q){ if(txt.some(function(t){ return q[1].test(t); }) && al2.indexOf(q[0]) < 0) al2.push(q[0]); });
+          return '<div class="rit" id="vy-as-f' + k + '"><i>' + n2(k) + '</i>' + photo(f, 64) + '<div><h3>' + esc(f.nom) + '</h3>'
+            + '<dl class="ess"><div><dt>Pourquoi</dt><dd>' + esc(pq) + '</dd></div><div><dt>Combien</dt><dd>' + esc(f.portion_type) + '. ' + esc(FREQ[f.categorie] || 'Dans une alimentation variée.') + '</dd></div>' + (a2 ? '<div><dt>Allégation UE</dt><dd class="ess-alleg">' + esc(a2) + '</dd></div>' : '') + '</dl>'
+            + (al2.length ? '<div class="ess-prec">Précautions : ' + al2.map(esc).join(' · ') + '</div>' : '')
+            + '<details class="det"><summary>Détails</summary><div class="sous" style="margin-top:8px">Idée pour votre assiette · ' + esc(f.portion_type) + ' · ' + saison(f) + '</div>'
+            + (f.accroche ? '<p style="font:italic 400 16px/1.45 \'Playfair Display\',Georgia,serif;color:#151413">' + esc(f.accroche) + '</p>' : '')
             + '<p style="font-size:12.5px;opacity:.75">' + esc(composition(f)) + '</p>'
-            + '<div class="preuve" style="margin-top:12px">Combien</div><p style="margin-top:4px">' + esc(f.portion_type) + '. ' + esc(FREQ[f.categorie] || 'Dans une alimentation variée.') + '' + '</p>'
             + (apports(f).length ? '<div class="preuve" style="margin-top:12px">Une portion apporte</div><p style="margin-top:4px">' + apports(f).map(esc).join('<br>') + '</p>' : '')
-            + (a2 ? '<div class="alleg">' + esc(a2) + '</div>' : '') 
             + '<div class="preuve">Preuve ' + f.niveau_preuve_peau + ' · ' + PREUVE[f.niveau_preuve_peau] + '</div>'
             + (prix(f) ? '<div class="preuve" style="text-transform:none;letter-spacing:.2px;font-size:11.5px">' + esc(prix(f)) + (AFFINE.bio && f.bio_disponible ? ' Existe en bio.' : '') + '</div>' : '')
             + (f.allergenes_UE.length ? '<div class="prec">Allergènes : ' + f.allergenes_UE.map(function(z){ return AL_NOM[z] || z; }).join(', ') + ((f.allergenes_possibles || []).length ? ' ; selon la marque : ' + f.allergenes_possibles.map(function(z){ return AL_NOM[z] || z; }).join(', ') : '') + '.</div>' : '')
             + pr.map(function(t){ return '<div class="prec">' + esc(t) + '</div>'; }).join('')
-            + (f.etudes.length ? '<details><summary>Ce que disent les études (' + f.etudes.length + ')</summary><p style="font-size:12.5px">Les références ci-dessous sont données pour information. Elles ne permettent pas de promettre un effet de cet aliment sur votre peau ; seules les mentions autorisées par l’Union européenne, affichées plus haut, décrivent un rôle d’un nutriment.</p>' + f.etudes.map(function(s){ return '<a href="' + esc(s.lien) + '" target="_blank" rel="noopener">' + esc(s.ref) + ' ↗</a>'; }).join('') + '</details>' : '')
+            + (f.etudes.length ? '<div class="preuve" style="margin-top:12px">Ce que disent les études (' + f.etudes.length + ')</div><p style="font-size:12.5px">Les références ci-dessous sont données pour information. Elles ne permettent pas de promettre un effet de cet aliment sur votre peau ; seules les mentions autorisées par l’Union européenne, affichées plus haut, décrivent un rôle d’un nutriment.</p>' + f.etudes.map(function(s){ return '<a href="' + esc(s.lien) + '" target="_blank" rel="noopener" style="display:block;font-size:12.5px;line-height:1.5;margin-top:7px;color:inherit">' + esc(s.ref) + ' ↗</a>'; }).join('') : '')
             + credit(f.id)
             + (prudent ? '' : '<a href="#" class="vy-as-pas" data-id="' + f.id + '" style="display:inline-block;margin-top:12px;font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:#52716f">Retirer cet aliment</a>')
-            + '</div></div>'; }).join('')
+            + '</details></div></div>'; }).join('')
       + (une ? '<p class="fine">À intégrer dans une alimentation variée et équilibrée et un mode de vie sain.</p>' : '')
       + (AFFINE.usage === 'tendance' ? tendances() : '')
       + '<div id="vy-as-geo"></div>'
