@@ -1,7 +1,7 @@
 {
  "_meta": {
   "version": "1.0",
-  "date": "2026-09-30",
+  "date": "2026-10-11",
   "description": "Cartes « verdict » sur les modes alimentaires, pour l'écran Tendances de vyvre. Chaque carte dit ce que montrent les meilleures preuves disponibles, en mots simples, avec la taille de l'effet quand elle existe et les conflits d'intérêts connus.",
   "verdicts": {
    "prouve": "Rôle établi (allégation européenne autorisée ou plusieurs essais concordants).",
@@ -15,9 +15,10 @@
   "repartition": {
    "prouve": 1,
    "plausible": 4,
-   "pas_demontre": 13,
+   "pas_demontre": 21,
    "deconseille": 1
-  }
+  },
+  "ajouts_2026_10_11": "8 cartes ajoutées après l'audit wellness (_audit_wellness_2026-10-11.md) : cafés de luxe, lattes aux champignons, ashwagandha, eau de coco, ube, laits végétaux, poudres riches en vitamine C, infusions tendance. Identifiants PubMed contrôlés via NCBI E-utilities le 11/10/2026, DOI EFSA via Crossref, page NHS et décision 2008/575/CE ouvertes le même jour. aliment_ids renvoient à aliments_v4.json (v4.1)."
  },
  "tendances": [
   {
@@ -580,6 +581,215 @@
     {
      "ref": "Cosgrove MC 2007, Am J Clin Nutr (apports alimentaires et aspect de la peau, transversal, 4 025 femmes, auteurs Unilever)",
      "lien": "https://pubmed.ncbi.nlm.nih.gov/17921406/"
+    }
+   ]
+  },
+  {
+   "id": "cafes_luxe",
+   "titre": "Les cafés à 100 euros : Kopi Luwak, Geisha, Black Ivory",
+   "accroche": "Le café à 100 euros",
+   "verdict": "pas_demontre",
+   "verdict_texte": "Le prix achète la rareté et une histoire : quelques kilos par an pour le Black Ivory (grains passés par des éléphants), des lots de Geisha vendus aux enchères, des grains récupérés dans les excréments de civettes pour le Kopi Luwak. Le goût peut être remarquable. Pour la peau, rien ne change : la composition est celle d’un café ordinaire et aucune étude ne compare ces cafés. Le seul lien publié vaut pour tout café : dans une grande cohorte, les femmes qui prenaient le plus de caféine avaient un peu moins de rosacée, une observation qui ne prouve pas que le café en soit la cause. Le Kopi Luwak pose un vrai problème : dans 29 plantations visitées à Bali, aucune civette en cage ne bénéficiait des cinq libertés du bien-être animal, et les fraudes d’étiquetage sont fréquentes.",
+   "ce_quon_peut_faire": "Un bon café de spécialité, pour le plaisir, sans sucre ajouté. Pas de Kopi Luwak.",
+   "prudence": "Caféine : au plus 200 mg par jour pendant la grossesse et l’allaitement, toutes sources confondues (EFSA). Rosacée : laisser tiédir les boissons chaudes.",
+   "aliment_ids": [],
+   "etudes": [
+    {
+     "ref": "Lewis-Whelan B 2024, J Appl Anim Welf Sci (bien-être des civettes dans 29 plantations de café de civette à Bali)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/37853780/"
+    },
+    {
+     "ref": "Lachenmeier DW 2021, Foods (Kopi Luwak : fraudes et confusion d’espèces de café)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/34207718/"
+    },
+    {
+     "ref": "Li S 2018, JAMA Dermatol (caféine, café et rosacée, cohorte de 82 737 femmes)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/30347034/"
+    },
+    {
+     "ref": "EFSA 2015, EFSA Journal (sécurité de la caféine)",
+     "lien": "https://doi.org/10.2903/j.efsa.2015.4102"
+    }
+   ]
+  },
+  {
+   "id": "lattes_champignons",
+   "titre": "Lattes aux champignons : reishi, chaga, lion’s mane, cordyceps",
+   "accroche": "Des champignons dans le café",
+   "verdict": "pas_demontre",
+   "verdict_texte": "Ces lattes mélangent du café ou du cacao à des poudres d’extraits de champignons présentés comme « adaptogènes ». Aucune étude chez l’humain n’a mesuré un effet sur la peau, et aucune allégation de santé n’est autorisée en Europe pour ces champignons. Des effets indésirables sont en revanche publiés : une atteinte des reins par les oxalates après des mois de chaga en poudre, et une hépatite grave après de la poudre de reishi.",
+   "ce_quon_peut_faire": "Des champignons de cuisine (shiitake, champignons de Paris) dans vos plats ; pour la boisson, un café ou un cacao simples.",
+   "prudence": "Maladie des reins ou calculs : pas de chaga. Traitement quotidien, grossesse ou allaitement : pas de poudre de champignon sans l’avis de votre médecin ou pharmacien.",
+   "aliment_ids": [
+    "shiitake",
+    "champignon_paris"
+   ],
+   "etudes": [
+    {
+     "ref": "Kikuchi Y 2014, Clin Nephrol (néphropathie à oxalates après du chaga, cas)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/23149251/"
+    },
+    {
+     "ref": "Wanmuang H 2007, J Med Assoc Thai (hépatite fulminante après de la poudre de reishi, cas)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/17621752/"
+    }
+   ]
+  },
+  {
+   "id": "ashwagandha",
+   "titre": "L’ashwagandha",
+   "accroche": "La racine qui promet le calme",
+   "verdict": "pas_demontre",
+   "verdict_texte": "L’ashwagandha est une racine de la médecine ayurvédique, vendue en gélules, en poudre ou dans des lattes. Des essais portent sur le stress et le sommeil ; aucun n’a étudié la peau. Aucune allégation de santé n’est autorisée en Europe. Des atteintes du foie ont été décrites, parfois graves, chez des personnes qui en prenaient en complément.",
+   "ce_quon_peut_faire": "Pour le stress et le sommeil, les repères de la partie Rythme : horaires réguliers, lumière du matin, activité physique.",
+   "prudence": "Complément, pas un aliment : grossesse, allaitement, maladie de la thyroïde ou du foie, traitement quotidien : ne pas en prendre sans avis médical. Arrêter et consulter en cas de fatigue inhabituelle ou de jaunisse.",
+   "aliment_ids": [],
+   "etudes": [
+    {
+     "ref": "Björnsson HK 2020, Liver Int (atteintes du foie liées à l’ashwagandha, série de cas Islande et États-Unis)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/31991029/"
+    }
+   ]
+  },
+  {
+   "id": "eau_coco",
+   "titre": "L’eau de coco",
+   "accroche": "Plus hydratante que l’eau ?",
+   "verdict": "pas_demontre",
+   "verdict_texte": "L’eau de coco est riche en potassium (500 mg pour un verre de 250 mL, table CIQUAL) et contient environ 2,5 g de sucres pour 100 mL. Dans les essais après l’effort, elle réhydrate aussi bien que l’eau ou qu’une boisson de l’effort, pas mieux, et certains participants se sentaient plus ballonnés. Aucune étude ne la relie à l’hydratation de la peau.",
+   "ce_quon_peut_faire": "L’eau reste la boisson de tous les jours ; l’eau de coco 100 % pure, bien fraîche, pour changer.",
+   "prudence": "Maladie des reins ou traitement qui retient le potassium : un cas d’arrêt cardiaque par excès de potassium a été publié après de grandes quantités ; avis médical avant d’en boire régulièrement.",
+   "aliment_ids": [
+    "eau_coco",
+    "eau"
+   ],
+   "etudes": [
+    {
+     "ref": "Saat M 2002, J Physiol Anthropol Appl Human Sci (réhydratation : eau de coco, boisson de l’effort, eau)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/12056182/"
+    },
+    {
+     "ref": "Kalman DS 2012, J Int Soc Sports Nutr (eau de coco, boisson de l’effort et eau, ECR croisé n=12)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/22257640/"
+    },
+    {
+     "ref": "Hakimian J 2014, Circ Arrhythm Electrophysiol (hyperkaliémie après de l’eau de coco, cas)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/24550410/"
+    },
+    {
+     "ref": "ANSES, table CIQUAL 2020, eau de coco (18011)",
+     "lien": "https://ciqual.anses.fr/#/aliments/18011/eau-de-coco"
+    }
+   ]
+  },
+  {
+   "id": "ube",
+   "titre": "L’ube, l’igname violette",
+   "accroche": "Le latte violet",
+   "verdict": "pas_demontre",
+   "verdict_texte": "L’ube est une igname violette des Philippines. Sa couleur vient d’anthocyanes, des pigments qui n’ont été étudiés qu’en laboratoire et chez l’animal : aucune étude chez l’humain ne le relie à la peau. Cuite, l’igname apporte des fibres et du potassium (table CIQUAL). Les lattes, poudres et sirops « ube » du commerce sont surtout du sucre, des arômes et parfois des colorants.",
+   "ce_quon_peut_faire": "Pour la couleur et le goût, un ube latte maison avec de la vraie igname violette cuite (voir les recettes).",
+   "prudence": "Toujours cuite. Maladie rénale chronique : riche en potassium. Produits « ube » du commerce : lire la liste des ingrédients.",
+   "aliment_ids": [
+    "igname"
+   ],
+   "etudes": [
+    {
+     "ref": "ANSES, table CIQUAL 2020, igname épluchée cuite à l’eau (53503)",
+     "lien": "https://ciqual.anses.fr/#/aliments/53503"
+    }
+   ]
+  },
+  {
+   "id": "laits_vegetaux",
+   "titre": "Laits d’avoine, d’amande, de coco, de riz, de soja",
+   "accroche": "Les laits végétaux",
+   "verdict": "pas_demontre",
+   "verdict_texte": "Aucune étude ne montre qu’une boisson végétale améliore la peau. Côté composition, elles sont très différentes du lait : non enrichies, celles à l’avoine, à l’amande, à la coco ou au riz n’apportent presque pas de protéines ni de calcium (table CIQUAL), et celles à l’avoine ou au riz contiennent des sucres issus de la céréale même sans sucre ajouté. La boisson au soja enrichie est la plus proche du lait. Si le lait semble aggraver votre acné, une boisson végétale enrichie en calcium est une alternative raisonnable.",
+   "ce_quon_peut_faire": "Choisir une boisson végétale enrichie en calcium et sans sucre ajouté, en lisant l’étiquette.",
+   "prudence": "Boisson au riz : déconseillée avant 5 ans à cause de l’arsenic (NHS). Enfants : les boissons végétales non enrichies ne remplacent pas le lait. Allergies : avoine (gluten), amande (fruit à coque), soja.",
+   "aliment_ids": [
+    "boisson_avoine",
+    "boisson_amande",
+    "boisson_coco",
+    "boisson_soja_calcium"
+   ],
+   "etudes": [
+    {
+     "ref": "Vanga SK 2018, J Food Sci Technol (boissons végétales et lait de vache, comparaison nutritionnelle)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/29358791/"
+    },
+    {
+     "ref": "NHS, boissons pour les jeunes enfants (pas de boisson au riz avant 5 ans)",
+     "lien": "https://www.nhs.uk/baby/weaning-and-feeding/drinks-and-cups-for-babies-and-young-children/"
+    },
+    {
+     "ref": "EFSA 2024, EFSA Journal (arsenic inorganique dans les aliments, réévaluation)",
+     "lien": "https://doi.org/10.2903/j.efsa.2024.8488"
+    }
+   ]
+  },
+  {
+   "id": "poudres_vitamine_c",
+   "titre": "Acérola, camu camu, baobab, argousier, moringa",
+   "accroche": "Les poudres venues de loin",
+   "verdict": "pas_demontre",
+   "verdict_texte": "Ces fruits et feuilles sont vendus en poudre avec des promesses d’éclat. Ce qui est établi : une alimentation source de vitamine C, et la vitamine C seule porte une allégation européenne pour la peau : « La vitamine C contribue à la formation normale de collagène pour assurer la fonction normale de la peau. » L’acérola est le fruit le plus riche de la table CIQUAL (2 850 mg pour 100 g) ; pour le camu camu, le baobab et l’argousier, les teneurs varient beaucoup d’un lot à l’autre et aucune fiche officielle n’existe. Ce qui n’est pas démontré : qu’une poudre fasse mieux qu’un kiwi ou un poivron. Pour l’argousier, un seul petit essai ancien sur des huiles dans l’eczéma ; pour le moringa, aucune étude cutanée.",
+   "ce_quon_peut_faire": "Un fruit ou un légume riche en vitamine C chaque jour : kiwi, poivron, cassis, agrumes, ou un peu de pulpe d’acérola dans un smoothie.",
+   "prudence": "Les poudres sont souvent des compléments, parfois coupées de maltodextrine : lire l’étiquette. Calculs rénaux : pas de fortes doses de vitamine C en complément. Moringa : grossesse et traitement quotidien, avis médical.",
+   "aliment_ids": [
+    "acerola",
+    "kiwi",
+    "poivron_rouge",
+    "cassis"
+   ],
+   "etudes": [
+    {
+     "ref": "Pullar JM 2017, Nutrients (rôles de la vitamine C dans la peau, revue)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/28805671/"
+    },
+    {
+     "ref": "Yang B 1999, J Nutr Biochem (huiles d’argousier et eczéma atopique, petit essai)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/15539258/"
+    },
+    {
+     "ref": "Thomas LD 2013, JAMA Intern Med (compléments de vitamine C et calculs rénaux, cohorte)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/23381591/"
+    },
+    {
+     "ref": "Décision 2008/575/CE (pulpe séchée de baobab autorisée comme nouvel aliment)",
+     "lien": "https://eur-lex.europa.eu/eli/dec/2008/575/oj"
+    },
+    {
+     "ref": "Règlement (UE) n° 432/2012, liste des allégations de santé autorisées",
+     "lien": "https://eur-lex.europa.eu/eli/reg/2012/432/oj"
+    }
+   ]
+  },
+  {
+   "id": "infusions_tendance",
+   "titre": "Maté, rooibos, hibiscus, hojicha",
+   "accroche": "Les infusions du moment",
+   "verdict": "pas_demontre",
+   "verdict_texte": "Aucune de ces boissons n’a été étudiée sur la peau, et leur apport en vitamines et minéraux est négligeable. Elles restent de bonnes façons de boire sans sucre. Ce qui les distingue : le rooibos et l’hibiscus n’ont pas de caféine ; le maté et le hojicha en contiennent. L’hibiscus a fait un peu baisser la tension dans un essai. Le maté bu très chaud, au-delà de 65 °C, est classé « probablement cancérogène » pour l’œsophage, à cause de la température.",
+   "ce_quon_peut_faire": "Les boire peu ou pas sucrées, tièdes ou froides : un rooibos latte le soir, un bissap à la menthe l’été (voir les recettes).",
+   "prudence": "Maté et hojicha : caféine (grossesse, au plus 200 mg par jour toutes sources). Hibiscus et traitement pour la tension : avis du pharmacien. Rosacée : boissons chaudes à laisser tiédir.",
+   "aliment_ids": [
+    "tisane",
+    "the_vert"
+   ],
+   "etudes": [
+    {
+     "ref": "McKay DL 2010, J Nutr (infusion d’hibiscus et tension artérielle, ECR n=65)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/20018807/"
+    },
+    {
+     "ref": "Loomis D 2016, Lancet Oncol (CIRC : café, maté et boissons très chaudes)",
+     "lien": "https://pubmed.ncbi.nlm.nih.gov/27318851/"
+    },
+    {
+     "ref": "EFSA 2015, EFSA Journal (sécurité de la caféine)",
+     "lien": "https://doi.org/10.2903/j.efsa.2015.4102"
     }
    ]
   }

@@ -68,9 +68,9 @@
     r.q9 = [REP.q9s === 'moins7' ? '6_7' : REP.q9s === 'plus9' ? 'plus9' : REP.q9s === '7_9' ? '7_9' : null, REP.q9d ? 'irregulier' : null].filter(Boolean);
     r.q10 = REP.q10p ? [REP.q10p] : []; REP = r; }
   function charger(){ if(DATA) return Promise.resolve();
-    return fetch(BASE + 'aliments_v4.json?v=3').then(function(r){ return r.json(); }).then(function(j){ DATA = j.aliments; })
-      .then(function(){ return fetch(BASE + 'recettes.json?v=2').then(function(r){ return r.json(); }).then(function(j){ RECS = j.recettes || []; }).catch(function(){ RECS = []; }); })
-      .then(function(){ return fetch(BASE + 'tendances.json?v=1').then(function(r){ return r.json(); }).then(function(j){ TEND = j.tendances || []; }).catch(function(){ TEND = []; }); })
+    return fetch(BASE + 'aliments_v4.json?v=4').then(function(r){ return r.json(); }).then(function(j){ DATA = j.aliments; })
+      .then(function(){ return fetch(BASE + 'recettes.json?v=3').then(function(r){ return r.json(); }).then(function(j){ RECS = j.recettes || []; }).catch(function(){ RECS = []; }); })
+      .then(function(){ return fetch(BASE + 'tendances.json?v=2').then(function(r){ return r.json(); }).then(function(j){ TEND = j.tendances || []; }).catch(function(){ TEND = []; }); })
       .then(function(){ return fetch(BASE + 'photos/credits.json?v=2').then(function(r){ return r.json(); }).then(function(j){ CREDITS = j || {}; }).catch(function(){ CREDITS = {}; }); })
       .then(function(){ return fetch(BASE + 'combos.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(j){ COMBOS = j; }).catch(function(){}); }); }
   function esc(t){ return String(t == null ? '' : t).replace(/([A-Za-zÀ-ÿ])'([A-Za-zÀ-ÿ])/g, '$1’$2').replace(/[&<>"]/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]; }); }
@@ -175,7 +175,7 @@
     return Math.max(-2, Math.min(2, b)); }
   var DECLENCHEURS = /tomate|piment|cannelle|chocolat|cacao|orange|citron|pamplemousse|mandarine|cl[ée]mentine/i;
   function choisir(ind){ var e = exclus(), mois = new Date().getMonth() + 1, G = { A:3, B:2, C:1 };
-    var cand = DATA.filter(function(f){ return !e.x[f.id] && G[f.niveau_preuve_peau] && (f.etudes || []).length; })   /* 01/10 (audit) : au moins une etude */.map(function(f){
+    var cand = DATA.filter(function(f){ return !e.x[f.id] && f.photo_disponible !== false && G[f.niveau_preuve_peau] && (f.etudes || []).length; })   /* 01/10 (audit) : au moins une etude ; 11/10 (audit wellness) : un aliment sans photo (photo_disponible:false) n'entre pas dans l'assiette, il sert seulement aux recettes */.map(function(f){
       var c1 = !!ind.entretien || f.cibles_peau.indexOf(ind.i1) >= 0, c2 = ind.i2 && f.cibles_peau.indexOf(ind.i2) >= 0, c3 = !c1 && !c2 ? (ind.suite || []).filter(function(k){ return f.cibles_peau.indexOf(k) >= 0; })[0] : null; if(!c1 && !c2 && !c3) return null;
       var s = G[f.niveau_preuve_peau] + (c1 ? 2 : 0) + (c2 ? 1 : 0) + (!AFFINE.saison && (f.saison || []).indexOf(mois) >= 0 ? .5 : 0) + (f.allegation_UE_autorisee ? .5 : 0) + bonus(f, mois);
       if(a('q8','acne') && ind.i1 === 'pores_sebum' && f.categorie !== 'legumineuse' && f.categorie !== 'cereale_complete') s -= 1;
@@ -584,7 +584,7 @@
     if(!pris.length || matchMedia('(prefers-reduced-motion: reduce)').matches) return assiette();
     var e = exclus(), sv = { S:SANTE, M:MODE, R:REP }; SANTE = { rien:true }; MODE = 'normal'; versRep(ind); var nDef = Object.keys(exclus().x).length; SANTE = sv.S; MODE = sv.M; REP = sv.R;
     var nTot = Object.keys(e.x).length, G = { A:1, B:1, C:1 }, mois = new Date().getMonth() + 1;
-    var cand = DATA.filter(function(f){ return !e.x[f.id] && G[f.niveau_preuve_peau] && (f.cibles_peau.indexOf(ind.i1) >= 0 || (ind.i2 && f.cibles_peau.indexOf(ind.i2) >= 0)); });
+    var cand = DATA.filter(function(f){ return !e.x[f.id] && f.photo_disponible !== false && G[f.niveau_preuve_peau] && (f.cibles_peau.indexOf(ind.i1) >= 0 || (ind.i2 && f.cibles_peau.indexOf(ind.i2) >= 0)); });
     var choisis = pris.map(function(c){ return c.f; }), roue = choisis.concat(cand.filter(function(f){ return choisis.indexOf(f) < 0 && CREDITS[f.id]; }).slice(0, 36)).sort(function(){ return Math.random() - .5; });   // les choix sont toujours dans la roue
     while(roue.length < 14) roue = roue.concat(roue);
     var H = 46;
@@ -753,7 +753,7 @@
       if(a('q1','sulfites') && r.ingredients.some(function(g){ return /abricot_sec|raisin_sec|figue_seche|capres/.test(g.aliment_id || ''); })) return false;
       if((a('q3','enceinte') || a('q3','allaite')) && r.oeuf_peu_cuit) return false;
       /* 01/10 (audit) : reins ou calculs, les recettes riches en oxalates ou tres salees sont retirees */
-      if(a('q5','renale') && r.ingredients.some(function(g){ return /rhubarbe|th[ée] noir|the_noir|oseille|[ée]pinard|fleur de sel|anchois|c[âa]pre|sauce.?soja|olive noire|olives/i.test((g.libelle || '') + ' ' + (g.aliment_id || '')); })) return false;
+      if(a('q5','renale') && r.ingredients.some(function(g){ return /rhubarbe|th[ée] noir|the_noir|matcha|eau de coco|eau_coco|oseille|[ée]pinard|fleur de sel|anchois|c[âa]pre|sauce.?soja|olive noire|olives/i.test((g.libelle || '') + ' ' + (g.aliment_id || '')); })) return false;
       if((r.allergenes_possibles || []).some(function(z){ return al.indexOf(z) >= 0; })) return false;
       if(a('q7','vege') && (r.regimes || []).indexOf('vegetarien') < 0) return false;
       if(a('q7','vegan') && (r.regimes || []).indexOf('vegan') < 0) return false;
