@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>VYVRE · Propales Premium</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" href="data:,">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500&family=JetBrains+Mono:wght@300;400&family=Playfair+Display:ital,wght@1,500&display=swap">
+<style>
+/* Propales Premium, 11/10/2026. Page de travail autonome, non reliee au menu.
+   Toutes les donnees affichees sont des EXEMPLES. Aucune photo, aucune image de marque. */
+:root{
+  --bg:#000;--ink:#F5F4F0;--i85:rgba(245,244,240,.85);--i70:rgba(245,244,240,.70);--i55:rgba(245,244,240,.55);
+  --i40:rgba(245,244,240,.40);--i30:rgba(245,244,240,.30);--i15:rgba(245,244,240,.15);--i08:rgba(255,255,255,.08);--i05:rgba(255,255,255,.05);
+  --line:rgba(245,244,240,.12);--green:#7FE0A7;--gold:#d9c9a3;--champ:#F0E5C8;--amber:#E9BE76;--red:#EE9283;
+  --ease:cubic-bezier(.2,.7,.1,1);--mono:'JetBrains Mono','SF Mono',monospace;--serif:'Playfair Display',Georgia,serif
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:#000;-webkit-font-smoothing:antialiased;-webkit-text-size-adjust:100%}
+body{background:#000;color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,sans-serif;font-weight:200;overflow-x:hidden;line-height:1.5}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:0;background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(255,255,255,.035),transparent 70%),radial-gradient(ellipse 80% 40% at 50% 100%,rgba(127,224,167,.025),transparent 70%)}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer;background:none;border:0}
+.wrap{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:0 16px}
+@media(min-width:760px){.wrap{padding:0 40px}}
+.k{font-family:var(--mono);font-size:10px;letter-spacing:.32em;text-transform:uppercase;color:var(--i55)}
+.k.g{color:var(--green)}.k.o{color:var(--gold)}
+
+/* ── barre du haut (reprise de la barre en verre du site) ── */
+.bar{position:sticky;top:10px;z-index:30;margin:10px 10px 0;padding:12px 18px;border-radius:22px;display:flex;align-items:center;justify-content:space-between;gap:12px;
+  background:rgba(255,255,255,.035);backdrop-filter:blur(30px) saturate(1.8);-webkit-backdrop-filter:blur(30px) saturate(1.8);border:1px solid rgba(255,255,255,.10);box-shadow:inset 0 1px 0 rgba(255,255,255,.22)}
+.brand{display:flex;flex-direction:column;line-height:1;text-decoration:none}
+.brand b{font-weight:300;font-size:13px;letter-spacing:.22em}
+.brand i{font-family:var(--serif);font-size:11px;color:var(--i55);margin-top:4px}
+.bar nav{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.bar nav a{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;text-decoration:none;color:var(--i55);padding:8px 10px;border-radius:999px}
+.bar nav a:hover{color:var(--ink)}
+.bar nav a.pro{border:1px solid var(--i15);color:var(--gold)}
+@media(max-width:620px){.bar nav a.hide-s{display:none}}
+
+/* ── en-tete ── */
+.hero{padding:72px 0 36px}
+.hero h1{font-weight:100;font-size:clamp(44px,8vw,96px);line-height:1;letter-spacing:-.035em;margin:18px 0 22px}
+.hero h1 em{font-style:normal;color:var(--i55);font-weight:200}
+.hero p{max-width:640px;color:var(--i70);font-size:16px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:28px}
+.chips a{font-size:13px;text-decoration:none;padding:9px 14px;border-radius:999px;border:1px solid var(--i15);color:var(--i85);background:var(--i05)}
+.chips a:hover{border-color:var(--i40)}
+
+/* ── socle commun ── */
+.socle{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;margin:26px 0 10px}
+.card{border:1px solid var(--line);border-radius:22px;padding:22px;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01))}
+.card h3{font-weight:300;font-size:20px;letter-spacing:-.01em;margin:10px 0 8px}
+.card p,.card li{color:var(--i70);font-size:14px}
+.card ul{list-style:none;display:grid;gap:6px;margin-top:6px}
+.card li::before{content:'—';color:var(--i30);margin-right:8px}
+.price{display:flex;align-items:baseline;flex-wrap:wrap;gap:4px 8px;margin-top:8px}
+.price b{white-space:nowrap}
+.price b{font-weight:100;font-size:46px;letter-spacing:-.03em}
+.price span{color:var(--i55);font-size:13px}
+.jauge{display:flex;align-items:center;gap:10px;margin:7px 0;font-size:13px;color:var(--i70)}
+.jauge .lb{width:78px}
+.jauge .seg{display:flex;gap:4px}
+.jauge .seg i{width:22px;height:6px;border-radius:3px;background:var(--i15)}
+.jauge .seg i.on{background:var(--ink)}
+.jauge small{color:var(--i40);font-size:11px}
+
+/* ── direction ── */
+.dir{padding:84px 0 20px;border-top:1px solid var(--line);margin-top:60px}
+.dir-h{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:34px}
+.dir-h h2{font-weight:100;font-size:clamp(36px,5vw,60px);letter-spacing:-.03em;line-height:1.02;margin-top:12px}
+.dir-h h2 em{font-family:var(--serif);font-style:italic;font-weight:500;font-size:.8em;color:var(--gold)}
+.dir-h p{max-width:430px;color:var(--i70);font-size:14px}
+.phones{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:44px 28px}
+.cap{max-width:360px;margin:16px auto 0;color:var(--i55);font-size:13px;text-align:center}
+.cap b{color:var(--ink);font-weight:400}
+
+/* ── telephone ── */
+.phone{position:relative;width:100%;max-width:360px;height:740px;margin:0 auto;border-radius:46px;border:1px solid rgba(255,255,255,.16);background:#040404;overflow:hidden;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.18),0 50px 90px -50px rgba(0,0,0,1),0 0 0 6px #0b0b0c,0 0 0 7px rgba(255,255,255,.08)}
+.phone::before{content:'';position:absolute;top:12px;left:50%;width:96px;height:26px;margin-left:-48px;border-radius:20px;background:#000;z-index:5;border:1px solid rgba(255,255,255,.06)}
+.scr{position:absolute;inset:0;padding:56px 20px 22px;display:flex;flex-direction:column;overflow:hidden}
+.sb{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+.sb .mini{font-weight:300;font-size:11px;letter-spacing:.22em}
+.sb .k{font-size:9px;letter-spacing:.24em}
+.t1{font-weight:200;font-size:30px;line-height:1.05;letter-spacing:-.025em}
+.t1 em{font-style:normal;color:var(--i55)}
+.sm{font-size:12px;color:var(--i55)}
+.pill{display:inline-flex;padding:3px;border-radius:999px;border:1px solid var(--i15);background:var(--i05)}
+.pill button{font-size:12px;padding:8px 13px;border-radius:999px;color:var(--i70);min-height:34px}
+.pill button.on{background:#fff;color:#111}
+.btn{display:flex;align-items:center;justify-content:center;gap:10px;min-height:48px;border-radius:999px;font-size:14px;font-weight:400;text-decoration:none;
+  background:linear-gradient(180deg,#e9e9ea,#b9b9bc);color:#111;box-shadow:inset 0 1px 0 #fff,0 10px 30px -12px rgba(255,255,255,.35)}
+.btn.ghost{background:rgba(255,255,255,.05);color:var(--ink);border:1px solid var(--i15);box-shadow:none}
+.fine{font-size:10.5px;color:var(--i40);text-align:center;margin-top:8px;line-height:1.45}
+.glass{border-radius:22px;border:1px solid rgba(255,255,255,.11);background:rgba(255,255,255,.035);box-shadow:inset 0 1px 0 rgba(255,255,255,.16)}
+
+/* A : verre */
+.plan{padding:16px 16px 14px;margin-top:10px}
+.plan h4{font-weight:300;font-size:16px;display:flex;justify-content:space-between;align-items:baseline}
+.plan h4 span{font-size:12px;color:var(--i55)}
+.plan ul{list-style:none;margin-top:8px;display:grid;gap:5px}
+.plan li{font-size:12.5px;color:var(--i70);display:flex;gap:8px}
+.plan li::before{content:'';flex:none;width:5px;height:5px;border-radius:50%;background:var(--i40);margin-top:7px}
+.plan.pr{border-color:rgba(217,201,163,.35);background:linear-gradient(180deg,rgba(217,201,163,.09),rgba(255,255,255,.02))}
+.plan.pr li::before{background:var(--gold)}
+.big{font-weight:100;font-size:76px;letter-spacing:-.05em;line-height:.9}
+.delta{font-family:var(--mono);font-size:12px;color:var(--green)}
+.chips8{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:10px}
+.c8{padding:9px 10px;border-radius:14px;border:1px solid var(--i08);background:rgba(255,255,255,.025);display:flex;justify-content:space-between;align-items:center;gap:6px}
+.c8 b{font-weight:300;font-size:12px}
+.c8 small{font-family:var(--mono);font-size:10px;color:var(--green)}
+.c8 svg{width:46px;height:16px}
+.lrow{display:flex;gap:12px;align-items:flex-start;padding:11px 0;border-bottom:1px solid var(--i08)}
+.lrow .ic{flex:none;width:34px;height:34px;border-radius:50%;border:1px solid var(--i15);display:grid;place-items:center}
+.lrow b{display:block;font-weight:300;font-size:14px}
+.lrow span{font-size:11.5px;color:var(--i55)}
+.bars{display:grid;gap:9px;margin-top:10px}
+.br{display:grid;grid-template-columns:72px 1fr;align-items:center;gap:10px;font-size:11.5px;color:var(--i70)}
+.br .tr{position:relative;height:8px;border-radius:4px;background:var(--i08)}
+.br .tol{position:absolute;top:0;bottom:0;left:35%;right:35%;border-radius:4px;background:rgba(127,224,167,.16);border:1px solid rgba(127,224,167,.25)}
+.br .mk{position:absolute;top:-4px;width:3px;height:16px;border-radius:2px;background:var(--ink);transition:left .7s var(--ease),background .4s}
+.verdict{margin-top:12px;padding:12px 14px;border-radius:16px;font-size:12.5px;line-height:1.45;border:1px solid;transition:all .4s}
+.verdict b{font-weight:500}
+.v-ok{border-color:rgba(127,224,167,.35);background:rgba(127,224,167,.07)}.v-ok b{color:var(--green)}
+.v-mid{border-color:rgba(233,190,118,.38);background:rgba(233,190,118,.07)}.v-mid b{color:var(--amber)}
+.v-no{border-color:rgba(238,146,131,.4);background:rgba(238,146,131,.07)}.v-no b{color:var(--red)}
+.sim{display:flex;gap:5px;flex-wrap:wrap;margin-top:10px}
+.sim button{font-size:11px;padding:7px 10px;border-radius:999px;border:1px solid var(--i15);color:var(--i70);min-height:32px}
+.sim button.on{background:var(--ink);color:#111;border-color:var(--ink)}
+
+/* B : instrument */
+.mono{font-family:var(--mono)}
+.tbl{width:100%;border-collapse:collapse;margin-top:12px;font-size:11.5px}
+.tbl th{font-family:var(--mono);font-weight:400;font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--i40);text-align:left;padding:7px 0;border-bottom:1px solid var(--line)}
+.tbl th:not(:first-child),.tbl td:not(:first-child){text-align:center;width:62px}
+.tbl td{padding:7.5px 0;border-bottom:1px solid var(--i08);color:var(--i70)}
+.tbl td.y{color:var(--ink)}.tbl td.g{color:var(--gold)}
+.grid-bg{background-image:linear-gradient(var(--i05) 1px,transparent 1px),linear-gradient(90deg,var(--i05) 1px,transparent 1px);background-size:20px 20px}
+.readout{display:grid;grid-template-columns:1fr 1fr;gap:2px 14px;margin-top:8px;font-family:var(--mono);font-size:10.5px;color:var(--i55)}
+.readout div{display:flex;justify-content:space-between;border-bottom:1px dashed var(--i08);padding:4px 0}
+.readout b{font-weight:400;color:var(--ink)}
+.scrub{display:flex;gap:4px;margin-top:10px}
+.scrub button{flex:1;font-family:var(--mono);font-size:9.5px;color:var(--i40);padding:8px 0;border-top:2px solid var(--i15);min-height:30px}
+.scrub button.on{color:var(--ink);border-color:var(--gold)}
+.scrub button.x{color:var(--amber)}
+
+/* C : film */
+.serif{font-family:var(--serif);font-style:italic;font-weight:500}
+.film{position:relative;flex:1;min-height:0;border-radius:26px;overflow:hidden;border:1px solid var(--i15);margin-top:10px;
+  background:radial-gradient(ellipse 120% 70% at 50% 0%,rgba(240,229,200,.16),transparent 60%),#070707}
+.film .sl{position:absolute;inset:0;padding:26px 22px;display:flex;flex-direction:column;justify-content:center;opacity:0;transform:translateY(14px);transition:opacity .7s var(--ease),transform .9s var(--ease)}
+.film .sl.on{opacity:1;transform:none}
+.film .wm{position:absolute;left:0;right:0;bottom:14px;text-align:center;font-family:var(--mono);font-size:9px;letter-spacing:.35em;color:var(--i40);z-index:2}
+.film .prog{position:absolute;top:12px;left:14px;right:14px;display:flex;gap:4px;z-index:2}
+.film .prog i{flex:1;height:2px;border-radius:2px;background:var(--i15);overflow:hidden}
+.film .prog i b{display:block;height:100%;width:0;background:var(--ink)}
+.step3{display:grid;gap:9px;margin-top:12px}
+.st{display:grid;grid-template-columns:52px 1fr;gap:12px;align-items:center;padding:12px;border-radius:18px;border:1px solid var(--i08);background:rgba(255,255,255,.025)}
+.st svg{width:52px;height:52px}
+.st b{display:block;font-weight:300;font-size:15px}
+.st span{font-size:11.5px;color:var(--i55)}
+
+/* D : produits */
+.prod{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.pc{position:relative;border-radius:18px;border:1px solid var(--i08);background:rgba(255,255,255,.03);padding:10px;overflow:hidden;min-height:150px}
+.pc svg{display:block;width:100%;height:74px}
+.pc .stp{font-family:var(--mono);font-size:8.5px;letter-spacing:.22em;color:var(--i40);text-transform:uppercase}
+.pc b{display:block;font-weight:300;font-size:12px;line-height:1.25;margin-top:4px}
+.pc small{font-size:10px;color:var(--i40)}
+.pc.flou .in{filter:blur(7px);opacity:.6}
+.lock{position:absolute;inset:0;display:grid;place-items:center;text-align:center;font-size:10.5px;color:var(--champ)}
+.lock span{padding:6px 10px;border-radius:999px;border:1px solid rgba(217,201,163,.4);background:rgba(0,0,0,.55)}
+.soir{margin-top:10px;padding:13px;border-radius:18px;border:1px solid rgba(217,201,163,.3);background:linear-gradient(180deg,rgba(217,201,163,.08),transparent)}
+.soir .row{display:flex;gap:6px;margin-top:8px}
+.soir .row i{flex:1;height:40px;border-radius:10px;background:rgba(255,255,255,.07);filter:blur(2px)}
+
+/* tableau pour / contre */
+.pc-tbl{width:100%;border-collapse:collapse;margin-top:28px;font-size:14px}
+.pc-tbl th,.pc-tbl td{text-align:left;vertical-align:top;padding:14px 12px;border-bottom:1px solid var(--line)}
+.pc-tbl th{font-family:var(--mono);font-weight:400;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--i40)}
+.pc-tbl td{color:var(--i70)}
+.pc-tbl td:first-child{color:var(--ink);font-weight:300;white-space:nowrap}
+.pc-tbl .p,.pc-tbl .m{color:var(--i70)}
+.pc-tbl td.p{box-shadow:inset 2px 0 0 rgba(127,224,167,.45)}.pc-tbl td.m{box-shadow:inset 2px 0 0 rgba(238,146,131,.5)}
+.tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+@media(max-width:700px){
+  .pc-tbl,.pc-tbl tbody,.pc-tbl tr,.pc-tbl td{display:block;width:100%}
+  .pc-tbl thead{display:none}
+  .pc-tbl tr{border-bottom:1px solid var(--line);padding:10px 0}
+  .pc-tbl td{border:0;padding:6px 0}
+  .pc-tbl td.p,.pc-tbl td.m{padding-left:12px;margin:4px 0}
+  .pc-tbl td:nth-child(2)::before{content:'Pour · ';color:var(--i40)}
+  .pc-tbl td:nth-child(3)::before{content:'Contre · ';color:var(--i40)}
+}
+.reco{margin-top:24px;padding:22px;border-radius:22px;border:1px solid rgba(217,201,163,.3);background:rgba(217,201,163,.05);color:var(--i85);font-size:15px}
+.reco b{color:var(--gold);font-weight:400}
+footer{padding:80px 0 60px;color:var(--i40);font-size:12px;text-align:center}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="bar">
+  <a class="brand" href="/propals/premium/"><b>VYVRE</b><i>skin intelligence</i></a>
+  <nav>
+    <a class="hide-s" href="#a">Verre</a><a class="hide-s" href="#b">Instrument</a><a class="hide-s" href="#c">Film</a><a class="hide-s" href="#d">Floutage</a>
+    <a class="pro" href="/propals/pro/">Propales Pro</a>
+  </nav>
+</header>
+
+<main class="wrap">
+  <section class="hero">
+    <span class="k">Propositions · Premium · 11 octobre 2026</span>
+    <h1>Premium.<br><em>Trois directions.</em></h1>
+    <p>Pour chaque direction, trois écrans de téléphone : le choix entre gratuit et Premium, le suivi de l’évolution construit à partir des scores, et le guide « même heure, même endroit, même lumière ». Plus la question des produits floutés. Toutes les valeurs sont des exemples. Aucune photo n’est utilisée, nulle part.</p>
+    <div class="chips"><a href="#a">A · Verre</a><a href="#b">B · Instrument</a><a href="#c">C · Film</a><a href="#d">D · Produits floutés</a></div>
+
+    <div class="socle">
+      <div class="card">
+        <span class="k o">Le prix</span>
+        <div class="price"><b>4,49 €</b><span>par mois</span></div>
+        <div class="price" style="margin-top:0"><b style="font-size:30px">34,99 €</b><span>par an, soit 2,92 € par mois (−35 %)</span></div>
+        <p style="margin-top:8px">Résiliable en un clic, depuis le compte.</p>
+      </div>
+      <div class="card">
+        <span class="k o">Le gratuit, chaque semaine</span>
+        <h3>1 scan par jour, au choix</h3>
+        <div class="jauge"><span class="lb">Peau</span><span class="seg"><i class="on"></i><i class="on"></i></span><small>2 par semaine</small></div>
+        <div class="jauge"><span class="lb">Cheveux</span><span class="seg"><i class="on"></i></span><small>1 par semaine</small></div>
+        <div class="jauge"><span class="lb">Aliments</span><span class="seg"><i class="on"></i><i class="on"></i></span><small>2 par semaine</small></div>
+        <p style="margin-top:6px">Un scan refusé (lumière, flou) ne compte jamais.</p>
+      </div>
+      <div class="card">
+        <span class="k o">L’entrée</span>
+        <h3>7 jours de Premium, sans carte</h3>
+        <p>Offerts à la création du compte, puis retour au gratuit sans rien payer. Aucun prélèvement surprise. Parrainage : un mois offert à chacun.</p>
+      </div>
+      <div class="card">
+        <span class="k o">Toujours gratuit</span>
+        <ul><li>Le scan et ses 8 mesures</li><li>Les 4 soins du matin</li><li>Le Wrapped à partager</li><li>Le contrôle de la lumière</li></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ A · VERRE ═══════════════ -->
+  <section class="dir" id="a">
+    <div class="dir-h">
+      <div><span class="k">Direction A</span><h2>Verre <em>le calme du site</em></h2></div>
+      <p>Le verre liquide de vyvre.fr, de grands chiffres fins, peu de mots. La plus proche du site actuel, la plus rapide à faire.</p>
+    </div>
+    <div class="phones">
+      <div>
+        <div class="phone"><div class="scr">
+          <div class="sb"><span class="mini">VYVRE</span><span class="k">Ton scan du jour est fait</span></div>
+          <h3 class="t1">Choisis<br><em>ton rythme.</em></h3>
+          <div style="margin-top:14px"><div class="pill" data-period="a"><button class="on" data-p="m">Mensuel</button><button data-p="y">Annuel −35 %</button></div></div>
+          <div class="glass plan">
+            <h4>Gratuit <span>0 €</span></h4>
+            <ul><li>1 scan par jour : peau 2, cheveux 1, aliments 2 par semaine</li><li>Tes 4 soins du matin</li><li>Ton dernier scan comparé au précédent</li></ul>
+          </div>
+          <div class="glass plan pr">
+            <h4>Premium <span class="pa-price">4,49 € / mois</span></h4>
+            <ul><li>Scans illimités, peau, cheveux, aliments</li><li>Ta routine complète, matin et soir</li><li>Le film de ta peau, semaine après semaine</li><li>Ce qui marche vraiment sur toi</li><li>Trois gammes de prix à chaque étape</li></ul>
+          </div>
+          <div style="flex:1"></div>
+          <a class="btn" href="#a">Essayer 7 jours, sans carte</a>
+          <p class="fine pa-fine">Puis 4,49 € par mois. Résiliable en un clic.<br>Aucune photo conservée, ni chez nous, ni dans ton compte.</p>
+        </div></div>
+        <p class="cap"><b>Gratuit ou Premium.</b> Deux cartes, un seul bouton. L’essai ne demande pas de carte bancaire.</p>
+      </div>
+
+      <div>
+        <div class="phone"><div class="scr">
+          <div class="sb"><span class="mini">VYVRE</span><div class="pill" data-range="a" style="padding:2px"><button style="padding:6px 10px;min-height:28px;font-size:11px" class="on">8 sem.</button><button style="padding:6px 10px;min-height:28px;font-size:11px">1 an</button></div></div>
+          <span class="k">Ta peau · score global</span>
+          <div style="display:flex;align-items:flex-end;gap:12px;margin-top:6px"><span class="big" id="a-big">62</span><span class="delta" id="a-delta" style="margin-bottom:10px">+0 en 8 semaines</span></div>
+          <svg id="a-curve" viewBox="0 0 320 150" style="width:100%;height:150px;margin-top:6px;overflow:visible" aria-label="Courbe du score global, exemple"></svg>
+          <div style="display:flex;justify-content:space-between" class="sm"><span>12 août</span><span>7 oct.</span></div>
+          <div class="chips8" id="a-chips"></div>
+          <div style="flex:1"></div>
+          <button class="btn ghost" id="a-play" type="button">Revoir l’évolution</button>
+          <p class="fine">Point creux : scan sous une autre lumière, gardé mais hors courbe.</p>
+        </div></div>
+        <p class="cap"><b>Le suivi.</b> Le score se compte jusqu’à sa valeur, la courbe se dessine, les 8 mesures suivent. Tout vient des scores.</p>
+      </div>
+
+      <div>
+        <div class="phone"><div class="scr">
+          <div class="sb"><span class="mini">VYVRE</span><span class="k">Avant ton scan</span></div>
+          <h3 class="t1">Même heure.<br>Même endroit.<br><em>Même lumière.</em></h3>
+          <div style="margin-top:10px">
+            <div class="lrow"><span class="ic"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#F5F4F0" stroke-width="1"><circle cx="8" cy="8" r="6.5"/><path d="M8 4v4l2.5 1.5"/></svg></span><div><b>Ton rendez-vous : 8 h 10</b><span>Une heure d’écart au plus. Le matin, avant la crème.</span></div></div>
+            <div class="lrow"><span class="ic"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#F5F4F0" stroke-width="1"><rect x="2.5" y="2.5" width="11" height="11" rx="1"/><path d="M8 2.5v11M2.5 8h11"/></svg></span><div><b>Face à la même fenêtre</b><span>La lumière devant toi, jamais sur le côté.</span></div></div>
+            <div class="lrow" style="border:0"><span class="ic"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#F5F4F0" stroke-width="1"><circle cx="8" cy="8" r="3"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3 3l1.4 1.4M11.6 11.6L13 13M3 13l1.4-1.4M11.6 4.4L13 3"/></svg></span><div><b>Lumière du jour, plafonnier éteint</b><span>Visage propre, sans maquillage.</span></div></div>
+          </div>
+          <span class="k" style="margin-top:6px">Comparé à ton scan du 30 septembre</span>
+          <div class="bars" data-light="bars"></div>
+          <div class="verdict v-ok" data-light="verdict"></div>
+          <div class="sim" data-light="sim"></div>
+        </div></div>
+        <p class="cap"><b>La lumière.</b> Quatre écarts mesurés sur ton propre visage, sans garder d’image. Touchez les trois cas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ B · INSTRUMENT ═══════════════ -->
+  <section class="dir" id="b">
+    <div class="dir-h">
+      <div><span class="k">Direction B</span><h2>Instrument <em>la précision</em></h2></div>
+      <p>Un appareil de mesure : grille fine, chiffres en police technique, un radar des 8 mesures qui se déforme semaine après semaine. Pour celles qui veulent comprendre.</p>
+    </div>
+    <div class="phones">
+      <div>
+        <div class="phone"><div class="scr grid-bg">
+          <div class="sb"><span class="mini">VYVRE</span><span class="k">Offre</span></div>
+          <span class="k o">Premium</span>
+          <div style="display:flex;align-items:baseline;gap:8px;margin-top:4px"><span class="mono" style="font-size:44px;font-weight:300;letter-spacing:-.04em" id="b-price">4,49 €</span><span class="sm" id="b-per">/ mois</span></div>
+          <div style="margin-top:8px"><div class="pill" data-period="b"><button class="on" data-p="m">Mois</button><button data-p="y">Année</button></div></div>
+          <table class="tbl">
+            <thead><tr><th>Cette semaine</th><th>Gratuit</th><th>Premium</th></tr></thead>
+            <tbody>
+              <tr><td>Scans peau</td><td class="y">2</td><td class="g">∞</td></tr>
+              <tr><td>Scans cheveux</td><td class="y">1</td><td class="g">∞</td></tr>
+              <tr><td>Scans aliments</td><td class="y">2</td><td class="g">∞</td></tr>
+              <tr><td>Soins du matin</td><td class="y">4</td><td class="g">4</td></tr>
+              <tr><td>Soins du soir</td><td>—</td><td class="g">4</td></tr>
+              <tr><td>3 gammes de prix</td><td>—</td><td class="g">oui</td></tr>
+              <tr><td>Historique</td><td class="y">30 j</td><td class="g">tout</td></tr>
+              <tr><td>Film des 8 mesures</td><td>—</td><td class="g">oui</td></tr>
+              <tr><td>Bilan 360 mensuel</td><td>—</td><td class="g">oui</td></tr>
+              <tr><td>Wrapped</td><td class="y">oui</td><td class="g">+ progrès</td></tr>
+            </tbody>
+          </table>
+          <div style="flex:1"></div>
+          <a class="btn" href="#b">Passer Premium</a>
+          <p class="fine">Résilier : Compte › Abonnement › Résilier. Un clic, une confirmation.</p>
+        </div></div>
+        <p class="cap"><b>Gratuit ou Premium.</b> Un tableau honnête : on voit tout de suite ce qui reste gratuit.</p>
+      </div>
+
+      <div>
+        <div class="phone"><div class="scr grid-bg">
+          <div class="sb"><span class="mini">VYVRE</span><span class="k" id="b-week">Semaine 1</span></div>
+          <span class="k o">Le film de ta peau</span>
+          <svg id="b-radar" viewBox="0 0 300 300" style="width:100%;height:270px;margin-top:4px" aria-label="Radar des 8 mesures, exemple"></svg>
+          <div class="scrub" id="b-scrub"></div>
+          <div class="readout" id="b-read"></div>
+          <div style="flex:1"></div>
+          <button class="btn ghost" id="b-play" type="button">Lire le film · 8 semaines</button>
+        </div></div>
+        <p class="cap"><b>Le suivi.</b> Chaque semaine déforme le radar. La semaine 3, sous une lampe, est marquée et sautée.</p>
+      </div>
+
+      <div>
+        <div class="phone"><div class="scr grid-bg">
+          <div class="sb"><span class="mini">VYVRE</span><span class="k">Contrôle lumière</span></div>
+          <span class="k o">Empreinte de lumière</span>
+          <h3 class="t1" style="font-size:24px;margin-top:6px">Ta lumière d’aujourd’hui<br><em>contre celle du dernier scan.</em></h3>
+          <svg id="b-light" viewBox="0 0 300 250" style="width:100%;height:220px;margin-top:6px" aria-label="Empreinte de lumière, exemple"></svg>
+          <div class="readout" id="b-lread"></div>
+          <div class="verdict v-ok" data-light="verdict"></div>
+          <div class="sim" data-light="sim"></div>
+        </div></div>
+        <p class="cap"><b>La lumière.</b> Cercle vert = tolérance. Si la forme en sort, le scan n’entre pas dans la courbe.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ C · FILM ═══════════════ -->
+  <section class="dir" id="c">
+    <div class="dir-h">
+      <div><span class="k">Direction C</span><h2>Film <em>le progrès qui se partage</em></h2></div>
+      <p>Éditorial et émotionnel. Le suivi devient un petit film vertical, prêt pour TikTok et Reels, fait uniquement de chiffres et de courbes. C’est aussi la meilleure publicité du Premium.</p>
+    </div>
+    <div class="phones">
+      <div>
+        <div class="phone"><div class="scr" style="background:radial-gradient(ellipse 120% 60% at 50% 0%,rgba(240,229,200,.12),transparent 65%)">
+          <div class="sb"><span class="mini">VYVRE</span><span class="k">Premium</span></div>
+          <h3 class="serif" style="font-size:38px;line-height:1.05;margin-top:16px">Ta peau mérite une suite.</h3>
+          <p class="sm" style="margin-top:12px;font-size:13px;color:var(--i70)">Le scan te dit où tu en es. Premium te dit quoi faire ensuite, et te montre que ça marche.</p>
+          <div style="margin-top:18px;display:grid;gap:12px">
+            <div class="st" style="grid-template-columns:28px 1fr;padding:10px 12px"><span class="mono" style="color:var(--gold);font-size:11px">01</span><div><b>Ton soir, enfin</b><span>4 soins du soir qui complètent ton matin, sans doublon d’actif.</span></div></div>
+            <div class="st" style="grid-template-columns:28px 1fr;padding:10px 12px"><span class="mono" style="color:var(--gold);font-size:11px">02</span><div><b>Ce qui marche sur toi</b><span>Chaque soin relié à l’évolution de tes mesures.</span></div></div>
+            <div class="st" style="grid-template-columns:28px 1fr;padding:10px 12px"><span class="mono" style="color:var(--gold);font-size:11px">03</span><div><b>Ton film, chaque mois</b><span>Tes progrès en vidéo, à partager.</span></div></div>
+          </div>
+          <div style="flex:1"></div>
+          <div style="text-align:center;margin-bottom:10px"><span style="font-weight:100;font-size:40px;letter-spacing:-.03em">34,99 €</span><span class="sm"> / an</span><br><span class="sm">ou 4,49 € par mois</span></div>
+          <a class="btn" href="#c">Commencer · 7 jours offerts</a>
+          <p class="fine">Toujours gratuits : le scan, tes 4 soins du matin, ton Wrapped.</p>
+        </div></div>
+        <p class="cap"><b>Gratuit ou Premium.</b> Une seule offre, trois promesses. On dit aussi ce qui reste gratuit, pour la confiance.</p>
+      </div>
+
+      <div>
+        <div class="phone"><div class="scr">
+          <div class="sb"><span class="mini">VYVRE</span><span class="k">Ton film d’octobre</span></div>
+          <div class="film" id="c-film">
+            <div class="prog" id="c-prog"></div>
+            <div class="sl"><span class="k o">Ma peau</span><p class="serif" style="font-size:44px;line-height:1.02;margin-top:10px">8 semaines.<br>8 scans.</p><p class="sm" style="margin-top:12px">Même heure, même fenêtre.</p></div>
+            <div class="sl" style="align-items:center;text-align:center"><span class="k">Score global</span><span style="font-weight:100;font-size:120px;letter-spacing:-.06em;line-height:1" id="c-num">62</span><span class="delta" style="font-size:14px" id="c-delta">+0</span></div>
+            <div class="sl"><span class="k">L’évolution</span><svg id="c-curve" viewBox="0 0 280 160" style="width:100%;height:160px;margin-top:14px;overflow:visible"></svg></div>
+            <div class="sl"><span class="k o">Mes trois plus beaux progrès</span><div style="display:grid;gap:14px;margin-top:16px" id="c-top"></div></div>
+            <div class="sl" style="align-items:center;text-align:center"><p class="serif" style="font-size:40px;line-height:1.05">Et toi ?</p><p class="mono" style="margin-top:14px;font-size:12px;letter-spacing:.3em">VYVRE.FR</p></div>
+            <div class="wm">VYVRE · CONSTRUIT À PARTIR DES SCORES</div>
+          </div>
+          <a class="btn ghost" href="#c" style="margin-top:12px">Exporter en vidéo 9:16</a>
+          <p class="fine">Aucune photo : uniquement tes chiffres et tes courbes.</p>
+        </div></div>
+        <p class="cap"><b>Le suivi.</b> Le Wrapped du progrès, en boucle. Il fait venir des gens et donne envie du Premium.</p>
+      </div>
+
+      <div>
+        <div class="phone"><div class="scr">
+          <div class="sb"><span class="mini">VYVRE</span><span class="k">Le rendez-vous</span></div>
+          <h3 class="serif" style="font-size:32px;line-height:1.08;margin-top:10px">Pour comparer, il faut la même lumière.</h3>
+          <div class="step3">
+            <div class="st"><svg viewBox="0 0 52 52" fill="none" stroke="#F0E5C8" stroke-width="1"><circle cx="26" cy="26" r="18"/><path d="M26 14v12l8 5"/><circle cx="26" cy="26" r="24" stroke-opacity=".2"/></svg><div><b>La même heure</b><span>Choisis ton rendez-vous. Rappel la veille.</span></div></div>
+            <div class="st"><svg viewBox="0 0 52 52" fill="none" stroke="#F0E5C8" stroke-width="1"><rect x="12" y="8" width="28" height="36" rx="2"/><path d="M26 8v36M12 26h28"/><path d="M6 48h40" stroke-opacity=".3"/></svg><div><b>Le même endroit</b><span>Face à ta fenêtre, toujours la même.</span></div></div>
+            <div class="st"><svg viewBox="0 0 52 52" fill="none" stroke="#F0E5C8" stroke-width="1"><circle cx="26" cy="26" r="8"/><path d="M26 6v6M26 40v6M6 26h6M40 26h6M12 12l4 4M36 36l4 4M12 40l4-4M36 16l4-4"/></svg><div><b>La même lumière</b><span>Le jour, sans lampe ni flash. Visage propre.</span></div></div>
+          </div>
+          <div class="glass" style="padding:14px;margin-top:12px">
+            <span class="k">Rappel</span>
+            <p style="font-size:14px;margin-top:6px;font-weight:300">Mardi, 8 h 10 · fenêtre du salon</p>
+            <p class="sm" style="margin-top:4px">Ton dernier scan était à 8 h 04. On te préviendra si la lumière a trop changé.</p>
+          </div>
+          <div style="flex:1"></div>
+          <a class="btn" href="#c">Fixer mon rendez-vous</a>
+        </div></div>
+        <p class="cap"><b>La lumière.</b> Une page à part, lisible en dix secondes, accessible depuis le suivi et avant chaque scan.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ D · FLOUTAGE ═══════════════ -->
+  <section class="dir" id="d">
+    <div class="dir-h">
+      <div><span class="k">Variante D</span><h2>Produits floutés <em>pour et contre</em></h2></div>
+      <p>À gauche, l’idée de Charles : 2 soins visibles, 2 floutés jusqu’à l’abonnement. À droite, ma recommandation : le matin complet, le soir réservé au Premium. Jamais sur les pages /m/&lt;marque&gt;.</p>
+    </div>
+    <div class="phones" style="max-width:820px;margin:0 auto">
+      <div>
+        <div class="phone"><div class="scr">
+          <div class="sb"><span class="mini">VYVRE</span><span class="k">Tes soins du matin</span></div>
+          <h3 class="t1" style="font-size:26px">Ta routine,<br><em>en 4 gestes.</em></h3>
+          <div class="prod" data-prod="flou"></div>
+          <div style="flex:1"></div>
+          <a class="btn" href="#d">Voir mes 4 soins · Premium</a>
+          <p class="fine">Le geste « protéger » (SPF) caché derrière un abonnement : c’est le point qui me gêne le plus.</p>
+        </div></div>
+        <p class="cap"><b>Proposition de Charles.</b> Forte curiosité, mais routine incomplète et marques à moitié vues.</p>
+      </div>
+      <div>
+        <div class="phone"><div class="scr">
+          <div class="sb"><span class="mini">VYVRE</span><span class="k">Tes soins du matin</span></div>
+          <h3 class="t1" style="font-size:26px">Ta routine,<br><em>en 4 gestes.</em></h3>
+          <div class="prod" data-prod="net"></div>
+          <div class="soir">
+            <div style="display:flex;justify-content:space-between;align-items:baseline"><b style="font-weight:300;font-size:14px">Ton soir · 4 soins</b><span class="k o" style="font-size:9px">Premium</span></div>
+            <div class="row"><i></i><i></i><i></i><i></i></div>
+          </div>
+          <div style="flex:1"></div>
+          <a class="btn" href="#d">Voir mon soir</a>
+          <p class="fine">Le matin est complet et sûr. Le soir et les alternatives de prix sont le vrai plus.</p>
+        </div></div>
+        <p class="cap"><b>Recommandé.</b> Rien de caché sur le matin, partage propre, chaque marque vue en entier.</p>
+      </div>
+    </div>
+
+    <div class="tblwrap">
+      <table class="pc-tbl">
+        <thead><tr><th>Critère</th><th>Pour le floutage 2 sur 4</th><th>Contre</th></tr></thead>
+        <tbody>
+          <tr><td>Conversion</td><td class="p">Le manque est visible au moment où l’envie est la plus forte. C’est le levier le plus direct.</td><td class="m">Une partie des gens part sans rien acheter, ni l’abonnement ni les 2 soins visibles : la routine leur paraît inutilisable.</td></tr>
+          <tr><td>Confiance</td><td class="p">Aucun, sinon montrer qu’il y a « plus ».</td><td class="m">On croit que la recommandation est faite pour vendre. Cacher le SPF est difficile à défendre.</td></tr>
+          <tr><td>Partage</td><td class="p">Peut créer un « regarde, c’est flouté » viral, mais négatif.</td><td class="m">Une capture floutée se partage mal. « Vyvre m’a donné ma routine » est la phrase qui fait venir des gens.</td></tr>
+          <tr><td>Marques</td><td class="p">Aucun.</td><td class="m">Une marque qui paie pour être vue est floutée une fois sur deux : impossible à vendre. Jamais sur /m/&lt;marque&gt;.</td></tr>
+          <tr><td>Sécurité</td><td class="p">—</td><td class="m">La règle « un seul actif fort » ne tient que si l’on voit toute la routine. Sinon la personne complète avec ce qu’elle a.</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="reco"><b>Mon avis :</b> ne pas flouter le matin. Réserver au Premium ce qui est réellement en plus : le soir, les trois gammes de prix, le suivi et « ce qui marche sur toi ». Pour tester l’idée de Charles malgré tout : un test A/B de 3 semaines sur le site seulement, jamais sur l’étape SPF, jamais sur /m/.</div>
+  </section>
+</main>
+
+<footer class="wrap">Page de travail · données d’exemple · aucune photo · non reliée au menu de vyvre.fr</footer>
+
+<script>
+(function(){
+'use strict';
+var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+var NS = 'http://www.w3.org/2000/svg';
+function el(t, a, p){ var e = document.createElementNS(NS, t); for (var k in a) e.setAttribute(k, a[k]); if (p) p.appendChild(e); return e; }
+function ease(t){ return 1 - Math.pow(1 - t, 3); }
+function anim(dur, fn, done){ if (reduce){ fn(1); if (done) done(); return; } var t0 = performance.now(); (function f(n){ var t = Math.min(1, (n - t0) / dur); fn(ease(t)); if (t < 1) requestAnimationFrame(f); else if (done) done(); })(t0); }
+function fr(n){ return String(n).replace('.', ','); }
+
+/* ── Donnees d'exemple : 8 semaines, 8 mesures (haut = mieux). Semaine 3 : lampe, hors courbe. ── */
+var M = [
+  ['Éclat',      [58,60,57,63,65,66,68,67]],
+  ['Calme',      [61,62,60,64,66,65,67,69]],
+  ['Hydratation',[55,56,54,58,60,62,63,64]],
+  ['Texture',    [66,66,65,67,68,69,70,70]],
+  ['Pores',      [59,60,59,60,61,62,62,63]],
+  ['Équilibre',  [64,63,62,66,67,69,70,72]],
+  ['Uniformité', [70,70,69,71,71,72,73,73]],
+  ['Fermeté',    [68,68,68,69,69,69,70,70]]
+];
+var HORS = 2; /* index de la semaine sous une autre lumiere */
+var G = []; for (var w = 0; w < 8; w++){ var s = 0; M.forEach(function(m){ s += m[1][w]; }); G.push(Math.round(s / 8)); }
+
+/* ── Periode mensuel / annuel ── */
+document.querySelectorAll('[data-period]').forEach(function(p){
+  p.addEventListener('click', function(e){
+    var b = e.target.closest('button'); if (!b) return;
+    p.querySelectorAll('button').forEach(function(x){ x.classList.toggle('on', x === b); });
+    var y = b.dataset.p === 'y';
+    if (p.dataset.period === 'a'){
+      document.querySelector('.pa-price').textContent = y ? '34,99 € / an' : '4,49 € / mois';
+      document.querySelector('.pa-fine').innerHTML = (y ? 'Puis 34,99 € par an, soit 2,92 € par mois.' : 'Puis 4,49 € par mois.') + ' Résiliable en un clic.<br>Aucune photo conservée, ni chez nous, ni dans ton compte.';
+    } else {
+      document.getElementById('b-price').textContent = y ? '34,99 €' : '4,49 €';
+      document.getElementById('b-per').textContent = y ? '/ an · 2,92 € par mois' : '/ mois';
+    }
+  });
+});
+document.querySelectorAll('[data-range]').forEach(function(p){
+  p.addEventListener('click', function(e){ var b = e.target.closest('button'); if (!b) return; p.querySelectorAll('button').forEach(function(x){ x.classList.toggle('on', x === b); }); playA(); });
+});
+
+/* ── A : courbe du score global ── */
+function courbe(svg, vals, W, H, opts){
+  opts = opts || {};
+  while (svg.firstChild) svg.removeChild(svg.firstChild);
+  var mn = Math.min.apply(null, vals) - 4, mx = Math.max.apply(null, vals) + 3;
+  var X = function(i){ return 8 + i * (W - 16) / (vals.length - 1); }, Y = function(v){ return H - 10 - (v - mn) / (mx - mn) * (H - 24); };
+  var defs = el('defs', {}, svg), lg = el('linearGradient', { id: opts.id + 'g', x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
+  el('stop', { offset: 0, 'stop-color': opts.color || '#7FE0A7', 'stop-opacity': .28 }, lg); el('stop', { offset: 1, 'stop-color': opts.color || '#7FE0A7', 'stop-opacity': 0 }, lg);
+  for (var k = 0; k < 4; k++) el('line', { x1: 0, x2: W, y1: 12 + k * (H - 22) / 3, y2: 12 + k * (H - 22) / 3, stroke: 'rgba(255,255,255,.06)' }, svg);
+  var pts = []; vals.forEach(function(v, i){ if (i !== HORS) pts.push([X(i), Y(v)]); });
+  var d = 'M' + pts.map(function(p){ return p[0].toFixed(1) + ' ' + p[1].toFixed(1); }).join(' L');
+  var area = el('path', { d: d + ' L' + pts[pts.length - 1][0] + ' ' + H + ' L' + pts[0][0] + ' ' + H + 'Z', fill: 'url(#' + opts.id + 'g)', opacity: 0 }, svg);
+  var line = el('path', { d: d, fill: 'none', stroke: opts.color || '#7FE0A7', 'stroke-width': 1.6, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, svg);
+  var L = line.getTotalLength(); line.style.strokeDasharray = L; line.style.strokeDashoffset = L;
+  var dots = vals.map(function(v, i){
+    var hors = i === HORS;
+    return el('circle', { cx: X(i), cy: Y(v), r: hors ? 3.6 : 3, fill: hors ? '#000' : '#F5F4F0', stroke: hors ? '#E9BE76' : 'none', 'stroke-width': 1.2, opacity: 0 }, svg);
+  });
+  return function(t){ line.style.strokeDashoffset = L * (1 - t); area.setAttribute('opacity', t); dots.forEach(function(c, i){ c.setAttribute('opacity', t * (vals.length - 1) >= i - .2 ? 1 : 0); }); };
+}
+function spark(vals){
+  var s = '<svg viewBox="0 0 46 16"><polyline fill="none" stroke="#7FE0A7" stroke-width="1.2" points="', mn = Math.min.apply(null, vals), mx = Math.max.apply(null, vals);
+  s += vals.map(function(v, i){ return (i * 46 / 7).toFixed(1) + ',' + (14 - (v - mn) / ((mx - mn) || 1) * 12).toFixed(1); }).join(' ');
+  return s + '"/></svg>';
+}
+var aChips = document.getElementById('a-chips');
+aChips.innerHTML = M.map(function(m){ var d = m[1][7] - m[1][0]; return '<div class="c8"><b>' + m[0] + '</b>' + spark(m[1]) + '<small>+' + d + '</small></div>'; }).join('');
+var aDraw = courbe(document.getElementById('a-curve'), G, 320, 150, { id: 'ac' });
+function playA(){
+  var big = document.getElementById('a-big'), del = document.getElementById('a-delta');
+  anim(2200, function(t){ aDraw(t); var v = Math.round(G[0] + (G[7] - G[0]) * t); big.textContent = v; del.textContent = '+' + (v - G[0]) + ' en 8 semaines'; });
+}
+document.getElementById('a-play').addEventListener('click', playA);
+
+/* ── Lumiere : 3 cas, memes chiffres pour les directions A et B ──
+   Intensite = ecart de luminance moyenne de l'image (%) ; Couleur = ecart de teinte mesure sur la peau des joues
+   (L*, b*) ; Cote = ecart d'eclairage joue gauche / joue droite (L*) ; Reflets = part de pixels satures (%). */
+var AX = [['Intensité', 15, '%'], ['Couleur', 5, ''], ['Côté', 5, ''], ['Reflets', 3, '%']];
+var CAS = [
+  { nom: 'Même rendez-vous', v: [4, 1.8, 1.2, .6], cls: 'v-ok', txt: '<b>Lumière comparable.</b> Ce scan entre dans ta courbe.' },
+  { nom: 'Ciel couvert', v: [-19, 3.1, 2.0, .4], cls: 'v-mid', txt: '<b>Lumière plus faible (−19 %).</b> Le point sera marqué « à confirmer » sur ta courbe.' },
+  { nom: 'Lampe du soir', v: [-31, 8.4, 6.6, 1.1], cls: 'v-no', txt: '<b>Autre lumière : plus chaude, venue du côté.</b> Ce scan reste dans ton historique, hors courbe. Il ne compte pas dans ton quota.' }
+];
+var lightViews = [];
+function setCas(i){ lightViews.forEach(function(f){ f(i); }); }
+document.querySelectorAll('[data-light="sim"]').forEach(function(sim){
+  sim.innerHTML = CAS.map(function(c, i){ return '<button type="button" data-i="' + i + '"' + (i ? '' : ' class="on"') + '>' + c.nom + '</button>'; }).join('');
+  sim.addEventListener('click', function(e){ var b = e.target.closest('button'); if (b) setCas(+b.dataset.i); });
+});
+lightViews.push(function(i){
+  document.querySelectorAll('[data-light="sim"] button').forEach(function(b){ b.classList.toggle('on', +b.dataset.i === i); });
+  document.querySelectorAll('[data-light="verdict"]').forEach(function(v){ v.className = 'verdict ' + CAS[i].cls; v.innerHTML = CAS[i].txt; });
+});
+/* A : barres avec zone de tolerance (zone verte = +/- tolerance) */
+var bars = document.querySelector('[data-light="bars"]');
+bars.innerHTML = AX.map(function(a){ return '<div class="br"><span>' + a[0] + '</span><div class="tr"><div class="tol"></div><div class="mk"></div></div></div>'; }).join('');
+lightViews.push(function(i){
+  bars.querySelectorAll('.br').forEach(function(r, k){
+    var tol = AX[k][1], v = CAS[i].v[k], pos = 50 + Math.max(-48, Math.min(48, v / tol * 15)), mk = r.querySelector('.mk');
+    mk.style.left = 'calc(' + pos + '% - 1.5px)'; mk.style.background = Math.abs(v) <= tol ? '#F5F4F0' : (Math.abs(v) <= tol * 1.4 ? '#E9BE76' : '#EE9283');
+  });
+});
+/* B : empreinte (4 axes) contre cercle de tolerance */
+(function(){
+  var svg = document.getElementById('b-light'), cx = 150, cy = 125, R = 92, rt = 46;
+  el('circle', { cx: cx, cy: cy, r: R, fill: 'none', stroke: 'rgba(255,255,255,.08)' }, svg);
+  el('circle', { cx: cx, cy: cy, r: rt, fill: 'rgba(127,224,167,.08)', stroke: 'rgba(127,224,167,.45)', 'stroke-dasharray': '3 3' }, svg);
+  AX.forEach(function(a, k){ var an = -Math.PI / 2 + k * Math.PI / 2, x = cx + Math.cos(an) * R, y = cy + Math.sin(an) * R;
+    el('line', { x1: cx, y1: cy, x2: x, y2: y, stroke: 'rgba(255,255,255,.10)' }, svg);
+    var t = el('text', { x: cx + Math.cos(an) * (R + 14), y: cy + Math.sin(an) * (R + 14) + 3, 'text-anchor': 'middle', fill: 'rgba(245,244,240,.55)', 'font-size': 9, 'font-family': 'JetBrains Mono, monospace' }, svg); t.textContent = a[0].toUpperCase(); });
+  var poly = el('polygon', { fill: 'rgba(245,244,240,.10)', stroke: '#F5F4F0', 'stroke-width': 1.3, 'stroke-linejoin': 'round' }, svg);
+  var cur = [0, 0, 0, 0], read = document.getElementById('b-lread');
+  function r(k, v){ return Math.min(R, 8 + Math.abs(v) / AX[k][1] * (rt - 8)); }
+  lightViews.push(function(i){
+    var from = cur.slice(), to = CAS[i].v.map(function(v, k){ return r(k, v); });
+    anim(700, function(t){ var p = to.map(function(v, k){ var rr = from[k] + (v - from[k]) * t, an = -Math.PI / 2 + k * Math.PI / 2; return (cx + Math.cos(an) * rr).toFixed(1) + ',' + (cy + Math.sin(an) * rr).toFixed(1); }); poly.setAttribute('points', p.join(' ')); }, function(){ cur = to; });
+    poly.setAttribute('stroke', CAS[i].cls === 'v-ok' ? '#F5F4F0' : CAS[i].cls === 'v-mid' ? '#E9BE76' : '#EE9283');
+    read.innerHTML = AX.map(function(a, k){ var v = CAS[i].v[k]; return '<div><span>' + a[0] + '</span><b>' + (v > 0 ? '+' : '') + fr(v) + a[2] + ' <span style="color:rgba(245,244,240,.35)">/ ±' + a[1] + a[2] + '</span></b></div>'; }).join('');
+  });
+})();
+setCas(0);
+
+/* ── B : radar des 8 mesures ── */
+(function(){
+  var svg = document.getElementById('b-radar'), cx = 150, cy = 150, R = 112, n = M.length;
+  var sc = function(v){ return Math.max(0, (v - 40) / 40) * R; };
+  [.25, .5, .75, 1].forEach(function(f){ var p = []; for (var k = 0; k < n; k++){ var a = -Math.PI / 2 + k * 2 * Math.PI / n; p.push((cx + Math.cos(a) * R * f).toFixed(1) + ',' + (cy + Math.sin(a) * R * f).toFixed(1)); } el('polygon', { points: p.join(' '), fill: 'none', stroke: 'rgba(255,255,255,' + (f === 1 ? .14 : .06) + ')' }, svg); });
+  M.forEach(function(m, k){ var a = -Math.PI / 2 + k * 2 * Math.PI / n;
+    el('line', { x1: cx, y1: cy, x2: cx + Math.cos(a) * R, y2: cy + Math.sin(a) * R, stroke: 'rgba(255,255,255,.07)' }, svg);
+    var t = el('text', { x: cx + Math.cos(a) * (R + 16), y: cy + Math.sin(a) * (R + 16) + 3, 'text-anchor': 'middle', fill: 'rgba(245,244,240,.5)', 'font-size': 8.5, 'font-family': 'JetBrains Mono, monospace' }, svg); t.textContent = m[0].toUpperCase(); });
+  var ghost = el('polygon', { fill: 'none', stroke: 'rgba(217,201,163,.5)', 'stroke-dasharray': '3 3' }, svg);
+  var poly = el('polygon', { fill: 'rgba(127,224,167,.13)', stroke: '#7FE0A7', 'stroke-width': 1.4, 'stroke-linejoin': 'round' }, svg);
+  function pts(vals){ return vals.map(function(v, k){ var a = -Math.PI / 2 + k * 2 * Math.PI / n, r = sc(v); return (cx + Math.cos(a) * r).toFixed(1) + ',' + (cy + Math.sin(a) * r).toFixed(1); }).join(' '); }
+  var col = function(w){ return M.map(function(m){ return m[1][w]; }); };
+  ghost.setAttribute('points', pts(col(0)));
+  var scrub = document.getElementById('b-scrub'), read = document.getElementById('b-read'), wk = document.getElementById('b-week'), cur = col(0), timer = null;
+  scrub.innerHTML = G.map(function(g, w){ return '<button type="button" data-w="' + w + '"' + (w === HORS ? ' class="x" title="Autre lumière"' : '') + '>S' + (w + 1) + '</button>'; }).join('');
+  function go(w){
+    scrub.querySelectorAll('button').forEach(function(b){ b.classList.toggle('on', +b.dataset.w === w); });
+    wk.textContent = 'Semaine ' + (w + 1) + (w === HORS ? ' · autre lumière' : '');
+    var from = cur.slice(), to = col(w);
+    anim(650, function(t){ var v = to.map(function(x, k){ return from[k] + (x - from[k]) * t; }); poly.setAttribute('points', pts(v)); }, function(){ cur = to; });
+    poly.setAttribute('stroke', w === HORS ? '#E9BE76' : '#7FE0A7'); poly.setAttribute('fill', w === HORS ? 'rgba(233,190,118,.10)' : 'rgba(127,224,167,.13)');
+    read.innerHTML = M.map(function(m){ var d = m[1][w] - m[1][0]; return '<div><span>' + m[0] + '</span><b>' + m[1][w] + (w ? ' <span style="color:' + (d >= 0 ? '#7FE0A7' : '#EE9283') + '">' + (d >= 0 ? '+' : '') + d + '</span>' : '') + '</b></div>'; }).join('');
+  }
+  poly.setAttribute('points', pts(cur)); go(0);
+  scrub.addEventListener('click', function(e){ var b = e.target.closest('button'); if (b){ clearInterval(timer); go(+b.dataset.w); } });
+  document.getElementById('b-play').addEventListener('click', function(){
+    clearInterval(timer); var w = 0; go(0);
+    timer = setInterval(function(){ w++; if (w === HORS) w++; if (w > 7){ clearInterval(timer); return; } go(w); }, reduce ? 300 : 900);
+  });
+})();
+
+/* ── C : le film (boucle) ── */
+(function(){
+  var film = document.getElementById('c-film'), sl = film.querySelectorAll('.sl'), prog = document.getElementById('c-prog');
+  prog.innerHTML = Array.prototype.map.call(sl, function(){ return '<i><b></b></i>'; }).join('');
+  var top = M.map(function(m){ return [m[0], m[1][7] - m[1][0], m[1][7]]; }).sort(function(a, b){ return b[1] - a[1]; }).slice(0, 3);
+  document.getElementById('c-top').innerHTML = top.map(function(t){ return '<div style="display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid rgba(255,255,255,.1);padding-bottom:10px"><span class="serif" style="font-size:26px">' + t[0] + '</span><span class="mono" style="color:#7FE0A7;font-size:15px">+' + t[1] + '</span></div>'; }).join('');
+  var draw = courbe(document.getElementById('c-curve'), G, 280, 160, { id: 'cc', color: '#F0E5C8' });
+  var cdel = document.getElementById('c-delta'), num = document.getElementById('c-num'), i = -1, D = 2600, bars = prog.querySelectorAll('b');
+  function next(){
+    i = (i + 1) % sl.length;
+    sl.forEach(function(s, k){ s.classList.toggle('on', k === i); });
+    bars.forEach(function(b, k){ b.style.transition = 'none'; b.style.width = k < i ? '100%' : '0'; });
+    var b = bars[i]; void b.offsetWidth; b.style.transition = 'width ' + D + 'ms linear'; b.style.width = '100%';
+    if (i === 1) anim(1500, function(t){ var v = Math.round(G[0] + (G[7] - G[0]) * t); num.textContent = v; cdel.textContent = '+' + (v - G[0]); });
+    if (i === 2){ draw(0); anim(1800, draw); }
+  }
+  next(); setInterval(next, D);
+})();
+
+/* ── D : produits (silhouettes generiques, aucune image de marque) ── */
+(function(){
+  var P = [
+    ['Nettoyer', 'Gel nettoyant doux', 'Maison A', 'M14 14h18v6l4 6v44a4 4 0 0 1-4 4H14a4 4 0 0 1-4-4V26l4-6z', '#cfd8d3'],
+    ['Traiter', 'Sérum niacinamide 5 %', 'Maison B', 'M20 6h6v10h4l2 6v48a4 4 0 0 1-4 4H18a4 4 0 0 1-4-4V22l2-6h4z', '#e6d9b8'],
+    ['Hydrater', 'Crème barrière céramides', 'Maison C', 'M6 40h34v26a6 6 0 0 1-6 6H12a6 6 0 0 1-6-6zM8 32h30v8H8z', '#f1efe9'],
+    ['Protéger', 'Fluide SPF 50', 'Maison D', 'M17 8h12v12l3 4v46a4 4 0 0 1-4 4H18a4 4 0 0 1-4-4V24l3-4z', '#d8e2ea']
+  ];
+  function carte(p, flou){
+    return '<div class="pc' + (flou ? ' flou' : '') + '"><div class="in"><svg viewBox="0 0 46 80"><path d="' + p[3] + '" fill="' + p[4] + '" fill-opacity=".85" stroke="rgba(255,255,255,.5)" stroke-width=".6"/></svg><span class="stp">' + p[0] + '</span><b>' + p[1] + '</b><small>' + p[2] + '</small></div>' + (flou ? '<div class="lock"><span>Premium</span></div>' : '') + '</div>';
+  }
+  document.querySelector('[data-prod="flou"]').innerHTML = P.map(function(p, k){ return carte(p, k === 1 || k === 3); }).join('');
+  document.querySelector('[data-prod="net"]').innerHTML = P.map(function(p){ return carte(p, false); }).join('');
+})();
+
+/* premier passage : la courbe A se dessine quand elle arrive a l'ecran */
+var vu = false;
+if ('IntersectionObserver' in window){ new IntersectionObserver(function(en, ob){ en.forEach(function(e){ if (e.isIntersecting && !vu){ vu = true; playA(); ob.disconnect(); } }); }, { threshold: .4 }).observe(document.getElementById('a-curve')); } else playA();
+})();
+</script>
+</body>
+</html>
