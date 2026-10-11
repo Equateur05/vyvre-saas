@@ -7,8 +7,8 @@
 <meta name="description" content="Votre peau, mesurée en moins de 10 secondes depuis votre caméra. Puis les trois soins qui lui correspondent, parmi 5 883 références de 147 marques.">
 <title>VYVRE — Scan de peau universel</title>
 <!-- VYVRE_I18N : moteur 12 langues, francais par defaut -->
-<script src="/scan/vy-i18n.js?v=31"></script>
-<script src="/scan/vy-choix.js?v=1"></script>
+<script src="/scan/vy-i18n.js?v=32"></script>
+<script src="/scan/vy-choix.js?v=2"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Police ultra-clean (Silicon Valley DeepTech style) -->
@@ -1870,6 +1870,8 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     scores: scores, produits: products, fondPlein: fondPlein,
     boost: function(sev){ if (window.vyPrefs && window.vyPrefs.boostConcerns) window.vyPrefs.boostConcerns(sev); },
     cibles: (window.vyPrefs && window.vyPrefs.cibles) ? window.vyPrefs.cibles() : [],
+    /* 11/10 : les objectifs choisis avant le scan (dont « Boutons, acné ») ; l'acne deduite est decidee par vy-choix.js */
+    goals: (window.vyPrefs && window.vyPrefs.goals) ? window.vyPrefs.goals() : [],
     yeux: regleYeux
   });
   if (!R || !R.selected.length) return;
@@ -1954,6 +1956,15 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     card.dataset.vyvreMatchScore = p.matchScore.toFixed(1);
   });
 
+  /* 11/10 : acne declaree ou deduite : une phrase d'orientation medicale, courte, sous les soins. Jamais de promesse. */
+  (function(){
+    const row = document.getElementById('vyvre-product-row'); if (!row) return;
+    let med = document.getElementById('vy-acne-med');
+    row.classList.toggle('vy-acne', !!R.acne);
+    if (!R.acne) { if (med) med.remove(); return; }
+    if (!med) { med = document.createElement('p'); med.id = 'vy-acne-med'; med.setAttribute('data-i18n', 'ac.med'); row.appendChild(med); }
+    med.textContent = VY.t('ac.med');
+  })();
   console.log('[CHARLOTTE_TILBURY] product cards updated successfully');
   if (window.vyPrefs && window.vyPrefs.afterRender) window.vyPrefs.afterRender();
   /* le petit recapitulatif suit chaque nouveau rendu (langue, preferences modifiees) */
@@ -2982,6 +2993,12 @@ header{backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important;-webki
 #vy-prefs-bar b{color:#fff;font-weight:400}
 #vy-prefs-bar button{appearance:none;cursor:pointer;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:999px;padding:9px 18px;font:400 11px var(--font-data);letter-spacing:.12em;text-transform:uppercase}
 #vy-prefs-bar em{font-style:normal;color:rgba(217,201,163,.9);text-transform:none;letter-spacing:0;font-family:var(--font-main)}
+/* 11/10 : la phrase d'orientation medicale (acne declaree ou deduite), dans la vitrine des soins, sur toute la largeur */
+/* place hors de la grille (position absolue) : la vitrine est en repeat(auto-fit,minmax(0,1fr)), un enfant
+   sur toute la largeur y creerait des centaines de colonnes de 1 px */
+.vyvre-v6 .v6grid>#vyvre-product-row.vy-acne{padding-bottom:58px!important}
+#vy-acne-med{position:absolute;left:0;right:0;bottom:0;margin:0;padding:12px 20px 14px;border-top:1px solid rgba(255,255,255,.08);font:400 12.5px/1.5 var(--font-main);color:rgba(255,255,255,.62);text-align:center}
+@media (max-width:640px){ .vyvre-v6 .v6grid>#vyvre-product-row.vy-acne{padding-bottom:78px!important} }
 </style>
 <script id="vy-prefs-js">
 (function(){
@@ -3029,7 +3046,7 @@ header{backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important;-webki
   function summary(){
     var t=[], L={luxe:VY.t('u.luxe'),pharmacie:VY.t('u.pharma'),normal:VY.t('u.normal'),'petit-prix':VY.t('u.petit')}, O={};
     P.origine.forEach(function(c){ O[c]=pays(c); });
-    var G={antiage:'g.antiage',glow:'g.glow',hydration:'g.hydration',redness:'g.redness',pores:'g.pores',pigmentation:'g.pigmentation',sebum:'g.sebum',yeux:'g.yeux'};
+    var G={antiage:'g.antiage',glow:'g.glow',hydration:'g.hydration',redness:'g.redness',pores:'g.pores',acne:'g.acne',pigmentation:'g.pigmentation',sebum:'g.sebum',yeux:'g.yeux'};
     var A={u25:'ag.u25','25':'ag.25','35':'ag.35','45':'ag.45','55':'ag.55'};
     if(P.goals.length) t.push(P.goals.map(function(g){return VY.t(G[g]);}).join(' + '));
     if(P.age&&A[P.age]) t.push(VY.t(A[P.age]));
@@ -3047,16 +3064,17 @@ header{backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important;-webki
     bar.innerHTML='<span>'+(t.length?VY.t('vp.your')+' <b>'+t.join(' · ')+'</b>':VY.t('vp.allBrands'))+'</span>'+(note?'<em>'+note+'</em>':'')+'<button type="button">'+VY.t('vp.change')+'</button>';
     bar.querySelector('button').onclick=function(){ open('edit'); };
   }
-  var CIBLES={antiage:['wrinkles','firmness'],glow:['glow'],hydration:['hydration'],redness:['redness'],pores:['pores'],pigmentation:['pigmentation'],sebum:['sebum']};
-  function cibles(){ if(!repondu) return []; var o=[]; P.goals.forEach(function(g){ o=o.concat(CIBLES[g]||[]); }); return o; }
+  /* 11/10 : les cibles des objectifs viennent du cerveau unique (vy-choix.js), « acne » compris */
+  function cibles(){ if(!repondu) return []; return window.VyChoix.cibles(P); }
+  function goals(){ return repondu ? P.goals.slice() : []; }
   /* 04/10 : « Contour des yeux » (cernes, poches) ne pese sur aucun des 8 scores : il demande seulement un soin yeux */
   function yeux(){ return repondu && P.goals.indexOf('yeux')>=0; }
-  window.vyPrefs={filter:filter,boostConcerns:boostConcerns,afterRender:afterRender,cibles:cibles,yeux:yeux,get:function(){return P;},repeindre:function(){}};
+  window.vyPrefs={filter:filter,boostConcerns:boostConcerns,afterRender:afterRender,cibles:cibles,goals:goals,yeux:yeux,get:function(){return P;},repeindre:function(){}};
 
   function open(m){
     mode=m; if(cadre) return;
     cadre=document.createElement('iframe'); cadre.id='vy-avant'; cadre.title=(window.VY&&VY.t)?VY.t('vp.kick'):'Avant votre scan';
-    cadre.src='/scan/avant/index.html?v=6&lang='+encodeURIComponent((window.VY&&VY.lang)||'fr'); cadre.setAttribute('allow','autoplay');
+    cadre.src='/scan/avant/index.html?v=7&lang='+encodeURIComponent((window.VY&&VY.lang)||'fr'); cadre.setAttribute('allow','autoplay');
     document.body.appendChild(cadre);
     cadre.setAttribute('tabindex','-1');
     cadre.addEventListener('load',function(){ try{ cadre.focus(); cadre.contentWindow.focus(); }catch(e){} });

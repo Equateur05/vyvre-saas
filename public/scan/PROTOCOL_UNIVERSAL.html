@@ -7,8 +7,8 @@
 <meta name="description" content="Votre routine matin et soir, composée à partir de votre lecture de peau.">
 <title>Votre protocole · VYVRE × Scan universel</title>
 <!-- VYVRE_I18N : moteur 12 langues, francais par defaut -->
-<script src="/scan/vy-i18n.js?v=31"></script>
-<script src="/scan/vy-choix.js?v=1"></script>
+<script src="/scan/vy-i18n.js?v=32"></script>
+<script src="/scan/vy-choix.js?v=2"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
@@ -648,7 +648,7 @@ footer{
 #pr-scope em{font-style:normal;color:var(--champagne-soft)}
 .quiz-options.quiz-options-2{grid-template-columns:repeat(2,minmax(0,260px));justify-content:center}
 .quiz-options.quiz-options-7{display:flex;flex-wrap:wrap;justify-content:center}
-.quiz-options.quiz-options-7 .chip{flex:0 0 calc(25% - 14px);min-width:0}
+.quiz-options.quiz-options-7 .chip{flex:0 0 calc(33.333% - 14px);min-width:0}   /* 11/10 : neuf objectifs (acne ajoutee), trois par ligne */
 .quiz-hint{font-family:var(--mono);font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:var(--ink-30);margin-top:-24px}
 @media(max-width:760px){
   .quiz-options.quiz-options-2{grid-template-columns:repeat(2,minmax(0,1fr))!important}
@@ -740,10 +740,11 @@ body.vy-sans-scan .routines-wrap,body.vy-sans-scan #summary-bandeau,body.vy-sans
       <button class="chip quiz-option" data-value="glow"><span class="chip-num">II</span><span class="chip-label" data-i18n="g.glow">Éclat</span></button>
       <button class="chip quiz-option" data-value="hydration"><span class="chip-num">III</span><span class="chip-label" data-i18n="g.hydration">Hydratation</span></button>
       <button class="chip quiz-option" data-value="redness"><span class="chip-num">IV</span><span class="chip-label" data-i18n="g.redness">Rougeurs, sensibilité</span></button>
-      <button class="chip quiz-option" data-value="pores"><span class="chip-num">V</span><span class="chip-label" data-i18n="g.pores">Imperfections, pores</span></button>
-      <button class="chip quiz-option" data-value="pigmentation"><span class="chip-num">VI</span><span class="chip-label" data-i18n="g.pigmentation">Taches</span></button>
-      <button class="chip quiz-option" data-value="sebum"><span class="chip-num">VII</span><span class="chip-label" data-i18n="g.sebum">Peau grasse</span></button>
-      <button class="chip quiz-option" data-value="yeux"><span class="chip-num">VIII</span><span class="chip-label" data-i18n="g.yeux">Contour des yeux</span></button>
+      <button class="chip quiz-option" data-value="pores"><span class="chip-num">V</span><span class="chip-label" data-i18n="g.pores">Pores</span></button>
+      <button class="chip quiz-option" data-value="acne"><span class="chip-num">VI</span><span class="chip-label" data-i18n="g.acne">Boutons, acné</span></button>
+      <button class="chip quiz-option" data-value="pigmentation"><span class="chip-num">VII</span><span class="chip-label" data-i18n="g.pigmentation">Taches</span></button>
+      <button class="chip quiz-option" data-value="sebum"><span class="chip-num">VIII</span><span class="chip-label" data-i18n="g.sebum">Peau grasse</span></button>
+      <button class="chip quiz-option" data-value="yeux"><span class="chip-num">IX</span><span class="chip-label" data-i18n="g.yeux">Contour des yeux</span></button>
     </div>
     <button type="button" class="quiz-next" id="goal-next" data-pt="q.next">Continuer</button>
   </section>
@@ -1060,7 +1061,8 @@ body.vy-sans-scan .routines-wrap,body.vy-sans-scan #summary-bandeau,body.vy-sans
 
   /* ---------- ce que la personne a dit avant le scan ---------- */
   /* 04/10 : « yeux » (contour des yeux) ne pese sur aucun score : il ouvre seulement l'etape Contour des yeux */
-  var GOAL_SEV = { antiage:['wrinkles','firmness'], glow:['glow'], hydration:['hydration'], redness:['redness'], pores:['pores'], pigmentation:['pigmentation'], sebum:['sebum'], yeux:[] };
+  /* 11/10 : « acne » (Boutons, acne) : meme poids que dans vy-choix.js (les pores) ; le choix des soins suit profilAcne */
+  var GOAL_SEV = { antiage:['wrinkles','firmness'], glow:['glow'], hydration:['hydration'], redness:['redness'], pores:['pores'], acne:['pores'], pigmentation:['pigmentation'], sebum:['sebum'], yeux:[] };
   /* l'ombre sous l'oeil mesuree par le scan (indicative), deposee par /scan/ */
   var SCAN_YEUX = null;
   try { SCAN_YEUX = JSON.parse(localStorage.getItem('vyvre_scan_yeux') || 'null'); } catch(_) { SCAN_YEUX = null; }
@@ -1530,7 +1532,7 @@ body.vy-sans-scan .routines-wrap,body.vy-sans-scan #summary-bandeau,body.vy-sans
     }
     var mont = VyChoix.montrables(base, FOND);
     var mb = new Set(mont.map(function(p){ return p.brand; }));
-    return { matin: matin, picks: S.picks, top: S.top, source: source, niveau: niveau, brandMode: brandMode,
+    return { matin: matin, picks: S.picks, top: S.top, acne: S.acne, source: source, niveau: niveau, brandMode: brandMode,
              poolN: mont.length, poolBrands: mb.size, poolBrand1: mont.length ? mont[0]._brandName : '' };
   }
 
@@ -1575,7 +1577,7 @@ body.vy-sans-scan .routines-wrap,body.vy-sans-scan #summary-bandeau,body.vy-sans
   var ORIG = { FR:['o.FR','France'], US:['o.US','États-Unis'], EU:['o.EUrest','Reste de l’Europe'], GB:['o.GB','Royaume-Uni'], JP:['o.JP','Japon'], KR:['O.KR','Corée'], AU:['o.AU','Australie'], CA:['o.CA','Canada'] };
   var UNIV = { luxe:['u.luxe','Luxe'], pharmacie:['u.pharma','Pharmacie'], normal:['u.normal','Quotidien'], 'petit-prix':['u.petit','Petit prix'] };
   var AGE_L = { u25:['pr.age.u25','moins de 25 ans'], '25':['pr.age.25','25–34 ans'], '35':['pr.age.35','35–44 ans'], '45':['pr.age.45','45–54 ans'], '55':['pr.age.55','55 ans et plus'] };
-  var GOAL_L = { antiage:['an.anti','anti-âge'], glow:['an.glow','éclat'], hydration:['an.hydra','hydratation'], redness:['tp.redness','rougeurs'], pores:['tp.pores','pores'], pigmentation:['an.pigm','pigmentation'], sebum:['tp.sebum','sébum'], yeux:['g.yeux','contour des yeux'] };
+  var GOAL_L = { antiage:['an.anti','anti-âge'], glow:['an.glow','éclat'], hydration:['an.hydra','hydratation'], redness:['tp.redness','rougeurs'], pores:['tp.pores','pores'], acne:['g.acne','boutons, acné'], pigmentation:['an.pigm','pigmentation'], sebum:['tp.sebum','sébum'], yeux:['g.yeux','contour des yeux'] };
 
   function renderScope(ctx, R, M, PMON){
     var el = document.getElementById('pr-scope'); if (!el) return;
@@ -1626,6 +1628,8 @@ body.vy-sans-scan .routines-wrap,body.vy-sans-scan #summary-bandeau,body.vy-sans
     var empty = PMON.filter(function(s){ return !R.picks[s.slot]; });
     if (empty.length) lines.push('<em>' + T('pr.none', 'Aucune référence dans ce périmètre pour : {s}.', { s: empty.map(function(s){ return stepLabel(s.k, s.fb); }).join(', ') }) + '</em>');
     if (ctx.reactive) lines.push(T('pr.react0', 'Peau réactive : acides, rétinoïdes et exfoliants écartés.'));
+    /* 11/10 : acne declaree ou deduite (meme cerveau que le scan) : l'orientation medicale, jamais une promesse */
+    if (R.acne) lines.push('<em>' + T('ac.med', 'Boutons douloureux, cicatrices ou acné qui dure : un médecin ou un dermatologue peut vous aider.') + '</em>');
     el.innerHTML = lines.map(function(l){ return '<span>' + l + '</span>'; }).join('');
     el.style.display = '';
   }

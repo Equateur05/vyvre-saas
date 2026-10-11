@@ -7,8 +7,8 @@
 <meta name="description" content="Votre peau, mesurée en moins de 10 secondes depuis votre caméra. Puis les trois soins qui lui correspondent, parmi 5 883 références de 147 marques.">
 <title>VYVRE — Scan de peau universel</title>
 <!-- VYVRE_I18N : moteur 12 langues, francais par defaut -->
-<script src="/scan/vy-i18n.js?v=31"></script>
-<script src="/scan/vy-choix.js?v=1"></script>
+<script src="/scan/vy-i18n.js?v=32"></script>
+<script src="/scan/vy-choix.js?v=2"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Police ultra-clean (Silicon Valley DeepTech style) -->
@@ -1600,14 +1600,14 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
      (/scan/vy-choix.js) : nettoyer, serum sur le point faible n°1, creme, proteger. Le protocole complet
      de la marque reprend exactement ces soins pour le matin. Si la marque n'a pas de quoi composer
      trois etapes, on garde les trois soins les mieux notes. */
-  let topRituel = topConcerns;
+  let topRituel = topConcerns, acneRituel = null;
   if (window.VyChoix) {
     let fondPlein = {}; try { ((await (await fetch('/scan/catalogue/fond_plein.json')).json()).images || []).forEach(u => fondPlein[u] = 1); } catch (_) {}
     const cy = vyCernesMarque();
     const mesure = !!(cy && cy.fiable === true && (cy.niveau === 'marque' || cy.niveau === 'net'));
     const R = window.VyChoix.rituel({ scores: scores, produits: products, fondPlein: fondPlein, prefs: null, cibles: [],
       yeux: { demande: false, mesure: mesure, oui: mesure }, marque: !!window.VYVRE_MARQUE });
-    if (R && R.selected.length >= 3) { selected = R.selected; topRituel = R.top; }
+    if (R && R.selected.length >= 3) { selected = R.selected; topRituel = R.top; acneRituel = R.acne || null; }
   }
   try { window.__vySelection = selected; } catch(e) {}
   try { window.VyChoix && window.VyChoix.enregistrer(selected, { scores: scores, marque: window.VYVRE_MARQUE || null }); } catch(e) {}
@@ -1685,6 +1685,20 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     card.dataset.vyvreMatchScore = p.matchScore.toFixed(1);
   });
 
+  /* 11/10 : terrain a tendance acneique lu par le scan (vy-choix.js) : la meme phrase d'orientation que /scan */
+  (function(){
+    const row = document.getElementById('vyvre-product-row'); if (!row) return;
+    let med = document.getElementById('vy-acne-med');
+    /* position absolue en bas de la vitrine (hors de la grille des soins), la vitrine s'allonge d'autant */
+    row.style.paddingBottom = acneRituel ? (innerWidth <= 640 ? '78px' : '58px') : '';
+    if (!acneRituel) { if (med) med.remove(); return; }
+    if (!med) {
+      med = document.createElement('p'); med.id = 'vy-acne-med'; med.setAttribute('data-i18n', 'ac.med');
+      med.style.cssText = 'position:absolute;left:0;right:0;bottom:0;margin:0;padding:12px 20px 14px;border-top:1px solid rgba(255,255,255,.08);font:400 12.5px/1.5 var(--font-main);color:rgba(255,255,255,.62);text-align:center';
+      row.appendChild(med);
+    }
+    med.textContent = VY.t('ac.med');
+  })();
   console.log('[CHARLOTTE_TILBURY] product cards updated successfully');
 }
 
