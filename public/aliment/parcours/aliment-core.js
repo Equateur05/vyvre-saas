@@ -64,16 +64,18 @@
     r.q3 = s0.grossesse ? 'enceinte' : 'non'; r.q4 = s0.anticoagulant ? ['avk'] : ['aucun'];
     r.q5 = []; if(s0.reins) r.q5.push('renale', 'calculs'); if(al.indexOf('cereales_gluten') >= 0) r.q5.push('coeliaque'); if(!r.q5.length) r.q5 = ['aucune'];
     r.q6 = MODE === 'mineur' ? 'moins18' : '18_64'; r.q7 = s0.regime === 'vegan' ? 'vegan' : s0.regime === 'vegetarien' ? 'vege' : 'omni';
-    r.q8 = []; if(ind && (ind.i1 === 'pores_sebum' || ind.i2 === 'pores_sebum')) r.q8.push('acne'); if(ind && (ind.i1 === 'rougeurs' || ind.i2 === 'rougeurs')) r.q8.push('rosacee');
+    r.q8 = []; if((ind && (ind.i1 === 'pores_sebum' || ind.i2 === 'pores_sebum')) || ((AFFINE && AFFINE.besoins) || []).indexOf('acne') >= 0) r.q8.push('acne'); if(ind && (ind.i1 === 'rougeurs' || ind.i2 === 'rougeurs')) r.q8.push('rosacee');
     r.q9 = [REP.q9s === 'moins7' ? '6_7' : REP.q9s === 'plus9' ? 'plus9' : REP.q9s === '7_9' ? '7_9' : null, REP.q9d ? 'irregulier' : null].filter(Boolean);
     r.q10 = REP.q10p ? [REP.q10p] : []; REP = r; }
   function charger(){ if(DATA) return Promise.resolve();
-    return fetch(BASE + 'aliments_v4.json?v=3').then(function(r){ return r.json(); }).then(function(j){ DATA = j.aliments; })
-      .then(function(){ return fetch(BASE + 'recettes.json?v=2').then(function(r){ return r.json(); }).then(function(j){ RECS = j.recettes || []; }).catch(function(){ RECS = []; }); })
-      .then(function(){ return fetch(BASE + 'tendances.json?v=1').then(function(r){ return r.json(); }).then(function(j){ TEND = j.tendances || []; }).catch(function(){ TEND = []; }); })
+    return fetch(BASE + 'aliments_v4.json?v=4').then(function(r){ return r.json(); }).then(function(j){ DATA = j.aliments; })
+      .then(function(){ return fetch(BASE + 'recettes.json?v=3').then(function(r){ return r.json(); }).then(function(j){ RECS = j.recettes || []; }).catch(function(){ RECS = []; }); })
+      .then(function(){ return fetch(BASE + 'tendances.json?v=2').then(function(r){ return r.json(); }).then(function(j){ TEND = j.tendances || []; }).catch(function(){ TEND = []; }); })
       .then(function(){ return fetch(BASE + 'photos/credits.json?v=2').then(function(r){ return r.json(); }).then(function(j){ CREDITS = j || {}; }).catch(function(){ CREDITS = {}; }); })
       .then(function(){ return fetch(BASE + 'combos.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(j){ COMBOS = j; }).catch(function(){}); }); }
   function esc(t){ return String(t == null ? '' : t).replace(/([A-Za-zÀ-ÿ])'([A-Za-zÀ-ÿ])/g, '$1’$2').replace(/[&<>"]/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]; }); }
+  /* 11/10 (Charles : « il manque l'acne dans le questionnaire ») : « Boutons, acne » vise les aliments etudies pour pores et sebum, et active les regles acne (q8) */
+  function besoinsCibles(){ var v = []; ((AFFINE && AFFINE.besoins) || []).forEach(function(k){ if(k === 'yeux') return; if(k === 'acne') k = 'pores_sebum'; if(v.indexOf(k) < 0) v.push(k); }); return v; }
   function a(cle, v){ var r = REP[cle]; return Array.isArray(r) ? r.indexOf(v) >= 0 : r === v; }
   function n2(k){ return String(k + 1).padStart(2, '0'); }
 
@@ -120,7 +122,7 @@
     var bas = Object.keys(sev).sort(function(x, y){ return sev[y] - sev[x]; })[0];
     /* 30/09 (parcours aliment) : les besoins choisis par la personne passent devant ; la lecture complete dans son ordre */
     /* 04/10 : « yeux » n'est pas un besoin alimentaire (aucune allegation autorisee) : il ne choisit aucun aliment */
-    var dit = ((AFFINE && AFFINE.besoins) || []).filter(function(k){ return k !== 'yeux'; }); if(dit.length) t = dit.concat(t.filter(function(k){ return dit.indexOf(k) < 0; }));
+    var dit = besoinsCibles(); if(dit.length) t = dit.concat(t.filter(function(k){ return dit.indexOf(k) < 0; }));
     var note = function(k){ return sev[k] == null ? null : Math.max(0, Math.min(100, Math.round(100 - sev[k]))); };
     var nl = ['wrinkles', 'firmness', 'glow', 'hydration', 'pores'].filter(nonLu);
     if(!t.length) return bas ? { i1:'entretien', i2:null, n1:note(bas), n2:null, suite:[], entretien:true, niv:niv, mes:mes, sev:sev, nonLus:nl } : null;
@@ -178,7 +180,7 @@
     return Math.max(-2, Math.min(2, b)); }
   var DECLENCHEURS = /tomate|piment|cannelle|chocolat|cacao|orange|citron|pamplemousse|mandarine|cl[ée]mentine/i;
   function choisir(ind){ var e = exclus(), mois = new Date().getMonth() + 1, G = { A:3, B:2, C:1 };
-    var cand = DATA.filter(function(f){ return !e.x[f.id] && G[f.niveau_preuve_peau] && (f.etudes || []).length; })   /* 01/10 (audit) : au moins une etude */.map(function(f){
+    var cand = DATA.filter(function(f){ return !e.x[f.id] && f.photo_disponible !== false && G[f.niveau_preuve_peau] && (f.etudes || []).length; })   /* 01/10 (audit) : au moins une etude ; 11/10 (audit wellness) : un aliment sans photo (photo_disponible:false) n'entre pas dans l'assiette, il sert seulement aux recettes */.map(function(f){
       var c1 = !!ind.entretien || f.cibles_peau.indexOf(ind.i1) >= 0, c2 = ind.i2 && f.cibles_peau.indexOf(ind.i2) >= 0, c3 = !c1 && !c2 ? (ind.suite || []).filter(function(k){ return f.cibles_peau.indexOf(k) >= 0; })[0] : null; if(!c1 && !c2 && !c3) return null;
       var s = G[f.niveau_preuve_peau] + (c1 ? 2 : 0) + (c2 ? 1 : 0) + (!AFFINE.saison && (f.saison || []).indexOf(mois) >= 0 ? .5 : 0) + (f.allegation_UE_autorisee ? .5 : 0) + bonus(f, mois);
       if(a('q8','acne') && ind.i1 === 'pores_sebum' && f.categorie !== 'legumineuse' && f.categorie !== 'cereale_complete') s -= 1;
@@ -205,7 +207,7 @@
         if((fois[f.categorie] || 0) >= Math.max(2, parFam) || nut[n1]) return; pris.push(c); fois[f.categorie] = (fois[f.categorie] || 0) + 1; nut[n1] = 1; }); }
     /* 30/09 (test de Charles) : un besoin coche doit toujours avoir au moins un aliment etudie pour lui, meme hors des familles
        choisies (ex. « hydratation » + « fruits » : aucun fruit n'est etudie pour l'hydratation). Il remplace le dernier choix. */
-    var ditB = ((AFFINE && AFFINE.besoins) || []).filter(function(k){ return k !== 'yeux'; }).slice(0, 2);
+    var ditB = besoinsCibles().slice(0, 2);
     ditB.forEach(function(k){ if(pris.some(function(c){ return c.pour === k; })) return;
       var m = tous.filter(function(c){ return c.pour === k && pris.indexOf(c) < 0 && !pris.some(function(p){ return p.f.id === c.f.id; }); })[0]; if(!m) return;
       if(pris.length < 4) pris.push(m); else { var j = pris.length - 1; while(j > 0 && ditB.indexOf(pris[j].pour) >= 0) j--; pris[j] = m; } });
@@ -578,7 +580,7 @@
     if(!pris.length || matchMedia('(prefers-reduced-motion: reduce)').matches) return assiette();
     var e = exclus(), sv = { S:SANTE, M:MODE, R:REP }; SANTE = { rien:true }; MODE = 'normal'; versRep(ind); var nDef = Object.keys(exclus().x).length; SANTE = sv.S; MODE = sv.M; REP = sv.R;
     var nTot = Object.keys(e.x).length, G = { A:1, B:1, C:1 }, mois = new Date().getMonth() + 1;
-    var cand = DATA.filter(function(f){ return !e.x[f.id] && G[f.niveau_preuve_peau] && (f.cibles_peau.indexOf(ind.i1) >= 0 || (ind.i2 && f.cibles_peau.indexOf(ind.i2) >= 0)); });
+    var cand = DATA.filter(function(f){ return !e.x[f.id] && f.photo_disponible !== false && G[f.niveau_preuve_peau] && (f.cibles_peau.indexOf(ind.i1) >= 0 || (ind.i2 && f.cibles_peau.indexOf(ind.i2) >= 0)); });
     var choisis = pris.map(function(c){ return c.f; }), roue = choisis.concat(cand.filter(function(f){ return choisis.indexOf(f) < 0 && CREDITS[f.id]; }).slice(0, 36)).sort(function(){ return Math.random() - .5; });   // les choix sont toujours dans la roue
     while(roue.length < 14) roue = roue.concat(roue);
     var H = 46;
@@ -727,7 +729,7 @@
       if(a('q1','sulfites') && r.ingredients.some(function(g){ return /abricot_sec|raisin_sec|figue_seche|capres/.test(g.aliment_id || ''); })) return false;
       if((a('q3','enceinte') || a('q3','allaite')) && r.oeuf_peu_cuit) return false;
       /* 01/10 (audit) : reins ou calculs, les recettes riches en oxalates ou tres salees sont retirees */
-      if(a('q5','renale') && r.ingredients.some(function(g){ return /rhubarbe|th[ée] noir|the_noir|oseille|[ée]pinard|fleur de sel|anchois|c[âa]pre|sauce.?soja|olive noire|olives/i.test((g.libelle || '') + ' ' + (g.aliment_id || '')); })) return false;
+      if(a('q5','renale') && r.ingredients.some(function(g){ return /rhubarbe|th[ée] noir|the_noir|matcha|eau de coco|eau_coco|oseille|[ée]pinard|fleur de sel|anchois|c[âa]pre|sauce.?soja|olive noire|olives/i.test((g.libelle || '') + ' ' + (g.aliment_id || '')); })) return false;
       if((r.allergenes_possibles || []).some(function(z){ return al.indexOf(z) >= 0; })) return false;
       if(a('q7','vege') && (r.regimes || []).indexOf('vegetarien') < 0) return false;
       if(a('q7','vegan') && (r.regimes || []).indexOf('vegan') < 0) return false;
