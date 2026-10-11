@@ -12,6 +12,7 @@ const TEINTES = {
   nacre: { halo:'205,214,232', trait:'232,236,245', coeur:'255,255,255', texte:'255,255,255' } };
 const K = TEINTES[new URLSearchParams(location.search).get('carto')] || TEINTES.or;
 const rgba = (c, a) => 'rgba(' + c + ',' + Math.max(0, Math.min(1, a)).toFixed(3) + ')';
+const FRONT_HAUT = [[10,1.42],[109,1.4],[338,1.4],[67,1.34],[297,1.34],[103,1.24],[332,1.24],[54,1.13],[284,1.13],[21,1.05],[251,1.05],[151,1.28],[108,1.26],[337,1.26],[69,1.18],[299,1.18],[104,1.12],[333,1.12],[68,1.08],[298,1.08],[71,1.04],[301,1.04]];
 const OVALE = [10,338,297,332,284,251,389,356,454,323,361,288,397,365,379,378,400,377,152,148,176,149,150,136,172,58,132,93,234,127,162,21,54,103,67,109];
 const TOPO = 5.5, FONDU = 1.4;   // secondes de topographie, puis fondu vers le graticule
 
@@ -83,6 +84,10 @@ function dessinerV1(a, now, sw, sh){
   const P = m.P, Z = m.Z, N = m.N; let zmin = 1e9, zmax = -1e9;
   for(let i = 0; i < n; i++){ P[i].x = ox + (mir ? 1 - L[i].x : L[i].x)*dw; P[i].y = oy + L[i].y*dh; Z[i] = L[i].z*dw; if(Z[i] < zmin) zmin = Z[i]; if(Z[i] > zmax) zmax = Z[i]; }
   for(let i = 0; i < n; i++) N[i] = (zmax - Z[i])/((zmax - zmin) || 1);
+  /* 11/10 (Charles : « il balaye pas tout le front ») : le maillage du visage s'arrete au milieu du front.
+     Pour le dessin seulement, le haut du front monte vers la naissance des cheveux, le long de l'axe du visage ; les mesures ne bougent pas. */
+  if(n >= 468){ const r = P[168], ux0 = P[263].x - P[33].x, uy0 = P[263].y - P[33].y, ul0 = Math.hypot(ux0, uy0) || 1, vx = -uy0/ul0, vy = ux0/ul0;
+    for(const [i, f] of FRONT_HAUT){ const p = P[i], h = (p.x - r.x)*vx + (p.y - r.y)*vy; if(h < 0){ p.x += vx*h*(f - 1); p.y += vy*h*(f - 1); } } }
   if(!m.topo){ const zone = new Int8Array(n).fill(-1); M.ETAPES.forEach((e, j) => e.polys.forEach(ids => { const poly = ids.map(i => ({ x:L[i].x, y:L[i].y })); for(let i = 0; i < n; i++) if(zone[i] < 0 && dedansV(L[i], poly)) zone[i] = j; ids.forEach(i => { if(zone[i] < 0) zone[i] = j; }); })); m.topo = { zone }; }
   let x0 = 1e9, y0 = 1e9, x1 = -1e9, y1 = -1e9, zr = 0;
   for(const i of M.OVALE){ const p = P[i]; x0 = Math.min(x0, p.x); x1 = Math.max(x1, p.x); y0 = Math.min(y0, p.y); y1 = Math.max(y1, p.y); zr += Z[i]; }
