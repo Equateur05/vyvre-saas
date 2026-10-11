@@ -1,6 +1,7 @@
 /* 30/09 : le menu de vyvre.fr, en haut a droite (propale G choisie par Charles).
    Un petit selecteur Peau | Cheveux | Aliment, la langue, puis un bouton qui ouvre le reste
-   (Manifeste, Methode, Pour les marques), repris tel quel de l'ancien menu et de ses traductions. */
+   (Manifeste, Methode, Pour les marques), repris tel quel de l'ancien menu et de ses traductions.
+   11/10 : « Pro » avant le selecteur (grand ecran) et en tete du menu (telephone) ; il remplace « Pour les marques ». */
 (function(){
   var MOTS = {
     fr:['Peau','Cheveux','Aliment','Menu','Fermer'], en:['Skin','Hair','Food','Menu','Close'],
@@ -9,6 +10,11 @@
     nl:['Huid','Haar','Voeding','Menu','Sluiten'], ru:['Кожа','Волосы','Питание','Меню','Закрыть'],
     ar:['البشرة','الشعر','الغذاء','القائمة','إغلاق'], zh:['肌肤','头发','饮食','菜单','关闭'],
     ja:['肌','髪','食','メニュー','閉じる'], ko:['피부','모발','식단','메뉴','닫기'] };
+  /* 11/10 : le lien « Pro » (marques, instituts, pharmacies) et sa ligne d'explication dans le menu du telephone */
+  var PRO = {
+    fr:'Pour les marques et les instituts', en:'For brands and salons', es:'Para marcas e institutos', de:'Für Marken und Institute',
+    it:'Per marchi e istituti', pt:'Para marcas e institutos', nl:'Voor merken en instituten', ru:'Для брендов и салонов',
+    ar:'للعلامات التجارية والمعاهد', zh:'面向品牌与美容机构', ja:'ブランド・サロンの方へ', ko:'브랜드와 에스테틱을 위한' };
   var LIENS = ['/scan/', '/cheveux', '/aliment'];
   var CSS =
     'header .vy-menu{display:none!important}' +
@@ -31,10 +37,18 @@
     '[dir="rtl"] #vy-mv .x{right:auto;left:max(20px,4vw)}' +
     '#vy-mv a{display:flex;justify-content:space-between;align-items:baseline;color:#fff;text-decoration:none;font-weight:200;font-size:30px;letter-spacing:-.02em;padding:16px 0;border-bottom:1px solid rgba(255,255,255,.12);max-width:720px;margin:0 auto}' +
     '#vy-mv a span{font:500 11px "IBM Plex Mono",monospace;color:#d9c9a3;letter-spacing:.2em}' +
-    '@media (max-width:420px){#vy-mn{gap:8px}#vy-mn .sc a{font-size:12px;padding:8px 9px}#vy-mn .burger{width:36px;height:36px}}';
+    '@media (max-width:420px){#vy-mn{gap:8px}#vy-mn .sc a{font-size:12px;padding:8px 9px}#vy-mn .burger{width:36px;height:36px}}' +
+    /* « Pro » : petites capitales, gris clair, un point dore ; sur telephone il passe en tete du menu */
+    '#vy-mn .pro{position:relative;font:400 10.5px/1 "JetBrains Mono","IBM Plex Mono",monospace;letter-spacing:.3em;text-transform:uppercase;color:rgba(255,255,255,.62);text-decoration:none;padding:10px 12px 10px 6px;white-space:nowrap;transition:color .35s}' +
+    '#vy-mn .pro:hover,#vy-mn .pro:focus-visible{color:#fff}' +
+    '#vy-mn .pro::after{content:"";position:absolute;right:3px;top:7px;width:4px;height:4px;border-radius:50%;background:#d9c9a3;box-shadow:0 0 8px rgba(217,201,163,.6)}' +
+    '@media (max-width:760px){#vy-mn .pro{display:none}}' +
+    '#vy-mv a.pro{color:#F0E5C8}' +
+    '#vy-mv a.pro small{display:block;font:300 13px/1.3 Inter,system-ui,sans-serif;letter-spacing:0;color:rgba(255,255,255,.55);margin-top:4px}';
 
   function langue(){ try { return (window.VY && VY.lang) || document.documentElement.lang || 'fr'; } catch(e){ return 'fr'; } }
   function mots(){ return MOTS[langue()] || MOTS.fr; }
+  function proTexte(){ return PRO[langue()] || PRO.fr; }
 
   function monter(){
     var brand = document.querySelector('header .brand'), ancien = document.querySelector('header .vy-menu');
@@ -42,7 +56,7 @@
     var st = document.createElement('style'); st.id = 'vy-mn-css'; st.textContent = CSS; document.head.appendChild(st);
     var ici = location.pathname.indexOf('/cheveux') === 0 ? 1 : location.pathname.indexOf('/aliment') === 0 ? 2 : 0;
     var d = document.createElement('div'); d.id = 'vy-mn';
-    d.innerHTML = '<nav class="sc" aria-label="Scans">' + LIENS.map(function(h, k){ return '<a href="' + h + '"' + (k === ici ? ' class="on" aria-current="page"' : '') + '></a>'; }).join('') + '</nav>' +
+    d.innerHTML = '<a class="pro" href="/pro">Pro</a><nav class="sc" aria-label="Scans">' + LIENS.map(function(h, k){ return '<a href="' + h + '"' + (k === ici ? ' class="on" aria-current="page"' : '') + '></a>'; }).join('') + '</nav>' +
       '<button type="button" class="burger" aria-expanded="false" aria-controls="vy-mv"><i></i></button>';
     brand.appendChild(d);
     /* le logo (.brand) ramene a l'accueil (retour.js) : les clics du menu ne doivent pas remonter jusqu'a lui */
@@ -51,8 +65,11 @@
     var v = document.createElement('div'); v.id = 'vy-mv'; v.setAttribute('role', 'dialog'); v.setAttribute('aria-modal', 'true');
     var x = document.createElement('button'); x.type = 'button'; x.className = 'x'; v.appendChild(x);
     var k = 0;
+    /* « Pro » en premier ; il remplace l'ancienne entree « Pour les marques » */
+    var p = document.createElement('a'), pt = document.createElement('div'), pn = document.createElement('span'), ps = document.createElement('small');
+    p.href = '/pro'; p.className = 'pro'; pt.textContent = 'Pro'; ps.className = 'pro-s'; ps.textContent = proTexte(); pt.appendChild(ps); pn.textContent = String(++k).padStart(2, '0'); p.appendChild(pt); p.appendChild(pn); v.appendChild(p);
     (ancien ? [].slice.call(ancien.querySelectorAll('a')) : []).forEach(function(a){
-      if(/\/cheveux/.test(a.getAttribute('href'))) return;
+      if(/\/cheveux|\/marques|\/pro$/.test(a.getAttribute('href'))) return;
       var c = document.createElement('a'), t = document.createElement('b'), n = document.createElement('span'); c.href = a.getAttribute('href'); t.style.fontWeight = 'inherit'; t.textContent = a.textContent; if(a.dataset.i18n) t.setAttribute('data-i18n', a.dataset.i18n); n.textContent = String(++k).padStart(2, '0'); c.appendChild(t); c.appendChild(n); v.appendChild(c);
     });
     document.body.appendChild(v);
@@ -63,7 +80,7 @@
     addEventListener('keydown', function(e){ if(e.key === 'Escape') basculer(false); });
     textes(); basculer(false); ranger();
   }
-  function textes(){ var m = mots(), x = document.querySelector('#vy-mv .x'); if(x) x.textContent = m[4]; [].forEach.call(document.querySelectorAll('#vy-mn .sc a'), function(a, k){ a.textContent = m[k]; }); }
+  function textes(){ var m = mots(), x = document.querySelector('#vy-mv .x'), ps = document.querySelector('#vy-mv .pro-s'); if(x) x.textContent = m[4]; if(ps) ps.textContent = proTexte(); [].forEach.call(document.querySelectorAll('#vy-mn .sc a'), function(a, k){ a.textContent = m[k]; }); }
   /* la langue rejoint la rangee du menu sur grand ecran ; sur telephone elle garde sa place en bas */
   var grand = matchMedia('(min-width:761px)'), origine = null;
   function ranger(){

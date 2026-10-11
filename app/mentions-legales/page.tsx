@@ -66,7 +66,7 @@ export default function MentionsLegalesPage() {
 
             <Block title={t('ml.b5')}>
               <p>Symphony Drive SAS met tout en œuvre pour offrir aux utilisateurs des informations et outils disponibles et vérifiés. Toutefois, elle ne saurait être tenue responsable des erreurs, d'une absence de disponibilité des fonctionnalités, ou de la présence éventuelle de virus sur son site.</p>
-              <p className="mt-3"><strong className="font-medium">Le diagnostic peau proposé par VYVRE n'est pas un dispositif médical.</strong> Il ne se substitue pas à un examen dermatologique professionnel. Toute préoccupation médicale doit être adressée à un médecin ou dermatologue qualifié.</p>
+              <p className="mt-3"><strong className="font-medium">L'analyse de peau proposée par VYVRE n'est pas un dispositif médical.</strong> Il ne se substitue pas à un examen dermatologique professionnel. Toute préoccupation médicale doit être adressée à un médecin ou dermatologue qualifié.</p>
             </Block>
 
             <Block title={t('ml.b6')}>

@@ -39,7 +39,7 @@ export default function CGVPage() {
             </p>
 
             <Block title={t('cgv.a1')}>
-              <p>VYVRE Business est un service SaaS (Software as a Service) de diagnostic de peau par analyse colorimétrique de l'image, fourni sous forme de widget intégrable à un site e-commerce, ainsi que sous forme d'API.</p>
+              <p>VYVRE Business est un service SaaS (Software as a Service) d'analyse de peau par mesure colorimétrique de l'image, fourni sous forme de widget intégrable à un site e-commerce, ainsi que sous forme d'API.</p>
               <p className="mt-3">Le service inclut : moteur de scan webcam, analyse de 6 indicateurs peau, estimation âge peau, matching avec le catalogue produit du Client, hébergement, support technique et mises à jour.</p>
             </Block>
 
@@ -94,7 +94,7 @@ export default function CGVPage() {
             </Block>
 
             <Block title={t('cgv.a8')}>
-              <p><strong className="font-medium text-text">VYVRE n'est pas un dispositif médical.</strong> Le diagnostic peau fourni est une estimation visuelle basée sur des indicateurs colorimétriques peer-reviewed (cf. <Link href="/accuracy" className="text-accent hover:opacity-80">/accuracy</Link>). Il ne se substitue pas à un examen dermatologique professionnel.</p>
+              <p><strong className="font-medium text-text">VYVRE n'est pas un dispositif médical.</strong> L'analyse de peau fournie est une estimation visuelle basée sur des indicateurs colorimétriques peer-reviewed (cf. <Link href="/accuracy" className="text-accent hover:opacity-80">/accuracy</Link>). Il ne se substitue pas à un examen dermatologique professionnel.</p>
               <p className="mt-3">La responsabilité de Symphony Drive SAS est limitée au montant des abonnements payés par le Client au cours des 12 mois précédant l'événement générateur de responsabilité.</p>
               <p className="mt-3">Symphony Drive SAS ne peut être tenu responsable des dommages indirects, perte de revenus, perte de clientèle ou perte de réputation.</p>
             </Block>

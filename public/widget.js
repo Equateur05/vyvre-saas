@@ -63,7 +63,7 @@
     var iframe = document.createElement('iframe');
     iframe.src = iframeUrl;
     iframe.id = 'vyvre-widget-frame';
-    iframe.title = 'VYVRE diagnostic peau';
+    iframe.title = 'VYVRE analyse de peau';
     iframe.allow = 'camera; microphone; autoplay; fullscreen';
     iframe.style.cssText = [
       'width: 100%',

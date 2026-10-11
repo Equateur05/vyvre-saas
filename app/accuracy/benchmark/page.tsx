@@ -193,7 +193,7 @@ export default function BenchmarkPage() {
                 On le publie quand même, parce que la cible commerciale de VYVRE n'est <em className="not-italic text-text/85">pas</em> la précision absolue : c'est l'<span className="text-text">explicabilité</span> (8 indicateurs biomarqueurs traçables à des sources peer-reviewed, pas un score caché de boîte noire), la <span className="text-text">souveraineté</span> (in-browser, aucune image qui sort de l'appareil) et le <span className="text-text">refus assumé</span> de noter une image trop dégradée plutôt que de donner un chiffre flatteur.
               </p>
               <p className="text-sm text-text/55 leading-relaxed font-extralight italic">
-                Si vous cherchez le meilleur estimateur d'âge brut absolu : prenez InsightFace. Si vous cherchez à offrir un diagnostic dermatologique transparent et conforme RGPD à vos clientes, sans envoi serveur : VYVRE reste pertinent.
+                Si vous cherchez le meilleur estimateur d'âge brut absolu : prenez InsightFace. Si vous cherchez à offrir une analyse de peau transparente et conforme RGPD à vos clientes, sans envoi serveur : VYVRE reste pertinent.
               </p>
             </div>
           </div>
@@ -211,7 +211,7 @@ export default function BenchmarkPage() {
                 <em className="not-italic text-text/55 font-extralight">et là où c'est dur.</em>
               </h2>
               <p className="text-sm text-text/55 max-w-2xl font-extralight mt-2 leading-relaxed">
-                VYVRE est calibré sur une cohorte n=12 majoritairement 30-50 ans (fondateurs + cercle proche). La bande <span className="text-text">30-44</span> est notre segment cible commercial (premium skincare diagnostic), et c'est aussi là que l'engine performe le mieux.
+                VYVRE est calibré sur une cohorte n=12 majoritairement 30-50 ans (fondateurs + cercle proche). La bande <span className="text-text">30-44</span> est notre segment cible commercial (premium skincare analysis), et c'est aussi là que l'engine performe le mieux.
               </p>
             </div>
 
@@ -330,7 +330,7 @@ export default function BenchmarkPage() {
               />
               <Feature
                 title="Refus assumé si qualité < 40"
-                body="Quand l'éclairage est mauvais ou le visage flou, VYVRE renvoie un refus (scan_quality_too_low) plutôt qu'un chiffre trompeur. DeepFace, OpenCV et InsightFace donnent toujours un nombre, même sur des images dégradées. Pour un diagnostic dermato, le refus est une fonctionnalité, pas un bug."
+                body="Quand l'éclairage est mauvais ou le visage flou, VYVRE renvoie un refus (scan_quality_too_low) plutôt qu'un chiffre trompeur. DeepFace, OpenCV et InsightFace donnent toujours un nombre, même sur des images dégradées. Pour une analyse de peau, le refus est une fonctionnalité, pas un bug."
               />
               <Feature
                 title="Pipeline photométrique, pas une boîte noire"

@@ -19,9 +19,10 @@
     z = document.createElement('div'); z.id = id; z.className = 'vyw-zone';
     apres.parentNode.insertBefore(z, apres.nextSibling); return z;
   }
-  /* 07/10 (X1) : la vignette du visage n'est reprise que si elle a ete ecrite PENDANT cette visite (jamais celle
-     d'un scan precedent, peut-etre d'une autre personne sur le meme appareil). Elle reste dans la page. */
-  var FACE0 = null; try { FACE0 = localStorage.getItem('vyvre_scan_face'); } catch(e){}
+  /* 07/10 (X1) : la vignette du visage n'est reprise que si elle a ete faite PENDANT cette visite.
+     11/10 : elle n'est plus du tout ecrite dans le telephone (aucune photo conservee) ; le scan la laisse
+     en memoire (window.__vyVisage) le temps de la page, et l'ancienne copie eventuelle est effacee. */
+  try { localStorage.removeItem('vyvre_scan_face'); } catch(e){}
   function vignette(src, box, sujet){
     /* les 68 reperes du visage, si le detecteur de la page est la (aucun envoi) */
     return new Promise(function(res){
@@ -69,8 +70,8 @@
       var big = document.querySelector('[data-vyvre-score-large]'), gv = big ? Number(big.dataset.target) : NaN;
       var phare = (big && big.dataset.target !== '' && isFinite(gv) && gv >= 0 && gv <= 100) ? { label:FR() ? 'Indice global' : 'Global index', valeur:Math.round(gv), unite:'/100' } : ch[0];
       var dn = { type:'peau', prenom:'', titre:FR() ? 'Ma peau' : 'My skin', chiffres:ch, phare:phare, items:items };
-      var f = null; try { f = localStorage.getItem('vyvre_scan_face'); } catch(e){}
-      if (f && f !== FACE0 && /^data:image\//.test(f)) return vignette(f, null, 'visage').then(function(v){ dn.visage = v; return dn; });
+      var f = window.__vyVisage || null;
+      if (f && /^data:image\//.test(f)) return vignette(f, null, 'visage').then(function(v){ dn.visage = v; return dn; });
       return dn;
     }
     var fait = false;

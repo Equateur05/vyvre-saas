@@ -172,7 +172,7 @@ export default function HairScan({ onBack }: { onBack: () => void }) {
             Scan Hair · Cheveux & cuir chevelu
           </div>
           <h2 className="ob-title">
-            Vos cheveux, <em>diagnostiqués</em>.
+            Vos cheveux, <em>analysés</em>.
           </h2>
           <p className="ob-sub">
             Cadrez vos cheveux et la racine face caméra. On évalue densité, brillance, régularité de la fibre et santé du

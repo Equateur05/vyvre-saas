@@ -45,7 +45,7 @@ export default function DPAPage() {
             </Block>
 
             <Block title={t('dpa.b2')}>
-              <p>Le sous-traitant fournit au responsable de traitement un service de diagnostic de peau par mesure optique, incluant :</p>
+              <p>Le sous-traitant fournit au responsable de traitement un service d’analyse de peau par mesure optique, incluant :</p>
               <ul className="list-disc pl-5 mt-2 space-y-1">
                 <li>Analyse colorimétrique d'images webcam</li>
                 <li>Calcul de 6 indicateurs peau peer-reviewed</li>

@@ -351,65 +351,7 @@ export default function PricingPage({ searchParams }: PricingPageProps) {
             />
           </div>
 
-          {/* === Comparatif marché === */}
-          <div className="mt-16 md:mt-20">
-            <div className="text-center mb-8">
-              <span className="font-mono text-[10px] tracking-[0.4em] uppercase text-text/55">
-                {t('pri.tbl.caption')}
-              </span>
-            </div>
-
-            <div className="overflow-x-auto rounded-2xl border border-line">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b border-line bg-text/[0.02]">
-                    <th className="text-left font-mono text-[10px] tracking-[0.2em] uppercase text-text/45 px-5 py-4">{t('pri.tbl.h1')}</th>
-                    <th className="text-left font-mono text-[10px] tracking-[0.2em] uppercase text-text/45 px-5 py-4">{t('pri.tbl.h2')}</th>
-                    <th className="text-left font-mono text-[10px] tracking-[0.2em] uppercase text-text/45 px-5 py-4">{t('pri.tbl.h3')}</th>
-                    <th className="text-left font-mono text-[10px] tracking-[0.2em] uppercase text-text/45 px-5 py-4">{t('pri.tbl.h4')}</th>
-                    <th className="text-left font-mono text-[10px] tracking-[0.2em] uppercase text-text/45 px-5 py-4">{t('pri.tbl.h5')}</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="border-b border-line bg-accent/[0.04]">
-                    <td className="px-5 py-4">
-                      <span className="font-medium text-text">VYVRE Starter</span>
-                      <span className="block text-[11px] text-accent mt-1">{t('pri.tbl.from')}</span>
-                    </td>
-                    <td className="px-5 py-4 text-text"><span className="vy-ltr">299 €{t('pri.tbl.month')}</span> <span className="text-text/50 text-[11px] vy-ltr">(3 588 €{t('pri.tbl.year')})</span></td>
-                    <td className="px-5 py-4 text-text vy-ltr">0 €</td>
-                    <td className="px-5 py-4 text-text">{t('pri.tbl.france')}</td>
-                    <td className="px-5 py-4 text-text vy-ltr">48 h</td>
-                  </tr>
-                  <tr className="border-b border-line">
-                    <td className="px-5 py-4 text-text/75">SkinConsult AI <span className="text-text/40">(L&apos;Oréal)</span></td>
-                    <td className="px-5 py-4 text-text/75">{t('pri.tbl.fromApprox')} <span className="vy-ltr">~50 000 €</span></td>
-                    <td className="px-5 py-4 text-text/75 vy-ltr">~30 000 €</td>
-                    <td className="px-5 py-4 text-text/75">AWS US</td>
-                    <td className="px-5 py-4 text-text/75">{t('pri.tbl.w812')}</td>
-                  </tr>
-                  <tr className="border-b border-line">
-                    <td className="px-5 py-4 text-text/75">Modiface <span className="text-text/40">(L&apos;Oréal)</span></td>
-                    <td className="px-5 py-4 text-text/75">{t('pri.tbl.fromApprox')} <span className="vy-ltr">~80 000 €</span></td>
-                    <td className="px-5 py-4 text-text/75">{t('pri.tbl.onQuote')}</td>
-                    <td className="px-5 py-4 text-text/75">AWS US</td>
-                    <td className="px-5 py-4 text-text/75">{t('pri.tbl.w12')}</td>
-                  </tr>
-                  <tr>
-                    <td className="px-5 py-4 text-text/75">Perfect Corp <span className="text-text/40">(YouCam)</span></td>
-                    <td className="px-5 py-4 text-text/75">{t('pri.tbl.fromApprox')} <span className="vy-ltr">~30 000 €</span></td>
-                    <td className="px-5 py-4 text-text/75 vy-ltr">~10 000 €</td>
-                    <td className="px-5 py-4 text-text/75">AWS US</td>
-                    <td className="px-5 py-4 text-text/75">{t('pri.tbl.w68')}</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <p className="text-[11px] text-text/40 mt-4 text-center font-mono tracking-[0.1em]">
-              {t('pri.tbl.note')}
-            </p>
-          </div>
+          {/* 11/10/2026 : le tableau des prix concurrents a été retiré (publicité comparative non vérifiable). */}
         </div>
       </section>
 

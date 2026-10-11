@@ -17,7 +17,7 @@ import HairScan from './scans/HairScan';
 type Mode = 'hub' | 'skin' | 'multizoom' | 'nutri' | 'resonance' | 'hair';
 
 const SCANS: { id: Mode; tag: string; title: string; desc: string }[] = [
-  { id: 'skin', tag: '01 · Signature', title: 'Skin Longevity', desc: 'Diagnostic complet : 8 biomarqueurs, âge cellulaire, score de longévité.' },
+  { id: 'skin', tag: '01 · Signature', title: 'Skin Longevity', desc: 'Analyse complète : 8 biomarqueurs, âge cellulaire, score de longévité.' },
   { id: 'multizoom', tag: '02 · Macro', title: 'Multi-Zoom', desc: 'Zoom automatique sur 6 zones du visage. Une macro-photo par zone.' },
   { id: 'nutri', tag: '03 · Nutrition', title: 'Nutri Skin', desc: 'Vos carences lues sur la peau → aliments ciblés & recettes.' },
   { id: 'resonance', tag: '04 · Sensoriel', title: 'Skin Resonance', desc: 'Fréquences sonores accordées à votre peau. Séance de 90 s.' },

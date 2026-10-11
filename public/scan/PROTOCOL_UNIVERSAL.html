@@ -1657,31 +1657,9 @@ body.vy-sans-scan .routines-wrap,body.vy-sans-scan #summary-bandeau,body.vy-sans
     document.getElementById('result-stage').classList.add('show');
     // === Atlas du visage : photo détourée du scan + 8 points biomarqueurs ===
     try {
-      // 1) Charge la photo détourée si dispo
-      const atlas = document.getElementById('atlas');
-      const photoEl = document.getElementById('atlas-photo');
-      const faceDataURL = localStorage.getItem('vyvre_scan_face');
-      if (faceDataURL && faceDataURL.startsWith('data:image/') && faceDataURL.length > 8000 && atlas && photoEl) {
-        photoEl.style.backgroundImage = `url("${faceDataURL}")`;
-        atlas.dataset.mode = 'photo';
-        console.log('[PROTOCOL] ✓ atlas photo chargée (' + Math.round(faceDataURL.length/1024) + 'KB)');
-      } else {
-        console.log('[PROTOCOL] atlas : pas de photo valide (' + (faceDataURL ? Math.round(faceDataURL.length/1024)+'KB' : 'null') + ') — retry 500ms');
-        // RETRY : recharge localStorage toutes les 500ms pendant 4s au cas où la capture finisse après
-        let retries = 0;
-        const retryInterval = setInterval(() => {
-          const newLs = localStorage.getItem('vyvre_scan_face');
-          if (newLs && newLs.length > 8000 && atlas.dataset.mode === 'wireframe') {
-            photoEl.style.backgroundImage = `url("${newLs}")`;
-            atlas.dataset.mode = 'photo';
-            console.log('[PROTOCOL] ✓ atlas photo retry success après ' + (retries*500) + 'ms');
-            clearInterval(retryInterval);
-          } else if (++retries > 8) {
-            clearInterval(retryInterval);
-            console.warn('[PROTOCOL] atlas retry timeout — wireframe seul');
-          }
-        }, 500);
-      }
+      // 1) 11/10/2026 (aucune photo conservée) : plus de photo du visage, le protocole garde son dessin.
+      //    L'ancienne vignette éventuellement restée dans le téléphone est effacée.
+      try { localStorage.removeItem('vyvre_scan_face'); } catch (eF) {}
 
 
       // 2) Inject valeurs réelles scan dans SVG points + legend

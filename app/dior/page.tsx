@@ -15,7 +15,7 @@ export const runtime = 'nodejs';
 
 export const metadata = {
   title: 'VYVRE × DIOR · Cell Energy OS',
-  description: 'La longévité, quantifiée — diagnostic peau on-device par réseau de neurones.',
+  description: 'La longévité, quantifiée — analyse de peau on-device par réseau de neurones.',
   robots: { index: false, follow: false },
 };
 
@@ -53,7 +53,7 @@ export default async function DiorPage() {
       {/* Loader + moteur v10.5 + tracker + mini-lattice */}
       <Script src="/engine/vyvre-loader.js" strategy="afterInteractive" />
       <Script src="/engine/vyvre-scan-engine.js" strategy="afterInteractive" />
-      <Script src="/engine/vyvre-tracker.js" strategy="afterInteractive" />
+      <Script src="/engine/vyvre-tracker.js?v=2" strategy="afterInteractive" />
       <Script src="/engine/vyvre-mini-lattice.js" strategy="afterInteractive" />
       {/* Préchauffe le CNN d'âge dès que le moteur est prêt (warm-up GPU) */}
       <Script id="vyvre-warm-cnn" strategy="afterInteractive">

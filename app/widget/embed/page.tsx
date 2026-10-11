@@ -14,7 +14,7 @@ export const dynamic = 'force-dynamic';
 export const runtime = 'nodejs';
 
 export const metadata = {
-  title: 'VYVRE Skin Diagnostic',
+  title: 'VYVRE Skin Analysis',
   description: 'On-device skin analysis',
   robots: { index: false, follow: false },
 };

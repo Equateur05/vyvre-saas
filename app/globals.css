@@ -209,6 +209,20 @@ main, header, footer, section { position: relative; z-index: 1; }
 .v6:hover::after, .v6-soft:hover::after { opacity: .85; animation-duration: 7s; }
 @media (prefers-reduced-motion: reduce) { .v-bar::before, .v6::before, .v6-soft::before, .v-bar::after, .v6::after, .v6-soft::after { animation: none } }
 
+/* « Pro » dans l'en-tête : petites capitales, gris clair, un point doré (11/10) */
+.vy-pro {
+  position: relative; display: inline-block; padding: 10px 12px 10px 6px;
+  font-family: 'JetBrains Mono', 'SF Mono', monospace; font-size: 10.5px; font-weight: 400;
+  letter-spacing: .3em; text-transform: uppercase; line-height: 1;
+  color: rgba(255,255,255,.62); text-decoration: none; white-space: nowrap; transition: color .35s;
+}
+.vy-pro:hover, .vy-pro:focus-visible { color: #fff; }
+.vy-pro[aria-current="page"] { color: #F0E5C8; }
+.vy-pro::after {
+  content: ''; position: absolute; right: 3px; top: 7px; width: 4px; height: 4px; border-radius: 50%;
+  background: #d9c9a3; box-shadow: 0 0 8px rgba(217,201,163,.6);
+}
+
 /* Intro « La fusion » : le vrai logo du menu attend que celui de l'intro arrive à sa place */
 .vy-intro-on [data-vyvre-logo] { opacity: 0; }
 [data-vyvre-signature] { transition: opacity 1.2s ease .35s; }

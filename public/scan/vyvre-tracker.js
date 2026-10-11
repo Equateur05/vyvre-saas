@@ -7,7 +7,9 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
  * progress. Strictly client-side — privacy-respecting, no backend required.
  *
  * Storage key: vyvre_scan_history
- * Format: { version, scans: [ { scanId, timestamp, brand, scores, clinical?, photoCropped? } ] }
+ * Format: { version, scans: [ { scanId, timestamp, brand, scores, clinical? } ] }
+ * 11/10/2026 : aucune photo. La vignette du visage (photoCropped) n'est plus enregistree, et celles
+ * des anciens scans sont effacees a la premiere lecture : seuls les scores restent.
  *
  * API exposed on window:
  *   VYVRE_TRACKER.save(scanResult, opts)           — persist a scan, returns ScanEntry
@@ -31,9 +33,7 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
 
   const STORAGE_KEY = 'vyvre_scan_history';
   const STORAGE_VERSION = 1;
-  const MAX_ENTRIES = 60;          // hard cap (storage budget ~6MB w/ photos)
-  const MAX_PHOTO_SIZE = 160;      // px crop for face thumbnail
-  const PHOTO_QUALITY = 0.7;       // JPEG quality
+  const MAX_ENTRIES = 60;          // hard cap (scores seulement, aucune image)
 
   // ─────────────────────────────────────────────────────────────────────
   // Storage helpers
@@ -45,6 +45,11 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
       const parsed = JSON.parse(raw);
       if (!parsed.scans || !Array.isArray(parsed.scans)) {
         return { version: STORAGE_VERSION, scans: [] };
+      }
+      /* 11/10 : aucune photo conservee — les vignettes des anciens scans sont effacees une fois pour toutes */
+      if (parsed.scans.some(s => s && 'photoCropped' in s)) {
+        parsed.scans = parsed.scans.map(s => { if (!s || !('photoCropped' in s)) return s; const c = Object.assign({}, s); delete c.photoCropped; return c; });
+        try { localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed)); } catch (_) {}
       }
       return parsed;
     } catch (e) {
@@ -58,15 +63,11 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
       localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
       return true;
     } catch (e) {
-      // QuotaExceeded — try again without photos
+      // QuotaExceeded — on garde les 30 scans les plus recents (il n'y a plus de photo a retirer)
       if (e.name === 'QuotaExceededError' || e.code === 22) {
-        console.warn('[vyvre-tracker] quota exceeded, dropping photos');
-        const stripped = {
-          ...store,
-          scans: store.scans.map(s => ({ ...s, photoCropped: null }))
-        };
+        console.warn('[vyvre-tracker] quota exceeded, keeping the 30 latest scans');
         try {
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(stripped));
+          localStorage.setItem(STORAGE_KEY, JSON.stringify({ ...store, scans: store.scans.slice(-30) }));
           return true;
         } catch (_) {
           return false;
@@ -220,29 +221,8 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
     };
   }
 
-  // ─────────────────────────────────────────────────────────────────────
-  // Photo capture (160x160 face crop, JPEG, very compact)
-  // ─────────────────────────────────────────────────────────────────────
-  function capturePhoto(source) {
-    try {
-      if (!source) return null;
-      const canvas = document.createElement('canvas');
-      canvas.width = MAX_PHOTO_SIZE;
-      canvas.height = MAX_PHOTO_SIZE;
-      const ctx = canvas.getContext('2d');
-      const sw = source.videoWidth || source.naturalWidth || source.width;
-      const sh = source.videoHeight || source.naturalHeight || source.height;
-      if (!sw || !sh) return null;
-      // Center crop square
-      const side = Math.min(sw, sh);
-      const sx = (sw - side) / 2;
-      const sy = (sh - side) / 2;
-      ctx.drawImage(source, sx, sy, side, side, 0, 0, MAX_PHOTO_SIZE, MAX_PHOTO_SIZE);
-      return canvas.toDataURL('image/jpeg', PHOTO_QUALITY);
-    } catch (e) {
-      return null;
-    }
-  }
+  // 11/10 : plus aucune capture du visage (aucune photo conservee). Garde pour compatibilite.
+  function capturePhoto() { return null; }
 
   // ─────────────────────────────────────────────────────────────────────
   // Public API
@@ -256,7 +236,6 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
       brand: opts.brand || detectBrand(),
       scores: normaliseScores(scanResult),
       clinical: extractClinical(scanResult),
-      photoCropped: opts.photo || null,
       source: opts.source || (scanResult && scanResult.source) || 'auto'
     };
     store.scans.push(entry);
@@ -579,7 +558,7 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
       mesures.push(cell(txt.hydration, hyd));
       return `
         <div data-vyvre-row="${e.scanId}" style="display:grid;grid-template-columns:auto 1fr repeat(${mesures.length},auto);gap:16px;align-items:center;padding:16px 18px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-radius:14px;margin-bottom:8px;cursor:pointer;transition:background 0.2s,border-color 0.2s;">
-          ${e.photoCropped ? `<img src="${e.photoCropped}" alt="" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:1px solid rgba(255,255,255,0.1);">` : `<div style="width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;font-size:14px;color:rgba(255,255,255,0.6);">${brand.charAt(0).toUpperCase()}</div>`}
+          ${`<div style="width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,0.05);display:flex;align-items:center;justify-content:center;font-size:14px;color:rgba(255,255,255,0.6);">${brand.charAt(0).toUpperCase()}</div>`}
           <div>
             <div style="font-size:14px;color:#FFF;font-weight:400;">${dateStr} · ${timeStr}</div>
             <div style="font-size:11px;color:rgba(255,255,255,0.6);font-family:'JetBrains Mono',monospace;text-transform:uppercase;letter-spacing:0.1em;margin-top:2px;">${brand}</div>
@@ -662,13 +641,8 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
   // ─────────────────────────────────────────────────────────────────────
   function autoSaveFromEvent(detail) {
     if (!detail || detail.rejected) return; // skip rejected scans
-    // Capture face thumbnail from current video / capturedImg if present
-    let photo = null;
-    const v = document.querySelector('video');
-    const img = document.querySelector('#capturedImg, img[data-vyvre-photo]');
-    if (v && v.videoWidth > 0) photo = capturePhoto(v);
-    else if (img && (img.naturalWidth > 0 || img.complete)) photo = capturePhoto(img);
-    save(detail, { photo });
+    // 11/10 : aucune vignette du visage, seuls les scores sont gardes
+    save(detail, {});
   }
 
   function injectIntoResultsView() {

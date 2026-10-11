@@ -203,7 +203,7 @@ export default function Onboarding({ onComplete }: { onComplete: (p: OnboardingP
             )}
           </h2>
           <p className="ob-sub">
-            Sauvegardez votre diagnostic, suivez l&apos;évolution de votre peau et retrouvez votre protocole personnalisé.
+            Sauvegardez votre analyse, suivez l&apos;évolution de votre peau et retrouvez votre protocole personnalisé.
           </p>
 
           <form className="ob-form" onSubmit={handleAuth}>

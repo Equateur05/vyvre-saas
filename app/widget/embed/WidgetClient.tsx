@@ -4,7 +4,7 @@
  * VYVRE Widget — Client component
  *
  * 4 phases :
- * 1. Intro : "Diagnostic peau · 90 secondes"
+ * 1. Intro : "Analyse de peau · 90 secondes"
  * 2. Scan : caméra + face-api + scan engine
  * 3. Results : 8 biomarqueurs + tagline
  * 4. Routine : 3 produits matchés au scan
@@ -44,14 +44,14 @@ type Phase = 'intro' | 'scan' | 'results' | 'routine';
 
 const T = {
   fr: {
-    intro_label: 'Diagnostic peau VYVRE',
+    intro_label: 'Analyse de peau VYVRE',
     intro_title: 'Votre peau, en 90 secondes',
     intro_sub: 'Analyse colorimétrique on-device · Aucune photo stockée · 100% France',
     start_button: 'Démarrer le scan',
     consent: 'En démarrant, vous autorisez l\'accès à la caméra. Aucune photo n\'est sauvegardée ni transmise.',
     scanning: 'Analyse en cours…',
     capturing: 'Capture {n}/8',
-    results_title: 'Votre diagnostic',
+    results_title: 'Votre analyse',
     routine_title: 'Routine personnalisée',
     routine_sub: 'Produits {brand} matching vos besoins',
     no_products: 'Catalogue en cours d\'activation chez {brand}. Revenez bientôt.',
@@ -70,14 +70,14 @@ const T = {
     discover: 'Découvrir',
   },
   en: {
-    intro_label: 'VYVRE Skin Diagnostic',
+    intro_label: 'VYVRE Skin Analysis',
     intro_title: 'Your skin, in 90 seconds',
     intro_sub: 'On-device colorimetric analysis · No photo stored · 100% France',
     start_button: 'Start the scan',
     consent: 'By starting, you allow camera access. No photo is saved or transmitted.',
     scanning: 'Analyzing…',
     capturing: 'Capture {n}/8',
-    results_title: 'Your diagnostic',
+    results_title: 'Your analysis',
     routine_title: 'Personalized routine',
     routine_sub: '{brand} products matching your needs',
     no_products: 'Catalog activation in progress at {brand}. Check back soon.',

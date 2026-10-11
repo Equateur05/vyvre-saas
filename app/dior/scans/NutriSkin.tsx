@@ -205,7 +205,7 @@ export default function NutriSkin({ onBack }: { onBack: () => void }) {
       {phase === 'intro' && (
         <div className="ob-wrap">
           <div className="label-sm" style={{ marginBottom: 22 }}>
-            Nutri Skin · Diagnostic nutritionnel
+            Nutri Skin · Analyse nutritionnelle
           </div>
           <h2 className="ob-title">
             Votre peau dit ce que <em>votre assiette</em> oublie.

@@ -377,11 +377,12 @@ export default function DiorScanClient({ products, onBack }: Props) {
         }
         if (sumR / count < 6 && sumG / count < 6 && sumB / count < 6) return false;
 
-        const dataURL = cap.toDataURL('image/jpeg', 0.92);
+        /* 11/10/2026 (aucune photo conservée) : la vignette du visage n'est plus écrite dans le téléphone ;
+           l'ancienne est effacée et le protocole affiche son dessin du visage, sans photo. */
         try {
-          localStorage.setItem('vyvre_scan_face', dataURL);
+          localStorage.removeItem('vyvre_scan_face');
         } catch {
-          /* quota / private mode */
+          /* navigation privée */
         }
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         if ((source as any).close) (source as any).close();
