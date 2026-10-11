@@ -1,6 +1,6 @@
 {
   "_meta": {
-    "date": "2026-10-01",
+    "date": "2026-10-11",
     "sources_reglementaires": [
       {
         "texte": "Arrêté du 14 mars 2007, annexe III « Mentions d'étiquetage de l'eau minérale naturelle conditionnée » (version en vigueur depuis le 14/01/2023, modifiée par l'arrêté du 10 janvier 2023)",
@@ -47,7 +47,7 @@
         "url": "https://orobnat.sante.gouv.fr/"
       }
     ],
-    "regles": "Chiffres relevés uniquement sur une source officielle (site ou document de la marque, du groupe propriétaire, ou organisme public), en mg/L ; valeur absente de la source = null. mentions_reglementaires : calculées à partir des seuils de l'annexe III, seulement pour les eaux au statut « eau minérale naturelle » vérifié, et seulement à partir des valeurs relevées (résidu null = aucune mention de minéralisation). mentions_revendiquees_par_la_marque : ce que la marque affiche elle-même, non recalculé. Une « minéralisation moyenne » ou un « TDS » n'est pas traité comme un résidu sec à 180 °C. Aucune promesse santé, beauté ou peau ; pas de prix. Les compositions de marque peuvent évoluer : revérifier avant publication.",
+    "regles": "Chiffres relevés uniquement sur une source officielle (site ou document de la marque, du groupe propriétaire, ou organisme public), en mg/L ; valeur absente de la source = null. mentions_reglementaires : calculées à partir des seuils de l'annexe III, seulement pour les eaux au statut « eau minérale naturelle » vérifié, et seulement à partir des valeurs relevées (résidu null = aucune mention de minéralisation). mentions_revendiquees_par_la_marque : ce que la marque affiche elle-même, non recalculé. Une « minéralisation moyenne » ou un « TDS » n'est pas traité comme un résidu sec à 180 °C. Aucune promesse santé, beauté ou peau ; pas de prix. Les compositions de marque peuvent évoluer : revérifier avant publication. 11/10/2026 : gamme = 'essentiel' (les eaux de tous les jours, petit budget), 'bien_faite' (sources sérieuses, composition soignée), 'prestige' (le haut de gamme). disponibilite = par marché (FR, UK, US, ES, IT, DE) : achat 'local' (revendeur du pays, en magasin ou en ligne) ou 'import' (site étranger qui livre ce pays), avec l'URL relevée ; un marché absent = non vérifié, l'eau n'est pas proposée sur ce marché. livraison_internationale : true si la marque ou un revendeur cité livre plusieurs pays. prix_indicatif_eur_litre : interne, jamais affiché.",
     "exclusions": [
       {
         "marque": "Vita Coco (eau de coco)",
@@ -56,6 +56,54 @@
       {
         "marque": "Bjorg eau de coco",
         "raison": "Ingrédients relevés hors site officiel (eau, eau de coco, acide ascorbique) : ce n'est pas une eau de coco pure. Écartée."
+      },
+      {
+        "marque": "Svalbarði",
+        "raison": "La marque ne publie que TDS 21 mg/L, nitrates et Ca+Mg < 1 mg/L : pas de sodium ni de détail. Bouteille de collection, souvent épuisée. Écartée."
+      },
+      {
+        "marque": "Hildon",
+        "raison": "Aucune composition chiffrée sur le site de la marque (hildon.com) ; seuls des revendeurs ou un rapport hébergé par un concurrent la donnent. Écartée."
+      },
+      {
+        "marque": "Llanllyr Source",
+        "raison": "Site de la marque en construction ; composition trouvée seulement chez un revendeur. Écartée."
+      },
+      {
+        "marque": "Antipodes",
+        "raison": "Aucune analyse sur le site de la marque ; chiffres seulement sur des sites tiers. Écartée."
+      },
+      {
+        "marque": "NEVAS",
+        "raison": "« Table water » (cuvée de deux sources) sans composition complète publiée. Écartée."
+      },
+      {
+        "marque": "FILLICO",
+        "raison": "Aucune analyse chiffrée sur le site de la marque. Écartée."
+      },
+      {
+        "marque": "Lauquen, Berg (iceberg), Saratoga, Surgiva",
+        "raison": "Sites de marque inaccessibles ou sans analyse au moment du relevé. Écartées."
+      },
+      {
+        "marque": "Liquid Death",
+        "raison": "Rapport qualité introuvable sur le site de la marque. Écartée."
+      },
+      {
+        "marque": "Speyside Glenlivet",
+        "raison": "Le site renvoie vers le groupe Highland Spring, sans analyse de cette eau. Écartée."
+      },
+      {
+        "marque": "Treignac",
+        "raison": "Chiffres trouvés seulement chez un revendeur (bienmanger.com), pas de site de marque joignable. Écartée, à reprendre si la marque publie sa composition."
+      },
+      {
+        "marque": "AQUA Carpatica",
+        "raison": "Le site américain de la marque écrit « Sodium FREE » sans chiffre ; filtre reins impossible. Écartée."
+      },
+      {
+        "marque": "Abatilles, Plancoët",
+        "raison": "Composition seulement chez des revendeurs ; sodium 105 et 32 mg/L. Non retenues."
       }
     ]
   },
@@ -201,7 +249,28 @@
       "source_url": "https://www.evian.com/fr/produits/composition-eau-evian/",
       "sources_complementaires": [],
       "releve_le": "2026-10-01",
-      "note": null
+      "note": null,
+      "gamme": "essentiel",
+      "disponibilite": {
+        "FR": {
+          "achat": "local",
+          "url": "https://www.auchan.fr/evian-eau-minerale-naturelle-plate/pr-C1212636"
+        },
+        "UK": {
+          "achat": "local",
+          "url": "https://www.tesco.com/shop/en-GB/products/257342472"
+        },
+        "US": {
+          "achat": "local",
+          "url": "https://www.walmart.com/ip/Evian-Natural-Spring-Water-1-L/22282312"
+        },
+        "ES": {
+          "achat": "local",
+          "url": "https://www.elcorteingles.es/supermercado/0110118630004085-evian-agua-mineral-natural-botella-15-l/"
+        }
+      },
+      "livraison_internationale": null,
+      "prix_indicatif_eur_litre": null
     },
     {
       "id": "volvic",
@@ -235,7 +304,20 @@
         "https://www.volvic.fr/volvic-l-eau-volcanique/composition.html"
       ],
       "releve_le": "2026-10-01",
-      "note": "Le résidu sec à 180 °C n'est pas publié sur le site de la marque (ni sur sa page composition) : laissé à null."
+      "note": "Le résidu sec à 180 °C n'est pas publié sur le site de la marque (ni sur sa page composition) : laissé à null.",
+      "gamme": "essentiel",
+      "disponibilite": {
+        "FR": {
+          "achat": "local",
+          "url": "https://www.auchan.fr/volvic-eau-minerale-naturelle-plate-50cl/pr-C1344235"
+        },
+        "UK": {
+          "achat": "local",
+          "url": "https://www.tesco.com/groceries/en-GB/products/255605764"
+        }
+      },
+      "livraison_internationale": null,
+      "prix_indicatif_eur_litre": null
     },
     {
       "id": "mont_roucous",
@@ -268,7 +350,16 @@
       "source_url": "https://www.mont-roucous.com/eau-tres-faiblement-mineralisee/eau-mont-roucous/composition-mont-roucous",
       "sources_complementaires": [],
       "releve_le": "2026-10-01",
-      "note": "Bicarbonates non publiés. La marque indique « silicates 8,0 mg/L » (et non « silice ») : rangé dans autres_mg_l."
+      "note": "Bicarbonates non publiés. La marque indique « silicates 8,0 mg/L » (et non « silice ») : rangé dans autres_mg_l.",
+      "gamme": "bien_faite",
+      "disponibilite": {
+        "FR": {
+          "achat": "local",
+          "url": "https://www.auchan.fr/mont-roucous-eau-minerale-naturelle-plate/pr-C1206426"
+        }
+      },
+      "livraison_internationale": null,
+      "prix_indicatif_eur_litre": null
     },
     {
       "id": "montcalm",
@@ -300,7 +391,16 @@
         "https://www.montcalm.fr/"
       ],
       "releve_le": "2026-10-01",
-      "note": "Le groupe publie une « minéralisation moyenne » de 32 mg/L, pas un « résidu sec à 180 °C » : résidu laissé à null, donc pas de mention de minéralisation calculée."
+      "note": "Le groupe publie une « minéralisation moyenne » de 32 mg/L, pas un « résidu sec à 180 °C » : résidu laissé à null, donc pas de mention de minéralisation calculée.",
+      "gamme": "bien_faite",
+      "disponibilite": {
+        "FR": {
+          "achat": "local",
+          "url": "https://www.carrefour.fr/p/eau-de-montcalm-1-5l-montcalm-3435230150213"
+        }
+      },
+      "livraison_internationale": null,
+      "prix_indicatif_eur_litre": null
     },
     {
       "id": "acqua_panna",
@@ -332,7 +432,28 @@
       "source_url": "https://www.acquapanna.com/intl/75-cl-glass-water-bottle",
       "sources_complementaires": [],
       "releve_le": "2026-10-01",
-      "note": "Analyse type publiée sur le site international de la marque (« Total Dissolved Solids at 180 °C » = résidu sec à 180 °C)."
+      "note": "Analyse type publiée sur le site international de la marque (« Total Dissolved Solids at 180 °C » = résidu sec à 180 °C).",
+      "gamme": "bien_faite",
+      "disponibilite": {
+        "FR": {
+          "achat": "local",
+          "url": "https://www.bienmanger.com/2F39975_Acqua_Panna_Still_Water_From_Toscana_Italy.html"
+        },
+        "UK": {
+          "achat": "local",
+          "url": "https://www.waitrose.com/ecom/products/acqua-panna-still-natural-mineral-water-glass/437956-413713-413714"
+        },
+        "US": {
+          "achat": "local",
+          "url": "https://www.wholefoodsmarket.com/grocery/product/acqua-panna-natural-spring-water-glass-bottle-b000whpxai"
+        },
+        "DE": {
+          "achat": "local",
+          "url": "https://fine-liquids.com/products/acqua-panna"
+        }
+      },
+      "livraison_internationale": true,
+      "prix_indicatif_eur_litre": null
     },
     {
       "id": "wattwiller",
@@ -364,7 +485,16 @@
       "source_url": "https://www.wattwiller.com/eau-minerale-de-wattwiller/faq/",
       "sources_complementaires": [],
       "releve_le": "2026-10-01",
-      "note": null
+      "note": null,
+      "gamme": "bien_faite",
+      "disponibilite": {
+        "FR": {
+          "achat": "local",
+          "url": "https://www.auchan.fr/wattwiller-eau-minerale-naturelle-plate-bouteilles/pr-C1206418"
+        }
+      },
+      "livraison_internationale": null,
+      "prix_indicatif_eur_litre": null
     },
     {
       "id": "perrier",
@@ -397,7 +527,32 @@
         "https://www.perrier.com/fr/eau-et-territoire"
       ],
       "releve_le": "2026-10-01",
-      "note": "Étiquette : « eau minérale naturelle avec adjonction de gaz carbonique » (gaz non issu de la source). Calcium à 150 mg/L pile : ne dépasse pas le seuil « calcique » (> 150)."
+      "note": "Étiquette : « eau minérale naturelle avec adjonction de gaz carbonique » (gaz non issu de la source). Calcium à 150 mg/L pile : ne dépasse pas le seuil « calcique » (> 150).",
+      "gamme": "essentiel",
+      "disponibilite": {
+        "FR": {
+          "achat": "local",
+          "url": "https://www.auchan.fr/perrier-eau-minerale-naturelle-gazeuse-bouteille-verre/pr-C1210156"
+        },
+        "UK": {
+          "achat": "local",
+          "url": "https://www.ocado.com/products/perrier-sparkling-natural-mineral-water-glass/448966011"
+        },
+        "US": {
+          "achat": "local",
+          "url": "https://www.walmart.com/ip/Perrier-Sparkling-Water-Original-Ss/140834510"
+        },
+        "ES": {
+          "achat": "local",
+          "url": "https://www.carrefour.es/supermercado/agua-mineral-con-gas-perrier-1-l/R-700709035/p"
+        },
+        "DE": {
+          "achat": "local",
+          "url": "https://fine-liquids.com/products/perrier"
+        }
+      },
+      "livraison_internationale": true,
+      "prix_indicatif_eur_litre": null
     },
     {
       "id": "fiji",
@@ -425,7 +580,32 @@
         "https://www.fijiwater.com/the-water"
       ],
       "releve_le": "2026-10-01",
-      "note": "Chiffres du rapport qualité publié par la marque pour le marché américain. TDS 210 mg/L (pas un résidu sec à 180 °C déclaré). Statut d'eau minérale naturelle en Europe non vérifié : aucune mention de l'annexe III appliquée."
+      "note": "Chiffres du rapport qualité publié par la marque pour le marché américain. TDS 210 mg/L (pas un résidu sec à 180 °C déclaré). Statut d'eau minérale naturelle en Europe non vérifié : aucune mention de l'annexe III appliquée.",
+      "gamme": "bien_faite",
+      "disponibilite": {
+        "FR": {
+          "achat": "local",
+          "url": "https://www.bienmanger.com/2F30857_Fiji_Natural_Artesian_Water_Litre_Bottle.html"
+        },
+        "UK": {
+          "achat": "local",
+          "url": "https://www.ocado.com/products/fiji-artesian-water/78561011"
+        },
+        "US": {
+          "achat": "local",
+          "url": "https://www.walmart.com/ip/FIJI-Natural-Artesian-Water-33-8-Fl-oz-1L-Single-Bottle/12081069"
+        },
+        "ES": {
+          "achat": "local",
+          "url": "https://www.elcorteingles.es/club-del-gourmet/A10109196-agua-mineral-sin-gas-fiji/"
+        },
+        "DE": {
+          "achat": "local",
+          "url": "https://fine-liquids.com/products/fiji-wasser"
+        }
+      },
+      "livraison_internationale": true,
+      "prix_indicatif_eur_litre": null
     },
     {
       "id": "voss",
@@ -457,7 +637,32 @@
         "https://www.vosswaterglobal.com/pages/faq"
       ],
       "releve_le": "2026-10-01",
-      "note": "Analyse « VOSS Still (NO) » publiée par la marque. TDS 40 mg/L, pas un résidu sec à 180 °C déclaré. Statut non vérifié : aucune mention de l'annexe III appliquée."
+      "note": "Analyse « VOSS Still (NO) » publiée par la marque. TDS 40 mg/L, pas un résidu sec à 180 °C déclaré. Statut non vérifié : aucune mention de l'annexe III appliquée.",
+      "gamme": "prestige",
+      "disponibilite": {
+        "FR": {
+          "achat": "local",
+          "url": "https://www.bienmanger.com/2F2250_Water_Voss_Norway.html"
+        },
+        "UK": {
+          "achat": "local",
+          "url": "https://www.ocado.com/products/voss-still-artesian-water-glass-bottle/80001011"
+        },
+        "US": {
+          "achat": "local",
+          "url": "https://www.walmart.com/ip/Voss-Artisan-Water-500-Ml-X-24-Bottles/1348088000"
+        },
+        "ES": {
+          "achat": "local",
+          "url": "https://www.elcorteingles.es/club-del-gourmet/A10109167-agua-sin-gas-voss/"
+        },
+        "DE": {
+          "achat": "local",
+          "url": "https://fine-liquids.com/products/voss-still"
+        }
+      },
+      "livraison_internationale": true,
+      "prix_indicatif_eur_litre": null
     },
     {
       "id": "hepar",
@@ -493,7 +698,16 @@
       "source_url": "https://www.hepar.fr/eau-hepar/une-composition-minerale-unique",
       "sources_complementaires": [],
       "releve_le": "2026-10-01",
-      "note": "Chiffres relevés sur l'infographie officielle de la page (image « hepar-composition-riche-mineraux »). Lieu de la source non indiqué sur le site : null."
+      "note": "Chiffres relevés sur l'infographie officielle de la page (image « hepar-composition-riche-mineraux »). Lieu de la source non indiqué sur le site : null.",
+      "gamme": "essentiel",
+      "disponibilite": {
+        "FR": {
+          "achat": "local",
+          "url": "https://www.auchan.fr/hepar-eau-minerale-plate-naturelle/pr-C1210007"
+        }
+      },
+      "livraison_internationale": null,
+      "prix_indicatif_eur_litre": null
     },
     {
       "id": "rozana",
@@ -531,7 +745,16 @@
         "https://www.eau-rozana.com/"
       ],
       "releve_le": "2026-10-01",
-      "note": "Page du groupe propriétaire (Sources Alma). « Minéralisation moyenne » 3 022 mg/L publiée, pas un résidu sec : résidu laissé à null. Sodium élevé (493 mg/L)."
+      "note": "Page du groupe propriétaire (Sources Alma). « Minéralisation moyenne » 3 022 mg/L publiée, pas un résidu sec : résidu laissé à null. Sodium élevé (493 mg/L).",
+      "gamme": "bien_faite",
+      "disponibilite": {
+        "FR": {
+          "achat": "local",
+          "url": "https://www.auchan.fr/rozana-eau-minerale-gazeuse-naturelle/pr-C1206290"
+        }
+      },
+      "livraison_internationale": null,
+      "prix_indicatif_eur_litre": null
     },
     {
       "id": "contrex",
@@ -568,7 +791,16 @@
         "https://www.contrex.fr/eau-minerale-contrex/histoire"
       ],
       "releve_le": "2026-10-01",
-      "note": "Chiffres relevés sur l'encart officiel de la page (image « encart-composition-1L-contrex »)."
+      "note": "Chiffres relevés sur l'encart officiel de la page (image « encart-composition-1L-contrex »).",
+      "gamme": "essentiel",
+      "disponibilite": {
+        "FR": {
+          "achat": "local",
+          "url": "https://www.auchan.fr/contrex-eau-minerale-naturelle-plate/pr-C1207452"
+        }
+      },
+      "livraison_internationale": null,
+      "prix_indicatif_eur_litre": null
     },
     {
       "id": "la_salvetat",
@@ -599,7 +831,16 @@
       "source_url": "https://www.lasalvetat.fr/eau-salvetat/composition-minerale.html",
       "sources_complementaires": [],
       "releve_le": "2026-10-01",
-      "note": "Résidu sec non publié sur la page composition : null. Mode de gazéification non précisé sur la page (« finement pétillante »)."
+      "note": "Résidu sec non publié sur la page composition : null. Mode de gazéification non précisé sur la page (« finement pétillante »).",
+      "gamme": "bien_faite",
+      "disponibilite": {
+        "FR": {
+          "achat": "local",
+          "url": "https://www.auchan.fr/salvetat-eau-gazeuse-minerale-naturelle-pauvre-en-sodium-1-15l/pr-C1306676"
+        }
+      },
+      "livraison_internationale": null,
+      "prix_indicatif_eur_litre": null
     },
     {
       "id": "courmayeur",
@@ -640,7 +881,16 @@
         "https://www.eau-courmayeur.com/tout-savoir-sur-courmayeur/"
       ],
       "releve_le": "2026-10-01",
-      "note": "« Minéralisation moyenne » 2 146,9 mg/L publiée, pas un résidu sec : la mention « riche en sels minéraux » n'est pas recalculée ici, elle est seulement revendiquée par la marque."
+      "note": "« Minéralisation moyenne » 2 146,9 mg/L publiée, pas un résidu sec : la mention « riche en sels minéraux » n'est pas recalculée ici, elle est seulement revendiquée par la marque.",
+      "gamme": "bien_faite",
+      "disponibilite": {
+        "FR": {
+          "achat": "local",
+          "url": "https://www.auchan.fr/courmayeur-eau-minerale-naturelle-plate/pr-C1206099"
+        }
+      },
+      "livraison_internationale": null,
+      "prix_indicatif_eur_litre": null
     },
     {
       "id": "san_pellegrino",
@@ -676,7 +926,32 @@
         "https://www.sanpellegrino.com/fr/eau-s.pellegrino"
       ],
       "releve_le": "2026-10-01",
-      "note": "Étiquette : « eau minérale naturelle avec adjonction de gaz carbonique ». Magnésium 49,2 mg/L : juste sous le seuil « magnésienne » (> 50)."
+      "note": "Étiquette : « eau minérale naturelle avec adjonction de gaz carbonique ». Magnésium 49,2 mg/L : juste sous le seuil « magnésienne » (> 50).",
+      "gamme": "essentiel",
+      "disponibilite": {
+        "FR": {
+          "achat": "local",
+          "url": "https://www.auchan.fr/san-pellegrino-eau-minerale-naturelle-gazeuse-bouteille-verre/pr-C1205880"
+        },
+        "UK": {
+          "achat": "local",
+          "url": "https://www.tesco.com/groceries/en-GB/products/255209801"
+        },
+        "US": {
+          "achat": "local",
+          "url": "https://www.walmart.com/ip/S-Pellegrino-Sparkling-Natural-Mineral-Water-8-45-fl-oz-Glass-Bottle-24-Count/679335566"
+        },
+        "ES": {
+          "achat": "local",
+          "url": "https://www.elcorteingles.es/supermercado/B001018631900869-san-pellegrino-agua-mineral-natural-con-gas-botella-1-l/"
+        },
+        "IT": {
+          "achat": "local",
+          "url": "https://www.amazon.it/Acqua-minerale-gas-San-Pellegrino/dp/B01JITUYGS"
+        }
+      },
+      "livraison_internationale": null,
+      "prix_indicatif_eur_litre": null
     },
     {
       "id": "badoit",
@@ -710,7 +985,20 @@
       "source_url": "https://www.badoit.fr/notre-eau-minerale/badoit-composition.html",
       "sources_complementaires": [],
       "releve_le": "2026-10-01",
-      "note": "La marque se présente comme « l'eau naturellement gazeuse ». Résidu sec non publié sur la page : null. Sodium 180 mg/L : la marque précise qu'elle ne convient pas aux régimes pauvres en sodium."
+      "note": "La marque se présente comme « l'eau naturellement gazeuse ». Résidu sec non publié sur la page : null. Sodium 180 mg/L : la marque précise qu'elle ne convient pas aux régimes pauvres en sodium.",
+      "gamme": "essentiel",
+      "disponibilite": {
+        "FR": {
+          "achat": "local",
+          "url": "https://www.auchan.fr/badoit-eau-minerale-naturelle-petillante/pr-C1829421"
+        },
+        "DE": {
+          "achat": "local",
+          "url": "https://fine-liquids.com/products/badoit-neu"
+        }
+      },
+      "livraison_internationale": true,
+      "prix_indicatif_eur_litre": null
     },
     {
       "id": "saint_geron",
@@ -743,7 +1031,16 @@
       "source_url": "https://eauxsaintgeron.com/pages/composition",
       "sources_complementaires": [],
       "releve_le": "2026-10-01",
-      "note": "La marque la déclare « naturellement gazeuse »."
+      "note": "La marque la déclare « naturellement gazeuse ».",
+      "gamme": "bien_faite",
+      "disponibilite": {
+        "FR": {
+          "achat": "local",
+          "url": "https://www.bienmanger.com/2F25051_Saint_Geron_Sparkling_French_Water.html"
+        }
+      },
+      "livraison_internationale": null,
+      "prix_indicatif_eur_litre": null
     },
     {
       "id": "chateldon",
@@ -784,7 +1081,20 @@
         "https://www.eauxdeprestige.com/chateldon-eau-gazeuse-exception/"
       ],
       "releve_le": "2026-10-01",
-      "note": "Deux pages officielles du même groupe divergent : sulfates 33 (Sources Alma) contre 22 mg/L, fluorures 2,2 contre 2,6 (eauxdeprestige.com). Valeurs Sources Alma retenues. La fiche Alma affiche « Plate » alors que le texte dit « finement pétillante » : gazeuse retenue. Résidu non publié (minéralisation 1 882 mg/L)."
+      "note": "Deux pages officielles du même groupe divergent : sulfates 33 (Sources Alma) contre 22 mg/L, fluorures 2,2 contre 2,6 (eauxdeprestige.com). Valeurs Sources Alma retenues. La fiche Alma affiche « Plate » alors que le texte dit « finement pétillante » : gazeuse retenue. Résidu non publié (minéralisation 1 882 mg/L).",
+      "gamme": "bien_faite",
+      "disponibilite": {
+        "FR": {
+          "achat": "local",
+          "url": "https://www.bienmanger.com/2F21133_Chateldon_Sparkling_Water_From_Auvergne_District.html"
+        },
+        "DE": {
+          "achat": "local",
+          "url": "https://fine-liquids.com/products/chateldon-1650"
+        }
+      },
+      "livraison_internationale": true,
+      "prix_indicatif_eur_litre": null
     },
     {
       "id": "vichy_celestins",
@@ -822,7 +1132,16 @@
         "https://www.vichy-celestins.com/une-eau-dexeption/"
       ],
       "releve_le": "2026-10-01",
-      "note": "Sodium très élevé (1 172 mg/L, soit 0,39 g de sel par litre selon la marque). Résidu non publié (minéralisation 3 325 mg/L)."
+      "note": "Sodium très élevé (1 172 mg/L, soit 0,39 g de sel par litre selon la marque). Résidu non publié (minéralisation 3 325 mg/L).",
+      "gamme": "essentiel",
+      "disponibilite": {
+        "FR": {
+          "achat": "local",
+          "url": "https://www.auchan.fr/vichy-celestins-eau-minerale-naturelle-gazeuse/pr-C1522623"
+        }
+      },
+      "livraison_internationale": null,
+      "prix_indicatif_eur_litre": null
     },
     {
       "id": "quezac",
@@ -858,7 +1177,16 @@
         "https://quezac.com/notre-histoire/"
       ],
       "releve_le": "2026-10-01",
-      "note": "Sulfates non publiés : null. La version « L'Intense » est, elle, « avec adjonction de gaz carbonique »."
+      "note": "Sulfates non publiés : null. La version « L'Intense » est, elle, « avec adjonction de gaz carbonique ».",
+      "gamme": "bien_faite",
+      "disponibilite": {
+        "FR": {
+          "achat": "local",
+          "url": "https://www.auchan.fr/quezac-eau-minerale-petillante-naturelle/pr-C1210600"
+        }
+      },
+      "livraison_internationale": null,
+      "prix_indicatif_eur_litre": null
     },
     {
       "id": "gerolsteiner",
@@ -889,7 +1217,430 @@
       "source_url": "https://www.gerolsteiner.de/produkte/mineralwasser/sprudel",
       "sources_complementaires": [],
       "releve_le": "2026-10-01",
-      "note": "Extrait d'analyse publié en allemand (« Analyseauszug ») ; résidu sec non publié : null."
+      "note": "Extrait d'analyse publié en allemand (« Analyseauszug ») ; résidu sec non publié : null.",
+      "gamme": "essentiel",
+      "disponibilite": {
+        "DE": {
+          "achat": "local",
+          "url": "https://www.rewe.de/shop/p/gerolsteiner-sprudel-1l/5312167"
+        },
+        "US": {
+          "achat": "local",
+          "url": "https://www.walmart.com/ip/Gerolsteiner-Sparkling-Mineral-Water-25-3-oz-Count-of-15/582143071"
+        }
+      },
+      "livraison_internationale": null,
+      "prix_indicatif_eur_litre": null
+    },
+    {
+      "id": "lauretana",
+      "marque": "Lauretana",
+      "type_id": "faiblement_mineralisee",
+      "statut": "eau minérale naturelle",
+      "pays": "Italie",
+      "source_lieu": "Graglia, Alpes biellaises (Piémont)",
+      "gazeuse": false,
+      "residu_sec_mg_l": 14,
+      "calcium_mg_l": null,
+      "magnesium_mg_l": null,
+      "sodium_mg_l": 0.9,
+      "bicarbonates_mg_l": null,
+      "sulfates_mg_l": null,
+      "silice_mg_l": null,
+      "autres_mg_l": {
+        "durete_degres_francais": 0.4,
+        "pH": 6.9
+      },
+      "mentions_reglementaires": [
+        "très faiblement minéralisée",
+        "convient pour un régime pauvre en sodium"
+      ],
+      "mentions_revendiquees_par_la_marque": [],
+      "accroche": "Une source des Alpes biellaises, dans le Piémont : 14 mg/L de résidu sec, l’une des eaux les moins chargées en minéraux d’Europe.",
+      "source_url": "https://www.lauretana.com/acqua_perche_bere_lauretana.php",
+      "sources_complementaires": [
+        "https://www.lauretana.com/eng/MineralWater-characteristics.php",
+        "https://www.lauretana.com/eng/distribution-europe.php"
+      ],
+      "releve_le": "2026-10-11",
+      "note": "Résidu sec 14 mg/L, sodium 0,90 mg/L, dureté 0,40 °f, pH 6,9 publiés par la marque ; calcium, magnésium et bicarbonates non publiés en chiffres sur le site (null). Le site de la marque tient des propos santé qui ne sont pas repris ici.",
+      "gamme": "prestige",
+      "disponibilite": {
+        "IT": {
+          "achat": "local",
+          "url": "https://www.amazon.it/Lauretana-Acqua-Minerale-Naturale-1-5L/dp/B00HOCJWQ0"
+        }
+      },
+      "livraison_internationale": null,
+      "prix_indicatif_eur_litre": null
+    },
+    {
+      "id": "lurisia_stille",
+      "marque": "Lurisia Stille",
+      "type_id": "faiblement_mineralisee",
+      "statut": "eau minérale naturelle",
+      "pays": "Italie",
+      "source_lieu": "Source Santa Barbara, Lurisia (Piémont, Alpes occidentales)",
+      "gazeuse": false,
+      "residu_sec_mg_l": null,
+      "calcium_mg_l": 4.0,
+      "magnesium_mg_l": 0.43,
+      "sodium_mg_l": 2.7,
+      "bicarbonates_mg_l": 18.0,
+      "sulfates_mg_l": 1.9,
+      "silice_mg_l": null,
+      "autres_mg_l": {
+        "potassium": 0.71,
+        "nitrates": 3.1,
+        "chlorures": 0.35
+      },
+      "mentions_reglementaires": [
+        "convient pour un régime pauvre en sodium"
+      ],
+      "mentions_revendiquees_par_la_marque": [],
+      "accroche": "La source Santa Barbara de Lurisia, au pied des Alpes piémontaises : une eau très peu chargée en minéraux.",
+      "source_url": "https://www.coca-cola.com/it/it/brands/Lurisia/Acqua",
+      "sources_complementaires": [
+        "https://www.coca-cola.com/it/it/brands/Lurisia/la-nostra-storia"
+      ],
+      "releve_le": "2026-10-11",
+      "note": "Composition « Sostanze disciolte in mg/L » publiée sur la page officielle (Lurisia appartient au groupe Coca-Cola HBC Italia). Résidu sec non chiffré sur la page : null, aucune mention de minéralisation.",
+      "gamme": "prestige",
+      "disponibilite": {
+        "FR": {
+          "achat": "local",
+          "url": "https://www.bienmanger.com/2F40007_Lurisia_Bolle_Stille_Mineral_Water_From_Italy.html"
+        },
+        "IT": {
+          "achat": "local",
+          "url": "https://www.enjoylurisia.it/"
+        },
+        "DE": {
+          "achat": "local",
+          "url": "https://fine-liquids.com/products/lurisia"
+        }
+      },
+      "livraison_internationale": true,
+      "prix_indicatif_eur_litre": 4.33,
+      "prix_source_url": "https://www.bienmanger.com/2F40007_Lurisia_Bolle_Stille_Mineral_Water_From_Italy.html"
+    },
+    {
+      "id": "lurisia_bolle",
+      "marque": "Lurisia Bolle",
+      "type_id": "faiblement_mineralisee",
+      "statut": "eau minérale naturelle avec adjonction de gaz carbonique",
+      "pays": "Italie",
+      "source_lieu": "Source Santa Barbara, Lurisia (Piémont, Alpes occidentales)",
+      "gazeuse": true,
+      "residu_sec_mg_l": null,
+      "calcium_mg_l": 4.0,
+      "magnesium_mg_l": 0.43,
+      "sodium_mg_l": 2.7,
+      "bicarbonates_mg_l": 18.0,
+      "sulfates_mg_l": 1.9,
+      "silice_mg_l": null,
+      "autres_mg_l": {
+        "potassium": 0.71,
+        "nitrates": 3.1,
+        "chlorures": 0.35
+      },
+      "mentions_reglementaires": [
+        "convient pour un régime pauvre en sodium"
+      ],
+      "mentions_revendiquees_par_la_marque": [],
+      "accroche": "La même source Santa Barbara, au pied des Alpes piémontaises, en fines bulles ajoutées.",
+      "source_url": "https://www.coca-cola.com/it/it/brands/Lurisia/Acqua",
+      "sources_complementaires": [
+        "https://www.coca-cola.com/it/it/brands/Lurisia/la-nostra-storia"
+      ],
+      "releve_le": "2026-10-11",
+      "note": "Même composition que Lurisia Stille sur la page officielle ; gaz carbonique ajouté. Résidu sec non chiffré : null.",
+      "gamme": "prestige",
+      "disponibilite": {
+        "FR": {
+          "achat": "local",
+          "url": "https://www.bienmanger.com/2F40006_Lurisia_Sparkling_Mineral_Water_From_Italy.html"
+        },
+        "IT": {
+          "achat": "local",
+          "url": "https://www.enjoylurisia.it/"
+        },
+        "DE": {
+          "achat": "local",
+          "url": "https://fine-liquids.com/products/lurisia"
+        }
+      },
+      "livraison_internationale": true,
+      "prix_indicatif_eur_litre": null
+    },
+    {
+      "id": "ty_nant",
+      "marque": "Tŷ Nant",
+      "type_id": "faiblement_mineralisee",
+      "statut": "eau minérale naturelle",
+      "pays": "Royaume-Uni (pays de Galles)",
+      "source_lieu": "Bethania, Ceredigion, aux portes des monts Cambriens",
+      "gazeuse": false,
+      "residu_sec_mg_l": 165,
+      "calcium_mg_l": 22.5,
+      "magnesium_mg_l": 11.5,
+      "sodium_mg_l": 22.0,
+      "bicarbonates_mg_l": null,
+      "sulfates_mg_l": 3.7,
+      "silice_mg_l": null,
+      "autres_mg_l": {
+        "potassium": 1.0,
+        "chlorures": 14.0,
+        "nitrates": "<0,1",
+        "fluorures": 0.148,
+        "fer": 0.002,
+        "pH": 6.8
+      },
+      "mentions_reglementaires": [
+        "faiblement minéralisée"
+      ],
+      "mentions_revendiquees_par_la_marque": [],
+      "accroche": "Une source du hameau de Bethania, au pays de Galles, servie dans sa bouteille de verre bleu cobalt.",
+      "source_url": "https://tynant.com/water-analysis/",
+      "sources_complementaires": [
+        "https://tynant.com/it/analisi-chimica/",
+        "https://tynant.com/products/ty-nant/"
+      ],
+      "releve_le": "2026-10-11",
+      "note": "Analyse « Tŷ Nant » publiée par la marque. Bicarbonates et silice non publiés (null). Sodium 22 mg/L : pas de mention « pauvre en sodium », et elle ne passe pas le filtre reins (> 20 mg/L).",
+      "gamme": "prestige",
+      "disponibilite": {
+        "UK": {
+          "achat": "local",
+          "url": "https://www.amazon.co.uk/Ty-Nant-Natural-Still-Mineral/dp/B01IPKM26Q"
+        },
+        "IT": {
+          "achat": "local",
+          "url": "https://www.acquedilusso.it/collections/ty-nant"
+        }
+      },
+      "livraison_internationale": null,
+      "prix_indicatif_eur_litre": null
+    },
+    {
+      "id": "icelandic_glacial",
+      "marque": "Icelandic Glacial",
+      "type_id": "faiblement_mineralisee",
+      "statut": "« natural spring water » (analyse NSF publiée par la marque) ; statut européen non vérifié",
+      "pays": "Islande",
+      "source_lieu": "Source d’Ölfus, sud-ouest de l’Islande",
+      "gazeuse": false,
+      "residu_sec_mg_l": null,
+      "calcium_mg_l": 5.6,
+      "magnesium_mg_l": 2.2,
+      "sodium_mg_l": 11,
+      "bicarbonates_mg_l": 35,
+      "sulfates_mg_l": 2.9,
+      "silice_mg_l": null,
+      "autres_mg_l": {
+        "potassium": 0.7,
+        "chlorures": 13,
+        "nitrates_en_azote": 0.02,
+        "total_dissolved_solids": 69,
+        "pH": 8.66
+      },
+      "mentions_reglementaires": [],
+      "mentions_revendiquees_par_la_marque": [],
+      "accroche": "L’eau de la source d’Ölfus, en Islande, née au milieu d’un champ de lave.",
+      "source_url": "https://cdn.shopify.com/s/files/1/0289/0132/files/NSF_IG_Spring_water_test_analysis_report_2019.pdf?86",
+      "sources_complementaires": [
+        "https://buy.icelandicglacial.com/pages/faq"
+      ],
+      "releve_le": "2026-10-11",
+      "note": "Rapport NSF de mars 2019 mis en ligne par la marque (FAQ). La marque annonce aujourd’hui un TDS de 62 ppm et un pH de 8,4. TDS, pas un résidu sec déclaré. Statut d’eau minérale naturelle en Europe non vérifié : aucune mention de l’annexe III.",
+      "gamme": "prestige",
+      "disponibilite": {
+        "US": {
+          "achat": "local",
+          "url": "https://www.walmart.com/ip/Icelandic-Glacial-Natural-Spring-Water-500mL-Pack-of-24/54468888"
+        },
+        "UK": {
+          "achat": "local",
+          "url": "https://www.tesco.com/shop/en-GB/products/326403255"
+        },
+        "DE": {
+          "achat": "local",
+          "url": "https://fine-liquids.com/products/icelandic-neu"
+        },
+        "FR": {
+          "achat": "import",
+          "url": "https://fine-liquids.com/products/icelandic-neu"
+        }
+      },
+      "livraison_internationale": true,
+      "prix_indicatif_eur_litre": null
+    },
+    {
+      "id": "mountain_valley",
+      "marque": "Mountain Valley",
+      "type_id": "faiblement_mineralisee",
+      "statut": "« spring water » (norme américaine) ; statut européen non vérifié",
+      "pays": "États-Unis",
+      "source_lieu": "Mountain Valley Springs, monts Ouachita (comté de Garland, Arkansas)",
+      "gazeuse": false,
+      "residu_sec_mg_l": null,
+      "calcium_mg_l": "65–70",
+      "magnesium_mg_l": "6,1–7,2",
+      "sodium_mg_l": 2.5,
+      "bicarbonates_mg_l": null,
+      "sulfates_mg_l": "5,2–8,2",
+      "silice_mg_l": null,
+      "autres_mg_l": {
+        "sodium_plage": "1,7–2,5",
+        "potassium": "ND–1,2",
+        "chlorures": "1,8–2,5",
+        "fluorures": "0,12–0,15",
+        "alcalinite_en_CaCO3": 190,
+        "total_dissolved_solids": 210,
+        "pH": "7,3–8,1"
+      },
+      "mentions_reglementaires": [],
+      "mentions_revendiquees_par_la_marque": [],
+      "accroche": "Une eau de source des monts Ouachita, en Arkansas, servie en bouteille de verre.",
+      "source_url": "https://a-us.storyblok.com/f/1021132/x/618d7a33c8/mountainvalley_wqr_2025_en.pdf",
+      "sources_complementaires": [
+        "https://www.mountainvalleyspring.com/pages/water-quality-report"
+      ],
+      "releve_le": "2026-10-11",
+      "note": "Rapport 2025 de la marque, valeurs en plages. sodium_mg_l = haut de la plage (2,5), retenu pour le filtre reins. TDS 210 mg/L, pas un résidu sec déclaré. Aucune mention de l’annexe III.",
+      "gamme": "prestige",
+      "disponibilite": {
+        "US": {
+          "achat": "local",
+          "url": "https://target.com/p/12-pack-mountain-valley-spring-water-glass-bottle-33-8-ounces/-/A-91695515"
+        }
+      },
+      "livraison_internationale": null,
+      "prix_indicatif_eur_litre": null
+    },
+    {
+      "id": "mountain_valley_petillante",
+      "marque": "Mountain Valley (pétillante)",
+      "type_id": "petillante_naturelle",
+      "statut": "« sparkling spring water » (norme américaine) ; statut européen non vérifié",
+      "pays": "États-Unis",
+      "source_lieu": "Mountain Valley Springs, monts Ouachita (Arkansas)",
+      "gazeuse": true,
+      "residu_sec_mg_l": null,
+      "calcium_mg_l": 56,
+      "magnesium_mg_l": 5.1,
+      "sodium_mg_l": 2,
+      "bicarbonates_mg_l": null,
+      "sulfates_mg_l": 5.1,
+      "silice_mg_l": null,
+      "autres_mg_l": {
+        "potassium": 0.54,
+        "chlorures": 2,
+        "alcalinite_en_CaCO3": 170,
+        "total_dissolved_solids": 210,
+        "pH": 5.2
+      },
+      "mentions_reglementaires": [],
+      "mentions_revendiquees_par_la_marque": [],
+      "accroche": "La même source de l’Arkansas, en bulles, en bouteille de verre.",
+      "source_url": "https://a-us.storyblok.com/f/1021132/x/618d7a33c8/mountainvalley_wqr_2025_en.pdf",
+      "sources_complementaires": [],
+      "releve_le": "2026-10-11",
+      "note": "Colonne « Sparkling Spring Water » du rapport 2025 de la marque. Gaz ajouté. Aucune mention de l’annexe III.",
+      "gamme": "prestige",
+      "disponibilite": {
+        "US": {
+          "achat": "local",
+          "url": "https://www.publix.com/pd/the-mountain-valley-sparkling-water/RIO-PCI-168621"
+        }
+      },
+      "livraison_internationale": null,
+      "prix_indicatif_eur_litre": null
+    },
+    {
+      "id": "waiakea",
+      "marque": "Waiākea",
+      "type_id": "faiblement_mineralisee",
+      "statut": "« natural deep well water » (norme américaine) ; statut européen non vérifié",
+      "pays": "États-Unis (Hawaï)",
+      "source_lieu": "Puits profond au pied du Mauna Loa, près de Hilo (île d’Hawaï)",
+      "gazeuse": false,
+      "residu_sec_mg_l": null,
+      "calcium_mg_l": 5.6,
+      "magnesium_mg_l": 3.0,
+      "sodium_mg_l": 6.1,
+      "bicarbonates_mg_l": 31,
+      "sulfates_mg_l": null,
+      "silice_mg_l": 37,
+      "autres_mg_l": {
+        "potassium": 2.0,
+        "fluorures": 0.061,
+        "chlorures": "non détecté",
+        "sulfates": "non détecté",
+        "total_dissolved_solids": 84,
+        "pH": 7.8
+      },
+      "mentions_reglementaires": [],
+      "mentions_revendiquees_par_la_marque": [],
+      "accroche": "Une eau de puits profond au pied du volcan Mauna Loa, à Hawaï, filtrée par la roche volcanique.",
+      "source_url": "https://cdn.shopify.com/s/files/1/0232/9493/files/Waiakea_Water_Quality_Report_2026.pdf?v=1779291346",
+      "sources_complementaires": [
+        "https://www.waiakea.com/pages/water-quality-report"
+      ],
+      "releve_le": "2026-10-11",
+      "note": "Rapport 2026 de la marque (échantillons de mars 2026), tableau détaillé « Product analysis ». Le tableau résumé de la page 1 est mal aligné (il place 3,0 au chlore, 2,9 au fluor) : on retient le tableau détaillé. TDS 84 mg/L, pas un résidu sec. Aucune mention de l’annexe III.",
+      "gamme": "prestige",
+      "disponibilite": {
+        "US": {
+          "achat": "local",
+          "url": "https://giantfoodstores.com/groceries/product/waiakea-hawaiian-volcanic-water-naturally-alkaline-with-electrolytes-1-5-ltr-btl/273086"
+        }
+      },
+      "livraison_internationale": null,
+      "prix_indicatif_eur_litre": null
+    },
+    {
+      "id": "solan_de_cabras",
+      "marque": "Solán de Cabras",
+      "type_id": "faiblement_mineralisee",
+      "statut": "eau minérale naturelle (agua mineral natural)",
+      "pays": "Espagne",
+      "source_lieu": "Beteta, Serranía de Cuenca (Castille-La Manche)",
+      "gazeuse": false,
+      "residu_sec_mg_l": null,
+      "calcium_mg_l": 60.0,
+      "magnesium_mg_l": 26.7,
+      "sodium_mg_l": 4.8,
+      "bicarbonates_mg_l": 284,
+      "sulfates_mg_l": 21.8,
+      "silice_mg_l": 7.5,
+      "autres_mg_l": {
+        "potassium": 1.0,
+        "chlorures": 8.3,
+        "fluorures": "<0,20"
+      },
+      "mentions_reglementaires": [
+        "convient pour un régime pauvre en sodium"
+      ],
+      "mentions_revendiquees_par_la_marque": [],
+      "accroche": "Une source de la Serranía de Cuenca, en Espagne, reconnaissable à sa bouteille bleue.",
+      "source_url": "https://solandecabras.es/en/natural-mineral-water/",
+      "sources_complementaires": [],
+      "releve_le": "2026-10-11",
+      "note": "Composition publiée par la marque. Résidu sec non chiffré (la marque dit « mineralización débil ») : null, aucune mention de minéralisation calculée.",
+      "gamme": "bien_faite",
+      "disponibilite": {
+        "ES": {
+          "achat": "local",
+          "url": "https://www.elcorteingles.es/supermercado/B001018630000810-agua-mineral-natural-botella-15-l-solan-de-cabras/"
+        },
+        "FR": {
+          "achat": "local",
+          "url": "https://www.bienmanger.com/2F49213_Solan_Cabras_Mineral_Water.html"
+        }
+      },
+      "livraison_internationale": null,
+      "prix_indicatif_eur_litre": null
     }
   ],
   "eau_de_coco": {
