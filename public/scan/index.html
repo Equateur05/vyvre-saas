@@ -1326,7 +1326,7 @@ function executeCapture() {
     // Visage absent ou mal détecté → alerte AVANT scan, pas après
     console.warn('[CHARLOTTE_TILBURY] face check failed:', { score, landmarksCount, boxSize, minBox });
     showNoFaceBanner(VY.t('ban.main2'));
-    window.__vyLecture = null; window.__vyMoteur = false;
+    window.__vyLecture = null; window.__vyMoteur = false; if (window.__vyPct) window.__vyPct.echec();
     // Reset pour permettre une nouvelle calibration
     STATE.scanning = false;
     STATE.thermalMode = false;
@@ -1519,7 +1519,7 @@ function launchComputation() {
       realScanPromise = scanFromImage(scanSource);
     } else {
       /* 05/10 (audit) : la lecture complete (controle de qualite + 8 images), sans temps morts ; memes scores que la lecture longue */
-      realScanPromise = window.__vyLecture || window.VYVRE_SCAN_ENGINE.runRealScanWithFeedback(scanSource, function(){}, { sansDecompte: true, gateMs: 900, gateFrames: 10, analyseMs: 2400, skipAge: true }).catch(err => {
+      realScanPromise = window.__vyLecture || window.VYVRE_SCAN_ENGINE.runRealScanWithFeedback(scanSource, window.__vyPctLecture ? window.__vyPctLecture() : function(){}, { sansDecompte: true, gateMs: 900, gateFrames: 10, analyseMs: 2400, skipAge: true }).catch(err => {
         console.warn('[CHARLOTTE_TILBURY] real scan failed:', err);
         return null;
       });
@@ -1527,6 +1527,8 @@ function launchComputation() {
   } else {
     console.warn('[CHARLOTTE_TILBURY] engine ou source absente, fallback');
   }
+  /* 11/10 : la pastille du pourcentage suit la lecture sur l'ecran du calcul */
+  if (window.__vyPct && window.__vyPct.active()) window.__vyPct.rattacher(document.body, 'vy-pct-fixe');
 
   // Animation des étapes texte (5.4s total)
   const steps = [
@@ -1555,6 +1557,7 @@ function launchComputation() {
                   }
                   const refus = !result || result.rejected || !result.scores || result.scores.error;
                   if (refus) {
+                    if (window.__vyPct) window.__vyPct.echec();
                     if (STATE.stream) STATE.stream.getTracks().forEach(t => t.stop());
                     computationActive = false; window.vyvreLastScanResult = null;
                     if (!document.getElementById('vyvre-v9-reject') && window.VYVRE_SCAN_ENGINE && window.VYVRE_SCAN_ENGINE.showRejectUI) {
@@ -1986,6 +1989,18 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
 </script>
 <!-- VYVRE V10: TF.js removed from eager load — handled by /vyvre-loader.js -->
 <script src="/scan/vyvre-scan-engine.js?v=10.14" defer></script>
+<script src="/scan/vy-pourcent.js?v=1" defer></script>
+<style id="vy-pct-place">
+/* 11/10 (Charles) : la pastille « 47 % » centree juste sous l'anneau de verre (le cadre camera), jamais sur le visage */
+#thermal-vid-container .vy-pct{bottom:auto;top:min(calc(47% + 46vmin + 12px),calc(100% - 44px))}
+/* ecran en largeur (ordinateur) : l'anneau descend jusqu'au bandeau « Points / Optique » ; la pastille se pose juste au-dessus, dans le fondu bas de l'image */
+@media (orientation:landscape){#thermal-vid-container .vy-pct{top:auto;bottom:88px}}
+.vy-pct.vy-pct-fixe{position:fixed;z-index:60;bottom:auto;top:min(calc(47vh + 46vmin + 12px),calc(100vh - 230px))}
+</style>
+<script>
+/* 11/10 : chaque lecture du moteur nourrit la pastille ; une nouvelle tentative la remet a 0 */
+window.__vyPctLecture=function(){try{if(!window.VyPourcent)return function(){};var vc=document.getElementById('thermal-vid-container');if(!window.__vyPct)window.__vyPct=window.VyPourcent.creer({parent:vc,dureeImages:4000});else window.__vyPct.rattacher(vc,'');return window.__vyPct.lecture();}catch(e){return function(){};}};
+</script>
 <!-- VYVRE_V10_TRACKER_BEGIN -->
 <script src="/scan/vyvre-tracker.js?v=10.2" defer></script>
 <!-- VYVRE_V10_TRACKER_END -->
@@ -2597,7 +2612,7 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     /* le scan du moteur : on remplace sa mise en scène thermique par la nôtre, puis on rend la main à executeCapture */
     var _startThermal=startThermalScan;startThermalScan=function(){STATE.thermalMode=true;vyHud('hud.read');T0=performance.now();for(var i=0;i<68;i++)LIT[i]=0;
       /* 05/10 : la vraie lecture demarre des le verrouillage, pendant l'animation (plus d'attente apres) ; l.animation passe de 9,6 s a 5 s */
-      try{var vv=document.getElementById('liveVideo');if(vv&&vv.videoWidth&&vv.style.display!=='none'&&window.VYVRE_SCAN_ENGINE&&!window.__vyLecture){window.__vyMoteur=true;var moi=window.__vyLecture=window.VYVRE_SCAN_ENGINE.runRealScanWithFeedback(vv,function(){},{sansDecompte:true,gateMs:900,gateFrames:10,analyseMs:2400,skipAge:true}).catch(function(){return null;}).then(function(r){if(window.__vyLecture===moi)window.__vyMoteur=false;return r;});}}catch(e){}
+      try{var vv=document.getElementById('liveVideo');if(vv&&vv.videoWidth&&vv.style.display!=='none'&&window.VYVRE_SCAN_ENGINE&&!window.__vyLecture){window.__vyMoteur=true;var moi=window.__vyLecture=window.VYVRE_SCAN_ENGINE.runRealScanWithFeedback(vv,window.__vyPctLecture?window.__vyPctLecture():function(){},{sansDecompte:true,gateMs:900,gateFrames:10,analyseMs:2400,skipAge:true}).catch(function(){return null;}).then(function(r){if(window.__vyLecture===moi)window.__vyMoteur=false;return r;});}}catch(e){}
       setTimeout(function(){executeCapture();},DUR*1000/1.92);};
     var hudDer=0;(function frame(now){if(window.__vyMoteur&&now-hudDer<32){requestAnimationFrame(frame);return;}hudDer=now;var t=now/1000;x.clearRect(0,0,W2,H2);var P=pts();if(P&&document.getElementById('view-scanner').classList.contains('active')){if(T0){var T=(now-T0)/1000*1.92;if(T<DUR+.5)scene(t,P,T);}else attente(t,P);}if(!reduce)requestAnimationFrame(frame);})(0);
   }
