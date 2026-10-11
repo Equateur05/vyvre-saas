@@ -774,15 +774,17 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
    * @returns {Promise<{x:number,y:number,w:number,h:number,method:string,landmarks?:Array<{x,y}>}>}
    *          Bounding box + landmarks optionnels (68 points {x,y} si dispo).
    */
+  // 11/10 : un visage tres proche (plus de 60 % de la largeur, selfie de face au telephone) n'etait
+  // pas trouve a la taille 320 : la lecture mesurait alors le rectangle central de secours (cheveux,
+  // fond) et refusait toutes les images. On garde 320 en premier (rien ne change quand il trouve),
+  // puis on essaie d'autres tailles avant de tomber sur le rectangle de secours.
+  const FACE_API_INPUT_SIZES = [FACE_API_INPUT_SIZE, 224, 160, 416];
+
   async function detectFaceROI(imageData) {
     // Priorité 1 : face-api.js (chargé via CDN dans les POCs)
     if (typeof window !== 'undefined' && typeof window.faceapi !== 'undefined') {
       try {
         const fa = window.faceapi;
-        const tinyOpts = new fa.TinyFaceDetectorOptions({
-          inputSize: FACE_API_INPUT_SIZE,
-          scoreThreshold: FACE_API_SCORE_THRESHOLD
-        });
         const tmpCanvas = document.createElement('canvas');
         tmpCanvas.width = imageData.width;
         tmpCanvas.height = imageData.height;
@@ -791,33 +793,43 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
         // v10.3 : tente landmarks si modèle dispo (sinon juste detectSingleFace)
         const lmModelReady = fa.nets && fa.nets.faceLandmark68Net &&
                              fa.nets.faceLandmark68Net.params;
-        if (lmModelReady) {
-          try {
-            const withLm = await fa.detectSingleFace(tmpCanvas, tinyOpts).withFaceLandmarks();
-            if (withLm && withLm.detection && withLm.detection.box) {
-              const box = withLm.detection.box;
-              const positions = (withLm.landmarks && withLm.landmarks.positions) || null;
-              const landmarks = positions
-                ? positions.map(p => ({ x: p.x, y: p.y }))
-                : null;
-              return {
-                x: box.x, y: box.y, w: box.width, h: box.height,
-                method: landmarks ? 'face-api-landmarks' : 'face-api',
-                landmarks: landmarks  // 68 points {x,y} ou null
-              };
+        for (const inputSize of FACE_API_INPUT_SIZES) {
+          const tinyOpts = new fa.TinyFaceDetectorOptions({
+            inputSize,
+            scoreThreshold: FACE_API_SCORE_THRESHOLD
+          });
+          let essaiSansReperes = !lmModelReady;
+          if (lmModelReady) {
+            try {
+              const withLm = await fa.detectSingleFace(tmpCanvas, tinyOpts).withFaceLandmarks();
+              if (withLm && withLm.detection && withLm.detection.box) {
+                const box = withLm.detection.box;
+                const positions = (withLm.landmarks && withLm.landmarks.positions) || null;
+                const landmarks = positions
+                  ? positions.map(p => ({ x: p.x, y: p.y }))
+                  : null;
+                return {
+                  x: box.x, y: box.y, w: box.width, h: box.height,
+                  method: landmarks ? 'face-api-landmarks' : 'face-api',
+                  landmarks: landmarks  // 68 points {x,y} ou null
+                };
+              }
+            } catch (lmErr) {
+              // landmarks optional — fallback to box-only detection below
+              essaiSansReperes = true;
             }
-          } catch (lmErr) {
-            // landmarks optional — fallback to box-only detection below
           }
-        }
+          // 11/10 : sans erreur des reperes, la detection seule donnerait le meme « aucun visage » : on passe a la taille suivante
+          if (!essaiSansReperes) continue;
 
-        const detection = await fa.detectSingleFace(tmpCanvas, tinyOpts);
-        if (detection && detection.box) {
-          const box = detection.box;
-          return {
-            x: box.x, y: box.y, w: box.width, h: box.height,
-            method: 'face-api'
-          };
+          const detection = await fa.detectSingleFace(tmpCanvas, tinyOpts);
+          if (detection && detection.box) {
+            const box = detection.box;
+            return {
+              x: box.x, y: box.y, w: box.width, h: box.height,
+              method: 'face-api'
+            };
+          }
         }
       } catch (e) {
         console.warn('[vyvre-scan] face-api detection failed:', e.message);
@@ -2547,6 +2559,7 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
     const allFrames = [];
     const interval = durationMs / targetFrames;
     let imageWidth = 0, imageHeight = 0;
+    const motifs = {};   // 11/10 : pourquoi les images ont ete refusees (rendu a la page en cas d'echec)
 
     for (let i = 0; i < targetFrames; i++) {
       await new Promise(r => setTimeout(r, interval));
@@ -2565,7 +2578,9 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
 
         const allPixels = cheekPixels.concat(tzonePixels, foreheadPixels);
         const quality = assessFrameQuality(allPixels);
+        if (roi && roi.method === 'fallback-center' && typeof window !== 'undefined' && window.faceapi) motifs.no_face = (motifs.no_face || 0) + 1;
         if (!quality.ok) {
+          motifs[quality.reason] = (motifs[quality.reason] || 0) + 1;
           VYVRE_LOG(`[vyvre-scan v7] frame ${i} rejected: ${quality.reason}`);
           continue;
         }
@@ -2583,12 +2598,16 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
           imageData, landmarks: lms, yeux, peau
         });
       } catch (e) {
+        motifs.erreur = (motifs.erreur || 0) + 1;
         console.warn(`[vyvre-scan v7] frame ${i} error:`, e.message);
       }
     }
 
     if (allFrames.length < SCAN_MIN_ACCEPTED_FRAMES) {
-      throw new Error('insufficient_frames (' + allFrames.length + '/' + targetFrames + ')');
+      const eIns = new Error('insufficient_frames (' + allFrames.length + '/' + targetFrames + ')');
+      eIns.code = 'INSUFFICIENT_FRAMES';
+      eIns.motifs = motifs;
+      throw eIns;
     }
 
     // Agrégation cross-frame
@@ -5285,7 +5304,8 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
               scores.algoBioAge = ensembleAge.algoBioAge;
             }
           } catch (e) {
-            console.warn('[vyvre-scan v10] ensemble failed, keeping algo result:', e.message);
+            // 11/10 : age non demande = pas une panne, pas d'avertissement dans la console
+            if (opts.skipAge) VYVRE_LOG('[vyvre-scan v10] age non demande'); else console.warn('[vyvre-scan v10] ensemble failed, keeping algo result:', e.message);
           }
 
           emit({ phase: 'analyzing', subprocess: 'finalize', progress: 0.95 });
@@ -5303,7 +5323,8 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
           return finalResult;
         } catch (e) {
           console.error('[vyvre-scan v10] runRealScanWithFeedback failed:', e.message);
-          emit({ phase: 'error', error: e.message });
+          // 11/10 : la raison connue (code + motifs de refus des images) accompagne l'evenement ; le retour reste null (retrocompat)
+          emit({ phase: 'error', error: e.message, code: e.code || null, motifs: e.motifs || null });
           return null;
         }
       },

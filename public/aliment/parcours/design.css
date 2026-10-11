@@ -416,3 +416,12 @@ details.details-aliment[open]>summary::before{content:'–'}
  body.un-ecran #scanContinue .primary{min-height:44px;padding-top:12px;padding-bottom:12px}
  body.un-ecran .scan-layout:not(.en-lecture) .frame-actions{margin-top:6px;gap:8px}
 }
+/* 11/10 : la roue « en direct » ne fait plus de mise en page ni de repeinture a chaque image (iPhone, pendant la lecture) :
+   memes tailles et memes mouvements, mais animes par transform (le compositeur), plus par width/height ni background-position */
+.roue-live .rl img{width:40px;height:40px;transform:scale(.85);transform-origin:0 50%;transition:transform .45s}
+.roue-live .rl span{transform:translateX(-6px);transition:transform .45s}
+.roue-live .rl.on img,.roue-live .rl.on span{transform:none}
+.roue-live .rl{contain:layout style}
+.rv i{position:relative;overflow:hidden;background:#ecebe4;animation:none}
+.rv i::before{content:'';position:absolute;top:0;bottom:0;left:-200%;width:400%;background:linear-gradient(90deg,#ecebe4,#f7f6f1,#ecebe4) 0 0/50% 100% repeat-x;animation:attente-t 1.4s linear infinite}
+@keyframes attente-t{to{transform:translateX(50%)}}

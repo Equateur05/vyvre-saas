@@ -1985,7 +1985,7 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
   });
 </script>
 <!-- VYVRE V10: TF.js removed from eager load — handled by /vyvre-loader.js -->
-<script src="/scan/vyvre-scan-engine.js?v=10.13" defer></script>
+<script src="/scan/vyvre-scan-engine.js?v=10.14" defer></script>
 <!-- VYVRE_V10_TRACKER_BEGIN -->
 <script src="/scan/vyvre-tracker.js?v=10.2" defer></script>
 <!-- VYVRE_V10_TRACKER_END -->
@@ -2577,9 +2577,11 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     function attente(t,P){var b=bounds(P);P.forEach(function(p,i){x.beginPath();x.arc(p[0],p[1],.6,0,6.283);x.fillStyle=rgba(BL,.18+.12*Math.sin(t*2+i));x.fill();});var m=26,L=22;[[b.x0-m,b.y0-m*1.2,1,1],[b.x1+m,b.y0-m*1.2,-1,1],[b.x0-m,b.y1+m,1,-1],[b.x1+m,b.y1+m,-1,-1]].forEach(function(c2){x.beginPath();x.moveTo(c2[0],c2[1]+c2[3]*L);x.lineTo(c2[0],c2[1]);x.lineTo(c2[0]+c2[2]*L,c2[1]);stroke(rgba(BL,.35),1);});txt('CENTREZ VOTRE VISAGE',b.cx,b.y0-m*1.2-12,.6,9,'center');}
     /* détection comme sur Sothys : sur un tampon de 256 px, une à la fois, jamais deux en même temps */
     var dbuf=document.createElement('canvas'),dctx=dbuf.getContext('2d',{willReadFrequently:true}),dopts=null,dbusy=false;
+    /* 11/10 : un visage tres proche (selfie au telephone) n'est pas vu a la taille 320 : apres un echec on essaie 224 puis 160 */
+    var DSZ=[320,224,160],dsi=0;
     detectAndDraw=function(){ if(!STATE.modelsLoaded||vid.paused||!vid.videoWidth||dbusy||!window.faceapi||window.__vyMoteur)return; dbusy=true;
-      try{ if(!dopts)dopts=new faceapi.TinyFaceDetectorOptions({inputSize:320,scoreThreshold:.3}); var bw=512,bh=Math.max(32,Math.round(bw*vid.videoHeight/vid.videoWidth)); if(dbuf.width!==bw||dbuf.height!==bh){dbuf.width=bw;dbuf.height=bh;} dctx.drawImage(vid,0,0,bw,bh);
-        faceapi.detectSingleFace(dbuf,dopts).withFaceLandmarks().then(function(r){dbusy=false; if(r&&r.landmarks&&r.landmarks.positions.length>=68){var kx=vid.videoWidth/bw,ky=vid.videoHeight/bh;STATE.landmarks=r.landmarks.positions.map(function(q){return {x:q.x*kx,y:q.y*ky};});var bx=r.detection.box;STATE.box={x:bx.x*kx,y:bx.y*ky,width:bx.width*kx,height:bx.height*ky};STATE.detectionScore=r.detection.score||0;STATE.lastDetectionAt=performance.now();var hn=document.getElementById('hud-nodes');if(hn)hn.innerText='68';}else{STATE.detectionScore=0;}}).catch(function(){dbusy=false;});
+      try{ if(!dopts)dopts=new faceapi.TinyFaceDetectorOptions({inputSize:DSZ[dsi],scoreThreshold:.3}); var bw=512,bh=Math.max(32,Math.round(bw*vid.videoHeight/vid.videoWidth)); if(dbuf.width!==bw||dbuf.height!==bh){dbuf.width=bw;dbuf.height=bh;} dctx.drawImage(vid,0,0,bw,bh);
+        faceapi.detectSingleFace(dbuf,dopts).withFaceLandmarks().then(function(r){dbusy=false; if(r&&r.landmarks&&r.landmarks.positions.length>=68){var kx=vid.videoWidth/bw,ky=vid.videoHeight/bh;STATE.landmarks=r.landmarks.positions.map(function(q){return {x:q.x*kx,y:q.y*ky};});var bx=r.detection.box;STATE.box={x:bx.x*kx,y:bx.y*ky,width:bx.width*kx,height:bx.height*ky};STATE.detectionScore=r.detection.score||0;STATE.lastDetectionAt=performance.now();var hn=document.getElementById('hud-nodes');if(hn)hn.innerText='68';}else{STATE.detectionScore=0;dsi=(dsi+1)%DSZ.length;dopts=null;}}).catch(function(){dbusy=false;});
       }catch(e){dbusy=false;} };
     /* filet de sécurité : si la vidéo est en pause ou si le moteur ne remonte aucun repère, on relance et on détecte nous-mêmes */
     var lastOwn=0,ownBusy=false,lockSince=0;

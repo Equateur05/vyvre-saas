@@ -66,12 +66,17 @@ function bulleV(x, F, b, teinte){
   if('letterSpacing' in x) x.letterSpacing = (1.6*s) + 'px'; x.fillText(b.titre, lx + pad + 3*s, ly + pad*.6 + 7*s); if('letterSpacing' in x) x.letterSpacing = '0px';
   if(b.sous){ x.font = '500 ' + (10*s).toFixed(1) + 'px "IBM Plex Mono", ui-monospace, Menlo, monospace'; x.fillStyle = 'rgba(228,234,232,.9)'; x.fillText(b.sous, lx + pad + 3*s, ly + pad*.6 + 21*s); }
 }
+/* 11/10 : taille du cadre et object-position relues 4 fois par seconde, plus a chaque image (chaque lecture forcait une mise en page pendant que la roue du bas bougeait) */
+function geo(a, now){
+  if(!a.g || now - a.g.t > 250){ const r = a.boite.getBoundingClientRect(), cs = getComputedStyle(a.media); a.g = { t:now, W:r.width, H:r.height, op:(cs.objectPosition || '50% 50%').split(' ').map(v => parseFloat(v)/100) }; }
+  return a.g;
+}
 function dessinerV1(a, now, sw, sh){
-  const M = V1M, V = M.VARIANTES[0], r = a.boite.getBoundingClientRect(), d = Math.min(2, devicePixelRatio || 1), W = r.width, H = r.height;
+  const M = V1M, V = M.VARIANTES[0], geom = geo(a, now), d = Math.min(2, devicePixelRatio || 1), W = geom.W, H = geom.H;
   if(a.cv.width !== Math.round(W*d)){ a.cv.width = Math.round(W*d); a.cv.height = Math.round(H*d); }
   const x = a.x; x.setTransform(d, 0, 0, d, 0, 0); x.clearRect(0, 0, W, H);
   const vivant = a.L && now - a.vu < 1500; a.cv.style.opacity = vivant ? '1' : '0'; if(!a.L || !sw) return;
-  const cs = getComputedStyle(a.media), op = (cs.objectPosition || '50% 50%').split(' ').map(v => parseFloat(v)/100);
+  const op = geom.op;
   const s = Math.max(W/sw, H/sh), dw = sw*s, dh = sh*s, ox = (W - dw)*(isNaN(op[0]) ? .5 : op[0]), oy = (H - dh)*(isNaN(op[1]) ? .5 : op[1]);
   const mir = a.media.tagName === 'VIDEO', L = a.L, n = L.length, m = a.memV || (a.memV = {});
   if(!m.P || m.P.length !== n){ m.P = L.map(() => ({ x:0, y:0 })); m.Z = new Float32Array(n); m.N = new Float32Array(n); m.topo = null; }
@@ -152,6 +157,7 @@ function mesurer(L){
 let tPanneau = 0;
 function panneau(now){
   const el = document.getElementById('vyLive'); if(!el || !MES || now - tPanneau < 130) return; tPanneau = now;
+  { const dt = el.closest('details'); if(dt && !dt.open) return; }   /* 11/10 : panneau replie (telephone) : rien a reconstruire */
   const f1 = v => v.toFixed(1).replace('.', ','), ligne = (k, v, etat, pct) => `<div class="lv"><span>${k}</span><b>${v}</b><i style="--p:${Math.max(0, Math.min(100, pct))}%"></i><em>${etat}</em></div>`;
   const lu = MES.lumiere, ca = MES.cadrage, st = MES.stabilite;
   let h = ligne('Lumière', 'L* ' + f1(lu), lu < 38 ? 'trop sombre' : lu > 82 ? 'trop vive' : 'bonne', lu)
@@ -189,18 +195,20 @@ function boucle(now){
       else for(let i = 0; i < a.L.length; i++){ a.L[i].x += (n[i].x - a.L[i].x)*.45; a.L[i].y += (n[i].y - a.L[i].y)*.45; a.L[i].z += (n[i].z - a.L[i].z)*.45; }
       a.vu = now; if(a.debut === null) a.debut = now; mesurer(a.L); }
   }
-  if(MODE_V1 && V1M){ if(now - tMesV > 400 && a.L){ tMesV = now; mesurerV(a.L); } dessinerV1(a, now, sw, sh); } else dessiner(a, now, sw, sh);
-  panneau(now);
+  /* 11/10 : pendant la lecture du moteur (window.__vyLectureEnCours), le dessin passe a 30 images/s pour laisser la main a la lecture et a la roue du bas */
+  if(!window.__vyLectureEnCours || now - (a.td || 0) >= 30){ a.td = now;
+    if(MODE_V1 && V1M){ if(now - tMesV > 400 && a.L){ tMesV = now; mesurerV(a.L); } dessinerV1(a, now, sw, sh); } else dessiner(a, now, sw, sh);
+    panneau(now); }
   requestAnimationFrame(boucle);
 }
 
 function dessiner(a, now, sw, sh){
-  const r = a.boite.getBoundingClientRect(), d = Math.min(2, devicePixelRatio || 1), W = r.width, H = r.height;
+  const geom = geo(a, now), d = Math.min(2, devicePixelRatio || 1), W = geom.W, H = geom.H;
   if(a.cv.width !== Math.round(W*d)){ a.cv.width = Math.round(W*d); a.cv.height = Math.round(H*d); }
   const x = a.x; x.setTransform(d, 0, 0, d, 0, 0); x.clearRect(0, 0, W, H);
   const vivant = a.L && now - a.vu < 1500; a.cv.style.opacity = vivant ? '1' : '0'; if(!a.L || !sw) return;
   // la meme mise en page que la photo : object-fit cover, object-position lue sur l'element, miroir pour la camera
-  const cs = getComputedStyle(a.media), op = (cs.objectPosition || '50% 50%').split(' ').map(v => parseFloat(v)/100);
+  const op = geom.op;
   const s = Math.max(W/sw, H/sh), dw = sw*s, dh = sh*s, ox = (W - dw)*(isNaN(op[0]) ? .5 : op[0]), oy = (H - dh)*(isNaN(op[1]) ? .5 : op[1]);
   const miroir = a.media.tagName === 'VIDEO';
   const L = a.L; if(a.PC.length !== L.length) a.PC = L.map(() => ({ x:0, y:0 }));
