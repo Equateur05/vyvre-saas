@@ -425,3 +425,10 @@ details.details-aliment[open]>summary::before{content:'–'}
 .rv i{position:relative;overflow:hidden;background:#ecebe4;animation:none}
 .rv i::before{content:'';position:absolute;top:0;bottom:0;left:-200%;width:400%;background:linear-gradient(90deg,#ecebe4,#f7f6f1,#ecebe4) 0 0/50% 100% repeat-x;animation:attente-t 1.4s linear infinite}
 @keyframes attente-t{to{transform:translateX(50%)}}
+
+/* 11/10 : la jauge du passage automatique (2,5 s apres un choix), sur le bouton Continuer ; comme celle du choix par defaut */
+[data-action].compte{position:relative;isolation:isolate}
+[data-action].compte::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;border-radius:2px;background:currentColor;opacity:.5;transform:scaleX(0);transform-origin:left center;animation:vyDefaut var(--d,2500ms) linear forwards;pointer-events:none}
+.primary.compte::after{left:16px;right:16px;bottom:6px}
+[dir=rtl] [data-action].compte::after{transform-origin:right center}
+@media (prefers-reduced-motion:reduce){[data-action].compte::after{display:none}}

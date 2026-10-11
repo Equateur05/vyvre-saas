@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8"><link rel="icon" href="data:,">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>VYVRE — Scan capillaire</title>
 <meta name="vy-title-key" content="hc.meta.t">
@@ -989,6 +989,13 @@ body.da-fibre .qnav{text-align:start}
   .qmulti{margin:-26px 0 16px;gap:8px 14px}
   .qmulti .qm-go{padding:13px 18px}
 }
+/* 11/10 : la jauge du passage automatique (2,5 s apres un choix), sur Continuer */
+.qmulti .qm-go{position:relative;overflow:hidden}
+.qmulti .qm-go::after{content:"";position:absolute;left:18px;right:18px;bottom:6px;height:2px;border-radius:2px;background:currentColor;opacity:0;transform:scaleX(0);transform-origin:left center;pointer-events:none}
+.qmulti .qm-go.compte::after{opacity:.55;animation:qmCompte var(--d,2500ms) linear forwards}
+@keyframes qmCompte{to{transform:scaleX(1)}}
+[dir=rtl] .qmulti .qm-go::after{transform-origin:right center}
+@media (prefers-reduced-motion:reduce){.qmulti .qm-go::after{display:none}}
 @media (max-width:640px){
   body.da-fibre .q-carres.pas-a-pas .qlabel em{font-size:clamp(34px,10vw,48px)}
   body.da-fibre .q-carres.pas-a-pas .chip{font-size:19px;padding:15px 0}
@@ -2323,6 +2330,7 @@ function onChip(e){
   var go = e.target && e.target.closest ? e.target.closest('.qm-go') : null;
   if(go){
     e.preventDefault(); if(go.disabled) return;
+    arreterMulti();
     var lg = $('quizRows').querySelectorAll('.qr'), k = -1;
     Array.prototype.forEach.call(lg, function(l, j){ if(l.contains(go)) k = j; });
     if(k >= 0 && k < lg.length - 1) montrerEtape(k + 1); else if(quizComplete()) afterQuestions();
@@ -2343,6 +2351,25 @@ function paintRow(act){
   majMulti(act);
 }
 var departTimer = null;
+/* 11/10 (Charles : « on n'est pas oblige de cocher plusieurs choix ») : sur la question a choix multiple, la page passe
+   seule a la suite 2,5 s apres le dernier choix ; un nouveau choix relance le delai, tout decocher l'annule, Continuer
+   reste cliquable. Petite jauge sur Continuer, sans animation si l'appareil demande moins de mouvement (le passage reste). */
+var multiTimer = null, MULTI_MS = 2500;
+function arreterMulti(){
+  if(multiTimer){ clearTimeout(multiTimer); multiTimer = null; }
+  Array.prototype.forEach.call(document.querySelectorAll('#quizRows .qm-go.compte'), function(g){ g.classList.remove('compte'); });
+}
+function lancerMulti(act){
+  arreterMulti();
+  var row = null;
+  Array.prototype.forEach.call($('quizRows').querySelectorAll('.qr.qmul'), function(r){ if(r.querySelector('.chip[data-act="' + act + '"]')) row = r; });
+  var go = row && row.querySelector('.qm-go'); if(!go) return;
+  go.style.setProperty('--d', MULTI_MS + 'ms'); void go.offsetWidth; go.classList.add('compte');
+  multiTimer = setTimeout(function(){
+    multiTimer = null; go.classList.remove('compte');
+    if(go.isConnected && !go.disabled && row.classList.contains('courant')) go.click();
+  }, MULTI_MS);
+}
 function answer(act, v){
   var host = $('quizRows');
   var qm = questionDe(act);
@@ -2366,9 +2393,12 @@ function answer(act, v){
     if(!avancer){
       if(departTimer){ clearTimeout(departTimer); departTimer = null; }
       $('quizSkip').classList.toggle('go', quizComplete());
+      if(cur.length) lancerMulti(act); else arreterMulti();
       return;
     }
+    arreterMulti();
   } else {
+    arreterMulti();
     S.answers[act] = v;
     paintRow(act);
   }
@@ -4991,6 +5021,7 @@ function begin(fromPhoto){
   S.fromPhoto = !!fromPhoto;
   S.answers = {}; S.out = null; S.routine = null;
   if(departTimer){ clearTimeout(departTimer); departTimer = null; }
+  arreterMulti();
   $('quizSkip').classList.remove('go');
   loadFaceDetector();
   renderQuiz(); show('quiz');

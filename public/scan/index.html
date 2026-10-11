@@ -1070,7 +1070,10 @@ document.getElementById('btn-scan').addEventListener('click', async () => {
       setInterval(detectAndDraw, 100);
       /* 26/09 — trop sombre : on le dit en clair (90e centile de luminance, independant de la couleur de peau) */
       setInterval(function(){
-        try{ if(!video.videoWidth || !document.getElementById('view-scanner').classList.contains('active')) return;
+        /* 11/10 (iPhone de Charles) : le bandeau restait affiche apres le scan (on sortait avant de le cacher) ;
+           il disparait des qu'on quitte la camera et des que la lecture est jugee (refus : la vraie raison s'affiche). */
+        try{ var bn0 = document.getElementById('vy-sombre');
+          if(!video.videoWidth || !document.getElementById('view-scanner').classList.contains('active') || window.__vyLuOk){ if(bn0) bn0.style.display = 'none'; return; }
           var c = window.__lumCv || (window.__lumCv = document.createElement('canvas')); c.width = 48; c.height = 36;
           var x = c.getContext('2d', { willReadFrequently:true }); x.drawImage(video, 0, 0, 48, 36);
           var d = x.getImageData(0, 0, 48, 36).data, hs = new Uint32Array(32), n = 0, p90 = 1;
@@ -1497,6 +1500,8 @@ function drawEpigeneticMatrix(){
 window.vyvreLastScanResult = null;
 
 window.addEventListener('vyvre:scan-rejected-dismissed', function(){ location.reload(); });
+/* 11/10 : quand le moteur refuse, sa fenetre dit la vraie raison ; le bandeau « Pas assez de lumiere » s'efface */
+window.addEventListener('vyvre:scan-rejected', function(){ try { window.__vyLuOk = true; var b = document.getElementById('vy-sombre'); if (b) b.style.display = 'none'; } catch (e) {} });
 function launchComputation() {
   switchView('view-process');
   // NOTE: on garde STATE.stream actif pendant le real scan (besoin de capturer 8 frames)
@@ -1555,13 +1560,18 @@ function launchComputation() {
                     window.__vyMoteur = false;
                     clearTimeout(lent);
                   }
-                  const refus = !result || result.rejected || !result.scores || result.scores.error;
+                  /* 11/10 (iPhone de Charles) : une lecture qui n'a pas vraiment abouti (aucune image acceptee, clarte
+                     illisible, scores de secours) est refusee comme les autres : jamais de rituel sans vraie lecture */
+                  const lu = !!(result && result.raw && isFinite(result.raw.L) && result.raw.L > 0 && result.source !== 'fallback' && !(result.framesAccepted === 0));
+                  const refus = !result || result.rejected || !result.scores || result.scores.error || !lu;
+                  /* le bandeau « Pas assez de lumiere » ne survit jamais a la lecture : refus = la vraie raison, sinon il etait passager */
+                  try { window.__vyLuOk = true; const bs = document.getElementById('vy-sombre'); if (bs) bs.style.display = 'none'; } catch (_) {}
                   if (refus) {
                     if (window.__vyPct) window.__vyPct.echec();
                     if (STATE.stream) STATE.stream.getTracks().forEach(t => t.stop());
                     computationActive = false; window.vyvreLastScanResult = null;
                     if (!document.getElementById('vyvre-v9-reject') && window.VYVRE_SCAN_ENGINE && window.VYVRE_SCAN_ENGINE.showRejectUI) {
-                      const codes = (result && result.issues) || [{ code: result && result.scores && result.scores.error ? 'LOW_VARIANCE' : 'INSUFFICIENT_FRAMES' }];
+                      const codes = (result && result.issues) || [{ code: result && result.scores && result.scores.error ? 'LOW_VARIANCE' : (result && result.scores && !lu ? 'LOW_LUMINANCE' : 'INSUFFICIENT_FRAMES') }];
                       window.VYVRE_SCAN_ENGINE.showRejectUI(codes);
                     } else if (!document.getElementById('vyvre-v9-reject')) { const st=document.getElementById('step-3'); if(st) st.textContent='La lecture n’a pas pu se faire.'; const b=document.createElement('button'); b.className='spatial-btn'; b.textContent='Réessayer'; b.style.cssText='position:fixed;left:50%;bottom:120px;transform:translateX(-50%);z-index:2147483646'; b.onclick=()=>location.reload(); document.body.appendChild(b); }
                     return;
@@ -1700,6 +1710,12 @@ let _dashboardShown = false;
 function showFinalDashboard() {
   if (_dashboardShown) {
     console.log('[CHARLOTTE_TILBURY] showFinalDashboard already called, ignoring duplicate');
+    return;
+  }
+  /* 11/10 : sans vraie lecture, pas de resultats ni de rituel (plus de valeurs par defaut) : la raison et « Reessayer » */
+  if (!(window.vyvreLastScanResult && window.vyvreLastScanResult.scores)) {
+    console.warn('[VYVRE] aucune lecture aboutie : pas de resultats');
+    if (window.VYVRE_SCAN_ENGINE && window.VYVRE_SCAN_ENGINE.showRejectUI && !document.getElementById('vyvre-v9-reject')) window.VYVRE_SCAN_ENGINE.showRejectUI([{ code: 'INSUFFICIENT_FRAMES' }]);
     return;
   }
   _dashboardShown = true;
@@ -2554,10 +2570,12 @@ window.__vyPctLecture=function(){try{if(!window.VyPourcent)return function(){};v
     var ZONES=function(P){var b=bounds(contour(P));return [{n:'FRONT',k:'hydration',c:[(P[19][0]+P[24][0])/2,P[19][1]-b.h*.16],r:b.w*.3,side:1},{n:'POMMETTE G',k:'radiance',c:[(P[2][0]*.55+P[31][0]*.45),(P[2][1]+P[31][1])/2-6],r:b.w*.14,side:-1},{n:'POMMETTE D',k:'radiance',c:[(P[14][0]*.55+P[35][0]*.45),(P[14][1]+P[35][1])/2-6],r:b.w*.14,side:1},{n:'CONTOUR ŒIL',k:'fine lines',c:[(P[42][0]+P[45][0])/2,P[46][1]+8],r:b.w*.11,side:1},{n:'NEZ',k:'pores',c:[P[30][0],P[30][1]],r:b.w*.1,side:-1},{n:'MENTON',k:'texture',c:[P[8][0],P[8][1]-b.h*.08],r:b.w*.14,side:-1}];};
     /* 04/10 (audit) : plus aucun chiffre tire au hasard. Chaque valeur affichee est mesuree sur les vrais pixels de la camera :
        L* (clarte), a* (rouge), b* (jaune) en CIE Lab, sigma = texture (ecart type de L*), ombre sous l'oeil = L* joue moins L* sous l'oeil. */
-    var MAPK=null,MB=document.createElement('canvas'),MBX=MB.getContext('2d',{willReadFrequently:true}),MT=0,MD=null,MW=0,MH=0,MES={};
-    function prendre(){if(!vid.videoWidth)return;var now=performance.now();if(MD&&now-MT<220)return;MT=now;MW=240;MH=Math.round(240*vid.videoHeight/vid.videoWidth);if(MB.width!==MW){MB.width=MW;MB.height=MH;}try{MBX.drawImage(vid,0,0,MW,MH);MD=MBX.getImageData(0,0,MW,MH).data;}catch(e){MD=null;}}
+    var MAPK=null,MB=document.createElement('canvas'),MBX=MB.getContext('2d',{willReadFrequently:true}),MT=0,MD=null,MN=false,MW=0,MH=0,MES={};
+    function prendre(){if(!vid.videoWidth)return;var now=performance.now();if(MD&&now-MT<220)return;MT=now;MW=240;MH=Math.round(240*vid.videoHeight/vid.videoWidth);if(MB.width!==MW){MB.width=MW;MB.height=MH;}try{MBX.drawImage(vid,0,0,MW,MH);MD=MBX.getImageData(0,0,MW,MH).data;}catch(e){MD=null;}
+      /* 11/10 (iPhone de Charles : des releves a 0.0) : une image entierement noire est une camera illisible, pas une mesure : on affiche « — » */
+      MN=false;if(MD){var mx=0;for(var q=0;q<MD.length;q+=64){var u=MD[q]+MD[q+1]+MD[q+2];if(u>mx)mx=u;}MN=mx<3;}}
     function lab3(R,G,B){function f(c){c/=255;return c<=.04045?c/12.92:Math.pow((c+.055)/1.055,2.4);}var r=f(R),g=f(G),b=f(B),X=(r*.4124+g*.3576+b*.1805)/.95047,Y=r*.2126+g*.7152+b*.0722,Z=(r*.0193+g*.1192+b*.9505)/1.08883;function h(t){return t>.008856?Math.cbrt(t):7.787*t+16/116;}var fx2=h(X),fy=h(Y),fz=h(Z);return [116*fy-16,500*(fx2-fy),200*(fy-fz)];}
-    function mesure(pc,rad){prendre();if(!MD||!MAPK)return null;var k=MW/MAPK.vw,qx=(MAPK.vw-(pc[0]-MAPK.ox)/MAPK.sc)*k,qy=((pc[1]-MAPK.oy)/MAPK.sc)*k,rr=Math.max(2,Math.round(rad/MAPK.sc*k*.55)),n=0,sL=0,sa=0,sb=0,s2=0;
+    function mesure(pc,rad){prendre();if(!MD||MN||!MAPK)return null;var k=MW/MAPK.vw,qx=(MAPK.vw-(pc[0]-MAPK.ox)/MAPK.sc)*k,qy=((pc[1]-MAPK.oy)/MAPK.sc)*k,rr=Math.max(2,Math.round(rad/MAPK.sc*k*.55)),n=0,sL=0,sa=0,sb=0,s2=0;
       for(var yy=Math.round(qy-rr);yy<=qy+rr;yy++)for(var xx=Math.round(qx-rr);xx<=qx+rr;xx++){if(xx<0||yy<0||xx>=MW||yy>=MH)continue;var o=(yy*MW+xx)*4,c=lab3(MD[o],MD[o+1],MD[o+2]);sL+=c[0];sa+=c[1];sb+=c[2];s2+=c[0]*c[0];n++;}
       if(!n)return null;var L=sL/n;return {L:L,a:sa/n,b:sb/n,sd:Math.sqrt(Math.max(0,s2/n-L*L))};}
     /* la peau sous l'oeil, sans les cils : un tiers du chemin entre la paupiere basse et le bout du nez, petit rayon */
@@ -2724,7 +2742,10 @@ window.__vyPctLecture=function(){try{if(!window.VyPourcent)return function(){};v
 (function(){
   var fait=false;
   function lancer(){
-    if(fait) return; fait=true;
+    if(fait) return;
+    /* 11/10 : « Votre rituel, compose d'apres votre lecture » seulement apres une vraie lecture */
+    if(!(window.vyvreLastScanResult && window.vyvreLastScanResult.scores)) return;
+    fait=true;
     var cards=[].slice.call(document.querySelectorAll('[data-vyvre-prod-slot]')).filter(function(c){ return c.style.display!=='none'; });
     var prods=cards.map(function(c){ var im=c.querySelector('img'); var src=im?(im.getAttribute('src')||''):'';
       /* pas de reecriture vers le detourage PNG : les PNG ne partent pas en ligne (image cassee) */
@@ -2918,7 +2939,7 @@ html,body{background:#030405!important}
 #vy-recap i{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font:300 11px/1.3 Inter,sans-serif;font-style:normal;color:rgba(255,255,255,.85);margin-top:3px}
 @media (min-width:1100px){#vy-recap{display:none!important}}
 </style>
-<script src="/scan/aliment/vy-aliment.js?v=49" defer></script>
+<script src="/scan/aliment/vy-aliment.js?v=50" defer></script>
 <style id="vy-as-place">@media (min-width:1100px){.vyvre-v6 .v6grid>#vy-as-entree{grid-row:9!important;grid-column:1/13!important}}</style>
 <script id="vy-recap-js">
 window.vyRecap = function(){
@@ -3093,7 +3114,7 @@ header{backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important;-webki
   function open(m){
     mode=m; if(cadre) return;
     cadre=document.createElement('iframe'); cadre.id='vy-avant'; cadre.title=(window.VY&&VY.t)?VY.t('vp.kick'):'Avant votre scan';
-    cadre.src='/scan/avant/index.html?v=7&lang='+encodeURIComponent((window.VY&&VY.lang)||'fr'); cadre.setAttribute('allow','autoplay');
+    cadre.src='/scan/avant/index.html?v=8&lang='+encodeURIComponent((window.VY&&VY.lang)||'fr'); cadre.setAttribute('allow','autoplay');
     document.body.appendChild(cadre);
     cadre.setAttribute('tabindex','-1');
     cadre.addEventListener('load',function(){ try{ cadre.focus(); cadre.contentWindow.focus(); }catch(e){} });

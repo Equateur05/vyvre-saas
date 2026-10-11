@@ -233,3 +233,10 @@ body.part .scene,body.part .pied{transition:opacity 1s var(--e),filter 1s var(--
   .texte b[data-e],.texte .fantome,.bilan-w .gros,.voile p,.li.actif .lt{background-size:100% 100%!important}
   .boite,.prog i,.rep:before,.suite{transition-duration:.01s!important}
 }
+
+/* 11/10 : la jauge du passage automatique (2,5 s apres un choix), sur Continuer */
+.vy-go .vy-jauge{position:absolute;left:24%;right:24%;bottom:11px;height:2px;border-radius:2px;background:currentColor;opacity:0;transform:scaleX(0);transform-origin:left center;pointer-events:none}
+.vy-go.compte .vy-jauge{opacity:.6;animation:vyJauge var(--d,2500ms) linear forwards}
+@keyframes vyJauge{to{transform:scaleX(1)}}
+[dir=rtl] .vy-go .vy-jauge{transform-origin:right center}
+@media (prefers-reduced-motion:reduce){.vy-go .vy-jauge{display:none}}

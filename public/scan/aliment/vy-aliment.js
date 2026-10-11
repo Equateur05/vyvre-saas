@@ -761,21 +761,38 @@
       if((a('q8','rosacee')) && (r.notes || []).some(function(n){ return /pic/.test(n) && /épic|epice/i.test(n); })) return false;
       return true; }); }
   function recettes(pris, x){ if(!RECS.length) return ''; var ids = pris.map(function(c){ return c.f.id; }), ind = indicesDuScan() || {}, mois = new Date().getMonth() + 1;
-    var sures = recettesSures(x), n = sures.length;
+    /* 11/10 (Charles : « les recettes doivent correspondre au scan que je viens de faire ») : d'abord, et surtout, les recettes
+       qui contiennent au moins un aliment de l'assiette, triees par nombre d'aliments de l'assiette ; le compteur ne compte qu'elles.
+       Les recettes liees aux seuls besoins mesures viennent ensuite, a part (« Pour aller plus loin »). Les exclusions restent prioritaires. */
+    var sures = recettesSures(x), court = {};
+    pris.forEach(function(c){ var t = String(c.f.nom || c.f.id).split(' (')[0].split(',')[0]; court[c.f.id] = t.charAt(0).toLowerCase() + t.slice(1); });
+    var siens = function(r){ var v = []; r.ingredients.forEach(function(g){ if(g.aliment_id && court[g.aliment_id] && v.indexOf(g.aliment_id) < 0) v.push(g.aliment_id); }); return v; };
+    var avec = sures.filter(function(r){ return siens(r).length; }), n = avec.length;
+    var vise = function(r){ var c = r.cibles_peau || []; return (ind.i1 && c.indexOf(ind.i1) >= 0) || (ind.i2 && c.indexOf(ind.i2) >= 0); };
+    var loin = sures.filter(function(r){ return !siens(r).length && vise(r); });
+    var base = n ? avec : loin, compte = function(t, l){ return l.filter(function(r){ return r.type === t; }).length; };
+    var onglet = ONGLET; if(!compte(onglet, base)){ var mx = -1; TYPES_R.forEach(function(t){ var c = compte(t[0], base); if(c > mx){ mx = c; onglet = t[0]; } }); }
     var note = function(r){ var sc = r.ingredients.filter(function(g){ return ids.indexOf(g.aliment_id) >= 0; }).length * 3 + ((r.cibles_peau || []).indexOf(ind.i1) >= 0 ? 1.5 : 0) + ((r.cibles_peau || []).indexOf(ind.i2) >= 0 ? .75 : 0);
       if(AFFINE.saison) sc += (r.saison || []).indexOf(mois) >= 0 ? 1 : ((r.saison || []).length && (r.saison || []).length < 12 ? -1 : 0);
       if(AFFINE.cuisines.length && AFFINE.cuisines.indexOf(r.cuisine) >= 0) sc += 1.5; if(AFFINE.budget === 'serre') sc += ({ 1:1, 2:0, 3:-1.5 })[r.prix_niveau] || 0;
       if(AFFINE.usage === 'quotidien') sc += r.usage === 'quotidien' ? .5 : -1; return sc; };
-    var liste = sures.filter(function(r){ return r.type === ONGLET; }).sort(function(p, q){ return note(q) - note(p); });
+    var liste = base.filter(function(r){ return r.type === onglet; }).sort(function(p, q){ return (siens(q).length - siens(p).length) || (note(q) - note(p)); });
+    var plus = n ? loin.filter(function(r){ return r.type === onglet; }).sort(function(p, q){ return note(q) - note(p); }).slice(0, 6) : [];
     var carte = function(r, k){ var cout = ['', '€', '€€', '€€€'][r.prix_niveau] || '';
-      return '<div class="rit"><i>' + n2(k) + '</i><div><h3>' + esc(r.nom) + '</h3>' + (r.accroche ? '<p style="margin:4px 0 6px;line-height:1.55">' + esc(r.accroche) + '</p>' : '') + '<div class="sous">' + r.temps_min + ' min · ' + r.personnes + ' pers. · ' + (cout ? esc(cout) + ' · ' : '') + esc((CUISINES.filter(function(c){ return c[0] === r.cuisine; })[0] || ['', 'Universelle'])[1]) + '</div>'
+      return '<div class="rit"><i>' + n2(k) + '</i><div><h3>' + esc(r.nom) + '</h3>' + (siens(r).length ? '<div class="rec-avec" style="margin:3px 0 6px;font-size:13px;letter-spacing:.2px;color:#52716f">Avec : ' + esc(siens(r).map(function(id){ return court[id]; }).join(', ')) + '</div>' : '') + (r.accroche ? '<p style="margin:4px 0 6px;line-height:1.55">' + esc(r.accroche) + '</p>' : '') + '<div class="sous">' + r.temps_min + ' min · ' + r.personnes + ' pers. · ' + (cout ? esc(cout) + ' · ' : '') + esc((CUISINES.filter(function(c){ return c[0] === r.cuisine; })[0] || ['', 'Universelle'])[1]) + '</div>'
         + '<details><summary>Ingrédients et étapes</summary><p>' + r.ingredients.map(function(g){ return esc(g.quantite + ' ' + g.libelle); }).join(' · ') + '</p>' + r.etapes.map(function(e2, m){ return '<p><b style="font-weight:500">' + (m + 1) + '.</b> ' + esc(e2); }).join('</p>') + '</p>'
         + (r.notes || []).map(function(t){ return '<div class="prec" style="color:#52716f">' + esc(t) + '</div>'; }).join('') + '</details>'
         + '<div class="prec" style="color:#52716f">Allergènes : ' + ((r.allergenes_UE || []).length ? r.allergenes_UE.map(function(z){ return NOMS_AL[z] || z; }).join(', ') : 'aucun des 14 allergènes réglementés') + ((r.allergenes_possibles || []).length ? ' ; selon la marque : ' + r.allergenes_possibles.map(function(z){ return NOMS_AL[z] || z; }).join(', ') : '') + '.</div></div></div>'; };
-    return '<div id="vy-as-rec"><div class="m" style="margin-top:46px">' + n + ' recettes pour vous</div><h2 style="margin-top:6px">Recettes.</h2>'
-      + '<div class="puces" style="flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -24px 6px;padding:0 24px 4px">' + TYPES_R.map(function(t){ var c = sures.filter(function(r){ return r.type === t[0]; }).length; return '<span class="puce' + (t[0] === ONGLET ? ' on' : '') + '" data-onglet="' + t[0] + '" style="flex:none;font-size:12.5px;padding:9px 12px">' + t[1] + ' · ' + c + '</span>'; }).join('') + '</div>'
+    if(!base.length) return '';
+    var tete = n ? n + (n > 1 ? ' recettes' : ' recette') + ' avec vos aliments' : 'Aucune recette avec vos aliments';
+    return '<div id="vy-as-rec"><div class="m" style="margin-top:46px">' + tete + '</div><h2 style="margin-top:6px">Recettes.</h2>'
+      + (n ? '' : '<p class="lead">Aucune recette ne contient les aliments de votre assiette. Voici des recettes pour les besoins mesurés par votre lecture.</p>')
+      + '<div class="puces" style="flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -24px 6px;padding:0 24px 4px">' + TYPES_R.filter(function(t){ return compte(t[0], base); }).map(function(t){ return '<span class="puce' + (t[0] === onglet ? ' on' : '') + '" data-onglet="' + t[0] + '" style="flex:none;font-size:12.5px;padding:9px 12px">' + t[1] + ' · ' + compte(t[0], base) + '</span>'; }).join('') + '</div>'
       + liste.slice(0, OUVERTES).map(carte).join('')
-      + (liste.length > OUVERTES ? '<button class="btn sec" type="button" id="vy-as-plusrec">Voir ' + Math.min(6, liste.length - OUVERTES) + ' recettes de plus</button>' : '')
+      + (liste.length > OUVERTES ? '<button class="btn sec" type="button" id="vy-as-plusrec">Voir ' + Math.min(6, liste.length - OUVERTES) + (Math.min(6, liste.length - OUVERTES) > 1 ? ' recettes' : ' recette') + ' de plus</button>' : '')
+      + (plus.length ? '<details class="rec-loin" style="margin-top:28px"><summary>Pour aller plus loin · ' + plus.length + (plus.length > 1 ? ' recettes' : ' recette') + ' pour vos besoins mesurés</summary>'
+        + '<p class="fine">Sans les aliments de votre assiette : choisies pour ' + esc([INDICES[ind.i1], ind.i2 ? INDICES[ind.i2] : ''].filter(Boolean).join(' et ').toLowerCase()) + ', d’après votre lecture.</p>'
+        + plus.map(carte).join('') + '</details>' : '')
       + '<p class="fine">Aucune recette ne porte d’allégation de santé. Le niveau de prix est indicatif.</p></div>'; }
 
   /* ---- PRES DE VOUS : ou acheter ces aliments, autour de soi (OpenStreetMap, sans compte) ----

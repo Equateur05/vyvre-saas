@@ -23,6 +23,21 @@ window.VYD=(function(){
   ];
   var dernier=null, n=0, ecrit='', bloque=false, api;
   function FX(nom){ var f=api&&api.fx&&api.fx[nom]; return f?f.apply(null,[].slice.call(arguments,1)):undefined; }
+  /* 11/10 (Charles : « on n'est pas oblige de cocher plusieurs choix ») : apres chaque choix, la question passe seule
+     a la suite en 2,5 s ; un nouveau choix relance le delai, tout decocher l'annule, Continuer reste cliquable.
+     Petite jauge sur Continuer, sans animation si l'appareil demande moins de mouvement (le passage reste). */
+  var COMPTE_MS=2500, compteT=null;
+  function arreterCompte(){ clearTimeout(compteT); compteT=null; var ok=$('ok'); if(ok) ok.classList.remove('compte'); }
+  function lancerCompte(){
+    arreterCompte(); var ok=$('ok'), ici=n;
+    if(ok){ ok.style.setProperty('--d',COMPTE_MS+'ms'); void ok.offsetWidth; ok.classList.add('compte'); }
+    var partir=function(){
+      if(n!==ici) return; var et=ETAPES[n]; if(!et||!et.multi||!choix(et).length) return;
+      if(bloque){ compteT=setTimeout(partir,200); return; }
+      compteT=null; bloque=true; var d=dernier; FX('choisi', d, et); setTimeout(function(){ valider(d); }, REDUIT?120:260);
+    };
+    compteT=setTimeout(partir,COMPTE_MS);
+  }
 
   /* le texte coule : chaque lettre sort du flou en cascade (decal = attente de l'envol), le cadre defile vers le haut */
   function lettres(txt, base, decal){
@@ -105,6 +120,7 @@ window.VYD=(function(){
     if(!$('halo')){ var h=document.createElement('div'); h.id='halo'; document.body.appendChild(h); }
   }
   function poser(){
+    arreterCompte();
     var et=ETAPES[n];
     ambiance(n); FX('etape', n, ETAPES.length);
     $('boite').classList.remove('vue');
@@ -121,6 +137,7 @@ window.VYD=(function(){
     });
   }
   function valider(b){
+    arreterCompte();
     var et=ETAPES[n]; n++;
     if(et.multi && $('suite')){ $('suite').classList.remove('vue'); $('ok').onclick=null; }
     var duree=(!REDUIT && api.fx && api.fx.vol && b)?720:0;
@@ -155,8 +172,11 @@ window.VYD=(function(){
     /* plusieurs choix : « Continuer · 2 / 3 » apparait des le premier */
     if(et.multi && $('suite')){
       $('suite').classList.toggle('vue', v.length>0);
+      var enCours=$('ok').classList.contains('compte');
       $('ok').textContent=L.t('continuer')+' · '+v.length+' / '+(et.max||3);
-      $('ok').onclick=function(){ if(!bloque && choix(ETAPES[n]).length) { bloque=true; var d=dernier; FX('choisi', d, ETAPES[n]); setTimeout(function(){ valider(d); }, REDUIT?120:260); } };
+      $('ok').insertAdjacentHTML('beforeend','<i class="vy-jauge" aria-hidden="true"></i>');
+      if(enCours && !v.length) arreterCompte();
+      $('ok').onclick=function(){ if(!bloque && choix(ETAPES[n]).length) { arreterCompte(); bloque=true; var d=dernier; FX('choisi', d, ETAPES[n]); setTimeout(function(){ valider(d); }, REDUIT?120:260); } };
     }
     dire();
   }
@@ -188,7 +208,9 @@ window.VYD=(function(){
       if(et.multi){
         /* jusqu'a 3 reponses : chaque clic ajoute ou retire ; au 3e, on avance tout seul */
         poserValeur(et,v); dernier=b; peindre();
-        if(choix(et).length>=(et.max||3)){ bloque=true; FX('choisi', b, et); setTimeout(function(){ valider(b); }, REDUIT?200:420); }
+        if(choix(et).length>=(et.max||3)){ arreterCompte(); bloque=true; FX('choisi', b, et); setTimeout(function(){ valider(b); }, REDUIT?200:420); }
+        else if(choix(et).length) lancerCompte();
+        else arreterCompte();
         return;
       }
       bloque=true; /* un seul choix par question, meme en double-clic */
