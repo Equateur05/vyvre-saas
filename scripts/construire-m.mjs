@@ -9,7 +9,7 @@ import { dirname, join } from 'node:path';
 
 const racine = join(dirname(fileURLToPath(import.meta.url)), '..', 'public');
 let s = readFileSync(join(racine, 'scan', 'index.html'), 'utf8');
-const MARQUE_V = '1';
+const MARQUE_V = '2';
 
 function remplacer(ancien, nouveau, fois = 1) {
   const n = s.split(ancien).length - 1;
@@ -39,7 +39,8 @@ remplacer('  if (products.length === 0) return;\n',
   "  /* page de marque : uniquement les produits de cette marque (comparaison sur brand_name) */\n" +
   "  if (window.VYVRE_MARQUE) { products = window.vyMarque.produits(products); if (!products.length) { window.vyMarque.attente(); return; } }\n" +
   '  if (products.length === 0) return;\n');
-remplacer('    yeux: regleYeux\n', '    yeux: regleYeux,\n    marque: !!window.VYVRE_MARQUE\n');
+/* 12/10 : un revendeur (/m/sephora...) garde la diversite des marques du scan universel */
+remplacer('    yeux: regleYeux\n', '    yeux: regleYeux,\n    marque: !!window.VYVRE_MARQUE && !window.VYVRE_REVENDEUR\n');
 remplacer('window.VyChoix.enregistrer(selected, { scores: scores, marque: null });', 'window.VyChoix.enregistrer(selected, { scores: scores, marque: window.VYVRE_MARQUE || null });');
 
 // 4. le bloc « Pour les marques » (ses styles sont deja dans la page)

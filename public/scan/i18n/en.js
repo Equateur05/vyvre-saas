@@ -174,6 +174,8 @@ VY.add('en', {
 'b.kick': 'Skin reading · {n}',
 'b.title': 'VYVRE × {n} — Skin scan',
 'b.hero': 'Your skin, measured in under 10 seconds from your camera, pixel by pixel in the CIE Lab colour space. Then the three {n} products that suit it best.',
+'b.kickR': 'Selection available at {n}',
+'b.heroR': 'Your skin, measured in under 10 seconds from your camera, pixel by pixel in the CIE Lab colour space. Then the three products that suit it best, from the houses available at {n}.',
 'b.mk': 'For {n}',
 'b.mp': 'What you have just experienced can live on the {n} e-shop and in your stores, on your own catalogue, in your own codes. Start with a pilot, or let us build it with you, made to measure.',
 'pp.lab': 'Lab',

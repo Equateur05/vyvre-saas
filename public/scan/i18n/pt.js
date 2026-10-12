@@ -174,6 +174,8 @@ VY.add('pt', {
 'b.kick': 'Leitura de pele · {n}',
 'b.title': 'VYVRE × {n} — Scan da pele',
 'b.hero': 'A sua pele, medida em menos de 10 segundos a partir da sua câmara, pixel a pixel no espaço colorimétrico CIE Lab. Depois, os três cuidados {n} que melhor lhe correspondem.',
+'b.kickR': 'Seleção disponível na {n}',
+'b.heroR': 'A sua pele, medida em menos de 10 segundos a partir da sua câmara, pixel a pixel no espaço colorimétrico CIE Lab. Depois, os três cuidados que melhor lhe correspondem, entre as marcas disponíveis na {n}.',
 'b.mk': 'Para {n}',
 'b.mp': 'O que acaba de viver pode existir no e-shop de {n} e nas suas lojas, sobre o seu próprio catálogo, nos seus próprios códigos. Comece por um piloto, ou construamo-lo consigo, à medida.',
 'pp.lab': 'Lab',

@@ -174,6 +174,8 @@ VY.add('de', {
 'b.kick': 'Hautmessung · {n}',
 'b.title': 'VYVRE × {n} — Haut-Scan',
 'b.hero': 'Ihre Haut, in unter 10 Sekunden über Ihre Kamera vermessen, Pixel für Pixel im CIE-Lab-Farbraum. Danach die drei {n}-Produkte, die am besten zu ihr passen.',
+'b.kickR': 'Auswahl erhältlich bei {n}',
+'b.heroR': 'Ihre Haut, in unter 10 Sekunden über Ihre Kamera vermessen, Pixel für Pixel im CIE-Lab-Farbraum. Danach die drei Produkte, die am besten zu ihr passen, aus den bei {n} erhältlichen Marken.',
 'b.mk': 'Für {n}',
 'b.mp': 'Was Sie gerade erlebt haben, kann im E-Shop von {n} und in Ihren Boutiquen leben, auf Ihrem eigenen Katalog, in Ihren eigenen Codes. Beginnen Sie mit einem Piloten, oder wir bauen es gemeinsam mit Ihnen, maßgeschneidert.',
 'pp.lab': 'Labor',
