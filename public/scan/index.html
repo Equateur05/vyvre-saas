@@ -8,13 +8,15 @@
 <title>VYVRE — Scan de peau universel</title>
 <!-- VYVRE_I18N : moteur 12 langues, francais par defaut -->
 <script src="/scan/vy-i18n.js?v=32"></script>
-<script src="/scan/vy-choix.js?v=2"></script>
+<script src="/scan/vy-choix.js?v=3"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Police ultra-clean (Silicon Valley DeepTech style) -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&family=JetBrains+Mono:wght@100;300;400&display=swap" rel="stylesheet">
 <!-- Face API -->
-<script src="/scan/vendor/face-api-1.7.15.min.js"></script>
+<!-- 12/10 (« 10 s au plus ») : face-api (1,3 Mo) ne bloque plus l'affichage : defer, et le retrait du backend
+     WebAssembly ci-dessous s'execute des que face-api est la (onload, avant le moteur, lui aussi en defer) -->
+<script src="/scan/vendor/face-api-1.7.15.min.js" defer onload="window.vySansWasm&&window.vySansWasm()"></script>
 <!-- VYVRE_SANS_WASM_BEGIN
      Les trois binaires .wasm de tfjs ne sont pas servis (/scan/vendor/ ne contient que
      face-api). tfjs tentait quand meme d'initialiser son backend WebAssembly :
@@ -23,14 +25,15 @@
      (tfjs-backend-cpu, embarque dans face-api) si WebGL manque : lent, mais vivant.
      Le jour ou les .wasm sont deposes dans /scan/vendor/, il suffit de retirer ce bloc. -->
 <script id="vy-sans-wasm">
-(function(){
+window.vySansWasm = function(){
   try{
     var tf = window.faceapi && window.faceapi.tf;
     if(!tf || typeof tf.removeBackend !== 'function' || typeof tf.engine !== 'function') return;
     var reg = tf.engine().registryFactory || {};
     if(Object.prototype.hasOwnProperty.call(reg, 'wasm')) tf.removeBackend('wasm');
   }catch(e){}
-})();
+};
+window.vySansWasm();
 </script>
 <!-- VYVRE_SANS_WASM_END -->
 <!-- VYVRE_V10_LOADER_BEGIN -->
@@ -652,7 +655,8 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{cursor:auto}
         <span class="v6lbl" data-i18n="c.hydration">Hydratation</span>
         <h3>Charlotte's Magic Cream Moisturiser</h3>
         <p data-i18n="d.p0">Action ciblée : Hydratation · Éclat.</p>
-        <img class="v6photo" src="https://vyvre-demos.web.app/products/charlotte-tilbury/charlotte-s-magic-cream-moisturiser.jpg" alt="Charlotte's Magic Cream Moisturiser" onerror="this.style.display='none'">
+        <!-- 12/10 : plus d'image Charlotte Tilbury en dur (293 + 420 Ko a chaque visite) : la carte recoit le vrai produit apres la lecture -->
+        <img class="v6photo" src="" alt="" style="display:none" onerror="this.style.display='none'">
         <div class="v6price">85 €</div>
       </div>
       <!-- 04/10 (contour des yeux) : la creme yeux Charlotte Tilbury en dur (« Ridules ») est retiree.
@@ -668,14 +672,14 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{cursor:auto}
         <span class="v6lbl" data-i18n="c.glow">Éclat</span>
         <h3>Charlotte's Magic Serum Crystal Elixir</h3>
         <p data-i18n="d.p2">Action ciblée : Éclat · Ridules.</p>
-        <img class="v6photo" src="https://vyvre-demos.web.app/products/charlotte-tilbury/magic-serum-crystal-elixir.jpg" alt="Charlotte's Magic Serum Crystal Elixir" onerror="this.style.display='none'">
+        <img class="v6photo" src="" alt="" style="display:none" onerror="this.style.display='none'">
         <div class="v6price">75 €</div>
       </div>
       <div class="v6card v6prod" data-vyvre-prod-slot="3" style="display:none">
         <span class="v6lbl" data-i18n="c.hydration">Hydratation</span>
         <h3>Charlotte's Magic Cream Moisturiser</h3>
         <p data-i18n="d.p0">Action ciblée : Hydratation · Éclat.</p>
-        <img class="v6photo" src="https://vyvre-demos.web.app/products/charlotte-tilbury/charlotte-s-magic-cream-moisturiser.jpg" alt="" onerror="this.style.display='none'">
+        <img class="v6photo" src="" alt="" style="display:none" onerror="this.style.display='none'">
         <div class="v6price">85 €</div>
       </div>
     </div>
@@ -1004,6 +1008,11 @@ function switchView(viewId) {
 // Ecrit le HUD par le moteur de langue, jamais en dur.
 function vyHud(key){ var el=document.getElementById('hud-status'); if(!el) return; el.setAttribute('data-i18n', key); el.textContent = VY.t(key); }
 
+/* 12/10 (« 10 s au plus ») : les reglages de la lecture, en un seul endroit (les deux departs de la lecture s'en servent).
+   Controle sur 8 images (le minimum du moteur) au lieu de 10 ; cadence : le calcul de chaque image compte dans
+   l'intervalle au lieu de s'y ajouter. Toujours 8 images lues : 5 images ont ete essayees, le banc de stabilite
+   du 12/10 (28 photos) depassait l'ecart maximal admis (8 points au lieu de 5), on garde donc 8. */
+const VY_LECTURE = { sansDecompte: true, gateMs: 720, gateFrames: 8, analyseMs: 2400, cadence: true, skipAge: true };
 // 2. IA FACE API (THERMAL / TOPOLOGICAL SURGERY)
 const STATE = { modelsLoaded: false, scanning: false, thermalMode: false, box: null, landmarks: null, stream: null };
 const video = document.getElementById('liveVideo');
@@ -1014,15 +1023,22 @@ const depthUI = document.getElementById('depth-ui');
 let calibFrames = 0;
 
 /* 05/10 : les modeles du visage se chargent des que la page est au repos, pas au clic (gain d'environ 1 s) */
-setTimeout(function(){ try { (window.requestIdleCallback || function(f){ setTimeout(f, 0); })(function(){ if (window.faceapi) loadAI().catch(function(){}); }); } catch(e) {} }, 1500);
+/* 12/10 (« 10 s au plus ») : des l'arrivee (au repos), puis les detecteurs sont prechauffes en arriere-plan
+   (compilation des programmes graphiques, 1 a 3 s qui tombaient sur la premiere detection du visage) */
+function vyRepos(f, delai){ try { (window.requestIdleCallback || function(g){ setTimeout(g, 30); })(f, { timeout: delai || 2000 }); } catch(e) { setTimeout(f, 0); } }
+function vyPrechauffe(formes){ try { var E = window.VYVRE_SCAN_ENGINE; if (E && E.prechauffer) E.prechauffer(formes); } catch(e) {} }
+addEventListener('load', function(){ vyRepos(function(){ if (window.faceapi) loadAI().catch(function(){}); }, 1200); });
 async function loadAI() {
   if(STATE.modelsLoaded) return true;
   vyHud('hud.boot');
   try {
     const URL = '/scan/models/faceapi';
-    await Promise.race([Promise.all([faceapi.nets.tinyFaceDetector.loadFromUri(URL), faceapi.nets.faceLandmark68Net.loadFromUri(URL)]), new Promise((_, rej) => setTimeout(() => rej(new Error('modeles lents')), 20000))]);
+    /* 12/10 : le moteur a souvent deja charge ces modeles a l'ouverture : on ne les recharge pas une deuxieme fois */
+    const nets = faceapi.nets;
+    await Promise.race([Promise.all([nets.tinyFaceDetector.params ? null : nets.tinyFaceDetector.loadFromUri(URL), nets.faceLandmark68Net.params ? null : nets.faceLandmark68Net.loadFromUri(URL)]), new Promise((_, rej) => setTimeout(() => rej(new Error('modeles lents')), 20000))]);
     STATE.modelsLoaded = true;
     vyHud('hud.ready');
+    vyRepos(function(){ vyPrechauffe(); }, 1500);
     return true;
   } catch(e) {
     vyHud('hud.err');
@@ -1126,7 +1142,8 @@ document.getElementById('file-input').addEventListener('change', async (e) => {
   img.onload = () => {
     overlay.width = img.width || 480; overlay.height = img.height || 640;
     /* 05/10 (audit) : le vrai visage de la photo (plus de cadre dessine au hasard) ; sans visage, on le dit */
-    faceapi.detectSingleFace(img, new faceapi.TinyFaceDetectorOptions({ inputSize: 416, scoreThreshold: .4 })).withFaceLandmarks().then(res => {
+    const Ev = window.VYVRE_SCAN_ENGINE, det = () => faceapi.detectSingleFace(img, new faceapi.TinyFaceDetectorOptions({ inputSize: 416, scoreThreshold: .4 })).withFaceLandmarks();
+    (Ev && Ev.verrouVisage ? Ev.verrouVisage(det) : det()).then(res => {
       if (!res) { if (window.VYVRE_SCAN_ENGINE && window.VYVRE_SCAN_ENGINE.showRejectUI) window.VYVRE_SCAN_ENGINE.showRejectUI([{ code: 'NO_FACE' }]); return; }
       const kx = overlay.width / (img.naturalWidth || overlay.width), ky = overlay.height / (img.naturalHeight || overlay.height);
       STATE.box = { x: res.detection.box.x * kx, y: res.detection.box.y * ky, width: res.detection.box.width * kx, height: res.detection.box.height * ky };
@@ -1524,7 +1541,7 @@ function launchComputation() {
       realScanPromise = scanFromImage(scanSource);
     } else {
       /* 05/10 (audit) : la lecture complete (controle de qualite + 8 images), sans temps morts ; memes scores que la lecture longue */
-      realScanPromise = window.__vyLecture || window.VYVRE_SCAN_ENGINE.runRealScanWithFeedback(scanSource, window.__vyPctLecture ? window.__vyPctLecture() : function(){}, { sansDecompte: true, gateMs: 900, gateFrames: 10, analyseMs: 2400, skipAge: true }).catch(err => {
+      realScanPromise = window.__vyLecture || window.VYVRE_SCAN_ENGINE.runRealScanWithFeedback(scanSource, window.__vyPctLecture ? window.__vyPctLecture() : function(){}, VY_LECTURE).catch(err => {
         console.warn('[CHARLOTTE_TILBURY] real scan failed:', err);
         return null;
       });
@@ -1815,7 +1832,9 @@ function showFinalDashboard() {
 
   // === Matching produits Charlotte Tilbury depuis API ===
   if (result && result.scores) {
-    window.__vyRendu = matchAndRenderCharlotteTilburyProducts(result.scores);
+    /* 12/10 (« 10 s au plus ») : le haut des resultats (score, mesures) s'affiche d'abord ; le choix des soins
+       parmi les 5 800 produits suit a l'image d'apres, au lieu de retarder ce premier affichage */
+    window.__vyRendu = new Promise(function(ok, ko){ requestAnimationFrame(function(){ setTimeout(function(){ try { ok(matchAndRenderCharlotteTilburyProducts(result.scores)); } catch (e) { ko(e); } }, 0); }); });
     Promise.resolve(window.__vyRendu).then(function(){ try{ window.vyRecap && window.vyRecap(); }catch(e){} }, function(){});
   } else {
     console.warn('[CHARLOTTE_TILBURY] no scores for product matching');
@@ -1860,7 +1879,8 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     let data;
     try { data = await window.__vyCatalogue; } catch (_) { data = null; }
     if (!data || !data.products) {
-      const resp = await fetch('/scan/catalogue/all.json?_t=' + Date.now());
+      /* 12/10 : plus de ?_t= (le cache ne servait jamais) ; /scan est servi en no-cache : le navigateur revalide (304) */
+      const resp = await fetch('/scan/catalogue/all.json');
       if (!resp.ok) throw new Error('HTTP ' + resp.status);
       data = await resp.json();
       window.__vyCatalogue = Promise.resolve(data);
@@ -2004,7 +2024,7 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
   });
 </script>
 <!-- VYVRE V10: TF.js removed from eager load — handled by /vyvre-loader.js -->
-<script src="/scan/vyvre-scan-engine.js?v=10.14" defer></script>
+<script src="/scan/vyvre-scan-engine.js?v=10.15" defer></script>
 <script src="/scan/vy-pourcent.js?v=1" defer></script>
 <style id="vy-pct-place">
 /* 11/10 (Charles) : la pastille « 47 % » centree juste sous l'anneau de verre (le cadre camera), jamais sur le visage */
@@ -2612,9 +2632,13 @@ window.__vyPctLecture=function(){try{if(!window.VyPourcent)return function(){};v
     var dbuf=document.createElement('canvas'),dctx=dbuf.getContext('2d',{willReadFrequently:true}),dopts=null,dbusy=false;
     /* 11/10 : un visage tres proche (selfie au telephone) n'est pas vu a la taille 320 : apres un echec on essaie 224 puis 160 */
     var DSZ=[320,224,160],dsi=0;
-    detectAndDraw=function(){ if(!STATE.modelsLoaded||vid.paused||!vid.videoWidth||dbusy||!window.faceapi||window.__vyMoteur)return; dbusy=true;
+    /* 12/10 : plus de detection une fois l'ecran de la camera quitte (la camera est coupee) : elle cherchait un visage sur une image figee,
+       changeait de taille de detection a chaque echec et faisait compiler de nouveaux programmes graphiques (0,5 s bloquee sur les resultats) */
+    detectAndDraw=function(){ if(!STATE.modelsLoaded||vid.paused||!vid.videoWidth||dbusy||!window.faceapi||window.__vyMoteur||!document.getElementById('view-scanner').classList.contains('active'))return; dbusy=true;
       try{ if(!dopts)dopts=new faceapi.TinyFaceDetectorOptions({inputSize:DSZ[dsi],scoreThreshold:.3}); var bw=512,bh=Math.max(32,Math.round(bw*vid.videoHeight/vid.videoWidth)); if(dbuf.width!==bw||dbuf.height!==bh){dbuf.width=bw;dbuf.height=bh;} dctx.drawImage(vid,0,0,bw,bh);
-        faceapi.detectSingleFace(dbuf,dopts).withFaceLandmarks().then(function(r){dbusy=false; if(r&&r.landmarks&&r.landmarks.positions.length>=68){var kx=vid.videoWidth/bw,ky=vid.videoHeight/bh;STATE.landmarks=r.landmarks.positions.map(function(q){return {x:q.x*kx,y:q.y*ky};});var bx=r.detection.box;STATE.box={x:bx.x*kx,y:bx.y*ky,width:bx.width*kx,height:bx.height*ky};STATE.detectionScore=r.detection.score||0;STATE.lastDetectionAt=performance.now();var hn=document.getElementById('hud-nodes');if(hn)hn.innerText='68';}else{STATE.detectionScore=0;dsi=(dsi+1)%DSZ.length;dopts=null;}}).catch(function(){dbusy=false;});
+        /* 12/10 : par la file du moteur (jamais en meme temps que le prechauffage des detecteurs) */
+        var Ev=window.VYVRE_SCAN_ENGINE,det=function(){return faceapi.detectSingleFace(dbuf,dopts).withFaceLandmarks();};
+        (Ev&&Ev.verrouVisage?Ev.verrouVisage(det):det()).then(function(r){dbusy=false; if(r&&r.landmarks&&r.landmarks.positions.length>=68){var kx=vid.videoWidth/bw,ky=vid.videoHeight/bh;STATE.landmarks=r.landmarks.positions.map(function(q){return {x:q.x*kx,y:q.y*ky};});var bx=r.detection.box;STATE.box={x:bx.x*kx,y:bx.y*ky,width:bx.width*kx,height:bx.height*ky};STATE.detectionScore=r.detection.score||0;STATE.lastDetectionAt=performance.now();var hn=document.getElementById('hud-nodes');if(hn)hn.innerText='68';}else{STATE.detectionScore=0;dsi=(dsi+1)%DSZ.length;dopts=null;}}).catch(function(){dbusy=false;});
       }catch(e){dbusy=false;} };
     /* filet de sécurité : si la vidéo est en pause ou si le moteur ne remonte aucun repère, on relance et on détecte nous-mêmes */
     var lastOwn=0,ownBusy=false,lockSince=0;
@@ -2630,7 +2654,7 @@ window.__vyPctLecture=function(){try{if(!window.VyPourcent)return function(){};v
     /* le scan du moteur : on remplace sa mise en scène thermique par la nôtre, puis on rend la main à executeCapture */
     var _startThermal=startThermalScan;startThermalScan=function(){STATE.thermalMode=true;vyHud('hud.read');T0=performance.now();for(var i=0;i<68;i++)LIT[i]=0;
       /* 05/10 : la vraie lecture demarre des le verrouillage, pendant l'animation (plus d'attente apres) ; l.animation passe de 9,6 s a 5 s */
-      try{var vv=document.getElementById('liveVideo');if(vv&&vv.videoWidth&&vv.style.display!=='none'&&window.VYVRE_SCAN_ENGINE&&!window.__vyLecture){window.__vyMoteur=true;var moi=window.__vyLecture=window.VYVRE_SCAN_ENGINE.runRealScanWithFeedback(vv,window.__vyPctLecture?window.__vyPctLecture():function(){},{sansDecompte:true,gateMs:900,gateFrames:10,analyseMs:2400,skipAge:true}).catch(function(){return null;}).then(function(r){if(window.__vyLecture===moi)window.__vyMoteur=false;return r;});}}catch(e){}
+      try{var vv=document.getElementById('liveVideo');if(vv&&vv.videoWidth&&vv.style.display!=='none'&&window.VYVRE_SCAN_ENGINE&&!window.__vyLecture){window.__vyMoteur=true;var moi=window.__vyLecture=window.VYVRE_SCAN_ENGINE.runRealScanWithFeedback(vv,window.__vyPctLecture?window.__vyPctLecture():function(){},VY_LECTURE).catch(function(){return null;}).then(function(r){if(window.__vyLecture===moi)window.__vyMoteur=false;return r;});}}catch(e){}
       setTimeout(function(){executeCapture();},DUR*1000/1.92);};
     var hudDer=0;(function frame(now){if(window.__vyMoteur&&now-hudDer<32){requestAnimationFrame(frame);return;}hudDer=now;var t=now/1000;x.clearRect(0,0,W2,H2);var P=pts();if(P&&document.getElementById('view-scanner').classList.contains('active')){if(T0){var T=(now-T0)/1000*1.92;if(T<DUR+.5)scene(t,P,T);}else attente(t,P);}if(!reduce)requestAnimationFrame(frame);})(0);
   }
@@ -3227,7 +3251,9 @@ if(/[?&]depuis=aliment\b/.test(location.search)) addEventListener('load', functi
    formates selon la langue affichee. */
 (function(){
   /* un seul telechargement du catalogue (6 Mo), partage avec le choix des produits */
-  window.__vyCatalogue = window.__vyCatalogue || fetch('/scan/catalogue/all.json?_t='+Date.now()).then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); });
+  /* 12/10 : sans ?_t= : meme adresse que les questions (scan/avant/noyau.js), qui le reprennent du cache au lieu
+     de le telecharger une deuxieme fois ; /scan est servi en no-cache, le navigateur revalide (304) */
+  window.__vyCatalogue = window.__vyCatalogue || fetch('/scan/catalogue/all.json').then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); });
   window.__vyCatalogue.then(function(j){
     var p=j.products||[]; if(!p.length) return;
     var n=p.length, m=new Set(p.map(function(x){return x.brand;})).size;

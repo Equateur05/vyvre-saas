@@ -119,9 +119,9 @@ export default async function WidgetEmbedPage({ searchParams }: WidgetEmbedProps
           a { color: inherit; }
         `}</style>
         {/* Real scan engine */}
-        <script src="https://vyvre-demos.web.app/vyvre-scan-engine.js" defer />
-        {/* face-api.js for face detection */}
-        <script src="https://cdn.jsdelivr.net/npm/face-api.js@0.22.2/dist/face-api.min.js" defer />
+        {/* 12/10/2026 : tout passe par vyvre.fr : face-api et le moteur (v10, runRealScan) servis par /scan, dans cet ordre */}
+        <script src="/scan/vendor/face-api-1.7.15.min.js" defer />
+        <script src="/scan/vyvre-scan-engine.js?v=10.15" defer />
       </head>
       <body>
         <WidgetClient

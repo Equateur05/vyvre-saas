@@ -519,11 +519,8 @@ export default function AccuracyPage() {
             </div>
 
             <div className="flex flex-wrap items-center justify-center gap-4 mt-10">
-              <a href="https://vyvre-demos.web.app/CONDITIONS_DEMO.html" target="_blank" rel="noopener" className="btn-primary">
+              <a href="/scan" className="btn-primary">
                 {t('acc.s10.cta1')}
-              </a>
-              <a href="https://vyvre-demos.web.app/vyvre-conditions-engine.js" target="_blank" rel="noopener" className="btn-secondary">
-                {t('acc.s10.cta2')}
               </a>
             </div>
           </div>

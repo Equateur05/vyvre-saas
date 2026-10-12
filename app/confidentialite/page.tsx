@@ -62,7 +62,7 @@ export default function ConfidentialitePage() {
             </Block>
 
             <Block title={t('conf.b4')}>
-              <p>Lorsque vous visitez vyvre.fr ou nos démos hébergées sur vyvre-demos.web.app, nous collectons :</p>
+              <p>Lorsque vous visitez vyvre.fr, nous collectons :</p>
               <ul className="list-disc pl-5 mt-2 space-y-1">
                 <li>Adresse IP (anonymisée après 24h)</li>
                 <li>User-agent du navigateur</li>

@@ -91,7 +91,7 @@ export default function BenchmarkPage() {
           </Link>
           <nav className="hidden md:flex items-center gap-8 text-[11px] tracking-[0.22em] uppercase text-text/55 font-mono">
             <Link href="/#how" className="hover:text-text transition-colors">Comment ça marche</Link>
-            <a href="https://vyvre-demos.web.app/VYVRE_UNIVERSAL.html" target="_blank" rel="noopener" className="hover:text-text transition-colors">Démo</a>
+            <a href="/scan" className="hover:text-text transition-colors">Démo</a>
             <Link href="/pricing" className="hover:text-text transition-colors">Pricing</Link>
             <Link href="/accuracy" className="hover:text-text transition-colors">Méthodologie</Link>
             <Link href="/accuracy/benchmark" className="text-text">Benchmark</Link>

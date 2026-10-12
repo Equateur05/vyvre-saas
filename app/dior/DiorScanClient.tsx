@@ -1199,7 +1199,7 @@ export default function DiorScanClient({ products, onBack }: Props) {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   className="v6photo"
-                  src="https://vyvre-demos.web.app/products/dior/capture-totale-le-serum.jpg"
+                  src="/products/dior/capture-totale-le-serum.jpg"
                   alt="Capture Totale Le Sérum"
                 />
                 <div className="v6price">190,00 €</div>
@@ -1211,7 +1211,7 @@ export default function DiorScanClient({ products, onBack }: Props) {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   className="v6photo"
-                  src="https://vyvre-demos.web.app/products/dior/capture-totale-creme-anti-age-universelle.jpg"
+                  src="/products/dior/capture-totale-creme-anti-age-universelle.jpg"
                   alt="Capture Totale Crème"
                 />
                 <div className="v6price">230,00 €</div>
@@ -1223,7 +1223,7 @@ export default function DiorScanClient({ products, onBack }: Props) {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img
                   className="v6photo"
-                  src="https://vyvre-demos.web.app/products/dior/capture-totale-super-potent-serum-yeux.jpg"
+                  src="/products/dior/capture-totale-super-potent-serum-yeux.jpg"
                   alt="Super Potent Yeux"
                 />
                 <div className="v6price">110,00 €</div>

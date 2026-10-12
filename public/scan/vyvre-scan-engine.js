@@ -780,7 +780,18 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
   // puis on essaie d'autres tailles avant de tomber sur le rectangle de secours.
   const FACE_API_INPUT_SIZES = [FACE_API_INPUT_SIZE, 224, 160, 416];
 
-  async function detectFaceROI(imageData) {
+  // 12/10 : une seule detection face-api a la fois (file d'attente), pour que le prechauffage des detecteurs
+  // (compilation en arriere-plan, voir prechaufferVisage) ne croise jamais une vraie detection.
+  // Sans prechauffage, rien ne change : les detections du moteur etaient deja faites l'une apres l'autre.
+  let __fileVisage = Promise.resolve();
+  function verrouVisage(tache) {
+    const r = __fileVisage.then(() => tache());
+    __fileVisage = r.then(() => {}, () => {});
+    return r;
+  }
+
+  function detectFaceROI(imageData) { return verrouVisage(() => detectFaceROILibre(imageData)); }
+  async function detectFaceROILibre(imageData) {
     // Priorité 1 : face-api.js (chargé via CDN dans les POCs)
     if (typeof window !== 'undefined' && typeof window.faceapi !== 'undefined') {
       try {
@@ -2552,9 +2563,16 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
   const SCAN_DEFAULT_TARGET_FRAMES = 8;
   const SCAN_MIN_ACCEPTED_FRAMES = 2;
 
-  async function analyzeMultiFrame(videoEl, durationMs, targetFrames) {
+  // 12/10 (« 10 s au plus ») : opts facultatif, rien ne change sans lui (pages /m, lab) :
+  //   opts.cadence      : l'attente entre deux images compte depuis le debut de l'image precedente
+  //                       (le calcul de l'image fait partie de l'intervalle, il ne s'y ajoute plus)
+  //   opts.peauComplete : grain et fermete mesures sur CHAQUE image acceptee (et non une sur deux),
+  //                       pour garder autant de mesures avec 5 images qu'avant avec 8
+  async function analyzeMultiFrame(videoEl, durationMs, targetFrames, opts) {
     durationMs = durationMs || SCAN_DEFAULT_DURATION_MS;
     targetFrames = targetFrames || SCAN_DEFAULT_TARGET_FRAMES;
+    opts = opts || {};
+    let debutImage = performance.now();
 
     const allFrames = [];
     const interval = durationMs / targetFrames;
@@ -2562,7 +2580,8 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
     const motifs = {};   // 11/10 : pourquoi les images ont ete refusees (rendu a la page en cas d'echec)
 
     for (let i = 0; i < targetFrames; i++) {
-      await new Promise(r => setTimeout(r, interval));
+      await new Promise(r => setTimeout(r, opts.cadence ? Math.max(0, interval - (performance.now() - debutImage)) : interval));
+      debutImage = performance.now();
       try {
         const imageData = captureFrame(videoEl);
         imageWidth = imageData.width;
@@ -2591,7 +2610,7 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
         // v10.13 : éclat sur chaque image acceptée, grain et fermeté une image sur deux (médianes ensuite) :
         // ~4 ms par image complète, ~0,5 ms sinon, soit ~20 ms de plus pour une lecture de 8 images
         let peau = null;
-        try { peau = mesurerPeau(imageData, lms, yeux, allFrames.length % 2 === 1); } catch (eP) { peau = null; }
+        try { peau = mesurerPeau(imageData, lms, yeux, opts.peauComplete ? false : allFrames.length % 2 === 1); } catch (eP) { peau = null; }
         allFrames.push({
           cheekPixels, tzonePixels, foreheadPixels, allPixels, quality, roi,
           // v10.4 : keep imageData + landmarks for Gabor wrinkle depth analysis on last accepted frame
@@ -2806,7 +2825,8 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
   }
 
   // Capture une frame faible-coût (downscale) pour gating, retourne luminance + variance + face info
-  async function v9CaptureGatingFrame(videoEl) {
+  function v9CaptureGatingFrame(videoEl) { return verrouVisage(() => v9CaptureGatingFrameLibre(videoEl)); }
+  async function v9CaptureGatingFrameLibre(videoEl) {
     const fullW = videoEl.videoWidth || videoEl.clientWidth || 480;
     const fullH = videoEl.videoHeight || videoEl.clientHeight || 640;
     if (!fullW || !fullH) {
@@ -5218,8 +5238,11 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
                                   window.faceapi.nets && window.faceapi.nets.tinyFaceDetector &&
                                   window.faceapi.nets.tinyFaceDetector.params);
 
+            let debutControle = performance.now();
             for (let i = 0; i < nGate; i++) {
-              await new Promise(r => setTimeout(r, interval));
+              // 12/10 : opts.cadence, le temps de la detection compte dans l'intervalle (sans l'option, rien ne change)
+              await new Promise(r => setTimeout(r, opts.cadence ? Math.max(0, interval - (performance.now() - debutControle)) : interval));
+              debutControle = performance.now();
               try {
                 const frame = await v9CaptureGatingFrame(videoEl);
                 gateFrames.push(frame);
@@ -5279,7 +5302,11 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
 
           // ─── PHASE 3 : analyzing (biomarkers + CNN ensemble + clinical) ──
           emit({ phase: 'analyzing', subprocess: 'biomarkers', progress: 0.1 });
-          const result = await analyzeMultiFrame(videoEl, opts.fast ? 2400 : (opts.analyseMs || undefined), opts.fast ? 6 : undefined);   // 01/10 : mode rapide, 6 images sur 2,4 s ; 02/10 : opts.analyseMs garde les 8 images, moins espacees
+          // 12/10 : opts.images (nombre d'images lues), opts.cadence, opts.peauComplete ; avec opts.images, opts.analyseMs vaut aussi en mode rapide.
+          // Sans ces options, rien ne change (pages /m et lab) : 8 images, ou 6 sur 2,4 s en mode rapide.
+          const nImages = opts.images || (opts.fast ? 6 : undefined);
+          const dureeImages = (opts.images && opts.analyseMs) ? opts.analyseMs : (opts.fast ? 2400 : (opts.analyseMs || undefined));
+          const result = await analyzeMultiFrame(videoEl, dureeImages, nImages, { cadence: !!opts.cadence, peauComplete: !!opts.peauComplete });   // 01/10 : mode rapide, 6 images sur 2,4 s ; 02/10 : opts.analyseMs garde les 8 images, moins espacees
 
           emit({ phase: 'analyzing', subprocess: 'biomarkers', progress: 0.5 });
           const scores = mapToScores(result.raw);
@@ -5328,6 +5355,11 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
           return null;
         }
       },
+
+      // 12/10 : prechauffe les detecteurs du visage (voir prechaufferVisage) ; a appeler quand les modeles sont charges
+      prechauffer: function (formes) { return prechaufferVisage(formes); },
+      // 12/10 : pour les pages qui detectent elles-memes (suivi du visage) : passer par la meme file que le moteur
+      verrouVisage: verrouVisage,
 
       // v8.0 : warm-up CNN explicitement avant scan (pour réduire latence au moment du scan)
       preloadCNN: async function () {
@@ -5388,6 +5420,65 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
       referencesDetailed: REFERENCES,
       computeStd, clamp
     };
+  }
+
+  // ════════════════════════════════════════════════════════════════════════
+  // 12/10/2026 — PRECHAUFFAGE DES DETECTEURS (« 10 s au plus »)
+  // La premiere detection d'un visage coute 1 a 3 s : le navigateur compile alors les programmes
+  // graphiques de face-api (detecteur a 320 et a 224, reperes). On les compile a l'avance, en
+  // arriere-plan : tfjs 4 sait compiler sans executer (ENGINE_COMPILE_ONLY) et attendre la fin
+  // de la compilation sans bloquer la page (KHR_parallel_shader_compile). Aucune mesure ne change :
+  // memes modeles, memes calculs ; seule la compilation est faite plus tot.
+  // formes : [[largeur, hauteur, tailleDetecteur], ...] en plus des formes par defaut.
+  // ════════════════════════════════════════════════════════════════════════
+  const __formesPrechauffees = {};
+  let __prechauffeEnCours = Promise.resolve(true);
+  function prechaufferVisage(formes) {
+    const fa = typeof window !== 'undefined' ? window.faceapi : null;
+    if (!fa || !fa.nets || !fa.nets.tinyFaceDetector || !fa.nets.tinyFaceDetector.params ||
+        !fa.nets.faceLandmark68Net || !fa.nets.faceLandmark68Net.params) return Promise.resolve(false);
+    const liste = [[512, 332, 320], [240, 156, 224], [112, 112, 0]].concat(Array.isArray(formes) ? formes : []);
+    const repos = () => new Promise(r => (window.requestIdleCallback ? window.requestIdleCallback(() => r(), { timeout: 1500 }) : setTimeout(r, 30)));
+    __prechauffeEnCours = __prechauffeEnCours.then(async () => {
+      const tf = fa.tf;
+      const be = tf && typeof tf.backend === 'function' ? tf.backend() : null;
+      // ces deux fonctions n'existent que dans les versions de tfjs qui connaissent ENGINE_COMPILE_ONLY (4.x)
+      const compileSeul = !!(be && typeof be.checkCompileCompletionAsync === 'function' && typeof be.getUniformLocations === 'function');
+      for (const f of liste) {
+        const w = Math.round(f[0]), h = Math.round(f[1]), taille = f[2] || 0;
+        const cle = w + 'x' + h + '@' + taille;
+        if (!w || !h || __formesPrechauffees[cle]) continue;
+        __formesPrechauffees[cle] = true;
+        await repos();
+        // dans la file des detections : entre la compilation et la lecture des emplacements (getUniformLocations),
+        // une vraie detection qui utiliserait ces programmes planterait ; la file l'empeche
+        await verrouVisage(async () => { try {
+          const toile = document.createElement('canvas');
+          toile.width = w; toile.height = h;
+          const cx = toile.getContext('2d'); cx.fillStyle = '#7f7f7f'; cx.fillRect(0, 0, w, h);
+          if (compileSeul) {
+            const entree = await fa.toNetInput(toile);
+            let sortie = null;
+            tf.env().set('ENGINE_COMPILE_ONLY', true);
+            try {
+              sortie = taille ? fa.nets.tinyFaceDetector.forwardInput(entree, taille) : fa.nets.faceLandmark68Net.forwardInput(entree);
+            } finally { tf.env().set('ENGINE_COMPILE_ONLY', false); }
+            await be.checkCompileCompletionAsync();
+            be.getUniformLocations();
+            if (sortie) tf.dispose(sortie);
+          } else if (taille) {
+            await fa.detectSingleFace(toile, new fa.TinyFaceDetectorOptions({ inputSize: taille, scoreThreshold: 0.5 }));
+          } else {
+            await fa.nets.faceLandmark68Net.detectLandmarks(toile);
+          }
+        } catch (e) {
+          try { tf.env().set('ENGINE_COMPILE_ONLY', false); } catch (_) {}
+          VYVRE_LOG('[vyvre-scan] prechauffage ' + cle + ' : ' + e.message);
+        } });
+      }
+      return true;
+    }).catch(() => false);
+    return __prechauffeEnCours;
   }
 
   async function autoBootstrap() {

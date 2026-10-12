@@ -106,19 +106,13 @@ const BRAND_NAMES: Record<string, string> = {
   'sand-and-sky': 'Sand & Sky',
 };
 
-// ── Exceptions slug → fichier de démonstration ──
-// Convention par défaut : VYVRE_<SLUG_MAJUSCULE_UNDERSCORE>.html
-const DEMO_SLUG_OVERRIDES: Record<string, string> = {
-  'barbara-sturm': 'STURM',
-};
-
-const DEMO_BASE_URL = 'https://vyvre-demos.web.app';
-const GENERIC_DEMO_URL = `${DEMO_BASE_URL}/SCAN_LIVE_DEMO_VYVRE.html`;
+// 12/10/2026 : tout passe par vyvre.fr. L'ancien site de demos ne garde que des renvois :
+// la demo d'une marque est sa page /m/<marque> (uniquement ses produits), sinon le scan universel.
+const GENERIC_DEMO_URL = '/scan';
 
 function getDemoUrl(brandSlug: string): string {
   if (!brandSlug || !/^[a-z0-9][a-z0-9-]{1,40}$/.test(brandSlug)) return GENERIC_DEMO_URL;
-  const token = DEMO_SLUG_OVERRIDES[brandSlug] || brandSlug.toUpperCase().replace(/-/g, '_');
-  return `${DEMO_BASE_URL}/VYVRE_${token}.html`;
+  return `/m/${brandSlug}`;
 }
 
 function pricingStrings(t: T): PricingStrings {

@@ -8,13 +8,17 @@
 <title>VYVRE — Scan de peau universel</title>
 <!-- VYVRE_I18N : moteur 12 langues, francais par defaut -->
 <script src="/scan/vy-i18n.js?v=32"></script>
-<script src="/scan/vy-choix.js?v=2"></script>
+<!-- PAGE GENEREE par scripts/construire-m.mjs a partir de /scan/index.html : ne pas modifier a la main -->
+<script src="/scan/vy-choix.js?v=3"></script>
+<script src="/m/vy-marque.js?v=1"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <!-- Police ultra-clean (Silicon Valley DeepTech style) -->
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&family=JetBrains+Mono:wght@100;300;400&display=swap" rel="stylesheet">
 <!-- Face API -->
-<script src="/scan/vendor/face-api-1.7.15.min.js"></script>
+<!-- 12/10 (« 10 s au plus ») : face-api (1,3 Mo) ne bloque plus l'affichage : defer, et le retrait du backend
+     WebAssembly ci-dessous s'execute des que face-api est la (onload, avant le moteur, lui aussi en defer) -->
+<script src="/scan/vendor/face-api-1.7.15.min.js" defer onload="window.vySansWasm&&window.vySansWasm()"></script>
 <!-- VYVRE_SANS_WASM_BEGIN
      Les trois binaires .wasm de tfjs ne sont pas servis (/scan/vendor/ ne contient que
      face-api). tfjs tentait quand meme d'initialiser son backend WebAssembly :
@@ -23,14 +27,15 @@
      (tfjs-backend-cpu, embarque dans face-api) si WebGL manque : lent, mais vivant.
      Le jour ou les .wasm sont deposes dans /scan/vendor/, il suffit de retirer ce bloc. -->
 <script id="vy-sans-wasm">
-(function(){
+window.vySansWasm = function(){
   try{
     var tf = window.faceapi && window.faceapi.tf;
     if(!tf || typeof tf.removeBackend !== 'function' || typeof tf.engine !== 'function') return;
     var reg = tf.engine().registryFactory || {};
     if(Object.prototype.hasOwnProperty.call(reg, 'wasm')) tf.removeBackend('wasm');
   }catch(e){}
-})();
+};
+window.vySansWasm();
 </script>
 <!-- VYVRE_SANS_WASM_END -->
 <!-- VYVRE_V10_LOADER_BEGIN -->
@@ -344,6 +349,50 @@
 <!-- VYVRE_V10_PWA_END -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@1,500&display=swap">
 <style id="sans-prix">.v6price,.r-price{display:none!important}</style>
+<style id="vy-video-fondu">
+/* 29/09 : pas d'ovale noir pendant que la camera demarre ; la video apparait en fondu */
+#liveVideo{opacity:0;transition:opacity .45s ease}
+#liveVideo.vy-on{opacity:1}
+</style>
+<style id="vy-cadre-tel">
+/* 29/09 (iPhone de Charles) : le panneau du scan depassait l'ecran et la video etait agrandie pour
+   remplir un cadre tres haut : visage zoome, fond noir. Sur telephone, la scene fait l'ecran, sans
+   bordure, et la video se cale sur l'anneau de verre selon le format que la camera envoie vraiment. */
+@media (max-width:1099px) and (orientation:portrait){
+  #view-scanner{padding:0!important}
+  #view-scanner>div:first-child{margin:0!important;height:0!important}
+  #view-scanner .scanner-module{width:100vw!important;height:100vh!important;height:100dvh!important;max-width:none!important;padding:0!important;margin:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important}
+  #view-scanner .label-sm{top:calc(env(safe-area-inset-top) + 160px)!important}
+  #view-scanner h2{top:calc(env(safe-area-inset-top) + 178px)!important}
+}
+#view-scanner .video-container.vy-cadre .thermal-base{inset:auto!important;left:var(--vy-l)!important;top:var(--vy-t)!important;width:var(--vy-w)!important;height:var(--vy-h)!important;object-fit:cover!important;
+  -webkit-mask-image:radial-gradient(ellipse var(--vy-rx) var(--vy-ry) at var(--vy-mx) var(--vy-my),#000 64%,rgba(0,0,0,.6) 82%,transparent 100%)!important;
+  mask-image:radial-gradient(ellipse var(--vy-rx) var(--vy-ry) at var(--vy-mx) var(--vy-my),#000 64%,rgba(0,0,0,.6) 82%,transparent 100%)!important}
+#view-scanner .video-container.vy-cadre::after{background:radial-gradient(ellipse var(--vy-rx) var(--vy-ry) at 50% 47%,transparent 72%,rgba(4,5,10,.22) 100%)!important}
+</style>
+<script id="vy-cadre-js">
+/* La video prend la largeur de l'ecran, et au moins la hauteur de l'anneau : jamais un gros plan. */
+window.vyCadrer=function(){
+  var vc=document.getElementById('thermal-vid-container'),v=document.getElementById('liveVideo');if(!vc||!v)return;
+  var W=vc.clientWidth,H=vc.clientHeight,vw=v.videoWidth,vh=v.videoHeight,tel=H>W*1.15&&vw>0&&vh>0;
+  vc.classList.toggle('vy-cadre',tel);if(!tel)return;
+  var b=getComputedStyle(vc,'::before'),rw=parseFloat(b.width)||W*.7,rh=parseFloat(b.height)||H*.43,cx=W/2,cy=H*.47;
+  var s=Math.max(W/vw,rh*1.05/vh),ew=vw*s,eh=vh*s,l=cx-ew/2,t=cy-eh/2,st=vc.style;
+  st.setProperty('--vy-l',l+'px');st.setProperty('--vy-t',t+'px');st.setProperty('--vy-w',ew+'px');st.setProperty('--vy-h',eh+'px');
+  st.setProperty('--vy-mx',(cx-l)+'px');st.setProperty('--vy-my',(cy-t)+'px');st.setProperty('--vy-rx',(rw*.6)+'px');st.setProperty('--vy-ry',(rh*.58)+'px');
+};
+addEventListener('resize',function(){setTimeout(window.vyCadrer,60);});
+addEventListener('orientationchange',function(){setTimeout(window.vyCadrer,300);});
+/* 05/10 (iPhone de Charles : « au bout d'une seconde, ca zoome plus haut ») : iOS livre une image paysage puis portrait
+   sans toujours le signaler ; le cadre restait en paysage et etirait l'image. On le recalcule a chaque image video,
+   a chaque changement de format et a chaque changement de taille de l'ecran de scan (barre de Safari). */
+(function brancher(){var v=document.getElementById('liveVideo'),vc=document.getElementById('thermal-vid-container');
+  if(!v||!vc){document.addEventListener('DOMContentLoaded',brancher,{once:true});return;}
+  var dw=0,dh=0,cw=0,ch=0;var suivre=function(){var W=vc.clientWidth,H=vc.clientHeight;if(v.videoWidth!==dw||v.videoHeight!==dh||W!==cw||H!==ch){dw=v.videoWidth;dh=v.videoHeight;cw=W;ch=H;try{window.vyCadrer();}catch(e){}}};
+  ['resize','loadedmetadata','playing','timeupdate'].forEach(function(e){v.addEventListener(e,suivre);});setInterval(suivre,400);
+  if(window.ResizeObserver)new ResizeObserver(suivre).observe(vc);
+  var rvfc=false;if(v.requestVideoFrameCallback)v.addEventListener('playing',function(){if(rvfc)return;rvfc=true;var image=function(){suivre();v.requestVideoFrameCallback(image);};v.requestVideoFrameCallback(image);});})();
+</script>
 <style id="sg-scan-verre">
 /* Charles 17/09 : plus de noir autour du visage. La fumee du fond continue autour du cercle,
    et un anneau de verre avec un reflet entoure la lecture. */
@@ -375,14 +424,16 @@
   border:1px solid rgba(255,255,255,.10);box-shadow:inset 0 1px 0 rgba(255,255,255,.18)}
 </style>
 <style id="vy-menu-css">
-/* 19/09 : la page marque affichait son menu sans aucune feuille de style (liens nus,
-   empiles). Meme mise en forme que le scan, et aucune entree masquee : sous 560 px le
-   menu passe a la ligne au lieu de perdre « Methode ». */
-header .vy-menu{display:flex;gap:22px;margin-left:28px;align-items:center;flex-wrap:wrap}
-header .vy-menu a{font:400 10px/1 var(--font-data);letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.62);text-decoration:none;transition:color .4s}
+/* menu public, a cote du logo en haut a gauche */
+header .vy-menu{display:flex;gap:22px;margin-left:28px;align-items:center}
+header .vy-menu a{font:400 10px/1 var(--font-data);letter-spacing:.22em;text-transform:uppercase;color:rgba(255,255,255,.5);text-decoration:none;transition:color .4s}
 header .vy-menu a:hover{color:#fff}
+header>*:not(.brand){display:none}
 header .brand{display:flex;align-items:center;gap:15px}
 @media (max-width:820px){header .vy-menu{gap:12px;margin-left:12px}header .vy-menu a{font-size:9px;letter-spacing:.12em}}
+/* 19/09 : plus aucune entree du menu n'est masquee. Sous 560 px, « Methode » (la page
+   methodologie) disparaissait purement et simplement : elle devenait inatteignable au
+   doigt. Le menu passe maintenant a la ligne, et chaque lien gagne de la hauteur de touche. */
 @media (max-width:560px){
   header .brand{flex-wrap:wrap;row-gap:2px}
   header .vy-menu{margin-left:0;width:100%;column-gap:18px;row-gap:0;flex-wrap:wrap}
@@ -399,6 +450,16 @@ input:focus-visible,select:focus-visible,summary:focus-visible{
 }
 /* la DA masque le curseur systeme (cursor:none) : au clavier on rend un repere */
 a:focus-visible,button:focus-visible,[tabindex]:focus-visible{cursor:auto}
+</style>
+<style id="vy-autre-css">
+/* 27/09 — Charles : « scan cheveux » dans le menu etait trop petit (10 px, 50 % d'opacite).
+   Le lien vers l'autre scan devient une pastille lisible ; le reste du menu grossit un peu. */
+.vy-menu a{font-size:11px!important}
+.vy-menu a.vy-autre{font-size:12px!important;color:#fff!important;opacity:1!important;padding:7px 14px;border:1px solid rgba(255,255,255,.3);
+  border-radius:999px;background:rgba(255,255,255,.06);letter-spacing:.2em;transition:background .3s,border-color .3s}
+.vy-menu a.vy-autre:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.55)}
+@media (max-width:600px){.vy-menu a{font-size:9.5px!important}
+  .vy-menu a.vy-autre{font-size:10.5px!important;padding:5px 12px;margin-right:100%;white-space:nowrap;flex-shrink:0}}
 </style>
 </head>
 <body>
@@ -430,13 +491,13 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{cursor:auto}
     <span class="brand-x">×</span>
     <span class="brand-partner" data-i18n="hd.partner">SCAN UNIVERSEL</span>
     <nav class="vy-menu">
-      <a href="/cheveux" data-i18n="nav.hair">Scan cheveux</a>
+      <a href="/cheveux" class="vy-autre" data-i18n="nav.hair">Scan cheveux</a>
       <a href="/manifeste" data-i18n="nav.man">Manifeste</a>
       <a href="/accuracy" data-i18n="nav.meth">Méthode</a>
-      <a href="/marques" data-i18n="nav.brands">Pour les marques</a>
+      <a href="/pro" data-i18n="nav.brands">Pour les marques</a>
     </nav>
   </div>
-  <div class="label-sm" data-i18n="hd.free">Lecture de peau offerte · 147 marques</div>
+  <div class="label-sm" data-i18n="hd.free">Lecture de peau offerte · 151 marques</div>
 </header>
 
 <!-- 1. HERO -->
@@ -444,7 +505,7 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{cursor:auto}
   <div class="hero-content">
     <div class="label-sm" style="margin-bottom: 30px;" data-i18n="h.kick">Topologie moléculaire</div>
     <h1 data-i18n="h.title">La peau,<br>révélée.</h1>
-    <p data-i18n="h.p">Votre peau, mesurée en moins de 10 secondes depuis votre caméra, pixel par pixel dans l’espace colorimétrique CIE Lab. Puis les trois soins qui lui correspondent le mieux, choisis parmi 5 883 références de 147 marques.</p>
+    <p data-i18n="h.p">La lumière de votre peau, lue en quelques secondes.</p>
 
     <div style="display: flex; gap: 24px; justify-content: center; margin-top: 60px;">
       <button class="spatial-btn" id="btn-scan" data-i18n="h.scan">Lancer le scan</button>
@@ -591,35 +652,37 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{cursor:auto}
     </div>
 
     <!-- ROW 3 : 3 produits Charlotte Tilbury dynamiques (matched depuis vyvre.fr/api/products?brand=charlotte-tilbury) -->
-    <div class="v6r3" id="vyvre-product-row" data-ritual="VOTRE RITUEL · 3 SOINS" data-i18n-attr="data-ritual:ri.label">
+    <div class="v6r3" id="vyvre-product-row" data-ritual="VOTRE RITUEL · 4 SOINS" data-i18n-attr="data-ritual:ri.label">
       <div class="v6card v6prod" data-vyvre-prod-slot="0">
         <span class="v6lbl" data-i18n="c.hydration">Hydratation</span>
         <h3>Charlotte's Magic Cream Moisturiser</h3>
         <p data-i18n="d.p0">Action ciblée : Hydratation · Éclat.</p>
-        <img class="v6photo" src="https://vyvre-demos.web.app/products/charlotte-tilbury/charlotte-s-magic-cream-moisturiser.jpg" alt="Charlotte's Magic Cream Moisturiser" onerror="this.style.display='none'">
+        <!-- 12/10 : plus d'image Charlotte Tilbury en dur (293 + 420 Ko a chaque visite) : la carte recoit le vrai produit apres la lecture -->
+        <img class="v6photo" src="" alt="" style="display:none" onerror="this.style.display='none'">
         <div class="v6price">85 €</div>
       </div>
-      <div class="v6card v6prod" data-vyvre-prod-slot="1">
-        <span class="v6lbl" data-i18n="c.wrinkles">Ridules</span>
-        <h3>Magic Eye Rescue Cream with Retinol</h3>
-        <p data-i18n="d.p1">Action ciblée : Ridules · Hydratation.</p>
-        <img class="v6photo" src="https://vyvre-demos.web.app/products/charlotte-tilbury/magic-eye-rescue.jpg" alt="Magic Eye Rescue Cream with Retinol" onerror="this.style.display='none'">
-        <div class="v6price">55 €</div>
-      </div>
-      <div class="v6card v6prod" data-vyvre-prod-slot="2">
-        <span class="v6lbl" data-i18n="c.glow">Éclat</span>
-        <h3>Charlotte's Magic Serum Crystal Elixir</h3>
-        <p data-i18n="d.p2">Action ciblée : Éclat · Ridules.</p>
-        <img class="v6photo" src="https://vyvre-demos.web.app/products/charlotte-tilbury/magic-serum-crystal-elixir.jpg" alt="Charlotte's Magic Serum Crystal Elixir" onerror="this.style.display='none'">
-        <div class="v6price">75 €</div>
-      </div>
-      <!-- 07/10 : le rituel a quatre soins (nettoyer, serum, creme, proteger), comme le scan. Cachee tant qu'elle n'est pas remplie. -->
-      <div class="v6card v6prod" data-vyvre-prod-slot="3" style="display:none">
+      <!-- 04/10 (contour des yeux) : la creme yeux Charlotte Tilbury en dur (« Ridules ») est retiree.
+           Si le catalogue ne charge pas, cette carte reste cachee ; sinon elle recoit un vrai produit. -->
+      <div class="v6card v6prod" data-vyvre-prod-slot="1" style="display:none">
         <span class="v6lbl" data-i18n="c.default">Soin signature</span>
         <h3></h3>
         <p></p>
         <img class="v6photo" src="" alt="" style="display:none" onerror="this.style.display='none'">
         <div class="v6price"></div>
+      </div>
+      <div class="v6card v6prod" data-vyvre-prod-slot="2">
+        <span class="v6lbl" data-i18n="c.glow">Éclat</span>
+        <h3>Charlotte's Magic Serum Crystal Elixir</h3>
+        <p data-i18n="d.p2">Action ciblée : Éclat · Ridules.</p>
+        <img class="v6photo" src="" alt="" style="display:none" onerror="this.style.display='none'">
+        <div class="v6price">75 €</div>
+      </div>
+      <div class="v6card v6prod" data-vyvre-prod-slot="3" style="display:none">
+        <span class="v6lbl" data-i18n="c.hydration">Hydratation</span>
+        <h3>Charlotte's Magic Cream Moisturiser</h3>
+        <p data-i18n="d.p0">Action ciblée : Hydratation · Éclat.</p>
+        <img class="v6photo" src="" alt="" style="display:none" onerror="this.style.display='none'">
+        <div class="v6price">85 €</div>
       </div>
     </div>
 
@@ -654,6 +717,257 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{cursor:auto}
   </div>
 </section>
 <!-- VYVRE_V6_BLOCK_END -->
+
+<section class="sg-marque" id="sg-marque" aria-label="Pour les marques" data-i18n-attr="aria-label:mk.aria">
+  <div class="sg-marque-in">
+    <div class="sg-mk" data-i18n="mk.k">Pour les marques de beauté</div>
+    <h2 class="sg-mh" data-i18n="mk.h">Vos clientes méritent<br><em>cette lecture.</em></h2>
+    <p class="sg-mp" data-i18n="mk.p">Ce que vous venez de vivre peut exister sur votre e-shop et dans vos boutiques, sur votre propre catalogue, dans vos propres codes. Commencez par un pilote, ou construisons-le avec vous, sur mesure.</p>
+    <div class="sg-mb">
+      <a class="sg-mbtn sg-mbtn-a v6cta" href="https://vyvre.fr/pricing/en?from=scan-universel&amp;plan=pilot"><span data-i18n="mk.a">Lancer le pilote</span> <span>→</span></a>
+      <a class="sg-mbtn sg-mbtn-b v6cta" href="mailto:contact@vyvre.fr?subject=Vyvre%20%E2%80%94%20bespoke%20skin%20scan" data-i18n="mk.b">Le construire sur mesure</a>
+    </div>
+    <a class="sg-mprix" href="https://vyvre.fr/pricing/en?from=scan-universel" data-i18n="mk.price">Voir les tarifs</a>
+  </div>
+</section>
+
+<!-- ==========================================================================
+     « LA SALLE » — le detail, produit par produit, pour le SCAN PEAU.
+     24/09 — l'effet valide cote cheveux, repris ici, mais en noir et
+     champagne : la palette de la peau, jamais le bleu du scan cheveux.
+     Un produit = un plein ecran tenu (position:sticky) : le chiffre romain
+     grave sur toute la hauteur et rempli de lumiere, le flacon en tres grand
+     qui monte en parallaxe avec son reflet et son ombre, le titre qui entre
+     mot a mot, un seul balayage de lumiere a l'entree, le cartel en bas a
+     droite, le rail des etapes toujours a l'ecran, et le chiffre de la salle
+     suivante qui pointe quand on la quitte.
+     Aucune librairie : IntersectionObserver pour l'entree, UN seul
+     requestAnimationFrame pour la parallaxe, rien que des transform.
+     Aucun prix : ils sont deja sur les cartes au-dessus (Charles, 17/09).
+     Rien d'ecrit qui ne soit dans la fiche : pas de pave recopie du site de la
+     marque, une phrase courte batie sur l'action ciblee ; si la donnee manque,
+     la ligne disparait.
+     NE S'AFFICHE QU'AVEC ?salle=1 : sans le parametre la page est identique.
+     ========================================================================== -->
+<style id="pf-salle-css">
+#pf-salle{position:relative;z-index:5;width:100vw;margin-left:calc(50% - 50vw);padding:2vh 0 0;
+  font-family:'Inter','SF Pro Display',-apple-system,sans-serif;color:#f4f2ee}
+/* la reglure de tete : un filet gradue, comme en haut d'une planche gravee */
+.pfd-tete{max-width:1320px;margin:0 auto;padding:0 32px;text-align:start}
+.pfd-kk{display:block;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.42em;
+  text-transform:uppercase;color:rgba(217,201,163,.85)}
+.pfd-regle{position:relative;height:1px;background:rgba(236,233,226,.13);margin:18px 0 34px}
+.pfd-regle i{position:absolute;top:0;inset-inline-start:var(--x);width:1px;height:9px;background:rgba(217,201,163,.55)}
+.pfd-regle b{position:absolute;top:15px;inset-inline-start:calc(var(--x) + 7px);font-family:'JetBrains Mono',monospace;font-size:9px;
+  font-weight:400;letter-spacing:.24em;color:rgba(236,233,226,.32)}
+
+/* une salle : elle dure presque deux ecrans, le temps que la planche se joue */
+.pfd{position:relative;height:196vh;width:100%}
+.pfd-sal{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden;display:grid;place-items:center}
+/* le mur, et son halo champagne qui glisse */
+.pfd-mur{position:absolute;inset:0;z-index:0;pointer-events:none;will-change:transform;
+  background:radial-gradient(40% 48% at 50% 38%,rgba(217,201,163,.20),rgba(0,0,0,0) 70%)}
+/* une seconde nappe, plus froide et plus large : elle creuse le fond */
+.pfd-mur::after{content:'';position:absolute;inset:-20%;
+  background:radial-gradient(60% 60% at 24% 76%,rgba(159,216,232,.055),rgba(0,0,0,0) 72%)}
+/* la matiere : un grain fin, une seule image, jamais anime */
+.pfd-gr{position:absolute;inset:0;z-index:6;pointer-events:none;opacity:.055;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='1.15' numOctaves='2'/><feColorMatrix type='saturate' values='0'/></filter><rect width='180' height='180' filter='url(%23n)'/></svg>")}
+/* une vignette douce, pour que le plein ecran ne bave pas sur les bords */
+.pfd-vg{position:absolute;inset:0;z-index:5;pointer-events:none;
+  background:radial-gradient(120% 86% at 50% 50%,rgba(0,0,0,0) 52%,rgba(0,0,0,.62) 100%)}
+/* LE CHIFFRE : il tient le mur, pleine hauteur, rempli d'un degre de lumiere
+   champagne, double d'un trait grave. */
+.pfd-n{position:absolute;z-index:1;top:56%;inset-inline-start:2.2vw;pointer-events:none;user-select:none;
+  transform:translateY(-50%);will-change:transform;
+  opacity:0;transition:opacity 1.7s cubic-bezier(.22,1,.36,1) .42s}
+.pfd.vu .pfd-n{opacity:1}
+.pfd-n i{position:relative;display:block;font-style:normal;
+  font-family:'Inter','SF Pro Display',-apple-system,sans-serif;font-weight:100;
+  font-size:min(96vh,48vw);line-height:.70;letter-spacing:.02em;
+  background:linear-gradient(166deg,rgba(251,240,210,.94) 0%,rgba(217,201,163,.46) 38%,
+             rgba(190,170,124,.09) 74%,rgba(190,170,124,0) 94%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  filter:drop-shadow(0 0 80px rgba(190,164,108,.24))}
+.pfd-n i::after{content:attr(data-r);position:absolute;inset:0;color:transparent;
+  -webkit-text-stroke:1px rgba(236,225,196,.18)}
+/* les empattements de l'inscription : deux filets qui referment le chiffre en
+   haut et en bas, comme sur une pierre gravee. Sans eux, un « I » n'est qu'une
+   barre et le chiffre ne se lit plus. */
+.pfd-n::before,.pfd-n::after{content:'';position:absolute;left:.072em;right:.072em;height:2px;
+  background:linear-gradient(90deg,rgba(251,240,210,.8),rgba(217,201,163,.3) 64%,rgba(217,201,163,0));
+  transform:scaleX(0);transform-origin:left;transition:transform 1.5s cubic-bezier(.22,1,.36,1) .55s}
+.pfd-n::before{top:.055em}
+.pfd-n::after{bottom:.055em;background:linear-gradient(90deg,rgba(217,201,163,.5),rgba(190,170,124,.16) 62%,rgba(190,170,124,0))}
+.pfd.vu .pfd-n::before,.pfd.vu .pfd-n::after{transform:none}
+/* la ligne de sol : elle se tire depuis le centre a l'entree */
+.pfd-sol{position:absolute;z-index:1;inset-inline:4vw;bottom:18vh;height:1px;pointer-events:none;
+  background:linear-gradient(90deg,rgba(236,233,226,0),rgba(236,233,226,.17) 22%,
+             rgba(236,233,226,.17) 78%,rgba(236,233,226,0));
+  transform:scaleX(.12);transition:transform 1.8s cubic-bezier(.22,1,.36,1) .12s}
+.pfd.vu .pfd-sol{transform:none}
+/* le balayage de lumiere : UNE seule passe, a l'entree de la salle */
+.pfd-sw{position:absolute;z-index:4;top:0;bottom:0;width:34vw;left:-44vw;pointer-events:none;
+  background:linear-gradient(100deg,rgba(255,255,255,0),rgba(251,240,210,.15) 46%,
+             rgba(255,255,255,.07) 58%,rgba(255,255,255,0));
+  transform:skewX(-14deg)}
+.pfd.vu .pfd-sw{animation:pfdSweep 2.2s .1s cubic-bezier(.22,1,.36,1) both}
+@keyframes pfdSweep{from{left:-44vw}to{left:112vw}}
+/* LE FLACON : accroche au mur, sans cadre. La lumiere le revele AVANT le
+   texte ; son reflet et son ombre suivent la parallaxe avec lui. */
+.pfd-im{position:relative;z-index:2;height:54vh;margin:5vh 0 0;margin-inline-start:10vw;will-change:transform}
+/* le faisceau : une nappe verticale tres douce, derriere le flacon */
+.pfd-fx{position:absolute;z-index:1;top:-6vh;bottom:14vh;left:50%;width:38vw;margin-left:-13vw;pointer-events:none;
+  background:linear-gradient(180deg,rgba(251,240,210,.10),rgba(251,240,210,.035) 42%,rgba(251,240,210,0) 84%);
+  -webkit-mask-image:linear-gradient(90deg,transparent,#000 24%,#000 76%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 24%,#000 76%,transparent);
+  opacity:0;transition:opacity 1.6s cubic-bezier(.22,1,.36,1) .28s;will-change:transform}
+.pfd.vu .pfd-fx{opacity:1}
+.pfd-fl{display:block;height:100%;width:auto;max-width:54vw;object-fit:contain;
+  filter:drop-shadow(0 34px 52px rgba(0,0,0,.74)) drop-shadow(0 0 60px rgba(217,201,163,.16));
+  opacity:0;transform:scale(1.06) translateY(1.4vh);
+  transition:opacity 1.25s cubic-bezier(.22,1,.36,1) .16s,transform 1.6s cubic-bezier(.22,1,.36,1) .16s}
+.pfd.vu .pfd-fl{opacity:1;transform:none}
+/* le reflet sur le sol */
+.pfd-rf{position:absolute;left:0;top:100%;width:100%;height:auto;object-fit:contain;
+  transform:scaleY(-1);transform-origin:center;pointer-events:none;
+  -webkit-mask-image:linear-gradient(to bottom,rgba(0,0,0,.62),rgba(0,0,0,.2) 30%,rgba(0,0,0,0) 52%);
+  mask-image:linear-gradient(to bottom,rgba(0,0,0,.62),rgba(0,0,0,.2) 30%,rgba(0,0,0,0) 52%);
+  opacity:0;transition:opacity 1.5s cubic-bezier(.22,1,.36,1) .6s}
+.pfd.vu .pfd-rf{opacity:.3}
+/* l'ombre portee : un element a part, pour qu'elle bouge sans repeindre de filtre */
+.pfd-om{position:absolute;left:-16%;right:-16%;top:99%;height:8vh;pointer-events:none;
+  background:radial-gradient(50% 50% at 50% 30%,rgba(0,0,0,.74),rgba(0,0,0,.34) 38%,rgba(0,0,0,0) 74%);
+  opacity:0;transition:opacity 1.2s cubic-bezier(.22,1,.36,1) .2s;
+  will-change:transform}
+.pfd.vu .pfd-om{opacity:1}
+/* la photo qui ne se detoure pas proprement : on la pose sur une plaque claire */
+.pfd-fl.pfd-plaque{background:radial-gradient(circle at 50% 45%,rgba(255,255,255,.93),rgba(236,238,240,.83) 72%);
+  border-radius:20px;padding:14px;box-sizing:border-box;filter:drop-shadow(0 34px 52px rgba(0,0,0,.7))}
+/* LE TITRE : tres grande graisse fine, en bas a gauche, mot a mot */
+.pfd-ti{position:absolute;z-index:3;inset-inline-start:4vw;bottom:5vh;max-width:40vw;margin:0;
+  font-family:'Inter','SF Pro Display',-apple-system,sans-serif;font-weight:100;
+  font-size:clamp(32px,5.2vw,84px);line-height:1;letter-spacing:-.045em;color:#faf7f1;text-align:start;
+  text-shadow:0 8px 60px rgba(0,0,0,.92),0 2px 26px rgba(0,0,0,.8);will-change:transform}
+/* un nom de catalogue peut etre tres long : la salle garde sa tenue */
+.pfd-ti.t2{font-size:clamp(28px,3.6vw,58px);max-width:42vw}
+.pfd-ti.t3{font-size:clamp(24px,2.7vw,44px);max-width:42vw;line-height:1.06}
+.pfd-ti.t4{font-size:clamp(21px,2.1vw,34px);max-width:40vw;line-height:1.12}
+.pfd-ti span{display:inline-block;opacity:0;transform:translateY(.42em)}
+.pfd.vu .pfd-ti span{opacity:1;transform:none;
+  transition:opacity .85s cubic-bezier(.22,1,.36,1),transform .95s cubic-bezier(.22,1,.36,1)}
+/* LE CARTEL : la petite carte du musee, en bas a droite */
+.pfd-ca{position:absolute;z-index:4;inset-inline-end:calc(4vw - 14px);bottom:9vh;width:min(392px,33vw);text-align:start;
+  border-top:1px solid rgba(217,201,163,.5);padding:18px 14px 16px;will-change:transform,opacity;
+  background:linear-gradient(180deg,rgba(4,5,10,.93),rgba(4,5,10,.62) 62%,rgba(4,5,10,.3))}
+.pfd-k{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.3em;
+  text-transform:uppercase;color:rgba(217,201,163,.95)}
+.pfd-m{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:.26em;
+  text-transform:uppercase;color:rgba(236,233,226,.5);margin-top:8px}
+.pfd-ca p{margin:16px 0 0;font-size:13.5px;line-height:1.72;color:rgba(236,233,226,.66);font-weight:300}
+/* les mots qui comptent : gras leger, et leur halo qui s'allume a l'entree */
+.pfd-ca p b{font-weight:400;color:#fbf0d2;text-shadow:0 0 0 rgba(251,240,210,0);
+  transition:text-shadow 1.1s cubic-bezier(.22,1,.36,1) .9s}
+.pfd.vu .pfd-ca p b{text-shadow:0 0 22px rgba(251,240,210,.45)}
+.pfd-w{display:flex;flex-wrap:wrap;gap:7px;margin-top:16px}
+.pfd-w span{font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:.16em;
+  text-transform:uppercase;color:rgba(236,225,196,.9);border:1px solid rgba(217,201,163,.3);padding:7px 10px}
+.pfd-ca a{display:inline-block;margin-top:18px;font-family:'JetBrains Mono',monospace;font-size:9.5px;
+  letter-spacing:.26em;text-transform:uppercase;color:#04050a;
+  background:linear-gradient(180deg,#fff,#e4e0d6);padding:12px 18px;text-decoration:none;
+  transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s}
+.pfd-ca a:hover{transform:translateX(5px);box-shadow:0 14px 34px -14px rgba(236,233,226,.7)}
+/* LE RAIL : l'ordre du rituel, toujours a l'ecran */
+.pfd-rail{position:absolute;z-index:7;inset-inline-end:1.1vw;top:50%;transform:translateY(-50%);
+  display:flex;flex-direction:column;gap:14px;align-items:flex-end;pointer-events:none}
+.pfd-rail i{font-family:'JetBrains Mono',monospace;font-style:normal;font-size:10px;letter-spacing:.2em;
+  color:rgba(236,233,226,.24);display:flex;align-items:center;gap:8px}
+.pfd-rail i::after{content:'';width:14px;height:1px;background:rgba(236,233,226,.24);
+  transition:width .5s cubic-bezier(.22,1,.36,1),background .5s}
+.pfd-rail i.on{color:#fbf0d2}
+.pfd-rail i.on::after{width:34px;background:rgba(217,201,163,.95)}
+/* LA SALLE SUIVANTE QUI POINTE : quand on quitte la salle, son chiffre monte
+   du bord droit et un filet de lumiere glisse vers lui. */
+.pfd-nx{position:absolute;z-index:6;inset-inline-end:3.4vw;top:15vh;display:flex;align-items:baseline;gap:12px;
+  pointer-events:none;opacity:0;will-change:transform,opacity}
+.pfd-nx b{font-family:'JetBrains Mono',monospace;font-weight:100;font-size:30px;
+  line-height:.9;letter-spacing:.12em;color:rgba(251,240,210,.85)}
+.pfd-gl{position:absolute;z-index:6;inset-inline-end:3.4vw;top:calc(15vh + 40px);height:1px;width:0;pointer-events:none;
+  background:linear-gradient(90deg,rgba(217,201,163,0),rgba(251,240,210,.8));will-change:transform,opacity;
+  opacity:0;width:14vw;transform:scaleX(0);transform-origin:right}
+/* LA SORTIE : apres la derniere salle, une ligne qui referme la sequence */
+.pfd-fin{position:relative;height:16vh;min-height:130px;display:grid;place-items:center}
+.pfd-fin i{position:absolute;left:50%;top:50%;height:1px;width:0;transform:translate(-50%,-50%);
+  background:linear-gradient(90deg,rgba(217,201,163,0),rgba(217,201,163,.6),rgba(217,201,163,0));
+  transition:width 1.9s cubic-bezier(.22,1,.36,1)}
+.pfd-fin.vu i{width:min(62vw,860px)}
+.pfd-fin b{position:relative;width:7px;height:7px;transform:rotate(45deg) scale(0);
+  background:linear-gradient(180deg,#fbf0d2,#b9a377);box-shadow:0 0 24px rgba(251,240,210,.55);
+  transition:transform 1s cubic-bezier(.31,1.4,.64,1) .5s}
+.pfd-fin.vu b{transform:rotate(45deg) scale(1)}
+/* de 861 a 1100 px : le flacon recule pour laisser le cartel respirer */
+@media (max-width:1100px){
+  .pfd-im{height:48vh;margin:4vh 0 0;margin-inline-start:3vw}
+  .pfd-ti,.pfd-ti.t2,.pfd-ti.t3,.pfd-ti.t4{max-width:46vw}
+  .pfd-ca{width:min(330px,40vw)}
+  .pfd-ti{max-width:52vw;bottom:6vh}
+  .pfd-nx b{font-size:40px}
+}
+/* le telephone : une colonne, plus de salle tenue, plus de parallaxe */
+@media (max-width:860px){
+  #pf-salle{padding-top:0}
+  .pfd-tete{padding:0 20px}
+  .pfd{height:auto}
+  .pfd-sal{position:static;height:auto;display:block;padding:34px 20px 48px;overflow:visible}
+  .pfd-n{position:static;display:block;top:auto;left:auto;
+    transform:none!important;margin-left:-.06em;opacity:1;font-size:58vw!important}
+  .pfd-n i{font-size:1em}
+  .pfd-n::before,.pfd-n::after{display:none}
+  .pfd-im{height:auto;margin:-30vw 0 0;margin-inline-start:0}
+  .pfd-ti.t2,.pfd-ti.t3,.pfd-ti.t4{font-size:clamp(26px,7vw,38px);max-width:none}
+  .pfd-fl{height:auto;width:100%;max-width:none;margin:0 auto}
+  .pfd-rf{display:none}
+  .pfd-om{left:12%;right:12%;top:auto;bottom:-3%;height:5vh;transform:none!important}
+  .pfd-ca,.pfd-ti{position:static;width:auto;max-width:none;transform:none!important;opacity:1!important}
+  .pfd-ti{font-size:clamp(28px,8vw,42px);margin:26px 0 18px}
+  .pfd-ca{padding:16px 0 0;background:none}
+  .pfd-sol,.pfd-sw,.pfd-rail,.pfd-mur,.pfd-nx,.pfd-gl,.pfd-vg,.pfd-fx{display:none}
+  .pfd-fin{height:11vh;min-height:90px}
+}
+/* si la personne demande moins de mouvement : la meme colonne posee, sans
+   salle tenue, sans balayage, sans parallaxe */
+@media (prefers-reduced-motion:reduce){
+  .pfd{height:auto}
+  .pfd-sal{position:static;height:auto;display:block;padding:44px 32px 56px;overflow:visible}
+  .pfd-n{position:static;display:block;top:auto;left:auto;
+    transform:none!important;margin-left:-.06em;opacity:1;transition:none;font-size:min(34vw,300px)!important}
+  .pfd-n i{font-size:1em}
+  .pfd-n::before,.pfd-n::after{display:none}
+  .pfd-im{height:auto;margin:-4vw 0 0;margin-inline-start:0}
+  .pfd-ti.t2,.pfd-ti.t3,.pfd-ti.t4{font-size:clamp(26px,3.4vw,44px);max-width:62ch}
+  .pfd-fl{height:auto;width:min(46%,420px);max-width:none;margin:0 auto;
+    opacity:1!important;transform:none!important;transition:none}
+  .pfd-rf{display:none}
+  .pfd-om{left:26%;right:26%;top:auto;bottom:-2%;height:4vh;opacity:1;transform:none!important;transition:none}
+  .pfd-ca,.pfd-ti{position:static;width:auto;max-width:62ch;transform:none!important;opacity:1!important}
+  .pfd-ti{font-size:clamp(28px,4vw,54px);margin:24px 0 18px}
+  .pfd-ti span{opacity:1!important;transform:none!important;transition:none}
+  .pfd-sol{transform:none!important;transition:none}
+  .pfd.vu .pfd-sw{animation:none}
+  .pfd-ca p b{text-shadow:none!important;transition:none}
+  .pfd-fin i{width:min(62vw,860px);transition:none}
+  .pfd-fin b{transform:rotate(45deg) scale(1);transition:none}
+  .pfd-sol,.pfd-sw,.pfd-rail,.pfd-mur,.pfd-nx,.pfd-gl,.pfd-vg,.pfd-fx{display:none}
+}
+</style>
+<section id="pf-salle" hidden aria-labelledby="pf-salle-k">
+  <div class="pfd-tete">
+    <span class="pfd-kk" id="pf-salle-k" data-i18n="ri.label">VOTRE RITUEL &middot; 3 SOINS</span>
+    <div class="pfd-regle" id="pf-salle-regle" aria-hidden="true"></div>
+  </div>
+  <div id="pf-salle-corps"></div>
+  <div class="pfd-fin" id="pf-salle-fin" aria-hidden="true"><i></i><b></b></div>
+</section>
 <section class="sg-marque" id="sg-marque" aria-label="Pour les marques" data-i18n-attr="aria-label:mk.aria">
   <div class="sg-marque-in">
     <div class="sg-mk" data-i18n="mk.k">Pour les marques de beauté</div>
@@ -696,17 +1010,24 @@ a:focus-visible,button:focus-visible,[tabindex]:focus-visible{cursor:auto}
 
 // 1. VIEW CONTROLLER
 function switchView(viewId) {
+    var bnS = document.getElementById('vy-sombre'); if (bnS && viewId !== 'view-scanner') bnS.style.display = 'none';
     document.querySelectorAll('.view-state').forEach(el => el.classList.remove('active'));
     document.getElementById(viewId).classList.add('active');
 
     if(viewId === 'view-results') {
         document.body.classList.add('scrollable');
+        try{ (document.scrollingElement||document.documentElement).scrollTop=0; document.body.scrollTop=0; }catch(e){}
     }
 }
 
 // Ecrit le HUD par le moteur de langue, jamais en dur.
 function vyHud(key){ var el=document.getElementById('hud-status'); if(!el) return; el.setAttribute('data-i18n', key); el.textContent = VY.t(key); }
 
+/* 12/10 (« 10 s au plus ») : les reglages de la lecture, en un seul endroit (les deux departs de la lecture s'en servent).
+   Controle sur 8 images (le minimum du moteur) au lieu de 10 ; cadence : le calcul de chaque image compte dans
+   l'intervalle au lieu de s'y ajouter. Toujours 8 images lues : 5 images ont ete essayees, le banc de stabilite
+   du 12/10 (28 photos) depassait l'ecart maximal admis (8 points au lieu de 5), on garde donc 8. */
+const VY_LECTURE = { sansDecompte: true, gateMs: 720, gateFrames: 8, analyseMs: 2400, cadence: true, skipAge: true };
 // 2. IA FACE API (THERMAL / TOPOLOGICAL SURGERY)
 const STATE = { modelsLoaded: false, scanning: false, thermalMode: false, box: null, landmarks: null, stream: null };
 const video = document.getElementById('liveVideo');
@@ -716,48 +1037,92 @@ const videoContainer = document.getElementById('thermal-vid-container');
 const depthUI = document.getElementById('depth-ui');
 let calibFrames = 0;
 
+/* 05/10 : les modeles du visage se chargent des que la page est au repos, pas au clic (gain d'environ 1 s) */
+/* 12/10 (« 10 s au plus ») : des l'arrivee (au repos), puis les detecteurs sont prechauffes en arriere-plan
+   (compilation des programmes graphiques, 1 a 3 s qui tombaient sur la premiere detection du visage) */
+function vyRepos(f, delai){ try { (window.requestIdleCallback || function(g){ setTimeout(g, 30); })(f, { timeout: delai || 2000 }); } catch(e) { setTimeout(f, 0); } }
+function vyPrechauffe(formes){ try { var E = window.VYVRE_SCAN_ENGINE; if (E && E.prechauffer) E.prechauffer(formes); } catch(e) {} }
+addEventListener('load', function(){ vyRepos(function(){ if (window.faceapi) loadAI().catch(function(){}); }, 1200); });
 async function loadAI() {
   if(STATE.modelsLoaded) return true;
   vyHud('hud.boot');
   try {
     const URL = '/scan/models/faceapi';
-    await faceapi.nets.tinyFaceDetector.loadFromUri(URL);
-    await faceapi.nets.faceLandmark68Net.loadFromUri(URL);
+    /* 12/10 : le moteur a souvent deja charge ces modeles a l'ouverture : on ne les recharge pas une deuxieme fois */
+    const nets = faceapi.nets;
+    await Promise.race([Promise.all([nets.tinyFaceDetector.params ? null : nets.tinyFaceDetector.loadFromUri(URL), nets.faceLandmark68Net.params ? null : nets.faceLandmark68Net.loadFromUri(URL)]), new Promise((_, rej) => setTimeout(() => rej(new Error('modeles lents')), 20000))]);
     STATE.modelsLoaded = true;
     vyHud('hud.ready');
+    vyRepos(function(){ vyPrechauffe(); }, 1500);
     return true;
   } catch(e) {
     vyHud('hud.err');
+    try { const st=document.getElementById('step-3'); if(st) st.textContent='La lecture n’a pas pu se faire.'; const b=document.createElement('button'); b.className='spatial-btn'; b.textContent='Réessayer'; b.style.cssText='position:fixed;left:50%;bottom:120px;transform:translateX(-50%);z-index:2147483646'; b.onclick=()=>location.reload(); document.body.appendChild(b); } catch(_) {}
     return false;
   }
 }
 
 document.getElementById('btn-scan').addEventListener('click', async () => {
   switchView('view-scanner');
-  await loadAI();
+  /* 29/09 (test iPhone de Charles : « écran noir puis visage ») : la camera ne s'ouvrait qu'APRES
+     le telechargement des modeles du visage (plusieurs secondes en 4G, ovale noir pendant ce temps).
+     La camera s'ouvre maintenant tout de suite ; les modeles se chargent en parallele, et le suivi
+     du visage (detectAndDraw) attend deja STATE.modelsLoaded pour demarrer. */
+  Promise.resolve().then(loadAI).catch(function(){});
   try {
     /* 27/09 (test iPhone de Charles) : « video:true » laissait iOS livrer un flux paysage, zoome
        en plein ecran portrait : on ne voyait qu'une bande centrale, souvent le fond. On demande la
        camera avant, au format de l'ecran ; si l'appareil refuse ces reglages, on retombe sur le simple. */
     const portrait = window.innerHeight >= window.innerWidth;
     try {
-      STATE.stream = await navigator.mediaDevices.getUserMedia({ audio: false, video: {
-        facingMode: 'user',
-        width:  { ideal: portrait ? 720 : 1280 },
-        height: { ideal: portrait ? 1280 : 720 },
-        aspectRatio: { ideal: portrait ? 9/16 : 16/9 } } });
+      /* 29/09 : sur telephone, plus de format impose (9/16) : iOS rognait le capteur pour l'obtenir,
+         d'ou le visage zoome. On demande le format natif ; l'affichage s'adapte a ce qui arrive (vyCadrer). */
+      STATE.stream = await navigator.mediaDevices.getUserMedia({ audio: false, video: portrait
+        ? { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 } }
+        : { facingMode: 'user', width: { ideal: 1280 }, height: { ideal: 720 }, aspectRatio: { ideal: 16/9 } } });
     } catch (e1) {
       STATE.stream = await navigator.mediaDevices.getUserMedia({ audio: false, video: { facingMode: 'user' } });
     }
     video.srcObject = STATE.stream;
+    /* la video n'apparait qu'avec sa premiere vraie image : jamais d'ovale noir */
+    const montrer = () => { try{ window.vyCadrer && window.vyCadrer(); }catch(_){} video.classList.add('vy-on'); };
+    video.addEventListener('playing', montrer, { once:true });
+    video.addEventListener('timeupdate', montrer, { once:true });
+    /* 29/09 : le suivi du visage se branche AVANT play() : sinon les metadonnees sont deja
+       chargees quand play() rend la main et le suivi ne demarre jamais */
     video.onloadedmetadata = () => {
+      if (video.__vyPret) { try{ window.vyCadrer && window.vyCadrer(); }catch(_){} return; }
+      video.__vyPret = true;
       overlay.width = video.videoWidth; overlay.height = video.videoHeight;
       /* iOS peut tourner le flux apres coup : on suit ses vraies dimensions */
-      video.addEventListener('resize', () => { overlay.width = video.videoWidth; overlay.height = video.videoHeight; });
+      video.addEventListener('resize', () => { overlay.width = video.videoWidth; overlay.height = video.videoHeight; try{ window.vyCadrer && window.vyCadrer(); }catch(_){} });
+      try{ window.vyCadrer && window.vyCadrer(); }catch(_){}
       vyHud('hud.track');
       setInterval(detectAndDraw, 100);
+      /* 26/09 — trop sombre : on le dit en clair (90e centile de luminance, independant de la couleur de peau) */
+      setInterval(function(){
+        /* 11/10 (iPhone de Charles) : le bandeau restait affiche apres le scan (on sortait avant de le cacher) ;
+           il disparait des qu'on quitte la camera et des que la lecture est jugee (refus : la vraie raison s'affiche). */
+        try{ var bn0 = document.getElementById('vy-sombre');
+          if(!video.videoWidth || !document.getElementById('view-scanner').classList.contains('active') || window.__vyLuOk){ if(bn0) bn0.style.display = 'none'; return; }
+          var c = window.__lumCv || (window.__lumCv = document.createElement('canvas')); c.width = 48; c.height = 36;
+          var x = c.getContext('2d', { willReadFrequently:true }); x.drawImage(video, 0, 0, 48, 36);
+          var d = x.getImageData(0, 0, 48, 36).data, hs = new Uint32Array(32), n = 0, p90 = 1;
+          for(var i=0;i<d.length;i+=4){ hs[Math.min(31, ((d[i]*.3 + d[i+1]*.59 + d[i+2]*.11)/255*32)|0)]++; n++; }
+          for(var k=0,acc=0;k<32;k++){ acc += hs[k]; if(acc >= n*.9){ p90 = (k+.5)/32; break; } }
+          /* un bandeau a part, bien visible : la pastille du bas est reecrite en continu par le suivi du visage */
+          var bn = document.getElementById('vy-sombre');
+          if(!bn){ bn = document.createElement('div'); bn.id = 'vy-sombre'; bn.setAttribute('role','status');
+            bn.style.cssText = 'position:fixed;left:50%;top:calc(env(safe-area-inset-top) + 190px);transform:translateX(-50%);z-index:60;max-width:min(88vw,460px);padding:14px 20px;border-radius:18px;text-align:center;font:300 16px/1.35 Inter,system-ui,sans-serif;color:#ffe3bd;background:rgba(10,8,6,.72);border:1px solid rgba(255,214,160,.4);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);box-shadow:0 20px 50px -20px #000;display:none';
+            document.body.appendChild(bn); }
+          if(p90 < .42){ bn.textContent = VY.t('hud.sombre'); bn.style.display = 'block'; }
+          else bn.style.display = 'none';
+        }catch(e){}
+      }, 600);
       renderThermalTopography();
     };
+    try { await video.play(); } catch(_) {}
+    if (video.readyState >= 1 && !video.__vyPret) video.onloadedmetadata();
   } catch(e) {
     // Camera refusee ou indisponible : on le dit et on propose la photo, jamais d'ecran noir muet.
     vyHud('hud.camoff');
@@ -791,7 +1156,17 @@ document.getElementById('file-input').addEventListener('change', async (e) => {
 
   img.onload = () => {
     overlay.width = img.width || 480; overlay.height = img.height || 640;
-    generateMockData(overlay.width, overlay.height);
+    /* 05/10 (audit) : le vrai visage de la photo (plus de cadre dessine au hasard) ; sans visage, on le dit */
+    const Ev = window.VYVRE_SCAN_ENGINE, det = () => faceapi.detectSingleFace(img, new faceapi.TinyFaceDetectorOptions({ inputSize: 416, scoreThreshold: .4 })).withFaceLandmarks();
+    (Ev && Ev.verrouVisage ? Ev.verrouVisage(det) : det()).then(res => {
+      if (!res) { if (window.VYVRE_SCAN_ENGINE && window.VYVRE_SCAN_ENGINE.showRejectUI) window.VYVRE_SCAN_ENGINE.showRejectUI([{ code: 'NO_FACE' }]); return; }
+      const kx = overlay.width / (img.naturalWidth || overlay.width), ky = overlay.height / (img.naturalHeight || overlay.height);
+      STATE.box = { x: res.detection.box.x * kx, y: res.detection.box.y * ky, width: res.detection.box.width * kx, height: res.detection.box.height * ky };
+      STATE.landmarks = res.landmarks.positions.map(p => ({ x: p.x * kx, y: p.y * ky }));
+      document.getElementById('hud-nodes').innerText = String(STATE.landmarks.length);
+      document.getElementById('hud-status').innerText = 'Locked';
+      setTimeout(() => { if (!STATE.scanning) { STATE.scanning = true; startThermalScan(); } }, 1200);
+    }).catch(() => { if (window.VYVRE_SCAN_ENGINE && window.VYVRE_SCAN_ENGINE.showRejectUI) window.VYVRE_SCAN_ENGINE.showRejectUI([{ code: 'NO_FACE' }]); });
     renderThermalTopography();
     vyHud('hud.extract');
   };
@@ -986,6 +1361,7 @@ function executeCapture() {
     // Visage absent ou mal détecté → alerte AVANT scan, pas après
     console.warn('[CHARLOTTE_TILBURY] face check failed:', { score, landmarksCount, boxSize, minBox });
     showNoFaceBanner(VY.t('ban.main2'));
+    window.__vyLecture = null; window.__vyMoteur = false; if (window.__vyPct) window.__vyPct.echec();
     // Reset pour permettre une nouvelle calibration
     STATE.scanning = false;
     STATE.thermalMode = false;
@@ -1155,6 +1531,9 @@ function drawEpigeneticMatrix(){
 
 window.vyvreLastScanResult = null;
 
+window.addEventListener('vyvre:scan-rejected-dismissed', function(){ location.reload(); });
+/* 11/10 : quand le moteur refuse, sa fenetre dit la vraie raison ; le bandeau « Pas assez de lumiere » s'efface */
+window.addEventListener('vyvre:scan-rejected', function(){ try { window.__vyLuOk = true; var b = document.getElementById('vy-sombre'); if (b) b.style.display = 'none'; } catch (e) {} });
 function launchComputation() {
   switchView('view-process');
   // NOTE: on garde STATE.stream actif pendant le real scan (besoin de capturer 8 frames)
@@ -1176,7 +1555,8 @@ function launchComputation() {
     if (scanSource.tagName === 'IMG') {
       realScanPromise = scanFromImage(scanSource);
     } else {
-      realScanPromise = window.VYVRE_SCAN_ENGINE.runRealScan(scanSource).catch(err => {
+      /* 05/10 (audit) : la lecture complete (controle de qualite + 8 images), sans temps morts ; memes scores que la lecture longue */
+      realScanPromise = window.__vyLecture || window.VYVRE_SCAN_ENGINE.runRealScanWithFeedback(scanSource, window.__vyPctLecture ? window.__vyPctLecture() : function(){}, VY_LECTURE).catch(err => {
         console.warn('[CHARLOTTE_TILBURY] real scan failed:', err);
         return null;
       });
@@ -1184,6 +1564,8 @@ function launchComputation() {
   } else {
     console.warn('[CHARLOTTE_TILBURY] engine ou source absente, fallback');
   }
+  /* 11/10 : la pastille du pourcentage suit la lecture sur l'ecran du calcul */
+  if (window.__vyPct && window.__vyPct.active()) window.__vyPct.rattacher(document.body, 'vy-pct-fixe');
 
   // Animation des étapes texte (5.4s total)
   const steps = [
@@ -1203,26 +1585,30 @@ function launchComputation() {
           if(idx === steps.length - 1) {
               setTimeout(async () => {
                   // ATTENDRE que le real scan soit fini (au moins min(scan, 8s extra))
+                  let result = null;
                   if (realScanPromise) {
-                    try {
-                      const result = await Promise.race([
-                        realScanPromise,
-                        new Promise(r => setTimeout(() => r(null), 3500))
-                      ]);
-                      if (result) {
-                        window.vyvreLastScanResult = result;
-                        console.log('[CHARLOTTE_TILBURY] real scan complete:', result);
-                      } else {
-                        console.warn('[CHARLOTTE_TILBURY] real scan timeout — fallback dérivé pixels');
-                        window.vyvreLastScanResult = await deriveScoresFromPixels(scanSource);
-                      }
-                    } catch (e) {
-                      console.error('[CHARLOTTE_TILBURY] error awaiting scan:', e);
-                      window.vyvreLastScanResult = await deriveScoresFromPixels(scanSource);
-                    }
-                  } else {
-                    window.vyvreLastScanResult = await deriveScoresFromPixels(scanSource);
+                    const lent = setTimeout(() => { const st = document.getElementById('step-3'); if (st) st.textContent = 'Lecture en cours, ne bougez pas…'; }, 1200);
+                    try { result = await Promise.race([realScanPromise, new Promise(r => setTimeout(() => r({ rejected: true, issues: [{ code: 'INSUFFICIENT_FRAMES' }], delai: true }), 45000))]); } catch (e) { console.error('[VYVRE] lecture :', e); result = null; }
+                    window.__vyMoteur = false;
+                    clearTimeout(lent);
                   }
+                  /* 11/10 (iPhone de Charles) : une lecture qui n'a pas vraiment abouti (aucune image acceptee, clarte
+                     illisible, scores de secours) est refusee comme les autres : jamais de rituel sans vraie lecture */
+                  const lu = !!(result && result.raw && isFinite(result.raw.L) && result.raw.L > 0 && result.source !== 'fallback' && !(result.framesAccepted === 0));
+                  const refus = !result || result.rejected || !result.scores || result.scores.error || !lu;
+                  /* le bandeau « Pas assez de lumiere » ne survit jamais a la lecture : refus = la vraie raison, sinon il etait passager */
+                  try { window.__vyLuOk = true; const bs = document.getElementById('vy-sombre'); if (bs) bs.style.display = 'none'; } catch (_) {}
+                  if (refus) {
+                    if (window.__vyPct) window.__vyPct.echec();
+                    if (STATE.stream) STATE.stream.getTracks().forEach(t => t.stop());
+                    computationActive = false; window.vyvreLastScanResult = null;
+                    if (!document.getElementById('vyvre-v9-reject') && window.VYVRE_SCAN_ENGINE && window.VYVRE_SCAN_ENGINE.showRejectUI) {
+                      const codes = (result && result.issues) || [{ code: result && result.scores && result.scores.error ? 'LOW_VARIANCE' : (result && result.scores && !lu ? 'LOW_LUMINANCE' : 'INSUFFICIENT_FRAMES') }];
+                      window.VYVRE_SCAN_ENGINE.showRejectUI(codes);
+                    } else if (!document.getElementById('vyvre-v9-reject')) { const st=document.getElementById('step-3'); if(st) st.textContent='La lecture n’a pas pu se faire.'; const b=document.createElement('button'); b.className='spatial-btn'; b.textContent='Réessayer'; b.style.cssText='position:fixed;left:50%;bottom:120px;transform:translateX(-50%);z-index:2147483646'; b.onclick=()=>location.reload(); document.body.appendChild(b); }
+                    return;
+                  }
+                  window.vyvreLastScanResult = result;
 
                   // Stop le stream APRES capture
                   if (STATE.stream) STATE.stream.getTracks().forEach(t => t.stop());
@@ -1231,7 +1617,7 @@ function launchComputation() {
                   showFinalDashboard();
               }, 150);
           }
-      }, idx * 1000);
+      }, idx * 450);
   });
 }
 
@@ -1269,9 +1655,12 @@ async function scanFromImage(imgEl) {
     const foreheadPixels = eng.samplePixelsInROI(imageData, roi, 'forehead', 3);
     const allPixels = cheekPixels.concat(tzonePixels, foreheadPixels);
 
+    /* 05/10 (audit) : sans visage detecte ou avec une image refusee, on s'arrete (plus de calcul sur une zone au hasard) */
+    if (!roi || roi.method === 'fallback-center') return { rejected: true, issues: [{ code: 'NO_FACE' }] };
     const quality = eng.assessFrameQuality(allPixels);
     if (!quality.ok) {
-      console.warn('[CHARLOTTE_TILBURY] image quality rejected:', quality.reason);
+      const code = { too_dark: 'LOW_LUMINANCE', overexposed: 'HIGH_LUMINANCE', saturated: 'HIGH_LUMINANCE' }[quality.reason] || 'LOW_VARIANCE';
+      return { rejected: true, issues: [{ code }] };
     }
 
     // Construit le raw manuellement
@@ -1292,10 +1681,12 @@ async function scanFromImage(imgEl) {
     const tZoneSebum = eng.sebumProxy(tzonePixels, (eng.niveauIntensite && eng.niveauIntensite(cheekPixels)) || avgLum, 0.05);
     const tewlSigma = eng.tewlProxy(labArr);
 
-    const raw = { L: avgL, a: avgA, b: avgB, ita: itaAngle, fitz, MI, EI, sebum: tZoneSebum, tewl: tewlSigma, avgRed, avgGreen, avgLum };
+    const raw = { L: avgL, a: avgA, b: avgB, ita: itaAngle, fitz, MI, EI, sebum: tZoneSebum, tewl: tewlSigma, avgRed, avgGreen, avgLum,
+      /* 04/10 : l'image et ses 68 reperes, pour l'ombre sous l'oeil et les carres de rides (moteur v10.9) */
+      _frame: { imageData, roi, landmarks: roi && roi.landmarks || null } };
     const scores = eng.mapToScores(raw);
     eng.updateBiomarkerBars(scores);
-    return { scores, raw, framesAccepted: 1, framesAttempted: 1, source: 'image' };
+    return { scores, raw, yeux: scores.yeux || null, framesAccepted: 1, framesAttempted: 1, source: 'image' };
   } catch(e) {
     console.error('[CHARLOTTE_TILBURY] scanFromImage error:', e);
     return null;
@@ -1333,15 +1724,13 @@ async function deriveScoresFromPixels(src) {
     const raw = {
       L: avgL, a: avgA, b: avgB, ita: itaAngle, fitz,
       MI: eng.melaninIndex(avgRed), EI: eng.erythemaIndex(avgRed, avgGreen),
-      /* 07/10 (moteur v10.13) : reflets rapportes au niveau des joues (le 0,5 fixe etait un seuil absolu) ;
-         l'image et ses 68 reperes, sans quoi fermete, eclat, pores, hydratation et rides restent neutres */
-      sebum: eng.sebumProxy(tzonePixels, (eng.niveauIntensite && eng.niveauIntensite(cheekPixels)) || 0.5, 0.05),
+      sebum: eng.sebumProxy(tzonePixels, (eng.niveauIntensite && eng.niveauIntensite(cheekPixels)) || 0.5, 0.05),   /* 07/10 (v10.13) : reflets rapportes au niveau des joues, plus 0,5 fixe */
       tewl: eng.tewlProxy(labArr),
       avgRed, avgGreen, avgLum: 0.5,
-      _frame: { imageData, roi, landmarks: roi && roi.landmarks || null }
+      _frame: { imageData, roi, landmarks: roi && roi.landmarks || null }   /* 04/10 : ombre sous l'oeil + rides (v10.9) */
     };
     const scores = eng.mapToScores(raw);
-    return { scores, raw, framesAccepted: 1, framesAttempted: 1, source: 'fallback' };
+    return { scores, raw, yeux: scores.yeux || null, framesAccepted: 1, framesAttempted: 1, source: 'fallback' };
   } catch(e) {
     console.error('[CHARLOTTE_TILBURY] deriveScoresFromPixels error:', e);
     return null;
@@ -1355,13 +1744,19 @@ function showFinalDashboard() {
     console.log('[CHARLOTTE_TILBURY] showFinalDashboard already called, ignoring duplicate');
     return;
   }
+  /* 11/10 : sans vraie lecture, pas de resultats ni de rituel (plus de valeurs par defaut) : la raison et « Reessayer » */
+  if (!(window.vyvreLastScanResult && window.vyvreLastScanResult.scores)) {
+    console.warn('[VYVRE] aucune lecture aboutie : pas de resultats');
+    if (window.VYVRE_SCAN_ENGINE && window.VYVRE_SCAN_ENGINE.showRejectUI && !document.getElementById('vyvre-v9-reject')) window.VYVRE_SCAN_ENGINE.showRejectUI([{ code: 'INSUFFICIENT_FRAMES' }]);
+    return;
+  }
   _dashboardShown = true;
   switchView('view-results');
   try{ document.body.classList.add('sg-resultats'); }catch(e){}
 
   // === Calcule + injecte les vraies valeurs depuis le scan ===
   const result = window.vyvreLastScanResult;
-  let globalScore = 91, cellAge = 29, hydration = 88;
+  let globalScore = null, cellAge = null, hydration = null;
 
   if (result && result.scores) {
     const s = result.scores;
@@ -1380,38 +1775,43 @@ function showFinalDashboard() {
        s.redness * 0.10 +
        sebumScore * 0.08)
     );
-    globalScore = Math.max(55, Math.min(98, globalScore)); // clamp réaliste
+    globalScore = Math.max(0, Math.min(100, globalScore));   /* 05/10 (audit) : plus de borne 55-98 */
 
     // Âge biologique = 22 + (100 - score) * 0.45  (haute peau = jeune)
-    cellAge = Math.round(22 + (100 - globalScore) * 0.48);
-    cellAge = Math.max(22, Math.min(65, cellAge));
+    /* 05/10 (audit) : l'age est celui du moteur quand il est lisible, sinon rien (plus de formule maison) */
+    cellAge = (s.ageReadable !== false && isFinite(Number(s.cellAge)) && s.cellAge != null) ? Math.round(Number(s.cellAge)) : null;
 
     // Barrière hydrique = directement hydration score (déjà 0-100)
     hydration = Math.round(s.hydration);
-    hydration = Math.max(40, Math.min(98, hydration));
+    hydration = Math.max(0, Math.min(100, hydration));
 
     console.log('[CHARLOTTE_TILBURY] computed: globalScore=' + globalScore + ' cellAge=' + cellAge + ' hydration=' + hydration);
-    console.log('[CHARLOTTE_TILBURY] vyvre-scan-engine: real CIE LAB analysis complete', { raw: result.raw, scores: s });
-    /* 07/10 (« un seul cerveau ») : comme /scan, la page de marque laisse son scan sur l'appareil pour le
-       protocole complet (/m/<marque>/protocol) : scores, heure, ombre sous l'oeil, vignette. Le rituel de la
-       marque est enregistre par le choix des soins, lie a ce scan. */
+    /* 26/09 : le protocole complet (nouvel onglet) ecrit son compte rendu a partir de ces
+       valeurs. Avant, rien n'etait transmis : la partie gauche du protocole restait vide. */
     try {
       const garder = {}; ['wrinkles','firmness','glow','hydration','redness','pores','sebum','pigmentation'].forEach(k => { if (typeof s[k] === 'number') garder[k] = Math.round(s[k]); });
       localStorage.setItem('vyvre_scan_scores', JSON.stringify(garder));
       localStorage.setItem('vyvre_score', String(globalScore));
-      localStorage.setItem('vyvre_hyd', String(Math.round(s.hydration)));
+      localStorage.setItem('vyvre_hyd', String(hydration));
       localStorage.setItem('vyvre_scan_at', String(Date.now()));
-      const cy = vyCernesMarque();
+      /* 04/10 : l'ombre sous l'oeil (indicative) suit vers le protocole, qui applique la meme regle */
+      const cy = vyCernes();
       if (cy) localStorage.setItem('vyvre_scan_yeux', JSON.stringify({ niveau: cy.niveau, type: cy.type, fiable: cy.fiable === true, deltaL: cy.deltaL }));
       else localStorage.removeItem('vyvre_scan_yeux');
-      /* l'age affiche par le protocole vient du moteur seulement ; jamais celui d'un scan precedent */
       const ag = result.age || result.ageEstimate || null;
       const fourchette = result.age_display || result.ageDisplay || (ag && ag.ageReadable !== false && (ag.ageDisplay || (Array.isArray(ag.range) ? ag.range[0] + '–' + ag.range[1] : ''))) || '';
       if (fourchette) localStorage.setItem('vyvre_age_display', String(fourchette)); else localStorage.removeItem('vyvre_age_display');
-      /* 11/10 (regle de Charles : aucune photo conservee) : plus de vignette du visage dans le telephone ; l'ancienne est effacee.
-         Le protocole affiche alors son dessin du visage, sans photo. */
+      /* 11/10 (regle de Charles : aucune photo conservee) : plus aucune vignette du visage dans le telephone.
+         Elle ne vit qu'en memoire, le temps de la page (image du Wrap) ; l'ancienne est effacee. */
       localStorage.removeItem('vyvre_scan_face');
-    } catch (e) { console.warn('[VYVRE] scan non transmis au protocole', e); }
+      const src = document.getElementById('capturedImg'), vid = document.getElementById('liveVideo');
+      const c = document.createElement('canvas'), W = 360;
+      let ok = false;
+      if (src && src.naturalWidth) { c.width = W; c.height = Math.round(W * src.naturalHeight / src.naturalWidth); c.getContext('2d').drawImage(src, 0, 0, c.width, c.height); ok = true; }
+      else if (vid && vid.videoWidth) { c.width = W; c.height = Math.round(W * vid.videoHeight / vid.videoWidth); c.getContext('2d').drawImage(vid, 0, 0, c.width, c.height); ok = true; }
+      window.__vyVisage = ok ? c.toDataURL('image/jpeg', 0.72) : null;
+    } catch (e) { console.warn('[VYVRE] compte rendu non transmis au protocole', e); }
+    console.log('[CHARLOTTE_TILBURY] vyvre-scan-engine: real CIE LAB analysis complete', { raw: result.raw, scores: s });
   } else {
     console.warn('[CHARLOTTE_TILBURY] no scan result available — using defaults (this should NOT happen in prod)');
   }
@@ -1419,7 +1819,7 @@ function showFinalDashboard() {
   // Met à jour les data-target pour l'animation
   document.querySelectorAll('[data-vyvre-score]').forEach(el => el.dataset.target = globalScore);
   document.querySelectorAll('[data-vyvre-score-large]').forEach(el => el.dataset.target = globalScore);
-  document.querySelectorAll('[data-vyvre-age]').forEach(el => el.dataset.target = cellAge);
+  document.querySelectorAll('[data-vyvre-age]').forEach(el => { if (cellAge == null) { el.removeAttribute('data-target'); el.textContent = '—'; } else el.dataset.target = cellAge; });
   (function(){ var sc=(window.vyvreLastScanResult&&window.vyvreLastScanResult.scores)||{}; function v(k,d){var n=Number(sc[k]);return isFinite(n)?Math.max(0,Math.min(100,Math.round(n))):d;}
     document.querySelectorAll('[data-vyvre-glow]').forEach(function(el){el.dataset.target=v('glow',70);});
     document.querySelectorAll('[data-vyvre-calm]').forEach(function(el){el.dataset.target=v('redness',70);}); })();
@@ -1447,7 +1847,10 @@ function showFinalDashboard() {
 
   // === Matching produits Charlotte Tilbury depuis API ===
   if (result && result.scores) {
-    matchAndRenderCharlotteTilburyProducts(result.scores);
+    /* 12/10 (« 10 s au plus ») : le haut des resultats (score, mesures) s'affiche d'abord ; le choix des soins
+       parmi les 5 800 produits suit a l'image d'apres, au lieu de retarder ce premier affichage */
+    window.__vyRendu = new Promise(function(ok, ko){ requestAnimationFrame(function(){ setTimeout(function(){ try { ok(matchAndRenderCharlotteTilburyProducts(result.scores)); } catch (e) { ko(e); } }, 0); }); });
+    Promise.resolve(window.__vyRendu).then(function(){ try{ window.vyRecap && window.vyRecap(); }catch(e){} }, function(){});
   } else {
     console.warn('[CHARLOTTE_TILBURY] no scores for product matching');
   }
@@ -1464,155 +1867,82 @@ function showFinalDashboard() {
  * Identifie les top 3 concerns du user (scores les plus faibles ou pigmentation/sebum
  * élevés = concerns) et fetch + matche les meilleurs produits Charlotte Tilbury.
  */
-/* 07/10 : l'ombre sous l'oeil mesuree par le moteur (indicative), ou null — meme lecture que /scan */
-function vyCernesMarque() {
+/* 04/10 (contour des yeux) : l'ombre sous l'oeil mesuree par le moteur (indicative), ou null */
+function vyCernes() {
   const r = window.vyvreLastScanResult;
   const y = r && (r.yeux || (r.scores && r.scores.yeux));
   return (y && y.cernes && typeof y.cernes.deltaL === 'number') ? y.cernes : null;
 }
+/* La regle, la meme partout (scan, protocole, assiette) : un soin contour des yeux seulement si
+   la personne l'a demande avant le scan, ou si l'ombre sous l'oeil est « marquee » ou « nette »
+   avec une lumiere jugee fiable par le moteur. Jamais pour les rides. */
+function vyReglesYeux() {
+  const demande = !!(window.vyPrefs && window.vyPrefs.yeux && window.vyPrefs.yeux());
+  const c = vyCernes();
+  const mesure = !!(c && c.fiable === true && (c.niveau === 'marque' || c.niveau === 'net'));
+  return { demande, mesure, oui: demande || mesure };
+}
+
 async function matchAndRenderCharlotteTilburyProducts(scores) {
-  window.__vyScores = scores; // memorise pour pouvoir re-rendre au changement de langue
   console.log('[CHARLOTTE_TILBURY] starting product matching with scores', scores);
-  // Concerns "négatifs" : pour wrinkles/firmness/glow/hydration/redness/pores → score BAS = concern
-  // Pour sebum/pigmentation → score HAUT = concern (sebum élevé = peau grasse)
-  const concernSeverity = {
-    wrinkles:    100 - scores.wrinkles,    // bas wrinkles = rides présentes
-    firmness:    100 - scores.firmness,
-    glow:        100 - scores.glow,
-    hydration:   100 - scores.hydration,
-    redness:     100 - scores.redness,
-    pores:       100 - scores.pores,
-    sebum:       scores.sebum,             // sebum élevé = peau grasse = concern
-    pigmentation: scores.pigmentation      // pigment élevé = taches = concern
-  };
-
-  // Top 3 concerns
-  const topConcerns = Object.entries(concernSeverity)
-    .sort((a, b) => b[1] - a[1])
-    .slice(0, 3)
-    .map(([concern, severity]) => ({ concern, severity }));
-
-  console.log('[CHARLOTTE_TILBURY] top concerns:', topConcerns);
+  window.__vyScores = scores;
 
   // Fetch produits
   let products = [];
   try {
-    const resp = await fetch('/scan/catalogue/all.json?_t=' + Date.now());
-    if (!resp.ok) throw new Error('HTTP ' + resp.status);
-    const data = await resp.json();
-    products = data.products || [];
-    /* 29/09 : jamais un produit reserve aux Etats-Unis ni un doublon d'abonnement */
-    products = products.filter(function(p){ return !/\b(US|USA|U\.S\.)\s*ONLY\b|\bONLY\s+(IN|FOR)\s+(THE\s+)?(US|USA)\b|^\s*\[subscr/i.test(p.name || ''); });
-    if (window.VYVRE_MARQUE) { var f = products.filter(function(p){ return p.brand === window.VYVRE_MARQUE; });
-      if (f.length) { products = f; window.VYVRE_MARQUE_NOM = f[0].brand_name || window.VYVRE_MARQUE; window.sgTitreMarque && window.sgTitreMarque(); }
-      else {
-        // Page marque sans produit publie : on n'affiche JAMAIS les produits d'autres marques.
-        console.warn('[VYVRE] aucun produit publie pour', window.VYVRE_MARQUE);
-        var row = document.getElementById('vyvre-product-row');
-        if (row) {
-          var _t = function(k, d){ try { return (window.VY && VY.t(k)) || d; } catch(_) { return d; } };
-          row.innerHTML = '<div class="v6card" style="grid-column:1/-1;text-align:center;padding:48px 24px">'
-            + '<div class="v6lbl" data-i18n="mq.soon.l" style="margin-bottom:12px">'
-              + _t('mq.soon.l', 'Catalogue') + '</div>'
-            + '<h3 data-i18n="mq.soon.t" style="font-weight:200;font-size:22px;margin-bottom:10px">'
-              + _t('mq.soon.t', 'Les produits de cette marque arrivent.') + '</h3>'
-            + '<p data-i18n="mq.soon.p" style="color:rgba(255,255,255,.5);font-size:14px;line-height:1.6">'
-              + _t('mq.soon.p', 'Votre lecture de peau est complète. La sélection pour cette maison est en cours de publication.') + '</p>'
-            + '</div>';
-        }
-        return;
-      } }
+    /* 29/09 : le catalogue deja en cours de chargement depuis l'ouverture de la page ; sinon on le recharge */
+    let data;
+    try { data = await window.__vyCatalogue; } catch (_) { data = null; }
+    if (!data || !data.products) {
+      /* 12/10 : plus de ?_t= (le cache ne servait jamais) ; /scan est servi en no-cache : le navigateur revalide (304) */
+      const resp = await fetch('/scan/catalogue/all.json');
+      if (!resp.ok) throw new Error('HTTP ' + resp.status);
+      data = await resp.json();
+      window.__vyCatalogue = Promise.resolve(data);
+    }
+    products = (data.products || []).slice();
     console.log('[CHARLOTTE_TILBURY] fetched', products.length, 'products from vyvre.fr');
   } catch(e) {
     console.error('[CHARLOTTE_TILBURY] product fetch failed:', e.message);
-    // Le repli Charlotte Tilbury n'a de sens que sur la page generique : sur une
-    // page marque il remettrait les produits d'une autre maison, la fuite meme
-    // qu'on vient de fermer plus haut.
-    if (!window.VYVRE_MARQUE) {
-      try { const r2 = await fetch('/scan/catalogue/charlotte-tilbury.json'); if (r2.ok) products = (await r2.json()).products || []; } catch(_) {}
-    }
-    // Sur une page marque, les produits ecrits en dur dans le HTML sont ceux de
-    // Charlotte Tilbury : les laisser, c'est afficher une autre maison sous le
-    // nom du prospect. On dit plutot que le catalogue arrive.
-    if (!products.length) {
-      if (window.VYVRE_MARQUE) {
-        var _t2 = function(k, d){ try { return (window.VY && VY.t(k)) || d; } catch(_) { return d; } };
-        var row2 = document.getElementById('vyvre-product-row');
-        if (row2) {
-          row2.innerHTML = '<div class="v6card" style="grid-column:1/-1;text-align:center;padding:48px 24px">'
-            + '<div class="v6lbl" data-i18n="mq.soon.l" style="margin-bottom:12px">'
-              + _t2('mq.soon.l', 'Catalogue') + '</div>'
-            + '<h3 data-i18n="mq.soon.t" style="font-weight:200;font-size:22px;margin-bottom:10px">'
-              + _t2('mq.soon.t', 'Les produits de cette marque arrivent.') + '</h3>'
-            + '<p data-i18n="mq.soon.p" style="color:rgba(255,255,255,.5);font-size:14px;line-height:1.6">'
-              + _t2('mq.soon.p', 'Votre lecture de peau est complète. La sélection pour cette maison est en cours de publication.') + '</p>'
-            + '</div>';
-        }
-      }
-      return; // sinon on garde les produits ecrits en dur
-    }
+    if (window.VYVRE_MARQUE) { window.vyMarque && window.vyMarque.attente && window.vyMarque.attente(); return; }
+    try { const r2 = await fetch('/scan/catalogue/charlotte-tilbury.json'); if (r2.ok) products = (await r2.json()).products || []; } catch(_) {}
+    if (!products.length) return; // garde les produits hardcodés
   }
 
+  if (window.vyPrefs && window.vyPrefs.filter) products = window.vyPrefs.filter(products);
+  /* 29/09 (test iPhone de Charles) : « [US ONLY] Collagen Glow Bubble Serum » propose en France.
+     Les fiches reservees aux Etats-Unis et les doublons d'abonnement (« [Subscr.] ») sortent. */
+  products = products.filter(p => !/\b(US|USA|U\.S\.)\s*ONLY\b|\bONLY\s+(IN|FOR)\s+(THE\s+)?(US|USA)\b|^\s*\[subscr/i.test(p.name || ''));
+  /* page de marque : uniquement les produits de cette marque (comparaison sur brand_name) */
+  if (window.VYVRE_MARQUE) { products = window.vyMarque.produits(products); if (!products.length) { window.vyMarque.attente(); return; } }
   if (products.length === 0) return;
 
-  // Score chaque produit selon les top concerns
-  // Score produit = somme pondérée (concern_scores[concern] * severity_user)
-  const scoredProducts = products.map(p => {
-    const cs = p.concern_scores || {};
-    let matchScore = 0;
-    for (const tc of topConcerns) {
-      // concern_scores ∈ [0..1] dans l'API ; severity_user ∈ [0..100]
-      const productEfficacy = cs[tc.concern] || 0;
-      // Si le produit cible explicitement ce concern (targets array), bonus
-      const isTarget = (p.targets || []).includes(tc.concern);
-      const targetBonus = isTarget ? 0.3 : 0;
-      matchScore += (productEfficacy + targetBonus) * tc.severity;
-    }
-    return { ...p, matchScore };
+  /* 07/10 (« un seul cerveau ») : le choix des soins vit dans /scan/vy-choix.js, partage avec les pages de
+     marque et le protocole complet. Le rituel : nettoyer, traiter (serum sur votre point faible n°1, ou
+     l'objectif choisi avant le scan), hydrater (creme de jour, hydratante si l'hydratation est un point
+     faible), proteger (SPF 30 au moins quand l'indice est lisible). Un seul actif fort sur les quatre
+     soins, nettoyant compris, aucun si les rougeurs sont un point faible ; aucun soin du soir le jour.
+     Le contour des yeux remplace le nettoyant quand la regle des yeux le retient. */
+  let fondPlein = {}; try { ((await (await fetch('/scan/catalogue/fond_plein.json')).json()).images || []).forEach(u => fondPlein[u] = 1); } catch (_) {}
+  const regleYeux = vyReglesYeux();
+  const R = window.VyChoix.rituel({
+    scores: scores, produits: products, fondPlein: fondPlein,
+    boost: function(sev){ if (window.vyPrefs && window.vyPrefs.boostConcerns) window.vyPrefs.boostConcerns(sev); },
+    cibles: (window.vyPrefs && window.vyPrefs.cibles) ? window.vyPrefs.cibles() : [],
+    /* 11/10 : les objectifs choisis avant le scan (dont « Boutons, acné ») ; l'acne deduite est decidee par vy-choix.js */
+    goals: (window.vyPrefs && window.vyPrefs.goals) ? window.vyPrefs.goals() : [],
+    yeux: regleYeux,
+    marque: !!window.VYVRE_MARQUE
   });
-
-  // Top 3 produits, en évitant les doublons de "famille" (préfère diversité)
-  scoredProducts.sort((a, b) => b.matchScore - a.matchScore);
-
-  // Diversifier : on prend top 1, puis on cherche un produit avec un primary target différent
-  let selected = [];
-  const usedTargets = new Set();
-  for (const p of scoredProducts) {
-    if (selected.length === 3) break;
-    const primaryTarget = (p.targets || [])[0];
-    // Évite 3 fois le même primary target si on a le choix
-    if (!window.VYVRE_MARQUE && selected.some(x => x.brand && x.brand === p.brand)) continue;
-    if (selected.length < 2 || !usedTargets.has(primaryTarget) || scoredProducts.length < 6) {
-      selected.push(p);
-      if (primaryTarget) usedTargets.add(primaryTarget);
-    }
-  }
-  // Si manque (peu probable), complète
-  while (selected.length < 3 && scoredProducts.length > selected.length) {
-    const next = scoredProducts.find(p => !selected.includes(p));
-    if (next) selected.push(next);
-    else break;
-  }
-
-  /* 07/10 (« un seul cerveau ») : le rituel de la marque, choisi par la meme regle que le scan
-     (/scan/vy-choix.js) : nettoyer, serum sur le point faible n°1, creme, proteger. Le protocole complet
-     de la marque reprend exactement ces soins pour le matin. Si la marque n'a pas de quoi composer
-     trois etapes, on garde les trois soins les mieux notes. */
-  let topRituel = topConcerns, acneRituel = null;
-  if (window.VyChoix) {
-    let fondPlein = {}; try { ((await (await fetch('/scan/catalogue/fond_plein.json')).json()).images || []).forEach(u => fondPlein[u] = 1); } catch (_) {}
-    const cy = vyCernesMarque();
-    const mesure = !!(cy && cy.fiable === true && (cy.niveau === 'marque' || cy.niveau === 'net'));
-    const R = window.VyChoix.rituel({ scores: scores, produits: products, fondPlein: fondPlein, prefs: null, cibles: [],
-      yeux: { demande: false, mesure: mesure, oui: mesure }, marque: !!window.VYVRE_MARQUE });
-    if (R && R.selected.length >= 3) { selected = R.selected; topRituel = R.top; acneRituel = R.acne || null; }
-  }
-  try { window.__vySelection = selected; } catch(e) {}
-  try { window.VyChoix && window.VyChoix.enregistrer(selected, { scores: scores, marque: window.VYVRE_MARQUE || null }); } catch(e) {}
-
+  if (!R || !R.selected.length) return;
+  const selected = R.selected, topConcerns = R.top;
+  let cibleObjectif = R.cibleObjectif;
+  console.log('[CHARLOTTE_TILBURY] top concerns:', topConcerns);
   console.log('[CHARLOTTE_TILBURY] selected products:', selected.map(p => p.name + ' (match=' + p.matchScore.toFixed(1) + ')'));
+  // la liste retenue, telle quelle, pour « LA SALLE » (?salle=1). Lecture seule.
+  try { window.__vySelection = selected; } catch(e) {}
 
-  // Re-render les cartes du rituel
+  // Re-render les 3 cards de Row 3
   const CONCERN_KEYS = {
     wrinkles: 'c.wrinkles', firmness: 'c.firmness', glow: 'c.glow',
     hydration: 'c.hydration', redness: 'c.redness', pores: 'c.pores',
@@ -1622,10 +1952,13 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
 
   document.querySelectorAll('[data-vyvre-prod-slot]').forEach(c => { c.style.display = (+c.dataset.vyvreProdSlot < selected.length) ? '' : 'none'; });
   { const rw = document.getElementById('vyvre-product-row'); if (rw && rw.dataset.ritual) rw.dataset.ritual = rw.dataset.ritual.replace(/\d+/, selected.length); }
+  /* 30/09 : le rituel choisi reste sur cet appareil (pour la page de resultats et ses propositions) */
+  /* 07/10 : lie au scan qui l'a produit (vyvre_rituel_lien) : le protocole complet le reprend tel quel pour le matin */
+  try { window.VyChoix.enregistrer(selected, { scores: scores, marque: window.VYVRE_MARQUE || null }); } catch (e) {}
   selected.forEach((p, idx) => {
     const card = document.querySelector(`[data-vyvre-prod-slot="${idx}"]`);
     if (!card) return;
-    const primaryTarget = (p.targets || []).find(t => topRituel.some(c => c.concern === t)) || (p.targets || [])[0] || 'wrinkles';
+    const primaryTarget = (cibleObjectif && (p.targets || [])[0] === cibleObjectif) ? cibleObjectif : ((p.targets || []).find(t => topConcerns.some(c => c.concern === t)) || (p.targets || [])[0] || 'wrinkles');
     const lblEl = card.querySelector('.v6lbl');
     const h3 = card.querySelector('h3');
     const pEl = card.querySelector('p');
@@ -1636,10 +1969,10 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     else if (lblEl) { lblEl.setAttribute('data-i18n', CONCERN_KEYS[primaryTarget] || 'c.default'); lblEl.textContent = CONCERN_KEYS[primaryTarget] ? concernLabel(primaryTarget) : VY.t('c.default'); }
     if (h3) { h3.removeAttribute('data-i18n'); h3.textContent = p.name; }
     card.dataset.marque = p.brand_name || '';
-    card.classList.remove('vyvre-slot-attente');
     if (pEl && p._yeux) {
+      /* contour des yeux : une phrase honnete, jamais « pour rides » */
       pEl.removeAttribute('data-i18n');
-      pEl.textContent = `${p.brand_name ? p.brand_name + ' · ' : ''}` + (p._yeux.mesure ? VY.t('y.mesure') : '');
+      pEl.textContent = `${p.brand_name ? p.brand_name + ' · ' : ''}` + [p._yeux.demande ? VY.t('y.demande') : '', p._yeux.mesure ? VY.t('y.mesure') : ''].filter(Boolean).join(' ');
     } else if (pEl) {
       const targetWords = (p.targets || []).map(t => concernLabel(t)).join(' · ');
       pEl.removeAttribute('data-i18n');
@@ -1683,21 +2016,21 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     card.dataset.vyvreMatchScore = p.matchScore.toFixed(1);
   });
 
-  /* 11/10 : terrain a tendance acneique lu par le scan (vy-choix.js) : la meme phrase d'orientation que /scan */
+  /* 11/10 : acne declaree ou deduite : une phrase d'orientation medicale, courte, sous les soins. Jamais de promesse. */
   (function(){
     const row = document.getElementById('vyvre-product-row'); if (!row) return;
     let med = document.getElementById('vy-acne-med');
-    /* position absolue en bas de la vitrine (hors de la grille des soins), la vitrine s'allonge d'autant */
-    row.style.paddingBottom = acneRituel ? (innerWidth <= 640 ? '78px' : '58px') : '';
-    if (!acneRituel) { if (med) med.remove(); return; }
-    if (!med) {
-      med = document.createElement('p'); med.id = 'vy-acne-med'; med.setAttribute('data-i18n', 'ac.med');
-      med.style.cssText = 'position:absolute;left:0;right:0;bottom:0;margin:0;padding:12px 20px 14px;border-top:1px solid rgba(255,255,255,.08);font:400 12.5px/1.5 var(--font-main);color:rgba(255,255,255,.62);text-align:center';
-      row.appendChild(med);
-    }
+    row.classList.toggle('vy-acne', !!R.acne);
+    if (!R.acne) { if (med) med.remove(); return; }
+    if (!med) { med = document.createElement('p'); med.id = 'vy-acne-med'; med.setAttribute('data-i18n', 'ac.med'); row.appendChild(med); }
     med.textContent = VY.t('ac.med');
   })();
   console.log('[CHARLOTTE_TILBURY] product cards updated successfully');
+  if (window.vyPrefs && window.vyPrefs.afterRender) window.vyPrefs.afterRender();
+  /* le petit recapitulatif suit chaque nouveau rendu (langue, preferences modifiees) */
+  try { window.vyRecap && window.vyRecap(); } catch (e) {}
+  /* 30/09 : « Votre assiette », branchee sur cette meme lecture */
+  try { window.vyAliment && window.vyAliment.entree(); } catch (e) {}
 }
 
 </script>
@@ -1710,7 +2043,19 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
   });
 </script>
 <!-- VYVRE V10: TF.js removed from eager load — handled by /vyvre-loader.js -->
-<script src="/scan/vyvre-scan-engine.js?v=10.14" defer></script>
+<script src="/scan/vyvre-scan-engine.js?v=10.15" defer></script>
+<script src="/scan/vy-pourcent.js?v=1" defer></script>
+<style id="vy-pct-place">
+/* 11/10 (Charles) : la pastille « 47 % » centree juste sous l'anneau de verre (le cadre camera), jamais sur le visage */
+#thermal-vid-container .vy-pct{bottom:auto;top:min(calc(47% + 46vmin + 12px),calc(100% - 44px))}
+/* ecran en largeur (ordinateur) : l'anneau descend jusqu'au bandeau « Points / Optique » ; la pastille se pose juste au-dessus, dans le fondu bas de l'image */
+@media (orientation:landscape){#thermal-vid-container .vy-pct{top:auto;bottom:88px}}
+.vy-pct.vy-pct-fixe{position:fixed;z-index:60;bottom:auto;top:min(calc(47vh + 46vmin + 12px),calc(100vh - 230px))}
+</style>
+<script>
+/* 11/10 : chaque lecture du moteur nourrit la pastille ; une nouvelle tentative la remet a 0 */
+window.__vyPctLecture=function(){try{if(!window.VyPourcent)return function(){};var vc=document.getElementById('thermal-vid-container');if(!window.__vyPct)window.__vyPct=window.VyPourcent.creer({parent:vc,dureeImages:4000});else window.__vyPct.rattacher(vc,'');return window.__vyPct.lecture();}catch(e){return function(){};}};
+</script>
 <!-- VYVRE_V10_TRACKER_BEGIN -->
 <script src="/scan/vyvre-tracker.js?v=10.2" defer></script>
 <!-- VYVRE_V10_TRACKER_END -->
@@ -1889,7 +2234,7 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);color:var(--sg-champ-vif);letter-spacing:.34em;font-size:10px;margin-bottom:38px;box-shadow:inset 0 1px 0 rgba(255,255,255,.14)}
   #view-hero .label-sm::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--sg-champ-vif);box-shadow:0 0 12px 3px rgba(217,201,163,.6);animation:sgPulse 2.4s ease-in-out infinite}
   @keyframes sgPulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.6}}
-  #view-hero h1{font-weight:100;letter-spacing:-.05em;font-size:clamp(64px,10vw,150px);line-height:.94;background:none;-webkit-text-fill-color:#fff;color:#fff}
+  #view-hero h1{font-weight:100;letter-spacing:-.045em;font-size:clamp(44px,6.2vw,92px);line-height:.98;background:none;-webkit-text-fill-color:#fff;color:#fff}
   #view-hero h1 .sg-w{background:linear-gradient(100deg,#fff 0%,#fff 30%,rgba(255,255,255,.4) 48%,#fff 62%,#fff 100%),linear-gradient(180deg,#fff 10%,rgba(255,255,255,.28) 100%);
     background-size:280% 100%,100% 100%;-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;animation:sgMot 1.4s cubic-bezier(.22,1,.36,1) forwards,sgPasse 8s ease-in-out 2s infinite}
   @keyframes sgPasse{0%,55%{background-position:140% 0,0 0}80%,100%{background-position:-60% 0,0 0}}
@@ -2006,7 +2351,7 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     .vyvre-v6 .v6card.sg-std p{font-size:11px;margin:0;line-height:1.4;color:rgba(255,255,255,.45)}
     .vyvre-v6 .v6card.sg-s1{grid-row:1}.vyvre-v6 .v6card.sg-s2{grid-row:2}.vyvre-v6 .v6card.sg-s3{grid-row:3}
     /* la vitrine : une seule pièce de verre, trois produits dedans, détourés */
-    .vyvre-v6 .v6grid>#vyvre-product-row{display:grid;grid-template-columns:repeat(3,1fr);grid-column:1/13;grid-row:4;gap:0;
+    .vyvre-v6 .v6grid>#vyvre-product-row{display:grid;grid-template-columns:repeat(4,1fr);grid-column:1/13;grid-row:4;gap:0;
       background:linear-gradient(160deg,rgba(255,255,255,.075),rgba(255,255,255,.025) 45%,rgba(255,255,255,.04));border:1px solid var(--sg-line);border-radius:24px;
       backdrop-filter:blur(26px) saturate(1.3);-webkit-backdrop-filter:blur(26px) saturate(1.3);box-shadow:inset 0 1px 0 rgba(255,255,255,.16),0 50px 100px -50px rgba(0,0,0,1);overflow:hidden;position:relative}
     .vyvre-v6 .v6grid>#vyvre-product-row::before{content:attr(data-ritual);position:absolute;top:14px;left:20px;font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.3em;color:rgba(217,201,163,.8)}
@@ -2049,6 +2394,7 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     .vyvre-v6 .v6grid>.sg-verdict b{font-family:'JetBrains Mono',monospace;font-weight:400;font-size:8.5px;letter-spacing:.3em;color:rgba(217,201,163,.85);white-space:nowrap}
     .vyvre-v6 .v6grid>.sg-verdict p{margin:0;font-size:14px;line-height:1.5;font-weight:300;color:rgba(255,255,255,.85);max-width:none}
     .vyvre-v6 .v6grid>.sg-verdict p em{font-style:normal;color:#fbf0d2}
+    .vyvre-v6 .v6grid>.sg-verdict p.sg-yeux{margin-top:8px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55)}
     .vyvre-v6 .v6grid>[data-vyvre-tracker-slot]{grid-row:7}
     .vyvre-v6 .v6card.sg-std,.vyvre-v6 .v6card.sg-s1,.vyvre-v6 .v6card.sg-s2,.vyvre-v6 .v6card.sg-s3{grid-row:8}
     /* révélation du score : sort du flou, s'élargit, anneau qui se dessine avec traînée, onde de choc, éclat */
@@ -2115,7 +2461,8 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
   #view-process{padding:0}
   #view-process .computation-layout{background:none;border:0;backdrop-filter:none;-webkit-backdrop-filter:none;box-shadow:none;max-width:none;height:100vh;position:absolute;inset:0}
   #epigenetic-canvas{display:none!important}
-  #sig-soleil{position:absolute;inset:0;width:100%;height:100%}
+  #sig-soleil{position:absolute;inset:0;width:100%;height:100%;animation:galRespire 7s ease-in-out infinite;will-change:transform}
+  @keyframes galRespire{0%,100%{transform:scale(1) rotate(0deg)}50%{transform:scale(1.045) rotate(1.6deg)}}
   #view-process .label-sm,#view-process h2{position:absolute;left:50%;transform:translateX(-50%);z-index:3;margin:0;text-align:center}
   #view-process .label-sm{display:none}
   #view-process h2{top:132px;font-size:22px;font-weight:200;color:rgba(255,255,255,.85)}
@@ -2218,6 +2565,7 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
   /* ---- héros : mots qui montent + chips ---- */
   window.sgTitreHero=function(){ var h1=document.querySelector('#view-hero h1'); if(!h1) return;
     var src=(window.VY&&VY.t)?VY.t('h.title'):h1.innerHTML;
+    /* droite a gauche : pas de decoupe par mot, la ponctuation se detacherait */
     if(document.documentElement.getAttribute('dir')==='rtl'){ h1.removeAttribute('data-i18n'); h1.innerHTML=src; return; }
     var html=src.split(/<br\s*\/?>/i).map(function(l,i){return l.trim().split(/\s+/).map(function(w,j){return '<span class="sg-w" style="animation-delay:'+(0.15+i*0.25+j*0.12)+'s">'+w+'</span>';}).join(' ');}).join('<br>');
     h1.removeAttribute('data-i18n'); h1.innerHTML=html; };
@@ -2245,7 +2593,7 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
   /* ---- LE SCAN : LES DEUX FILS, branché sur les vrais repères du moteur (STATE.landmarks) ---- */
   var vcont=document.getElementById('thermal-vid-container');
   if(vcont){ var fx=document.createElement('canvas');fx.id='sig-fx';vcont.appendChild(fx);var x=fx.getContext('2d');var W2=0,H2=0;
-    function rs(){W2=fx.width=innerWidth;H2=fx.height=innerHeight;}rs();addEventListener('resize',rs);
+    function rs(){W2=fx.width=fx.clientWidth||innerWidth;H2=fx.height=fx.clientHeight||innerHeight;}rs();addEventListener('resize',rs);setTimeout(rs,0);new MutationObserver(function(){setTimeout(rs,50);}).observe(document.getElementById('view-scanner'),{attributes:true,attributeFilter:['class']});
     var OR='251,240,210',AM='217,201,163',AR='214,222,232',BL='255,255,255',CY='150,200,235';function rgba(k,a){return 'rgba('+k+','+a+')';}
     function stroke(col,w,blur){x.strokeStyle=col;x.lineWidth=w||1;if(blur){x.shadowBlur=blur;x.shadowColor=col;}x.stroke();x.shadowBlur=0;}
     function txt(t2,px,py,al,size,al2){x.font=(size||9)+'px JetBrains Mono';x.textAlign=al2||'left';x.fillStyle=rgba(AR,al);x.fillText(t2,px,py);x.textAlign='left';}
@@ -2255,10 +2603,24 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     function contour(P){var out=[];for(var i=0;i<=16;i++)out.push(P[i]);var l=P[0],r=P[16],cx=(l[0]+r[0])/2,top=Math.min(P[19][1],P[24][1]);var cy=P[27][1],rx=(r[0]-l[0])/2,ry=Math.max((cy-top)*2.4,(P[8][1]-cy)*.78);for(var k=1;k<24;k++){var a=k/24*Math.PI;out.push([cx+Math.cos(a)*rx*1.02,cy-Math.sin(a)*ry]);}return out;}
     function clipFace(P){var C=contour(P);x.beginPath();C.forEach(function(p,i){i?x.lineTo(p[0],p[1]):x.moveTo(p[0],p[1]);});x.closePath();x.clip();}
     var vid=document.getElementById('liveVideo');
-    function mapPts(){var L=STATE.landmarks;if(!L||L.length<68)return null;var vw=vid.videoWidth||1280,vh=vid.videoHeight||720,sc=Math.max(W2/vw,H2/vh),ox=(W2-vw*sc)/2,oy=(H2-vh*sc)/2;return L.map(function(q){return [W2-(ox+q.x*sc),oy+q.y*sc];});}
+    /* 29/09 : on part de la vraie place de la video a l'ecran (elle ne remplit plus forcement le cadre) */
+    function mapPts(){var L=STATE.landmarks;if(!L||L.length<68)return null;var vw=vid.videoWidth||1280,vh=vid.videoHeight||720,fr=fx.getBoundingClientRect(),r=vid.getBoundingClientRect(),kx=W2/(fr.width||W2),ky=H2/(fr.height||H2),rw=r.width*kx,rh=r.height*ky,sc=Math.max(rw/vw,rh/vh),ox=(r.left-fr.left)*kx+(rw-vw*sc)/2,oy=(r.top-fr.top)*ky+(rh-vh*sc)/2;MAPK={ox:ox,oy:oy,sc:sc,vw:vw};return L.map(function(q){return [ox+(vw-q.x)*sc,oy+q.y*sc];});}
     var SM=null;function pts(){var P=mapPts();if(!P)return SM;if(!SM)SM=P.map(function(p){return p.slice();});else for(var i=0;i<68;i++){SM[i][0]+=(P[i][0]-SM[i][0])*.4;SM[i][1]+=(P[i][1]-SM[i][1])*.4;}return SM;}
     var ZONES=function(P){var b=bounds(contour(P));return [{n:'FRONT',k:'hydration',c:[(P[19][0]+P[24][0])/2,P[19][1]-b.h*.16],r:b.w*.3,side:1},{n:'POMMETTE G',k:'radiance',c:[(P[2][0]*.55+P[31][0]*.45),(P[2][1]+P[31][1])/2-6],r:b.w*.14,side:-1},{n:'POMMETTE D',k:'radiance',c:[(P[14][0]*.55+P[35][0]*.45),(P[14][1]+P[35][1])/2-6],r:b.w*.14,side:1},{n:'CONTOUR ŒIL',k:'fine lines',c:[(P[42][0]+P[45][0])/2,P[46][1]+8],r:b.w*.11,side:1},{n:'NEZ',k:'pores',c:[P[30][0],P[30][1]],r:b.w*.1,side:-1},{n:'MENTON',k:'texture',c:[P[8][0],P[8][1]-b.h*.08],r:b.w*.14,side:-1}];};
-    var RELEVES=['L01 EPIDERMIS · MELANIN','L01 EPIDERMIS · ERYTHEMA','L02 DERMAL · COLLAGEN','L02 DERMAL · ELASTIN','L03 THERMO · PERFUSION','SEBUM · T-ZONE','HYDRATION · STRATUM','MICRO-TEXTURE · POR.','LAB · ΔE SKIN','UV · PHOTODAMAGE','FINE LINES · PERIOCULAR','RADIANCE · L* INDEX'];
+    /* 04/10 (audit) : plus aucun chiffre tire au hasard. Chaque valeur affichee est mesuree sur les vrais pixels de la camera :
+       L* (clarte), a* (rouge), b* (jaune) en CIE Lab, sigma = texture (ecart type de L*), ombre sous l'oeil = L* joue moins L* sous l'oeil. */
+    var MAPK=null,MB=document.createElement('canvas'),MBX=MB.getContext('2d',{willReadFrequently:true}),MT=0,MD=null,MN=false,MW=0,MH=0,MES={};
+    function prendre(){if(!vid.videoWidth)return;var now=performance.now();if(MD&&now-MT<220)return;MT=now;MW=240;MH=Math.round(240*vid.videoHeight/vid.videoWidth);if(MB.width!==MW){MB.width=MW;MB.height=MH;}try{MBX.drawImage(vid,0,0,MW,MH);MD=MBX.getImageData(0,0,MW,MH).data;}catch(e){MD=null;}
+      /* 11/10 (iPhone de Charles : des releves a 0.0) : une image entierement noire est une camera illisible, pas une mesure : on affiche « — » */
+      MN=false;if(MD){var mx=0;for(var q=0;q<MD.length;q+=64){var u=MD[q]+MD[q+1]+MD[q+2];if(u>mx)mx=u;}MN=mx<3;}}
+    function lab3(R,G,B){function f(c){c/=255;return c<=.04045?c/12.92:Math.pow((c+.055)/1.055,2.4);}var r=f(R),g=f(G),b=f(B),X=(r*.4124+g*.3576+b*.1805)/.95047,Y=r*.2126+g*.7152+b*.0722,Z=(r*.0193+g*.1192+b*.9505)/1.08883;function h(t){return t>.008856?Math.cbrt(t):7.787*t+16/116;}var fx2=h(X),fy=h(Y),fz=h(Z);return [116*fy-16,500*(fx2-fy),200*(fy-fz)];}
+    function mesure(pc,rad){prendre();if(!MD||MN||!MAPK)return null;var k=MW/MAPK.vw,qx=(MAPK.vw-(pc[0]-MAPK.ox)/MAPK.sc)*k,qy=((pc[1]-MAPK.oy)/MAPK.sc)*k,rr=Math.max(2,Math.round(rad/MAPK.sc*k*.55)),n=0,sL=0,sa=0,sb=0,s2=0;
+      for(var yy=Math.round(qy-rr);yy<=qy+rr;yy++)for(var xx=Math.round(qx-rr);xx<=qx+rr;xx++){if(xx<0||yy<0||xx>=MW||yy>=MH)continue;var o=(yy*MW+xx)*4,c=lab3(MD[o],MD[o+1],MD[o+2]);sL+=c[0];sa+=c[1];sb+=c[2];s2+=c[0]*c[0];n++;}
+      if(!n)return null;var L=sL/n;return {L:L,a:sa/n,b:sb/n,sd:Math.sqrt(Math.max(0,s2/n-L*L))};}
+    /* la peau sous l'oeil, sans les cils : un tiers du chemin entre la paupiere basse et le bout du nez, petit rayon */
+    function sousOeil(P){var lx=(P[46][0]+P[47][0])/2,ly=(P[46][1]+P[47][1])/2;return {c:[lx+(P[30][0]-lx)*.12,ly+(P[30][1]-ly)*.38],r:Math.abs(P[45][0]-P[42][0])*.55};}
+    function lisse(cle,v){if(v==null||!isFinite(v))return MES[cle]!=null?MES[cle]:null;MES[cle]=MES[cle]==null?v:MES[cle]*.8+v*.2;return MES[cle];}
+    var RELEVES=['CLARTÉ · L* MOYEN','ROUGEUR · a* JOUES','TEINTE · b* JAUNE','TEXTURE · σ L*','OMBRE SOUS L’ŒIL · ΔL*','CADRAGE · VISAGE %','REPÈRES · POINTS'];
     function cadre(T,P,label){var b=bounds(contour(P)),m=18,lock=ease(Math.min(1,T/1.2)),pad=m+(1-lock)*90,bx0=b.x0-pad,bx1=b.x1+pad,by0=b.y0-pad*1.2,by1=b.y1+pad,L=22;
       [[bx0,by0,1,1],[bx1,by0,-1,1],[bx0,by1,1,-1],[bx1,by1,-1,-1]].forEach(function(c2){x.beginPath();x.moveTo(c2[0],c2[1]+c2[3]*L);x.lineTo(c2[0],c2[1]);x.lineTo(c2[0]+c2[2]*L,c2[1]);stroke(rgba(BL,.25+.5*lock),1);});
       txt(label,bx0,by0-10,.7,9);txt('68 PTS · LOCK',bx1,by0-10,.5,9,'right');return {x0:bx0,x1:bx1,y0:by0,y1:by1,b:b};}
@@ -2267,8 +2629,8 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     function scene(t,P,T){var box=cadre(T,P,T<1.2?'VERROUILLAGE':(T<4.4?'AXE VERTICAL':(T<7.6?'AXE HORIZONTAL':'CROISÉE'))),b=box.b,cx=P[30][0],cy=P[30][1],sw=b.w,sh=b.h,prism=Math.max(4,sw*.022),tick=Math.max(6,sw*.03);
       P.forEach(function(p,i){LIT[i]*=.997;var a=.10+LIT[i]*.45;x.beginPath();x.arc(p[0],p[1],.5+LIT[i]*.5,0,6.283);x.fillStyle=rgba(BL,a);x.fill();});
       /* les relevés scientifiques s'écrivent dans le noir, à gauche et à droite */
-      var colL=Math.max(24,box.x0-260),colR=Math.min(W2-250,box.x1+80);RELEVES.forEach(function(r,i){var show=Math.max(0,Math.min(1,(T-.8-i*.55)/.5));if(show<=0)return;var left=i%2===0,px=left?colL:colR,py=H2*.28+Math.floor(i/2)*44;seed=i*17+3;var val=(.4+rnd()*.55).toFixed(2);
-        txt(r,px,py,.55*show,8);txt(val,px,py+13,.9*show,11);x.beginPath();x.moveTo(px,py+20);x.lineTo(px+150,py+20);stroke(rgba(AR,.12*show),1);x.beginPath();x.moveTo(px,py+20);x.lineTo(px+150*val*show,py+20);stroke(rgba(OR,.7*show),1,4);});
+      var colL=Math.max(24,box.x0-260),colR=Math.min(W2-250,box.x1+80);RELEVES.forEach(function(r,i){var show=Math.max(0,Math.min(1,(T-.8-i*.55)/.5));if(show<=0)return;var left=i%2===0,px=left?colL:colR,py=H2*.28+Math.floor(i/2)*44;var Z0=ZONES(P),zf=mesure(Z0[0].c,Z0[0].r),zg=mesure(Z0[1].c,Z0[1].r),zd=mesure(Z0[2].c,Z0[2].r),ze=(function(){var u=sousOeil(P);return mesure(u.c,u.r);})(),zj=zd||zg,vv=[lisse('L',zf&&zj?(zf.L+zj.L)/2:null),lisse('a',zg&&zd?(zg.a+zd.a)/2:null),lisse('b',zg&&zd?(zg.b+zd.b)/2:null),lisse('sd',zf&&zj?(zf.sd+zj.sd)/2:null),lisse('dL',ze&&zj?zj.L-ze.L:null),sw/W2*100,P.length],nv=[vv[0]/100,(vv[1]+5)/30,(vv[2]+5)/35,vv[3]/12,(vv[4]+2)/14,vv[5]/80,1],val=vv[i]==null?'—':(i===5||i===6?Math.round(vv[i]):vv[i].toFixed(1)),fill=vv[i]==null?0:Math.max(0,Math.min(1,nv[i]));
+        txt(r,px,py,.55*show,8);txt(val,px,py+13,.9*show,11);x.beginPath();x.moveTo(px,py+20);x.lineTo(px+150,py+20);stroke(rgba(AR,.12*show),1);x.beginPath();x.moveTo(px,py+20);x.lineTo(px+150*fill*show,py+20);stroke(rgba(OR,.7*show),1,4);});
       if(T>1.2&&T<4.4){var k=ease((T-1.2)/3.2),mx=b.x0-sw*.06+k*sw*1.12;x.save();x.globalAlpha=Math.max(0,Math.min(1,(T-1.2)/.35,(4.4-T)/.45));clipFace(P);
         ['235,150,170','245,215,160','255,255,215','170,235,215','160,200,245'].forEach(function(c2,j){var off=(j-2)*prism;x.filter='blur('+Math.max(3,prism*.7)+'px)';x.beginPath();x.moveTo(mx+off*1.4,b.y0-sh*.1);x.lineTo(mx+off*.4,b.y1+sh*.1);stroke(rgba(c2,.18),prism*.8);x.filter='none';});
         x.beginPath();x.moveTo(mx,b.y0-sh*.1);x.lineTo(mx,b.y1+sh*.1);stroke(rgba(BL,.95),1,Math.max(14,sw*.06));var tr=x.createLinearGradient(mx-sw*.18,0,mx,0);tr.addColorStop(0,'rgba(0,0,0,0)');tr.addColorStop(1,rgba(OR,.10));x.fillStyle=tr;x.fillRect(mx-sw*.18,b.y0-sh*.1,sw*.18,sh*1.2);x.restore();x.globalAlpha=Math.max(0,Math.min(1,(T-1.2)/.35,(4.4-T)/.45));
@@ -2280,7 +2642,7 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
         P.forEach(function(p,i){var n=Math.max(0,1-Math.abs(p[1]-my)/(sh*.03));if(n>0){LIT[i]=Math.max(LIT[i],n);x.beginPath();x.arc(p[0],p[1],.7+n*1.3,0,6.283);x.fillStyle=rgba(BL,n);x.shadowBlur=10;x.shadowColor=rgba(CY,1);x.fill();x.shadowBlur=0;x.beginPath();x.moveTo(p[0],p[1]-tick*n);x.lineTo(p[0],p[1]+tick*n);stroke(rgba(CY,n*.8),.7);}});
         txt('Y '+String(Math.round(k2*1000)).padStart(4,'0'),box.x1+8,Math.min(box.y1,Math.max(box.y0,my))+3,.6,8);x.globalAlpha=1;}
       var Z=ZONES(P);Z.forEach(function(z,i){var show=T>4.4?Math.max(0,Math.min(1,(T-4.4-((z.c[1]-b.y0)/sh)*3.2)/.5)):0;if(show<=0)return;var lx=z.side>0?box.x1+26:box.x0-26,ly=z.c[1];x.beginPath();x.moveTo(z.c[0],z.c[1]);x.lineTo(z.c[0]+z.side*z.r*.9,z.c[1]);x.lineTo(lx,ly);stroke(rgba(AR,.35*show),.6);x.beginPath();x.arc(z.c[0],z.c[1],2,0,6.283);x.fillStyle=rgba(OR,show);x.fill();
-        seed=i*31+7;var val=.62+rnd()*.33,shown=Math.min(val,show*val+(1-show)*rnd()*.5);txt(z.n,lx+z.side*4,ly-4,.6*show,8,z.side>0?'left':'right');txt(z.k.toUpperCase()+'  '+shown.toFixed(2),lx+z.side*4,ly+8,.9*show,9,z.side>0?'left':'right');});
+        var m=i===3?(function(){var u=sousOeil(P);return mesure(u.c,u.r);})():mesure(z.c,z.r),mj=i===3?mesure(Z[2].c,Z[2].r):null,lab4=i===0?['CLARTÉ L*',m&&m.L]:(i===1||i===2)?['ROUGEUR a*',m&&m.a]:i===3?['OMBRE ΔL*',m&&mj?mj.L-m.L:null]:['TEXTURE σ',m&&m.sd],v4=lisse('z'+i,lab4[1]);txt(z.n,lx+z.side*4,ly-4,.6*show,8,z.side>0?'left':'right');txt(lab4[0]+'  '+(v4==null?'—':v4.toFixed(1)),lx+z.side*4,ly+8,.9*show,9,z.side>0?'left':'right');});
       if(T>7.6){var s2=ease(Math.min(1,(T-7.6)/1.1));x.globalAlpha=Math.min(1,(T-7.6)/.5);x.beginPath();x.moveTo(cx-sw*.62*s2,cy);x.lineTo(cx+sw*.62*s2,cy);x.moveTo(cx,cy-sh*.62*s2);x.lineTo(cx,cy+sh*.62*s2);stroke(rgba(OR,.5),.7,8);x.beginPath();x.arc(cx,cy,3+s2*6,0,6.283);stroke(rgba(BL,.9),1,12);x.beginPath();x.ellipse(cx,cy,sw*.5*s2,sh*.56*s2,0,0,6.283);stroke(rgba(AR,.3),.8,6);lueurZones(T,P,7.8,1.8,CY);txt('LOCK · '+Math.round(sw)+'×'+Math.round(sh),cx,box.y1+30,.6,8,'center');x.globalAlpha=1;}
       /* tout devient noir : le voile se referme sur la fin de la croisée */
       if(T>8.3){var v=ease(Math.min(1,(T-8.3)/1.3));x.save();x.globalCompositeOperation='source-over';x.fillStyle='rgba(4,5,10,'+v+')';x.fillRect(0,0,W2,H2);x.restore();}}
@@ -2289,9 +2651,13 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     var dbuf=document.createElement('canvas'),dctx=dbuf.getContext('2d',{willReadFrequently:true}),dopts=null,dbusy=false;
     /* 11/10 : un visage tres proche (selfie au telephone) n'est pas vu a la taille 320 : apres un echec on essaie 224 puis 160 */
     var DSZ=[320,224,160],dsi=0;
-    detectAndDraw=function(){ if(!STATE.modelsLoaded||vid.paused||!vid.videoWidth||dbusy||!window.faceapi)return; dbusy=true;
+    /* 12/10 : plus de detection une fois l'ecran de la camera quitte (la camera est coupee) : elle cherchait un visage sur une image figee,
+       changeait de taille de detection a chaque echec et faisait compiler de nouveaux programmes graphiques (0,5 s bloquee sur les resultats) */
+    detectAndDraw=function(){ if(!STATE.modelsLoaded||vid.paused||!vid.videoWidth||dbusy||!window.faceapi||window.__vyMoteur||!document.getElementById('view-scanner').classList.contains('active'))return; dbusy=true;
       try{ if(!dopts)dopts=new faceapi.TinyFaceDetectorOptions({inputSize:DSZ[dsi],scoreThreshold:.3}); var bw=512,bh=Math.max(32,Math.round(bw*vid.videoHeight/vid.videoWidth)); if(dbuf.width!==bw||dbuf.height!==bh){dbuf.width=bw;dbuf.height=bh;} dctx.drawImage(vid,0,0,bw,bh);
-        faceapi.detectSingleFace(dbuf,dopts).withFaceLandmarks().then(function(r){dbusy=false; if(r&&r.landmarks&&r.landmarks.positions.length>=68){var kx=vid.videoWidth/bw,ky=vid.videoHeight/bh;STATE.landmarks=r.landmarks.positions.map(function(q){return {x:q.x*kx,y:q.y*ky};});var bx=r.detection.box;STATE.box={x:bx.x*kx,y:bx.y*ky,width:bx.width*kx,height:bx.height*ky};STATE.detectionScore=r.detection.score||0;STATE.lastDetectionAt=performance.now();var hn=document.getElementById('hud-nodes');if(hn)hn.innerText='68';}else{STATE.detectionScore=0;dsi=(dsi+1)%DSZ.length;dopts=null;}}).catch(function(){dbusy=false;});
+        /* 12/10 : par la file du moteur (jamais en meme temps que le prechauffage des detecteurs) */
+        var Ev=window.VYVRE_SCAN_ENGINE,det=function(){return faceapi.detectSingleFace(dbuf,dopts).withFaceLandmarks();};
+        (Ev&&Ev.verrouVisage?Ev.verrouVisage(det):det()).then(function(r){dbusy=false; if(r&&r.landmarks&&r.landmarks.positions.length>=68){var kx=vid.videoWidth/bw,ky=vid.videoHeight/bh;STATE.landmarks=r.landmarks.positions.map(function(q){return {x:q.x*kx,y:q.y*ky};});var bx=r.detection.box;STATE.box={x:bx.x*kx,y:bx.y*ky,width:bx.width*kx,height:bx.height*ky};STATE.detectionScore=r.detection.score||0;STATE.lastDetectionAt=performance.now();var hn=document.getElementById('hud-nodes');if(hn)hn.innerText='68';}else{STATE.detectionScore=0;dsi=(dsi+1)%DSZ.length;dopts=null;}}).catch(function(){dbusy=false;});
       }catch(e){dbusy=false;} };
     /* filet de sécurité : si la vidéo est en pause ou si le moteur ne remonte aucun repère, on relance et on détecte nous-mêmes */
     var lastOwn=0,ownBusy=false,lockSince=0;
@@ -2300,13 +2666,16 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
       var stale=!STATE.lastDetectionAt||(performance.now()-STATE.lastDetectionAt)>1200;
       if(st&&!STATE.scanning){vyHud(!STATE.modelsLoaded?'hud.load':(vid.paused?'hud.pause':(stale?'hud.search':'hud.lock')));}
       /* départ du scan : 1,2 s de verrouillage continu suffisent, sans dépendre du compteur du moteur */
-      if(!stale&&!STATE.scanning){if(!lockSince)lockSince=performance.now();if(performance.now()-lockSince>1200){STATE.scanning=true;startThermalScan();}}else if(stale)lockSince=0;
+      if(!stale&&!STATE.scanning){if(!lockSince)lockSince=performance.now();if(performance.now()-lockSince>700){STATE.scanning=true;startThermalScan();}}else if(stale)lockSince=0;
       if(false){ownBusy=true;
         faceapi.detectSingleFace(vid,new faceapi.TinyFaceDetectorOptions({inputSize:320,scoreThreshold:.35})).withFaceLandmarks().then(function(r){ownBusy=false;if(r){STATE.box=r.detection.box;STATE.landmarks=r.landmarks.positions;STATE.detectionScore=r.detection.score||0;STATE.lastDetectionAt=performance.now();var hn=document.getElementById('hud-nodes');if(hn)hn.innerText=STATE.landmarks.length;if(typeof handleCalibration==='function')handleCalibration();}}).catch(function(){ownBusy=false;});}
     },250);
     /* le scan du moteur : on remplace sa mise en scène thermique par la nôtre, puis on rend la main à executeCapture */
-    var _startThermal=startThermalScan;startThermalScan=function(){STATE.thermalMode=true;vyHud('hud.read');T0=performance.now();for(var i=0;i<68;i++)LIT[i]=0;setTimeout(function(){executeCapture();},DUR*1000);};
-    (function frame(now){var t=now/1000;x.clearRect(0,0,W2,H2);var P=pts();if(P&&document.getElementById('view-scanner').classList.contains('active')){if(T0){var T=(now-T0)/1000;if(T<DUR+.5)scene(t,P,T);}else attente(t,P);}if(!reduce)requestAnimationFrame(frame);})(0);
+    var _startThermal=startThermalScan;startThermalScan=function(){STATE.thermalMode=true;vyHud('hud.read');T0=performance.now();for(var i=0;i<68;i++)LIT[i]=0;
+      /* 05/10 : la vraie lecture demarre des le verrouillage, pendant l'animation (plus d'attente apres) ; l.animation passe de 9,6 s a 5 s */
+      try{var vv=document.getElementById('liveVideo');if(vv&&vv.videoWidth&&vv.style.display!=='none'&&window.VYVRE_SCAN_ENGINE&&!window.__vyLecture){window.__vyMoteur=true;var moi=window.__vyLecture=window.VYVRE_SCAN_ENGINE.runRealScanWithFeedback(vv,window.__vyPctLecture?window.__vyPctLecture():function(){},VY_LECTURE).catch(function(){return null;}).then(function(r){if(window.__vyLecture===moi)window.__vyMoteur=false;return r;});}}catch(e){}
+      setTimeout(function(){executeCapture();},DUR*1000/1.92);};
+    var hudDer=0;(function frame(now){if(window.__vyMoteur&&now-hudDer<32){requestAnimationFrame(frame);return;}hudDer=now;var t=now/1000;x.clearRect(0,0,W2,H2);var P=pts();if(P&&document.getElementById('view-scanner').classList.contains('active')){if(T0){var T=(now-T0)/1000*1.92;if(T<DUR+.5)scene(t,P,T);}else attente(t,P);}if(!reduce)requestAnimationFrame(frame);})(0);
   }
   /* ---- LE CALCUL : LA GALAXIE — les points du visage montent en orbite, la spirale tourne, le cœur s'effondre en lumière ---- */
   var proc=document.getElementById('view-process');
@@ -2317,7 +2686,7 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     function eo(k){return 1-Math.pow(1-k,3);}function rgba2(k,a){return 'rgba('+k+','+a+')';}
     function st2(col,w,blur){g2.strokeStyle=col;g2.lineWidth=w||1;if(blur){g2.shadowBlur=blur;g2.shadowColor=col;}g2.stroke();g2.shadowBlur=0;}
     new MutationObserver(function(){ if(proc.classList.contains('active')&&!T0g){T0g=performance.now();lastP=(SM||[]).map(function(p){return p.slice();});} if(!proc.classList.contains('active'))T0g=0; }).observe(proc,{attributes:true,attributeFilter:['class']});
-    (function gal(now){ if(T0g){ var t=now/1000,T=(now-T0g)/1000; var cx=SW/2,cy=SH*.47,R=Math.min(SW,SH)*.46,k=Math.min(1,T/1.6),ek=eo(k),spin=t*.22,col=Math.max(0,Math.min(1,(T-2.2)/1.3)),Rk=R*(1-col*.93),tilt=.5+.06*Math.sin(t*.2);
+    var galDer=0;(function gal(now){ if(T0g&&!(window.__vyMoteur&&now-galDer<250)){ galDer=now; var t=now/1000,T=(now-T0g)/1000; var cx=SW/2,cy=SH*.47,R=Math.min(SW,SH)*.46,k=Math.min(1,T/1.6),ek=eo(k),spin=t*.22,col=Math.max(0,Math.min(1,(T-2.2)/1.3)),Rk=R*(1-col*.93),tilt=.5+.06*Math.sin(t*.2);
         g2.clearRect(0,0,SW,SH);g2.globalAlpha=Math.min(1,T/1.4);
         BG.forEach(function(s,i){var tw=.5+.5*Math.sin(t*(.6+s.z)+i);g2.beginPath();g2.arc(s.x*SW,s.y*SH,.4+s.z*1.1,0,6.283);g2.fillStyle=rgba2(s.h<.2?IC:(s.h<.35?OR:BL),(.08+.32*s.z)*tw);g2.fill();});
         var hy=SH*.62;g2.save();g2.beginPath();g2.rect(0,hy,SW,SH-hy);g2.clip();for(var q=-12;q<=12;q++){g2.beginPath();g2.moveTo(cx,hy);g2.lineTo(cx+q*SW*.14,SH);st2(rgba2(IC,.035),.6);}for(var r=0;r<9;r++){var kk=((r+(t*.15)%1)/9),yy=hy+kk*kk*(SH-hy);g2.beginPath();g2.moveTo(0,yy);g2.lineTo(SW,yy);st2(rgba2(IC,.05*(.3+kk)),.6);}g2.restore();
@@ -2347,7 +2716,10 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
         var arr=Object.keys(M).map(function(k){return M[k];}).sort(function(a,b){return a[1]-b[1];});var low=arr[0],low2=arr[1],high=arr[arr.length-1],G=(function(){var el=document.querySelector('[data-vyvre-score-large]');var n=el?parseInt(el.dataset.target,10):NaN;return isFinite(n)?n:v('globalScore',61);})();
         var etat=VY.t(G>=80?'v.exc':(G>=65?'v.good':(G>=50?'v.tired':'v.need')));
         var txt2=VY.t('v.txt',{e:etat,g:G,a:low[0],an:low[1],b:low2[0],bn:low2[1],c:high[0],cn:high[1]});
-        var d=document.createElement('div');d.className='sg-verdict';d.innerHTML='<b>'+VY.t('v.h')+'</b><p>'+txt2+'</p>';grid.appendChild(d);
+        var d=document.createElement('div');d.className='sg-verdict';d.innerHTML='<b>'+VY.t('v.h')+'</b><p>'+txt2+'</p>';
+        /* 04/10 : l'ombre sous les yeux, une ligne indicative, seulement si le moteur la juge lisible */
+        (function(){var cy=typeof vyCernes==='function'?vyCernes():null;if(!cy||cy.fiable!==true||!cy.niveau)return;var p2=document.createElement('p');p2.className='sg-yeux';p2.textContent=VY.t('y.ligne',{n:VY.t('y.'+cy.niveau)});d.appendChild(p2);})();
+        grid.appendChild(d);
         var ce=document.querySelector('.sg-centre');if(ce){var e=document.createElement('i');e.className='sg-eclat';ce.appendChild(e);}})();
       /* les pièces suivantes entrent en cascade */
       setTimeout(function(){res.classList.add('sg-vu');},700);}
@@ -2413,8 +2785,11 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
 (function(){
   var fait=false;
   function lancer(){
-    if(fait) return; fait=true;
-    var cards=[].slice.call(document.querySelectorAll('[data-vyvre-prod-slot]'));
+    if(fait) return;
+    /* 11/10 : « Votre rituel, compose d'apres votre lecture » seulement apres une vraie lecture */
+    if(!(window.vyvreLastScanResult && window.vyvreLastScanResult.scores)) return;
+    fait=true;
+    var cards=[].slice.call(document.querySelectorAll('[data-vyvre-prod-slot]')).filter(function(c){ return c.style.display!=='none'; });
     var prods=cards.map(function(c){ var im=c.querySelector('img'); var src=im?(im.getAttribute('src')||''):'';
       /* pas de reecriture vers le detourage PNG : les PNG ne partent pas en ligne (image cassee) */
       return {src:src, nom:((c.querySelector('h3')||{}).textContent||'').trim(), lbl:(c.dataset.marque||((c.querySelector('.v6lbl')||{}).textContent||'')).trim()}; }).filter(function(p){return p.src&&p.nom;});
@@ -2465,11 +2840,14 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
       var uR=gl.getUniformLocation(pg,'R'), uT=gl.getUniformLocation(pg,'T'), t0=performance.now();
       (function tick(){ if(!run) return; gl.uniform2f(uR,cv.width,cv.height); gl.uniform1f(uT,(performance.now()-t0)/1000+12.); gl.drawArrays(gl.TRIANGLE_STRIP,0,4); requestAnimationFrame(tick); })();
     }
-    var fin=function(){ if(el.classList.contains('out')) return; el.classList.add('out'); setTimeout(function(){ run=false; el.remove(); },1050); };
+    var fin=function(){ if(el.classList.contains('out')) return; el.classList.add('out');
+      try{ (document.scrollingElement||document.documentElement).scrollTop=0; document.body.scrollTop=0; }catch(e){}
+      setTimeout(function(){ run=false; el.remove(); },1050); };
     el.querySelector('.si-skip').addEventListener('click',fin);
     var gel=(location.search.match(/[?&]introgel=1/)); if(!gel) setTimeout(fin, 5600);
   }
-  var attendre=function(){ /* les produits sont re-rendus apres l'appel catalogue : on laisse 700 ms */ setTimeout(lancer,1300); };
+  /* 29/09 : l'intro attend le vrai rendu des produits (le catalogue fait 6 Mo : en 4G, 1,3 s ne suffisait pas) */
+  var attendre=function(){ Promise.resolve(window.__vyRendu).then(function(){ setTimeout(lancer,300); }, function(){ setTimeout(lancer,300); }); };
   if(typeof showFinalDashboard==='function'){ var _sfd=showFinalDashboard; showFinalDashboard=function(){ var r=_sfd.apply(this,arguments); attendre(); return r; }; }
   window.vyvreIntroProduits=lancer;
 })();
@@ -2583,98 +2961,6 @@ html,body{background:#030405!important}
   scan(); new MutationObserver(scan).observe(document.body,{childList:true,subtree:true});
 })();
 </script>
-<script id="sg-marque-param">
-(function(){ var q=new URLSearchParams(location.search); var b=(q.get('b')||'').toLowerCase().replace(/[^a-z0-9-]/g,'');
-  if(!b){ var mm=location.pathname.match(/\/m\/([a-z0-9-]+)/i); if(mm) b=mm[1].toLowerCase(); }
-  window.VYVRE_MARQUE=b||null; window.VYVRE_MARQUE_NOM=null;
-
-  /* Les trois cartes produits ecrites en dur dans le HTML sont celles de Charlotte
-     Tilbury. Sur /m/<marque>, elles s'affichaient telles quelles sous le nom du
-     prospect, avant meme le scan : une maison voyait les produits d'une autre sur
-     sa propre page. On les retire des le chargement ; la vraie selection, ou le
-     message d'attente, prend leur place quand le catalogue a repondu. */
-  if (!b) return;
-  function vide(){
-    /* On garde les cartes — le moteur les remplit par [data-vyvre-prod-slot] — et
-       on efface seulement ce qui nomme l'autre maison : titre, texte, photo, prix. */
-    var slots = document.querySelectorAll('[data-vyvre-prod-slot]');
-    for (var i = 0; i < slots.length; i++) {
-      var c = slots[i];
-      var h3 = c.querySelector('h3'); if (h3) { h3.removeAttribute('data-i18n'); h3.textContent = '\u00a0'; }
-      var pp = c.querySelector('p');  if (pp) { pp.removeAttribute('data-i18n'); pp.textContent = '\u00a0'; }
-      var im = c.querySelector('img');
-      if (im) { im.removeAttribute('src'); im.alt = ''; im.style.display = 'none'; }
-      var pr = c.querySelector('.v6price'); if (pr) pr.textContent = '';
-      c.classList.add('vyvre-slot-attente');
-    }
-  }
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', vide);
-  else vide();
-})();
-</script>
-<script id="sg-marque-apercu">
-/* Page marque, avant tout scan : les trois cartes montrent des produits de CETTE
-   maison, tires du catalogue servi. Sans ca la page d'un prospect s'ouvrait sur
-   trois cartes vides (ou, avant le 20/09, sur trois produits Charlotte Tilbury).
-   Le scan les remplace ensuite par la selection calculee sur la peau lue. */
-(function(){
-  var b = window.VYVRE_MARQUE; if (!b) return;
-  function t(k, d){ try { return (window.VY && VY.t(k)) || d; } catch(_) { return d; } }
-  function attente(){
-    var row = document.getElementById('vyvre-product-row'); if (!row) return;
-    row.innerHTML = '<div class="v6card" style="grid-column:1/-1;text-align:center;padding:48px 24px">'
-      + '<div class="v6lbl" data-i18n="mq.soon.l" style="margin-bottom:12px">' + t('mq.soon.l','Catalogue') + '</div>'
-      + '<h3 data-i18n="mq.soon.t" style="font-weight:200;font-size:22px;margin-bottom:10px">'
-        + t('mq.soon.t','Les produits de cette marque arrivent.') + '</h3>'
-      + '<p data-i18n="mq.soon.p" style="color:rgba(255,255,255,.5);font-size:14px;line-height:1.6">'
-        + t('mq.soon.p','Votre lecture de peau est complète. La sélection pour cette maison est en cours de publication.') + '</p>'
-      + '</div>';
-  }
-  function pose(list){
-    /* trois soins, trois cibles differentes quand la maison le permet */
-    var vus = {}, choix = [];
-    for (var i = 0; i < list.length && choix.length < 3; i++) {
-      var c = (list[i].targets || [])[0] || 'default';
-      if (vus[c]) continue; vus[c] = 1; choix.push(list[i]);
-    }
-    for (var j = 0; choix.length < 3 && j < list.length; j++)
-      if (choix.indexOf(list[j]) < 0) choix.push(list[j]);
-
-    choix.forEach(function(prod, idx){
-      var card = document.querySelector('[data-vyvre-prod-slot="' + idx + '"]'); if (!card) return;
-      var h3 = card.querySelector('h3'); if (h3) { h3.removeAttribute('data-i18n'); h3.textContent = prod.name || ''; }
-      var pp = card.querySelector('p');
-      if (pp) { pp.removeAttribute('data-i18n'); pp.textContent = prod.brand_name || window.VYVRE_MARQUE_NOM || ''; }
-      var im = card.querySelector('img');
-      var src = prod.cutout_url || prod.image_url;
-      if (im && src) {
-        im.src = src; im.alt = prod.name || ''; im.style.display = '';
-        if (prod.image_fond) im.classList.add('sg-plaque'); else im.classList.remove('sg-plaque');
-      }
-      var pr = card.querySelector('.v6price'); if (pr) pr.textContent = '';  /* jamais de prix */
-      card.classList.remove('vyvre-slot-attente');
-      card.dataset.marque = prod.brand_name || '';
-    });
-    if (choix.length) {
-      for (var k = choix.length; k < 3; k++) {
-        var vide = document.querySelector('[data-vyvre-prod-slot="' + k + '"]');
-        if (vide) vide.style.display = 'none';
-      }
-    }
-  }
-  fetch('/scan/catalogue/all.json?_t=' + Date.now())
-    .then(function(r){ return r.json(); })
-    .then(function(j){
-      var tout = j.products || [];
-      var mine = tout.filter(function(x){ return x.brand === b; });
-      if (!mine.length) { attente(); return; }
-      window.VYVRE_MARQUE_NOM = mine[0].brand_name || b;
-      try { window.sgTitreMarque && window.sgTitreMarque(); } catch(_) {}
-      pose(mine);
-    })
-    .catch(function(){ attente(); });
-})();
-</script>
 <script id="sg-garde-reperes">
 (function arm(){ if(!window.faceapi||!faceapi.detectSingleFace){ return setTimeout(arm,300); }
   if(faceapi.__garde) return; faceapi.__garde=true; var o=faceapi.detectSingleFace;
@@ -2682,6 +2968,37 @@ html,body{background:#030405!important}
     t.withFaceLandmarks=function(){ var n=faceapi.nets; if(!((n.faceLandmark68TinyNet&&n.faceLandmark68TinyNet.isLoaded)||(n.faceLandmark68Net&&n.faceLandmark68Net.isLoaded))) return Promise.resolve(null); return w.apply(t,arguments); };
     return t; };
 })();
+</script>
+<style id="vy-recap-css">
+/* 29/09 (Charles, iPhone) : apres les scores, les 4 soins en petit, pour les avoir sous les yeux,
+   puis les produits un par un en grand. Sur ordinateur la vitrine les montre deja cote a cote. */
+#vy-recap{padding:18px 14px 16px!important;opacity:1!important;transform:none!important;align-items:stretch!important}
+#vy-recap .vr-k{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:.3em;color:rgba(217,201,163,.85);margin:0 0 14px 4px}
+#vy-recap .vr-g{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+#vy-recap .vr-p{display:block;text-decoration:none;color:#fff;min-width:0;cursor:pointer}
+#vy-recap .vr-im{aspect-ratio:3/4;border-radius:14px;background:rgba(255,255,255,.035);border:1px solid rgba(255,255,255,.08);display:grid;place-items:center;overflow:hidden;padding:6px}
+#vy-recap .vr-im img{max-width:100%;max-height:100%;object-fit:contain}
+#vy-recap b{display:block;margin-top:8px;font:400 8px/1.4 'JetBrains Mono',monospace;letter-spacing:.16em;color:rgba(217,201,163,.8);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#vy-recap i{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;font:300 11px/1.3 Inter,sans-serif;font-style:normal;color:rgba(255,255,255,.85);margin-top:3px}
+@media (min-width:1100px){#vy-recap{display:none!important}}
+</style>
+<style id="vy-as-place">@media (min-width:1100px){.vyvre-v6 .v6grid>#vy-as-entree{grid-row:9!important;grid-column:1/13!important}}</style>
+<script id="vy-recap-js">
+window.vyRecap = function(){
+  var grid = document.querySelector('.vyvre-v6 .v6grid'); if(!grid) return;
+  var slots = [].slice.call(document.querySelectorAll('[data-vyvre-prod-slot]')).filter(function(c){ return c.style.display !== 'none'; });
+  var items = slots.map(function(c, i){ var im = c.querySelector('img'); return { i:i, src: im ? (im.getAttribute('src') || '') : '',
+    nom: ((c.querySelector('h3') || {}).textContent || '').trim(), marque: (c.dataset.marque || '').trim(), slot: c }; }).filter(function(p){ return p.nom; });
+  if(!items.length) return;
+  var r = document.getElementById('vy-recap'); if(!r){ r = document.createElement('div'); r.id = 'vy-recap'; r.className = 'v6card sg-in'; grid.appendChild(r); }
+  var lbl = (document.getElementById('vyvre-product-row') || {}).dataset || {};
+  var esc = function(t){ return String(t).replace(/[&<>"]/g, function(ch){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[ch]; }); };
+  r.innerHTML = '<div class="vr-k">' + esc((lbl.ritual || 'VOTRE RITUEL').replace(/\d+/, items.length)) + '</div><div class="vr-g">' + items.map(function(p){
+    return '<a class="vr-p" data-i="' + p.i + '"><div class="vr-im">' + (p.src ? '<img src="' + esc(p.src) + '" alt="" onerror="this.style.visibility=\'hidden\'">' : '') + '</div><b>' + String(p.i + 1).padStart(2, '0') + (p.marque ? ' · ' + esc(p.marque) : '') + '</b><i>' + esc(p.nom) + '</i></a>'; }).join('') + '</div>';
+  [].forEach.call(r.querySelectorAll('.vr-p'), function(a){ a.addEventListener('click', function(){ var c = items[+a.dataset.i].slot; if(c) c.scrollIntoView({ behavior:'smooth', block:'center' }); }); });
+  /* les photos sont recadrees apres coup (produits lisibles) : on suit la version finale */
+  setTimeout(function(){ items.forEach(function(p, k){ var im = p.slot.querySelector('img'), m = r.querySelectorAll('.vr-im img')[k]; if(im && m && im.getAttribute('src') !== m.getAttribute('src')) m.src = im.getAttribute('src'); }); }, 2500);
+};
 </script>
 <style id="sg-huit">
 @media (min-width:1100px){
@@ -2694,29 +3011,6 @@ html,body{background:#030405!important}
  .vyvre-v6 .v6card.sg-metric,.vyvre-v6 .v6card.sg-bio{min-height:66px;padding-top:18px;padding-bottom:14px}
 }
 </style>
-<script id="sg-textes-marque">
-(function(){
-  var b=window.VYVRE_MARQUE; if(!b) return;
-  var joli=b.split('-').map(function(w){return w.charAt(0).toUpperCase()+w.slice(1);}).join(' ');
-  function pose(nom){
-    nom=nom||joli; var NOM=nom.toUpperCase();
-    /* le nom de marque ne se traduit jamais ; la phrase autour, si. */
-    var el=document.querySelector('.brand-partner'); if(el){ el.removeAttribute('data-i18n'); el.textContent=NOM; }
-    var lb=document.querySelector('#view-hero .label-sm'); if(lb){ lb.removeAttribute('data-i18n'); lb.textContent=VY.t('b.kick',{n:nom}); }
-    document.title=VY.t('b.title',{n:nom});
-    var p=document.querySelector('#view-hero p'); if(p){ p.removeAttribute('data-i18n'); p.textContent=VY.t('b.hero',{n:nom}); }
-    var mk=document.querySelector('.sg-mk'); if(mk){ mk.removeAttribute('data-i18n'); mk.textContent=VY.t('b.mk',{n:nom}); }
-    var mp=document.querySelector('.sg-mp'); if(mp){ mp.removeAttribute('data-i18n'); mp.textContent=VY.t('b.mp',{n:nom}); }
-    var k=document.querySelector('#sg-intro .si-k'); if(k){ k.removeAttribute('data-i18n'); k.textContent='Vyvre · '+nom; }
-    document.querySelectorAll('a[href*="from=scan-universel"]').forEach(function(a){ a.href=a.href.replace('from=scan-universel','from='+b); });
-    var pr=document.getElementById('vyvre-protocol-link'); if(pr) pr.href='/m/'+b+'/protocol';
-    var ms=document.querySelector('.sg-mbtn-b'); if(ms) ms.href='mailto:contact@vyvre.fr?subject=Vyvre%20%C3%97%20'+encodeURIComponent(nom);
-  }
-  window.sgTitreMarque=function(){ pose(window.VYVRE_MARQUE_NOM); };
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ pose(null); });
-  else pose(null);
-})();
-</script>
 <style id="sg-zoom-produit">
 .vyvre-v6 .v6card.v6prod{overflow:visible!important}
 .vyvre-v6 .v6prod .v6photo{transition:transform .55s cubic-bezier(.2,.9,.2,1),filter .55s ease!important;transform-origin:center bottom;will-change:transform;position:relative;z-index:3}
@@ -2746,6 +3040,7 @@ html,body{background:#030405!important}
 <style id="sg-fumee-containers">
 /* le fond devient noir profond : la fumee ne vit plus que dans le verre */
 #sg-voile-noir{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse 70% 60% at 50% 45%,rgba(3,4,6,.88),rgba(2,2,3,.97) 70%)}
+/* Charles 17/09 : le voile noir seulement sur les resultats ; l'accueil, le scan et le chargement gardent la fumee qui suit la souris */
 body:not(.scrollable) #sg-voile-noir{display:none}
 .vyvre-v6 .v6card,.vyvre-v6 .v6grid>#vyvre-product-row,.vyvre-v6 .v6protocol-btn,.sg-marque-in,.vyvre-v6 .v6grid>.sg-verdict,.vyvre-v6 [data-vyvre-tracker-slot]>*{
   backdrop-filter:brightness(3.6) saturate(1.25) blur(3px)!important;-webkit-backdrop-filter:brightness(3.6) saturate(1.25) blur(3px)!important;
@@ -2769,25 +3064,435 @@ header{backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important;-webki
 @media (prefers-reduced-motion:reduce){.vyvre-v6 .sg-barre::after{animation:none!important}}
 </style>
 <script id="sg-voile-noir-js">(function(){ if(document.getElementById('sg-voile-noir')) return; var d=document.createElement('div'); d.id='sg-voile-noir'; document.body.insertBefore(d, document.body.firstChild); })();</script>
+<!-- VYVRE_PREFS_BEGIN : ce que la personne veut, choisi AVANT le scan.
+     26/09 : l'ecran des questions est /scan/avant/ (propale G WOW validee par Charles),
+     pose en fenetre plein ecran. Il rend les reponses par postMessage ; ce bloc garde
+     la logique qui s'en sert : filtre du catalogue, poids des objectifs, barre de resume. -->
+<style id="vy-prefs-css">
+#vy-avant{position:fixed;inset:0;z-index:9000;width:100vw;height:100vh;height:100dvh;border:0;background:#030405;opacity:0;transition:opacity .7s cubic-bezier(.22,1,.36,1)}
+#vy-avant.vis{opacity:1}
+#vy-prefs-bar{grid-column:1/-1;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;margin:0 auto 26px;padding:0 16px;font:400 11px var(--font-data);letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.55);text-align:center}
+#vy-prefs-bar b{color:#fff;font-weight:400}
+#vy-prefs-bar button{appearance:none;cursor:pointer;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.2);color:#fff;border-radius:999px;padding:9px 18px;font:400 11px var(--font-data);letter-spacing:.12em;text-transform:uppercase}
+#vy-prefs-bar em{font-style:normal;color:rgba(217,201,163,.9);text-transform:none;letter-spacing:0;font-family:var(--font-main)}
+/* 11/10 : la phrase d'orientation medicale (acne declaree ou deduite), dans la vitrine des soins, sur toute la largeur */
+/* place hors de la grille (position absolue) : la vitrine est en repeat(auto-fit,minmax(0,1fr)), un enfant
+   sur toute la largeur y creerait des centaines de colonnes de 1 px */
+.vyvre-v6 .v6grid>#vyvre-product-row.vy-acne{padding-bottom:58px!important}
+#vy-acne-med{position:absolute;left:0;right:0;bottom:0;margin:0;padding:12px 20px 14px;border-top:1px solid rgba(255,255,255,.08);font:400 12.5px/1.5 var(--font-main);color:rgba(255,255,255,.62);text-align:center}
+@media (max-width:640px){ .vyvre-v6 .v6grid>#vyvre-product-row.vy-acne{padding-bottom:78px!important} }
+</style>
+<script id="vy-prefs-js">
+(function(){
+  /* les memes regions que l'ecran des questions (noyau.js) */
+  var EU={DE:1,CH:1,SE:1,BE:1,NL:1,ES:1,IT:1,AT:1,DK:1,PT:1,MC:1,HU:1,IE:1,PL:1};
+  var KEY='vyvre-prefs-v1';
+  var P={age:null,goals:[],univers:[],origine:[],marques:[]};
+  /* 26/09 (audit) : on ne recharge plus les reponses d'une visite precedente (« Passer » les
+     appliquait en cachette). On les enregistre seulement, pour le protocole complet. */
+  var BR={}, done=false, mode='scan', pending=null, note='', cadre=null, repondu=false;
+  var $=function(id){return document.getElementById(id);};
+  /* actif pour tout le monde, dans les 12 langues (scan/avant/langues.js) ;
+     ?sansquestions le coupe ; les pages de marque /m/<marque> ne l'ont pas */
+  var ACTIF=!window.VYVRE_MARQUE&&!/[?&]sansquestions\b/.test(location.search);
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(P));}catch(e){}}
+  fetch('/scan/catalogue/marques.json').then(function(r){return r.json();}).then(function(j){BR=j.marques||{};}).catch(function(){});
+  function region(slug){var b=BR[slug]; if(!b) return null; return EU[b.pays]?'EU':b.pays;}
+  function match(p,skip){
+    var b=BR[p.brand]||{};
+    if(P.marques.length && P.marques.indexOf(p.brand)<0) return false;
+    if(!skip.univers && P.univers.length && P.univers.indexOf(b.univers)<0) return false;
+    if(!skip.origine && P.origine.length && P.origine.indexOf(region(p.brand))<0) return false;
+    return true;
+  }
+  /* si le perimetre laisse moins de 3 produits, on relache d'abord le pays, puis l'univers, et on le dit */
+  var LADDER=[{},{origine:1},{origine:1,univers:1}];
+  var LADDER_NOTE=['','ld.2','ld.3'];
+  /* 07/10 (« un seul cerveau ») : le perimetre et le poids des objectifs viennent de /scan/vy-choix.js,
+     la meme regle que le protocole complet (qui relit vyvre-prefs-v1). */
+  function filter(list){
+    if(!repondu) return list;
+    var r=window.VyChoix.filtrePrefs(list,P,BR);
+    note=(r.niveau>0&&LADDER_NOTE[r.niveau])?VY.t(LADDER_NOTE[r.niveau]):'';
+    return r.list;
+  }
+  function boostConcerns(sev){
+    if(!repondu) return;
+    /* 26/09 (audit) : chaque tranche d'age pese differemment ; avant, 25-34, 35-44 et « tout age » ne changeaient rien */
+    window.VyChoix.booster(sev,P);
+  }
+  function pays(code){
+    if(code==='EU') return VY.t('O.EU');
+    try{ return new Intl.DisplayNames([(window.VY&&VY.lang)||'fr'],{type:'region'}).of(code); }catch(e){ return code; }
+  }
+  function summary(){
+    var t=[], L={luxe:VY.t('u.luxe'),pharmacie:VY.t('u.pharma'),normal:VY.t('u.normal'),'petit-prix':VY.t('u.petit')}, O={};
+    P.origine.forEach(function(c){ O[c]=pays(c); });
+    var G={antiage:'g.antiage',glow:'g.glow',hydration:'g.hydration',redness:'g.redness',pores:'g.pores',acne:'g.acne',pigmentation:'g.pigmentation',sebum:'g.sebum',yeux:'g.yeux'};
+    var A={u25:'ag.u25','25':'ag.25','35':'ag.35','45':'ag.45','55':'ag.55'};
+    if(P.goals.length) t.push(P.goals.map(function(g){return VY.t(G[g]);}).join(' + '));
+    if(P.age&&A[P.age]) t.push(VY.t(A[P.age]));
+    if(P.univers.length) t.push(P.univers.map(function(u){return L[u];}).join(' + '));
+    if(P.origine.length) t.push(P.origine.map(function(o){return O[o]||o;}).join(' + '));
+    if(P.marques.length) t.push(P.marques.map(function(m){return (BR[m]||{}).nom||m;}).slice(0,3).join(', ')+(P.marques.length>3?' +'+(P.marques.length-3):''));
+    return t;
+  }
+  function afterRender(){
+    if(!repondu) return;
+    var row=document.getElementById('vyvre-product-row'); if(!row) return;
+    var bar=$('vy-prefs-bar');
+    if(!bar){ bar=document.createElement('div'); bar.id='vy-prefs-bar'; row.parentNode.insertBefore(bar,row); }
+    var t=summary();
+    bar.innerHTML='<span>'+(t.length?VY.t('vp.your')+' <b>'+t.join(' · ')+'</b>':VY.t('vp.allBrands'))+'</span>'+(note?'<em>'+note+'</em>':'')+'<button type="button">'+VY.t('vp.change')+'</button>';
+    bar.querySelector('button').onclick=function(){ open('edit'); };
+  }
+  /* 11/10 : les cibles des objectifs viennent du cerveau unique (vy-choix.js), « acne » compris */
+  function cibles(){ if(!repondu) return []; return window.VyChoix.cibles(P); }
+  function goals(){ return repondu ? P.goals.slice() : []; }
+  /* 04/10 : « Contour des yeux » (cernes, poches) ne pese sur aucun des 8 scores : il demande seulement un soin yeux */
+  function yeux(){ return repondu && P.goals.indexOf('yeux')>=0; }
+  window.vyPrefs={filter:filter,boostConcerns:boostConcerns,afterRender:afterRender,cibles:cibles,goals:goals,yeux:yeux,get:function(){return P;},repeindre:function(){}};
+
+  function open(m){
+    mode=m; if(cadre) return;
+    cadre=document.createElement('iframe'); cadre.id='vy-avant'; cadre.title=(window.VY&&VY.t)?VY.t('vp.kick'):'Avant votre scan';
+    cadre.src='/scan/avant/index.html?v=8&lang='+encodeURIComponent((window.VY&&VY.lang)||'fr'); cadre.setAttribute('allow','autoplay');
+    document.body.appendChild(cadre);
+    cadre.setAttribute('tabindex','-1');
+    cadre.addEventListener('load',function(){ try{ cadre.focus(); cadre.contentWindow.focus(); }catch(e){} });
+    requestAnimationFrame(function(){ requestAnimationFrame(function(){ cadre.classList.add('vis'); }); });
+  }
+  function close(){
+    if(!cadre) return; var c=cadre; cadre=null; c.classList.remove('vis'); setTimeout(function(){ c.remove(); },650);
+  }
+  function suite(){
+    if(mode==='edit'){ if(window.__vyScores && typeof matchAndRenderCharlotteTilburyProducts==='function') matchAndRenderCharlotteTilburyProducts(window.__vyScores); }
+    else if(pending){ done=true; var btn=pending; pending=null; btn.click(); }
+  }
+  addEventListener('message',function(e){
+    if(e.origin!==location.origin || !e.data || !e.data.vyvreAvant) return;
+    var m=e.data.vyvreAvant;
+    if(m==='fermer'){ close(); return; }
+    if(m==='passer'){ P={age:null,goals:[],univers:[],origine:[],marques:[]}; repondu=true; save(); close(); suite(); return; }
+    if(m==='lancer' && e.data.prefs){
+      var r=e.data.prefs;
+      P={age:r.age||null,goals:(r.goals||[]).slice(),univers:(r.univers||[]).slice(),origine:(r.origine||[]).slice(),marques:(r.marques||[]).slice()};
+      repondu=true; save(); close(); setTimeout(suite,260);
+    }
+  });
+  addEventListener('keydown',function(e){ if(e.key==='Escape'&&cadre) close(); });
+  ['btn-scan','btn-upload'].forEach(function(id){
+    var b=document.getElementById(id); if(!b||!ACTIF) return;
+    b.addEventListener('click',function(e){ if(done) return; e.stopImmediatePropagation(); e.preventDefault(); pending=b; open('scan'); },true);
+  });
+})();
+</script>
+<!-- VYVRE_PREFS_END -->
+
+<script src="/scan/vy-lumiere.js?v=2" defer></script>
+<script id="vy-depuis-aliment">
+/* 30/09 : depuis /aliment, « Lancer le scan » lance vraiment le scan (Charles : « il ne se passe rien ») ;
+   l'assiette s'ouvre ensuite toute seule sur les resultats (vy-aliment.js, entree) */
+if(/[?&]depuis=aliment\b/.test(location.search)) addEventListener('load', function(){ setTimeout(function(){ var b = document.getElementById('btn-scan'); if(!b) return; b.click();
+  /* les questions sur les soins ne concernent pas l'assiette : on les passe, la camera s'ouvre */
+  setTimeout(function(){ if(document.getElementById('vy-avant')) postMessage({ vyvreAvant:'passer' }, location.origin); }, 60); }, 250); });
+</script>
+<script id="vy-intro-scan">
+(function(){
+  if(!/^\/(index\.html)?$/.test(location.pathname) && location.pathname!=='/scan/index.html' && location.pathname!=='/scan') return;
+  /* 30/09 : venu de /aliment, on a deja clique « Lancer le scan » : pas d'intro, le scan demarre */
+  if(/[?&]depuis=aliment\b/.test(location.search)) return;
+  var K='vyvre-intro-vue';
+  try{ if(sessionStorage.getItem(K)==='1' && !/[?&]intro\b/.test(location.search)) return; sessionStorage.setItem(K,'1'); }catch(e){}
+  if(matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  var f=document.createElement('iframe');
+  f.src='/intro/lettres.html?v=1';   /* 30/09 (Charles) : l'intro devient « J · Lettres » : VYVRE ecrit avec les produits */ f.title='VYVRE'; f.setAttribute('aria-hidden','true'); f.setAttribute('tabindex','-1');
+  f.style.cssText='position:fixed;inset:0;width:100vw;height:100vh;border:0;z-index:99999;background:#f5f5f7;transition:opacity .55s ease';
+  var fini=false, t1, t2, barre=null;
+  function fin(){
+    if(fini) return; fini=true;
+    clearTimeout(t1); clearTimeout(t2);
+    /* la page redevient cliquable immediatement, sans attendre la fin du fondu */
+    f.style.pointerEvents='none'; f.style.opacity='0';
+    if(barre){ barre.style.opacity='0'; barre.style.pointerEvents='none'; setTimeout(function(){ barre.remove(); },600); }
+    setTimeout(function(){ f.remove(); },600);
+  }
+  var demarre=false;
+  addEventListener('message',function(e){ if(!e.data) return; if(e.data.vyvreIntro==='debut') demarre=true; if(e.data.vyvreIntro==='fin') fin(); });
+  /* 19/09 : l'intro retenait le bouton « Lancer le scan » 9,3 s sur une page qui promet
+     une lecture en moins de dix secondes. Les garde-fous tombent de 5 s / 10 s a 1,8 s / 5 s,
+     un clic n'importe ou la passe (fusion.html ecoute deja pointerdown), une touche aussi. */
+  t1=setTimeout(function(){ if(!demarre) fin(); },2600);   /* la planche de produits (440 Ko) doit avoir le temps d'arriver */
+  t2=setTimeout(fin,6500);
+  addEventListener('keydown',fin);
+  (document.body||document.documentElement).appendChild(f);
+
+  /* Des la premiere image : « Passer » est visible, et le bouton du hero est repris
+     au-dessus du voile — on peut donc lancer le scan pendant que l'intro joue.
+     Pose tout de suite, sans minuterie : une minuterie se fait affamer par la
+     compilation des shaders, et c'est exactement l'attente qu'on veut supprimer. */
+  (function(){
+    if(fini) return;
+    barre=document.createElement('div');
+    barre.id='vy-intro-barre';
+    barre.style.cssText='position:fixed;left:0;right:0;bottom:calc(26px + env(safe-area-inset-bottom));'+
+      'z-index:100000;display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap;'+
+      'padding:0 16px;opacity:0;transition:opacity .4s ease';
+    var tr=function(k,d){ try{ return (window.VY&&VY.t)?VY.t(k):d; }catch(e){ return d; } };
+    var go=document.createElement('button');
+    go.type='button'; go.className='spatial-btn'; go.id='vy-intro-go';
+    /* 01/10 (Charles) : « Commencer » lance directement le scan */
+    var COMMENCER={fr:'Commencer',en:'Start',es:'Empezar',de:'Starten',it:'Inizia',pt:'Começar',nl:'Beginnen',ru:'Начать',ar:'ابدأ',zh:'开始',ja:'はじめる',ko:'시작하기'};
+    go.textContent=COMMENCER[(window.VY&&VY.lang)||'fr']||'Commencer';
+    /* intro sur fond blanc : le bouton passe en noir, lisible */
+    [['background','#1d1d1f'],['color','#fff'],['border','0'],['box-shadow','0 14px 34px -16px rgba(0,0,0,.5)']].forEach(function(p){ go.style.setProperty(p[0],p[1],'important'); });   /* le style du site est en !important */
+    go.addEventListener('click',function(){ fin(); var b=document.getElementById('btn-scan'); if(b) b.click(); });
+    var passer=document.createElement('button');
+    passer.type='button'; passer.id='vy-intro-passer';
+    passer.setAttribute('data-i18n','si.skip'); passer.textContent=tr('si.skip','Passer');
+    passer.style.cssText='background:rgba(0,0,0,.04);border:1px solid rgba(0,0,0,.22);color:#1d1d1f;'+   /* intro sur fond blanc */
+      'border-radius:100px;padding:0 22px;min-height:44px;font-family:"JetBrains Mono",monospace;font-size:10px;'+
+      'letter-spacing:.28em;text-transform:uppercase;cursor:pointer';
+    passer.addEventListener('click',fin);
+    barre.appendChild(go); barre.appendChild(passer);
+    document.body.appendChild(barre);
+    /* 01/10 (Charles) : les deux boutons apparaissent apres 2 s, le temps que VYVRE se forme */
+    setTimeout(function(){ if(barre) barre.style.opacity='1'; },2000);
+    passer.focus({ preventScroll:true });
+  })();
+})();
+</script>
 <script id="vy-chiffres-reels">
 /* Les chiffres affiches viennent du catalogue reellement servi, jamais d'un nombre ecrit en dur.
    On les donne au moteur de langue : il les replace dans {n} / {b} des 12 langues,
    formates selon la langue affichee. */
 (function(){
-  fetch('/scan/catalogue/all.json?_t='+Date.now()).then(function(r){return r.json();}).then(function(j){
+  /* un seul telechargement du catalogue (6 Mo), partage avec le choix des produits */
+  /* 12/10 : sans ?_t= : meme adresse que les questions (scan/avant/noyau.js), qui le reprennent du cache au lieu
+     de le telecharger une deuxieme fois ; /scan est servi en no-cache, le navigateur revalide (304) */
+  window.__vyCatalogue = window.__vyCatalogue || fetch('/scan/catalogue/all.json').then(function(r){ if(!r.ok) throw new Error('HTTP '+r.status); return r.json(); });
+  window.__vyCatalogue.then(function(j){
     var p=j.products||[]; if(!p.length) return;
     var n=p.length, m=new Set(p.map(function(x){return x.brand;})).size;
     if(window.VY && VY.chiffres) VY.chiffres(n, m);
   }).catch(function(){});
 })();
 </script>
+<!-- PF_SALLE : le moteur de « LA SALLE » (scan peau). Derriere ?salle=1 seulement. -->
+<script id="pf-salle-js">
+(function(){
+  'use strict';
+  /* garde-fou : sans ?salle=1, rien ne se passe. Aucun ecouteur, aucun rendu,
+     la page est exactement celle d'avant. */
+  if(!/[?&]salle=1(?:&|$)/.test(location.search)) return;
+
+  var ROM = ['I','II','III','IV','V','VI'];
+  function rom(i){ return ROM[i] || String(i+1); }
+  function esc(s){ return String(s == null ? '' : s)
+    .replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')
+    .replace(/"/g,'&quot;').replace(/'/g,'&#39;'); }
+  /* une cle n'est affichee que si elle existe vraiment : VY.t rend la cle
+     elle-meme quand elle manque, on ne montre alors rien. */
+  function T(k, v){ try{ var s = window.VY && VY.t ? VY.t(k, v) : k; return s === k ? '' : s; }catch(e){ return ''; } }
+  var REDUIT = !!(window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches);
+
+  var CONCERN = { wrinkles:'c.wrinkles', firmness:'c.firmness', glow:'c.glow',
+    hydration:'c.hydration', redness:'c.redness', pores:'c.pores',
+    sebum:'c.sebum', pigmentation:'c.pigmentation', yeux:'c.yeux' };
+  var UNIVERS = { luxe:'u.luxe', pharmacie:'u.pharma', normal:'u.normal', 'petit-prix':'u.petit' };
+  /* seuls les pays dont le libelle existe dans les douze dictionnaires : on
+     n'invente pas un nom de pays qui ne serait pas traduit. */
+  var PAYS = { FR:'o.FR', US:'o.US', GB:'o.GB', JP:'o.JP', KR:'o.KRsk' };
+
+  /* la liste : celle que le moteur de matching a retenue. A defaut (catalogue
+     injoignable, cartes d'origine laissees en place), on relit les trois
+     cartes affichees — jamais d'autre source. */
+  function liste(){
+    var s = window.__vySelection;
+    if(s && s.length) return s.slice(0, 3);
+    return [].slice.call(document.querySelectorAll('[data-vyvre-prod-slot]')).map(function(c){
+      var h = c.querySelector('h3'), im = c.querySelector('img');
+      if(!h || !h.textContent.trim()) return null;
+      return { name:h.textContent.trim(), brand_name:c.dataset.marque || '',
+               image_url: im ? im.getAttribute('src') : '', targets:[] };
+    }).filter(Boolean);
+  }
+
+  var salles = [], poser = null, attente = false, branche = false;
+
+  function ecrire(){
+    var corps = document.getElementById('pf-salle-corps'),
+        regle = document.getElementById('pf-salle-regle'),
+        sec   = document.getElementById('pf-salle');
+    if(!corps || !sec) return;
+    var L = liste();
+    if(!L.length){ sec.hidden = true; return; }
+
+    /* la reglure de tete : un cran et un chiffre par salle */
+    if(regle) regle.innerHTML = L.map(function(p, i){
+      var x = (i / L.length * 100).toFixed(3) + '%';
+      return '<i style="--x:' + x + '"></i><b style="--x:' + x + '">' + rom(i) + '</b>';
+    }).join('');
+
+    corps.innerHTML = L.map(function(p, i){
+      var img = p.cutout_url || p.image_url || '';
+      var cible = (p.targets || [])[0];
+      var kick  = cible && CONCERN[cible] ? T(CONCERN[cible]) : '';
+      /* la phrase : courte, batie sur ce que la fiche sait vraiment. Les mots
+         qui comptent (les concerns vises) passent en gras leger. Pas de pave
+         recopie du site de la marque : le catalogue n'en a pas, on n'en
+         invente pas. */
+      var mots = (p.targets || []).map(function(t){ return CONCERN[t] ? T(CONCERN[t]) : ''; })
+                                  .filter(Boolean).slice(0, 3);
+      var phrase = '';
+      if(mots.length){
+        var gabarit = T('p.action', { t: '\u0001' });
+        if(gabarit) phrase = esc(gabarit).replace('\u0001',
+          mots.map(function(m){ return '<b>' + esc(m) + '</b>'; }).join(' &middot; '));
+      }
+      /* les etiquettes : uniquement ce qui est dans la fiche ET traduit */
+      var eti = [];
+      if(p.univers && UNIVERS[p.univers]){ var u = T(UNIVERS[p.univers]); if(u) eti.push(u); }
+      if(p.pays && PAYS[p.pays]){ var y = T(PAYS[p.pays]); if(y) eti.push(y); }
+      /* le titre entre mot a mot : un span par mot, un retard par mot */
+      var nom = String(p.name || '');
+      /* le nom vient du catalogue tel quel : on ne le coupe pas, on ajuste la
+         taille pour qu'il tienne dans la salle. */
+      var taille = nom.length > 66 ? ' t4' : nom.length > 42 ? ' t3' : nom.length > 22 ? ' t2' : '';
+      var titre = nom.split(/\s+/).filter(Boolean).map(function(m, k){
+        return '<span style="transition-delay:' + (0.78 + k * 0.055).toFixed(3) + 's">' + esc(m) + '</span>';
+      }).join(' ');
+      var rail = L.map(function(q, j){
+        return '<i class="' + (j === i ? 'on' : '') + '">' + rom(j) + '</i>';
+      }).join('');
+      var suivant = (i < L.length - 1)
+        ? '<div class="pfd-gl"></div><div class="pfd-nx"><b>' + rom(i + 1) + '</b></div>'
+        : '';
+      var lien = T('p.open');
+      return '<section class="pfd">' +
+        '<div class="pfd-sal">' +
+          '<div class="pfd-mur"></div>' +
+          '<div class="pfd-n" style="font-size:min(96vh,48vw)" aria-hidden="true"><i data-r="' + rom(i) + '">' + rom(i) + '</i></div>' +
+          '<div class="pfd-sol"></div><span class="pfd-fx"></span><span class="pfd-sw"></span>' +
+          '<div class="pfd-im">' + (img
+            ? '<img class="pfd-fl' + (p.image_fond ? ' pfd-plaque' : '') + '" src="' + esc(img) + '" alt="" ' +
+              'onerror="this.style.display=&#39;none&#39;">' +
+              (p.image_fond ? '' : '<img class="pfd-rf" src="' + esc(img) + '" alt="" aria-hidden="true">') +
+              '<i class="pfd-om"></i>'
+            : '') + '</div>' +
+          '<h4 class="pfd-ti' + taille + '"><bdi>' + titre + '</bdi></h4>' +
+          '<div class="pfd-ca">' +
+            (kick ? '<div class="pfd-k">' + esc(kick) + '</div>' : '') +
+            (p.brand_name ? '<div class="pfd-m"><bdi>' + esc(p.brand_name) + '</bdi></div>' : '') +
+            (phrase ? '<p>' + phrase + '</p>' : '') +
+            (eti.length ? '<div class="pfd-w">' + eti.map(function(e){ return '<span>' + esc(e) + '</span>'; }).join('') + '</div>' : '') +
+            (p.url && lien ? '<a href="' + esc(p.url) + '" target="_blank" rel="noopener noreferrer">' + esc(lien) + '</a>' : '') +
+          '</div>' +
+          '<div class="pfd-rail" aria-hidden="true">' + rail + '</div>' +
+          suivant +
+          '<div class="pfd-vg"></div><div class="pfd-gr"></div>' +
+        '</div></section>';
+    }).join('');
+
+    sec.hidden = false;
+    salles = [].slice.call(corps.querySelectorAll('.pfd'));
+    var fin = document.getElementById('pf-salle-fin');
+
+    /* chaque salle s'allume quand elle entre dans l'ecran ; la ligne de
+       fermeture aussi. */
+    var cibles = salles.concat(fin ? [fin] : []);
+    if(window.IntersectionObserver){
+      var io = new IntersectionObserver(function(es){
+        es.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('vu'); io.unobserve(e.target); } });
+      }, { threshold:.06 });
+      cibles.forEach(function(el){ io.observe(el); });
+    } else cibles.forEach(function(el){ el.classList.add('vu'); });
+
+    /* LA PARALLAXE. Un seul requestAnimationFrame pour toutes les salles, et
+       rien que des transform et des opacites : aucune mesure ni aucun style
+       qui declenche un recalcul de mise en page pendant le defilement. Les
+       salles hors ecran sont sautees. */
+    poser = null;
+    if(REDUIT || (window.matchMedia && matchMedia('(max-width:860px)').matches)) return;
+    function pose(){
+      attente = false;
+      var vh = innerHeight;
+      for(var i = 0; i < salles.length; i++){
+        var b = salles[i], r = b.getBoundingClientRect();
+        if(r.bottom < -80 || r.top > vh + 80) continue;
+        var t = r.height > vh ? Math.max(0, Math.min(1, -r.top / (r.height - vh))) : 0.5;
+        var s = (t - 0.5) * 2;                                    /* -1 .. 1 */
+        var n  = b.querySelector('.pfd-n'),  fl = b.querySelector('.pfd-im'),
+            mu = b.querySelector('.pfd-mur'), ca = b.querySelector('.pfd-ca'), fx = b.querySelector('.pfd-fx'),
+            ti = b.querySelector('.pfd-ti'), om = b.querySelector('.pfd-om'),
+            nx = b.querySelector('.pfd-nx'), gl = b.querySelector('.pfd-gl'),
+            sa = b.firstElementChild;
+        if(n)  n.style.transform  = 'translate3d(' + (s * -2.2).toFixed(2) + 'vw,calc(-50% + ' + (s * -3.4).toFixed(1) + 'vh),0)';
+        if(fl) fl.style.transform = 'translate3d(' + (s * 2.4).toFixed(2) + 'vw,' + (s * 7).toFixed(1) + 'vh,0) scale(' + (1 + (1 - Math.abs(s)) * 0.06).toFixed(3) + ')';
+        if(mu) mu.style.transform = 'translate3d(' + (s * 9).toFixed(1) + 'vw,0,0)';
+        if(fx) fx.style.transform = 'translate3d(' + (s * 3.2).toFixed(2) + 'vw,0,0) scaleX(' + (1 + (1 - Math.abs(s)) * 0.3).toFixed(3) + ')';
+        if(ti) ti.style.transform = 'translate3d(' + (s * -1.6).toFixed(2) + 'vw,0,0)';
+        /* l'ombre s'etale et se deporte quand le flacon monte */
+        if(om) om.style.transform = 'translate3d(' + (s * -1.6).toFixed(2) + 'vw,0,0) scaleX(' + (1 + Math.abs(s) * 0.16).toFixed(3) + ') scaleY(' + (1 - Math.abs(s) * 0.22).toFixed(3) + ')';
+        if(ca){
+          var e = Math.max(0, Math.min(1, (t - 0.04) / 0.17));
+          ca.style.transform = 'translate3d(0,' + ((1 - e) * 40).toFixed(1) + 'px,0)';
+          ca.style.opacity = e;
+        }
+        /* la salle suivante pointe sur la fin de la salle courante */
+        var a = Math.max(0, Math.min(1, (t - 0.68) / 0.26));
+        if(nx){ nx.style.opacity = a; nx.style.transform = 'translate3d(0,' + ((1 - a) * 26).toFixed(1) + 'px,0)'; }
+        if(gl){ gl.style.opacity = a; gl.style.transform = 'scaleX(' + a.toFixed(3) + ')'; }
+        /* la salle qui sort s'eteint pendant que la suivante s'allume : le
+           passage se sent, sans coupure nette entre deux plein-ecrans. */
+        if(sa){ var f = Math.max(0, Math.min(1, (t - 0.9) / 0.1));
+          sa.style.opacity = (1 - f * 0.72).toFixed(3); }
+      }
+    }
+    poser = pose;
+    if(!branche){
+      branche = true;
+      /* sur cette page ce n'est pas la fenetre qui defile mais le <body>
+         (html est en overflow:hidden, body.scrollable en overflow-y:auto).
+         Un ecouteur sur window ne verrait donc jamais rien : on ecoute en
+         phase de capture sur le document, qui voit le defilement de
+         n'importe quel conteneur. */
+      document.addEventListener('scroll', function(){
+        if(!attente && poser){ attente = true; requestAnimationFrame(poser); }
+      }, { capture:true, passive:true });
+      addEventListener('resize', function(){ if(poser) poser(); }, { passive:true });
+    }
+    pose();
+  }
+  window.pfSalle = ecrire;
+
+  /* on se greffe apres le rendu des trois cartes, sans rien changer a leur
+     calcul : meme liste, meme ordre, meme langue. */
+  function greffe(){
+    var f = window.matchAndRenderCharlotteTilburyProducts;
+    if(typeof f !== 'function'){ setTimeout(greffe, 200); return; }
+    if(f.__pf) return;
+    var enveloppe = function(){
+      var r = f.apply(this, arguments);
+      if(r && typeof r.then === 'function') r.then(function(){ try{ ecrire(); }catch(e){} });
+      else setTimeout(function(){ try{ ecrire(); }catch(e){} }, 0);
+      return r;
+    };
+    enveloppe.__pf = true;
+    window.matchAndRenderCharlotteTilburyProducts = enveloppe;
+  }
+  greffe();
+})();
+</script>
 <!-- VYVRE_I18N_HOT : ce que le JavaScript a ecrit doit suivre le changement de langue -->
 <script id="vy-i18n-hot">
 document.addEventListener('vy:lang', function(){
   try { if (window.sgTitreHero) window.sgTitreHero(); } catch(e){}
-  try { if (window.sgTitreMarque) window.sgTitreMarque(); } catch(e){}
   try { if (window.sgBioRefaire) window.sgBioRefaire(); } catch(e){}
   try { if (window.__vyScores && typeof matchAndRenderCharlotteTilburyProducts === 'function') matchAndRenderCharlotteTilburyProducts(window.__vyScores); } catch(e){}
+  try { if (window.vyPrefs && window.vyPrefs.repeindre) window.vyPrefs.repeindre(); } catch(e){}
+  try { if (window.vyPrefs && window.vyPrefs.afterRender) window.vyPrefs.afterRender(); } catch(e){}
+  try { if (window.sgTitreMarque) window.sgTitreMarque(); } catch(e){}
 });
 </script>
 <!-- SG_PRODUITS_LISIBLES (26/09) : les flacons des resultats, lisibles et propres.
@@ -2850,11 +3555,17 @@ document.addEventListener('vy:lang', function(){
   #sg-intro .si-k{top:calc(8vh - 6px);font-size:10px;letter-spacing:.36em}
   #sg-intro .si-t{top:calc(8vh + 26px)!important}
   #sg-intro .si-p{left:12px;right:12px;gap:10px!important}
-  #sg-intro .si-pr{width:auto!important;flex:1 1 0;min-width:0;max-width:36vw}
+  #sg-intro .si-p{flex-wrap:wrap!important;justify-content:center!important;row-gap:14px!important}
+  #sg-intro .si-pr{width:auto!important;flex:0 0 40%;min-width:0;max-width:40%}
   #sg-intro .si-im{width:100%!important;height:auto!important;aspect-ratio:4/5;padding:10px!important;border-radius:20px!important}
   #sg-intro .si-n{margin-top:14px}
   #sg-intro .si-n b{font-size:9.5px;letter-spacing:.18em;line-height:1.5}
   #sg-intro .si-n i{font-size:12.5px!important;margin-top:6px}
+  /* 29/09 : 2 x 2 moins haut, pour ne plus passer sur le titre */
+  #sg-intro .si-p{bottom:6vh!important}
+  #sg-intro .si-im{aspect-ratio:auto!important;height:min(17vh,140px)!important}
+  #sg-intro .si-n{margin-top:8px}
+  #sg-intro .si-n i{display:-webkit-box!important;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
 }
 /* 26/09, retour de Charles sur iPhone : un container de mesure par ecran, dix ecrans a
    descendre. Sous 640 px les resultats se resserrent : le score d'abord, les huit mesures
@@ -2862,7 +3573,10 @@ document.addEventListener('vy:lang', function(){
 @media (max-width:1099px){
   .vyvre-v6{padding-top:34px!important}
   .vyvre-v6 .v6grid{gap:14px!important}
-  .vyvre-v6 .v6grid>.v6r1{order:-1}
+  .vyvre-v6 .v6grid>.v6r1{order:-4}
+  .vyvre-v6 .v6grid>.v6r3:has(.sg-metric){order:-3}
+  .vyvre-v6 .v6grid>.sg-verdict{order:-2}
+  .vyvre-v6 .v6grid>#vy-recap{order:-1}
   .vyvre-v6 .v6card.v6score{padding:6px 0!important;min-height:0!important}
   .vyvre-v6 .v6card.v6score .sg-centre{width:min(46vw,190px)!important}
   .vyvre-v6 .v6card.v6score .v6num{font-size:clamp(58px,17vw,74px)!important;padding:0!important}
@@ -2901,6 +3615,25 @@ document.addEventListener('vy:lang', function(){
    remonte au-dessus d'elle au lieu de passer dessous */
 @media (max-width:640px){
   body:has(#view-results.active){padding-bottom:calc(92px + env(safe-area-inset-bottom))!important}
+}
+</style>
+<style id="vy-resultats-haut">
+/* 29/09 : sur telephone le menu (150 px) cachait le haut du score */
+@media (max-width:1099px){ #view-results{padding-top:calc(env(safe-area-inset-top) + 164px)!important} }
+</style>
+<style id="vy-quatre-produits">
+/* 29/09 : quatre produits. Ordinateur : une colonne par produit visible (jamais de colonne vide) ;
+   entre 1100 et 1500 px, photo au-dessus du nom pour ne pas ecraser le texte. Tablette : 2 x 2. */
+@media (min-width:1100px){
+  .vyvre-v6 .v6grid>#vyvre-product-row{grid-template-columns:repeat(auto-fit,minmax(0,1fr))!important}
+}
+@media (min-width:1100px) and (max-width:1499px){
+  .vyvre-v6 .v6card.v6prod{grid-template-columns:1fr!important;justify-items:center;text-align:center;row-gap:10px}
+  .vyvre-v6 .v6card.v6prod>*{grid-column:1!important}
+  .vyvre-v6 .v6card.v6prod .v6photo{grid-row:auto!important;order:-1;width:110px!important;height:120px!important;margin-top:8px}
+}
+@media (min-width:769px) and (max-width:1099px){
+  .vyvre-v6 #vyvre-product-row{grid-template-columns:repeat(2,1fr)!important}
 }
 </style>
 <script id="sg-produits-lisibles-js">
@@ -3100,26 +3833,6 @@ document.addEventListener('vy:lang', function(){
 })();
 </script>
 <script src="/scan/retour.js?v=3"></script>
-<style id="vy-quatre-produits">
-/* 07/10 : quatre soins, comme /scan. Ordinateur : une colonne par produit visible (jamais de colonne vide) ;
-   entre 1100 et 1500 px, photo au-dessus du nom. Tablette : 2 x 2. */
-@media (min-width:1100px){
-  .vyvre-v6 .v6grid>#vyvre-product-row{grid-template-columns:repeat(auto-fit,minmax(0,1fr))!important}
-}
-@media (min-width:1100px) and (max-width:1499px){
-  .vyvre-v6 .v6card.v6prod{grid-template-columns:1fr!important;justify-items:center;text-align:center;row-gap:10px}
-  .vyvre-v6 .v6card.v6prod>*{grid-column:1!important}
-  .vyvre-v6 .v6card.v6prod .v6photo{grid-row:auto!important;order:-1;width:110px!important;height:120px!important;margin-top:8px}
-}
-@media (min-width:769px) and (max-width:1099px){
-  .vyvre-v6 #vyvre-product-row{grid-template-columns:repeat(2,1fr)!important}
-}
-</style>
-<script id="vy-rituel-compte">
-(function(){ var row=document.getElementById('vyvre-product-row'); if(!row) return;
-  function juste(){ var n=[].filter.call(document.querySelectorAll('[data-vyvre-prod-slot]'),function(c){return c.style.display!=='none';}).length, t=row.getAttribute('data-ritual')||'', u=t.replace(/\d+/, n);
-    if(n && u!==t) row.setAttribute('data-ritual', u); }
-  juste(); new MutationObserver(juste).observe(row,{attributes:true,attributeFilter:['data-ritual']}); })();
-</script>
+<!-- 05/10 : le Wrap (story de 5 s a partager) -->
 </body>
 </html>

@@ -87,7 +87,7 @@
   function primaire(p) { return (p && p.targets || [])[0] || null; }
   function cs(p) { return (p && p.concern_scores) || {}; }
   var RX = {
-    remover: /d[ée]maquill|cleansing (oil|balm|milk|water)|make-?up remov|micellar|micellaire|balm cleanser|oil cleanser/,
+    remover: /d[ée]maquill|cleansing (oil|balm|milk|water)|make-?up remov|micellar|micellaire|balm cleanser|oil cleanser|baume nettoyant|melting cleans/,
     night: /\bnuit\b|night|overnight|\bpm\b|sleeping|nocturne/,
     day: /\bjour\b|\bday\b|daily|\bam\b|morning|matin/,
     spf: /\bspf\b|\bupf\b|solaire|sunscreen|sun ?screen|sun cream|sun protect|\buv\b/,
@@ -138,10 +138,13 @@
   /* l'actif fort : un seul par routine, nettoyant compris */
   function estFort(p) { return estRetino(p) || estAcide(p); }
   function estVitC(p) { return RX.vitc.test(nom(p)) || /vitamine c (pure|stable)/.test(raisons(p)); }
-  function estNuit(p) { var r = raisons(p); return RX.night.test(nom(p)) || (/soin de nuit/.test(r) && !/soin de jour/.test(r)); }
+  /* 12/10 : un soin qui porte un SPF dans son nom est un soin du jour, quoi qu'en dise la description */
+  function estNuit(p) { var r = raisons(p); if (RX.spf.test(nom(p)) && !RX.night.test(nom(p))) return false; return RX.night.test(nom(p)) || (/soin de nuit/.test(r) && !/soin de jour/.test(r)); }
   function estDemaq(p) { return RX.remover.test(nom(p)); }
   function niveauSpf(p) { var m = nom(p).match(/\b(?:spf|fps|lsf)\s?(\d{1,3})/); return m ? +m[1] : null; }
   function spfBas(p) { var l = niveauSpf(p); return l != null && l < 30; }
+  /* un vrai soin protecteur : solaire du visage, ou un nom qui porte un SPF lisible >= 30 */
+  function estSpf(p) { var l = niveauSpf(p); return p.categorie === 'solaire-visage' ? !spfBas(p) : (l != null && l >= 30); }
   /* le moment impose par la nature du produit : 'am', 'pm', 'ampm' ou null (libre) */
   function moment(p) {
     var n = nom(p), c = p.categorie, r = raisons(p);
@@ -337,6 +340,11 @@
 
     /* 3. proteger : un vrai solaire, jamais un SPF < 30 quand l'indice est lisible */
     var solaire = choisir('solaire-visage', function (p) { return !estFort(p) && !spfBas(p) && permis(p); });
+    /* 12/10 (pages de marque) : une maison sans « solaire-visage » mais avec une creme ou un fluide SPF 30+ :
+       ce soin protege le matin (sauf si la creme retenue est deja ce SPF) */
+    if (!solaire && !(creme && estSpf(creme)))
+      solaire = choisir(function (p) { return p.categorie !== 'nettoyant' && p.categorie !== 'contour-yeux' && estSpf(p); },
+        function (p) { return !estFort(p) && permis(p) && moment(p) !== 'pm'; });
     if (solaire) solaire = garde(Object.assign({}, solaire, { _etape: 'e.proteger', _pas: 'proteger' }));
 
     /* 4. le contour des yeux (si la regle le retient) remplace le nettoyant */
@@ -351,7 +359,7 @@
     if (!soinYeux) {
       /* un nettoyant exfoliant le matin prendrait la place de l'actif fort : il passe apres les nettoyants doux */
       /* acne : le nettoyant du matin reste doux, l'actif fort est garde pour le soir (AAD : nettoyant doux) */
-      nettoyant = choisir('nettoyant', function (p) { return moment(p) !== 'pm' && permis(p); }, function (p) {
+      nettoyant = choisir('nettoyant', function (p) { return moment(p) !== 'pm' && !estNuit(p) && permis(p); }, function (p) {
         return p.matchScore * (estFort(p) ? (acne ? 0.3 : 0.7) : 1) * (acne && /exfoliant \(|salicyl/.test(raisons(p)) ? 0.5 : 1); });
       if (nettoyant) nettoyant = Object.assign({}, nettoyant, { _etape: 'e.nettoyer', _pas: 'nettoyer' });
     }
@@ -370,26 +378,42 @@
       selected = r.slice(0, 4);
       if (serum && cibleObjectif && primaire(serum) !== cibleObjectif) cibleObjectif = null;
     } else {
-      /* repli (catalogue tres etroit) : les soins les mieux notes, une marque une fois, des cibles variees */
-      selected = [];
-      /* 11/10 (audit acne) : le repli ignorait les regles (deux retinoides, vitamine C avec rougeurs, soins du soir,
-         SPF 15). Il garde maintenant les memes regles quand il reste au moins 3 soins : pas de soin du soir, pas de
+      /* repli (catalogue tres etroit) : les etapes deja composees, completees par les soins les mieux notes.
+         12/10 (pages de marque, Givenchy : un baume de nuit propose le matin) : le repli garde TOUJOURS les regles,
+         meme s'il reste moins de 3 soins (un rituel court plutot qu'un soin faux) : produits montrables seulement
+         (pas de medicament, pas de photo fond_plein), ni patch ni masque, ni demaquillant ni soin du soir, pas de
          SPF < 30, rien de fort ni de vitamine C avec rougeurs (ou peau seche a boutons), les exclusions acne,
-         et un seul actif fort. */
-      var regle = sansYeux.filter(function (q) {
-        return moment(q) !== 'pm' && !spfBas(q) && !(estFort(q) && (sensible || acneSec)) && !(sensible && estVitC(q)) && (!acne || acneOk(q, acneSec, true));
-      });
-      if (regle.length >= 3) sansYeux = regle;
+         un seul actif fort, une seule fois chaque etape (deux serums au plus), et le SPF d'abord s'il existe. */
+      selected = r.slice();
+      var unSeul = { nettoyant: 1, creme: 1, 'solaire-visage': 1, lotion: 1, huile: 1 };
+      var regle = pool.filter(function (q) {
+        return !RX.pas.test(nom(q)) && q.categorie !== 'contour-yeux' && !estDemaq(q) && moment(q) !== 'pm' && !estNuit(q) && !spfBas(q) &&
+          !(estFort(q) && (sensible || acneSec)) && !(sensible && estVitC(q)) && (!acne || acneOk(q, acneSec, true));
+      }).sort(function (a, b) { return (estSpf(b) ? 1 : 0) - (estSpf(a) ? 1 : 0) || b.matchScore - a.matchScore; });
+      var aSpf = selected.some(estSpf);
       var vues = new Set(), marques = new Set(produits.map(function (q) { return q.brand; })).size;
-      for (var j = 0; j < sansYeux.length && selected.length < 4; j++) {
-        var p = sansYeux[j], pt = primaire(p);
-        if (estFort(p) && selected.some(estFort)) continue;
-        if (!o.marque && marques >= 3 && selected.some(function (x) { return x.brand && x.brand === p.brand; })) continue;
-        if (selected.some(function (x) { return memeProduit(x, p); })) continue;
-        if (selected.length < 2 || !vues.has(pt) || sansYeux.length < 6) { selected.push(p); if (pt) vues.add(pt); }
-      }
-      for (var k = 0; selected.length < 4 && k < sansYeux.length; k++)
-        if (!selected.some(function (x) { return memeProduit(x, sansYeux[k]); }) && !(estFort(sansYeux[k]) && selected.some(estFort))) selected.push(sansYeux[k]);
+      selected.forEach(function (x) { var t0 = primaire(x); if (t0) vues.add(t0); });
+      var prend = function (p, diversifier) {
+        if (selected.length >= 4) return;
+        if (estSpf(p) && aSpf) return;
+        if (estFort(p) && selected.some(estFort)) return;
+        if (!o.marque && marques >= 3 && selected.some(function (x) { return x.brand && x.brand === p.brand; })) return;
+        if (selected.some(function (x) { return memeProduit(x, p); })) return;
+        var memeCat = selected.filter(function (x) { return x.categorie === p.categorie; }).length;
+        if ((unSeul[p.categorie] && memeCat >= 1) || memeCat >= 2) return;
+        var pt = primaire(p);
+        if (diversifier && selected.length >= 2 && vues.has(pt) && regle.length >= 6) return;
+        var q = p;
+        if (estSpf(p)) { q = Object.assign({}, p, { _etape: 'e.proteger', _pas: 'proteger' }); aSpf = true; }
+        else if (p.categorie === 'nettoyant') q = Object.assign({}, p, { _etape: 'e.nettoyer', _pas: 'nettoyer' });
+        selected.push(q); if (pt) vues.add(pt);
+      };
+      regle.forEach(function (p) { prend(p, true); });
+      regle.forEach(function (p) { prend(p, false); });
+      var ORDRE = { nettoyant: 0, lotion: 1, serum: 2, huile: 3, 'contour-yeux': 4, creme: 5, 'solaire-visage': 7 };
+      var rangEtape = function (p) { return p._pas === 'proteger' ? 7 : (p._pas === 'yeux' ? 4 : (ORDRE[p.categorie] != null ? ORDRE[p.categorie] : 5)); };
+      selected = selected.map(function (p, i) { return { p: p, i: i }; })
+        .sort(function (a, b) { return rangEtape(a.p) - rangEtape(b.p) || a.i - b.i; }).map(function (e) { return e.p; });
       if (cibleObjectif && !selected.some(function (x) { return primaire(x) === cibleObjectif; })) cibleObjectif = null;
     }
     return { selected: selected, top: top, faibles: faibles, sensible: sensible, cibleObjectif: cibleObjectif, acne: acne, acneSec: acneSec };
@@ -503,7 +527,7 @@
   root.VyChoix = {
     CRITERES: CRITERES, severite: severite, topDe: topDe, scoresValides: scoresValides, signature: signature,
     booster: booster, cibles: cibles, filtrePrefs: filtrePrefs,
-    estFort: estFort, estRetino: estRetino, estAcide: estAcide, estVitC: estVitC, estNuit: estNuit, niveauSpf: niveauSpf,
+    estFort: estFort, estSpf: estSpf, estRetino: estRetino, estAcide: estAcide, estVitC: estVitC, estNuit: estNuit, niveauSpf: niveauSpf,
     moment: moment, montrables: montrables, note: note, memeProduit: memeProduit,
     profilAcne: profilAcne, acneOk: acneOk, acneAtout: acneAtout,
     rituel: rituel, soir: soir, enregistrer: enregistrer, lire: lire, etapeDe: etapeDe

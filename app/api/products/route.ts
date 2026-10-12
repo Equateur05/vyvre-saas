@@ -4,8 +4,8 @@
  * Endpoint: GET /api/products?brand=<slug>
  *
  * Returns the public product catalog for a brand, ordered by `position` ASC.
- * Consumed by the 27 demo POCs hosted on https://vyvre-demos.web.app — those
- * POCs render fallback hardcoded products if this endpoint is empty/errors.
+ * Formerly consumed by the demo POCs of the old demo site (now only redirects to
+ * vyvre.fr since 12/10/2026). Kept public for embeds.
  *
  * CORS: wide-open (`*`) because the POCs are hosted on a different origin
  * (Firebase Hosting) and never carry auth cookies — there's nothing to
