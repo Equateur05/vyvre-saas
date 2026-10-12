@@ -94,7 +94,7 @@
     retino: /r[ée]tin(?:ol|al|oate|yl)|retinoid|r[ée]tino[iï]de/,
     notRetino: /bakuchiol|alternative/,
     acid: /\bpeel|peeling|\baha\b|\bbha\b|\bpha\b|glycoli|salicyl|lactic|lactique|mandel|resurfa|exfoli|gommage|gommant|scrub|buffing/,
-    vitc: /vitamine? c\b|vit\.? ?c\b|\bc[- ]?(?:firma|tetra|e ferulic)|ascorbi/,
+    vitc: /vitamine?[- ]?c(?:\b|\d)|vit\.? ?c\b|\bc[- ]?(?:firma|tetra|e ferulic)|ascorbi/,
     /* pas un geste quotidien du visage */
     pas: /patch|\bpads?\b|\bmask\b|masque|sheet|\blip\b|l[èe]vres|\bstrips?\b/,
     us: /\b(us|usa|u\.s\.)\s*only\b|\bonly\s+(in|for)\s+(the\s+)?(us|usa)\b|^\s*\[subscr/i,
@@ -137,7 +137,14 @@
   }
   /* l'actif fort : un seul par routine, nettoyant compris */
   function estFort(p) { return estRetino(p) || estAcide(p); }
-  function estVitC(p) { return RX.vitc.test(nom(p)) || /vitamine c (pure|stable)/.test(raisons(p)); }
+  /* 12/10 (Charles) : la vitamine C compte quand c'est un actif du soin (nom, actif cle, haut de la liste INCI).
+     Une trace antioxydante loin dans l'INCI d'un solaire (Sun Drops #31, Umbra #21) ne prive plus une peau a rougeurs de SPF. */
+  function estVitC(p) {
+    var r = raisons(p);
+    if (RX.vitc.test(nom(p)) || /vitamine c (?:\(texte\) \(nom|stable \(actif cle|stable dans le nom|pure \(actif cle|pure dans le nom)/.test(r)) return true;
+    var k = inciRang(r, /vitamine c (?:pure|stable) \(inci #(\d+)\)/);
+    return k != null && k <= 10;
+  }
   /* 12/10 : un soin qui porte un SPF dans son nom est un soin du jour, quoi qu'en dise la description */
   function estNuit(p) { var r = raisons(p); if (RX.spf.test(nom(p)) && !RX.night.test(nom(p))) return false; return RX.night.test(nom(p)) || (/soin de nuit/.test(r) && !/soin de jour/.test(r)); }
   function estDemaq(p) { return RX.remover.test(nom(p)); }
