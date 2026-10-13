@@ -9,12 +9,15 @@ window.VYQ=(function(){
   ]).then(function(){ ok=true; prets.forEach(function(f){f();}); prets=[]; });
 
   function region(s){var b=M[s]; if(!b) return null; return EU[b.pays]?'EU':(b.pays==='AU'?'AU':b.pays);}
+  /* 13/10 (Charles) : une maison peut relever de deux pays (Erborian : Paris et Coree) ; champ pays_aussi de marques.json */
+  function regions(s){var b=M[s]; if(!b) return []; var r=[region(s)]; (b.pays_aussi||[]).forEach(function(c){var x=EU[c]?'EU':c; if(r.indexOf(x)<0) r.push(x);}); return r;}
+  function dansOrigine(O,s){var r=regions(s); for(var i=0;i<r.length;i++) if(O.indexOf(r[i])>=0) return true; return false;}
   /* 13/10 : les marques cochees se prennent DANS la famille et le pays choisis (intersection, plus de priorite) */
   function garde(sel,b,slug){
     if(!b) return false;
     if(sel.marques && sel.marques.length && sel.marques.indexOf(slug)<0) return false;
     if(sel.univers && sel.univers.length && sel.univers.indexOf(b.univers)<0) return false;
-    if(sel.origine && sel.origine.length && sel.origine.indexOf(region(slug))<0) return false;
+    if(sel.origine && sel.origine.length && !dansOrigine(sel.origine,slug)) return false;
     return true;
   }
   /* 13/10 : pour qui et budget, la meme regle que le scan (vy-choix.js) */
@@ -62,8 +65,8 @@ window.VYQ=(function(){
              US:['États-Unis','New York, Californie'],GB:['Royaume-Uni','Londres'],JP:['Japon','Tokyo, Kyoto'],
              EU:['Europe','Allemagne, Suisse, Italie, Espagne'],AU:['Australie','Melbourne, Sydney'],CA:['Canada',''],BR:['Brésil',''],IL:['Israël','']};
       var acc={}, self=this;
-      Object.keys(M).forEach(function(s){ var r=self.region(s)||'??'; (acc[r]=acc[r]||{v:r,maisons:0,produits:0}).maisons++; });
-      P.forEach(function(p){ var r=self.region(p.brand); if(r&&acc[r]) acc[r].produits++; });
+      Object.keys(M).forEach(function(s){ var rr=regions(s); if(!rr.length) rr=['??']; rr.forEach(function(r){ r=r||'??'; (acc[r]=acc[r]||{v:r,maisons:0,produits:0}).maisons++; }); });
+      P.forEach(function(p){ regions(p.brand).forEach(function(r){ if(r&&acc[r]) acc[r].produits++; }); });
       return Object.keys(acc).map(function(r){
         var l=L[r]||[r,''];
         acc[r].nom=l[0]; acc[r].sous=l[1]; return acc[r];

@@ -121,7 +121,8 @@
     var ok = function (p, skip) {
       var b = marques[p.brand] || {};
       if (!skip.univers && U.length && U.indexOf(b.univers) < 0) return false;
-      if (!skip.origine && O.length && O.indexOf(region(p.brand)) < 0) return false;
+      if (!skip.origine && O.length && O.indexOf(region(p.brand)) < 0 &&
+          !(b.pays_aussi || []).some(function (c) { return O.indexOf(EU[c] ? 'EU' : c) >= 0; })) return false;
       return true;
     };
     for (var i = 0; i < LADDER.length; i++) {
