@@ -1,7 +1,7 @@
 /* Noyau commun aux propales de questionnaire avant-scan.
    Vraies donnees : /scan/catalogue/marques.json + all.json. Aucun prix affiche (le budget lit les prix releves, sans les montrer). */
 window.VYQ=(function(){
-  var EU={DE:1,CH:1,SE:1,BE:1,NL:1,ES:1,IT:1,AT:1,DK:1,PT:1,MC:1,HU:1,IE:1,PL:1};
+  var EU={DE:1,CH:1,SE:1,BE:1,NL:1,ES:1,IT:1,AT:1,DK:1,PT:1,MC:1,HU:1,IE:1,PL:1,GR:1};  /* 13/10 : GR (Korres) */
   var M={}, P=[], prets=[], ok=false;
   Promise.all([
     fetch('/scan/catalogue/marques.json').then(function(r){return r.json();}).then(function(j){M=j.marques||{};}),

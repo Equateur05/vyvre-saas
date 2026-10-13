@@ -9,7 +9,7 @@
 <!-- VYVRE_I18N : moteur 12 langues, francais par defaut -->
 <script src="/scan/vy-i18n.js?v=34"></script>
 <!-- PAGE GENEREE par scripts/construire-m.mjs a partir de /scan/index.html : ne pas modifier a la main -->
-<script src="/scan/vy-choix.js?v=5"></script>
+<script src="/scan/vy-choix.js?v=6"></script>
 <script src="/m/vy-marque.js?v=2"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -3087,7 +3087,7 @@ header{backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important;-webki
 <script id="vy-prefs-js">
 (function(){
   /* les memes regions que l'ecran des questions (noyau.js) */
-  var EU={DE:1,CH:1,SE:1,BE:1,NL:1,ES:1,IT:1,AT:1,DK:1,PT:1,MC:1,HU:1,IE:1,PL:1};
+  var EU={DE:1,CH:1,SE:1,BE:1,NL:1,ES:1,IT:1,AT:1,DK:1,PT:1,MC:1,HU:1,IE:1,PL:1,GR:1};
   var KEY='vyvre-prefs-v1';
   var P={age:null,goals:[],univers:[],origine:[],marques:[],pourqui:'',budget:[]};
   /* 26/09 (audit) : on ne recharge plus les reponses d'une visite precedente (« Passer » les
@@ -3165,7 +3165,7 @@ header{backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important;-webki
   function open(m){
     mode=m; if(cadre) return;
     cadre=document.createElement('iframe'); cadre.id='vy-avant'; cadre.title=(window.VY&&VY.t)?VY.t('vp.kick'):'Avant votre scan';
-    cadre.src='/scan/avant/index.html?v=9&lang='+encodeURIComponent((window.VY&&VY.lang)||'fr'); cadre.setAttribute('allow','autoplay');
+    cadre.src='/scan/avant/index.html?v=10&lang='+encodeURIComponent((window.VY&&VY.lang)||'fr'); cadre.setAttribute('allow','autoplay');
     document.body.appendChild(cadre);
     cadre.setAttribute('tabindex','-1');
     cadre.addEventListener('load',function(){ try{ cadre.focus(); cadre.contentWindow.focus(); }catch(e){} });

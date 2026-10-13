@@ -105,7 +105,7 @@
   /* famille de maisons + pays + marques ; moins de 3 produits : on relache le pays, puis la famille.
      13/10 : les marques cochees, le budget et « pour qui » ne se relachent jamais (avant, moins de 3 produits
      dans les marques choisies rendait TOUT le catalogue) ; les marques sont deja prises dans le pays et la famille. */
-  var EU = { DE: 1, CH: 1, SE: 1, BE: 1, NL: 1, ES: 1, IT: 1, AT: 1, DK: 1, PT: 1, MC: 1, HU: 1, IE: 1, PL: 1 };
+  var EU = { DE: 1, CH: 1, SE: 1, BE: 1, NL: 1, ES: 1, IT: 1, AT: 1, DK: 1, PT: 1, MC: 1, HU: 1, IE: 1, PL: 1, GR: 1 };  /* 13/10 : GR (Korres) */
   var LADDER = [{}, { origine: 1 }, { origine: 1, univers: 1 }];
   function filtrePrefs(list, prefs, marques, sorte) {
     if (!prefs) return { list: list, niveau: 0 };
