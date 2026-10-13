@@ -59,26 +59,76 @@
     return sev;
   }
   function cibles(prefs) { var o = []; ((prefs && prefs.goals) || []).forEach(function (g) { o = o.concat(GOALS[g] || []); }); return o; }
-  /* famille de maisons + pays + marques ; moins de 3 produits : on relache le pays, puis la famille */
+  /* ---------- 13/10 : pour qui, budget (Charles : « vos marques », « budget », « hommes ») ----------
+     POUR QUI : un produit est « homme » ou « femme » seulement si son NOM le dit (homme, men, for men, Dior Homme,
+     barbe…), ou, pour le capillaire, si sa description le dit sans ambiguite (« pour homme », « for men »), jamais
+     quand elle parle des deux (« femmes et hommes », unisexe). Rien n'est devine. Tout le reste est mixte.
+     BUDGET : des tranches, lues sur le prix releve (price_eur, avec sa source). Un produit sans prix releve n'entre
+     dans aucune tranche : choisir un budget l'ecarte, on ne lui invente pas de prix. Aucun prix n'est affiche. */
+  var G_H_NOM = /\b(homme|hommes|men|men's|mens|for him|masculin|uomo|hombre|herren|barbe|beard|barber|barberxpert|rasage|shave|shaving|after ?shave|wingman)\b/i;
+  var G_F_NOM = /\b(femme|femmes|women|woman|women's|for her|pour elle|f[ée]minin|donna|mujer)\b/i;
+  var G_H_DESC = /(pour (les )?hommes?\b(?! et| ou| &)|for men\b(?! and| or| &)|con[çc]ue?s? pour les hommes|sp[ée]cial(ement)? (pour les )?hommes?|d[ée]di[ée]e?s? aux hommes)/i;
+  var G_F_DESC = /(pour (les )?femmes?\b(?! et| ou| &)|for women\b(?! and| or| &)|con[çc]ue?s? pour les femmes|sp[ée]cial(ement)? (pour les )?femmes?|d[ée]di[ée]e?s? aux femmes)/i;
+  var G_MIX = /(femmes? et (les )?hommes?|hommes? et (les )?femmes?|men and women|women and men|men & women|women & men|unisex|mixte|pour tous|toute la famille|him and her|her and him|lui et elle|elle et lui|hommes ou femmes|femmes ou hommes|men or women|women or men)/i;
+  function genre(p) {
+    if (!p) return '';
+    if (p._genre !== undefined) return p._genre;
+    var n = String(p.name || '') + ' ' + String(p.name_origine || ''), d = String(p.description || ''), g = '';
+    if (G_H_NOM.test(n)) g = 'homme';
+    else if (G_F_NOM.test(n)) g = 'femme';
+    else if (d && !G_MIX.test(d)) {
+      var h = G_H_DESC.test(d), f = G_F_DESC.test(d);
+      g = (h && !f) ? 'homme' : (f && !h) ? 'femme' : '';
+    }
+    try { Object.defineProperty(p, '_genre', { value: g, enumerable: false, configurable: true }); } catch (e) {}
+    return g;
+  }
+  /* « femme » ecarte les lignes homme ; « homme » ecarte ce qui est explicitement pour femme ; sinon rien */
+  function pourQuiOk(p, q) {
+    if (q === 'femme') return genre(p) !== 'homme';
+    if (q === 'homme') return genre(p) !== 'femme';
+    return true;
+  }
+  /* les tranches, posees sur les quartiles des prix releves de chaque catalogue (peau : 20 / 37 / 77 € ;
+     cheveux : 14 / 25 / 34 €) */
+  var TRANCHES = {
+    peau: [['b1', 0, 20], ['b2', 20, 40], ['b3', 40, 80], ['b4', 80, Infinity]],
+    cheveux: [['b1', 0, 15], ['b2', 15, 30], ['b3', 30, 50], ['b4', 50, Infinity]]
+  };
+  function prixReleve(p) { var x = Number(p && p.price_eur); return (isFinite(x) && x > 0 && p.price_source) ? x : null; }
+  function dansBudget(p, budget, sorte) {
+    if (!budget || !budget.length) return true;
+    var x = prixReleve(p); if (x == null) return false;
+    var T = TRANCHES[sorte || 'peau'] || TRANCHES.peau;
+    return T.some(function (t) { return budget.indexOf(t[0]) >= 0 && x >= t[1] && x < t[2]; });
+  }
+  /* famille de maisons + pays + marques ; moins de 3 produits : on relache le pays, puis la famille.
+     13/10 : les marques cochees, le budget et « pour qui » ne se relachent jamais (avant, moins de 3 produits
+     dans les marques choisies rendait TOUT le catalogue) ; les marques sont deja prises dans le pays et la famille. */
   var EU = { DE: 1, CH: 1, SE: 1, BE: 1, NL: 1, ES: 1, IT: 1, AT: 1, DK: 1, PT: 1, MC: 1, HU: 1, IE: 1, PL: 1 };
   var LADDER = [{}, { origine: 1 }, { origine: 1, univers: 1 }];
-  function filtrePrefs(list, prefs, marques) {
+  function filtrePrefs(list, prefs, marques, sorte) {
     if (!prefs) return { list: list, niveau: 0 };
     marques = marques || {};
     var region = function (slug) { var b = marques[slug]; if (!b) return null; return EU[b.pays] ? 'EU' : b.pays; };
-    var M = prefs.marques || [], U = prefs.univers || [], O = prefs.origine || [];
+    var M = prefs.marques || [], U = prefs.univers || [], O = prefs.origine || [], B = prefs.budget || [], Q = prefs.pourqui || '';
+    var base = list.filter(function (p) {
+      if (M.length && M.indexOf(p.brand) < 0) return false;
+      if (!pourQuiOk(p, Q)) return false;
+      return dansBudget(p, B, sorte);
+    });
+    if (!base.length) return { list: list, niveau: -1 };
     var ok = function (p, skip) {
       var b = marques[p.brand] || {};
-      if (M.length && M.indexOf(p.brand) < 0) return false;
       if (!skip.univers && U.length && U.indexOf(b.univers) < 0) return false;
       if (!skip.origine && O.length && O.indexOf(region(p.brand)) < 0) return false;
       return true;
     };
     for (var i = 0; i < LADDER.length; i++) {
-      var out = list.filter(function (p) { return ok(p, LADDER[i]); });
+      var out = base.filter(function (p) { return ok(p, LADDER[i]); });
       if (out.length >= 3) return { list: out, niveau: i };
     }
-    return { list: list, niveau: -1 };
+    return { list: base, niveau: M.length ? 0 : 2 };
   }
 
   /* ---------- ce qu'est un produit ---------- */
@@ -297,7 +347,10 @@
     var Y = o.yeux || { oui: false };
 
     /* l'ancien classement (repli si le rituel ne peut pas se composer, et pour l'objectif choisi) */
-    var scored = produits.map(function (p) { return Object.assign({}, p, { matchScore: note(p, top) }); })
+    /* 13/10 : « pour un homme » : les soins pour homme passent devant, a pertinence voisine (x1,35) */
+    var qui = o.pourQui || (o.prefs && o.prefs.pourqui) || '';
+    var noteQ = function (p) { var m = note(p, top); return (qui === 'homme' && genre(p) === 'homme') ? m * 1.35 + 1 : m; };
+    var scored = produits.map(function (p) { return Object.assign({}, p, { matchScore: noteQ(p) }); })
       .sort(function (a, b) { return b.matchScore - a.matchScore; });
     var PAS_UN_SOIN = /cleans|nettoy|d[ée]maquill|micell|face wash|\bwash\b|foam|mousse nettoy|masque|\bmask|sheet|patch|gommage|scrub|\blip\b|l[èe]vres|lip balm/i;
     var soins = scored.filter(function (p) { return !PAS_UN_SOIN.test(p.name || ''); });
@@ -315,7 +368,7 @@
       if (vise) cibleObjectif = (vise.targets || []).find(function (t) { return ci.indexOf(t) >= 0; }) || null;
     }
 
-    var pool = montrables(produits, o.fondPlein).map(function (p) { return Object.assign({}, p, { matchScore: note(p, top) }); });
+    var pool = montrables(produits, o.fondPlein).map(function (p) { return Object.assign({}, p, { matchScore: noteQ(p) }); });
     var pris = [], fortPris = false;
     var choisir = selecteurAcne(selecteur(pool, pris, { marque: !!o.marque }), acne, acneSec);
     var garde = function (p) { if (p) { pris.push(p); if (estFort(p)) fortPris = true; } return p; };
@@ -534,6 +587,7 @@
   root.VyChoix = {
     CRITERES: CRITERES, severite: severite, topDe: topDe, scoresValides: scoresValides, signature: signature,
     booster: booster, cibles: cibles, filtrePrefs: filtrePrefs,
+    genre: genre, pourQuiOk: pourQuiOk, TRANCHES: TRANCHES, prixReleve: prixReleve, dansBudget: dansBudget,
     estFort: estFort, estSpf: estSpf, estRetino: estRetino, estAcide: estAcide, estVitC: estVitC, estNuit: estNuit, niveauSpf: niveauSpf,
     moment: moment, montrables: montrables, note: note, memeProduit: memeProduit,
     profilAcne: profilAcne, acneOk: acneOk, acneAtout: acneAtout,

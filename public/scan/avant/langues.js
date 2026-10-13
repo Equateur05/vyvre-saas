@@ -209,6 +209,70 @@ window.VYL=(function(){
     mais:function(k,n){return n(k)+' 个品牌';}
   }
   };
+  /* 13/10 : pour qui, vos marques, budget (questions 5 a 7). Une deuxieme phrase, apres la premiere.
+     pq/mq/bq = [titre, sous-titre, av, ap] ; budget : moins/entre/plus = [mot dans la phrase, libelle du bouton]. */
+  var X={
+  fr:{pq:['Pour qui','une seule réponse',' ',''],pourqui:{'':['Pour elle ou lui','Peu importe'],femme:['Pour elle','Femme'],homme:['Pour lui','Homme']},hn:'{n} soins pour homme en priorité',
+    mq:['Vos marques','cochez celles que vous voulez, ou gardez toutes les marques',', ',''],tm:['toutes marques confondues','Toutes les marques'],parmi:'parmi {l}',autres:'{n} autres',
+    cherche:'Rechercher une marque',valider:'Valider',nsel:'{n} cochée(s)',hors:'Hors de vos choix précédents (pays, univers)',elargir:'Élargir à tous les pays et univers',aucune:'Aucune marque à ce nom',
+    bq:['Votre budget','par produit, d’après les prix relevés sur les sites ; les produits sans prix relevé sont écartés',', ','.'],
+    budget:{'':['à tous les prix','Tous les prix']},moins:['à moins de {b} €','Moins de {b} €'],entre:['de {a} à {b} €','De {a} à {b} €'],plus:['à plus de {a} €','Plus de {a} €']},
+  en:{pq:['Who it is for','one answer only',' ',''],pourqui:{'':['For anyone','Either'],femme:['For her','Woman'],homme:['For him','Man']},hn:'{n} men’s products first',
+    mq:['Your brands','tick the ones you want, or keep all brands',', ',''],tm:['from any brand','All brands'],parmi:'from {l}',autres:'{n} others',
+    cherche:'Search for a brand',valider:'Confirm',nsel:'{n} ticked',hors:'Outside your earlier choices (country, kind)',elargir:'Widen to all countries and kinds',aucune:'No brand by that name',
+    bq:['Your budget','per product, from prices found on the brands’ sites; products with no known price are left out',', ','.'],
+    budget:{'':['at any price','Any price']},moins:['under €{b}','Under €{b}'],entre:['€{a} to €{b}','€{a} to €{b}'],plus:['over €{a}','Over €{a}']},
+  es:{pq:['Para quién','una sola respuesta',' ',''],pourqui:{'':['Para ella o para él','Da igual'],femme:['Para ella','Mujer'],homme:['Para él','Hombre']},hn:'{n} productos para hombre primero',
+    mq:['Sus marcas','marque las que quiera, o mantenga todas las marcas',', ',''],tm:['de cualquier marca','Todas las marcas'],parmi:'entre {l}',autres:'{n} más',
+    cherche:'Buscar una marca',valider:'Confirmar',nsel:'{n} marcada(s)',hors:'Fuera de sus elecciones anteriores (país, tipo)',elargir:'Ampliar a todos los países y tipos',aucune:'Ninguna marca con ese nombre',
+    bq:['Su presupuesto','por producto, según los precios de las webs; los productos sin precio conocido se descartan',', ','.'],
+    budget:{'':['a cualquier precio','Cualquier precio']},moins:['por menos de {b} €','Menos de {b} €'],entre:['de {a} a {b} €','De {a} a {b} €'],plus:['por más de {a} €','Más de {a} €']},
+  it:{pq:['Per chi','una sola risposta',' ',''],pourqui:{'':['Per lei o per lui','Indifferente'],femme:['Per lei','Donna'],homme:['Per lui','Uomo']},hn:'{n} prodotti da uomo per primi',
+    mq:['Le sue marche','spunti quelle che vuole, o tenga tutte le marche',', ',''],tm:['di qualsiasi marca','Tutte le marche'],parmi:'tra {l}',autres:'altre {n}',
+    cherche:'Cerca una marca',valider:'Conferma',nsel:'{n} selezionate',hors:'Fuori dalle scelte precedenti (paese, tipo)',elargir:'Allarga a tutti i paesi e tipi',aucune:'Nessuna marca con questo nome',
+    bq:['Il suo budget','per prodotto, dai prezzi rilevati sui siti; i prodotti senza prezzo noto sono esclusi',', ','.'],
+    budget:{'':['a qualsiasi prezzo','Qualsiasi prezzo']},moins:['sotto i {b} €','Meno di {b} €'],entre:['da {a} a {b} €','Da {a} a {b} €'],plus:['oltre {a} €','Oltre {a} €']},
+  de:{pq:['Für wen','nur eine Antwort',' ',''],pourqui:{'':['Für sie oder ihn','Egal'],femme:['Für sie','Frau'],homme:['Für ihn','Mann']},hn:'{n} Männerprodukte zuerst',
+    mq:['Ihre Marken','wählen Sie die gewünschten aus oder behalten Sie alle Marken',', ',''],tm:['von jeder Marke','Alle Marken'],parmi:'von {l}',autres:'{n} weiteren',
+    cherche:'Marke suchen',valider:'Bestätigen',nsel:'{n} ausgewählt',hors:'Außerhalb Ihrer bisherigen Auswahl (Land, Art)',elargir:'Auf alle Länder und Arten erweitern',aucune:'Keine Marke mit diesem Namen',
+    bq:['Ihr Budget','pro Produkt, nach den Preisen auf den Websites; Produkte ohne bekannten Preis entfallen',', ','.'],
+    budget:{'':['zu jedem Preis','Jeder Preis']},moins:['unter {b} €','Unter {b} €'],entre:['{a} bis {b} €','{a} bis {b} €'],plus:['über {a} €','Über {a} €']},
+  pt:{pq:['Para quem','uma só resposta',' ',''],pourqui:{'':['Para ela ou para ele','Tanto faz'],femme:['Para ela','Mulher'],homme:['Para ele','Homem']},hn:'{n} produtos para homem primeiro',
+    mq:['As suas marcas','marque as que quiser, ou mantenha todas as marcas',', ',''],tm:['de qualquer marca','Todas as marcas'],parmi:'entre {l}',autres:'mais {n}',
+    cherche:'Procurar uma marca',valider:'Confirmar',nsel:'{n} marcada(s)',hors:'Fora das suas escolhas anteriores (país, tipo)',elargir:'Alargar a todos os países e tipos',aucune:'Nenhuma marca com esse nome',
+    bq:['O seu orçamento','por produto, segundo os preços nos sites; os produtos sem preço conhecido ficam de fora',', ','.'],
+    budget:{'':['a qualquer preço','Qualquer preço']},moins:['abaixo de {b} €','Menos de {b} €'],entre:['de {a} a {b} €','De {a} a {b} €'],plus:['acima de {a} €','Mais de {a} €']},
+  nl:{pq:['Voor wie','één antwoord',' ',''],pourqui:{'':['Voor haar of hem','Maakt niet uit'],femme:['Voor haar','Vrouw'],homme:['Voor hem','Man']},hn:'{n} mannenproducten eerst',
+    mq:['Uw merken','vink aan wat u wilt, of houd alle merken',', ',''],tm:['van elk merk','Alle merken'],parmi:'van {l}',autres:'{n} andere',
+    cherche:'Zoek een merk',valider:'Bevestigen',nsel:'{n} aangevinkt',hors:'Buiten uw eerdere keuzes (land, soort)',elargir:'Uitbreiden naar alle landen en soorten',aucune:'Geen merk met die naam',
+    bq:['Uw budget','per product, volgens de prijzen op de sites; producten zonder bekende prijs vallen af',', ','.'],
+    budget:{'':['tegen elke prijs','Elke prijs']},moins:['onder € {b}','Onder € {b}'],entre:['€ {a} tot € {b}','€ {a} tot € {b}'],plus:['boven € {a}','Boven € {a}']},
+  ru:{pq:['Для кого','выберите один вариант',' ',''],pourqui:{'':['Для неё или для него','Неважно'],femme:['Для неё','Женщина'],homme:['Для него','Мужчина']},hn:'{n} мужских средств в приоритете',
+    mq:['Ваши бренды','отметьте нужные или оставьте все бренды',', ',''],tm:['любого бренда','Все бренды'],parmi:'из брендов {l}',autres:'ещё {n}',
+    cherche:'Найти бренд',valider:'Подтвердить',nsel:'отмечено: {n}',hors:'Вне ваших прежних условий (страна, тип)',elargir:'Расширить на все страны и типы',aucune:'Нет бренда с таким названием',
+    bq:['Ваш бюджет','за средство, по ценам с сайтов; средства без известной цены исключаются',', ','.'],
+    budget:{'':['по любой цене','Любая цена']},moins:['до {b} €','До {b} €'],entre:['от {a} до {b} €','От {a} до {b} €'],plus:['дороже {a} €','Дороже {a} €']},
+  ar:{pq:['لمن','إجابة واحدة فقط',' ',''],pourqui:{'':['لها أو له','لا يهم'],femme:['لها','امرأة'],homme:['له','رجل']},hn:'{n} منتجًا للرجال أولًا',
+    mq:['علاماتكم التجارية','اختاروا ما تريدون، أو احتفظوا بكل العلامات','، ',''],tm:['من أي علامة تجارية','كل العلامات'],parmi:'من بين {l}',autres:'{n} أخرى',
+    cherche:'ابحثوا عن علامة تجارية',valider:'تأكيد',nsel:'تم اختيار {n}',hors:'خارج اختياراتكم السابقة (البلد، النوع)',elargir:'التوسيع إلى كل البلدان والأنواع',aucune:'لا توجد علامة بهذا الاسم',
+    bq:['ميزانيتكم','لكل منتج، حسب الأسعار المرصودة على المواقع؛ تُستبعد المنتجات بلا سعر معروف','، ','.'],
+    budget:{'':['بأي سعر','أي سعر']},moins:['بأقل من {b} يورو','أقل من {b} يورو'],entre:['من {a} إلى {b} يورو','من {a} إلى {b} يورو'],plus:['بأكثر من {a} يورو','أكثر من {a} يورو']},
+  ja:{pq:['どなた向け','ひとつお選びください','',''],pourqui:{'':['性別を問わず','どちらでも'],femme:['女性向け','女性'],homme:['男性向け','男性']},hn:'男性向け{n}点を優先',
+    mq:['ブランド','お好きなブランドを選ぶか、すべてのブランドのままに','、',''],tm:['すべてのブランドから','すべてのブランド'],parmi:'{l}の中から',autres:'ほか{n}',
+    cherche:'ブランドを検索',valider:'決定',nsel:'{n}件選択',hors:'これまでの条件（国・タイプ）の対象外',elargir:'すべての国とタイプに広げる',aucune:'該当するブランドはありません',
+    bq:['ご予算','1点あたり、各サイトの価格に基づきます。価格が不明な製品は除外されます','、','。'],
+    budget:{'':['価格を問わず','すべての価格']},moins:['{b}ユーロ未満','{b}ユーロ未満'],entre:['{a}〜{b}ユーロ','{a}〜{b}ユーロ'],plus:['{a}ユーロ以上','{a}ユーロ以上']},
+  ko:{pq:['누구를 위한','하나만 선택해 주세요',' ',''],pourqui:{'':['성별 무관','상관없음'],femme:['여성용','여성'],homme:['남성용','남성']},hn:'남성용 {n}개 우선',
+    mq:['브랜드','원하는 브랜드를 선택하거나 모든 브랜드를 유지하세요',', ',''],tm:['모든 브랜드에서','모든 브랜드'],parmi:'{l} 중에서',autres:'외 {n}개',
+    cherche:'브랜드 검색',valider:'확인',nsel:'{n}개 선택',hors:'이전 선택(국가, 유형) 범위 밖',elargir:'모든 국가와 유형으로 넓히기',aucune:'해당 이름의 브랜드가 없습니다',
+    bq:['예산','제품당, 각 사이트에서 확인한 가격 기준이며 가격을 알 수 없는 제품은 제외됩니다',', ','.'],
+    budget:{'':['가격 무관','모든 가격']},moins:['{b}유로 미만','{b}유로 미만'],entre:['{a}~{b}유로','{a}~{b}유로'],plus:['{a}유로 이상','{a}유로 이상']},
+  zh:{pq:['适合谁','只选一项','',''],pourqui:{'':['不限性别','都可以'],femme:['适合女士','女士'],homme:['适合男士','男士']},hn:'优先 {n} 款男士产品',
+    mq:['您的品牌','勾选您想要的品牌，或保留全部品牌','，',''],tm:['不限品牌','全部品牌'],parmi:'仅限{l}',autres:'另外 {n} 个',
+    cherche:'搜索品牌',valider:'确认',nsel:'已选 {n} 个',hors:'不在您之前的选择范围内（国家、类型）',elargir:'扩大到所有国家和类型',aucune:'没有这个名字的品牌',
+    bq:['您的预算','按单件产品，依据官网所列价格；没有已知价格的产品不纳入','，','。'],
+    budget:{'':['不限价格','不限价格']},moins:['{b} 欧元以下','{b} 欧元以下'],entre:['{a}–{b} 欧元','{a}–{b} 欧元'],plus:['{a} 欧元以上','{a} 欧元以上']}
+  };
   if(!D[lang]) lang='fr';
   var d=D[lang];
   /* dernier : le dernier nombre formate. ui.prod est toujours lu juste apres fmt(nombre de produits),
@@ -223,6 +287,7 @@ window.VYL=(function(){
     if(typeof s==='function') return s(v,nombre,dernier);
     for(var x in v) s=s.split('{'+x+'}').join(v[x]); return s; }
   return {
+    x:X[lang]||X.fr, xt:function(k,v){ var s=String((X[lang]||X.fr)[k]||X.fr[k]||k); v=v||{}; for(var y in v) s=s.split('{'+y+'}').join(v[y]); return s; },
     lang:lang, d:d, rtl:lang==='ar', cjk:/^(ja|zh)$/.test(lang), lieParMot:lang==='ar', EX:EX, fmt:fmt, t:t,
     mais:function(k,n){ return d.mais(k,n||fmt); },
     retenue:function(k){ return d.retenue?d.retenue(k):''; },

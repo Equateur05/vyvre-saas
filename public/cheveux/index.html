@@ -8,7 +8,8 @@
 <meta name="description" content="Vos cheveux lus par la caméra : la boucle, la couleur. Puis une routine de quatre produits.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<script src="/scan/vy-i18n.js?v=32"></script>
+<script src="/scan/vy-i18n.js?v=34"></script>
+<script src="/scan/vy-choix.js?v=5"></script>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&family=JetBrains+Mono:wght@100;300;400;500&family=Playfair+Display:ital,wght@1,500&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
 /* ============================================================================
@@ -989,6 +990,49 @@ body.da-fibre .qnav{text-align:start}
   .qmulti{margin:-26px 0 16px;gap:8px 14px}
   .qmulti .qm-go{padding:13px 18px}
 }
+/* 13/10 : « Vos marques » — cases a cocher, recherche, « toutes », valider (style Fibre de verre) */
+.mqh{max-width:760px;display:flex;flex-direction:column;gap:14px;opacity:0;animation:ligneEntre .8s var(--e1) .3s forwards}
+.mqh-sous{margin:-14px 0 4px;font-family:'IBM Plex Mono',var(--fd);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:rgba(223,234,242,.5)}
+.mqh-haut{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.mqh-cherche{flex:1 1 240px;min-width:0;appearance:none;box-sizing:border-box;background:rgba(0,0,0,.35);border:1px solid rgba(223,234,242,.22);border-radius:0;
+  padding:13px 16px;color:#f4f9fc;font:300 16px var(--fm);outline:none;transition:border-color .3s}
+.mqh-cherche::placeholder{color:rgba(223,234,242,.4)}
+.mqh-cherche:focus{border-color:#7fd8ff;box-shadow:0 0 18px rgba(127,216,255,.18)}
+.mqh-toutes{all:unset;box-sizing:border-box;cursor:pointer;padding:13px 16px;border:1px solid rgba(223,234,242,.22);font:300 15px var(--fm);color:rgba(223,234,242,.72);
+  display:inline-flex;gap:10px;align-items:baseline}
+.mqh-toutes small,.mqh-l small{font-family:'IBM Plex Mono',var(--fd);font-size:10.5px;letter-spacing:.14em;color:rgba(223,234,242,.42)}
+.mqh-toutes[aria-pressed=true]{color:#fff;border-color:#7fd8ff;background:linear-gradient(90deg,rgba(127,216,255,.16),rgba(127,216,255,.03))}
+.mqh-liste{max-height:min(44vh,420px);overflow-y:auto;overscroll-behavior:contain;border-top:1px solid rgba(223,234,242,.12);border-bottom:1px solid rgba(223,234,242,.12)}
+.mqh-liste::-webkit-scrollbar{width:3px}.mqh-liste::-webkit-scrollbar-thumb{background:rgba(127,216,255,.4)}
+.mqh-l{display:flex;align-items:center;gap:14px;padding:11px 8px 11px 12px;border-bottom:1px solid rgba(223,234,242,.07);cursor:pointer;
+  font:300 18px/1.2 var(--fm);color:rgba(223,234,242,.66);border-inline-start:2px solid transparent;transition:color .25s,background .25s,border-color .25s}
+.mqh-l[hidden]{display:none}
+.mqh-l:hover{color:#fff;background:linear-gradient(90deg,rgba(127,216,255,.1),transparent 70%)}
+.mqh-l input{position:absolute;opacity:0;width:1px;height:1px;pointer-events:none}
+.mqh-l s{flex:0 0 16px;height:16px;border:1px solid rgba(223,234,242,.4);position:relative;text-decoration:none;transition:all .25s}
+.mqh-l input:checked+s{background:#7fd8ff;border-color:#7fd8ff;box-shadow:0 0 14px rgba(127,216,255,.6)}
+.mqh-l input:checked+s:after{content:'';position:absolute;left:4px;top:0;width:5px;height:10px;border:solid #000;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.mqh-l input:focus-visible+s{outline:2px solid #7fd8ff;outline-offset:2px}
+.mqh-l:has(input:checked){color:#fff;border-inline-start-color:#7fd8ff;background:linear-gradient(90deg,rgba(127,216,255,.14),transparent 70%)}
+.mqh-l span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mqh-l.off{cursor:default;color:rgba(223,234,242,.24)}
+.mqh-l.off:hover{background:none;color:rgba(223,234,242,.24)}
+.mqh-l.off s{border-style:dashed;opacity:.5}
+.mqh-hors{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;padding:16px 12px 8px;font-family:'IBM Plex Mono',var(--fd);font-size:10.5px;
+  letter-spacing:.16em;text-transform:uppercase;color:rgba(223,234,242,.42)}
+.mqh-hors[hidden]{display:none}
+.mqh-elargir{all:unset;cursor:pointer;color:#7fd8ff;text-transform:none;letter-spacing:.04em;font-size:12px;text-decoration:underline;text-underline-offset:4px}
+.mqh-vide{margin:14px 12px;color:rgba(223,234,242,.5);font:300 15px var(--fm)}
+.mqh-ok{all:unset;box-sizing:border-box;cursor:pointer;align-self:flex-start;display:inline-flex;align-items:center;gap:10px;padding:13px 22px;border-radius:100px;
+  font-family:'IBM Plex Mono',var(--fd);font-size:11px;letter-spacing:.22em;text-transform:uppercase;color:#000;background:#eaf6ff;box-shadow:0 0 24px rgba(127,216,255,.35)}
+.mqh-ok i{font-style:normal;font-size:14px;letter-spacing:0}
+[dir=rtl] .mqh-ok i{transform:scaleX(-1)}
+@media (max-width:640px){
+  .mqh-liste{max-height:42vh}
+  .mqh-l{font-size:16px;padding:11px 6px 11px 10px}
+  .mqh-ok{position:sticky;bottom:calc(12px + env(safe-area-inset-bottom));align-self:stretch;justify-content:center;z-index:5}
+}
+@media (prefers-reduced-motion:reduce){.mqh{animation:none;opacity:1}}
 /* 11/10 : la jauge du passage automatique (2,5 s apres un choix), sur Continuer */
 .qmulti .qm-go{position:relative;overflow:hidden}
 .qmulti .qm-go::after{content:"";position:absolute;left:18px;right:18px;bottom:6px;height:2px;border-radius:2px;background:currentColor;opacity:0;transform:scaleX(0);transform-origin:left center;pointer-events:none}
@@ -2132,7 +2176,16 @@ var QUESTIONS = [
   { id:'univers', label:'hcx.q.fam', prefs:true,
     opts:[['','hcx.o.toutes'],['luxe','hcx.o.luxe'],['salon','hcx.o.salon'],['pharmacie','hcx.o.pharma'],
           ['normal','hcx.o.quot'],['petit-prix','hcx.o.petit']] },
-  { id:'origine', label:'hcx.q.pays', prefs:true, opts:[] }
+  { id:'origine', label:'hcx.q.pays', prefs:true, opts:[] },
+  /* 13/10 (Charles : « vos marques », « budget », « verifie cheveux si on… hommes ») : comme pour la peau.
+     Pour qui : « Homme » fait passer devant les produits pour homme (reperes par leur nom ou leur description,
+     jamais devines) et ecarte ce qui est explicitement pour femme ; « Femme » ecarte les lignes homme.
+     Vos marques : toutes les maisons du catalogue, cases a cocher, recherche, « toutes » ; on valide soi-meme.
+     Budget : des tranches lues sur les prix releves ; un produit sans prix releve n'entre dans aucune. */
+  { id:'pourqui', label:'hcx.q.qui', prefs:true,
+    opts:[['','hcx.o.qui0'],['femme','hcx.o.femme'],['homme','hcx.o.homme']] },
+  { id:'marques', label:'hcx.q.mq', prefs:true, liste:true, opts:[] },
+  { id:'budget', label:'hcx.q.bud', prefs:true, multi:3, opts:[] }
 ];
 /* les pays europeens hors France : la meme liste que l'ecran peau et le moteur */
 var EU_HORS_FR = { DE:1, CH:1, SE:1, BE:1, NL:1, ES:1, IT:1, AT:1, DK:1, PT:1, MC:1, HU:1, IE:1, PL:1 };
@@ -2175,10 +2228,131 @@ function optsOrigine(){
     .sort(function(a,b){ return n[b] - n[a] || (a < b ? -1 : 1); });
   return [['', 'hcx.o.tous', total]].concat(regions.map(function(r){ return [r, 'hcx.p.' + r, n[r]]; }));
 }
+/* 13/10 : le perimetre deja choisi (sans la question en cours), et les comptes reels du catalogue charge */
+function prefsSel(sauf){
+  var a = S.answers;
+  return { univers: a.univers ? [a.univers] : [], origine: a.origine ? [a.origine] : [], pourqui: a.pourqui || '',
+           marques: (sauf !== 'marques' && Array.isArray(a.marques)) ? a.marques : [],
+           budget: (sauf !== 'budget' && Array.isArray(a.budget)) ? a.budget.filter(Boolean) : [] };
+}
+function produitDans(p, sel){
+  var b = String(p.brand || '').toLowerCase(), f = S.fiches && S.fiches[b];
+  if(sel.marques.length && sel.marques.indexOf(b) === -1) return false;
+  if(sel.univers.length && (!f || sel.univers.indexOf(f.univers) === -1)) return false;
+  if(sel.origine.length && (!f || sel.origine.indexOf(regionMarque(f)) === -1)) return false;
+  if(window.VyChoix){
+    if(sel.pourqui && !VyChoix.pourQuiOk(p, sel.pourqui)) return false;
+    if(sel.budget.length && !VyChoix.dansBudget(p, sel.budget, 'cheveux')) return false;
+  }
+  return true;
+}
+function compteCheveux(sel, filtre){
+  var n = 0; (S.catalogue || []).forEach(function(p){ if(produitDans(p, sel) && (!filtre || filtre(p))) n++; }); return n;
+}
+function nbProduits(n){ return n === 1 ? T('hcx.np1') : T('hcx.npn', { n: n }); }
+function optsPourQui(q){
+  var sel = prefsSel('pourqui');
+  return q.opts.map(function(o){
+    if(o[0] !== 'homme' || !window.VyChoix) return o;
+    sel.pourqui = 'homme';
+    var h = compteCheveux(sel, function(p){ return VyChoix.genre(p) === 'homme'; });
+    return h ? [o[0], o[1], T('hcx.hn', { n: h })] : o;
+  });
+}
+/* les tranches du budget (vy-choix.js), seulement celles qui gardent au moins un produit */
+function optsBudget(){
+  var T0 = (window.VyChoix && VyChoix.TRANCHES.cheveux) || [], sel = prefsSel('budget');
+  return [['', 'hcx.o.tousprix']].concat(T0.map(function(t){
+    sel.budget = [t[0]]; var n = compteCheveux(sel);
+    var cle = (t[1] <= 0 ? 'vb.moins' : (t[2] === Infinity ? 'vb.plus' : 'vb.entre')) + '|' + t[1] + '|' + t[2];
+    return n ? [t[0], cle, nbProduits(n)] : null;
+  }).filter(Boolean));
+}
+/* une cle de libelle avec ses valeurs : « vb.entre|15|30 » */
+function TK(key){ var k = String(key).split('|'); return k.length > 1 ? T(k[0], { a: k[1], b: k[2] }) : T(key); }
 function optsDe(q){
   if(q.id === 'univers') return optsUnivers(q);
   if(q.id === 'origine') return optsOrigine();
+  if(q.id === 'pourqui') return optsPourQui(q);
+  if(q.id === 'budget') return optsBudget();
   return q.opts;
+}
+/* ---------- 13/10 : « Vos marques » ----------
+   Toutes les maisons du catalogue, par ordre alphabetique, avec leur nombre de produits dans le perimetre deja
+   choisi (famille, pays, pour qui). A 0 produit dans ce perimetre, une maison reste visible mais ne se coche pas :
+   on le dit, et on propose d'elargir (toutes familles, tous pays). Pas de passage automatique : on valide. */
+var mqTmp = null;
+function sansAccent(x){ return String(x || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase(); }
+function marquesListe(){
+  var sel = prefsSel('marques'); sel.budget = [];
+  var n = {}, noms = {};
+  (S.catalogue || []).forEach(function(p){
+    var b = String(p.brand || '').toLowerCase(); if(!b) return;
+    if(n[b] === undefined){ n[b] = 0; noms[b] = (S.fiches && S.fiches[b] && S.fiches[b].nom) || p.brand_name || b; }
+    if(produitDans(p, sel)) n[b]++;
+  });
+  return Object.keys(n).map(function(b){ return { slug: b, nom: noms[b], n: n[b] }; })
+    .sort(function(a, b){ return sansAccent(a.nom) < sansAccent(b.nom) ? -1 : 1; });
+}
+function marquesHTML(q, num){
+  var l = marquesListe(), dans = l.filter(function(m){ return m.n > 0; }), hors = l.filter(function(m){ return !m.n; });
+  if(mqTmp === null) mqTmp = Array.isArray(S.answers.marques) ? S.answers.marques.slice() : [];
+  mqTmp = mqTmp.filter(function(s){ return dans.some(function(m){ return m.slug === s; }); });
+  var sel = prefsSel('marques'); sel.budget = [];
+  var ligne = function(m, on){
+    return '<label class="mqh-l' + (on ? '' : ' off') + '" data-nom="' + esc(sansAccent(m.nom)) + '"><input type="checkbox" value="' + esc(m.slug) + '"' +
+      (on ? '' : ' disabled') + (mqTmp.indexOf(m.slug) !== -1 ? ' checked' : '') + '><s aria-hidden="true"></s><span>' + esc(m.nom) + '</span><small>' + (m.n || 0) + '</small></label>';
+  };
+  return '<div class="qr qliste" data-row="' + num + '" data-liste="marques">' +
+    '<div class="qlabel"><b>' + num + '</b><em data-i18n="' + q.label + '">' + esc(T(q.label)) + '</em></div>' +
+    '<div class="mqh">' +
+      '<p class="mqh-sous" data-i18n="hcx.mq.sous">' + esc(T('hcx.mq.sous')) + '</p>' +
+      '<div class="mqh-haut"><input type="search" class="mqh-cherche" autocomplete="off" placeholder="' + esc(T('hcx.mq.cherche')) + '" aria-label="' + esc(T('hcx.mq.cherche')) + '">' +
+        '<button type="button" class="mqh-toutes" aria-pressed="' + (!mqTmp.length) + '"><span data-i18n="hcx.o.toutesm">' + esc(T('hcx.o.toutesm')) + '</span> <small>' + compteCheveux(sel) + '</small></button></div>' +
+      '<div class="mqh-liste" role="group" aria-label="' + esc(T(q.label)) + '">' + dans.map(function(m){ return ligne(m, true); }).join('') +
+        (hors.length ? '<div class="mqh-hors"><span data-i18n="hcx.mq.hors">' + esc(T('hcx.mq.hors')) + '</span><button type="button" class="mqh-elargir" data-i18n="hcx.mq.elargir">' + esc(T('hcx.mq.elargir')) + '</button></div>' +
+          hors.map(function(m){ return ligne(m, false); }).join('') : '') +
+        '<p class="mqh-vide" hidden data-i18n="hcx.mq.aucune">' + esc(T('hcx.mq.aucune')) + '</p></div>' +
+      '<button type="button" class="mqh-ok">' + esc(mqLibelle()) + ' <i aria-hidden="true">&rarr;</i></button>' +
+    '</div></div>';
+}
+function mqLibelle(){ var k = (mqTmp || []).length; return T('hcx.mq.valider') + ' · ' + (k ? T('hcx.mq.nsel', { n: k }) : T('hcx.o.toutesm')); }
+function mqPeindre(row){
+  if(!row) return;
+  var t = row.querySelector('.mqh-toutes'); if(t) t.setAttribute('aria-pressed', String(!mqTmp.length));
+  var ok = row.querySelector('.mqh-ok'); if(ok) ok.innerHTML = esc(mqLibelle()) + ' <i aria-hidden="true">&rarr;</i>';
+}
+/* « Vos marques » et « Budget » se recomptent quand on y arrive (les reponses d'avant ont pu changer) */
+function rafraichirLigne(i, garderTmp){
+  var host = $('quizRows'), lignes = host.querySelectorAll('.qr'), qs = questionsActives(), q = qs[i];
+  if(!q || !lignes[i] || !(q.liste || q.id === 'budget' || q.id === 'pourqui')) return;
+  if(q.liste && !garderTmp) mqTmp = null;
+  if(q.id === 'budget' && Array.isArray(S.answers.budget)){
+    var dispo = optsBudget().map(function(o){ return o[0]; });
+    var garde = S.answers.budget.filter(function(v){ return dispo.indexOf(v) !== -1; });
+    if(garde.length) S.answers.budget = garde; else delete S.answers.budget;
+  }
+  var tmp = document.createElement('div'); tmp.innerHTML = questionHTML(q, i);
+  lignes[i].parentNode.replaceChild(tmp.firstChild, lignes[i]);
+  if(q.multi) majMulti(q.id);
+}
+function mqValider(row){
+  arreterMulti();
+  S.answers.marques = (mqTmp || []).slice();
+  var lg = $('quizRows').querySelectorAll('.qr'), k = -1;
+  Array.prototype.forEach.call(lg, function(l, j){ if(l === row) k = j; });
+  if(k >= 0 && k < lg.length - 1) montrerEtape(k + 1); else if(quizComplete()) afterQuestions();
+}
+function mqElargir(){
+  S.answers.univers = ''; S.answers.origine = '';
+  var qs = questionsActives(), host = $('quizRows');
+  qs.forEach(function(q, k){
+    if(q.id !== 'univers' && q.id !== 'origine') return;
+    var ancienne = host.querySelectorAll('.qr')[k]; if(!ancienne) return;
+    var tmp = document.createElement('div'); tmp.innerHTML = questionHTML(q, k);
+    ancienne.parentNode.replaceChild(tmp.firstChild, ancienne);
+  });
+  rafraichirLigne(etapeQ, true); montrerEtape(etapeQ, true);
 }
 /* le catalogue (9 Mo) et les fiches arrivent parfois apres l'ouverture des
    questions : on ajoute alors les deux questions de preference a la suite,
@@ -2192,7 +2366,7 @@ function ajouterQuestionsPrefs(){
   for(var k = n; k < qs.length; k++) tmp.innerHTML += questionHTML(qs[k], k);
   while(tmp.firstChild) host.appendChild(tmp.firstChild);
   $('quizSkip').classList.remove('go');
-  var sub = $('qSub'); if(sub){ sub.setAttribute('data-i18n','hcx.q.sub5'); sub.textContent = T('hcx.q.sub5') || sub.textContent; }
+  var sub = $('qSub'); if(sub){ sub.removeAttribute('data-i18n'); sub.textContent = T('hcx.q.subN', { n: qs.length }) || sub.textContent; }
   montrerEtape(etapeQ, true);
 }
 function questionsActives(){
@@ -2215,7 +2389,7 @@ function optKey(o){
   return k.indexOf('.') !== -1 ? k : 'hc.o.' + k;
 }
 var ANSWER_LABEL = { probleme:'hc.a.probleme', etat:'hc.a.etat', lavage:'hc.a.lavage',
-                     univers:'hcx.a.fam', origine:'hcx.a.pays',
+                     univers:'hcx.a.fam', origine:'hcx.a.pays', pourqui:'hcx.a.qui', marques:'hcx.a.mq', budget:'hcx.a.bud',
                      type_ressenti:'hc.a.type', suite:'hc.a.suite' };
 
 /* l'ecran entier se dessine d'un coup : deux rangees, une troisieme qui
@@ -2227,11 +2401,12 @@ function questionDe(id){ var r = null; QUESTIONS.forEach(function(q){ if(q.id ==
 function chipHTML(act, v, key, chosen, i, nb){
   /* nb : le nombre de maisons derriere ce choix, compte dans le catalogue */
   var cpt = (typeof nb === 'number')
-    ? '<small class="nbm">' + esc(nb === 1 ? T('hcx.n1') : T('hcx.nn', { n: nb })) + '</small>' : '';
+    ? '<small class="nbm">' + esc(nb === 1 ? T('hcx.n1') : T('hcx.nn', { n: nb })) + '</small>'
+    : ((typeof nb === 'string' && nb) ? '<small class="nbm">' + esc(nb) + '</small>' : '');
   return '<button type="button" class="chip' + (estChoisi(chosen, v) ? ' on' : '') +
          '" data-act="' + act + '" data-v="' + esc(v) + '"' +
          ' style="--d:' + (0.06 + i*0.045).toFixed(2) + 's">' +
-         '<span data-i18n="' + key + '">' + esc(T(key)) + '</span>' + cpt + '<i class="ond"></i></button>';
+         (key.indexOf('|') === -1 ? '<span data-i18n="' + key + '">' + esc(T(key)) + '</span>' : '<span>' + esc(TK(key)) + '</span>') + cpt + '<i class="ond"></i></button>';
 }
 function rowHTML(num, labelKey, chipsHtml, extra, multi){
   return '<div class="qr' + (extra || '') + (multi ? ' qmul' : '') + '" data-row="' + num + '">' +
@@ -2273,6 +2448,7 @@ function suiteHTML(){
    qui repassaient par opacity:0 — l'ecran sautait et un tap rapide tombait
    dans le vide. C'etait le bug. */
 function questionHTML(q, n){
+  if(q.liste) return marquesHTML(q, '0' + (n+1));
   var chips = optsDe(q).map(function(o,i){
     return chipHTML(q.id, optVal(o), optKey(o), S.answers[q.id], i, o[2]);
   }).join('');
@@ -2287,8 +2463,27 @@ function renderQuiz(){
   /* le sous-titre dit le vrai nombre de questions */
   var sub = $('qSub');
   if(sub){ var ks = qs.length === 5 ? 'hcx.q.sub5' : 'hc.q.sub';
-    sub.setAttribute('data-i18n', ks); sub.textContent = T(ks) || sub.textContent; }
-  if(!quizBound){ host.addEventListener('click', onChip); quizBound = true; }
+    if(qs.length > 5){ sub.removeAttribute('data-i18n'); sub.textContent = T('hcx.q.subN', { n: qs.length }); }
+    else { sub.setAttribute('data-i18n', ks); sub.textContent = T(ks) || sub.textContent; } }
+  if(!quizBound){
+    host.addEventListener('click', onChip);
+    /* 13/10 : les cases de « Vos marques » et la recherche */
+    host.addEventListener('change', function(e){
+      var c = e.target; if(!c || c.type !== 'checkbox' || c.disabled || !c.closest('.mqh')) return;
+      if(mqTmp === null) mqTmp = [];
+      var i = mqTmp.indexOf(c.value); if(c.checked && i === -1) mqTmp.push(c.value); if(!c.checked && i !== -1) mqTmp.splice(i, 1);
+      mqPeindre(c.closest('.qr'));
+    });
+    host.addEventListener('input', function(e){
+      var f = e.target; if(!f || !f.classList || !f.classList.contains('mqh-cherche')) return;
+      var row = f.closest('.qr'), q = sansAccent(f.value.trim()), vus = 0;
+      Array.prototype.forEach.call(row.querySelectorAll('.mqh-l'), function(l){ var ok = !q || l.dataset.nom.indexOf(q) !== -1; l.hidden = !ok; if(ok) vus++; });
+      var h = row.querySelector('.mqh-hors'); if(h) h.hidden = !!q;
+      row.querySelector('.mqh-vide').hidden = vus > 0;
+    });
+    quizBound = true;
+  }
+  mqTmp = null;
   qs.forEach(function(q){ if(q.multi) majMulti(q.id); });
   montrerEtape(0, true);
 }
@@ -2297,6 +2492,7 @@ function montrerEtape(i, direct){
   var host = $('quizRows'), lignes = host.querySelectorAll('.qr');
   if(!lignes.length) return;
   i = Math.max(0, Math.min(i, lignes.length - 1));
+  if(i !== etapeQ){ rafraichirLigne(i); lignes = host.querySelectorAll('.qr'); }
   var avant = lignes[etapeQ];
   Array.prototype.forEach.call(lignes, function(l){ l.classList.remove('courant','part'); });
   if(!direct && avant && avant !== lignes[i]){
@@ -2327,6 +2523,15 @@ function montrerEtape(i, direct){
   if(boite) boite.classList.toggle('apres-premiere', i > 0);
 }
 function onChip(e){
+  /* 13/10 : « Vos marques » : toutes, valider, elargir */
+  var mq = e.target && e.target.closest ? e.target.closest('.mqh-toutes,.mqh-ok,.mqh-elargir') : null;
+  if(mq){
+    e.preventDefault(); var row = mq.closest('.qr');
+    if(mq.classList.contains('mqh-toutes')){ mqTmp = []; Array.prototype.forEach.call(row.querySelectorAll('.mqh-l input'), function(c){ c.checked = false; }); mqPeindre(row); }
+    else if(mq.classList.contains('mqh-ok')) mqValider(row);
+    else mqElargir();
+    return;
+  }
   var go = e.target && e.target.closest ? e.target.closest('.qm-go') : null;
   if(go){
     e.preventDefault(); if(go.disabled) return;
@@ -2457,6 +2662,7 @@ function quizComplete(){
   var ok = true;
   questionsActives().forEach(function(q){
     var a = S.answers[q.id];
+    if(q.liste){ if(a === undefined) ok = false; return; }
     if(a === undefined || (Array.isArray(a) && !a.length)) ok = false;
   });
   return ok;
@@ -2482,8 +2688,19 @@ function optionsRoutine(){
     o.univers = S.answers.univers ? [S.answers.univers] : [];
     o.origine = S.answers.origine ? [S.answers.origine] : [];
     o.fichesMarques = S.fiches;
+    /* 13/10 : « pour un homme » : les produits pour homme passent devant, a pertinence voisine */
+    if(S.answers.pourqui === 'homme' && window.VyChoix) o.bonus = function(p){ return VyChoix.genre(p) === 'homme' ? 1.5 : 0; };
   }
   return o;
+}
+/* 13/10 : le catalogue donne au moteur : marques cochees, pour qui, budget (jamais relaches ; le moteur, lui,
+   relache encore la famille et le pays etape par etape, et le dit). Jamais vide : sinon, le catalogue entier. */
+function catalogueRoutine(){
+  if(!S.catalogue || !prefsPossibles()) return S.catalogue;
+  var sel = prefsSel(); sel.univers = []; sel.origine = [];
+  if(!sel.marques.length && !sel.pourqui && !sel.budget.length) return S.catalogue;
+  var l = S.catalogue.filter(function(p){ return produitDans(p, sel); });
+  return l.length ? l : S.catalogue;
 }
 
 /* the parting : the curtain opens first, the camera is found inside it */
@@ -3809,9 +4026,9 @@ function setLoadProgress(p){
 /* ================================================================ ENGINE */
 function probeEngine(){
   if(window.VYVRE_HAIR_ENGINE){ S.engine = window.VYVRE_HAIR_ENGINE; S.engineReady = true; return Promise.resolve(true); }
-  return head('/scan/vyvre-hair-engine.js?v=11').then(function(ok){
+  return head('/scan/vyvre-hair-engine.js?v=12').then(function(ok){
     if(!ok) return false;
-    return injectScript('/scan/vyvre-hair-engine.js?v=11').then(function(loaded){
+    return injectScript('/scan/vyvre-hair-engine.js?v=12').then(function(loaded){
       if(loaded && window.VYVRE_HAIR_ENGINE){ S.engine = window.VYVRE_HAIR_ENGINE; S.engineReady = true; return true; }
       return false;
     });
@@ -3935,7 +4152,7 @@ function consoliderMultiPoses(r){
   if(meilleure) out.qualite = meilleure;
   try { out.scores = S.engine.composerScores(mes, rep); } catch(e){ out.scores = null; }
   if(!out.scores) return { ok:false, raison:'aucune_pose_exploitable' };
-  try { out.routine = S.engine.composerRoutine(out.scores, rep, S.catalogue, optionsRoutine()); }
+  try { out.routine = S.engine.composerRoutine(out.scores, rep, catalogueRoutine(), optionsRoutine()); }
   catch(e){ out.routine = null; }
   return out;
 }
@@ -4595,11 +4812,18 @@ function renderResults(){
   }
   questionsActives().forEach(function(q){
     var v = S.answers[q.id]; if(v === undefined || v === '') return;
+    if(q.liste){
+      if(!v.length) return;
+      var nm = v.map(function(b){ return (S.fiches && S.fiches[b] && S.fiches[b].nom) || b; });
+      var el3 = document.createElement('span');
+      el3.innerHTML = '<b data-i18n="' + ANSWER_LABEL[q.id] + '">' + esc(T(ANSWER_LABEL[q.id])) + '</b> <span>' + esc(nm.slice(0, 3).join(', ') + (nm.length > 3 ? ' +' + (nm.length - 3) : '')) + '</span>';
+      strip.appendChild(el3); return;
+    }
     if(Array.isArray(v)){
       /* plusieurs genes : une seule pastille, les reponses a la suite */
       var noms = v.filter(function(x){ return x !== ''; }).map(function(x){
         var oo = null; optsDe(q).forEach(function(o2){ if(optVal(o2) === x) oo = o2; });
-        return oo ? T(optKey(oo)) : '';
+        return oo ? TK(optKey(oo)) : '';
       }).filter(Boolean);
       if(!noms.length) return;
       var el2 = document.createElement('span');
@@ -4856,7 +5080,7 @@ function corrigerType(v){
       var rep = reponsesMoteur();
       S.out.scores = S.engine.composerScores(S.out.mesures, rep);
       if(typeof S.engine.composerRoutine === 'function' && S.catalogue){
-        S.routine = S.engine.composerRoutine(S.out.scores, rep, S.catalogue, optionsRoutine());
+        S.routine = S.engine.composerRoutine(S.out.scores, rep, catalogueRoutine(), optionsRoutine());
       }
     } catch(e){}
   }
@@ -5084,7 +5308,7 @@ function demoResult(){
   }
   if(!out.scores) return { ok:false, raison:'aucune_frame_exploitable' };
   if(S.engine && typeof S.engine.composerRoutine === 'function'){
-    try { out.routine = S.engine.composerRoutine(out.scores, rep, S.catalogue, optionsRoutine()); }
+    try { out.routine = S.engine.composerRoutine(out.scores, rep, catalogueRoutine(), optionsRoutine()); }
     catch(e){ out.routine = null; }
   }
   return out;

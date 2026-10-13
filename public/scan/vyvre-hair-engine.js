@@ -3268,6 +3268,10 @@
       return !!c && (prefOrigine.indexOf(c) !== -1 || prefOrigine.indexOf(regionPays(c)) !== -1);
     }
     var prefsActives = !marque && (prefUnivers.length > 0 || prefOrigine.length > 0);
+    // 13/10/2026 — options.bonus(p) : un petit avantage ajoute a la note (ex. « pour un homme » : les produits
+    // pour homme passent devant a pertinence voisine). Jamais un filtre : les interdits restent des interdits.
+    var bonusFn = typeof options.bonus === 'function' ? options.bonus : null;
+    function bonusDe(p) { if (!bonusFn) return 0; var b = +bonusFn(p); return isFinite(b) ? b : 0; }
     // 0 = famille et pays respectes ; 1 = famille respectee, pays elargi ; 2 = tout elargi
     function niveauPref(p) {
       if (!prefsActives) return 0;
@@ -3567,19 +3571,19 @@
       if (!e) continue;
       if (e === 4 && quatrieme !== 'cible') {
         var ns = noter(prod, 4);
-        secoursCible.push({ produit: prod, etape: 4, note: ns.score, pourquoi: ns.pourquoi, raisons: ns.raisons,
+        secoursCible.push({ produit: prod, etape: 4, note: ns.score + bonusDe(prod), pourquoi: ns.pourquoi, raisons: ns.raisons,
                             interdits: ns.interdits, niveau: niveauPref(prod) });
         continue;
       }
       if (e === 3 && quatrieme === 'finition' && estFinition(prod)) {
         // l'huile legere part en finition ; le 3e geste reste un lait ou une creme
         var nf = noter(prod, 5);
-        parEtape[4].push({ produit: prod, etape: 4, finition: true, note: nf.score, pourquoi: nf.pourquoi, raisons: nf.raisons,
+        parEtape[4].push({ produit: prod, etape: 4, finition: true, note: nf.score + bonusDe(prod), pourquoi: nf.pourquoi, raisons: nf.raisons,
                            interdits: nf.interdits, niveau: niveauPref(prod) });
         continue;
       }
       var note = noter(prod, e);
-      parEtape[e].push({ produit: prod, etape: e, note: note.score, pourquoi: note.pourquoi, raisons: note.raisons, interdits: note.interdits,
+      parEtape[e].push({ produit: prod, etape: e, note: note.score + bonusDe(prod), pourquoi: note.pourquoi, raisons: note.raisons, interdits: note.interdits,
                          niveau: niveauPref(prod) });
     }
     for (var e2 = 1; e2 <= 4; e2++) {
@@ -4014,7 +4018,7 @@
     if (options.produits || options.composerRoutine !== false) {
       resultat.routine = composerRoutine(scores, options.reponses || null, options.produits || null,
         { marque: options.marque || null, univers: options.univers || null, origine: options.origine || null,
-          fichesMarques: options.fichesMarques || null });
+          fichesMarques: options.fichesMarques || null, bonus: options.bonus || null });
     }
     return resultat;
   }

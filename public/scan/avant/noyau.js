@@ -1,5 +1,5 @@
 /* Noyau commun aux propales de questionnaire avant-scan.
-   Vraies donnees : /scan/catalogue/marques.json + all.json. Aucun prix affiche. */
+   Vraies donnees : /scan/catalogue/marques.json + all.json. Aucun prix affiche (le budget lit les prix releves, sans les montrer). */
 window.VYQ=(function(){
   var EU={DE:1,CH:1,SE:1,BE:1,NL:1,ES:1,IT:1,AT:1,DK:1,PT:1,MC:1,HU:1,IE:1,PL:1};
   var M={}, P=[], prets=[], ok=false;
@@ -9,11 +9,19 @@ window.VYQ=(function(){
   ]).then(function(){ ok=true; prets.forEach(function(f){f();}); prets=[]; });
 
   function region(s){var b=M[s]; if(!b) return null; return EU[b.pays]?'EU':(b.pays==='AU'?'AU':b.pays);}
+  /* 13/10 : les marques cochees se prennent DANS la famille et le pays choisis (intersection, plus de priorite) */
   function garde(sel,b,slug){
     if(!b) return false;
-    if(sel.marques && sel.marques.length) return sel.marques.indexOf(slug)>=0;
+    if(sel.marques && sel.marques.length && sel.marques.indexOf(slug)<0) return false;
     if(sel.univers && sel.univers.length && sel.univers.indexOf(b.univers)<0) return false;
     if(sel.origine && sel.origine.length && sel.origine.indexOf(region(slug))<0) return false;
+    return true;
+  }
+  /* 13/10 : pour qui et budget, la meme regle que le scan (vy-choix.js) */
+  function produitOk(p,sel){
+    var V=window.VyChoix; if(!V) return true;
+    if(sel.pourqui && !V.pourQuiOk(p,sel.pourqui)) return false;
+    if(sel.budget && sel.budget.length && !V.dansBudget(p,sel.budget,'peau')) return false;
     return true;
   }
   return {
@@ -27,8 +35,23 @@ window.VYQ=(function(){
     compte:function(sel){
       /* on ne compte que les maisons qui ont au moins un produit en ligne */
       var g={}, vus={}, n=0; this.perimetre(sel).forEach(function(s){g[s]=1;});
-      for(var i=0;i<P.length;i++) if(g[P[i].brand]){ n++; vus[P[i].brand]=1; }
+      for(var i=0;i<P.length;i++) if(g[P[i].brand] && produitOk(P[i],sel)){ n++; vus[P[i].brand]=1; }
       return {produits:n, marques:Object.keys(vus).length, total:P.length, totalM:Object.keys(M).length};
+    },
+    /* 13/10 : produits par marque dans le perimetre (pour qui, famille, pays ; ni marques ni budget) :
+       {slug: n} pour toutes les marques du catalogue, 0 compris */
+    parMarque:function(sel){
+      var s2={pourqui:sel.pourqui,univers:sel.univers,origine:sel.origine}, g={}, n={};
+      Object.keys(M).forEach(function(s){ n[s]=0; });
+      this.perimetre(s2).forEach(function(s){g[s]=1;});
+      for(var i=0;i<P.length;i++){ var p=P[i]; if(n[p.brand]===undefined) continue; if(g[p.brand] && produitOk(p,s2)) n[p.brand]++; }
+      return n;
+    },
+    /* combien de soins pour homme (repérés par leur nom) dans le perimetre */
+    hommes:function(sel){
+      var g={}, n=0, V=window.VyChoix; if(!V) return 0; this.perimetre(sel).forEach(function(s){g[s]=1;});
+      for(var i=0;i<P.length;i++) if(g[P[i].brand] && V.genre(P[i])==='homme' && produitOk(P[i],sel)) n++;
+      return n;
     },
     nom:function(s){return (M[s]||{}).nom||s;},
     /* 1 maison, 2 maisons */

@@ -7,9 +7,9 @@
 <meta name="description" content="Votre peau, mesurée en moins de 10 secondes depuis votre caméra. Puis les trois soins qui lui correspondent, parmi 5 879 références de 152 marques.">
 <title>VYVRE — Scan de peau universel</title>
 <!-- VYVRE_I18N : moteur 12 langues, francais par defaut -->
-<script src="/scan/vy-i18n.js?v=33"></script>
+<script src="/scan/vy-i18n.js?v=34"></script>
 <!-- PAGE GENEREE par scripts/construire-m.mjs a partir de /scan/index.html : ne pas modifier a la main -->
-<script src="/scan/vy-choix.js?v=4"></script>
+<script src="/scan/vy-choix.js?v=5"></script>
 <script src="/m/vy-marque.js?v=2"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1931,6 +1931,8 @@ async function matchAndRenderCharlotteTilburyProducts(scores) {
     cibles: (window.vyPrefs && window.vyPrefs.cibles) ? window.vyPrefs.cibles() : [],
     /* 11/10 : les objectifs choisis avant le scan (dont « Boutons, acné ») ; l'acne deduite est decidee par vy-choix.js */
     goals: (window.vyPrefs && window.vyPrefs.goals) ? window.vyPrefs.goals() : [],
+    /* 13/10 : « pour lui » : les soins pour homme passent devant */
+    pourQui: (window.vyPrefs && window.vyPrefs.pourQui) ? window.vyPrefs.pourQui() : '',
     yeux: regleYeux,
     marque: !!window.VYVRE_MARQUE && !window.VYVRE_REVENDEUR
   });
@@ -3087,7 +3089,7 @@ header{backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important;-webki
   /* les memes regions que l'ecran des questions (noyau.js) */
   var EU={DE:1,CH:1,SE:1,BE:1,NL:1,ES:1,IT:1,AT:1,DK:1,PT:1,MC:1,HU:1,IE:1,PL:1};
   var KEY='vyvre-prefs-v1';
-  var P={age:null,goals:[],univers:[],origine:[],marques:[]};
+  var P={age:null,goals:[],univers:[],origine:[],marques:[],pourqui:'',budget:[]};
   /* 26/09 (audit) : on ne recharge plus les reponses d'une visite precedente (« Passer » les
      appliquait en cachette). On les enregistre seulement, pour le protocole complet. */
   var BR={}, done=false, mode='scan', pending=null, note='', cadre=null, repondu=false;
@@ -3135,6 +3137,12 @@ header{backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important;-webki
     if(P.univers.length) t.push(P.univers.map(function(u){return L[u];}).join(' + '));
     if(P.origine.length) t.push(P.origine.map(function(o){return O[o]||o;}).join(' + '));
     if(P.marques.length) t.push(P.marques.map(function(m){return (BR[m]||{}).nom||m;}).slice(0,3).join(', ')+(P.marques.length>3?' +'+(P.marques.length-3):''));
+    /* 13/10 : pour qui et budget */
+    if(P.pourqui) t.push(VY.t('vq.'+P.pourqui));
+    if(P.budget.length){ var TR=(window.VyChoix&&VyChoix.TRANCHES.peau)||[];
+      t.push(TR.filter(function(x){return P.budget.indexOf(x[0])>=0;}).map(function(x){
+        return VY.t(x[1]<=0?'vb.moins':(x[2]===Infinity?'vb.plus':'vb.entre'),{a:x[1],b:x[2]});
+      }).join(' + ')); }
     return t;
   }
   function afterRender(){
@@ -3151,12 +3159,13 @@ header{backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important;-webki
   function goals(){ return repondu ? P.goals.slice() : []; }
   /* 04/10 : « Contour des yeux » (cernes, poches) ne pese sur aucun des 8 scores : il demande seulement un soin yeux */
   function yeux(){ return repondu && P.goals.indexOf('yeux')>=0; }
-  window.vyPrefs={filter:filter,boostConcerns:boostConcerns,afterRender:afterRender,cibles:cibles,goals:goals,yeux:yeux,get:function(){return P;},repeindre:function(){}};
+  function pourQui(){ return repondu ? (P.pourqui||'') : ''; }
+  window.vyPrefs={filter:filter,boostConcerns:boostConcerns,afterRender:afterRender,cibles:cibles,goals:goals,yeux:yeux,pourQui:pourQui,get:function(){return P;},repeindre:function(){}};
 
   function open(m){
     mode=m; if(cadre) return;
     cadre=document.createElement('iframe'); cadre.id='vy-avant'; cadre.title=(window.VY&&VY.t)?VY.t('vp.kick'):'Avant votre scan';
-    cadre.src='/scan/avant/index.html?v=8&lang='+encodeURIComponent((window.VY&&VY.lang)||'fr'); cadre.setAttribute('allow','autoplay');
+    cadre.src='/scan/avant/index.html?v=9&lang='+encodeURIComponent((window.VY&&VY.lang)||'fr'); cadre.setAttribute('allow','autoplay');
     document.body.appendChild(cadre);
     cadre.setAttribute('tabindex','-1');
     cadre.addEventListener('load',function(){ try{ cadre.focus(); cadre.contentWindow.focus(); }catch(e){} });
@@ -3173,10 +3182,11 @@ header{backdrop-filter:brightness(3.2) saturate(1.3) blur(10px)!important;-webki
     if(e.origin!==location.origin || !e.data || !e.data.vyvreAvant) return;
     var m=e.data.vyvreAvant;
     if(m==='fermer'){ close(); return; }
-    if(m==='passer'){ P={age:null,goals:[],univers:[],origine:[],marques:[]}; repondu=true; save(); close(); suite(); return; }
+    if(m==='passer'){ P={age:null,goals:[],univers:[],origine:[],marques:[],pourqui:'',budget:[]}; repondu=true; save(); close(); suite(); return; }
     if(m==='lancer' && e.data.prefs){
       var r=e.data.prefs;
-      P={age:r.age||null,goals:(r.goals||[]).slice(),univers:(r.univers||[]).slice(),origine:(r.origine||[]).slice(),marques:(r.marques||[]).slice()};
+      P={age:r.age||null,goals:(r.goals||[]).slice(),univers:(r.univers||[]).slice(),origine:(r.origine||[]).slice(),marques:(r.marques||[]).slice(),
+        pourqui:(r.pourqui==='homme'||r.pourqui==='femme')?r.pourqui:'',budget:(r.budget||[]).slice()};
       repondu=true; save(); close(); setTimeout(suite,260);
     }
   });
