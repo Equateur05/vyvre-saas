@@ -9,7 +9,7 @@ export default function SiteHeader({ demoUrl = '/scan', active }: { demoUrl?: st
   return (
     <>
       <header className="v-bar">
-        <Link href="/" className="brand-mark">
+        <Link prefetch={false} href="/" className="brand-mark">
           <canvas className="v-mini" width="72" height="72" aria-label="VYVRE" />
           <span className="flex flex-col leading-none">
             <span data-vyvre-logo className="text-sm font-light tracking-[0.22em]">VYVRE</span>
@@ -18,7 +18,7 @@ export default function SiteHeader({ demoUrl = '/scan', active }: { demoUrl?: st
         </Link>
         <div className="flex items-center gap-6 md:me-20">
           <nav className="hidden md:flex items-center gap-8 text-[11px] tracking-[0.22em] uppercase text-text/55 font-mono">
-            <Link href="/manifeste" className="hover:text-text transition-colors">{t('nav.manifeste')}</Link>
+            <Link prefetch={false} href="/manifeste" className="hover:text-text transition-colors">{t('nav.manifeste')}</Link>
             <Link href="/accuracy" className="hover:text-text transition-colors">{t('nav.method')}</Link>
             <a href={demoUrl} className="hover:text-text transition-colors">{t('nav.demo')}</a>
             <Link href="/pricing" className="hover:text-text transition-colors">{t('nav.pricing')}</Link>

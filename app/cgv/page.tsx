@@ -35,7 +35,7 @@ export default function CGVPage() {
             <LegalNotice />
 
             <p className="text-lg text-text/75 font-extralight leading-relaxed mb-12">
-              Les présentes Conditions Générales de Vente (CGV) régissent l'utilisation du service VYVRE Business, fourni par Symphony Drive SAS aux marques et entreprises clientes (« Client »).
+              Les présentes Conditions Générales de Vente (CGV) régissent l'utilisation du service VYVRE Business, fourni par LE KIT PARISIEN SAS aux marques et entreprises clientes (« Client »).
             </p>
 
             <Block title={t('cgv.a1')}>
@@ -73,11 +73,11 @@ export default function CGVPage() {
 
             <Block title={t('cgv.a5')}>
               <p>Les abonnements mensuels sont sans engagement de durée minimum. Ils sont reconductibles tacitement chaque mois et résiliables à tout moment depuis l'espace client ou par email avec un préavis de 30 jours.</p>
-              <p className="mt-3">Le plan Pilot (gratuit) peut être interrompu unilatéralement par Symphony Drive SAS avec un préavis de 7 jours.</p>
+              <p className="mt-3">Le plan Pilot (gratuit) peut être interrompu unilatéralement par LE KIT PARISIEN SAS avec un préavis de 7 jours.</p>
             </Block>
 
             <Block title={t('cgv.a6')}>
-              <p>Symphony Drive SAS s'engage à un taux de disponibilité du service de :</p>
+              <p>LE KIT PARISIEN SAS s'engage à un taux de disponibilité du service de :</p>
               <ul className="list-disc pl-5 mt-2 space-y-1">
                 <li><strong className="font-medium">Pilot</strong> : 95% (best effort)</li>
                 <li><strong className="font-medium">Starter</strong> : 99% (best effort)</li>
@@ -88,15 +88,15 @@ export default function CGVPage() {
             </Block>
 
             <Block title={t('cgv.a7')}>
-              <p>Le catalogue produits du Client reste la propriété exclusive du Client. Symphony Drive SAS dispose d'une licence d'utilisation limitée au strict nécessaire pour fournir le service.</p>
-              <p className="mt-3">Les données agrégées issues des scans (anonymisées, sans données personnelles identifiantes) peuvent être utilisées par Symphony Drive SAS pour améliorer le moteur d'analyse et publier des statistiques globales agrégées (jamais individuelles).</p>
+              <p>Le catalogue produits du Client reste la propriété exclusive du Client. LE KIT PARISIEN SAS dispose d'une licence d'utilisation limitée au strict nécessaire pour fournir le service.</p>
+              <p className="mt-3">Les données agrégées issues des scans (anonymisées, sans données personnelles identifiantes) peuvent être utilisées par LE KIT PARISIEN SAS pour améliorer le moteur d'analyse et publier des statistiques globales agrégées (jamais individuelles).</p>
               <p className="mt-3">En cas de résiliation, le Client peut demander un export complet de ses données dans un délai de 30 jours, après quoi elles sont supprimées définitivement.</p>
             </Block>
 
             <Block title={t('cgv.a8')}>
               <p><strong className="font-medium text-text">VYVRE n'est pas un dispositif médical.</strong> L'analyse de peau fournie est une estimation visuelle basée sur des indicateurs colorimétriques peer-reviewed (cf. <Link href="/accuracy" className="text-accent hover:opacity-80">/accuracy</Link>). Il ne se substitue pas à un examen dermatologique professionnel.</p>
-              <p className="mt-3">La responsabilité de Symphony Drive SAS est limitée au montant des abonnements payés par le Client au cours des 12 mois précédant l'événement générateur de responsabilité.</p>
-              <p className="mt-3">Symphony Drive SAS ne peut être tenu responsable des dommages indirects, perte de revenus, perte de clientèle ou perte de réputation.</p>
+              <p className="mt-3">La responsabilité de LE KIT PARISIEN SAS est limitée au montant des abonnements payés par le Client au cours des 12 mois précédant l'événement générateur de responsabilité.</p>
+              <p className="mt-3">LE KIT PARISIEN SAS ne peut être tenu responsable des dommages indirects, perte de revenus, perte de clientèle ou perte de réputation.</p>
             </Block>
 
             <Block title={t('cgv.a9')}>

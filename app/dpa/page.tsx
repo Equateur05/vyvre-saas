@@ -36,12 +36,12 @@ export default function DPAPage() {
             <LegalNotice />
 
             <div className="v6-soft px-6 py-5 mb-12 text-sm text-text/75 font-extralight leading-relaxed">
-              <p><strong className="font-medium text-text">Note importante :</strong> ce DPA est un résumé public des principaux engagements. Le document contractuel complet, signé et conforme à la jurisprudence EDPB la plus récente, est disponible sur simple demande à <a href="mailto:charles@symphonydrive.com?subject=DPA - Document signé" className="text-accent hover:opacity-80">charles@symphonydrive.com</a>. Il est obligatoirement signé avant toute mise en production chez un Client B2B.</p>
+              <p><strong className="font-medium text-text">Note importante :</strong> ce DPA est un résumé public des principaux engagements. Le document contractuel complet, signé et conforme à la jurisprudence EDPB la plus récente, est disponible sur simple demande à <a href="mailto:charles@vyvre.fr?subject=DPA - Document signé" className="text-accent hover:opacity-80">charles@vyvre.fr</a>. Il est obligatoirement signé avant toute mise en production chez un Client B2B.</p>
             </div>
 
             <Block title={t('dpa.b1')}>
               <p><strong className="font-medium text-text">Responsable de traitement</strong> : le Client B2B (marque cosmétique) utilisant VYVRE Business sur son site.</p>
-              <p className="mt-3"><strong className="font-medium text-text">Sous-traitant</strong> : Symphony Drive SAS, éditrice de VYVRE.</p>
+              <p className="mt-3"><strong className="font-medium text-text">Sous-traitant</strong> : LE KIT PARISIEN SAS, éditrice de VYVRE.</p>
             </Block>
 
             <Block title={t('dpa.b2')}>
@@ -79,7 +79,7 @@ export default function DPAPage() {
             </Block>
 
             <Block title={t('dpa.b6')}>
-              <p>Symphony Drive SAS s'engage à :</p>
+              <p>LE KIT PARISIEN SAS s'engage à :</p>
               <ul className="list-disc pl-5 mt-2 space-y-1">
                 <li>Traiter les données uniquement sur instruction documentée du responsable de traitement</li>
                 <li>Garantir que les personnes autorisées à traiter les données sont soumises à une obligation de confidentialité</li>
@@ -93,7 +93,7 @@ export default function DPAPage() {
             </Block>
 
             <Block title={t('dpa.b7')}>
-              <p>Symphony Drive SAS met en œuvre les mesures techniques suivantes :</p>
+              <p>LE KIT PARISIEN SAS met en œuvre les mesures techniques suivantes :</p>
               <ul className="list-disc pl-5 mt-2 space-y-1">
                 <li><strong className="font-medium">Chiffrement en transit</strong> : TLS 1.3 sur toutes les communications</li>
                 <li><strong className="font-medium">Chiffrement au repos</strong> : AES-256 sur la base de données Supabase</li>
@@ -107,7 +107,7 @@ export default function DPAPage() {
             </Block>
 
             <Block title={t('dpa.b8')}>
-              <p>Symphony Drive SAS a recours aux sous-traitants ultérieurs suivants, listés au moment de la signature :</p>
+              <p>LE KIT PARISIEN SAS a recours aux sous-traitants ultérieurs suivants, listés au moment de la signature :</p>
               <div className="overflow-x-auto mt-2">
                 <table className="w-full text-sm">
                   <thead>
@@ -156,11 +156,11 @@ export default function DPAPage() {
 
             <Block title={t('dpa.b10')}>
               <p>Le responsable de traitement dispose d'un droit d'audit annuel des mesures techniques et organisationnelles mises en place par le sous-traitant, sur préavis de 30 jours et à ses frais.</p>
-              <p className="mt-3">Symphony Drive SAS fournit annuellement un rapport d'audit interne synthétique sur demande.</p>
+              <p className="mt-3">LE KIT PARISIEN SAS fournit annuellement un rapport d'audit interne synthétique sur demande.</p>
             </Block>
 
             <Block title={t('dpa.b11')}>
-              <p>En cas de violation de données personnelles, Symphony Drive SAS s'engage à notifier le responsable de traitement dans un délai maximal de <strong className="font-medium text-text">48 heures</strong> après en avoir pris connaissance, avec :</p>
+              <p>En cas de violation de données personnelles, LE KIT PARISIEN SAS s'engage à notifier le responsable de traitement dans un délai maximal de <strong className="font-medium text-text">48 heures</strong> après en avoir pris connaissance, avec :</p>
               <ul className="list-disc pl-5 mt-2 space-y-1">
                 <li>Description de la nature de la violation</li>
                 <li>Catégories et nombre approximatif de personnes concernées</li>
@@ -180,7 +180,7 @@ export default function DPAPage() {
             <LegalUpdated version />
 
             <div className="v6-soft px-6 py-5 mt-8 text-sm text-text/75 font-extralight leading-relaxed">
-              <p>Pour obtenir le DPA contractuel signé, contactez : <a href="mailto:charles@symphonydrive.com?subject=DPA - Demande de signature" className="text-accent hover:opacity-80">charles@symphonydrive.com</a></p>
+              <p>Pour obtenir le DPA contractuel signé, contactez : <a href="mailto:charles@vyvre.fr?subject=DPA - Demande de signature" className="text-accent hover:opacity-80">charles@vyvre.fr</a></p>
             </div>
           </div>
         </section>

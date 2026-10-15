@@ -50,7 +50,7 @@ export function LegalFooter({ current }: { current: Page }) {
         <Link href="/mentions-legales" className={cls('mentions-legales')}>{t('footer.legal')}</Link>
         <Link href="/confidentialite" className={cls('confidentialite')}>{t('footer.privacyGdpr')}</Link>
         <Link href="/dpa" className={cls('dpa')}>{t('footer.dpa')}</Link>
-        <a href="mailto:charles@symphonydrive.com" className="hover:text-text ml-auto">charles@symphonydrive.com</a>
+        <a href="mailto:charles@vyvre.fr" className="hover:text-text ml-auto">charles@vyvre.fr</a>
       </div>
     </footer>
   );

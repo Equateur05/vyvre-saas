@@ -1,7 +1,7 @@
 /* VYVRE — Nederlands */
 VY.add('nl', {
 'meta.t': 'VYVRE — Universele huidscan',
-'meta.d': 'Uw huid, in minder dan 10 seconden gemeten via uw camera. Daarna de drie verzorgingsproducten die bij haar passen, uit {n} referenties van {b} merken.',
+'meta.d': 'Uw huid, in minder dan 10 seconden gemeten via uw camera. Daarna de vier verzorgingsproducten die bij haar passen, uit {n} referenties van {b} merken.',
 'meta.pt': 'Uw protocol · VYVRE × Universele scan',
 'meta.pd': 'Uw ochtend- en avondroutine, samengesteld op basis van uw huidlezing.',
 'hd.deck': 'DECK',
@@ -173,9 +173,9 @@ VY.add('nl', {
 'ld.3': 'Verruimd naar alle universums.',
 'b.kick': 'Huidlezing · {n}',
 'b.title': 'VYVRE × {n} — Huidscan',
-'b.hero': 'Uw huid, in minder dan 10 seconden gemeten via uw camera, pixel voor pixel in de CIE Lab-kleurruimte. Daarna de drie {n}-producten die het best bij haar passen.',
+'b.hero': 'Uw huid, in minder dan 10 seconden gemeten via uw camera, pixel voor pixel in de CIE Lab-kleurruimte. Daarna de vier {n}-producten die het best bij haar passen.',
 'b.kickR': 'Selectie verkrijgbaar bij {n}',
-'b.heroR': 'Uw huid, in minder dan 10 seconden gemeten via uw camera, pixel voor pixel in de CIE Lab-kleurruimte. Daarna de drie producten die het best bij haar passen, uit de merken verkrijgbaar bij {n}.',
+'b.heroR': 'Uw huid, in minder dan 10 seconden gemeten via uw camera, pixel voor pixel in de CIE Lab-kleurruimte. Daarna de vier producten die het best bij haar passen, uit de merken verkrijgbaar bij {n}.',
 'b.mk': 'Voor {n}',
 'b.mp': 'Wat u zojuist hebt beleefd, kan leven op de e-shop van {n} en in uw boetieks, op uw eigen catalogus, in uw eigen codes. Begin met een pilot, of laat ons het samen met u bouwen, op maat.',
 'pp.lab': 'Lab',

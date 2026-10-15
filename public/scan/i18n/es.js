@@ -1,7 +1,7 @@
 /* VYVRE — Español */
 VY.add('es', {
 'meta.t': 'VYVRE — Escáner universal de la piel',
-'meta.d': 'Su piel, medida en menos de 10 segundos desde su cámara. Después, los tres cuidados que le corresponden, entre {n} referencias de {b} marcas.',
+'meta.d': 'Su piel, medida en menos de 10 segundos desde su cámara. Después, los cuatro cuidados que le corresponden, entre {n} referencias de {b} marcas.',
 'meta.pt': 'Su protocolo · VYVRE × Escáner universal',
 'meta.pd': 'Su rutina de mañana y de noche, compuesta a partir de su lectura de piel.',
 'hd.deck': 'DECK',
@@ -173,9 +173,9 @@ VY.add('es', {
 'ld.3': 'Ampliado a todos los universos.',
 'b.kick': 'Lectura de piel · {n}',
 'b.title': 'VYVRE × {n} — Escáner de la piel',
-'b.hero': 'Su piel, medida en menos de 10 segundos desde su cámara, píxel a píxel en el espacio colorimétrico CIE Lab. Después, los tres cuidados {n} que mejor le corresponden.',
+'b.hero': 'Su piel, medida en menos de 10 segundos desde su cámara, píxel a píxel en el espacio colorimétrico CIE Lab. Después, los cuatro cuidados {n} que mejor le corresponden.',
 'b.kickR': 'Selección disponible en {n}',
-'b.heroR': 'Su piel, medida en menos de 10 segundos desde su cámara, píxel a píxel en el espacio colorimétrico CIE Lab. Después, los tres cuidados que mejor le corresponden, entre las marcas disponibles en {n}.',
+'b.heroR': 'Su piel, medida en menos de 10 segundos desde su cámara, píxel a píxel en el espacio colorimétrico CIE Lab. Después, los cuatro cuidados que mejor le corresponden, entre las marcas disponibles en {n}.',
 'b.mk': 'Para {n}',
 'b.mp': 'Lo que acaba de vivir puede existir en el e-shop de {n} y en sus boutiques, sobre su propio catálogo, con sus propios códigos. Empiece con un piloto, o construyámoslo con usted, a medida.',
 'pp.lab': 'Lab',

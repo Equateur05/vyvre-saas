@@ -7,9 +7,7 @@
 <meta name="vy-title-key" content="hcg.meta.t">
 <title>vyvre — Scan cheveux</title>
 <script src="/scan/vy-i18n.js?v=32"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;800&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/fonts/vyvre-fonts.css?v=1">
 <style>
 *{box-sizing:border-box;margin:0;padding:0;-webkit-font-smoothing:antialiased}
 html,body{background:#000;color:#eaf6ff;font-family:Inter,sans-serif;font-weight:300;overflow:hidden;height:100%}
@@ -230,11 +228,13 @@ async function ouvrirSource(){
     if(parent !== window) parent.postMessage({ type:'vyvre-scan-camera-refusee' }, location.origin);
     return;
   }
-  const img = new Image(); img.src = '/_test_masque/' + (PHOTO || 'p_073') + '.jpg'; await img.decode(); src = img; miroir = false;
+  const img = new Image(); img.src = '/_test_masque_prive/' + (PHOTO || 'p_073') + '.jpg'; await img.decode(); src = img; miroir = false;
   dit($('note'), DEMO ? 'hcg.demo' : 'hcg.photo');
 }
 const SW = () => src.videoWidth || src.naturalWidth, SH = () => src.videoHeight || src.naturalHeight;
-const PHOTO = Q.get('photo');   /* ?photo=p_073 : une photo traitee comme la camera (pour verifier le double) */
+const PHOTO = Q.get('photo');   /* ?photo=p_073 : une photo traitee comme la camera (pour verifier le double).
+   15/10 : banc local seulement. Les photos sont dans _test_masque_prive/ (hors du site) ; en local :
+   ln -s ../_test_masque_prive public/_test_masque_prive (ignore par git et par Vercel). En ligne : introuvable. */
 const demo = () => DEMO || (src !== vid && !PHOTO);
 
 /* ---------------- lecture : visage + cheveux ---------------- */

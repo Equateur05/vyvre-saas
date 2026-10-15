@@ -1,7 +1,7 @@
 /* VYVRE — Italiano */
 VY.add('it', {
 'meta.t': 'VYVRE — Scanner universale della pelle',
-'meta.d': 'La sua pelle, misurata in meno di 10 secondi dalla sua fotocamera. Poi i tre trattamenti che le corrispondono, tra {n} referenze di {b} marche.',
+'meta.d': 'La sua pelle, misurata in meno di 10 secondi dalla sua fotocamera. Poi i quattro trattamenti che le corrispondono, tra {n} referenze di {b} marche.',
 'meta.pt': 'Il suo protocollo · VYVRE × Scanner universale',
 'meta.pd': 'La sua routine del mattino e della sera, composta a partire dalla sua lettura della pelle.',
 'hd.deck': 'DECK',
@@ -173,9 +173,9 @@ VY.add('it', {
 'ld.3': 'Allargato a tutti gli universi.',
 'b.kick': 'Lettura della pelle · {n}',
 'b.title': 'VYVRE × {n} — Scanner della pelle',
-'b.hero': 'La sua pelle, misurata in meno di 10 secondi dalla sua fotocamera, pixel per pixel nello spazio colorimetrico CIE Lab. Poi i tre trattamenti {n} che le corrispondono meglio.',
+'b.hero': 'La sua pelle, misurata in meno di 10 secondi dalla sua fotocamera, pixel per pixel nello spazio colorimetrico CIE Lab. Poi i quattro trattamenti {n} che le corrispondono meglio.',
 'b.kickR': 'Selezione disponibile da {n}',
-'b.heroR': 'La sua pelle, misurata in meno di 10 secondi dalla sua fotocamera, pixel per pixel nello spazio colorimetrico CIE Lab. Poi i tre trattamenti che le corrispondono meglio, tra le marche disponibili da {n}.',
+'b.heroR': 'La sua pelle, misurata in meno di 10 secondi dalla sua fotocamera, pixel per pixel nello spazio colorimetrico CIE Lab. Poi i quattro trattamenti che le corrispondono meglio, tra le marche disponibili da {n}.',
 'b.mk': 'Per {n}',
 'b.mp': 'Ciò che ha appena vissuto può esistere sull’e-shop di {n} e nelle sue boutique, sul suo catalogo, nei suoi codici. Cominci con un pilota, o costruiamolo insieme, su misura.',
 'pp.lab': 'Lab',

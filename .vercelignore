@@ -150,7 +150,11 @@ public/scan/products-cheveux/**/*.jpg
 # En attendant ils comptent dans la limite des 15 000 fichiers par deploiement.
 
 # banc de test local du detourage : ne part jamais en ligne
+# 15/10/2026 : sorti de public/ (40 photos de vraies personnes), range dans _test_masque_prive/
+_test_masque_prive/
 public/_test_masque/
+# banc en local seulement : lien symbolique  ln -s ../_test_masque_prive public/_test_masque_prive  (jamais envoye)
+public/_test_masque_prive
 
 # visuels de campagne : pas des fichiers du site
 /marketing/

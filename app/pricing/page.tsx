@@ -431,7 +431,7 @@ export default function PricingPage({ searchParams }: PricingPageProps) {
             <Link href="/confidentialite" className="hover:text-accent transition-colors">{t('footer.privacy')}</Link>
             <Link href="/dpa" className="hover:text-accent transition-colors">{t('footer.dpa')}</Link>
             <a href="mailto:charles@symphonydrive.com" className="hover:text-accent transition-colors">{t('footer.contact')}</a>
-            <Link href="/" className="hover:text-accent transition-colors">{t('footer.home')}</Link>
+            <Link prefetch={false} href="/" className="hover:text-accent transition-colors">{t('footer.home')}</Link>
           </div>
 
           <div className="text-center text-[9px] tracking-[0.35em] uppercase text-text/30 font-mono">

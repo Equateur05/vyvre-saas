@@ -35,91 +35,109 @@ export default function ConfidentialitePage() {
             <LegalNotice />
 
             <p className="text-lg text-text/75 font-extralight leading-relaxed mb-12">
-              VYVRE prend la protection de vos données personnelles au sérieux. Cette politique explique quelles données nous collectons, comment nous les utilisons, où elles sont stockées, et quels sont vos droits.
+              Cette page dit ce que VYVRE fait de vos données, sans exception. L’essentiel : votre visage est analysé dans votre téléphone ou votre ordinateur, et aucune photo ni vidéo n’est envoyée ni conservée.
             </p>
 
             <Block title={t('conf.b1')}>
-              <p><strong className="font-medium">Symphony Drive SAS</strong> (VYVRE)</p>
-              <p>Siège social : Paris, France</p>
-              <p>Contact DPO : <a href="mailto:charles@symphonydrive.com?subject=RGPD - Demande DPO" className="text-accent hover:opacity-80">charles@symphonydrive.com</a></p>
+              <p><strong className="font-medium">LE KIT PARISIEN SAS</strong>, éditeur de VYVRE</p>
+              <p>15 rue des Écoles, 75005 Paris, France</p>
+              <p>RCS Paris 939 752 374</p>
+              <p className="mt-3">Pour toute question sur vos données : <a href="mailto:charles@vyvre.fr?subject=Donn%C3%A9es%20personnelles" className="text-accent hover:opacity-80">charles@vyvre.fr</a>. Nous n’avons pas désigné de délégué à la protection des données ; cette adresse le remplace.</p>
             </Block>
 
             <Block title={t('conf.b2')}>
-              <p><strong className="font-medium text-text">Les images de votre visage ne sont JAMAIS stockées.</strong> Elles sont traitées en mémoire vive (RAM) du serveur le temps de l'analyse (typiquement &lt;100ms), puis effacées immédiatement.</p>
-              <p className="mt-3">Seules les <strong className="font-medium">données agrégées et anonymisées</strong> du scan sont conservées : 8 scores numériques (rides, fermeté, pigmentation, hydratation, éclat, pores, rougeur, sébum), phototype Fitzpatrick (1-6), et âge peau estimé. Aucune information permettant de vous identifier visuellement n'est conservée.</p>
-              <p className="mt-3">Ces données agrégées sont utilisées exclusivement pour vous proposer une routine de soin personnalisée à partir du catalogue de la marque sur laquelle le scan a été effectué.</p>
+              <p>Le scan de peau, le scan des cheveux et la lecture du parcours Aliments utilisent votre caméra, ou une photo que vous choisissez. L’image est analysée <strong className="font-medium text-text">dans votre navigateur, sur votre téléphone ou votre ordinateur</strong>, par un programme chargé depuis vyvre.fr.</p>
+              <ul className="list-disc pl-5 mt-3 space-y-1">
+                <li><strong className="font-medium text-text">Aucune photo ni vidéo n’est envoyée</strong>, ni à nous ni à un tiers, et aucune n’est conservée. L’image reste en mémoire le temps de la page et disparaît à sa fermeture.</li>
+                <li>Les résultats (scores, phototype, âge de peau estimé, soins proposés) sont calculés et affichés dans votre appareil. Ils ne nous sont pas envoyés.</li>
+                <li>Un Wrap (image à partager) est fabriqué dans votre appareil. Il n’en sort que si vous le partagez ou l’enregistrez vous-même.</li>
+                <li>Scan des cheveux : à chaque lecture, la page envoie à notre hébergeur un court journal technique, <strong className="font-medium text-text">sans image ni résultat</strong> (navigateur, définition de la caméra, durée, étapes franchies, raison d’un échec, quelques mesures de qualité d’image). Il sert seulement à corriger les pannes.</li>
+              </ul>
             </Block>
 
             <Block title={t('conf.b3')}>
-              <p>L'ensemble des données est hébergé exclusivement dans l'<strong className="font-medium text-text">Union européenne</strong> :</p>
+              <p>Pour que les pages suivantes (protocole, aliments) retrouvent vos résultats, votre navigateur garde, <strong className="font-medium text-text">sur votre appareil seulement</strong> (stockage local) :</p>
               <ul className="list-disc pl-5 mt-2 space-y-1">
-                <li>Frontend : Vercel, région Paris (CDN edge)</li>
-                <li>Base de données : Supabase, région EU-West-3 (Paris, France)</li>
-                <li>Catalogue produits : Supabase Paris</li>
-                <li>Démos hébergées : Firebase Hosting (Google Cloud, CDN mondial mais traitement principal en France)</li>
+                <li>vos scores de peau, la date du scan et les soins retenus, ainsi qu’un historique de vos scores (60 scans au plus) pour suivre leur évolution ; jamais d’image ;</li>
+                <li>vos réponses aux questions d’avant scan (pour qui, objectifs, marques, budget, pays) ;</li>
+                <li>votre langue, aussi enregistrée dans un cookie technique « vyvre-lang » valable un an.</li>
               </ul>
-              <p className="mt-3"><strong className="font-medium text-text">Aucune donnée n'est transférée vers les États-Unis ou la Chine sans votre consentement explicite.</strong></p>
+              <p className="mt-3">Pendant la visite seulement (stockage de session, effacé à la fermeture de l’onglet) : l’avancement du parcours Aliments et le fait d’avoir vu l’introduction.</p>
+              <p className="mt-3">Ces informations ne nous sont pas envoyées. Vous pouvez les effacer à tout moment dans les réglages de votre navigateur (données du site vyvre.fr). <strong className="font-medium text-text">Aucun cookie publicitaire, aucun outil de mesure d’audience, aucun pixel de suivi.</strong></p>
             </Block>
 
             <Block title={t('conf.b4')}>
-              <p>Lorsque vous visitez vyvre.fr, nous collectons :</p>
+              <p>Le parcours Aliments peut vous demander des informations de santé : allergies, grossesse, traitement anticoagulant, maladie des reins, régime végétarien ou végan. Ce sont des données sensibles au sens de l’article 9 du RGPD.</p>
               <ul className="list-disc pl-5 mt-2 space-y-1">
-                <li>Adresse IP (anonymisée après 24h)</li>
-                <li>User-agent du navigateur</li>
-                <li>Pages visitées (analytics agrégées via Vercel Analytics, sans cookies)</li>
-                <li>Référent (site d'origine)</li>
+                <li>Elles servent uniquement à écarter des aliments ou à afficher une précaution, et seulement après votre <strong className="font-medium text-text">accord explicite</strong>, demandé à l’écran (« Accepter et voir mon assiette »). Vous pouvez aussi ne pas répondre.</li>
+                <li>Elles <strong className="font-medium text-text">restent dans votre appareil</strong> : en stockage de session pendant la visite, effacées à la fermeture de l’onglet. Elles ne nous sont jamais envoyées.</li>
+                <li>Si vous choisissez « Garder mes réponses sur cet appareil » (réservé aux personnes majeures), elles restent dans votre navigateur 6 mois au plus, puis s’effacent. Un bouton permet de les effacer à tout moment.</li>
+                <li>« Près de vous » : seulement si vous le demandez, votre position, arrondie à environ 1 km, est envoyée au service de carte ouverte OpenStreetMap (Overpass) pour trouver des commerces. VYVRE ne l’enregistre pas.</li>
               </ul>
-              <p className="mt-3"><strong className="font-medium text-text">Nous n'utilisons aucun cookie tiers, aucun pixel de tracking (Meta, Google Ads, TikTok, etc.).</strong> Aucune publicité ciblée n'est servie sur notre site.</p>
             </Block>
 
             <Block title={t('conf.b5')}>
-              <p>Si vous souscrivez à un plan VYVRE Business, nous collectons via notre prestataire de paiement Stripe :</p>
-              <ul className="list-disc pl-5 mt-2 space-y-1">
-                <li>Nom et prénom du responsable de la souscription</li>
-                <li>Email professionnel</li>
-                <li>Raison sociale et SIREN de l'entreprise</li>
-                <li>Coordonnées de facturation</li>
-              </ul>
-              <p className="mt-3">Les données bancaires (numéro de carte, CVV) ne transitent jamais par nos serveurs. Elles sont gérées exclusivement par Stripe, certifié PCI-DSS niveau 1.</p>
+              <p>Certains liens que nous envoyons à des professionnels contiennent un paramètre <span className="font-mono text-sm">?p=</span>. Sur ces liens seulement, et avec un bandeau qui le signale, la page enregistre la visite dans notre base de données (Supabase) : identifiant du lien, page vue, navigateur, site d’origine, taille d’écran, temps passé, défilement, boutons cliqués, début du scan.</p>
+              <p className="mt-3"><strong className="font-medium text-text">Aucune image ni aucun résultat de scan n’est transmis.</strong> Sans <span className="font-mono text-sm">?p=</span> dans l’adresse, rien n’est enregistré. Vous pouvez vous y opposer en écrivant à <a href="mailto:charles@vyvre.fr" className="text-accent hover:opacity-80">charles@vyvre.fr</a>.</p>
             </Block>
 
             <Block title={t('conf.b6')}>
-              <p>Les traitements sont fondés sur :</p>
-              <ul className="list-disc pl-5 mt-2 space-y-1">
-                <li>L'<strong className="font-medium">exécution du contrat</strong> (article 6.1.b RGPD) pour le scan et la routine</li>
-                <li>L'<strong className="font-medium">intérêt légitime</strong> (article 6.1.f RGPD) pour les analytics agrégées</li>
-                <li>Le <strong className="font-medium">consentement explicite</strong> (article 6.1.a RGPD) pour toute autre utilisation</li>
+              <ul className="list-disc pl-5 mt-2 space-y-2">
+                <li><strong className="font-medium">Vercel Inc.</strong> (États-Unis) héberge le site. Les pages sont servies au plus près de vous (Paris pour la France) ; les fonctions serveur du site tournent aux États-Unis. Comme tout hébergeur, Vercel reçoit votre adresse IP et le nom de votre navigateur, et tient des journaux techniques pendant une durée courte qu’il fixe.</li>
+                <li><strong className="font-medium">Supabase Inc.</strong> (États-Unis) : base de données hébergée dans l’Union européenne (Irlande). Elle garde les visites des liens personnels et les comptes des marques clientes.</li>
+                <li><strong className="font-medium">Stripe</strong> (Stripe Payments Europe Ltd, Irlande) encaisse les abonnements des marques.</li>
+                <li><strong className="font-medium">Resend Inc.</strong> (États-Unis) envoie les e-mails liés aux abonnements des marques.</li>
+                <li><strong className="font-medium">OpenStreetMap (Overpass)</strong> : seulement si vous utilisez « Près de vous ».</li>
+                <li><strong className="font-medium">jsDelivr</strong> : le scan des cheveux charge une bibliothèque d’affichage 3D depuis cdn.jsdelivr.net, qui reçoit alors votre adresse IP.</li>
+                <li><strong className="font-medium">Polices de caractères</strong> : servies par vyvre.fr. Les pages du site ne les demandent plus à Google ; seules quelques maquettes de travail, absentes des menus, le font encore.</li>
               </ul>
+              <p className="mt-3">Vercel, Supabase, Stripe et Resend sont des sociétés américaines ou liées à une société américaine : certaines données (adresse IP, données de facturation des marques) peuvent donc être transférées ou consultées aux États-Unis. Ces transferts sont encadrés par les clauses contractuelles types de la Commission européenne et, pour les prestataires qui y adhèrent, par le cadre de protection des données UE–États-Unis.</p>
             </Block>
 
             <Block title={t('conf.b7')}>
-              <ul className="list-disc pl-5 mt-2 space-y-1">
-                <li>Images scan : <strong>0 seconde</strong> (traitement en mémoire vive, jamais persistées)</li>
-                <li>Scores agrégés du scan : 30 jours (pour comparaison historique éventuelle)</li>
-                <li>Données de facturation : 10 ans (obligation légale comptable)</li>
-                <li>Logs serveur : 90 jours maximum</li>
-                <li>Analytics agrégées : 24 mois</li>
-              </ul>
+              <p>Quand une marque souscrit un abonnement VYVRE, Stripe recueille le nom, l’e-mail professionnel, la raison sociale et les coordonnées de facturation. <strong className="font-medium text-text">Les données de carte bancaire sont traitées par Stripe seul</strong> et ne passent jamais par nos serveurs.</p>
+              <p className="mt-3">Nous gardons dans Supabase : l’e-mail, le nom de la marque, la formule choisie, les identifiants Stripe du client et de l’abonnement, et un compteur de scans du mois (un nombre, sans aucun résultat individuel).</p>
             </Block>
 
             <Block title={t('conf.b8')}>
-              <p>Conformément aux articles 15 à 22 du RGPD, vous disposez à tout moment des droits suivants :</p>
               <ul className="list-disc pl-5 mt-2 space-y-1">
-                <li><strong className="font-medium">Droit d'accès</strong> à vos données</li>
-                <li><strong className="font-medium">Droit de rectification</strong> de vos données inexactes</li>
-                <li><strong className="font-medium">Droit à l'effacement</strong> (« droit à l'oubli »)</li>
-                <li><strong className="font-medium">Droit à la limitation</strong> du traitement</li>
-                <li><strong className="font-medium">Droit à la portabilité</strong> de vos données</li>
-                <li><strong className="font-medium">Droit d'opposition</strong> au traitement</li>
-                <li><strong className="font-medium">Droit de retirer votre consentement</strong> à tout moment</li>
+                <li>Le scan se fait dans votre appareil, à votre demande : nous ne recevons ni l’image ni le résultat.</li>
+                <li>Fonctionnement et sécurité du site, journaux techniques, suivi des liens personnels : <strong className="font-medium">intérêt légitime</strong> (article 6.1.f du RGPD).</li>
+                <li>Réponses de santé du parcours Aliments : <strong className="font-medium">consentement explicite</strong> (article 9.2.a), que vous pouvez retirer à tout moment en les effaçant.</li>
+                <li>Position pour « Près de vous » : <strong className="font-medium">consentement</strong>, donné par l’autorisation de votre navigateur.</li>
+                <li>Abonnement des marques : <strong className="font-medium">exécution du contrat</strong> (article 6.1.b) ; factures : <strong className="font-medium">obligation légale</strong> (article 6.1.c).</li>
               </ul>
-              <p className="mt-3">Pour exercer ces droits, contactez : <a href="mailto:charles@symphonydrive.com?subject=RGPD - Exercice de mes droits" className="text-accent hover:opacity-80">charles@symphonydrive.com</a></p>
-              <p className="mt-2">Nous répondons sous 30 jours maximum.</p>
-              <p className="mt-3">Vous disposez également du droit d'introduire une réclamation auprès de la CNIL : <a href="https://www.cnil.fr" target="_blank" rel="noopener" className="text-accent hover:opacity-80">www.cnil.fr</a></p>
             </Block>
 
             <Block title={t('conf.b9')}>
-              <p>Pour les clients B2B (marques cosméto utilisant VYVRE sur leur site), un <strong className="font-medium">accord de traitement des données (DPA)</strong> conforme à l'article 28 du RGPD est disponible sur demande à <a href="mailto:charles@symphonydrive.com?subject=DPA - Demande" className="text-accent hover:opacity-80">charles@symphonydrive.com</a>, ou consultable à la page <Link href="/dpa" className="text-accent hover:opacity-80">/dpa</Link>.</p>
+              <ul className="list-disc pl-5 mt-2 space-y-1">
+                <li>Images du visage : <strong>aucune conservation</strong>, rien n’est envoyé.</li>
+                <li>Informations gardées par votre navigateur : jusqu’à ce que vous les effaciez ; réponses de santé gardées sur l’appareil : 6 mois au plus ; stockage de session : jusqu’à la fermeture de l’onglet.</li>
+                <li>Visites des liens personnels : 12 mois au plus.</li>
+                <li>Comptes des marques clientes : durée de l’abonnement, puis 3 ans.</li>
+                <li>Factures : 10 ans (obligation comptable).</li>
+                <li>Journaux techniques de l’hébergeur : durée courte fixée par Vercel.</li>
+              </ul>
+            </Block>
+
+            <Block title={t('conf.b10')}>
+              <p>Conformément aux articles 15 à 22 du RGPD, vous disposez des droits suivants :</p>
+              <ul className="list-disc pl-5 mt-2 space-y-1">
+                <li><strong className="font-medium">Droit d’accès</strong> à vos données</li>
+                <li><strong className="font-medium">Droit de rectification</strong> des données inexactes</li>
+                <li><strong className="font-medium">Droit à l’effacement</strong></li>
+                <li><strong className="font-medium">Droit à la limitation</strong> du traitement</li>
+                <li><strong className="font-medium">Droit à la portabilité</strong></li>
+                <li><strong className="font-medium">Droit d’opposition</strong></li>
+                <li><strong className="font-medium">Droit de retirer votre consentement</strong> à tout moment</li>
+                <li><strong className="font-medium">Droit de définir des directives</strong> sur le sort de vos données après votre décès</li>
+              </ul>
+              <p className="mt-3">Ce que garde votre navigateur, vous l’effacez vous-même : nous n’y avons pas accès. Pour le reste, écrivez à <a href="mailto:charles@vyvre.fr?subject=RGPD%20-%20Exercice%20de%20mes%20droits" className="text-accent hover:opacity-80">charles@vyvre.fr</a>. Nous répondons dans un délai d’un mois.</p>
+              <p className="mt-3">Vous pouvez aussi adresser une réclamation à la CNIL, 3 place de Fontenoy, TSA 80715, 75334 Paris Cedex 07 : <a href="https://www.cnil.fr" target="_blank" rel="noopener" className="text-accent hover:opacity-80">www.cnil.fr</a>.</p>
+            </Block>
+
+            <Block title={t('conf.b11')}>
+              <p>Pour les marques qui intègrent VYVRE sur leur site, un accord de traitement des données (article 28 du RGPD) est disponible sur demande à <a href="mailto:charles@vyvre.fr?subject=DPA%20-%20Demande" className="text-accent hover:opacity-80">charles@vyvre.fr</a>. Un résumé est consultable à la page <Link href="/dpa" className="text-accent hover:opacity-80">/dpa</Link>.</p>
             </Block>
 
             <LegalUpdated />

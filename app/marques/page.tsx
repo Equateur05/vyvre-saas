@@ -185,7 +185,7 @@ function HomeFooter({ t }: { t: T }) {
           </div>
         </div>
         <div className="flex flex-wrap items-center gap-6 font-mono tracking-[0.18em] uppercase text-text/35 text-[10px] border-t border-line pt-8">
-          <Link href="/manifeste" className="hover:text-text transition-colors">{t('footer.manifeste')}</Link>
+          <Link prefetch={false} href="/manifeste" className="hover:text-text transition-colors">{t('footer.manifeste')}</Link>
           <Link href="/accuracy" className="hover:text-text transition-colors">{t('footer.method')}</Link>
           <Link href="/cgv" className="hover:text-text transition-colors">{t('footer.cgv')}</Link>
           <Link href="/mentions-legales" className="hover:text-text transition-colors">{t('footer.legal')}</Link>

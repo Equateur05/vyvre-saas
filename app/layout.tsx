@@ -24,12 +24,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang={htmlLang} dir={dir}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600&family=JetBrains+Mono:wght@300;400&family=Playfair+Display:ital,wght@1,500&display=swap"
-        />
+        {/* 15/10/2026 : polices servies par vyvre.fr (public/fonts), plus aucun appel a Google Fonts */}
+        <link rel="stylesheet" href="/fonts/vyvre-fonts.css?v=1" />
       </head>
       <body className="bg-bg text-text font-sans antialiased">{children}</body>
     </html>

@@ -1,7 +1,7 @@
 /* VYVRE — dictionnaire francais (source). Charge par /scan/vy-i18n.js */
 VY.add('fr', {
     'meta.t': 'VYVRE — Scan de peau universel',
-    'meta.d': 'Votre peau, mesurée en moins de 10 secondes depuis votre caméra. Puis les trois soins qui lui correspondent, parmi {n} références de {b} marques.',
+    'meta.d': 'Votre peau, mesurée en moins de 10 secondes depuis votre caméra. Puis les quatre soins qui lui correspondent, parmi {n} références de {b} marques.',
     'meta.pt': 'Votre protocole · VYVRE × Scan universel',
     'meta.pd': 'Votre routine matin et soir, composée à partir de votre lecture de peau.',
 
@@ -185,9 +185,9 @@ VY.add('fr', {
 
     'b.kick': 'Lecture de peau · {n}',
     'b.title': 'VYVRE × {n} — Scan de peau',
-    'b.hero': 'Votre peau, mesurée en moins de 10 secondes depuis votre caméra, pixel par pixel dans l’espace colorimétrique CIE Lab. Puis les trois soins {n} qui lui correspondent le mieux.',
+    'b.hero': 'Votre peau, mesurée en moins de 10 secondes depuis votre caméra, pixel par pixel dans l’espace colorimétrique CIE Lab. Puis les quatre soins {n} qui lui correspondent le mieux.',
     'b.kickR': 'Sélection disponible chez {n}',
-    'b.heroR': 'Votre peau, mesurée en moins de 10 secondes depuis votre caméra, pixel par pixel dans l’espace colorimétrique CIE Lab. Puis les trois soins qui lui correspondent le mieux, parmi les maisons disponibles chez {n}.',
+    'b.heroR': 'Votre peau, mesurée en moins de 10 secondes depuis votre caméra, pixel par pixel dans l’espace colorimétrique CIE Lab. Puis les quatre soins qui lui correspondent le mieux, parmi les maisons disponibles chez {n}.',
     'b.mk': 'Pour {n}',
     'b.mp': 'Ce que vous venez de vivre peut exister sur l’e-shop de {n} et dans vos boutiques, sur votre propre catalogue, dans vos propres codes. Commencez par un pilote, ou construisons-le avec vous, sur mesure.',
 

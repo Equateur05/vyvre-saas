@@ -52,7 +52,7 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
         <div className="max-w-md text-center flex flex-col items-center gap-6">
           <h1 className="font-sans text-4xl font-extralight -tracking-[0.02em]">Session introuvable</h1>
           <p className="text-text/60">L'URL ne contient pas de <code className="font-mono text-accent">session_id</code>.</p>
-          <Link href="/" className="btn-secondary">Retour à l'accueil</Link>
+          <Link prefetch={false} href="/" className="btn-secondary">Retour à l'accueil</Link>
         </div>
       </main>
     );

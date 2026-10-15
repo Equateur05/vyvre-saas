@@ -1,7 +1,7 @@
 /* VYVRE — English */
 VY.add('en', {
 'meta.t': 'VYVRE — Universal Skin Scan',
-'meta.d': 'Your skin, measured in under 10 seconds from your camera. Then the three products that suit it, among {n} references from {b} brands.',
+'meta.d': 'Your skin, measured in under 10 seconds from your camera. Then the four products that suit it, among {n} references from {b} brands.',
 'meta.pt': 'Your protocol · VYVRE × Universal Scan',
 'meta.pd': 'Your morning and evening routine, composed from your skin reading.',
 'hd.deck': 'DECK',
@@ -173,9 +173,9 @@ VY.add('en', {
 'ld.3': 'Widened to every universe.',
 'b.kick': 'Skin reading · {n}',
 'b.title': 'VYVRE × {n} — Skin scan',
-'b.hero': 'Your skin, measured in under 10 seconds from your camera, pixel by pixel in the CIE Lab colour space. Then the three {n} products that suit it best.',
+'b.hero': 'Your skin, measured in under 10 seconds from your camera, pixel by pixel in the CIE Lab colour space. Then the four {n} products that suit it best.',
 'b.kickR': 'Selection available at {n}',
-'b.heroR': 'Your skin, measured in under 10 seconds from your camera, pixel by pixel in the CIE Lab colour space. Then the three products that suit it best, from the houses available at {n}.',
+'b.heroR': 'Your skin, measured in under 10 seconds from your camera, pixel by pixel in the CIE Lab colour space. Then the four products that suit it best, from the houses available at {n}.',
 'b.mk': 'For {n}',
 'b.mp': 'What you have just experienced can live on the {n} e-shop and in your stores, on your own catalogue, in your own codes. Start with a pilot, or let us build it with you, made to measure.',
 'pp.lab': 'Lab',

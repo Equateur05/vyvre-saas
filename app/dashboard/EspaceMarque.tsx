@@ -43,7 +43,7 @@ export default function EspaceMarque({
             <a href={`mailto:${CONTACT}`} className="text-text hover:text-champagne underline underline-offset-4 decoration-text/30">{CONTACT}</a>
           </p>
           <p className="mt-4">
-            <Link href="/" className="font-mono text-[10px] tracking-[0.3em] uppercase text-text/40 hover:text-text transition-colors">{home}</Link>
+            <Link prefetch={false} href="/" className="font-mono text-[10px] tracking-[0.3em] uppercase text-text/40 hover:text-text transition-colors">{home}</Link>
           </p>
         </div>
       </section>

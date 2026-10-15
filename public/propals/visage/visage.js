@@ -95,7 +95,7 @@ async function ouvrirPhoto(nom){
   if(!/^[a-z0-9_]+$/.test(nom)) return;
   arreterCam(); remettre();
   S.message = 'Lecture de la photo…';
-  const img = new Image(); img.src = '/_test_masque/' + nom + '.jpg';
+  const img = new Image(); img.src = '/_test_masque_prive/' + nom + '.jpg';
   try { await img.decode(); } catch(e){ S.message = 'Photo introuvable.'; return; }
   const pc = document.createElement('canvas'); pc.width = img.naturalWidth; pc.height = img.naturalHeight;
   const px = pc.getContext('2d', { willReadFrequently:true }); px.drawImage(img, 0, 0);

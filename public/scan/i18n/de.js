@@ -1,7 +1,7 @@
 /* VYVRE — Deutsch */
 VY.add('de', {
 'meta.t': 'VYVRE — Universeller Haut-Scan',
-'meta.d': 'Ihre Haut, in unter 10 Sekunden über Ihre Kamera vermessen. Danach die drei Pflegeprodukte, die zu ihr passen, aus {n} Referenzen von {b} Marken.',
+'meta.d': 'Ihre Haut, in unter 10 Sekunden über Ihre Kamera vermessen. Danach die vier Pflegeprodukte, die zu ihr passen, aus {n} Referenzen von {b} Marken.',
 'meta.pt': 'Ihr Protokoll · VYVRE × Universeller Scan',
 'meta.pd': 'Ihre Morgen- und Abendroutine, komponiert aus Ihrer Hautmessung.',
 'hd.deck': 'DECK',
@@ -173,9 +173,9 @@ VY.add('de', {
 'ld.3': 'Auf alle Welten erweitert.',
 'b.kick': 'Hautmessung · {n}',
 'b.title': 'VYVRE × {n} — Haut-Scan',
-'b.hero': 'Ihre Haut, in unter 10 Sekunden über Ihre Kamera vermessen, Pixel für Pixel im CIE-Lab-Farbraum. Danach die drei {n}-Produkte, die am besten zu ihr passen.',
+'b.hero': 'Ihre Haut, in unter 10 Sekunden über Ihre Kamera vermessen, Pixel für Pixel im CIE-Lab-Farbraum. Danach die vier {n}-Produkte, die am besten zu ihr passen.',
 'b.kickR': 'Auswahl erhältlich bei {n}',
-'b.heroR': 'Ihre Haut, in unter 10 Sekunden über Ihre Kamera vermessen, Pixel für Pixel im CIE-Lab-Farbraum. Danach die drei Produkte, die am besten zu ihr passen, aus den bei {n} erhältlichen Marken.',
+'b.heroR': 'Ihre Haut, in unter 10 Sekunden über Ihre Kamera vermessen, Pixel für Pixel im CIE-Lab-Farbraum. Danach die vier Produkte, die am besten zu ihr passen, aus den bei {n} erhältlichen Marken.',
 'b.mk': 'Für {n}',
 'b.mp': 'Was Sie gerade erlebt haben, kann im E-Shop von {n} und in Ihren Boutiquen leben, auf Ihrem eigenen Katalog, in Ihren eigenen Codes. Beginnen Sie mit einem Piloten, oder wir bauen es gemeinsam mit Ihnen, maßgeschneidert.',
 'pp.lab': 'Labor',

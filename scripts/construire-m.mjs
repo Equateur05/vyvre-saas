@@ -25,6 +25,9 @@ function remplacerRe(re, nouveau) {
 remplacerRe(/<script src="\/scan\/vy-choix\.js\?v=\d+"><\/script>/, (m) =>
   `<!-- PAGE GENEREE par scripts/construire-m.mjs a partir de /scan/index.html : ne pas modifier a la main -->\n${m}\n<script src="/m/vy-marque.js?v=${MARQUE_V}"></script>`);
 
+// 1 bis. 15/10/2026 (audit du 11/10, point 4) : les pages de demarchage restent hors de Google
+remplacer('<meta charset="UTF-8">\n', '<meta charset="UTF-8">\n<meta name="robots" content="noindex, nofollow">\n');
+
 // 2. pas les questions d'avant scan (perimetre de marques), pas l'assiette, pas le menu public, pas l'habillage
 remplacer('var ACTIF=!/[?&]sansquestions\\b/.test(location.search);', 'var ACTIF=!window.VYVRE_MARQUE&&!/[?&]sansquestions\\b/.test(location.search);');
 remplacerRe(/<script src="\/scan\/aliment\/vy-aliment\.js\?v=\d+" defer><\/script>\n?/, '');

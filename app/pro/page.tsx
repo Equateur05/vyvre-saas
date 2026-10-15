@@ -197,7 +197,7 @@ export default function ProPage() {
             <Link href="/confidentialite">{t('footer.privacy')}</Link>
             <Link href="/dpa">{t('footer.dpa')}</Link>
             <a href={`mailto:${CONTACT}`}>{t('footer.contact')}</a>
-            <Link href="/">{t('footer.home')}</Link>
+            <Link prefetch={false} href="/">{t('footer.home')}</Link>
           </nav>
           <div className="c">VYVRE © {new Date().getFullYear()} · {t('footer.company')}</div>
         </footer>

@@ -156,7 +156,7 @@ async function ouvrirSource(){
     if(parent !== window) parent.postMessage({ type:'vyvre-scan-camera-refusee' }, location.origin);
     return;
   }
-  const img = new Image(); img.src = '/_test_masque/' + (PHOTO || 'p_073') + '.jpg'; await img.decode(); src = img; miroir = false;
+  const img = new Image(); img.src = '/_test_masque_prive/' + (PHOTO || 'p_073') + '.jpg'; await img.decode(); src = img; miroir = false;
   dit($('note'), DEMO ? 'hcg.demo' : 'hcg.photo');
 }
 const SW = () => src.videoWidth || src.naturalWidth, SH = () => src.videoHeight || src.naturalHeight;

@@ -362,7 +362,7 @@
 #vy-as .ed-signals b{grid-row:1/3;font:400 30px/1 "Playfair Display",Georgia,serif;letter-spacing:-.05em}#vy-as .ed-signals p{font-size:11.5px;color:#6f6a64;line-height:1.45;margin:0}\
 @media(min-width:900px){#vy-as .ec{max-width:1080px}#vy-as .ed-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px}#vy-as .ed-grid{grid-template-columns:1.15fr .85fr}#vy-as .ed-score{min-height:440px}#vy-as .ed-num{font-size:220px}#vy-as .ed-disc{width:200px;top:20%}#vy-as .ed-signals{grid-template-columns:repeat(3,1fr);gap:15px}#vy-as .ed-signals article{display:block}#vy-as .ed-signals b{display:block;margin:12px 0 6px}}\
 @media(prefers-reduced-motion:reduce){#vy-as{transition:none}}';
-  function style(){ if(!document.getElementById('vy-as-fontes')){ var l = document.createElement('link'); l.id = 'vy-as-fontes'; l.rel = 'stylesheet'; l.href = 'https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400&family=Manrope:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap'; document.head.appendChild(l); }
+  function style(){ if(!document.getElementById('vy-as-fontes')){ var l = document.createElement('link'); l.id = 'vy-as-fontes'; l.rel = 'stylesheet'; l.href = '/fonts/vyvre-fonts.css?v=1'; document.head.appendChild(l); }
     if(document.getElementById('vy-as-css')) return; var s = document.createElement('style'); s.id = 'vy-as-css'; s.textContent = CSS; document.head.appendChild(s); }
 
   /* ---- l'entree, dans les resultats du scan ---- */
@@ -655,7 +655,8 @@
           /* 08/10 (Charles : « trop de texte, trop descriptif ») : l'essentiel visible (photo, nom, pourquoi, combien, allégation UE mot pour mot,
              une ligne de sécurité) ; tout le reste dans un seul repli « Détails », fermé. */
           var note = c.pour === ind.i1 ? ind.n1 : c.pour === ind.i2 ? ind.n2 : null;
-          var pq = c.pour === 'entretien' ? 'Assiette d’entretien · aucun besoin marqué dans votre lecture' : 'Pour ' + (INDICES[c.pour] || 'cet aspect').toLowerCase() + (note != null ? ' · votre lecture : ' + note + '/100' : '');
+          /* 15/10 (audit, point 5) : formulation neutre, sans effet promis sur la peau ; l’allegation UE reste affichee mot pour mot */
+          var pq = c.pour === 'entretien' ? 'Retenu pour une assiette variée · aucun besoin marqué dans votre lecture' : 'Retenu d’après votre lecture';
           var al2 = (f.allergenes_UE || []).map(function(z){ return AL_NOM[z] || z; }), txt = pr.concat(f.reactions_croisees || []);
           [['grossesse', /grossesse|enceinte|allait/i], ['reins', /r[ée]nal|rein|n[ée]phro/i], ['anticoagulant', /anticoag|\bAVK\b/i], ['latex', /latex/i], ['pollen de bouleau', /bouleau/i], ['enfants', /enfant/i], ['médicaments', /m[ée]dicament|interaction/i], ['thyroïde', /thyro/i]].forEach(function(q){ if(txt.some(function(t){ return q[1].test(t); }) && al2.indexOf(q[0]) < 0) al2.push(q[0]); });
           return '<div class="rit" id="vy-as-f' + k + '"><i>' + n2(k) + '</i>' + photo(f, 64) + '<div><h3>' + esc(f.nom) + '</h3>'

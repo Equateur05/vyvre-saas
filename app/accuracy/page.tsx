@@ -564,7 +564,7 @@ export default function AccuracyPage() {
               <a href="mailto:charles@symphonydrive.com?subject=VYVRE - Documentation" className="btn-primary">
                 {t('acc.cta.1')}
               </a>
-              <Link href="/" className="btn-secondary">
+              <Link prefetch={false} href="/" className="btn-secondary">
                 {t('acc.cta.2')}
               </Link>
             </div>

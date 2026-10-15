@@ -19,6 +19,26 @@ const nextConfig = {
       /* la page de travail des animations de chargement n'a plus de route publique ;
          son fichier reste servi par son chemin brut, on interdit au moins l'indexation. */
       { source: '/propals/chargement/:path*', headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }] },
+      /* 15/10/2026 (audit du 11/10, point 4) : hors de Google les pages de travail, de test, de demonstration
+         et les pages de demarchage /m/<marque> (le nom d'une marque ne doit pas remonter associe a VYVRE). */
+      ...[
+        '/propals/:path*',
+        '/intro/:path*',
+        '/m/:path*',
+        '/dior/:path*',
+        '/dior',
+        '/PROTOCOL_DIOR.html',
+        '/PROTOCOL_DIOR_BLANC.html',
+        '/test-scan-engine.html',
+        '/scan/avant/:path*',
+        '/wrap/demo.html',
+        '/wrap/propales-:page',
+        '/widget/:path*',
+        '/success',
+        '/dashboard/:path*',
+      ].map((source) => ({ source, headers: [{ key: 'X-Robots-Tag', value: 'noindex, nofollow' }] })),
+      /* polices servies par vyvre.fr : le nom du fichier change avec ?v=, on peut les garder un an */
+      { source: '/fonts/:file*', headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }] },
     ];
   },
   async rewrites() {

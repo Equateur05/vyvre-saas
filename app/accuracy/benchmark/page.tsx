@@ -85,12 +85,12 @@ export default function BenchmarkPage() {
       <main className="min-h-screen flex flex-col">
         {/* ===== Header ===== */}
         <header className="px-8 py-6 flex items-center justify-between border-b border-line">
-          <Link href="/" className="brand-mark">
+          <Link prefetch={false} href="/" className="brand-mark">
             <canvas className="v-mini" width="72" height="72" aria-label="VYVRE" />
             <span className="text-sm font-light tracking-[0.22em]">VYVRE</span>
           </Link>
           <nav className="hidden md:flex items-center gap-8 text-[11px] tracking-[0.22em] uppercase text-text/55 font-mono">
-            <Link href="/#how" className="hover:text-text transition-colors">Comment ça marche</Link>
+            <Link prefetch={false} href="/#how" className="hover:text-text transition-colors">Comment ça marche</Link>
             <a href="/scan" className="hover:text-text transition-colors">Démo</a>
             <Link href="/pricing" className="hover:text-text transition-colors">Pricing</Link>
             <Link href="/accuracy" className="hover:text-text transition-colors">Méthodologie</Link>
