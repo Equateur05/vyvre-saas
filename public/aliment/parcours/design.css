@@ -432,3 +432,19 @@ details.details-aliment[open]>summary::before{content:'–'}
 .primary.compte::after{left:16px;right:16px;bottom:6px}
 [dir=rtl] [data-action].compte::after{transform-origin:right center}
 @media (prefers-reduced-motion:reduce){[data-action].compte::after{display:none}}
+/* 15/10 : bloc Kombucha (boisson plaisir), sur le modele des eaux, avec la photo detouree a gauche */
+.kombus{margin-top:14px;grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr))}
+.kombu .eau-t h3{font-size:19px}.kombu .eau-c b{overflow-wrap:anywhere}
+.kombu{display:grid;grid-template-columns:84px 1fr;gap:14px;align-items:start}
+.kombu-p{position:relative;display:flex;justify-content:center;padding-top:4px}
+.kombu-p img{width:auto;height:160px;max-width:84px;object-fit:contain;filter:drop-shadow(0 10px 10px rgba(36,27,21,.18))}
+.kombu-r{position:absolute;top:0;left:0;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font:500 12px 'IBM Plex Mono',ui-monospace,monospace;background:#fff;color:#3a3f33;box-shadow:inset 0 0 0 1px #e2e3dc}
+.kombu-x{min-width:0}
+.kombu .eau-t h3{text-transform:none}
+.kombu .eau-t span{white-space:normal;text-align:right}
+.kombu .eau-c{grid-template-columns:repeat(3,minmax(0,1fr))}
+.kombu .eau-c small{display:block;line-height:1.3}
+.kombu .eau-c b{font-size:14.5px}.kombu .eau-c div:first-child b{white-space:nowrap}
+.kombu-w{background:rgba(196,98,60,.12)!important;color:#9a4a2a!important}
+.kombu-i{margin:2px 0 8px}.kombu-i summary{cursor:pointer;font-size:13px;color:#5a5f53}
+@media (max-width:420px){.kombu{grid-template-columns:64px 1fr;gap:10px}.kombu-p img{height:128px;max-width:64px}}

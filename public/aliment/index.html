@@ -4,7 +4,7 @@ const MODE='arc';
 document.title='vyvre — '+TEXT.food;
 for(const [id,key] of [['title','title'],['subtitle','subtitle'],['scanText','scan'],['creditButton','credits'],['creditTitle','credits'],['close','close'],['brand','brand'],['skin','skin'],['food','food'],['footerLabel','food']])document.getElementById(id).textContent=TEXT[key];
 /* 15/10 (audit du 11/10) : un seul chiffre, celui de la donnee (aliments_v4.json, le fichier que lit le parcours : il part ainsi deja en cache) */
-setTimeout(()=>fetch('/scan/aliment/aliments_v4.json?v=4').then(r=>r.ok?r.json():null).then(j=>{const n=j&&j.aliments&&j.aliments.length;if(n){const el=document.getElementById('subtitle');el.textContent=el.textContent.replace(/parmi \d+/,'parmi '+n)}}).catch(()=>{}),1200);
+setTimeout(()=>fetch('/scan/aliment/aliments_v4.json?v=5').then(r=>r.ok?r.json():null).then(j=>{const n=j&&j.aliments&&j.aliments.length;if(n){const el=document.getElementById('subtitle');el.textContent=el.textContent.replace(/parmi \d+/,'parmi '+n)}}).catch(()=>{}),1200);
 const stage=document.querySelector('.stage'),pause=document.querySelector('.pause'), dots=document.querySelector('.controls');
 const reduced=matchMedia('(prefers-reduced-motion: reduce)');let stopped=reduced.matches,hidden=false,clock=0,last=0,raf=0,drag=0,down=null;
 const fruit=IDS.map((id,i)=>{let el=document.createElement('div');el.className='fruit';el.setAttribute('aria-hidden','true');for(const cls of ['photo','reflection']){let img=new Image();img.src='/aliment/img/'+id+'.webp';img.alt='';img.className=cls;img.decoding='async';img.draggable=false;el.append(img)}stage.append(el);let d=document.createElement('span');d.className='dot';dots.insertBefore(d,pause);return{el,d}});

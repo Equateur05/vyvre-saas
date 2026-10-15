@@ -209,7 +209,7 @@ function choisir(v){ V = v; cancelAnimationFrame(raf); document.querySelectorAll
   tick = SCENES[v](); const boucle = now => { try { tick && tick(now); } catch(e){ console.error(e); } raf = requestAnimationFrame(boucle); }; raf = requestAnimationFrame(boucle); }
 document.getElementById('sel').innerHTML = Object.entries(NOMS).map(([k, n]) => '<a data-v="' + k + '">' + k + ' · ' + n + '</a>').join('');
 document.getElementById('sel').onclick = e => { const a = e.target.closest('a'); if(a) choisir(+a.dataset.v); };
-Promise.all([fetch('/scan/aliment/aliments_v4.json?v=4').then(r => r.json()), fetch('/scan/aliment/photos/credits.json?v=2').then(r => r.json())]).then(([a, c]) => {
+Promise.all([fetch('/scan/aliment/aliments_v4.json?v=5').then(r => r.json()), fetch('/scan/aliment/photos/credits.json?v=2').then(r => r.json())]).then(([a, c]) => {
   const L = Array.isArray(a) ? a : (a.aliments || a); AL = L.filter(f => ['A','B','C'].includes(f.niveau_preuve_peau) && (f.etudes || []).length && c[f.id] && !['pamplemousse','huitre','tofu','noix_bresil'].includes(f.id));
   choisir(V); });
 navigator.mediaDevices.getUserMedia({ video:{ facingMode:'user', width:{ ideal:1280 }, height:{ ideal:960 } }, audio:false }).then(s => {

@@ -68,9 +68,9 @@
     r.q9 = [REP.q9s === 'moins7' ? '6_7' : REP.q9s === 'plus9' ? 'plus9' : REP.q9s === '7_9' ? '7_9' : null, REP.q9d ? 'irregulier' : null].filter(Boolean);
     r.q10 = REP.q10p ? [REP.q10p] : []; REP = r; }
   function charger(){ if(DATA) return Promise.resolve();
-    return fetch(BASE + 'aliments_v4.json?v=4').then(function(r){ return r.json(); }).then(function(j){ DATA = j.aliments; })
+    return fetch(BASE + 'aliments_v4.json?v=5').then(function(r){ return r.json(); }).then(function(j){ DATA = j.aliments; })
       .then(function(){ return fetch(BASE + 'recettes.json?v=3').then(function(r){ return r.json(); }).then(function(j){ RECS = j.recettes || []; }).catch(function(){ RECS = []; }); })
-      .then(function(){ return fetch(BASE + 'tendances.json?v=2').then(function(r){ return r.json(); }).then(function(j){ TEND = j.tendances || []; }).catch(function(){ TEND = []; }); })
+      .then(function(){ return fetch(BASE + 'tendances.json?v=3').then(function(r){ return r.json(); }).then(function(j){ TEND = j.tendances || []; }).catch(function(){ TEND = []; }); })
       .then(function(){ return fetch(BASE + 'photos/credits.json?v=2').then(function(r){ return r.json(); }).then(function(j){ CREDITS = j || {}; }).catch(function(){ CREDITS = {}; }); })
       .then(function(){ return fetch(BASE + 'combos.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(j){ COMBOS = j; }).catch(function(){}); }); }
   function esc(t){ return String(t == null ? '' : t).replace(/([A-Za-zÀ-ÿ])'([A-Za-zÀ-ÿ])/g, '$1’$2').replace(/[&<>"]/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]; }); }
@@ -153,11 +153,12 @@
     if(a('q1','fruits_a_coque')) ['pignon','mangue'].forEach(ex);
     if(a('q2','latex')){ ['avocat','kiwi','banane','chataigne','papaye'].forEach(ex); ['tomate','concentre_tomate','poivron_rouge'].forEach(function(i){ note(i, 'Allergie au latex : réaction possible (syndrome latex-fruits).'); }); }
     if(a('q2','bouleau')) ['noisette','amande','carotte','kiwi','abricot','tofu'].forEach(function(i){ note(i, 'Pollen de bouleau : réaction croisée possible ; préférez-le cuit quand c’est possible.'); });
-    if(a('q3','enceinte') || a('q3','allaite')){ ['tofu','huitre','the_vert'].forEach(ex); note('saumon', 'Enceinte ou allaitante : uniquement cuit, pas fumé.'); }
+    if(a('q3','enceinte') || a('q3','allaite')){ ['tofu','huitre','the_vert','cafe'].forEach(ex); note('saumon', 'Enceinte ou allaitante : uniquement cuit, pas fumé.'); }
     if(a('q4','avk')) ['epinard','chou_frise','brocoli','mache'].forEach(ex);
     if(a('q4','quotidien')) ex('pamplemousse');
     if(a('q4','thyroide') || a('q5','thyroide') || a('q5','cardiaque') || a('q4','zinc_iode')) ex('huitre');
     if(a('q4','selenium') || a('q6','moins18')) ex('noix_bresil');
+    if(a('q6','moins18')) ex('cafe');   /* 15/10 : cafe ajoute en v4.2, jamais avant 18 ans */
     if(a('q5','renale')) ['graines_courge','graines_tournesol','graines_lin','graines_chia','avocat','noix','amande','noisette','noix_bresil','lentille','pois_chiche','haricot_rouge','cacao_poudre','chocolat_noir_70','concentre_tomate','patate_douce','epinard','chou_frise','abricot','courge_butternut'].forEach(ex);
     if(a('q5','coeliaque')) ['pain_complet','flocons_avoine'].forEach(ex);
     if(a('q5','sein')) ex('tofu');
@@ -455,7 +456,7 @@
         if(((s0.allergies || []).length || (s0.autres_aliments || []).length)) dep += '<p class="fine"><i>Ces aliments disparaissent de l’assiette, des recettes et des combos. Cela ne remplace pas l’avis de votre allergologue.</i></p>';
         else dep += '<p class="fine">Choisissez au moins une réponse, ou touchez de nouveau « Une allergie » pour la retirer.</p>';
         dep += '</div>'; }
-      if(s0.grossesse && !s0.rien) dep += '<p class="fine"><i>Nous écartons le thé vert et les soins déconseillés pendant la grossesse, comme les rétinoïdes. Le saumon : seulement bien cuit, jamais fumé. Zéro alcool.</i></p>';
+      if(s0.grossesse && !s0.rien) dep += '<p class="fine"><i>Nous écartons le thé vert, le café et les soins déconseillés pendant la grossesse, comme les rétinoïdes. Le saumon : seulement bien cuit, jamais fumé. Zéro alcool.</i></p>';
       if(s0.anticoagulant && !s0.rien) dep += '<p class="fine"><i>Nous ne vous proposerons pas d’augmenter les légumes verts riches en vitamine K. Tout changement se discute avec votre médecin.</i></p>';
       if(s0.reins && !s0.rien) dep += '<p class="fine"><i>Nous écartons les aliments riches en potassium, les graines et les épinards. Votre alimentation se fixe avec votre néphrologue.</i></p>';
       if(s0._cases.regime && !s0.rien) dep += '<div class="q"><div class="puces" data-g="regime"><span class="puce' + (s0.regime === 'vegetarien' ? ' on' : '') + '" data-v="vegetarien">Végétarien</span><span class="puce' + (s0.regime === 'vegan' ? ' on' : '') + '" data-v="vegan">Végan</span></div>' + (s0.regime === 'vegan' ? '<p class="fine"><i>Pensez à la vitamine B12 : parlez-en à un professionnel de santé.</i></p>' : '') + '</div>';
