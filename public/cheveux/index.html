@@ -4180,7 +4180,8 @@ function runReading(){
   var subject = S.fromPhoto ? S.photo : (prises[0] && prises[0].canvas);
   var opts = {
     reponses: reponsesMoteur(),
-    produits: S.catalogue,
+    /* 15/10 : le scan par photo (ou a une seule pose) applique aussi les marques, le budget et « pour qui » coches */
+    produits: catalogueRoutine(),
     marque: S.brand || null,
     univers: optionsRoutine().univers || null,
     origine: optionsRoutine().origine || null,
