@@ -153,7 +153,7 @@
   }
   function apercuPage() {
     /* le meme catalogue que le scan (une seule requete) */
-    var cat = root.__vyCatalogue || (root.__vyCatalogue = fetch('/scan/catalogue/all.json').then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }));
+    var cat = root.__vyCatalogue || (root.__vyCatalogue = fetch('/scan/catalogue/all.json?v=20261016').then(function (r) { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }));
     var fp = fetch('/scan/catalogue/fond_plein.json').then(function (r) { return r.json(); }).catch(function () { return {}; });
     Promise.all([cat, fp]).then(function (v) {
       if (root.vyvreLastScanResult) return; /* le scan a deja pose la vraie selection */

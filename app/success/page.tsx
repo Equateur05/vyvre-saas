@@ -126,7 +126,7 @@ export default async function SuccessPage({ searchParams }: SuccessPageProps) {
             <li className="flex items-start gap-2"><span className="text-accent">✓</span> 100% on-device — aucune photo stockée</li>
             <li className="flex items-start gap-2"><span className="text-accent">✓</span> Infrastructure France 🇫🇷 — RGPD natif</li>
             <li className="flex items-start gap-2"><span className="text-accent">✓</span> Dashboard analytics temps réel</li>
-            <li className="flex items-start gap-2"><span className="text-accent">✓</span> Support email 48h</li>
+            <li className="flex items-start gap-2"><span className="text-accent">✓</span> Support par email</li>
           </ul>
         </section>
 

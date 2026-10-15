@@ -43,7 +43,7 @@
 @media (max-width: 420px) { .vp-ctas .vp-btn { width: 100%; } }
 
 .vp-facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px; background: var(--vp-line); border: 1px solid var(--vp-line); border-radius: 20px; overflow: hidden; margin-top: 56px; }
-@media (min-width: 760px) { .vp-facts { grid-template-columns: repeat(5, 1fr); margin-top: 72px; } }
+@media (min-width: 760px) { .vp-facts { grid-template-columns: repeat(4, 1fr); margin-top: 72px; } }
 .vp-facts > div { background: #030303; padding: 22px 18px; }
 .vp-facts > div:last-child:nth-child(odd) { grid-column: 1 / -1; }
 @media (min-width: 760px) { .vp-facts > div:last-child:nth-child(odd) { grid-column: auto; } }

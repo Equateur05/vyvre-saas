@@ -5,7 +5,7 @@ window.VYQ=(function(){
   var M={}, P=[], prets=[], ok=false;
   Promise.all([
     fetch('/scan/catalogue/marques.json').then(function(r){return r.json();}).then(function(j){M=j.marques||{};}),
-    fetch('/scan/catalogue/all.json').then(function(r){return r.json();}).then(function(j){P=j.products||[];})
+    fetch('/scan/catalogue/all.json?v=20261016').then(function(r){return r.json();}).then(function(j){P=j.products||[];})
   ]).then(function(){ ok=true; prets.forEach(function(f){f();}); prets=[]; });
 
   function region(s){var b=M[s]; if(!b) return null; return EU[b.pays]?'EU':(b.pays==='AU'?'AU':b.pays);}

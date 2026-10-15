@@ -692,7 +692,7 @@ const zh = {
   'pro.inc4.d': '图像从不离开她的手机。',
   'pro.inc5.t': '肌肤与头发',
   'pro.inc5.d': '头发扫描，同样以您的名义。',
-  'pro.inc6.t': '48 小时上线',
+  'pro.inc6.t': '全程协助上线',
   'pro.inc6.d': '我们准备一切，您来确认。',
   'pro.data.eyebrow': '筹备中',
   'pro.data.h2a': '您将了解到的，',

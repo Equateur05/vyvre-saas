@@ -9,7 +9,7 @@ import { dirname, join } from 'node:path';
 
 const racine = join(dirname(fileURLToPath(import.meta.url)), '..', 'public');
 let s = readFileSync(join(racine, 'scan', 'index.html'), 'utf8');
-const MARQUE_V = '2';
+const MARQUE_V = '3';
 
 function remplacer(ancien, nouveau, fois = 1) {
   const n = s.split(ancien).length - 1;

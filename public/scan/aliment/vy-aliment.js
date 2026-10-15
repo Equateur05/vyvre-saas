@@ -68,7 +68,7 @@
     r.q9 = [REP.q9s === 'moins7' ? '6_7' : REP.q9s === 'plus9' ? 'plus9' : REP.q9s === '7_9' ? '7_9' : null, REP.q9d ? 'irregulier' : null].filter(Boolean);
     r.q10 = REP.q10p ? [REP.q10p] : []; REP = r; }
   function charger(){ if(DATA) return Promise.resolve();
-    return fetch(BASE + 'aliments_v4.json?v=6').then(function(r){ return r.json(); }).then(function(j){ DATA = j.aliments; })
+    return fetch(BASE + 'aliments_v4.json?v=7').then(function(r){ return r.json(); }).then(function(j){ DATA = j.aliments; })
       .then(function(){ return fetch(BASE + 'recettes.json?v=4').then(function(r){ return r.json(); }).then(function(j){ RECS = j.recettes || []; }).catch(function(){ RECS = []; }); })
       .then(function(){ return fetch(BASE + 'tendances.json?v=3').then(function(r){ return r.json(); }).then(function(j){ TEND = j.tendances || []; }).catch(function(){ TEND = []; }); })
       .then(function(){ return fetch(BASE + 'photos/credits.json?v=3').then(function(r){ return r.json(); }).then(function(j){ CREDITS = j || {}; }).catch(function(){ CREDITS = {}; }); })
@@ -174,7 +174,9 @@
     if(a('q7','vegan')) ['oeuf','yaourt_nature','kefir'].forEach(ex);
     if(a('q7','casher')) ex('huitre');
     if(a('q8','rosacee')) note('the_vert', 'Avec des rougeurs : à boire tiède ou froid, jamais chaud.');
-    if(a('q8','acne')) ['yaourt_nature','kefir','chocolat_noir_70'].forEach(ex);
+    /* 16/10 : l'acne n'exclut plus le yaourt nature, le kefir ni le chocolat noir. Yaourt et kefir passent « a moderer, sans interdire »
+       (impact_peau, resultats divergents, etudes PubMed verifiees) ; chocolat noir : aucune etude solide (deux essais de 14 et 25 hommes,
+       l'un sans groupe temoin), il redevient simplement disponible, sans texte d'impact. */
     return { x:x, notes:notes }; }
 
   /* ---- choix : score puis diversification (REGLES, sections 3 et 4) ---- */

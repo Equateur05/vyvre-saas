@@ -17,6 +17,11 @@ const OVALE = [10,338,297,332,284,251,389,356,454,323,361,288,397,365,379,378,40
 const TOPO = 5.5, FONDU = 1.4;   // secondes de topographie, puis fondu vers le graticule
 
 let face = null, facePromesse = null, ARETES = null;
+/* 16/10 : la bibliotheque du maillage ecrit ses messages d'information (« INFO: Created TensorFlow Lite XNNPACK delegate
+   for CPU. ») sur la sortie d'erreur : ce ne sont pas des erreurs, on les retire de la console (les vraies erreurs restent). */
+(function(){ const err = console.error.bind(console); if(console.error.__vyInfo) return;
+  const f = function(){ if(typeof arguments[0] === 'string' && /^INFO: /.test(arguments[0])) return; return err.apply(null, arguments); };
+  f.__vyInfo = true; console.error = f; })();
 function moteur(){
   if(facePromesse) return facePromesse;
   facePromesse = (async () => {

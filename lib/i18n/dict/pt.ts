@@ -692,7 +692,7 @@ const pt = {
   'pro.inc4.d': 'A imagem nunca sai do telemóvel dela.',
   'pro.inc5.t': 'Pele e cabelo',
   'pro.inc5.d': 'A leitura do cabelo, também com o seu nome.',
-  'pro.inc6.t': 'Online em 48 h',
+  'pro.inc6.t': 'Lançamento acompanhado',
   'pro.inc6.d': 'Nós preparamos tudo, você valida.',
   'pro.data.eyebrow': 'Em preparação',
   'pro.data.h2a': 'O que vai saber,',

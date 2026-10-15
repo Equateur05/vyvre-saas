@@ -60,7 +60,7 @@ export default function HomePage() {
           <div className="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-4">
             <Stat value="8" label={t('home.stat1')} />
             <Stat value="<10s" label={t('home.stat2')} />
-            <Stat value="48h" label={t('home.stat3')} />
+            <Stat value="12" label={t('pro.fact4')} />
             <Stat value="0" label={t('home.stat4')} />
           </div>
         </section>

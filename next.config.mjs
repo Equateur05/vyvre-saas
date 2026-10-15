@@ -15,6 +15,9 @@ const nextConfig = {
     return [
       { source: '/m/:path*', headers: [{ key: 'Cache-Control', value: 'no-cache, must-revalidate' }] },
       { source: '/scan/:path*', headers: [{ key: 'Cache-Control', value: 'no-cache, must-revalidate' }] },
+      /* 16/10 : le catalogue (6 Mo, 0,65 Mo compresse) est appele avec une version fixe ?v= : une heure de cache,
+         puis revalidation en arriere-plan ; monter ?v= dans les pages quand il change */
+      { source: '/scan/catalogue/all.json', headers: [{ key: 'Cache-Control', value: 'public, max-age=3600, stale-while-revalidate=86400' }] },
       { source: '/manifeste/:path*', headers: [{ key: 'Cache-Control', value: 'no-cache, must-revalidate' }] },
       /* la page de travail des animations de chargement n'a plus de route publique ;
          son fichier reste servi par son chemin brut, on interdit au moins l'indexation. */

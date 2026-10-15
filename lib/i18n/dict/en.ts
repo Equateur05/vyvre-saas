@@ -692,7 +692,7 @@ const en = {
   'pro.inc4.d': 'The image never leaves her phone.',
   'pro.inc5.t': 'Skin and hair',
   'pro.inc5.d': 'The hair scan, under your name too.',
-  'pro.inc6.t': 'Live in 48 h',
+  'pro.inc6.t': 'Guided launch',
   'pro.inc6.d': 'We prepare everything, you approve.',
   'pro.data.eyebrow': 'In preparation',
   'pro.data.h2a': 'What you will learn,',

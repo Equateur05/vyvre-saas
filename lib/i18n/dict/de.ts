@@ -692,7 +692,7 @@ const de = {
   'pro.inc4.d': 'Das Bild verlässt nie ihr Telefon.',
   'pro.inc5.t': 'Haut und Haar',
   'pro.inc5.d': 'Die Haaranalyse, ebenfalls unter Ihrem Namen.',
-  'pro.inc6.t': 'Online in 48 h',
+  'pro.inc6.t': 'Begleiteter Start',
   'pro.inc6.d': 'Wir bereiten alles vor, Sie geben frei.',
   'pro.data.eyebrow': 'In Vorbereitung',
   'pro.data.h2a': 'Was Sie erfahren werden,',

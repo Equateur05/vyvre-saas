@@ -4192,6 +4192,8 @@ var VYVRE_LOG=(typeof window!=="undefined"&&window.VYVRE_DEBUG)?console.log.bind
    */
   async function loadCNN() {
     if (__cnnDisabled) return null;
+    // 16/10 : une page qui n'affiche pas d'age (window.VYVRE_SANS_AGE, ex. /scan) ne telecharge pas le modele (1,8 Mo)
+    if (typeof window !== 'undefined' && window.VYVRE_SANS_AGE) return null;
     if (__cnnModel) return __cnnModel;
     if (__cnnLoadPromise) return __cnnLoadPromise;
 

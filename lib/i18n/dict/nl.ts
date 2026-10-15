@@ -692,7 +692,7 @@ const nl = {
   'pro.inc4.d': 'Het beeld verlaat nooit haar telefoon.',
   'pro.inc5.t': 'Huid en haar',
   'pro.inc5.d': 'De haarscan, ook onder uw naam.',
-  'pro.inc6.t': 'Live in 48 uur',
+  'pro.inc6.t': 'Begeleide lancering',
   'pro.inc6.d': 'Wij bereiden alles voor, u keurt goed.',
   'pro.data.eyebrow': 'In voorbereiding',
   'pro.data.h2a': 'Wat u te weten komt,',

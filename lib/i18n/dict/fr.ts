@@ -692,7 +692,7 @@ const fr = {
   'pro.inc4.d': 'L’image ne quitte jamais son téléphone.',
   'pro.inc5.t': 'Peau et cheveux',
   'pro.inc5.d': 'Le scan des cheveux, à votre nom aussi.',
-  'pro.inc6.t': 'En ligne en 48 h',
+  'pro.inc6.t': 'Mise en ligne accompagnée',
   'pro.inc6.d': 'Nous préparons tout, vous validez.',
   'pro.data.eyebrow': 'En préparation',
   'pro.data.h2a': 'Ce que vous apprendrez,',

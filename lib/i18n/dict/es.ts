@@ -692,7 +692,7 @@ const es = {
   'pro.inc4.d': 'La imagen nunca sale de su teléfono.',
   'pro.inc5.t': 'Piel y cabello',
   'pro.inc5.d': 'El escáner del cabello, también con su nombre.',
-  'pro.inc6.t': 'En línea en 48 h',
+  'pro.inc6.t': 'Puesta en línea acompañada',
   'pro.inc6.d': 'Nosotros lo preparamos todo, usted lo valida.',
   'pro.data.eyebrow': 'En preparación',
   'pro.data.h2a': 'Lo que aprenderá,',

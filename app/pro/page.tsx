@@ -87,7 +87,6 @@ export default function ProPage() {
             <div><b className="vy-ltr">10 s</b><span>{t('pro.fact2')}</span></div>
             <div><b>0</b><span>{t('pro.fact3')}</span></div>
             <div><ProCount to={12} /><span>{t('pro.fact4')}</span></div>
-            <div><b className="vy-ltr">48 h</b><span>{t('pro.fact5')}</span></div>
           </div>
         </section>
 

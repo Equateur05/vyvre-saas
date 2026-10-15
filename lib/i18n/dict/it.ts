@@ -692,7 +692,7 @@ const it = {
   'pro.inc4.d': 'L’immagine non lascia mai il suo telefono.',
   'pro.inc5.t': 'Pelle e capelli',
   'pro.inc5.d': 'L’analisi dei capelli, anche con il vostro nome.',
-  'pro.inc6.t': 'Online in 48 h',
+  'pro.inc6.t': 'Messa online assistita',
   'pro.inc6.d': 'Prepariamo tutto noi, voi approvate.',
   'pro.data.eyebrow': 'In preparazione',
   'pro.data.h2a': 'Cosa scoprirete,',
