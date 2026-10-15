@@ -90,7 +90,7 @@
   var CREDITS = null;
   function autorises(d, V){
     if (d.defile && d.defile.ids && d.defile.ids.length) return Promise.resolve({ base:d.defile.base, ids:d.defile.ids });
-    if (!CREDITS) CREDITS = fetch('/scan/aliment/photos/credits.json?v=2').then(function(r){ if (!r.ok) throw new Error('credits'); return r.json(); })
+    if (!CREDITS) CREDITS = fetch('/scan/aliment/photos/credits.json?v=3').then(function(r){ if (!r.ok) throw new Error('credits'); return r.json(); })
       .then(function(c){ return { base:'/scan/aliment/photos/', ids:Object.keys(c).filter(function(id){ return V.LIC_X.test(String((c[id] || {}).licence || '')); }) }; })
       .catch(function(){ CREDITS = null; return null; });
     return CREDITS;

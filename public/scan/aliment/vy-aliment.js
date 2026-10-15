@@ -68,10 +68,10 @@
     r.q9 = [REP.q9s === 'moins7' ? '6_7' : REP.q9s === 'plus9' ? 'plus9' : REP.q9s === '7_9' ? '7_9' : null, REP.q9d ? 'irregulier' : null].filter(Boolean);
     r.q10 = REP.q10p ? [REP.q10p] : []; REP = r; }
   function charger(){ if(DATA) return Promise.resolve();
-    return fetch(BASE + 'aliments_v4.json?v=5').then(function(r){ return r.json(); }).then(function(j){ DATA = j.aliments; })
-      .then(function(){ return fetch(BASE + 'recettes.json?v=3').then(function(r){ return r.json(); }).then(function(j){ RECS = j.recettes || []; }).catch(function(){ RECS = []; }); })
+    return fetch(BASE + 'aliments_v4.json?v=6').then(function(r){ return r.json(); }).then(function(j){ DATA = j.aliments; })
+      .then(function(){ return fetch(BASE + 'recettes.json?v=4').then(function(r){ return r.json(); }).then(function(j){ RECS = j.recettes || []; }).catch(function(){ RECS = []; }); })
       .then(function(){ return fetch(BASE + 'tendances.json?v=3').then(function(r){ return r.json(); }).then(function(j){ TEND = j.tendances || []; }).catch(function(){ TEND = []; }); })
-      .then(function(){ return fetch(BASE + 'photos/credits.json?v=2').then(function(r){ return r.json(); }).then(function(j){ CREDITS = j || {}; }).catch(function(){ CREDITS = {}; }); })
+      .then(function(){ return fetch(BASE + 'photos/credits.json?v=3').then(function(r){ return r.json(); }).then(function(j){ CREDITS = j || {}; }).catch(function(){ CREDITS = {}; }); })
       .then(function(){ return fetch(BASE + 'combos.json').then(function(r){ return r.ok ? r.json() : null; }).then(function(j){ COMBOS = j; }).catch(function(){}); }); }
   function esc(t){ return String(t == null ? '' : t).replace(/([A-Za-zÀ-ÿ])'([A-Za-zÀ-ÿ])/g, '$1’$2').replace(/[&<>"]/g, function(c){ return { '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;' }[c]; }); }
   function a(cle, v){ var r = REP[cle]; return Array.isArray(r) ? r.indexOf(v) >= 0 : r === v; }
@@ -100,7 +100,19 @@
       + (actifs.length ? '<ol>' + actifs.map(ligne).join('') + '</ol>' : '<p class="dec-zone"><b>Aucun besoin marqué.</b> Une assiette d’entretien, sur les aliments les mieux étudiés.</p>')
       + (zone.length ? '<p class="dec-zone">Dans votre zone : ' + zone.map(function(k){ return esc(INDICES[k].toLowerCase()); }).join(', ') + '. Rien à corriger ici.</p>' : '')
       + ((ind.nonLus || []).length ? '<p class="dec-zone">Non lu sur cette image : ' + ind.nonLus.map(function(k){ return { wrinkles:'rides', firmness:'fermeté', glow:'éclat', hydration:'hydratation', pores:'pores' }[k]; }).join(', ') + (ind.nonLus.length > 1 ? '. Ces points ne choisissent aucun aliment.</p>' : '. Ce point ne choisit aucun aliment.</p>') : '')
-      + '<p class="dec-seuil">75 et plus : dans votre zone. 60 à 74 : à surveiller. Moins de 60 : prioritaire. L’ordre tient compte de l’écart, de la solidité de la mesure et des preuves disponibles.</p></section>'; }
+      + '<p class="dec-seuil">75 et plus : dans votre zone. 60 à 74 : à surveiller. Moins de 60 : prioritaire. L’ordre tient compte de l’écart, de la solidité de la mesure et des preuves disponibles.</p></section>' + moderer(); }
+  /* 15/10 (Charles : « je veux tout ce qui a un impact ») : quand la lecture montre pores et sebum, ou que l'acne est cochee (q8),
+     les aliments dont un lien defavorable avec l'acne est documente (impact_peau, etudes PubMed verifiees) sont montres « a moderer » :
+     jamais exclus, jamais interdits, formulation prudente. Les aliments deja exclus (allergie, regime...) ne sont pas repris. */
+  function moderer(){ if(MODE !== 'normal' || !a('q8','acne')) return ''; var e = exclus(), g = {}, ordre = [];
+    DATA.forEach(function(f){ var m = f.impact_peau; if(!m || m.a_moderer_si !== 'acne' || e.x[f.id]) return; if(!g[m.cle]){ g[m.cle] = { m:m, noms:[] }; ordre.push(m.cle); } g[m.cle].noms.push(String(f.nom).split(' (')[0]); });
+    if(!ordre.length) return '';
+    return '<section class="decision" id="a-moderer"><div class="m">À modérer, sans interdire</div><p class="dec-zone">Votre lecture montre des pores ou du sébum à surveiller, ou vous avez signalé de l’acné. Ces aliments restent possibles : des études invitent seulement à ne pas en abuser.</p><ol>'
+      + ordre.map(function(k){ var x = g[k], m = x.m; return '<li class="dec-surveiller"><b>' + esc(m.groupe) + '</b><span>à modérer</span><small>' + esc(x.noms.join(', ')) + '</small>'
+        + '<p class="dec-zone" style="grid-column:1/-1;margin:8px 0 0">' + esc(m.texte) + (m.alternative ? ' ' + esc(m.alternative) : '') + '</p>'
+        + '<details style="grid-column:1/-1;margin-top:6px"><summary class="fine">Études (' + (m.etudes || []).length + ')</summary>' + (m.etudes || []).map(function(t){ return '<a class="fine" style="display:block;margin-top:4px" href="' + esc(t.lien) + '" target="_blank" rel="noopener">' + esc(t.ref) + ' ↗</a>'; }).join('') + '</details></li>'; }).join('')
+      + '</ol></section>'; }
+
   function indicesDuScan(){ var s = window.__vyScores || (window.vyvreLastScanResult && window.vyvreLastScanResult.scores) || null; if(!s) return null;
     /* 08/10 (moteur v10.13) : une mesure que le moteur n'a pas pu lire sur cette image (analyses[k].neutre) ne devient jamais un besoin */
     var an = s.analyses || (window.vyvreLastScanResult && window.vyvreLastScanResult.scores && window.vyvreLastScanResult.scores.analyses) || {};
@@ -137,7 +149,7 @@
     if(a('q5','renale')) DATA.forEach(function(f){ if(ten(f, 'potassium_mg') > 300 || ['graine','fruit_a_coque','legumineuse','fruit_sec'].indexOf(f.categorie) >= 0) ex(f.id); });
     if(a('q4','avk')) DATA.forEach(function(f){ if(ten(f, 'vitamine_k1_ug') > 80) ex(f.id); });
     if(a('q7','vege') || a('q7','vegan')) DATA.forEach(function(f){ if(['poisson','fruit_de_mer','viande','volaille'].indexOf(f.categorie) >= 0) ex(f.id); });
-    if(a('q7','vegan')) DATA.forEach(function(f){ if(['oeuf','produit_laitier','produit_laitier_fermente','fromage'].indexOf(f.categorie) >= 0 || /miel/.test(f.id)) ex(f.id); });
+    if(a('q7','vegan')) DATA.forEach(function(f){ if(['oeuf','produit_laitier','produit_laitier_fermente','fromage'].indexOf(f.categorie) >= 0 || /miel/.test(f.id) || (f.allergenes_UE || []).indexOf('lait') >= 0) ex(f.id); });   /* 15/10 : tout aliment qui contient du lait (beurre...) */
     if(a('q3','enceinte')) ['parmesan','comte','brebis_pyrenees'].forEach(ex);
     if(a('q3','enceinte') || a('q3','allaite')){ DATA.forEach(function(f){ if((f.allergenes_UE || []).indexOf('soja') >= 0) ex(f.id); }); ex('sauce_soja'); ['dorade','bar','lotte','thon_naturel'].forEach(function(i){ note(i, 'Grossesse et allaitement : poisson prédateur, au plus 150 g par semaine (ANSES).'); }); }
     if(MODE !== 'normal') DATA.forEach(function(f){ if(!prudentOk(f)) ex(f.id); });
